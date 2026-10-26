@@ -115,7 +115,7 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));
 
-// `QuizTopBar` renderiza as vidas por `HeartsDisplay`, e os ícones do HUD são
+// `QuizTopBar` renderiza as vidas pela pílula compartilhada `HeartsCountPill`, e os ícones do HUD são
 // vetor animado em `react-native-svg` — que não monta sob este renderer.
 jest.mock('../../../ui/components/HUD', () => {
   const React = require('react');
@@ -123,7 +123,7 @@ jest.mock('../../../ui/components/HUD', () => {
 
   return {
     HUD: () => null,
-    HeartsDisplay: () => <View testID="hearts-display" />,
+    HeartsCountPill: () => <View testID="hearts-display" />,
   };
 });
 

@@ -1,0 +1,205 @@
+[
+  {
+    "path": "radiant-app/src/ui/components/HUD.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 10494,
+    "sha256": "2dc4b92955a951ff1dee3dd3f0cab8cf578d6ed776bdafa7df5f2b7c16b50508"
+  },
+  {
+    "path": "radiant-app/src/ui/components/HUD.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 27445,
+    "sha256": "2076e1c0d484d9720a6ef91ab33b6ea5a609452014927b3aa8464cfd2847a93a"
+  },
+  {
+    "path": "radiant-app/scripts/visual-qa-policy.json",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 10581,
+    "sha256": "e5f647a02a7afb2e3bc005ae0bf38db99d43f738b73972fb666cc6d241bcf540"
+  },
+  {
+    "path": "radiant-app/scripts/copy-style-baseline.json",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 6922,
+    "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4"
+  },
+  {
+    "path": "docs/STATUS.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 62435,
+    "sha256": "329408703dfae98a3ee8b4fad271ae8182587df7c261d8cc79a17abc9fe3c84b"
+  },
+  {
+    "path": "docs/FILA.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 76004,
+    "sha256": "1b0d840f66636a2c2312a284226b795fc522340f1d572a08ee9809ee7bfc6def"
+  },
+  {
+    "path": "docs/plans/2026-07-27-radiant-launch-roadmap.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 136252,
+    "sha256": "4d45a91c01b7c989d701c826c9c3aba68569299a0cbc14c9ab988698aeb308a1"
+  },
+  {
+    "path": "docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 54523,
+    "sha256": "fe085db8aee620cbda3ae6036c5355a29a70846afeaf51a75f829ccb7c0a974d"
+  },
+  {
+    "path": "docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 17156,
+    "sha256": "77712aa3fb434779eb1b26a4cb781cd44bdb8e78141727c66a6676713d27271f"
+  },
+  {
+    "path": "docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 32952,
+    "sha256": "b4ff6a8ad529222e2171f701aab55389072f2020813b04c38bf54f868850da27"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 3620,
+    "sha256": "ad7416c2388c4f74a1514000863a1413ff7d837d561a950eec33e518fe689db5"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/red.txt",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 84891,
+    "sha256": "90211c2c0a313998f6fa2c32374a0c03895c660a1d68f128c8e74b308360091b"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/green.txt",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 169492,
+    "sha256": "2488974559803f2ae260a009e60697e4310c07d5cb6d5a0b913c1bbb922b73c7"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/audit.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 1759,
+    "sha256": "920d644d24f23f143513f5273a1ccbcac95026382f634a4d27c209f73706ed9c"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/implementation-report.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 3422,
+    "sha256": "815aea3291ac80caa7b65f930d8af2a8a3b6dc693bed7e3e58cf06d456ba0a19"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/review.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 16759,
+    "sha256": "f60c26937ff1db63b16933f16665ca03d96c93a427ef30eb8707cbec13ea4027"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/native-state.json",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 3430,
+    "sha256": "efebcbc4860844e9cf9c42affd34ccc25d1ef6aa64431daece783a723539df13"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/checksums.sha256",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 1070,
+    "sha256": "2a356fea4c31aea3065bcedaba1838c89af6476d93978b6c0097efa479de1bf4"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/ios-trilha.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 313070,
+    "sha256": "de1e3cceb4905fac997f49585da0dc41d997711580f0168e53e1de8fced3492c"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/ios-aula.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 164718,
+    "sha256": "e476e421d57ff6a30a69e58068b73027ba605b33111c5f9e5408a392d88aadd5"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/android-trilha.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 195369,
+    "sha256": "70995ea8b2953fec2594d3b47d858e97c9cd7d1db6c9db3cc99d63ae53a6f495"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/android-aula.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 115352,
+    "sha256": "c7508b5512d996c16ce80c689f6ba78003baf1b87ceb62cb2bd9385a5acac660"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/ios-hearts.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 233723,
+    "sha256": "d2ad314ef3b6619f2e799fcec560c6b42648200893afcb65b1e6c53a411dd9c6"
+  },
+  {
+    "path": "docs/evidence/2026-10-26-medalhao-t02/android-hearts.png",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 178317,
+    "sha256": "6c81d130e045ba587e851c433caf8081b8d688951df73bcc9e1732cd9cfd5f3d"
+  },
+  {
+    "path": "radiant-app/src/features/quiz/components/QuizTopBar.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 2685,
+    "sha256": "424708481944eb197253f961f2cc7fda52ddda3fec0360d27cb0eb07a5ea5bb8"
+  },
+  {
+    "path": "radiant-app/src/features/quiz/components/QuizTopBar.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 5129,
+    "sha256": "cf164447cd7e8189e5efcb135d33f54fa58446821dba16c2c497381acb537687"
+  },
+  {
+    "path": "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 35684,
+    "sha256": "3a609aa390bced381d6c6a3b4ece81387788143df72f1b63d2ab6d7b86bb328d"
+  },
+  {
+    "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 98973,
+    "sha256": "d1d97fed49593826727e600e66349da6b14962230a59e0af8db9a3fbf651a42d"
+  },
+  {
+    "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 17772,
+    "sha256": "a8629ccfabb4269ae6d4b4cba6277e463e6d6c802140d03eac2a360c249d8d62"
+  }
+]

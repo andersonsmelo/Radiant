@@ -1,0 +1,1691 @@
+
+## task-3-red.txt
+Error: Can't find a root directory while resolving a config file path.
+Provided path to resolve: radiant-app/jest.config.js
+cwd: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20
+    at resolveConfigPath (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:123:11)
+    at readInitialOptions (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/index.js:386:55)
+    at readConfig (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/index.js:147:54)
+    at readConfigs (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/index.js:424:32)
+    at runCLI (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@jest/core/build/cli/index.js:152:29)
+    at Object.run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-cli/build/run.js:130:62)
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx
+
+FAIL src/ui/components/HUD.test.tsx (5.078 s)
+  HUD — acessibilidade
+    ✕ resume vidas recuperando e abre a folha ao toque (45 ms)
+    ✓ expõe as vidas como um único rótulo, não um emoji por coração (8 ms)
+    ✓ rotula os pills de XP e streak sem ler o emoji decorativo (9 ms)
+    ✓ usa o singular quando a sequência é de um dia (6 ms)
+    ✓ no modo compact mostra as vidas e omite os pills de XP/streak (7 ms)
+  HUD — estados das vidas
+    full
+      ✕ desenha um coração e a contagem uma vez, sem recarga visível nem ∞ (244 ms)
+      ✓ anuncia a contagem no botão que abre a folha (8 ms)
+    recovering
+      ✕ desenha um coração e a contagem uma vez, sem recarga visível nem ∞ (236 ms)
+      ✓ anuncia a contagem no botão que abre a folha (7 ms)
+      ✕ desenha um coração e a contagem uma vez, sem recarga visível nem ∞ (234 ms)
+      ✓ anuncia a contagem no botão que abre a folha (7 ms)
+    empty
+      ✕ desenha um coração e a contagem uma vez, sem recarga visível nem ∞ (232 ms)
+      ✓ anuncia a contagem no botão que abre a folha (6 ms)
+    unlimited com count 5
+      ✓ não desenha nenhum coração (2 ms)
+      ✓ rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão) (2 ms)
+      ✓ não anuncia "N de 5 vidas" a quem não perde vida (2 ms)
+      ✓ mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro (2 ms)
+      ✓ no modo compact também troca os corações pelo ∞ (1 ms)
+    unlimited com count 0
+      ✓ não desenha nenhum coração (2 ms)
+      ✓ rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão) (2 ms)
+      ✓ não anuncia "N de 5 vidas" a quem não perde vida (2 ms)
+      ✓ mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro (5 ms)
+      ✓ no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ✓ anima o coração único quando a contagem cai (15 ms)
+    ✓ não anima quando a pessoa GANHA vidas de volta (13 ms)
+    ✓ recarregar solta o coração marcado, para o estilo não ficar num índice cheio (38 ms)
+    ✓ sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação (24 ms)
+    ✕ racha e drena somente o coração que acabou de esvaziar (24 ms)
+    ✕ volta ao coração cheio após o pulso se ainda há vidas e pulsa de novo na perda seguinte (27 ms)
+    ✕ reinicia o pulso se perde outra vida antes de o anterior terminar e limpa ao recarregar (37 ms)
+    ✓ sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha (21 ms)
+  HUD — identidade dos ícones
+    ✓ não renderiza nenhum emoji do sistema (15 ms)
+    ✓ mantém os glifos legíveis na escala aprovada após inspeção no aparelho (5 ms)
+    ✓ preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar (8 ms)
+    ✓ distingue vida cheia de vazia por preenchimento, não só por opacidade (14 ms)
+    ✓ o raio pinta os três tons da prancheta (17 ms)
+    ✓ o coração cheio pinta os três tons e o vazio fica sem relevo (5 ms)
+    ✓ na perda, o fundo animado fica à mostra e parte do vermelho do desenho (4 ms)
+    ✓ pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta (8 ms)
+    ✓ a chama pinta o miolo claro sobre o corpo laranja (1 ms)
+    ✓ desenha as quatro fagulhas aprovadas ao redor do raio de XP (15 ms)
+    ✓ dispara burst e fagulhas somente quando o XP aumenta (2 ms)
+    ✓ sob reduced motion troca o XP sem agendar burst ou fagulhas (12 ms)
+  HUD — composição Medalhão
+    ✕ mostra um coração e 0 sem precisar de snapshot (178 ms)
+    ✕ mostra um coração e 1 sem precisar de snapshot (174 ms)
+    ✕ mostra um coração e 3 sem precisar de snapshot (179 ms)
+    ✕ mostra um coração e 5 sem precisar de snapshot (177 ms)
+    ✕ usa a snapshot e alinha coração e contagem (compact=false) (8 ms)
+    ✕ usa a snapshot e alinha coração e contagem (compact=true) (3 ms)
+  HUD — texto grande
+    ✕ limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele (6 ms)
+
+  ● HUD — acessibilidade › resume vidas recuperando e abre a folha ao toque
+
+    Unable to find an element with text: 3
+
+    [36m<View>[39m
+      [36m<View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"10 XP"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<RNSVGSvgView>[39m
+              [36m<RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-0"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-1"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-2"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-3"[39m
+                  [36m/>[39m
+                [36m</RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGGroup>[39m
+            [36m</RNSVGSvgView>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m10[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"1 dia de sequência"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<View>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m1d[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View[39m
+        [33maccessibilityLabel[39m=[32m"3 de 5 vidas; próxima em 10 minutos"[39m
+        [33maccessibilityRole[39m=[32m"button"[39m
+        [33maccessible[39m=[32m{true}[39m
+      [36m>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33maccessibilityLabel[39m=[32m"3 de 5 vidas"[39m
+            [33maccessibilityRole[39m=[32m"text"[39m
+            [33maccessible[39m=[32m{false}[39m
+            [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+          [36m>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-0"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-0"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-0"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-1"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-1"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-1"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-2"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-2"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-2"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-3"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-3"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-3"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-4"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-4"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-4"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text>[39m
+            [0m3 · +1 em 10 min[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      82 |     );
+      83 |
+    > 84 |     expect(screen.getByText('3')).toBeTruthy();
+         |                   ^
+      85 |     fireEvent.press(screen.getByRole('button', { name: /3 de 5 vidas/u }));
+      86 |     expect(onHeartsPress).toHaveBeenCalledTimes(1);
+      87 |   });
+
+      at Object.getByText (src/ui/components/HUD.test.tsx:84:19)
+
+  ● HUD — estados das vidas › full › desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      164 |       const screen = renderHud(snapshot(count, status));
+      165 |
+    > 166 |       expect(screen.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+          |                                                                                          ^
+      167 |       expect(screen.getAllByText(summary)).toHaveLength(1);
+      168 |       expect(screen.queryByText(/em \d+ min/u)).toBeNull();
+      169 |       expect(screen.queryByText('∞')).toBeNull();
+
+      at Object.toHaveLength (src/ui/components/HUD.test.tsx:166:90)
+
+  ● HUD — estados das vidas › recovering › desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      164 |       const screen = renderHud(snapshot(count, status));
+      165 |
+    > 166 |       expect(screen.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+          |                                                                                          ^
+      167 |       expect(screen.getAllByText(summary)).toHaveLength(1);
+      168 |       expect(screen.queryByText(/em \d+ min/u)).toBeNull();
+      169 |       expect(screen.queryByText('∞')).toBeNull();
+
+      at Object.toHaveLength (src/ui/components/HUD.test.tsx:166:90)
+
+  ● HUD — estados das vidas › recovering › desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      164 |       const screen = renderHud(snapshot(count, status));
+      165 |
+    > 166 |       expect(screen.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+          |                                                                                          ^
+      167 |       expect(screen.getAllByText(summary)).toHaveLength(1);
+      168 |       expect(screen.queryByText(/em \d+ min/u)).toBeNull();
+      169 |       expect(screen.queryByText('∞')).toBeNull();
+
+      at Object.toHaveLength (src/ui/components/HUD.test.tsx:166:90)
+
+  ● HUD — estados das vidas › empty › desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      164 |       const screen = renderHud(snapshot(count, status));
+      165 |
+    > 166 |       expect(screen.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+          |                                                                                          ^
+      167 |       expect(screen.getAllByText(summary)).toHaveLength(1);
+      168 |       expect(screen.queryByText(/em \d+ min/u)).toBeNull();
+      169 |       expect(screen.queryByText('∞')).toBeNull();
+
+      at Object.toHaveLength (src/ui/components/HUD.test.tsx:166:90)
+
+  ● HUD — perda de vida › racha e drena somente o coração que acabou de esvaziar
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 872415231
+    Received: 4294921035
+
+      304 |     // react-native-svg normaliza `round` para o enum nativo 1.
+      305 |     expect(crack.props.strokeLinecap).toBe(1);
+    > 306 |     expect(getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0x33ffffff);
+          |                                                                ^
+      307 |     expect(reanimated.withDelay).toHaveBeenCalledTimes(3);
+      308 |   });
+      309 |
+
+      at Object.toBe (src/ui/components/HUD.test.tsx:306:64)
+
+  ● HUD — perda de vida › volta ao coração cheio após o pulso se ainda há vidas e pulsa de novo na perda seguinte
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 3
+    Received number of calls: 6
+
+      318 |     reanimated.withDelay.mockClear();
+      319 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={1} />);
+    > 320 |     expect(reanimated.withDelay).toHaveBeenCalledTimes(3);
+          |                                  ^
+      321 |   });
+      322 |
+      323 |   it('reinicia o pulso se perde outra vida antes de o anterior terminar e limpa ao recarregar', () => {
+
+      at Object.toHaveBeenCalledTimes (src/ui/components/HUD.test.tsx:320:34)
+
+  ● HUD — perda de vida › reinicia o pulso se perde outra vida antes de o anterior terminar e limpa ao recarregar
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 3
+    Received number of calls: 6
+
+      327 |     reanimated.withDelay.mockClear();
+      328 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={1} />);
+    > 329 |     expect(reanimated.withDelay).toHaveBeenCalledTimes(3);
+          |                                  ^
+      330 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={5} />);
+      331 |     act(() => jest.advanceTimersByTime(duration.ui));
+      332 |     expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+
+      at Object.toHaveBeenCalledTimes (src/ui/components/HUD.test.tsx:329:34)
+
+  ● HUD — composição Medalhão › mostra um coração e 0 sem precisar de snapshot
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      515 |   it.each([0, 1, 3, 5])('mostra um coração e %i sem precisar de snapshot', (hearts) => {
+      516 |     const screen = render(<HUD totalXp={90} streakDays={2} hearts={hearts} />);
+    > 517 |     expect(screen.getAllByTestId(/^hud-heart-\d+$/u)).toHaveLength(1);
+          |                                                       ^
+      518 |     expect(screen.getAllByText(String(hearts))).toHaveLength(1);
+      519 |     expect(screen.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      520 |     const fill = screen.getByTestId('hud-heart-fill-0').props.fill.payload;
+
+      at toHaveLength (src/ui/components/HUD.test.tsx:517:55)
+
+  ● HUD — composição Medalhão › mostra um coração e 1 sem precisar de snapshot
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      515 |   it.each([0, 1, 3, 5])('mostra um coração e %i sem precisar de snapshot', (hearts) => {
+      516 |     const screen = render(<HUD totalXp={90} streakDays={2} hearts={hearts} />);
+    > 517 |     expect(screen.getAllByTestId(/^hud-heart-\d+$/u)).toHaveLength(1);
+          |                                                       ^
+      518 |     expect(screen.getAllByText(String(hearts))).toHaveLength(1);
+      519 |     expect(screen.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      520 |     const fill = screen.getByTestId('hud-heart-fill-0').props.fill.payload;
+
+      at toHaveLength (src/ui/components/HUD.test.tsx:517:55)
+
+  ● HUD — composição Medalhão › mostra um coração e 3 sem precisar de snapshot
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      515 |   it.each([0, 1, 3, 5])('mostra um coração e %i sem precisar de snapshot', (hearts) => {
+      516 |     const screen = render(<HUD totalXp={90} streakDays={2} hearts={hearts} />);
+    > 517 |     expect(screen.getAllByTestId(/^hud-heart-\d+$/u)).toHaveLength(1);
+          |                                                       ^
+      518 |     expect(screen.getAllByText(String(hearts))).toHaveLength(1);
+      519 |     expect(screen.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      520 |     const fill = screen.getByTestId('hud-heart-fill-0').props.fill.payload;
+
+      at toHaveLength (src/ui/components/HUD.test.tsx:517:55)
+
+  ● HUD — composição Medalhão › mostra um coração e 5 sem precisar de snapshot
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      515 |   it.each([0, 1, 3, 5])('mostra um coração e %i sem precisar de snapshot', (hearts) => {
+      516 |     const screen = render(<HUD totalXp={90} streakDays={2} hearts={hearts} />);
+    > 517 |     expect(screen.getAllByTestId(/^hud-heart-\d+$/u)).toHaveLength(1);
+          |                                                       ^
+      518 |     expect(screen.getAllByText(String(hearts))).toHaveLength(1);
+      519 |     expect(screen.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      520 |     const fill = screen.getByTestId('hud-heart-fill-0').props.fill.payload;
+
+      at toHaveLength (src/ui/components/HUD.test.tsx:517:55)
+
+  ● HUD — composição Medalhão › usa a snapshot e alinha coração e contagem (compact=false)
+
+    Unable to find an element with text: 0
+
+    [36m<View>[39m
+      [36m<View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"90 XP"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<RNSVGSvgView>[39m
+              [36m<RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-0"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-1"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-2"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-3"[39m
+                  [36m/>[39m
+                [36m</RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGGroup>[39m
+            [36m</RNSVGSvgView>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m90[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"2 dias de sequência"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<View>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m2d[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View[39m
+        [33maccessibilityLabel[39m=[32m"0 de 5 vidas; próxima em 24 minutos"[39m
+        [33maccessibilityRole[39m=[32m"button"[39m
+        [33maccessible[39m=[32m{true}[39m
+      [36m>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33maccessibilityLabel[39m=[32m"0 de 5 vidas"[39m
+            [33maccessibilityRole[39m=[32m"text"[39m
+            [33maccessible[39m=[32m{false}[39m
+            [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+          [36m>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-0"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-0"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-0"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-1"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-1"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-1"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-2"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-2"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-2"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-3"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-3"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-3"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-4"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-4"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-4"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text>[39m
+            [0m0 · +1 em 24 min[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      528 |         nowMs={Date.parse('2026-09-14T12:00:00.000Z')} onHeartsPress={jest.fn()} />,
+      529 |     );
+    > 530 |     const count = screen.getByText('0', { includeHiddenElements: true });
+          |                          ^
+      531 |     const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
+      532 |     type Node = typeof count;
+      533 |     const ancestors = (node: Node) => {
+
+      at getByText (src/ui/components/HUD.test.tsx:530:26)
+
+  ● HUD — composição Medalhão › usa a snapshot e alinha coração e contagem (compact=true)
+
+    Unable to find an element with text: 0
+
+    [36m<View>[39m
+      [36m<View[39m
+        [33maccessibilityLabel[39m=[32m"0 de 5 vidas; próxima em 24 minutos"[39m
+        [33maccessibilityRole[39m=[32m"button"[39m
+        [33maccessible[39m=[32m{true}[39m
+      [36m>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33maccessibilityLabel[39m=[32m"0 de 5 vidas"[39m
+            [33maccessibilityRole[39m=[32m"text"[39m
+            [33maccessible[39m=[32m{false}[39m
+            [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+          [36m>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-0"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-0"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-0"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-1"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-1"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-1"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-2"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-2"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-2"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-3"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-3"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-3"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-4"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-4"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-4"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text>[39m
+            [0m0 · +1 em 24 min[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      528 |         nowMs={Date.parse('2026-09-14T12:00:00.000Z')} onHeartsPress={jest.fn()} />,
+      529 |     );
+    > 530 |     const count = screen.getByText('0', { includeHiddenElements: true });
+          |                          ^
+      531 |     const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
+      532 |     type Node = typeof count;
+      533 |     const ancestors = (node: Node) => {
+
+      at getByText (src/ui/components/HUD.test.tsx:530:26)
+
+  ● HUD — texto grande › limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+    Unable to find an element with text: 3
+
+    [36m<View>[39m
+      [36m<View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"90 XP"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<RNSVGSvgView>[39m
+              [36m<RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-0"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-1"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-2"[39m
+                  [36m/>[39m
+                  [36m<RNSVGCircle[39m
+                    [33mtestID[39m=[32m"hud-xp-ray-3"[39m
+                  [36m/>[39m
+                [36m</RNSVGGroup>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGGroup>[39m
+            [36m</RNSVGSvgView>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m90[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+        [36m<View[39m
+          [33maccessibilityLabel[39m=[32m"1 dia de sequência"[39m
+          [33maccessibilityRole[39m=[32m"text"[39m
+          [33maccessible[39m=[32m{true}[39m
+        [36m>[39m
+          [36m<View[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [36m<View>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGPath />[39m
+                    [36m<RNSVGPath />[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33mimportantForAccessibility[39m=[32m"no"[39m
+          [36m>[39m
+            [0m1d[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View[39m
+        [33maccessibilityLabel[39m=[32m"3 de 5 vidas; próxima em 15 minutos"[39m
+        [33maccessibilityRole[39m=[32m"button"[39m
+        [33maccessible[39m=[32m{true}[39m
+      [36m>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33maccessibilityLabel[39m=[32m"3 de 5 vidas"[39m
+            [33maccessibilityRole[39m=[32m"text"[39m
+            [33maccessible[39m=[32m{false}[39m
+            [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+          [36m>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-0"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-0"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-0"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-1"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-1"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-1"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-2"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-2"[39m
+                      [36m/>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGEllipse />[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-2"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-3"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-3"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-3"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33mimportantForAccessibility[39m=[32m"no"[39m
+              [33mtestID[39m=[32m"hud-heart-4"[39m
+            [36m>[39m
+              [36m<RNSVGSvgView>[39m
+                [36m<RNSVGGroup>[39m
+                  [36m<RNSVGGroup>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath[39m
+                        [33mtestID[39m=[32m"hud-heart-fill-4"[39m
+                      [36m/>[39m
+                    [36m</RNSVGGroup>[39m
+                    [36m<RNSVGPath[39m
+                      [33mtestID[39m=[32m"hud-heart-crack-4"[39m
+                    [36m/>[39m
+                  [36m</RNSVGGroup>[39m
+                [36m</RNSVGGroup>[39m
+              [36m</RNSVGSvgView>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text>[39m
+            [0m3 · +1 em 15 min[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      564 |
+      565 |     for (const text of ['90', '1d', '3']) {
+    > 566 |       const multiplier = screen.getByText(text, { includeHiddenElements: true }).props.maxFontSizeMultiplier;
+          |                                 ^
+      567 |       expect(multiplier).toBeGreaterThanOrEqual(1.35);
+      568 |       expect(multiplier).toBeLessThanOrEqual(1.4);
+      569 |     }
+
+      at Object.getByText (src/ui/components/HUD.test.tsx:566:33)
+
+Test Suites: 1 failed, 1 total
+Tests:       15 failed, 35 passed, 50 total
+Snapshots:   0 total
+Time:        5.709 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+## task-3-fix1-red.txt
+Error: Could not find a config file based on provided values:
+path: "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20"
+cwd: "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20"
+Config paths must be specified by either a direct path to a config
+file, or a path to a directory. If directory is given, Jest will try to
+traverse directory tree up, until it finds one of those files in exact order: "jest.config.js" or "jest.config.ts" or "jest.config.mjs" or "jest.config.cjs" or "jest.config.json".
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:161:11)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPathByTraversing (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:165:10)
+    at resolveConfigPath (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/resolveConfigPath.js:129:10)
+    at readInitialOptions (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-config/build/index.js:397:53)
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx --testNamePattern envolve coração e contagem
+
+FAIL src/ui/components/HUD.test.tsx
+  HUD — acessibilidade
+    ○ skipped resume vidas recuperando e abre a folha ao toque
+    ○ skipped expõe as vidas como um único rótulo, não um emoji por coração
+    ○ skipped rotula os pills de XP e streak sem ler o emoji decorativo
+    ○ skipped usa o singular quando a sequência é de um dia
+    ○ skipped no modo compact mostra as vidas e omite os pills de XP/streak
+  HUD — estados das vidas
+    full
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    recovering
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    empty
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    unlimited com count 5
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+    unlimited com count 0
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ○ skipped anima o coração único quando a contagem cai
+    ○ skipped não anima mudanças de count na snapshot ilimitada nem mostra números
+    ○ skipped não anima quando a pessoa GANHA vidas de volta
+    ○ skipped recarregar solta o coração marcado, para o estilo não ficar num índice cheio
+    ○ skipped sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação
+    ○ skipped racha e drena somente o coração que acabou de esvaziar
+    ○ skipped restaura o preenchimento cheio quando termina o pulso com vidas restantes
+    ○ skipped mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira
+    ○ skipped cancela a restauração pendente ao ganhar vidas, mudar para ilimitado ou desmontar
+    ○ skipped sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha
+  HUD — identidade dos ícones
+    ○ skipped não renderiza nenhum emoji do sistema
+    ○ skipped mantém os glifos legíveis na escala aprovada após inspeção no aparelho
+    ○ skipped preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar
+    ○ skipped distingue vida cheia de vazia por preenchimento, não só por opacidade
+    ○ skipped o raio pinta os três tons da prancheta
+    ○ skipped o coração cheio pinta os três tons e o vazio fica sem relevo
+    ○ skipped na perda, o fundo animado fica à mostra e parte do vermelho do desenho
+    ○ skipped pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta
+    ○ skipped a chama pinta o miolo claro sobre o corpo laranja
+    ○ skipped desenha as quatro fagulhas aprovadas ao redor do raio de XP
+    ○ skipped dispara burst e fagulhas somente quando o XP aumenta
+    ○ skipped sob reduced motion troca o XP sem agendar burst ou fagulhas
+  HUD — composição Medalhão
+    ✕ envolve coração e contagem na pílula com a superfície e a borda dos outros dados (44 ms)
+    ○ skipped mostra um coração e 0 sem precisar de snapshot
+    ○ skipped mostra um coração e 1 sem precisar de snapshot
+    ○ skipped mostra um coração e 3 sem precisar de snapshot
+    ○ skipped mostra um coração e 5 sem precisar de snapshot
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=false)
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=true)
+  HUD — texto grande
+    ○ skipped limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+  ● HUD — composição Medalhão › envolve coração e contagem na pílula com a superfície e a borda dos outros dados
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 4
+    + Received  + 0
+
+      Object {
+    -   "backgroundColor": "#232733",
+    -   "borderColor": "#323747",
+    -   "borderRadius": 20,
+    -   "borderWidth": 1,
+        "flexDirection": "row",
+      }
+
+      552 |     const heartAncestors = new Set(ancestors(heart));
+      553 |     const pill = ancestors(count).find((node) => typeof node.type === 'string' && heartAncestors.has(node));
+    > 554 |     expect(StyleSheet.flatten(pill?.props.style)).toMatchObject({
+          |                                                   ^
+      555 |       backgroundColor: galaxyColors.hudPill,
+      556 |       borderColor: galaxyColors.hudPillBorder,
+      557 |       borderWidth: 1,
+
+      at Object.toMatchObject (src/ui/components/HUD.test.tsx:554:51)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 52 skipped, 53 total
+Snapshots:   0 total
+Time:        2.265 s, estimated 3 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+## task-3-fix2-red.txt
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/features/quiz/components/QuizTopBar.test.tsx
+
+FAIL src/features/quiz/components/QuizTopBar.test.tsx
+  QuizTopBar
+    ✓ chama onClose ao tocar em fechar (30 ms)
+    ✓ não anuncia progresso pela barra (7 ms)
+  QuizTopBar — vidas por estado da assinatura
+    ✓ assinante vê ∞ e nenhum coração (1 ms)
+    ✓ sem assinatura ativa vê as vidas e nenhum ∞ (8 ms)
+  QuizTopBar — pílula Medalhão compartilhada com o HUD
+    ✕ desenha um coração e a contagem 0 uma vez no cabeçalho da aula (189 ms)
+    ✕ desenha um coração e a contagem 1 uma vez no cabeçalho da aula (188 ms)
+    ✕ desenha um coração e a contagem 3 uma vez no cabeçalho da aula (193 ms)
+    ✕ desenha um coração e a contagem 5 uma vez no cabeçalho da aula (207 ms)
+    ✕ preserva maxHearts e a superfície da pílula ao anunciar a contagem (8 ms)
+    ✓ no ilimitado count0 não desenha coração ou número (1 ms)
+    ✓ no ilimitado count5 não desenha coração ou número (1 ms)
+
+  ● QuizTopBar — pílula Medalhão compartilhada com o HUD › desenha um coração e a contagem 0 uma vez no cabeçalho da aula
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      82 |   it.each([0, 1, 3, 5])('desenha um coração e a contagem %i uma vez no cabeçalho da aula', (hearts) => {
+      83 |     const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} onClose={jest.fn()} />);
+    > 84 |     expect(rendered.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+         |                                                                                          ^
+      85 |     expect(rendered.getAllByText(String(hearts))).toHaveLength(1);
+      86 |     expect(rendered.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      87 |     expect(rendered.queryByText('∞')).toBeNull();
+
+      at toHaveLength (src/features/quiz/components/QuizTopBar.test.tsx:84:90)
+
+  ● QuizTopBar — pílula Medalhão compartilhada com o HUD › desenha um coração e a contagem 1 uma vez no cabeçalho da aula
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      82 |   it.each([0, 1, 3, 5])('desenha um coração e a contagem %i uma vez no cabeçalho da aula', (hearts) => {
+      83 |     const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} onClose={jest.fn()} />);
+    > 84 |     expect(rendered.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+         |                                                                                          ^
+      85 |     expect(rendered.getAllByText(String(hearts))).toHaveLength(1);
+      86 |     expect(rendered.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      87 |     expect(rendered.queryByText('∞')).toBeNull();
+
+      at toHaveLength (src/features/quiz/components/QuizTopBar.test.tsx:84:90)
+
+  ● QuizTopBar — pílula Medalhão compartilhada com o HUD › desenha um coração e a contagem 3 uma vez no cabeçalho da aula
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      82 |   it.each([0, 1, 3, 5])('desenha um coração e a contagem %i uma vez no cabeçalho da aula', (hearts) => {
+      83 |     const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} onClose={jest.fn()} />);
+    > 84 |     expect(rendered.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+         |                                                                                          ^
+      85 |     expect(rendered.getAllByText(String(hearts))).toHaveLength(1);
+      86 |     expect(rendered.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      87 |     expect(rendered.queryByText('∞')).toBeNull();
+
+      at toHaveLength (src/features/quiz/components/QuizTopBar.test.tsx:84:90)
+
+  ● QuizTopBar — pílula Medalhão compartilhada com o HUD › desenha um coração e a contagem 5 uma vez no cabeçalho da aula
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 5
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+
+      82 |   it.each([0, 1, 3, 5])('desenha um coração e a contagem %i uma vez no cabeçalho da aula', (hearts) => {
+      83 |     const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} onClose={jest.fn()} />);
+    > 84 |     expect(rendered.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+         |                                                                                          ^
+      85 |     expect(rendered.getAllByText(String(hearts))).toHaveLength(1);
+      86 |     expect(rendered.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+      87 |     expect(rendered.queryByText('∞')).toBeNull();
+
+      at toHaveLength (src/features/quiz/components/QuizTopBar.test.tsx:84:90)
+
+  ● QuizTopBar — pílula Medalhão compartilhada com o HUD › preserva maxHearts e a superfície da pílula ao anunciar a contagem
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 4
+    + Received  + 3
+
+      Object {
+    -   "backgroundColor": "#232733",
+    -   "borderColor": "#323747",
+    -   "borderRadius": 20,
+    -   "borderWidth": 1,
+    +   "alignItems": "center",
+    +   "flexDirection": "row",
+    +   "gap": 4,
+      }
+
+      91 |     const rendered = render(<QuizTopBar questionIndex={1} totalQuestions={4} hearts={2} maxHearts={7} onClose={jest.fn()} />);
+      92 |     const label = rendered.getByLabelText('2 de 7 vidas');
+    > 93 |     expect(StyleSheet.flatten(label.props.style)).toMatchObject({
+         |                                                   ^
+      94 |       backgroundColor: galaxyColors.hudPill,
+      95 |       borderColor: galaxyColors.hudPillBorder,
+      96 |       borderWidth: 1,
+
+      at Object.toMatchObject (src/features/quiz/components/QuizTopBar.test.tsx:93:51)
+
+Test Suites: 1 failed, 1 total
+Tests:       5 failed, 6 passed, 11 total
+Snapshots:   0 total
+Time:        4.585 s
+Ran all test suites within paths "src/features/quiz/components/QuizTopBar.test.tsx".
+
+## task-3-fix1-mutation-cleanup.txt
+INJECTION cleanup
+REPLACE: return () => clearTimeout(timer);
+WITH: return () => { /* injected: no cleanup */ };
+EXIT_CODE: 1
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx --testNamePattern cancela a restauração pendente ao ganhar vidas
+
+FAIL src/ui/components/HUD.test.tsx
+  HUD — acessibilidade
+    ○ skipped resume vidas recuperando e abre a folha ao toque
+    ○ skipped expõe as vidas como um único rótulo, não um emoji por coração
+    ○ skipped rotula os pills de XP e streak sem ler o emoji decorativo
+    ○ skipped usa o singular quando a sequência é de um dia
+    ○ skipped no modo compact mostra as vidas e omite os pills de XP/streak
+  HUD — estados das vidas
+    full
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    recovering
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    empty
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    unlimited com count 5
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+    unlimited com count 0
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ✕ cancela a restauração pendente ao ganhar vidas, mudar para ilimitado ou desmontar (26 ms)
+    ○ skipped anima o coração único quando a contagem cai
+    ○ skipped não anima mudanças de count na snapshot ilimitada nem mostra números
+    ○ skipped não anima quando a pessoa GANHA vidas de volta
+    ○ skipped recarregar solta o coração marcado, para o estilo não ficar num índice cheio
+    ○ skipped sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação
+    ○ skipped racha e drena somente o coração que acabou de esvaziar
+    ○ skipped restaura o preenchimento cheio quando termina o pulso com vidas restantes
+    ○ skipped mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira
+    ○ skipped sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha
+  HUD — identidade dos ícones
+    ○ skipped não renderiza nenhum emoji do sistema
+    ○ skipped mantém os glifos legíveis na escala aprovada após inspeção no aparelho
+    ○ skipped preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar
+    ○ skipped distingue vida cheia de vazia por preenchimento, não só por opacidade
+    ○ skipped o raio pinta os três tons da prancheta
+    ○ skipped o coração cheio pinta os três tons e o vazio fica sem relevo
+    ○ skipped na perda, o fundo animado fica à mostra e parte do vermelho do desenho
+    ○ skipped pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta
+    ○ skipped a chama pinta o miolo claro sobre o corpo laranja
+    ○ skipped desenha as quatro fagulhas aprovadas ao redor do raio de XP
+    ○ skipped dispara burst e fagulhas somente quando o XP aumenta
+    ○ skipped sob reduced motion troca o XP sem agendar burst ou fagulhas
+  HUD — composição Medalhão
+    ○ skipped envolve coração e contagem na pílula com a superfície e a borda dos outros dados
+    ○ skipped mostra um coração e 0 sem precisar de snapshot
+    ○ skipped mostra um coração e 1 sem precisar de snapshot
+    ○ skipped mostra um coração e 3 sem precisar de snapshot
+    ○ skipped mostra um coração e 5 sem precisar de snapshot
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=false)
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=true)
+  HUD — texto grande
+    ○ skipped limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+  ● HUD — perda de vida › cancela a restauração pendente ao ganhar vidas, mudar para ilimitado ou desmontar
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      347 |     expect(jest.getTimerCount()).toBe(1);
+      348 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={5} />);
+    > 349 |     expect(jest.getTimerCount()).toBe(0);
+          |                                  ^
+      350 |     expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+      351 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={4} />);
+      352 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={4}
+
+      at Object.toBe (src/ui/components/HUD.test.tsx:349:34)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 52 skipped, 53 total
+Snapshots:   0 total
+Time:        0.766 s, estimated 1 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+INJECTION cleanup: three independently selected transitions
+EXIT_CODE: 1
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx --testNamePattern cancela a restauração pendente
+
+FAIL src/ui/components/HUD.test.tsx
+  HUD — acessibilidade
+    ○ skipped resume vidas recuperando e abre a folha ao toque
+    ○ skipped expõe as vidas como um único rótulo, não um emoji por coração
+    ○ skipped rotula os pills de XP e streak sem ler o emoji decorativo
+    ○ skipped usa o singular quando a sequência é de um dia
+    ○ skipped no modo compact mostra as vidas e omite os pills de XP/streak
+  HUD — estados das vidas
+    full
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    recovering
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    empty
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    unlimited com count 5
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+    unlimited com count 0
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ✕ cancela a restauração pendente ao ganhar vidas (26 ms)
+    ✕ cancela a restauração pendente ao mudar para ilimitado (9 ms)
+    ✕ cancela a restauração pendente ao desmontar (6 ms)
+    ○ skipped anima o coração único quando a contagem cai
+    ○ skipped não anima mudanças de count na snapshot ilimitada nem mostra números
+    ○ skipped não anima quando a pessoa GANHA vidas de volta
+    ○ skipped recarregar solta o coração marcado, para o estilo não ficar num índice cheio
+    ○ skipped sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação
+    ○ skipped racha e drena somente o coração que acabou de esvaziar
+    ○ skipped restaura o preenchimento cheio quando termina o pulso com vidas restantes
+    ○ skipped mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira
+    ○ skipped sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha
+  HUD — identidade dos ícones
+    ○ skipped não renderiza nenhum emoji do sistema
+    ○ skipped mantém os glifos legíveis na escala aprovada após inspeção no aparelho
+    ○ skipped preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar
+    ○ skipped distingue vida cheia de vazia por preenchimento, não só por opacidade
+    ○ skipped o raio pinta os três tons da prancheta
+    ○ skipped o coração cheio pinta os três tons e o vazio fica sem relevo
+    ○ skipped na perda, o fundo animado fica à mostra e parte do vermelho do desenho
+    ○ skipped pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta
+    ○ skipped a chama pinta o miolo claro sobre o corpo laranja
+    ○ skipped desenha as quatro fagulhas aprovadas ao redor do raio de XP
+    ○ skipped dispara burst e fagulhas somente quando o XP aumenta
+    ○ skipped sob reduced motion troca o XP sem agendar burst ou fagulhas
+  HUD — composição Medalhão
+    ○ skipped envolve coração e contagem na pílula com a superfície e a borda dos outros dados
+    ○ skipped mostra um coração e 0 sem precisar de snapshot
+    ○ skipped mostra um coração e 1 sem precisar de snapshot
+    ○ skipped mostra um coração e 3 sem precisar de snapshot
+    ○ skipped mostra um coração e 5 sem precisar de snapshot
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=false)
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=true)
+  HUD — texto grande
+    ○ skipped limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+  ● HUD — perda de vida › cancela a restauração pendente ao ganhar vidas
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      357 |         screen.unmount();
+      358 |       }
+    > 359 |       expect(jest.getTimerCount()).toBe(0);
+          |                                    ^
+      360 |     },
+      361 |   );
+      362 |
+
+      at toBe (src/ui/components/HUD.test.tsx:359:36)
+
+  ● HUD — perda de vida › cancela a restauração pendente ao mudar para ilimitado
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      357 |         screen.unmount();
+      358 |       }
+    > 359 |       expect(jest.getTimerCount()).toBe(0);
+          |                                    ^
+      360 |     },
+      361 |   );
+      362 |
+
+      at toBe (src/ui/components/HUD.test.tsx:359:36)
+
+  ● HUD — perda de vida › cancela a restauração pendente ao desmontar
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      357 |         screen.unmount();
+      358 |       }
+    > 359 |       expect(jest.getTimerCount()).toBe(0);
+          |                                    ^
+      360 |     },
+      361 |   );
+      362 |
+
+      at toBe (src/ui/components/HUD.test.tsx:359:36)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 52 skipped, 55 total
+Snapshots:   0 total
+Time:        1.014 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+## task-3-fix1-mutation-rapid-loss.txt
+INJECTION rapid-loss
+REPLACE: return () => clearTimeout(timer);
+WITH: return () => { /* injected: stale first timer remains live */ };
+EXIT_CODE: 1
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx --testNamePattern mantém a segunda perda visível até seu próprio prazo
+
+FAIL src/ui/components/HUD.test.tsx
+  HUD — acessibilidade
+    ○ skipped resume vidas recuperando e abre a folha ao toque
+    ○ skipped expõe as vidas como um único rótulo, não um emoji por coração
+    ○ skipped rotula os pills de XP e streak sem ler o emoji decorativo
+    ○ skipped usa o singular quando a sequência é de um dia
+    ○ skipped no modo compact mostra as vidas e omite os pills de XP/streak
+  HUD — estados das vidas
+    full
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    recovering
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    empty
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    unlimited com count 5
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+    unlimited com count 0
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ✕ mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira (29 ms)
+    ○ skipped anima o coração único quando a contagem cai
+    ○ skipped não anima mudanças de count na snapshot ilimitada nem mostra números
+    ○ skipped não anima quando a pessoa GANHA vidas de volta
+    ○ skipped recarregar solta o coração marcado, para o estilo não ficar num índice cheio
+    ○ skipped sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação
+    ○ skipped racha e drena somente o coração que acabou de esvaziar
+    ○ skipped restaura o preenchimento cheio quando termina o pulso com vidas restantes
+    ○ skipped cancela a restauração pendente ao ganhar vidas, mudar para ilimitado ou desmontar
+    ○ skipped sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha
+  HUD — identidade dos ícones
+    ○ skipped não renderiza nenhum emoji do sistema
+    ○ skipped mantém os glifos legíveis na escala aprovada após inspeção no aparelho
+    ○ skipped preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar
+    ○ skipped distingue vida cheia de vazia por preenchimento, não só por opacidade
+    ○ skipped o raio pinta os três tons da prancheta
+    ○ skipped o coração cheio pinta os três tons e o vazio fica sem relevo
+    ○ skipped na perda, o fundo animado fica à mostra e parte do vermelho do desenho
+    ○ skipped pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta
+    ○ skipped a chama pinta o miolo claro sobre o corpo laranja
+    ○ skipped desenha as quatro fagulhas aprovadas ao redor do raio de XP
+    ○ skipped dispara burst e fagulhas somente quando o XP aumenta
+    ○ skipped sob reduced motion troca o XP sem agendar burst ou fagulhas
+  HUD — composição Medalhão
+    ○ skipped envolve coração e contagem na pílula com a superfície e a borda dos outros dados
+    ○ skipped mostra um coração e 0 sem precisar de snapshot
+    ○ skipped mostra um coração e 1 sem precisar de snapshot
+    ○ skipped mostra um coração e 3 sem precisar de snapshot
+    ○ skipped mostra um coração e 5 sem precisar de snapshot
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=false)
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=true)
+  HUD — texto grande
+    ○ skipped limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+  ● HUD — perda de vida › mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 872415231
+    Received: 4294921035
+
+      336 |     act(() => jest.advanceTimersByTime(120));
+      337 |     // t220 encerra a primeira perda, mas a segunda termina só em t320.
+    > 338 |     expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0x33ffffff);
+          |                                                                       ^
+      339 |     expect(screen.getByText('1')).toBeTruthy();
+      340 |     act(() => jest.advanceTimersByTime(100));
+      341 |     expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+
+      at Object.toBe (src/ui/components/HUD.test.tsx:338:71)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 52 skipped, 53 total
+Snapshots:   0 total
+Time:        0.763 s, estimated 1 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+## task-3-fix1-mutation-restore.txt
+INJECTION restore
+REPLACE: const timer = setTimeout(() => setLostCount(null), duration.ui);
+WITH: const timer = setTimeout(() => undefined, duration.ui);
+EXIT_CODE: 1
+
+> radiant-app@1.4.0 test
+> jest --runInBand --runTestsByPath src/ui/components/HUD.test.tsx --testNamePattern restaura o preenchimento cheio quando termina o pulso
+
+FAIL src/ui/components/HUD.test.tsx
+  HUD — acessibilidade
+    ○ skipped resume vidas recuperando e abre a folha ao toque
+    ○ skipped expõe as vidas como um único rótulo, não um emoji por coração
+    ○ skipped rotula os pills de XP e streak sem ler o emoji decorativo
+    ○ skipped usa o singular quando a sequência é de um dia
+    ○ skipped no modo compact mostra as vidas e omite os pills de XP/streak
+  HUD — estados das vidas
+    full
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    recovering
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    empty
+      ○ skipped desenha um coração e a contagem uma vez, sem recarga visível nem ∞
+      ○ skipped anuncia a contagem no botão que abre a folha
+    unlimited com count 5
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+    unlimited com count 0
+      ○ skipped não desenha nenhum coração
+      ○ skipped rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)
+      ○ skipped não anuncia "N de 5 vidas" a quem não perde vida
+      ○ skipped mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro
+      ○ skipped no modo compact também troca os corações pelo ∞
+  HUD — perda de vida
+    ✕ restaura o preenchimento cheio quando termina o pulso com vidas restantes (24 ms)
+    ○ skipped anima o coração único quando a contagem cai
+    ○ skipped não anima mudanças de count na snapshot ilimitada nem mostra números
+    ○ skipped não anima quando a pessoa GANHA vidas de volta
+    ○ skipped recarregar solta o coração marcado, para o estilo não ficar num índice cheio
+    ○ skipped sob reduced motion a perda segue legível pelo rótulo, que é o canal que não pode depender de animação
+    ○ skipped racha e drena somente o coração que acabou de esvaziar
+    ○ skipped mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira
+    ○ skipped cancela a restauração pendente ao ganhar vidas, mudar para ilimitado ou desmontar
+    ○ skipped sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha
+  HUD — identidade dos ícones
+    ○ skipped não renderiza nenhum emoji do sistema
+    ○ skipped mantém os glifos legíveis na escala aprovada após inspeção no aparelho
+    ○ skipped preserva os cinco ícones vetoriais do HeartsDisplay compartilhado com QuizTopBar
+    ○ skipped distingue vida cheia de vazia por preenchimento, não só por opacidade
+    ○ skipped o raio pinta os três tons da prancheta
+    ○ skipped o coração cheio pinta os três tons e o vazio fica sem relevo
+    ○ skipped na perda, o fundo animado fica à mostra e parte do vermelho do desenho
+    ○ skipped pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta
+    ○ skipped a chama pinta o miolo claro sobre o corpo laranja
+    ○ skipped desenha as quatro fagulhas aprovadas ao redor do raio de XP
+    ○ skipped dispara burst e fagulhas somente quando o XP aumenta
+    ○ skipped sob reduced motion troca o XP sem agendar burst ou fagulhas
+  HUD — composição Medalhão
+    ○ skipped envolve coração e contagem na pílula com a superfície e a borda dos outros dados
+    ○ skipped mostra um coração e 0 sem precisar de snapshot
+    ○ skipped mostra um coração e 1 sem precisar de snapshot
+    ○ skipped mostra um coração e 3 sem precisar de snapshot
+    ○ skipped mostra um coração e 5 sem precisar de snapshot
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=false)
+    ○ skipped usa a snapshot e alinha coração e contagem (compact=true)
+  HUD — texto grande
+    ○ skipped limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele
+
+  ● HUD — perda de vida › restaura o preenchimento cheio quando termina o pulso com vidas restantes
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 4294921035
+    Received: 872415231
+
+      324 |     screen.rerender(<HUD totalXp={0} streakDays={0} hearts={2} />);
+      325 |     act(() => jest.advanceTimersByTime(duration.ui));
+    > 326 |     expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+          |                                                                       ^
+      327 |     expect(screen.getByTestId('hud-heart-crack-0').props.opacity).toBe(0);
+      328 |     expect(screen.getByText('2')).toBeTruthy();
+      329 |   });
+
+      at Object.toBe (src/ui/components/HUD.test.tsx:326:71)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 52 skipped, 53 total
+Snapshots:   0 total
+Time:        0.755 s, estimated 2 s
+Ran all test suites within paths "src/ui/components/HUD.test.tsx".
+
+
+=== Loop validação tentativa 1: 14/15, app-quality timeout ===
+{"schemaVersion":1,"ok":false,"code":"VALIDATION_FAILED","runId":null,"sessionId":null,"state":null,"data":{"evidence":[{"id":"evidence-9996602e-fa19-4f3e-b2fd-7f4b4f0b6a5c","validatorId":"docs-contract","status":"passed"},{"id":"evidence-feb0d06e-e5b1-4525-8453-68f99acb8af3","validatorId":"content-foundation","status":"passed"},{"id":"evidence-8e3881b7-d76e-47c4-972c-c1a3fac327c5","validatorId":"content-wave1","status":"passed"},{"id":"evidence-441ba7e8-29de-4b91-aa5c-b2cfa124d77b","validatorId":"content-production","status":"passed"},{"id":"evidence-b131b831-6195-41ac-94fa-165bb7d6be4f","validatorId":"content-anchoring","status":"passed"},{"id":"evidence-081de97b-ec7e-4595-9d31-a553808552f3","validatorId":"content-anchoring-data","status":"passed"},{"id":"evidence-d622aec3-6d04-4423-9d9d-3e723dd60830","validatorId":"content-no-verbatim","status":"passed"},{"id":"evidence-a53104b4-ad49-42bd-88dc-4f436ac49edb","validatorId":"content-source-rights","status":"passed"},{"id":"evidence-c73fa396-5771-4a6b-a3c3-8e90ab9dc57d","validatorId":"content-python","status":"passed"},{"id":"evidence-f3d75e5e-f8b2-4d09-8918-0489acc8f2ed","validatorId":"app-quality","status":"timeout"},{"id":"evidence-6d903f30-dc41-4a6a-b81e-1aeaae498c3d","validatorId":"app-test","status":"passed"},{"id":"evidence-ffb15c28-ed03-412f-b096-d8cc9ae75cec","validatorId":"api-lint","status":"passed"},{"id":"evidence-33a638b2-5309-4dd6-92bb-4d9eb7011ee1","validatorId":"api-typecheck","status":"passed"},{"id":"evidence-d3afc233-0efe-4834-a53f-09f6d0b9fcbd","validatorId":"api-test","status":"passed"},{"id":"evidence-420d72ee-3a4b-4391-ac1b-54759b189286","validatorId":"brain-links","status":"passed"}]},"nextActions":[]}
+

@@ -104,7 +104,7 @@ jest.mock('../../../ui/components/HUD', () => {
 
   return {
     HUD: () => null,
-    HeartsDisplay: ({ hearts, maxHearts }: { hearts: number; maxHearts: number }) => (
+    HeartsCountPill: ({ hearts, maxHearts }: { hearts: number; maxHearts: number }) => (
       <View testID="hearts-display" accessibilityLabel={`${hearts} de ${maxHearts} vidas`} />
     ),
   };

@@ -160,7 +160,7 @@ asserção falhar antes de a contagem existir.
 Run: `cd radiant-app && npm run test:copy-style-contract`
 Expected: PASS com o teto igual à contagem do passo 1.
 
-- [ ] **Passo 4: Commit**
+- [x] **Passo 4: Commit**
 
 ```bash
 git add radiant-app/scripts/copy-style-contract.test.mjs radiant-app/scripts/copy-style-baseline.json radiant-app/package.json
@@ -179,26 +179,26 @@ git commit -m "test(copy): guarda de etiqueta, travessão e jargão, com teto me
   do HUD e vai só para a folha de vidas. O pulso de perda (`useLossPulse`)
   passa a valer no coração único.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - com `hearts=3`, aparece um coração e o texto "3"; não aparecem cinco corações
   nem "3 · +1 em 12 min";
 - o rótulo continua `"3 de 5 vidas; próxima em 12 minutos"` quando há recarga;
 - com `status: 'unlimited'`, aparece o ∞ e nenhum número.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/ui/components/HUD.test.tsx`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
-- [ ] **Passo 4: Ver passar, com Maestro**
+- [x] **Passo 4: Ver passar, com Maestro**
 
 Run: `cd radiant-app && npx jest src/ui/components && npm run test:maestro-contract`
 Expected: PASS.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add radiant-app/src/ui/components/HUD.tsx radiant-app/src/ui/components/HUD.test.tsx
@@ -735,4 +735,21 @@ A [evidência](../../evidence/2026-10-25-medalhao-t01.md) contém vermelho/verde
 pareceres R1–R4 e validação. O passo de commit do checklist antigo acompanha
 o fechamento desta transação pelo controlador; o ledger registra o SHA final.
 O número antigo de sete roteiros/rótulos não define o escopo atual.
-Próxima: T02 HUD. Nenhum aceite humano ou resultado nativo inferido.
+T01 entregue no commit55e21ae. Nenhum aceite humano ou resultado nativo inferido.
+
+### T02 entregue em 2026-10-26
+
+HUD e QuizTopBar compartilham a pílula: um coração e número no finito,
+∞ sozinho no ilimitado. API HeartsDisplay de cinco preservada; a folha
+atual ainda não desenha cinco corações, cuja entrega continua na tarefa11/T12,
+conforme spec §11.3. Revisão independente R4 aprovada,173 testes/7suítes e
+102 contratos focais; visual strict sem regressão. Prova nativa finito5 na
+trilha/aula e folha aberta em iOS/Android, nos binários existentes.
+[Evidência, limites e revisões](../../evidence/2026-10-26-medalhao-t02.md).
+
+Writer inicial `run-1793009906160-fa339b65` foi encerrado sem validação/sucesso
+quando a prova da aula revelou o consumidor QuizTopBar omitido. O substituto
+`run-1793011345601-6bbdc725` declarou a união antes da integração e obteve
+Loop15/15 na segunda tentativa; primeira14/15 com app-quality timeout, sem
+alterar produto/política entre tentativas. Commit e fechamento pelo controlador,
+com SHA no ledger. Próxima T03 boas-vindas; G1–G8 permanecem pendentes.

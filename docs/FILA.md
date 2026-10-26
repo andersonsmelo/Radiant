@@ -481,7 +481,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     tarefas nem consome os gates específicos ainda pendentes.
     **Execução iniciada em 25/10 por autorização posterior do dono:** T00
     reconciliado/revisado; T01 guarda AST e CTA revisados e validados (15/15 Loop).
-    Próxima: T02 HUD. Estado e evidências em STATUS; gates G1–G8 preservados.
+    T02 HUD implementada/revisada em 26/10, Loop15/15 e prova visual finito5
+    na trilha/aula em iOS/Android; próxima T03 boas-vindas. Limites em STATUS.
+    Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
     Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer

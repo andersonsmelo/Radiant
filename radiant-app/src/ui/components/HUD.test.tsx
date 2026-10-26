@@ -1,9 +1,10 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { act, fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
 import Svg, { Ellipse, Path } from 'react-native-svg';
 import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.types';
-import { HUD } from './HUD';
+import { HeartsDisplay, HUD } from './HUD';
+import { duration } from '../motion';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 import { galaxyColors } from '../theme';
@@ -80,7 +81,7 @@ describe('HUD — acessibilidade', () => {
       />,
     );
 
-    expect(screen.getByText('3 · +1 em 10 min')).toBeTruthy();
+    expect(screen.getByText('3', { includeHiddenElements: true })).toBeTruthy();
     fireEvent.press(screen.getByRole('button', { name: /3 de 5 vidas/u }));
     expect(onHeartsPress).toHaveBeenCalledTimes(1);
   });
@@ -155,16 +156,16 @@ describe('HUD — estados das vidas', () => {
 
   describe.each([
     { status: 'full' as const, count: 5, summary: '5', label: '5 de 5 vidas' },
-    { status: 'recovering' as const, count: 3, summary: '3 · +1 em 10 min', label: '3 de 5 vidas; próxima em 10 minutos' },
-    { status: 'empty' as const, count: 0, summary: '0 · +1 em 10 min', label: '0 de 5 vidas; próxima em 10 minutos' },
+    { status: 'recovering' as const, count: 1, summary: '1', label: '1 de 5 vidas; próxima em 10 minutos' },
+    { status: 'recovering' as const, count: 3, summary: '3', label: '3 de 5 vidas; próxima em 10 minutos' },
+    { status: 'empty' as const, count: 0, summary: '0', label: '0 de 5 vidas; próxima em 10 minutos' },
   ])('$status', ({ status, count, summary, label }) => {
-    it('desenha os cinco corações e o resumo, sem ∞', () => {
+    it('desenha um coração e a contagem uma vez, sem recarga visível nem ∞', () => {
       const screen = renderHud(snapshot(count, status));
 
-      for (let i = 0; i < 5; i += 1) {
-        expect(screen.getByTestId(`hud-heart-${i}`)).toBeTruthy();
-      }
-      expect(screen.getByText(summary)).toBeTruthy();
+      expect(screen.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+      expect(screen.getAllByText(summary)).toHaveLength(1);
+      expect(screen.queryByText(/em \d+ min/u)).toBeNull();
       expect(screen.queryByText('∞')).toBeNull();
     });
 
@@ -228,11 +229,17 @@ describe('HUD — estados das vidas', () => {
 // sinal próprio: o coração trocava de ❤️ para 🤍 e nada mais acontecia.
 describe('HUD — perda de vida', () => {
   beforeEach(() => {
+    jest.useFakeTimers();
     jest.clearAllMocks();
     mockedReducedMotion.mockReturnValue(false);
   });
 
-  it('anima só o coração que acabou de ser perdido, e não os vizinhos', () => {
+  afterEach(() => {
+    act(() => jest.runOnlyPendingTimers());
+    jest.useRealTimers();
+  });
+
+  it('anima o coração único quando a contagem cai', () => {
     const { rerender } = render(
       <HUD totalXp={0} streakDays={0} hearts={3} maxHearts={5} />,
     );
@@ -243,6 +250,18 @@ describe('HUD — perda de vida', () => {
     // Uma perda agenda exatamente três canais no único coração selecionado:
     // impacto, rachadura e drenagem. Vizinhos não agendam nada.
     expect(reanimated.withDelay).toHaveBeenCalledTimes(3);
+  });
+
+  it('não anima mudanças de count na snapshot ilimitada nem mostra números', () => {
+    const snapshot = (count: number): HeartsSnapshot => ({ count, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' });
+    const screen = render(<HUD totalXp={90} streakDays={2} hearts={5} heartsSnapshot={snapshot(5)} />);
+    reanimated.withDelay.mockClear();
+    screen.rerender(<HUD totalXp={90} streakDays={2} hearts={5} heartsSnapshot={snapshot(0)} />);
+    expect(reanimated.withDelay).not.toHaveBeenCalled();
+    expect(screen.queryAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(0);
+    expect(screen.queryByText('0')).toBeNull();
+    expect(screen.queryByText('5')).toBeNull();
+    expect(screen.getByText('∞')).toBeTruthy();
   });
 
   it('não anima quando a pessoa GANHA vidas de volta', () => {
@@ -289,20 +308,59 @@ describe('HUD — perda de vida', () => {
 
     rerender(<HUD totalXp={0} streakDays={0} hearts={2} maxHearts={5} />);
 
-    const crack = getByTestId('hud-heart-crack-2');
+    const crack = getByTestId('hud-heart-crack-0');
     expect(crack.props.d).toBe('M26 14 l-4 9 l6 4 l-4 8');
     // O traço do racha é o fundo do tema: o coração parece partir a medalha.
     expect(crack.props.stroke.payload).toBe(0xff000000 + parseInt(galaxyColors.background.slice(1), 16));
     expect(crack.props.strokeWidth).toBe(2.5);
     // react-native-svg normaliza `round` para o enum nativo 1.
     expect(crack.props.strokeLinecap).toBe(1);
-    expect(getByTestId('hud-heart-crack-1').props.opacity).toBe(0);
-    expect(getByTestId('hud-heart-crack-3').props.opacity).toBe(0);
-    expect(getByTestId('hud-heart-fill-2').props.fill.payload).toBe(0x33ffffff);
+    expect(getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0x33ffffff);
     expect(reanimated.withDelay).toHaveBeenCalledTimes(3);
   });
 
-  it('sob reduced motion esvazia direto, sem escala nem racha', () => {
+  it('restaura o preenchimento cheio quando termina o pulso com vidas restantes', () => {
+    const screen = render(<HUD totalXp={0} streakDays={0} hearts={3} />);
+    screen.rerender(<HUD totalXp={0} streakDays={0} hearts={2} />);
+    act(() => jest.advanceTimersByTime(duration.ui));
+    expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+    expect(screen.getByTestId('hud-heart-crack-0').props.opacity).toBe(0);
+    expect(screen.getByText('2')).toBeTruthy();
+  });
+
+  it('mantém a segunda perda visível até seu próprio prazo, além do prazo da primeira', () => {
+    const screen = render(<HUD totalXp={0} streakDays={0} hearts={3} />);
+    screen.rerender(<HUD totalXp={0} streakDays={0} hearts={2} />);
+    act(() => jest.advanceTimersByTime(100));
+    screen.rerender(<HUD totalXp={0} streakDays={0} hearts={1} />);
+    act(() => jest.advanceTimersByTime(120));
+    // t220 encerra a primeira perda, mas a segunda termina só em t320.
+    expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0x33ffffff);
+    expect(screen.getByText('1')).toBeTruthy();
+    act(() => jest.advanceTimersByTime(100));
+    expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+  });
+
+  it.each(['ganhar vidas', 'mudar para ilimitado', 'desmontar'] as const)(
+    'cancela a restauração pendente ao %s', (transition) => {
+      const screen = render(<HUD totalXp={0} streakDays={0} hearts={3} />);
+      screen.rerender(<HUD totalXp={0} streakDays={0} hearts={2} />);
+      expect(jest.getTimerCount()).toBe(1);
+      if (transition === 'ganhar vidas') {
+        screen.rerender(<HUD totalXp={0} streakDays={0} hearts={5} />);
+        expect(screen.getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
+      } else if (transition === 'mudar para ilimitado') {
+        screen.rerender(<HUD totalXp={0} streakDays={0} hearts={2}
+          heartsSnapshot={{ count: 2, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' }} />);
+        expect(screen.getByText('∞')).toBeTruthy();
+      } else {
+        screen.unmount();
+      }
+      expect(jest.getTimerCount()).toBe(0);
+    },
+  );
+
+  it('sob reduced motion atualiza a contagem e mantém o coração cheio sem escala nem racha', () => {
     mockedReducedMotion.mockReturnValue(true);
     const { getByTestId, rerender } = render(
       <HUD totalXp={0} streakDays={0} hearts={3} maxHearts={5} />,
@@ -312,8 +370,8 @@ describe('HUD — perda de vida', () => {
     rerender(<HUD totalXp={0} streakDays={0} hearts={2} maxHearts={5} />);
 
     expect(reanimated.withDelay).not.toHaveBeenCalled();
-    expect(getByTestId('hud-heart-crack-2').props.opacity).toBe(0);
-    expect(getByTestId('hud-heart-fill-2').props.fill.payload).toBe(0x33ffffff);
+    expect(getByTestId('hud-heart-crack-0').props.opacity).toBe(0);
+    expect(getByTestId('hud-heart-fill-0').props.fill.payload).toBe(0xffff4b4b);
   });
 });
 
@@ -351,8 +409,8 @@ describe('HUD — identidade dos ícones', () => {
     expect(heart.props.height).toBe(28);
   });
 
-  it('desenha um ícone vetorial para cada vida, cheia ou vazia', () => {
-    const { getByTestId } = render(<HUD totalXp={0} streakDays={1} hearts={2} maxHearts={5} />);
+  it('preserva a API exportada HeartsDisplay com cinco ícones vetoriais', () => {
+    const { getByTestId } = render(<HeartsDisplay hearts={2} maxHearts={5} />);
 
     for (let i = 0; i < 5; i += 1) {
       expect(getByTestId(`hud-heart-${i}`)).toBeTruthy();
@@ -360,7 +418,7 @@ describe('HUD — identidade dos ícones', () => {
   });
 
   it('distingue vida cheia de vazia por preenchimento, não só por opacidade', () => {
-    const { getByTestId } = render(<HUD totalXp={0} streakDays={1} hearts={2} maxHearts={5} />);
+    const { getByTestId } = render(<HeartsDisplay hearts={2} maxHearts={5} />);
 
     // A cor é o canal que o leitor de tela não tem; o rótulo agregado cobre
     // aquele lado. Aqui garantimos que o canal visual existe de fato.
@@ -479,53 +537,61 @@ describe('HUD — identidade dos ícones', () => {
   });
 });
 
-// Defeito 3 do E2E de 2026-09-24: na trilha, com vidas em recarga, o resumo
-// `0 · +1 em 24 min` ia na MESMA linha dos cinco corações e o HUD passava da
-// borda direita do iPhone 17 (nó até x=443 em 402 pt). O Jest não mede layout,
-// então a asserção fica no valor que decide a largura: a direção do contêiner
-// comum aos corações e ao resumo. Em linha, as larguras se somam; em coluna, vale
-// a maior delas.
-describe('HUD — resumo de vidas cabe na largura da trilha', () => {
-  type Node = ReturnType<ReturnType<typeof render>['getByText']>;
-
-  const ancestors = (node: Node) => {
-    const chain: Node[] = [];
-    for (let current: Node | null = node.parent; current; current = current.parent) {
-      chain.push(current);
-    }
-    return chain;
-  };
-
-  it('empilha o resumo sob os corações, e não ao lado deles', () => {
-    const screen = render(
-      <HUD
-        totalXp={10}
-        streakDays={1}
-        hearts={0}
-        heartsSnapshot={{
-          count: 0,
-          status: 'empty',
-          nextRefillAt: '2026-09-14T12:24:00.000Z',
-          unlimitedUntil: null,
-        }}
-        nowMs={Date.parse('2026-09-14T12:00:00.000Z')}
-        onHeartsPress={jest.fn()}
-      />,
-    );
-
-    const summary = screen.getByText('0 · +1 em 24 min', { includeHiddenElements: true });
+// A contagem e seu ícone compartilham uma linha curta; a recarga pertence ao
+// rótulo acessível e à folha. A antiga composição duplicava a contagem visual.
+describe('HUD — composição Medalhão', () => {
+  it('envolve coração e contagem na pílula com a superfície e a borda dos outros dados', () => {
+    const screen = render(<HUD totalXp={90} streakDays={2} hearts={3} onHeartsPress={jest.fn()} />);
+    const count = screen.getByText('3', { includeHiddenElements: true });
     const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
-    for (let i = 1; i < 5; i += 1) {
-      expect(screen.getByTestId(`hud-heart-${i}`, { includeHiddenElements: true })).toBeTruthy();
-    }
-
+    type Node = typeof count;
+    const ancestors = (node: Node) => {
+      const result: Node[] = [];
+      for (let current = node.parent; current; current = current.parent) result.push(current);
+      return result;
+    };
     const heartAncestors = new Set(ancestors(heart));
-    const shared = ancestors(summary).find(
-      (node) => typeof node.type === 'string' && heartAncestors.has(node),
-    );
+    const pill = ancestors(count).find((node) => typeof node.type === 'string' && heartAncestors.has(node));
+    expect(StyleSheet.flatten(pill?.props.style)).toMatchObject({
+      backgroundColor: galaxyColors.hudPill,
+      borderColor: galaxyColors.hudPillBorder,
+      borderWidth: 1,
+      borderRadius: 20,
+      flexDirection: 'row',
+    });
+    const target = screen.getByRole('button', { name: '3 de 5 vidas' });
+    expect(StyleSheet.flatten(target.props.style)).toMatchObject({ minWidth: 48, minHeight: 48 });
+  });
 
-    expect(shared).toBeDefined();
-    expect(StyleSheet.flatten(shared?.props.style)?.flexDirection).toBe('column');
+  it.each([0, 1, 3, 5])('mostra um coração e %i sem precisar de snapshot', (hearts) => {
+    const screen = render(<HUD totalXp={90} streakDays={2} hearts={hearts} />);
+    expect(screen.getAllByTestId(/^hud-heart-\d+$/u)).toHaveLength(1);
+    expect(screen.getAllByText(String(hearts))).toHaveLength(1);
+    expect(screen.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+    const fill = screen.getByTestId('hud-heart-fill-0').props.fill.payload;
+    expect(fill).toBe(hearts === 0 ? 0x33ffffff : 0xffff4b4b);
+  });
+
+  it.each([false, true])('usa a snapshot e alinha coração e contagem (compact=%s)', (compact) => {
+    const screen = render(
+      <HUD totalXp={90} streakDays={2} hearts={5} compact={compact}
+        heartsSnapshot={{ count: 0, status: 'empty', nextRefillAt: '2026-09-14T12:24:00.000Z', unlimitedUntil: null }}
+        nowMs={Date.parse('2026-09-14T12:00:00.000Z')} onHeartsPress={jest.fn()} />,
+    );
+    const count = screen.getByText('0', { includeHiddenElements: true });
+    const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
+    type Node = typeof count;
+    const ancestors = (node: Node) => {
+      const result: Node[] = [];
+      for (let current = node.parent; current; current = current.parent) result.push(current);
+      return result;
+    };
+    const heartAncestors = new Set(ancestors(heart));
+    const shared = ancestors(count).find((node) => typeof node.type === 'string' && heartAncestors.has(node));
+    expect(StyleSheet.flatten(shared?.props.style)?.flexDirection).toBe('row');
+    expect(screen.queryByText(/em \d+ min/u, { includeHiddenElements: true })).toBeNull();
+    expect(screen.getAllByRole('button', { name: '0 de 5 vidas; próxima em 24 minutos' })).toHaveLength(1);
+    expect(screen.queryByText('5', { includeHiddenElements: true })).toBeNull();
   });
 });
 
@@ -547,7 +613,7 @@ describe('HUD — texto grande', () => {
       />,
     );
 
-    for (const text of ['90', '1d', '3 · +1 em 15 min']) {
+    for (const text of ['90', '1d', '3']) {
       const multiplier = screen.getByText(text, { includeHiddenElements: true }).props.maxFontSizeMultiplier;
       expect(multiplier).toBeGreaterThanOrEqual(1.35);
       expect(multiplier).toBeLessThanOrEqual(1.4);

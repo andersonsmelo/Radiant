@@ -7,7 +7,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { HeartsSnapshot } from '../../features/hearts/hearts.types';
 import { galaxyColors, hudLabelTones } from '../theme';
-import { space } from '../styles';
+import { fontFamily, layout, space } from '../styles';
+import { duration } from '../motion';
+import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { CHROME_MAX_FONT_SCALE } from '../accessibility/useLargeTextLayout';
 
@@ -146,6 +148,54 @@ export function UnlimitedHeartsDisplay({
   );
 }
 
+// HUD finito: o mesmo glifo encena cada perda; depois volta a representar
+// o saldo atual. HeartsDisplay conserva sua API de cinco glifos.
+export function HeartsCountPill({
+  hearts,
+  maxHearts = 5,
+  accessibilityLabel = `${hearts} de ${maxHearts} vidas`,
+  hiddenFromAccessibility = false,
+}: {
+  hearts: number;
+  maxHearts?: number;
+  accessibilityLabel?: string;
+  hiddenFromAccessibility?: boolean;
+}) {
+  const previousHearts = useRef(hearts);
+  const [lostCount, setLostCount] = useState<number | null>(null);
+  const reducedMotion = useReducedMotionPreference();
+
+  useEffect(() => {
+    const dropped = hearts < previousHearts.current;
+    previousHearts.current = hearts;
+    setLostCount(dropped && !reducedMotion ? hearts : null);
+    if (!dropped || reducedMotion) return;
+
+    const timer = setTimeout(() => setLostCount(null), duration.ui);
+    return () => clearTimeout(timer);
+  }, [hearts, reducedMotion]);
+
+  const losing = lostCount === hearts && !reducedMotion;
+  return (
+    <View
+      style={styles.pill}
+      accessible={!hiddenFromAccessibility}
+      accessibilityRole="text"
+      accessibilityLabel={accessibilityLabel}
+      importantForAccessibility={hiddenFromAccessibility ? 'no-hide-descendants' : 'auto'}
+    >
+      <View testID="hud-heart-0" importantForAccessibility="no">
+        {/* A chave reinicia a encenação se uma segunda perda interromper a
+            primeira. O temporizador só restaura o símbolo; não altera vidas. */}
+        <HeartIcon key={hearts} filled={hearts > 0 && !losing} losing={losing} testID="hud-heart-fill-0" />
+      </View>
+      <Text style={[styles.pillValue, { color: hudLabelTones.hearts }]} importantForAccessibility="no" maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>
+        {hearts}
+      </Text>
+    </View>
+  );
+}
+
 // ── Componente principal ──────────────────────────────────────
 
 function remainingMinutes(nextRefillAt: string | null, nowMs: number): number | null {
@@ -168,27 +218,17 @@ export function HUD({
   // Decide pelo status, nunca pelo número: o assinante que zerou chega com
   // `count: 0` e `status: 'unlimited'`.
   const unlimited = heartsSnapshot?.status === 'unlimited';
-  const summary = heartsSnapshot
-    ? `${visibleHearts}${minutes === null ? '' : ` · +1 em ${minutes} min`}`
-    : null;
   const accessibilityLabel = unlimited
     ? 'Vidas ilimitadas'
     : `${visibleHearts} de ${maxHearts} vidas${minutes === null ? '' : `; próxima em ${minutes} minutos`}`;
   const heartsContent = unlimited ? (
     <UnlimitedHeartsDisplay hiddenFromAccessibility={Boolean(onHeartsPress)} />
   ) : (
-    <View style={styles.heartsControlContent}>
-      <HeartsDisplay
-        hearts={visibleHearts}
-        maxHearts={maxHearts}
-        hiddenFromAccessibility={Boolean(onHeartsPress)}
-      />
-      {summary ? (
-        <Text style={styles.heartsSummary} maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>
-          {summary}
-        </Text>
-      ) : null}
-    </View>
+    <HeartsCountPill
+      hearts={visibleHearts}
+      accessibilityLabel={accessibilityLabel}
+      hiddenFromAccessibility={Boolean(onHeartsPress)}
+    />
   );
   const heartsControl = onHeartsPress ? (
     <Pressable
@@ -203,14 +243,14 @@ export function HUD({
 
   if (compact) {
     return (
-      <View style={[styles.container, styles.containerCompact]}>
+      <View style={[styles.hud, styles.hudCompact]}>
         {heartsControl}
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.hud}>
       <View style={styles.leftGroup}>
         <HUDPill
           icon={<XpIcon value={totalXp} />}
@@ -233,56 +273,54 @@ export function HUD({
 // ── Estilos ───────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+  hud: {
+    ...layout.rowBetween,
+    paddingHorizontal: space.s4,
+    paddingVertical: space.s1,
   },
-  containerCompact: {
+  hudCompact: {
     justifyContent: 'flex-end',
-    paddingVertical: 6,
+    paddingVertical: space.s0,
   },
   leftGroup: {
     flexDirection: 'row',
-    gap: 8,
+    gap: space.s1,
   },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: space.s0,
     backgroundColor: galaxyColors.hudPill,
     borderWidth: 1,
     borderColor: galaxyColors.hudPillBorder,
     borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: space.s0,
+    paddingHorizontal: space.s1,
   },
   pillIcon: {
     fontSize: 14,
   },
   pillValue: {
+    fontFamily: fontFamily.soraBold,
     fontSize: 13,
     fontWeight: '700',
   },
   heartsRow: {
     flexDirection: 'row',
-    gap: 3,
+    gap: space.s0,
     alignItems: 'center',
   },
-  // Resumo SOB os corações, não ao lado: em linha, os cinco corações de 28 pt e
-  // `0 · +1 em 24 min` somavam a largura e o HUD passava da borda direita da
-  // trilha no iPhone 17 (defeito 3 do E2E de 2026-09-24).
-  heartsControlContent: { flexDirection: 'column', alignItems: 'flex-end' },
   heartsButton: {
+    minWidth: 48,
+    minHeight: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 20,
     paddingHorizontal: space.s2,
     paddingVertical: 4,
   },
   heartsButtonPressed: { backgroundColor: galaxyColors.surfaceActive },
-  heartsSummary: { fontSize: 12, fontWeight: '700', color: hudLabelTones.hearts },
-  infinity: { fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
+  infinity: { fontFamily: fontFamily.soraExtraBold, fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
   heartIcon: {
     fontSize: 18,
   },

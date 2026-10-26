@@ -97,7 +97,7 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
   // `QuizTopBar`, adotada por `LessonFlowScreen`, renderiza as vidas por aqui.
-  HeartsDisplay: () => null,
+  HeartsCountPill: () => null,
 }));
 
 jest.mock('../../lesson-flow/services/LessonFlowService', () => ({

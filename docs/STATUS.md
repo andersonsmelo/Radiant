@@ -243,7 +243,7 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
     | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
   ```
 
-## Execução dos planos da trilha Medalhão (medido em 2026-10-25)
+## Execução dos planos da trilha Medalhão (medido em 2026-10-26)
 
 **Execução autorizada pelo dono em 25/10:** T00 reconciliado e revisado
 independentemente. T01 implementada, revisada (R4: spec/qualidade APPROVED) e
@@ -252,8 +252,21 @@ e `app-test`, no Node 20.20.2. Guarda AST no quality, baseline de 135 achados
 em 40 arquivos e CTA “Continuar trilha” com seus seis YAMLs/contratos.
 [Resultados, limites e continuação](evidence/2026-10-25-medalhao-t01.md).
 Writer `run-1792947283114-3566f047`; sessão de leitura encerrada antes dele.
-Próxima tarefa: T02 HUD; T02–T22/T04a permanecem pendentes. Nenhum gate G1–G8
+T02 HUD implementada e revisada em 26/10, com pílula compartilhada na trilha
+e aula. Validação Loop **15/15** na segunda tentativa (primeira:14/15,
+app-quality timeout), writer `run-1793011345601-6bbdc725`. Prova visual finito5
+e abertura da folha em iOS/Android nos binários existentes, sem build.
+[Entrega, revisões e limites nativos](evidence/2026-10-26-medalhao-t02.md).
+CI do novo commit ainda não medido neste registro; próxima tarefa: T03.
+T03–T22/T04a permanecem pendentes. Nenhum gate G1–G8
 foi consumido; segundo dia fica no fechamento, reservado intocado.
+
+**T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
+corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
+HeartsDisplay de cinco corações como API, mas integra coração único também
+no QuizTopBar: o nativo da aula mostrou que esse consumidor separado ainda
+precisava da mudança. No HUD finito,
+um coração e a contagem; no ilimitado, apenas ∞.
 
 **Base remota desta execução:** `e3dca6e`; App Quality `40212275739` e Content
 Scripts `40212275878` concluídos com sucesso nesse SHA. PRs #66/#67 abertas e

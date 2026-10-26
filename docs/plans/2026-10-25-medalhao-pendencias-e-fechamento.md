@@ -239,15 +239,30 @@ ficam explícitos. T17 exige zero violações nesse domínio, sem exceção esco
 ### T02 — HUD: um coração e o número
 
 **Plano 5/tarefa 2. Arquivos:** `radiant-app/src/ui/components/HUD.tsx`,
-`radiant-app/src/ui/components/HUD.test.tsx`.
+`radiant-app/src/ui/components/HUD.test.tsx`,
+`radiant-app/src/features/quiz/components/QuizTopBar.tsx` e seu teste;
+consumidores que mockam HUD: `QuizScreen.flow.test.tsx`,
+`LessonFlowScreen.flow.test.tsx` e `JourneyNodeCompletionGuard.test.tsx`.
+O consumidor QuizTopBar foi confirmado na prova nativa de 26/10; integrar a
+pílula real, mantendo sua API/labels/progresso e sem mudar serviços.
 
-- [ ] Acrescentar casos 0/1/5 vidas e ilimitado; demonstrar o vermelho da forma antiga.
-- [ ] Trocar só a composição visual; preservar estado, recarga acessível e pulso de perda.
-- [ ] Rodar o teste focal; ver HUD na trilha e em uma aula nos dois sistemas.
-- [ ] Rever, retirar a exceção visual correspondente e registrar a entrega.
+- [x] Acrescentar casos 0/1/5 vidas e ilimitado; demonstrar o vermelho da forma antiga.
+- [x] Trocar só a composição visual; preservar estado, recarga acessível e pulso de perda.
+- [x] Rodar o teste focal; ver HUD na trilha e em uma aula nos dois sistemas.
+- [x] Rever, retirar a exceção visual correspondente e registrar a entrega.
 
 **Aceite:** cada dado uma vez, coração+número, `∞` no ilimitado; cinco
-corações continuam na folha de vidas. Sem mudar regras de consumo/recarga.
+corações do export compartilhado permanecem como API; QuizTopBar usa a
+pílula de coração único e contagem. Sem mudar
+regras de consumo/recarga. **Premissa corrigida em 26/10:** HeartsSheet atual
+não desenha cinco corações; a entrega dos cinco na folha permanece em T12 e
+na spec §11.3. T02 não considera essa folha já implementada.
+
+**Entrega medida em26/10:** revisão independente R4 aprovada, 173 testes
+focais/7suítes, 102 contratos, visual strict sem regressão e Loop15/15.
+Capturas finito5 na trilha/aula e abertura da folha em ambos os sistemas;
+sem aceite de pulso nativo/leitor de tela/ilimitado nativo.
+[Evidência e primeira tentativa com timeout](../evidence/2026-10-26-medalhao-t02.md).
 
 ### T03 — Boas-vindas: operar a bancada antes de continuar
 
