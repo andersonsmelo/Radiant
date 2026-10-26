@@ -27,16 +27,6 @@
       "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
-      "rule": "R2",
-      "file": "src/features/first-run/screens/WelcomeFlowScreen.tsx",
-      "allowances": {
-        "screen": 1
-      },
-      "owner": "design-system",
-      "expiresOn": "2026-11-30",
-      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
-    },
-    {
       "rule": "R1",
       "file": "src/features/missions/screens/MissionsScreen.tsx",
       "allowances": {

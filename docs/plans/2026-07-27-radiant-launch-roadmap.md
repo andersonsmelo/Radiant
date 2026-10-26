@@ -44,7 +44,9 @@ as tarefas de implementação nesta entrega.
 Em autorização posterior de 25/10, a execução começou: T00 reconciliado e
 revisado; T01 implementada/revisada e validada pelos 15 validadores do Loop.
 T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5
-na trilha/aula em iOS/Android; próxima T03. O [STATUS](../STATUS.md) mantém o estado
+na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
+26/10, Loop15/15 e prova de texto ampliado. Próxima T04.
+O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 
 **FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como

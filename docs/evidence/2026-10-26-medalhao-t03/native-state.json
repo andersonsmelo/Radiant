@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "measuredAt": "2026-10-26T17:54:42.354099-03:00",
+  "baseTask": "9b8b3b68247147c0f2cc3ffe3cf29d2cd09eb6b1",
+  "sourceSnapshot": "task-4-snapshot-r2",
+  "sourceHashes": {
+    "radiant-app/src/features/first-run/screens/WelcomeFlowScreen.tsx": "166ae120e47f677cb54e8e9ea7222e7879dd6255c2f37038ea284677ed1a72c6",
+    "radiant-app/src/features/first-run/components/WelcomeSlide.tsx": "710761eb2ab0d0fbafd0c7f3bf792dc3e92ae405e85ff83785c91a5bba43e03e",
+    "radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx": "f4f71ee2526f056f0fd8ae5e2266a477ca652b737764e0993a0222271346fed6",
+    "radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx": "4aeb1723a21534cc8c55e20d9c1627e0af53634bc1ff3f9c8e9dc165979bb218",
+    "radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx": "df8693128a97d4501a282fefd7348110e4bf2a6eb19e759ea906cc566c4a41a1",
+    "radiant-app/src/features/first-run/first-run.types.ts": "8dd9fc84d19563b2f74bf617e57431154188275764f2f254dd461694517c4c11",
+    "radiant-app/src/features/first-run/startup-gate.flow.test.tsx": "f07a05a35f8da4f23a3a97329d1f4df343e9ec6c6d24644b70d639f3437c8cc4",
+    "radiant-app/scripts/maestro-contract.test.mjs": "c9ce44773424373d18830b7c704b1ea81686d50b7eaacdccae2689c57fd10310",
+    "radiant-app/.maestro/first-run.yaml": "2714ad48d9e23556ed0e3fa750dfbba3b21d8ce8e63588faf9c5baf13b676f73",
+    "radiant-app/.maestro/radiant-1-4-primeira-execucao.yaml": "915fce74c272aed7384a01ee0af30d176e1ee2b55a281292f4d52fd1b6b0e652",
+    "radiant-app/.maestro/student-checkpoint-active-resume.yaml": "87976f5a7e9c156379c1a9631d5536b77664574b3250cdcce159011b53e33835",
+    "radiant-app/.maestro/student-checkpoint-short-viewport.yaml": "59833a2dfbe25042fa5ab24fc64e5a0ffceab2265f9923431fd1b1a2e38990fb",
+    "radiant-app/scripts/visual-qa-policy.json": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00",
+    "radiant-app/src/features/bench/BenchControlRow.tsx": "9c9b07a19f59ffb27f2e84a35ea87b7e7e70beb46bea7875dc4596c7102fb256",
+    "radiant-app/src/features/bench/BenchControlRow.test.tsx": "12267bf4967fb9d1d95bdc7b23ebb9c75d5bbc73592912a50ac2233bdcf924ef"
+  },
+  "proofStatus": "Controller observed PASS, independent native review pending",
+  "method": "Existing development binaries; Metro Node20 CI watch disabled, restarted after final freeze; native PNG via simctl/ADB",
+  "ios": {
+    "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "name": "Radiant E2E 17 Pro",
+    "runtime": "iOS26.5",
+    "bundleId": "com.ascendcreative.radiant",
+    "version": "1.4.0",
+    "build": "3",
+    "launchArgs": [
+      "-radiantReduceMotion",
+      "1"
+    ],
+    "contentSizeBefore": "large",
+    "contentSizeTested": "accessibility-extra-extra-extra-large",
+    "contentSizeRestoredRead": "large",
+    "route": "radiantapp://settings then real Rever apresentação modal",
+    "observed": [
+      "60 normal: image/low copy/Continue disabled",
+      "100 normal: image and high copy changed; Continue enabled",
+      "Maximum category: full greeting/instruction/control/feedback/disclaimer/privacy readable across scrolling, natural metrics without horizontal bands",
+      "Successive upward swipes reached footer/Continue",
+      "Continue at maximum text tapped x201/y601pt, exited to Settings",
+      "Reopened replay at maximum category, initial60, Pular x325/y107pt exited to Settings before adjusting"
+    ],
+    "nativeSkipResult": {
+      "toolStatus": "SUCCEEDED",
+      "screenHashAfter": "098xcfk",
+      "screen": "Settings"
+    },
+    "exitImage": "ios-exit.png after restoring normal text"
+  },
+  "android": {
+    "serial": "emulator-5554",
+    "avd": "radiant-entrada-api34",
+    "api": 34,
+    "bundleId": "com.ascendcreative.radiant",
+    "versionName": "1.4.0",
+    "versionCode": 3,
+    "targetSdk": 36,
+    "fontScaleInitialSetting": "null/unset",
+    "fontScaleMaxConfiguredRead": "2.0",
+    "maxColdLaunch": true,
+    "fontScaleRestoreAction": "am force-stop then settings delete system font_scale",
+    "fontScaleRestoredFinalRead": "null",
+    "observed": [
+      "2x font cold launch: real Settings replay, full greeting/instruction readable without bands",
+      "Scrolled to image, kV label/value and plus/minus, feedback/disclaimer/footer/privacy readable",
+      "250ms stationary synthetic press changed60to65 and enabledContinue; later90 and95/high copy observed",
+      "Pular at2x font exited to real Settings after settling; exit PNG records2x",
+      "Cold launch after restoring normal scale:60 and100 image/copy states captured; Continue changed from disabled to enabled",
+      "Normal Continue synthetic250ms press exited to Settings after settling"
+    ],
+    "inputLimits": "Short synthetic taps and immediate screenshots were not treated as accepted actions; settled results were checked. No native latency/rapid-tap benchmark or exact per-tap count claim.",
+    "uiautomator": "Dump succeeded only on Settings after exit; not a Welcome accessibility tree or TalkBack test",
+    "exitImage": "android-exit.png at2x text"
+  },
+  "versionedFrames": [
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/android-exit.png",
+      "sha256": "b1761820c5d7d27df672ff0ed56612692896b0ab07c95f0b1247af20b31b1ddd",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/android-welcome-100.png",
+      "sha256": "b5782feb17986c1dad15e6651369010130ad01a34246e2be2b0af0111d9d85b9",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/android-welcome-60.png",
+      "sha256": "567a56e9d05b833aef26e86ea376758a29153f2bb92be9cb34de7e0f91dc308e",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/android-welcome-text.png",
+      "sha256": "42a199d6db9de6cbe72d6b114d5f1b07e3a8a5bbf65d543646076003cebc701b",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/ios-exit.png",
+      "sha256": "bd3b3940edd97475e773af5c0d8fe719a280310d9a13a997f7298bf9c125fdd0",
+      "width": 1206,
+      "height": 2622
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/ios-welcome-100.png",
+      "sha256": "91e0974b4971634358c46357858d8804d67a963cca9c225defe8295d51446a3c",
+      "width": 1206,
+      "height": 2622
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/ios-welcome-60.png",
+      "sha256": "ed38f0424f12f1a94aef6cccd52187aa504d4b04e44b2eeca49c69a83690d486",
+      "width": 1206,
+      "height": 2622
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t03/ios-welcome-text.png",
+      "sha256": "a10fa0f4c7ca43e3bef83d64e4d26d3dd0234ed3b3fcf8151e8d7d0344ae4f12",
+      "width": 1206,
+      "height": 2622
+    }
+  ],
+  "supplementalLocalFrames": [
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/ios-high-mid.png",
+      "sha256": "170614b726022eafeae21be1fb321f3ebd28dae4f78b169d2de097739033b852",
+      "width": 1206,
+      "height": 2622
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/ios-high-bottom.png",
+      "sha256": "f9c2cdbe3d07ac96910ea5169ba7d80d1f9bcd586e08808b3e10be1e2be5d822",
+      "width": 1206,
+      "height": 2622
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/android-high-mid.png",
+      "sha256": "b1e2d770ecace5dcf273e2089085f841f3af0d2a9eaab511aba20f06a632487f",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/android-high-press250.png",
+      "sha256": "d5fc0220b2ab54f370a6bf2e089e05619725e6c9ebdc3fbb804796eb86240714",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/android-high-100-settled.png",
+      "sha256": "012fc79391e73bedabcb538648e54cfa253addf8148be6a48a4546134ea2236a",
+      "width": 1080,
+      "height": 2340
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-4-native/android-normal-continue-exit.png",
+      "sha256": "ad227bea210c1f11e08bb206c354c6bf1fd393803c81fd80844e6667315fa7a6",
+      "width": 1080,
+      "height": 2340
+    }
+  ],
+  "supplementalLocalFramesNote": "These extra scroll frames stay in local SDD workspace; selected eight PNGs above are versioned. Reviewer can inspect both; no full-motion video claim.",
+  "limits": [
+    "Native proof is replay on existing binaries, not fresh install or physical hardware",
+    "Fresh first-use/marker/legacy cursors/single completion have Jest/runtime/store proof",
+    "No VoiceOver/TalkBack test; labels/snapshots do not constitute screen-reader acceptance",
+    "No native performance measurement or assurance that every short synthetic tap was delivered",
+    "Runtime require-cycle and cloud-unavailable warnings were observed; no earlier baseline or warning-free runtime claim",
+    "Earlier live Android font-scale probe recreated Activity and emitted linking warning; final2x proof used cold launch, without claiming root-cause remediation",
+    "G1-G8, clinicalG2 review, second-day check and distribution remain open"
+  ],
+  "safety": {
+    "build": false,
+    "install": false,
+    "dataClear": false,
+    "clockChange": false,
+    "merge": false,
+    "easOtaStore": false,
+    "reservedUdId": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+    "reservedMeasuredState": "Shutdown",
+    "reservedUsed": false
+  },
+  "teardown": {
+    "Metro": "session63270 CtrlC exit0",
+    "iosApp": "stop_app_sim SUCCEEDED",
+    "iosSimulator": "Shutdown confirmed",
+    "androidApp": "force-stopped",
+    "androidEmulator": "emu kill OK; adb devices empty confirmed",
+    "adbReverse": "8081 removed",
+    "ownedDeviceDump": "removed"
+  },
+  "postMeasurementChanges": {
+    "changes": [
+      {
+        "path": "radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx",
+        "oldSha256": "f4f71ee2526f056f0fd8ae5e2266a477ca652b737764e0993a0222271346fed6",
+        "newSha256": "82b6d72695410025ce9313d6844f6562ec224b61c19c91103d6ed62bc97248e3",
+        "kind": "type-only callback annotations in test"
+      },
+      {
+        "path": "radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx",
+        "oldSha256": "4aeb1723a21534cc8c55e20d9c1627e0af53634bc1ff3f9c8e9dc165979bb218",
+        "newSha256": "c268571703de33e74966c951c6e15eef3a44d947b23a455699c13b2d944ba329",
+        "kind": "type-only callback annotations in test"
+      }
+    ],
+    "otherProductFilesUnchangedCount": 13,
+    "runtimeRenderingFilesUnchanged": true,
+    "note": "Measurement sourceHashes above retain the pre-typefix snapshot; only two test annotations changed afterwards. Runtime sources and native PNGs remain byte-identical. R4 review pending."
+  }
+}

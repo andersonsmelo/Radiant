@@ -3602,3 +3602,12 @@ O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
 ## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
 
 Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável.
+
+## Saiu do STATUS em 2026-10-26 — preflight remoto anterior a T01/T02
+
+**Base remota desta execução:** `e3dca6e`; App Quality `40212275739` e Content
+Scripts `40212275878` concluídos com sucesso nesse SHA. PRs #66/#67 abertas e
+mergeáveis na leitura MCP do preflight. Esses checks não provam o futuro SHA
+da entrega T01; a evidência desta entrega é a validação local do Loop.
+
+Origem do trecho acima: `docs/STATUS.md`.

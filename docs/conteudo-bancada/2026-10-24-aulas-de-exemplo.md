@@ -230,3 +230,27 @@ decisão do dono.
 
    Para a primeira, há uma versão mais precisa: "mas não repõe os fótons que
    faltaram". Saídas: manter ou trocar.
+
+
+## Boas-vindas — bancada de kV, T03 em 2026-10-26
+
+Revisão do dono/G2: **pendente para as três frases abaixo**. Esta inclusão
+registra a copy da prancheta para a tela de boas-vindas, sem aprovação clínica
+ou autorização para loja. Não altera o catálogo das duas aulas de exemplo.
+
+A tela usa o modelo digital existente (`exposureModel.ts`) e `ExposureImage`,
+com 60 kV inicial e 10 mAs fixos. A referência global 70 kV/10 mAs não muda.
+As faixas descrevem contraste; a curva de brilho do HTML não é reproduzida.
+A terceira frase e seu alcance explicativo continuam sujeitos à revisão do dono.
+
+| Faixa de kV | Frase | Ok do dono |
+| --- | --- | --- |
+| Abaixo de 70 | Osso branco, partes moles escuras: muito contraste. | |
+| De 70 a 94 | Contraste no meio: dá para ver osso e partes moles. | |
+| A partir de 95 | Tudo cinza parecido: o feixe atravessa demais. | |
+
+A instrução necessária fica fora da fala opcional do Pixel: “Ajuste o kV e
+veja a imagem mudar.” Continuar exige uma mudança real de kV; Pular apresentação
+permanece disponível. Isso é uma interação educacional com o fantoma
+estilizado, sem orientação de técnica para um paciente real. A comprovação
+visual e os limites técnicos ficam na evidência T03 após validação.

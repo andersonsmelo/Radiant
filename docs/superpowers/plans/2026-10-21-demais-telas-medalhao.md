@@ -222,7 +222,7 @@ git commit -m "feat(hud): vidas como um coração e o número"
   neste iPhone." (no Android, "neste aparelho"). "Continuar" faz o que o último
   slide faz hoje.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - a tela mostra a imagem, o controle de kV e "Continuar", e não mostra slide
   nem paginação;
@@ -230,23 +230,23 @@ git commit -m "feat(hud): vidas como um coração e o número"
 - "Continuar" grava o mesmo marcador de primeira execução que o fluxo de hoje
   (o teste de reentrada continua passando sem mudança).
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/first-run`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
 As frases das três faixas são física: elas entram no documento de revisão de
 conteúdo do plano 3, antes de ir à loja.
 
-- [ ] **Passo 4: Ver passar, com Maestro**
+- [x] **Passo 4: Ver passar, com Maestro**
 
 Run: `cd radiant-app && npx jest src/features/first-run && npm run test:maestro-contract`
 Expected: PASS. O `first-run.yaml` e o `radiant-1-4-primeira-execucao.yaml`
 mudam junto, se leem o texto dos slides.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add -A radiant-app/src/features/first-run .maestro
@@ -753,3 +753,20 @@ quando a prova da aula revelou o consumidor QuizTopBar omitido. O substituto
 Loop15/15 na segunda tentativa; primeira14/15 com app-quality timeout, sem
 alterar produto/política entre tentativas. Commit e fechamento pelo controlador,
 com SHA no ledger. Próxima T03 boas-vindas; G1–G8 permanecem pendentes.
+
+
+### T03 entregue tecnicamente em 2026-10-26
+
+Boas-vindas em uma tela com a bancada real de kV, Pixel, instrução fora da
+fala e saída sempre disponível. Continuar exige mudança real; imagem, texto
+e estado respondem ao controle digital existente. Cursores legados e marker
+continuam compatíveis, com kV local reiniciando em60. Reentrada e conclusão
+única foram testadas nos consumidores reais; as três frases aguardam G2.
+
+O nativo reprovou primeiro Pular sob statusbar e depois texto máximo cortado.
+Provider nativo local e refluxo/métricas naturais corrigiram os achados, com
+prova de leitura, rolagem e saída em iOS/Android. O escopo incluiu quatro
+YAMLs, contrato Maestro e BenchControlRow com seu teste, medidos antes das
+respectivas edições. R1–R4 registram os limites; Loop15/15 na segunda tentativa
+após oito anotações de tipo nos testes, sem mudar o runtime nativo validado.
+[Evidência](../../evidence/2026-10-26-medalhao-t03.md). Próxima T04 do integrador.

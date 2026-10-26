@@ -16,6 +16,7 @@ const appId = 'com.ascendcreative.radiant';
 // diretório, porque um flow novo que role deve entrar aqui por decisão — é
 // nesta lista que as duas regras de `scrollUntilVisible` pegam.
 const MAESTRO_FLOWS_WITH_SCROLL = [
+  'first-run.yaml',
   // Rolam até o cabeçalho de Estude desde a trilha centralizada (2026-10-16).
   'boot-to-home.yaml',
   'rating-prompt.yaml',
@@ -693,124 +694,128 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
   assert.doesNotMatch(source, /disabled=\{/);
 });
 
-test('ties the first-run flow to the copy WelcomeFlowScreen actually renders', async () => {
-  // A mesma classe de defeito já ocorreu duas vezes neste projeto (a migração
-  // pt-BR de 2026-07-27 quebrou o wizard smoke e depois a celebração do
-  // checkpoint) porque um flow verde afirmava texto que a tela já não
-  // renderizava, e o contrato só lia o YAML. Uma asserção sobre o texto de um
-  // artefato confirma o que alguém escreveu, nunca o que a tela renderiza —
-  // então ancore as strings do first-run na fonte, o único lado que o device vê.
-  //
-  // Desde a correção de a11y do WelcomeSlide, o grupo de acessibilidade compõe
-  // o rótulo como "Tela N de M. {título} {corpo}..." (ver WelcomeSlide.tsx):
-  // o título nunca existe isolado no nó. Um `assertVisible` com o título cru
-  // deixou de casar — o Maestro exige correspondência total — e passou a
-  // "passar" vazio só porque o contrato lia o YAML, não o dispositivo. O
-  // contrato agora exige o prefixo "Tela N de M" ancorado E proíbe
-  // explicitamente o formato antigo, para que essa regressão não volte por um
-  // caminho que ele não olha.
-  const [screen, flow, subflow, defaultBlocks] = await Promise.all([
+// A AST lê a cópia consumida pelo JSX; comentários não provam o flow.
+function welcomeSourceContract(text, relativePath) {
+  const source = parseAppSource(relativePath, text);
+  const declarations = new Map();
+  const textNodes = [];
+  const elements = [];
+  function visit(node) {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) declarations.set(node.name.text, node.initializer);
+    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'Text') textNodes.push(node);
+    if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) elements.push(node);
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+  function strings(expression) {
+    if (!expression) return [];
+    if (ts.isStringLiteralLike(expression)) return [expression.text];
+    if (ts.isIdentifier(expression)) return strings(declarations.get(expression.text));
+    if (ts.isConditionalExpression(expression)) return [...strings(expression.whenTrue), ...strings(expression.whenFalse)];
+    if (ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression)) {
+      const object = declarations.get(expression.expression.text);
+      if (object && ts.isObjectLiteralExpression(object)) {
+        const property = object.properties.find(p => ts.isPropertyAssignment(p) && p.name.getText(source) === expression.name.text);
+        return property ? strings(property.initializer) : [];
+      }
+    }
+    return [];
+  }
+  const rendered = textNodes.flatMap(node => node.children.flatMap(child => {
+    if (ts.isJsxText(child)) return child.text.trim() ? [child.text.trim()] : [];
+    return ts.isJsxExpression(child) ? strings(child.expression) : [];
+  }));
+  function attribute(tag, name) {
+    const element = elements.find(node => node.tagName.getText(source) === tag);
+    const attr = element?.attributes.properties.find(p => ts.isJsxAttribute(p) && p.name.text === name);
+    return attr ? staticJsxAttributeValue(attr) : undefined;
+  }
+  return { rendered, attribute };
+}
+
+function firstWelcomeDestination(defaultBlocks) {
+  const source = parseAppSource('defaultBlocks.ts', defaultBlocks);
+  const blocks = [];
+  const property = (object, name) => ts.isObjectLiteralExpression(object ?? {})
+    ? object.properties.find(node => ts.isPropertyAssignment(node)
+      && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === name)?.initializer
+    : undefined;
+  function visit(node) {
+    if (ts.isObjectLiteralExpression(node)) {
+      const id = property(node, 'id');
+      if (id && ts.isStringLiteralLike(id) && id.text === 'block:lesson-1:intro') blocks.push(node);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+  assert.equal(blocks.length, 1, 'expected one real first lesson block');
+  const steps = property(blocks[0], 'steps');
+  const step = steps && ts.isArrayLiteralExpression(steps) ? property(steps.elements[0], 'step') : undefined;
+  const type = property(step, 'type');
+  assert.ok(type && ts.isStringLiteralLike(type) && type.text === 'context', 'expected first learning context');
+  const body = property(property(step, 'payload'), 'body');
+  return body && ts.isStringLiteralLike(body) ? body.text : undefined;
+}
+
+test('reads the welcome destination from actual syntax, ignoring commented fake payload', () => {
+  const fixture = `const blocks = [
+    {
+        // id: 'block:lesson-1:intro',
+        // body: 'CORPO FANTASMA',
+        id: 'block:lesson-1:intro',
+        steps: [{ step: { type: 'context', payload: { body: 'CORPO REAL' } } }]
+    },
+    {
+        id: 'block:review:lesson-1'
+    }
+  ];`;
+  assert.equal(firstWelcomeDestination(fixture), 'CORPO REAL');
+});
+
+test('ties the single welcome bench and resume flows to rendered copy and a real kV change', async () => {
+  const [screenSource, introductionSource, subflow, defaultBlocks] = await Promise.all([
     readAppFile('src/features/first-run/screens/WelcomeFlowScreen.tsx'),
-    readAppFile('.maestro/first-run.yaml'),
-    readAppFile('.maestro/subflows/dismiss-first-run.yaml'),
+    readAppFile('src/features/first-run/components/WelcomeSlide.tsx'),
+    flowCommands('subflows/dismiss-first-run.yaml'),
     readAppFile('src/data/journey/defaultBlocks.ts'),
   ]);
-
-  const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-  const slidesBlock = screen.match(/const SLIDES: SlideSpec\[\] = \[([\s\S]*?)\n\];/)?.[1];
-  assert.ok(slidesBlock, 'expected a SLIDES array in WelcomeFlowScreen.tsx');
-
-  const titles = [...slidesBlock.matchAll(/title: '([^']+)'/g)].map((match) => match[1]);
-  assert.ok(titles.length > 0, 'expected at least one slide title in SLIDES');
-
-  const footnote = slidesBlock.match(/footnote:\s*\n\s*'([^']+)'/)?.[1];
-  assert.ok(footnote, 'expected the third slide to declare a footnote');
-
-  // N vem do próprio array, nunca de um literal cravado: um slide a mais ou a
-  // menos em SLIDES não pode silenciosamente destravar este contrato.
-  const slideCount = titles.length;
-
-  titles.forEach((title, index) => {
-    const step = index + 1;
-
-    // O padrão precisa começar por "Tela {step} de {slideCount}\. " seguido do
-    // título com os metacaracteres escapados, ancorado em `^` e fechado por
-    // `.*$` — é o único jeito de casar contra o rótulo de grupo, que continua
-    // com o corpo do slide depois do título.
-    const expectedAssertion = `- assertVisible: '^Tela ${step} de ${slideCount}\\. ${escapeForRegExp(title)}.*$'`;
-    assert.match(
-      flow,
-      new RegExp(`^${escapeForRegExp(expectedAssertion)}$`, 'm'),
-      `expected .maestro/first-run.yaml to assertVisible slide ${step} anchored on "Tela ${step} de ${slideCount}. ${title}"`
-    );
-
-    // Formato antigo proibido explicitamente: o título sozinho, sem a âncora
-    // "Tela N de M", é exatamente o padrão que passou a casar vácuo depois da
-    // correção de a11y (o nó nunca mais expõe o título isolado). Só exigir o
-    // formato novo, sem banir o antigo, deixaria a regressão voltar por um
-    // caminho que este contrato não olha.
-    const bareAssertion = `- assertVisible: '${title}'`;
-    assert.doesNotMatch(
-      flow,
-      new RegExp(`^${escapeForRegExp(bareAssertion)}$`, 'm'),
-      `first-run.yaml must not assertVisible the bare slide title "${title}" without the "Tela N de M" anchor`
-    );
-  });
-
-  // O aviso legal é exigência da ficha da loja e mora no fim do rótulo da
-  // tela 3: âncora só no fim (`.*` no começo, `$` no fim), separado da
-  // asserção do título para falhar sozinho quando sumir.
-  const expectedFootnoteAssertion = `- assertVisible: '.*${escapeForRegExp(footnote)}$'`;
-  assert.match(
-    flow,
-    new RegExp(`^${escapeForRegExp(expectedFootnoteAssertion)}$`, 'm'),
-    `expected .maestro/first-run.yaml to assertVisible the footnote anchored at the end ("${footnote}")`
-  );
-
-  const skipLabel = screen.match(/<Pressable[\s\S]*?accessibilityLabel="([^"]+)"[\s\S]*?styles\.skip/)?.[1];
-  assert.ok(skipLabel, 'expected the skip Pressable to declare an accessibilityLabel');
-
-  const escapedSkipLabel = escapeForRegExp(skipLabel);
-  assert.match(
-    subflow,
-    new RegExp(`visible: '${escapedSkipLabel}'`),
-    `expected dismiss-first-run.yaml to guard on the skip control's accessibilityLabel ("${skipLabel}")`
-  );
-  assert.match(
-    subflow,
-    new RegExp(`tapOn: '${escapedSkipLabel}'`),
-    `expected dismiss-first-run.yaml to tap the skip control by its accessibilityLabel ("${skipLabel}")`
-  );
-
-  // O flow antes terminava em "a apresentação sumiu" — um predicado que fica
-  // verde tanto na Home quanto numa tela vazia. A primeira vitória precisa
-  // provar o destino positivo, e a copy vem do bloco que a instalação limpa
-  // realmente abre, não de um literal duplicado dentro deste teste.
-  const firstLessonBlock = defaultBlocks.match(
-    /id: 'block:lesson-1:intro',[\s\S]*?(?=\n    \},\n    \{\n        id: 'block:review:lesson-1')/
-  )?.[0];
-  assert.ok(firstLessonBlock, 'expected defaultBlocks.ts to declare block:lesson-1:intro');
-
-  const firstLessonBody = firstLessonBlock.match(/body: '([^']+)'/)?.[1];
-  assert.ok(firstLessonBody, 'expected the first lesson context step to declare a body');
-
-  const destinationAssertion = `- assertVisible: '${firstLessonBody}'`;
-  assert.match(
-    flow,
-    new RegExp(`^${escapeForRegExp(destinationAssertion)}$`, 'm'),
-    'expected first-run.yaml to prove that Começar opens the first learning step'
-  );
-  assert.ok(
-    flow.indexOf(destinationAssertion) > flow.indexOf("- tapOn: 'Começar'"),
-    'the first learning-step assertion must happen after tapping Começar'
-  );
-
-  // ENABLE_LEARNING_ROAD é true em todos os perfis do eas.json e por default, e a
-  // HomeScreen clássica (única consumidora do card Day-0) nunca renderiza — a
-  // ausência da chave @radiant/first_run_v1 é o único gatilho real da
-  // apresentação. Sem clearState, o flow passaria vacuamente na segunda execução.
-  assert.match(flow, /clearState: true/);
+  const welcome = welcomeSourceContract(screenSource, 'WelcomeFlowScreen.tsx');
+  const introduction = welcomeSourceContract(introductionSource, 'WelcomeSlide.tsx');
+  const greeting = introduction.rendered.find(value => value.startsWith('Oi, eu sou o Pixel.'));
+  const instruction = welcome.rendered.find(value => value.startsWith('Ajuste o kV'));
+  const high = welcome.rendered.find(value => value.startsWith('Tudo cinza parecido:'));
+  const notice = welcome.rendered.find(value => value.startsWith('Radiant é um app educacional.'));
+  const continueLabel = welcome.attribute('AppButton', 'label');
+  const skipLabel = welcome.attribute('Pressable', 'accessibilityLabel');
+  assert.ok(greeting && instruction && high && notice && continueLabel && skipLabel, 'expected copy actually consumed by welcome JSX');
+  const skipFlow = subflow.find(command => command.runFlow)?.runFlow;
+  assert.equal(skipFlow?.when?.visible, skipLabel);
+  assert.ok(skipFlow?.commands?.some(command => command.tapOn === skipLabel), 'skip command must exist in parsed YAML, not a comment');
+  for (const name of ['first-run.yaml', 'radiant-1-4-primeira-execucao.yaml']) {
+    const commands = await flowCommands(name);
+    const all = everyCommand(commands);
+    const asserts = all.filter(command => typeof command.assertVisible === 'string').map(command => command.assertVisible);
+    for (const value of [greeting, instruction, high]) assert.ok(asserts.some(selector => new RegExp(selector).test(value)), `${name}: missing rendered welcome copy ${value}`);
+    assert.ok(!asserts.some(selector => /Tela [123] de 3/.test(selector)), `${name}: obsolete slides`);
+    const repeat = commands.find(command => command.repeat?.commands?.some(item => item.tapOn === 'Aumentar kV'));
+    assert.equal(repeat?.repeat.times, 8, `${name}: eight actual +5 kV changes reach 100 from 60`);
+    assert.ok(asserts.some(selector => new RegExp(selector).test('100 kV')), `${name}: prove changed control value`);
+    const advance = commands.findIndex(command => command.tapOn === continueLabel);
+    const adjust = commands.indexOf(repeat);
+    assert.ok(adjust >= 0 && advance > adjust, `${name}: change kV before leaving welcome`);
+    const firstLessonBody = firstWelcomeDestination(defaultBlocks);
+    assert.ok(firstLessonBody);
+    assert.ok(commands.findIndex(command => command.assertVisible === firstLessonBody) > advance, `${name}: prove positive first lesson destination after Continue`);
+    if (name === 'first-run.yaml') assert.ok(asserts.some(selector => new RegExp(selector).test(notice)), 'preserve educational notice');
+    assert.ok(commands.some(command => command.launchApp?.clearState === true));
+  }
+  for (const name of ['student-checkpoint-active-resume.yaml', 'student-checkpoint-short-viewport.yaml']) {
+    const commands = await flowCommands(name);
+    const resume = commands.findIndex(command => command.tapOn === 'Retomar estudo');
+    assert.ok(resume >= 0);
+    assert.ok(commands.slice(resume + 1).some(command => command.assertVisible === instruction), `${name}: resume the single welcome bench`);
+    assert.ok(!commands.some(command => command.tapOn === continueLabel), `${name}: do not finish welcome before creating a resumable checkpoint`);
+  }
 });
 
 test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
@@ -853,6 +858,7 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
   // alcancavel rolando. A regra pede um `assertVisible` que espere a tela; o
   // elemento escolhido para isso precisa ser visivel ANTES de qualquer rolagem.
   for (const name of [
+    'first-run.yaml',
     'learning-critical-path.yaml',
     'offline-relaunch.yaml',
     'reward-unlock.yaml',

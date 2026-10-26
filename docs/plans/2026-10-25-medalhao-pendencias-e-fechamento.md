@@ -202,14 +202,17 @@ da validação se houver contenção; não segurar uma sessão sem necessidade.
 `radiant-app/scripts/visual-qa-policy.json`, `.github/workflows/radiant-app-quality.yml`.
 **Modificar:** só a documentação canônica se houver divergência medida.
 
-- [ ] Conferir ref remoto, PR #66/#67 e checks do **mesmo SHA**; registrar a base.
-- [ ] Conferir que as exceções já estão em 30/11/2026 na branch, sem esperar o merge da #67.
-- [ ] Identificar trabalho paralelo; não absorver arquivos de outra sessão.
-- [ ] Abrir a sessão de leitura do cérebro, consultar e encerrar após responder à pergunta de contexto.
-- [ ] Produzir o ledger de execução; nenhuma tarefa de produto é marcada feita aqui.
+- [x] Conferir ref remoto, PR #66/#67 e checks do **mesmo SHA**; registrar a base.
+- [x] Conferir que as exceções já estão em 30/11/2026 na branch, sem esperar o merge da #67.
+- [x] Identificar trabalho paralelo; não absorver arquivos de outra sessão.
+- [x] Abrir a sessão de leitura do cérebro, consultar e encerrar após responder à pergunta de contexto.
+- [x] Produzir o ledger de execução; nenhuma tarefa de produto é marcada feita aqui.
 
 **Aceite:** base conhecida, política conferida, dependências locais presentes;
 nenhuma renovação automática de prazo, build ou acesso ao simulador reservado.
+
+**Registro:** preflight revisado e registrado junto de T01 no commit55e21ae;
+[prova e limites](../evidence/2026-10-25-medalhao-t01.md).
 
 ### T01 — Guarda AST do texto e vocabulário da trilha
 
@@ -221,20 +224,23 @@ nenhuma renovação automática de prazo, build ou acesso ao simulador reservado
 `radiant-app/scripts/maestro-contract.test.mjs` e os YAMLs realmente consumidores.
 **Reutilizar:** `radiant-app/scripts/ast-helpers.mjs`.
 
-- [ ] Medir o domínio da guarda: copy de UI em `radiant-app/src` e fontes de
+- [x] Medir o domínio da guarda: copy de UI em `radiant-app/src` e fontes de
   copy importadas pelas telas; identificar separadamente conteúdo clínico,
   textos legais e nomes internos que não são copy.
-- [ ] Criar fixtures AST que reprovem cada padrão proibido e aceitem comentário,
+- [x] Criar fixtures AST que reprovem cada padrão proibido e aceitem comentário,
   identificador interno e traço com significado legítimo. Ver falhar cada asserção.
-- [ ] Trocar "Continuar jornada" e os demais rótulos pelo glossário junto com
+- [x] Trocar "Continuar jornada" e os demais rótulos pelo glossário junto com
   seus YAMLs e o contrato. Remedir consumidores; não copiar a contagem antiga de sete.
-- [ ] Ligar a guarda ao `quality`; cada tarefa seguinte reduz a baseline do
+- [x] Ligar a guarda ao `quality`; cada tarefa seguinte reduz a baseline do
   seu arquivo. Baseline não é permissão para deixar resíduo para sempre.
-- [ ] Rodar `node --test scripts/copy-style-contract.test.mjs scripts/maestro-contract.test.mjs`
+- [x] Rodar `node --test scripts/copy-style-contract.test.mjs scripts/maestro-contract.test.mjs`
   em `radiant-app`, revisar, registrar e commitar os arquivos exatos.
 
 **Aceite:** violações novas reprovam; o domínio e as exclusões justificadas
 ficam explícitos. T17 exige zero violações nesse domínio, sem exceção escondida.
+
+**Entrega técnica:** commit55e21ae, revisão R4 e Loop15/15; CI App Quality239
+e Content144 aprovados nesse SHA. [Evidência](../evidence/2026-10-25-medalhao-t01.md).
 
 ### T02 — HUD: um coração e o número
 
@@ -273,15 +279,24 @@ sem aceite de pulso nativo/leitor de tela/ilimitado nativo.
 na pasta da tela, e `WelcomeSlide.test.tsx` na pasta do componente.
 **Reutilizar:** `radiant-app/src/features/bench/ExposureImage.tsx`,
 `BenchControlRow.tsx` e `exposureModel.ts` na mesma pasta.
+**Escopo nativo ampliado em26/10:** modificar também `BenchControlRow.tsx`
+e seu teste para acomodar texto ampliado, preservando API/modelo/alvos.
+O iOS máximo reprovou o layout inicial; fix2 e nova prova foram aprovados na R3.
 
-- [ ] Testar fluxo inicial, replay de Ajustes, saída/pular, retomada e `onFinish` uma vez.
-- [ ] Observar o vermelho do primeiro contato sem bancada e da área de toque de Pular.
-- [ ] Reusar o modelo digital; nenhuma regra física diferente só no onboarding.
-- [ ] Manter a instrução necessária fora da fala opcional do Pixel.
-- [ ] Rodar testes focais com CPU limitada e conferir safe areas e texto máximo.
+- [x] Testar fluxo inicial, replay de Ajustes, saída/pular, retomada e `onFinish` uma vez.
+- [x] Observar o vermelho do primeiro contato sem bancada e da área de toque de Pular.
+- [x] Reusar o modelo digital; nenhuma regra física diferente só no onboarding.
+- [x] Manter a instrução necessária fora da fala opcional do Pixel.
+- [x] Rodar testes focais com CPU limitada e conferir safe areas e texto máximo.
 
 **Aceite:** primeira ação real de kV, saída alcançável, cadastro não exigido,
 reentrada preservada e nenhuma conclusão de onboarding duplicada.
+
+**Entrega técnica em 26/10:** R4 aprovada e Loop15/15, com suíte completa.
+Primeiro gate teve14/15 por TS7006 nos testes; somente anotações de tipo
+foram corrigidas após a prova nativa, cujo runtime permaneceu idêntico.
+[Evidência, oito PNGs e limites](../evidence/2026-10-26-medalhao-t03.md).
+G2 permanece pendente; próxima T04.
 
 ### T04 — Fechar as lacunas da aula: abertura, explicação e retorno
 

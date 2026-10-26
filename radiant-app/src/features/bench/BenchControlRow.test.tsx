@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import type { BenchControl } from '../../types/learningActivity';
@@ -193,4 +193,46 @@ describe('BenchControlRow', () => {
         expect(onChange).not.toHaveBeenCalled();
         expect(getByLabelText('Tensão').props.accessibilityState.disabled).toBe(true);
     });
+    it('texto máximo deixa label e valor crescerem em coluna sem teto de parágrafo', () => {
+        const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
+        try {
+            const result = render(<Harness onChange={jest.fn()} />);
+            const label = result.getByText('Tensão');
+            const value = result.getByText('70 kV');
+            for (const text of [label, value]) {
+                const style = StyleSheet.flatten(text.props.style);
+                expect(style.lineHeight).toBeUndefined();
+                expect(style.flexShrink).toBe(0);
+                expect(text.props.numberOfLines).toBeUndefined();
+                expect(text.props.allowFontScaling).not.toBe(false);
+                expect(text.props.maxFontSizeMultiplier).toBeUndefined();
+            }
+            const header = result.UNSAFE_getAllByType(View).find(view => StyleSheet.flatten(view.props.style)?.justifyContent === 'space-between');
+            expect(StyleSheet.flatten(header?.props.style).flexDirection).toBe('column');
+            expect(StyleSheet.flatten(header?.props.style).alignItems).toBe('stretch');
+            fireEvent.press(result.getByLabelText('Aumentar Tensão'));
+            expect(result.getByText('80 kV')).toBeTruthy();
+        } finally { dimensions.mockRestore(); }
+    });
+
+    it('texto máximo conserva alvo mínimo48 e deixa os símbolos crescerem sem altura fixa', () => {
+        const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
+        try {
+            const result = render(<Harness onChange={jest.fn()} />);
+            for (const symbol of ['−', '+']) {
+                const text = result.getByText(symbol);
+                expect(StyleSheet.flatten(text.props.style).lineHeight).toBeUndefined();
+                expect(text.props.allowFontScaling).not.toBe(false);
+                expect(text.props.maxFontSizeMultiplier).toBeUndefined();
+            }
+            for (const name of ['Diminuir Tensão', 'Aumentar Tensão']) {
+                const style = StyleSheet.flatten(result.getByLabelText(name).props.style);
+                expect(style.minHeight).toBeGreaterThanOrEqual(48);
+                expect(style.minWidth).toBeGreaterThanOrEqual(48);
+                expect(style.height).toBeUndefined();
+                expect(style.maxHeight).toBeUndefined();
+            }
+        } finally { dimensions.mockRestore(); }
+    });
+
 });

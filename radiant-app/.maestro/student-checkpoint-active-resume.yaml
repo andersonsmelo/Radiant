@@ -16,9 +16,9 @@ tags:
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
-- assertVisible: 'Tela 1 de 3\..*'
-- tapOn: Continuar
-- assertVisible: 'Tela 2 de 3\..*'
+- assertVisible: 'Ajuste o kV e veja a imagem mudar.'
+- tapOn: 'Aumentar kV'
+- assertVisible: '65 kV'
 - setAirplaneMode: enabled
 - killApp
 - launchApp:
@@ -26,9 +26,9 @@ tags:
       radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 - assertVisible: 'Continuar de onde você parou\?'
-- assertNotVisible: 'Tela 2 de 3\..*'
+- assertNotVisible: 'Ajuste o kV e veja a imagem mudar.'
 - tapOn: Retomar estudo
-- assertVisible: 'Tela 2 de 3\..*'
+- assertVisible: 'Ajuste o kV e veja a imagem mudar.'
 - tapOn: Pular apresentação
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
 # A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar

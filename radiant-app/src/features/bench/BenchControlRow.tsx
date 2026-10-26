@@ -6,6 +6,7 @@ import type { BenchControl } from '../../types/learningActivity';
 import { galaxyColors } from '../../ui/theme';
 import { semanticColors } from '../../ui/semantic-colors';
 import { radius, space, typography } from '../../ui/styles';
+import { useLargeTextLayout } from '../../ui/accessibility/useLargeTextLayout';
 
 /** Alvo mínimo de toque dos botões − e +: 48 dp (spec da bancada, seção 8). */
 const TOUCH_TARGET = 48;
@@ -62,6 +63,7 @@ export function BenchControlRow({
   disabled?: boolean;
 }): React.ReactElement {
   const [live, setLive] = useState<number | null>(null);
+  const largeText = useLargeTextLayout();
 
   const text = `${value} ${control.unit}`;
   const atMin = value <= control.min;
@@ -95,9 +97,9 @@ export function BenchControlRow({
 
   return (
     <View style={styles.row}>
-      <View style={styles.header}>
-        <Text style={styles.label}>{control.label}</Text>
-        <Text style={styles.value} accessibilityLiveRegion="polite">
+      <View style={[styles.header, largeText && styles.headerLarge]}>
+        <Text style={[styles.label, largeText && styles.naturalText]}>{control.label}</Text>
+        <Text style={[styles.value, largeText && styles.naturalText]} accessibilityLiveRegion="polite">
           {text}
         </Text>
       </View>
@@ -110,9 +112,9 @@ export function BenchControlRow({
           accessibilityLabel={`Diminuir ${control.label}`}
           accessibilityHint={`Tira um passo de ${stepOf(control)} ${control.unit}.`}
           accessibilityState={{ disabled: disabled || atMin }}
-          style={[styles.button, (disabled || atMin) && styles.buttonOff]}
+          style={[styles.button, largeText && styles.buttonLarge, (disabled || atMin) && styles.buttonOff]}
         >
-          <Text style={styles.buttonSymbol}>−</Text>
+          <Text style={[styles.buttonSymbol, largeText && styles.naturalText]}>−</Text>
         </Pressable>
 
         <View
@@ -149,9 +151,9 @@ export function BenchControlRow({
           accessibilityLabel={`Aumentar ${control.label}`}
           accessibilityHint={`Soma um passo de ${stepOf(control)} ${control.unit}.`}
           accessibilityState={{ disabled: disabled || atMax }}
-          style={[styles.button, (disabled || atMax) && styles.buttonOff]}
+          style={[styles.button, largeText && styles.buttonLarge, (disabled || atMax) && styles.buttonOff]}
         >
-          <Text style={styles.buttonSymbol}>+</Text>
+          <Text style={[styles.buttonSymbol, largeText && styles.naturalText]}>+</Text>
         </Pressable>
       </View>
     </View>
@@ -163,6 +165,9 @@ const galaxy = semanticColors.galaxy;
 const styles = StyleSheet.create({
   row: { gap: space.s1 },
   header: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between' },
+  headerLarge: { flexDirection: 'column', alignItems: 'stretch', gap: space.s1 },
+  // Sem teto de parágrafo na escala acessível; a caixa acompanha a fonte.
+  naturalText: { lineHeight: undefined, flexShrink: 0 },
   label: { ...typography.bodyStrong, color: galaxy.textPrimary },
   value: { ...typography.bodyStrong, color: galaxy.statusInformation },
   controls: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
@@ -176,6 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonLarge: { paddingHorizontal: space.s1, paddingVertical: space.s1 },
   buttonOff: { opacity: 0.4 },
   buttonSymbol: { ...typography.h3, color: galaxy.textPrimary },
   sliderFrame: { flex: 1, minHeight: TOUCH_TARGET, justifyContent: 'center' },

@@ -257,8 +257,14 @@ e aula. Validação Loop **15/15** na segunda tentativa (primeira:14/15,
 app-quality timeout), writer `run-1793011345601-6bbdc725`. Prova visual finito5
 e abertura da folha em iOS/Android nos binários existentes, sem build.
 [Entrega, revisões e limites nativos](evidence/2026-10-26-medalhao-t02.md).
-CI do novo commit ainda não medido neste registro; próxima tarefa: T03.
-T03–T22/T04a permanecem pendentes. Nenhum gate G1–G8
+T03 boas-vindas implementada e revisada em 26/10 (R4), com bancada real,
+reentrada preservada e texto ampliado conferido no iOS/Android. Validação
+final **15/15** na segunda tentativa: a primeira teve oito TS7006 em dois
+arquivos de teste, corrigidos com anotações de tipo. As duas execuções de
+`app-test` completo passaram. Writer `run-1793031412630-67f7d689`.
+Próxima tarefa: T04, lacunas da aula; CI do novo commit ainda não medido.
+[Prova e limites](evidence/2026-10-26-medalhao-t03.md).
+T04–T22/T04a permanecem pendentes. Nenhum gate G1–G8
 foi consumido; segundo dia fica no fechamento, reservado intocado.
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
@@ -268,10 +274,10 @@ no QuizTopBar: o nativo da aula mostrou que esse consumidor separado ainda
 precisava da mudança. No HUD finito,
 um coração e a contagem; no ilimitado, apenas ∞.
 
-**Base remota desta execução:** `e3dca6e`; App Quality `40212275739` e Content
-Scripts `40212275878` concluídos com sucesso nesse SHA. PRs #66/#67 abertas e
-mergeáveis na leitura MCP do preflight. Esses checks não provam o futuro SHA
-da entrega T01; a evidência desta entrega é a validação local do Loop.
+**CI T02 medido em 26/10:** commit `9b8b3b6`, Content Scripts145/
+`40349301072` e App Quality240/`40349302763` concluídos com sucesso.
+T01 no55e21ae já tinha ambos aprovados. Checks do preflight e commits
+anteriores não provam o novo SHA.
 
 **Ordem decidida pelo dono em 2026-10-25:** avançar no restante do layout e
 fazer a conferência de segundo dia no fechamento. A data do simulador não

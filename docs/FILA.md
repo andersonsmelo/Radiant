@@ -482,7 +482,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Execução iniciada em 25/10 por autorização posterior do dono:** T00
     reconciliado/revisado; T01 guarda AST e CTA revisados e validados (15/15 Loop).
     T02 HUD implementada/revisada em 26/10, Loop15/15 e prova visual finito5
-    na trilha/aula em iOS/Android; próxima T03 boas-vindas. Limites em STATUS.
+    na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
+    26/10, Loop15/15 e prova nativa de texto ampliado. Próxima T04.
+    Limites em STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
