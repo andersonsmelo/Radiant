@@ -343,7 +343,8 @@ AST R5 do Pixel no explorar. Os dois scripts da guarda e seus contratos foram
 declarados no writer substituto antes de editar, sem ampliar política, baseline
 ou exceções. Writer e sessão de leitura encerrados; commit `e522984` publicado.
 CI App Quality242 e Content Scripts147 aprovados nesse SHA, conferidos em
-27/10/2026. T04a é a próxima entrega técnica, ainda não iniciada.
+27/10/2026. Naquele fechamento T04a ainda não havia iniciado; sua execução
+subsequente está registrada na seção própria abaixo.
 G2/T14 e os gates de liberação continuam pendentes.
 [Evidência e limites](../evidence/2026-10-26-medalhao-t04.md).
 
@@ -360,21 +361,30 @@ mock local: `radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx`,
 já listado. **Criar:** `radiant-app/src/test/mocks/reactNativeSkia.tsx` e
 `radiant-app/src/test/mocks/reactNativeSkia.test.tsx`.
 
-- [ ] Caracterizar as APIs controladas pelos mocks existentes: runtime effect,
+- [x] Caracterizar as APIs controladas pelos mocks existentes: runtime effect,
   Canvas/uniformes, Skottie e fallback. Não trocar tudo por `View` opaca que
   esconda valores ou impeça simular falha de compilação.
-- [ ] Fazer o teste do contrato de importação falhar com o `require`
+- [x] Fazer o teste do contrato de importação falhar com o `require`
   preguiçoso; não atribuir erro de carregamento do Jest ao aplicativo nativo.
-- [ ] Mapear Skia no Jest para o dublê compartilhado; manter overrides locais
+- [x] Mapear Skia no Jest para o dublê compartilhado; manter overrides locais
   necessários a cada cenário, sem apagar as asserções úteis.
-- [ ] Trocar o registro para import estático e rodar o conjunto completo dos
+- [x] Trocar o registro para import estático e rodar o conjunto completo dos
   seis arquivos, além do novo teste do dublê, antes da validação final.
-- [ ] Manter verdes os casos em que compilação nula/exceção recebe o fallback
+- [x] Manter verdes os casos em que compilação nula/exceção recebe o fallback
   correto. Injetar ausência de uniformes e defeito/remoção desse fallback para
   ver as respectivas guardas reprovarem. A prova de shader real segue nativa.
 
 **Aceite:** import estático seguro no Jest, contrato existente preservado e
 sem alegar que o dublê comprova rasterização ou custo no dispositivo.
+
+**Execução em 27/10:** import estático e dublê global observável implementados;
+revisão independente R1 Spec PASS/Qualidade APPROVED, sem achados acionáveis.
+Sete suítes/184 testes, tipagem e lint focal aprovados; sete injeções
+específicas detectadas e restauradas por SHA. Dois avisos act reproduzidos
+na baseline, sem novo ruído. Validação final configurada **15/15**, em ciclo
+único (quality/app-test completos); run `run-1793114254111-2eade8f7`.
+[Evidência, parecer e limites](../evidence/2026-10-27-medalhao-t04a.md).
+T05 é a próxima entrega; nenhum gate humano foi consumido.
 
 ### T05 — Resultado: cunhagem, estrelas e contexto correto
 

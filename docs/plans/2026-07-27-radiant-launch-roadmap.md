@@ -47,8 +47,11 @@ T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5
 na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
 26/10, Loop15/15 e prova de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
 Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
-Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. Próxima
-entrega técnica: T04a (dublê global Skia e importação estática), ainda pendente.
+Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
+implementada e revisada em 27/10 (Spec PASS/Qualidade APPROVED), com import
+estático e dublê Skia observável: 7 suítes/184 testes e sete mutações detectadas.
+Validação final T04a **15/15**, em ciclo único, com quality/app-test completos. [Evidência](../evidence/2026-10-27-medalhao-t04a.md).
+Próxima entrega: T05 (resultado); gates humanos preservados.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

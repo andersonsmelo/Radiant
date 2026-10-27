@@ -19,23 +19,6 @@ jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
     useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: true, resolved: true }),
 }));
 
-jest.mock('@shopify/react-native-skia', () => {
-    const ReactInMock = require('react');
-    const { View } = require('react-native');
-    const host = (name: string) => {
-        const Host = ({ children, ...props }: { children?: unknown }) =>
-            ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-        Host.displayName = name;
-        return Host;
-    };
-    return {
-        Canvas: host('Canvas'),
-        Fill: host('Fill'),
-        Shader: host('Shader'),
-        Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
-    };
-});
-
 const HIDDEN = { includeHiddenElements: true };
 
 const controls: BenchControl[] = [
@@ -392,7 +375,6 @@ describe('BenchStepRenderer', () => {
         });
     });
 });
-
 
 it('T04 o explorar nomeia o efeito com Pixel mantendo a instrução independente', () => {
     const interaction = bench(reach);

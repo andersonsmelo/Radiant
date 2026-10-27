@@ -157,6 +157,13 @@ permanece a referência de estado vivo; gates humanos não foram consumidos.
 - **Dono:** I/high; **revisão:** R. **Skills:** T; **recursos:** Jest/contratos, D condicional.
 - **Pré-requisito:** T04 estabilizada no registro. **Saída:** seis testes consumidores e dublê cobertos; falha de compilação/uniformes/fallback exercitada; sem alegar prova de shader real.
 
+Registro T04a em 27/10/2026: implementação I/high e revisão independente R/high
+R1 aprovadas (Spec PASS/Qualidade APPROVED), 7 suítes/184 testes e sete
+mutações detectadas; validação final configurada **15/15** em ciclo único,
+run `run-1793114254111-2eade8f7`.
+[Evidência](../evidence/2026-10-27-medalhao-t04a.md). Próximo cartão: Task7/T05
+com os pré-requisitos técnicos T04/T04a satisfeitos, sem consumir G1–G8.
+
 ### Task 7: T05 — Resultado
 
 - **Dono:** I/high; **revisão:** R. **Skills:** T, U, A; **recursos:** Jest, contratos de movimento, nativo.

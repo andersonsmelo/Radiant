@@ -66,22 +66,6 @@ jest.mock('@react-native-async-storage/async-storage', () => require('@react-nat
 
 // A bancada desenha com Skia, que o Jest não rasteriza: o dublê deixa a tela da
 // lição montar a bancada. O que se mede aqui é o texto do retorno, não a imagem.
-jest.mock('@shopify/react-native-skia', () => {
-  const ReactInMock = require('react');
-  const { View } = require('react-native');
-  const host = (name: string) => {
-    const Host = ({ children, ...props }: { children?: unknown }) =>
-      ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-    Host.displayName = name;
-    return Host;
-  };
-  return {
-    Canvas: host('Canvas'),
-    Fill: host('Fill'),
-    Shader: host('Shader'),
-    Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
-  };
-});
 
 jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
 
@@ -1407,7 +1391,6 @@ describe('LessonFlowScreen — revisão da trilha não custa vida', () => {
   });
 });
 
-
 describe('FILA 58 — integração do motor híbrido', () => {
   const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService');
   const { heartsRepository } = require('../../hearts/HeartsRepository');
@@ -2095,7 +2078,6 @@ describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', (
   });
 });
 
-
 describe('T04 — abertura, retorno e botão apto', () => {
   const closing = promotedActivityFixture.steps[2];
   const shell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
@@ -2200,7 +2182,6 @@ describe('T04 — abertura, retorno e botão apto', () => {
     expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBeUndefined();
   });
 });
-
 
 describe('T04 fix1 — contagem com texto ampliado', () => {
   it('deixa a contagem crescer pelas métricas nativas, sem comprimir a linha', async () => {

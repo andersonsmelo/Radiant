@@ -1,4 +1,7 @@
 import React from 'react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import * as ts from 'typescript';
 import { render, fireEvent } from '@testing-library/react-native';
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
 import {
@@ -11,23 +14,7 @@ import { ReinforceStepRenderer } from './ReinforceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
-// A bancada desenha o fantoma com Skia, que o Jest não rasteriza.
-jest.mock('@shopify/react-native-skia', () => {
-    const ReactInMock = require('react');
-    const { View } = require('react-native');
-    const host = (name: string) => {
-        const Host = ({ children, ...props }: { children?: unknown }) =>
-            ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-        Host.displayName = name;
-        return Host;
-    };
-    return {
-        Canvas: host('Canvas'),
-        Fill: host('Fill'),
-        Shader: host('Shader'),
-        Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
-    };
-});
+// O mapper global do Jest expõe os inputs de Skia sem rasterizar o fantoma.
 
 function multipleChoice(overrides: Partial<LearningInteractionV2> = {}): LearningInteractionV2 {
     return {
@@ -52,6 +39,43 @@ function multipleChoice(overrides: Partial<LearningInteractionV2> = {}): Learnin
 }
 
 describe('ActivityRendererRegistry', () => {
+    it('importa a bancada estaticamente e usa o binding no JSX, sem require preguiçoso', () => {
+        const source = ts.createSourceFile(
+            'ActivityRendererRegistry.tsx',
+            readFileSync(join(__dirname, 'ActivityRendererRegistry.tsx'), 'utf8'),
+            ts.ScriptTarget.Latest,
+            true,
+            ts.ScriptKind.TSX,
+        );
+        const benchImport = source.statements.find((node): node is ts.ImportDeclaration =>
+            ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier) &&
+            node.moduleSpecifier.text === './BenchStepRenderer',
+        );
+        expect(benchImport).toBeDefined();
+        const bindings = benchImport?.importClause?.namedBindings;
+        expect(bindings && ts.isNamedImports(bindings)).toBe(true);
+        if (!bindings || !ts.isNamedImports(bindings)) return;
+        const imported = bindings.elements.find((node) =>
+            (node.propertyName ?? node.name).text === 'BenchStepRenderer',
+        );
+        expect(imported).toBeDefined();
+        expect(benchImport?.importClause?.isTypeOnly).toBe(false);
+        expect(imported?.isTypeOnly).toBe(false);
+        const tags: string[] = [];
+        const lazyImports: string[] = [];
+        const visit = (node: ts.Node) => {
+            if (ts.isJsxSelfClosingElement(node) && ts.isIdentifier(node.tagName)) tags.push(node.tagName.text);
+            if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'require') {
+                for (const argument of node.arguments) {
+                    if (ts.isStringLiteral(argument)) lazyImports.push(argument.text);
+                }
+            }
+            ts.forEachChild(node, visit);
+        };
+        visit(source);
+        expect(tags).toContain(imported?.name.text);
+        expect(lazyImports).not.toContain('./BenchStepRenderer');
+    });
     it('resolve o tipo registrado e renderiza o enunciado e as opções', () => {
         const { getByText } = render(
             <ActivityInteractionRenderer interaction={multipleChoice()} value={undefined} onChange={jest.fn()} />,
@@ -199,7 +223,6 @@ describe('ActivityRendererRegistry', () => {
     });
 });
 
-
 it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na tela', () => {
     const onChange = jest.fn();
     const { getByLabelText } = render(<ActivityInteractionRenderer
@@ -210,7 +233,6 @@ it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na t
     expect(onChange).not.toHaveBeenCalled();
     expect(getByLabelText('Ar')).toBeTruthy();
 });
-
 
 it('T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta', () => {
     const interaction = multipleChoice();

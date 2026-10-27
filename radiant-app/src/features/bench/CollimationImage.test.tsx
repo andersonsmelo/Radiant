@@ -11,23 +11,6 @@ import { REFERENCE_EXPOSURE, exposureModel } from './exposureModel';
 // asserções recaem sobre os números que o modelo entrega ao shader e sobre o
 // texto que diz, em palavras, o que a imagem mostra.
 
-jest.mock('@shopify/react-native-skia', () => {
-    const ReactInMock = require('react');
-    const { View } = require('react-native');
-    const host = (name: string) => {
-        const Host = ({ children, ...props }: { children?: unknown }) =>
-            ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-        Host.displayName = name;
-        return Host;
-    };
-    return {
-        Canvas: host('Canvas'),
-        Fill: host('Fill'),
-        Shader: host('Shader'),
-        Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
-    };
-});
-
 describe('CollimationImage', () => {
     it('pinta o fantoma com a exposição de referência: colimar não muda kV nem mAs', () => {
         const { getByTestId } = render(

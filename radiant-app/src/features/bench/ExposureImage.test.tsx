@@ -24,23 +24,6 @@ function declaredUniforms(sksl: string): string[] {
 // cada teste de aviso usa um motivo (retorno nulo ou exceção) que nenhum outro
 // teste quebra.
 
-jest.mock('@shopify/react-native-skia', () => {
-    const ReactInMock = require('react');
-    const { View } = require('react-native');
-    const host = (name: string) => {
-        const Host = ({ children, ...props }: { children?: unknown }) =>
-            ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-        Host.displayName = name;
-        return Host;
-    };
-    return {
-        Canvas: host('Canvas'),
-        Fill: host('Fill'),
-        Shader: host('Shader'),
-        Skia: { RuntimeEffect: { Make: jest.fn() } },
-    };
-});
-
 const make = Skia.RuntimeEffect.Make as jest.Mock;
 const EFFECT = { kind: 'effect' };
 const INPUT = { kv: 70, mas: 10 };

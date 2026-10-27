@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import type { InteractionType, LearningInteractionV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { BenchStepRenderer } from './BenchStepRenderer';
 import { ComparisonStepRenderer } from './ComparisonStepRenderer';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
 import { MatchingStepRenderer } from './MatchingStepRenderer';
@@ -107,12 +108,6 @@ function BenchInteraction(props: InteractionRendererProps) {
     if (props.interaction.type !== 'bench') {
         return <UnsupportedInteraction interaction={props.interaction} />;
     }
-
-    // A bancada desenha com Skia, que o Jest não carrega sem dublê. O módulo só
-    // é avaliado quando uma bancada é renderizada, e não por quem apenas importa
-    // o registro (a tela da lição, a guarda de conclusão do nó e seus testes).
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { BenchStepRenderer } = require('./BenchStepRenderer') as typeof import('./BenchStepRenderer');
 
     return <BenchStepRenderer {...props} />;
 }

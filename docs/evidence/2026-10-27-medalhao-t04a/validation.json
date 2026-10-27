@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "measuredDate": "2026-10-27 America/Bahia",
+  "baseTask": "ab20c6a69cb374ee73cc46c30826ce6e346aabac",
+  "runId": "run-1793114254111-2eade8f7",
+  "code": "VALIDATION_PASSED",
+  "stateAtValidation": "validating",
+  "configuredValidationCycles": 1,
+  "passed": 15,
+  "total": 15,
+  "cliNode": "24.14.1",
+  "appNode": "20.20.2",
+  "caffeinate": true,
+  "loadBefore": [
+    2.25,
+    2.36,
+    2.21
+  ],
+  "readSessionId": "brain-session-1793114147657-b7c59989",
+  "readSessionState": "closed-before-writer",
+  "evidence": [
+    {
+      "id": "evidence-57c76237-de02-440b-a00e-eb085044c609",
+      "validatorId": "docs-contract",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "e3ba35f5cf1b4a6b2b5d1c21505aa8fb4ab32f3f123fd09f61a0fa5ac857390d",
+      "startedAt": "2026-10-27T15:31:20.885Z",
+      "finishedAt": "2026-10-27T15:31:21.086Z",
+      "durationMs": 201
+    },
+    {
+      "id": "evidence-d549c63d-e660-4f25-9999-19b0b91a07f8",
+      "validatorId": "content-foundation",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "4f742f68b8a6a00711eaea3152545eb992d5cf9d00ceb517c57c877ebeadaf3c",
+      "startedAt": "2026-10-27T15:31:21.087Z",
+      "finishedAt": "2026-10-27T15:31:21.260Z",
+      "durationMs": 173
+    },
+    {
+      "id": "evidence-6a166eb7-66d6-4ea6-96ad-26df78c2036d",
+      "validatorId": "content-wave1",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "323cfb1546d9092653b166754c1b202cbbb687f34b9fc188d70b44ec859a1cb3",
+      "startedAt": "2026-10-27T15:31:21.260Z",
+      "finishedAt": "2026-10-27T15:31:21.317Z",
+      "durationMs": 57
+    },
+    {
+      "id": "evidence-4922da89-a518-4b6d-b3a9-4c2b54ca25c2",
+      "validatorId": "content-production",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "6b60414af8caf9d81178a463d00491e78f7be28166b7ac2a62df3ed74ecf0cb7",
+      "startedAt": "2026-10-27T15:31:21.317Z",
+      "finishedAt": "2026-10-27T15:31:22.774Z",
+      "durationMs": 1457
+    },
+    {
+      "id": "evidence-8324af1f-7217-4a0e-b7b2-a7af69438143",
+      "validatorId": "content-anchoring",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "db8ee953b250bfdcbeb1c1571d41feb9efde2c4a683ab2f66ea671430388bec0",
+      "startedAt": "2026-10-27T15:31:22.774Z",
+      "finishedAt": "2026-10-27T15:31:22.860Z",
+      "durationMs": 86
+    },
+    {
+      "id": "evidence-3800966b-39aa-4d13-b4a3-c6b0013281ab",
+      "validatorId": "content-anchoring-data",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+      "startedAt": "2026-10-27T15:31:22.860Z",
+      "finishedAt": "2026-10-27T15:31:22.891Z",
+      "durationMs": 31
+    },
+    {
+      "id": "evidence-b7be7ab0-d4bc-4060-af9d-45bc1bda00a3",
+      "validatorId": "content-no-verbatim",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "2c83d07ec0163643cb362bc9c226415d933fe909089d50409b0ada2e4cc7f142",
+      "startedAt": "2026-10-27T15:31:22.891Z",
+      "finishedAt": "2026-10-27T15:31:25.142Z",
+      "durationMs": 2251
+    },
+    {
+      "id": "evidence-e90997cc-95eb-4f06-bf2d-241b621d38c9",
+      "validatorId": "content-source-rights",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "595638f892df061cfc85e448b40eeebcf7da48566a7f6891f5cbe640ca2061bf",
+      "startedAt": "2026-10-27T15:31:25.142Z",
+      "finishedAt": "2026-10-27T15:31:25.225Z",
+      "durationMs": 83
+    },
+    {
+      "id": "evidence-d34178aa-4df4-4de7-94f1-4d6ab545864a",
+      "validatorId": "content-python",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "2f30ef17e06ec14128fe1c2a51f09f88e2f52f54135dc90e44a9d8260b0ca1ad",
+      "startedAt": "2026-10-27T15:31:25.225Z",
+      "finishedAt": "2026-10-27T15:31:26.795Z",
+      "durationMs": 1570
+    },
+    {
+      "id": "evidence-4c49d856-c5d1-411e-a073-6fea0a98a274",
+      "validatorId": "app-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "e79673116ffd147475d55b4506b141116eeab7a127800b1b077f48e2d91427e1",
+      "startedAt": "2026-10-27T15:31:26.795Z",
+      "finishedAt": "2026-10-27T15:33:07.216Z",
+      "durationMs": 100421
+    },
+    {
+      "id": "evidence-504b9c6a-58c5-4579-99e3-d7088e7d67a3",
+      "validatorId": "app-test",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "bb02c3fcbba807044ff6b8efd6f0ed8f4d28eefb8d7e6aa410f9c51d8423e2b3",
+      "startedAt": "2026-10-27T15:33:07.217Z",
+      "finishedAt": "2026-10-27T15:34:26.573Z",
+      "durationMs": 79356
+    },
+    {
+      "id": "evidence-48a7f63d-afe6-49e2-851d-45ccc6cb7ea9",
+      "validatorId": "api-lint",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+      "startedAt": "2026-10-27T15:34:26.573Z",
+      "finishedAt": "2026-10-27T15:34:27.890Z",
+      "durationMs": 1317
+    },
+    {
+      "id": "evidence-c22237d0-f1e6-4284-a58e-d129bce43063",
+      "validatorId": "api-typecheck",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+      "startedAt": "2026-10-27T15:34:27.890Z",
+      "finishedAt": "2026-10-27T15:34:29.655Z",
+      "durationMs": 1765
+    },
+    {
+      "id": "evidence-e444eb03-afd9-462b-8b43-027210f9e64b",
+      "validatorId": "api-test",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "14e1e945e267927c28f516f9366cf4c462bb0754741c1246fdda22f4f9098a74",
+      "startedAt": "2026-10-27T15:34:29.655Z",
+      "finishedAt": "2026-10-27T15:34:30.441Z",
+      "durationMs": 786
+    },
+    {
+      "id": "evidence-a7ecdca9-78de-4b35-91ef-a8822b6a09bb",
+      "validatorId": "brain-links",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+      "startedAt": "2026-10-27T15:34:30.441Z",
+      "finishedAt": "2026-10-27T15:34:30.631Z",
+      "durationMs": 190
+    }
+  ],
+  "limits": "Jest does not prove native compilation, rasterization or device performance. Closure/commit/push/CI follow this validation snapshot and are recorded in the SDD ledger and final handoff."
+}

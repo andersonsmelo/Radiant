@@ -473,10 +473,12 @@ continuar. A física e a escolha da segunda bancada estão também na
 - **Retorno (tarefa 4):** o que o aluno vê e o que o leitor de tela ouve vêm do
   mesmo `feedbackFor`. O bloco de retorno aparece também na bancada.
   Comparação e decisão de caso seguem sem bloco visível até o plano 5.
-- **`require` preguiçoso (tarefa 3):** `BenchStepRenderer` entra no registro por
-  `require` dentro do componente, porque o Skia real não carrega no Jest. Não
-  muda bundle nem tipagem. A saída limpa (dublê global do Skia no
-  `jest.config.cjs`) fica como item da FILA.
+- **Import do registro (complemento T04a, 27/10):** a solução temporária da
+  tarefa 3 foi substituída por import estático de `BenchStepRenderer` e dublê
+  global Skia no Jest. Seis consumidores preservam suas asserções e overrides;
+  sete suítes/184 testes e sete mutações detectadas. Revisão R1 aprovada;
+  Loop final15/15 em ciclo único. [Evidência e limites](../../evidence/2026-10-27-medalhao-t04a.md).
+  Isso não comprova shader real ou custo nativo.
 - **Segunda bancada (tarefa 5):** colimação, pela contagem no código, sem o
   protótipo descartável que o plano pedia. O que cresce com a área é o
   **produto dose-área**; a dose do feixe direto num ponto dentro do campo não

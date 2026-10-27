@@ -3618,3 +3618,18 @@ Origem do trecho acima: `docs/STATUS.md`.
   preparação do plano 4; o inventário sai/fica ainda precisa ser produzido e
   aprovado antes de qualquer retirada. As decisões de conteúdo seguem pendentes.
 Origem: `docs/STATUS.md`.
+
+## 2026-10-27 — T04a iniciada
+
+Próxima entrega técnica: **T04a — dublê global do Skia e importação estática**.
+T04a e T05–T22 permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
+consumidos; segundo dia fica no fechamento, reservado intocado.
+
+## 2026-10-27 — T04a revisada e validada
+
+**T04a em execução em 27/10/2026:** dublê global observável do Skia e importação
+estática no registro. BASE `ab20c6a`; implementação delegada, revisão e validação
+final ainda pendentes. Writer `run-1793114254111-2eade8f7`; sessão
+`brain-session-1793114147657-b7c59989` fechada antes dele por prevenção de contenção
+com `brain-links`. T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
+segundo dia no fechamento e reservado intocado.

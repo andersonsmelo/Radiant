@@ -20,33 +20,6 @@ import { DEFAULT_POSTER_FRAME, ILLUSTRATION_THEMES, type IllustrationTheme } fro
 // nó da trilha. Esse registro é do módulo e atravessa os testes deste arquivo,
 // então cada teste de aviso usa um tema que nenhum outro teste quebra.
 
-jest.mock('@shopify/react-native-skia', () => {
-  const ReactInMock = require('react');
-  const { View } = require('react-native');
-  const host = (name: string) => {
-    const Host = ({ children, ...props }: { children?: unknown }) =>
-      ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
-    Host.displayName = name;
-    return Host;
-  };
-  return {
-    Canvas: host('Canvas'),
-    Group: host('Group'),
-    Skottie: host('Skottie'),
-    Picture: host('Picture'),
-    Paint: host('Paint'),
-    BlendColor: host('BlendColor'),
-    Skia: {
-      Skottie: { Make: jest.fn() },
-      XYWHRect: (x: number, y: number, width: number, height: number) => ({ x, y, width, height }),
-      PictureRecorder: jest.fn(() => ({
-        beginRecording: jest.fn(() => ({ kind: 'canvas' })),
-        finishRecordingAsPicture: jest.fn(() => ({ kind: 'picture' })),
-      })),
-    },
-  };
-});
-
 jest.mock('../accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreferenceState: jest.fn(),
 }));

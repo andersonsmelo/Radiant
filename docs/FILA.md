@@ -485,8 +485,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
     26/10, Loop15/15 e prova nativa de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
     Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
-    Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. Próxima
-    entrega técnica: T04a (dublê global Skia e importação estática), ainda pendente.
+    Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
+    implementada/revisada em 27/10: import estático, dublê global observável,
+    7 suítes/184 testes e sete mutações detectadas; Loop final15/15 em ciclo único.
+    [Evidência T04a](evidence/2026-10-27-medalhao-t04a.md). Próxima: T05 (resultado).
     Limites em STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
@@ -564,9 +566,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       entrada pelo **agente**. As decisões de produto do plano estão na
       [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md). Plano 5 não iniciado; o 4 pode ser
       escrito;
-    - **agente, à parte:** o `require` preguiçoso de `BenchStepRenderer` no
-      registro de renderizadores sai com um dublê global do Skia no
-      `jest.config.cjs`, que hoje está como mock local em seis arquivos.
+    - **T04a implementada/revisada em 27/10:** o registro agora usa import
+      estático de `BenchStepRenderer`; os seis testes compartilham o dublê
+      Skia mapeado no Jest, preservando uniformes, Skottie e falhas de fallback.
+      A validação final e seus limites estão na evidência T04a acima.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

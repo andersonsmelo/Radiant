@@ -290,9 +290,21 @@ branch `claude/trilha-medalhao-design`. CI confirmado em 27/10 para esse SHA:
 e [Content Scripts147](https://github.com/andersonsmelo/Radiant/actions/runs/40492879042)
 concluídos com sucesso. [Registro do CI](evidence/2026-10-26-medalhao-t04/ci-final.json).
 [Entrega, revisões e limites T04](evidence/2026-10-26-medalhao-t04.md).
-Próxima entrega técnica: **T04a — dublê global do Skia e importação estática**.
-T04a e T05–T22 permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
-consumidos; segundo dia fica no fechamento, reservado intocado.
+**T04a implementada, revisada e validada em 27/10/2026:** import estático de
+`BenchStepRenderer` e dublê global observável do Skia no Jest; seis consumidores
+preservam suas asserções e overrides. Revisão independente R1 **Spec PASS /
+Qualidade APPROVED**, sem achados acionáveis. Focais **7 suítes/184 testes**,
+sete mutações detectadas/restauradas; os dois avisos act foram reproduzidos
+na baseline, sem novo ruído. Loop **15/15** na primeira validação configurada,
+com `app-quality` completo (100.421 ms) e `app-test` completo (79.356 ms),
+Node20.20.2; CLI24.14.1 sob caffeinate. Run `run-1793114254111-2eade8f7`;
+sessão `brain-session-1793114147657-b7c59989` encerrada antes do writer por
+prevenção brain-links. [Evidência, parecer e validação](evidence/2026-10-27-medalhao-t04a.md).
+Commit/push/CI desta entrega são aferidos após esse snapshot de validação;
+o CI do `e522984` acima não comprova o novo SHA. **Próxima: T05 — resultado**.
+T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
+segundo dia no fechamento e reservado intocado. O dublê não prova shader,
+rasterização ou desempenho nativo; nenhum processo nativo foi iniciado.
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
