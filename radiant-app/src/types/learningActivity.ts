@@ -14,6 +14,7 @@
  * lados do pipeline.
  */
 
+import { ILLUSTRATION_THEMES, type IllustrationTheme } from '../ui/illustrations/illustrationPlayback';
 import type { ExposureInput } from '../features/bench/exposureModel';
 
 export type ValidationIssue = {
@@ -106,7 +107,11 @@ export type ChoiceOption = {
     explanation?: string;
 };
 
+/** Imagem simulada de leitura, sem controles nem resposta embutida no rótulo. */
+export type ExposureReadingImage = { input: ExposureInput; label: string };
+
 export type MultipleChoiceV2Payload = {
+    exposureImage?: ExposureReadingImage;
     prompt: string;
     options: ChoiceOption[];
     correctOptionId: string;
@@ -249,6 +254,8 @@ export type LearningStepV2 =
     | { kind: 'interaction'; interaction: LearningInteractionV2 };
 
 export type LearningActivityV2 = {
+    /** Tema explícito para aulas de exemplo que não pertencem a um nó da trilha. */
+    theme?: IllustrationTheme;
     id: string;
     competencyIds: string[];
     provenance: ActivityProvenance;
@@ -410,7 +417,16 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
     }
 
     switch (interaction.type) {
-        case 'multiple-choice':
+        case 'multiple-choice': {
+            validateChoice(issues, interaction, interaction.payload.options, interaction.payload.correctOptionId);
+            const image = interaction.payload.exposureImage;
+            if (image !== undefined && (!image || typeof image !== 'object'
+                || !isFilled(image.label) || !isExposureReference(image.input)
+                || !isWithinRange(image.input.kv, 40, 120) || !isWithinRange(image.input.mas, 1, 40))) {
+                push(issues, path, 'invalid-exposure-image');
+            }
+            break;
+        }
         case 'comparison':
         case 'case-decision':
             validateChoice(issues, interaction, interaction.payload.options, interaction.payload.correctOptionId);
@@ -511,6 +527,9 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
 
     if (!isFilled(activity?.id)) {
         push(issues, path, 'invalid-id');
+    }
+    if (activity?.theme !== undefined && !(ILLUSTRATION_THEMES as readonly unknown[]).includes(activity.theme)) {
+        push(issues, path, 'invalid-theme');
     }
     if (!hasCompetency(activity?.competencyIds)) {
         push(issues, path, 'missing-competency');

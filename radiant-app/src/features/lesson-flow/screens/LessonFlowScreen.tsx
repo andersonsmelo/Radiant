@@ -11,7 +11,6 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
-import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -52,6 +51,9 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
@@ -159,6 +161,17 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const sessionMode = block?.sessionMode
         ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
     const hybrid = Boolean(sessionMode);
+    const lessonTheme = useMemo(() => {
+        if (nodeId) {
+            for (const track of LessonCatalogService.listTracks()) {
+                for (const unit of JourneyDefinitionService.getTrackDefinition(track.id).units) {
+                    const node = unit.nodes.find(candidate => candidate.id === nodeId);
+                    if (node) return resolveNodeTheme(node, unit);
+                }
+            }
+        }
+        return resolveNodeTheme({ theme: activity?.theme });
+    }, [nodeId, activity?.theme]);
     const player = useLearningActivity(activity, resumeStepIndex, {
         feedbackPerItem: hybrid,
         repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
@@ -279,6 +292,17 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         && currentInteraction.payload.mode !== 'challenge'
         && !isCorrectInteractionValue(currentInteraction, player.value);
     const canContinue = player.canContinue && !benchWaitsForGoal;
+    const announcedReady = useRef(new Set<string>());
+    useEffect(() => {
+        if (currentInteraction?.type !== 'bench' || currentInteraction.payload.mode === 'challenge'
+            || player.showingFeedback || !canContinue) return;
+        // Retornos têm outro índice: cada visita anuncia no máximo uma vez,
+        // mesmo quando o aluno sai do alvo e volta a ele antes de conferir.
+        const visit = `${stepIndex}:${currentInteraction.id}`;
+        if (announcedReady.current.has(visit)) return;
+        announcedReady.current.add(visit);
+        AccessibilityInfo.announceForAccessibility('Alvo alcançado. Você já pode conferir a resposta.');
+    }, [canContinue, currentInteraction, player.showingFeedback, stepIndex]);
 
     const confirmationLabel = player.showingFeedback
         ? isLastStep ? 'Concluir e voltar' : 'Continuar'
@@ -631,6 +655,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                         showsVerticalScrollIndicator={false}
                     >
                         <View style={styles.contentCard}>
+                            {currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
+                                <View style={styles.openingMedal}>
+                                    <JourneyMedal node={{ id: nodeId || activity.id, type: 'lesson' }}
+                                        theme={lessonTheme} state="done" pulsing={false} size={68}
+                                        accessibilityLabel="Medalha do tema da aula" />
+                                </View>
+                            ) : null}
                             {legacyStep?.step.type === 'context' ? (
                                 <ContextStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
@@ -669,14 +700,14 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 />
                             ) : null}
 
-                            {player.showingFeedback && (currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench') ? (
-                                <View testID="lesson-item-feedback" accessibilityLiveRegion="polite"
+                            {player.showingFeedback && currentInteraction ? (
+                                <View testID="lesson-item-feedback"
                                     style={[styles.itemFeedback, player.lastFeedback?.correct ? styles.itemFeedbackCorrect : styles.itemFeedbackIncorrect]}
                                     onLayout={event => scrollRef.current?.scrollTo({
                                         y: Math.max(0, event.nativeEvent.layout.y - space.s3), animated: false,
                                     })}>
                                     <Text style={[styles.feedbackTitle, player.lastFeedback?.correct ? styles.feedbackTitleCorrect : styles.feedbackTitleIncorrect]}
-                                        accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+                                        accessibilityRole="header">
                                         {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
                                     </Text>
                                     {currentInteraction.type === 'multiple-choice' ? (
@@ -721,7 +752,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                     </ScrollView>
 
                     <View style={styles.footer}>
-                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
+                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
+                            accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
                             {confirmationLabel}
                         </AppButton>
                     </View>
@@ -767,6 +799,8 @@ const styles = StyleSheet.create({
     // para não anunciar a mesma coisa duas vezes.
     stepCount: {
         ...typography.micro,
+        lineHeight: undefined,
+        flexShrink: 0,
         color: galaxyColors.textSecondary,
     },
     headerTopRow: {
@@ -790,6 +824,7 @@ const styles = StyleSheet.create({
         paddingBottom: space.s4,
         gap: space.s3,
     },
+    openingMedal: { alignItems: 'center' },
     contentCard: {
         backgroundColor: semanticColors.galaxy.surface,
         borderRadius: radius.rLg,

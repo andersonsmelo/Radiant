@@ -53,7 +53,10 @@ jest.mock('expo-router', () => ({
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+
 jest.mock('../../../ui/motion', () => ({
+  useMedalPulse: () => ({}),
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),

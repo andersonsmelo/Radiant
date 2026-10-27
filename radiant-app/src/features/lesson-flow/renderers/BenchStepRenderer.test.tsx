@@ -3,6 +3,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import type { BenchControl, BenchGoal, LearningInteractionV2 } from '../../../types/learningActivity';
 import { exposureModel, REFERENCE_EXPOSURE } from '../../bench/exposureModel';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { BenchStepRenderer } from './BenchStepRenderer';
 import { decodeBenchValue, isCompleteInteractionValue } from './InteractionAnswerValue';
 
@@ -10,6 +11,13 @@ import { decodeBenchValue, isCompleteInteractionValue } from './InteractionAnswe
 // em que o `Shader` expõe os uniformes, e as asserções recaem sobre o que decide
 // o que o aluno vê: quantas imagens há, com que números do modelo cada uma é
 // pintada e que JSON a tela entrega ao player.
+
+// O sistema operacional não participa desta prova de conteúdo/controles.
+// A preferência resolvida evita atualizações assíncronas depois de testes síncronos.
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+    useReducedMotionPreference: () => true,
+    useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: true, resolved: true }),
+}));
 
 jest.mock('@shopify/react-native-skia', () => {
     const ReactInMock = require('react');
@@ -383,4 +391,20 @@ describe('BenchStepRenderer', () => {
             expect(rendered.queryByText('Referência')).toBeNull();
         });
     });
+});
+
+
+it('T04 o explorar nomeia o efeito com Pixel mantendo a instrução independente', () => {
+    const interaction = bench(reach);
+    if (interaction.type !== 'bench') throw new Error('bancada esperada');
+    interaction.payload.mode = 'explore';
+    const view = render(<Player interaction={interaction} onChange={jest.fn()} />);
+    expect(view.getByText(interaction.payload.prompt)).toBeTruthy();
+    expect(view.UNSAFE_queryByType(PixelIllustration)).toBeNull();
+    fireEvent.press(view.getByRole('button', { name: 'Aumentar Tensão' }));
+    fireEvent.press(view.getByRole('button', { name: 'Aumentar Tensão' }));
+    fireEvent.press(view.getByRole('button', { name: 'Aumentar Tensão' }));
+    expect(view.UNSAFE_getByType(PixelIllustration)).toBeTruthy();
+    expect(view.getByText(interaction.feedback.correct)).toBeTruthy();
+    expect(view.getByText(interaction.payload.prompt)).toBeTruthy();
 });

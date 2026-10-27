@@ -71,9 +71,10 @@ Para o dono decidir:
 2. **Leitura crítica.** Saiu a alternativa "O paciente se mexeu": movimento não
    está no modelo, e a explicação dela seria física de fora dele. Entrou "O mAs
    ficou alto demais".
-3. **A imagem granulada.** O passo de múltipla escolha não desenha a bancada,
-   então a imagem é descrita no enunciado. Ela aparece de fato no passo
-   seguinte, que começa em 2 mAs.
+3. **A imagem granulada.** O enunciado descreve a imagem. T04 acrescentou em 27/10
+   uma imagem com o modelo digital existente, 70kV/2mAs, e rótulo neutro
+   "Fantoma simulado", sem mudar enunciado ou gabarito. A imagem foi conferida
+   nos dois simuladores; isso não aprova o conteúdo clínico.
 4. **Fechamento.** "Aula concluída" virou "O que cada controle faz". A
    conclusão, com XP e estrelas, é a tela que vem depois, e o item errado volta
    depois do fechamento.
@@ -87,23 +88,23 @@ Para o dono decidir:
    campo à direita. A primeira versão desta aula enquadrava só os ossos (17 a
    20 cm), e cortava as partes moles.
 
-## O que a tela ainda não mostra
+## Lacunas da tela e revisão do player
 
-A spec (seção 5) e o roteiro do plano pedem coisas que esta versão das aulas
-ainda não faz. Nenhuma está nas tabelas abaixo, porque não há frase a revisar:
+T04 foi implementada e revisada em 27/10: medalha temática na abertura, Pixel
+no explorar, imagem granulada na leitura crítica e retorno visível nos seis
+tipos registrados. A prova nativa incluiu texto ampliado, com correção dos
+cortes no indicador de passos e na dose-área. Loop final 15/15 aprovado;
+a aprovação do conteúdo pelo dono permanece vazia. A explicação obrigatória continua independente do mascote.
+O novo rótulo da imagem consta na tabela, com aprovação vazia, como os demais.
 
-- **A medalha do tema na abertura** e **o Pixel nomeando o efeito no
-  explorar.** A abertura é só o título e o texto. Os dois ficam para o plano 5,
-  o dos momentos do Pixel.
-- **A imagem granulada no passo de leitura crítica.** O passo é só texto: a
-  imagem é descrita no enunciado e só aparece de fato no passo seguinte.
 - **O fechamento aparece antes dos itens que voltam.** Quem erra a primeira
   resposta de um item o refaz depois do fechamento, que já disse "O que cada
-  controle faz".
+  controle faz". Essa posição não muda em T04: depende da decisão do dono em T14.
 - **As dicas de erro do explorar e do corrigir.** O botão desses dois passos só
   habilita quando o alvo é atingido, como na prancheta, então o aluno não erra
   ali e as dicas (`tooLow` e `tooHigh`) não aparecem. Só o desafio mostra a
-  dica do lado certo.
+  dica do lado certo. T04 acrescenta dica acessível de espera e anúncio único
+  de habilitação, sem liberar resposta antes do alvo.
 
 ## Aula de exposição (`bancada:exposicao`)
 
@@ -129,6 +130,7 @@ ainda não faz. Nenhuma está nas tabelas abaixo, porque não há frase a revisa
 | 3 · desafio, retorno do acerto | O contraste ficou como o da referência, que foi feita com 70 kV. | |
 | 3 · desafio, retorno genérico do erro (não aparece: cada erro tem dica própria) | Compare o contraste entre osso e partes moles nas duas imagens e ajuste o kV. | |
 | 3 · desafio, rótulo do leitor de tela (a tela ainda não o lê) | Bancada de exposição: iguale o contraste da referência | |
+| 4 · leitura crítica, rótulo da imagem (T04 implementada; G2 pendente) | Fantoma simulado | |
 | 4 · leitura crítica, enunciado | Uma imagem do fantoma saiu granulada, com o mesmo kV da referência. O contraste entre osso e partes moles está igual ao dela, mas a imagem toda tem pontos claros e escuros espalhados. O que mudou? | |
 | 4 · leitura crítica, alternativa certa | O mAs ficou baixo demais | |
 | 4 · leitura crítica, alternativa errada | O mAs ficou alto demais | |

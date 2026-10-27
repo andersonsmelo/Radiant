@@ -131,6 +131,7 @@ describe('ActivityRendererRegistry', () => {
     });
 
     it('declara os seis tipos que já têm renderizador', () => {
+        expect(isInteractionTypeRegistered('case-decision')).toBe(false);
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
         expect(isInteractionTypeRegistered('hotspot')).toBe(true);
         expect(isInteractionTypeRegistered('comparison')).toBe(true);
@@ -208,4 +209,22 @@ it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na t
     fireEvent.press(getByLabelText('Osso'));
     expect(onChange).not.toHaveBeenCalled();
     expect(getByLabelText('Ar')).toBeTruthy();
+});
+
+
+it('T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta', () => {
+    const interaction = multipleChoice();
+    const image = { input: { kv: 70, mas: 2 }, label: 'Fantoma simulado' };
+    const withImage = { ...interaction, payload: { ...interaction.payload, exposureImage: image } } as LearningInteractionV2;
+    const view = render(<ActivityInteractionRenderer interaction={withImage} value={undefined} onChange={jest.fn()} />);
+    expect(view.getByRole('image', { name: 'Fantoma simulado' })).toBeTruthy();
+    expect(view.getByText('Qual estrutura aparece mais radiopaca?')).toBeTruthy();
+    const uniforms = view.getByTestId('skia-Shader').props.uniforms;
+    expect(uniforms.noise).toBeCloseTo(0.045 * Math.sqrt(12 / 2));
+    const grain = uniforms.noise as number;
+    view.rerender(<ActivityInteractionRenderer interaction={{ ...interaction, payload: { ...interaction.payload, exposureImage: { ...image, input: { kv: 70, mas: 10 } } } } as LearningInteractionV2} value={undefined} onChange={jest.fn()} />);
+    const reference = view.getByTestId('skia-Shader').props.uniforms;
+    expect(grain).toBeGreaterThan(reference.noise);
+    for (const tone of ['bone', 'soft', 'background']) expect(uniforms[tone]).toBe(reference[tone]);
+    expect(view.getByRole('button', { name: 'Ar' })).toBeTruthy();
 });

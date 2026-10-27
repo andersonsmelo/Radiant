@@ -56,6 +56,6 @@ export function CollimationReadout({ field }: { field: CollimationInput }): Reac
 const galaxy = semanticColors.galaxy;
 
 const styles = StyleSheet.create({
-  readout: { alignItems: 'center', gap: space.s1 },
-  line: { ...typography.bodyStrong, color: galaxy.textPrimary },
+  readout: { alignSelf: 'stretch', alignItems: 'stretch', gap: space.s1 },
+  line: { ...typography.bodyStrong, lineHeight: undefined, textAlign: 'center', color: galaxy.textPrimary },
 });

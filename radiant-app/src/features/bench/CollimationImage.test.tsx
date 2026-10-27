@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { CollimationImage, CollimationReadout } from './CollimationImage';
 import { collimationModel, FULL_FIELD } from './collimationModel';
@@ -72,6 +73,38 @@ describe('CollimationImage', () => {
 });
 
 describe('CollimationReadout', () => {
+    it('estica o readout e as linhas à largura disponível mesmo num pai centralizado', () => {
+        const { UNSAFE_getByType } = render(<CollimationReadout field={FULL_FIELD} />);
+        const readout = StyleSheet.flatten(UNSAFE_getByType(View).props.style);
+
+        expect(readout).toMatchObject({ alignSelf: 'stretch', alignItems: 'stretch' });
+        expect(readout.width).toBeUndefined();
+        expect(readout.height).toBeUndefined();
+        expect(readout.maxHeight).toBeUndefined();
+        expect(readout.overflow).not.toBe('hidden');
+    });
+
+    it.each(['Campo de 27 × 33 cm, 891 cm²', 'Produto dose-área: 100% do campo todo'])(
+        'centraliza %s dentro da linha sem limitar seu refluxo ou tamanho de fonte', (label) => {
+            const { getByText } = render(<CollimationReadout field={FULL_FIELD} />);
+            const line = getByText(label);
+            // Contrato do Text real. A legibilidade dos glifos exige prova nativa.
+            const style = StyleSheet.flatten(line.props.style);
+
+            expect(style.textAlign).toBe('center');
+            expect(style.fontFamily).toBe('Sora-Bold');
+            expect(style.fontSize).toBe(16);
+            expect(style.lineHeight).toBeUndefined();
+            expect(style.height).toBeUndefined();
+            expect(style.maxHeight).toBeUndefined();
+            expect(style.overflow).not.toBe('hidden');
+            expect(line.props.allowFontScaling).not.toBe(false);
+            expect(line.props.maxFontSizeMultiplier).toBeUndefined();
+            expect(line.props.numberOfLines).toBeUndefined();
+            expect(line.props.adjustsFontSizeToFit).not.toBe(true);
+        },
+    );
+
     it('diz em texto o campo, a área e o produto dose-área', () => {
         const { getByText } = render(<CollimationReadout field={{ fieldWidth: 18, fieldHeight: 24 }} />);
 

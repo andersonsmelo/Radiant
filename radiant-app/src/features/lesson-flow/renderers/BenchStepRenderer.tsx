@@ -4,13 +4,14 @@ import type { BenchPayload, LearningInteractionV2 } from '../../../types/learnin
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { BenchControlRow } from '../../bench/BenchControlRow';
 import { CollimationImage, CollimationReadout } from '../../bench/CollimationImage';
 import { FULL_FIELD, type CollimationInput } from '../../bench/collimationModel';
 import { ExposureImage } from '../../bench/ExposureImage';
 import { REFERENCE_EXPOSURE, type ExposureInput } from '../../bench/exposureModel';
 import type { InteractionRendererProps } from './ActivityRendererRegistry';
-import { decodeBenchValue, encodeBenchValue, type BenchValues } from './InteractionAnswerValue';
+import { decodeBenchValue, encodeBenchValue, isCorrectInteractionValue, type BenchValues } from './InteractionAnswerValue';
 
 /** Largura da imagem sozinha, no máximo, e a largura de partida até a tela medir o espaço. */
 const MAX_SINGLE_WIDTH = 240;
@@ -52,12 +53,14 @@ function BenchScreen({
   value,
   onChange,
   submitted,
+  explanation,
 }: {
   interactionId: string;
   payload: BenchPayload;
   value: string | undefined;
   onChange: (value: string) => void;
   submitted: boolean;
+  explanation?: string;
 }) {
   const { controls, goal, mode } = payload;
   const values = decodeBenchValue(value, controls);
@@ -134,6 +137,15 @@ function BenchScreen({
         {collimation ? <CollimationReadout field={fieldFrom(values)} /> : null}
       </View>
 
+      {explanation ? (
+        <View style={styles.explanation}>
+          <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <PixelIllustration state="happy" size="sm" />
+          </View>
+          <Text style={styles.explanationText}>{explanation}</Text>
+        </View>
+      ) : null}
+
       <View style={styles.controls}>
         {controls.map((control) => (
           <BenchControlRow
@@ -184,6 +196,8 @@ export function BenchStepRenderer({
       value={value}
       onChange={onChange}
       submitted={submitted}
+      explanation={interaction.payload.mode === 'explore' && !submitted
+        && isCorrectInteractionValue(interaction, value) ? interaction.feedback.correct : undefined}
     />
   );
 }
@@ -197,6 +211,8 @@ const styles = StyleSheet.create({
   images: { flexDirection: 'row', justifyContent: 'center', gap: space.s3 },
   imageColumn: { alignItems: 'center', gap: space.s1 },
   caption: { ...typography.caption, color: galaxy.textSecondary },
+  explanation: { gap: space.s2, alignItems: 'flex-start' },
+  explanationText: { ...typography.bodyRegular, color: galaxy.textPrimary },
   controls: {
     gap: space.s3,
     padding: space.s3,

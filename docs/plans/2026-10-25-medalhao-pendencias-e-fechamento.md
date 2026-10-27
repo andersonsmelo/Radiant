@@ -313,26 +313,37 @@ G2 permanece pendente; próxima T04.
 `radiant-app/src/features/bench/CollimationImage.tsx`, `CollimationImage.test.tsx`
 e `radiant-app/src/features/bench/lessons/exposicao.ts`/`BenchLessonCatalog.test.ts`.
 
-- [ ] Enumerar todos os tipos que consomem `feedbackFor`; testar comparação e
+- [x] Enumerar todos os tipos que consomem `feedbackFor`; testar comparação e
   os tipos efetivamente registrados mostrando o retorno visível, além do
   acessível. `case-decision` existe no contrato, mas não no registro atual:
   não inventar um renderizador só para cumprir a frase de uma observação;
   registrar essa distinção e exigir o retorno ao habilitar esse tipo no futuro.
-- [ ] Testar medalha do tema na abertura e Pixel no explorar, com conteúdo
+- [x] Testar medalha do tema na abertura e Pixel no explorar, com conteúdo
   obrigatório independente do mascote. Reusar `JourneyMedal` e `PixelIllustration`.
-- [ ] Mostrar a imagem granulada no passo de leitura crítica, com texto
+- [x] Mostrar a imagem granulada no passo de leitura crítica, com texto
   equivalente. Declarar os arquivos exatos do tipo/renderizador antes de editar;
   não mudar a resposta ou a física para acomodar a imagem.
-- [ ] Testar dica acessível do botão que aguarda o alvo e anúncio único quando
+- [x] Testar dica acessível do botão que aguarda o alvo e anúncio único quando
   habilita; usar `esperarBotaoApto` antes de tocar em testes.
-- [ ] Conferir produto dose-área em 402 pt e texto ampliado; duas linhas são
+- [x] Conferir produto dose-área em 402 pt e texto ampliado; duas linhas são
   aceitáveis se legíveis e sem colisão, não impor redução de fonte.
-- [ ] Deixar a posição do fechamento após reforços condicionada à resposta
+- [x] Deixar a posição do fechamento após reforços condicionada à resposta
   do dono em T14; não mover por interpretação de uma observação.
 
 **Aceite:** as lacunas não desaparecem do relatório; se um novo contrato for
 necessário, sua lista exata de arquivos e teste vermelho precedem a escrita.
 Nenhum ganho de XP ou progresso é introduzido por um deep link sem nó.
+
+**Execução em 27/10:** implementação e revisão independente R2 aprovadas,
+com prova nativa iOS/Android. O indicador de passos e o readout de dose-área
+receberam correções locais após falhas nativas preservadas. Sem nó, a conclusão
+nativa iOS mostrou “Sem XP nesta tentativa” e manteve o HUD/progresso visível;
+as gravações proibidas foram verificadas nos testes. Loop final **15/15** aprovado em 27/10, após corrigir a classificação
+AST R5 do Pixel no explorar. Os dois scripts da guarda e seus contratos foram
+declarados no writer substituto antes de editar, sem ampliar política, baseline
+ou exceções.
+G2/T14 e os gates de liberação continuam pendentes.
+[Evidência e limites](../evidence/2026-10-26-medalhao-t04.md).
 
 ### T04a — Retirar o `require` preguiçoso com dublê global do Skia
 

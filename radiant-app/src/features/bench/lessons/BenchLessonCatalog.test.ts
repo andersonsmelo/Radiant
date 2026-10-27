@@ -348,3 +348,16 @@ describe('o documento de revisão do dono', () => {
     }
   });
 });
+
+
+it('T04 dá tema explícito aos exemplos e imagem à leitura sem alterar o gabarito', () => {
+  expect(EXPOSICAO).toMatchObject({ theme: 'tubo' });
+  expect(COLIMACAO).toMatchObject({ theme: 'protecao' });
+  const step = EXPOSICAO.steps[3];
+  expect(step).toMatchObject({ kind: 'interaction', interaction: { id: 'bancada:exposicao:leitura', type: 'multiple-choice', payload: {
+    exposureImage: { input: { kv: 70, mas: 2 }, label: 'Fantoma simulado' }, correctOptionId: 'mas-baixo',
+  } } });
+  expect(EXPOSICAO.steps.map(s => s.kind === 'presentation' ? s.id : s.interaction.id)).toEqual([
+    'bancada:exposicao:abertura', 'bancada:exposicao:explorar', 'bancada:exposicao:desafio', 'bancada:exposicao:leitura', 'bancada:exposicao:corrigir', 'bancada:exposicao:fechamento',
+  ]);
+});

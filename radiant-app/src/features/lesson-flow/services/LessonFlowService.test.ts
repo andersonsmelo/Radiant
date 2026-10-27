@@ -665,3 +665,35 @@ it('M1 serviço aceita bloco híbrido de três perguntas e mantém a adaptação
     expect(() => LessonFlowService.getActivityById('hybrid')).not.toThrow();
     expect(LessonFlowService.getActivityById('hybrid')?.steps).toHaveLength(3);
 });
+
+
+describe('T04 — metadados opcionais da aula e imagem crítica', () => {
+    function withImage(image: unknown): LearningActivityV2 {
+        const choice = multipleChoice();
+        return activity({ steps: [presentation('hook', 'hook'), interactionStep({
+            ...choice, payload: { ...choice.payload, exposureImage: image },
+        } as LearningInteractionV2), presentation('closing', 'closing')] });
+    }
+    it.each([null, {}, { input: { kv: 70, mas: 2 }, label: ' ' },
+        { input: { kv: NaN, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: Infinity, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 39, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 121, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: 0 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: 41 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: '2' }, label: 'Fantoma' },
+        { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+    ])('rejeita imagem que não pode representar o modelo: %p', image => {
+        expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+    });
+    it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+        expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+    });
+    it('preserva a atividade antiga sem imagem ou tema', () => expect(validateLearningActivity(activity())).toEqual([]));
+    it.each(['tubo', 'protecao', 'radiacao', 'ressonancia', 'tomografia'])('aceita o tema existente %s', theme => {
+        expect(validateLearningActivity({ ...activity(), theme } as LearningActivityV2)).toEqual([]);
+    });
+    it.each(['astronomia', null, 4])('rejeita tema fora do contrato: %p', theme => {
+        expect(validateLearningActivity({ ...activity(), theme } as unknown as LearningActivityV2)).toContainEqual({ path: 'activity:protecao-1', rule: 'invalid-theme' });
+    });
+});

@@ -493,8 +493,11 @@ continuar. A física e a escolha da segunda bancada estão também na
   explorar e no corrigir fica desabilitado até o alvo, como a prancheta; no
   desafio, fica livre. Por isso as dicas de erro do explorar e do corrigir não
   aparecem mais.
-- **Ficam para o plano 5:** a medalha do tema na abertura e o Pixel nomeando o
-  efeito no explorar (os momentos do Pixel). Declarado no documento do dono.
+- **Complemento T04 do plano 5, em 27/10:** medalha temática na abertura, Pixel
+  no explorar, imagem crítica e retorno visível/acessível foram implementados e
+  revisados. O nativo incluiu correções de texto ampliado no indicador e na
+  dose-área; Loop final 15/15 aprovado. [Evidência e limites](../../evidence/2026-10-26-medalhao-t04.md).
+  A revisão de conteúdo pelo dono continua pendente.
 
 **Pendências:**
 - **dono:** a revisão do conteúdo das duas aulas e as perguntas do fim do

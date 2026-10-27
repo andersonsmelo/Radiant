@@ -243,7 +243,7 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
     | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
   ```
 
-## Execução dos planos da trilha Medalhão (medido em 2026-10-26)
+## Execução dos planos da trilha Medalhão (medido em 2026-10-27)
 
 **Execução autorizada pelo dono em 25/10:** T00 reconciliado e revisado
 independentemente. T01 implementada, revisada (R4: spec/qualidade APPROVED) e
@@ -262,10 +262,30 @@ reentrada preservada e texto ampliado conferido no iOS/Android. Validação
 final **15/15** na segunda tentativa: a primeira teve oito TS7006 em dois
 arquivos de teste, corrigidos com anotações de tipo. As duas execuções de
 `app-test` completo passaram. Writer `run-1793031412630-67f7d689`.
-Próxima tarefa: T04, lacunas da aula; CI do novo commit ainda não medido.
-[Prova e limites](evidence/2026-10-26-medalhao-t03.md).
-T04–T22/T04a permanecem pendentes. Nenhum gate G1–G8
-foi consumido; segundo dia fica no fechamento, reservado intocado.
+CI T03 no commit `804d1e7`: App Quality241/`40403674164` e Content146/
+`40403674167` aprovados em 26/10.
+[Prova e limites T03](evidence/2026-10-26-medalhao-t03.md).
+
+**T04 — implementada, revisada e validada em 27/10 (R2 produto/R4 guarda):** medalha temática na abertura,
+Pixel no explorar, imagem crítica com texto equivalente, retorno visível e
+acessível nos seis tipos registrados e dica/anúncio do botão apto. A conferência
+nativa corrigiu dois cortes: indicador de passos e leitura de dose-área. A frase
+ficou inteira em cinco linhas no iOS 402pt/maior fonte e duas no Android fonte2,
+sem reduzir a fonte. A aula sem nó foi concluída no iOS com “Sem XP nesta
+tentativa”, mantendo 18 XP e o progresso visível; as gravações proibidas têm
+prova separada nos testes. VoiceOver/TalkBack audível e dispositivo físico não
+foram validados aqui. Gate inicial Loop **14/15**: `app-quality` reprovou pela heurística R5 de
+nome de arquivo, que sinalizou o Pixel previsto no explorar e seu teste.
+O writer `run-1793050819046-ac727bc8` foi fechado como substituído, sem sucesso.
+Correção restrita da classificação AST implementada/revisada (R4), com
+45/45 contratos e zero regressões na checagem visual estrita, no writer
+`run-1793097438356-af6aeb6c`, sem ampliar política ou exceções. Gate final **15/15** aprovado em 27/10
+na primeira validação do writer substituto (segunda do objetivo):
+`app-quality` 85.698 ms e `app-test` 78.645 ms; sessão de leitura fechada antes
+da escrita.
+[Entrega, revisões e limites T04](evidence/2026-10-26-medalhao-t04.md).
+T05–T22/T04a permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
+consumidos; segundo dia fica no fechamento, reservado intocado.
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
@@ -367,9 +387,11 @@ mudaram o texto do plano e pendências.
   VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
   plano (física de radiografia digital e colimação como segunda bancada) estão
   na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
-- **Plano 5: não começado.** O plano integrador detalha o restante e a
-  preparação do plano 4; o inventário sai/fica ainda precisa ser produzido e
-  aprovado antes de qualquer retirada. As decisões de conteúdo seguem pendentes.
+- **Plano 5: em execução desde 25/10.** T01 guarda, T02 HUD e T03 boas-vindas
+  foram implementadas/revisadas e validadas na branch, sem merge. T04 foi
+  implementada/revisada e conferida nos simuladores em 27/10, Loop final
+  15/15 aprovado. O inventário sai/fica ainda precisa ser produzido e aprovado
+  antes de qualquer retirada. As decisões de conteúdo continuam pendentes.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
   relatórios) ficam em `.superpowers/sdd/` do worktree

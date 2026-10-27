@@ -2,7 +2,9 @@ import React from 'react';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
-import type { LearningActivityV2 } from '../../../types/learningActivity';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import type { LearningInteractionV2, LearningActivityV2 } from '../../../types/learningActivity';
 import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
@@ -81,7 +83,10 @@ jest.mock('@shopify/react-native-skia', () => {
   };
 });
 
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+
 jest.mock('../../../ui/motion', () => ({
+  useMedalPulse: () => ({}),
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
   // `scale` faz parte do contrato real do hook, e `SummaryStar` o usa no
@@ -131,6 +136,7 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     setCurrentNode: jest.fn().mockResolvedValue(undefined),
     bootstrap: jest.fn(),
+    getSnapshotForNode: jest.fn().mockResolvedValue({ track: { units: [] } }),
     setResumableNode: jest.fn().mockResolvedValue(undefined),
     // Devolve um snapshot porque a tela USA o retorno para localizar a unidade
     // ativa. Ler o snapshot à parte correria em paralelo com esta escrita e
@@ -166,6 +172,7 @@ jest.mock('../../journey/components/JourneyTrail', () => {
 
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
+    recordQuizCompletion: jest.fn(),
     getSnapshot: jest.fn().mockResolvedValue({
       totalXp: 40,
       streakDays: 2,
@@ -243,7 +250,7 @@ jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
 // O tipo do nó decide se errar custa vida (ADR de 2026-10-16: revisão não
 // custa). Padrão `lesson`; a suíte da revisão troca para `review`.
 jest.mock('../../journey/services/JourneyDefinitionService', () => ({
-  JourneyDefinitionService: { getNodeType: jest.fn(() => 'lesson') },
+  JourneyDefinitionService: { getNodeType: jest.fn(() => 'lesson'), getTrackDefinition: jest.fn(() => ({ units: [] })) },
 }));
 
 jest.mock('../services/LessonFlowService', () => ({
@@ -1576,10 +1583,10 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(certo.borderWidth).toBeGreaterThan(0);
   });
 
-  it('M2 limita a escala do título do feedback e mantém o corpo sem teto', async () => {
+  it('M2 mantém título e corpo do feedback sem teto de fonte', async () => {
     await open();
     await answer('Pneumotórax');
-    expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBe(2);
+    expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBeUndefined();
     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
     expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
   });
@@ -1890,6 +1897,11 @@ describe('LessonFlowScreen — a conclusão da aula híbrida conta a primeira re
   });
 
   it('errar a primeira resposta de um item e acertar na volta não dá três estrelas', async () => {
+    const { GamificationService } = require('../../gamification/services/GamificationService') as typeof import('../../gamification/services/GamificationService');
+    const { DailyGoalService } = require('../../daily-goal/services/DailyGoalService') as typeof import('../../daily-goal/services/DailyGoalService');
+    const reward = jest.spyOn(GamificationService, 'recordQuizCompletion');
+    const dailyXp = jest.spyOn(DailyGoalService, 'recordXp');
+    try {
     renderWithProviders(<LessonFlowScreen blockId={EXPOSICAO.id} nodeId="" />);
     await screen.findByText('Primeiro item?');
 
@@ -1906,12 +1918,19 @@ describe('LessonFlowScreen — a conclusão da aula híbrida conta a primeira re
     // 1 de 2 pela primeira resposta: a régua dá 1 estrela, e não as 3 de "2 de 2".
     expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
     expect(screen.queryByText('2 de 2 corretas')).toBeNull();
+    expect(screen.getByText('Sem XP nesta tentativa')).toBeTruthy();
+    expect(reward).not.toHaveBeenCalled();
+    expect(dailyXp).not.toHaveBeenCalled();
     expect(screen.getByLabelText('1 de 3 estrelas')).toBeTruthy();
     expect(screen.queryByText(/Nada passou despercebido|Perfeito|Marca cheia/u)).toBeNull();
     expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
       confirmedAnswers: { 'item-um': true, 'item-dois': true },
       firstConfirmedAnswers: { 'item-um': false, 'item-dois': true },
     }));
+    } finally {
+      reward.mockRestore();
+      dailyXp.mockRestore();
+    }
   });
 });
 
@@ -2073,5 +2092,134 @@ describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', (
     expect(screen.getByText(closing.payload.body ?? '')).toBeTruthy();
     expect(screen.queryByText('Resposta correta')).toBeNull();
     expect(screen.queryByText(reading.interaction.feedback.correct)).toBeNull();
+  });
+});
+
+
+describe('T04 — abertura, retorno e botão apto', () => {
+  const closing = promotedActivityFixture.steps[2];
+  const shell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
+  const message = 'Retorno da atividade.';
+  function item(type: 'multiple-choice' | 'comparison' | 'hotspot' | 'matching' | 'ordering' | 'bench'): LearningInteractionV2 {
+    const common = { id: `t04:${type}`, type, competencyIds: ['competency:test'], evidenceKind: 'guided-practice', completionRule: 'answered', criticalSafety: false,
+      accessibility: { label: 'Imagem da atividade' }, feedback: { correct: 'Certo.', incorrect: message } };
+    const choices = { prompt: 'Escolha a resposta.', options: [{ id: 'a', label: 'Opção A' }, { id: 'b', label: 'Opção B', explanation: message }], correctOptionId: 'a' };
+    const payload = type === 'bench' ? { prompt: 'Ajuste o controle.', simulator: 'exposure', mode: 'challenge', controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 }], goal: { kind: 'reach', control: 'kv', atLeast: 100 }, phantomLabel: 'Fantoma simulado', hints: { tooLow: message, tooHigh: 'Desça.' } }
+      : type === 'hotspot' ? { prompt: 'Escolha a região.', imageRef: 'https://example.test/image.png', regions: [{ id: 'a', label: 'Região A', x: 0, y: 0, width: 0.4, height: 0.4 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.4, height: 0.4 }], correctRegionIds: ['a'] }
+      : type === 'matching' ? { prompt: 'Associe os pares.', pairs: [{ id: 'a', left: 'A', right: 'Alfa' }, { id: 'b', left: 'B', right: 'Beta' }] }
+      : type === 'ordering' ? { prompt: 'Ordene os itens.', items: [{ id: 'a', label: 'Primeiro' }, { id: 'b', label: 'Segundo' }], correctOrder: ['b', 'a'] } : choices;
+    return { ...common, payload } as LearningInteractionV2;
+  }
+  function lesson(interaction: LearningInteractionV2): LearningActivityV2 {
+    return { ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction }, closing] };
+  }
+  async function esperarBotaoApto(name: string) {
+    await waitFor(() => expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true));
+  }
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(shell);
+  });
+  const registered = ['multiple-choice', 'comparison', 'hotspot', 'matching', 'ordering', 'bench'] as const;
+  it.each(registered.flatMap(type => [false, true].map(correct => ({ type, correct }))))('$type correto=$correct mostra o retorno e o anuncia uma vez sem região viva duplicada', async ({ type, correct }) => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(lesson(item(type)));
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText(type === 'bench' ? 'Ajuste o controle.' : type === 'hotspot' ? 'Escolha a região.' : type === 'matching' ? 'Associe os pares.' : type === 'ordering' ? 'Ordene os itens.' : 'Escolha a resposta.');
+    if (type === 'multiple-choice' || type === 'comparison') fireEvent.press(screen.getByRole('button', { name: correct ? 'Opção A' : 'Opção B' }));
+    if (type === 'hotspot') fireEvent.press(screen.getByRole('button', { name: correct ? 'Selecionar Região A na lista' : 'Selecionar Região B na lista' }));
+    if (type === 'matching') {
+      fireEvent.press(screen.getByRole('button', { name: correct ? 'Associar A a Alfa' : 'Associar A a Beta' }));
+      fireEvent.press(screen.getByRole('button', { name: correct ? 'Associar B a Beta' : 'Associar B a Alfa' }));
+    }
+    if (type === 'ordering') {
+      if (correct) fireEvent.press(screen.getByRole('button', { name: 'Descer Primeiro' }));
+      fireEvent.press(screen.getByRole('button', { name: 'Selecionar esta ordem' }));
+    }
+    if (type === 'bench' && correct) {
+      for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    }
+    const confirm = type === 'bench' || type === 'multiple-choice' ? 'Conferir resposta' : 'Continuar';
+    await esperarBotaoApto(confirm);
+    fireEvent.press(screen.getByRole('button', { name: confirm }));
+    const feedback = await screen.findByTestId('lesson-item-feedback');
+    expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+    const expectedMessage = correct ? 'Certo.' : message;
+    expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+    expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(expectedMessage))).toHaveLength(1);
+    // A pergunta continua na tela; o segundo toque, não a seleção, avança.
+    await esperarBotaoApto('Continuar');
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(await screen.findByText('Síntese')).toBeTruthy();
+  });
+  it('abertura usa o tema explícito sem nó e preserva o texto independente', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' } as LearningActivityV2);
+    const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText('Estrutura e carga');
+    expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    expect(screen.getByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    expect(mockedJourneyProgress.bootstrap).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalled();
+  });
+  it('abertura resolve tema do nó, depois da unidade real, sem ler progresso', async () => {
+    const definition = require('../../journey/services/JourneyDefinitionService').JourneyDefinitionService as { getTrackDefinition: jest.Mock };
+    const catalogSpy = jest.spyOn(LessonCatalogService, 'listTracks').mockReturnValue([{ id: 't04-track' }] as ReturnType<typeof LessonCatalogService.listTracks>);
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' } as LearningActivityV2);
+    definition.getTrackDefinition.mockReturnValue({ units: [{ theme: 'protecao', nodes: [{ id: 'node:theme', type: 'lesson', theme: 'ressonancia' }] }] });
+    try {
+      const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+      await screen.findByText('Estrutura e carga');
+      expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('ressonancia');
+      view.unmount();
+      definition.getTrackDefinition.mockReturnValue({ units: [{ theme: 'protecao', nodes: [{ id: 'node:theme', type: 'lesson' }] }] });
+      const second = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+      await screen.findByText('Estrutura e carga');
+      expect(second.UNSAFE_getByType(JourneyMedal).props.theme).toBe('protecao');
+      expect(mockedJourneyProgress.bootstrap).not.toHaveBeenCalled();
+    } finally { catalogSpy.mockRestore(); definition.getTrackDefinition.mockReturnValue({ units: [] }); }
+  });
+  it.each(['explore', 'correct'] as const)('%s explica a espera e anuncia aptidão só uma vez por visita', async mode => {
+    const interaction = item('bench');
+    if (interaction.type !== 'bench') throw new Error('bancada esperada');
+    interaction.payload.mode = mode;
+    mockedLessonFlowService.getActivityById.mockReturnValue(lesson(interaction));
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText('Ajuste o controle.');
+    expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBe('Alcance o alvo indicado na atividade para conferir a resposta.');
+    for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await esperarBotaoApto('Conferir resposta');
+    const ready = 'Alvo alcançado. Você já pode conferir a resposta.';
+    await waitFor(() => expect(announceForAccessibility.mock.calls.filter(([text]) => text === ready)).toHaveLength(1));
+    fireEvent.press(screen.getByRole('button', { name: 'Diminuir Tensão' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    voltarParaATela();
+    await esperarBotaoApto('Conferir resposta');
+    expect(announceForAccessibility.mock.calls.filter(([text]) => text === ready)).toHaveLength(1);
+    expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBeUndefined();
+  });
+});
+
+
+describe('T04 fix1 — contagem com texto ampliado', () => {
+  it('deixa a contagem crescer pelas métricas nativas, sem comprimir a linha', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(promotedActivityFixture);
+    renderWithProviders(<LessonFlowScreen blockId="t04:step-count" nodeId="" />);
+    const count = await screen.findByText('Passo 1 de 3');
+    // O Jest não mede glifos: verificamos o estilo entregue ao Text real.
+    // lineHeight 16 herdado do micro recortou os glifos na evidência iOS AX5.
+    const style = StyleSheet.flatten(count.props.style);
+    expect(style.lineHeight).toBeUndefined();
+    expect(style.flexShrink).toBe(0);
+    expect(style.fontSize).toBeGreaterThan(0);
+    expect(style.fontFamily).toBe('Sora-SemiBold');
+    expect(style.height).toBeUndefined();
+    expect(style.maxHeight).toBeUndefined();
+    expect(style.overflow).not.toBe('hidden');
+    expect(count.props.allowFontScaling).not.toBe(false);
+    expect(count.props.maxFontSizeMultiplier).toBeUndefined();
+    expect(count.props.numberOfLines).toBeUndefined();
   });
 });

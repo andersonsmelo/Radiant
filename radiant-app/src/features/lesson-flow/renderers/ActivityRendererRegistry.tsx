@@ -49,6 +49,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
                 // A tela do player apresenta o feedback, preservando a explicação autoral.
                 explanation: interaction.feedback.correct,
             }}
+            exposureImage={interaction.payload.exposureImage}
             selectedOptionId={value}
             onSelect={onChange}
             confirmationLabel={confirmationLabel}

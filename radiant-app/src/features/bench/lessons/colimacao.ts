@@ -69,6 +69,7 @@ const FRAME_MAX_CM = 24;
 
 export const COLIMACAO: LearningActivityV2 = {
   id: 'bancada:colimacao',
+  theme: 'protecao',
   competencyIds: [COMPETENCY_COLLIMATION],
   provenance: {
     contentVersion: 'bancada-exemplo-2026-10-24-revisao-pendente',

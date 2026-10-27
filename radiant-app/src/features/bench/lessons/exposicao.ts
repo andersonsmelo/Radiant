@@ -36,6 +36,7 @@ function masControl(initial: number): BenchControl {
 
 export const EXPOSICAO: LearningActivityV2 = {
   id: 'bancada:exposicao',
+  theme: 'tubo',
   competencyIds: [COMPETENCY_KV_MAS, COMPETENCY_NOISE],
   provenance: {
     contentVersion: 'bancada-exemplo-2026-10-24-revisao-pendente',
@@ -125,8 +126,7 @@ export const EXPOSICAO: LearningActivityV2 = {
         },
         accessibility: { label: 'Leitura da imagem: o que deixou a imagem granulada?' },
         payload: {
-          // O renderizador de múltipla escolha não desenha a bancada: a imagem
-          // granulada é descrita aqui, e aparece de fato no passo seguinte.
+          exposureImage: { input: { kv: REFERENCE_EXPOSURE.kv, mas: 2 }, label: PHANTOM_LABEL },
           prompt: 'Uma imagem do fantoma saiu granulada, com o mesmo kV da referência. O contraste entre osso e partes moles está igual ao dela, mas a imagem toda tem pontos claros e escuros espalhados. O que mudou?',
           options: [
             { id: 'mas-baixo', label: 'O mAs ficou baixo demais' },

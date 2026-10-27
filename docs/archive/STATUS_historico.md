@@ -3611,3 +3611,10 @@ mergeáveis na leitura MCP do preflight. Esses checks não provam o futuro SHA
 da entrega T01; a evidência desta entrega é a validação local do Loop.
 
 Origem do trecho acima: `docs/STATUS.md`.
+
+## Saiu do STATUS em 2026-10-26 — plano5 anterior à execução autorizada
+
+- **Plano 5: não começado.** O plano integrador detalha o restante e a
+  preparação do plano 4; o inventário sai/fica ainda precisa ser produzido e
+  aprovado antes de qualquer retirada. As decisões de conteúdo seguem pendentes.
+Origem: `docs/STATUS.md`.
