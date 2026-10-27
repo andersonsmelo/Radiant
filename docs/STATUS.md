@@ -282,9 +282,16 @@ Correção restrita da classificação AST implementada/revisada (R4), com
 `run-1793097438356-af6aeb6c`, sem ampliar política ou exceções. Gate final **15/15** aprovado em 27/10
 na primeira validação do writer substituto (segunda do objetivo):
 `app-quality` 85.698 ms e `app-test` 78.645 ms; sessão de leitura fechada antes
-da escrita.
+da escrita. Writer final encerrado com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+sessão `brain-session-1793049810205-9841870a` encerrada separadamente.
+Commit de produto `e52298454bc2342be4b9cc29d1167dbe70e30773` publicado na
+branch `claude/trilha-medalhao-design`. CI confirmado em 27/10 para esse SHA:
+[App Quality242](https://github.com/andersonsmelo/Radiant/actions/runs/40492879026)
+e [Content Scripts147](https://github.com/andersonsmelo/Radiant/actions/runs/40492879042)
+concluídos com sucesso. [Registro do CI](evidence/2026-10-26-medalhao-t04/ci-final.json).
 [Entrega, revisões e limites T04](evidence/2026-10-26-medalhao-t04.md).
-T05–T22/T04a permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
+Próxima entrega técnica: **T04a — dublê global do Skia e importação estática**.
+T04a e T05–T22 permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
 consumidos; segundo dia fica no fechamento, reservado intocado.
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
@@ -313,26 +320,27 @@ A entrega do roteiro também é apenas documental: T00–T22/T04a não foram
 iniciadas por ela. Permanecem os aceites específicos de conteúdo, texto máximo,
 inventário/política, binário e liberação descritos no plano integrador.
 
-Branch `claude/trilha-medalhao-design`: base da leitura local e ref remoto
-antes desta entrega documental medidos em 2026-10-25 em `b5ac9bf`; a ref
-remota da `main` foi medida em `bcf1a90`.
-O registro anterior da PR #66 apontava `732b728`, com CI verde em `quality`
-e `content`; esse CI não é prova do HEAD posterior, e não foi remedido nesta
-entrega de planejamento. As PRs #66 e #67 permanecem referências da frente;
-o estado aberto/mergeável registrado anteriormente precisa ser consultado
-novamente antes de qualquer decisão de merge. Os planos
+Branch `claude/trilha-medalhao-design`: commit de produto local/remoto
+conferido em 27/10/2026, antes desta atualização documental, em `e522984`,
+com ambos os pipelines desse SHA aprovados conforme
+registro T04 acima. A base `b5ac9bf` e a ref da `main` `bcf1a90` eram medições
+do planejamento de 25/10; não representam o estado atual. As PRs #66 e #67
+permanecem referências da frente; o estado aberto/mergeável e a `main` precisam
+ser consultados novamente antes de qualquer decisão de merge. Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
 
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.
-- **Plano 2 (trilha): tarefa 7 executada, exceto o segundo dia iOS (vence em
-  30/10/2026); aceite pendente** (medido
+- **Plano 2 (trilha): tarefa 7 executada, exceto o segundo dia iOS
+  (conferir no fechamento, sem data fixa); aceite pendente** (medido
   em 2026-10-23, writer `run-1792757625819-e00263ec`;
   [evidência da retomada](evidence/2026-10-23-trilha-medalhao-retomada.md)).
   - **Segundo dia integral Android: PASS** em relógio real, com o YAML
-    corrigido. O simulador iOS reservado só vence em 30/10/2026, às 14:07.
+    corrigido. O simulador iOS reservado permanece preservado para a conferência no
+    fechamento, conforme decisão do dono de 25/10; a data histórica não é prazo
+    operacional nem bloqueio ao restante do layout.
   - **Momento Android demonstrado.** A lacuna de 2026-10-22 era da gravação. O
     gravador do emulador a 60 fps, com a linha do tempo instrumentada, mostra o
     percurso completo.

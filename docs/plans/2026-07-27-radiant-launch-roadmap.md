@@ -45,7 +45,10 @@ Em autorização posterior de 25/10, a execução começou: T00 reconciliado e
 revisado; T01 implementada/revisada e validada pelos 15 validadores do Loop.
 T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5
 na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
-26/10, Loop15/15 e prova de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado; Loop final 15/15 aprovado.
+26/10, Loop15/15 e prova de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
+Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
+Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. Próxima
+entrega técnica: T04a (dublê global Skia e importação estática), ainda pendente.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

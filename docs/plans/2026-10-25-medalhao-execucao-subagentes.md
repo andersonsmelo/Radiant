@@ -147,6 +147,11 @@ Cada cartão herda `C`, constraints e ritual acima. Revisor `R` é independente;
 - **Dono:** I/high; **revisão:** R. **Skills:** T, U, A se necessário; **recursos:** Jest, `rg`, nativo.
 - **Pré-requisito:** T01; consumidores atuais enumerados. **Saída:** medalha/Pixel/feedback e imagem crítica conforme integrador; nenhum renderizador novo por suposição, sem XP por deep link sem nó.
 
+Registro da entrega T04 em 27/10/2026: [evidência e limites](../evidence/2026-10-26-medalhao-t04.md),
+commit `e522984`, revisões R2/R4 e Loop15/15. CI do SHA aprovado; writer e
+sessão encerrados. Continuação: Task 6/T04a. O [STATUS](../STATUS.md)
+permanece a referência de estado vivo; gates humanos não foram consumidos.
+
 ### Task 6: T04a — Dublê global Skia e import estático
 
 - **Dono:** I/high; **revisão:** R. **Skills:** T; **recursos:** Jest/contratos, D condicional.

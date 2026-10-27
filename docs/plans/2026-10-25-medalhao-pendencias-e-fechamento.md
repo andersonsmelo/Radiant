@@ -341,7 +341,9 @@ nativa iOS mostrou “Sem XP nesta tentativa” e manteve o HUD/progresso visív
 as gravações proibidas foram verificadas nos testes. Loop final **15/15** aprovado em 27/10, após corrigir a classificação
 AST R5 do Pixel no explorar. Os dois scripts da guarda e seus contratos foram
 declarados no writer substituto antes de editar, sem ampliar política, baseline
-ou exceções.
+ou exceções. Writer e sessão de leitura encerrados; commit `e522984` publicado.
+CI App Quality242 e Content Scripts147 aprovados nesse SHA, conferidos em
+27/10/2026. T04a é a próxima entrega técnica, ainda não iniciada.
 G2/T14 e os gates de liberação continuam pendentes.
 [Evidência e limites](../evidence/2026-10-26-medalhao-t04.md).
 
