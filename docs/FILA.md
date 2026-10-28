@@ -494,8 +494,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Android aula/revisão fonte2 legíveis. Loop final15/15 após fix3 de mock aprovado em R7;
     primeira validação do writer substituto/segunda do objetivo.
     [Evidência T05](evidence/2026-10-27-medalhao-t05.md). Commit `d033433`
-    publicado, CI245/150SUCCESS no mesmo SHA confirmado em 27/10. T06 implementada/revisada/validada em28/10: Loop15/15, commitc694f95/CI246151SUCCESS e lifecycleCLOSED confirmados; T07 implementada/revisada/validada no núcleo em28/10, Loop15/15 ciclo único; Git posterior ao fechamento, próximaT08; P2 compartilhado paraT17/aceite global bloqueado. Limites no STATUS.
-    Limites em STATUS.
+    publicado, CI245/150SUCCESS no mesmo SHA confirmado em 27/10. T06 encerrada em 28/10: Loop15/15, commit `c694f95`, CI246/151 SUCCESS e
+    writer/cérebro CLOSED confirmados. T07 encerrada no núcleo em 28/10:
+    Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
+    writer/cérebro CLOSED. Próxima T08 ainda não iniciada; P2 compartilhado
+    para T17 e aceite global bloqueado. Limites no STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.

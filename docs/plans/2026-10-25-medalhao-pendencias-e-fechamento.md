@@ -475,7 +475,9 @@ temporal UTC36/Bahia3. Maestro engine não rodou; CLI nativa existente mediu
 saídas/leitura visual, sem prova de fala de leitor de tela. Androidlive e
 resultado máximo não validados; vazio máximo iOS não medido. P2 PushOptIn
 máximo impede aceite global e segue T17. Loop final15/15 em ciclo único;
-fechamento/Git são posteriores neste checkpoint. [Evidência](../evidence/2026-10-28-medalhao-t07.md).
+writer/cérebro CLOSED, commit `85ebf0153840d503e6fcd70532529896e8bcc29f`
+publicado e CI247/152 SUCCESS nesse SHA, reconciliados em 28/10/2026.
+T08 é a próxima entrega e ainda não foi iniciada. [Evidência](../evidence/2026-10-28-medalhao-t07.md).
 
 ### T08 — Avaliação de unidade
 

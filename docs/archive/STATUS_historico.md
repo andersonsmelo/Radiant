@@ -3967,3 +3967,35 @@ settings restaurados. Sem build/instalação/merge, gates humanos preservados.
 Próxima entrega após fechamento T06: T07 revisão. T07–T22 e G1–G8, conteúdo
 G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
 intocado.
+
+
+## T07 — reconciliação documental do fechamento em 28/10/2026
+
+**T07 implementada, revisada e validada em 28/10/2026:** fila real com
+ListRow, origens/histórico comprováveis, sem Pixel/anel; respostas, retomada,
+saída e vida única preservadas. R2 código/R3 nativo aprovados no núcleo.
+Loop final **15/15** em ciclo único, quality e app-test completos Node20.
+Filas reais3itens→resultado+12XP/HUD66→vazio e saída nos dois OS. iOS máxima
+core legível; Android normal/máxima inicial, live e resultado máximo não
+validados por erro de linking. **Aceite global bloqueado:** P2 PushOptIn
+cortado em máxima iOS paraT17, além do P3 caudaT06. Vazio máximo iOS e erros/
+retomada parcial não medidos nativamente; corações5 não provam grantcount.
+Apps/emuladores/Metro OFF/settings restaurados. BASE `c694f95`, writer
+`run-1793196624149-d9c215ee` validating/1ciclo, pronto para finish/close;
+Git/CI resultantes vêm depois. Brain `brain-session-1793196240376-47a0d28b`
+CLOSED. Sem build/install/merge ou consumo dos gates humanos.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## Referência da branch — substituída em 28/10/2026
+
+Branch `claude/trilha-medalhao-design`: commit de produto local/remoto
+conferido em 27/10/2026, antes desta atualização documental, em `e522984`,
+com ambos os pipelines desse SHA aprovados conforme
+registro T04 acima. A base `b5ac9bf` e a ref da `main` `bcf1a90` eram medições
+do planejamento de 25/10; não representam o estado atual. As PRs #66 e #67
+permanecem referências da frente; o estado aberto/mergeável e a `main` precisam
+ser consultados novamente antes de qualquer decisão de merge. Os planos
+estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
+cada plano tem uma seção "Registro de execução" com commits, decisões que
+mudaram o texto do plano e pendências.

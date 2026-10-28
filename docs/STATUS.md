@@ -345,20 +345,28 @@ aceite nativo desses estados. Apps/Metro/emuladores encerrados e settings
 restaurados. Sem build, instalação, merge ou consumo dos gates humanos.
 [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
 
-**T07 implementada, revisada e validada em 28/10/2026:** fila real com
-ListRow, origens/histórico comprováveis, sem Pixel/anel; respostas, retomada,
-saída e vida única preservadas. R2 código/R3 nativo aprovados no núcleo.
-Loop final **15/15** em ciclo único, quality e app-test completos Node20.
-Filas reais3itens→resultado+12XP/HUD66→vazio e saída nos dois OS. iOS máxima
-core legível; Android normal/máxima inicial, live e resultado máximo não
-validados por erro de linking. **Aceite global bloqueado:** P2 PushOptIn
-cortado em máxima iOS paraT17, além do P3 caudaT06. Vazio máximo iOS e erros/
-retomada parcial não medidos nativamente; corações5 não provam grantcount.
-Apps/emuladores/Metro OFF/settings restaurados. BASE `c694f95`, writer
-`run-1793196624149-d9c215ee` validating/1ciclo, pronto para finish/close;
-Git/CI resultantes vêm depois. Brain `brain-session-1793196240376-47a0d28b`
-CLOSED. Sem build/install/merge ou consumo dos gates humanos.
-[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+**T07 encerrada no núcleo em 28/10/2026:** fila real com ListRow e
+origens/histórico comprováveis, sem Pixel ou anel; resposta persistida,
+retomada, saída e prêmio único preservados nos testes. R2 de código e R3
+nativo aprovados no escopo medido. Loop final **15/15**, em ciclo único,
+incluindo quality e app-test completos no Node20. Writer
+`run-1793196624149-d9c215ee` fechou com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+brain `brain-session-1793196240376-47a0d28b` também CLOSED, reconfirmados pela
+CLI nesta atualização. Commit de produto
+`85ebf0153840d503e6fcd70532529896e8bcc29f` publicado na branch, 50 arquivos
+próprios e hashes conferidos. CI exclusivamente desse SHA: [App Quality247](https://github.com/andersonsmelo/Radiant/actions/runs/40722546476)
+e [Content152](https://github.com/andersonsmelo/Radiant/actions/runs/40722546361),
+ambos SUCCESS, reconfirmados em 28/10. Árvore limpa antes desta atualização.
+
+Em cada OS, fila real de 3 itens → resultado de +12 XP/HUD66 → vazio e saída.
+O núcleo iOS em fonte máxima e a abertura máxima inicial Android ficaram
+legíveis. **Aceite global do layout bloqueado:** P2 do PushOptIn cortado em
+máxima iOS, pendente T17, além do P3 da cauda T06. Android ao vivo e resultado
+máximo não validados por erro de linking; vazio máximo iOS e erros/retomada
+parcial não medidos nativamente. Cinco corações não provam contagem de grants.
+Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
+instalação, merge ou consumo de gates humanos. **Próxima entrega: T08,
+ainda não iniciada.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
@@ -386,16 +394,15 @@ A entrega do roteiro também é apenas documental: T00–T22/T04a não foram
 iniciadas por ela. Permanecem os aceites específicos de conteúdo, texto máximo,
 inventário/política, binário e liberação descritos no plano integrador.
 
-Branch `claude/trilha-medalhao-design`: commit de produto local/remoto
-conferido em 27/10/2026, antes desta atualização documental, em `e522984`,
-com ambos os pipelines desse SHA aprovados conforme
-registro T04 acima. A base `b5ac9bf` e a ref da `main` `bcf1a90` eram medições
-do planejamento de 25/10; não representam o estado atual. As PRs #66 e #67
-permanecem referências da frente; o estado aberto/mergeável e a `main` precisam
-ser consultados novamente antes de qualquer decisão de merge. Os planos
-estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
-cada plano tem uma seção "Registro de execução" com commits, decisões que
-mudaram o texto do plano e pendências.
+Branch `claude/trilha-medalhao-design`: último commit de produto reconciliado
+em 28/10/2026 é `85ebf0153840d503e6fcd70532529896e8bcc29f` (T07), publicado,
+com CI247/152 SUCCESS no mesmo SHA. A referência `e522984` pertence à entrega
+T04 de 27/10; as refs `b5ac9bf` e `bcf1a90` pertencem ao planejamento de 25/10.
+Elas não representam a implementação mais recente desta branch. As PRs #66
+e #67 continuam referências históricas da frente; seu estado e a `main`
+precisam ser consultados antes de qualquer decisão de merge. Esta atualização
+é documental, não inicia T08 nem aprova liberação. Os planos e registros de
+execução permanecem no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md).
 
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.

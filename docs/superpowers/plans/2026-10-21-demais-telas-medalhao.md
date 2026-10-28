@@ -400,7 +400,7 @@ título da aula de origem; não invente texto.
 Run: `cd radiant-app && npx jest src/features/review src/ui/components && npm run test:maestro-contract`
 Expected: PASS.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add -A radiant-app/src/features/review radiant-app/src/ui/components/ListRow.tsx radiant-app/src/ui/components/ListRow.test.tsx
@@ -412,8 +412,10 @@ metadados desconhecidos distintos, sem Pixel/anel, vida/registro/saída
 preservados; focal4/52 e contrato40/40. Engine Maestro não rodou; CLI nativa
 existente comprovou os cenários medidos. P2 do convite compartilhado máximo
 iOS segueT17 e bloqueia aceite global; Androidlive/resultmax não validados.
-Loop final15/15 em ciclo único aprovado; Passo5 Git é posterior ao
-fechamento CLI, comprovante no ledger e relatório final sem antecipar SHA.
+Loop final15/15 em ciclo único aprovado. Fechamento CLI e brain CLOSED
+confirmados; commit `85ebf0153840d503e6fcd70532529896e8bcc29f` publicado,
+50 arquivos próprios/hashes conferidos e CI247/152 SUCCESS no mesmo SHA.
+Passo5 reconciliado em 28/10/2026; T08 permanece pendente.
 [Evidência](../../evidence/2026-10-28-medalhao-t07.md).
 
 ### Tarefa 7: Avaliação da unidade
@@ -805,3 +807,12 @@ YAMLs, contrato Maestro e BenchControlRow com seu teste, medidos antes das
 respectivas edições. R1–R4 registram os limites; Loop15/15 na segunda tentativa
 após oito anotações de tipo nos testes, sem mudar o runtime nativo validado.
 [Evidência](../../evidence/2026-10-26-medalhao-t03.md). Próxima T04 do integrador.
+
+
+### Consolidação documental até T07 — 2026-10-28
+
+Os registros datados acima preservam seus checkpoints. T07 foi encerrada no
+núcleo no commit `85ebf01`, com Loop15/15, writer/cérebro CLOSED e CI247/152
+SUCCESS no SHA completo, conforme a evidência da tarefa. O passo de commit
+da tarefa 6 está concluído. A tarefa 7/T08 ainda não começou. PushOptIn máximo
+P2 e cauda P3 seguem para T17; o aceite global do layout permanece bloqueado.
