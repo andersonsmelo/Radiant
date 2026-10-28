@@ -121,11 +121,6 @@
       "dash": 1,
       "jargon": 0
     },
-    "src/features/checkpoint/screens/CheckpointScreen.tsx": {
-      "eyebrow": 6,
-      "dash": 0,
-      "jargon": 16
-    },
     "src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.tsx": {
       "eyebrow": 1,
       "dash": 0,

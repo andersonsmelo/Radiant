@@ -415,10 +415,12 @@ iOS segueT17 e bloqueia aceite global; Androidlive/resultmax não validados.
 Loop final15/15 em ciclo único aprovado. Fechamento CLI e brain CLOSED
 confirmados; commit `85ebf0153840d503e6fcd70532529896e8bcc29f` publicado,
 50 arquivos próprios/hashes conferidos e CI247/152 SUCCESS no mesmo SHA.
-Passo5 reconciliado em 28/10/2026; T08 permanece pendente.
+Passo5 reconciliado em 28/10/2026; T08 foi iniciada posteriormente; ver tarefa7 abaixo.
 [Evidência](../../evidence/2026-10-28-medalhao-t07.md).
 
 ### Tarefa 7: Avaliação da unidade
+
+**Núcleo implementado/revisado/validado em 28/10/2026:** R1 apontou P2 na identidade do resumo sem ID; correção pelo autor aprovada na R2 SpecPASS/QualidadeAPPROVED.61 focais/45 sob CPU limitada PASS; fluxo real iOS/Android medido, R3 aprovou o núcleo medido (BOUNDED); Loop final15/15 em um ciclo. [Evidência](../../evidence/2026-10-28-medalhao-t08.md).
 
 **Arquivos:**
 - Modificar: `radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx`
@@ -435,29 +437,38 @@ Passo5 reconciliado em 28/10/2026; T08 permanece pendente.
   - os rótulos "Voltar para jornada" viram "Voltar para a trilha", e "Abrir
     checkpoint" vira "Abrir avaliação".
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 Os três estados acima, e nenhum texto visível com "checkpoint", "jornada" ou
 "indisponível".
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/checkpoint`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
-- [ ] **Passo 4: Ver passar, com o relatório de desempenho do checkpoint**
+- [x] **Passo 4: Ver passar, com o relatório de desempenho do checkpoint**
 
 Run: `cd radiant-app && npx jest src/features/checkpoint && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument`
 Expected: PASS.
 
-- [ ] **Passo 5: Commit**
+**Passo 5: Commit após fechamento do Loop**
 
-```bash
-git add -A radiant-app/src/features/checkpoint
-git commit -m "feat(avaliação): medalha de prata e o que falta, sem estado indisponível"
-```
+A revisão Git que contém este registro identifica a entrega. Publicação e CI
+são conferidos nesse SHA pelo controlador; não se reutiliza CI de outro commit.
+
+O controlador stageia a lista nominal própria, incluindo documentação e
+capturas, confere os hashes e só então cria o commit. Não usar `git add -A`
+nem atribuir a esta entrega o CI de BASE_TASK.
+
+**Fechamento:** o run original validou15/15, mas `step finish` reprovou pelo
+arquivo gerado `expo-env.d.ts` fora do escopo. Run original encerrado sem sucesso.
+Regularização autorizada em28/10, no run `run-1793222933625-71a18c69`, com as31
+alterações próprias já na baseline, sem alteração de produto ou política.
+Resultados dos dois runs e limites constam na evidência T08. Não atribuir
+supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Tarefa 8: Perfil
 

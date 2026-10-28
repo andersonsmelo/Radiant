@@ -1,4 +1,7 @@
 import React from 'react';
+import { Circle } from 'react-native-svg';
+import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AccessibilityInfo } from 'react-native';
@@ -14,6 +17,11 @@ import { assessmentAttemptRepository } from '../../student-checkpoints/Assessmen
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
 import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
+import * as activeHook from '../../student-checkpoints/useActiveCheckpoint';
+import * as shadowHook from '../../student-checkpoints/useShadowCheckpoint';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { medalColors } from '../../../ui/theme';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
@@ -61,9 +69,9 @@ jest.mock('../../../components/ui/AppButton', () => {
   const { Pressable, Text } = require('react-native');
 
   return {
-    AppButton: ({ children, onPress, disabled }: { children: React.ReactNode; onPress: () => void; disabled?: boolean }) => (
+    AppButton: ({ children, label, onPress, disabled }: { children?: React.ReactNode; label?: string; onPress: () => void; disabled?: boolean }) => (
       <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}>
-        <Text>{children}</Text>
+        <Text>{children ?? label}</Text>
       </Pressable>
     ),
   };
@@ -121,6 +129,7 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     bootstrap: jest.fn(),
+    getSnapshotForNode: jest.fn(),
     markNodeCompleted: jest.fn(),
   },
 }));
@@ -254,7 +263,7 @@ const productionCompletedSnapshot = {
 } as any;
 
 async function answerProductionCheckpoint(correct: boolean): Promise<void> {
-  fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+  fireEvent.press(await screen.findByText('Começar avaliação'));
   for (const [index, item] of productionStageItems.entries()) {
     expect(await screen.findByText(item.prompt)).toBeTruthy();
     const option = correct
@@ -264,7 +273,7 @@ async function answerProductionCheckpoint(correct: boolean): Promise<void> {
     fireEvent.press(screen.getByLabelText(option.label));
     if (index === productionStageItems.length - 1) {
       await act(async () => {
-        fireEvent.press(screen.getByText('Enviar checkpoint'));
+        fireEvent.press(screen.getByText('Enviar avaliação'));
         await Promise.resolve();
         await Promise.resolve();
       });
@@ -279,9 +288,236 @@ describe('CheckpointScreen flow', () => {
     jest.clearAllMocks();
     await AsyncStorage.clear();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
+    mockedJourneyProgressService.getSnapshotForNode.mockImplementation(() => mockedJourneyProgressService.bootstrap());
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
     mockedGamification.getSnapshot.mockResolvedValue({ totalXp: 120, streakDays: 3 } as any);
     mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award: null, rewarded: false });
+  });
+
+  describe('estados Medalhão', () => {
+    beforeEach(() => {
+      // A fonte anterior usa bootstrap: manter os dois caminhos reais permite
+      // reproduzir os sintomas antigos, sem fabricar o estado indisponível.
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    });
+    // Duas aulas necessárias, uma futura e uma revisão: só as duas primeiras
+    // pertencem à cadeia de pré-requisitos desta avaliação.
+    const dependencySnapshot = {
+      ...productionAvailableSnapshot,
+      track: { units: [
+        { id: 'earlier-unit', title: 'Outra unidade', nodes: [] },
+        { ...productionAvailableSnapshot.track.units[0], nodes: [
+          { id: 'aula-a', unitId: productionAvailableSnapshot.track.units[0].id, type: 'lesson', status: 'completed', title: 'Aula A' },
+          { id: 'aula-b', unitId: productionAvailableSnapshot.track.units[0].id, type: 'lesson', status: 'available', title: 'Aula B', unlockRule: { requiresNodeIds: ['aula-a'] } },
+          { id: 'revisao', unitId: productionAvailableSnapshot.track.units[0].id, type: 'review', status: 'locked', title: 'Revisão' },
+          { ...productionAvailableSnapshot.track.units[0].nodes[0], status: 'locked', unlockRule: { requiresNodeIds: ['aula-b'] } },
+          { id: 'aula-futura', unitId: productionAvailableSnapshot.track.units[0].id, type: 'lesson', status: 'locked', title: 'Aula futura', unlockRule: { requiresNodeIds: [productionNodeId] } },
+        ] },
+      ] },
+      progress: { completedNodeIds: ['aula-a'], pendingSyncEvents: [] },
+    } as any;
+
+    it('bloqueada explica só as aulas necessárias e não abre histórico nem runtime', async () => {
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(dependencySnapshot);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(dependencySnapshot);
+      const history = jest.spyOn(assessmentAttemptRepository, 'getState');
+      const active = jest.spyOn(activeHook, 'useActiveCheckpoint');
+      const shadow = jest.spyOn(shadowHook, 'useShadowCheckpoint');
+      try {
+        renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+        expect(await screen.findByText('Abre depois das 2 aulas. Faltam 1.')).toBeTruthy();
+        expect(screen.getByText('Avaliação da unidade 2')).toBeTruthy();
+        expect(screen.getByLabelText('Avaliação da unidade 2. Bloqueada.')).toBeTruthy();
+        expect(screen.UNSAFE_getByType(JourneyMedal).findAllByType(Circle).some((circle: { props: { fill?: string } }) => circle.props.fill === medalColors.locked.face)).toBe(true);
+        expect(screen.queryByText('Começar avaliação')).toBeNull();
+        expect(screen.queryByRole('radio')).toBeNull();
+        expect(history).not.toHaveBeenCalled();
+        expect(active.mock.calls.at(-1)?.[0].enabled).toBe(false);
+        expect(shadow.mock.calls.at(-1)?.[0].enabled).toBe(false);
+        expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+        expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+      } finally { history.mockRestore(); active.mockRestore(); shadow.mockRestore(); }
+    });
+
+    it('inválida explícita volta à trilha em vez de abrir outra avaliação disponível', async () => {
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      const history = jest.spyOn(assessmentAttemptRepository, 'getState');
+      const active = jest.spyOn(activeHook, 'useActiveCheckpoint');
+      const shadow = jest.spyOn(shadowHook, 'useShadowCheckpoint');
+      try {
+        renderWithProviders(<CheckpointScreen nodeId="node:invalid" />);
+        await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
+        expect(history).not.toHaveBeenCalled();
+        expect(active.mock.calls.at(-1)?.[0].enabled).toBe(false);
+        expect(shadow.mock.calls.at(-1)?.[0].enabled).toBe(false);
+        expect(screen.queryByText('Começar avaliação')).toBeNull();
+        expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+      } finally { history.mockRestore(); active.mockRestore(); shadow.mockRestore(); }
+    });
+
+    it('disponível em outra trilha usa snapshot do nó, prata e regra real sem Pixel', async () => {
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(productionAvailableSnapshot);
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      expect(mockedJourneyProgressService.getSnapshotForNode).toHaveBeenCalledWith(productionNodeId);
+      expect(mockedJourneyProgressService.bootstrap).not.toHaveBeenCalled();
+      expect(screen.getByText('Avaliação da unidade 1')).toBeTruthy();
+      expect(screen.getByText('Avaliação 1 de 5')).toBeTruthy();
+      expect(screen.getByText('Questão 1 de 2')).toBeTruthy();
+      expect(screen.getByLabelText('Avaliação da unidade 1. Disponível.')).toBeTruthy();
+      const medal = screen.UNSAFE_getByType(JourneyMedal);
+      // Cor efetiva dos desenhos SVG, não cópia das props do componente.
+      expect(medal.findAllByType(Circle).some((circle: { props: { fill?: string } }) => circle.props.fill === medalColors.silver.face)).toBe(true);
+      expect(screen.UNSAFE_queryByType(PixelHeroSplit)).toBeNull();
+      expect(screen.UNSAFE_queryByType(PixelIllustration)).toBeNull();
+      expect(screen.queryByLabelText(/Pixel/u)).toBeNull();
+      expect(screen.queryByText(/checkpoint|jornada|indisponível/iu)).toBeNull();
+    });
+
+    it('falha de leitura mostra erro recuperável e não é tratada como nó inválido', async () => {
+      mockedJourneyProgressService.getSnapshotForNode.mockRejectedValueOnce(Error('read-failed'));
+      const error = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+      try {
+        renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+        expect(await screen.findByText('Não foi possível carregar a avaliação.')).toBeTruthy();
+        expect(mockedRouter.dismissTo).not.toHaveBeenCalled();
+        mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(productionAvailableSnapshot);
+        fireEvent.press(screen.getByText('Tentar novamente'));
+        expect(await screen.findByText('Começar avaliação')).toBeTruthy();
+      } finally { error.mockRestore(); }
+    });
+
+    it('conclusão sem nodeId sobrevive ao desaparecimento do fallback e não inventa XP', async () => {
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+      renderWithProviders(<CheckpointScreen />);
+      await answerProductionCheckpoint(true);
+      expect(await screen.findByText('Avaliação concluída')).toBeTruthy();
+      expect(screen.getByLabelText('Avaliação concluída. Medalha de prata.')).toBeTruthy();
+      expect(screen.queryByText(/\+null XP|\+0 XP/u)).toBeNull();
+      fireEvent.press(screen.getByText('Voltar para a trilha'));
+      expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
+    });
+
+    it('retoma resumo confirmado sem reenviar respostas ou creditar novamente', async () => {
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(productionCompletedSnapshot);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionCompletedSnapshot);
+      const submit = jest.spyOn(assessmentAttemptRepository, 'submit');
+      try {
+        renderWithProviders(<CheckpointScreen nodeId={productionNodeId} resumeCheckpointId="saved-summary" resumeCursorId="checkpoint-summary" />);
+        expect(await screen.findByText('Avaliação concluída')).toBeTruthy();
+        expect(submit).not.toHaveBeenCalled();
+        expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+        expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+      } finally { submit.mockRestore(); }
+    });
+  });
+
+  it.each([false, true])('mantém a primeira avaliação no resumo sem abrir a segunda (finish pendente: %s)', async (deferFinish) => {
+    const canonical = ProductionCurriculumCatalog.getJourneyTrackDefinition(ProductionCurriculumCatalog.listTracks()[0].id)!;
+    const firstTwo = canonical.units.flatMap(unit => unit.nodes).filter(node => node.type === 'checkpoint').slice(0, 2);
+    expect(firstTwo[0].id).toBe(productionNodeId);
+    expect(firstTwo[1].title).toBe('Avaliação 2 de 5');
+    const completedLessons = canonical.units.flatMap(unit => unit.nodes).filter(node => node.type === 'lesson').map(node => node.id);
+    const before = {
+      ...productionAvailableSnapshot,
+      track: { ...canonical, units: canonical.units.map(unit => ({ ...unit, nodes: unit.nodes.map(node => ({
+        ...node, status: node.type === 'lesson' ? 'completed' : node.type === 'checkpoint' ? 'available' : 'locked',
+      })) })) },
+      progress: { completedNodeIds: completedLessons, pendingSyncEvents: [] },
+      nextRecommendedNode: { ...firstTwo[0], status: 'available' },
+    } as any;
+    const after = {
+      ...before,
+      track: { ...before.track, units: before.track.units.map((unit: any) => ({ ...unit, nodes: unit.nodes.map((node: any) =>
+        node.id === firstTwo[0].id ? { ...node, status: 'completed' } : node) })) },
+      progress: { ...before.progress, completedNodeIds: [...completedLessons, firstTwo[0].id] },
+      nextRecommendedNode: { ...firstTwo[1], status: 'available' },
+    } as any;
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(before);
+    mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(after);
+    const history = jest.spyOn(assessmentAttemptRepository, 'getState');
+    const submit = jest.spyOn(assessmentAttemptRepository, 'submit');
+    const realActive = activeHook.useActiveCheckpoint;
+    let releaseFinish!: () => void;
+    const gate = deferFinish ? new Promise<void>(resolve => { releaseFinish = resolve; }) : Promise.resolve();
+    const finishedFlowIds: string[] = [];
+    const active = jest.spyOn(activeHook, 'useActiveCheckpoint').mockImplementation(binding => {
+      const control = realActive(binding);
+      return { ...control, finish: async () => {
+        finishedFlowIds.push(binding.flowId);
+        await gate;
+        await control.finish();
+      } };
+    });
+    const shadow = jest.spyOn(shadowHook, 'useShadowCheckpoint');
+    const original = renderWithProviders(<CheckpointScreen />);
+    try {
+      await answerProductionCheckpoint(true);
+      if (deferFinish) {
+        await waitFor(() => expect(finishedFlowIds).toEqual([`unit-checkpoint:${firstTwo[0].id}`]));
+        // Esta é a janela setSnapshot -> finish, antes da celebração. Não pode
+        // mudar identidade nem abrir o runtime da avaliação seguinte aqui.
+        expect(screen.getByText(firstTwo[0].title)).toBeTruthy();
+        expect(screen.UNSAFE_getByType(JourneyMedal).props.node.id).toBe(firstTwo[0].id);
+        expect(history.mock.calls.some(([id]) => id === firstTwo[1].id)).toBe(false);
+        expect(active.mock.calls.some(([binding]) => binding.journeyNodeId === firstTwo[1].id)).toBe(false);
+        expect(shadow.mock.calls.some(([binding]) => binding.journeyNodeId === firstTwo[1].id)).toBe(false);
+        await act(async () => { releaseFinish(); });
+      }
+      expect(await screen.findByText('Avaliação concluída')).toBeTruthy();
+      expect(screen.getByText(firstTwo[0].title)).toBeTruthy();
+      expect(screen.queryByText(firstTwo[1].title)).toBeNull();
+      const medal = screen.UNSAFE_getByType(JourneyMedal);
+      expect(medal.props.node.id).toBe(firstTwo[0].id);
+      expect(medal.props.unitNumber).toBe(1);
+      expect(history.mock.calls.some(([id]) => id === firstTwo[1].id)).toBe(false);
+      expect(active.mock.calls.some(([binding]) => binding.journeyNodeId === firstTwo[1].id)).toBe(false);
+      expect(shadow.mock.calls.some(([binding]) => binding.journeyNodeId === firstTwo[1].id)).toBe(false);
+      expect(finishedFlowIds).toEqual([`unit-checkpoint:${firstTwo[0].id}`]);
+      expect(submit).toHaveBeenCalledTimes(1);
+      expect(submit.mock.calls[0][0].journeyNodeId).toBe(firstTwo[0].id);
+      expect(mockedJourneyProgressService.markNodeCompleted.mock.calls).toEqual([[firstTwo[0].id]]);
+      expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledTimes(1);
+      expect(mockedLessonOutcome.recordAssessmentApproval.mock.calls[0][0].nodeId).toBe(firstTwo[0].id);
+      fireEvent.press(screen.getByText('Abrir avaliação'));
+      expect(mockedRouter.replace).toHaveBeenCalledWith({ pathname: '/checkpoint', params: { nodeId: firstTwo[1].id } });
+      original.unmount();
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(after);
+      renderWithProviders(<CheckpointScreen nodeId={firstTwo[1].id} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      const nextItems = ProductionCurriculumCatalog.getCheckpointByNodeId(firstTwo[1].id)!.items;
+      expect(await screen.findByText(nextItems[0].prompt)).toBeTruthy();
+      expect(mockedJourneyProgressService.markNodeCompleted.mock.calls).toEqual([[firstTwo[0].id]]);
+    } finally {
+      releaseFinish?.();
+      history.mockRestore(); submit.mockRestore(); active.mockRestore(); shadow.mockRestore();
+    }
+  });
+
+  it('dois toques no envio comprometem uma única tentativa e um único crédito', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+    const submit = jest.spyOn(assessmentAttemptRepository, 'submit');
+    try {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      for (const [index, item] of productionStageItems.entries()) {
+        fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id === item.correctOptionId)!.label));
+        if (index < productionStageItems.length - 1) fireEvent.press(screen.getByText('Próxima questão'));
+      }
+      const send = screen.getByRole('button', { name: 'Enviar avaliação' });
+      await act(async () => {
+        fireEvent.press(send);
+        fireEvent.press(send);
+      });
+      expect(await screen.findByText('Avaliação concluída')).toBeTruthy();
+      expect(submit).toHaveBeenCalledTimes(1);
+      expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledTimes(1);
+      expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledTimes(1);
+      expect(await itemReviewRepository.getAttempts()).toHaveLength(2);
+    } finally { submit.mockRestore(); }
   });
 
   it('retry após falha de gravação envia o mesmo ID e as mesmas respostas, sem concluir antes', async () => {
@@ -300,7 +536,7 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
       expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
       const first = submit.mock.calls[0][0];
-      fireEvent.press(screen.getByText('Enviar checkpoint'));
+      fireEvent.press(screen.getByText('Enviar avaliação'));
       await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
       expect(submit.mock.calls[1][0]).toEqual(first);
       expect(await itemReviewRepository.getAttempts()).toHaveLength(productionStageItems.length);
@@ -328,7 +564,7 @@ describe('CheckpointScreen flow', () => {
     fireEvent.press(await screen.findByText('Concluir avaliação registrada'));
     await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
     expect(await itemReviewRepository.getAttempts()).toEqual(before);
-    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
   });
 
   it('retry da conclusão na mesma tela não volta a pedir crédito de XP', async () => {
@@ -337,7 +573,7 @@ describe('CheckpointScreen flow', () => {
       .mockResolvedValueOnce(productionAvailableSnapshot).mockResolvedValue(productionCompletedSnapshot);
     renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
     await answerProductionCheckpoint(true);
-    expect(await screen.findByText('Nao foi possivel concluir o checkpoint agora.')).toBeTruthy();
+    expect(await screen.findByText('Não foi possível concluir a avaliação agora.')).toBeTruthy();
     fireEvent.press(screen.getByText('Concluir avaliação registrada'));
     await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledTimes(2));
     expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledTimes(1);
@@ -345,10 +581,10 @@ describe('CheckpointScreen flow', () => {
 
   // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no
   // máximo uma vida, mesmo que o aluno saia e volte. A tentativa vai do
-  // "Iniciar checkpoint" até o envio.
+  // "Começar avaliação" até o envio.
   describe('uma vida por pergunta por tentativa', () => {
     async function errarAPrimeiraPergunta(): Promise<void> {
-      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      fireEvent.press(await screen.findByText('Começar avaliação'));
       const item = productionStageItems[0];
       expect(await screen.findByText(item.prompt)).toBeTruthy();
       const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
@@ -403,7 +639,7 @@ describe('CheckpointScreen flow', () => {
 
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
       await answerProductionCheckpoint(true);
-      expect(await screen.findByText('CONQUISTA DESBLOQUEADA')).toBeTruthy();
+      expect(await screen.findByText('Avaliação concluída')).toBeTruthy();
 
       const stored = JSON.parse(await AsyncStorage.getItem('@radiant:checkpoint_charged_items_v1') ?? '{}');
       expect(stored[productionNodeId]).toBeUndefined();
@@ -423,7 +659,7 @@ describe('CheckpointScreen flow', () => {
       announce.mock.calls.map(([texto]) => texto as string).filter((texto) => /vida/u.test(texto));
 
     async function responderAPrimeira(certa: boolean): Promise<void> {
-      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      fireEvent.press(await screen.findByText('Começar avaliação'));
       const item = productionStageItems[0];
       expect(await screen.findByText(item.prompt)).toBeTruthy();
       const opcao = item.options.find(option => (option.id === item.correctOptionId) === certa)!;
@@ -459,7 +695,7 @@ describe('CheckpointScreen flow', () => {
       heartsRepository().spend.mockResolvedValue(vidas(0, 'empty'));
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
 
-      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      fireEvent.press(await screen.findByText('Começar avaliação'));
       const item = productionStageItems[0];
       fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id !== item.correctOptionId)!.label));
       fireEvent.press(screen.getByText('Próxima questão'));
@@ -516,7 +752,7 @@ describe('CheckpointScreen flow', () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
     renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
 
-    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    fireEvent.press(await screen.findByText('Começar avaliação'));
     const item = productionStageItems[0];
     const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
     fireEvent.press(screen.getByLabelText(wrong.label));
@@ -537,7 +773,7 @@ describe('CheckpointScreen flow', () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
     renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
 
-    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    fireEvent.press(await screen.findByText('Começar avaliação'));
     const item = productionStageItems[0];
     const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
     expect(await screen.findByText(item.prompt)).toBeTruthy();
@@ -559,7 +795,7 @@ describe('CheckpointScreen flow', () => {
       mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
       await act(async () => {});
-      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      fireEvent.press(await screen.findByText('Começar avaliação'));
       expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
     }
 
@@ -593,7 +829,7 @@ describe('CheckpointScreen flow', () => {
       heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
       voltarParaATela();
       await act(async () => {});
-      fireEvent.press(screen.getByText('Iniciar checkpoint'));
+      fireEvent.press(screen.getByText('Começar avaliação'));
 
       expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
       expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
@@ -602,11 +838,10 @@ describe('CheckpointScreen flow', () => {
 
   it('a checkpoint without an assessment cannot be completed by a legacy button', async () => {
     renderWithProviders(<CheckpointScreen nodeId="checkpoint-1" />);
-    expect(await screen.findByText('Checkpoint indisponível')).toBeTruthy();
+    await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
     expect(screen.queryByText('Concluir checkpoint')).toBeNull();
-    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
-    fireEvent.press(screen.getByText('Voltar para jornada'));
     expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
   });
 
@@ -680,7 +915,7 @@ describe('CheckpointScreen flow', () => {
         await answerProductionCheckpoint(true);
 
         expect(await screen.findByText('+18 XP')).toBeTruthy();
-        expect(screen.queryByText(/Nao foi possivel registrar o checkpoint/u)).toBeNull();
+        expect(screen.queryByText(/Não foi possível registrar a avaliação/u)).toBeNull();
         expect(await itemReviewRepository.getAttempts()).toHaveLength(productionStageItems.length);
       } finally {
         random.mockRestore();
@@ -750,7 +985,7 @@ describe('CheckpointScreen flow', () => {
     first.unmount();
     renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
     expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
-    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
   });
 
   it('concluir o reforço permite uma nova tentativa ao reabrir a tela', async () => {
@@ -763,7 +998,7 @@ describe('CheckpointScreen flow', () => {
       await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
     }
     renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
-    const start = await screen.findByText('Iniciar checkpoint');
+    const start = await screen.findByText('Começar avaliação');
     await waitFor(() => expect(screen.queryByText('Reforço necessário antes de tentar novamente')).toBeNull());
     fireEvent.press(start);
     expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
@@ -778,7 +1013,7 @@ describe('CheckpointScreen flow', () => {
       await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
     }
     voltarParaATela();
-    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    fireEvent.press(await screen.findByText('Começar avaliação'));
     expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
     expect(screen.queryByText(productionStageItems[1].prompt)).toBeNull();
     const firstItem = productionStageItems[0];
@@ -787,6 +1022,6 @@ describe('CheckpointScreen flow', () => {
     expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
     voltarParaATela();
     await waitFor(() => expect(screen.getByText(productionStageItems[1].prompt)).toBeTruthy());
-    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
   });
 });

@@ -199,14 +199,23 @@ focal4/52, contrato40/40, filareal/resultado/vazio em iOS/Android. P2 compartilh
 PushOptIn máxima iOS bloqueia aceite global e segueT17; Androidlive/resultmax
 não validados. Loop final15/15 em ciclo único, writer/cérebro CLOSED e commit
 `85ebf0153840d503e6fcd70532529896e8bcc29f` publicado, com CI247/152 SUCCESS
-no mesmo SHA. Reconciliação documental em28/10; próxima Task10/T08, ainda não
-iniciada. Os aceites humanos e de layout global permanecem pendentes.
+no mesmo SHA. Reconciliação documental em28/10; Task10/T08 retomada posteriormente
+na mesma data, conforme registro abaixo. Os aceites humanos e de layout global permanecem pendentes.
 [Evidência](../evidence/2026-10-28-medalhao-t07.md).
 
 ### Task 10: T08 — Avaliação
 
+**Núcleo implementado/revisado/validado em 28/10/2026:** implementador I/high, R1 apontou P2 de identidade e a R2 SpecPASS/QualidadeAPPROVED confirmou a correção pelo autor;61 focais/45 sob CPU limitada. Fluxo real iOS/Android medido; R3 aprovou o núcleo medido (BOUNDED); Loop final15/15 em um ciclo. Nenhum gate humano consumido.
+
 - **Dono:** I/high; **revisão:** R. **Skills:** T, U; **recursos:** Jest, scripts de checkpoint, Maestro/nativo.
 - **Pré-requisito:** T01 e catálogo vigente. **Saída:** estados e contagem reais, commit único, erro deliberado; scripts de checkpoint não apresentados como FPS da bancada.
+
+**Fechamento:** o run original validou15/15, mas `step finish` reprovou pelo
+arquivo gerado `expo-env.d.ts` fora do escopo. Run original encerrado sem sucesso.
+Regularização autorizada em28/10, no run `run-1793222933625-71a18c69`, com as31
+alterações próprias já na baseline, sem alteração de produto ou política.
+Resultados dos dois runs e limites constam na evidência T08. Não atribuir
+supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 11: T09 — Perfil
 

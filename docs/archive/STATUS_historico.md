@@ -3999,3 +3999,31 @@ ser consultados novamente antes de qualquer decisão de merge. Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
+
+
+## 28/10/2026 — checkpoint T07 anterior à execução T08
+
+Bloco substituído no STATUS durante a entrega T08; texto preservado integralmente.
+
+**T07 encerrada no núcleo em 28/10/2026:** fila real com ListRow e
+origens/histórico comprováveis, sem Pixel ou anel; resposta persistida,
+retomada, saída e prêmio único preservados nos testes. R2 de código e R3
+nativo aprovados no escopo medido. Loop final **15/15**, em ciclo único,
+incluindo quality e app-test completos no Node20. Writer
+`run-1793196624149-d9c215ee` fechou com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+brain `brain-session-1793196240376-47a0d28b` também CLOSED, reconfirmados pela
+CLI nesta atualização. Commit de produto
+`85ebf0153840d503e6fcd70532529896e8bcc29f` publicado na branch, 50 arquivos
+próprios e hashes conferidos. CI exclusivamente desse SHA: [App Quality247](https://github.com/andersonsmelo/Radiant/actions/runs/40722546476)
+e [Content152](https://github.com/andersonsmelo/Radiant/actions/runs/40722546361),
+ambos SUCCESS, reconfirmados em 28/10. Árvore limpa antes desta atualização.
+
+Em cada OS, fila real de 3 itens → resultado de +12 XP/HUD66 → vazio e saída.
+O núcleo iOS em fonte máxima e a abertura máxima inicial Android ficaram
+legíveis. **Aceite global do layout bloqueado:** P2 do PushOptIn cortado em
+máxima iOS, pendente T17, além do P3 da cauda T06. Android ao vivo e resultado
+máximo não validados por erro de linking; vazio máximo iOS e erros/retomada
+parcial não medidos nativamente. Cinco corações não provam contagem de grants.
+Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
+instalação, merge ou consumo de gates humanos. **Próxima entrega: T08,
+ainda não iniciada.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).

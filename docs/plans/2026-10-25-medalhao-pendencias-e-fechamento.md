@@ -477,9 +477,11 @@ resultado máximo não validados; vazio máximo iOS não medido. P2 PushOptIn
 máximo impede aceite global e segue T17. Loop final15/15 em ciclo único;
 writer/cérebro CLOSED, commit `85ebf0153840d503e6fcd70532529896e8bcc29f`
 publicado e CI247/152 SUCCESS nesse SHA, reconciliados em 28/10/2026.
-T08 é a próxima entrega e ainda não foi iniciada. [Evidência](../evidence/2026-10-28-medalhao-t07.md).
+T08 foi iniciada posteriormente em28/10; ver registro abaixo. [Evidência](../evidence/2026-10-28-medalhao-t07.md).
 
 ### T08 — Avaliação de unidade
+
+**Núcleo implementado/revisado/validado em 28/10/2026:** código aprovado na R2 após correção do P2 de identidade na conclusão;61 focais/45 sob CPU limitada PASS. Fluxo real iOS/Android medido; R3 aprovou o núcleo medido (BOUNDED); Loop final15/15 em um ciclo. [Evidência](../evidence/2026-10-28-medalhao-t08.md).
 
 **Plano 5/tarefa 7. Arquivos:**
 `radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx`, `CheckpointScreen.flow.test.tsx`,
@@ -487,12 +489,25 @@ T08 é a próxima entrega e ainda não foi iniciada. [Evidência](../evidence/20
 `radiant-app/scripts/checkpoint-cdp-collector.test.mjs`,
 `radiant-app/scripts/checkpoint-cohort-runner.test.mjs` e YAMLs consumidores medidos.
 
-- [ ] Testar separadamente bloqueada, inválida, disponível, retomada e conclusão.
-- [ ] Medalha de prata e contagem real; sem Pixel. Inválida volta à trilha;
+- [x] Testar separadamente bloqueada, inválida, disponível, retomada e conclusão.
+- [x] Medalha de prata e contagem real; sem Pixel. Inválida volta à trilha;
   bloqueada explica quantas aulas faltam, sem conceder acesso.
-- [ ] Preservar catálogo canônico, respostas e commit único; testar erro deliberado.
-- [ ] Rodar fluxo e os scripts focais `test:checkpoint-performance-report` e
+- [x] Preservar catálogo canônico, respostas e commit único; testar erro deliberado.
+- [x] Rodar fluxo e os scripts focais `test:checkpoint-performance-report` e
   `test:checkpoint-instrument`. Eles não provam FPS da bancada.
+
+Limites nativos e aceite global permanecem na evidência; T09 ainda não iniciada.
+Os três testes de instrumentos foram executados pelos scripts npm, sem alteração:
+não foi encontrado consumidor vivo de labels da tela nesses scripts ou YAMLs.
+Consumidor real adicional: JourneyNodeCompletionGuard.test.tsx. Retiradas apenas
+as exceções da tela nas duas baselines; política Loop e catálogo intactos.
+
+**Fechamento:** o run original validou15/15, mas `step finish` reprovou pelo
+arquivo gerado `expo-env.d.ts` fora do escopo. Run original encerrado sem sucesso.
+Regularização autorizada em28/10, no run `run-1793222933625-71a18c69`, com as31
+alterações próprias já na baseline, sem alteração de produto ou política.
+Resultados dos dois runs e limites constam na evidência T08. Não atribuir
+supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### T09 — Perfil: medalhas, semana verdadeira e metas
 

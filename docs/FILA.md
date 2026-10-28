@@ -497,7 +497,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     publicado, CI245/150SUCCESS no mesmo SHA confirmado em 27/10. T06 encerrada em 28/10: Loop15/15, commit `c694f95`, CI246/151 SUCCESS e
     writer/cérebro CLOSED confirmados. T07 encerrada no núcleo em 28/10:
     Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
-    writer/cérebro CLOSED. Próxima T08 ainda não iniciada; P2 compartilhado
+    writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada sem alterar produto/política (evidência T08); próxima T09 ainda não iniciada; P2 compartilhado
     para T17 e aceite global bloqueado. Limites no STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
