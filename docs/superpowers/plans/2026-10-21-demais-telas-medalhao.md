@@ -293,7 +293,7 @@ Expected: FAIL.
 Run: `cd radiant-app && npx jest src/features/quiz src/features/lesson-flow`
 Expected: PASS.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add -A radiant-app/src/features/quiz radiant-app/src/ui/motion.ts
@@ -313,6 +313,8 @@ primeira validação do writer substituto/segunda do objetivo. Passo5 de Git
 final, sem antecipar um SHA neste checkpoint.
 [Evidência por fase e limites](../../evidence/2026-10-27-medalhao-t05.md).
 
+Conferência posterior em 27/10 no preflightT06: commitT05 `d033433` publicado, CI AppQuality245/Content150 SUCCESS no SHA completo e árvore limpa antes da nova entrega.
+
 ### Tarefa 5: Recompensa sem estado vazio
 
 **Arquivos:**
@@ -324,20 +326,20 @@ final, sem antecipar um SHA neste checkpoint.
   `router.dismissTo('/(tabs)')` no efeito de carga e não desenha nada. Com
   recompensa, a celebração usa a mesma peça da tarefa 4.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - sem recompensa: `router.dismissTo` com `'/(tabs)'`, e nenhum texto
   "Conquista indisponível", "elegível" ou "jornada" na árvore;
 - com recompensa: a medalha de ouro e "Continuar".
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/rewards`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
-- [ ] **Passo 4: Ver passar**
+- [x] **Passo 4: Ver passar**
 
 Run: o mesmo do passo 2. Expected: PASS.
 
@@ -347,6 +349,15 @@ Run: o mesmo do passo 2. Expected: PASS.
 git add -A radiant-app/src/features/rewards
 git commit -m "feat(recompensa): sem recompensa, a rota volta para a trilha"
 ```
+
+Registro em 28/10/2026: retorno automático para ausência canônica; loading e
+erro distintos, bloqueado/coletado preservados, confirmação pelo serviço e
+proteções inflight/póscoleta. R5 código e R6 evidência nativa aprovados no
+escopo medido; focal final4/100 e contrato39/39. Fonte live iOS corrigida;
+Android normal/máxima inicial legíveis, live não validado por erro de linking
+do dev client. P3 cauda permanece para T17. Loop final15/15 aprovado em
+ciclo único. Passo5 Git é posterior ao fechamento CLI, comprovante no ledger
+e relatório final, sem antecipar SHA neste checkpoint. [Evidência](../../evidence/2026-10-27-medalhao-t06.md).
 
 ### Tarefa 6: Revisão
 

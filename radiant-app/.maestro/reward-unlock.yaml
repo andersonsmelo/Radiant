@@ -601,3 +601,7 @@ tags:
 - assertVisible: Conquista registrada
 - assertVisible: Salva no seu progresso
 - assertVisible: 8 de 8 marcos da unidade concluídos
+# A ação póscoleta usa o destino real calculado pelo snapshot.
+- tapOn: Continuar
+- assertVisible:
+    id: journey-trail

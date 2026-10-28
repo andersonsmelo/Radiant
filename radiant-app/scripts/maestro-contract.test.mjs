@@ -1303,6 +1303,39 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
 
 });
 
+test('reward exit flows follow the bound Continue action and return an invalid link to the trail', async () => {
+  const source = parseAppSource('RewardScreen.tsx',
+    await readAppFile('src/features/rewards/screens/RewardScreen.tsx'));
+  const buttons = [];
+  const visit = node => {
+    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'AppButton') {
+      const press = node.openingElement.attributes.properties.find(attribute =>
+        ts.isJsxAttribute(attribute) && attribute.name.text === 'onPress');
+      const action = press?.initializer?.expression;
+      if (action && ts.isPropertyAccessExpression(action)
+        && ts.isIdentifier(action.expression) && action.expression.text === 'nextAction'
+        && action.name.text === 'action') buttons.push(node);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  assert.equal(buttons.length, 1, 'one postcollection button uses the computed real destination');
+  const label = buttons[0].children.filter(ts.isJsxText).map(node => node.text.trim()).join('');
+  assert.equal(label, 'Continuar', 'the live bound button carries the approved label');
+
+  const unlocked = await flowCommands('reward-unlock.yaml');
+  assert.deepEqual(unlocked.slice(-2), [
+    { tapOn: label }, { assertVisible: { id: 'journey-trail' } },
+  ], 'after confirmed collection, Continue must return to the real trail');
+  const locked = await flowCommands('reward-locked.yaml');
+  const invalid = locked.findIndex(command => command?.openLink?.link === 'radiantapp://reward?nodeId=reward-inexistente');
+  assert.ok(invalid >= 0, 'exercise a genuinely invalid destination separately from the locked reward');
+  assert.deepEqual(locked.slice(invalid + 1), [
+    { assertVisible: { id: 'journey-trail' } },
+    { assertNotVisible: 'Conquista indisponível' },
+  ], 'invalid reward resolves directly to the trail without the removed empty screen');
+});
+
 test('escapes every "?" in every selector of every flow', async () => {
   // O seletor do Maestro é regex de casamento total: um `?` sem barra torna a
   // letra anterior opcional e deixa o literal sem nada para casar, então a

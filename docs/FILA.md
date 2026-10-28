@@ -493,7 +493,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     sem prêmio repetido. P2 de texto ampliado corrigido e aprovado no iOS R5;
     Android aula/revisão fonte2 legíveis. Loop final15/15 após fix3 de mock aprovado em R7;
     primeira validação do writer substituto/segunda do objetivo.
-    [Evidência T05](evidence/2026-10-27-medalhao-t05.md). Próxima após T05: T06.
+    [Evidência T05](evidence/2026-10-27-medalhao-t05.md). Commit `d033433`
+    publicado, CI245/150SUCCESS no mesmo SHA confirmado em 27/10. T06 implementada/revisada/validada em 28/10: Loop final15/15 em ciclo único; Git posterior ao fechamento. Próxima T07; limites no STATUS.
     Limites em STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada

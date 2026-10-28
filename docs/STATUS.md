@@ -318,13 +318,30 @@ Fix3 de uma linha aprovado em R7, guardas de autorização intactas,6/6focais.
 Gate final **15/15** em `run-1793152438847-57dea062`, primeira validação do
 substituto/segunda do objetivo: app-quality86.370ms e app-test78.082ms,
 comandos completos em Node20.20.2; CLI24.14.1/caffeinate. Escopo61caminhos,
-sem alterar política; código e nativo freeze3 preservados. Este checkpoint
-precede stepfinish/runclose e commit; a confirmação final de fechamento,
-SHA publicado e CI pertence ao ledger e relatório final da entrega.
+sem alterar política; código e nativo freeze3 preservados. Fechamento confirmado no preflight T06: STEP_SUCCEEDED→RUN_CLOSED,
+sem memória opcional; sessão fechada por CLI. Commit
+`d033433f268422020551ef3e4e20d2e121ec8ceb` publicado na branch, árvore limpa
+após o push e antes de T06. CI desse SHA confirmado em 27/10: [App Quality245](https://github.com/andersonsmelo/Radiant/actions/runs/40619391185) e
+[Content Scripts150](https://github.com/andersonsmelo/Radiant/actions/runs/40619391196), ambos SUCCESS.
 Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
 writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
-Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
-continuam pendentes; segundo dia no fechamento e reservado intocado.
+Próxima entrega após fechamento T06: T07 revisão. T07–T22 e G1–G8, conteúdo
+G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
+intocado.
+
+**T06 implementada, revisada e validada em 28/10/2026:** ausência canônica
+retorna à trilha; estados válidos mantêm saída e serviço confirma a coleta.
+R5 código e R6 nativo aprovados no escopo medido. Loop final **15/15** em
+ciclo único, incluindo quality/app-test completos no Node20. iOS live e
+máxima inicial, Android normal/máxima inicial legíveis. Android live não
+validado por erro de linking do dev client; P3 da cauda permanece para T17.
+Disponível/coletado têm prova automatizada, sem aceite nativo desses estados.
+Apps/Metro/emuladores encerrados e settings restaurados. BASE `d033433`,
+writer `run-1793154878719-98187baa` em validating, pronto para step finish e
+close; Git/CI resultantes são posteriores a esse fechamento. Brain
+`brain-session-1793153947009-39e14016` CLOSED confirmado pela CLI. Sem build,
+instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export

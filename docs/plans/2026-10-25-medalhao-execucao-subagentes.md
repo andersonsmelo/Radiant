@@ -182,6 +182,13 @@ confirmações finais no ledger e relatório da entrega.
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, contrato Maestro, nativo.
 - **Pré-requisito:** T01. **Saída:** estados inválido/bloqueado/coletado com saída, sem alterar elegibilidade ou idempotência.
 
+Registro T06 em 28/10/2026: implementação congelada, R5 código e R6 nativo
+aprovados no escopo medido; focal final4/100 e Maestro contrato39/39. iOS live
+mais máxima inicial e Android normal/máxima inicial legíveis. Android live
+não validado; P3 da cauda permanece para T17. Loop final15/15 aprovado em
+ciclo único. Fechamento e Git posteriores; próxima Task9/T07.
+[Evidência](../evidence/2026-10-27-medalhao-t06.md).
+
 ### Task 9: T07 — Fila de revisão
 
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, inspeção nativa.

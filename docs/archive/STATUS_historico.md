@@ -3777,3 +3777,124 @@ GREENfinal6/6. Revalidação e commit/push T05 pendentes. Sessão
 [Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
 T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
 segundo dia no fechamento e reservado intocado.
+
+
+## T05 — checkpoint substituído no preflight T06 em 27/10/2026
+
+**T05 implementada, revisada e validada em 27/10:** contexto real nos dois
+consumidores, régua0–3, neutralidade de zero estrela com estado concluído,
+XP real sem caixa, revisão sem Pixel e pose preservada sob movimento reduzido.
+P2 de corte ao mudar a fonte foi discriminado e corrigido; R5 iOS aprovou
+large→AX5 nos dois resumos. R6 Android aprovou aula fonte2 e revisão fontes2/1,
+com scroll/CTA legíveis. Os limites não medidos permanecem na evidência.
+Primeiro gate **13/15**, único teste consumidor com mock incompleto;
+writer `run-1793116969213-81113b5b` fechado como substituído, sem sucesso.
+Fix3 de uma linha aprovado em R7, guardas de autorização intactas,6/6focais.
+Gate final **15/15** em `run-1793152438847-57dea062`, primeira validação do
+substituto/segunda do objetivo: app-quality86.370ms e app-test78.082ms,
+comandos completos em Node20.20.2; CLI24.14.1/caffeinate. Escopo61caminhos,
+sem alterar política; código e nativo freeze3 preservados. Este checkpoint
+precede stepfinish/runclose e commit; a confirmação final de fechamento,
+SHA publicado e CI pertence ao ledger e relatório final da entrega.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
+writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
+Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
+continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T06 — estado substituído na retomada de 28/10/2026
+
+**T06 em execução em 27/10:** recompensa sem tela indisponível para rota
+inválida, com retorno automático à trilha; estados bloqueado/coletado e
+coleta preservam autoridade/elegibilidade. O HEAD já tem saída manual;
+nenhum “vermelho do vazio sem saída” será alegado sobre ele. BASE `d033433`,
+writer único `run-1793154878719-98187baa` STEP_STARTED,47caminhos nominais,
+implementador I/high novo. Sessão `brain-session-1793153947009-39e14016`
+consultada por CLI e fechada antes do writer por brain-links. Implementação,
+revisão e gates próprios T06 em curso; sem build/instalação/merge ou consumo
+dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído em 28/10/2026 após freeze de implementação
+
+**T06 iniciada em 27/10, retomada em 28/10:** recompensa sem tela indisponível para rota
+inválida, com retorno automático à trilha; estados bloqueado/coletado e
+coleta preservam autoridade/elegibilidade. O HEAD já tem saída manual;
+nenhum “vermelho do vazio sem saída” será alegado sobre ele. BASE `d033433`,
+writer único `run-1793154878719-98187baa` STEP_STARTED,47caminhos nominais,
+o primeiro implementador concluiu o vermelho (13falhas/15passes) e foi
+interrompido por limite de uso; reposição I/high no mesmo ownership. Código
+de produção ainda na base, sem aprovação de verde ou revisão T06. Sessão `brain-session-1793153947009-39e14016`
+consultada por CLI e fechada antes do writer por brain-links. Implementação,
+revisão e gates próprios T06 em curso; sem build/instalação/merge ou consumo
+dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após revisão nativa R2, 28/10/2026
+
+**T06 em revisão em 28/10/2026:** ausência de recompensa canônica retorna
+à trilha automaticamente; bloqueado e coletado continuam estados válidos.
+Implementação congelada em seis hashes: cinco caminhos alterados e consumidor
+compartilhado intacto. Focais/regressões: oito suítes, 161 testes; contrato
+Maestro 39/39; 12 mutações detectadas e restauradas; typecheck, lint e visual
+strict aprovados. São provas locais, ainda sem o quality completo. Revisor
+independente e executor nativo iniciados após o freeze, sem aprovação antecipada.
+BASE `d033433`; writer único `run-1793154878719-98187baa`, 47 caminhos.
+Brain `brain-session-1793153947009-39e14016` consultado por CLI e fechado
+antes do writer. Sem build, instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após FIX3, 28/10/2026
+
+**T06 em correção visual em 28/10/2026:** retorno automático da rota
+inválida, estados válidos e autoridade da coleta passaram na revisão funcional
+R2. A lacuna de contraprova da unidade foi corrigida sem mudar produto.
+Quality pediu correção de clipping na troca de fonte ao vivo; a cauda do
+balão também cobre parte de uma palavra em fonte normal. O autor trabalha
+na correção local da recompensa, com clientes e Metro parados. iOS já provou
+retorno inválido/fallback e saídas do bloqueado; Android ainda não começou.
+Focais/regressões anteriores: oito suítes, 161 testes; contrato Maestro 39/39.
+Quality completo e aceite visual final ainda pendentes. BASE `d033433`,
+writer único `run-1793154878719-98187baa`, 47 caminhos. Brain
+`brain-session-1793153947009-39e14016` consultado por CLI e fechado antes do
+writer. Sem build, instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído antes do gate final, 28/10/2026
+
+**T06 em verificação nativa em 28/10/2026:** retorno automático da rota
+inválida, estados válidos e autoridade da coleta aprovados na revisão
+funcional. FIX3 de texto ampliado aprovada no código R5; oito suítes foram
+usadas ao longo da tarefa, com focal final de quatro suítes/100 testes e
+contrato Maestro 39/39. iOS mediu reflow nos hosts locais em mudança ao vivo,
+troca entre fontes grandes, abertura máxima inicial e saídas. O principal foi
+desligado e fonte large restaurada antes de iniciar Android. R6 confere a
+prova visual; Android e quality completo ainda pendentes. P3 da cauda sobre
+texto normal permanece como resíduo explícito para T17/revisão ampla.
+BASE `d033433`, writer único `run-1793154878719-98187baa`, 47 caminhos.
+Brain `brain-session-1793153947009-39e14016` fechado antes do writer. Sem build,
+instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após gate final, 28/10/2026
+
+**T06 implementada e revisada em 28/10/2026:** ausência canônica retorna
+à trilha, estados válidos mantêm saída e serviço confirma a coleta. R5 código
+PASS/APPROVED e R6 nativo APPROVED no escopo medido; focal final4/100, Maestro
+contrato39/39. iOS live e máxima inicial, Android normal/máxima inicial
+legíveis. Android live não validado por erro de linking do dev client; P3 da
+cauda permanece para T17. Disponível/coletado têm prova automatizada, sem
+aceite nativo desses estados. Apps/Metro/emuladores encerrados e settings
+restaurados. Quality completo, fechamento e Git ainda pendentes.
+BASE `d033433`, writer `run-1793154878719-98187baa`,47 caminhos,0 ciclos.
+Brain `brain-session-1793153947009-39e14016` fechado. Sem build/instalação/merge
+ou consumo dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## Fila após gate T06, 28/10/2026
+
+Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
+continuam pendentes; segundo dia no fechamento e reservado intocado.

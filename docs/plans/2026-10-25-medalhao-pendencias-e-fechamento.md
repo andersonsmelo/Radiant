@@ -442,10 +442,20 @@ PróximaT06; G1–G8 preservados.
 `radiant-app/src/features/rewards/screens/RewardScreen.tsx`, `RewardScreen.flow.test.tsx`,
 `radiant-app/.maestro/reward-locked.yaml`, `radiant-app/.maestro/reward-unlock.yaml`.
 
-- [ ] Testar deep link inválido, recompensa válida, bloqueada e já coletada.
-- [ ] Demonstrar o vermelho do estado vazio sem saída; voltar à trilha quando inválido.
-- [ ] Preservar `canCollectReward` e idempotência; redirecionar não concede prêmio.
-- [ ] Rodar fluxo e contrato Maestro; conferir gesto/volta e registrar.
+- [x] Testar deep link inválido, recompensa válida, bloqueada e já coletada.
+- [x] Demonstrar o vermelho do estado vazio sem saída; voltar à trilha quando inválido.
+- [x] Preservar `canCollectReward` e idempotência; redirecionar não concede prêmio.
+- [x] Rodar fluxo e contrato Maestro; conferir gesto/volta e registrar.
+
+Medido em 28/10/2026: R5 código PASS/APPROVED e R6 nativo APPROVED no escopo
+medido. Focal final quatro suítes/100 testes; Maestro contrato39/39 e fluxo
+RewardScreen em Jest. A engine Maestro não rodou (Java ausente); CLI nativa
+existente verificou rotas/saídas. iOS live/máxima inicial e Android normal/
+máxima inicial legíveis. Android live não validado: dev client voltou à trilha
+com erro de linking. Quatro estados têm prova automatizada; disponível/coletado
+não foram alcançados nativamente. P3 da cauda permanece para T17. Quality
+completo aprovado15/15 em ciclo único; fechamento/Git posteriores neste checkpoint.
+[Evidência T06](../evidence/2026-10-27-medalhao-t06.md).
 
 ### T07 — Revisão como fila real, sem Pixel
 

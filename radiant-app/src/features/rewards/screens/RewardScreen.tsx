@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
@@ -13,6 +13,8 @@ import { StarfieldBackground } from '../../../ui/components/StarfieldBackground'
 import { HUD } from '../../../ui/components/HUD';
 import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -114,10 +116,14 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
 }
 
 export default function RewardScreen({ nodeId }: RewardScreenProps) {
+  const { fontScale } = useWindowDimensions();
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [loadedRewardId, setLoadedRewardId] = useState<string | undefined>();
+  // O ref também protege callbacks capturados antes do próximo render.
+  const collectionPending = useRef(false);
+  const collectedRewardIds = useRef(new Set<string>());
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   // Vidas vêm do `heartsRepository`, onde a lição desconta. O contador de
@@ -138,6 +144,16 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
         ? await JourneyProgressService.getSnapshotForNode(nodeId)
         : await JourneyProgressService.bootstrap();
       const rewardNode = findReward(baseSnapshot, nodeId);
+      const rewardUnit = baseSnapshot.track.units.find((unit) => unit.id === rewardNode?.unitId);
+
+      if (!rewardNode || !rewardUnit) {
+        setSnapshot(null);
+        setLoadedRewardId(undefined);
+        router.dismissTo('/(tabs)');
+        return;
+      }
+
+      setLoadedRewardId(rewardNode.id);
 
       if (rewardNode && (rewardNode.status === 'available' || rewardNode.status === 'active')) {
         const nextSnapshot = await JourneyProgressService.setCurrentNode(rewardNode.id, baseSnapshot.track);
@@ -158,7 +174,10 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     void loadSnapshot();
   }, [loadSnapshot]);
 
-  const rewardNode = useMemo(() => findReward(snapshot, nodeId), [nodeId, snapshot]);
+  const rewardNode = useMemo(
+    () => findReward(snapshot, nodeId ?? loadedRewardId),
+    [loadedRewardId, nodeId, snapshot]
+  );
 
   const activeUnit = useMemo(() => {
     if (!snapshot || !rewardNode) {
@@ -188,7 +207,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }, [activeUnit]);
 
   const rewardOptional = rewardNode?.optionalForProgression === true;
-  const rewardCompleted = completed || rewardNode?.status === 'completed';
+  const rewardCompleted = rewardNode?.status === 'completed';
   // Até 2026-08-04 a tela dizia "Pronta para ser coletada" com 0 de 14 marcos e
   // o botão de coletar gravava `markNodeCompleted`, entregando a conquista da
   // unidade sem estudo nenhum. A assimetria estava dentro do próprio arquivo:
@@ -223,15 +242,22 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     // `JourneyProgressService.markNodeCompleted`, onde a escrita acontece e
     // onde todos os caminhos passam. Esta é a segunda camada, na porta que a
     // UI abre.
-    if (!rewardNode || !canCollectReward(rewardNode, rewardCompleted)) {
+    if (!rewardNode || !canCollectReward(rewardNode, rewardCompleted)
+      || collectionPending.current || collectedRewardIds.current.has(rewardNode.id)) {
       return;
     }
 
+    collectionPending.current = true;
     try {
       setSubmitting(true);
+      setError(null);
       const nextSnapshot = await JourneyProgressService.markNodeCompleted(rewardNode.id);
       setSnapshot(nextSnapshot);
-      setCompleted(true);
+      // O serviço pode recusar sem lançar: só o status confirmado celebra.
+      if (findReward(nextSnapshot, rewardNode.id)?.status !== 'completed') {
+        return;
+      }
+      collectedRewardIds.current.add(rewardNode.id);
       await RatingPromptService.maybePromptForReview({
         trigger: 'reward_complete',
         entrySurface: 'reward',
@@ -241,6 +267,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
       console.error('[RewardScreen] Failed to complete reward:', cause);
       setError('Nao foi possivel registrar a conquista agora.');
     } finally {
+      collectionPending.current = false;
       setSubmitting(false);
     }
   }, [rewardCompleted, rewardNode]);
@@ -259,16 +286,20 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }
 
   if (!rewardNode || !activeUnit) {
+    if (!error) {
+      return null;
+    }
+
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
         <SafeAreaView style={styles.safe}>
           <View style={styles.emptyState}>
             <View style={styles.emptyCard}>
-              <Text style={styles.emptyTitle}>Conquista indisponível</Text>
-              <Text style={styles.emptyBody}>
-                Nenhuma recompensa está elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
-              </Text>
+              <Text key={`reward-load-error-${fontScale}`} style={styles.errorText} accessibilityRole="alert">{error}</Text>
+              <AppButton onPress={() => void loadSnapshot()} style={styles.fullWidthButton}>
+                Tentar novamente
+              </AppButton>
               <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
@@ -301,12 +332,24 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
             >
               <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
-            <Text style={styles.headerLabel}>Conquista</Text>
+            {/* Renova só hosts de texto: estado, scroll e controles permanecem montados. */}
+            <Text key={`reward-header-${fontScale}`} style={styles.headerLabel}>Conquista</Text>
             <View style={styles.iconSpacer} />
           </View>
 
           <View style={styles.heroCard}>
+            <JourneyMedal
+              node={rewardNode}
+              theme={resolveNodeTheme(rewardNode, activeUnit)}
+              state={rewardLocked ? 'locked' : rewardCompleted ? 'done' : 'next'}
+              pulsing={false}
+              size={64}
+              accessibilityLabel={`${rewardNode.title}. ${rewardCompleted ? 'Conquista registrada' : rewardLocked ? 'Conquista bloqueada' : 'Pronta para coleta'}.`}
+            />
             <PixelHeroSplit
+              // Renova os parágrafos e medidas locais do hero no Dynamic Type.
+              // Snapshot, coleta, medalha, scroll e controles ficam fora dele.
+              key={`reward-pixel-${fontScale}`}
               eyebrow="Jornada de Radiologia"
               message={rewardCompleted
                 ? rewardOptional ? 'Conquista sua! O registro está salvo na sua jornada.' : 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
@@ -319,19 +362,20 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
               accessibilityLabel="Pixel apresentando a conquista da jornada"
             />
             <View style={styles.heroFooter}>
-              <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
-              <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
+              <Text key={`reward-unit-label-${fontScale}`} style={styles.heroFooterLabel}>Unidade ativa</Text>
+              <Text key={`reward-unit-title-${fontScale}`} style={styles.heroFooterValue}>{activeUnit.title}</Text>
             </View>
           </View>
 
           <View style={styles.sectionCard}>
-            <Text style={styles.sectionTitle} accessibilityRole="header">{rewardNode.title}</Text>
-            <Text style={styles.sectionBody}>
+            <Text key={`reward-title-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">{rewardNode.title}</Text>
+            <Text key={`reward-description-${fontScale}`} style={styles.sectionBody}>
               {rewardNode.description ?? (rewardOptional ? 'Reconhecimento pelas etapas que você concluiu.' : 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.')}
             </Text>
 
             <View style={styles.statsList}>
               <GalaxyStatRow
+                key={`reward-status-${fontScale}`}
                 icon={<DecorativeIcon name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Status"
                 value={
@@ -343,11 +387,13 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                 }
               />
               <GalaxyStatRow
+                key={`reward-progress-${fontScale}`}
                 icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Progresso"
                 value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`}
               />
               <GalaxyStatRow
+                key={`reward-review-${fontScale}`}
                 icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Revisão"
                 value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
@@ -365,7 +411,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                   </Svg>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.rewardCardLabel}>XP TOTAL</Text>
+                  <Text key={`reward-xp-label-${fontScale}`} style={styles.rewardCardLabel}>XP TOTAL</Text>
                   <AnimatedCounter
                     value={gamification?.totalXp ?? 0}
                     suffix=" XP"
@@ -384,12 +430,12 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                     </Svg>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.rewardCardTitle}>
+                    <Text key={`reward-streak-title-${fontScale}`} style={styles.rewardCardTitle}>
                       {(gamification?.streakDays ?? 0) === 1
                         ? 'Sequência de 1 dia mantida'
                         : `Sequência de ${gamification?.streakDays} dias mantida`}
                     </Text>
-                    <Text style={styles.rewardCardSub}>Volte amanhã para continuar</Text>
+                    <Text key={`reward-streak-body-${fontScale}`} style={styles.rewardCardSub}>Volte amanhã para continuar</Text>
                   </View>
                 </View>
               )}
@@ -398,19 +444,19 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
 
           {error ? (
             <View style={styles.errorCard}>
-              <Text style={styles.errorText}>{error}</Text>
+              <Text key={`reward-collect-error-${fontScale}`} style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
 
           <View style={styles.actionCard}>
-            <Text style={styles.actionTitle}>
+            <Text key={`reward-action-title-${fontScale}`} style={styles.actionTitle}>
               {rewardCompleted
                 ? 'Conquista registrada'
                 : rewardLocked
                   ? 'Esta conquista ainda não abriu'
                   : 'Pronto para coletar essa conquista?'}
             </Text>
-            <Text style={styles.actionBody}>
+            <Text key={`reward-action-body-${fontScale}`} style={styles.actionBody}>
               {rewardCompleted
                 ? rewardOptional ? 'Sua conquista está salva. Volte à jornada para continuar ou rever o que estudou.' : 'Seu progresso está salvo e o próximo passo já está esperando por você.'
                 : rewardLocked
@@ -423,8 +469,8 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                 Voltar para jornada
               </AppButton>
             ) : rewardCompleted ? (
-              <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
-                {nextAction.label}
+              <AppButton onPress={nextAction.action} accessibilityHint={nextAction.label} style={styles.fullWidthButton}>
+                Continuar
               </AppButton>
             ) : (
               <>
