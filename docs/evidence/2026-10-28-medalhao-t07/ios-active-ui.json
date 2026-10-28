@@ -1,0 +1,49 @@
+{
+  "schema": "xcodebuildmcp.output.capture-result",
+  "schemaVersion": "2",
+  "didError": false,
+  "error": null,
+  "data": {
+    "summary": {
+      "status": "SUCCEEDED"
+    },
+    "artifacts": {
+      "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    },
+    "capture": {
+      "type": "runtime-snapshot",
+      "rs": "1",
+      "screenHash": "1rjasvp",
+      "seq": 37,
+      "count": 58,
+      "targets": [
+        "e24|tap|button|Fechar revisão||",
+        "e47|tap|button|Ver resposta com ajuda||app-button-face"
+      ],
+      "scroll": [
+        "e21|swipe|scroll-view|||"
+      ],
+      "text": [
+        "e18|text|text|5 de 5 vidas||",
+        "e27|text|text|1/3||",
+        "e28|text|text|1/3||",
+        "e30|text|text|Sessão ativa||",
+        "e31|text|text|Sessão ativa||",
+        "e32|text|text|Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.||",
+        "e33|text|text|Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.||",
+        "e36|text|text|REVISÃO||",
+        "e37|text|text|REVISÃO||",
+        "e38|text|text|Qual é a principal função dos raios-X na radiologia diagnóstica?||",
+        "e39|text|text|Qual é a principal função dos raios-X na radiologia diagnóstica?||"
+      ],
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    }
+  },
+  "nextSteps": [
+    "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+    "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+    "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e24\"},{\"action\":\"tap\",\"elementRef\":\"e47\"}]}'",
+    "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e24",
+    "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e21 --direction up --distance 0.5"
+  ]
+}

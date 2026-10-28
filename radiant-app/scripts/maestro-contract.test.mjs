@@ -1022,7 +1022,7 @@ test('rating flow completes the current review caller and preserves the native d
   const review = commands.findIndex(command => command.openLink?.link === 'radiantapp://review');
   assert.ok(review >= 0);
   const taps = commands.slice(review).filter(command => command.tapOn).map(command => command.tapOn);
-  assert.deepEqual(taps, ['Começar revisão', { id: 'review-option-0' }, 'Confirmar resposta', 'Continuar']);
+  assert.deepEqual(taps, ['Começar', { id: 'review-option-0' }, 'Confirmar resposta', 'Continuar']);
   const dialog = commands.find(command => command.runFlow?.when?.platform === 'iOS');
   assert.deepEqual(dialog.runFlow.commands[0], { assertVisible: 'Curtindo o app Radiant\\?' });
   assert.deepEqual(commands.at(-1), { assertVisible: 'Resultado da sessão' });
@@ -1708,5 +1708,32 @@ test('never lets a deep link start the app the launch argument did not start', a
         assert.ok(running, `${name}: openLink must follow a launchApp, or it starts the app without the argument`);
       }
     }
+  }
+});
+
+
+test('T07 review flows reach the rendered start action from the queue', async () => {
+  const source = ts.createSourceFile('ReviewScreen.tsx',
+    await readAppFile('src/features/review/screens/ReviewScreen.tsx'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const labels = [];
+  function visit(node) {
+    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'AppButton') {
+      const startsReview = node.openingElement.attributes.properties.some(attribute =>
+        ts.isJsxAttribute(attribute) && attribute.name.text === 'onPress'
+        && attribute.initializer && ts.isJsxExpression(attribute.initializer)
+        && attribute.initializer.expression && ts.isIdentifier(attribute.initializer.expression)
+        && attribute.initializer.expression.text === 'startReview');
+      if (startsReview) labels.push(node.children.filter(ts.isJsxText).map(child => child.text.trim()).join(''));
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+  assert.deepEqual(labels, ['Começar'], 'the actual JSX start action follows the T07 queue contract');
+  for (const name of ['review-due.yaml', 'rating-prompt.yaml', 'g4-native-evidence.yaml']) {
+    const commands = await flowCommands(name);
+    assert.ok(commands.some(command => command.tapOn === labels[0]), `${name}: taps the rendered start action`);
+    assert.ok(commands.some(command => command.scrollUntilVisible?.element === labels[0]), `${name}: scrolls to that same action`);
+    assert.ok(!commands.some(command => command.tapOn === 'Começar revisão'
+      || command.scrollUntilVisible?.element === 'Começar revisão'), `${name}: no stale CTA`);
   }
 });

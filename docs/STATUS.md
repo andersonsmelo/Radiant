@@ -325,23 +325,40 @@ após o push e antes de T06. CI desse SHA confirmado em 27/10: [App Quality245](
 [Content Scripts150](https://github.com/andersonsmelo/Radiant/actions/runs/40619391196), ambos SUCCESS.
 Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
 writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
-Próxima entrega após fechamento T06: T07 revisão. T07–T22 e G1–G8, conteúdo
+Próxima entrega após fechamento T07: T08 avaliação. T08–T22 e G1–G8, conteúdo
 G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
 intocado.
 
 **T06 implementada, revisada e validada em 28/10/2026:** ausência canônica
 retorna à trilha; estados válidos mantêm saída e serviço confirma a coleta.
 R5 código e R6 nativo aprovados no escopo medido. Loop final **15/15** em
-ciclo único, incluindo quality/app-test completos no Node20. iOS live e
-máxima inicial, Android normal/máxima inicial legíveis. Android live não
-validado por erro de linking do dev client; P3 da cauda permanece para T17.
-Disponível/coletado têm prova automatizada, sem aceite nativo desses estados.
-Apps/Metro/emuladores encerrados e settings restaurados. BASE `d033433`,
-writer `run-1793154878719-98187baa` em validating, pronto para step finish e
-close; Git/CI resultantes são posteriores a esse fechamento. Brain
-`brain-session-1793153947009-39e14016` CLOSED confirmado pela CLI. Sem build,
-instalação, merge ou consumo dos gates humanos.
+ciclo único, incluindo quality/app-test completos no Node20. Fechamento
+`STEP_SUCCEEDED`→`RUN_CLOSED` do writer `run-1793154878719-98187baa` e cérebro
+CLOSED confirmados por CLI. Commit `c694f95191d990f78056f4985c958b9ebe7518e5`
+publicado, 39 arquivos próprios/hashes conferidos, árvore limpa no preflight
+T07. CI do mesmo SHA confirmado em 28/10: [App Quality246](https://github.com/andersonsmelo/Radiant/actions/runs/40677541882)
+e [Content151](https://github.com/andersonsmelo/Radiant/actions/runs/40677541815),
+ambos SUCCESS. iOS live e máxima inicial, Android normal/máxima inicial
+legíveis. Android live não validado por erro de linking do dev client; P3 da
+cauda permanece para T17. Disponível/coletado têm prova automatizada, sem
+aceite nativo desses estados. Apps/Metro/emuladores encerrados e settings
+restaurados. Sem build, instalação, merge ou consumo dos gates humanos.
 [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+**T07 implementada, revisada e validada em 28/10/2026:** fila real com
+ListRow, origens/histórico comprováveis, sem Pixel/anel; respostas, retomada,
+saída e vida única preservadas. R2 código/R3 nativo aprovados no núcleo.
+Loop final **15/15** em ciclo único, quality e app-test completos Node20.
+Filas reais3itens→resultado+12XP/HUD66→vazio e saída nos dois OS. iOS máxima
+core legível; Android normal/máxima inicial, live e resultado máximo não
+validados por erro de linking. **Aceite global bloqueado:** P2 PushOptIn
+cortado em máxima iOS paraT17, além do P3 caudaT06. Vazio máximo iOS e erros/
+retomada parcial não medidos nativamente; corações5 não provam grantcount.
+Apps/emuladores/Metro OFF/settings restaurados. BASE `c694f95`, writer
+`run-1793196624149-d9c215ee` validating/1ciclo, pronto para finish/close;
+Git/CI resultantes vêm depois. Brain `brain-session-1793196240376-47a0d28b`
+CLOSED. Sem build/install/merge ou consumo dos gates humanos.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export

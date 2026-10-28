@@ -186,13 +186,20 @@ Registro T06 em 28/10/2026: implementação congelada, R5 código e R6 nativo
 aprovados no escopo medido; focal final4/100 e Maestro contrato39/39. iOS live
 mais máxima inicial e Android normal/máxima inicial legíveis. Android live
 não validado; P3 da cauda permanece para T17. Loop final15/15 aprovado em
-ciclo único. Fechamento e Git posteriores; próxima Task9/T07.
+ciclo único. Fechamento/brainCLOSED e commitc694f95/CI246151SUCCESS confirmados no preflightT07; Task9em execução.
 [Evidência](../evidence/2026-10-27-medalhao-t06.md).
 
 ### Task 9: T07 — Fila de revisão
 
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, inspeção nativa.
 - **Pré-requisito:** T01 e `useReview` atual lido. **Saída:** fila/origens verdadeiras, sem Pixel, vida única e resposta persistida preservadas.
+
+Registro28/10: T07 implementada, R2 código e R3 nativo aprovados para o núcleo;
+focal4/52, contrato40/40, filareal/resultado/vazio em iOS/Android. P2 compartilhado
+PushOptIn máxima iOS bloqueia aceite global e segueT17; Androidlive/resultmax
+não validados. Loop final15/15 em ciclo único aprovado; fechamento/Git
+posteriores no checkpoint, próximaTask10/T08.
+[Evidência](../evidence/2026-10-28-medalhao-t07.md).
 
 ### Task 10: T08 — Avaliação
 

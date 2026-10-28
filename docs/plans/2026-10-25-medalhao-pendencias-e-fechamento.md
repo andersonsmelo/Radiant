@@ -463,11 +463,19 @@ completo aprovado15/15 em ciclo único; fechamento/Git posteriores neste checkpo
 `radiant-app/src/features/review/screens/ReviewScreen.tsx`, `ReviewScreen.flow.test.tsx`.
 **Criar:** `radiant-app/src/ui/components/ListRow.tsx`, `ListRow.test.tsx`.
 
-- [ ] Testar fila com itens, vazia, erro de leitura/gravação, retomada e conclusão.
-- [ ] Reusar `useReview`; não inventar método de serviço para conseguir a lista.
-- [ ] Mostrar contagem e origens verdadeiras; retirar mascote do início e do fim.
-- [ ] Preservar prêmio de vida único por fila, registro de resposta e saída.
-- [ ] Rodar testes e conferir leitura acessível, inclusive sem a fala do Pixel.
+- [x] Testar fila com itens, vazia, erro de leitura/gravação, retomada e conclusão.
+- [x] Reusar `useReview`; não inventar método de serviço para conseguir a lista.
+- [x] Mostrar contagem e origens verdadeiras; retirar mascote do início e do fim.
+- [x] Preservar prêmio de vida único por fila, registro de resposta e saída.
+- [x] Rodar testes e conferir leitura acessível, inclusive sem a fala do Pixel.
+
+Registro28/10: R2 código/R3 nativo aprovados no escopo núcleo; filas reais
+3itens/+12XP/HUD66 e vazio em iOS/Android. Focal4/52, contrato40/40, regressão
+temporal UTC36/Bahia3. Maestro engine não rodou; CLI nativa existente mediu
+saídas/leitura visual, sem prova de fala de leitor de tela. Androidlive e
+resultado máximo não validados; vazio máximo iOS não medido. P2 PushOptIn
+máximo impede aceite global e segue T17. Loop final15/15 em ciclo único;
+fechamento/Git são posteriores neste checkpoint. [Evidência](../evidence/2026-10-28-medalhao-t07.md).
 
 ### T08 — Avaliação de unidade
 
@@ -671,6 +679,15 @@ para `MedallionBackground.tsx` e `MedallionBackground.test.tsx` na mesma pasta.
   material novo abre entrega delimitada; não entrar em polimento sem fim.
 - [ ] Fazer revisão final independente dos planos 3 e 5 e atualizar pendências
   humanas. A conferência real de segundo dia continua em T18.
+
+Pendências nativas medidas em28/10 para este fechamento: **R3-SHARED-01 P2**,
+PushOptIn do resultado iOS fragmenta título/corta corpo em fonte máxima
+(evidênciaT07); impede aceite global até corrigir/rever. P3 da cauda compartilhada
+T06 também permanece. Android perde rota ao trocar fonte ao vivo/resultmax
+por erro do dev client; medir novamente num cliente compatível, sem atribuir
+causa ao produto nem migrar framework por inferência. Não declarar fonte
+máxima globalmente aprovada por testes de identidade ou por captura parcial.
+
 
 ## 7. Conferência final, retirada e recomeço
 

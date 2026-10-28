@@ -343,7 +343,7 @@ Expected: FAIL.
 
 Run: o mesmo do passo 2. Expected: PASS.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add -A radiant-app/src/features/rewards
@@ -358,6 +358,8 @@ Android normal/máxima inicial legíveis, live não validado por erro de linking
 do dev client. P3 cauda permanece para T17. Loop final15/15 aprovado em
 ciclo único. Passo5 Git é posterior ao fechamento CLI, comprovante no ledger
 e relatório final, sem antecipar SHA neste checkpoint. [Evidência](../../evidence/2026-10-27-medalhao-t06.md).
+
+Reconciliação no preflight T07 em28/10: commitT06 `c694f95` publicado, CI246/151SUCCESS no SHA completo e writer/brain CLOSED confirmados; árvore limpa antes T07.
 
 ### Tarefa 6: Revisão
 
@@ -376,24 +378,24 @@ e relatório final, sem antecipar SHA neste checkpoint. [Evidência](../../evide
     medalha da aula de origem em 34 pt), e "Começar" no rodapé. Sem anel, sem
     Pixel e sem o cartão "Como essa sessão funciona".
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - a ordem na árvore é título, contagem, itens, botão (o botão vem depois);
 - não há `PixelIllustration` nem o anel "0 de 5";
 - com 1 item, "1 item de …".
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/review src/ui/components/ListRow.test.tsx`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
 Os assuntos vêm de onde a tela já busca os itens devidos
 (`SpacedRepetitionService`). Se o serviço não expõe o título do item, use o
 título da aula de origem; não invente texto.
 
-- [ ] **Passo 4: Ver passar, com Maestro**
+- [x] **Passo 4: Ver passar, com Maestro**
 
 Run: `cd radiant-app && npx jest src/features/review src/ui/components && npm run test:maestro-contract`
 Expected: PASS.
@@ -404,6 +406,15 @@ Expected: PASS.
 git add -A radiant-app/src/features/review radiant-app/src/ui/components/ListRow.tsx radiant-app/src/ui/components/ListRow.test.tsx
 git commit -m "feat(revisão): título, contagem, itens e um botão, nessa ordem"
 ```
+
+Registro28/10: R2 código e R3 nativo aprovados no núcleo T07. Queue real,
+metadados desconhecidos distintos, sem Pixel/anel, vida/registro/saída
+preservados; focal4/52 e contrato40/40. Engine Maestro não rodou; CLI nativa
+existente comprovou os cenários medidos. P2 do convite compartilhado máximo
+iOS segueT17 e bloqueia aceite global; Androidlive/resultmax não validados.
+Loop final15/15 em ciclo único aprovado; Passo5 Git é posterior ao
+fechamento CLI, comprovante no ledger e relatório final sem antecipar SHA.
+[Evidência](../../evidence/2026-10-28-medalhao-t07.md).
 
 ### Tarefa 7: Avaliação da unidade
 

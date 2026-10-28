@@ -1,0 +1,105 @@
+{
+  "snapshot": "R2",
+  "frozen": [
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.tsx",
+      "sha256": "f33df619dc6da9c33b43bb1e14ac2dac67d17da8292d10bab7bbff4d10a90176"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx",
+      "sha256": "fb05f2d82aca0475bdec2850d27c65bb446a49f99e230f29ff39acc721ea9404"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.tsx",
+      "sha256": "ce3519819ff93f3e58a83eb997ec33b4d275c92960b628c622cf83732be0f08e"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.test.tsx",
+      "sha256": "dce6d83458b6ba2283c27cb4f8ba04042efd062adb7bed69285c6caa3e8b0000"
+    },
+    {
+      "path": "radiant-app/.maestro/review-due.yaml",
+      "sha256": "96e982c604b542e1130f73a3e5da10be15843bf420bd5971e922e529a0d3525f"
+    },
+    {
+      "path": "radiant-app/.maestro/rating-prompt.yaml",
+      "sha256": "ce50ba964e44938c2f44fe92be8e7a6dd2e54453848afda990ff307e13d513be"
+    },
+    {
+      "path": "radiant-app/.maestro/g4-native-evidence.yaml",
+      "sha256": "e1b56f5737763d04ddaa7fc0cb53f29686f5e245f22dd748fcbf0b21187e33bf"
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "sha256": "6de86c8367ce70f86d1ca2d71693c8781c4e140651b275d7602b92cc5bbbade2"
+    }
+  ],
+  "before": [
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.tsx",
+      "sha256": "f33df619dc6da9c33b43bb1e14ac2dac67d17da8292d10bab7bbff4d10a90176"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx",
+      "sha256": "fb05f2d82aca0475bdec2850d27c65bb446a49f99e230f29ff39acc721ea9404"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.tsx",
+      "sha256": "ce3519819ff93f3e58a83eb997ec33b4d275c92960b628c622cf83732be0f08e"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.test.tsx",
+      "sha256": "dce6d83458b6ba2283c27cb4f8ba04042efd062adb7bed69285c6caa3e8b0000"
+    },
+    {
+      "path": "radiant-app/.maestro/review-due.yaml",
+      "sha256": "96e982c604b542e1130f73a3e5da10be15843bf420bd5971e922e529a0d3525f"
+    },
+    {
+      "path": "radiant-app/.maestro/rating-prompt.yaml",
+      "sha256": "ce50ba964e44938c2f44fe92be8e7a6dd2e54453848afda990ff307e13d513be"
+    },
+    {
+      "path": "radiant-app/.maestro/g4-native-evidence.yaml",
+      "sha256": "e1b56f5737763d04ddaa7fc0cb53f29686f5e245f22dd748fcbf0b21187e33bf"
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "sha256": "6de86c8367ce70f86d1ca2d71693c8781c4e140651b275d7602b92cc5bbbade2"
+    }
+  ],
+  "after": [
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.tsx",
+      "sha256": "f33df619dc6da9c33b43bb1e14ac2dac67d17da8292d10bab7bbff4d10a90176"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx",
+      "sha256": "fb05f2d82aca0475bdec2850d27c65bb446a49f99e230f29ff39acc721ea9404"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.tsx",
+      "sha256": "ce3519819ff93f3e58a83eb997ec33b4d275c92960b628c622cf83732be0f08e"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.test.tsx",
+      "sha256": "dce6d83458b6ba2283c27cb4f8ba04042efd062adb7bed69285c6caa3e8b0000"
+    },
+    {
+      "path": "radiant-app/.maestro/review-due.yaml",
+      "sha256": "96e982c604b542e1130f73a3e5da10be15843bf420bd5971e922e529a0d3525f"
+    },
+    {
+      "path": "radiant-app/.maestro/rating-prompt.yaml",
+      "sha256": "ce50ba964e44938c2f44fe92be8e7a6dd2e54453848afda990ff307e13d513be"
+    },
+    {
+      "path": "radiant-app/.maestro/g4-native-evidence.yaml",
+      "sha256": "e1b56f5737763d04ddaa7fc0cb53f29686f5e245f22dd748fcbf0b21187e33bf"
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "sha256": "6de86c8367ce70f86d1ca2d71693c8781c4e140651b275d7602b92cc5bbbade2"
+    }
+  ]
+}

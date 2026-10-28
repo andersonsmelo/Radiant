@@ -3898,3 +3898,72 @@ ou consumo dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.
 
 Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
 continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T06 — checkpoint substituído no preflight T07, 28/10/2026
+
+**T06 implementada, revisada e validada em 28/10/2026:** ausência canônica
+retorna à trilha; estados válidos mantêm saída e serviço confirma a coleta.
+R5 código e R6 nativo aprovados no escopo medido. Loop final **15/15** em
+ciclo único, incluindo quality/app-test completos no Node20. iOS live e
+máxima inicial, Android normal/máxima inicial legíveis. Android live não
+validado por erro de linking do dev client; P3 da cauda permanece para T17.
+Disponível/coletado têm prova automatizada, sem aceite nativo desses estados.
+Apps/Metro/emuladores encerrados e settings restaurados. BASE `d033433`,
+writer `run-1793154878719-98187baa` em validating, pronto para step finish e
+close; Git/CI resultantes são posteriores a esse fechamento. Brain
+`brain-session-1793153947009-39e14016` CLOSED confirmado pela CLI. Sem build,
+instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T07 — checkpoint substituído após revisão de código, 28/10/2026
+
+**T07 iniciada em 28/10/2026:** fila real de revisão sem Pixel/anel, com
+ListRow, origens e histórico comprováveis; preservar resposta persistida,
+retomada, saída e vida única por fila. Inventário/brief concluídos, writer
+único `run-1793196624149-d9c215ee` editing/STEP_STARTED com 51 caminhos.
+Brain `brain-session-1793196240376-47a0d28b` consultado via CLI e fechado
+antes do writer por brain-links. Implementação delegada; vermelho/verde,
+revisão e gates T07 ainda pendentes.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## T07 — checkpoint substituído antes do gate final, 28/10/2026
+
+**T07 em verificação nativa em 28/10/2026:** fila real com ListRow,
+origens e histórico comprováveis, sem Pixel/anel. R2 de código Spec PASS /
+Quality APPROVED após corrigir o rótulo de revisão de ontem com menos de24h.
+Focal anterior4suítes/52testes e contrato40/40; delta temporal36/36 emUTC,
+3/3 emAmerica/Bahia, typecheck/lint aprovados. Oito arquivos congelados.
+No iOS, abertura real3itens/mesma aula/2min e fonte máxima foram observadas;
+o fluxo legítimo de três respostas está em execução. Resultado/vazio/Android,
+parecer nativo e quality completo ainda pendentes. Writer único
+`run-1793196624149-d9c215ee`,51caminhos; brain
+`brain-session-1793196240376-47a0d28b` CLOSED antes do writer.
+Sem build, instalação ou merge. [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## T07 — checkpoint substituído após gate final, 28/10/2026
+
+**T07 implementada e revisada em 28/10/2026:** fila real com ListRow,
+origens/histórico comprováveis e sem Pixel/anel; resposta, retomada e vida
+única preservadas. R2 de código e R3 nativo aprovados para o núcleo T07.
+Focal4/52, contrato40/40; fix temporal36/36UTC+3/3Bahia, typecheck/lint/strict
+aprovados. Filas reais3itens→resultado+12XP/HUD66→vazio e saída em ambos OS.
+iOS máxima/core legível; Android normal/máxima inicial, live e resultado
+máximo não validados por erro de linking. **Aceite global bloqueado:** P2
+PushOptIn cortado em máxima iOS, pendente T17, além do P3 cauda T06.
+Vazio máximo iOS, erros e retomada parcial não medidos nativamente.
+Quality completo, fechamento e Git T07 ainda pendentes; writer
+`run-1793196624149-d9c215ee` editing/0ciclos/51caminhos. Brain
+`brain-session-1793196240376-47a0d28b` CLOSED; apps/emuladores/Metro OFF,
+settings restaurados. Sem build/instalação/merge, gates humanos preservados.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## Fila após gate T07, 28/10/2026
+
+Próxima entrega após fechamento T06: T07 revisão. T07–T22 e G1–G8, conteúdo
+G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
+intocado.

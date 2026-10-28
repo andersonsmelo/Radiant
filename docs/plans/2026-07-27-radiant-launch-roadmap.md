@@ -58,7 +58,7 @@ Loop final15/15 em 27/10, após corrigir mock consumidor aprovado em R7;
 primeira validação do writer substituto/segunda do objetivo.
 [Evidência T05](../evidence/2026-10-27-medalhao-t05.md).
 T05 publicada em `d033433`, CI245/150SUCCESS confirmado em 27/10.
-T06 implementada/revisada/validada em 28/10: Loop final15/15 em ciclo único; Git posterior ao fechamento. Próxima T07; limites no STATUS.
+T06 implementada/revisada/validada em28/10: Loop15/15, commitc694f95/CI246151SUCCESS e lifecycleCLOSED confirmados; T07 implementada/revisada/validada no núcleo em28/10, Loop15/15 ciclo único; Git posterior ao fechamento, próximaT08; P2 compartilhado paraT17/aceite global bloqueado. Limites no STATUS.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

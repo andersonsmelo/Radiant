@@ -1,0 +1,108 @@
+{
+  "cleanup": {
+    "at": 1793202879.209302,
+    "audit": [
+      {
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "list",
+          "devices",
+          "booted",
+          "--json"
+        ],
+        "exit": 0,
+        "stdout": "{\n  \"devices\" : {\n    \"com.apple.CoreSimulator.SimRuntime.iOS-26-5\" : [\n\n    ]\n  }\n}\n",
+        "stderr": ""
+      },
+      {
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "devices"
+        ],
+        "exit": 0,
+        "stdout": "List of devices attached\n\n",
+        "stderr": ""
+      },
+      {
+        "cmd": [
+          "lsof",
+          "-nP",
+          "-iTCP:8081",
+          "-sTCP:LISTEN"
+        ],
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "cmd": [
+          "ps",
+          "-p",
+          "53285,86335",
+          "-o",
+          "pid=,comm="
+        ],
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "cmd": [
+          "pgrep",
+          "-fl",
+          "qemu-system"
+        ],
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "source8Same": true,
+    "iosFontRestored": "large",
+    "androidOriginalAndRestored": {
+      "font_scale": "1.0",
+      "transition_animation_scale": "0",
+      "window_animation_scale": "0",
+      "animator_duration_scale": "0"
+    },
+    "pluginDefaultsChanged": false,
+    "reservedOperated": false,
+    "adbReverseRemoved": true
+  },
+  "androidBefore": {
+    "serial": "emulator-5554",
+    "avd": "radiant-entrada-api34",
+    "client": "1.4.0(3)",
+    "font_scale": "1.0",
+    "transition_animation_scale": "0",
+    "window_animation_scale": "0",
+    "animator_duration_scale": "0",
+    "measuredAt": 1793202561.726629
+  },
+  "androidAfter": {
+    "font_scale": "1.0",
+    "transition_animation_scale": "0",
+    "window_animation_scale": "0",
+    "animator_duration_scale": "0"
+  },
+  "iosOriginalRestored": "large",
+  "priorPhase": {
+    "booted": {
+      "exit": 0,
+      "stdout": "{\n  \"devices\" : {\n    \"com.apple.CoreSimulator.SimRuntime.iOS-26-5\" : [\n\n    ]\n  }\n}\n",
+      "stderr": ""
+    },
+    "adb": {
+      "exit": 0,
+      "stdout": "List of devices attached\n\n",
+      "stderr": ""
+    },
+    "port": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "source8same": true
+  }
+}
