@@ -34,6 +34,8 @@ type JourneyMedalProps = {
   node: Pick<JourneyNode, 'id' | 'type'>;
   theme: IllustrationTheme;
   state: MedalState;
+  /** Aparência neutra do resultado com 0 estrelas; não altera progresso nem interação. */
+  appearance?: 'neutral';
   /** Liga o anel que pulsa. Só vale com `state="next"`. */
   pulsing: boolean;
   /** A janela montada da lista é maior que o viewport. */
@@ -153,6 +155,7 @@ export function JourneyMedal({
   theme,
   state,
   pulsing,
+  appearance,
   visible = true,
   stars,
   size,
@@ -164,7 +167,7 @@ export function JourneyMedal({
   const radius = size ?? (node.type === 'review' ? REVIEW_RADIUS : DEFAULT_RADIUS);
   const scale = radius / BOARD_RADIUS;
   const diameter = radius * 2;
-  const palette = paletteFor(node.type, state);
+  const palette = appearance === 'neutral' ? medalColors.silver : paletteFor(node.type, state);
   const tones = glyphTonesFor(state);
   const showRing = pulsing && state === 'next';
   const ringStyle = useMedalPulse(showRing && visible);

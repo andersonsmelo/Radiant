@@ -1,0 +1,19 @@
+T05 native execution 2026-10-27 UTC
+Frozen HEAD ae2e769d89bac2a4de3b11e5a4fe602d86b31323; source dirty frozen SHA256 manifest matches R1.
+iOS principal E262D4C1-99BE-496B-8567-0291C14E6533, iOS26.5, iPhone17Pro simulator, app com.ascendcreative.radiant 1.4.0(3) Info.plist reverified. Android emulator-5554, AVD radiant-entrada-api34, app 1.4.0(3) dumpsys reverified.
+Metro existing dependencies, Node20.20.2, EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 EXPO_OFFLINE=1, localhost8081. No builds/downloads/installs.
+XcodeBuildMCP session defaults measured then principal set; launch generated runtime/OS logs in Library/Developer/XcodeBuildMCP outside repository.
+simctl screenshot stdout preflight invalid in current Xcode: dash produced literal root file -. Immediately moved to excluded SDD; subsequent captures use explicit paths. No remaining root dash file.
+Android uiautomator dump /dev/tty works, but occasionally reports ERROR could not get idle state during animated bench feedback. No XML assumed valid in that case.
+Real no-node route radiantapp://learn?blockId=bancada%3Aexposicao: O kV e o contraste, initial 5/5 lives both OS. Actual controls used, no storage/clock manipulation.
+Real Quiz review route radiantapp://quiz?mode=review&lessonIds=lesson-1 checked against frozen source catalog; this route is not evidence of spaced-due scheduling or a second day.
+
+R1 PARTIAL: iOS real lesson4/4,3stars,noXP normal visualPASS; AX5 P2 title/phrase/subtitle clipped into horizontal strips. iOS real review3/3,3stars,+18XP,1/8 unit stage, noPixel normal visualPASS; naturalXPaward, no persistence claim. Android6/6 reached and completion tapped, no settled summary captured; loading/idleError and font2 recreation tohome retainedSDD, notPASS. Settings exactly restored after OS-only boots. ReduceMotion/zeroStars/FPS not tested.
+
+Cleanup verified: apps stopped, principal and AVD shutdown, Metro session93852 exit0 and port8081 no listener; OSsettings exact before/after. Android elementary-stream remux had0.166665s without source timestamps and was moved SDD, not published as temporal proof. iOS result entry MP4 ffprobe7.583333s, no FPSanalysis.
+
+
+R2 / 2026-10-27: normal iOS PASS, live large->AX5 FAIL; initial AX5 remount glyphs intact and scroll/CTA usable. Source before/after15paths match freeze2. Served iOS sourcemap2614sources includes Summary SHAde4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227 with3lineHeightundefined. Android launcher timedout before React, laterANR; device/status200 on127.0.0.1 and10.0.2.2, hostGETmanifest2003800bytes6.154506s. No Android T05 UI verdict. Originals restored: iOSlarge; Androidnull/1.0/1.0/null. Apps/sim/AVDoff; controller Metro2346exit0/8081free. Fix2 released after all OFF.
+
+
+R3 freeze3 final / 27-10-2026: iOS lesson/review real large->AX5 while Summary mounted now glyphs intact, scroll/CTA usable, normal readable, review no Pixel. Android isolated HEAD/GET manifest200 then React mounted; lessonfont2 4/4 3stars SemXP and reviewfont2+normalfont1 3/3 +18XP/noPixel readable. 15source paths matchfreeze3 beforeafter bothOS. No causality assigned between isolation/warmup and launcher recovery. Android font1 Activity recreation was handled by one coldlaunch and real review, no fixture. Originals restored iOSlarge and Androidnull/1.0/1.0/null. Apps stopped, principalShutdown, AVDkillOK/adbempty, Metro69783exit0 and8081free. Native RM/zero/FPS/physical/audible/second-day not tested.

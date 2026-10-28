@@ -2,6 +2,7 @@ import React from 'react';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
+import { Confetti } from '../../../components/ui/Confetti';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { LearningInteractionV2, LearningActivityV2 } from '../../../types/learningActivity';
@@ -70,13 +71,11 @@ jest.mock('@react-native-async-storage/async-storage', () => require('@react-nat
 jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
 
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
   useMedalPulse: () => ({}),
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  // `scale` faz parte do contrato real do hook, e `SummaryStar` o usa no
-  // caminho em que a marca NÃO melhorou: em vez de animar, fixa a escala em 1
-  // direto, para não sugerir um ganho que não houve. Sem ele no mock, a
-  // conclusão só montava quando as estrelas melhoravam.
+  // A cunhagem e as estrelas do resumo usam os hooks reais importados acima.
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({ animatedStyle: {}, onPressIn: jest.fn(), onPressOut: jest.fn() }),
@@ -209,7 +208,7 @@ jest.mock('../../quiz/services/LessonRatingService', () => ({
   },
 }));
 
-jest.mock('../../../components/ui/Confetti', () => ({ Confetti: () => null }));
+
 
 jest.mock('../../../ui/feedback/haptics', () => ({
   hapticCelebrate: jest.fn(),
@@ -1130,6 +1129,48 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     fireEvent.press(await screen.findByText('Concluir e voltar'));
   }
 
+  it('avaliar e continuar conservam a conclusão e o prêmio já registrados', async () => {
+    mockedOutcome.recordCompletion.mockResolvedValue({ ...outcomeFixture,
+      award: { baseXp: 20, bonusXp: 0, totalXpAwarded: 20, reason: 'quiz_complete' },
+    });
+    await completeLesson();
+    expect(await screen.findByText('+20 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    fireEvent.press(screen.getByLabelText('Avaliar a aula com 4 de 5'));
+    expect(LessonRatingService.rate).toHaveBeenCalledWith('lesson-1', 4);
+    expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
+    expect(screen.getByText('+20 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
+  });
+
+  it.each([
+    ['lesson', 'ressonancia', 'protecao', 'ressonancia'],
+    ['review', 'ressonancia', 'protecao', 'ressonancia'],
+    ['lesson', undefined, 'protecao', 'protecao'],
+    ['review', undefined, 'protecao', 'protecao'],
+  ] as const)('resultado %s mantém o título real e tema (%s/%s)', async (kind, nodeTheme, unitTheme, expectedTheme) => {
+    const definition = jest.requireMock('../../journey/services/JourneyDefinitionService').JourneyDefinitionService;
+    const catalogSpy = jest.spyOn(LessonCatalogService, 'listTracks').mockReturnValue([{ id: 'summary-track' }] as ReturnType<typeof LessonCatalogService.listTracks>);
+    definition.getNodeType.mockReturnValue(kind);
+    definition.getTrackDefinition.mockReturnValue({ units: [{ theme: unitTheme, nodes: [{ id: 'node-1', title: 'Formação da imagem', theme: nodeTheme }] }] });
+    try {
+      await completeLesson();
+      await screen.findByText('1 de 1 corretas');
+      expect(screen.getByRole('header', { name: 'Formação da imagem' })).toBeTruthy();
+      expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe(expectedTheme);
+      expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+      if (kind === 'review') expect(screen.queryAllByLabelText(/Pixel/u)).toHaveLength(0);
+    } finally {
+      catalogSpy.mockRestore();
+      definition.getNodeType.mockReturnValue('lesson');
+      definition.getTrackDefinition.mockReturnValue({ units: [] });
+    }
+  });
+
   it('mostra a conclusão em vez de devolver o aluno em silêncio para a aba', async () => {
     // Antes desta passagem a tela chamava router.replace('/(tabs)') aqui: o
     // aluno terminava a lição e voltava para a aba sem estrelas, sem XP, sem
@@ -1949,6 +1990,7 @@ describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha', 
   }
 
   it('abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' });
     renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
 
     expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
@@ -1959,6 +2001,9 @@ describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha', 
 
     // A aula chega à conclusão: a guarda não impede o aluno de terminar.
     expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Estrutura e carga' })).toBeTruthy();
+    expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
     expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
     expectNoJourneyWrites();
   });

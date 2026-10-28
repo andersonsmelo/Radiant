@@ -51,7 +51,13 @@ Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
 implementada e revisada em 27/10 (Spec PASS/Qualidade APPROVED), com import
 estático e dublê Skia observável: 7 suítes/184 testes e sete mutações detectadas.
 Validação final T04a **15/15**, em ciclo único, com quality/app-test completos. [Evidência](../evidence/2026-10-27-medalhao-t04a.md).
-Próxima entrega: T05 (resultado); gates humanos preservados.
+T05 resultado implementado e revisado em 27/10, com contexto real nos dois
+consumidores, neutralidade de zero estrela e economia preservada. Correção
+de texto ampliado aprovada no iOS R5; Android aula/revisão fonte2 legíveis.
+Loop final15/15 em 27/10, após corrigir mock consumidor aprovado em R7;
+primeira validação do writer substituto/segunda do objetivo.
+[Evidência T05](../evidence/2026-10-27-medalhao-t05.md).
+Próxima entrega após fechar T05: T06 (recompensa); gates humanos preservados.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

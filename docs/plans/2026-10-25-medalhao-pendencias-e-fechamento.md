@@ -395,20 +395,20 @@ T05 é a próxima entrega; nenhum gate humano foi consumido.
 `radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx`,
 `radiant-app/src/ui/motion.ts` e os testes de movimento afetados.
 
-- [ ] Enumerar todos os consumidores de `LessonSummary`; acrescentar contexto
+- [x] Enumerar todos os consumidores de `LessonSummary`; acrescentar contexto
   de tema/título por todos, incluindo o resumo de revisão e a aula sem nó.
-- [ ] Escrever casos 0/1/2/3 estrelas, recorde anterior maior, repetição,
+- [x] Escrever casos 0/1/2/3 estrelas, recorde anterior maior, repetição,
   revisão e XP nulo/zero/positivo. Ver o vermelho antes da composição nova.
-- [ ] Definir medalha neutra para zero estrela sem alterar o estado canônico
+- [x] Definir medalha neutra para zero estrela sem alterar o estado canônico
   de aula concluída nem fingir bloqueio; a paleta visual não decide progresso.
-- [ ] Retirar confete dos consumidores reais, inclusive `LessonFlowScreen`.
-- [ ] Preservar pose sob reduzir movimento; parar movimento não vira comemorar→acenar.
-- [ ] Implementar animação por componentes de estrela com hooks no topo;
+- [x] Retirar confete dos consumidores reais, inclusive `LessonFlowScreen`.
+- [x] Preservar pose sob reduzir movimento; parar movimento não vira comemorar→acenar.
+- [x] Implementar animação por componentes de estrela com hooks no topo;
   nunca chamar hooks em `map`, callback `star(index)` ou condição.
-- [ ] Resolver a mola/duração do exemplo antigo a favor de `DESIGN.md`:
+- [x] Resolver a mola/duração do exemplo antigo a favor de `DESIGN.md`:
   mola apenas na cunhagem; crescimento/assentamento e outras entradas pelos
   hooks existentes, sem importar Reanimated em tela de feature.
-- [ ] Rodar os três testes de componente/fluxo e os contratos de movimento.
+- [x] Rodar os três testes de componente/fluxo e os contratos de movimento.
 
 **Exemplo de asserção a acrescentar ao teste existente** (usa os fixtures já presentes):
 
@@ -425,6 +425,16 @@ acima é proteção de comportamento, não prova isolada da cunhagem.
 
 **Aceite:** primeira resposta continua valendo; sem XP inventado; revisão
 sem Pixel; animação não repete prêmio; tema real acompanha todos os caminhos.
+
+**Registro T05 em 27/10/2026 — implementada, revisada e validada:**
+os dois consumidores têm contexto real, neutralidade de zero estrela sem
+alterar conclusão/primeira resposta e prêmio não repetido. R4código, R5iOS
+large→AX5 e R6Android nos cenários medidos aprovados. Gate1 foi13/15 por mock
+incompleto em teste consumidor; fix3 de uma linha aprovado em R7 sem alterar
+produto/nativo. Writer substituto gatefinal15/15, primeiro ciclo dele/segundo
+do objetivo; sem política nova. Este checkpoint precede fechamentoCLI e Git.
+[Evidência por fase e limites](../evidence/2026-10-27-medalhao-t05.md).
+PróximaT06; G1–G8 preservados.
 
 ### T06 — Recompensa sem saída morta
 

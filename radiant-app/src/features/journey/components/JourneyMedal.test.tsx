@@ -336,3 +336,17 @@ describe('JourneyMedal — o anel da próxima', () => {
     configs.forEach((config) => expect(config?.easing).toBeDefined());
   });
 });
+
+// Neutro é aparência de resultado, independente da progressão da trilha.
+it('resultado neutro usa prata sem bloquear nem apagar a ilustração concluída', () => {
+  const onPress = jest.fn();
+  const view = renderMedal({ state: 'done', appearance: 'neutral', stars: 0, onPress });
+  const [lip, face, , inner] = view.UNSAFE_getAllByType(Circle).map(c => c.props);
+  expect(lip.fill).toBe(medalColors.silver.lip);
+  expect(face.fill).toBe(medalColors.silver.face);
+  expect(inner.fill).toBe(medalColors.silver.inner);
+  expect(view.getByRole('button').props.accessibilityState.disabled).toBe(false);
+  fireEvent.press(view.getByRole('button'));
+  expect(onPress).toHaveBeenCalledTimes(1);
+  expect(illustration).toHaveBeenCalledWith(expect.objectContaining({ state: 'done', theme: 'tubo' }), undefined);
+});

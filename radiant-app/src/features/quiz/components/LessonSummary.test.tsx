@@ -2,27 +2,18 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LessonSummary } from './LessonSummary';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { Circle } from 'react-native-svg';
+import { medalColors } from '../../../ui/theme';
+import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
 import { space } from '../../../ui/styles';
 import { semanticColors } from '../../../ui/semantic-colors';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
-// Mocka `useScalePop` para poder afirmar o COMPORTAMENTO da animação de
-// ganho (chamadas a `animateIn`/`scale.setValue`), não um testID que só
-// espelha a prop `animate` de volta — ver os testes "anima"/"não anima"
-// abaixo e o Achado Importante 4 do review final. Nomes precisam começar
-// com `mock` para o Jest permitir a referência dentro da factory.
-const mockAnimateIn = jest.fn();
-const mockSetValue = jest.fn();
-
-jest.mock('../../../ui/motion', () => ({
-  duration: { micro: 0, ui: 0, celebrate: 0 },
-  useScalePop: () => ({
-    scale: { setValue: mockSetValue },
-    style: {},
-    animateIn: mockAnimateIn,
-  }),
-}));
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+jest.mock('../../../ui/useScreenFocused', () => ({ useScreenFocused: () => true }));
 
 jest.mock('expo-linear-gradient', () => {
   const ReactActual = require('react') as typeof React;
@@ -68,10 +59,17 @@ jest.mock('react-native-reanimated', () => {
     withDelay: jest.fn((_delay: number, animation: unknown) => animation),
     withSequence: jest.fn((...animations: unknown[]) => animations.at(-1)),
     withTiming: jest.fn((value: unknown) => value),
+    withSpring: jest.fn((value: unknown) => value),
   };
 });
 
+const reanimated = jest.requireMock('react-native-reanimated') as { withSpring: jest.Mock; withTiming: jest.Mock };
+const reducedMotion = useReducedMotionPreferenceState as jest.MockedFunction<typeof useReducedMotionPreferenceState>;
+const starEntries = () => reanimated.withTiming.mock.calls.filter(([, config]) => config?.duration === 220);
+
 const base = {
+  title: 'Tubo de raios X',
+  theme: 'tubo' as const,
   stars: 2 as const,
   starsImproved: true,
   phrase: 'Muito bom.',
@@ -89,8 +87,9 @@ const base = {
 
 describe('LessonSummary', () => {
   beforeEach(() => {
-    mockAnimateIn.mockClear();
-    mockSetValue.mockClear();
+    reanimated.withSpring.mockClear();
+    reanimated.withTiming.mockClear();
+    reducedMotion.mockReturnValue({ reducedMotionEnabled: false, resolved: true });
     base.onRate.mockClear();
     base.onContinue.mockClear();
   });
@@ -98,7 +97,7 @@ describe('LessonSummary', () => {
   it('mostra os resultados da tentativa', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('9 de 10 corretas')).toBeTruthy();
-    expect(screen.getByText('+30 XP nesta tentativa')).toBeTruthy();
+    expect(screen.getByText('+30 XP')).toBeTruthy();
   });
 
   it('mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou', () => {
@@ -160,7 +159,8 @@ describe('LessonSummary', () => {
     expect(screen.getByText('7 de 14 etapas')).toBeTruthy();
     expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
     expect(screen.queryByText(/\+.* XP/)).toBeNull();
-    expect(mockAnimateIn).not.toHaveBeenCalled();
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
+    expect(starEntries()).toHaveLength(0);
     expect(base.onRate).not.toHaveBeenCalled();
     expect(base.onContinue).not.toHaveBeenCalled();
   });
@@ -274,21 +274,32 @@ describe('LessonSummary', () => {
     expect(screen.getByText('A lição foi concluída')).toBeTruthy();
   });
 
-  it('anima o ganho das estrelas quando a marca melhorou', () => {
-    // Afirma o COMPORTAMENTO real (animateIn chamado, scale.setValue não),
-    // não um testID que só refletia de volta a prop `animate` — esse era o
-    // teste tautológico do Achado Importante 4: um testID condicional prova
-    // apenas que o `? :` existe, nunca que a animação de fato acontece.
-    render(<LessonSummary {...base} starsImproved />);
-    expect(mockAnimateIn).toHaveBeenCalledTimes(3);
-    expect(mockSetValue).not.toHaveBeenCalled();
+  it('cunha uma vez e assenta somente as estrelas preenchidas, sem mola nelas', () => {
+    const view = render(<LessonSummary {...base} stars={2} starsImproved />);
+    expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+    expect(starEntries()).toHaveLength(2);
+    const mintCount = reanimated.withSpring.mock.calls.length;
+    const starCount = starEntries().length;
+    fireEvent.press(screen.getByLabelText('Avaliar a aula com 4 de 5'));
+    view.rerender(<LessonSummary {...base} stars={2} currentRating={4} />);
+    expect(reanimated.withSpring).toHaveBeenCalledTimes(mintCount);
+    expect(starEntries()).toHaveLength(starCount);
   });
 
-  it('não anima as estrelas quando a marca não melhorou — a escala vai direto para 1', () => {
-    render(<LessonSummary {...base} starsImproved={false} />);
-    expect(mockAnimateIn).not.toHaveBeenCalled();
-    expect(mockSetValue).toHaveBeenCalledTimes(3);
-    expect(mockSetValue).toHaveBeenCalledWith(1);
+  it('não encena ganho em uma repetição sem melhora', () => {
+    render(<LessonSummary {...base} starsImproved={false} xpAwarded={0} />);
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
+    expect(starEntries()).toHaveLength(0);
+  });
+
+  it('movimento reduzido preserva medalha, estrelas e pose final sem cunhar', () => {
+    reducedMotion.mockReturnValue({ reducedMotionEnabled: true, resolved: true });
+    const view = render(<LessonSummary {...base} />);
+    expect(view.UNSAFE_getByType(JourneyMedal).props.state).toBe('done');
+    expect(screen.getByLabelText('Pixel comemorando')).toBeTruthy();
+    expect(screen.getByLabelText('2 de 3 estrelas')).toBeTruthy();
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
+    expect(starEntries()).toHaveLength(0);
   });
 
   it('expõe a contagem de estrelas como rótulo de acessibilidade único', () => {
@@ -304,16 +315,98 @@ describe('LessonSummary', () => {
   // A lição de 0 estrela conta como concluída na trilha; a copy diz a verdade
   // sobre o estado e deixa a honestidade sobre o resultado para a faixa, o
   // Pixel e a frase. Os roteiros Maestro afirmam este subtítulo depois de erro.
-  it('com 0 estrelas, diz a verdade sobre a conclusão sem celebrar: faixa neutra e Pixel de orientação', () => {
-    render(<LessonSummary {...base} stars={0} correctAnswers={0} starsImproved={false} />);
+  it('com 0 estrelas mantém a conclusão, a régua e medalha neutra sem fingir bloqueio', () => {
+    const view = render(<LessonSummary {...base} stars={0} correctAnswers={0} starsImproved />);
     expect(screen.getByText('A lição foi concluída')).toBeTruthy();
-    expect(screen.queryByText(/não fechou/)).toBeNull();
-    expect(screen.getByLabelText('Pixel incentivando a tentar novamente')).toBeTruthy();
+    expect(screen.getByLabelText('0 de 3 estrelas')).toBeTruthy();
+    expect(screen.queryByText(/quase|bloquead|não fechou/i)).toBeNull();
+    const medal = view.UNSAFE_getByType(JourneyMedal);
+    expect(medal.props.state).toBe('done');
+    expect(medal.props.disabled).not.toBe(true);
+    const face = view.UNSAFE_getAllByType(Circle)[1];
+    expect(face.props.fill).toBe(medalColors.silver.face);
     expect(screen.queryByLabelText('Pixel comemorando')).toBeNull();
-    const bandStyle = StyleSheet.flatten(screen.getByTestId('lesson-summary-band').props.style);
-    expect(bandStyle.backgroundColor).not.toBe(
-      StyleSheet.flatten(render(<LessonSummary {...base} stars={3} />).getByTestId('lesson-summary-band').props.style).backgroundColor
-    );
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
+    expect(starEntries()).toHaveLength(0);
+  });
+
+  it.each([0, 1, 2, 3] as const)('mostra o tema, o título real e a régua completa com %s estrelas', stars => {
+    const view = render(<LessonSummary {...base} stars={stars} />);
+    expect(screen.getByRole('header', { name: 'Tubo de raios X' })).toBeTruthy();
+    expect(screen.getByLabelText(`${stars} de 3 estrelas`)).toBeTruthy();
+    const icons = screen.getByLabelText(`${stars} de 3 estrelas`).findAllByType(DecorativeIcon);
+    expect(icons.filter((icon: { props: { name: string } }) => icon.props.name === 'star')).toHaveLength(stars);
+    expect(icons.filter((icon: { props: { name: string } }) => icon.props.name === 'star-border')).toHaveLength(3 - stars);
+    expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    if (stars > 0) expect(view.UNSAFE_getAllByType(Circle)[1].props.fill).toBe(medalColors.gold.face);
+  });
+
+  it('mostra XP real grande e sem card, separado das linhas factuais', () => {
+    render(<LessonSummary {...base} />);
+    const xp = screen.getByText('+30 XP');
+    expect(StyleSheet.flatten(xp.props.style).fontSize).toBeGreaterThanOrEqual(32);
+    let ancestor = xp.parent;
+    while (ancestor && ancestor.type !== ScrollView) {
+      const style = StyleSheet.flatten(ancestor.props.style) ?? {};
+      expect(style.borderWidth ?? 0).toBe(0);
+      expect(style.backgroundColor).toBeUndefined();
+      ancestor = ancestor.parent;
+    }
+  });
+
+  it('a revisão mantém medalha e título sem montar Pixel', () => {
+    const view = render(<LessonSummary {...base} kind="review" />);
+    expect(screen.getByRole('header', { name: 'Tubo de raios X' })).toBeTruthy();
+    expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    expect(screen.queryByLabelText(/Pixel/)).toBeNull();
+  });
+
+  it('o título e a frase aceitam texto máximo sem truncamento nem teto de escala', () => {
+    render(<LessonSummary {...base} title="Tubo de raios X e produção da radiação em diferentes situações" />);
+    const title = screen.getByRole('header');
+    expect(title.props.numberOfLines).toBeUndefined();
+    expect(title.props.maxFontSizeMultiplier).toBeUndefined();
+    expect(screen.getByText('Você avançou. Vale reforçar os pontos que faltaram.').props.maxFontSizeMultiplier).toBeUndefined();
+  });
+
+  it.each([
+    ['Colimação', 'Sora-ExtraBold', 32, '800'],
+    ['Três estrelas. Nada passou despercebido.', 'Sora-Regular', 16, '400'],
+    ['A lição foi concluída', 'Sora-Regular', 16, '400'],
+  ] as const)('AX5 deixa a fonte determinar a altura de %s sem limitar a leitura', (label, fontFamily, fontSize, fontWeight) => {
+    const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({
+      width: 402, height: 874, scale: 3, fontScale: 3.1,
+    });
+    try {
+      render(<LessonSummary {...base} title="Colimação" stars={3} correctAnswers={4}
+        totalQuestions={4} phrase="Três estrelas. Nada passou despercebido." xpAwarded={null} unitTotal={0} />);
+      const text = screen.getByText(label);
+      // Drivers do Text que chega ao nativo, não um espelho de props do componente.
+      // RN/iOS transforma lineHeight explícito em min/max do parágrafo. A
+      // legibilidade dos glifos continua dependendo da remedição nativa AX5.
+      const style = StyleSheet.flatten(text.props.style);
+      expect(style).toMatchObject({ fontFamily, fontSize, fontWeight });
+      expect(style.lineHeight).toBeUndefined();
+      expect(text.props.allowFontScaling).not.toBe(false);
+      expect(text.props.maxFontSizeMultiplier).toBeUndefined();
+      expect(text.props.numberOfLines).toBeUndefined();
+      expect(text.props.adjustsFontSizeToFit).not.toBe(true);
+      let ancestor = text;
+      while (ancestor.type !== ScrollView) {
+        const metrics = StyleSheet.flatten(ancestor.props.style) ?? {};
+        expect(metrics.height).toBeUndefined();
+        expect(metrics.maxHeight).toBeUndefined();
+        expect(metrics.overflow).not.toBe('hidden');
+        expect(ancestor.parent).not.toBeNull();
+        ancestor = ancestor.parent!;
+      }
+      const content = StyleSheet.flatten(ancestor.props.contentContainerStyle);
+      expect(content.height).toBeUndefined();
+      expect(content.maxHeight).toBeUndefined();
+      expect(content.overflow).not.toBe('hidden');
+    } finally {
+      dimensions.mockRestore();
+    }
   });
 });
 
@@ -348,4 +441,121 @@ it('C2 Refazer é a ação secundária: Continuar segue como a principal', () =>
   expect(continuar.backgroundColor).toBe(semanticColors.galaxy.actionPrimary);
   expect(refazer.backgroundColor).toBe(semanticColors.galaxy.surfaceElevated);
   expect(refazer.borderWidth).toBe(1);
+});
+
+describe('T05 Dynamic Type no resultado já aberto', () => {
+  beforeEach(() => {
+    reanimated.withSpring.mockClear();
+    reanimated.withTiming.mockClear();
+    reducedMotion.mockReturnValue({ reducedMotionEnabled: false, resolved: true });
+    base.onRate.mockClear();
+    base.onContinue.mockClear();
+  });
+
+  // A escala muda os parágrafos nativos, não a conquista nem os controles.
+  // Remover a renovação dos Text deve manter estes hosts antigos e falhar.
+  it.each([[1, 3.1], [3.1, 2.5]])('renova todos os parágrafos próprios em %s → %s, inclusive entre escalas grandes', (from, to) => {
+    const window = { width: 402, height: 874, scale: 3, fontScale: from };
+    const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue(window);
+    const labels = [
+      'Tubo de raios X',
+      'Você avançou. Vale reforçar os pontos que faltaram.',
+      'A lição foi concluída',
+      'Seu recorde nesta lição: 3 estrelas',
+      '+30 XP',
+      'Respostas corretas',
+      '9 de 10 corretas',
+      'Progresso da unidade',
+      '7 de 14 etapas',
+      'Meta do dia fechada.',
+      'Próxima revisão em 3 dias',
+      'Avalie a aula',
+      'É opcional',
+    ];
+    try {
+      const { rerender } = render(<LessonSummary {...base} recordStars={3} />);
+      const before = new Map(labels.map(label => [label, screen.getByText(label)]));
+      window.fontScale = to;
+      rerender(<LessonSummary {...base} recordStars={3} />);
+      // Identidade pública do host montado; não lê key/fiber nem rasteriza fontes.
+      const staleParagraphs = labels.filter(label => screen.getByText(label) === before.get(label));
+      expect(staleParagraphs).toEqual([]);
+    } finally {
+      dimensions.mockRestore();
+    }
+  });
+
+  it.each([
+    [null, 'Sem XP nesta tentativa'],
+    [0, 'Progresso registrado'],
+    [30, '+30 XP'],
+  ] as const)('renova subtítulo de revisão e XP %s sem montar Pixel', (xpAwarded, label) => {
+    const window = { width: 402, height: 874, scale: 3, fontScale: 3.1 };
+    const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue(window);
+    try {
+      const { rerender } = render(<LessonSummary {...base} kind="review" xpAwarded={xpAwarded} />);
+      const subtitle = screen.getByText('Revisão concluída');
+      const xp = screen.getByText(label);
+      const cta = screen.getByRole('button', { name: 'Continuar' });
+      window.fontScale = 2.5;
+      rerender(<LessonSummary {...base} kind="review" xpAwarded={xpAwarded} />);
+      expect([
+        screen.getByText('Revisão concluída') === subtitle ? 'subtítulo' : null,
+        screen.getByText(label) === xp ? 'XP' : null,
+      ].filter(Boolean)).toEqual([]);
+      expect(screen.queryByLabelText(/Pixel/)).toBeNull();
+      expect(screen.getByRole('button', { name: 'Continuar' }) === cta).toBe(true);
+    } finally {
+      dimensions.mockRestore();
+    }
+  });
+
+  it('mantém scroll, conquista, controles e avaliação ao renovar só o texto, sem repetir ganho', () => {
+    const window = { width: 402, height: 874, scale: 3, fontScale: 1 };
+    const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue(window);
+    try {
+      const view = render(<LessonSummary {...base} />);
+      const scroll = view.UNSAFE_getByType(ScrollView);
+      const medal = view.UNSAFE_getByType(JourneyMedal);
+      const stars = screen.getByLabelText('2 de 3 estrelas');
+      const cta = screen.getByRole('button', { name: 'Continuar' });
+      const rating = screen.getByRole('button', { name: 'Avaliar a aula com 3 de 5' });
+      expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+      expect(starEntries()).toHaveLength(2);
+      fireEvent.press(rating);
+      expect(base.onRate).toHaveBeenCalledTimes(1);
+      expect(base.onRate).toHaveBeenLastCalledWith(3);
+
+      for (const fontScale of [3.1, 2.5]) {
+        window.fontScale = fontScale;
+        view.rerender(<LessonSummary {...base} />);
+        expect(view.UNSAFE_getByType(ScrollView) === scroll).toBe(true);
+        expect(view.UNSAFE_getByType(JourneyMedal) === medal).toBe(true);
+        expect(screen.getByLabelText('2 de 3 estrelas') === stars).toBe(true);
+        expect(screen.getByRole('button', { name: 'Continuar' }) === cta).toBe(true);
+        expect(screen.getByRole('button', { name: 'Avaliar a aula com 3 de 5' }) === rating).toBe(true);
+        expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+        expect(starEntries()).toHaveLength(2);
+        expect(base.onRate).toHaveBeenCalledTimes(1);
+        expect(base.onContinue).not.toHaveBeenCalled();
+      }
+
+      const title = screen.getByRole('header');
+      view.rerender(<LessonSummary {...base} />);
+      expect(screen.getByRole('header') === title).toBe(true);
+      view.rerender(<LessonSummary {...base} currentRating={3} />);
+      const given = screen.getByText('Você avaliou esta aula com 3 de 5');
+      window.fontScale = 1;
+      view.rerender(<LessonSummary {...base} currentRating={3} />);
+      expect(screen.getByText('Você avaliou esta aula com 3 de 5') === given).toBe(false);
+      expect(screen.queryByRole('button', { name: 'Avaliar a aula com 3 de 5' })).toBeNull();
+      expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+      expect(starEntries()).toHaveLength(2);
+      expect(base.onRate).toHaveBeenCalledTimes(1);
+      fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+      expect(base.onContinue).toHaveBeenCalledTimes(1);
+    } finally {
+      dimensions.mockRestore();
+    }
+  });
 });

@@ -1,4 +1,5 @@
-import { act, renderHook } from '@testing-library/react-native';
+import React from 'react';
+import { act, render, renderHook } from '@testing-library/react-native';
 
 import {
     useReducedMotionPreferenceState,
@@ -12,7 +13,12 @@ import {
     resolveMotionValue,
     useLossPulse,
     useLottieFrameLoop,
+    useMedalMint,
+    useResultStar,
+    MotionView,
 } from '../motion';
+
+import { readMotionStyle } from '../../test/readMotionStyle';
 
 jest.mock('../accessibility/useReducedMotionPreference', () => ({
     useReducedMotionPreference: jest.fn(() => false),
@@ -157,5 +163,68 @@ describe('useLottieFrameLoop', () => {
         mockFocused.mockReturnValue(true);
         rerender({ playing: true });
         expect(new Set(framesOverTime(result)).size).toBeGreaterThan(3);
+    });
+});
+
+// Usa o estilo que a View animada recebe; avançar o quadro aplica o efeito.
+describe('resultado Medalhão', () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+        setMotion({ reducedMotionEnabled: false, resolved: true });
+    });
+    afterEach(() => jest.useRealTimers());
+
+    function Result({ earned, rating = 0 }: { earned: boolean; rating?: number }) {
+        const medal = useMedalMint(earned);
+        const star = useResultStar(earned, 1);
+        return React.createElement(MotionView, { testID: `medal-${rating}`, style: medal },
+            React.createElement(MotionView, { testID: 'star', style: star }));
+    }
+    const advance = (ms: number) => act(() => { jest.advanceTimersByTime(ms); });
+    const expectStarFinal = (view: ReturnType<typeof render>) => {
+        expect(readMotionStyle(view.getByTestId('star')).transform).toEqual([
+            { translateY: expect.closeTo(0, 5) }, { scale: 1 },
+        ]);
+    };
+
+    it('cunha e assenta em até 450ms; avaliar não reinicia a conquista', () => {
+        const view = render(React.createElement(Result, { earned: true }));
+        advance(16);
+        expect(readMotionStyle(view.getByTestId('medal-0')).transform).not.toEqual([{ scale: 1 }]);
+        expect(readMotionStyle(view.getByTestId('star')).transform).not.toEqual([{ translateY: 0 }, { scale: 1 }]);
+        advance(450);
+        expect(readMotionStyle(view.getByTestId('medal-0')).transform).toEqual([{ scale: expect.closeTo(1, 2) }]);
+        expectStarFinal(view);
+        view.rerender(React.createElement(Result, { earned: true, rating: 4 }));
+        advance(16);
+        expect(readMotionStyle(view.getByTestId('medal-4')).transform).toEqual([{ scale: expect.closeTo(1, 2) }]);
+        expectStarFinal(view);
+    });
+
+    it.each([
+        [true, true], [true, false], [false, false],
+    ])('o primeiro quadro é final quando reduzido=%s e resolvido=%s', (reducedMotionEnabled, resolved) => {
+        setMotion({ reducedMotionEnabled, resolved });
+        const view = render(React.createElement(Result, { earned: true }));
+        advance(16);
+        expect(readMotionStyle(view.getByTestId('medal-0')).transform).toEqual([{ scale: 1 }]);
+        expectStarFinal(view);
+    });
+
+    it('repetição sem melhora permanece final mesmo depois do quadro do efeito', () => {
+        const view = render(React.createElement(Result, { earned: false }));
+        advance(16);
+        expect(readMotionStyle(view.getByTestId('medal-0')).transform).toEqual([{ scale: 1 }]);
+        expectStarFinal(view);
+    });
+
+    it('não reproduz a cunhagem nem as estrelas ao resolver novamente o mesmo ganho montado', () => {
+        const view = render(React.createElement(Result, { earned: true }));
+        advance(450);
+        view.rerender(React.createElement(Result, { earned: false }));
+        view.rerender(React.createElement(Result, { earned: true }));
+        advance(16);
+        expect(readMotionStyle(view.getByTestId('medal-0')).transform).toEqual([{ scale: 1 }]);
+        expectStarFinal(view);
     });
 });

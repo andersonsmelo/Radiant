@@ -300,11 +300,31 @@ com `app-quality` completo (100.421 ms) e `app-test` completo (79.356 ms),
 Node20.20.2; CLI24.14.1 sob caffeinate. Run `run-1793114254111-2eade8f7`;
 sessão `brain-session-1793114147657-b7c59989` encerrada antes do writer por
 prevenção brain-links. [Evidência, parecer e validação](evidence/2026-10-27-medalhao-t04a.md).
-Commit/push/CI desta entrega são aferidos após esse snapshot de validação;
-o CI do `e522984` acima não comprova o novo SHA. **Próxima: T05 — resultado**.
-T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
-segundo dia no fechamento e reservado intocado. O dublê não prova shader,
-rasterização ou desempenho nativo; nenhum processo nativo foi iniciado.
+Commit T04a `ae2e769d89bac2a4de3b11e5a4fe602d86b31323` publicado, árvore limpa
+no fechamento em 27/10. CI do mesmo SHA: [App Quality244](https://github.com/andersonsmelo/Radiant/actions/runs/40532975253)
+e [Content Scripts149](https://github.com/andersonsmelo/Radiant/actions/runs/40532974409)
+concluídos com sucesso. Writer e sessão T04a encerrados separadamente.
+O dublê não prova shader, rasterização ou desempenho nativo.
+
+**T05 implementada, revisada e validada em 27/10:** contexto real nos dois
+consumidores, régua0–3, neutralidade de zero estrela com estado concluído,
+XP real sem caixa, revisão sem Pixel e pose preservada sob movimento reduzido.
+P2 de corte ao mudar a fonte foi discriminado e corrigido; R5 iOS aprovou
+large→AX5 nos dois resumos. R6 Android aprovou aula fonte2 e revisão fontes2/1,
+com scroll/CTA legíveis. Os limites não medidos permanecem na evidência.
+Primeiro gate **13/15**, único teste consumidor com mock incompleto;
+writer `run-1793116969213-81113b5b` fechado como substituído, sem sucesso.
+Fix3 de uma linha aprovado em R7, guardas de autorização intactas,6/6focais.
+Gate final **15/15** em `run-1793152438847-57dea062`, primeira validação do
+substituto/segunda do objetivo: app-quality86.370ms e app-test78.082ms,
+comandos completos em Node20.20.2; CLI24.14.1/caffeinate. Escopo61caminhos,
+sem alterar política; código e nativo freeze3 preservados. Este checkpoint
+precede stepfinish/runclose e commit; a confirmação final de fechamento,
+SHA publicado e CI pertence ao ledger e relatório final da entrega.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
+writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
+Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
+continuam pendentes; segundo dia no fechamento e reservado intocado.
 
 **T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
 corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export

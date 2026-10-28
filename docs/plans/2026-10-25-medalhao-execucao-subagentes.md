@@ -169,6 +169,14 @@ com os pré-requisitos técnicos T04/T04a satisfeitos, sem consumir G1–G8.
 - **Dono:** I/high; **revisão:** R. **Skills:** T, U, A; **recursos:** Jest, contratos de movimento, nativo.
 - **Pré-requisito:** T04/T04a revisadas. **Saída:** tema/contexto em todos os consumidores, cunhagem sem prêmio duplicado, régua de estrelas e ausência de XP inventado; revisão sem Pixel.
 
+Registro T05 em 27/10/2026: implementação e revisões de código/nativo
+aprovadas; P2 de texto ampliado corrigido e medido em iOS/Android. R7 aprovou
+uma linha de compatibilidade do mock consumidor após gate inicial13/15.
+Gate final15/15 no writer substituto, primeira validação dele/segunda do
+objetivo; produto/nativo freeze3 preservados. Checkpoint pré-fechamentoCLI/Git;
+confirmações finais no ledger e relatório da entrega.
+[Evidência e limites](../evidence/2026-10-27-medalhao-t05.md). PróximaTask8/T06.
+
 ### Task 8: T06 — Recompensa
 
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, contrato Maestro, nativo.

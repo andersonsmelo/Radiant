@@ -3633,3 +3633,147 @@ final ainda pendentes. Writer `run-1793114254111-2eade8f7`; sessão
 `brain-session-1793114147657-b7c59989` fechada antes dele por prevenção de contenção
 com `brain-links`. T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
 segundo dia no fechamento e reservado intocado.
+
+## 2026-10-27 — T04a CI confirmado e T05 iniciada
+
+Commit/push/CI desta entrega são aferidos após esse snapshot de validação;
+o CI do `e522984` acima não comprova o novo SHA. **Próxima: T05 — resultado**.
+T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
+segundo dia no fechamento e reservado intocado. O dublê não prova shader,
+rasterização ou desempenho nativo; nenhum processo nativo foi iniciado.
+
+
+## T05 — estado substituído em 27/10/2026 na remedição nativa
+
+**T05 em execução em 27/10:** resultado Medalhão com tema/título real,
+estrelas e economia preservados. BASE `ae2e769`, writer
+`run-1793116969213-81113b5b`, implementação delegada; revisão e validação final
+pendentes. Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada
+antes do writer por prevenção brain-links. T06–T22 e G1–G8, conteúdo G2 e
+decisão T14 continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após discriminação Dynamic Type
+
+**T05 em validação nativa em 27/10:** resultado Medalhão implementado nos
+dois consumidores, com tema/título real, régua 0–3 e XP real sem caixa;
+revisão sem Pixel e pose preservada sob movimento reduzido. Revisões
+independentes R1 e R2: código aprovado. O nativo R1 revelou corte de
+título/frase/subtítulo no iOS AX5; correção local de lineHeight implementada
+com três vermelhos causais e 3 suítes/164 testes verdes, ainda aguardando
+remedição visual iOS/Android. Não há aceite total nem validação final Loop.
+BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição, ciclo zero.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes do
+writer. [Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão nativa R5
+
+**T05 em correção nativa em 27/10:** resultado Medalhão implementado nos
+dois consumidores, com tema/título real, régua 0–3 e XP real sem caixa;
+revisão sem Pixel e pose preservada sob movimento reduzido. Revisões
+estáticas R1/R2 aprovadas; aceite nativo R3 **FAIL / CHANGES_REQUIRED**.
+O iOS mostrou corte de título/frase/subtítulo apenas após mudar a fonte
+com o resumo aberto; montando já em AX5 os glifos ficam íntegros. Remover
+lineHeight isoladamente não resolveu essa atualização. Fix2 delegado,
+restrito aos Text do resumo; sem aceite total ou validação final Loop.
+Android não chegou à UI React nesta rodada: timeout do manifest/ANR do
+launcher, com conectividade ao servidor confirmada; prova da tela pendente.
+BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição, ciclo zero.
+Nativo/Metro encerrados e configurações originais restauradas antes do fix2.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes do
+writer. [Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão Android R6
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado já carregou a UI real em fonte2, prova do resultado ainda
+em curso. A rodada anterior parou no launcher antes de React e não é aceite
+da tela. BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição,
+ciclo zero; validação final e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após gate1 reprovado
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição,
+ciclo zero; validação final e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão fixture R7
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`. Gate configurado1: **13/15**, falhas app-quality/app-test
+por um mock de movimento incompleto no teste da guarda de autorização;
+reprodução integral201suítes/2529testes confirmou uma falha. O writer
+`run-1793116969213-81113b5b` foi fechado como substituído, sem sucesso.
+Writer `run-1793152438847-57dea062` em edição,61caminhos: acrescido apenas
+esse consumidor de teste, já dentro da política. Código/nativo freeze3
+preservados. Fix3 de mock, revalidação e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após gate final15/15
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`. Gate configurado1: **13/15**, falhas app-quality/app-test
+por um mock de movimento incompleto no teste da guarda de autorização;
+reprodução integral201suítes/2529testes confirmou uma falha. O writer
+`run-1793116969213-81113b5b` foi fechado como substituído, sem sucesso.
+Writer `run-1793152438847-57dea062` em edição,61caminhos: acrescido apenas
+esse consumidor de teste, já dentro da política. Código/nativo freeze3
+preservados. Fix3 de uma linha no mock aprovado em R7, RED/reversão reproduzidos e
+GREENfinal6/6. Revalidação e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.

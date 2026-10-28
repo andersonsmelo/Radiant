@@ -37,7 +37,6 @@ import { pickSummaryPhrase } from '../../quiz/constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
-import { Confetti } from '../../../components/ui/Confetti';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
 import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
@@ -161,17 +160,23 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const sessionMode = block?.sessionMode
         ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
     const hybrid = Boolean(sessionMode);
-    const lessonTheme = useMemo(() => {
+    const lessonContext = useMemo(() => {
         if (nodeId) {
             for (const track of LessonCatalogService.listTracks()) {
                 for (const unit of JourneyDefinitionService.getTrackDefinition(track.id).units) {
                     const node = unit.nodes.find(candidate => candidate.id === nodeId);
-                    if (node) return resolveNodeTheme(node, unit);
+                    if (node) return { theme: resolveNodeTheme(node, unit), title: node.title };
                 }
             }
         }
-        return resolveNodeTheme({ theme: activity?.theme });
-    }, [nodeId, activity?.theme]);
+        const hook = activity?.steps.find(step => step.kind === 'presentation' && step.role === 'hook');
+        const catalogTitle = block ? LessonCatalogService.getLessonById(block.lessonId)?.title : undefined;
+        return {
+            theme: resolveNodeTheme({ theme: activity?.theme }),
+            title: catalogTitle ?? (hook?.kind === 'presentation' ? hook.payload.title : undefined),
+        };
+    }, [nodeId, activity, block]);
+    const lessonTheme = lessonContext.theme;
     const player = useLearningActivity(activity, resumeStepIndex, {
         feedbackPerItem: hybrid,
         repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
@@ -572,10 +577,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         return (
             <View style={styles.root}>
                 <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-                <Confetti count={40} run={lessonPassed} />
                 <SafeAreaView style={styles.safe} edges={['top']}>
                     {summary ? (
                         <LessonSummary
+                            title={lessonContext.title}
+                            theme={lessonTheme}
                             stars={summary.stars}
                             recordStars={summary.recordStars}
                             kind={isReview ? 'review' : 'lesson'}

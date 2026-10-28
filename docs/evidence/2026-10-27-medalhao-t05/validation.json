@@ -1,0 +1,338 @@
+{
+  "status": "VALIDATION_PASSED_FINAL",
+  "baseTask": "ae2e769d89bac2a4de3b11e5a4fe602d86b31323",
+  "attempts": [
+    {
+      "runId": "run-1793116969213-81113b5b",
+      "code": "VALIDATION_FAILED",
+      "passed": 13,
+      "total": 15,
+      "evidence": [
+        {
+          "id": "evidence-f49cf43a-d2e2-43b3-845e-a901e49bf019",
+          "validatorId": "docs-contract",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "75c51b6180a56ddc7369447fdcf51640ffb44ebf13b7b9ff64b659aa53e74b69",
+          "durationMs": 487
+        },
+        {
+          "id": "evidence-1f37d739-9006-4163-b365-00844743fe0c",
+          "validatorId": "content-foundation",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c0f1127e8e789d769268b6367b4c63ebf9e4d39b36c332c744644d0dd10f53b9",
+          "durationMs": 162
+        },
+        {
+          "id": "evidence-24b7edbd-971b-4502-9c32-17e10444f22e",
+          "validatorId": "content-wave1",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "54c959bf607288939c9372e222b21e264df882b326572c9d3711e2ffc1177bd2",
+          "durationMs": 57
+        },
+        {
+          "id": "evidence-9ebd2b8a-d87f-4d7a-9511-7f0d4bd3e231",
+          "validatorId": "content-production",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "eb8cca4a035f82c60f225a6758dff799d85859ae28075a57b8b0882bf58b7a47",
+          "durationMs": 1487
+        },
+        {
+          "id": "evidence-c6a78734-23f7-456a-9a1d-de0946fa5469",
+          "validatorId": "content-anchoring",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "83557ffd6e94d17db0089b278b289bd356a35e13575c4b18f5e77b6e5d28af77",
+          "durationMs": 89
+        },
+        {
+          "id": "evidence-72e084fc-3f08-4433-9c31-16f08da3f388",
+          "validatorId": "content-anchoring-data",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+          "durationMs": 34
+        },
+        {
+          "id": "evidence-80c628cc-df85-4e4b-b1c8-eb35ff301486",
+          "validatorId": "content-no-verbatim",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "bb5ca516b9a9b53726e2940b236dc8daae4776ec3204a7b5f5a95c30431085af",
+          "durationMs": 2977
+        },
+        {
+          "id": "evidence-3efeb98d-0fca-495d-b54c-b34255dbfbc7",
+          "validatorId": "content-source-rights",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "41b6583db79c21a094d68779d67a96c37155530c3acf507ec7ea7d8bad3a977e",
+          "durationMs": 84
+        },
+        {
+          "id": "evidence-91cc4539-3035-4955-8a94-8d2cf13431b3",
+          "validatorId": "content-python",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "e7e79ac1a32c7691682f1992a5e3fe280528ce0594794a9bfa6ba71089d33cb6",
+          "durationMs": 3697
+        },
+        {
+          "id": "evidence-a6666613-9037-4e82-8f16-7b33dba44108",
+          "validatorId": "app-quality",
+          "status": "failed",
+          "exitCode": 1,
+          "outputHash": "88b371e368a08720fe50c8de40e8843fa68e04ee05a86c85e97aedcf3e0b21b1",
+          "durationMs": 107860
+        },
+        {
+          "id": "evidence-7558426e-5aff-4531-8349-9609dee9ce75",
+          "validatorId": "app-test",
+          "status": "failed",
+          "exitCode": 1,
+          "outputHash": "4b3332d2dc1a8c1f93374673183dcfb8b6f73f9b8dec43ddaf9092d1adf5db6d",
+          "durationMs": 80099
+        },
+        {
+          "id": "evidence-7ed2d4e8-4ac2-4d45-b621-89318e704e24",
+          "validatorId": "api-lint",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+          "durationMs": 1389
+        },
+        {
+          "id": "evidence-aa651216-d3dd-455a-93aa-923d677b5443",
+          "validatorId": "api-typecheck",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+          "durationMs": 2033
+        },
+        {
+          "id": "evidence-20773015-f0b3-4c4c-a111-f6cb27213e2f",
+          "validatorId": "api-test",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "e6c56dcb752277c2d37321b348d448d474485f77c971644a9d4599cc01266115",
+          "durationMs": 843
+        },
+        {
+          "id": "evidence-6bd85adb-445e-4009-b3e4-742acba9f79b",
+          "validatorId": "brain-links",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+          "durationMs": 201
+        }
+      ],
+      "runClosure": "RUN_CLOSED superseded without success",
+      "directRepro": {
+        "command": "Node20 EXPO_NO_DOTENV=1 CI=1 npm test -- --runInBand --no-cache",
+        "suites": {
+          "passed": 200,
+          "failed": 1,
+          "total": 201
+        },
+        "tests": {
+          "passed": 2528,
+          "failed": 1,
+          "total": 2529
+        },
+        "seconds": 76.477,
+        "failure": "JourneyNodeCompletionGuard incomplete motion mock",
+        "logSha256": "f7f3e60172525617eda70cc796d4f05b2082a4da3ae23c367200ce3efa340712"
+      }
+    },
+    {
+      "runId": "run-1793152438847-57dea062",
+      "code": "VALIDATION_PASSED",
+      "state": "validating",
+      "passed": 15,
+      "total": 15,
+      "evidence": [
+        {
+          "id": "evidence-caf81e81-942d-4e95-8018-86e170c47ef6",
+          "validatorId": "docs-contract",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/qa/docs-contract.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/qa/docs-contract.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "74e5b84683da4908211a3046b317792a5f471e9a724fc5d21ef4947f989eb2b5",
+          "durationMs": 101,
+          "startedAt": "2026-10-28T02:02:19.510Z",
+          "finishedAt": "2026-10-28T02:02:19.611Z"
+        },
+        {
+          "id": "evidence-ba2a7257-0982-49ae-b365-db7103e220ea",
+          "validatorId": "content-foundation",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-foundation.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "32db7bbfc5e99fc95a90343b617b6c5486fda8d3940379a3e0825fbd397b8ae2",
+          "durationMs": 175,
+          "startedAt": "2026-10-28T02:02:19.612Z",
+          "finishedAt": "2026-10-28T02:02:19.787Z"
+        },
+        {
+          "id": "evidence-ca7ce2d1-3740-4dcf-ae8b-f4b8c88a2a12",
+          "validatorId": "content-wave1",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/wave-1-priority-tracks.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "81a4ba7da0b48186dc7f8fbedca1b22e78ca8ce2c42b5025bb2f5ee5350f0d28",
+          "durationMs": 56,
+          "startedAt": "2026-10-28T02:02:19.787Z",
+          "finishedAt": "2026-10-28T02:02:19.843Z"
+        },
+        {
+          "id": "evidence-a44c9845-60ce-4674-9365-412f1c95ff6e",
+          "validatorId": "content-production",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/production-batch.test.mjs scripts/content/audit-production-batches.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/audit-production-batches.mjs --check",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "8d4f4815213e3ba7f024e68165f4df91cf66231f332c2f6a2161ec24e2c804a2",
+          "durationMs": 1430,
+          "startedAt": "2026-10-28T02:02:19.843Z",
+          "finishedAt": "2026-10-28T02:02:21.273Z"
+        },
+        {
+          "id": "evidence-a672ee69-a796-4813-beed-d079f37f0246",
+          "validatorId": "content-anchoring",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "976eaa78486656aefb520204aa9dc6b3abab48bcf585118a533ef4d202b2c7fe",
+          "durationMs": 86,
+          "startedAt": "2026-10-28T02:02:21.273Z",
+          "finishedAt": "2026-10-28T02:02:21.359Z"
+        },
+        {
+          "id": "evidence-eeb755cb-8050-45ac-a634-dd97740c178d",
+          "validatorId": "content-anchoring-data",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-content-anchoring.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+          "durationMs": 32,
+          "startedAt": "2026-10-28T02:02:21.359Z",
+          "finishedAt": "2026-10-28T02:02:21.391Z"
+        },
+        {
+          "id": "evidence-93924611-c91a-4705-b4e7-8593d6a59d6d",
+          "validatorId": "content-no-verbatim",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-no-verbatim.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "46e77f3510c5e0c44d1eb9b6e259b91e1a268201a59f6f0c6521d2847986565a",
+          "durationMs": 2209,
+          "startedAt": "2026-10-28T02:02:21.391Z",
+          "finishedAt": "2026-10-28T02:02:23.600Z"
+        },
+        {
+          "id": "evidence-59922859-c3c7-4f89-966e-845eac1e6d72",
+          "validatorId": "content-source-rights",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-source-rights.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-source-rights.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "388ec7f96da0690d074a404ba2f19eafb6ed72c12a870ef398213b10d3836d6e",
+          "durationMs": 80,
+          "startedAt": "2026-10-28T02:02:23.600Z",
+          "finishedAt": "2026-10-28T02:02:23.680Z"
+        },
+        {
+          "id": "evidence-c75c08ec-b11c-4d96-80e5-2595c1a2265b",
+          "validatorId": "content-python",
+          "command": "PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py scripts/content/extract-source.test.py scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py scripts/content/calibration-report.test.py scripts/content/destination-state.test.py scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 \"$suite\" || estado=1; done; exit $estado'",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "68dd484fcdec115eaf8dc9a4b1884aae54dfa29f0465d0f0f5153a5133c0747f",
+          "durationMs": 1609,
+          "startedAt": "2026-10-28T02:02:23.681Z",
+          "finishedAt": "2026-10-28T02:02:25.290Z"
+        },
+        {
+          "id": "evidence-7a3cee3c-9bb4-4335-958f-7d2853146eb0",
+          "validatorId": "app-quality",
+          "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "2afce8be82cac8fa4a6333910513829953070d397b22d3765d232739481f8c7a",
+          "durationMs": 86370,
+          "startedAt": "2026-10-28T02:02:25.290Z",
+          "finishedAt": "2026-10-28T02:03:51.660Z"
+        },
+        {
+          "id": "evidence-e9bedf7c-049d-4fb7-8f6b-6e9ae5b2b907",
+          "validatorId": "app-test",
+          "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test -- --runInBand --no-cache",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c941c3e5f59a80ba551a8a3281937baecff445f42bd8e978f9199193154aa28e",
+          "durationMs": 78082,
+          "startedAt": "2026-10-28T02:03:51.660Z",
+          "finishedAt": "2026-10-28T02:05:09.742Z"
+        },
+        {
+          "id": "evidence-ddafb88c-2f58-40dd-a92d-8c9398b40586",
+          "validatorId": "api-lint",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run lint",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+          "durationMs": 1388,
+          "startedAt": "2026-10-28T02:05:09.743Z",
+          "finishedAt": "2026-10-28T02:05:11.131Z"
+        },
+        {
+          "id": "evidence-b1471aeb-4553-41cc-b907-974f8f5cbe00",
+          "validatorId": "api-typecheck",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run typecheck",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+          "durationMs": 1924,
+          "startedAt": "2026-10-28T02:05:11.131Z",
+          "finishedAt": "2026-10-28T02:05:13.055Z"
+        },
+        {
+          "id": "evidence-994efbe8-b441-4a30-813f-3a82b2eee051",
+          "validatorId": "api-test",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null NODE_ENV=test CI=1 npm test",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "f2fb0f868cc2d8516b2ce386fadf93a9e417111e267cc114b86f07cede5975e4",
+          "durationMs": 759,
+          "startedAt": "2026-10-28T02:05:13.055Z",
+          "finishedAt": "2026-10-28T02:05:13.814Z"
+        },
+        {
+          "id": "evidence-a3055cba-4d04-4236-bf78-572e861898a2",
+          "validatorId": "brain-links",
+          "command": "PATH=/Users/anderson/.local/bin:/usr/bin:/bin loop brain validate-links",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+          "durationMs": 690,
+          "startedAt": "2026-10-28T02:05:13.814Z",
+          "finishedAt": "2026-10-28T02:05:14.504Z"
+        }
+      ]
+    }
+  ],
+  "replacementRunId": "run-1793152438847-57dea062",
+  "declaredPaths": 61,
+  "policyChanged": false,
+  "brainSession": "brain-session-1793116720680-a2a011a9 closed before writers",
+  "finalValidationMeaning": "first validation of replacement writer; second configured validation of objective, after actual fixture repair",
+  "lifecycleNext": "step finish then run close; final receipts in local SDD ledger, not preclaimed here",
+  "applicationSourceFreeze": "original15 paths unchanged from freeze3; additional auth fixture test05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+  "metadataRecheck": {
+    "command": "Node20 node --test scripts/qa/docs-contract.test.mjs followed by node scripts/qa/docs-contract.mjs",
+    "testsPassed": true,
+    "contractOutput": "PASS documentation contract",
+    "logSha256": "c4e221c8821486e1b422c2089b3b91953c4ba41462d23dee7c7468c957306158"
+  }
+}

@@ -488,7 +488,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
     implementada/revisada em 27/10: import estático, dublê global observável,
     7 suítes/184 testes e sete mutações detectadas; Loop final15/15 em ciclo único.
-    [Evidência T04a](evidence/2026-10-27-medalhao-t04a.md). Próxima: T05 (resultado).
+    [Evidência T04a](evidence/2026-10-27-medalhao-t04a.md). T05 resultado
+    implementado/revisado em 27/10; contexto real, neutralidade de zero estrela,
+    sem prêmio repetido. P2 de texto ampliado corrigido e aprovado no iOS R5;
+    Android aula/revisão fonte2 legíveis. Loop final15/15 após fix3 de mock aprovado em R7;
+    primeira validação do writer substituto/segunda do objetivo.
+    [Evidência T05](evidence/2026-10-27-medalhao-t05.md). Próxima após T05: T06.
     Limites em STATUS.
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada

@@ -1,0 +1,853 @@
+{
+  "status": "PASS_SCOPED_NATIVE_REVIEWED",
+  "measuredAt": "2026-10-27T23:09:39.317387+00:00",
+  "latestProductFreeze": "freeze3",
+  "nativeBlockingFinding": {
+    "severity": "P2",
+    "symptom": "iOS Dynamic Type live change clips Text; initial AX5 mount has intact glyphs",
+    "resolution": "RESOLVED: iOS R5 verifies exact large→AX5 trigger; Android R6 approves measured lessonfont2/reviewfont2+font1 scopes"
+  },
+  "attempts": {
+    "R1": {
+      "status": "PARTIAL",
+      "nativeBlockingFinding": {
+        "severity": "P2",
+        "platform": "iOS26.5 iPhone17Pro simulator",
+        "setting": "AX5 accessibility-extra-extra-extra-large",
+        "consumer": "LessonFlowScreen real no-node lesson",
+        "symptom": "Title O kV e o contraste, phrase Tres estrelas... and subtitle A licao foi concluida clipped into horizontal strips; stats and XP remain readable; CTA reachable with scroll",
+        "artifacts": [
+          "ios-lesson-max-top.png",
+          "ios-lesson-max-bottom.png"
+        ],
+        "snapshot": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-native-r1"
+      },
+      "measuredAt": "2026-10-27T18:08:52.007812+00:00",
+      "sourceFreeze": "R1; before and after hashes matched before fix1 writer release",
+      "ios": {
+        "binary": "1.4.0(3)",
+        "realLesson": {
+          "route": "radiantapp://learn?blockId=bancada%3Aexposicao",
+          "status": "COMPLETE",
+          "correct": "4/4",
+          "stars": "3/3",
+          "xp": "Sem XP nesta tentativa",
+          "livesBefore": "5/5",
+          "livesAtClosing": "5/5",
+          "normalVisual": "PASS",
+          "maximumTextVisual": "FAIL_P2",
+          "motion": "Recording actual result entry only; no FPS/once-only timing analysis"
+        },
+        "realReview": {
+          "route": "radiantapp://quiz?mode=review&lessonIds=lesson-1",
+          "status": "COMPLETE",
+          "correct": "3/3",
+          "stars": "3/3",
+          "xp": "+18 XP nesta tentativa",
+          "unitProgress": "1/8 etapas",
+          "livesBefore": "5/5",
+          "livesDuringLastQuestion": "5/5",
+          "normalVisual": "PASS; medal title stars stats XP CTA and no Pixel",
+          "maximumTextVisual": "NOT_TESTED after P2; pending fix1",
+          "counterNote": "App ordinary completion visibly awarded18XP, not claimed preserved or persisted."
+        }
+      },
+      "android": {
+        "binary": "1.4.0(3)",
+        "realLesson": "Actual6/6 steps reached and final completion tapped,5/5lives. Immediate capture was loading, XML idle error. Font2 recreated app to home with linking warning. No settled result proof claimed.",
+        "normalVisual": "NOT_VERIFIED",
+        "maximumTextVisual": "NOT_VERIFIED",
+        "review": "NOT_TESTED",
+        "video": "NOT_VERIFIED: raw stream timing absent; remux0.166665s, preserved SDD only; no versioned motion file claimed"
+      },
+      "notTested": [
+        "reduceMotion bothOS",
+        "zeroStars bothOS",
+        "Android review",
+        "Android settled summary normal/font2",
+        "iOS review AX5",
+        "physical devices",
+        "audible screen reader",
+        "spaced due or second day",
+        "economy persistence/cloud",
+        "FPS/once-only timing"
+      ],
+      "settingsRestoredExactly": true,
+      "artifacts": {
+        "ios-lesson-ui.json": {
+          "sha256": "f72ca36aa52b712f21e45e7abf2aebee40f1494db80ebb45aa26daa3c3bb6ae8",
+          "bytes": 2055
+        },
+        "ios-lesson-normal.png": {
+          "sha256": "6617fb62dabc1641e7e7eb6d478eaaab76a6047049c9657a62739e75ef575917",
+          "bytes": 221679
+        },
+        "ios-review-ui.json": {
+          "sha256": "b368551011e49e743a91028d4919e8f6e5109c626bb8b32c1dcaad8f065b207f",
+          "bytes": 1860
+        },
+        "ios-lesson-max-bottom.png": {
+          "sha256": "17f3a90f8269a04167e16451645eb1eb51bfb06f6f0dda7bd70bdf29f76e87c3",
+          "bytes": 171650
+        },
+        "ios-lesson-max-top.png": {
+          "sha256": "425dd5f555f24aaece34566d0e53e3f68fbb42479ef107eacdc30ff869273028",
+          "bytes": 214238
+        },
+        "ios-review-normal.png": {
+          "sha256": "24ed60ea1e7886ee8fe21093ef4dad120f1260493b7133b471a10b88afa670f2",
+          "bytes": 240249
+        },
+        "ios-lesson-motion.mp4": {
+          "sha256": "f32d30f244ef4b2c8c15bcce5408415c73a77ede8538f0cd8bcc488a004a95ff",
+          "bytes": 2360181
+        }
+      },
+      "cleanup": {
+        "measuredAt": "2026-10-27T18:09:14.495768+00:00",
+        "allDeliveryTargetsStopped": true,
+        "measurements": {
+          "metro8081": {
+            "code": 1,
+            "out": "",
+            "err": ""
+          },
+          "bootedIOS": {
+            "code": 0,
+            "out": "== Devices ==\n-- iOS 26.5 --",
+            "err": ""
+          },
+          "android": {
+            "code": 0,
+            "out": "List of devices attached",
+            "err": ""
+          },
+          "nativeProcesses": {
+            "code": 0,
+            "out": "",
+            "err": ""
+          }
+        },
+        "notes": "iOS stop_app success first cleanup; OS audit reboot had no app running (terminate ESRCH expected). Android force-stop then emu kill, Metro session93852 exit0; port8081 no listener. ADB server started by inventory remains shared server; no emulator. Reserved simulator never targeted."
+      }
+    },
+    "R2": {
+      "ios": {
+        "stage": "iOS native R2",
+        "measuredAt": "2026-10-27T20:38:21.968245+00:00",
+        "head": "ae2e769d89bac2a4de3b11e5a4fe602d86b31323",
+        "snapshotManifestSha256": "588e915d9cb0d65bf041d29497b9bb41fca1ea715ebed4dd3e68e32408e150ea",
+        "sourceBefore": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "sourceFreezeMatches": true,
+        "metroOwnedBy": "controller; existing listener89437, no new Metro started",
+        "ios": "E262D4C1-99BE-496B-8567-0291C14E6533",
+        "status": "PARTIAL_FAIL_DYNAMIC_TYPE_LIVE_CHANGE",
+        "sourceResume": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "realLesson": {
+          "route": "radiantapp://learn?blockId=bancada%3Aexposicao",
+          "completion": "actual 6 steps and 4/4 correct; lives5/5",
+          "normalLarge": "PASS visual inspected ios-lesson-normal.png",
+          "warmAx5": "FAIL P2: title/phrase/subtitle clipped in horizontal strips after large to AX5 while summary mounted; fresh remount pending; bundle identity inspection by controller pending",
+          "stars": "3/3",
+          "xp": "Sem XP nesta tentativa",
+          "initialAx5": "PASS for intact title phrase subtitle and visible fixed CTA across top/mid1 captures; mounted after two stable AX5 closing UI reads; whole layout and lower stats not fully audited",
+          "initialAx5Phrase": "Marca cheia! Leitura impecável.",
+          "initialAx5Note": "Repeated real lesson 4/4, current best already3stars; scripted real controls and MC answer only; no seeding/reset"
+        },
+        "artifactsCurrent": {
+          "ios-lesson-normal.png": {
+            "sha256": "858fd331b7036eb161610600b302baaaf7705af72f2d3854e9fe780de1cfd3cb",
+            "bytes": 221570
+          },
+          "ios-lesson-max-top.png": {
+            "sha256": "d7f9595b3b457be9cacda5ce0585c3d52ae27a8c90b3196c72744b0f210141ea",
+            "bytes": 217546
+          },
+          "ios-lesson-max-bottom.png": {
+            "sha256": "74709bd376008f5f6f7130ec931d4a931be007eacbb83fe9c5d45f77128c42c2",
+            "bytes": 172555
+          }
+        },
+        "sourceAfter": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "initialAx5Proof": {
+          "closingStableSnapshots": [
+            "task7-ios-r2-remountc-07-snapshot-ui.json",
+            "task7-ios-r2-remountc-08-snapshot-ui.json"
+          ],
+          "stableScreenHash": "1jl1944",
+          "summarySnapshot": "task7-ios-r2-remountc-10-snapshot-ui.json",
+          "freshSummaryAtAX5": "UI summary first mounted after AX5; script stopped on expected huge-screen subset containing only star label; raw native artifacts retained",
+          "captures": [
+            "task7-ios-r2-remount-ax5-top.png",
+            "task7-ios-r2-remount-ax5-mid1.png"
+          ]
+        },
+        "warmFailureProof": "task7-ios-r2-warm-ax5-failure.png",
+        "review": "NOT_TESTED R2: required live DynamicType P2 remains, stopped for fix2",
+        "notTested": [
+          "review AX5 R2",
+          "reduceMotion",
+          "zeroStars",
+          "physical devices",
+          "second day",
+          "FPS/perceived timing"
+        ],
+        "uiToolLimitation": "Some native actions completed while refreshed snapshot failed/timeout; no stale refs reused after known failed refresh. Final swipe refresh daemon transport timed out30000ms; actual screenshot captured and inspected.",
+        "cleanup": {
+          "contentSizeRestored": "large confirmed before shutdown",
+          "appTerminated": "com.ascendcreative.radiant",
+          "principalSimulator": "Shutdown",
+          "metro": "controller owned left running",
+          "reservedSimulator": "never operated",
+          "sourceAfterMatchesBefore": true
+        },
+        "localCaptureHashes": {
+          "task7-ios-r2-warm-ax5-failure.png": {
+            "sha256": "d7f9595b3b457be9cacda5ce0585c3d52ae27a8c90b3196c72744b0f210141ea",
+            "bytes": 217546
+          },
+          "task7-ios-r2-remount-ax5-top.png": {
+            "sha256": "728b7026beac5d80fcdd11d0c8916758d56e0faaa08bfcf96ad2fe2005c78a2e",
+            "bytes": 209795
+          },
+          "task7-ios-r2-remount-ax5-mid1.png": {
+            "sha256": "6d09b0026ea413a06e8a35823fe3de1730abe5e3e76167c4447ea34be1698c82",
+            "bytes": 220210
+          }
+        }
+      },
+      "android": {
+        "stage": "Android native R2",
+        "measuredAt": "2026-10-27T20:20:14.645264+00:00",
+        "sourceBefore": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "sourceFreezeMatches": true,
+        "status": "NOT_VERIFIED_ENVIRONMENT",
+        "device": "radiant-entrada-api34 emulator-5554",
+        "binary": "1.4.0(3)",
+        "settingsBefore": {
+          "font_scale": "null",
+          "transition_animation_scale": "1.0",
+          "window_animation_scale": "1.0",
+          "animator_duration_scale": "null"
+        },
+        "fontScaleDuring": "2.0",
+        "preflight": {
+          "metroStatus": "packager-status:running",
+          "metroManifestAndroid": "curl GET / with expo-platform android: HTTP000 timeout30.005826s",
+          "client": "DevLauncherErrorActivity java.net.SocketTimeoutException on initial launch and one reopen"
+        },
+        "sourceAfterTemporaryCleanup": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "temporaryCleanup": {
+          "measuredAt": "2026-10-27T20:25:28.057216+00:00",
+          "app": "force-stopped",
+          "emulator": "emu kill exit0 OK",
+          "settingsAfter": {
+            "font_scale": "null",
+            "transition_animation_scale": "1.0",
+            "window_animation_scale": "1.0",
+            "animator_duration_scale": "null"
+          },
+          "note": "First delete font_scale while app alive was repopulated as1.0 by Android; after force-stop repeated delete yieldednull and settingslist nofont_scale entry; then emukill."
+        },
+        "resumeAttempt": {
+          "measuredAt": "2026-10-27T20:26:30.081691+00:00",
+          "url": "radiantapp://expo-development-client/?url=http%3A%2F%2F10.0.2.2%3A8081%2F%3Fplatform%3Dandroid",
+          "setting": "font_scale2.0 measured",
+          "result": "DevLauncherErrorActivity SocketTimeoutException beforeReactUI",
+          "loadavg": "19.86 22.85 13.83",
+          "uiArtifact": "task7-android-r2-current.xml"
+        },
+        "networkDiagnosis": {
+          "lastLaunchToErrorSeconds": [
+            14.614,
+            14.167
+          ],
+          "stack": "OkHttp Http1ExchangeCodec.readResponseHeaders → SocketInputStream.socketRead → SocketTimeoutException",
+          "proxies": "http_proxy/global_http_proxy_host/global_http_proxy_port allnull",
+          "reverse": "host-12 tcp8081 tcp8081",
+          "deviceStatusProbe": {
+            "127.0.0.1": "HTTP200packager-statusrunning correctprojectroot",
+            "10.0.2.2": "HTTP200packager-statusrunning correctprojectroot"
+          },
+          "priorSchemeFromLogcat": "exp+radiant-app://expo-development-client/ used in earlier successfulclient",
+          "nextAttempt": "exp+radiant-app scheme with127.0.0.1 explicit; no product changes"
+        },
+        "sourceAfter": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "outcome": "No React product UI reached in R2; initial SocketTimeoutExceptions; GoToHome then nativeANR. No new versionedAndroid captures written; no product failure inferred.",
+        "lastUi": "Radiant is not responding; Close app/Wait native dialog",
+        "nativeResult": {
+          "normalLesson": "NOT_TESTED",
+          "maximumLesson": "NOT_TESTED",
+          "normalReview": "NOT_TESTED",
+          "maximumReview": "NOT_TESTED",
+          "zeroStars": "NOT_TESTED",
+          "reduceMotion": "NOT_TESTED"
+        },
+        "cleanup": {
+          "measuredAt": "2026-10-27T20:32:10.623842+00:00",
+          "settingsAfter": {
+            "font_scale": "null",
+            "transition_animation_scale": "1.0",
+            "window_animation_scale": "1.0",
+            "animator_duration_scale": "null"
+          },
+          "settingsRestoredExactly": true,
+          "operations": [
+            {
+              "operation": [
+                "shell",
+                "am",
+                "force-stop",
+                "com.ascendcreative.radiant"
+              ],
+              "code": 0,
+              "out": "",
+              "err": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "put",
+                "global",
+                "transition_animation_scale",
+                "1.0"
+              ],
+              "code": 0,
+              "out": "",
+              "err": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "put",
+                "global",
+                "window_animation_scale",
+                "1.0"
+              ],
+              "code": 0,
+              "out": "",
+              "err": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "delete",
+                "global",
+                "animator_duration_scale"
+              ],
+              "code": 0,
+              "out": "Deleted 0 rows",
+              "err": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "delete",
+                "system",
+                "font_scale"
+              ],
+              "code": 0,
+              "out": "Deleted 1 rows",
+              "err": ""
+            },
+            {
+              "operation": "emukill",
+              "code": 0,
+              "out": "OK: killing emulator, bye bye\nOK"
+            }
+          ],
+          "emulatorStopped": true
+        },
+        "ownership": "Only AndroidOS/UI and localSDDreport/helpers; no source/tests/config/globalnativefiles/Loop/commit/build/install touched"
+      },
+      "servedSourceCheck": {
+        "elapsedSec": 37.465146583,
+        "mapSources": 2614,
+        "SummaryMatches": [
+          {
+            "source": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.tsx",
+            "sha256": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+            "lineHeightUndefinedCount": 3
+          }
+        ]
+      }
+    },
+    "R3": {
+      "ios": {
+        "stage": "iOS native R3 fix2",
+        "status": "PASS_SCOPED_IOS_DYNAMIC_TYPE_FIX2",
+        "measuredAt": "2026-10-27T23:09:07.770420+00:00",
+        "snapshotManifestSha256": "285372e73d96be0b965de707222a341be4e6698d5537663262dbdfe869f35473",
+        "sourceBefore": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "sourceFreezeMatches": true,
+        "ios": "E262D4C1-99BE-496B-8567-0291C14E6533",
+        "metroOwnedBy": "controller shared8081; no server started by nativeworker",
+        "sourceAfter": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "servedSourceEvidence": "task7-ios-r3-served-source-check.json measured by controller sourceMapGET Summary SHA68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+        "realLesson": {
+          "route": "radiantapp://learn?blockId=bancada%3Aexposicao",
+          "realFlow": "6 steps4/4correct5/5lives; no fixtures/reset/seeding",
+          "normalLarge": "PASS visual inspected",
+          "dynamicTypeTrigger": "large→accessibility-extra-extra-extra-large while same Summary mounted; no remount/navigation forced by worker",
+          "maximumText": "PASS intact title O kV e o contraste, phrase Perfeito.Nenhum erro nesta lição., subtitle A lição foi concluída across top/middle scroll",
+          "scrollAndCTA": "PASS content scroll reaches XP/4of4/rating, fixedContinue remains legible; Continue tapped after restoringlarge",
+          "stars": "3/3",
+          "xp": "Sem XP nesta tentativa"
+        },
+        "realReview": {
+          "route": "radiantapp://quiz?mode=review&lessonIds=lesson-1",
+          "realFlow": "3 real MC answers; correct3/3 and5/5lives",
+          "normalLarge": "PASS titleFundamentosdeRadiologia/themeatom/stars3/noPixel/+18XP/unit1of8",
+          "dynamicTypeTrigger": "large→AX5 while reviewSummary mounted",
+          "maximumText": "PASS intact title, phraseTres estrelas.Nada passou despercebido., Revisão concluída and+18XP across scroll captures; CTA legible",
+          "noPixel": "PASS observed normal/maxmedal area and textsnapshots; no Pixel mounted in summary",
+          "economyBoundary": "ordinary completion visibly awarded18XP; no persistence/cloud or no-double-award claim"
+        },
+        "notTested": [
+          "reduceMotion native",
+          "zeroStars native",
+          "physical devices",
+          "audible screen reader",
+          "second day",
+          "economy persistence/cloud",
+          "FPS/perceived timing/once-only animation"
+        ],
+        "toolLimitations": "Some successful swipe actions returned refreshed-snapshot timeout2500ms; explicit fresh snapshot followed before next interaction; no invalid refs reused.",
+        "cleanup": {
+          "contentSizeBefore": "large",
+          "contentSizeAfter": "large read before shutdown",
+          "appStopped": "MCPstop_app_sim success",
+          "principalSimulator": "Shutdown; simctl list devices booted empty",
+          "metro": "controller owned left running",
+          "android": "never operated",
+          "reservedSimulator": "never operated"
+        },
+        "artifacts": {
+          "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-normal.png": {
+            "sha256": "7da0648bdfbbd8e6590f99e2650f7a80826c9cbe886785bd8be6eaf4509f51bb",
+            "bytes": 220731
+          },
+          "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-top.png": {
+            "sha256": "73bfa3d5d47c2d8ae5239fdad5daffb3771a1a73b7c2e1697e44a7500045bb09",
+            "bytes": 203500
+          },
+          "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-bottom.png": {
+            "sha256": "f345179caf37dfa3e710f9d8fa1302510cb9d8ee8adbe71d43d7fdf8be2f9902",
+            "bytes": 202440
+          },
+          "docs/evidence/2026-10-27-medalhao-t05/ios-review-normal.png": {
+            "sha256": "c5cc05128aa1ebfa4aef3bf7772c347073b8f501cfb2233f62250394ad967c99",
+            "bytes": 238604
+          },
+          "docs/evidence/2026-10-27-medalhao-t05/ios-review-max.png": {
+            "sha256": "5c86f59e47ff69eb6d22e553783f6abb3e2ca2d70e5576fd65c8bbb60e75b19c",
+            "bytes": 197042
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-lesson-max-lower.png": {
+            "sha256": "a4f4a17b9df938ec4685db37819591855a964674f0f08037d1d63c1ef6d0713d",
+            "bytes": 200010
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-lesson-max-end.png": {
+            "sha256": "d56d105ff142a59d60a767bbedb2d8c6b88d6caf7ef2d562c2c075f98c71f887",
+            "bytes": 180292
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-review-max-mid1.png": {
+            "sha256": "3e38be4f0dd44ccd0aae2318aa881081264e179a8734f1c79df6c7ad2c186e37",
+            "bytes": 201194
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-review-max-mid2.png": {
+            "sha256": "0e00cc78891124356434129464c7cd5a3ec28ed7b2ea056ed1e1eb64eb079ddd",
+            "bytes": 173289
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-review-max-stats.png": {
+            "sha256": "27435c95fcd1741fe81abcbc8bec5936becbfbe0e0327dac3c85b6d8ac174fa5",
+            "bytes": 205108
+          },
+          ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-ios-r3-mcp-snapshots.json": {
+            "sha256": "9faf3597e8890738ca125cc61b2f18209310a68dde1c093bc43492bd5ffbccb9",
+            "bytes": 19396
+          }
+        }
+      },
+      "servedSourceCheck": {
+        "elapsedSec": 0.906153416,
+        "mapSources": 2614,
+        "SummaryMatches": [
+          {
+            "source": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.tsx",
+            "sha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+            "fontScaleKeyCount": 12
+          }
+        ],
+        "stage": "freeze3"
+      },
+      "android": {
+        "stage": "Android R3",
+        "status": "PASS_WITH_EXPLICIT_LIMITS",
+        "measuredAt": "2026-10-27T23:09:34.445935+00:00",
+        "sourceBefore": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "manifestSha256": "285372e73d96be0b965de707222a341be4e6698d5537663262dbdfe869f35473",
+        "completedAt": "2026-10-27T23:19:20.895181+00:00",
+        "sourceAfter": {
+          "radiant-app/src/features/quiz/components/LessonSummary.tsx": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+          "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+          "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+          "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+          "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+          "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+          "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+          "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+          "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+          "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+          "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+          "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+        },
+        "sourceFreezeMatches": true,
+        "device": "radiant-entrada-api34 emulator-5554 AndroidAPI34",
+        "binary": "installed1.4.0(3), no build/install",
+        "metro": "controller-owned8081, not started/stopped by worker",
+        "probes": [
+          {
+            "method": "HEAD",
+            "elapsed": 12.026553833,
+            "exitCode": 0,
+            "bytes": 194,
+            "status": "HTTP/1.1 200 OK",
+            "stderr": ""
+          },
+          {
+            "method": "GET",
+            "elapsed": 12.037975874999999,
+            "exitCode": 0,
+            "bytes": 4016,
+            "status": "HTTP/1.1 200 OK",
+            "stderr": "",
+            "jsonKeys": [
+              "id",
+              "createdAt",
+              "runtimeVersion",
+              "launchAsset",
+              "assets",
+              "metadata",
+              "extra"
+            ],
+            "launchAssetUrlPresent": true,
+            "runtimeVersionString": true
+          }
+        ],
+        "probeTimeLimit": "12s total included artificial sleep12 holding ncstdin; not a response time measure. HEAD andGET HTTP200 received before idle10 timeout. GET JSONvalid withruntimeVersion andlaunchAsset.",
+        "lessonMaximum": {
+          "route": "radiantapp://learn?blockId=bancada%3Aexposicao",
+          "font_scale": "2.0 measured before/afterflow",
+          "realSteps": "6/6 complete;4/4correct;3stars",
+          "xp": "Sem XP nesta tentativa",
+          "visual": "PASS title O kV e o contraste, phrase Marca cheia! Leitura impecável., subtitle A lição foi concluída fully legible; no clipped strips; scroll revealed optionalrating and accessibleContinue",
+          "pixel": "celebrate visible",
+          "lives": "5/5 atlaststep",
+          "uiDump": "NOT_CAPTURED Summary duecontinuousanimationidlefailure; PNGs are real settledSummary proof"
+        },
+        "reviewMaximum": {
+          "route": "radiantapp://quiz?mode=review&lessonIds=lesson-1",
+          "font_scale": "2.0",
+          "realSteps": "3/3correct;3stars",
+          "xp": "+18 XP naturalcompletion, no persistence/cloudclaim",
+          "unit": "1de8etapas",
+          "visual": "PASS titlewrap2lines,phrase,subtitle,+18XPlegible; noPixel inSummary; scroll/Continueusable",
+          "ui": "android-review-ui.xml is maximumtop"
+        },
+        "reviewNormal": {
+          "font_scale": "1.0 measured; coldlaunchneededforRN afterfontchange",
+          "realSteps": "newreal3questionreview3/3correct;3stars",
+          "visual": "PASS title,phrase,subtitle,XP,stats,unitprogress,Continuealllegible; noPixel",
+          "xp": "+18XPnaturalcompletion; no rewarddedup/persistenceclaim"
+        },
+        "notTested": [
+          "Androidlessonnormal",
+          "zeroStars",
+          "reduceMotion",
+          "FPS/entrytiming/once-onlynative",
+          "audiblescreenreader",
+          "physicaldevice",
+          "secondday/spaceddue",
+          "cloud/economypersistence"
+        ],
+        "settingsRestoredExactly": true,
+        "cleanup": {
+          "measuredAt": "2026-10-27T23:19:20.896263+00:00",
+          "settingsAfter": {
+            "font_scale": "null",
+            "transition_animation_scale": "1.0",
+            "window_animation_scale": "1.0",
+            "animator_duration_scale": "null"
+          },
+          "operations": [
+            {
+              "operation": [
+                "shell",
+                "am",
+                "force-stop",
+                "com.ascendcreative.radiant"
+              ],
+              "code": 0,
+              "out": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "put",
+                "global",
+                "transition_animation_scale",
+                "1.0"
+              ],
+              "code": 0,
+              "out": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "put",
+                "global",
+                "window_animation_scale",
+                "1.0"
+              ],
+              "code": 0,
+              "out": ""
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "delete",
+                "global",
+                "animator_duration_scale"
+              ],
+              "code": 0,
+              "out": "Deleted 0 rows"
+            },
+            {
+              "operation": [
+                "shell",
+                "settings",
+                "delete",
+                "system",
+                "font_scale"
+              ],
+              "code": 0,
+              "out": "Deleted 1 rows"
+            },
+            {
+              "operation": "emu kill",
+              "code": 0,
+              "out": "OK: killing emulator, bye bye\nOK"
+            }
+          ],
+          "appForceStopped": true,
+          "emulatorKillSucceeded": true,
+          "adbDevicesAfter": "Listofdevicesattached; empty"
+        },
+        "noProductChanges": "15sourcehashesbeforeafterexactfreeze3; onlydeclaredAndroidcaptures andlocalSDDreport/helpers",
+        "artifacts": {
+          "android-lesson-max-top.png": {
+            "sha256": "6a26b353b5ad61a0f50abd26f4339851eafd4e5ddb5546dc849748d448906ef7",
+            "bytes": 200841
+          },
+          "android-lesson-max-bottom.png": {
+            "sha256": "5138038cd64c1432d783e8566ef88fad5b8e9997b718f1f5b03e5c463806a391",
+            "bytes": 162102
+          },
+          "android-review-max.png": {
+            "sha256": "418eaab2fe91b192b7d8248f7e1efbd5c6a6c93bc6b37b5c22760d071c7adff8",
+            "bytes": 182115
+          },
+          "android-review-normal.png": {
+            "sha256": "a580bc37622ddcc6c9245bbf117516f23c3c0ddf85ac163acb173909008ac3e0",
+            "bytes": 174286
+          },
+          "android-review-ui.xml": {
+            "sha256": "5433f6579a15b7b99d9695cafeeb74a187b8aedef2b7edc71a23225a163ea4cd",
+            "bytes": 21902
+          }
+        },
+        "auxiliaryReviewBottom": "SDDtask7-android-r3-review-max-bottom.png"
+      }
+    }
+  },
+  "controllerCleanup": {
+    "measuredAt": "2026-10-28T01:42:30.143670+00:00",
+    "metroExecSession": 69783,
+    "metroExitCode": 0,
+    "port8081": "no listener",
+    "ios": "no booted simulators",
+    "android": "adb devices empty",
+    "allTargetAppsAndEmulatorsStopped": true
+  },
+  "notTested": [
+    "Android lesson normal font",
+    "native reducedMotion",
+    "native zeroStars",
+    "physical device",
+    "audible screen reader",
+    "second day",
+    "FPS/perceived timing",
+    "production",
+    "cloud persistence"
+  ],
+  "independentReviews": {
+    "ios": "task-7-review-r5-native.md",
+    "android": "task-7-review-r6-android.md",
+    "androidReviewSha256": "3e19e9a06e343406275df0475e5f3189718b603da171fd61fe12f31cac3c7778"
+  }
+}

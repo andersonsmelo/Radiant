@@ -1,0 +1,1135 @@
+{
+  "measuredAt": "2026-10-27T17:47:53.648845+00:00",
+  "node": "v20.20.2",
+  "results": [
+    {
+      "id": "neutral-palette",
+      "source": "src/features/journey/components/JourneyMedal.tsx",
+      "originalSha256": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+      "test": "src/features/journey/components/JourneyMedal.test.tsx",
+      "pattern": "resultado neutro",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/journey/components/JourneyMedal.test.tsx",
+        "-t",
+        "resultado neutro",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-01-neutral-palette.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "resultado neutro usa prata sem bloquear nem apagar a ilustração concluída"
+      ],
+      "failureExcerpt": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"#8E99AE\"\nReceived: \"#C98A00\"\n    at Object.toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/components/JourneyMedal.test.tsx:345:20)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)\n    at runTest (/Users/anderson/Developer/Rad",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-01-neutral-palette.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "const palette = appearance === 'neutral' ? medalColors.silver : paletteFor(node.type, state);",
+          "replace": "const palette = paletteFor(node.type, state);"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          54
+        ],
+        "summary": [
+          71,
+          72
+        ]
+      }
+    },
+    {
+      "id": "neutral-fake-state",
+      "source": "src/features/quiz/components/LessonSummary.tsx",
+      "originalSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "test": "src/features/quiz/components/LessonSummary.test.tsx",
+      "pattern": "com 0 estrelas mantém",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "-t",
+        "com 0 estrelas mantém",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-02-neutral-fake-state.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "LessonSummary com 0 estrelas mantém a conclusão, a régua e medalha neutra sem fingir bloqueio"
+      ],
+      "failureExcerpt": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"done\"\nReceived: \"locked\"\n    at Object.toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:324:31)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Develo",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-02-neutral-fake-state.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "state=\"done\"",
+          "replace": "state={isZeroStars ? \"locked\" : \"done\"}"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          44
+        ],
+        "summary": [
+          61,
+          62
+        ]
+      }
+    },
+    {
+      "id": "quiz-theme",
+      "source": "src/features/quiz/screens/QuizScreen.tsx",
+      "originalSha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "test": "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "pattern": "resultado .*preserva título e tema",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+        "-t",
+        "resultado .*preserva título e tema",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-03-quiz-theme.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 4,
+      "failedTests": [
+        "QuizScreen flow resultado normal preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado normal preserva título e tema canônico (undefined/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (undefined/protecao)"
+      ],
+      "failureExcerpt": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"tubo\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:433:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"tubo\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:433:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"protecao\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:433:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/n",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-03-quiz-theme.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "theme={summaryTheme}",
+          "replace": "theme=\"radiacao\""
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          36,
+          55,
+          74,
+          93
+        ],
+        "summary": [
+          112,
+          113
+        ]
+      }
+    },
+    {
+      "id": "quiz-title",
+      "source": "src/features/quiz/screens/QuizScreen.tsx",
+      "originalSha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "test": "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "pattern": "resultado .*preserva título e tema",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+        "-t",
+        "resultado .*preserva título e tema",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-04-quiz-title.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 5,
+      "failedTests": [
+        "QuizScreen flow resultado normal preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado normal preserva título e tema canônico (undefined/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (undefined/protecao)",
+        "QuizScreen flow resultado normal preserva título e tema canônico (undefined/undefined)"
+      ],
+      "failureExcerpt": "Error: Unable to find an element with role: header, name: Radiografia de Tórax\n\n\u001b[36m<RNCSafeAreaProvider>\u001b[39m\n  \u001b[36m<View>\u001b[39m\n    \u001b[36m<RNCSafeAreaView>\u001b[39m\n      \u001b[36m<View>\u001b[39m\n        \u001b[36m<RCTScrollView>\u001b[39m\n          \u001b[36m<View>\u001b[39m\n            \u001b[36m<View>\u001b[39m\n              \u001b[36m<View\u001b[39m\n                \u001b[33mnativeID\u001b[39m=\u001b[32m\"1\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<View\u001b[39m\n                  \u001b[33maccessibilityLabel\u001b[39m=\u001b[32m\"Aula concluída.\"\u001b[39m\n                  \u001b[33maccessibilityRole\u001b[39m=\u001b[32m\"image\"\u001b[39m\n                  \u001b[33maccessible\u001b[39m=\u001b[32m{true}\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[36m<View>\u001b[39m\n                    \u001b[36m<RNSVGSvgView>\u001b[39m\n                      \u001b[36m<RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGDefs>\u001b[39m\n                          \u001b[36m<RNSVGClipPath>\u001b[39m\n                            \u001b[36m<RNSVGCircle />\u001b[39m\n                          \u001b[36m</RNSVGClipPath>\u001b[39m\n                        \u001b[36m</RNSVGDefs>\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGGroup>\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                          \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGPath />\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                      \u001b[36m</RNSVGGroup>\u001b[39m\n                    \u001b[36m</RNSVGSvgView>\u001b[39m\n                    \u001b[36m<View\u001b[39m\n                      \u001b[33maccessibilityElementsHidden\u001b[39m=\u001b[32m{",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-04-quiz-title.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "title={lesson.title}",
+          "replace": "title={undefined}"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          36,
+          251,
+          394,
+          609,
+          752
+        ],
+        "summary": [
+          967,
+          968
+        ]
+      }
+    },
+    {
+      "id": "flow-theme",
+      "source": "src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "originalSha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "test": "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "pattern": "resultado .*mantém o título real e tema|abrir e concluir a aula sem nó",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "-t",
+        "resultado .*mantém o título real e tema|abrir e concluir a aula sem nó",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-05-flow-theme.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 5,
+      "failedTests": [
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (undefined/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (undefined/protecao)",
+        "LessonFlowScreen — sem nó, a tela não grava progresso da trilha abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada"
+      ],
+      "failureExcerpt": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"ressonancia\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1165:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"ressonancia\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1165:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"protecao\"\nReceived: \"radiacao\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1165:65)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/R",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-05-flow-theme.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "title={lessonContext.title}\n                            theme={lessonTheme}",
+          "replace": "title={lessonContext.title}\n                            theme=\"radiacao\""
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          112,
+          131,
+          150,
+          169,
+          188
+        ],
+        "summary": [
+          207,
+          208
+        ]
+      }
+    },
+    {
+      "id": "flow-title",
+      "source": "src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "originalSha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "test": "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "pattern": "resultado .*mantém o título real e tema",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "-t",
+        "resultado .*mantém o título real e tema",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-06-flow-title.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 4,
+      "failedTests": [
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (undefined/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (undefined/protecao)"
+      ],
+      "failureExcerpt": "Error: Unable to find an element with role: header, name: Formação da imagem\n\n\u001b[36m<RNCSafeAreaProvider>\u001b[39m\n  \u001b[36m<View>\u001b[39m\n    \u001b[36m<RNCSafeAreaView>\u001b[39m\n      \u001b[36m<View>\u001b[39m\n        \u001b[36m<RCTScrollView>\u001b[39m\n          \u001b[36m<View>\u001b[39m\n            \u001b[36m<View>\u001b[39m\n              \u001b[36m<View\u001b[39m\n                \u001b[33mnativeID\u001b[39m=\u001b[32m\"2\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<View\u001b[39m\n                  \u001b[33maccessibilityLabel\u001b[39m=\u001b[32m\"Aula concluída.\"\u001b[39m\n                  \u001b[33maccessibilityRole\u001b[39m=\u001b[32m\"image\"\u001b[39m\n                  \u001b[33maccessible\u001b[39m=\u001b[32m{true}\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[36m<View>\u001b[39m\n                    \u001b[36m<RNSVGSvgView>\u001b[39m\n                      \u001b[36m<RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGDefs>\u001b[39m\n                          \u001b[36m<RNSVGClipPath>\u001b[39m\n                            \u001b[36m<RNSVGCircle />\u001b[39m\n                          \u001b[36m</RNSVGClipPath>\u001b[39m\n                        \u001b[36m</RNSVGDefs>\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGGroup>\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                          \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGPath />\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                      \u001b[36m</RNSVGGroup>\u001b[39m\n                    \u001b[36m</RNSVGSvgView>\u001b[39m\n                    \u001b[36m<View\u001b[39m\n                      \u001b[33maccessibilityElementsHidden\u001b[39m=\u001b[32m{tr",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-06-flow-title.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "title={lessonContext.title}",
+          "replace": "title={undefined}"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          112,
+          414,
+          558,
+          860
+        ],
+        "summary": [
+          1004,
+          1005
+        ]
+      }
+    },
+    {
+      "id": "no-node-hook-title",
+      "source": "src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "originalSha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "test": "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "pattern": "abrir e concluir a aula sem nó",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "-t",
+        "abrir e concluir a aula sem nó",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-07-no-node-hook-title.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "LessonFlowScreen — sem nó, a tela não grava progresso da trilha abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada"
+      ],
+      "failureExcerpt": "Error: Unable to find an element with role: header, name: Estrutura e carga\n\n\u001b[36m<RNCSafeAreaProvider>\u001b[39m\n  \u001b[36m<View>\u001b[39m\n    \u001b[36m<RNCSafeAreaView>\u001b[39m\n      \u001b[36m<View>\u001b[39m\n        \u001b[36m<RCTScrollView>\u001b[39m\n          \u001b[36m<View>\u001b[39m\n            \u001b[36m<View>\u001b[39m\n              \u001b[36m<View\u001b[39m\n                \u001b[33mnativeID\u001b[39m=\u001b[32m\"2\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<View\u001b[39m\n                  \u001b[33maccessibilityLabel\u001b[39m=\u001b[32m\"Aula concluída.\"\u001b[39m\n                  \u001b[33maccessibilityRole\u001b[39m=\u001b[32m\"image\"\u001b[39m\n                  \u001b[33maccessible\u001b[39m=\u001b[32m{true}\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[36m<View>\u001b[39m\n                    \u001b[36m<RNSVGSvgView>\u001b[39m\n                      \u001b[36m<RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGDefs>\u001b[39m\n                          \u001b[36m<RNSVGClipPath>\u001b[39m\n                            \u001b[36m<RNSVGCircle />\u001b[39m\n                          \u001b[36m</RNSVGClipPath>\u001b[39m\n                        \u001b[36m</RNSVGDefs>\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGGroup>\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                          \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGPath />\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                      \u001b[36m</RNSVGGroup>\u001b[39m\n                    \u001b[36m</RNSVGSvgView>\u001b[39m\n                    \u001b[36m<View\u001b[39m\n                      \u001b[33maccessibilityElementsHidden\u001b[39m=\u001b[32m{tru",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-07-no-node-hook-title.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "title: catalogTitle ?? (hook?.kind === 'presentation' ? hook.payload.title : undefined),",
+          "replace": "title: catalogTitle,"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          112
+        ],
+        "summary": [
+          414,
+          415
+        ]
+      }
+    },
+    {
+      "id": "quiz-confetti",
+      "source": "src/features/quiz/screens/QuizScreen.tsx",
+      "originalSha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "test": "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "pattern": "resultado .*preserva título e tema",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+        "-t",
+        "resultado .*preserva título e tema",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-08-quiz-confetti.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 5,
+      "failedTests": [
+        "QuizScreen flow resultado normal preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (tubo/protecao)",
+        "QuizScreen flow resultado normal preserva título e tema canônico (undefined/protecao)",
+        "QuizScreen flow resultado review preserva título e tema canônico (undefined/protecao)",
+        "QuizScreen flow resultado normal preserva título e tema canônico (undefined/undefined)"
+      ],
+      "failureExcerpt": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:434:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:434:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx:434:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-08-quiz-confetti.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "import { hapticCelebrate }",
+          "replace": "import { Confetti } from '../../../components/ui/Confetti';\nimport { hapticCelebrate }"
+        },
+        {
+          "find": "        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />\n        <SafeAreaView style={styles.safe} edges={['top']}>",
+          "replace": "        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />\n        <Confetti count={40} run />\n        <SafeAreaView style={styles.safe} edges={['top']}>"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          36,
+          56,
+          76,
+          96,
+          116
+        ],
+        "summary": [
+          136,
+          137
+        ]
+      }
+    },
+    {
+      "id": "flow-confetti",
+      "source": "src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "originalSha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "test": "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "pattern": "resultado .*mantém o título real e tema",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "-t",
+        "resultado .*mantém o título real e tema",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-09-flow-confetti.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 4,
+      "failedTests": [
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (ressonancia/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado lesson mantém o título real e tema (undefined/protecao)",
+        "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (undefined/protecao)"
+      ],
+      "failureExcerpt": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1166:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1166:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1166:54)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modul",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-09-flow-confetti.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "import { createLessonFeedback,",
+          "replace": "import { Confetti } from '../../../components/ui/Confetti';\nimport { createLessonFeedback,"
+        },
+        {
+          "find": "                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />",
+          "replace": "                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />\n                <Confetti count={40} run />"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          112,
+          132,
+          152,
+          172
+        ],
+        "summary": [
+          192,
+          193
+        ]
+      }
+    },
+    {
+      "id": "review-pixel",
+      "source": "src/features/quiz/components/LessonSummary.tsx",
+      "originalSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "test": "src/features/quiz/components/LessonSummary.test.tsx",
+      "pattern": "a revisão mantém medalha",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "-t",
+        "a revisão mantém medalha",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-10-review-pixel.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "LessonSummary a revisão mantém medalha e título sem montar Pixel"
+      ],
+      "failureExcerpt": "Error: expect(received).toBeNull()\n\nReceived: {\"_fiber\": {\"_debugHookTypes\": null, \"_debugInfo\": null, \"_debugNeedsRemount\": false, \"_debugOwner\": [FiberNode], \"_debugStack\": [Error: react-stack-top-frame], \"_debugTask\": null, \"actualDuration\": 7, \"actualStartTime\": 1793123203054, \"alternate\": null, \"child\": [FiberNode], \"childLanes\": 0, \"deletions\": null, \"dependencies\": null, \"elementType\": \"View\", \"flags\": 0, \"index\": 0, \"key\": null, \"lanes\": 0, \"memoizedProps\": [Object], \"memoizedState\": null, \"mode\": 3, \"pendingProps\": [Object], \"ref\": null, \"refCleanup\": null, \"return\": [FiberNode], \"selfBaseDuration\": 0, \"sibling\": null, \"stateNode\": [Object], \"subtreeFlags\": 13634053, \"tag\": 5, \"treeBaseDuration\": 7, \"type\": \"View\", \"updateQueue\": null}}\n    at Object.toBeNull (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:361:46)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.cl",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-10-review-pixel.txt",
+      "restored": true,
+      "finalGuardRecheck": {
+        "command": [
+          "npx",
+          "--no-install",
+          "jest",
+          "--runInBand",
+          "--no-cache",
+          "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+          "-t",
+          "resultado review mantém",
+          "--json",
+          "--outputFile",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-review-pixel-final.json"
+        ],
+        "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+        "node": "v20.20.2",
+        "guard": "queryAllByLabelText(/Pixel/u)",
+        "find": "{kind === 'lesson' ? (",
+        "replace": "{true ? (",
+        "testFileSha256": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+        "status": "KILLED",
+        "exitCode": 1,
+        "failedTests": [
+          "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (ressonancia/protecao)",
+          "LessonFlowScreen — conclusão da lição resultado review mantém o título real e tema (undefined/protecao)"
+        ],
+        "failureExcerpt": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1166:75)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)\nError: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": [FiberNode]}]\n    at toHaveLength (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1166:75)\n    at Generator.next (<anonymous>)\n    at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)\n    at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)",
+        "restored": true,
+        "sourceSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+        "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-review-pixel-final.txt",
+        "logIndex": {
+          "failures": [
+            112,
+            132
+          ],
+          "summary": [
+            152,
+            153
+          ]
+        }
+      },
+      "edits": [
+        {
+          "find": "{kind === 'lesson' ? (",
+          "replace": "{true ? ("
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          44
+        ],
+        "summary": [
+          60,
+          61
+        ]
+      }
+    },
+    {
+      "id": "reduced-pose",
+      "source": "src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx",
+      "originalSha256": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+      "test": "src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+      "pattern": "preserva os braços",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+        "-t",
+        "preserva os braços",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-11-reduced-pose.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 2,
+      "failedTests": [
+        "preserva os braços de comemorar sob reduzir movimento no momento streak",
+        "preserva os braços de comemorar sob reduzir movimento no momento summary"
+      ],
+      "failureExcerpt": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"comemora\"\nReceived: \"acena\"\n    at toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx:15:55)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Dev",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-11-reduced-pose.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "({ moment }:",
+          "replace": "({ moment, reduceMotion }:"
+        },
+        {
+          "find": "state=\"celebrate\"",
+          "replace": "state={reduceMotion ? 'happy' : 'celebrate'}"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          5,
+          21
+        ],
+        "summary": [
+          37,
+          38
+        ]
+      }
+    },
+    {
+      "id": "mint-once",
+      "source": "src/ui/motion.ts",
+      "originalSha256": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+      "test": "src/ui/__tests__/motion.test.ts",
+      "pattern": "resolver novamente",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/ui/__tests__/motion.test.ts",
+        "-t",
+        "resolver novamente",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-12-mint-once.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "resultado Medalhão não reproduz a cunhagem nem as estrelas ao resolver novamente o mesmo ganho montado"
+      ],
+      "failureExcerpt": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 1\n\n  Array [\n    Object {\n-     \"scale\": 1,\n+     \"scale\": 0.8457032601035177,\n    },\n  ]\n    at Object.toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/__tests__/motion.test.ts:227:72)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jes",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-12-mint-once.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "if (played.current) return;\n        played.current = true;\n        scale.value = 0.82;",
+          "replace": "played.current = true;\n        scale.value = 0.82;"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          24
+        ],
+        "summary": [
+          48,
+          49
+        ]
+      }
+    },
+    {
+      "id": "star-once",
+      "source": "src/ui/motion.ts",
+      "originalSha256": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+      "test": "src/ui/__tests__/motion.test.ts",
+      "pattern": "resolver novamente",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/ui/__tests__/motion.test.ts",
+        "-t",
+        "resolver novamente",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-13-star-once.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "resultado Medalhão não reproduz a cunhagem nem as estrelas ao resolver novamente o mesmo ganho montado"
+      ],
+      "failureExcerpt": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 2\n+ Received  + 2\n\n  Array [\n    Object {\n-     \"translateY\": NumberCloseTo 0 (5 digits),\n+     \"translateY\": -12,\n    },\n    Object {\n-     \"scale\": 1,\n+     \"scale\": 0.8,\n    },\n  ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/__tests__/motion.test.ts:185:69)\n    at Object.expectStarFinal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/__tests__/motion.test.ts:228:9)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-cir",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-13-star-once.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "if (played.current) return;\n        played.current = true;\n        progress.value = 0;",
+          "replace": "played.current = true;\n        progress.value = 0;"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          24
+        ],
+        "summary": [
+          53,
+          54
+        ]
+      }
+    },
+    {
+      "id": "no-gain",
+      "source": "src/features/quiz/components/LessonSummary.tsx",
+      "originalSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "test": "src/features/quiz/components/LessonSummary.test.tsx",
+      "pattern": "repetição sem melhora|repetição sem ganho",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "-t",
+        "repetição sem melhora|repetição sem ganho",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-14-no-gain.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 2,
+      "failedTests": [
+        "LessonSummary preserva uma repetição sem ganho de XP ou nova melhora de estrelas",
+        "LessonSummary não encena ganho em uma repetição sem melhora"
+      ],
+      "failureExcerpt": "Error: expect(jest.fn()).not.toHaveBeenCalled()\n\nExpected number of calls: 0\nReceived number of calls: 1\n\n1: 1, {\"dampingRatio\": 0.7, \"duration\": 300}\n    at Object.toHaveBeenCalled (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:162:39)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jes",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-14-no-gain.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "const earned = starsImproved && !isZeroStars;",
+          "replace": "const earned = !isZeroStars;"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          44,
+          63
+        ],
+        "summary": [
+          82,
+          83
+        ]
+      }
+    },
+    {
+      "id": "star-ruler-fill",
+      "source": "src/features/quiz/components/LessonSummary.tsx",
+      "originalSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "test": "src/features/quiz/components/LessonSummary.test.tsx",
+      "pattern": "régua completa",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "-t",
+        "régua completa",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-15-star-ruler-fill.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 3,
+      "failedTests": [
+        "LessonSummary mostra o tema, o título real e a régua completa com 0 estrelas",
+        "LessonSummary mostra o tema, o título real e a régua completa com 1 estrelas",
+        "LessonSummary mostra o tema, o título real e a régua completa com 2 estrelas"
+      ],
+      "failureExcerpt": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 0\nReceived length: 1\nReceived array:  [{\"_fiber\": {\"_debugHookTypes\": null, \"_debugInfo\": null, \"_debugNeedsRemount\": false, \"_debugOwner\": {\"_debugHookTypes\": [\"useRef\", \"useEffect\"], \"_debugInfo\": null, \"_debugNeedsRemount\": false, \"_debugOwner\": {\"_debugHookTypes\": null, \"_debugInfo\": null, \"_debugNeedsRemount\": false, \"_debugOwner\": [FiberNode], \"_debugStack\": [Error: react-stack-top-frame], \"_debugTask\": null, \"actualDuration\": 1, \"actualStartTime\": 1793123251591, \"alternate\": null, \"child\": [FiberNode], \"childLanes\": 0, \"deletions\": null, \"dependencies\": null, \"elementType\": [Function StarRow], \"flags\": 1048577, \"index\": 1, \"key\": null, \"lanes\": 0, \"memoizedProps\": [Object], \"memoizedState\": null, \"mode\": 3, \"pendingProps\": [Object], \"ref\": null, \"refCleanup\": null, \"return\": [FiberNode], \"selfBaseDuration\": 0, \"sibling\": [FiberNode], \"stateNode\": null, \"subtreeFlags\": 9439233, \"tag\": 0, \"treeBaseDuration\": 1, \"type\": [Function StarRow], \"updateQueue\": null}, \"_debugStack\": [Error: react-stack-top-frame], \"_debugTask\": null, \"actualDuration\": 1, \"actualStartTime\": 1793123251591, \"alternate\": null, \"child\": {\"_debugHookTypes\": null, \"_debugInfo\": null, \"_debugNeedsRemount\": false, \"_debugOwner\": [Circular], \"_debugStack\": [Error: react-stack-top-frame], \"_debugTask\": null, \"actualDuration\": 0, \"actualStartTime\": 1793123251592, \"alternate\": null, \"child\": [FiberNode], \"childLanes\": 0, \"deletions\": null, \"dependencies\": null, \"elementType\": [Function View], \"flags\": 1, \"index\": 0, \"key\": null, \"lanes\": 0, \"memoizedProps\": [Object], \"memoizedState\": null, \"mode\": 3, \"pendingProps\": [Object], \"ref\": null, \"refCleanup\": null, \"return\": [Circular], \"selfBaseDuration\": 0, \"sibling\": null, \"stateNode\": [View]",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-15-star-ruler-fill.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "filled={index < stars}",
+          "replace": "filled={index <= stars}"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          44,
+          62,
+          80
+        ],
+        "summary": [
+          98,
+          99
+        ]
+      }
+    },
+    {
+      "id": "quiz-rating-prize",
+      "source": "src/features/quiz/screens/QuizScreen.tsx",
+      "originalSha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "test": "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "pattern": "avaliar e continuar",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/screens/QuizScreen.flow.test.tsx",
+        "-t",
+        "avaliar e continuar",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-16-quiz-rating-prize.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "QuizScreen flow avaliar e continuar conservam o prêmio e o placar já registrados"
+      ],
+      "failureExcerpt": "Error: Unable to find an element with accessibility label: 3 de 3 estrelas\n\n\u001b[36m<RNCSafeAreaProvider>\u001b[39m\n  \u001b[36m<View>\u001b[39m\n    \u001b[36m<RNCSafeAreaView>\u001b[39m\n      \u001b[36m<View>\u001b[39m\n        \u001b[36m<RCTScrollView>\u001b[39m\n          \u001b[36m<View>\u001b[39m\n            \u001b[36m<View>\u001b[39m\n              \u001b[36m<View\u001b[39m\n                \u001b[33mnativeID\u001b[39m=\u001b[32m\"1\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<View\u001b[39m\n                  \u001b[33maccessibilityLabel\u001b[39m=\u001b[32m\"Radiografia de Tórax. Concluído.\"\u001b[39m\n                  \u001b[33maccessibilityRole\u001b[39m=\u001b[32m\"image\"\u001b[39m\n                  \u001b[33maccessible\u001b[39m=\u001b[32m{true}\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[36m<View>\u001b[39m\n                    \u001b[36m<RNSVGSvgView>\u001b[39m\n                      \u001b[36m<RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGDefs>\u001b[39m\n                          \u001b[36m<RNSVGClipPath>\u001b[39m\n                            \u001b[36m<RNSVGCircle />\u001b[39m\n                          \u001b[36m</RNSVGClipPath>\u001b[39m\n                        \u001b[36m</RNSVGDefs>\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGGroup>\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                          \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGPath />\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                      \u001b[36m</RNSVGGroup>\u001b[39m\n                    \u001b[36m</RNSVGSvgView>\u001b[39m\n                    \u001b[36m<View\u001b[39m\n                      \u001b[33maccessibilityElementsHidde",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-16-quiz-rating-prize.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "{ ...atual, rating: nota }",
+          "replace": "{ ...atual, rating: nota, stars: 0 }"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          36
+        ],
+        "summary": [
+          197,
+          198
+        ]
+      }
+    },
+    {
+      "id": "flow-rating-prize",
+      "source": "src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "originalSha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "test": "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "pattern": "avaliar e continuar",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "-t",
+        "avaliar e continuar",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-17-flow-rating-prize.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "status": "KILLED",
+      "failedCount": 1,
+      "failedTests": [
+        "LessonFlowScreen — conclusão da lição avaliar e continuar conservam a conclusão e o prêmio já registrados"
+      ],
+      "failureExcerpt": "Error: Unable to find an element with accessibility label: 3 de 3 estrelas\n\n\u001b[36m<RNCSafeAreaProvider>\u001b[39m\n  \u001b[36m<View>\u001b[39m\n    \u001b[36m<RNCSafeAreaView>\u001b[39m\n      \u001b[36m<View>\u001b[39m\n        \u001b[36m<RCTScrollView>\u001b[39m\n          \u001b[36m<View>\u001b[39m\n            \u001b[36m<View>\u001b[39m\n              \u001b[36m<View\u001b[39m\n                \u001b[33mnativeID\u001b[39m=\u001b[32m\"2\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<View\u001b[39m\n                  \u001b[33maccessibilityLabel\u001b[39m=\u001b[32m\"Fundamentos de Radiologia. Concluído.\"\u001b[39m\n                  \u001b[33maccessibilityRole\u001b[39m=\u001b[32m\"image\"\u001b[39m\n                  \u001b[33maccessible\u001b[39m=\u001b[32m{true}\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[36m<View>\u001b[39m\n                    \u001b[36m<RNSVGSvgView>\u001b[39m\n                      \u001b[36m<RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGDefs>\u001b[39m\n                          \u001b[36m<RNSVGClipPath>\u001b[39m\n                            \u001b[36m<RNSVGCircle />\u001b[39m\n                          \u001b[36m</RNSVGClipPath>\u001b[39m\n                        \u001b[36m</RNSVGDefs>\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGGroup>\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                            \u001b[36m<RNSVGPath />\u001b[39m\n                          \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                        \u001b[36m<RNSVGCircle />\u001b[39m\n                        \u001b[36m<RNSVGGroup>\u001b[39m\n                          \u001b[36m<RNSVGPath />\u001b[39m\n                        \u001b[36m</RNSVGGroup>\u001b[39m\n                      \u001b[36m</RNSVGGroup>\u001b[39m\n                    \u001b[36m</RNSVGSvgView>\u001b[39m\n                    \u001b[36m<View\u001b[39m\n                      \u001b[33maccessibilityElements",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-mutation-17-flow-rating-prize.txt",
+      "restored": true,
+      "edits": [
+        {
+          "find": "{ ...atual, rating: nota }",
+          "replace": "{ ...atual, rating: nota, stars: 0 }"
+        }
+      ],
+      "logIndex": {
+        "failures": [
+          112
+        ],
+        "summary": [
+          360,
+          361
+        ]
+      }
+    }
+  ],
+  "scope": "17 bounded injected defects; review-pixel repeated once against final accessible guard; exact anchors and restore by original SHA-256",
+  "scriptSha256": "31cd48417cf66bf8cd82d7b0bc47355bc3ff0a0833f495deab0cf77c6f0b936a",
+  "fixRound1": {
+    "id": "ax5-restore-r1-paragraph-limits",
+    "defect": "Restore exact R1 LessonSummary source: explicit typography lineHeight 38/24/24 in title/phrase/subtitle instead of natural font metrics",
+    "command": [
+      "npx",
+      "--no-install",
+      "jest",
+      "--runInBand",
+      "--no-cache",
+      "src/features/quiz/components/LessonSummary.test.tsx",
+      "-t",
+      "AX5",
+      "--json",
+      "--outputFile",
+      "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix1-mutation.json"
+    ],
+    "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+    "node": "v20.20.2",
+    "status": "KILLED",
+    "exitCode": 1,
+    "failedCount": 3,
+    "failedTests": [
+      "LessonSummary AX5 deixa a fonte determinar a altura de Colimação sem limitar a leitura",
+      "LessonSummary AX5 deixa a fonte determinar a altura de Três estrelas. Nada passou despercebido. sem limitar a leitura",
+      "LessonSummary AX5 deixa a fonte determinar a altura de A lição foi concluída sem limitar a leitura"
+    ],
+    "failureExcerpt": "Error: expect(received).toBeUndefined()\n\nReceived: 38\n    at toBeUndefined (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:389:32)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)\n    at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)\nError: expect(received).toBeUndefined()\n\nReceived: 24\n    at toBeUndefined (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:389:32)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js",
+    "r1SourceSha256": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+    "fixedSourceSha256": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+    "testSha256": "0aa8274e8270ebf351e7412d4700209beb02d3f82c7d413b8b58baae0e30e94b",
+    "restored": true,
+    "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix1-mutation.txt",
+    "logIndex": {
+      "failures": [
+        47,
+        63,
+        79
+      ],
+      "summary": [
+        95,
+        96
+      ]
+    }
+  }
+,
+  "fixRound2": {
+  "measuredAt": "2026-10-27T20:47:47.412916+00:00",
+  "status": "3/3 KILLED with final test; not combined with prior rounds",
+  "nativeCausality": "R2 initial AX5 legible, warm large→AX5 clipped; rasterization requires final native proof",
+  "sourceR2Sha256": "de4be8c1d5a6743d39e0d4a0fb0b2c710a78141525ec6923165bfba05ae04227",
+  "fixedSourceSha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+  "testSha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+  "invalidAttempt": {
+    "id": "scroll-remount initial run",
+    "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-scroll-remount.txt",
+    "reason": "Jest formatting an unmounted ReactTestInstance masked the comparator failure; NOT counted as valid kill. Boolean identity comparisons added and all three final mutations rerun."
+  },
+  "results": [
+    {
+      "id": "constant-text-keys",
+      "node": "v20.20.2",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "--testNamePattern",
+        "T05 Dynamic Type",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-constant-text-keys-final.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "status": "KILLED",
+      "exitCode": 1,
+      "failedCount": 6,
+      "failedTests": [
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova todos os parágrafos próprios em 1 → 3.1, inclusive entre escalas grandes",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  -  1\n+ Received  + 15\n\n- Array []\n+ Array [\n+   \"Tubo de raios X\",\n+   \"Você avançou. Vale reforçar os pontos que faltaram.\",\n+   \"A lição foi concluída\",\n+   \"Seu recorde nesta lição: 3 estrelas\",\n+   \"+30 XP\",\n+   \"Respostas corretas\",\n+   \"9 de 10 corretas\",\n+   \"Progresso da unidade\",\n+   \"7 de 14 etapas\",\n+   \"Meta do dia fechada.\",\n+   \"Próxima revisão em 3 dias\",\n+   \"Avalie a aula\",\n+   \"É opcional\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:482:31)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova todos os parágrafos próprios em 3.1 → 2.5, inclusive entre escalas grandes",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  -  1\n+ Received  + 15\n\n- Array []\n+ Array [\n+   \"Tubo de raios X\",\n+   \"Você avançou. Vale reforçar os pontos que faltaram.\",\n+   \"A lição foi concluída\",\n+   \"Seu recorde nesta lição: 3 estrelas\",\n+   \"+30 XP\",\n+   \"Respostas corretas\",\n+   \"9 de 10 corretas\",\n+   \"Progresso da unidade\",\n+   \"7 de 14 etapas\",\n+   \"Meta do dia fechada.\",\n+   \"Próxima revisão em 3 dias\",\n+   \"Avalie a aula\",\n+   \"É opcional\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:482:31)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP null sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP 0 sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP 30 sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto mantém scroll, conquista, controles e avaliação ao renovar só o texto, sem repetir ganho",
+          "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: false\nReceived: true\n    at Object.toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:550:79)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)\n    at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-a"
+        }
+      ],
+      "mutantSha256": "26e5b85f180c69510e78b4a276baec21187cccb211accc635db910f926d379d4",
+      "restoredSourceSha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+      "testSha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+      "restored": true,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-constant-text-keys-final.txt"
+    },
+    {
+      "id": "large-text-boolean-keys",
+      "node": "v20.20.2",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "--testNamePattern",
+        "T05 Dynamic Type",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-large-text-boolean-keys-final.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "status": "KILLED",
+      "exitCode": 1,
+      "failedCount": 4,
+      "failedTests": [
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova todos os parágrafos próprios em 3.1 → 2.5, inclusive entre escalas grandes",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  -  1\n+ Received  + 15\n\n- Array []\n+ Array [\n+   \"Tubo de raios X\",\n+   \"Você avançou. Vale reforçar os pontos que faltaram.\",\n+   \"A lição foi concluída\",\n+   \"Seu recorde nesta lição: 3 estrelas\",\n+   \"+30 XP\",\n+   \"Respostas corretas\",\n+   \"9 de 10 corretas\",\n+   \"Progresso da unidade\",\n+   \"7 de 14 etapas\",\n+   \"Meta do dia fechada.\",\n+   \"Próxima revisão em 3 dias\",\n+   \"Avalie a aula\",\n+   \"É opcional\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:482:31)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP null sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP 0 sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        },
+        {
+          "name": "T05 Dynamic Type no resultado já aberto renova subtítulo de revisão e XP 30 sem montar Pixel",
+          "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 4\n\n- Array []\n+ Array [\n+   \"subtítulo\",\n+   \"XP\",\n+ ]\n    at toEqual (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:505:26)\n    at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-each/build/bind.js:81:13)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/"
+        }
+      ],
+      "mutantSha256": "1b0b0cadbbb28b0495edd8efd850ab352a8fb55cc26beeacd3d1f87fa6ee7ac6",
+      "restoredSourceSha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+      "testSha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+      "restored": true,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-large-text-boolean-keys-final.txt"
+    },
+    {
+      "id": "scroll-remount",
+      "node": "v20.20.2",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/quiz/components/LessonSummary.test.tsx",
+        "--testNamePattern",
+        "T05 Dynamic Type",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-scroll-remount-final.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "status": "KILLED",
+      "exitCode": 1,
+      "failedCount": 1,
+      "failedTests": [
+        {
+          "name": "T05 Dynamic Type no resultado já aberto mantém scroll, conquista, controles e avaliação ao renovar só o texto, sem repetir ganho",
+          "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Object.toBe (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx:532:62)\n    at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)\n    at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)\n    at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)\n    at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)\n    at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n    at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n    at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)\n    at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-a"
+        }
+      ],
+      "mutantSha256": "e10f70fd07da397596a235910016c2f2319fcdf63b19ca0dd88eaa8a3f39360d",
+      "restoredSourceSha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+      "testSha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6",
+      "restored": true,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix2-mutation-scroll-remount-final.txt"
+    }
+  ]
+}
+,
+  "fixRound3FixtureCompatibility": {
+  "measuredAt": "2026-10-28T01:59:32.688555+00:00",
+  "classification": "test fixture compatibility reversal; NOT a product mutation, excluded from product mutation counts",
+  "proof": {
+    "fixedTestSha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+    "beforeTestSha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c",
+    "fixtureReversal": {
+      "kind": "test fixture compatibility reversal, NOT product mutation",
+      "status": "EXPECTED_FIXTURE_FAILURE",
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-fixture-reversal.json"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exitCode": 1,
+      "failedTests": [
+        "markNodeCompleted authorization boundary recusa a conquista alcançada por /learn com nodeId de deep link"
+      ],
+      "passedCount": 5,
+      "beforeTestSha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c",
+      "restoredTestSha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-fixture-reversal.txt"
+    },
+    "finalGreen": {
+      "command": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+        "--json",
+        "--outputFile",
+        "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard-final.json"
+      ],
+      "node": "v20.20.2",
+      "exitCode": 0,
+      "passedCount": 6,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard-final.txt"
+    },
+    "restored": true,
+    "productFilesTouched": 0
+  },
+  "runtimeProductsUntouched": 15
+}
+}

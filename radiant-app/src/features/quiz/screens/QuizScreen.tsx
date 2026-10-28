@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -14,7 +14,6 @@ import { QuizFeedback } from '../components/QuizFeedback';
 import { QuizQuestion } from '../components/QuizQuestion';
 import { QuizTopBar } from '../components/QuizTopBar';
 import { useQuiz } from '../hooks/useQuiz';
-import { Confetti } from '../../../components/ui/Confetti';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
 import { PixelMood, type PixelMoodResult } from '../../pixel-mood/PixelMood';
 import type { PixelMoment } from '../../pixel-mood/pixelPhrases';
@@ -29,6 +28,8 @@ import { LessonRatingService } from '../services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
+import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 
 const SCREEN_MAX_WIDTH = 720;
 
@@ -157,6 +158,16 @@ function QuizSession({
   } = useQuiz(lesson, {
     journeyCompletionMode: mode === 'review' ? 'review' : 'lesson',
   });
+
+  const summaryTheme = useMemo(() => {
+    for (const track of LessonCatalogService.listTracks()) {
+      for (const unit of JourneyDefinitionService.getTrackDefinition(track.id).units) {
+        const node = unit.nodes.find(candidate => candidate.lessonId === lesson.id);
+        if (node) return resolveNodeTheme(node, unit);
+      }
+    }
+    return resolveNodeTheme({});
+  }, [lesson.id]);
 
   const shadowCursorId = currentQuestion?.id ?? 'quiz-summary';
   useShadowCheckpoint({
@@ -329,8 +340,7 @@ function QuizSession({
       ? summaryHelper.message
       : null;
 
-  // O fim do quiz é o momento mais repetido do produto e era o único sem
-  // nenhuma celebração: nem confete, nem contagem de XP, nem vibração.
+  // Preserva o retorno tátil da conclusão; a conquista visual vive no resumo.
   const quizPassed =
     isFinished && result
       ? Math.round((result.correctAnswers / result.totalQuestions) * 100) >= QUIZ_THRESHOLDS.PASSING_SCORE
@@ -354,10 +364,12 @@ function QuizSession({
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        <Confetti count={40} run={quizPassed} />
         <SafeAreaView style={styles.safe} edges={['top']}>
           {summary ? (
             <LessonSummary
+              title={lesson.title}
+              theme={summaryTheme}
+              kind={mode === 'review' ? 'review' : 'lesson'}
               stars={summary.stars}
               recordStars={summary.recordStars}
               starsImproved={summary.improved}

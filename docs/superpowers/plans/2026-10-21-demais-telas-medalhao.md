@@ -273,7 +273,7 @@ git commit -m "feat(boas-vindas): a primeira tela é uma bancada de kV"
   550 ms, com 200 ms entre elas. Com "reduzir movimento", o estado final no
   primeiro quadro.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - o resumo não tem cartão em volta do XP nem confete; tem a medalha, as
   estrelas, o título e "+20 XP";
@@ -281,14 +281,14 @@ git commit -m "feat(boas-vindas): a primeira tela é uma bancada de kV"
   estrela, sem "quase";
 - o Pixel aparece uma vez.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/quiz/components/LessonSummary.test.tsx`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
-- [ ] **Passo 4: Ver passar**
+- [x] **Passo 4: Ver passar**
 
 Run: `cd radiant-app && npx jest src/features/quiz src/features/lesson-flow`
 Expected: PASS.
@@ -299,6 +299,19 @@ Expected: PASS.
 git add -A radiant-app/src/features/quiz radiant-app/src/ui/motion.ts
 git commit -m "feat(resultado): a medalha do tema cunhada em ouro, com as estrelas"
 ```
+
+**Registro de execução T05 em 27/10/2026:** composição implementada nos dois
+consumidores reais, incluindo revisão e aula sem nó, sob o integrador aprovado.
+A receita antiga de 700/550ms e star(index) foi substituída pelo contrato de
+DESIGN: mola de cunhagem300ms, estrelas220ms com hooks por componente,
+sem Reanimated em feature. Zero estrela usa aparência neutra com state done;
+revisão não monta Pixel. Fix2 de Dynamic Type conserva identidade dos
+controles/movimento e renova apenas Text locais. Revisões de código aprovadas;
+iOS R5 large→AX5 e Android aula/revisão fonte2 com glifos íntegros. Loop final15/15 em 27/10 após fix3 de mock consumidor aprovado em R7;
+primeira validação do writer substituto/segunda do objetivo. Passo5 de Git
+é posterior ao fechamentoCLI; seu comprovante fica no ledger e relatório
+final, sem antecipar um SHA neste checkpoint.
+[Evidência por fase e limites](../../evidence/2026-10-27-medalhao-t05.md).
 
 ### Tarefa 5: Recompensa sem estado vazio
 

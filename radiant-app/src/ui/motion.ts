@@ -20,6 +20,7 @@ import {
     withDelay,
     withRepeat,
     withSequence,
+    withSpring,
     withTiming,
     type DerivedValue,
 } from 'react-native-reanimated';
@@ -418,6 +419,57 @@ export const createLossPulse = useLossPulse;
 export const MotionView = Reanimated.View;
 export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
 export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
+
+/** Cunhagem: uma única mola, apenas quando a tentativa realmente ganhou estrelas. */
+export function useMedalMint(earned: boolean) {
+    const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+    const played = useRef(false);
+    // O estado final já existe no primeiro quadro, inclusive antes da preferência.
+    const scale = useSharedValue(1);
+
+    useEffect(() => {
+        if (!resolved || reducedMotionEnabled || !earned) {
+            scale.value = 1;
+            return;
+        }
+        if (played.current) return;
+        played.current = true;
+        scale.value = 0.82;
+        scale.value = withSpring(1, { duration: 300, dampingRatio: 0.7 });
+        return () => { cancelAnimation(scale); };
+    }, [earned, reducedMotionEnabled, resolved, scale]);
+
+    return useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+}
+
+/** Queda e assentamento breve; sem mola e sem prêmio nas estrelas vazias. */
+export function useResultStar(earned: boolean, index: number) {
+    const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+    const played = useRef(false);
+    const progress = useSharedValue(1);
+
+    useEffect(() => {
+        if (!resolved || reducedMotionEnabled || !earned) {
+            progress.value = 1;
+            return;
+        }
+        if (played.current) return;
+        played.current = true;
+        progress.value = 0;
+        progress.value = withDelay(index * 60, withTiming(1, {
+            duration: duration.ui,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        }));
+        return () => { cancelAnimation(progress); };
+    }, [earned, index, progress, reducedMotionEnabled, resolved]);
+
+    return useAnimatedStyle(() => ({
+        transform: [
+            { translateY: -12 * (1 - progress.value) },
+            { scale: 0.8 + 0.2 * progress.value },
+        ],
+    }));
+}
 
 // ============================================================================
 // REANIMATED HELPERS — mounted, lightweight status glyphs
