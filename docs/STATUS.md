@@ -608,15 +608,23 @@ cortado nas sequências revisadas. P3 visual: chevrons dos três links legais
 abaixo dos rótulos, encaminhado à T17/revisão ampla, não resolvido.
 Sem aceite de troca de fonte ao vivo, save nativo ou leitores audíveis.
 
-Writer atual `run-1793287644499-ac7eb003`,61nominais/27produto, final configurada15/15 PASS em um ciclo na janela atual
-(também primeiro ciclo final do objetivo), em29/10. Fechamento/publicação ainda
-não afirmados nesta medição; confirmar por CLI/recibos posteriores. Originais56/57 foram abandonados de edição com zero
+T10 publicada em `6266495908ec1f0b1da1c267b036f700ad53c5d6`,61arquivos,
+na branch `claude/trilha-medalhao-design`, PR[#66](https://github.com/andersonsmelo/Radiant/pull/66).
+Fechamento confirmado em29/10: writer `run-1793287644499-ac7eb003` teve final
+15/15 PASS em um ciclo, STEP_SUCCEEDED → RUN_CLOSED. Cérebro CLOSED.
+CI no mesmo SHA: [AppQuality252](https://github.com/andersonsmelo/Radiant/actions/runs/40919553938)
+e [Content157](https://github.com/andersonsmelo/Radiant/actions/runs/40919553845)
+SUCCESS, assim como os check-runs123608755546/123608754643; reconsultados
+em29/10 às14:27 America/Bahia. HEAD/remoto iguais e árvore limpa antes desta
+reconciliação documental. Nenhum merge/release aprovado por essa medição.
+Originais56/57 foram abandonados de edição com zero
 validações finais por declarações nominais incompletas; nenhuma edição fora do
 escopo ou sucesso retroativo. Cérebro `brain-session-1793274829208-8cca2b02`
 consultado e CLOSED antes do writer. Cleanup nativo CLEAN,27fontes+2protegidos
 iguais ao freeze: apps/Metro/AVD/E262 encerrados e fontes restauradas/relidas.
 G1–G8/G2T14/G5/P3T17/segundo dia/aparelho/fala/FPS/produção permanecem separados.
-T11 não iniciada neste objetivo.
+T11/Task13 ainda não iniciada; próxima frente de implementação.
+[Prompt de continuidade T11](superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md).
 [Evidência T10](evidence/2026-10-29-medalhao-t10.md).
 
 ## Prazos de relógio

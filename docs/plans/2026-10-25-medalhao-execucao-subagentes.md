@@ -226,12 +226,14 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 12: T10 — Ajustes
 
-**Núcleo implementado/revisado em29/10:** R1 reprovada por dois P2 de operações pendentes entre telas; FIX1 aprovada em R2, com ordenação nos serviços existentes sem mudar fórmulas, esquema, consentimento ou política.374testes normais/25suítes,40repetidos sob CPU limitada e105contratos PASS;17mutações causais aceitas. Nativo R3 BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial e Back observados nos dois sistemas; gesto iOS NOT PASS, leitor audível e save nativo sem aceite. P3 dos chevrons legais encaminhado à T17/revisão ampla, não resolvido. Writer atual `run-1793287644499-ac7eb003`,61nominais/27produto; final configurada15/15 PASS em um ciclo na janela atual (também primeiro ciclo final do objetivo). Janelas56/57 abandonadas em edição, zero finais; sem supervisão retroativa. [Evidência](../evidence/2026-10-29-medalhao-t10.md).
+**Núcleo implementado/revisado em29/10:** R1 reprovada por dois P2 de operações pendentes entre telas; FIX1 aprovada em R2, com ordenação nos serviços existentes sem mudar fórmulas, esquema, consentimento ou política.374testes normais/25suítes,40repetidos sob CPU limitada e105contratos PASS;17mutações causais aceitas. Nativo R3 BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial e Back observados nos dois sistemas; gesto iOS NOT PASS, leitor audível e save nativo sem aceite. P3 dos chevrons legais encaminhado à T17/revisão ampla, não resolvido. T10 publicada em `6266495`, CI252/157 e check-runs SUCCESS no mesmo SHA; writer `run-1793287644499-ac7eb003` e cérebro CLOSED, final configurada15/15 PASS em um ciclo.61nominais/27produto; nenhum merge/release inferido. Janelas56/57 abandonadas em edição, zero finais; sem supervisão retroativa. [Evidência](../evidence/2026-10-29-medalhao-t10.md).
 
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, nativo; controles já instalados.
 - **Pré-requisito:** interface T09 combinada. **Saída:** lista agrupada, entrada de meta acessível, flags reais de backup e destinos preservados; sem instalar expo-ui.
 
 ### Task 13: T11 — Assinatura
+
+**Próxima frente, ainda não iniciada em29/10:** [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
 
 - **Dono:** I/high; **revisão:** RF pelo contrato nativo. **Skills:** T, U; **recursos:** contratos Swift/JS, Jest, D condicional, N limitado.
 - **Pré-requisito:** T01; G6 limita prova nativa. **Saída:** preço/moeda explícitos no bridge/adaptador, estados reais; separar implementação/teste estático de validação em binário novo ainda autorizável.
