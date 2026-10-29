@@ -4027,3 +4027,35 @@ parcial não medidos nativamente. Cinco corações não provam contagem de grant
 Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
 instalação, merge ou consumo de gates humanos. **Próxima entrega: T08,
 ainda não iniciada.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## 28/10/2026 — T08 antes da confirmação de publicação e CI
+
+Checkpoint preservado integralmente, substituído pela medição atual.
+
+### T08 avaliação — núcleo implementado e validado em 28/10/2026
+
+A Task 10/T08 foi retomada na worktree Medalhão sobre `2af9385`, com um
+implementador novo e revisão independente. Os estados bloqueada/inválida e a
+apresentação prata foram implementados. A revisão R1 encontrou P2 de identidade
+na conclusão sem ID; o autor corrigiu, e a R2 aprovou código/spec/qualidade.
+A versão corrigida passou 61 testes focais e 45 sob CPU limitada, com tipos/lint
+e contratos aprovados. O percurso real nas duas plataformas mediu bloqueio,
+ID inválido, erro1/2 com uma vida cobrada, reforço legítimo semXP e aprovação
+posterior com+18XP/total138. Fontes ampliadas: bloqueada/disponível iOS e
+resultado Android2.0; resultado iOS máximo, resumo entre processos e troca de
+fonte ao vivo seguem delimitados na evidência. Apps, simuladores/AVD e Metro
+próprios encerrados, fontes restauradas e produto R2 inalterado. Parecer nativo
+R3 aprovou o núcleo medido (Spec BOUNDED/Qualidade APPROVED_CORE_BOUNDED),
+sem novo P1/P2 material. Loop final **15/15**, em um ciclo, incluindo quality/app-test completos e os
+demais13 validadores. O fechamento original reprovou por escopo após o Metro
+criar `expo-env.d.ts`, ignorado pelo Git e ausente na baseline. O run foi
+encerrado sem sucesso. Regularização autorizada por Anderson em28/10 no run
+`run-1793222933625-71a18c69`, cuja baseline já contém as31 alterações preservadas;
+produto e política intactos, sem supervisão retroativa. A regularização também
+passou15/15, em seu primeiro ciclo (segunda validação do objetivo, motivada
+pela falha de fechamento). A evidência distingue os IDs e resultados dos runs. Próxima entrega: T09 Perfil, ainda não iniciada. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
+
+Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
+permanecem. O segundo dia fica no fechamento; o simulador reservado segue
+fora desta execução.

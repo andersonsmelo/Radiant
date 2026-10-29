@@ -508,11 +508,41 @@ encerrado sem sucesso. Regularização autorizada por Anderson em28/10 no run
 `run-1793222933625-71a18c69`, cuja baseline já contém as31 alterações preservadas;
 produto e política intactos, sem supervisão retroativa. A regularização também
 passou15/15, em seu primeiro ciclo (segunda validação do objetivo, motivada
-pela falha de fechamento). A evidência distingue os IDs e resultados dos runs. Próxima entrega: T09 Perfil, ainda não iniciada. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
+pela falha de fechamento). O run de regularização fechou com
+`STEP_SUCCEEDED` → `RUN_CLOSED`; brain `brain-session-1793222898890-627b3555`
+CLOSED, ambos conferidos na CLI. A entrega foi publicada em
+`1b987c1981667328b66beb958ac6a42eb3535d75`, com31 arquivos próprios e hashes
+conferidos. CI exclusivamente desse SHA: [App Quality249](https://github.com/andersonsmelo/Radiant/actions/runs/40773062430)
+e [Content154](https://github.com/andersonsmelo/Radiant/actions/runs/40773062413),
+ambos SUCCESS. Árvore limpa antes da entrega P2 priorizada abaixo.
+T09 Perfil ainda não iniciada; correção crítica PushOptIn antecipada. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
 
 Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
 permanecem. O segundo dia fica no fechamento; o simulador reservado segue
 fora desta execução.
+
+### Prioridade por criticidade — correção P2 revisada em29/10/2026
+
+Por pedido de Anderson, R3-SHARED-01 do PushOptIn foi antecipado da T17 antes
+da T09. Dois arquivos alterados: altura natural das linhas e remount somente
+dos Text após fontScale, preservando copy, estado e handlers. Código R1 PASS;
+53 testes/4 suítes e11 sob CPU limitada PASS, com tipos/lint e9mutações rejeitadas.
+
+A prova de28/10 foi revisada em29/10: iOS normal→AX5 ao vivo com o mesmo
+rerender da falha e retorno normal, além de abertura máxima separada;
+Android normal e início2.0 com cartão inteiro. R2 **BOUNDED/APPROVED_CORE_BOUNDED**:
+P2 local corrigido no Home legado em perfil de teste pelo kill switch existente.
+Meta diária real cumprida e opt-in nulo; nenhum consentimento/armazenamento
+fabricado. A fila Review real estava vazia, logo seu resultado atual não foi
+retestado; Android ao vivo e T17 global continuam sem aceite. Demais hosts da
+Home não estão certificados por estas capturas. Apps/Metro/AVD próprios
+encerrados, fontes restauradas; produto, expo-env e política íntegros.
+
+P3 da cauda T06 e gates G1–G8/G2/T14/segundo dia permanecem separados.
+Validação final configurada em29/10: **15/15 PASS**, em um ciclo, incluindo
+quality e testes completos do app, API, conteúdo e contratos. Writer
+`run-1793236644594-9bfe9664`; cérebro já fechado. Próxima tela pendente:
+T09 Perfil, ainda não iniciada. [Evidência P2](evidence/2026-10-28-medalhao-pushoptin-p2.md).
 
 ## Prazos de relógio
 

@@ -678,6 +678,14 @@ não aceite de VoiceOver/TalkBack. Não confundir semântica no Jest com leitura
 
 ### T17 — Fechamento visual e técnico do plano 5
 
+**Priorização de28/10, por Anderson:** correção delimitada do P2 PushOptIn
+antecipada antes da T09, por criticidade. Escopo de dois arquivos de produto/teste. Em29/10, código R1 PASS e nativo R2
+BOUNDED/APPROVED_CORE_BOUNDED: componente corrigido no Home local medido,53
+focais/11 sob CPU limitada; Loop final15/15 em um ciclo em29/10. Review atual e Android
+ao vivo não retestados; T17 e gates sem aceite. Evidência P2 datada28/10 conserva
+as medições originais e o parecer de29/10.
+
+
 **Plano 5/tarefa 12. Renomear:**
 `radiant-app/src/ui/components/StarfieldBackground.tsx` e `StarfieldBackground.test.tsx`
 para `MedallionBackground.tsx` e `MedallionBackground.test.tsx` na mesma pasta.
@@ -697,9 +705,11 @@ para `MedallionBackground.tsx` e `MedallionBackground.test.tsx` na mesma pasta.
 - [ ] Fazer revisão final independente dos planos 3 e 5 e atualizar pendências
   humanas. A conferência real de segundo dia continua em T18.
 
-Pendências nativas medidas em28/10 para este fechamento: **R3-SHARED-01 P2**,
-PushOptIn do resultado iOS fragmenta título/corta corpo em fonte máxima
-(evidênciaT07); impede aceite global até corrigir/rever. P3 da cauda compartilhada
+Medição inicial de28/10: **R3-SHARED-01 P2**, PushOptIn do resultado iOS
+fragmentava título/cortava corpo (evidênciaT07). Correção antecipada e revisada
+em29/10: código corrigido e prova Home local BOUNDED; resultado Review atual
+não foi retestado por fila real vazia. O aceite global permanece pendente da
+conferência integral, sem tratar a aprovação do componente como T17 concluída. P3 da cauda compartilhada
 T06 também permanece. Android perde rota ao trocar fonte ao vivo/resultmax
 por erro do dev client; medir novamente num cliente compatível, sem atribuir
 causa ao produto nem migrar framework por inferência. Não declarar fonte

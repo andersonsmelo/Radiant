@@ -259,6 +259,14 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 19: T17 — Fechamento visual/técnico
 
+**Priorização de28/10, por Anderson:** correção delimitada do P2 PushOptIn
+antecipada antes da T09, por criticidade. Escopo de dois arquivos de produto/teste. Em29/10, código R1 PASS e nativo R2
+BOUNDED/APPROVED_CORE_BOUNDED: componente corrigido no Home local medido,53
+focais/11 sob CPU limitada; Loop final15/15 em um ciclo em29/10. Review atual e Android
+ao vivo não retestados; T17 e gates sem aceite. Evidência P2 datada28/10 conserva
+as medições originais e o parecer de29/10.
+
+
 - **Dono:** I/high; **revisão:** RF dos planos 3 e 5. **Skills:** T, U, A; L só defeito de asset; **recursos:** `rg`, contratos locais, nativo.
 - **Pré-requisito:** entregas aplicáveis T01–T16 e suas decisões; gates faltantes impedem apenas aceite correspondente. **Saída:** renome completo, copy zero no domínio, exceções removidas por prova e lote visual corrigido/reconferido.
 

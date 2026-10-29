@@ -827,3 +827,14 @@ núcleo no commit `85ebf01`, com Loop15/15, writer/cérebro CLOSED e CI247/152
 SUCCESS no SHA completo, conforme a evidência da tarefa. O passo de commit
 da tarefa 6 está concluído. A tarefa 7/T08 ainda não começou. PushOptIn máximo
 P2 e cauda P3 seguem para T17; o aceite global do layout permanece bloqueado.
+
+
+### Correção por criticidade — PushOptIn — 29/10/2026
+
+Após a T08 publicada em1b987c1 com CI249/154 SUCCESS, Anderson priorizou
+R3-SHARED-01 antes da T09. Dois arquivos corrigem o componente sem alterar
+copy/handlers/economia/política: linhas naturais e identidade de Text porfontScale.
+R1 código PASS,53 focais/11 sob CPU limitada; R2 nativo BOUNDED/APPROVED_CORE_BOUNDED
+no Home local real. Review atual vazio não foi fabricado; Android ao vivo eT17
+global não aprovados. P3 caudaT06 e gates permanecem; T09 ainda não iniciada.
+Loop final15/15 PASS, em um ciclo em29/10. [Evidência](../../evidence/2026-10-28-medalhao-pushoptin-p2.md).
