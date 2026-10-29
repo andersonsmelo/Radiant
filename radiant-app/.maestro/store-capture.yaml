@@ -192,9 +192,9 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - takeScreenshot: shots/01-home
 
-# Aba Perfil — que desde 2026-08-21 agrega identidade, missões e progresso.
+# Aba Perfil — identidade e estante de medalhas, com dados reais.
 # Seletor ancorado ao rótulo da aba: um `.*Perfil.*` solto casaria com qualquer
 # legenda que contivesse a palavra, e o Maestro compara sem diferenciar caixa.
 - tapOn: '^Perfil(, tab.*)?$'
-- assertVisible: Desafios de hoje
+- assertVisible: Medalhas
 - takeScreenshot: shots/06-perfil

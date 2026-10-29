@@ -472,6 +472,8 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Tarefa 8: Perfil
 
+**Execução T09 iniciada em29/10:** integrador corrigido prevalece sobre activeDays e a semana fictícia do exemplo. Prova positiva só lastActiveDate; contador nominal independente, desconhecido explícito e G5 preservado. Entrada de edição de meta permanece até T10. Núcleo implementado em29/10: código R1 PASS,60 focais/CPU,163 consumidores/105 contratos; nativo R2 BOUNDED, sem aceite Android ao vivo/retorno/save nativo; Loop15/15 após fix1, dois ciclos. G5/global permanecem separados. [Evidência](../../evidence/2026-10-29-medalhao-t09.md).
+
 **Arquivos:**
 - Modificar: `radiant-app/src/features/profile/screens/ProfileScreen.tsx`
 - Modificar: `radiant-app/src/features/profile/components/ProfileIdentityHeader.tsx`
@@ -497,7 +499,7 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
     linhas com "v de t" e barra de 6 pt;
   - o total de XP aparece uma vez, como texto no fim ("44 XP no total").
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - o Perfil não tem os blocos "SEQUÊNCIA" e "XP TOTAL", a faixa laranja, os
   chips "Começar · 10 XP" nem os cartões de missão;
@@ -506,17 +508,19 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 - no maior Dynamic Type, os sete dias da semana continuam numa linha só ou
   quebram em duas linhas inteiras, sem cortar letra.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/profile`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
 A escolha do nível de meta, que hoje vive nos chips, vai para Ajustes como uma
 linha "Meta diária" com o nível atual (tarefa 9). A meta não pode sumir do app.
 
 - [ ] **Passo 4: Ver passar, com Maestro**
+
+Focais/CPU/consumidores/contratos PASS e inspeção nativa BOUNDED em29/10; os fluxos Maestro completos não foram executados nesta tarefa. Android ao vivo/retorno e gates globais continuam pendentes.
 
 Run: `cd radiant-app && npx jest src/features/profile src/features/missions src/features/progress && npm run test:maestro-contract`
 Expected: PASS.

@@ -515,7 +515,8 @@ CLOSED, ambos conferidos na CLI. A entrega foi publicada em
 conferidos. CI exclusivamente desse SHA: [App Quality249](https://github.com/andersonsmelo/Radiant/actions/runs/40773062430)
 e [Content154](https://github.com/andersonsmelo/Radiant/actions/runs/40773062413),
 ambos SUCCESS. Árvore limpa antes da entrega P2 priorizada abaixo.
-T09 Perfil ainda não iniciada; correção crítica PushOptIn antecipada. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
+No fechamento T08, T09 Perfil ainda não estava iniciada; PushOptIn foi antecipado
+e T09 retomada em29/10, nos registros abaixo. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
 
 Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
 permanecem. O segundo dia fica no fechamento; o simulador reservado segue
@@ -541,8 +542,44 @@ encerrados, fontes restauradas; produto, expo-env e política íntegros.
 P3 da cauda T06 e gates G1–G8/G2/T14/segundo dia permanecem separados.
 Validação final configurada em29/10: **15/15 PASS**, em um ciclo, incluindo
 quality e testes completos do app, API, conteúdo e contratos. Writer
-`run-1793236644594-9bfe9664`; cérebro já fechado. Próxima tela pendente:
-T09 Perfil, ainda não iniciada. [Evidência P2](evidence/2026-10-28-medalhao-pushoptin-p2.md).
+`run-1793236644594-9bfe9664`; cérebro já fechado. No checkpoint P2, T09 ainda
+não estava iniciada; a retomada de29/10 consta a seguir. [Evidência P2](evidence/2026-10-28-medalhao-pushoptin-p2.md).
+
+### T09 Perfil — núcleo revisado em29/10/2026
+
+Depois de P2 `a72ddf2` publicado com CI250/155 SUCCESS, T09 foi implementada
+por novo subagente e revisada independentemente.14 arquivos próprios de
+produto/teste/contratos: identidade sem métricas duplicadas, estante de aulas
+reais com recordes, semana que diferencia desconhecido, metas em linhas e
+editor de meta preservado até T10. Serviços/economia/armazenamento intactos.
+
+Semana usa somente lastActiveDate válida. Contador nominal separado não
+preenche datas: default1 e restauração não comprovam sete dias. Sem tentativa
+promovida a dia da sequência ou promessa de meia-noite. G5 permanece pendente
+para histórico completo/mudança de significado. Revisões são pendências, sem
+alvo inventado. A retirada de Missions/Progress retira também observações
+shadow de preview e screen_view antigo, sem efeito de economia dependente.
+
+Código R1 PASS/APPROVED:60 focais normal e CPU limitada,163 consumidores em12
+suítes,105 contratos; tipos/lint aprovados e22 injeções causais. Nativo R2
+BOUNDED/APPROVED_CORE_BOUNDED: iOS normal→AX5→normal na mesma montagem e
+Android normal/início2.0 legíveis com dados reais. Android ao vivo/retorno
+perderam rota; reentrada tem lacunas verticais e não recebeu aceite. iOS
+inicial máxima tem lacuna PNG nas primeiras palavras da legenda, coberta
+integralmente na série ao vivo. Meta só aberta/fechada sem salvar nativamente.
+20 PNG versionados com UI/proveniência e limites. Nenhum novo P1/P2 da T09.
+
+Writer `run-1793270590053-a44fc62a`,49nominais/45arquivos reais; cérebro
+`brain-session-1793270060578-7d6579be` fechado antes do writer. Apps/Metro/AVD
+próprios encerrados, fontes restauradas; animações Android atuais1/1/null
+preservadas (divergem do registro P2 antigo0/0/0). Produto/política/expo-env íntegros.
+Primeiro ciclo Loop:14/15, app-quality reprovado por três valores visuais sem
+token; app-test completo PASS. Correção mínima do autor revisada R3 PASS/APPROVED, sem ampliar
+baseline/política; estilos resolvidos iguais dispensaram nova prova nativa
+desse delta. Segunda final aprovada **15/15**, em29/10, após a correção; dois ciclos no
+mesmo writer (primeiro14/15 preservado). T10 Ajustes não iniciada.
+G1–G8/G2/T14, P3/T17, segundo dia, aparelho/fala audível/FPS/produção separados.
+[Evidência T09](evidence/2026-10-29-medalhao-t09.md).
 
 ## Prazos de relógio
 

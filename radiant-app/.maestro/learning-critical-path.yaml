@@ -198,6 +198,5 @@ tags:
 # `.*Perfil.*` would also match any caption containing the word, and Maestro
 # matches case-insensitively. `^Perfil(, tab.*)?$` matches only the tab.
 - tapOn: '^Perfil(, tab.*)?$'
-# Missões é a primeira seção do Perfil, então este título é o que aparece sem
-# rolar. `PROGRESSO` está mais abaixo e exigiria scroll.
-- assertVisible: Desafios de hoje
+# A estante é a primeira seção do Perfil; a âncora existe mesmo durante leitura.
+- assertVisible: Medalhas

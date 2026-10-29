@@ -242,8 +242,8 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   // real do cabeçalho, incluindo título e contagem no mesmo nó.
   assert.doesNotMatch(flows[0], /radiantapp:\/\/onboarding/);
   assert.match(flows[1], /lesson-option-q1:option:1/);
-  // O caminho crítico termina no Perfil — que desde 2026-08-21 agrega o que eram
-  // as abas Progresso e Missões. O nó de conquista só abre depois da ÚLTIMA lição
+  // O caminho crítico termina na estante do Perfil, cuja âncora existe durante
+  // a leitura do currículo. O nó de conquista só abre depois da ÚLTIMA lição
   // da trilha gerada pelo catálogo (7 lições), então ele não é alcançável num
   // smoke; afirmá-lo aqui codificaria um flow que não roda.
   //
@@ -254,7 +254,10 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   // assim que a versão com `.*Progresso.*` quebrou as duas plataformas em
   // 2026-07-28, e o literal só-iOS quebrou o Android.
   assert.match(flows[1], /- tapOn: '\^Perfil\(, tab\.\*\)\?\$'/);
-  assert.match(flows[1], /- assertVisible: Desafios de hoje/);
+  assert.match(flows[1], /- assertVisible: Medalhas/);
+  const storeCapture = await flowCommands('store-capture.yaml');
+  assert.ok(storeCapture.some(command => command.assertVisible === 'Medalhas'));
+  assert.ok(!storeCapture.some(command => command.assertVisible === 'Desafios de hoje'));
   assert.doesNotMatch(flows[1], /Receber conquista/);
   // setAirplaneMode takes enabled/disabled; the boolean form fails to parse.
   assert.match(flows[2], /setAirplaneMode: enabled/);

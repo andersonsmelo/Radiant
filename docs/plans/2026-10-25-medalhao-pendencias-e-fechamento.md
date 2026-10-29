@@ -511,6 +511,8 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### T09 — Perfil: medalhas, semana verdadeira e metas
 
+**Núcleo implementado/revisado em29/10:** código R1 PASS,60 focais normal/CPU,163 consumidores/105 contratos; nativo R2 BOUNDED/APPROVED_CORE_BOUNDED, com limites Android ao vivo/retorno e save nativo. Final configurada15/15 após fix1, dois ciclos. Contrato técnico conservador: lastActiveDate válida é a única marca da semana da sequência; contador nominal separado, demais dias desconhecidos/futuros. Sem união de tentativas, faltas inferidas, alteração de serviço ou aviso de meia-noite. G5 segue pendente. Meta editável mantida até T10. [Evidência](../evidence/2026-10-29-medalhao-t09.md).
+
 **Plano 5/tarefa 8. Modificar:**
 `radiant-app/src/features/profile/screens/ProfileScreen.tsx`, `ProfileScreen.flow.test.tsx`,
 `radiant-app/src/features/profile/components/ProfileIdentityHeader.tsx`, `ProfileIdentityHeader.test.tsx`.
@@ -520,17 +522,19 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 `radiant-app/src/features/gamification/services/GamificationService.ts`,
 `radiant-app/src/features/progress/services/LearningAttemptsRepository.ts`.
 
-- [ ] Primeiro resolver a origem da semana. Proposta: representar explicitamente
+- [x] Primeiro resolver a origem da semana. Proposta: representar explicitamente
   os dias comprovados e os desconhecidos; não assumir que um contador contém
   sete datas. Se a direção exigir histórico completo, planejar registro prospectivo
   em entrega própria, com política de restauração, antes de desenhar a semana.
-- [ ] Registrar a escolha técnica e levar a G5 qualquer mudança de significado
+- [x] Registrar a escolha técnica e levar a G5 qualquer mudança de significado
   para o aluno; não inventar a API `activeDays` descrita no exemplo antigo.
-- [ ] Testar aluno novo, sem atividade, metas zeradas, recordes e falha de leitura.
-- [ ] Ler estrelas e currículo pelos serviços existentes; não duplicar XP/vidas.
-- [ ] Sincronizar a mudança da edição de meta com T10: não remover a única
+- [x] Testar aluno novo, sem atividade, metas zeradas, recordes e falha de leitura.
+- [x] Ler estrelas e currículo pelos serviços existentes; não duplicar XP/vidas.
+- [x] Sincronizar a mudança da edição de meta com T10: não remover a única
   entrada do Perfil antes de Ajustes oferecê-la.
 - [ ] Rodar testes dos componentes e fluxo sob CPU limitada; ver texto máximo.
+
+**Medição de texto máximo:** CPU60/60 e núcleo nativo BOUNDED; Android ao vivo/retorno continuam sem aceite. O último checkbox não equivale a encerramento integral.
 
 **Aceite:** estante usa conquistas reais; semana diferencia dado ausente de
 falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.

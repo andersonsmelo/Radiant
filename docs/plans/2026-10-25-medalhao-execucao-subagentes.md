@@ -219,6 +219,8 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 11: T09 — Perfil
 
+**Núcleo implementado/revisado em29/10:**14 arquivos; código R1 PASS,60 focais normal/CPU,163 consumidores/105 contratos. Nativo R2 BOUNDED/APPROVED_CORE_BOUNDED no escopo medido; Android ao vivo/retorno e gravação nativa de meta sem aceite. Semana positiva só lastActiveDate válida, contador separado e G5 preservado; editor até T10. Writer `run-1793270590053-a44fc62a`; final configurada15/15 após fix1, dois ciclos no mesmo writer. [Evidência T09](../evidence/2026-10-29-medalhao-t09.md).
+
 - **Dono:** I/high, consultar A se contrato técnico complexo; **revisão:** R. **Skills:** T, U; **recursos:** serviços locais/Jest, nativo.
 - **Pré-requisito:** T01; G5 para alteração do significado da semana. **Saída:** conquistas reais e desconhecido distinto de ausência; manter entrada de meta até T10 substituí-la.
 
