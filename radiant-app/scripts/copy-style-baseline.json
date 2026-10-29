@@ -207,17 +207,17 @@
       "jargon": 0
     },
     "src/features/profile/components/FeedbackPreferencesCard.tsx": {
-      "eyebrow": 1,
+      "eyebrow": 0,
       "dash": 0,
       "jargon": 0
     },
     "src/features/profile/components/ProfileIdentityHeader.tsx": {
       "eyebrow": 1,
       "dash": 0,
-      "jargon": 1
+      "jargon": 0
     },
     "src/features/progress-sync/components/ICloudBackupCard.tsx": {
-      "eyebrow": 1,
+      "eyebrow": 0,
       "dash": 0,
       "jargon": 0
     },
@@ -259,10 +259,10 @@
     "src/features/settings/screens/SettingsScreen.tsx": {
       "eyebrow": 0,
       "dash": 0,
-      "jargon": 1
+      "jargon": 0
     },
     "src/features/subscription/components/SubscriptionCard.tsx": {
-      "eyebrow": 1,
+      "eyebrow": 0,
       "dash": 1,
       "jargon": 0
     },

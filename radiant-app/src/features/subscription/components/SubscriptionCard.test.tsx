@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { SubscriptionCard } from './SubscriptionCard';
+jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
 describe('SubscriptionCard', () => {
     it('sem assinatura, apresenta a promessa exata e convida a conhecer', () => {
@@ -55,4 +56,13 @@ describe('SubscriptionCard', () => {
 
         expect(screen.getByLabelText('Carregando a assinatura')).toBeTruthy();
     });
+});
+
+it('é uma única linha acionável sem etiqueta ASSINATURA nem botão separado', () => {
+    const { UNSAFE_getAllByType } = render(<SubscriptionCard status={{ kind: 'none' }} onOpen={jest.fn()} />);
+    expect(screen.queryByText('ASSINATURA')).toBeNull();
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+    const { View, StyleSheet, Text } = require('react-native');
+    expect(UNSAFE_getAllByType(View).some(node => StyleSheet.flatten(node.props.style)?.borderWidth)).toBe(false);
+    for (const text of UNSAFE_getAllByType(Text)) expect(text.props.maxFontSizeMultiplier).toBeUndefined();
 });

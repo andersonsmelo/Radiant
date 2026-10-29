@@ -26,8 +26,8 @@ export function ProfileIdentityHeader({ email, onOpenSettings }: ProfileIdentity
         <Text key={`avatar-${fontScale}`} style={styles.avatarInitial}>{displayName.charAt(0).toUpperCase()}</Text>
       </View>
       {!largeText ? identity : <View style={styles.spacer} />}
-      {onOpenSettings ? <Pressable onPress={onOpenSettings} accessibilityRole="button" accessibilityLabel="Configuração"
-        accessibilityHint="Assinatura, backup, sons e vibração, ajuda." hitSlop={space.s1}
+      {onOpenSettings ? <Pressable onPress={onOpenSettings} accessibilityRole="button" accessibilityLabel="Ajustes"
+        accessibilityHint="Assinatura, meta diária, lembrete, backup, sons e vibração, ajuda." hitSlop={space.s1}
         style={({ pressed }) => [styles.settingsButton, pressed && styles.settingsButtonPressed]}>
         <IconSymbol name="gearshape.fill" size={22} color={galaxyColors.textSecondary} />
       </Pressable> : null}

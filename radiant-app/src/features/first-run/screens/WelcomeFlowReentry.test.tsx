@@ -54,8 +54,8 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
         // O iOS resolve o provider por superviews nativas. O contexto React do
         // wrapper de teste atravessa Modal, mas seu provider nativo não atravessa.
         const result = renderWithProviders(<SettingsScreen />);
-        await waitFor(() => expect(screen.getByRole('button', { name: 'Rever apresentação' })).toBeTruthy());
-        fireEvent.press(screen.getByRole('button', { name: 'Rever apresentação' }));
+        await waitFor(() => expect(screen.getByRole('button', { name: 'Rever a apresentação' })).toBeTruthy());
+        fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
         const modal = result.UNSAFE_getByType(Modal);
         const localProviders = modal.findAllByType(SafeAreaProvider);
         expect(localProviders).toHaveLength(1);
@@ -76,8 +76,8 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
     it.each(['pular', 'concluir'])('%s no replay fecha o modal sem reescrever o marcador anterior', async exit => {
         const markSeen = jest.spyOn(FirstRunService, 'markSeen');
         renderWithProviders(<SettingsScreen />);
-        await waitFor(() => expect(screen.getByRole('button', { name: 'Rever apresentação' })).toBeTruthy());
-        fireEvent.press(screen.getByRole('button', { name: 'Rever apresentação' }));
+        await waitFor(() => expect(screen.getByRole('button', { name: 'Rever a apresentação' })).toBeTruthy());
+        fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
         expect(screen.getByText('60 kV')).toBeTruthy();
         if (exit === 'concluir') {
             fireEvent.press(screen.getByLabelText('Aumentar kV'));
@@ -86,11 +86,11 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
             fireEvent.press(screen.getByLabelText('Pular apresentação'));
         }
         expect(screen.queryByLabelText('Pular apresentação')).toBeNull();
-        expect(screen.getByRole('header', { name: 'Configuração' })).toBeTruthy();
+        expect(screen.getByRole('header', { name: 'Ajustes' })).toBeTruthy();
         expect(markSeen).not.toHaveBeenCalled();
         expect(await AsyncStorage.getItem(KEY)).toBe(ORIGINAL_MARKER);
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
-        fireEvent.press(screen.getByRole('button', { name: 'Rever apresentação' }));
+        fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
         expect(screen.getByText('60 kV')).toBeTruthy();
         expect(screen.getByLabelText('Continuar')).toBeDisabled();
     });

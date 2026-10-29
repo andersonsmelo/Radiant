@@ -1,47 +1,36 @@
-import React from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, Switch, Text, View, useWindowDimensions } from 'react-native';
 import { DEFAULT_FEEDBACK_PREFERENCES, type FeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space, typography } from '../../../ui/styles';
+import { space, typography } from '../../../ui/styles';
+import { GroupedList } from '../../../ui/components/GroupedList';
+import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 
 type Props = Readonly<{ preferences: FeedbackPreferences | null; onChange: (next: FeedbackPreferences) => void }>;
 
-function Row({ label, hint, value, onValueChange }: Readonly<{ label: string; hint: string; value: boolean; onValueChange: (value: boolean) => void }>) {
-  return (
-    <View style={styles.row}>
-      <View style={styles.copy}>
-        <Text style={styles.label}>{label}</Text>
-        <Text style={styles.detail}>{hint}</Text>
-      </View>
-      <Switch
-        accessibilityLabel={label}
-        accessibilityHint={hint}
-        value={value}
-        onValueChange={onValueChange}
-        trackColor={{ true: galaxyColors.nodeCompletedAccent, false: galaxyColors.surfaceActive }}
-      />
-    </View>
-  );
+function Row({ label, hint, value, onValueChange, loading }: Readonly<{ label: string; hint: string; value: boolean; onValueChange: (value: boolean) => void; loading: boolean }>) {
+  const { fontScale } = useWindowDimensions();
+  return <View style={[styles.row, isLargeTextScale(fontScale) && styles.stacked]}>
+    <Text key={`label-${fontScale}`} style={styles.label}>{label}</Text>
+    <Switch accessibilityLabel={label} accessibilityHint={hint} value={value} onValueChange={onValueChange} disabled={loading} accessibilityState={{ disabled: loading, busy: loading }}
+      trackColor={{ true: galaxyColors.nodeCompletedAccent, false: galaxyColors.surfaceActive }} />
+  </View>;
 }
-
 export function FeedbackPreferencesCard({ preferences, onChange }: Props) {
-  const value = preferences ?? DEFAULT_FEEDBACK_PREFERENCES;
-  return (
-    <View style={styles.card}>
-      <Text style={styles.eyebrow}>LIÇÃO</Text>
-      <Text style={styles.headline} accessibilityRole="header">Sons e vibração</Text>
-      <Row label="Sons" hint="Acerto, erro e fim de lição. O modo silencioso do iPhone também desliga." value={value.sounds} onValueChange={(sounds) => onChange({ ...value, sounds })} />
-      <Row label="Vibração" hint="Vibra ao responder e ao concluir a lição, no iPhone." value={value.haptics} onValueChange={(haptics) => onChange({ ...value, haptics })} />
-    </View>
-  );
+  const latest = useRef(preferences ?? DEFAULT_FEEDBACK_PREFERENCES);
+  latest.current = preferences ?? DEFAULT_FEEDBACK_PREFERENCES;
+  const change = (patch: Partial<FeedbackPreferences>) => {
+    if (preferences === null) return;
+    latest.current = { ...latest.current, ...patch };
+    onChange(latest.current);
+  };
+  return <GroupedList header="Durante a aula" footer="O modo silencioso do iPhone também desliga os sons.">
+    <Row loading={preferences === null} label="Sons" hint="Acerto, erro e fim de lição. O modo silencioso do iPhone também desliga." value={latest.current.sounds} onValueChange={sounds => change({ sounds })} />
+    <Row loading={preferences === null} label="Vibração" hint="Vibra ao responder e ao concluir a lição, no iPhone." value={latest.current.haptics} onValueChange={haptics => change({ haptics })} />
+  </GroupedList>;
 }
-
 const styles = StyleSheet.create({
-  card: { backgroundColor: galaxyColors.surface, borderRadius: radius.rLg, borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s2 },
-  eyebrow: { ...typography.label, color: galaxyColors.textTertiary },
-  headline: { ...typography.h3, color: galaxyColors.textPrimary },
-  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.s2, minHeight: 44 },
-  copy: { flex: 1, gap: space.s0 },
-  label: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
-  detail: { ...typography.caption, color: galaxyColors.textSecondary },
+  row: { minHeight: 56, paddingVertical: space.s2, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.s2 },
+  stacked: { flexDirection: 'column', alignItems: 'flex-start' },
+  label: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textPrimary, flexShrink: 1 },
 });

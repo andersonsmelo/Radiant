@@ -135,54 +135,27 @@ it('marca apenas a última data do serviço e não transforma contador alto em c
   expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: sem registro disponível')).toBeTruthy();
 });
 
-it('mantém seleção de meta no Perfil, aplica só sucesso e impede envio duplo', async () => {
-  const saved = deferred<DailyGoalSnapshot>();
-  goalWrite.mockReturnValue(saved.promise);
+it('deixa edição em Ajustes e preserva Hoje, XP e leitura de meta no Perfil', async () => {
   render(<ProfileScreen />);
   await screen.findByText('0 de 10');
-  fireEvent.press(screen.getByRole('button', { name: 'Meta diária: Começar' }));
-  const focusOption = screen.getByRole('radio', { name: 'Foco, 35 XP' });
-  const rhythmOption = screen.getByRole('radio', { name: 'Ritmo, 20 XP' });
-  // Dois callbacks nativos no mesmo lote, antes do render que desabilita opções.
-  act(() => { fireEvent.press(focusOption); fireEvent.press(rhythmOption); });
-  expect(goalWrite).toHaveBeenCalledTimes(1);
-  expect(goalWrite).toHaveBeenCalledWith('focus');
-  expect(screen.getByText('0 de 10')).toBeTruthy();
-  await act(async () => saved.resolve({ ...goal, goalXp: 35, goalPerDay: 35, tierId: 'focus' }));
-  expect(screen.getByText('0 de 35')).toBeTruthy();
-  expect(screen.getByRole('button', { name: 'Meta diária: Foco' })).toBeTruthy();
+  expect(screen.getByRole('header', { name: 'Hoje' })).toBeTruthy();
+  expect(screen.queryByRole('button', { name: /Meta diária:/u })).toBeNull();
+  expect(screen.queryByRole('radio')).toBeNull();
+  expect(goalWrite).not.toHaveBeenCalled();
 });
-
-it('falha ao editar preserva a meta anterior e permite tentar de novo', async () => {
-  goalWrite.mockRejectedValueOnce(new Error('write failed'));
-  render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
-  fireEvent.press(screen.getByRole('button', { name: 'Meta diária: Começar' }));
-  fireEvent.press(screen.getByRole('radio', { name: 'Foco, 35 XP' }));
-  await screen.findByText('Não foi possível salvar a meta. Tente novamente.');
-  expect(screen.getByText('0 de 10')).toBeTruthy();
-  fireEvent.press(screen.getByRole('radio', { name: 'Foco, 35 XP' }));
-  await screen.findByText('0 de 35');
-});
-
-it('desmontagem invalida leituras e salvamento atrasados', async () => {
-  const saved = deferred<DailyGoalSnapshot>();
-  goalWrite.mockReturnValue(saved.promise);
-  const first = render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
-  fireEvent.press(screen.getByRole('button', { name: 'Meta diária: Começar' }));
-  fireEvent.press(screen.getByRole('radio', { name: 'Foco, 35 XP' }));
-  first.unmount();
-  render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
-  await act(async () => saved.resolve({ ...goal, goalXp: 35, goalPerDay: 35, tierId: 'focus' }));
-  expect(screen.getByText('0 de 10')).toBeTruthy();
+it('refoco após ajuste usa snapshot real devolvido pela fonte, sem guardar tier antigo', async () => {
+  render(<ProfileScreen />); await screen.findByText('0 de 10');
+  await act(async () => jest.requireMock('expo-router').__blur());
+  goalRead.mockResolvedValue({ ...goal, tierId: 'focus', goalXp: 35, earnedXpToday: 7, completedToday: 7, goalPerDay: 35 });
+  await act(async () => jest.requireMock('expo-router').__focus());
+  expect(screen.getByText('7 de 35')).toBeTruthy();
+  expect(goalWrite).not.toHaveBeenCalled();
 });
 
 it('reabre os serviços no novo foco e mantém configurações e rolagem única com folga', async () => {
   const first = render(<ProfileScreen />);
   await screen.findByText('72 XP no total');
-  fireEvent.press(screen.getByRole('button', { name: 'Configuração' }));
+  fireEvent.press(screen.getByRole('button', { name: 'Ajustes' }));
   expect(jest.requireMock('expo-router').router.push).toHaveBeenCalledWith('/settings');
   const scroll = first.UNSAFE_getAllByType(ScrollView);
   expect(scroll).toHaveLength(1);
@@ -201,20 +174,6 @@ it.each([NaN, Infinity, -2])('XP total inválido%s não vira número publicado',
   await screen.findByText('XP total indisponível');
   expect(screen.getByText('Sequência indisponível')).toBeTruthy();
   expect(screen.queryByText(/XP no total/u)).toBeNull();
-});
-it('blur mantém a UI anterior quando salvar acaba e novo foco relê a meta real', async () => {
-  const saved = deferred<DailyGoalSnapshot>();
-  goalWrite.mockReturnValue(saved.promise);
-  render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
-  fireEvent.press(screen.getByRole('button', { name: 'Meta diária: Começar' }));
-  fireEvent.press(screen.getByRole('radio', { name: 'Foco, 35 XP' }));
-  await act(async () => jest.requireMock('expo-router').__blur());
-  await act(async () => saved.resolve({ ...goal, goalXp: 35, goalPerDay: 35, tierId: 'focus' }));
-  expect(screen.getByText('0 de 10')).toBeTruthy();
-  goalRead.mockResolvedValue({ ...goal, goalXp: 20, goalPerDay: 20, tierId: 'rhythm' });
-  await act(async () => jest.requireMock('expo-router').__focus());
-  await screen.findByText('0 de 20');
 });
 it('leitura velha não substitui o snapshot do novo foco', async () => {
   const oldRead = deferred<Awaited<ReturnType<typeof GamificationService.getSnapshot>>>();

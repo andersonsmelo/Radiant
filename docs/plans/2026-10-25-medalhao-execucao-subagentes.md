@@ -226,6 +226,8 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 12: T10 — Ajustes
 
+**Núcleo implementado/revisado em29/10:** R1 reprovada por dois P2 de operações pendentes entre telas; FIX1 aprovada em R2, com ordenação nos serviços existentes sem mudar fórmulas, esquema, consentimento ou política.374testes normais/25suítes,40repetidos sob CPU limitada e105contratos PASS;17mutações causais aceitas. Nativo R3 BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial e Back observados nos dois sistemas; gesto iOS NOT PASS, leitor audível e save nativo sem aceite. P3 dos chevrons legais encaminhado à T17/revisão ampla, não resolvido. Writer atual `run-1793287644499-ac7eb003`,61nominais/27produto; final configurada15/15 PASS em um ciclo na janela atual (também primeiro ciclo final do objetivo). Janelas56/57 abandonadas em edição, zero finais; sem supervisão retroativa. [Evidência](../evidence/2026-10-29-medalhao-t10.md).
+
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, nativo; controles já instalados.
 - **Pré-requisito:** interface T09 combinada. **Saída:** lista agrupada, entrada de meta acessível, flags reais de backup e destinos preservados; sem instalar expo-ui.
 

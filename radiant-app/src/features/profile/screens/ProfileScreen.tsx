@@ -11,7 +11,6 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import type { JourneyUnit } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
-import type { DailyGoalTierId } from '../../../constants/dailyGoal';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { galaxyColors } from '../../../ui/theme';
 import { space, tabBarClearance, typography } from '../../../ui/styles';
@@ -41,10 +40,7 @@ export default function ProfileScreen() {
   const [stars, setStars] = useState<Reading<Record<string, LessonStars>>>({ state: 'loading' });
   const [due, setDue] = useState<Reading<number>>({ state: 'loading' });
   const [today, setToday] = useState(() => new Date());
-  const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState(false);
   const generation = useRef(0);
-  const savingRef = useRef(false);
 
   useFocusEffect(useCallback(() => {
     const ownGeneration = ++generation.current;
@@ -54,9 +50,6 @@ export default function ProfileScreen() {
     setCurriculum({ state: 'loading' });
     setStars({ state: 'loading' });
     setDue({ state: 'loading' });
-    savingRef.current = false;
-    setSaving(false);
-    setSaveError(false);
     const read = <T,>(producer: () => Promise<T>, publish: (value: Reading<T>) => void) => {
       void Promise.resolve().then(producer).then(data => {
         if (generation.current === ownGeneration) publish({ state: 'ready', data });
@@ -72,24 +65,6 @@ export default function ProfileScreen() {
     return () => { generation.current++; };
   }, []));
 
-  const selectTier = useCallback((tier: DailyGoalTierId) => {
-    if (savingRef.current) return;
-    savingRef.current = true;
-    setSaving(true);
-    setSaveError(false);
-    const ownGeneration = generation.current;
-    void DailyGoalService.setTier(tier).then(snapshot => {
-      if (generation.current === ownGeneration) setGoal({ state: 'ready', data: snapshot });
-    }, () => {
-      if (generation.current === ownGeneration) setSaveError(true);
-    }).finally(() => {
-      if (generation.current === ownGeneration) {
-        savingRef.current = false;
-        setSaving(false);
-      }
-    });
-  }, []);
-
   const snapshot = gamification.state === 'ready' ? gamification.data : null;
   const totalXp = snapshot?.totalXp;
   const validXp = typeof totalXp === 'number' && Number.isFinite(totalXp) && totalXp >= 0;
@@ -103,8 +78,7 @@ export default function ProfileScreen() {
         <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot?.streakDays ?? null}
           today={today} loading={gamification.state === 'loading'} />
         <TodayGoals goal={goal.state === 'ready' ? goal.data : null} dueCount={due.state === 'ready' ? due.data : null}
-          goalLoading={goal.state === 'loading'} dueLoading={due.state === 'loading'}
-          saving={saving} saveError={saveError} onSelectTier={selectTier} />
+          goalLoading={goal.state === 'loading'} dueLoading={due.state === 'loading'} />
         {gamification.state !== 'loading' ? <Text key={`total-${fontScale}`} style={styles.total}>
           {validXp ? `${totalXp} XP no total` : 'XP total indisponível'}
         </Text> : null}

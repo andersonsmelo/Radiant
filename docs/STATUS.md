@@ -577,9 +577,47 @@ Primeiro ciclo Loop:14/15, app-quality reprovado por três valores visuais sem
 token; app-test completo PASS. Correção mínima do autor revisada R3 PASS/APPROVED, sem ampliar
 baseline/política; estilos resolvidos iguais dispensaram nova prova nativa
 desse delta. Segunda final aprovada **15/15**, em29/10, após a correção; dois ciclos no
-mesmo writer (primeiro14/15 preservado). T10 Ajustes não iniciada.
+mesmo writer (primeiro14/15 preservado). T09 publicada em `c879543`, com
+[App Quality251](https://github.com/andersonsmelo/Radiant/actions/runs/40867659374) e
+[Content156](https://github.com/andersonsmelo/Radiant/actions/runs/40867659156)
+SUCCESS no SHA completo. Writer/cérebro CLOSED e árvore limpa confirmados no
+preflight T10. T10 Ajustes retomada no registro abaixo.
 G1–G8/G2/T14, P3/T17, segundo dia, aparelho/fala audível/FPS/produção separados.
 [Evidência T09](evidence/2026-10-29-medalhao-t09.md).
+
+### T10 Ajustes — núcleo implementado/revisado em29/10/2026
+
+Lista agrupada com controles existentes; meta transferida para Ajustes após
+prova da entrada equivalente, preservando Hoje/G5. Backup distingue capacidade
+real ausente de erro transitório: iOS funcional com cloud-unavailable, Android
+Em breve desabilitado. Lembrete manual em Ajustes mantém condição real de
+primeira aula na Jornada e elegibilidade do serviço. Destinos/replay preservados.
+
+R1 identificou dois P2 ao sair durante gravação de meta ou permissão do lembrete.
+FIX1 aprovada em R2: filas nos serviços existentes coordenam leituras/escritas
+através da desmontagem, inclusive rollback/agendamento. Fórmulas, esquema,
+consentimento e política preservados; Back livre.374testes normais/25suítes,
+40repetidos sob CPU limitada,105contratos/tipos/strict PASS; lint0erros/24avisos
+fora do escopo.17mutações causais aceitas,1tentativa descartada.
+
+R3 nativo BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial separada,
+quatro opções sem salvar e Back observados nos clientes existentes dos dois
+sistemas. Gesto iOS NOT PASS em duas tentativas, sem causa atribuída ao produto.
+Texto máximo iOS exige muita rolagem pelo cabeçalho; sem glifo permanentemente
+cortado nas sequências revisadas. P3 visual: chevrons dos três links legais
+abaixo dos rótulos, encaminhado à T17/revisão ampla, não resolvido.
+Sem aceite de troca de fonte ao vivo, save nativo ou leitores audíveis.
+
+Writer atual `run-1793287644499-ac7eb003`,61nominais/27produto, final configurada15/15 PASS em um ciclo na janela atual
+(também primeiro ciclo final do objetivo), em29/10. Fechamento/publicação ainda
+não afirmados nesta medição; confirmar por CLI/recibos posteriores. Originais56/57 foram abandonados de edição com zero
+validações finais por declarações nominais incompletas; nenhuma edição fora do
+escopo ou sucesso retroativo. Cérebro `brain-session-1793274829208-8cca2b02`
+consultado e CLOSED antes do writer. Cleanup nativo CLEAN,27fontes+2protegidos
+iguais ao freeze: apps/Metro/AVD/E262 encerrados e fontes restauradas/relidas.
+G1–G8/G2T14/G5/P3T17/segundo dia/aparelho/fala/FPS/produção permanecem separados.
+T11 não iniciada neste objetivo.
+[Evidência T10](evidence/2026-10-29-medalhao-t10.md).
 
 ## Prazos de relógio
 

@@ -49,27 +49,89 @@ async function getNotifications() {
 }
 
 class PushServiceImpl {
+    private operationTail: Promise<void> = Promise.resolve();
+
+    private ordered<T>(operation: () => Promise<T>): Promise<T> {
+        const result = this.operationTail.then(operation);
+        this.operationTail = result.then(() => undefined, () => undefined);
+        return result;
+    }
+
+    getOptIn(): Promise<boolean | null> {
+        return this.ordered(() => this.getOptInUnlocked());
+    }
+
+    setOptIn(value: boolean): Promise<void> {
+        return this.ordered(() => this.setOptInUnlocked(value));
+    }
+
+    requestPermissionIfNeeded(): Promise<string> {
+        return this.ordered(() => this.requestPermissionIfNeededUnlocked());
+    }
+
+    scheduleDailyIfEligible(context: { reason: string }): Promise<void> {
+        return this.ordered(() => this.scheduleDailyIfEligibleUnlocked(context));
+    }
+
+    cancelAll(): Promise<void> {
+        return this.ordered(() => this.cancelAllUnlocked());
+    }
+
+    onAppOpen(): Promise<void> {
+        return this.ordered(() => this.onAppOpenUnlocked());
+    }
+
+    simulateIgnoredPush(): Promise<void> {
+        return this.ordered(() => this.simulateIgnoredPushUnlocked());
+    }
+
+    getDebugState() {
+        return this.ordered(() => this.getDebugStateUnlocked());
+    }
+
+    /** A decisão da linha é inteira: nenhuma outra porta lê o true provisório
+     * entre a persistência, as duas consultas legadas e o rollback/agendamento. */
+    changeReminderPreference(value: boolean): Promise<boolean | null> {
+        return this.ordered(async () => {
+            if (!value) {
+                void TelemetryService.track('push_optin_declined');
+                await this.setOptInUnlocked(false);
+            } else {
+                await this.setOptInUnlocked(true);
+                // A segunda consulta já fazia parte da linha. Não muda consentimento.
+                const permission = await this.requestPermissionIfNeededUnlocked();
+                if (permission !== 'granted') {
+                    await this.setOptInUnlocked(false);
+                } else {
+                    void TelemetryService.track('push_optin_accepted');
+                    await this.scheduleDailyIfEligibleUnlocked({ reason: 'optin_immediate' });
+                }
+            }
+            return this.getOptInUnlocked();
+        });
+    }
+
     /**
      * Returns true/false if user explicitly decided, or null if unknown.
      */
-    async getOptIn(): Promise<boolean | null> {
+    private async getOptInUnlocked(): Promise<boolean | null> {
         const val = await AsyncStorage.getItem(KEYS.OPT_IN);
         if (val === 'true') return true;
         if (val === 'false') return false;
         return null;
     }
 
-    async setOptIn(value: boolean): Promise<void> {
+    private async setOptInUnlocked(value: boolean): Promise<void> {
         await AsyncStorage.setItem(KEYS.OPT_IN, value ? 'true' : 'false');
         if (!value) {
-            await this.cancelAll();
+            await this.cancelAllUnlocked();
         } else {
             // If they just opted in, try request permission immediately
-            await this.requestPermissionIfNeeded();
+            await this.requestPermissionIfNeededUnlocked();
         }
     }
 
-    async requestPermissionIfNeeded(): Promise<string> {
+    private async requestPermissionIfNeededUnlocked(): Promise<string> {
         let status = 'unknown';
         if (!PushConfig.ENABLE_PUSH) return status;
 
@@ -94,7 +156,7 @@ class PushServiceImpl {
     /**
      * Resets backoff state. Should be called when user opens the app (valuable engagement).
      */
-    async onAppOpen(): Promise<void> {
+    private async onAppOpenUnlocked(): Promise<void> {
         const currentLevel = await AsyncStorage.getItem(KEYS.BACKOFF_LEVEL);
         if (currentLevel && currentLevel !== 'normal') {
             TelemetryService.track('push_backoff_reset');
@@ -112,7 +174,7 @@ class PushServiceImpl {
      * Checks eligibility and schedules a notification if appropriate.
      * Safe to call frequently (e.g., app open, goal complete).
      */
-    async scheduleDailyIfEligible(context: { reason: string }): Promise<void> {
+    private async scheduleDailyIfEligibleUnlocked(context: { reason: string }): Promise<void> {
         if (!PushConfig.ENABLE_PUSH) return;
 
         // 0. Check Backoff
@@ -127,7 +189,7 @@ class PushServiceImpl {
         }
 
         // 1. Check Opt-in
-        const optIn = await this.getOptIn();
+        const optIn = await this.getOptInUnlocked();
         if (optIn !== true) {
             await this.logDecision(context.reason, 'skipped_not_opted_in');
             return;
@@ -255,7 +317,7 @@ class PushServiceImpl {
         }
     }
 
-    async cancelAll() {
+    private async cancelAllUnlocked() {
         if (!PushConfig.ENABLE_PUSH) return;
 
         const Notifications = await getNotifications();
@@ -376,7 +438,7 @@ class PushServiceImpl {
     // The "Simulate" button gives us a way to demo "What if I hadn't opened the app?" (Scenario where logic runs in BG).
 
     // Helper to increment for debug/simulation
-    async simulateIgnoredPush() {
+    private async simulateIgnoredPushUnlocked() {
         // Increment count
         const current = await AsyncStorage.getItem(KEYS.IGNORED_COUNT) || '0';
         const newCount = parseInt(current) + 1;
@@ -420,9 +482,9 @@ class PushServiceImpl {
         console.log('[PushService] Decision:', entry);
     }
 
-    async getDebugState() {
+    private async getDebugStateUnlocked() {
         return {
-            optIn: await this.getOptIn(),
+            optIn: await this.getOptInUnlocked(),
             permission: await AsyncStorage.getItem(KEYS.PERMISSION),
             lastSent: await AsyncStorage.getItem(KEYS.LAST_SENT),
             lastScheduled: await AsyncStorage.getItem(KEYS.LAST_SCHEDULED),

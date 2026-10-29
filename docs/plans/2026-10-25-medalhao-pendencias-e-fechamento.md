@@ -541,6 +541,8 @@ falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.
 
 ### T10 — Ajustes em lista agrupada
 
+**Núcleo implementado/revisado em29/10:** R1 reprovada por dois P2 de operações pendentes entre telas; FIX1 aprovada em R2, com ordenação nos serviços existentes sem mudar fórmulas, esquema, consentimento ou política.374testes normais/25suítes,40repetidos sob CPU limitada e105contratos PASS;17mutações causais aceitas. Nativo R3 BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial e Back observados nos dois sistemas; gesto iOS NOT PASS, leitor audível e save nativo sem aceite. P3 dos chevrons legais encaminhado à T17/revisão ampla, não resolvido. Writer atual `run-1793287644499-ac7eb003`,61nominais/27produto; final configurada15/15 PASS em um ciclo na janela atual (também primeiro ciclo final do objetivo). Janelas56/57 abandonadas em edição, zero finais; sem supervisão retroativa. [Evidência](../evidence/2026-10-29-medalhao-t10.md).
+
 **Plano 5/tarefa 9. Modificar:**
 `radiant-app/src/features/settings/screens/SettingsScreen.tsx`, `SettingsScreen.flow.test.tsx`,
 `radiant-app/src/features/subscription/components/SubscriptionCard.tsx`,
@@ -549,12 +551,14 @@ falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.
 `radiant-app/src/features/progress/components/LegalLinksCard.tsx`, e seus testes adjacentes.
 **Criar:** `radiant-app/src/ui/components/GroupedList.tsx`, `GroupedList.test.tsx`.
 
-- [ ] Testar grupos, meta diária, replay, permissões, links e falhas.
-- [ ] Trocar cartões por linhas com controles nativos compatíveis; sem instalar `@expo/ui`.
-- [ ] Preservar flags reais do backup: "Em breve" apenas onde indisponível;
+- [x] Testar grupos, meta diária, replay, permissões, links e falhas.
+- [x] Trocar cartões por linhas com controles nativos compatíveis; sem instalar `@expo/ui`.
+- [x] Preservar flags reais do backup: "Em breve" apenas onde indisponível;
   não ocultar uma função de homologação que esteja habilitada por política.
-- [ ] Trocar emoji nos links de ajuda por ícone desenhado; manter destinos.
+- [x] Trocar emoji nos links de ajuda por ícone desenhado; manter destinos.
 - [ ] Executar focais e verificar Back Android, gesto de voltar iOS e leitor de tela.
+  Focais/BackAndroid/botãoiOS aprovados no recorte; gesto iOS NOT PASS e leitores audíveis pendentes.
+  P3 visual dos três links legais permanece para T17/revisão ampla.
 
 ### T11 — Assinatura e preço mensal do anual
 

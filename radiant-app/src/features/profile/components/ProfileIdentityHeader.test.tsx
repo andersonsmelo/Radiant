@@ -3,14 +3,14 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import { ProfileIdentityHeader } from './ProfileIdentityHeader';
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
-it('mostra a identidade local sem duplicar contador/XP e abre a Configuração', () => {
+it('mostra a identidade local sem duplicar contador/XP e abre Ajustes', () => {
   const onOpenSettings = jest.fn();
   render(<ProfileIdentityHeader email={null} onOpenSettings={onOpenSettings} />);
   expect(screen.getByText('Estudante')).toBeTruthy();
   expect(screen.getByText('Estudo local, sem conta')).toBeTruthy();
   expect(screen.queryByText('SEQUÊNCIA')).toBeNull();
   expect(screen.queryByText('XP TOTAL')).toBeNull();
-  fireEvent.press(screen.getByRole('button', { name: 'Configuração' }));
+  fireEvent.press(screen.getByRole('button', { name: 'Ajustes' }));
   expect(onOpenSettings).toHaveBeenCalledTimes(1);
 });
 it('identidade recebida não vira mascote e não desenha engrenagem inerte', () => {

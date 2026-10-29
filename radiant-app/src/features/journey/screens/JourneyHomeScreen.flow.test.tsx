@@ -1029,6 +1029,19 @@ describe('JourneyHomeScreen — lembrete diário', () => {
     expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
   });
 
+  it('refoco depois de Ajustes relê o lembrete sem perder a condição de aula concluída', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+    PushService.getOptIn.mockResolvedValue(false);
+    renderWithProviders(<JourneyHomeScreen />);
+    expect((await screen.findByRole('switch', { name: 'Lembrete diário' })).props.value).toBe(false);
+    PushService.getOptIn.mockResolvedValue(true);
+    voltarParaATela();
+    await waitFor(() => expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(true));
+    mockWindow.fontScale = 3.1;
+    voltarParaATela();
+    await waitFor(() => expect(screen.getByText('Lembrete diário').props.maxFontSizeMultiplier).toBeUndefined());
+  });
+
   it('antes de concluir uma lição, não mostra a linha do lembrete', async () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
 
