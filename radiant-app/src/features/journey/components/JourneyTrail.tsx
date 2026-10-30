@@ -15,6 +15,7 @@ import { JourneyLevelBand } from './JourneyLevelBand';
 import { JourneyMedal, medalStateFor } from './JourneyMedal';
 import { JourneyPathSegment } from './JourneyPathSegment';
 import { getRecommendationCopy, getScheduledReviewCopy, getStatusCopy } from './nodeCopy';
+import { trailColumnText } from './trailTextPresentation';
 import {
   TRAIL_CORNER,
   TRAIL_LEAD,
@@ -53,6 +54,8 @@ type JourneyTrailProps = {
   isNodeDisabled: (node: JourneyNode) => boolean;
   /** Rola junto com a trilha. Contém contexto e a única recomendação, em todos os tamanhos de texto. */
   header?: React.ReactElement;
+  /** Rola depois de todos os nós, mantendo a mesma instância ao atualizar a lista. */
+  footer?: React.ReactElement;
   /** O recorde de estrelas por aula. Só as lições concluídas o mostram. */
   starsByLessonId?: Record<string, LessonStars>;
   /** O que fica ao lado da medalha (o Pixel, ao lado da próxima). Decorativo. */
@@ -333,6 +336,7 @@ export function JourneyTrail({
   onNodePress,
   isNodeDisabled,
   header,
+  footer,
   starsByLessonId = NO_STARS,
   pixelSlot,
   recommendedAction,
@@ -512,6 +516,8 @@ export function JourneyTrail({
       windowSize={7}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.trail}
+      ListFooterComponent={footer}
+      ListFooterComponentStyle={styles.spacedFooter}
       ListHeaderComponentStyle={styles.spacedHeader}
       ListHeaderComponent={items.some(item => item.kind === 'unit') ? <>
         {header}
@@ -652,6 +658,7 @@ function TrailNodeRow({
   onSlotLayout,
 }: TrailNodeRowProps) {
   const { node } = item;
+  const scheduledReview = getScheduledReviewCopy(node);
   const [rowHeight, setRowHeight] = useState<number | undefined>(undefined);
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
@@ -770,12 +777,12 @@ function TrailNodeRow({
             node.status === 'locked' && styles.nodeTitleLocked,
           ]}
         >
-          {node.title}
+          {column ? trailColumnText(node.title) : node.title}
         </Text>
-        {getScheduledReviewCopy(node) ? (
+        {scheduledReview ? (
           <Text {...hiddenFromReader} style={[styles.scheduledReview,
             column ? styles.nodeTitleLargeText : { maxWidth: trailTitleWidth(halfWidth) },
-          ]}>{getScheduledReviewCopy(node)}</Text>
+          ]}>{column ? trailColumnText(scheduledReview) : scheduledReview}</Text>
         ) : null}
         {action ? (
           // Fora do bloco escondido: é um botão, e o leitor de tela o alcança.
@@ -813,6 +820,7 @@ const styles = StyleSheet.create({
     paddingBottom: space.s3,
   },
   spacedHeader: { marginBottom: TRAIL_GAP },
+  spacedFooter: { marginTop: TRAIL_GAP },
   spaced: { marginVertical: TRAIL_GAP / 2 },
   row: { alignItems: 'center' },
   // Sem `overflow: 'hidden'` em lugar nenhum da linha: o anel da próxima sai

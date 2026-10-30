@@ -755,3 +755,15 @@ antigo da trilha por cerca de 1,5 s antes do novo. O roteiro de preparo salvo
 não abre o app no AVD; a cópia usada está na evidência
 ([evidência](../../evidence/2026-10-23-trilha-medalhao-quadro.md)). **Decisão
 do dono:** se o quadro, não reproduzido, ainda bloqueia o aceite.
+
+
+## Continuidade T13 — decisão do dono em30/10/2026
+
+O pacote publicado emb1bc354 foi apresentado com recomendaçãoA+Q1. Anderson
+respondeu “siga conforme recomendação”: [ADR](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+AlternativaA preserva dois64, fonte/medalha/Pixel/percurso, acrescenta quebras
+deliberadas à apresentação e lembrete na rolagem. Recorte estático implementado
+e revisado: RF PASS/APPROVED,336/7focais,tipos/lint/43contratos. Prova nativa
+0/7NOT_VERIFIED por shell iOS/disco Android, sem aceite integral; [evidênciaA](../../evidence/2026-10-30-medalhao-t13-a.md).
+Q1 aceita somente risco residual do quadro e observaçãoT18; não declara
+conserto, causa ou arte/G3global aceitos. T14 não iniciada.

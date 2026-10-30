@@ -614,11 +614,12 @@ store indisponível; layout pronto pode ficar com G6 nativo explicitamente pende
 - [x] Preparar/apresentar ao dono alternativas concretas para texto máximo, preservando
   a solução atual até a decisão. Não reduzir fonte, truncar nem consumir os
   corredores de 64 pt silenciosamente.
-- [ ] Para a alternativa aprovada, registrar teste vermelho de validade e
-  geometria, além de diferença; verificar cabeça inteira, título, data e lembrete.
+- [x] Para A, registrar vermelho/verde de validade e geometria, além de
+  diferença; corpo de testes cobre envelope/título/data/lembrete. Aceite
+  visual da cabeça/texto continua dependente das capturas abaixo.
 - [ ] Capturar AX5 e Android 200%; comparar à composição normal sem trocar a régua.
-- [ ] Quanto ao quadro antecipado, pedir G3 sobre a evidência 0/13; não dizer
-  que foi corrigido nem criar patch de hipótese não observada.
+- [x] Quanto ao quadro antecipado, obter Q1 do dono sobre a evidência0/13;
+  risco residual aceito e observaçãoT18 mantida, sem declarar conserto/causa.
 - [ ] Se reaparecer em T18, registrar quadro/timeline e só então abrir correção
   com reprodução específica, vermelho/verde e nova revisão.
 
@@ -628,6 +629,14 @@ store indisponível; layout pronto pode ficar com G6 nativo explicitamente pende
 B exige liberação explícita da direita. G3 quadro tem opções de aceitar risco
 residual ou manter bloqueio; causa aberta, nenhum patch. G1/G3 não decididos,
 implementação/capturas e aceite de T13 pendentes. T14 não iniciada.
+
+**Decisão posterior em30/10:** Anderson escolheu A+Q1 (“siga conforme
+recomendação”). [decisão A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+AplicaçãoA entregue/revisada no recorte estático:336/7suítes,tipos/lint,
+43contratos;RF PASS/APPROVED. Nativo0/7NOT_VERIFIED por shell/disco,
+sem T13 integral. Risco residual do quadro aceito só no recorte, com
+observaçãoT18 e sem G3global.
+Final configurada15/15 PASS em um ciclo. [Execução A](../evidence/2026-10-30-medalhao-t13-a.md). Sem avançoT14.
 
 ### T14 — Revisão do conteúdo, ADR e decisões do player
 

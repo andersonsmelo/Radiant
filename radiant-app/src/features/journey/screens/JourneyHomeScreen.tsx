@@ -248,6 +248,7 @@ export default function JourneyHomeScreen() {
           <View style={styles.content}>
             <JourneyTrail
               header={trailHeader}
+              footer={<ReminderRow visible={reminderVisible} />}
               segments={trail?.segments ?? []}
               recommendedNodeId={recommendedNodeId}
               recommendationReason={snapshot?.nextDecision?.reason}
@@ -265,7 +266,6 @@ export default function JourneyHomeScreen() {
                 ? { fromNodeId: moment.fromNodeId, toNodeId: moment.toNodeId, onDone: moment.done }
                 : undefined}
             />
-            <ReminderRow visible={reminderVisible} />
           </View>
         )}
       </SafeAreaView>

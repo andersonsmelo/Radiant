@@ -256,6 +256,12 @@ e G3 evidência), controlador documental e revisão final independente.
 de produto; decisões G1/G3 abertas. Não usar `Task15 complete` integral: aplicação,
 prova nativa e aceite seguem pendentes. [Recibos](../evidence/2026-10-30-medalhao-t13.md).
 
+**Decisão posterior em30/10:** Anderson escolheu A+Q1 (“siga conforme
+recomendação”). [decisão A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md). AplicaçãoA entregue/revisada no recorte estático (336/7focais,tipos/lint,
+43contratos e RF PASS/APPROVED); nativo0/7NOT_VERIFIED por shell/disco.
+Risco residual do quadro aceito só no recorte, observaçãoT18 mantida, sem G3global.
+Final configurada15/15 PASS em um ciclo. [Execução A](../evidence/2026-10-30-medalhao-t13-a.md). Sem avançoT14.
+
 ### Task 16: T14 — Conteúdo e decisões do player
 
 - **Dono:** I/high; **revisão:** R técnico, dono no conteúdo. **Skills:** T; **recursos:** documentos/ADR, Jest/modelos e fluxos afetados.

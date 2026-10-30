@@ -1,6 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import JourneyHomeScreen from './JourneyHomeScreen';
+import { ReminderRow } from '../../push/components/ReminderRow';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
@@ -172,6 +173,7 @@ jest.mock('../components/JourneyTrail', () => {
     JourneyTrail: (props: {
       segments: { trackTitle?: string }[];
       header?: React.ReactNode;
+      footer?: React.ReactNode;
       starsByLessonId?: Record<string, number>;
       recommendedAction?: React.ReactNode;
     }) => mockRealTrail ? <actual.JourneyTrail {...props} /> : (
@@ -180,6 +182,7 @@ jest.mock('../components/JourneyTrail', () => {
         <Text>{`percurso com ${props.segments.length} trecho(s)`}</Text>
         <Text>{`estrelas: ${JSON.stringify(props.starsByLessonId)}`}</Text>
         {props.recommendedAction}
+        {props.footer}
       </View>
     ),
   };
@@ -1069,6 +1072,30 @@ describe('JourneyHomeScreen — lembrete diário', () => {
     await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
     expect(PushService.scheduleDailyIfEligible).toHaveBeenCalledWith({ reason: 'journey_focus' });
+  });
+
+  it('monta o consumidor invisível e preserva a instância ao ganhar elegibilidade no refoco', async () => {
+    usarTrilhaReal();
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
+    const view = renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    const instance = view.UNSAFE_getByType(ReminderRow);
+    expect(screen.queryByRole('switch', { name: 'Lembrete diário' })).toBeNull();
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+    voltarParaATela();
+    await screen.findByRole('switch', { name: 'Lembrete diário' });
+    expect(view.UNSAFE_getByType(ReminderRow)).toBe(instance);
+  });
+
+  it('o lembrete único pertence à rolagem real da trilha em vez de disputar altura fixa', async () => {
+    usarTrilhaReal();
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+    renderWithProviders(<JourneyHomeScreen />);
+    const toggle = await screen.findByRole('switch', { name: 'Lembrete diário' });
+    const ancestors = [];
+    for (let parent = toggle.parent; parent; parent = parent.parent) ancestors.push(parent.type);
+    expect(ancestors).toContain('RCTScrollView');
+    expect(screen.getAllByRole('switch', { name: 'Lembrete diário' })).toHaveLength(1);
   });
 
   it('depois da primeira lição concluída, mostra a linha do lembrete', async () => {

@@ -789,15 +789,23 @@ describe('JourneyTrail — o momento do Pixel', () => {
     }
   });
 
-  it.each([false, true])('contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=%s', column => {
-    mockWindow.fontScale = column ? 1.65 : 1;
+  it.each([
+    { column: false, window: 352, scale: 1, heights: [180, 220, 200] },
+    { column: true, window: 320, scale: 3.1, heights: [480, 760, 600] },
+    { column: true, window: 390, scale: 2, heights: [480, 760, 600] },
+    { column: true, window: 402, scale: 3.1, heights: [480, 760, 600] },
+    { column: true, window: 412, scale: 2, heights: [480, 760, 600] },
+  ])('contorna revisão futura com cabeça inteira em rota/travessia/salto; W$window escala$scale', ({ column, window, scale, heights }) => {
+    mockWindow.fontScale = scale;
+    const width = window - 32;
+    const middleHeight = heights[1];
     const screen = renderTrail(topology(), 'u1-node-2', {
       pixelSlot: id => id === 'u1-node-2' ? <View /> : null,
       moment: { fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2', onDone: jest.fn() },
     });
-    medirLargura(screen, 320);
+    medirLargura(screen, width);
     fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, ...HEAD } } });
-    for (const [index, height] of [180, 220, 200].entries()) fireEvent(screen.getByTestId(`journey-trail-row-u1-node-${index}`, HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 320, height } } });
+    for (const [index, height] of heights.entries()) fireEvent(screen.getByTestId(`journey-trail-row-u1-node-${index}`, HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width, height } } });
     advance(16);
     const destination = offsetOf(screen, 'u1-node-2');
     const final = { x: destination - NEXT_MEDAL_RADIUS - space.s1 - HEAD.width / 2, y: rest.y };
@@ -806,7 +814,7 @@ describe('JourneyTrail — o momento do Pixel', () => {
       return { x: final.x + transform.x, y: final.y + transform.y };
     };
     const start = center();
-    expect(start.y).toBeLessThan(-220);
+    expect(start.y).toBeLessThan(-middleHeight);
     const anchor = StyleSheet.flatten(screen.getByTestId('journey-anchor-u1-node-1', HIDDEN).props.style);
     const row = StyleSheet.flatten(screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN).props.style);
     const nodeX = offsetOf(screen, 'u1-node-1');
@@ -815,15 +823,35 @@ describe('JourneyTrail — o momento do Pixel', () => {
       .flatMap(path => nativeParents(path).map(parent => StyleSheet.flatten(parent.props.style)?.paddingTop))
       .find(value => value !== undefined) ?? 0;
     const block = { left: nodeX - blockWidth / 2, right: nodeX + blockWidth / 2,
-      top: -220 + TRAIL_MEDAL_TOP, bottom: column ? -24 - tailPadding : -row.paddingBottom };
+      top: -middleHeight + TRAIL_MEDAL_TOP, bottom: column ? -24 - tailPadding : -row.paddingBottom };
     const samples = [start];
     for (let elapsed = 16; elapsed < TRAIL_MOMENT_MS; elapsed += 4) { advance(4); samples.push(center()); }
     for (const point of samples) {
       const box = { left: point.x - 24, right: point.x + 24, top: point.y - 23, bottom: point.y + 23 };
-      expect(box.left).toBeGreaterThanOrEqual(-160);
-      expect(box.right).toBeLessThanOrEqual(160);
+      expect(box.left).toBeGreaterThanOrEqual(-width / 2);
+      expect(box.right).toBeLessThanOrEqual(width / 2);
       expect(box.right <= block.left - 4 || box.left >= block.right + 4
         || box.bottom <= block.top - 4 || box.top >= block.bottom + 4).toBe(true);
+      if (column) {
+        // A travessia parte abaixo de toda a origem, depois contorna o
+        // intermediário. No salto, a cabeça inteira evita o texto-alvo.
+        const obstacles = [
+          { left: -blockWidth / 2, right: blockWidth / 2,
+            top: -heights[0] - middleHeight + TRAIL_MEDAL_TOP,
+            bottom: -middleHeight - 24 - tailPadding, gap: 4 },
+          { left: -blockWidth / 2, right: blockWidth / 2,
+            top: TRAIL_MEDAL_TOP + 80 + depth.medalLip + space.s0, bottom: heights[2], gap: 4 },
+        ];
+        for (const obstacle of obstacles) {
+          const clear = box.right <= obstacle.left - obstacle.gap || box.left >= obstacle.right + obstacle.gap
+            || box.bottom <= obstacle.top - obstacle.gap || box.top >= obstacle.bottom + obstacle.gap;
+          if (!clear) throw new Error(`Cabeça invade obstáculo: ${JSON.stringify({ box, obstacle })}`);
+        }
+        // A janela retangular da cabeça inclui cantos transparentes. Seu AABB
+        // não prova colisão da silhueta com a medalha circular durante o salto;
+        // esse limite visual exige conferência nativa. Aqui o envelope inteiro
+        // continua guardado contra viewport e blocos de texto/data/CTA.
+      }
     }
     // Depois do contorno, chega à parte vertical real do próximo pontilhado.
     expect(samples.some(point => Math.abs(point.x - destination) < 1 && point.y > -30 && point.y < -4)).toBe(true);
@@ -831,6 +859,46 @@ describe('JourneyTrail — o momento do Pixel', () => {
     expect(center().y).toBeCloseTo(final.y, 1);
     expect(screen.getAllByTestId('journey-moment-segment-out', HIDDEN)).toHaveLength(2);
     expect(screen.getAllByTestId('journey-moment-segment-in', HIDDEN)).toHaveLength(2);
+    screen.unmount();
+  });
+
+  it.each([
+    { change: 'normal para máximo', initialScale: 1 },
+    { change: 'grande para máximo', initialScale: 2 },
+    { change: 'data futura', initialScale: 3.1 },
+    { change: 'título', initialScale: 3.1 },
+    { change: 'largura', initialScale: 3.1 },
+  ])('invalida alturas antes da partida após $change com a lista montada', ({ change, initialScale }) => {
+    mockWindow.fontScale = initialScale;
+    const onDone = jest.fn();
+    let segments = topology();
+    const pixelSlot = (id: string) => id === 'u1-node-2' ? <View /> : null;
+    const props = { recommendedNodeId: 'u1-node-2', onNodePress, isNodeDisabled, pixelSlot };
+    const screen = render(<JourneyTrail {...props} segments={segments} />);
+    medirLargura(screen, 358);
+    medirLinhas(screen, 180);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, ...HEAD } } });
+    const staleLayouts = [0, 1, 2].map(index => screen.getByTestId(`journey-trail-row-u1-node-${index}`, HIDDEN).props.onLayout);
+    if (change.endsWith('máximo')) mockWindow.fontScale = 3.1;
+    if (change === 'data futura' || change === 'título') {
+      segments = topology();
+      const node = segments[0].units[0].nodes[1];
+      if (change === 'data futura') node.reviewAvailableAtMs = new Date(2036, 10, 25, 14, 57).getTime();
+      else node.title = 'Princípios de Tomografia Computadorizada';
+    }
+    screen.rerender(<JourneyTrail {...props} segments={segments}
+      moment={{ fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2', onDone }} />);
+    if (change === 'largura') medirLargura(screen, 288);
+    // Eventos que pertenciam à tipografia/copy antiga não liberam a rota nova.
+    for (const stale of staleLayouts) act(() => stale({ nativeEvent: { layout: { x: 0, y: 0, width: 358, height: 180 } } }));
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    medirLinhas(screen, 760);
+    advance(16); // A aplicação do novo estilo animado só ocorre no quadro seguinte.
+    expect(transformOf(screen, 'journey-pixel-slot-u1-node-2').y).toBeLessThan(-760);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+    screen.unmount();
   });
 
   it('não congela rota nem consome tempo enquanto a revisão intermediária não tem altura atual', () => {
@@ -1149,7 +1217,7 @@ describe('JourneyTrail — visibilidade e revisão agendada', () => {
     expect(screen.getByLabelText('Revisão da aula. Disponível em 20/09/2035 às 13:56.').props.accessibilityState.disabled).toBe(true);
   });
 
-  it.each([false, true])('em320pt a data inteira cabe à esquerda/direita e na coluna=%s', column => {
+  it.each([false, true])('em320pt a data completa recebe largura e quebra estruturais sem provar glifos; coluna=%s', column => {
     mockWindow.fontScale = column ? 1.65 : 1;
     const future = new Date(2035, 8, 20, 13, 56).getTime();
     const reviews = [0, 1].map((index): JourneyNode => ({
@@ -1158,17 +1226,18 @@ describe('JourneyTrail — visibilidade e revisão agendada', () => {
     }));
     const screen = renderTrail([segment('t1', 'Trilha', [{ ...unit('u1', 'Unidade', []), nodes: reviews }])]);
     medirLargura(screen, 320);
-    const dates = screen.getAllByText('Disponível em 20/09/2035 às 13:56', HIDDEN);
+    const dates = screen.getAllByText(column ? 'Dis\u00adpo\u00adní\u00advel em 20/\u200b09/\u200b2035 às 13:56' : 'Disponível em 20/09/2035 às 13:56', HIDDEN);
     expect(dates).toHaveLength(2);
     dates.forEach((date, index) => {
       const style = StyleSheet.flatten(date.props.style);
       const title = screen.getByText(`Revisão ${index}`, HIDDEN);
       const titleWidth = StyleSheet.flatten(title.props.style).maxWidth;
-      // O mesmo limite efetivamente entregue ao título, sem cortar a data.
+      // Contrato de layout; Jest não mede avanços nem quebra nativa dos glifos.
       expect(style.maxWidth).toBe(titleWidth);
       expect(style.maxWidth).toBe(column ? '100%' : 144);
       expect(date.props.numberOfLines).toBeUndefined();
-      const width = column ? 320 : style.maxWidth as number;
+      const anchor = StyleSheet.flatten(screen.getByTestId(`journey-anchor-review-${index}`, HIDDEN).props.style);
+      const width = column ? anchor.width as number : style.maxWidth as number;
       const center = 160 + offsetOf(screen, `review-${index}`);
       expect(center - width / 2).toBeGreaterThanOrEqual(0);
       expect(center + width / 2).toBeLessThanOrEqual(320);
@@ -1382,4 +1451,33 @@ describe('JourneyTrail — navegação por unidades compostas', () => {
     } finally { scroll.mockRestore(); offset.mockRestore(); jest.useRealTimers(); }
   });
 
+});
+
+
+describe('JourneyTrail — alternativa A: apresentação preserva o texto canônico', () => {
+  it.each([1, 3.1])('hifeniza só a coluna, preservando título e rótulo acessível; escala %s', scale => {
+    mockWindow.fontScale = scale;
+    const title = 'Princípios de Tomografia Computadorizada';
+    const future = new Date(2035, 8, 20, 13, 56).getTime();
+    const review: JourneyNode = { id: 'review', unitId: 'u1', type: 'review', title, status: 'locked', reviewAvailableAtMs: future };
+    const screen = renderTrail([segment('t1', 'Trilha', [{ ...unit('u1', 'Unidade', []), nodes: [review] }])]);
+    medirLargura(screen, 288); // Home W320 menos 16pt em cada lado.
+    const titleText = screen.getByText(scale === 1 ? title : 'Prin\u00adcí\u00adpios de To\u00admo\u00adgra\u00adfi\u00ada Com\u00adpu\u00adta\u00addo\u00adri\u00adza\u00adda', HIDDEN);
+    const dateText = screen.getByText(scale === 1 ? 'Disponível em 20/09/2035 às 13:56' : 'Dis\u00adpo\u00adní\u00advel em 20/\u200b09/\u200b2035 às 13:56', HIDDEN);
+    expect(screen.getByLabelText(`${title}. Disponível em 20/09/2035 às 13:56.`).props.accessibilityState.disabled).toBe(true);
+    expect(titleText.props.children.replace(/\u00ad/gu, '')).toBe(title);
+    expect(dateText.props.children.replace(/[\u00ad\u200b]/gu, '')).toBe('Disponível em 20/09/2035 às 13:56');
+    for (const text of [titleText, dateText]) {
+      expect(text.props.maxFontSizeMultiplier).toBeUndefined();
+      expect(text.props.allowFontScaling).not.toBe(false);
+      expect(text.props.ellipsizeMode).toBeUndefined();
+      expect(StyleSheet.flatten(text.props.style).fontSize).toBe(13);
+      expect(nativeParents(text).every(parent => StyleSheet.flatten(parent.props.style)?.overflow !== 'hidden')).toBe(true);
+    }
+    expect(titleText.props.numberOfLines).toBe(scale === 1 ? 2 : undefined);
+    expect(dateText.props.numberOfLines).toBeUndefined();
+    const anchor = StyleSheet.flatten(screen.getByTestId('journey-anchor-review', HIDDEN).props.style);
+    if (scale > 1) expect(anchor.width).toBe(160);
+    expect(review.title).toBe(title);
+  });
 });

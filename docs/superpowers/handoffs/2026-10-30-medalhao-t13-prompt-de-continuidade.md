@@ -44,3 +44,32 @@ por G1 explícito; ambas exigem tratar quebras e provar no nativo. G3 quadro
 Nenhuma decisão G1/G3, implementação ou nova captura nativa foi consumida.
 T13 continua pendente no produto; T14 não iniciada. Retomar primeiro a escolha
 citável do dono sobre as opções concretas, sem pedir que repita contexto.
+
+## Decisão posterior do dono — execução A autorizada em30/10
+
+Anderson respondeu “siga conforme recomendação” apósA+Q1.
+[ADR citável](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+G1=A escolhido; não pedir que o dono repita essa decisão. Q1 aceita somente
+o risco residual do quadro e sua observaçãoT18, sem conserto/G3global.
+ImplementaçãoA revisada estaticamente (RF PASS/APPROVED,336/7focais,
+tipos/lint/43contratos) na mesma worktree, writer
+`run-1793391172160-16609a84`; cérebro próprio consultado e fechado antes do
+writer. [Evidência A](../../evidence/2026-10-30-medalhao-t13-a.md) tem estado
+medido e deverá ser conferida antes de reaproveitar PASS/lifecycle. Não
+herdar a ausência de GUI como impossibilidade absoluta: a trilha é rota
+inicial e pode admitir captura headless por APIs públicas no clienteexistente.
+Não instalar driver/componente nem injetar estado para contornar launcher.
+SemT14 nem transferência da autorizaçãoG6 para build/install.
+
+Prova nativa tentou APIs públicas sobre freeze8: iOSshellFBS5 e ausência de
+display; AVD abortou por disco insuficiente2,9GiB. Resultado0/7NOT_VERIFIED,
+nenhumPNG, nenhumAX5/200 aplicado, fontes preservadas, runtimes encerrados.
+Não repetir antes da condição externa mudar; não limpar/instalar por inferência.
+Final configurada/fechamento devem vir dos recibos da evidência A, não de
+contagens focais. T13 integral ainda não aceita; não pedirG1/Q1 novamente.
+
+Final A configurada15/15 PASS em um ciclo, com runtimeencerrado ebrainCLOSED.
+O writer `run-1793391172160-16609a84` fecha por STEP_SUCCEEDED, memória da
+decisão e RUN_CLOSED separados; consultar estado atual pela CLI antes de
+retomar. Nenhum novo G1/Q1 necessário; próximo passo deT13 é a prova nativa
+quando shell/framebuffer iOS e espaço para AVD permitirem, dentro dos limites.

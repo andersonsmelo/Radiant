@@ -1,7 +1,9 @@
 # T13 / Task 15 — pacote de decisão G1 e recorte de G3
 
-Preparado em **30/10/2026, America/Bahia**. Planejamento para decisão; nenhuma
-alternativa aplicada ao produto. Estado vivo: [STATUS](../STATUS.md).
+Preparado em **30/10/2026, America/Bahia**. Após a apresentação, Anderson
+autorizou A+Q1: [decisão A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md). Implementação e prova têm
+estado próprio na [evidência A](../evidence/2026-10-30-medalhao-t13-a.md) e no
+[STATUS](../STATUS.md); as alternativas abaixo preservam o pacote avaliado.
 Fontes vinculantes: [T13 do integrador](2026-10-25-medalhao-pendencias-e-fechamento.md#t13--texto-máximo-da-trilha-e-aceite-do-quadro-antecipado),
 [Task 15](2026-10-25-medalhao-execucao-subagentes.md#task-15-t13--texto-máximo-e-quadro-antecipado),
 [spec](../superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
@@ -23,8 +25,10 @@ evidência delimitada; não significa declarar o defeito corrigido. Se o dono
 exigir demonstração de eliminação antes do aceite, escolher manter esse
 recorte bloqueado. Arte/acabamento e o restante de G3 continuam separados.
 
-As duas decisões pertencem a Anderson. **Não há decisão G1 ou G3 registrada
-neste pacote.** A apresentação das propostas não fecha T13 nem inicia T14.
+**Decisão posterior do dono,30/10:** “siga conforme recomendação”, após a
+recomendação explícita A+Q1. [decisão A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md). G1=A e o recorte Q1
+estão resolvidos; implementação/prova nativa e arte/G3global permanecem
+separados. A autorização não fecha T13 nem inicia T14.
 
 ## Base atual e problema observável
 
@@ -249,12 +253,13 @@ Reservado `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` intocado.
 G6 local da T11 não transfere autorização. Sora/Pixel/quatro momentos/ouro/
 lábio/fingerprint preservados; G2/G4–G8 e decisões curriculares não consumidas.
 
-Registro futuro necessário, sem preencher por inferência:
+Registro da decisão posterior à apresentação:
 
-- G1: A, B ou C; condições adicionais; decisor/data e citação da autorização.
-- G3 quadro: Q1 ou Q2; risco aceito/critério exigido; decisor/data e citação.
-- Arte/acabamento de G3: decisão própria, se houver; não herdada de Q1.
+- G1: **A**, Anderson,30/10; citação na ADR acima. B/C não escolhidas.
+- G3 quadro: **Q1**, mesmo decisor/data/citação; risco residual aceito e
+  observaçãoT18 preservada, sem declarar conserto.
+- Arte/acabamento de G3: continua separado; não herdado de Q1.
 
-Até esse registro: pacote preparado; aplicação e aceites pendentes. A próxima
-ação é a decisão do dono sobre estas opções concretas, sem repasse manual de
-contexto e sem avanço automático à T14.
+A próxima ação autorizada é implementar A e medir sua validade, mantendo
+os limites de runtime e Q1. Resultados no STATUS/evidência A; sem repasse
+manual de contexto e sem avanço automático à T14.

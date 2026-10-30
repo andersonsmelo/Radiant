@@ -585,10 +585,15 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       consulta persistente. [Evidência](evidence/2026-10-30-medalhao-t12.md).
       Prova nativa normal/AX5 pendente por GUI ausente; E2E integral sóT18.
 
-    - **T13/Task15,30/10:** [pacote de decisão G1/G3](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
-      preparado com agentes de geometria e quadro. Sem produto/nativo novo;
-      A mantém64+64, B exige G1 explícito; quadro0/13 sem causa/conserto final.
-      Decisões do dono e aplicação/prova nativa pendentes, sem avançoT14.
+    - **T13/Task15,30/10:** Anderson escolheuA+Q1 do
+      [pacote concreto](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md).
+      [ADR](adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+      [A implementada/revisada estaticamente](evidence/2026-10-30-medalhao-t13-a.md):
+      dois64 e rota preservados, hifenização/data e footer; RF PASS/APPROVED,
+      336/7focais e43contratos. Nativo0/7NOT_VERIFIED por shell iOS/disco
+      Android, sem limpeza/instalação. Aceite visual integral pendente.
+      Q1 aceita somente risco residual do quadro, sem conserto declarado;
+      observaçãoT18/arte/G3global separados, sem avançoT14.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

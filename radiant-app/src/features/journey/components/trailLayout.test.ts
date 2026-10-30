@@ -13,6 +13,8 @@ import {
   medalRadiusFor,
   outgoingPath,
   trailTitleWidth,
+  trailColumnContentWidth,
+  trailColumnClearance,
 } from './trailLayout';
 
 /** Os números de um `d` como `M10,5 H40 Q60,5 60,30 V120`. */
@@ -120,5 +122,27 @@ describe('outgoingPath — o trecho sai da lateral da medalha', () => {
 
     expect(path.d).toMatch(/^M[\d.]+,[\d.]+ V[\d.]+$/);
     expect(x + path.left).toBe(0);
+  });
+});
+
+
+describe('alternativa A — largura real da Home e folga da cabeça inteira', () => {
+  it.each([
+    [320, 160], [390, 230], [402, 242], [412, 252],
+  ])('em W%i entrega texto %ipt e deixa duas faixas de 64pt', (window, contentWidth) => {
+    const listWidth = window - 32;
+    const text = trailColumnContentWidth(listWidth / 2, 48, 8);
+    expect(text).toBe(contentWidth);
+    // Centro da cabeça no corredor: 8pt de cada borda, antes do texto.
+    for (const side of [-1, 1]) {
+      const center = side * (listWidth / 2 - 32);
+      expect(center - 24).toBeGreaterThanOrEqual(-listWidth / 2 + 8);
+      expect(center + 24).toBeLessThanOrEqual(listWidth / 2 - 8);
+      expect(center + 24 <= -text / 2 - 8 || center - 24 >= text / 2 + 8).toBe(true);
+    }
+    // Cauda24, linha5pt do topo, apoio4pt: topo da cabeça em −61.
+    // O bloco termina em −24−41=−65, preservando4pt durante a travessia.
+    expect(trailColumnClearance(46)).toBe(41);
+    expect(-24 + 5 + 4 - 46 - (-24 - trailColumnClearance(46))).toBeGreaterThanOrEqual(4);
   });
 });

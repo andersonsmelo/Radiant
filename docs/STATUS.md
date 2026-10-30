@@ -663,15 +663,26 @@ recibos/lifecycle na evidência.
 Próximo cartão: [T13](superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md),
 com G1 para aplicar alternativa e G3 para aceitar o quadro. Sem aceite global.
 
-**T13/Task15 — pacote de decisão preparado, revisado e validado documentalmente em30/10/2026:** [pacote de decisão G1/G3](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md) e
-[comparativo isolado](design/2026-10-30-medalhao-t13-alternativas.html). A recomenda
-dois corredores64 preservados, hifenização deliberada/data em componentes e
-lembrete alcançável por rolagem; B oferece corredor esquerdo único somente
-com G1 explícito. Sem alteração de produto e sem prova nativa nova. Auditoria
-G3 delimita0/13 como9 rastreadas+4 limpas, com ocorrência pós-conserto
-preservada em excerto e causa aberta. G1/G3 permanecem decisões do dono;
-arte/acabamento e aceite integral separados. T13 não concluída, T14 não iniciada.
-[Proveniência, revisão e validação](evidence/2026-10-30-medalhao-t13.md).
+**T13/Task15 — alternativa A implementada e revisada estaticamente em30/10/2026.**
+Anderson escolheu A+Q1 ao responder “siga conforme recomendação” ao
+[pacote concreto](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md).
+[ADR da decisão](adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+A preserva dois corredores64, fonte/copy lógica e rota; acrescenta hifenização
+visual por mapa local, data com quebras por componente e lembrete no footer
+rolável estável. Desconhecidas ficam intactas; cobertura não é universal.
+
+RF Spec PASS/Qualidade APPROVED,336focais/7suítes reproduzidos pelo revisor,
+tipos/lint e43contratos PASS;29 violações específicas detectadas/restauradas
+e1survivor ornamental explicado. Nativo **NOT_VERIFIED0/7**: iOSheadless
+falhou no shell/display; AVD abortou por disco insuficiente (2,9GiB livres).
+Sem PNG/AX5/200 aplicado, instalação/limpeza/fixture; runtime encerrado,
+fontes e reservado preservados. Não há aceite visual integral de T13.
+Q1 aceita somente risco residual do quadro0/13 (9rastreadas+4limpas), mantém
+causa aberta e observaçãoT18; não declara conserto ou arte/G3global aceitos.
+T14 não iniciada. Final configurada15/15 PASS em um ciclo; cérebroCLOSED,
+encerramento do writer em comandos separados e recibos consultáveis na
+[evidência A](evidence/2026-10-30-medalhao-t13-a.md).
+[Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
 
 ## Prazos de relógio
 

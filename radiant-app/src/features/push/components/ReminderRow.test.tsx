@@ -4,6 +4,7 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import { ReminderRow } from './ReminderRow';
+import { JourneyTrail } from '../../journey/components/JourneyTrail';
 import { PushService } from '../services/PushService';
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
@@ -32,7 +33,11 @@ const realRead = storage.getItem.getMockImplementation()!;
 const realWrite = storage.setItem.getMockImplementation()!;
 function deferred<T>() { let resolve!: (value: T) => void; let reject!: (cause: Error) => void; const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; }
 const OPT_IN = 'push.optin.v1';
-async function row() { const view = render(<ReminderRow visible />); await screen.findByRole('switch', { name: 'Lembrete diário' }); return view; }
+async function row() {
+  const view = render(<JourneyTrail segments={[]} onNodePress={() => undefined} isNodeDisabled={() => false} footer={<ReminderRow visible />} />);
+  await screen.findByRole('switch', { name: 'Lembrete diário' });
+  return view;
+}
 beforeEach(async () => {
   jest.restoreAllMocks(); jest.clearAllMocks();
   storage.getItem.mockImplementation(realRead); storage.setItem.mockImplementation(realWrite);
@@ -162,4 +167,59 @@ it('erro depois de blur não publica alerta antigo; refoco espera e reconcilia a
     await act(async () => gate.reject(new Error('schedule')));
     expect(screen.getByRole('switch').props.value).toBe(true); expect(screen.queryByRole('alert')).toBeNull();
   } finally { await act(async () => gate.resolve('id')); await PushService.getOptIn(); a.unmount(); error.mockRestore(); }
+});
+
+
+// Regressão da mudança de consumidor: FlatList real + ReminderRow real +
+// PushService real; só I/O persistente/nativo e ilustração são fronteiras.
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+jest.mock('../../../components/ui/DecorativeIcon', () => ({ DecorativeIcon: () => null }));
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreference: () => false,
+  useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: false, resolved: true }),
+}));
+
+it.each([1, 3.1])('rodapé mantém a instância e a decisão pendente ao reler lista/fonte/visibilidade, escala inicial %s', async initialScale => {
+  const Native = require('react-native');
+  let fontScale = initialScale;
+  const dimensions = jest.spyOn(Native, 'useWindowDimensions').mockImplementation(() => ({ width: 320, height: 800, scale: 2, fontScale }));
+  const gate = deferred<Notifications.NotificationPermissionsStatus>();
+  const entered = deferred<void>();
+  notifications.getPermissionsAsync.mockImplementationOnce(async () => { entered.resolve(); return gate.promise; });
+  const presentation = (visible: boolean, revision: number) => <JourneyTrail segments={[]} onNodePress={() => undefined}
+    isNodeDisabled={() => false} header={<Text>{`Lista ${revision}`}</Text>} footer={<ReminderRow visible={visible} />} />;
+  const view = render(presentation(true, 0));
+  try {
+    const toggle = await screen.findByRole('switch', { name: 'Lembrete diário' });
+    const instance = view.UNSAFE_getByType(ReminderRow);
+    fireEvent(toggle, 'valueChange', true);
+    await act(async () => entered.promise);
+    const readsBefore = storage.getItem.mock.calls.filter(([key]) => key === OPT_IN).length;
+    for (const [revision, scale] of [3.1, 2, 3.1].entries()) {
+      fontScale = scale;
+      view.rerender(presentation(true, revision + 1));
+      await act(async () => undefined);
+      expect(view.UNSAFE_getByType(ReminderRow)).toBe(instance);
+      expect(screen.getAllByRole('switch', { name: 'Lembrete diário' })).toHaveLength(1);
+      expect(screen.getByRole('switch').props.disabled).toBe(true);
+      expect(storage.getItem.mock.calls.filter(([key]) => key === OPT_IN)).toHaveLength(readsBefore);
+    }
+    view.rerender(presentation(false, 4));
+    expect(view.UNSAFE_getByType(ReminderRow)).toBe(instance);
+    expect(screen.queryByRole('switch')).toBeNull();
+    view.rerender(presentation(true, 5));
+    expect(view.UNSAFE_getByType(ReminderRow)).toBe(instance);
+    expect(screen.getByText('Carregando lembrete…')).toBeTruthy();
+    await act(async () => gate.resolve({ status: 'granted' } as never));
+    await waitFor(() => expect(screen.getByRole('switch').props.disabled).toBe(false));
+    expect(screen.getByRole('switch').props.value).toBe(true);
+    expect(storage.setItem.mock.calls.filter(([key]) => key === OPT_IN)).toEqual([[OPT_IN, 'true']]);
+    expect(notifications.getPermissionsAsync).toHaveBeenCalledTimes(3);
+    expect(notifications.requestPermissionsAsync).not.toHaveBeenCalled();
+    expect(notifications.scheduleNotificationAsync).toHaveBeenCalledTimes(1);
+    expect(notifications.cancelAllScheduledNotificationsAsync).toHaveBeenCalledTimes(1);
+  } finally {
+    await act(async () => gate.resolve({ status: 'granted' } as never));
+    await PushService.getOptIn(); view.unmount(); dimensions.mockRestore();
+  }
 });

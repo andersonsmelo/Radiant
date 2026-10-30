@@ -34,7 +34,11 @@ Nenhuma tarefa de implementação foi iniciada pela escrita desse roteiro.
 T12 núcleo entregue emf304610, normal/AX5 NOT_VERIFIED por GUI ausente.
 Próximo recorte T13: [pacote de decisão G1/G3](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
 preparado, sem implementação nem aceite. Texto máximo e recorte do quadro
-continuam decisões do dono; não há nova prova nativa ou segundo conserto.
+tiveram decisão posterior do dono em30/10: **A+Q1** (“siga conforme recomendação”).
+[ADR](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+AplicaçãoA entregue/revisada no recorte estático (RF PASS/APPROVED,336/7
+focais,tipos/lint/43contratos); nativo0/7NOT_VERIFIED por shell/disco, sem segundo
+conserto ou avançoT14. [Evidência A](../../evidence/2026-10-30-medalhao-t13-a.md).
 Estado completo e limites atuais no STATUS.
 
 O plano 6 nasceu do adendo de 2026-10-21 à noite (ADR, decisão 8), quando o dono
