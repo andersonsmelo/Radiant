@@ -25,20 +25,23 @@ Nenhuma tarefa de implementação foi iniciada pela escrita desse roteiro.
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
 | 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
-| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefa 7 executada, menos o segundo dia iOS (conferir no fechamento, sem data fixa)** (retomada de 2026-10-23: dia 2 Android PASS, momento Android demonstrado, quadro final antecipado só parcialmente corrigido (1 de 4 gravações; 0 de 13 na remedição nativa da noite, causa não observada), 40 concluídas medidas); **aceite pendente** da decisão do dono sobre o texto máximo na coluna |
+| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefa 7 executada, menos o segundo dia iOS (conferir no fechamento, sem data fixa)** (retomada de 2026-10-23: dia 2 Android PASS, momento Android demonstrado, quadro final antecipado só parcialmente corrigido (1 de 4 gravações; 0 de 13 na remedição nativa da noite, causa não observada), 40 concluídas medidas); **G1=A e Q1 decididos em30/10**; A implementada/revisada/validada estaticamente em19fbde5, mas prova nativa0/7 e aceite integral continuam pendentes |
 | 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | **tarefas 1 a 7 feitas e revisadas** (2026-10-24), menos o VoiceOver e o AVD de entrada; **aguarda a revisão do conteúdo pelo dono** ([documento](../../conteudo-bancada/2026-10-24-aulas-de-exemplo.md), [evidência](../../evidence/2026-10-24-aula-bancada.md)) |
 | 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | sequência detalhada em T15/T19–T22 do plano integrador; inventário sai/fica ainda não produzido nem aprovado |
 | 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | T01 guarda/vocabulário implementada, revisada e validada (15/15 Loop) em 25/10; T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5 iOS/Android; T03 boas-vindas implementada/revisada em26/10, Loop15/15 e prova de texto ampliado; T04 implementada/revisada em 27/10 com prova nativa e Loop final 15/15; commit `e522984` publicado, CI242/147 aprovado nesse SHA em 27/10; T04a implementada/revisada em 27/10, 7 suítes/184 testes e sete mutações detectadas; Loop final15/15 em ciclo único; T05 implementada/revisada em 27/10, P2 de Dynamic Type corrigido e aprovado no iOS R5; Android aula/revisão fonte2 legíveis; Loop final15/15 após fix3 de mock aprovado em R7, primeira validação do writer substituto/segunda do objetivo; T05 commitd033433/CI245150SUCCESS confirmado; T06 implementada/revisada/validada em28/10, Loop15/15, commitc694f95/CI246151SUCCESS e lifecycleCLOSED; P3/T17 e Androidlive não validados; T07 encerrada no núcleo em 28/10: Loop15/15, writer/cérebro CLOSED, commit `85ebf01` publicado e CI247/152 SUCCESS no mesmo SHA; T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada fechada com sucesso, commit1b987c1 publicado/CI249154SUCCESS; P2 PushOptIn antecipado e corrigido localmente (R1 código PASS/R2 nativo BOUNDED,29/10; Loop final15/15 em um ciclo); Review atual/Android ao vivo/T17 sem aceite; T09 núcleo implementado/revisado em29/10 (60focais/163consumidores/105contratos, código R1 PASS/nativo R2 BOUNDED; Loop15/15 após fix1/dois ciclos; G5 preservado); T10 núcleo implementado/revisado em29/10 (R2 FIX1 PASS após2P2;374focais/consumidores+CPU40/105contratos;R3nativoBOUNDED, gesto iOS pendente e P3legal→T17; Loop final15/15 em um ciclo; commit6266495/CI252157SUCCESS; writer/cérebro CLOSED); P2 compartilhado para T17 e aceite global bloqueado |
 
 **Atualização medida em30/10/2026:** T11 tem G6 local limitado a9a62bca/E262/StoreKitTesting;
 T12 núcleo entregue emf304610, normal/AX5 NOT_VERIFIED por GUI ausente.
-Próximo recorte T13: [pacote de decisão G1/G3](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
-preparado, sem implementação nem aceite. Texto máximo e recorte do quadro
-tiveram decisão posterior do dono em30/10: **A+Q1** (“siga conforme recomendação”).
-[ADR](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
-AplicaçãoA entregue/revisada no recorte estático (RF PASS/APPROVED,336/7
-focais,tipos/lint/43contratos); nativo0/7NOT_VERIFIED por shell/disco, sem segundo
-conserto ou avançoT14. [Evidência A](../../evidence/2026-10-30-medalhao-t13-a.md).
+T13: [pacote A/Q1](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
+escolhido por Anderson em30/10; [ADR](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+A implementada/revisada/validada estaticamente em `19fbde5`:336focais/7suítes,
+tipos/lint/43contratos, RF PASS/APPROVED, finalLoop15/15 em um ciclo.
+CI Quality41127437509/Content41127437415 SUCCESS no mesmo SHA,
+207suítes/2.833testes; writer e cérebro CLOSED, memória da decisão escrita.
+Nativo0/7NOT_VERIFIED por shell/display iOS e disco do AVD; próxima ação é
+repetir capturas quando o ambiente permitir. Q1 só risco residual e observaçãoT18,
+sem segundo conserto, G3global, aceiteT13 integral ou avançoT14.
+[Evidência A e recibos](../../evidence/2026-10-30-medalhao-t13-a.md).
 Estado completo e limites atuais no STATUS.
 
 O plano 6 nasceu do adendo de 2026-10-21 à noite (ADR, decisão 8), quando o dono
@@ -77,16 +80,15 @@ do contrato do currículo substituto; prova legada não substitui a do conteúdo
 novo. Não acessar o simulador reservado durante as tarefas anteriores.
 
 **Pendências que essa ordem preserva:**
-1. Plano 2: o dono decide o texto máximo da coluna. No AX5 e no Android a 200%,
-   o texto quebra no meio da palavra, com os corredores de 64 pt preservados
-   ([retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md), seção 3).
-   Também faltam o quadro final antecipado no Android e o segundo
-   dia iOS, a conferir no fechamento, sem data fixa por decisão de 25/10. O quadro estava em 1 de 4 gravações com o
-   conserto parcial; remedido em 2026-10-23 à noite, ficou em **0 de 13**
-   rodadas válidas, com rastreamento nativo e sem instrumentação, e a causa
-   continua sem observação ([evidência](../../evidence/2026-10-23-trilha-medalhao-quadro.md)). Se isso
-   basta, ou se o quadro ainda bloqueia o aceite, é decisão do dono. Com os
-   três resolvidos, o Plano 2 fecha com uma revisão final curta.
+1. Plano 2/T13: **não repetir a decisão G1/Q1**. A foi escolhida, implementada,
+   revisada e validada estaticamente em19fbde5, com CI do mesmo SHA verde.
+   Faltam capturas normal/AX5/Android200 da implementação atual: as tentativas
+   ficaram0/7NOT_VERIFIED por shell/display iOS e falta de espaço para o AVD.
+   [Evidência](../../evidence/2026-10-30-medalhao-t13-a.md). Não limpar/instalar
+   ou injetar estado para contornar. Q1 aceita somente risco residual do quadro
+   histórico0/13, causa aberta e observaçãoT18; não é conserto nem G3global.
+   Segundo dia iOS permanece emT18, sem relógio/fixtures e sem usar o reservado
+   nas tarefas anteriores. O Plano2 ainda não tem aceite visual integral.
 2. Plano 3: feito em 2026-10-24, com revisão final; falta o dono revisar o
    conteúdo das duas aulas, e o agente fazer o VoiceOver e o AVD de entrada.
    Depois, o Plano 5, que também traz a medalha da abertura e o Pixel da aula

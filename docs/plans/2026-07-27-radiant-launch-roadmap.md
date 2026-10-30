@@ -71,7 +71,11 @@ Após apresentação, Anderson escolheu A+Q1 em30/10: [ADR A/Q1](../adr/ADR-2026
 ImplementaçãoA entregue/revisada estaticamente (RF PASS/APPROVED,336/7focais,
 tipos/lint e43contratos); nativo0/7NOT_VERIFIED por ambiente e aceite integral separados,
 risco residual do quadro aceito somente no recorte, observaçãoT18 mantida.
-Final configurada15/15 PASS em um ciclo. [Evidência A](../evidence/2026-10-30-medalhao-t13-a.md). Sem avanço para T14.
+Recorte estático fechado/publicado em `19fbde5`: finalLoop15/15 em um ciclo,
+MEMORY_WRITTEN/RUN_CLOSED e cérebroCLOSED confirmados; CI Quality41127437509
+/Content41127437415 SUCCESS no mesmo SHA,207suítes/2.833testes PASS.
+[Evidência A e recibos](../evidence/2026-10-30-medalhao-t13-a.md). Aceite nativo
+integral permanece pendente; sem novo pedido G1/Q1 e sem avanço para T14.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

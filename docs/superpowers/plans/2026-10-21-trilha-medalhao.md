@@ -767,3 +767,9 @@ e revisado: RF PASS/APPROVED,336/7focais,tipos/lint/43contratos. Prova nativa
 0/7NOT_VERIFIED por shell iOS/disco Android, sem aceite integral; [evidênciaA](../../evidence/2026-10-30-medalhao-t13-a.md).
 Q1 aceita somente risco residual do quadro e observaçãoT18; não declara
 conserto, causa ou arte/G3global aceitos. T14 não iniciada.
+
+Fechamento estático medido em30/10: `19fbde5` publicado na branch existente;
+finalLoop15/15 em um ciclo, STEP_SUCCEEDED→MEMORY_WRITTEN→RUN_CLOSED e
+cérebroCLOSED confirmados. CI Quality41127437509/Content41127437415 SUCCESS
+no mesmo SHA,207suítes/2.833testes. A próxima etapa deT13 é a captura nativa
+quando o ambiente permitir, não repetir decisões A/Q1 nem implementar T14.

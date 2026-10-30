@@ -594,6 +594,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       Android, sem limpeza/instalação. Aceite visual integral pendente.
       Q1 aceita somente risco residual do quadro, sem conserto declarado;
       observaçãoT18/arte/G3global separados, sem avançoT14.
+      Publicado em `19fbde5`; CI Quality41127437509/Content41127437415 SUCCESS
+      no mesmo SHA (207suítes/2.833testes), Loop15/15; writer e cérebro CLOSED,
+      memória da decisão gravada pela CLI. Falta a prova nativa, não nova G1/Q1.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

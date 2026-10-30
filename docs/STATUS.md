@@ -679,9 +679,15 @@ Sem PNG/AX5/200 aplicado, instalação/limpeza/fixture; runtime encerrado,
 fontes e reservado preservados. Não há aceite visual integral de T13.
 Q1 aceita somente risco residual do quadro0/13 (9rastreadas+4limpas), mantém
 causa aberta e observaçãoT18; não declara conserto ou arte/G3global aceitos.
-T14 não iniciada. Final configurada15/15 PASS em um ciclo; cérebroCLOSED,
-encerramento do writer em comandos separados e recibos consultáveis na
-[evidência A](evidence/2026-10-30-medalhao-t13-a.md).
+T14 não iniciada. Recorte estático publicado em `19fbde5`, com CI App Quality
+41127437509 e Content41127437415 SUCCESS no mesmo SHA, reconfirmados em30/10:
+207 suítes/2.833 testes PASS; visualQA0 regressões/41baseline/3exceções.
+Final Loop15/15 em um ciclo; STEP_SUCCEEDED→MEMORY_WRITTEN→RUN_CLOSED
+confirmados, memória A/Q1 registrada pela CLI e sessão de cérebro CLOSED.
+[Evidência e recibos](evidence/2026-10-30-medalhao-t13-a.md).
+Próxima ação da T13: completar capturas normal/AX5/Android200 quando o shell/
+framebuffer iOS e o espaço para o AVD permitirem. Não pedir G1/Q1 novamente,
+não contornar com instalação/limpeza/fixtures e não marcar T13 integral aceita.
 [Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
 
 ## Prazos de relógio

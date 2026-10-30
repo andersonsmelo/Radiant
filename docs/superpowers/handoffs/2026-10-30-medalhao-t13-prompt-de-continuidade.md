@@ -1,75 +1,117 @@
-# Continuidade Medalhão — T13 texto máximo e quadro
+# Continuidade Medalhão — T13: prova nativa pendente
 
-Passagem de30/10/2026, America/Bahia. Prompt operacional, não estado vivo. Leia primeiro `docs/STATUS.md` e [evidência T12](../../evidence/2026-10-30-medalhao-t12.md); confirme Git, revisão, validação, lifecycle e CI no SHA efetivamente publicado antes de reaproveitar qualquer PASS.
+Consolidado em **30/10/2026, America/Bahia**. Prompt operacional; o único
+estado vivo continua em [STATUS](../../STATUS.md).
 
-## Objetivo e gates
+## Objetivo da retomada
 
-Próximo cartão é Task15/T13. Ler integralmente T13 em `docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md`, Task15 do roteiro por subagentes e a spec/ADR/pranchetas canônicas. **G1 é necessário para aplicar alternativa de texto/geometria; G3 para aceitar o quadro antecipado.** Ausência de decisão permite apresentar alternativas concretas fundamentadas; não autoriza alterar fonte, truncar, consumir corredores ou declarar corrigido o quadro0/13. Não iniciar implementação por inferência deste handoff.
+Completar a prova nativa da alternativa A da T13 quando o ambiente permitir.
+**A já foi implementada, revisada e validada estaticamente. Não refazer T00–T12,
+T13 estática nem P2 PushOptIn; não pedir novamente G1=A ou Q1. Não iniciar T14.**
+T13 integral ainda não está aceita: captura normal/AX5/Android200 e acabamento
+visível permanecem sem prova atual.
 
-## Checkout e continuidade
+## Fontes e decisões vinculantes
 
-Worktree `/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20`, branch `claude/trilha-medalhao-design`, PR66. Reconfirmar HEAD/status/ref remoto/checks e trabalho paralelo. Partida de T12 foi f2dfbf33968414e7e5e6e0763de9398a92103371, com G6 ainda só local; o SHA de entrega e CI devem vir de Git/evidência final, não desse ponto de partida. Não refazer T00–T12 nem P2 PushOptIn.
+Ler AGENTS, .loop/project.yaml, STATUS e roadmap ativo
+`docs/plans/2026-07-27-radiant-launch-roadmap.md`; depois T13 do
+[integrador](../../plans/2026-10-25-medalhao-pendencias-e-fechamento.md),
+Task15 do [roteiro por subagentes](../../plans/2026-10-25-medalhao-execucao-subagentes.md),
+[ADR A/Q1](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md),
+[pacote avaliado](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md),
+[spec](../specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
+[evidência A](../../evidence/2026-10-30-medalhao-t13-a.md) e
+[recibo nativo](../../evidence/2026-10-30-medalhao-t13-a-native.json).
+As evidências de23/10 de retomada/quadro continuam fontes históricas de Q1.
 
-Um implementador novo por objetivo e revisão independente; controlador mantém Loop, escopo nominal, snapshots e documentação. Aplicar lean-task-start/using-loop e abrir sessão própria pela CLI, nunca reutilizar os IDs de T12. Node24 só Loop; Node20 app/testes. Cérebro pode precisar fechar antes writer pela reentrada brain-links. Um writer; PROJECT_BUSY não se contorna.
+Anderson respondeu “siga conforme recomendação” após a recomendação A+Q1.
+G1=A: dois corredores64 preservados, hifenização deliberada só na apresentação
+ampliada, data por componentes, lembrete em footer rolável estável. Mapa local
+não garante palavras futuras; título/label canônicos e fonte permanecem.
+Q1 aceita **somente risco residual** do quadro (0/13 posteriores:9 rastreadas+
+4 limpas, com ocorrência pós-conserto parcial preservada). Causa ainda aberta,
+observação emT18; nenhum segundo patch ou declaração de correção. Não encerra
+arte/acabamento ou G3global.
 
-## T12 — resultado e limites para continuidade
+## Checkout e evidência confirmada
 
-Núcleo R2 SpecPASS/APPROVED após corrigir P2 real: getterextra no foco persistia fotografia antiga e apagava cursor/current; agora contagem real usa retorno do setter já sequenciado no bootstrap, sem nova persistência.229focais/7suítes normalCPU,5mutantesfix1;32injeçõesR1 históricas preservadas. Não reintroduzir lookup getSnapshotForNode no foco como se fosse leitura pura. Contagem atualiza no bootstrap; não se afirma polling contínuo.
+Usar a worktree existente
+`/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20`, branch
+`claude/trilha-medalhao-design`, [PR66](https://github.com/andersonsmelo/Radiant/pull/66).
+Não implementar no checkout principal nem criar outra worktree por padrão.
 
-**Folha normal/AX5 NOT_VERIFIED:** ambiente ativo dispõe de simctl/cliente, mas GUI Simulator.app ausente. Não instalar componentes nem injetar estado/handler para fabricar prova. Cliente existente abriu no E262 e foi encerrado, fonte large preservada, reservado intacto. Validar os recibos finais do Loop e CI antes de afirmar fechamento; este texto não herda PASS de outro SHA.
+Commit de implementação: `19fbde5aedc36df0987bb55954d1df4703e7bc66`, publicado.
+CI do mesmo SHA: App Quality41127437509 e Content41127437415 SUCCESS;
+207suítes/2.833testes, visualQA0regressões/41baseline/3exceções. RF estático
+Spec PASS/Qualidade APPROVED,336focais/7suítes, tipos/lint/43contratos e
+29 violações específicas detectadas/restauradas;1survivor ornamental explicado.
+Não tratar essas contagens focais como a suíte inteira nem como renderização.
 
-## Restrições preservadas
+Writer de implementação `run-1793391172160-16609a84`: **CLOSED**, após final
+Loop15/15 em um ciclo, STEP_SUCCEEDED→MEMORY_WRITTEN→RUN_CLOSED, em chamadas
+separadas. Memória fingerprint
+`0d71160c0d4f3d2c880306f4f46edb0840507ca1bb068f906e9f666b5575d26e`.
+Cérebro `brain-session-1793390942699-3c7a0658`: CLOSED. Não reutilizar esses IDs.
+Reconfirmar HEAD/status/remoto/CI, concorrência e fonte antes de reaproveitar
+PASS; commits documentais posteriores não herdam CI de19fbde5.
 
-Direção Medalhão/Sora/Pixel vetorial nos quatro momentos, ouro funcional, lábio dos botões, runtimeVersion fingerprint. Economia, primeira resposta, revisão, retomada e armazenamento preservados. Decisões de produto/currículo/storage/M7/A2 continuam com Anderson. T12 não autoriza remover o cap global de fonte herdado do AppButton; a prova deve distinguir título/corpo/link livres e CTAs sujeitos ao contrato compartilhado.
+## Bloqueios reais de ambiente e próxima ação
 
-G6 de30/10 comprova somente build/instalação locais do9a62bca no E262, metadados reais no JS e equivalente mensal na configuração StoreKit Testing local. Não prova compra real, preço atual da loja, aparelho, fala audível, FPS ou aceite global. Não transfere autorização de build/install para outro objetivo.
+As sete capturas tentadas estão **NOT_VERIFIED e ausentes**, sem PNG fabricado:
 
-Não usar/limpar/reinstalar/alterar o reservado `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3`. Segundo dia e Maestro integral ficam no fechamento/T18, sem relógio, fixture nativa ou private storage. Runtime somente em cliente compatível e destino explícito, com processos/fontes/portas/restauração medidos antes/depois. Sem novo build/install/EAS/OTA/loja/merge/dependência/retirada de conteúdo/política sem autorização específica. Não criar tarefas ou mensagens externas automáticas.
+- iOS E262: GUI Simulator.app ausente; a tentativa headless chegou aBooted,
+  mas o shell não abriu (FBSOpenApplicationServiceErrorDomain5), deep link
+  expirou e não houve default displayport. Cliente1.4.0(3) por appinfo não
+  comprova compatibilidade atual. Fonte `large→large`, AX5 nunca aplicado;
+  destino encerrado emShutdown.
+- Android `radiant-entrada-api34`: abortou antes do boot por disco insuficiente;
+  medição da tentativa2,9GiB livres/volume100%. Cliente/fonte não mensurados,
+  nada alterado. Não tratar null do JSON como ausência medida da preferência.
+- Metro encerrado,8081/8082livres, ADB22919 preexistente preservado. Nenhuma
+  revisão/lição consumida; fonte e dados do reservado não foram alterados.
 
-## Validação e relatório
+Antes de repetir, medir se o shell/framebuffer iOS consegue iniciar e se há
+espaço suficiente para o AVD existente. Não repetir o mesmo bloqueio sem
+mudança externa. Ausência de GUI não prova impossibilidade de toda rota
+headless, mas a tentativa registrada efetivamente falhou antes de renderizar.
+Não limpar armazenamento, instalar componentes/driver, resetar AVD ou criar
+fixtures para contornar. Se o ambiente continuar impedido, preservar o limite;
+registro documental não substitui observação.
 
-G1/G3 devem vir de decisão citável; testes focais não substituem esses gates. Antes de escrita, enumerar consumidores e declarar união completa, incluindo STATUS/histórico, testes, contratos e evidências. Vermelho causal preservado, mínimo verde, mutações específicas, revisão Spec e Qualidade, texto máximo conforme decisão e uma final configurada em carga baixa/caffeinate sem runtime concorrente. CI só do SHA publicado.
+## Prova e validação futuras
 
-Ao encerrar: documentação canônica e roadmap coerentes, arquivos/branch/commit, testes/revisões, limites, CI, processos e estados separados do writer/cérebro. Próximo objetivo independente em nova conversa; não avançar silenciosamente para T14/conteúdo nem consumir gates do dono.
+Um implementador novo se houver mudança de produto e revisão independente;
+controlador mantém um cérebro/writer próprios, união nominal completa antes
+de escrita e snapshots. PROJECT_BUSY não se contorna. Node24 somente Loop;
+app/testes/Metro Node20.20.2. Close do cérebro antes da final pode ser necessário
+pela reentrada brain-links. Fechar writer e cérebro separadamente.
+Final configurada: `loop validate --run <writer-novo>`, com runtime encerrado
+e carga baixa/caffeinate. Seu validador app-quality executa, em radiant-app
+no Node20, `EXPO_NO_DOTENV=1 CI=1 npm run quality` integral, conforme política
+e workflow versionados. Focais não substituem esse gate.
 
-## Pacote preparatório desta continuidade —30/10/2026
+Usar somente cliente existente compatível, destino explícito e APIs públicas;
+medir processos/portas/fontes antes/depois e restaurar o que mudar. Comparar
+normal, normal→máximo montado e máximo inicial, incluindo troca entre escalas
+grandes; mesma régua/largura real. Provar cabeça inteira, texto/data/CTA e
+lembrete alcançáveis por rolagem, foco e erro/retry. Sem prova de glifos por
+props de Jest. Se houver defeito observado, preservar captura/timeline,
+vermelho causal e patch mínimo com nova revisão. Não alterar rota para
+satisfazer caixa transparente nem corrigir a hipótese do quadroQ1.
 
-O [pacote G1/G3](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
-e o [comparativo isolado](../../design/2026-10-30-medalhao-t13-alternativas.html)
-estão preparados para decisão. A preserva dois64; B libera direita somente
-por G1 explícito; ambas exigem tratar quebras e provar no nativo. G3 quadro
-é aceitação explícita de risco residual ou continuação do bloqueio;0/13 não
-é conserto. [Proveniência e revisão](../../evidence/2026-10-30-medalhao-t13.md).
+Preservar Sora/Pixel/quatro momentos/ouro/lábio/fingerprint, economia,
+primeira resposta, retomada, currículo, storage, M7/A2. T12 usa retorno do
+setter já sequenciado no bootstrap; **não reintroduzir getSnapshotForNode no
+foco como leitura pura**, pois persistia fotografia antiga e apagava cursor.
+G6 local da T11 comprova apenas Debug9a62bca/StoreKitTesting noE262; não
+transfere autorização de build/install para T13.
 
-Nenhuma decisão G1/G3, implementação ou nova captura nativa foi consumida.
-T13 continua pendente no produto; T14 não iniciada. Retomar primeiro a escolha
-citável do dono sobre as opções concretas, sem pedir que repita contexto.
+Reservado `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` intocável. Segundo dia e E2E
+integral sóT18, sem relógio/fixture/storage privado. Sem novo build/install/
+EAS/OTA/loja/merge/dependência/política/retirada de conteúdo ou mensagens/
+tarefas externas. Trello/Todoist/Obsidian/Google Docs não receberam escrita
+externa nesta atualização; a memória da decisão já passou pelo Loop.
 
-## Decisão posterior do dono — execução A autorizada em30/10
-
-Anderson respondeu “siga conforme recomendação” apósA+Q1.
-[ADR citável](../../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
-G1=A escolhido; não pedir que o dono repita essa decisão. Q1 aceita somente
-o risco residual do quadro e sua observaçãoT18, sem conserto/G3global.
-ImplementaçãoA revisada estaticamente (RF PASS/APPROVED,336/7focais,
-tipos/lint/43contratos) na mesma worktree, writer
-`run-1793391172160-16609a84`; cérebro próprio consultado e fechado antes do
-writer. [Evidência A](../../evidence/2026-10-30-medalhao-t13-a.md) tem estado
-medido e deverá ser conferida antes de reaproveitar PASS/lifecycle. Não
-herdar a ausência de GUI como impossibilidade absoluta: a trilha é rota
-inicial e pode admitir captura headless por APIs públicas no clienteexistente.
-Não instalar driver/componente nem injetar estado para contornar launcher.
-SemT14 nem transferência da autorizaçãoG6 para build/install.
-
-Prova nativa tentou APIs públicas sobre freeze8: iOSshellFBS5 e ausência de
-display; AVD abortou por disco insuficiente2,9GiB. Resultado0/7NOT_VERIFIED,
-nenhumPNG, nenhumAX5/200 aplicado, fontes preservadas, runtimes encerrados.
-Não repetir antes da condição externa mudar; não limpar/instalar por inferência.
-Final configurada/fechamento devem vir dos recibos da evidência A, não de
-contagens focais. T13 integral ainda não aceita; não pedirG1/Q1 novamente.
-
-Final A configurada15/15 PASS em um ciclo, com runtimeencerrado ebrainCLOSED.
-O writer `run-1793391172160-16609a84` fecha por STEP_SUCCEEDED, memória da
-decisão e RUN_CLOSED separados; consultar estado atual pela CLI antes de
-retomar. Nenhum novo G1/Q1 necessário; próximo passo deT13 é a prova nativa
-quando shell/framebuffer iOS e espaço para AVD permitirem, dentro dos limites.
+Ao entregar: evidência efetiva, limites, arquivos/commit/CI do SHA publicado,
+processos/fontes restaurados e estados separados de writer/cérebro. Não marcar
+T13 integral ou G3global aceitos nem avançar silenciosamente paraT14.

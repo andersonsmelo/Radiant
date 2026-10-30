@@ -260,6 +260,10 @@ Registro da decisão posterior à apresentação:
   observaçãoT18 preservada, sem declarar conserto.
 - Arte/acabamento de G3: continua separado; não herdado de Q1.
 
-A próxima ação autorizada é implementar A e medir sua validade, mantendo
-os limites de runtime e Q1. Resultados no STATUS/evidência A; sem repasse
-manual de contexto e sem avanço automático à T14.
+A foi implementada, revisada e validada estaticamente em `19fbde5`, publicado
+com CI Quality41127437509/Content41127437415 SUCCESS no mesmo SHA
+(207suítes/2.833testes); finalLoop15/15, memória A/Q1 escrita e writer/cérebro
+CLOSED. [Recibos](../evidence/2026-10-30-medalhao-t13-a.md).
+A próxima ação da T13 é medir a apresentação nativa:0/7 capturas verificadas,
+com bloqueio de shell/display iOS e espaço para o AVD. Manter limites de
+runtime/Q1, sem repetir decisão G1/Q1 ou avançar automaticamente à T14.

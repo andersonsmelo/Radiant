@@ -260,7 +260,11 @@ prova nativa e aceite seguem pendentes. [Recibos](../evidence/2026-10-30-medalha
 recomendação”). [decisão A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md). AplicaçãoA entregue/revisada no recorte estático (336/7focais,tipos/lint,
 43contratos e RF PASS/APPROVED); nativo0/7NOT_VERIFIED por shell/disco.
 Risco residual do quadro aceito só no recorte, observaçãoT18 mantida, sem G3global.
-Final configurada15/15 PASS em um ciclo. [Execução A](../evidence/2026-10-30-medalhao-t13-a.md). Sem avançoT14.
+Fechamento estático confirmado em30/10: commit `19fbde5` publicado, finalLoop
+15/15 em um ciclo, memória A/Q1 gravada e writer/cérebro CLOSED. CI do mesmo
+SHA:Quality41127437509 e Content41127437415 SUCCESS,207suítes/2.833testes.
+[Execução A e recibos](../evidence/2026-10-30-medalhao-t13-a.md). T13 integral
+continua pendente da prova nativa; G1/Q1 já decididos. Sem avançoT14.
 
 ### Task 16: T14 — Conteúdo e decisões do player
 
