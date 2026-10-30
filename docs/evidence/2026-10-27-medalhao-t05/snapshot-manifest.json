@@ -1,0 +1,398 @@
+{
+  "baseTask": "ae2e769d89bac2a4de3b11e5a4fe602d86b31323",
+  "head": "ae2e769d89bac2a4de3b11e5a4fe602d86b31323",
+  "round": "final",
+  "files": [
+    {
+      "path": "docs/FILA.md",
+      "type": "modified",
+      "size": 77123,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/FILA.md",
+      "sha256": "9d925d4443feea3c35480c0c6b5427982c5d337a171b01818a12b62cc0a492ed"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "type": "modified",
+      "size": 67985,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/STATUS.md",
+      "sha256": "db9473a5e6b0d0f14ab5a7c50045dc6c17b773d87ad0f1d76747d4d1dc4976d6"
+    },
+    {
+      "path": "docs/archive/STATUS_historico.md",
+      "type": "modified",
+      "size": 228635,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/archive/STATUS_historico.md",
+      "sha256": "6c4bff73451650b27b59f50ab1600db1307b25fbbb7806676acfcc93b8c03847"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05.md",
+      "type": "new",
+      "size": 8703,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05.md",
+      "sha256": "23b98d9785a9aa5a21a6620fd26af30680c42bdceb713073194e9fc802a03d57"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/android-lesson-max-bottom.png",
+      "type": "new",
+      "size": 162102,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/android-lesson-max-bottom.png",
+      "sha256": "5138038cd64c1432d783e8566ef88fad5b8e9997b718f1f5b03e5c463806a391"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/android-lesson-max-top.png",
+      "type": "new",
+      "size": 200841,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/android-lesson-max-top.png",
+      "sha256": "6a26b353b5ad61a0f50abd26f4339851eafd4e5ddb5546dc849748d448906ef7"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/android-review-max.png",
+      "type": "new",
+      "size": 182115,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/android-review-max.png",
+      "sha256": "418eaab2fe91b192b7d8248f7e1efbd5c6a6c93bc6b37b5c22760d071c7adff8"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/android-review-normal.png",
+      "type": "new",
+      "size": 174286,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/android-review-normal.png",
+      "sha256": "a580bc37622ddcc6c9245bbf117516f23c3c0ddf85ac163acb173909008ac3e0"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/android-review-ui.xml",
+      "type": "new",
+      "size": 21902,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/android-review-ui.xml",
+      "sha256": "5433f6579a15b7b99d9695cafeeb74a187b8aedef2b7edc71a23225a163ea4cd"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/audit.md",
+      "type": "new",
+      "size": 25256,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/audit.md",
+      "sha256": "4069a5e67c292769d2e5f869d9c612b7aa5cc0e154fbd4694e35615ee82110f7"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/green.txt",
+      "type": "new",
+      "size": 118817,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/green.txt",
+      "sha256": "e4c541a07dc58540d9f7aeaaadd9a154b7e851d48c0dcb14b785b4e9e5534fd0"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/implementation-report.md",
+      "type": "new",
+      "size": 17162,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/implementation-report.md",
+      "sha256": "1d53d50fa04d78f18e8acc80a178ea0aa62afa9844049f5ed450010ab169b7aa"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-bottom.png",
+      "type": "new",
+      "size": 202440,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-bottom.png",
+      "sha256": "f345179caf37dfa3e710f9d8fa1302510cb9d8ee8adbe71d43d7fdf8be2f9902"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-top.png",
+      "type": "new",
+      "size": 203500,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-lesson-max-top.png",
+      "sha256": "73bfa3d5d47c2d8ae5239fdad5daffb3771a1a73b7c2e1697e44a7500045bb09"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-motion.mp4",
+      "type": "new",
+      "size": 2360181,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-lesson-motion.mp4",
+      "sha256": "f32d30f244ef4b2c8c15bcce5408415c73a77ede8538f0cd8bcc488a004a95ff"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-normal.png",
+      "type": "new",
+      "size": 220731,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-lesson-normal.png",
+      "sha256": "7da0648bdfbbd8e6590f99e2650f7a80826c9cbe886785bd8be6eaf4509f51bb"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-lesson-ui.json",
+      "type": "new",
+      "size": 2055,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-lesson-ui.json",
+      "sha256": "f72ca36aa52b712f21e45e7abf2aebee40f1494db80ebb45aa26daa3c3bb6ae8"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-review-max.png",
+      "type": "new",
+      "size": 197042,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-review-max.png",
+      "sha256": "5c86f59e47ff69eb6d22e553783f6abb3e2ca2d70e5576fd65c8bbb60e75b19c"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-review-normal.png",
+      "type": "new",
+      "size": 238604,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-review-normal.png",
+      "sha256": "c5cc05128aa1ebfa4aef3bf7772c347073b8f501cfb2233f62250394ad967c99"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/ios-review-ui.json",
+      "type": "new",
+      "size": 1860,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/ios-review-ui.json",
+      "sha256": "b368551011e49e743a91028d4919e8f6e5109c626bb8b32c1dcaad8f065b207f"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/mutations.json",
+      "type": "new",
+      "size": 103988,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/mutations.json",
+      "sha256": "3ae12507ad6de42218d72a064e129cb9adb69f4b2f05c591852950dee82f3928"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/native-preflight.txt",
+      "type": "new",
+      "size": 7092,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/native-preflight.txt",
+      "sha256": "5bd071b8100f5b757b4372bde05099e0fdff1483b068ef4cdf9c3261a37d217d"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/native-runtime.txt",
+      "type": "new",
+      "size": 3466,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/native-runtime.txt",
+      "sha256": "8e56f19e674866fe6ec622af203531be1c96903a79cf6befe7a2054749e86aa7"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/native-settings-before-after.json",
+      "type": "new",
+      "size": 3558,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/native-settings-before-after.json",
+      "sha256": "585124201f04f52b06eeb0c5d6165b1dd63afbbeca0d10408bcaa8c481b7331c"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/native-source-manifest.json",
+      "type": "new",
+      "size": 7674,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/native-source-manifest.json",
+      "sha256": "52af12d8832f716aed629bb4183d5515d296c625bf65907637f3d2977bc695ca"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/native-state.json",
+      "type": "new",
+      "size": 49826,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/native-state.json",
+      "sha256": "70139864782791ea547324f2b3202844ca5714d0966f06d80b4a17b16b4a689f"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/red.txt",
+      "type": "new",
+      "size": 370731,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/red.txt",
+      "sha256": "8476ead2f2f24f1312d1a6604dee71c90a5bb4a944367cbe1f35cacd9109f5a4"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t05/task-brief.md",
+      "type": "new",
+      "size": 12061,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t05/task-brief.md",
+      "sha256": "e9cdc1022098d47166ccea3e7427d3403f9817664264c85cf3886250f6a128a2"
+    },
+    {
+      "path": "docs/plans/2026-07-27-radiant-launch-roadmap.md",
+      "type": "modified",
+      "size": 137426,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-07-27-radiant-launch-roadmap.md",
+      "sha256": "b094bf05dd0d3b719d1d87950c6b854cc4bd34c66d842e75c7dc7a13d3a157f0"
+    },
+    {
+      "path": "docs/plans/2026-10-25-medalhao-execucao-subagentes.md",
+      "type": "modified",
+      "size": 37674,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-10-25-medalhao-execucao-subagentes.md",
+      "sha256": "8a4f5d6556aa422e9a78b0bf7f54ced95a1a1f58c4e7f52217930fd172eef079"
+    },
+    {
+      "path": "docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md",
+      "type": "modified",
+      "size": 58038,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md",
+      "sha256": "d7ca5edcaae460b4d126f1d0e373b5244d6029b2e5c9247b46e0a61051218999"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md",
+      "type": "modified",
+      "size": 35077,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md",
+      "sha256": "81ff5a13c924584a3df5f84833b6e30e43ba548f6e1710ba27bd630162bb2b57"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md",
+      "type": "modified",
+      "size": 17874,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md",
+      "sha256": "ebca2be7bc07e3769c9b5b7ff0efd1125caeb2fb422fadb2c1c2884178720703"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+      "type": "new",
+      "size": 857,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+      "sha256": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx",
+      "type": "modified",
+      "size": 992,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx",
+      "sha256": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.test.tsx",
+      "type": "modified",
+      "size": 15512,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/components/JourneyMedal.test.tsx",
+      "sha256": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.tsx",
+      "type": "modified",
+      "size": 10978,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/components/JourneyMedal.tsx",
+      "sha256": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e"
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "type": "modified",
+      "size": 17950,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "type": "modified",
+      "size": 112123,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "type": "modified",
+      "size": 43084,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.test.tsx",
+      "type": "modified",
+      "size": 28031,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.test.tsx",
+      "sha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.tsx",
+      "type": "modified",
+      "size": 13000,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.tsx",
+      "sha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "type": "modified",
+      "size": 39144,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "sha256": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.tsx",
+      "type": "modified",
+      "size": 17963,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/screens/QuizScreen.tsx",
+      "sha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa"
+    },
+    {
+      "path": "radiant-app/src/ui/__tests__/motion.test.ts",
+      "type": "modified",
+      "size": 9341,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/__tests__/motion.test.ts",
+      "sha256": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7"
+    },
+    {
+      "path": "radiant-app/src/ui/motion.ts",
+      "type": "modified",
+      "size": 35343,
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/motion.ts",
+      "sha256": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4"
+    }
+  ],
+  "productFreeze": [
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.tsx",
+      "sha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.test.tsx",
+      "sha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.tsx",
+      "sha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "sha256": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx",
+      "sha256": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+      "sha256": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx",
+      "sha256": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d"
+    },
+    {
+      "path": "radiant-app/src/ui/motion.ts",
+      "sha256": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4"
+    },
+    {
+      "path": "radiant-app/src/ui/__tests__/motion.test.ts",
+      "sha256": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.tsx",
+      "sha256": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.test.tsx",
+      "sha256": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx",
+      "sha256": null
+    },
+    {
+      "path": "radiant-app/.rnstorybook/storybook.requires.ts",
+      "sha256": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28"
+    }
+  ],
+  "briefSha256": "e9cdc1022098d47166ccea3e7427d3403f9817664264c85cf3886250f6a128a2",
+  "packageSha256": "d6c7b27d39734bd1312c5e2f020d04ef44682b1d1d04cd7302052d19f0af32bc",
+  "status": " M docs/FILA.md\n M docs/STATUS.md\n M docs/archive/STATUS_historico.md\n M docs/plans/2026-07-27-radiant-launch-roadmap.md\n M docs/plans/2026-10-25-medalhao-execucao-subagentes.md\n M docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md\n M docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md\n M docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md\n M radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx\n M radiant-app/src/features/journey/components/JourneyMedal.test.tsx\n M radiant-app/src/features/journey/components/JourneyMedal.tsx\n M radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx\n M radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx\n M radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx\n M radiant-app/src/features/quiz/components/LessonSummary.test.tsx\n M radiant-app/src/features/quiz/components/LessonSummary.tsx\n M radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx\n M radiant-app/src/features/quiz/screens/QuizScreen.tsx\n M radiant-app/src/ui/__tests__/motion.test.ts\n M radiant-app/src/ui/motion.ts\n?? docs/evidence/2026-10-27-medalhao-t05.md\n?? docs/evidence/2026-10-27-medalhao-t05/\n?? radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx\n"
+}

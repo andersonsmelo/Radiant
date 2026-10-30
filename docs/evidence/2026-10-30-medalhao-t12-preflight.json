@@ -1,0 +1,101 @@
+{
+  "baseTask": "f2dfbf33968414e7e5e6e0763de9398a92103371",
+  "baseContinuation": "f2dfbf33968414e7e5e6e0763de9398a92103371",
+  "branch": "claude/trilha-medalhao-design",
+  "remoteBefore": "9a62bcae990163be74a464ef147ab092e1b327d4",
+  "cleanBefore": true,
+  "g6CommitNotPushedBefore": true,
+  "callerCount": 3,
+  "callers": [
+    {
+      "file": "radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx",
+      "mountLine": 272,
+      "finding": "HUD unguarded flag; montage protects unlimited; ensure executable review route"
+    },
+    {
+      "file": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "mountLine": 768,
+      "finding": "visible lacks unlimited guard; dueReviewCount hardcoded0"
+    },
+    {
+      "file": "radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx",
+      "mountLine": 687,
+      "finding": "visible lacks unlimited guard; preserve active-unit reviews"
+    }
+  ],
+  "productScope": [
+    "radiant-app/src/features/hearts/components/HeartsSheet.tsx",
+    "radiant-app/src/features/hearts/components/HeartsSheet.test.tsx",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
+    "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+    "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+    "radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx",
+    "radiant-app/src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx",
+    "radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml",
+    "radiant-app/scripts/maestro-contract.test.mjs"
+  ],
+  "baselineHashes": {
+    "radiant-app/src/features/hearts/components/HeartsSheet.tsx": "799159248d2966f59bb265264eb846d828c653743c774cf6968ea30c7732fcd6",
+    "radiant-app/src/features/hearts/components/HeartsSheet.test.tsx": "577fd49bbeae48566468d07aaa1c92348be06e24c748be2ba081bce4fecd301c",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx": "9bf2d65d2439ec50a18507a0a67ac6f1bea7256e99a93f6ac105143b4ea8e091",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx": "aa50c1785c1abbb4c3841806f80abbf9637861368884c72245b575ac2bf34589",
+    "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+    "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+    "radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx": "6c1beac5cb29cfa0e25b8ed5204b10e025670250c295646097f8093ee07a3e6d",
+    "radiant-app/src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx": "89073db6fb87f163b3b792ddf86b32315f5e2256ea7d30868e33eae5d06f51d6",
+    "radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml": "68cd999a0a16ab21187ccd2971c2803cf223f49f4a0685f55a6a40c7c4ba4664",
+    "radiant-app/scripts/maestro-contract.test.mjs": "3e21735fd5d464d608b765596a6245f0de176e324d820b88d7dc9a16f93a1ab8"
+  },
+  "protectedHashes": {
+    ".loop/project.yaml": "b51c87a77898139fd42c832c494e60c9ebe9279ee4edf9973a0bf7cfe52e5e3c",
+    "radiant-app/expo-env.d.ts": "6fc02634da46d3edc5a88eec9173ba6bf709726be3cba83c73ebd8e859d5c147"
+  },
+  "briefSha256": "8ce8168774d8e524d3b672de34870adbff9ede9d5b3b94c65fdddc5641bd0f5a",
+  "loop": {
+    "runId": "run-1793361707356-9d160e66",
+    "sessionId": "brain-session-1793361533658-b36e155e",
+    "sessionState": "closed"
+  },
+  "reserved": {
+    "udid": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+    "state": "Shutdown",
+    "lastUsedAt": "2026-10-23T11:16:09Z",
+    "dataPathSize": 2869338112
+  },
+  "targetBefore": {
+    "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "state": "Shutdown",
+    "lastUsedAt": "2026-10-30T10:45:58Z"
+  },
+  "g6Boundary": "Local bridge validation only; no authorization for T12 build/install. Existing9a62bca development client only if hashes compatible.",
+  "existingDevelopmentClient": {
+    "sourceCommit": "9a62bcae990163be74a464ef147ab092e1b327d4",
+    "runtimeInstallation": {
+      "runtimeContainer": "/Users/anderson/Library/Developer/CoreSimulator/Devices/E262D4C1-99BE-496B-8567-0291C14E6533/data/Containers/Bundle/Application/8FB80082-BA91-4952-A328-15255EFD7EA7/Radiant.app",
+      "files": {
+        "Radiant": "f8a174af49e308e68545e84aa4572e75668fc87cad1f985bafcbe6c7807bc18b",
+        "Radiant.debug.dylib": "329e248632dbc59953324465dd0a6637896f374b684ad5a78c578fe7be09d45d",
+        "Info.plist": "0b9c4a7cba52d3f6e442b3d1392062f0d605126095c3fb0f26dcc683ed980228"
+      }
+    },
+    "preflightHashesMatch": true,
+    "boundary": "Native binary files only; app private data not read. No T12 build/install required for JS-only changes."
+  },
+  "briefRevisions": [
+    {
+      "revision": "r1",
+      "sha256": "ff58a5ee74b459476dd76aba8b99dec25366f861c1bf9c18ebca2551dc803844"
+    },
+    {
+      "revision": "r1a",
+      "sha256": "787478a4fde09f864bf5f6bee886e73c1b8f617e7995303586ed728f9bcc9fd8",
+      "ruling": "Preserve inherited AppButton font cap; introduce no new cap on sheet; explicitly bound max-font proof."
+    },
+    {
+      "revision": "r1b",
+      "sha256": "8ce8168774d8e524d3b672de34870adbff9ede9d5b3b94c65fdddc5641bd0f5a",
+      "ruling": "Eliminate extra persistence-producing focus lookup; use existing sequenced bootstrap setter snapshot; nativeGUI unavailable."
+    }
+  ]
+}

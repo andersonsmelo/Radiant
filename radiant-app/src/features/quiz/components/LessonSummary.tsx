@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
-import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
-// Telas de feature não podem importar Reanimated direto (regra R4 do QA
-// visual — `scripts/visual-qa.mjs`): animação reutilizável vive em
-// `ui/motion.ts`. `useScalePop` já resolve movimento reduzido por dentro.
-import { useScalePop } from '../../../ui/motion';
-import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
-import { radius, space, typography } from '../../../ui/styles';
-import { galaxyColors } from '../../../ui/theme';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import type { IllustrationTheme } from '../../../ui/illustrations/illustrationPlayback';
+import { MotionView, useMedalMint, useResultStar } from '../../../ui/motion';
+import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
+import { space, typography } from '../../../ui/styles';
+import { galaxyColors, medalColors } from '../../../ui/theme';
 import type { LessonStars } from '../services/resolveLessonStars';
 
 export type LessonSummaryProps = {
+  /** Título autoral do catálogo/abertura. Ausente apenas se a fonte não o possui. */
+  title?: string;
+  theme: IllustrationTheme;
   /** Estrelas DESTA tentativa (ADR de 2026-10-16). */
   stars: LessonStars;
   /** O recorde da lição; aparece à parte quando é maior que esta tentativa. */
@@ -50,35 +52,17 @@ const RATING_SLOTS = Array.from({ length: RATING_MAX }, (_, index) => index + 1)
 const CTA_HEIGHT = 56; // altura mínima do AppButton, components/ui/AppButton.tsx
 const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
 
-/**
- * Uma estrela do placar, com entrada animada quando a marca melhorou.
- *
- * `animate` controla a animação de GANHO, não o preenchimento: quando a marca
- * não melhora (`animate === false`), o pop nunca dispara e a escala é fixada
- * em 1 direto — a tela não pode sugerir uma melhora que não aconteceu.
- * `useScalePop` já resolve movimento reduzido por dentro, então o mesmo vale
- * quando a pessoa pediu menos animação.
- */
-function SummaryStar({ filled, animate }: { filled: boolean; animate: boolean }) {
-  const { scale, style, animateIn } = useScalePop();
-
-  useEffect(() => {
-    if (animate) {
-      animateIn();
-    } else {
-      scale.setValue(1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animate]);
-
+/** Cada estrela possui seu hook; somente a preenchida encena ganho real. */
+function SummaryStar({ filled, animate, index }: { filled: boolean; animate: boolean; index: number }) {
+  const style = useResultStar(animate && filled, index);
   return (
-    <Animated.View style={style}>
+    <MotionView style={style}>
       <DecorativeIcon
         name={filled ? 'star' : 'star-border'}
         size={36}
-        color={filled ? galaxyColors.xpColor : galaxyColors.textTertiary}
+        color={filled ? medalColors.gold.face : galaxyColors.textTertiary}
       />
-    </Animated.View>
+    </MotionView>
   );
 }
 
@@ -91,14 +75,14 @@ function StarRow({ stars, animate }: { stars: LessonStars; animate: boolean }) {
       accessibilityLabel={`${stars} de ${TOTAL_STARS} estrelas`}
     >
       {STAR_SLOTS.map((index) => (
-        <SummaryStar key={index} filled={index < stars} animate={animate} />
+        <SummaryStar key={index} index={index} filled={index < stars} animate={animate} />
       ))}
     </View>
   );
 }
 
 /** Uma linha pode empilhar com texto ampliado; o corpo continua sem teto de escala. */
-function ResultRow({ label, value, stacked }: { label: string; value: string; stacked: boolean }) {
+function ResultRow({ label, value, stacked, fontScale }: { label: string; value: string; stacked: boolean; fontScale: number }) {
   return (
     <View
       style={[styles.resultRow, stacked && styles.resultRowStacked]}
@@ -106,13 +90,15 @@ function ResultRow({ label, value, stacked }: { label: string; value: string; st
       accessibilityRole="text"
       accessibilityLabel={`${label}: ${value}`}
     >
-      <Text style={[styles.resultLabel, stacked && styles.resultTextStacked]}>{label}</Text>
-      <Text style={[styles.resultValue, stacked && styles.resultTextStacked]}>{value}</Text>
+      <Text key={`label-${fontScale}`} style={[styles.resultLabel, stacked && styles.resultTextStacked]}>{label}</Text>
+      <Text key={`value-${fontScale}`} style={[styles.resultValue, stacked && styles.resultTextStacked]}>{value}</Text>
     </View>
   );
 }
 
 export function LessonSummary({
+  title,
+  theme,
   stars,
   recordStars,
   kind = 'lesson',
@@ -131,8 +117,11 @@ export function LessonSummary({
   onRetry,
   continueHint = 'Continua o estudo',
 }: LessonSummaryProps) {
-  const largeText = useLargeTextLayout();
+  const { fontScale } = useWindowDimensions();
+  const largeText = isLargeTextScale(fontScale);
   const isZeroStars = stars === 0;
+  const earned = starsImproved && !isZeroStars;
+  const mintStyle = useMedalMint(earned);
   // A nova régua reconhece acertos parciais sem prometer aprovação ou domínio.
   const resultPhrase = stars > 0 && correctAnswers < totalQuestions
     ? 'Você avançou. Vale reforçar os pontos que faltaram.'
@@ -146,56 +135,76 @@ export function LessonSummary({
   return (
     <View style={styles.root}>
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
-        {/* A celebração compacta também rola: não disputa altura fixa com o texto ampliado. */}
-        <View testID="lesson-summary-band" style={[styles.band, isZeroStars && styles.zeroBand]}>
-          <PixelIllustration
-            state={isZeroStars ? 'guide' : 'celebrate'}
-            tier="intermediate"
-            size="md"
-            accessibilityLabel={isZeroStars ? 'Pixel incentivando a tentar novamente' : 'Pixel comemorando'}
-          />
-          <StarRow stars={stars} animate={starsImproved} />
+        <View style={styles.hero}>
+          <MotionView style={mintStyle}>
+            <JourneyMedal
+              node={{ id: 'lesson-summary', type: 'lesson' }}
+              theme={theme}
+              state="done"
+              appearance={isZeroStars ? 'neutral' : undefined}
+              pulsing={false}
+              size={68}
+              accessibilityLabel={title ? `${title}. Concluído.` : 'Aula concluída.'}
+            />
+          </MotionView>
+          {kind === 'lesson' ? (
+            <PixelIllustration
+              state={isZeroStars ? 'guide' : 'celebrate'}
+              expression={isZeroStars ? 'neutro' : 'orgulhoso'}
+              size="md"
+              accessibilityLabel={isZeroStars ? 'Pixel incentivando a tentar novamente' : 'Pixel comemorando'}
+            />
+          ) : null}
         </View>
-
-        <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={Math.min(LABEL_MAX_FONT_SCALE, 1.75)}>
-          {resultPhrase}
-        </Text>
+        <StarRow stars={stars} animate={earned} />
+        {/* No cliente iOS, mudar Dynamic Type com o resultado aberto pode
+            reutilizar a medição dos parágrafos. Renova só os Text: conquista,
+            scroll, controles e seus efeitos continuam montados. */}
+        {title ? <Text key={`title-${fontScale}`} style={styles.title} accessibilityRole="header">{title}</Text> : null}
+        <Text key={`phrase-${fontScale}`} style={styles.phrase}>{resultPhrase}</Text>
         {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
             que o caminho dourado 1 afirma. */}
         {/* Com 0 estrela a lição também conta como concluída na trilha: o
             subtítulo diz o estado, e a faixa, o Pixel e a frase dizem o resultado. */}
-        {kind !== 'review' ? (
-          <Text style={styles.subtitle}>A lição foi concluída</Text>
-        ) : (
-          <Text style={styles.subtitle}>Revisão concluída</Text>
-        )}
+        <React.Fragment key={`subtitle-${fontScale}`}>
+          {kind !== 'review' ? (
+            <Text style={styles.subtitle}>A lição foi concluída</Text>
+          ) : (
+            <Text style={styles.subtitle}>Revisão concluída</Text>
+          )}
+        </React.Fragment>
         {recordStars !== undefined && recordStars > stars ? (
-          <Text style={styles.record}>
+          <Text key={`record-${fontScale}`} style={styles.record}>
             {`Seu recorde nesta lição: ${recordStars} ${recordStars === 1 ? 'estrela' : 'estrelas'}`}
           </Text>
         ) : null}
 
+        <View accessible accessibilityRole="text" accessibilityLabel={`XP: ${xpResult}`} style={styles.xp}>
+          <Text key={`xp-${fontScale}`} style={xpAwarded !== null && xpAwarded > 0 ? styles.xpAmount : styles.xpStatus}>
+            {xpAwarded !== null && xpAwarded > 0 ? `+${xpAwarded} XP` : xpResult}
+          </Text>
+        </View>
+
         <View style={styles.results}>
-          <ResultRow label="Respostas corretas" value={`${correctAnswers} de ${totalQuestions} corretas`} stacked={largeText} />
-          <ResultRow label="XP" value={xpResult} stacked={largeText} />
+          <ResultRow label="Respostas corretas" value={`${correctAnswers} de ${totalQuestions} corretas`} stacked={largeText} fontScale={fontScale} />
           {/* O total inclui lições, checkpoints e conquista; o rótulo continua sendo etapas. */}
           {unitTotal > 0 ? (
-            <ResultRow label="Progresso da unidade" value={`${unitCompleted} de ${unitTotal} etapas`} stacked={largeText} />
+            <ResultRow label="Progresso da unidade" value={`${unitCompleted} de ${unitTotal} etapas`} stacked={largeText} fontScale={fontScale} />
           ) : null}
         </View>
 
-        {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
+        {habitLine ? <Text key={`habit-${fontScale}`} style={styles.habitLine}>{habitLine}</Text> : null}
 
         {nextReviewInDays !== null ? (
-          <Text style={styles.reviewSchedule}>
+          <Text key={`schedule-${fontScale}`} style={styles.reviewSchedule}>
             {`Próxima revisão em ${nextReviewInDays} ${nextReviewInDays === 1 ? 'dia' : 'dias'}`}
           </Text>
         ) : null}
 
         {kind === 'review' ? null : currentRating === null ? (
           <View style={styles.ratingSection}>
-            <Text style={styles.ratingLabel}>Avalie a aula</Text>
-            <Text style={styles.ratingOptional}>É opcional</Text>
+            <Text key={`rating-label-${fontScale}`} style={styles.ratingLabel}>Avalie a aula</Text>
+            <Text key={`rating-optional-${fontScale}`} style={styles.ratingOptional}>É opcional</Text>
             <View style={styles.ratingRow}>
               {RATING_SLOTS.map((n) => (
                 <Pressable
@@ -211,7 +220,7 @@ export function LessonSummary({
             </View>
           </View>
         ) : (
-          <Text style={styles.ratingGiven}>{`Você avaliou esta aula com ${currentRating} de 5`}</Text>
+          <Text key={`rating-given-${fontScale}`} style={styles.ratingGiven}>{`Você avaliou esta aula com ${currentRating} de 5`}</Text>
         )}
       </ScrollView>
 
@@ -231,19 +240,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: galaxyColors.background,
   },
-  band: {
-    backgroundColor: galaxyColors.celebrationBand,
+  hero: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
     gap: space.s2,
-    paddingVertical: space.s1,
-    borderRadius: radius.rLg,
+    paddingTop: space.s3,
   },
-  zeroBand: {
-    backgroundColor: galaxyColors.surface,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
+  title: {
+    ...typography.h2,
+    // Em texto ampliado, o parágrafo usa as métricas naturais da Sora.
+    lineHeight: undefined,
+    color: galaxyColors.textPrimary,
+    textAlign: 'center',
+  },
+  xp: {
+    alignItems: 'center',
+    paddingVertical: space.s2,
+  },
+  xpAmount: {
+    ...typography.h1,
+    color: medalColors.gold.face,
+    textAlign: 'center',
+  },
+  xpStatus: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
   },
   body: {
     padding: space.s3,
@@ -256,12 +279,14 @@ const styles = StyleSheet.create({
     gap: space.s2,
   },
   phrase: {
-    ...typography.h3,
+    ...typography.bodyRegular,
+    lineHeight: undefined,
     color: galaxyColors.textPrimary,
     textAlign: 'center',
   },
   subtitle: {
     ...typography.bodyRegular,
+    lineHeight: undefined,
     color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
@@ -276,11 +301,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   results: {
-    backgroundColor: galaxyColors.surface,
-    borderWidth: 1,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: galaxyColors.border,
-    borderRadius: radius.rLg,
-    paddingHorizontal: space.s3,
   },
   resultRow: {
     flexDirection: 'row',

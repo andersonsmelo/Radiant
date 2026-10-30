@@ -1,0 +1,102 @@
+T05 native preflight / PREPARED — 2026-10-27
+Workspace: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20
+Writer controlled by parent: run-1793116969213-81113b5b; this agent did not invoke Loop.
+Scope: tool/help inventory and helper preparation only. No Metro, boot, launch,
+build, installation, native capture, setting change, clock change, or data seeding.
+
+VERIFIED INSTALLED TOOLS
+xcrun: /usr/bin/xcrun. xcodebuild -version: Xcode 27.1 / 27A9275.
+XcodeBuildMCP CLI 2.7.0:
+/Users/anderson/.npm/_npx/99336612077b7094/node_modules/xcodebuildmcp/build/cli.js
+Node for CLI: /Users/anderson/.nvm/versions/node/v24.14.1/bin/node
+Its bundled/axe --version: 1.8.0.
+No Xcode MCP connection is required for this existing CLI.
+adb: /Users/anderson/Library/Android/sdk/platform-tools/adb
+adb version: Android Debug Bridge 1.0.41 / 37.0.1-15733141.
+emulator: /Users/anderson/Library/Android/sdk/emulator/emulator
+emulator -version: 37.2.12.0 / build16428233.
+emulator -list-avds: radiant-entrada-api34.
+Maestro exists at /Users/anderson/.maestro/bin/maestro; jar name 2.7.0.
+maestro --version FAILED because Java runtime is absent from current environment.
+No idb located in the usual explicitly checked bin/venv paths; no installation attempted.
+
+READ-ONLY DEVICE INVENTORY
+simctl list devices --json: principal E262D4C1-99BE-496B-8567-0291C14E6533,
+Radiant E2E 17 Pro, iOS26.5, available, Shutdown.
+Reserved 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 is Shutdown; do not target it.
+simctl listapps and get_app_container principal com.ascendcreative.radiant app
+both returned code405 (Shutdown). Current installed version NOT reverified.
+Previous T04 native-state/preflight record 1.4.0(3) on iOS and Android.
+No emulator/qemu/adb process appeared in the bounded process-name query.
+
+CONFIRMED HELP CONTRACTS
+CLI ui-automation snapshot-ui: simulatorId, optional sinceScreenHash.
+tap: simulatorId, elementRef; only tap-capable ref from current snapshot.
+swipe: simulatorId, withinElementRef, direction up/down/left/right,
+distance (0,1], duration; refresh snapshot after navigation/scroll/layout change.
+screenshot CLI: simulatorId, returnFormat path/base64.
+simctl io screenshot --type=png - emits PNG stdout; recordVideo writes explicit path.
+simctl ui content_size supports large and accessibility-extra-extra-extra-large.
+No direct reduce-motion simctl ui option advertised; use visible Settings UI later
+and measure/restore initial value. Do not edit preferences/database files directly.
+adb help confirms serial targeting, exec-out/shell and emulator console interface.
+Device-side input/uiautomator/screencap help remains UNVERIFIED until authorized boot.
+Android XML candidate: exec-out uiautomator dump /dev/tty (no storage XML file).
+If /dev/tty is unsupported, stop that capture and report; do not invent a fallback
+that writes undeclared files or seed app storage.
+
+PREPARED HELPER (not executed against a device)
+.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py
+All operations require --execute-after-freeze; no automatic boot/start/install.
+Hardcoded principal iOS UDID and Android emulator-5554; confirm AVD identity
+with adb -s emulator-5554 emu avd name after boot before helper use.
+The helper emits stdout; caller redirects only to the union's declared paths.
+IOS tap/swipe validates CLI JSON success in addition to process exit status.
+Android URL is shell quoted to preserve ampersands; no arbitrary shell operation.
+Helper syntax verified with ast.parse; --help checked, not runtime operation.
+
+EXACT POST-FREEZE COMMAND EXAMPLES (NOT RUN)
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze ios snapshot
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze ios tap e42
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze ios swipe e12 up
+The e42/e12 values above are illustrative; use only refs observed in current runtime.
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze ios screenshot > docs/evidence/2026-10-27-medalhao-t05/ios-lesson-normal.png
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze android snapshot
+python3 .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task-7-native-helper.py --execute-after-freeze android screenshot > docs/evidence/2026-10-27-medalhao-t05/android-lesson-normal.png
+Android tap accepts x y; swipe accepts x1 y1 x2 y2 durationMs from fresh evidence.
+
+ROUTE PLAN FROM CURRENT SOURCE (recheck frozen source before execution)
+learn.tsx forwards blockId/nodeId; isReview depends on node type, not a mode param.
+Real no-node lesson candidate:
+radiantapp://learn?blockId=bancada%3Aexposicao
+Activity EXPOSICAO is registered as bancada:exposicao, theme tubo. Complete its
+actual steps to reach LessonFlowScreen summary; no-node route keeps journey untracked.
+Do not pass an invented review node: it would attach to real journey completion.
+quiz.tsx parses mode=review and comma-separated lessonIds. Catalog's local initial
+lessonId is lesson-1 (Fundamentos de Radiologia); getLessonById resolves actual map.
+Real QuizScreen review candidate:
+radiantapp://quiz?mode=review&lessonIds=lesson-1
+Real QuizScreen normal candidate:
+radiantapp://quiz?lessonId=lesson-1
+Verify catalog availability on device; if absent, use only another observed catalog ID.
+Completing quiz review follows the real review consumer and may write ordinary
+attempt/progress evidence; it DOES NOT prove spaced-review due scheduling or second day.
+No clocks/storage manipulation, no claim of a naturally due review, no reserved device.
+NativeStory, if added by implementer, is a fixture only: useful for 0/1/2/3 stars,
+null/zero/positive XP and maximum-font states; never label it real flow/persistence.
+
+CAPTURE PLAN / ALREADY NOMINALLY DECLARED IN task-7-writer-files.json
+ios/android lesson-normal, lesson-max-top, lesson-max-bottom, lesson-reduce-motion,
+review-normal, review-max, zero-stars PNGs; lesson-motion and lesson-reduce-motion MP4s;
+ios-lesson-ui.json, ios-review-ui.json, android-lesson-ui.xml, android-review-ui.xml.
+Provenance/settings/runtime: native-state.json, native-runtime.txt,
+native-settings-before-after.json, native-source-manifest.json.
+Label each frame by consumer AND real flow/fixture AND source SHA/settings.
+Capture normal first; maximum iOS category / Android font2; scroll through CTA;
+record movement at entry when feasible; compare reduced motion preserving pose.
+A static screenshot cannot prove once-only animation, FPS or reduced-motion timing.
+No audible screen reader, physical device, cloud/production/economy proof claimed.
+Record initial settings and restore precisely; terminate apps/Metro and shut down targets.
+
+STATUS: PREPARED. Await explicit controller authorization AFTER product freeze
+before starting Metro, either device, navigation, settings or native capture.

@@ -333,3 +333,67 @@ describe('motor híbrido — M2, M3 e M8', () => {
         expect(result.current.confirmedAnswers).toEqual({ q1: false, q2: true });
     });
 });
+
+describe('useLearningActivity — o texto do retorno vem de feedbackFor', () => {
+    function withExplanations(): LearningStepV2 {
+        const step = interaction('step:explicada');
+        if (step.kind !== 'interaction' || step.interaction.type !== 'multiple-choice') throw new Error('Fixture inesperada');
+        step.interaction.payload.options = [
+            { id: 'a', label: 'Osso', explanation: 'Osso atenua muito.' },
+            { id: 'b', label: 'Ar', explanation: 'O ar quase não atenua, não é a resposta.' },
+        ];
+        return step;
+    }
+
+    function benchStep(): LearningStepV2 {
+        return {
+            kind: 'interaction',
+            interaction: {
+                type: 'bench',
+                id: 'step:bancada',
+                competencyIds: ['competency:bancada'],
+                evidenceKind: 'guided-practice',
+                completionRule: 'answered',
+                criticalSafety: false,
+                feedback: { correct: 'Isso.', incorrect: 'Reveja.' },
+                accessibility: { label: 'Bancada' },
+                payload: {
+                    prompt: 'Suba o kV até 100.',
+                    simulator: 'exposure',
+                    mode: 'challenge',
+                    controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 }],
+                    goal: { kind: 'reach', control: 'kv', atLeast: 100 },
+                    phantomLabel: 'Fantoma simulado',
+                    hints: { tooLow: 'Suba o kV.', tooHigh: 'Desça o kV.' },
+                },
+            },
+        };
+    }
+
+    it('escolha errada com explicação na alternativa marcada: a mensagem é essa explicação', () => {
+        const { result } = renderHook(() => useLearningActivity(activity([withExplanations(), presentation('step:closing', 'closing')])));
+
+        act(() => { result.current.setValue('b'); });
+        act(() => { result.current.confirm(); });
+
+        expect(result.current.lastFeedback).toEqual({ correct: false, message: 'O ar quase não atenua, não é a resposta.' });
+    });
+
+    it('escolha certa: a mensagem continua sendo feedback.correct, mesmo com explicação na alternativa', () => {
+        const { result } = renderHook(() => useLearningActivity(activity([withExplanations(), presentation('step:closing', 'closing')])));
+
+        act(() => { result.current.setValue('a'); });
+        act(() => { result.current.confirm(); });
+
+        expect(result.current.lastFeedback).toEqual({ correct: true, message: 'Isso mesmo.' });
+    });
+
+    it('bancada errada: a mensagem é a dica do lado em que o aluno errou', () => {
+        const { result } = renderHook(() => useLearningActivity(activity([benchStep(), presentation('step:closing', 'closing')])));
+
+        act(() => { result.current.setValue('{"kv":70}'); });
+        act(() => { result.current.confirm(); });
+
+        expect(result.current.lastFeedback).toEqual({ correct: false, message: 'Suba o kV.' });
+    });
+});

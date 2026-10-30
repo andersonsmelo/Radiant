@@ -1,0 +1,2296 @@
+T05 — verification executed by replacement implementer
+Independent phases; do not sum test counts.
+Node v20.20.2 measured before each command.
+PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:$PATH
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+
+=== PHASE normal-seven-before-final-test-cleanup ===
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/quiz/components/LessonSummary.test.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/ui/__tests__/motion.test.ts src/features/journey/components/JourneyMedal.test.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+EXIT_CODE: 0
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (15.545 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      545 |             ) ?? null;
+      546 |
+    > 547 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      548 |     }, [outcome, journeySnapshot]);
+      549 |
+      550 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:547:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      505 |                 }
+      506 |
+    > 507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      508 |             } catch (cause) {
+      509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      510 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:507:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/quiz/screens/QuizScreen.flow.test.tsx
+PASS src/features/quiz/components/LessonSummary.test.tsx
+PASS src/features/journey/components/JourneyMedal.test.tsx
+PASS src/ui/__tests__/motion.test.ts
+PASS src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+  ● Console
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+PASS src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx
+
+Test Suites: 7 passed, 7 total
+Tests:       236 passed, 236 total
+Snapshots:   0 total
+Time:        22.85 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx|src\/features\/quiz\/screens\/QuizScreen.flow.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx|src\/ui\/__tests__\/motion.test.ts|src\/features\/journey\/components\/JourneyMedal.test.tsx|src\/features\/curriculum-v3\/hybrid-l1\/HybridLessonCharacter.test.tsx|src\/features\/curriculum-v3\/hybrid-l1\/HybridLessonScreen.flow.test.tsx/i.
+
+=== PHASE final-summary ===
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/quiz/components/LessonSummary.test.tsx
+EXIT_CODE: 0
+PASS src/features/quiz/components/LessonSummary.test.tsx (7.891 s)
+  ✓ M6 oferece Refazer somente para resultado incompleto de lição e executa a ação (11 ms)
+  ✓ M7 resultado parcial com estrelas não anuncia aprovação nem domínio (7 ms)
+  ✓ C2 Refazer é a ação secundária: Continuar segue como a principal (5 ms)
+  LessonSummary
+    ✓ mostra os resultados da tentativa (32 ms)
+    ✓ mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou (9 ms)
+    ✓ reconhece a conclusão sem exibir ganho zero de XP (11 ms)
+    ✓ agrupa cada resultado em uma linha acessível factual (10 ms)
+    ✓ mantém a celebração no conteúdo rolável junto dos resultados (11 ms)
+    ✓ permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados (12 ms)
+    ✓ comunica o destino fornecido pelo chamador e preserva o callback (9 ms)
+    ✓ preserva uma repetição sem ganho de XP ou nova melhora de estrelas (11 ms)
+    ✓ omite revisão sem intervalo real (null) (10 ms)
+    ✓ omite revisão sem intervalo real (undefined) (9 ms)
+    ✓ usa o intervalo fornecido de 1 dia sem fixar um dia (10 ms)
+    ✓ usa o intervalo fornecido de 7 dias sem fixar um dia (8 ms)
+    ✓ usa o intervalo fornecido de 0 dias sem fixar um dia (11 ms)
+    ✓ mostra o recorde à parte quando a tentativa ficou abaixo dele (8 ms)
+    ✓ não repete o recorde quando a tentativa o igualou ou superou (10 ms)
+    ✓ na revisão, diz que a revisão terminou e não pede avaliação de aula (3 ms)
+    ✓ mostra o progresso da unidade (10 ms)
+    ✓ mostra quando a próxima revisão foi agendada (7 ms)
+    ✓ não renderiza o card de progresso da unidade quando unitTotal é 0 (9 ms)
+    ✓ emite a nota escolhida (8 ms)
+    ✓ não pede avaliação quando a lição já foi avaliada (9 ms)
+    ✓ mostra o rótulo visível "Avalie a aula" só quando ainda não há nota (16 ms)
+    ✓ reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo (8 ms)
+    ✓ não renderiza oferta de assinatura nem pedido de notificação (11 ms)
+    ✓ não mostra texto de leitura sobre a faixa de comemoração (8 ms)
+    ✓ cunha uma vez e assenta somente as estrelas preenchidas, sem mola nelas (15 ms)
+    ✓ não encena ganho em uma repetição sem melhora (7 ms)
+    ✓ movimento reduzido preserva medalha, estrelas e pose final sem cunhar (5 ms)
+    ✓ expõe a contagem de estrelas como rótulo de acessibilidade único (5 ms)
+    ✓ com 0 estrelas mantém a conclusão, a régua e medalha neutra sem fingir bloqueio (7 ms)
+    ✓ mostra o tema, o título real e a régua completa com 0 estrelas (7 ms)
+    ✓ mostra o tema, o título real e a régua completa com 1 estrelas (6 ms)
+    ✓ mostra o tema, o título real e a régua completa com 2 estrelas (7 ms)
+    ✓ mostra o tema, o título real e a régua completa com 3 estrelas (5 ms)
+    ✓ mostra XP real grande e sem card, separado das linhas factuais (7 ms)
+    ✓ a revisão mantém medalha e título sem montar Pixel (1 ms)
+    ✓ o título e a frase aceitam texto máximo sem truncamento nem teto de escala (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       40 passed, 40 total
+Snapshots:   0 total
+Time:        8.139 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx/i.
+
+=== PHASE final-three-flows-cpu-limited ===
+COMMAND: EXPO_NO_DOTENV=1 /usr/sbin/taskpolicy -b npx --no-install jest --runInBand --no-cache src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+EXIT_CODE: 0
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (46.657 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      545 |             ) ?? null;
+      546 |
+    > 547 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      548 |     }, [outcome, journeySnapshot]);
+      549 |
+      550 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:547:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      505 |                 }
+      506 |
+    > 507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      508 |             } catch (cause) {
+      509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      510 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:507:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/quiz/screens/QuizScreen.flow.test.tsx (6.203 s)
+PASS src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+  ● Console
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+
+Test Suites: 3 passed, 3 total
+Tests:       131 passed, 131 total
+Snapshots:   0 total
+Time:        56.773 s
+Ran all test suites matching /src\/features\/quiz\/screens\/QuizScreen.flow.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx|src\/features\/curriculum-v3\/hybrid-l1\/HybridLessonScreen.flow.test.tsx/i.
+
+=== PHASE contracts ===
+COMMAND: node --test scripts/reanimated-easing-contract.test.mjs scripts/contrast-contract.test.mjs scripts/copy-style-contract.test.mjs scripts/maestro-contract.test.mjs
+EXIT_CODE: 0
+TAP version 13
+# Subtest: galaxy: todo texto informativo passa WCAG AA sobre fundo e superfície
+ok 1 - galaxy: todo texto informativo passa WCAG AA sobre fundo e superfície
+  ---
+  duration_ms: 3.48775
+  ...
+# Subtest: light: todo texto informativo passa WCAG AA sobre background e surface
+ok 2 - light: todo texto informativo passa WCAG AA sobre background e surface
+  ---
+  duration_ms: 0.514709
+  ...
+# Subtest: light: cortes de status usados como texto passam WCAG AA
+ok 3 - light: cortes de status usados como texto passam WCAG AA
+  ---
+  duration_ms: 0.382083
+  ...
+# Subtest: os papéis de status do contexto light apontam para os cortes de texto
+ok 4 - os papéis de status do contexto light apontam para os cortes de texto
+  ---
+  duration_ms: 0.521292
+  ...
+# Subtest: a faixa de nível é legível sobre o próprio preenchimento
+ok 5 - a faixa de nível é legível sobre o próprio preenchimento
+  ---
+  duration_ms: 1.086667
+  ...
+# Subtest: o indicador de foco do contexto galaxy é perceptível
+ok 6 - o indicador de foco do contexto galaxy é perceptível
+  ---
+  duration_ms: 0.623708
+  ...
+# Subtest: a barra de abas usa token do tema e distingue de fato o estado ativo
+ok 7 - a barra de abas usa token do tema e distingue de fato o estado ativo
+  ---
+  duration_ms: 0.835875
+  ...
+# Subtest: o ícone da aba rende 3:1 sobre a barra, ativo e inativo
+ok 8 - o ícone da aba rende 3:1 sobre a barra, ativo e inativo
+  ---
+  duration_ms: 0.575375
+  ...
+# Subtest: as duas moedas da gamificação não compartilham a mesma cor
+ok 9 - as duas moedas da gamificação não compartilham a mesma cor
+  ---
+  duration_ms: 0.599791
+  ...
+# Subtest: existe uma única escala tipográfica e ela usa a fonte da marca
+ok 10 - existe uma única escala tipográfica e ela usa a fonte da marca
+  ---
+  duration_ms: 0.7245
+  ...
+# Subtest: keeps the system status bar legible against the surface the app actually paints
+ok 11 - keeps the system status bar legible against the surface the app actually paints
+  ---
+  duration_ms: 0.8085
+  ...
+# Subtest: medalhão: o texto sobre a ação primária passa AA
+ok 12 - medalhão: o texto sobre a ação primária passa AA
+  ---
+  duration_ms: 5.433209
+  ...
+# Subtest: medalhão: cada lábio é mais escuro que a face e a silhueta se distingue do bloqueado
+ok 13 - medalhão: cada lábio é mais escuro que a face e a silhueta se distingue do bloqueado
+  ---
+  duration_ms: 3.124958
+  ...
+# Subtest: medalhão: o texto do retorno passa AA no preenchimento e na superfície
+ok 14 - medalhão: o texto do retorno passa AA no preenchimento e na superfície
+  ---
+  duration_ms: 0.175875
+  ...
+# Subtest: medalhão: o fundo é o grafite
+ok 15 - medalhão: o fundo é o grafite
+  ---
+  duration_ms: 0.054417
+  ...
+# Subtest: o rótulo do ghost passa AA sobre o grafite e sobre a superfície
+ok 16 - o rótulo do ghost passa AA sobre o grafite e sobre a superfície
+  ---
+  duration_ms: 8.357708
+  ...
+# Subtest: os números do HUD passam AA sobre a pílula
+ok 17 - os números do HUD passam AA sobre a pílula
+  ---
+  duration_ms: 0.175417
+  ...
+# Copy AST: 326 sources, 1619 sinks, 135 findings; 951 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 18 - detects JSX Text jargon
+  ---
+  duration_ms: 10.052166
+  ...
+# Subtest: detects prop dash
+ok 19 - detects prop dash
+  ---
+  duration_ms: 2.002041
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 20 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 1.083041
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 21 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 0.79225
+  ...
+# Subtest: detects uppercase literal
+ok 22 - detects uppercase literal
+  ---
+  duration_ms: 0.658125
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 23 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.540167
+  ...
+# Subtest: detects singular settings jargon
+ok 24 - detects singular settings jargon
+  ---
+  duration_ms: 0.579208
+  ...
+# Subtest: detects en dash with spaces
+ok 25 - detects en dash with spaces
+  ---
+  duration_ms: 1.4255
+  ...
+# Subtest: detects template static span
+ok 26 - detects template static span
+  ---
+  duration_ms: 3.796083
+  ...
+# Subtest: detects template interpolation
+ok 27 - detects template interpolation
+  ---
+  duration_ms: 0.884209
+  ...
+# Subtest: detects local alias
+ok 28 - detects local alias
+  ---
+  duration_ms: 1.960833
+  ...
+# Subtest: detects object property
+ok 29 - detects object property
+  ---
+  duration_ms: 1.525875
+  ...
+# Subtest: detects array element
+ok 30 - detects array element
+  ---
+  duration_ms: 2.881708
+  ...
+# Subtest: detects map array copy
+ok 31 - detects map array copy
+  ---
+  duration_ms: 1.364167
+  ...
+# Subtest: detects copy function return
+ok 32 - detects copy function return
+  ---
+  duration_ms: 0.899083
+  ...
+# Subtest: detects copy function argument
+ok 33 - detects copy function argument
+  ---
+  duration_ms: 0.709458
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 34 - detects ternary ignores discriminant
+  ---
+  duration_ms: 1.212959
+  ...
+# Subtest: detects Alert title and message
+ok 35 - detects Alert title and message
+  ---
+  duration_ms: 6.01425
+  ...
+# Subtest: detects hint is copy
+ok 36 - detects hint is copy
+  ---
+  duration_ms: 0.4625
+  ...
+# Subtest: detects shared uppercase style
+ok 37 - detects shared uppercase style
+  ---
+  duration_ms: 0.570792
+  ...
+# Subtest: detects uppercase call on text
+ok 38 - detects uppercase call on text
+  ---
+  duration_ms: 0.306416
+  ...
+# Subtest: detects nested copy objects
+ok 39 - detects nested copy objects
+  ---
+  duration_ms: 0.289083
+  ...
+# Subtest: detects Pixel phrases array
+ok 40 - detects Pixel phrases array
+  ---
+  duration_ms: 0.506334
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 41 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 1.708208
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 42 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.575167
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 43 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 0.781209
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 44 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.237125
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 45 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.580292
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 46 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 1.148042
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 47 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.748875
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 48 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.327625
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 49 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.082458
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 50 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.380958
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 51 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.328291
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 52 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.2965
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 53 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 1.410083
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 54 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.433
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 55 - resolves copy from array find and map return values
+  ---
+  duration_ms: 0.37375
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 56 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.38575
+  ...
+# Subtest: resolves root and src path aliases
+ok 57 - resolves root and src path aliases
+  ---
+  duration_ms: 0.538416
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 58 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.488292
+  ...
+# Subtest: resolves default imported text
+ok 59 - resolves default imported text
+  ---
+  duration_ms: 0.656334
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 60 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 0.431334
+  ...
+# Subtest: fixes R1 destructured function return
+ok 61 - fixes R1 destructured function return
+  ---
+  duration_ms: 2.611417
+  ...
+# Subtest: fixes R1 renamed local binding
+ok 62 - fixes R1 renamed local binding
+  ---
+  duration_ms: 1.500666
+  ...
+# Subtest: fixes R2 returned array parameter environment
+ok 63 - fixes R2 returned array parameter environment
+  ---
+  duration_ms: 0.98775
+  ...
+# Subtest: fixes R2 returned shorthand parameter environment
+ok 64 - fixes R2 returned shorthand parameter environment
+  ---
+  duration_ms: 1.8575
+  ...
+# Subtest: fixes R2 returned property parameter environment
+ok 65 - fixes R2 returned property parameter environment
+  ---
+  duration_ms: 0.388
+  ...
+# Subtest: fixes R3 uppercase template number
+ok 66 - fixes R3 uppercase template number
+  ---
+  duration_ms: 0.855959
+  ...
+# Subtest: fixes R4 visible join separator
+ok 67 - fixes R4 visible join separator
+  ---
+  duration_ms: 0.288917
+  ...
+# Subtest: fixes R6 React Native Alert import alias
+ok 68 - fixes R6 React Native Alert import alias
+  ---
+  duration_ms: 0.672375
+  ...
+# Subtest: fixes R7 serialized visible string
+ok 69 - fixes R7 serialized visible string
+  ---
+  duration_ms: 0.396833
+  ...
+# Subtest: R3 mixed-case template static span is allowed
+ok 70 - R3 mixed-case template static span is allowed
+  ---
+  duration_ms: 0.379875
+  ...
+# Subtest: R4 empty and singleton joins do not render their separator
+ok 71 - R4 empty and singleton joins do not render their separator
+  ---
+  duration_ms: 0.278583
+  ...
+# Subtest: R5 array length is numeric and never exposes its internal strings
+ok 72 - R5 array length is numeric and never exposes its internal strings
+  ---
+  duration_ms: 0.3245
+  ...
+# Subtest: R6 unrelated alert method is not the React Native sink
+ok 73 - R6 unrelated alert method is not the React Native sink
+  ---
+  duration_ms: 0.308333
+  ...
+# Subtest: R7 real HTTP serialized body remains transport while adjacent serialization is visible
+ok 74 - R7 real HTTP serialized body remains transport while adjacent serialization is visible
+  ---
+  duration_ms: 0.277125
+  ...
+# Subtest: R2-A namespace import resolves copy at its exported origin
+ok 75 - R2-A namespace import resolves copy at its exported origin
+  ---
+  duration_ms: 0.596417
+  ...
+# Subtest: R2-B empty spread before singleton does not render join separator
+ok 76 - R2-B empty spread before singleton does not render join separator
+  ---
+  duration_ms: 0.251791
+  ...
+# Subtest: R2-B spread of two strings renders its join separator
+ok 77 - R2-B spread of two strings renders its join separator
+  ---
+  duration_ms: 0.2835
+  ...
+# Subtest: R2-C shadowing parameter does not inherit the Native Alert import
+ok 78 - R2-C shadowing parameter does not inherit the Native Alert import
+  ---
+  duration_ms: 0.650125
+  ...
+# Subtest: R3-A join retains static origins from conditional array spreads
+ok 79 - R3-A join retains static origins from conditional array spreads
+  ---
+  duration_ms: 0.350834
+  ...
+# Subtest: R3-A alternative singleton arrays do not manufacture a join separator
+ok 80 - R3-A alternative singleton arrays do not manufacture a join separator
+  ---
+  duration_ms: 0.270958
+  ...
+# Subtest: R3-A two-item alternatives retain origins and their guaranteed separator
+ok 81 - R3-A two-item alternatives retain origins and their guaranteed separator
+  ---
+  duration_ms: 0.397
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 82 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 584.126792
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 83 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 9.950833
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 84 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 14.50175
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 85 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 26.5605
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 86 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 8.42225
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 87 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 1.809417
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 88 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 1.282875
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 89 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 9.332125
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 90 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 3.259875
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 91 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.645333
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 92 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 5.571708
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 93 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 12.775333
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 94 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 8.787
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 95 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 303.859459
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 96 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 2.187375
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 97 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.454959
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 98 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 1.050416
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 99 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.410166
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 100 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.383917
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 101 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 1.650375
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 102 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.348125
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 103 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.241417
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 104 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 9.814667
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 105 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 2.44925
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 106 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 3.330417
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 107 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 54.414458
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 108 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 4.495208
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 109 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 3.552833
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 110 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.023834
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 111 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.587625
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 112 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.7425
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 113 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 6.382875
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 114 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 4.426958
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 115 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 5.295458
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 116 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 5.078583
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 117 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 4.258666
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 118 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 38.975916
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 119 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 20.590625
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 120 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 23.111416
+  ...
+# Subtest: uses Reanimated worklet easings in Reanimated components
+ok 121 - uses Reanimated worklet easings in Reanimated components
+  ---
+  duration_ms: 3.374625
+  ...
+1..121
+# tests 121
+# suites 0
+# pass 121
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 831.298459
+
+=== PHASE typecheck ===
+COMMAND: npx --no-install tsc --noEmit
+EXIT_CODE: 0
+[stdout/stderr empty; no diagnostics]
+
+=== PHASE lint-owned-twelve ===
+COMMAND: npx --no-install eslint src/features/quiz/components/LessonSummary.tsx src/features/quiz/components/LessonSummary.test.tsx src/features/quiz/screens/QuizScreen.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx src/ui/motion.ts src/ui/__tests__/motion.test.ts src/features/journey/components/JourneyMedal.tsx src/features/journey/components/JourneyMedal.test.tsx
+EXIT_CODE: 0
+[stdout/stderr empty; no diagnostics]
+
+=== PHASE visual-qa-strict ===
+COMMAND: npm run visual:qa:strict
+EXIT_CODE: 0
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 463 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+=== PHASE head-baseline-three-flows ===
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+EXIT_CODE: 0
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (14.307 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/quiz/screens/QuizScreen.flow.test.tsx
+PASS src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx
+  ● Console
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to HybridLessonScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to BodyReferenceMap inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+
+Test Suites: 3 passed, 3 total
+Tests:       120 passed, 120 total
+Snapshots:   0 total
+Time:        17.455 s
+Ran all test suites matching /src\/features\/quiz\/screens\/QuizScreen.flow.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx|src\/features\/curriculum-v3\/hybrid-l1\/HybridLessonScreen.flow.test.tsx/i.
+
+
+=== FIX ROUND 1 / FREEZE2 — executed after WRITERELEASE ===
+MEASURED_AT: 2026-10-27T18:11:28.313526+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+Independent phases; do not sum counts. Native rendering remains unverified after fix.
+
+--- AX5-green ---
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/quiz/components/LessonSummary.test.tsx -t AX5
+EXIT_CODE: 0
+PASS src/features/quiz/components/LessonSummary.test.tsx (7.596 s)
+  ○ skipped M6 oferece Refazer somente para resultado incompleto de lição e executa a ação
+  ○ skipped M7 resultado parcial com estrelas não anuncia aprovação nem domínio
+  ○ skipped C2 Refazer é a ação secundária: Continuar segue como a principal
+  LessonSummary
+    ✓ AX5 deixa a fonte determinar a altura de Colimação sem limitar a leitura (31 ms)
+    ✓ AX5 deixa a fonte determinar a altura de Três estrelas. Nada passou despercebido. sem limitar a leitura (35 ms)
+    ✓ AX5 deixa a fonte determinar a altura de A lição foi concluída sem limitar a leitura (12 ms)
+    ○ skipped mostra os resultados da tentativa
+    ○ skipped mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou
+    ○ skipped reconhece a conclusão sem exibir ganho zero de XP
+    ○ skipped agrupa cada resultado em uma linha acessível factual
+    ○ skipped mantém a celebração no conteúdo rolável junto dos resultados
+    ○ skipped permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados
+    ○ skipped comunica o destino fornecido pelo chamador e preserva o callback
+    ○ skipped preserva uma repetição sem ganho de XP ou nova melhora de estrelas
+    ○ skipped omite revisão sem intervalo real (null)
+    ○ skipped omite revisão sem intervalo real (undefined)
+    ○ skipped usa o intervalo fornecido de 1 dia sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 7 dias sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 0 dias sem fixar um dia
+    ○ skipped mostra o recorde à parte quando a tentativa ficou abaixo dele
+    ○ skipped não repete o recorde quando a tentativa o igualou ou superou
+    ○ skipped na revisão, diz que a revisão terminou e não pede avaliação de aula
+    ○ skipped mostra o progresso da unidade
+    ○ skipped mostra quando a próxima revisão foi agendada
+    ○ skipped não renderiza o card de progresso da unidade quando unitTotal é 0
+    ○ skipped emite a nota escolhida
+    ○ skipped não pede avaliação quando a lição já foi avaliada
+    ○ skipped mostra o rótulo visível "Avalie a aula" só quando ainda não há nota
+    ○ skipped reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo
+    ○ skipped não renderiza oferta de assinatura nem pedido de notificação
+    ○ skipped não mostra texto de leitura sobre a faixa de comemoração
+    ○ skipped cunha uma vez e assenta somente as estrelas preenchidas, sem mola nelas
+    ○ skipped não encena ganho em uma repetição sem melhora
+    ○ skipped movimento reduzido preserva medalha, estrelas e pose final sem cunhar
+    ○ skipped expõe a contagem de estrelas como rótulo de acessibilidade único
+    ○ skipped com 0 estrelas mantém a conclusão, a régua e medalha neutra sem fingir bloqueio
+    ○ skipped mostra o tema, o título real e a régua completa com 0 estrelas
+    ○ skipped mostra o tema, o título real e a régua completa com 1 estrelas
+    ○ skipped mostra o tema, o título real e a régua completa com 2 estrelas
+    ○ skipped mostra o tema, o título real e a régua completa com 3 estrelas
+    ○ skipped mostra XP real grande e sem card, separado das linhas factuais
+    ○ skipped a revisão mantém medalha e título sem montar Pixel
+    ○ skipped o título e a frase aceitam texto máximo sem truncamento nem teto de escala
+
+Test Suites: 1 passed, 1 total
+Tests:       40 skipped, 3 passed, 43 total
+Snapshots:   0 total
+Time:        7.991 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx/i with tests matching "AX5".
+
+--- three-focals ---
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/quiz/components/LessonSummary.test.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+EXIT_CODE: 0
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (15.766 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      545 |             ) ?? null;
+      546 |
+    > 547 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      548 |     }, [outcome, journeySnapshot]);
+      549 |
+      550 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:547:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      505 |                 }
+      506 |
+    > 507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      508 |             } catch (cause) {
+      509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      510 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:507:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/quiz/screens/QuizScreen.flow.test.tsx
+PASS src/features/quiz/components/LessonSummary.test.tsx
+
+Test Suites: 3 passed, 3 total
+Tests:       164 passed, 164 total
+Snapshots:   0 total
+Time:        21.503 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx|src\/features\/quiz\/screens\/QuizScreen.flow.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx/i.
+
+--- typecheck ---
+COMMAND: npx --no-install tsc --noEmit
+EXIT_CODE: 0
+[stdout/stderr empty; no diagnostics]
+
+--- lint-two-owned ---
+COMMAND: npx --no-install eslint src/features/quiz/components/LessonSummary.tsx src/features/quiz/components/LessonSummary.test.tsx
+EXIT_CODE: 0
+[stdout/stderr empty; no diagnostics]
+
+
+### FIX ROUND 2 — 3 suítes170, antes do ajuste apenas de comparador no teste
+FIX2 GREEN full affected focals
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'jest', '--runInBand', '--no-cache', 'src/features/quiz/components/LessonSummary.test.tsx', 'src/features/quiz/screens/QuizScreen.flow.test.tsx', 'src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx']
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (38.453 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      545 |             ) ?? null;
+      546 |
+    > 547 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      548 |     }, [outcome, journeySnapshot]);
+      549 |
+      550 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:547:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      505 |                 }
+      506 |
+    > 507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      508 |             } catch (cause) {
+      509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      510 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:507:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/quiz/screens/QuizScreen.flow.test.tsx
+PASS src/features/quiz/components/LessonSummary.test.tsx (6.764 s)
+
+Test Suites: 3 passed, 3 total
+Tests:       170 passed, 170 total
+Snapshots:   0 total
+Time:        48.845 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx|src\/features\/quiz\/screens\/QuizScreen.flow.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx/i.
+
+EXIT=0
+
+
+### FIX ROUND 2 — Summary49 final sob CPU limitada, após mutações restauradas
+FIX2 green-cpu-summary-final
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['/usr/sbin/taskpolicy', '-b', 'npx', '--no-install', 'jest', '--runInBand', '--no-cache', 'src/features/quiz/components/LessonSummary.test.tsx']
+SOURCE_SHA=68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd
+TEST_SHA=3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6
+PASS src/features/quiz/components/LessonSummary.test.tsx (37.558 s)
+  ✓ M6 oferece Refazer somente para resultado incompleto de lição e executa a ação (79 ms)
+  ✓ M7 resultado parcial com estrelas não anuncia aprovação nem domínio (37 ms)
+  ✓ C2 Refazer é a ação secundária: Continuar segue como a principal (42 ms)
+  LessonSummary
+    ✓ mostra os resultados da tentativa (139 ms)
+    ✓ mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou (55 ms)
+    ✓ reconhece a conclusão sem exibir ganho zero de XP (41 ms)
+    ✓ agrupa cada resultado em uma linha acessível factual (68 ms)
+    ✓ mantém a celebração no conteúdo rolável junto dos resultados (43 ms)
+    ✓ permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados (55 ms)
+    ✓ comunica o destino fornecido pelo chamador e preserva o callback (52 ms)
+    ✓ preserva uma repetição sem ganho de XP ou nova melhora de estrelas (36 ms)
+    ✓ omite revisão sem intervalo real (null) (53 ms)
+    ✓ omite revisão sem intervalo real (undefined) (55 ms)
+    ✓ usa o intervalo fornecido de 1 dia sem fixar um dia (50 ms)
+    ✓ usa o intervalo fornecido de 7 dias sem fixar um dia (50 ms)
+    ✓ usa o intervalo fornecido de 0 dias sem fixar um dia (37 ms)
+    ✓ mostra o recorde à parte quando a tentativa ficou abaixo dele (38 ms)
+    ✓ não repete o recorde quando a tentativa o igualou ou superou (29 ms)
+    ✓ na revisão, diz que a revisão terminou e não pede avaliação de aula (20 ms)
+    ✓ mostra o progresso da unidade (45 ms)
+    ✓ mostra quando a próxima revisão foi agendada (64 ms)
+    ✓ não renderiza o card de progresso da unidade quando unitTotal é 0 (32 ms)
+    ✓ emite a nota escolhida (47 ms)
+    ✓ não pede avaliação quando a lição já foi avaliada (30 ms)
+    ✓ mostra o rótulo visível "Avalie a aula" só quando ainda não há nota (67 ms)
+    ✓ reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo (49 ms)
+    ✓ não renderiza oferta de assinatura nem pedido de notificação (46 ms)
+    ✓ não mostra texto de leitura sobre a faixa de comemoração (41 ms)
+    ✓ cunha uma vez e assenta somente as estrelas preenchidas, sem mola nelas (77 ms)
+    ✓ não encena ganho em uma repetição sem melhora (37 ms)
+    ✓ movimento reduzido preserva medalha, estrelas e pose final sem cunhar (43 ms)
+    ✓ expõe a contagem de estrelas como rótulo de acessibilidade único (32 ms)
+    ✓ com 0 estrelas mantém a conclusão, a régua e medalha neutra sem fingir bloqueio (45 ms)
+    ✓ mostra o tema, o título real e a régua completa com 0 estrelas (45 ms)
+    ✓ mostra o tema, o título real e a régua completa com 1 estrelas (35 ms)
+    ✓ mostra o tema, o título real e a régua completa com 2 estrelas (50 ms)
+    ✓ mostra o tema, o título real e a régua completa com 3 estrelas (41 ms)
+    ✓ mostra XP real grande e sem card, separado das linhas factuais (31 ms)
+    ✓ a revisão mantém medalha e título sem montar Pixel (13 ms)
+    ✓ o título e a frase aceitam texto máximo sem truncamento nem teto de escala (41 ms)
+    ✓ AX5 deixa a fonte determinar a altura de Colimação sem limitar a leitura (52 ms)
+    ✓ AX5 deixa a fonte determinar a altura de Três estrelas. Nada passou despercebido. sem limitar a leitura (38 ms)
+    ✓ AX5 deixa a fonte determinar a altura de A lição foi concluída sem limitar a leitura (33 ms)
+  T05 Dynamic Type no resultado já aberto
+    ✓ renova todos os parágrafos próprios em 1 → 3.1, inclusive entre escalas grandes (76 ms)
+    ✓ renova todos os parágrafos próprios em 3.1 → 2.5, inclusive entre escalas grandes (65 ms)
+    ✓ renova subtítulo de revisão e XP null sem montar Pixel (24 ms)
+    ✓ renova subtítulo de revisão e XP 0 sem montar Pixel (30 ms)
+    ✓ renova subtítulo de revisão e XP 30 sem montar Pixel (30 ms)
+    ✓ mantém scroll, conquista, controles e avaliação ao renovar só o texto, sem repetir ganho (155 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       49 passed, 49 total
+Snapshots:   0 total
+Time:        38.343 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx/i.
+
+EXIT=0
+
+
+### FIX ROUND 2 — Maestro38, fonte final
+FIX2 maestro
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['node', '--test', 'scripts/maestro-contract.test.mjs']
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 35.314875
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 74.103709
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 199.927042
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 140.82675
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 24.45125
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 17.999667
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 29.191417
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 8.120625
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 5.228917
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 16.326208
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 75.197375
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 27.613709
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 1138.073041
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 3.2345
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.455958
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 2.01725
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.643084
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.9185
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.898166
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.545584
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.513375
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 12.747334
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 5.649583
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 9.919792
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 98.338209
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 9.195458
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 5.602458
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.682709
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.327
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 1.526666
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 16.19675
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 32 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 6.982833
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 33 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 6.521458
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 34 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 10.795916
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 35 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 7.480125
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 36 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 66.3325
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 37 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 46.283416
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 38 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 52.005167
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3088.150208
+
+EXIT=0
+
+
+### FIX ROUND 2 — typecheck final
+FIX2 typecheck-final
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'tsc', '--noEmit']
+SOURCE_SHA=68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd
+TEST_SHA=3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6
+
+EXIT=0
+
+
+### FIX ROUND 2 — lint dos dois caminhos finais
+FIX2 lint-final
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'eslint', 'src/features/quiz/components/LessonSummary.tsx', 'src/features/quiz/components/LessonSummary.test.tsx']
+SOURCE_SHA=68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd
+TEST_SHA=3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6
+
+EXIT=0
+
+
+### FIX ROUND 3 — GREEN inicial6/6
+FIX3 green-authguard
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'jest', '--runInBand', '--no-cache', 'src/features/journey/services/JourneyNodeCompletionGuard.test.tsx', '--json', '--outputFile', '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard.json']
+TEST_SHA=05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28
+  console.error
+    [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+        at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:499:45)
+        at Generator.next (<anonymous>)
+        at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+        at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      508 |             } catch (cause) {
+    > 509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      510 |
+      511 |                 if (cancelado) {
+      512 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:509:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx (8.267 s)
+  markNodeCompleted authorization boundary
+    ✓ recusa a chamada direta de serviço para uma conquista bloqueada (3 ms)
+    ✓ recusa a conquista alcançada por /learn com nodeId de deep link (558 ms)
+    ✓ recusa o checkpoint bloqueado alcançado pela tela de checkpoint (119 ms)
+    ✓ um link antigo para o checkpoint de catálogo que saiu não oferece conclusão nem grava nada (55 ms)
+    ✓ continua gravando o nó cuja regra de destravamento está satisfeita (1 ms)
+    ✓ continua gravando a revisão vencida, que lê como bloqueada sem estar (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        8.411 s
+Ran all test suites matching /src\/features\/journey\/services\/JourneyNodeCompletionGuard.test.tsx/i.
+Test results written to: ../.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard.json
+
+EXIT=0
+
+
+### FIX ROUND 3 — GREEN final6/6 após restauração da fixture
+FIX3 FINAL GREEN restored fixture
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'jest', '--runInBand', '--no-cache', 'src/features/journey/services/JourneyNodeCompletionGuard.test.tsx', '--json', '--outputFile', '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard-final.json']
+TEST_SHA=05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28
+  console.error
+    [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+        at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:499:45)
+        at Generator.next (<anonymous>)
+        at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+        at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      508 |             } catch (cause) {
+    > 509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      510 |
+      511 |                 if (cancelado) {
+      512 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:509:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx (8.307 s)
+  markNodeCompleted authorization boundary
+    ✓ recusa a chamada direta de serviço para uma conquista bloqueada (2 ms)
+    ✓ recusa a conquista alcançada por /learn com nodeId de deep link (567 ms)
+    ✓ recusa o checkpoint bloqueado alcançado pela tela de checkpoint (120 ms)
+    ✓ um link antigo para o checkpoint de catálogo que saiu não oferece conclusão nem grava nada (54 ms)
+    ✓ continua gravando o nó cuja regra de destravamento está satisfeita (2 ms)
+    ✓ continua gravando a revisão vencida, que lê como bloqueada sem estar (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        8.454 s
+Ran all test suites matching /src\/features\/journey\/services\/JourneyNodeCompletionGuard.test.tsx/i.
+Test results written to: ../.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task7-fix3-green-authguard-final.json
+
+EXIT=0
+
+
+### FIX ROUND 3 — typecheck
+FIX3 typecheck
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'tsc', '--noEmit']
+TEST_SHA=05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28
+
+EXIT=0
+
+
+### FIX ROUND 3 — lint do consumidor de teste
+FIX3 lint
+CWD=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE=v20.20.2
+COMMAND=['npx', '--no-install', 'eslint', 'src/features/journey/services/JourneyNodeCompletionGuard.test.tsx']
+TEST_SHA=05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28
+
+/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx
+  4:10  warning  'router' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)
+
+
+EXIT=0

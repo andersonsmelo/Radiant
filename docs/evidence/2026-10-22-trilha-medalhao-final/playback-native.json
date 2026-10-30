@@ -1,0 +1,186 @@
+{
+  "status": "partial_not_approved",
+  "pausedByUserOn": "2026-10-23",
+  "recordedAt": "2026-10-23T07:25:33.890996-03:00",
+  "writer": "run-1792746135751-b2cdee88",
+  "sourceHashes": {
+    "radiant-app/.maestro/radiant-1-4-segundo-dia.yaml": "5eb056aeae81a9a21ea6f532379fdf0b855a3320a1f59e07a55f0743b51e1ed1",
+    "radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml": "68cd999a0a16ab21187ccd2971c2803cf223f49f4a0685f55a6a40c7c4ba4664",
+    "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f",
+    "radiant-app/scripts/maestro-contract.test.mjs": "5cc7519b5297cdddc5d10c56cc4a91c4cfa6438818ad079345b2701fb5fd9672",
+    "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "d07c2a39a8e454db152b0363f8fb20fd05f8d00ce1c180cc8bab84018c018ea1",
+    "radiant-app/src/features/journey/components/JourneyMedal.tsx": "4db7e8d3b71ef4acc71d611e227ef0473b77b1d94ed6dad8564b966bb8674710",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.test.tsx": "58d027fc332be02ef2e0cc52570a13791b90e6f30ca4ebbc29b09188c62be576",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.tsx": "d488f24dba18bf1670d8d04f3c949531437c030f773cc9e23216143212a24cbd",
+    "radiant-app/src/features/journey/components/JourneyTrail.stories.tsx": "2e2f499db3a73a09555eb6efa09d48528f64f5bd583437678286894661638ad6",
+    "radiant-app/src/features/journey/components/JourneyTrail.test.tsx": "bd87eb8df01e50b08db81012ba3cf3e9c4759cb0142ebb0c798de14415d05637",
+    "radiant-app/src/features/journey/components/JourneyTrail.tsx": "2aefb36b6359b108942a0c23ace2401c89d503916c88e4b4fdd0f7016014bb08",
+    "radiant-app/src/features/journey/components/nodeCopy.test.ts": "e00e91230543745b698a92c60988986048c156c7e0907b9699ab6b9922e93668",
+    "radiant-app/src/features/journey/components/nodeCopy.ts": "292c9be9067969f72e5f06630dc431cf5890bfa655ac2b694619b2d419a7ce5e",
+    "radiant-app/src/features/journey/components/trailLayout.test.ts": "115256e5a4caa1ed852e7fed4b33f43f9fae2c3fe74ebba87991251abaff6d60",
+    "radiant-app/src/features/journey/components/trailLayout.ts": "d2daa1ec5f8f1412a31b703a9e5ef932e97c220e3bac09afb64636e4968a8f79",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx": "7b52844ffefb9e4d32dfafc1c3377af7eda14927ae57989a77248edf3f93bf1a",
+    "radiant-app/src/features/push/components/ReminderRow.test.tsx": "acc61743e37a208c1e507d19a80da3b6bc23917a391ce96a99e4ec7ac516c923",
+    "radiant-app/src/features/push/components/ReminderRow.tsx": "4026816522da5deccf5da827b2b50577c7829075a23f9cce5ee757f19a1d87d7",
+    "radiant-app/src/ui/__tests__/motion.test.ts": "a293149b4b043876277681d2337c15264dd29e4e19180e21dda4a9111909e643",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx": "35b4af57442a632030bd47c20431a4cc2a5fb8f55c862ba1882bd700c03a4aca",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.tsx": "c79a75a9c606f37d8c5e5f6fa964b5721263959928b64852bd963f22f1c4e119",
+    "radiant-app/src/ui/motion.ts": "d9a3faf5bab64fab7d58bbe6c1455d8136d30f50a9063e82518ad2497ad15681"
+  },
+  "nativeBuildsExecuted": false,
+  "physicalDeviceOrReleaseVerified": false,
+  "ios": {
+    "normal": {
+      "durationSeconds": 11.681667,
+      "review": "visible overflow across cells and arrival approved; origin above viewport verified in source only",
+      "framesSeconds": [
+        5.925,
+        5.96,
+        6.6
+      ]
+    },
+    "maximumText": {
+      "contentSize": "accessibility-extra-extra-extra-large",
+      "trigger": {
+        "at": "2026-10-23T06:20:45.699419-03:00",
+        "content_size": "accessibility-extra-extra-extra-large"
+      },
+      "review": "recorded; full independent review pending"
+    },
+    "compositeSegments": [
+      {
+        "path": "radiant-app/.maestro/artifacts/final-ios-normal-preservado.mp4",
+        "duration": 11.681667,
+        "sha256": "de444afa41e4ad574e421589ba153892c04b8476063b07093e092c050e391d0d"
+      },
+      {
+        "path": "radiant-app/.maestro/artifacts/final-ios-max-preservado.mp4",
+        "duration": 11.983333,
+        "sha256": "a50ea983a1069ace624c88947cd266f504cba07f3434e76a3cc6b7ad671c5bd8"
+      }
+    ],
+    "reducedMotion": {
+      "durationSeconds": 4.585,
+      "launchArgument": "radiantReduceMotion=1",
+      "framesSeconds": [
+        2.5,
+        3.0
+      ],
+      "review": "recorded; full independent review pending"
+    },
+    "slotMeasurementBeforeCapture": [
+      {
+        "id": "journey-pixel-slot-node:lesson-2",
+        "style": [
+          {
+            "opacity": 1,
+            "transform": [
+              {
+                "translateX": 0
+              },
+              {
+                "translateY": 0
+              }
+            ]
+          }
+        ],
+        "layout": {
+          "x": 40.25,
+          "y": 23.666671752929688,
+          "width": 48,
+          "height": 46
+        }
+      }
+    ],
+    "measurementLimit": "slot measurement proves size; its then-current scroll position is not the final composition; final visible still exported at7.5s"
+  },
+  "android": {
+    "video": {
+      "durationSeconds": 19.5985,
+      "frames": 142,
+      "captureAverageFps": 7.245452458096282,
+      "notApplicationFps": true,
+      "decisiveGapPTS": [
+        17.055978,
+        18.8416
+      ],
+      "review": "inconclusive; no product cause confirmed",
+      "framesSeconds": [
+        8.8,
+        17.0,
+        19.14
+      ]
+    },
+    "record": {
+      "recordStarted": "2026-10-23T06:16:23.556619-03:00",
+      "tapAt": "2026-10-23T06:16:24.873538-03:00",
+      "tapNativePixels": [
+        540,
+        2204
+      ],
+      "recordExit": 0,
+      "lengthLimitSeconds": 20,
+      "precondition": "Journey read recommended L1 before real completion; summary3of3 onscreen"
+    },
+    "maximumFontScale": 2.0,
+    "restoredEffectiveFontScale": 1.0,
+    "maximumTextSlot": [
+      {
+        "id": "journey-pixel-slot-node:lesson-2",
+        "style": [
+          {
+            "opacity": 1,
+            "transform": [
+              {
+                "translateX": 0
+              },
+              {
+                "translateY": 0
+              }
+            ]
+          }
+        ],
+        "layout": {
+          "x": 100.36363983154297,
+          "y": 249.8181610107422,
+          "width": 47.99999237060547,
+          "height": 45.81819152832031
+        }
+      }
+    ],
+    "partialIllustrationProps": [
+      {
+        "nodeId": "node:lesson-1",
+        "props": {
+          "theme": "radiacao",
+          "state": "done",
+          "playing": false
+        }
+      },
+      {
+        "nodeId": "node:lesson-2",
+        "props": {
+          "theme": "radiacao",
+          "state": "next",
+          "playing": true
+        }
+      }
+    ],
+    "continuousNativeFrameProof": "not collected"
+  },
+  "maestro": {
+    "firstExecutionIOS": "PASS exit0",
+    "exhaustedLivesIOS": "PASS exit0",
+    "secondDayAndroidOriginal": "FAIL exit1 only final assert after actual3of3",
+    "secondDayTerminalProbe500ms": "PASS exit0; same full regex; complementary only",
+    "secondDayCorrectedFullRerun": "pending natural due state"
+  },
+  "benchmark40": {
+    "executed": false,
+    "story": "Trilha/JourneyTrail/QuarentaConcluidas",
+    "synthetic": true,
+    "progressStorageAccess": false
+  },
+  "finalPlanReview": "pending",
+  "nativeCollectionStopped": true
+}

@@ -1,0 +1,22 @@
+{
+  "measuredAt": "2026-10-27T12:05:51.952165-03:00",
+  "commit": "e52298454bc2342be4b9cc29d1167dbe70e30773",
+  "branch": "claude/trilha-medalhao-design",
+  "workflowRuns": [
+    {
+      "conclusion": "success",
+      "databaseId": 40492879042,
+      "name": "Content Scripts",
+      "status": "completed",
+      "url": "https://github.com/andersonsmelo/Radiant/actions/runs/40492879042"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40492879026,
+      "name": "Radiant App Quality",
+      "status": "completed",
+      "url": "https://github.com/andersonsmelo/Radiant/actions/runs/40492879026"
+    }
+  ],
+  "scope": "CI do commit de produto T04; não comprova commits posteriores, merge ou release."
+}

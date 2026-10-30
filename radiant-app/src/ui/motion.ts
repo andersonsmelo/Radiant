@@ -4,23 +4,30 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Easing } from 'react-native';
 import {
     default as Reanimated,
     Easing as ReanimatedEasing,
+    Extrapolation,
+    cancelAnimation,
+    interpolate,
     interpolateColor,
     useAnimatedProps,
     useAnimatedStyle,
+    useDerivedValue,
     useSharedValue,
     withDelay,
     withRepeat,
     withSequence,
+    withSpring,
     withTiming,
+    type DerivedValue,
 } from 'react-native-reanimated';
 import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
 import { useScreenFocused } from './useScreenFocused';
+import { galaxyColors, hudIconTones } from './theme';
 
 // ============================================================================
 // DURATION TOKENS (milliseconds)
@@ -413,6 +420,57 @@ export const MotionView = Reanimated.View;
 export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
 export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
 
+/** Cunhagem: uma única mola, apenas quando a tentativa realmente ganhou estrelas. */
+export function useMedalMint(earned: boolean) {
+    const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+    const played = useRef(false);
+    // O estado final já existe no primeiro quadro, inclusive antes da preferência.
+    const scale = useSharedValue(1);
+
+    useEffect(() => {
+        if (!resolved || reducedMotionEnabled || !earned) {
+            scale.value = 1;
+            return;
+        }
+        if (played.current) return;
+        played.current = true;
+        scale.value = 0.82;
+        scale.value = withSpring(1, { duration: 300, dampingRatio: 0.7 });
+        return () => { cancelAnimation(scale); };
+    }, [earned, reducedMotionEnabled, resolved, scale]);
+
+    return useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+}
+
+/** Queda e assentamento breve; sem mola e sem prêmio nas estrelas vazias. */
+export function useResultStar(earned: boolean, index: number) {
+    const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+    const played = useRef(false);
+    const progress = useSharedValue(1);
+
+    useEffect(() => {
+        if (!resolved || reducedMotionEnabled || !earned) {
+            progress.value = 1;
+            return;
+        }
+        if (played.current) return;
+        played.current = true;
+        progress.value = 0;
+        progress.value = withDelay(index * 60, withTiming(1, {
+            duration: duration.ui,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        }));
+        return () => { cancelAnimation(progress); };
+    }, [earned, index, progress, reducedMotionEnabled, resolved]);
+
+    return useAnimatedStyle(() => ({
+        transform: [
+            { translateY: -12 * (1 - progress.value) },
+            { scale: 0.8 + 0.2 * progress.value },
+        ],
+    }));
+}
+
 // ============================================================================
 // REANIMATED HELPERS — mounted, lightweight status glyphs
 // ============================================================================
@@ -557,7 +615,10 @@ export function useHeartLossAnimation(filled: boolean, losing: boolean) {
         fill: interpolateColor(
             drain.value,
             [0, 1],
-            ['#FF3B30', 'rgba(255, 255, 255, 0.20)'],
+            // Parte do vermelho do desenho de três tons, que some na perda: com
+            // outro vermelho, o instante 0 dava um salto de cor e a borda
+            // antialiased do desenho deixava uma franja do de baixo.
+            [hudIconTones.heart.face, galaxyColors.heartEmpty],
         ),
     }));
     const crackAnimatedProps = useAnimatedProps(() => ({ opacity: crackOpacity.value }));
@@ -601,4 +662,328 @@ export function useBreathingScale() {
     const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
     return { animatedStyle };
+}
+
+/** Um pulso do anel da próxima medalha, de ponta a ponta. */
+export const MEDAL_PULSE_MS = 1600;
+const MEDAL_PULSE_SCALE_TO = 1.18;
+const MEDAL_PULSE_OPACITY_FROM = 0.5;
+
+/**
+ * O anel que pulsa em volta da medalha da próxima aula: sai do tamanho da face
+ * (escala 1, opacidade 0,5) e cresce até 1,18 enquanto some, em 1,6 s, sem fim.
+ *
+ * Parado e invisível com "reduzir movimento", com `enabled` falso e com a tela
+ * fora de foco: o laço infinito numa tela escondida só gasta CPU (FILA, 33).
+ * O anel continua sendo decoração; quem diz "próximo passo" é o rótulo.
+ */
+export function useMedalPulse(enabled: boolean) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const focused = useScreenFocused();
+    const running = enabled && !reducedMotionEnabled && focused;
+    const scale = useSharedValue(1);
+    const opacity = useSharedValue(0);
+
+    useEffect(() => {
+        if (!running) {
+            cancelAnimation(scale);
+            cancelAnimation(opacity);
+            scale.value = 1;
+            opacity.value = 0;
+            return undefined;
+        }
+
+        scale.value = 1;
+        opacity.value = MEDAL_PULSE_OPACITY_FROM;
+        scale.value = withRepeat(
+            withTiming(MEDAL_PULSE_SCALE_TO, {
+                duration: MEDAL_PULSE_MS,
+                easing: ReanimatedEasing.out(ReanimatedEasing.quad),
+            }),
+            -1,
+            false,
+        );
+        opacity.value = withRepeat(
+            withTiming(0, {
+                duration: MEDAL_PULSE_MS,
+                easing: ReanimatedEasing.out(ReanimatedEasing.quad),
+            }),
+            -1,
+            false,
+        );
+        return () => {
+            cancelAnimation(scale);
+            cancelAnimation(opacity);
+        };
+    }, [running, scale, opacity]);
+
+    return useAnimatedStyle(() => ({
+        opacity: opacity.value,
+        transform: [{ scale: scale.value }],
+    }));
+}
+
+/**
+ * O quadro corrente de um Lottie em laço, para o `<Skottie frame>` do Skia.
+ *
+ * Um relógio anda de 0 a `totalFrames` em tempo linear (a curva de cada
+ * movimento mora no próprio JSON), e o quadro é o relógio somado ao de pose,
+ * módulo o total: o laço começa exatamente na imagem que estava parada, e o
+ * fim de um ciclo encosta no começo do seguinte sem costura.
+ *
+ * Fica parado no quadro de pose quando `playing` é falso, quando a pessoa
+ * pediu menos movimento e enquanto essa preferência ainda não respondeu (um
+ * laço é agendamento; ver `useReducedMotionPreferenceState`). Fora de foco, o
+ * laço pausa onde está e retoma dali ao voltar o foco: animação infinita numa
+ * tela escondida só gasta CPU (FILA, 33).
+ */
+export function useLottieFrameLoop({
+    totalFrames,
+    fps,
+    posterFrame,
+    playing,
+}: {
+    /** Quadros do laço (`duration() * fps()` da animação). */
+    totalFrames: number;
+    fps: number;
+    /** O quadro de pose, de onde o laço parte e onde fica parado. */
+    posterFrame: number;
+    /** O chamador quer o laço (estado desbloqueado). */
+    playing: boolean;
+}): DerivedValue<number> {
+    const motion = useReducedMotionPreferenceState();
+    const focused = useScreenFocused();
+    const reduced = motion.reducedMotionEnabled || !motion.resolved;
+    const valid = totalFrames > 0 && fps > 0;
+    const still = !playing || reduced || !valid;
+    const running = !still && focused;
+    const clock = useSharedValue(0);
+
+    useEffect(() => {
+        if (still) {
+            cancelAnimation(clock);
+            clock.value = 0;
+            return undefined;
+        }
+        if (!running) {
+            cancelAnimation(clock);
+            return undefined;
+        }
+        const cycleMs = (totalFrames / fps) * 1000;
+        const from = clock.value % totalFrames;
+        clock.value = from;
+        clock.value = withSequence(
+            withTiming(totalFrames, {
+                duration: ((totalFrames - from) / totalFrames) * cycleMs,
+                easing: ReanimatedEasing.linear,
+            }),
+            withRepeat(
+                withSequence(
+                    withTiming(0, { duration: 0 }),
+                    withTiming(totalFrames, { duration: cycleMs, easing: ReanimatedEasing.linear }),
+                ),
+                -1,
+                false,
+            ),
+        );
+        return () => cancelAnimation(clock);
+    }, [still, running, clock, fps, totalFrames]);
+
+    return useDerivedValue(() => (valid ? (posterFrame + clock.value) % totalFrames : posterFrame));
+}
+
+// ============================================================================
+// O MOMENTO DO PIXEL NA TRILHA (spec 2026-10-21, seção 4)
+// ============================================================================
+
+/** O trecho até a próxima acende. */
+const TRAIL_MOMENT_SEGMENT_MS = 300;
+/** O Pixel percorre o caminho e para ao lado da medalha. */
+const TRAIL_MOMENT_PIXEL_MS = 450;
+/** A medalha cresce até 1,08 e volta: a ida chama atenção, a volta assenta. */
+const TRAIL_MOMENT_MEDAL_RISE_MS = duration.micro;
+const TRAIL_MOMENT_MEDAL_SETTLE_MS = duration.ui;
+const TRAIL_MOMENT_MEDAL_PEAK = 1.08;
+/** O botão entra. */
+const TRAIL_MOMENT_CTA_MS = 250;
+/** Quanto o botão sobe ao entrar. */
+const TRAIL_MOMENT_CTA_RISE = 8;
+/** Do começo do trecho ao fim da entrada do botão. */
+export const TRAIL_MOMENT_MS = TRAIL_MOMENT_SEGMENT_MS + TRAIL_MOMENT_PIXEL_MS
+    + TRAIL_MOMENT_MEDAL_RISE_MS + TRAIL_MOMENT_MEDAL_SETTLE_MS + TRAIL_MOMENT_CTA_MS;
+
+/**
+ * O caminho do Pixel, em amostras: em cada fração `progress` (de 0 a 1, pelo
+ * comprimento do caminho), o deslocamento `x`/`y` do Pixel em relação ao lugar
+ * onde ele descansa. A última amostra é sempre `(0, 0)`.
+ */
+export type TrailMomentRoute = {
+    progress: number[];
+    x: number[];
+    y: number[];
+    /** O Pixel aparece no começo do caminho, em vez de já estar ali. */
+    fadeIn?: boolean;
+};
+
+/**
+ * O momento em que o Pixel percorre a trilha até a próxima aula, em sequência:
+ * o trecho acende em 300 ms, o Pixel anda pelo caminho até o lado da medalha
+ * em 450 ms, a medalha cresce de 1 a 1,08 e volta, e o botão entra em 250 ms.
+ *
+ * Fora do momento, e com "reduzir movimento", tudo fica no estado final desde o
+ * primeiro quadro: o trecho aceso, o Pixel no lugar, a medalha em 1 e o botão
+ * à vista. Com "reduzir movimento" o momento acaba na hora (`onFinished`).
+ * Enquanto a preferência não respondeu, o momento espera, no estado final.
+ *
+ * `ready` espera as medidas nativas da origem e do destino; a virtualização
+ * não gasta a duração antes de montar a cabeça. A rota é congelada na partida.
+ * `holding` cobre o quadro antes da partida. Um estilo animado só chega à
+ * vista no quadro seguinte à troca dos valores: quem desenha esconde essas
+ * camadas, com estilo comum, enquanto `holding` for verdadeiro. E enquanto
+ * espera, os valores já estão no começo, e não no fim: tirar o `held` pode
+ * chegar à tela antes do reinício no thread de UI, e um fim guardado ali
+ * aparecia por um quadro (medido no AVD em 2026-10-23). `momentKey` recomeça o momento quando outro
+ * começa sem o anterior ter acabado.
+ *
+ * O trecho é um estilo (opacidade da camada acesa sobre a apagada), e não
+ * propriedades do traçado: o desenho do pontilhado fica em `JourneyPathSegment`
+ * e a camada acesa é o mesmo desenho, percorrido, por cima. São dois estilos do
+ * mesmo valor, um para cada parte do trecho (`outgoing` na linha de cima,
+ * `incoming` na de baixo): cada vista animada tem o seu.
+ */
+export function useTrailMomentStyles(
+    playing: boolean,
+    {
+        route,
+        onFinished,
+        momentKey,
+        ready = true,
+    }: { route?: TrailMomentRoute; onFinished?: () => void; momentKey?: string; ready?: boolean } = {},
+) {
+    const preference = useReducedMotionPreferenceState();
+    const wantsMotion = playing && preference.resolved && !preference.reducedMotionEnabled;
+    const animate = wantsMotion && ready;
+    const [activeRoute, setActiveRoute] = useState<TrailMomentRoute | undefined>(undefined);
+    const routeRef = useRef(route);
+    useEffect(() => { routeRef.current = route; }, [route]);
+    const [startedKey, setStartedKey] = useState<string | undefined>(undefined);
+    const runKey = momentKey ?? 'moment';
+    const finishAtOnce = playing && preference.resolved && preference.reducedMotionEnabled;
+    const segment = useSharedValue(1);
+    const travel = useSharedValue(1);
+    const medal = useSharedValue(1);
+    const cta = useSharedValue(1);
+    const onFinishedRef = useRef(onFinished);
+
+    useEffect(() => {
+        onFinishedRef.current = onFinished;
+    }, [onFinished]);
+
+    useEffect(() => {
+        const settle = () => {
+            cancelAnimation(segment);
+            cancelAnimation(travel);
+            cancelAnimation(medal);
+            cancelAnimation(cta);
+            segment.value = 1;
+            travel.value = 1;
+            medal.value = 1;
+            cta.value = 1;
+        };
+
+        if (!animate) {
+            setStartedKey(undefined);
+            setActiveRoute(undefined);
+            if (wantsMotion) {
+                // Esperando a medição, escondido: as camadas já guardam o
+                // começo. Tirar o `held` chega à tela antes do reinício no
+                // thread de UI, e um fim guardado aqui aparecia por um quadro
+                // (medido no AVD em 2026-10-23).
+                cancelAnimation(segment);
+                cancelAnimation(travel);
+                cancelAnimation(medal);
+                cancelAnimation(cta);
+                segment.value = 0;
+                travel.value = 0;
+                medal.value = 1;
+                cta.value = 0;
+                return undefined;
+            }
+            settle();
+            if (finishAtOnce) onFinishedRef.current?.();
+            return undefined;
+        }
+
+        const pixelAt = TRAIL_MOMENT_SEGMENT_MS;
+        const medalAt = pixelAt + TRAIL_MOMENT_PIXEL_MS;
+        const ctaAt = medalAt + TRAIL_MOMENT_MEDAL_RISE_MS + TRAIL_MOMENT_MEDAL_SETTLE_MS;
+
+        // A geometria fica fixa após a medição do destino virtualizado.
+        setActiveRoute(routeRef.current);
+        segment.value = 0;
+        travel.value = 0;
+        medal.value = 1;
+        cta.value = 0;
+        segment.value = withTiming(1, {
+            duration: TRAIL_MOMENT_SEGMENT_MS,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        });
+        travel.value = withDelay(pixelAt, withTiming(1, {
+            duration: TRAIL_MOMENT_PIXEL_MS,
+            easing: ReanimatedEasing.inOut(ReanimatedEasing.cubic),
+        }));
+        medal.value = withDelay(medalAt, withSequence(
+            withTiming(TRAIL_MOMENT_MEDAL_PEAK, {
+                duration: TRAIL_MOMENT_MEDAL_RISE_MS,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1, {
+                duration: TRAIL_MOMENT_MEDAL_SETTLE_MS,
+                easing: ReanimatedEasing.inOut(ReanimatedEasing.quad),
+            }),
+        ));
+        cta.value = withDelay(ctaAt, withTiming(1, {
+            duration: TRAIL_MOMENT_CTA_MS,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        }));
+        setStartedKey(runKey);
+        // O fim é contado no relógio do JS, e não no retorno da animação: quem
+        // ouve é a tela, e ela precisa saber mesmo que a linha saia da janela
+        // virtualizada no meio do caminho.
+        const timer = setTimeout(() => onFinishedRef.current?.(), TRAIL_MOMENT_MS);
+        return () => {
+            clearTimeout(timer);
+            settle();
+        };
+    }, [animate, finishAtOnce, wantsMotion, runKey, segment, travel, medal, cta]);
+
+    const outgoing = useAnimatedStyle(() => ({ opacity: segment.value }));
+    const incoming = useAnimatedStyle(() => ({ opacity: segment.value }));
+    const pixel = useAnimatedStyle(() => {
+        const t = travel.value;
+        if (!activeRoute || activeRoute.progress.length < 2) {
+            // Sem rota, só o fim tem lugar: o ponto de descanso ao lado da medalha.
+            return { opacity: t >= 1 ? 1 : 0, transform: [{ translateX: 0 }, { translateY: 0 }] };
+        }
+        return {
+            opacity: activeRoute.fadeIn ? interpolate(t, [0, 0.15], [0, 1], Extrapolation.CLAMP) : 1,
+            transform: [
+                { translateX: interpolate(t, activeRoute.progress, activeRoute.x, Extrapolation.CLAMP) },
+                { translateY: interpolate(t, activeRoute.progress, activeRoute.y, Extrapolation.CLAMP) },
+            ],
+        };
+    });
+    const medalStyle = useAnimatedStyle(() => ({ transform: [{ scale: medal.value }] }));
+    const ctaStyle = useAnimatedStyle(() => ({
+        opacity: cta.value,
+        transform: [{ translateY: (1 - cta.value) * TRAIL_MOMENT_CTA_RISE }],
+    }));
+
+    return {
+        segment: { outgoing, incoming },
+        pixel,
+        medal: medalStyle,
+        cta: ctaStyle,
+        holding: wantsMotion && (!ready || startedKey !== runKey),
+    };
 }

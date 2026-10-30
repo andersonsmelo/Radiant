@@ -1,0 +1,88 @@
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow Caminho dourado 3 — primeiro contato grátis e erro no retorno esgota vidas
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Próximo passo\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Próximo passo\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "5 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "5 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "4 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... FAILED
+
+Assertion is false: "Passo 1 de 5" is visible
+
+Assertion '"Passo 1 de 5" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/artifacts/t7-vidas/2026-10-22_134609
+
+
+PROBE COMPLEMENTAR — não substitui o flow canônico: centralizar L1 concluída e reabrir. Exit code 0.
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow t7-reabrir-l1
+Scrolling UP until "Fundamentos de Radiologia. Concluído." is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Fundamentos de Radiologia. Concluído."... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED

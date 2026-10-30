@@ -3562,3 +3562,512 @@ cd radiant-app && npx jest src/storage src/features/student-checkpoints/reposito
 
 O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
 ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
+
+## Saiu do STATUS em 2026-10-23 — o Plano 2 da trilha Medalhão na pausa
+
+- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas**, commit
+  `7615827`; gate da 6 aprovado em 15/15 no segundo run
+  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
+  **Pausa solicitada pelo dono em 2026-10-23.** A onda final implementou as
+  correções do encaixe nativo de 48×46, reservas para texto grande, medidas
+  atuais de todas as linhas, percurso L1 → revisão futura → L2, pausa das
+  ilustrações fora do viewport, data visível, faixa da barra e reconciliação
+  do lembrete após falha. Fonte congelada com parecer independente favorável,
+  sem novo P1/P2 confirmado; 8 suítes/260 testes focais, lembrete 13/13,
+  contrato Maestro final 37/37, typecheck e lint passaram.
+  **Aceite nativo e revisão final do plano continuam pendentes.** iOS normal:
+  cabeça inteira passa sobre a área de outra célula sem corte; a origem L1
+  está fora da janela pela ancoragem existente. Vídeos de movimento reduzido
+  e texto máximo foram preservados, ainda sem revisão independente integral.
+  Android: cabeça/data visíveis e captura em fonte 200%; vídeo do momento
+  inconclusivo (142 quadros/19,5985 s, lacuna decisiva de 1,785622 s), sem causa
+  de produto demonstrada. Não corrigir uma hipótese de clipping/tempo sem
+  medir. O cenário sintético de 40 concluídas existe em Storybook, **não foi
+  medido**. Não reutilizar o benchmark antigo de três desbloqueadas como40.
+  Maestro atual: primeira execução iOS **PASS**, vidas esgotadas iOS **PASS**;
+  segundo dia Android **FAIL apenas na assert final após revisão3/3**, antes
+  de corrigir o enquadramento. O YAML passou a esperar a trilha e centralizar
+  a mesma medalha, preservando o seletor completo; checkpoint complementar
+  com assentamento500ms **PASS**, sem converter o flow inteiro em PASS.
+  Rerun integral exige revisão naturalmente devida, sem editar relógio/dados.
+  [Evidência consolidada e limites](evidence/2026-10-22-trilha-medalhao-final.md).
+  **Validação do fechamento:** não executada nesta última janela. A pedido
+  do dono, o run `run-1792746135751-b2cdee88` fecha sem validação para a pausa;
+  a retomada precisa executar o gate configurado antes de concluir a onda.
+  O [prompt versionado de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23)
+  contém a ordem das pendências, comandos e restrições.
+
+## Saiu do STATUS em 2026-10-23 — cabeçalho da execução dos planos da trilha Medalhão
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
+
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável.
+
+## Saiu do STATUS em 2026-10-26 — preflight remoto anterior a T01/T02
+
+**Base remota desta execução:** `e3dca6e`; App Quality `40212275739` e Content
+Scripts `40212275878` concluídos com sucesso nesse SHA. PRs #66/#67 abertas e
+mergeáveis na leitura MCP do preflight. Esses checks não provam o futuro SHA
+da entrega T01; a evidência desta entrega é a validação local do Loop.
+
+Origem do trecho acima: `docs/STATUS.md`.
+
+## Saiu do STATUS em 2026-10-26 — plano5 anterior à execução autorizada
+
+- **Plano 5: não começado.** O plano integrador detalha o restante e a
+  preparação do plano 4; o inventário sai/fica ainda precisa ser produzido e
+  aprovado antes de qualquer retirada. As decisões de conteúdo seguem pendentes.
+Origem: `docs/STATUS.md`.
+
+## 2026-10-27 — T04a iniciada
+
+Próxima entrega técnica: **T04a — dublê global do Skia e importação estática**.
+T04a e T05–T22 permanecem pendentes. G1–G8, conteúdo G2 e decisão T14 não foram
+consumidos; segundo dia fica no fechamento, reservado intocado.
+
+## 2026-10-27 — T04a revisada e validada
+
+**T04a em execução em 27/10/2026:** dublê global observável do Skia e importação
+estática no registro. BASE `ab20c6a`; implementação delegada, revisão e validação
+final ainda pendentes. Writer `run-1793114254111-2eade8f7`; sessão
+`brain-session-1793114147657-b7c59989` fechada antes dele por prevenção de contenção
+com `brain-links`. T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
+segundo dia no fechamento e reservado intocado.
+
+## 2026-10-27 — T04a CI confirmado e T05 iniciada
+
+Commit/push/CI desta entrega são aferidos após esse snapshot de validação;
+o CI do `e522984` acima não comprova o novo SHA. **Próxima: T05 — resultado**.
+T05–T22 e G1–G8, conteúdo G2 e decisão T14 permanecem pendentes;
+segundo dia no fechamento e reservado intocado. O dublê não prova shader,
+rasterização ou desempenho nativo; nenhum processo nativo foi iniciado.
+
+
+## T05 — estado substituído em 27/10/2026 na remedição nativa
+
+**T05 em execução em 27/10:** resultado Medalhão com tema/título real,
+estrelas e economia preservados. BASE `ae2e769`, writer
+`run-1793116969213-81113b5b`, implementação delegada; revisão e validação final
+pendentes. Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada
+antes do writer por prevenção brain-links. T06–T22 e G1–G8, conteúdo G2 e
+decisão T14 continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após discriminação Dynamic Type
+
+**T05 em validação nativa em 27/10:** resultado Medalhão implementado nos
+dois consumidores, com tema/título real, régua 0–3 e XP real sem caixa;
+revisão sem Pixel e pose preservada sob movimento reduzido. Revisões
+independentes R1 e R2: código aprovado. O nativo R1 revelou corte de
+título/frase/subtítulo no iOS AX5; correção local de lineHeight implementada
+com três vermelhos causais e 3 suítes/164 testes verdes, ainda aguardando
+remedição visual iOS/Android. Não há aceite total nem validação final Loop.
+BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição, ciclo zero.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes do
+writer. [Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão nativa R5
+
+**T05 em correção nativa em 27/10:** resultado Medalhão implementado nos
+dois consumidores, com tema/título real, régua 0–3 e XP real sem caixa;
+revisão sem Pixel e pose preservada sob movimento reduzido. Revisões
+estáticas R1/R2 aprovadas; aceite nativo R3 **FAIL / CHANGES_REQUIRED**.
+O iOS mostrou corte de título/frase/subtítulo apenas após mudar a fonte
+com o resumo aberto; montando já em AX5 os glifos ficam íntegros. Remover
+lineHeight isoladamente não resolveu essa atualização. Fix2 delegado,
+restrito aos Text do resumo; sem aceite total ou validação final Loop.
+Android não chegou à UI React nesta rodada: timeout do manifest/ANR do
+launcher, com conectividade ao servidor confirmada; prova da tela pendente.
+BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição, ciclo zero.
+Nativo/Metro encerrados e configurações originais restauradas antes do fix2.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes do
+writer. [Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão Android R6
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado já carregou a UI real em fonte2, prova do resultado ainda
+em curso. A rodada anterior parou no launcher antes de React e não é aceite
+da tela. BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição,
+ciclo zero; validação final e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após gate1 reprovado
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`, writer `run-1793116969213-81113b5b` em edição,
+ciclo zero; validação final e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após revisão fixture R7
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`. Gate configurado1: **13/15**, falhas app-quality/app-test
+por um mock de movimento incompleto no teste da guarda de autorização;
+reprodução integral201suítes/2529testes confirmou uma falha. O writer
+`run-1793116969213-81113b5b` foi fechado como substituído, sem sucesso.
+Writer `run-1793152438847-57dea062` em edição,61caminhos: acrescido apenas
+esse consumidor de teste, já dentro da política. Código/nativo freeze3
+preservados. Fix3 de mock, revalidação e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — estado substituído em 27/10/2026 após gate final15/15
+
+**T05 em validação em 27/10:** resultado Medalhão implementado nos dois
+consumidores, com tema/título real, régua 0–3 e XP real sem caixa; revisão
+sem Pixel e pose preservada sob movimento reduzido. Revisões estáticas R1,
+R2 e R4 aprovadas. O P2 nativo de corte ao mudar a fonte com o resumo aberto
+foi discriminado e corrigido: em freeze3, aula e revisão reais ficaram
+legíveis após large→AX5. Revisão independente R5 **Spec PASS / Qualidade
+APPROVED**, fechando o P2 nesse cenário iOS; scroll e CTA acessíveis.
+Android R3 isolado confirmou aula em fonte2 e revisão em fontes2/1, com
+texto/scroll/CTA legíveis e sem Pixel na revisão. R6 independente aprovou
+os cenários medidos; aula Androidnormal e RM/zero nativos não foram medidos.
+Apps/simulador/AVD/Metro encerrados, settings originais restauradas. BASE `ae2e769`. Gate configurado1: **13/15**, falhas app-quality/app-test
+por um mock de movimento incompleto no teste da guarda de autorização;
+reprodução integral201suítes/2529testes confirmou uma falha. O writer
+`run-1793116969213-81113b5b` foi fechado como substituído, sem sucesso.
+Writer `run-1793152438847-57dea062` em edição,61caminhos: acrescido apenas
+esse consumidor de teste, já dentro da política. Código/nativo freeze3
+preservados. Fix3 de uma linha no mock aprovado em R7, RED/reversão reproduzidos e
+GREENfinal6/6. Revalidação e commit/push T05 pendentes. Sessão
+`brain-session-1793116720680-a2a011a9` consultada e fechada antes do writer.
+[Evidência e limites T05](evidence/2026-10-27-medalhao-t05.md).
+T06–T22 e G1–G8, conteúdo G2 e decisão T14 continuam pendentes;
+segundo dia no fechamento e reservado intocado.
+
+
+## T05 — checkpoint substituído no preflight T06 em 27/10/2026
+
+**T05 implementada, revisada e validada em 27/10:** contexto real nos dois
+consumidores, régua0–3, neutralidade de zero estrela com estado concluído,
+XP real sem caixa, revisão sem Pixel e pose preservada sob movimento reduzido.
+P2 de corte ao mudar a fonte foi discriminado e corrigido; R5 iOS aprovou
+large→AX5 nos dois resumos. R6 Android aprovou aula fonte2 e revisão fontes2/1,
+com scroll/CTA legíveis. Os limites não medidos permanecem na evidência.
+Primeiro gate **13/15**, único teste consumidor com mock incompleto;
+writer `run-1793116969213-81113b5b` fechado como substituído, sem sucesso.
+Fix3 de uma linha aprovado em R7, guardas de autorização intactas,6/6focais.
+Gate final **15/15** em `run-1793152438847-57dea062`, primeira validação do
+substituto/segunda do objetivo: app-quality86.370ms e app-test78.082ms,
+comandos completos em Node20.20.2; CLI24.14.1/caffeinate. Escopo61caminhos,
+sem alterar política; código e nativo freeze3 preservados. Este checkpoint
+precede stepfinish/runclose e commit; a confirmação final de fechamento,
+SHA publicado e CI pertence ao ledger e relatório final da entrega.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
+writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
+Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
+continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T06 — estado substituído na retomada de 28/10/2026
+
+**T06 em execução em 27/10:** recompensa sem tela indisponível para rota
+inválida, com retorno automático à trilha; estados bloqueado/coletado e
+coleta preservam autoridade/elegibilidade. O HEAD já tem saída manual;
+nenhum “vermelho do vazio sem saída” será alegado sobre ele. BASE `d033433`,
+writer único `run-1793154878719-98187baa` STEP_STARTED,47caminhos nominais,
+implementador I/high novo. Sessão `brain-session-1793153947009-39e14016`
+consultada por CLI e fechada antes do writer por brain-links. Implementação,
+revisão e gates próprios T06 em curso; sem build/instalação/merge ou consumo
+dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído em 28/10/2026 após freeze de implementação
+
+**T06 iniciada em 27/10, retomada em 28/10:** recompensa sem tela indisponível para rota
+inválida, com retorno automático à trilha; estados bloqueado/coletado e
+coleta preservam autoridade/elegibilidade. O HEAD já tem saída manual;
+nenhum “vermelho do vazio sem saída” será alegado sobre ele. BASE `d033433`,
+writer único `run-1793154878719-98187baa` STEP_STARTED,47caminhos nominais,
+o primeiro implementador concluiu o vermelho (13falhas/15passes) e foi
+interrompido por limite de uso; reposição I/high no mesmo ownership. Código
+de produção ainda na base, sem aprovação de verde ou revisão T06. Sessão `brain-session-1793153947009-39e14016`
+consultada por CLI e fechada antes do writer por brain-links. Implementação,
+revisão e gates próprios T06 em curso; sem build/instalação/merge ou consumo
+dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após revisão nativa R2, 28/10/2026
+
+**T06 em revisão em 28/10/2026:** ausência de recompensa canônica retorna
+à trilha automaticamente; bloqueado e coletado continuam estados válidos.
+Implementação congelada em seis hashes: cinco caminhos alterados e consumidor
+compartilhado intacto. Focais/regressões: oito suítes, 161 testes; contrato
+Maestro 39/39; 12 mutações detectadas e restauradas; typecheck, lint e visual
+strict aprovados. São provas locais, ainda sem o quality completo. Revisor
+independente e executor nativo iniciados após o freeze, sem aprovação antecipada.
+BASE `d033433`; writer único `run-1793154878719-98187baa`, 47 caminhos.
+Brain `brain-session-1793153947009-39e14016` consultado por CLI e fechado
+antes do writer. Sem build, instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após FIX3, 28/10/2026
+
+**T06 em correção visual em 28/10/2026:** retorno automático da rota
+inválida, estados válidos e autoridade da coleta passaram na revisão funcional
+R2. A lacuna de contraprova da unidade foi corrigida sem mudar produto.
+Quality pediu correção de clipping na troca de fonte ao vivo; a cauda do
+balão também cobre parte de uma palavra em fonte normal. O autor trabalha
+na correção local da recompensa, com clientes e Metro parados. iOS já provou
+retorno inválido/fallback e saídas do bloqueado; Android ainda não começou.
+Focais/regressões anteriores: oito suítes, 161 testes; contrato Maestro 39/39.
+Quality completo e aceite visual final ainda pendentes. BASE `d033433`,
+writer único `run-1793154878719-98187baa`, 47 caminhos. Brain
+`brain-session-1793153947009-39e14016` consultado por CLI e fechado antes do
+writer. Sem build, instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído antes do gate final, 28/10/2026
+
+**T06 em verificação nativa em 28/10/2026:** retorno automático da rota
+inválida, estados válidos e autoridade da coleta aprovados na revisão
+funcional. FIX3 de texto ampliado aprovada no código R5; oito suítes foram
+usadas ao longo da tarefa, com focal final de quatro suítes/100 testes e
+contrato Maestro 39/39. iOS mediu reflow nos hosts locais em mudança ao vivo,
+troca entre fontes grandes, abertura máxima inicial e saídas. O principal foi
+desligado e fonte large restaurada antes de iniciar Android. R6 confere a
+prova visual; Android e quality completo ainda pendentes. P3 da cauda sobre
+texto normal permanece como resíduo explícito para T17/revisão ampla.
+BASE `d033433`, writer único `run-1793154878719-98187baa`, 47 caminhos.
+Brain `brain-session-1793153947009-39e14016` fechado antes do writer. Sem build,
+instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T06 — checkpoint substituído após gate final, 28/10/2026
+
+**T06 implementada e revisada em 28/10/2026:** ausência canônica retorna
+à trilha, estados válidos mantêm saída e serviço confirma a coleta. R5 código
+PASS/APPROVED e R6 nativo APPROVED no escopo medido; focal final4/100, Maestro
+contrato39/39. iOS live e máxima inicial, Android normal/máxima inicial
+legíveis. Android live não validado por erro de linking do dev client; P3 da
+cauda permanece para T17. Disponível/coletado têm prova automatizada, sem
+aceite nativo desses estados. Apps/Metro/emuladores encerrados e settings
+restaurados. Quality completo, fechamento e Git ainda pendentes.
+BASE `d033433`, writer `run-1793154878719-98187baa`,47 caminhos,0 ciclos.
+Brain `brain-session-1793153947009-39e14016` fechado. Sem build/instalação/merge
+ou consumo dos gates humanos. [Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## Fila após gate T06, 28/10/2026
+
+Próxima entrega: T06 recompensa. T06–T22 e G1–G8, conteúdo G2 e decisão T14
+continuam pendentes; segundo dia no fechamento e reservado intocado.
+
+
+## T06 — checkpoint substituído no preflight T07, 28/10/2026
+
+**T06 implementada, revisada e validada em 28/10/2026:** ausência canônica
+retorna à trilha; estados válidos mantêm saída e serviço confirma a coleta.
+R5 código e R6 nativo aprovados no escopo medido. Loop final **15/15** em
+ciclo único, incluindo quality/app-test completos no Node20. iOS live e
+máxima inicial, Android normal/máxima inicial legíveis. Android live não
+validado por erro de linking do dev client; P3 da cauda permanece para T17.
+Disponível/coletado têm prova automatizada, sem aceite nativo desses estados.
+Apps/Metro/emuladores encerrados e settings restaurados. BASE `d033433`,
+writer `run-1793154878719-98187baa` em validating, pronto para step finish e
+close; Git/CI resultantes são posteriores a esse fechamento. Brain
+`brain-session-1793153947009-39e14016` CLOSED confirmado pela CLI. Sem build,
+instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+
+## T07 — checkpoint substituído após revisão de código, 28/10/2026
+
+**T07 iniciada em 28/10/2026:** fila real de revisão sem Pixel/anel, com
+ListRow, origens e histórico comprováveis; preservar resposta persistida,
+retomada, saída e vida única por fila. Inventário/brief concluídos, writer
+único `run-1793196624149-d9c215ee` editing/STEP_STARTED com 51 caminhos.
+Brain `brain-session-1793196240376-47a0d28b` consultado via CLI e fechado
+antes do writer por brain-links. Implementação delegada; vermelho/verde,
+revisão e gates T07 ainda pendentes.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## T07 — checkpoint substituído antes do gate final, 28/10/2026
+
+**T07 em verificação nativa em 28/10/2026:** fila real com ListRow,
+origens e histórico comprováveis, sem Pixel/anel. R2 de código Spec PASS /
+Quality APPROVED após corrigir o rótulo de revisão de ontem com menos de24h.
+Focal anterior4suítes/52testes e contrato40/40; delta temporal36/36 emUTC,
+3/3 emAmerica/Bahia, typecheck/lint aprovados. Oito arquivos congelados.
+No iOS, abertura real3itens/mesma aula/2min e fonte máxima foram observadas;
+o fluxo legítimo de três respostas está em execução. Resultado/vazio/Android,
+parecer nativo e quality completo ainda pendentes. Writer único
+`run-1793196624149-d9c215ee`,51caminhos; brain
+`brain-session-1793196240376-47a0d28b` CLOSED antes do writer.
+Sem build, instalação ou merge. [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## T07 — checkpoint substituído após gate final, 28/10/2026
+
+**T07 implementada e revisada em 28/10/2026:** fila real com ListRow,
+origens/histórico comprováveis e sem Pixel/anel; resposta, retomada e vida
+única preservadas. R2 de código e R3 nativo aprovados para o núcleo T07.
+Focal4/52, contrato40/40; fix temporal36/36UTC+3/3Bahia, typecheck/lint/strict
+aprovados. Filas reais3itens→resultado+12XP/HUD66→vazio e saída em ambos OS.
+iOS máxima/core legível; Android normal/máxima inicial, live e resultado
+máximo não validados por erro de linking. **Aceite global bloqueado:** P2
+PushOptIn cortado em máxima iOS, pendente T17, além do P3 cauda T06.
+Vazio máximo iOS, erros e retomada parcial não medidos nativamente.
+Quality completo, fechamento e Git T07 ainda pendentes; writer
+`run-1793196624149-d9c215ee` editing/0ciclos/51caminhos. Brain
+`brain-session-1793196240376-47a0d28b` CLOSED; apps/emuladores/Metro OFF,
+settings restaurados. Sem build/instalação/merge, gates humanos preservados.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## Fila após gate T07, 28/10/2026
+
+Próxima entrega após fechamento T06: T07 revisão. T07–T22 e G1–G8, conteúdo
+G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
+intocado.
+
+
+## T07 — reconciliação documental do fechamento em 28/10/2026
+
+**T07 implementada, revisada e validada em 28/10/2026:** fila real com
+ListRow, origens/histórico comprováveis, sem Pixel/anel; respostas, retomada,
+saída e vida única preservadas. R2 código/R3 nativo aprovados no núcleo.
+Loop final **15/15** em ciclo único, quality e app-test completos Node20.
+Filas reais3itens→resultado+12XP/HUD66→vazio e saída nos dois OS. iOS máxima
+core legível; Android normal/máxima inicial, live e resultado máximo não
+validados por erro de linking. **Aceite global bloqueado:** P2 PushOptIn
+cortado em máxima iOS paraT17, além do P3 caudaT06. Vazio máximo iOS e erros/
+retomada parcial não medidos nativamente; corações5 não provam grantcount.
+Apps/emuladores/Metro OFF/settings restaurados. BASE `c694f95`, writer
+`run-1793196624149-d9c215ee` validating/1ciclo, pronto para finish/close;
+Git/CI resultantes vêm depois. Brain `brain-session-1793196240376-47a0d28b`
+CLOSED. Sem build/install/merge ou consumo dos gates humanos.
+[Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## Referência da branch — substituída em 28/10/2026
+
+Branch `claude/trilha-medalhao-design`: commit de produto local/remoto
+conferido em 27/10/2026, antes desta atualização documental, em `e522984`,
+com ambos os pipelines desse SHA aprovados conforme
+registro T04 acima. A base `b5ac9bf` e a ref da `main` `bcf1a90` eram medições
+do planejamento de 25/10; não representam o estado atual. As PRs #66 e #67
+permanecem referências da frente; o estado aberto/mergeável e a `main` precisam
+ser consultados novamente antes de qualquer decisão de merge. Os planos
+estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
+cada plano tem uma seção "Registro de execução" com commits, decisões que
+mudaram o texto do plano e pendências.
+
+
+## 28/10/2026 — checkpoint T07 anterior à execução T08
+
+Bloco substituído no STATUS durante a entrega T08; texto preservado integralmente.
+
+**T07 encerrada no núcleo em 28/10/2026:** fila real com ListRow e
+origens/histórico comprováveis, sem Pixel ou anel; resposta persistida,
+retomada, saída e prêmio único preservados nos testes. R2 de código e R3
+nativo aprovados no escopo medido. Loop final **15/15**, em ciclo único,
+incluindo quality e app-test completos no Node20. Writer
+`run-1793196624149-d9c215ee` fechou com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+brain `brain-session-1793196240376-47a0d28b` também CLOSED, reconfirmados pela
+CLI nesta atualização. Commit de produto
+`85ebf0153840d503e6fcd70532529896e8bcc29f` publicado na branch, 50 arquivos
+próprios e hashes conferidos. CI exclusivamente desse SHA: [App Quality247](https://github.com/andersonsmelo/Radiant/actions/runs/40722546476)
+e [Content152](https://github.com/andersonsmelo/Radiant/actions/runs/40722546361),
+ambos SUCCESS, reconfirmados em 28/10. Árvore limpa antes desta atualização.
+
+Em cada OS, fila real de 3 itens → resultado de +12 XP/HUD66 → vazio e saída.
+O núcleo iOS em fonte máxima e a abertura máxima inicial Android ficaram
+legíveis. **Aceite global do layout bloqueado:** P2 do PushOptIn cortado em
+máxima iOS, pendente T17, além do P3 da cauda T06. Android ao vivo e resultado
+máximo não validados por erro de linking; vazio máximo iOS e erros/retomada
+parcial não medidos nativamente. Cinco corações não provam contagem de grants.
+Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
+instalação, merge ou consumo de gates humanos. **Próxima entrega: T08,
+ainda não iniciada.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+
+## 28/10/2026 — T08 antes da confirmação de publicação e CI
+
+Checkpoint preservado integralmente, substituído pela medição atual.
+
+### T08 avaliação — núcleo implementado e validado em 28/10/2026
+
+A Task 10/T08 foi retomada na worktree Medalhão sobre `2af9385`, com um
+implementador novo e revisão independente. Os estados bloqueada/inválida e a
+apresentação prata foram implementados. A revisão R1 encontrou P2 de identidade
+na conclusão sem ID; o autor corrigiu, e a R2 aprovou código/spec/qualidade.
+A versão corrigida passou 61 testes focais e 45 sob CPU limitada, com tipos/lint
+e contratos aprovados. O percurso real nas duas plataformas mediu bloqueio,
+ID inválido, erro1/2 com uma vida cobrada, reforço legítimo semXP e aprovação
+posterior com+18XP/total138. Fontes ampliadas: bloqueada/disponível iOS e
+resultado Android2.0; resultado iOS máximo, resumo entre processos e troca de
+fonte ao vivo seguem delimitados na evidência. Apps, simuladores/AVD e Metro
+próprios encerrados, fontes restauradas e produto R2 inalterado. Parecer nativo
+R3 aprovou o núcleo medido (Spec BOUNDED/Qualidade APPROVED_CORE_BOUNDED),
+sem novo P1/P2 material. Loop final **15/15**, em um ciclo, incluindo quality/app-test completos e os
+demais13 validadores. O fechamento original reprovou por escopo após o Metro
+criar `expo-env.d.ts`, ignorado pelo Git e ausente na baseline. O run foi
+encerrado sem sucesso. Regularização autorizada por Anderson em28/10 no run
+`run-1793222933625-71a18c69`, cuja baseline já contém as31 alterações preservadas;
+produto e política intactos, sem supervisão retroativa. A regularização também
+passou15/15, em seu primeiro ciclo (segunda validação do objetivo, motivada
+pela falha de fechamento). A evidência distingue os IDs e resultados dos runs. Próxima entrega: T09 Perfil, ainda não iniciada. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
+
+Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
+permanecem. O segundo dia fica no fechamento; o simulador reservado segue
+fora desta execução.
+
+
+## 2026-10-30 — trechos substituídos após núcleo T12
+
+**T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
+corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
+HeartsDisplay de cinco corações como API, mas integra coração único também
+no QuizTopBar: o nativo da aula mostrou que esse consumidor separado ainda
+precisava da mudança. No HUD finito,
+um coração e a contagem; no ilimitado, apenas ∞.
+
+Próxima frente: [T12 Vidas](../superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).

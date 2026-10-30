@@ -32,6 +32,53 @@ está no [levantamento](../trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 Desde 18/10, o Claude planeja e executa
 ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)).
 
+**Medalhão — planejamento de 2026-10-25:** o
+[plano integrador das pendências](2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza o restante do layout, a aula-bancada e o inventário/recomeço. O dono
+moveu a conferência de segundo dia para o fechamento, sem bloquear o avanço
+das telas. Nenhuma tarefa de implementação ou gate de loja foi concluído por
+essa entrega documental; o estado vivo segue no STATUS.
+O [roteiro de execução por subagentes](2026-10-25-medalhao-execucao-subagentes.md)
+detalha a operação após a revisão do plano pelo dono em 25/10, sem iniciar
+as tarefas de implementação nesta entrega.
+Em autorização posterior de 25/10, a execução começou: T00 reconciliado e
+revisado; T01 implementada/revisada e validada pelos 15 validadores do Loop.
+T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5
+na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
+26/10, Loop15/15 e prova de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
+Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
+Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
+implementada e revisada em 27/10 (Spec PASS/Qualidade APPROVED), com import
+estático e dublê Skia observável: 7 suítes/184 testes e sete mutações detectadas.
+Validação final T04a **15/15**, em ciclo único, com quality/app-test completos. [Evidência](../evidence/2026-10-27-medalhao-t04a.md).
+T05 resultado implementado e revisado em 27/10, com contexto real nos dois
+consumidores, neutralidade de zero estrela e economia preservada. Correção
+de texto ampliado aprovada no iOS R5; Android aula/revisão fonte2 legíveis.
+Loop final15/15 em 27/10, após corrigir mock consumidor aprovado em R7;
+primeira validação do writer substituto/segunda do objetivo.
+[Evidência T05](../evidence/2026-10-27-medalhao-t05.md).
+T05 publicada em `d033433`, CI245/150SUCCESS confirmado em 27/10.
+T06 encerrada em 28/10: Loop15/15, commit `c694f95`, CI246/151 SUCCESS e
+writer/cérebro CLOSED confirmados. T07 encerrada no núcleo em 28/10:
+Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
+writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada fechada com sucesso, commit1b987c1 publicado/CI249154SUCCESS; P2 PushOptIn antecipado e corrigido localmente (R1 código PASS/R2 nativo BOUNDED,29/10; Loop final15/15 em um ciclo); Review atual/Android ao vivo/T17 sem aceite; T09 núcleo implementado/revisado em29/10 (60focais/163consumidores/105contratos, código R1 PASS/nativo R2 BOUNDED; Loop15/15 após fix1/dois ciclos; G5 preservado); T10 núcleo implementado/revisado em29/10 (R2 FIX1 PASS após2P2;374focais/consumidores+CPU40/105contratos;R3nativoBOUNDED, gesto iOS pendente e P3legal→T17; Loop final15/15 em um ciclo; commit6266495/CI252157SUCCESS; writer/cérebro CLOSED); P2 compartilhado
+para T17 e aceite global bloqueado. Limites no STATUS.
+T11/Task13 validada estaticamente em29/10: R3 SpecPASS/APPROVED,48 fluxo final,17 mutações e Loop15/15 no segundo ciclo após correção dos raios. [G6 local confirmado em30/10](../evidence/2026-10-30-medalhao-t11-g6.md): Debug novo de9a62bca no E262, bridge numérico/BRL e equivalente R$12,49 na tela; StoreKit Testing sem compra real/aparelho ou aceite global.
+T12/Task14 núcleo implementado/revisado em30/10: R1 P2 de persistência concorrente corrigido sem mudar serviço, R2 SpecPASS/APPROVED;229focais/7suítes normais eCPU,5mutaçõesfix1,Maestro40/40. [Evidência T12](../evidence/2026-10-30-medalhao-t12.md). Normal/AX5 NOT_VERIFIED por GUI Simulator.app ausente; capAppButton herdado, E2E integralT18 e aceite global pendentes. Próximo cartão [T13](../superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md) dependeG1/G3; nenhuma aplicação silenciosa.
+Em30/10, T13 recebeu [pacote concreto de decisão G1/G3](2026-10-30-medalhao-t13-pacote-de-decisao.md)
+e comparativo isolado; nenhuma alternativa aplicada ou aceite consumido.
+Após apresentação, Anderson escolheu A+Q1 em30/10: [ADR A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+ImplementaçãoA entregue/revisada estaticamente (RF PASS/APPROVED,336/7focais,
+tipos/lint e43contratos); nativo0/7NOT_VERIFIED por ambiente e aceite integral separados,
+risco residual do quadro aceito somente no recorte, observaçãoT18 mantida.
+Recorte estático fechado/publicado em `19fbde5`: finalLoop15/15 em um ciclo,
+MEMORY_WRITTEN/RUN_CLOSED e cérebroCLOSED confirmados; CI Quality41127437509
+/Content41127437415 SUCCESS no mesmo SHA,207suítes/2.833testes PASS.
+[Evidência A e recibos](../evidence/2026-10-30-medalhao-t13-a.md). Aceite nativo
+integral permanece pendente; sem novo pedido G1/Q1 e sem avanço para T14.
+O [STATUS](../STATUS.md) mantém o estado
+vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
+
 **FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como
 candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
 [especificação](../trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md) e a

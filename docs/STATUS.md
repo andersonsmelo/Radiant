@@ -210,9 +210,504 @@ app); e `SENTRY_DISABLE_AUTO_UPLOAD=true`. O `expo run:ios` também trava ao
 consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 `xcrun simctl`.
 
+## Branch da trilha Medalhão — dependência nativa (medido em 2026-10-21)
+
+- **Decidido pelo dono em 2026-10-21 e aplicado:** `runtimeVersion` agora é
+  `{"policy":"fingerprint"}` no `app.json` (era `appVersion`). A `version`
+  continua `1.4.0` e o `buildNumber` não mudou. O motivo: a branch
+  `claude/trilha-medalhao-design` traz o `@shopify/react-native-skia` 2.2.12,
+  uma dependência **nativa**, e com `appVersion` um `eas update` de uma rota com
+  Skia chegaria aos binários 1.4.0 da loja, que não têm o Skia, e derrubaria o
+  app. **Desde 2026-10-22 a aba Estude usa o Skia:** a `JourneyMedal` do plano
+  2 desenha o `ThemeIllustration`, e por isso a política acima deixou de ser
+  opcional. Nenhuma build saiu com isso ainda.
+- **O que muda no `eas update`:** o runtime deixa de ser o número da versão e
+  passa a ser a impressão digital do projeto nativo. Um binário sem Skia tem
+  outro runtime que um binário com Skia, então uma atualização com Skia nunca
+  chega ao primeiro. Vale o inverso também: qualquer mudança nativa futura
+  (módulo, plugin, `app.json` nativo) cria um runtime novo, e quem ficou num
+  binário antigo para de receber atualizações até instalar o build novo. O
+  binário 1.4.0 da loja hoje foi publicado sob o runtime `1.4.0`: ele só recebe
+  atualização publicada para esse runtime, e o primeiro build feito com
+  `fingerprint` ganha um runtime próprio, que ainda não foi medido. Build e
+  distribuição seguem com o dono. O splash novo também só chega com build
+  nativa.
+- **Remede com**, na raiz do repositório:
+
+  ```bash
+  node -e "const a=require('./radiant-app/app.json').expo;console.log(a.version, JSON.stringify(a.runtimeVersion))"
+  # esperado em 2026-10-21: 1.4.0 {"policy":"fingerprint"}
+  grep -n '"@shopify/react-native-skia"' radiant-app/package.json
+  # importadores fora do módulo (em 2026-10-22: JourneyMedal.tsx, resolveNodeTheme.ts e types/journey.ts):
+  grep -rlE "illustrations/|react-native-skia" radiant-app/src --include='*.ts' --include='*.tsx' \
+    | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
+  ```
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-27)
+
+**Execução autorizada pelo dono em 25/10:** T00 reconciliado e revisado
+independentemente. T01 implementada, revisada (R4: spec/qualidade APPROVED) e
+validada pelos 15 validadores configurados do Loop, incluindo `app-quality`
+e `app-test`, no Node 20.20.2. Guarda AST no quality, baseline de 135 achados
+em 40 arquivos e CTA “Continuar trilha” com seus seis YAMLs/contratos.
+[Resultados, limites e continuação](evidence/2026-10-25-medalhao-t01.md).
+Writer `run-1792947283114-3566f047`; sessão de leitura encerrada antes dele.
+T02 HUD implementada e revisada em 26/10, com pílula compartilhada na trilha
+e aula. Validação Loop **15/15** na segunda tentativa (primeira:14/15,
+app-quality timeout), writer `run-1793011345601-6bbdc725`. Prova visual finito5
+e abertura da folha em iOS/Android nos binários existentes, sem build.
+[Entrega, revisões e limites nativos](evidence/2026-10-26-medalhao-t02.md).
+T03 boas-vindas implementada e revisada em 26/10 (R4), com bancada real,
+reentrada preservada e texto ampliado conferido no iOS/Android. Validação
+final **15/15** na segunda tentativa: a primeira teve oito TS7006 em dois
+arquivos de teste, corrigidos com anotações de tipo. As duas execuções de
+`app-test` completo passaram. Writer `run-1793031412630-67f7d689`.
+CI T03 no commit `804d1e7`: App Quality241/`40403674164` e Content146/
+`40403674167` aprovados em 26/10.
+[Prova e limites T03](evidence/2026-10-26-medalhao-t03.md).
+
+**T04 — implementada, revisada e validada em 27/10 (R2 produto/R4 guarda):** medalha temática na abertura,
+Pixel no explorar, imagem crítica com texto equivalente, retorno visível e
+acessível nos seis tipos registrados e dica/anúncio do botão apto. A conferência
+nativa corrigiu dois cortes: indicador de passos e leitura de dose-área. A frase
+ficou inteira em cinco linhas no iOS 402pt/maior fonte e duas no Android fonte2,
+sem reduzir a fonte. A aula sem nó foi concluída no iOS com “Sem XP nesta
+tentativa”, mantendo 18 XP e o progresso visível; as gravações proibidas têm
+prova separada nos testes. VoiceOver/TalkBack audível e dispositivo físico não
+foram validados aqui. Gate inicial Loop **14/15**: `app-quality` reprovou pela heurística R5 de
+nome de arquivo, que sinalizou o Pixel previsto no explorar e seu teste.
+O writer `run-1793050819046-ac727bc8` foi fechado como substituído, sem sucesso.
+Correção restrita da classificação AST implementada/revisada (R4), com
+45/45 contratos e zero regressões na checagem visual estrita, no writer
+`run-1793097438356-af6aeb6c`, sem ampliar política ou exceções. Gate final **15/15** aprovado em 27/10
+na primeira validação do writer substituto (segunda do objetivo):
+`app-quality` 85.698 ms e `app-test` 78.645 ms; sessão de leitura fechada antes
+da escrita. Writer final encerrado com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+sessão `brain-session-1793049810205-9841870a` encerrada separadamente.
+Commit de produto `e52298454bc2342be4b9cc29d1167dbe70e30773` publicado na
+branch `claude/trilha-medalhao-design`. CI confirmado em 27/10 para esse SHA:
+[App Quality242](https://github.com/andersonsmelo/Radiant/actions/runs/40492879026)
+e [Content Scripts147](https://github.com/andersonsmelo/Radiant/actions/runs/40492879042)
+concluídos com sucesso. [Registro do CI](evidence/2026-10-26-medalhao-t04/ci-final.json).
+[Entrega, revisões e limites T04](evidence/2026-10-26-medalhao-t04.md).
+**T04a implementada, revisada e validada em 27/10/2026:** import estático de
+`BenchStepRenderer` e dublê global observável do Skia no Jest; seis consumidores
+preservam suas asserções e overrides. Revisão independente R1 **Spec PASS /
+Qualidade APPROVED**, sem achados acionáveis. Focais **7 suítes/184 testes**,
+sete mutações detectadas/restauradas; os dois avisos act foram reproduzidos
+na baseline, sem novo ruído. Loop **15/15** na primeira validação configurada,
+com `app-quality` completo (100.421 ms) e `app-test` completo (79.356 ms),
+Node20.20.2; CLI24.14.1 sob caffeinate. Run `run-1793114254111-2eade8f7`;
+sessão `brain-session-1793114147657-b7c59989` encerrada antes do writer por
+prevenção brain-links. [Evidência, parecer e validação](evidence/2026-10-27-medalhao-t04a.md).
+Commit T04a `ae2e769d89bac2a4de3b11e5a4fe602d86b31323` publicado, árvore limpa
+no fechamento em 27/10. CI do mesmo SHA: [App Quality244](https://github.com/andersonsmelo/Radiant/actions/runs/40532975253)
+e [Content Scripts149](https://github.com/andersonsmelo/Radiant/actions/runs/40532974409)
+concluídos com sucesso. Writer e sessão T04a encerrados separadamente.
+O dublê não prova shader, rasterização ou desempenho nativo.
+
+**T05 implementada, revisada e validada em 27/10:** contexto real nos dois
+consumidores, régua0–3, neutralidade de zero estrela com estado concluído,
+XP real sem caixa, revisão sem Pixel e pose preservada sob movimento reduzido.
+P2 de corte ao mudar a fonte foi discriminado e corrigido; R5 iOS aprovou
+large→AX5 nos dois resumos. R6 Android aprovou aula fonte2 e revisão fontes2/1,
+com scroll/CTA legíveis. Os limites não medidos permanecem na evidência.
+Primeiro gate **13/15**, único teste consumidor com mock incompleto;
+writer `run-1793116969213-81113b5b` fechado como substituído, sem sucesso.
+Fix3 de uma linha aprovado em R7, guardas de autorização intactas,6/6focais.
+Gate final **15/15** em `run-1793152438847-57dea062`, primeira validação do
+substituto/segunda do objetivo: app-quality86.370ms e app-test78.082ms,
+comandos completos em Node20.20.2; CLI24.14.1/caffeinate. Escopo61caminhos,
+sem alterar política; código e nativo freeze3 preservados. Fechamento confirmado no preflight T06: STEP_SUCCEEDED→RUN_CLOSED,
+sem memória opcional; sessão fechada por CLI. Commit
+`d033433f268422020551ef3e4e20d2e121ec8ceb` publicado na branch, árvore limpa
+após o push e antes de T06. CI desse SHA confirmado em 27/10: [App Quality245](https://github.com/andersonsmelo/Radiant/actions/runs/40619391185) e
+[Content Scripts150](https://github.com/andersonsmelo/Radiant/actions/runs/40619391196), ambos SUCCESS.
+Sessão `brain-session-1793116720680-a2a011a9` consultada e fechada antes dos
+writers. [Evidência T05](evidence/2026-10-27-medalhao-t05.md).
+Próxima entrega após fechamento T07: T08 avaliação. T08–T22 e G1–G8, conteúdo
+G2 e decisão T14 continuam pendentes; segundo dia no fechamento e reservado
+intocado.
+
+**T06 implementada, revisada e validada em 28/10/2026:** ausência canônica
+retorna à trilha; estados válidos mantêm saída e serviço confirma a coleta.
+R5 código e R6 nativo aprovados no escopo medido. Loop final **15/15** em
+ciclo único, incluindo quality/app-test completos no Node20. Fechamento
+`STEP_SUCCEEDED`→`RUN_CLOSED` do writer `run-1793154878719-98187baa` e cérebro
+CLOSED confirmados por CLI. Commit `c694f95191d990f78056f4985c958b9ebe7518e5`
+publicado, 39 arquivos próprios/hashes conferidos, árvore limpa no preflight
+T07. CI do mesmo SHA confirmado em 28/10: [App Quality246](https://github.com/andersonsmelo/Radiant/actions/runs/40677541882)
+e [Content151](https://github.com/andersonsmelo/Radiant/actions/runs/40677541815),
+ambos SUCCESS. iOS live e máxima inicial, Android normal/máxima inicial
+legíveis. Android live não validado por erro de linking do dev client; P3 da
+cauda permanece para T17. Disponível/coletado têm prova automatizada, sem
+aceite nativo desses estados. Apps/Metro/emuladores encerrados e settings
+restaurados. Sem build, instalação, merge ou consumo dos gates humanos.
+[Evidência T06](evidence/2026-10-27-medalhao-t06.md).
+
+**T07 encerrada no núcleo em 28/10/2026:** fila real com ListRow e
+origens/histórico comprováveis, sem Pixel ou anel; resposta persistida,
+retomada, saída e prêmio único preservados nos testes. R2 de código e R3
+nativo aprovados no escopo medido. Loop final **15/15**, em ciclo único,
+incluindo quality e app-test completos no Node20. Writer
+`run-1793196624149-d9c215ee` fechou com `STEP_SUCCEEDED` → `RUN_CLOSED`;
+brain `brain-session-1793196240376-47a0d28b` também CLOSED, reconfirmados pela
+CLI nesta atualização. Commit de produto
+`85ebf0153840d503e6fcd70532529896e8bcc29f` publicado na branch, 50 arquivos
+próprios e hashes conferidos. CI exclusivamente desse SHA: [App Quality247](https://github.com/andersonsmelo/Radiant/actions/runs/40722546476)
+e [Content152](https://github.com/andersonsmelo/Radiant/actions/runs/40722546361),
+ambos SUCCESS, reconfirmados em 28/10. Árvore limpa antes desta atualização.
+
+Em cada OS, fila real de 3 itens → resultado de +12 XP/HUD66 → vazio e saída.
+O núcleo iOS em fonte máxima e a abertura máxima inicial Android ficaram
+legíveis. **Aceite global do layout bloqueado:** P2 do PushOptIn cortado em
+máxima iOS, pendente T17, além do P3 da cauda T06. Android ao vivo e resultado
+máximo não validados por erro de linking; vazio máximo iOS e erros/retomada
+parcial não medidos nativamente. Cinco corações não provam contagem de grants.
+Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
+instalação, merge ou consumo de gates humanos. **A T08 foi retomada posteriormente em28/10; ver seu registro abaixo.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
+
+**T02/T12 — divisão medida em30/10:** o HUD finito mantém um coração e a
+contagem; no ilimitado, apenas ∞. A folha de cinco corações de40pt foi
+implementada/revisada no núcleo da T12; sua prova nativa normal/AX5 permanece
+pendente. Ver o registro T12 abaixo. T02 preserva HeartsDisplay como API.
+
+**CI T02 medido em 26/10:** commit `9b8b3b6`, Content Scripts145/
+`40349301072` e App Quality240/`40349302763` concluídos com sucesso.
+T01 no55e21ae já tinha ambos aprovados. Checks do preflight e commits
+anteriores não provam o novo SHA.
+
+**Ordem decidida pelo dono em 2026-10-25:** avançar no restante do layout e
+fazer a conferência de segundo dia no fechamento. A data do simulador não
+interrompe a implementação; a prova continua pendente, sem alterar relógio ou
+dados. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza as tarefas faltantes, o inventário/recomeço e os aceites humanos.
+Esta entrega é documental; nenhum item de produto foi executado por ela.
+
+**Planejamento revisado pelo dono em 2026-10-25:** solicitada a execução por
+subagentes; o [roteiro operacional](plans/2026-10-25-medalhao-execucao-subagentes.md)
+define controlador, implementador/revisor por tarefa, recursos e evidências.
+A entrega do roteiro também é apenas documental: T00–T22/T04a não foram
+iniciadas por ela. Permanecem os aceites específicos de conteúdo, texto máximo,
+inventário/política, binário e liberação descritos no plano integrador.
+
+Branch `claude/trilha-medalhao-design`: último commit de produto reconciliado
+em 28/10/2026 é `85ebf0153840d503e6fcd70532529896e8bcc29f` (T07), publicado,
+com CI247/152 SUCCESS no mesmo SHA. A referência `e522984` pertence à entrega
+T04 de 27/10; as refs `b5ac9bf` e `bcf1a90` pertencem ao planejamento de 25/10.
+Elas não representam a implementação mais recente desta branch. As PRs #66
+e #67 continuam referências históricas da frente; seu estado e a `main`
+precisam ser consultados antes de qualquer decisão de merge. Esta atualização
+é documental, não inicia T08 nem aprova liberação. Os planos e registros de
+execução permanecem no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md).
+
+- **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
+  dela (`a294d97`). O aceno foi conferido no simulador.
+- **Plano 2 (trilha): tarefa 7 executada, exceto o segundo dia iOS
+  (conferir no fechamento, sem data fixa); aceite pendente** (medido
+  em 2026-10-23, writer `run-1792757625819-e00263ec`;
+  [evidência da retomada](evidence/2026-10-23-trilha-medalhao-retomada.md)).
+  - **Segundo dia integral Android: PASS** em relógio real, com o YAML
+    corrigido. O simulador iOS reservado permanece preservado para a conferência no
+    fechamento, conforme decisão do dono de 25/10; a data histórica não é prazo
+    operacional nem bloqueio ao restante do layout.
+  - **Momento Android demonstrado.** A lacuna de 2026-10-22 era da gravação. O
+    gravador do emulador a 60 fps, com a linha do tempo instrumentada, mostra o
+    percurso completo.
+  - **Defeito novo, não resolvido:** um quadro do estado final antes do
+    percurso, em 2 de 4 gravações sem instrumentação. O conserto parcial em
+    `useTrailMomentStyles` (a espera guardava o fim) tem teste vermelho e
+    parecer independente favorável, mas o quadro continua em 1 de 4 gravações
+    com o conserto. Com logs, ele não aparece (0 de 10), e a causa restante
+    não foi observada. **Remedido em 2026-10-23 à tarde e à noite, com o
+    rastreamento nativo** (`atrace` e Perfetto) **e sem instrumentação: 0 de 13
+    rodadas válidas** (9 rastreadas, 4 limpas). A causa continua sem
+    observação, e nenhum segundo conserto foi feito. O rastreamento mostrou que
+    o primeiro quadro de animação chega de 24 a 101 ms depois do último commit
+    do React, e que nesse intervalo a tela mostrou o começo, não o fim
+    ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)). Se isso basta para o aceite é
+    decisão do dono.
+  - **40 concluídas:** só as medalhas visíveis avançam quadros (contador
+    nativo). Desempenho de ≈59,7 quadros/s e jank de 0,11–0,50%, em emulador
+    Debug.
+  - **Bloqueiam o aceite:** o quadro antecipado acima, o segundo dia iOS e a
+    **decisão do dono sobre o texto máximo**. No AX5 e no
+    Android a 200%, o texto da coluna quebra no meio da palavra
+    ("Princípio / s", "24/10/20 / 26", "Com / putadorizada"), e "Lembrete
+    diário" sai cortado no Android. Os corredores de 64 pt e a fonte integral
+    foram preservados, como pedido.
+  - **Gate de 2026-10-23:** `npm run quality` PASS na 2ª rodada (190 suítes,
+    2163 testes), e `loop validate` 15/15 no run `run-1792757625819-e00263ec`. A 1ª reprovou num teste de fluxo do momento que é frágil sob
+    carga. **O risco se confirmou e foi resolvido no mesmo dia:** o CI da PR
+    #66 reprovou em `ef40365` por tempo-limite do Jest no teste "percorre L1 →
+    revisão futura → L2". Com `taskpolicy -b`, 3 dos 5 testes do momento
+    reprovavam. O `37e7688` deu a esses testes um prazo que cobre as próprias
+    esperas e incluiu o tempo de renderização na espera do fim. Os 5 passam com
+    a CPU limitada, e "acaba sozinho" continua reprovando quando o fim do
+    momento é desligado. CI verde em `37e7688`.
+  - **Storybook, resolvido na branch em 2026-10-23:** o bundle não montava
+    porque duas stories importavam `lesson-xray-panel.png`, removido de
+    propósito em `b06c7eb` (mockup em inglês). As stories deixaram de usá-lo,
+    sem arte nova, e `src/test/assetRequires.contract.test.ts` reprova
+    qualquer imagem pedida que não exista. Medido num Metro recém-iniciado com
+    `STORYBOOK_ENABLED=true`: 500 antes, 200 depois, no Android e no iOS
+    ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, o defeito continua até o merge
+    da #66.
+- **Plano 3 (aula-bancada): feito em 2026-10-24, aguardando o dono.** As
+  tarefas 1 a 7 foram feitas e revisadas, com uma revisão final do plano e a
+  onda de correção dela (`74bc858..3ec1293`, cada entrega com `loop validate`
+  15/15). As duas aulas de exemplo, exposição e colimação, abrem só em build
+  de desenvolvimento por `radiantapp://learn?blockId=bancada:exposicao` e
+  `…:colimacao`. Elas foram feitas inteiras no simulador iOS, e isso achou e
+  corrigiu as estrelas contadas pela resposta final (`36fa2e5`)
+  ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo dono,
+  frase por frase ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e, antes de liberar, o
+  VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
+  plano (física de radiografia digital e colimação como segunda bancada) estão
+  na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
+- **Plano 5: em execução desde 25/10.** T01 guarda, T02 HUD e T03 boas-vindas
+  foram implementadas/revisadas e validadas na branch, sem merge. T04 foi
+  implementada/revisada e conferida nos simuladores em 27/10, Loop final
+  15/15 aprovado. O inventário sai/fica ainda precisa ser produzido e aprovado
+  antes de qualquer retirada. As decisões de conteúdo continuam pendentes.
+- **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
+  revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
+  relatórios) ficam em `.superpowers/sdd/` do worktree
+  `.claude/worktrees/trilha-2026-10-20`, que o git ignora. O que importa deles
+  está nos registros de execução dos planos.
+- **Remede com:**
+
+  ```bash
+  git log --oneline origin/main..origin/claude/trilha-medalhao-design | head -40
+  gh pr checks 66 --repo andersonsmelo/Radiant
+  ```
+
+  A branch `claude/trilha-t6-wip` (`5ffefee`) é histórica: o WIP foi
+  reaplicado na tarefa 6 (`7615827`) e não precisa mais ser consultado.
+
+### T08 avaliação — núcleo implementado e validado em 28/10/2026
+
+A Task 10/T08 foi retomada na worktree Medalhão sobre `2af9385`, com um
+implementador novo e revisão independente. Os estados bloqueada/inválida e a
+apresentação prata foram implementados. A revisão R1 encontrou P2 de identidade
+na conclusão sem ID; o autor corrigiu, e a R2 aprovou código/spec/qualidade.
+A versão corrigida passou 61 testes focais e 45 sob CPU limitada, com tipos/lint
+e contratos aprovados. O percurso real nas duas plataformas mediu bloqueio,
+ID inválido, erro1/2 com uma vida cobrada, reforço legítimo semXP e aprovação
+posterior com+18XP/total138. Fontes ampliadas: bloqueada/disponível iOS e
+resultado Android2.0; resultado iOS máximo, resumo entre processos e troca de
+fonte ao vivo seguem delimitados na evidência. Apps, simuladores/AVD e Metro
+próprios encerrados, fontes restauradas e produto R2 inalterado. Parecer nativo
+R3 aprovou o núcleo medido (Spec BOUNDED/Qualidade APPROVED_CORE_BOUNDED),
+sem novo P1/P2 material. Loop final **15/15**, em um ciclo, incluindo quality/app-test completos e os
+demais13 validadores. O fechamento original reprovou por escopo após o Metro
+criar `expo-env.d.ts`, ignorado pelo Git e ausente na baseline. O run foi
+encerrado sem sucesso. Regularização autorizada por Anderson em28/10 no run
+`run-1793222933625-71a18c69`, cuja baseline já contém as31 alterações preservadas;
+produto e política intactos, sem supervisão retroativa. A regularização também
+passou15/15, em seu primeiro ciclo (segunda validação do objetivo, motivada
+pela falha de fechamento). O run de regularização fechou com
+`STEP_SUCCEEDED` → `RUN_CLOSED`; brain `brain-session-1793222898890-627b3555`
+CLOSED, ambos conferidos na CLI. A entrega foi publicada em
+`1b987c1981667328b66beb958ac6a42eb3535d75`, com31 arquivos próprios e hashes
+conferidos. CI exclusivamente desse SHA: [App Quality249](https://github.com/andersonsmelo/Radiant/actions/runs/40773062430)
+e [Content154](https://github.com/andersonsmelo/Radiant/actions/runs/40773062413),
+ambos SUCCESS. Árvore limpa antes da entrega P2 priorizada abaixo.
+No fechamento T08, T09 Perfil ainda não estava iniciada; PushOptIn foi antecipado
+e T09 retomada em29/10, nos registros abaixo. [Evidência T08](evidence/2026-10-28-medalhao-t08.md).
+
+Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
+permanecem. O segundo dia fica no fechamento; o simulador reservado segue
+fora desta execução.
+
+### Prioridade por criticidade — correção P2 revisada em29/10/2026
+
+Por pedido de Anderson, R3-SHARED-01 do PushOptIn foi antecipado da T17 antes
+da T09. Dois arquivos alterados: altura natural das linhas e remount somente
+dos Text após fontScale, preservando copy, estado e handlers. Código R1 PASS;
+53 testes/4 suítes e11 sob CPU limitada PASS, com tipos/lint e9mutações rejeitadas.
+
+A prova de28/10 foi revisada em29/10: iOS normal→AX5 ao vivo com o mesmo
+rerender da falha e retorno normal, além de abertura máxima separada;
+Android normal e início2.0 com cartão inteiro. R2 **BOUNDED/APPROVED_CORE_BOUNDED**:
+P2 local corrigido no Home legado em perfil de teste pelo kill switch existente.
+Meta diária real cumprida e opt-in nulo; nenhum consentimento/armazenamento
+fabricado. A fila Review real estava vazia, logo seu resultado atual não foi
+retestado; Android ao vivo e T17 global continuam sem aceite. Demais hosts da
+Home não estão certificados por estas capturas. Apps/Metro/AVD próprios
+encerrados, fontes restauradas; produto, expo-env e política íntegros.
+
+P3 da cauda T06 e gates G1–G8/G2/T14/segundo dia permanecem separados.
+Validação final configurada em29/10: **15/15 PASS**, em um ciclo, incluindo
+quality e testes completos do app, API, conteúdo e contratos. Writer
+`run-1793236644594-9bfe9664`; cérebro já fechado. No checkpoint P2, T09 ainda
+não estava iniciada; a retomada de29/10 consta a seguir. [Evidência P2](evidence/2026-10-28-medalhao-pushoptin-p2.md).
+
+### T09 Perfil — núcleo revisado em29/10/2026
+
+Depois de P2 `a72ddf2` publicado com CI250/155 SUCCESS, T09 foi implementada
+por novo subagente e revisada independentemente.14 arquivos próprios de
+produto/teste/contratos: identidade sem métricas duplicadas, estante de aulas
+reais com recordes, semana que diferencia desconhecido, metas em linhas e
+editor de meta preservado até T10. Serviços/economia/armazenamento intactos.
+
+Semana usa somente lastActiveDate válida. Contador nominal separado não
+preenche datas: default1 e restauração não comprovam sete dias. Sem tentativa
+promovida a dia da sequência ou promessa de meia-noite. G5 permanece pendente
+para histórico completo/mudança de significado. Revisões são pendências, sem
+alvo inventado. A retirada de Missions/Progress retira também observações
+shadow de preview e screen_view antigo, sem efeito de economia dependente.
+
+Código R1 PASS/APPROVED:60 focais normal e CPU limitada,163 consumidores em12
+suítes,105 contratos; tipos/lint aprovados e22 injeções causais. Nativo R2
+BOUNDED/APPROVED_CORE_BOUNDED: iOS normal→AX5→normal na mesma montagem e
+Android normal/início2.0 legíveis com dados reais. Android ao vivo/retorno
+perderam rota; reentrada tem lacunas verticais e não recebeu aceite. iOS
+inicial máxima tem lacuna PNG nas primeiras palavras da legenda, coberta
+integralmente na série ao vivo. Meta só aberta/fechada sem salvar nativamente.
+20 PNG versionados com UI/proveniência e limites. Nenhum novo P1/P2 da T09.
+
+Writer `run-1793270590053-a44fc62a`,49nominais/45arquivos reais; cérebro
+`brain-session-1793270060578-7d6579be` fechado antes do writer. Apps/Metro/AVD
+próprios encerrados, fontes restauradas; animações Android atuais1/1/null
+preservadas (divergem do registro P2 antigo0/0/0). Produto/política/expo-env íntegros.
+Primeiro ciclo Loop:14/15, app-quality reprovado por três valores visuais sem
+token; app-test completo PASS. Correção mínima do autor revisada R3 PASS/APPROVED, sem ampliar
+baseline/política; estilos resolvidos iguais dispensaram nova prova nativa
+desse delta. Segunda final aprovada **15/15**, em29/10, após a correção; dois ciclos no
+mesmo writer (primeiro14/15 preservado). T09 publicada em `c879543`, com
+[App Quality251](https://github.com/andersonsmelo/Radiant/actions/runs/40867659374) e
+[Content156](https://github.com/andersonsmelo/Radiant/actions/runs/40867659156)
+SUCCESS no SHA completo. Writer/cérebro CLOSED e árvore limpa confirmados no
+preflight T10. T10 Ajustes retomada no registro abaixo.
+G1–G8/G2/T14, P3/T17, segundo dia, aparelho/fala audível/FPS/produção separados.
+[Evidência T09](evidence/2026-10-29-medalhao-t09.md).
+
+### T10 Ajustes — núcleo implementado/revisado em29/10/2026
+
+Lista agrupada com controles existentes; meta transferida para Ajustes após
+prova da entrada equivalente, preservando Hoje/G5. Backup distingue capacidade
+real ausente de erro transitório: iOS funcional com cloud-unavailable, Android
+Em breve desabilitado. Lembrete manual em Ajustes mantém condição real de
+primeira aula na Jornada e elegibilidade do serviço. Destinos/replay preservados.
+
+R1 identificou dois P2 ao sair durante gravação de meta ou permissão do lembrete.
+FIX1 aprovada em R2: filas nos serviços existentes coordenam leituras/escritas
+através da desmontagem, inclusive rollback/agendamento. Fórmulas, esquema,
+consentimento e política preservados; Back livre.374testes normais/25suítes,
+40repetidos sob CPU limitada,105contratos/tipos/strict PASS; lint0erros/24avisos
+fora do escopo.17mutações causais aceitas,1tentativa descartada.
+
+R3 nativo BOUNDED/APPROVED_CORE_BOUNDED: normal/máxima inicial separada,
+quatro opções sem salvar e Back observados nos clientes existentes dos dois
+sistemas. Gesto iOS NOT PASS em duas tentativas, sem causa atribuída ao produto.
+Texto máximo iOS exige muita rolagem pelo cabeçalho; sem glifo permanentemente
+cortado nas sequências revisadas. P3 visual: chevrons dos três links legais
+abaixo dos rótulos, encaminhado à T17/revisão ampla, não resolvido.
+Sem aceite de troca de fonte ao vivo, save nativo ou leitores audíveis.
+
+T10 publicada em `6266495908ec1f0b1da1c267b036f700ad53c5d6`,61arquivos,
+na branch `claude/trilha-medalhao-design`, PR[#66](https://github.com/andersonsmelo/Radiant/pull/66).
+Fechamento confirmado em29/10: writer `run-1793287644499-ac7eb003` teve final
+15/15 PASS em um ciclo, STEP_SUCCEEDED → RUN_CLOSED. Cérebro CLOSED.
+CI no mesmo SHA: [AppQuality252](https://github.com/andersonsmelo/Radiant/actions/runs/40919553938)
+e [Content157](https://github.com/andersonsmelo/Radiant/actions/runs/40919553845)
+SUCCESS, assim como os check-runs123608755546/123608754643; reconsultados
+em29/10 às14:27 America/Bahia. HEAD/remoto iguais e árvore limpa antes desta
+reconciliação documental. Nenhum merge/release aprovado por essa medição.
+Originais56/57 foram abandonados de edição com zero
+validações finais por declarações nominais incompletas; nenhuma edição fora do
+escopo ou sucesso retroativo. Cérebro `brain-session-1793274829208-8cca2b02`
+consultado e CLOSED antes do writer. Cleanup nativo CLEAN,27fontes+2protegidos
+iguais ao freeze: apps/Metro/AVD/E262 encerrados e fontes restauradas/relidas.
+G1–G8/G2T14/G5/P3T17/segundo dia/aparelho/fala/FPS/produção permanecem separados.
+### T11 Assinatura — recorte estático implementado/revisado em29/10/2026
+
+Preço/moeda explícitos no bridge/adaptador, planos Medalhão e um botão de compra.
+Sem parsing de displayPrice; metadados ausentes omitem equivalência mensal.
+R1 apontou P2 no rótulo acessível anual; fix1/R2 e fix2/R3 PASS/APPROVED.
+159 focais iniciais,48 fluxo final,47 CPU após fix1 e17 mutações causais;
+tipos/lint/copy/AST PASS. Primeira final14/15 falhou strict nos raios; corrigidos,
+segunda final15/15 PASS no writer `run-1793305617553-786111c0`; cérebro CLOSED.
+STEP_SUCCEEDED confirmado; run close separado é obrigatório antes do commit.
+Em 30/10/2026, G6 foi executado no recorte local autorizado do commit
+`9a62bca`: Debug novo compilado/instalado no E262, bridge JS recebeu
+`price` numérico 19.9/149.9 e moeda BRL; tela mostrou R$ 12,49 por mês
+para o anual. StoreKit Testing local, sem compra. O mesmo número 1.4.0(3)
+não identifica o binário: hashes built/installed/runtime iguais o comprovam.
+[Evidência G6 e limites](evidence/2026-10-30-medalhao-t11-g6.md).
+Leitor audível, fonte ampliada, FPS, compra real e aparelho seguem sem prova.
+Reservado preservado; sem EAS, OTA, loja ou merge.
+[Evidência T11](evidence/2026-10-29-medalhao-t11.md).
+[Evidência T10](evidence/2026-10-29-medalhao-t10.md).
+
+### T12 Vidas — núcleo implementado/revisado em30/10/2026
+
+Três chamadores enumerados antes do writer: Journey, LessonFlow e Checkpoint.
+Cinco corações40pt, título/prazo reais, Revisar principal quando devido,
+Voltar principal sem revisão e Vidas ilimitadas como link condicionado à loja.
+Ilimitado protegido nos consumidores; economia/primeira resposta/retomada preservadas.
+R1 encontrou P2: lookup extra persistia snapshot antigo e apagava cursor/current
+mais recentes. Fix1 usa o retorno da escrita já existente do bootstrap; serviço
+inalterado. R2 SpecPASS/APPROVED, P2ADDRESSED, sem novo achado.
+229focais em7suítes normais/CPU,5injeçõesfix1 detectadas/restauradas;32históricas
+R1 preservadas. Tipos/lint e Maestro40/40 PASS. Contagem de revisão atualiza
+no bootstrap; não há alegação de polling contínuo.
+**Normal/AX5 da folha NOT_VERIFIED:** GUI Simulator.app ausente no ambiente
+ativo; nenhum build/install ou estado sintético para contornar. Cap2 herdado
+do AppButton preservado. Leitor audível/FPS/Android e E2E integral ficam pendentes/T18.
+Runtime encerrado/8081livre/fontelarge; reservado intacto. CérebroCLOSED;
+writer `run-1793361707356-9d160e66`, final configurada15/15 em um ciclo;
+recibos/lifecycle na evidência.
+[Evidência T12](evidence/2026-10-30-medalhao-t12.md).
+Próximo cartão: [T13](superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md),
+com G1 para aplicar alternativa e G3 para aceitar o quadro. Sem aceite global.
+
+**T13/Task15 — alternativa A implementada e revisada estaticamente em30/10/2026.**
+Anderson escolheu A+Q1 ao responder “siga conforme recomendação” ao
+[pacote concreto](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md).
+[ADR da decisão](adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+A preserva dois corredores64, fonte/copy lógica e rota; acrescenta hifenização
+visual por mapa local, data com quebras por componente e lembrete no footer
+rolável estável. Desconhecidas ficam intactas; cobertura não é universal.
+
+RF Spec PASS/Qualidade APPROVED,336focais/7suítes reproduzidos pelo revisor,
+tipos/lint e43contratos PASS;29 violações específicas detectadas/restauradas
+e1survivor ornamental explicado. Nativo **NOT_VERIFIED0/7**: iOSheadless
+falhou no shell/display; AVD abortou por disco insuficiente (2,9GiB livres).
+Sem PNG/AX5/200 aplicado, instalação/limpeza/fixture; runtime encerrado,
+fontes e reservado preservados. Não há aceite visual integral de T13.
+Q1 aceita somente risco residual do quadro0/13 (9rastreadas+4limpas), mantém
+causa aberta e observaçãoT18; não declara conserto ou arte/G3global aceitos.
+T14 não iniciada. Recorte estático publicado em `19fbde5`, com CI App Quality
+41127437509 e Content41127437415 SUCCESS no mesmo SHA, reconfirmados em30/10:
+207 suítes/2.833 testes PASS; visualQA0 regressões/41baseline/3exceções.
+Final Loop15/15 em um ciclo; STEP_SUCCEEDED→MEMORY_WRITTEN→RUN_CLOSED
+confirmados, memória A/Q1 registrada pela CLI e sessão de cérebro CLOSED.
+[Evidência e recibos](evidence/2026-10-30-medalhao-t13-a.md).
+Próxima ação da T13: completar capturas normal/AX5/Android200 quando o shell/
+framebuffer iOS e o espaço para o AVD permitirem. Não pedir G1/Q1 novamente,
+não contornar com instalação/limpeza/fixtures e não marcar T13 integral aceita.
+[Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
+
 ## Prazos de relógio
 
-Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+- **Segundo dia iOS: conferência no fechamento, por decisão do dono em
+  2026-10-25.** A data medida no simulador reservado foi 30/10/2026 às 14:07
+  ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)); é uma
+  pré-condição do cenário preparado, não um prazo de execução nem bloqueio
+  para avançar nas demais telas. Preservar o container e verificar a revisão
+  naturalmente devida só na conferência final. A retirada do conteúdo não
+  pode destruir a preparação; o teste legado não aprova o catálogo novo.
+- **2026-11-30: vence a política de visual QA.** Os 23 registros de
+  `radiant-app/scripts/visual-qa-policy.json` venciam em 2026-10-23 e foram
+  renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha
+  Medalhão (FILA 67). Cada registro sai quando o plano refaz o arquivo dele, e
+  o que sobrar é revisto nessa data. Depois dela, `npm run quality` reprova em
+  qualquer branch que ainda tenha esses arquivos. **Remede com:**
+  `grep -c '"expiresOn": "2026-11-30"' radiant-app/scripts/visual-qa-policy.json`.
+
+Além desses, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
 de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
 aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
 assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),

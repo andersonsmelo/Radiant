@@ -1,0 +1,39 @@
+{
+  "ios": {
+    "before": "large",
+    "tested": [
+      "large",
+      "accessibility-extra-extra-extra-large",
+      "accessibility-extra-extra-large"
+    ],
+    "after": "large",
+    "restored": true
+  },
+  "android": {
+    "font_scale": {
+      "scope": "system",
+      "before": "1.0",
+      "after": "1.0",
+      "restored": true
+    },
+    "transition_animation_scale": {
+      "scope": "global",
+      "before": "1.0",
+      "after": "1.0",
+      "restored": true
+    },
+    "window_animation_scale": {
+      "scope": "global",
+      "before": "1.0",
+      "after": "1.0",
+      "restored": true
+    },
+    "animator_duration_scale": {
+      "scope": "global",
+      "before": "null",
+      "after": "null",
+      "restored": true
+    }
+  },
+  "pluginDefaults": "initial all null; temporary explicit principal/bundle then auto-materialized simulatorName/platform cleared back to null; persistfalse"
+}

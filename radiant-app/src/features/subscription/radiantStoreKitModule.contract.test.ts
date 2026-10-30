@@ -125,3 +125,21 @@ describe('radiant-storekit — ADR 2026-09-23', () => {
         }).toEqual({ adaptador: [], index: [] });
     });
 });
+
+
+describe('radiant-storekit — T11 contrato monetário', () => {
+    it.each([
+        [path.join(MODULO, 'index.ts'), 'RadiantStoreKitProduct'],
+        [path.join(__dirname, 'storekitNative.types.ts'), 'StoreKitNativeProduct'],
+        [path.join(__dirname, 'subscription.types.ts'), 'StoreProduct'],
+    ])('%s declara número e moeda explícitos no tipo %s', (arquivo, nome) => {
+        const fonte = ast(arquivo);
+        const tipo = fonte.statements.find((no): no is ts.TypeAliasDeclaration => ts.isTypeAliasDeclaration(no) && no.name.text === nome);
+        if (!tipo || !ts.isTypeLiteralNode(tipo.type)) throw new Error(`Tipo ausente: ${nome}`);
+        const campos = tipo.type.members.filter(ts.isPropertySignature);
+        for (const [campo, tipoEsperado] of [['price', ts.SyntaxKind.NumberKeyword], ['currencyCode', ts.SyntaxKind.StringKeyword]] as const) {
+            const membro = campos.find(no => ts.isIdentifier(no.name) && no.name.text === campo);
+            expect({ campo, tipo: membro?.type?.kind, opcional: membro?.questionToken !== undefined }).toEqual({ campo, tipo: tipoEsperado, opcional: true });
+        }
+    });
+});

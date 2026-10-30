@@ -27,6 +27,13 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
+**Atualizada em 2026-10-21:** o dono decidiu redesenhar a trilha e a aula e
+recomeçar o conteúdo. A trilha vai para a direção Medalhão e a aula para o
+formato bancada. O mundo visual novo vale para o app inteiro, e todas as aulas
+atuais saem, com a fonte. A execução é o item 67
+([ADR](adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md),
+[spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)).
+
 A decisão de coordenação de 2026-10-18 está na
 [ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md). A entrega da FILA 61
 e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
@@ -462,6 +469,137 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     ([evidência](evidence/2026-10-19-fila66-guarda-glifos-ast.md)).
     **Remede com** o `injetar.mjs` da evidência, que termina com código 1 se
     alguma injeção sair do esperado;
+  - **67.** agente, aberto em 2026-10-21: **trilha Medalhão e aula-bancada**, em
+    duas fases. **Ordem atual, decidida pelo dono em 2026-10-25:** avançar no
+    restante do layout e deixar a conferência de segundo dia para o fechamento,
+    preservando a preparação. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+    cobre as pendências, os gates humanos e o inventário/recomeço; esta entrega
+    apenas planeja, sem implementar produto ou autorizar retirada/build/merge.
+    **Plano revisado pelo dono em 25/10:** o
+    [roteiro de execução por subagentes](plans/2026-10-25-medalhao-execucao-subagentes.md)
+    define recursos, papéis e revisão por tarefa; sua escrita não inicia as
+    tarefas nem consome os gates específicos ainda pendentes.
+    **Execução iniciada em 25/10 por autorização posterior do dono:** T00
+    reconciliado/revisado; T01 guarda AST e CTA revisados e validados (15/15 Loop).
+    T02 HUD implementada/revisada em 26/10, Loop15/15 e prova visual finito5
+    na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
+    26/10, Loop15/15 e prova nativa de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
+    Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
+    Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
+    implementada/revisada em 27/10: import estático, dublê global observável,
+    7 suítes/184 testes e sete mutações detectadas; Loop final15/15 em ciclo único.
+    [Evidência T04a](evidence/2026-10-27-medalhao-t04a.md). T05 resultado
+    implementado/revisado em 27/10; contexto real, neutralidade de zero estrela,
+    sem prêmio repetido. P2 de texto ampliado corrigido e aprovado no iOS R5;
+    Android aula/revisão fonte2 legíveis. Loop final15/15 após fix3 de mock aprovado em R7;
+    primeira validação do writer substituto/segunda do objetivo.
+    [Evidência T05](evidence/2026-10-27-medalhao-t05.md). Commit `d033433`
+    publicado, CI245/150SUCCESS no mesmo SHA confirmado em 27/10. T06 encerrada em 28/10: Loop15/15, commit `c694f95`, CI246/151 SUCCESS e
+    writer/cérebro CLOSED confirmados. T07 encerrada no núcleo em 28/10:
+    Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
+    writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada fechada com sucesso, commit1b987c1 publicado/CI249154SUCCESS; P2 PushOptIn antecipado e corrigido localmente (R1 código PASS/R2 nativo BOUNDED,29/10; Loop final15/15 em um ciclo); Review atual/Android ao vivo/T17 sem aceite; T09 núcleo implementado/revisado em29/10 (60focais/163consumidores/105contratos, código R1 PASS/nativo R2 BOUNDED; Loop15/15 após fix1/dois ciclos; G5 preservado); T10 núcleo implementado/revisado em29/10 (R2 FIX1 PASS após2P2;374focais/consumidores+CPU40/105contratos;R3nativoBOUNDED, gesto iOS pendente e P3legal→T17; Loop final15/15 em um ciclo; commit6266495/CI252157SUCCESS; writer/cérebro CLOSED); P2 compartilhado
+    para T17 e aceite global bloqueado. Limites no STATUS.
+    T11/Task13 validada estaticamente em29/10: R3 SpecPASS/APPROVED,48 fluxo final,17 mutações e Loop15/15 no segundo ciclo após correção dos raios. G6/binário novo seguem pendentes. Próxima frente: [T12 Vidas](superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).
+    Gates G1–G8 preservados.
+    A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
+    e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
+    Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer
+    build: o **inventário do que sai** e a **revisão do conteúdo** das aulas de
+    exemplo. Nenhuma build de loja sai sem o primeiro lote do currículo novo.
+    Os cinco planos e as dependências entre eles estão no
+    [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md). O primeiro,
+    a [fundação visual](superpowers/plans/2026-10-21-fundacao-visual-medalhao.md),
+    teve as sete tarefas executadas em 2026-10-21 na branch
+    `claude/trilha-medalhao-design`: tokens, botões com lábio, fundo grafite,
+    HUD e abas desenhados, Skia com as cinco ilustrações e o
+    [DESIGN.md](DESIGN.md) novo
+    ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
+    [evidência](evidence/2026-10-21-fundacao-medalhao.md)). **A rodada de
+    correção da revisão final foi feita em 2026-10-21**, na mesma branch: o
+    lábio do botão passou para trás da face, o `ghost` ganhou retorno de
+    pressão e rótulo que passa AA, o desabilitado compõe em grupo no Android,
+    o coração e os números do HUD foram para os tons do Medalhão e a mesa da
+    ressonância voltou para dentro do quadro
+    ([evidência](evidence/2026-10-21-fundacao-medalhao.md#rodada-de-correção-final)).
+    Dos achados da evidência, o 1 (rótulo do `ghost` reprovando AA) foi
+    corrigido nessa rodada. O 2 (cartão laranja do Missions), o 3 (Perfil no
+    maior texto) e o 4 (`PushOptInCard`) vão para o plano 5 (R21). A
+    remedição de quadros **com rolagem**, no AVD e com a tela do Mac
+    desbloqueada, vai para o plano 2 (R22). **Falta, em 2026-10-21:** o olhar
+    do dono sobre as ilustrações e as capturas, e o merge. A PR é aberta pelo
+    agente quando a frente fica pronta, sem esperar o dono; **só o merge é do
+    dono**. **Em 2026-10-21, à noite, o dono aprovou o Pixel redesenhado e a
+    prancheta do app inteiro sem cara de IA**
+    ([Pixel](design/2026-10-21-pixel-medalhao.html),
+    [app](design/2026-10-21-app-medalhao.html), seção 11 da spec, decisões 8 e
+    9 da ADR). Os planos 2, 3, 5 e o novo 6 (Pixel) estão escritos; o 4 é
+    escrito quando o 3 terminar. Ordem sugerida: 6, depois 2 e 3, depois 5,
+    depois 4. **Gates do dono pela frente:** a política de versão nativa
+    (tarefa 0 do plano 2), a revisão do conteúdo das aulas-bancada (plano 3) e
+    o inventário (plano 4). **Em 2026-10-22:**
+    - o dono escolheu `fingerprint` para a versão nativa, e isso já foi
+      aplicado;
+    - o plano 6 (Pixel) está concluído e revisado;
+    - o plano 2 está com as tarefas 0 a 6 implementadas e revisadas;
+    - a retomada da 6 (`7615827`) passou os 15 validadores no segundo run,
+      após corrigir o mock consumidor; a revisão independente aprovou a
+      correção;
+    - em 2026-10-23, o dono pediu pausa, e a retomada do mesmo dia executou
+      a tarefa 7, menos o segundo dia iOS, que vence em 30/10/2026
+      ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)):
+      - o segundo dia Android passou inteiro, em relógio real;
+      - o momento Android foi demonstrado com gravação densa;
+      - o quadro do estado final antes do percurso teve um conserto parcial,
+        com teste vermelho, mas continua em 1 de 4 gravações. A causa restante
+        não foi observada. **Remedido em 2026-10-23 à noite:** 0 de 13 rodadas
+        válidas, 9 com rastreamento nativo e 4 sem instrumentação, ainda sem
+        causa e sem segundo conserto ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)).
+        Se isso basta para o aceite é decisão do dono;
+      - as 40 concluídas foram medidas, com prova nativa de que só as medalhas
+        visíveis tocam;
+    - **dono:** decidir o texto máximo da coluna. No AX5 e no Android a 200%, o
+      texto quebra no meio da palavra, com os corredores de 64 pt preservados.
+      Sem essa decisão, o Plano 2 não é aceito;
+    - **resolvido em 2026-10-23, na branch:** o bundle do Storybook não
+      montava porque duas stories importavam `lesson-xray-panel.png`, removido
+      de propósito em `b06c7eb`. Elas deixaram de usá-lo, sem arte nova, e uma
+      guarda AST reprova qualquer imagem pedida que não exista
+      ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, continua até o merge;
+    - **resolvido em 2026-10-23:** os testes de fluxo do momento em
+      `JourneyHomeScreen.flow.test.tsx` estouravam o prazo com a CPU limitada,
+      e o CI da PR #66 reprovou por isso em `ef40365`. O `37e7688` deu a eles
+      um prazo que cobre as próprias esperas, e o CI ficou verde;
+    - em 2026-10-24, o plano 3 (aula-bancada) foi feito e revisado, com as
+      duas aulas de exemplo, que abrem só em build de desenvolvimento
+      ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo
+      **dono** ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e o VoiceOver e o AVD de
+      entrada pelo **agente**. As decisões de produto do plano estão na
+      [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md). Plano 5 não iniciado; o 4 pode ser
+      escrito;
+    - **T04a implementada/revisada em 27/10:** o registro agora usa import
+      estático de `BenchStepRenderer`; os seis testes compartilham o dublê
+      Skia mapeado no Jest, preservando uniformes, Skottie e falhas de fallback.
+      A validação final e seus limites estão na evidência T04a acima.
+
+    - **T12 Vidas,30/10:** núcleo implementado/revisado após corrigir P2 de
+      consulta persistente. [Evidência](evidence/2026-10-30-medalhao-t12.md).
+      Prova nativa normal/AX5 pendente por GUI ausente; E2E integral sóT18.
+
+    - **T13/Task15,30/10:** Anderson escolheuA+Q1 do
+      [pacote concreto](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md).
+      [ADR](adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+      [A implementada/revisada estaticamente](evidence/2026-10-30-medalhao-t13-a.md):
+      dois64 e rota preservados, hifenização/data e footer; RF PASS/APPROVED,
+      336/7focais e43contratos. Nativo0/7NOT_VERIFIED por shell iOS/disco
+      Android, sem limpeza/instalação. Aceite visual integral pendente.
+      Q1 aceita somente risco residual do quadro, sem conserto declarado;
+      observaçãoT18/arte/G3global separados, sem avançoT14.
+      Publicado em `19fbde5`; CI Quality41127437509/Content41127437415 SUCCESS
+      no mesmo SHA (207suítes/2.833testes), Loop15/15; writer e cérebro CLOSED,
+      memória da decisão gravada pela CLI. Falta a prova nativa, não nova G1/Q1.
+
+    O estado detalhado está no STATUS ("Execução dos planos da trilha
+    Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;

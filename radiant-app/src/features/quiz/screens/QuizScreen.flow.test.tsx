@@ -1,7 +1,10 @@
 import React from 'react';
+import { router } from 'expo-router';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { QuizLesson } from '../../../types/quiz';
 import QuizScreen from './QuizScreen';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { Confetti } from '../../../components/ui/Confetti';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
@@ -10,6 +13,7 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { PixelMood } from '../../pixel-mood/PixelMood';
 import { PIXEL_MOMENTS } from '../../pixel-mood/pixelPhrases';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LessonRatingService } from '../services/LessonRatingService';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -32,17 +36,15 @@ jest.mock('expo-router', () => ({
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
   duration: {
     micro: 0,
     ui: 0,
     celebrate: 0,
   },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  // `scale` precisa existir: LessonSummary/SummaryStar chama
-  // `scale.setValue(1)` quando `animate` é false (marca sem melhora — o
-  // fallback de leitura rejeitada do QuizScreen produz exatamente esse
-  // estado). Faltando aqui, o componente lança dentro do efeito e a árvore
-  // desmonta antes de qualquer asserção rodar.
+  // Consumidores antigos deste hook continuam isolados; a cunhagem e as
+  // estrelas do resumo usam os hooks reais importados acima.
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({
@@ -104,7 +106,7 @@ jest.mock('../../../ui/components/HUD', () => {
 
   return {
     HUD: () => null,
-    HeartsDisplay: ({ hearts, maxHearts }: { hearts: number; maxHearts: number }) => (
+    HeartsCountPill: ({ hearts, maxHearts }: { hearts: number; maxHearts: number }) => (
       <View testID="hearts-display" accessibilityLabel={`${hearts} de ${maxHearts} vidas`} />
     ),
   };
@@ -290,7 +292,13 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
   LessonCatalogService: {
     getLessonById: jest.fn(),
     getInitialLesson: jest.fn(),
+    listTracks: jest.fn(() => []),
   },
+}));
+
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+jest.mock('../../journey/services/JourneyDefinitionService', () => ({
+  JourneyDefinitionService: { getTrackDefinition: jest.fn(() => ({ units: [] })) },
 }));
 
 const mockedSpacedRepetitionService = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
@@ -381,6 +389,57 @@ describe('QuizScreen flow', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     PixelMood.resetSession();
+  });
+
+  it('avaliar e continuar conservam o prêmio e o placar já registrados', async () => {
+    const rate = jest.spyOn(LessonRatingService, 'rate').mockResolvedValue(undefined);
+    montarQuiz(lessonFixture);
+    await screen.findByText('Qual padrão radiográfico está presente?');
+    await responder('Consolidação alveolar');
+    fireEvent.press(await screen.findByText('Próxima'));
+    expect(await screen.findByText('+12 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalledTimes(1);
+    fireEvent.press(screen.getByLabelText('Avaliar a aula com 4 de 5'));
+    expect(rate).toHaveBeenCalledWith('lesson-1', 4);
+    expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
+    expect(screen.getByText('+12 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalledTimes(1);
+    expect(router.dismissTo).toHaveBeenCalledWith('/(tabs)');
+  });
+
+  it.each([
+    ['normal', 'tubo', 'protecao', 'tubo'],
+    ['review', 'tubo', 'protecao', 'tubo'],
+    ['normal', undefined, 'protecao', 'protecao'],
+    ['review', undefined, 'protecao', 'protecao'],
+    ['normal', undefined, undefined, 'radiacao'],
+  ] as const)('resultado %s preserva título e tema canônico (%s/%s)', async (mode, nodeTheme, unitTheme, expectedTheme) => {
+    const catalog = jest.requireMock('../../content/services/LessonCatalogService').LessonCatalogService;
+    const definition = jest.requireMock('../../journey/services/JourneyDefinitionService').JourneyDefinitionService;
+    catalog.listTracks.mockReturnValue(unitTheme ? [{ id: 'test-track' }] : []);
+    definition.getTrackDefinition.mockReturnValue({ units: [{ theme: unitTheme, nodes: [{ lessonId: 'lesson-1', theme: nodeTheme }] }] });
+    catalog.getLessonById.mockReturnValue(lessonFixture);
+    catalog.getInitialLesson.mockReturnValue(lessonFixture);
+    try {
+      renderWithProviders(<QuizScreen mode={mode} lessonId="lesson-1" lessonIds={mode === 'review' ? ['lesson-1'] : []} />);
+      await screen.findByText('Qual padrão radiográfico está presente?');
+      await responder('Consolidação alveolar');
+      fireEvent.press(await screen.findByText('Próxima'));
+      await screen.findByText(mode === 'review' ? 'Revisão concluída' : 'A lição foi concluída');
+      expect(screen.getByRole('header', { name: 'Radiografia de Tórax' })).toBeTruthy();
+      expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe(expectedTheme);
+      expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+      if (mode === 'review') {
+        expect(screen.queryByText('Avalie a aula')).toBeNull();
+        expect(screen.queryAllByTestId('quiz-feedback-expression')).toHaveLength(0);
+      }
+    } finally {
+      catalog.listTracks.mockReturnValue([]);
+      definition.getTrackDefinition.mockReturnValue({ units: [] });
+    }
   });
 
   it('mostra a contagem de questões e nenhum cabeçalho redundante', async () => {
@@ -602,11 +661,11 @@ describe('QuizScreen flow', () => {
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
     fireEvent.press(await screen.findByText('Próxima'));
 
-    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('Revisão concluída')).toBeTruthy());
     fireEvent.press(screen.getByText('Continuar'));
 
     expect(await screen.findByText('Pergunta 1?')).toBeTruthy();
-    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.queryByText('Revisão concluída')).toBeNull();
   });
 
   it('finaliza a fila de revisão e registra review_complete ao concluir a última lição', async () => {
@@ -634,7 +693,7 @@ describe('QuizScreen flow', () => {
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
     fireEvent.press(await screen.findByText('Próxima'));
 
-    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('Revisão concluída')).toBeTruthy());
     fireEvent.press(screen.getByText('Continuar'));
 
     await waitFor(() => {

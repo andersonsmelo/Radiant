@@ -422,3 +422,13 @@ describe('resolveStoreKitAdapter — degradação sem binário nativo', () => {
         expect(resolveStoreKitAdapter()).toBeInstanceOf(UnavailableStoreKitAdapter);
     });
 });
+
+
+describe('StoreKit2Adapter — T11 preço explícito', () => {
+    it('leva preço numérico e moeda da Apple à porta, sem converter displayPrice', async () => {
+        const { native } = fakeNative({ loadProducts: jest.fn(async () => [{ ...PRODUTOS_NATIVOS[1], displayPrice: 'texto localizado', price: 22.99, currencyCode: 'USD' }]) });
+        await expect(new StoreKit2Adapter(native).loadProducts(SUBSCRIPTION_PRODUCT_IDS)).resolves.toEqual([
+            expect.objectContaining({ displayPrice: 'texto localizado', price: 22.99, currencyCode: 'USD' }),
+        ]);
+    });
+});

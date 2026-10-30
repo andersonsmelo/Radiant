@@ -1,0 +1,14 @@
+# 2026-10-23T10:37:49-0300 node v20.20.2; conserto aplicado
+$ EXPO_NO_DOTENV=1 npx jest --runInBand src/features/journey/components/JourneyTrail.test.tsx -t 'escondido'
+    ✓ o leitor de tela alcança o botão, fora do bloco escondido do Pixel (22 ms)
+    ✓ enquanto espera a medição, o que está escondido já é o começo do momento (87 ms)
+    ✓ o segundo momento não espera escondido com a rota do primeiro (111 ms)
+Tests:       74 skipped, 3 passed, 77 total
+
+$ EXPO_NO_DOTENV=1 npx jest --runInBand src/features/journey src/ui
+Test Suites: 46 passed, 46 total
+Tests:       617 passed, 617 total
+
+$ npx tsc --noEmit -p . ; npx eslint src/ui/motion.ts src/features/journey/components/JourneyTrail.test.tsx
+tsc exit 0
+eslint exit 0

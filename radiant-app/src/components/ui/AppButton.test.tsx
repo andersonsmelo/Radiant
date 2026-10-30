@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { fireEvent, render } from '@testing-library/react-native';
+import { act, fireEvent, render, within } from '@testing-library/react-native';
+import { getAnimatedStyle } from 'react-native-reanimated';
 import { AppButton } from './AppButton';
+import { depth, feedbackColors, galaxyColors, medalColors } from '../../ui/theme';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -12,16 +14,34 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
 }));
 afterEach(() => {
   mockWindow.fontScale = 1;
+  mockReducedMotion = false;
 });
 
 
+let mockReducedMotion = false;
 jest.mock('../../ui/accessibility/useReducedMotionPreference', () => ({
-  useReducedMotionPreference: () => false,
+  useReducedMotionPreference: () => mockReducedMotion,
 }));
+
+// `withTiming` espiado, não trocado: o teste da pressão precisa saber se a troca
+// passou por animação, e a animação real continua rodando nos demais.
+jest.mock('react-native-reanimated', () => {
+  const actual = jest.requireActual('react-native-reanimated');
+  return {
+    ...actual,
+    __esModule: true,
+    default: actual.default,
+    withTiming: jest.fn(actual.withTiming),
+  };
+});
 
 jest.mock('../../ui/feedback/haptics', () => ({
   hapticTap: jest.fn(),
 }));
+
+const { withTiming } = jest.requireMock('react-native-reanimated') as {
+  withTiming: jest.Mock;
+};
 
 const { hapticTap } = jest.requireMock('../../ui/feedback/haptics') as {
   hapticTap: jest.Mock;
@@ -67,7 +87,7 @@ describe('AppButton — retorno tátil', () => {
     hapticTap.mockClear();
   });
 
-  it.each(['primary', 'galaxy'] as const)(
+  it.each(['primary', 'galaxy', 'gold'] as const)(
     'vibra na variante %s, que é a ação principal da tela',
     (variant) => {
       const { getByRole } = render(
@@ -131,5 +151,284 @@ describe('AppButton — texto grande', () => {
 
     expect(multiplier).toBeGreaterThan(1.35);
     expect(multiplier).toBeLessThanOrEqual(2);
+  });
+});
+
+// Relevo do Medalhão: o botão é uma face sobre um lábio de 5 pt. A face é o
+// próprio `Pressable` (papel `button`), então o fundo e o foco continuam nela.
+describe('AppButton — relevo', () => {
+  const styleOf = (node: { props: { style?: unknown } }) =>
+    StyleSheet.flatten(node.props.style as never) as Record<string, unknown>;
+
+  // O estilo animado não chega a `props.style` em jest: o Reanimated o guarda à
+  // parte, e `getAnimatedStyle` devolve o valor corrente.
+  const translateYOf = (node: Parameters<typeof getAnimatedStyle>[0]) =>
+    (getAnimatedStyle(node) as { transform: { translateY: number }[] }).transform[0].translateY;
+
+  // Árvore de nós nativos (`toJSON`): a ordem dos filhos é a ordem de pintura.
+  type HostNode = { type: string; props: Record<string, unknown>; children: (HostNode | string)[] | null };
+  const asNodes = (tree: unknown): HostNode[] =>
+    (Array.isArray(tree) ? tree : [tree]).filter(
+      (node): node is HostNode => node != null && typeof node === 'object',
+    );
+  const findAllNodes = (tree: unknown, match: (node: HostNode) => boolean): HostNode[] =>
+    asNodes(tree).flatMap((node) => [
+      ...(match(node) ? [node] : []),
+      ...findAllNodes(node.children ?? [], match),
+    ]);
+  const childTestIds = (node: HostNode) => asNodes(node.children ?? []).map((child) => child.props.testID);
+  const parentOf = (tree: unknown, testID: string): HostNode => {
+    const parents = findAllNodes(tree, (node) => childTestIds(node).includes(testID));
+    expect(parents).toHaveLength(1);
+    return parents[0];
+  };
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+    withTiming.mockClear();
+  });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('desenha o lábio de 5 pt na cor do papel', () => {
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+    const relief = getByTestId('app-button-relief');
+    const lip = within(relief).getByTestId('app-button-lip');
+    const face = within(relief).getByTestId('app-button-face');
+
+    expect(depth.lip).toBe(5);
+    expect(styleOf(lip).backgroundColor).toBe('#1846C9');
+    expect(styleOf(relief).paddingBottom).toBe(5);
+    expect(styleOf(face).backgroundColor).not.toBe(styleOf(lip).backgroundColor);
+  });
+
+  it.each([
+    ['primary', medalColors.unit.lip],
+    ['galaxy', medalColors.unit.lip],
+    ['gold', medalColors.gold.lip],
+    ['secondary', galaxyColors.backgroundAlt],
+    ['success', feedbackColors.success.lip],
+    ['error', feedbackColors.error.lip],
+  ] as const)('a variante %s usa o lábio %s', (variant, lipColor) => {
+    const { getByTestId } = render(
+      <AppButton label="Continuar" variant={variant} onPress={jest.fn()} />,
+    );
+
+    expect(styleOf(getByTestId('app-button-lip')).backgroundColor).toBe(lipColor);
+  });
+
+  it('success e error pintam a face com o preenchimento e o rótulo com o texto escuro', () => {
+    const success = render(<AppButton label="Certo" variant="success" onPress={jest.fn()} />);
+    expect(styleOf(success.getByTestId('app-button-face')).backgroundColor).toBe(
+      feedbackColors.success.fill,
+    );
+    expect(styleOf(success.getByText('Certo')).color).toBe(feedbackColors.success.onFill);
+    success.unmount();
+
+    const error = render(<AppButton label="Errado" variant="error" onPress={jest.fn()} />);
+    expect(styleOf(error.getByTestId('app-button-face')).backgroundColor).toBe(
+      feedbackColors.error.fill,
+    );
+    expect(styleOf(error.getByText('Errado')).color).toBe(feedbackColors.error.onFill);
+  });
+
+  it('não simula o relevo com sombra', () => {
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+
+    for (const id of ['app-button-relief', 'app-button-lip', 'app-button-face']) {
+      const style = styleOf(getByTestId(id));
+      expect(style.shadowOpacity).toBeUndefined();
+      expect(style.shadowRadius).toBeUndefined();
+      expect(style.elevation).toBeUndefined();
+    }
+  });
+
+  it('pressionado, a face desce até o lábio', () => {
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+    const face = getByTestId('app-button-face');
+
+    expect(translateYOf(face)).toBe(0);
+
+    fireEvent(face, 'pressIn');
+    expect(withTiming).toHaveBeenCalledWith(depth.lip - 1, expect.anything());
+    expect(withTiming).toHaveBeenCalledTimes(1);
+
+    // O estilo animado só chega às props quando o relógio da animação corre.
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    expect(translateYOf(getByTestId('app-button-face'))).toBe(depth.lip - 1);
+  });
+
+  it('ghost não tem lábio', () => {
+    const { queryByTestId, getByRole } = render(
+      <AppButton label="Ver detalhes" variant="ghost" onPress={jest.fn()} />,
+    );
+
+    expect(queryByTestId('app-button-lip')).toBeNull();
+    expect(queryByTestId('app-button-relief')).toBeNull();
+    expect(getByRole('button', { name: 'Ver detalhes' })).toBeTruthy();
+  });
+
+  it('com reduzir movimento, a pressão não anima', () => {
+    mockReducedMotion = true;
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+    const face = getByTestId('app-button-face');
+
+    fireEvent(face, 'pressIn');
+    fireEvent(face, 'pressOut');
+
+    expect(withTiming).not.toHaveBeenCalled();
+    expect(translateYOf(getByTestId('app-button-face'))).toBe(0);
+  });
+
+  it('com reduzir movimento, a face ainda desce na pressão, só que sem transição', () => {
+    mockReducedMotion = true;
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+    const face = getByTestId('app-button-face');
+
+    fireEvent(face, 'pressIn');
+    act(() => {
+      jest.advanceTimersByTime(16);
+    });
+
+    expect(withTiming).not.toHaveBeenCalled();
+    expect(translateYOf(getByTestId('app-button-face'))).toBe(depth.lip - 1);
+  });
+
+  // Foco da revisão 1: o relevo não pode estourar nem cortar o rótulo no
+  // Dynamic Type máximo. A altura de um `View` em RN vem dos filhos: o lábio só
+  // soma o `paddingBottom` fixo, e o `Text` sem `numberOfLines` quebra e empurra.
+  it('rótulo longo com texto grande quebra dentro da face', () => {
+    mockWindow.fontScale = 3.1;
+    const longLabel = 'Continuar a revisão dos casos de pulmões';
+    const { getByTestId, getByText } = render(
+      <AppButton label={longLabel} onPress={jest.fn()} />,
+    );
+    const relief = getByTestId('app-button-relief');
+    const text = within(getByTestId('app-button-face')).getByText(longLabel);
+
+    expect(longLabel).toHaveLength(40);
+    expect(text).toBe(getByText(longLabel));
+    expect(text.props.numberOfLines).toBeUndefined();
+    expect(styleOf(relief).paddingBottom).toBe(depth.lip);
+    expect(styleOf(relief).height).toBeUndefined();
+    // O lábio acompanha o conjunto pelas bordas, sem altura própria.
+    expect(styleOf(getByTestId('app-button-lip')).height).toBeUndefined();
+    expect(styleOf(getByTestId('app-button-face')).height).toBeUndefined();
+  });
+
+  // Revisão final do plano 1, Important 1: o lábio era o `View` pai, pintado na
+  // área toda. Ao pressionar, a face descia 4 pt e descobria no TOPO uma faixa
+  // na cor do lábio, e o relevo aparecia invertido em todo toque.
+  it('o lábio fica atrás da face e só começa depth.lip abaixo do topo', () => {
+    const { getByTestId, toJSON } = render(<AppButton label="Continuar" onPress={jest.fn()} />);
+    const lip = styleOf(getByTestId('app-button-lip'));
+    const face = styleOf(getByTestId('app-button-face'));
+
+    expect(lip).toMatchObject({
+      position: 'absolute',
+      top: depth.lip,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      borderRadius: face.borderRadius,
+    });
+
+    // Atrás da face: irmão anterior a ela, no mesmo pai.
+    const group = parentOf(toJSON(), 'app-button-face');
+    const order = childTestIds(group);
+    expect(order.indexOf('app-button-lip')).toBeGreaterThanOrEqual(0);
+    expect(order.indexOf('app-button-lip')).toBeLessThan(order.indexOf('app-button-face'));
+    // O pai não pinta nada: a faixa de cima, descoberta na pressão, é o fundo.
+    expect(styleOf(group).backgroundColor).toBeUndefined();
+    expect(styleOf(group).paddingBottom).toBe(depth.lip);
+  });
+
+  // Minor 4: no Android, o ReactViewGroup só compõe a opacidade em grupo com
+  // `needsOffscreenAlphaCompositing`. Sem ele, cada filho recebe 0,45 sozinho e
+  // o lábio aparece através da face.
+  it('desabilitado, o conjunto que recebe a opacidade compõe em grupo', () => {
+    const { toJSON } = render(<AppButton label="Continuar" disabled onPress={jest.fn()} />);
+    const faded = findAllNodes(toJSON(), (node) => styleOf(node).opacity === 0.45);
+
+    expect(faded).toHaveLength(1);
+    expect(findAllNodes(faded[0], (node) => node.props.testID === 'app-button-face')).toHaveLength(1);
+    expect(faded[0].props.needsOffscreenAlphaCompositing).toBe(true);
+  });
+
+  it('arrastar o dedo para fora cancela: a face volta ao lugar e o onPress não dispara', () => {
+    const onPress = jest.fn();
+    const { getByTestId } = render(<AppButton label="Continuar" onPress={onPress} />);
+
+    fireEvent(getByTestId('app-button-face'), 'pressIn');
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    expect(translateYOf(getByTestId('app-button-face'))).toBe(depth.lip - 1);
+
+    fireEvent(getByTestId('app-button-face'), 'pressOut');
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+
+    expect(translateYOf(getByTestId('app-button-face'))).toBe(0);
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  // R11: sem lábio, o ghost ficava estático ao toque. O retorno é troca de
+  // estado, não animação, e por isso vale igual sob "reduzir movimento".
+  it.each([false, true])('ghost esmaece o rótulo enquanto pressionado (reduzir movimento: %s)', (reduced) => {
+    mockReducedMotion = reduced;
+    const { getByTestId, getByText } = render(
+      <AppButton label="Agora não" variant="ghost" onPress={jest.fn()} />,
+    );
+    const opacityOfLabel = () => styleOf(getByText('Agora não')).opacity ?? 1;
+
+    expect(opacityOfLabel()).toBe(1);
+    fireEvent(getByTestId('app-button-face'), 'pressIn');
+    expect(opacityOfLabel()).toBe(0.6);
+    fireEvent(getByTestId('app-button-face'), 'pressOut');
+    expect(opacityOfLabel()).toBe(1);
+    expect(withTiming).not.toHaveBeenCalled();
+  });
+
+  it('o lábio continua fixo em 5 pt qualquer que seja o rótulo', () => {
+    const short = render(<AppButton label="Ok" onPress={jest.fn()} />);
+    const shortLip = styleOf(short.getByTestId('app-button-relief')).paddingBottom;
+    short.unmount();
+
+    mockWindow.fontScale = 3.1;
+    const long = render(
+      <AppButton label="Continuar a revisão de casos de tórax com prioridade" onPress={jest.fn()} />,
+    );
+
+    expect(styleOf(long.getByTestId('app-button-relief')).paddingBottom).toBe(shortLip);
+    expect(shortLip).toBe(5);
+  });
+});
+
+
+describe('AppButton — ouro funcional T11', () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+  it('usa face e lábio ouro, rótulo escuro e preserva pressão, foco e bloqueio', () => {
+    const onPress = jest.fn();
+    const view = render(<AppButton label="Assinar anual" variant="gold" onPress={onPress} />);
+    const face = view.getByRole('button', { name: 'Assinar anual' });
+    expect(StyleSheet.flatten(face.props.style).backgroundColor).toBe(medalColors.gold.face);
+    expect(StyleSheet.flatten(view.getByTestId('app-button-lip').props.style).backgroundColor).toBe(medalColors.gold.lip);
+    expect(StyleSheet.flatten(view.getByText('Assinar anual').props.style).color).toBe(galaxyColors.background);
+    fireEvent(face, 'focus');
+    expect(StyleSheet.flatten(face.props.style).borderWidth).toBe(3);
+    fireEvent(face, 'pressIn');
+    act(() => { jest.advanceTimersByTime(500); });
+    expect(getAnimatedStyle(view.getByTestId('app-button-face')).transform).toEqual([{ translateY: depth.lip - 1 }]);
+    fireEvent.press(face);
+    expect(onPress).toHaveBeenCalledTimes(1);
+    view.rerender(<AppButton label="Assinar anual" variant="gold" onPress={onPress} disabled />);
+    fireEvent.press(view.getByRole('button', { name: 'Assinar anual' }));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

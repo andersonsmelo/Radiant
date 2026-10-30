@@ -1,4 +1,5 @@
 import { semanticColors, semanticColorTokenNames } from '../semantic-colors';
+import { feedbackColors, galaxyColors } from '../theme';
 
 const requiredTokens = [
   'surface',
@@ -53,5 +54,19 @@ describe('semantic color contracts', () => {
     ['galaxy critical text', semanticColors.galaxy.textCritical, semanticColors.galaxy.surface],
   ])('keeps %s at AA text contrast or higher', (_label, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('galaxy action roles use the Medalhão blue, which clears AA with white text', () => {
+    expect(semanticColors.galaxy.actionPrimary).toBe('#2559E6');
+    expect(semanticColors.galaxy.actionPrimaryPressed).toBe('#1846C9');
+    // #2F6BFF (blue of the artboard) reads 4.50:1 with white: no margin at all.
+    expect(contrastRatio('#FFFFFF', semanticColors.galaxy.actionPrimary)).toBeGreaterThanOrEqual(5);
+  });
+
+  it('galaxy status roles come from the feedback fills and read on the graphite surface', () => {
+    expect(semanticColors.galaxy.statusSuccess).toBe(feedbackColors.success.fill);
+    expect(semanticColors.galaxy.statusError).toBe(feedbackColors.error.fill);
+    expect(contrastRatio(semanticColors.galaxy.statusSuccess, galaxyColors.background)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(semanticColors.galaxy.statusError, galaxyColors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });

@@ -1,4 +1,4 @@
-import { colors, galaxyColors } from './theme';
+import { colors, feedbackColors, galaxyColors } from './theme';
 
 /**
  * Contextual color contracts for UI components.
@@ -68,11 +68,13 @@ export const semanticColors = {
     // canal alternativo — nem contorno, nem fundo, nem escala.
     borderFocus: galaxyColors.navBlue,
     borderDisabled: galaxyColors.disabled,
-    actionPrimary: galaxyColors.ctaGradientStart,
-    actionPrimaryPressed: galaxyColors.ctaPressed,
-    statusSuccess: '#5DE3AE',
+    // Azul da ação primária do Medalhão. O `#2F6BFF` da prancheta dava 4,50:1
+    // com texto branco, no limite; este dá 5,75:1.
+    actionPrimary: '#2559E6',
+    actionPrimaryPressed: '#1846C9',
+    statusSuccess: feedbackColors.success.fill,
     statusWarning: galaxyColors.xpColor,
-    statusError: galaxyColors.critical,
+    statusError: feedbackColors.error.fill,
     statusInformation: '#3DCAE8',
     reward: galaxyColors.xpColor,
   },

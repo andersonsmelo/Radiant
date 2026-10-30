@@ -98,10 +98,12 @@ tags:
 - tapOn: Continuar
 - assertVisible:
     id: journey-trail
+# A medalha concluída pode estar sob o HUD após centrar a recomendação.
+# Visível na árvore não basta: trazer ao centro antes de tocar.
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: 'Passo 1 de 5'
@@ -175,8 +177,8 @@ tags:
     id: journey-trail
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: 'Passo 1 de 5'
@@ -250,8 +252,8 @@ tags:
     id: journey-trail
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: 'Passo 1 de 5'
@@ -325,8 +327,8 @@ tags:
     id: journey-trail
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: 'Passo 1 de 5'
@@ -400,8 +402,8 @@ tags:
     id: journey-trail
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: 'Passo 1 de 5'
@@ -463,8 +465,8 @@ tags:
 - tapOn:
     id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: Suas vidas acabaram
-- assertVisible: '^Próxima vida em \d+ min$'
+- assertVisible: Sem vidas
+- assertVisible: '^A próxima volta em \d+ min\.$'
 - tapOn: Voltar
 - assertVisible:
     id: journey-trail
@@ -476,8 +478,8 @@ tags:
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
-    direction: DOWN
-    centerElement: false
+    direction: UP
+    centerElement: true
     visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: '^0 de 5 vidas; próxima em \d+ minutos$'

@@ -1,92 +1,36 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { screen } from '@testing-library/react-native';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { WelcomeSlide } from './WelcomeSlide';
 
-describe('WelcomeSlide', () => {
-    it('compõe o rótulo do grupo com posição, título e corpo, na ordem', () => {
-        renderWithProviders(
-            <WelcomeSlide
-                title="Oi, eu sou o Pixel."
-                body="Vou estudar radiologia com você, em sessões curtas e no seu ritmo."
-                pixelSize="lg"
-                pixelAccessibilityLabel="Pixel, o mascote do Radiant, acenando"
-                stepLabel="Tela 1 de 3"
-            />
-        );
+jest.mock('../../../ui/accessibility/motionLaunchArgument', () => ({ isReduceMotionForcedByLaunchArgument: () => true }));
 
-        const group = screen.getByLabelText(/Tela 1 de 3/);
-        const label = group.props.accessibilityLabel as string;
-
-        expect(label).toContain('Tela 1 de 3');
-        expect(label).toContain('Oi, eu sou o Pixel.');
-        expect(label).toContain('Vou estudar radiologia com você, em sessões curtas e no seu ritmo.');
-
-        expect(label.indexOf('Tela 1 de 3')).toBeLessThan(label.indexOf('Oi, eu sou o Pixel.'));
-        expect(label.indexOf('Oi, eu sou o Pixel.')).toBeLessThan(
-            label.indexOf('Vou estudar radiologia com você, em sessões curtas e no seu ritmo.')
-        );
+describe('WelcomeSlide — apresentação da bancada', () => {
+    it('apresenta o Pixel numa linha sem grupo acessível que esconda o conteúdo seguinte', () => {
+        renderWithProviders(<WelcomeSlide />);
+        expect(screen.getByText('Oi, eu sou o Pixel. Vamos tirar sua primeira radiografia.')).toBeTruthy();
+        expect(screen.getByRole('image', { name: 'Pixel acenando' })).toBeTruthy();
+        expect(screen.queryByLabelText(/Tela \d de/)).toBeNull();
+        expect(screen.getByText('Oi, eu sou o Pixel. Vamos tirar sua primeira radiografia.').props.numberOfLines).toBeUndefined();
+    });
+    it('texto grande usa métricas naturais e não comprime verticalmente a fala empilhada', () => {
+        const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
+        try {
+            const result = renderWithProviders(<WelcomeSlide />);
+            const text = screen.getByText('Oi, eu sou o Pixel. Vamos tirar sua primeira radiografia.');
+            const style = StyleSheet.flatten(text.props.style);
+            // Esses são os valores reais entregues ao Text nativo, não métricas
+            // duplicadas em props de teste. Rasterização continua no gate nativo.
+            expect(style.fontFamily).toBe('Sora-Bold');
+            expect(style.fontSize).toBe(16);
+            expect(style.lineHeight).toBeUndefined();
+            expect(style.flexShrink).toBe(0);
+            expect(text.props.allowFontScaling).not.toBe(false);
+            expect(text.props.maxFontSizeMultiplier).toBeUndefined();
+            const column = result.UNSAFE_getAllByType(View).find(view => StyleSheet.flatten(view.props.style)?.flexDirection === 'column');
+            expect(StyleSheet.flatten(column?.props.style).alignItems).toBe('stretch');
+        } finally { dimensions.mockRestore(); }
     });
 
-    it('inclui a nota de rodapé no rótulo quando ela existe', () => {
-        renderWithProviders(
-            <WelcomeSlide
-                title="Funciona offline, sem conta."
-                body="Seu progresso fica no seu aparelho. Comece agora, sem cadastro."
-                footnote="Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional."
-                pixelSize="md"
-                pixelAccessibilityLabel="Pixel pronto para começar"
-                stepLabel="Tela 3 de 3"
-            />
-        );
-
-        const group = screen.getByLabelText(/Tela 3 de 3/);
-        const label = group.props.accessibilityLabel as string;
-
-        expect(label).toContain(
-            'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
-        );
-        expect(label.indexOf('Seu progresso fica no seu aparelho. Comece agora, sem cadastro.')).toBeLessThan(
-            label.indexOf(
-                'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
-            )
-        );
-    });
-
-    it('sem nota de rodapé, não deixa separador solto nem "undefined" no rótulo', () => {
-        renderWithProviders(
-            <WelcomeSlide
-                title="Trilha, quiz e revisão."
-                body="Você segue uma trilha guiada, responde quizzes curtos, e o que ainda não fixou volta na hora certa para revisar."
-                pixelSize="md"
-                pixelAccessibilityLabel="Pixel apontando para a trilha de estudo"
-                stepLabel="Tela 2 de 3"
-            />
-        );
-
-        const group = screen.getByLabelText(/Tela 2 de 3/);
-        const label = group.props.accessibilityLabel as string;
-
-        expect(label).not.toContain('undefined');
-        expect(label.endsWith('. ')).toBe(false);
-        expect(label.trim().endsWith('.')).toBe(true);
-    });
-
-    it('não duplica pontuação quando um segmento já termina em ponto final', () => {
-        renderWithProviders(
-            <WelcomeSlide
-                title="Oi, eu sou o Pixel."
-                body="Vou estudar radiologia com você"
-                pixelSize="lg"
-                pixelAccessibilityLabel="Pixel, o mascote do Radiant, acenando"
-                stepLabel="Tela 1 de 3"
-            />
-        );
-
-        const group = screen.getByLabelText(/Tela 1 de 3/);
-        const label = group.props.accessibilityLabel as string;
-
-        expect(label).not.toContain('..');
-        expect(label).not.toContain(' .');
-    });
 });

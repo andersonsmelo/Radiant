@@ -1,0 +1,2480 @@
+Final Node 20.20.2: node --test scripts/copy-style-contract.test.mjs scripts/maestro-contract.test.mjs scripts/checkpoint-performance-report.test.mjs
+TAP version 13
+# Subtest: parses only the closed, finite and mode-matching performance envelope
+ok 1 - parses only the closed, finite and mode-matching performance envelope
+  ---
+  duration_ms: 0.738834
+  ...
+# Subtest: extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+ok 2 - extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+  ---
+  duration_ms: 0.11225
+  ...
+# Subtest: uses nearest-rank p95 and closes all four gates with twenty samples
+ok 3 - uses nearest-rank p95 and closes all four gates with twenty samples
+  ---
+  duration_ms: 1.073375
+  ...
+# Subtest: uses only cold first frames for the delta while requiring one resume per active sample
+ok 4 - uses only cold first frames for the delta while requiring one resume per active sample
+  ---
+  duration_ms: 0.38275
+  ...
+# Subtest: fails closed when an active cold cohort has no matching recovery provenance
+ok 5 - fails closed when an active cold cohort has no matching recovery provenance
+  ---
+  duration_ms: 0.232167
+  ...
+# Subtest: fails closed when a cohort has fewer than twenty valid samples
+ok 6 - fails closed when a cohort has fewer than twenty valid samples
+  ---
+  duration_ms: 0.661875
+  ...
+# Subtest: never demands a delta finer than the baseline own upper-tail spread
+ok 7 - never demands a delta finer than the baseline own upper-tail spread
+  ---
+  duration_ms: 0.2475
+  ...
+# Subtest: keeps the stricter fixed floor when the baseline is quiet
+ok 8 - keeps the stricter fixed floor when the baseline is quiet
+  ---
+  duration_ms: 0.206958
+  ...
+# Subtest: reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+ok 9 - reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+  ---
+  duration_ms: 0.303916
+  ...
+# Subtest: stays conclusive at the noise floor an idle host produced
+ok 10 - stays conclusive at the noise floor an idle host produced
+  ---
+  duration_ms: 0.288917
+  ...
+# Subtest: treats a noise floor exactly at the ceiling as still conclusive
+ok 11 - treats a noise floor exactly at the ceiling as still conclusive
+  ---
+  duration_ms: 0.257542
+  ...
+# Subtest: gates the first-frame delta and keeps cold start advisory only
+ok 12 - gates the first-frame delta and keeps cold start advisory only
+  ---
+  duration_ms: 0.465666
+  ...
+# Subtest: fails the first-frame gate when the candidate regresses beyond the allowed delta
+ok 13 - fails the first-frame gate when the candidate regresses beyond the allowed delta
+  ---
+  duration_ms: 0.240542
+  ...
+# Subtest: fails closed when a baseline log carries any checkpoint metric
+ok 14 - fails closed when a baseline log carries any checkpoint metric
+  ---
+  duration_ms: 0.541833
+  ...
+# Subtest: accepts a baseline log that carries only the mode-independent startup mark
+ok 15 - accepts a baseline log that carries only the mode-independent startup mark
+  ---
+  duration_ms: 0.237625
+  ...
+# Subtest: fails closed when the first-frame cohort is short of twenty samples
+ok 16 - fails closed when the first-frame cohort is short of twenty samples
+  ---
+  duration_ms: 0.293833
+  ...
+# Copy AST: 325 sources, 1595 sinks, 133 findings; 964 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 17 - detects JSX Text jargon
+  ---
+  duration_ms: 8.920792
+  ...
+# Subtest: detects prop dash
+ok 18 - detects prop dash
+  ---
+  duration_ms: 1.576708
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 19 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 0.866916
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 20 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 0.605875
+  ...
+# Subtest: detects uppercase literal
+ok 21 - detects uppercase literal
+  ---
+  duration_ms: 0.61775
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 22 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.559875
+  ...
+# Subtest: detects singular settings jargon
+ok 23 - detects singular settings jargon
+  ---
+  duration_ms: 0.454792
+  ...
+# Subtest: detects en dash with spaces
+ok 24 - detects en dash with spaces
+  ---
+  duration_ms: 0.513416
+  ...
+# Subtest: detects template static span
+ok 25 - detects template static span
+  ---
+  duration_ms: 2.749875
+  ...
+# Subtest: detects template interpolation
+ok 26 - detects template interpolation
+  ---
+  duration_ms: 1.287958
+  ...
+# Subtest: detects local alias
+ok 27 - detects local alias
+  ---
+  duration_ms: 1.044708
+  ...
+# Subtest: detects object property
+ok 28 - detects object property
+  ---
+  duration_ms: 2.93475
+  ...
+# Subtest: detects array element
+ok 29 - detects array element
+  ---
+  duration_ms: 0.731834
+  ...
+# Subtest: detects map array copy
+ok 30 - detects map array copy
+  ---
+  duration_ms: 1.626792
+  ...
+# Subtest: detects copy function return
+ok 31 - detects copy function return
+  ---
+  duration_ms: 0.710541
+  ...
+# Subtest: detects copy function argument
+ok 32 - detects copy function argument
+  ---
+  duration_ms: 0.586625
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 33 - detects ternary ignores discriminant
+  ---
+  duration_ms: 0.5825
+  ...
+# Subtest: detects Alert title and message
+ok 34 - detects Alert title and message
+  ---
+  duration_ms: 4.985416
+  ...
+# Subtest: detects hint is copy
+ok 35 - detects hint is copy
+  ---
+  duration_ms: 0.388542
+  ...
+# Subtest: detects shared uppercase style
+ok 36 - detects shared uppercase style
+  ---
+  duration_ms: 0.668917
+  ...
+# Subtest: detects uppercase call on text
+ok 37 - detects uppercase call on text
+  ---
+  duration_ms: 0.291584
+  ...
+# Subtest: detects nested copy objects
+ok 38 - detects nested copy objects
+  ---
+  duration_ms: 0.312292
+  ...
+# Subtest: detects Pixel phrases array
+ok 39 - detects Pixel phrases array
+  ---
+  duration_ms: 0.491042
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 40 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 2.033959
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 41 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.680083
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 42 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 0.77975
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 43 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.260084
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 44 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.428041
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 45 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 0.759125
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 46 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.601166
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 47 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.271375
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 48 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.073167
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 49 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.596625
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 50 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.281834
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 51 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.272709
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 52 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 0.217333
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 53 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.366958
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 54 - resolves copy from array find and map return values
+  ---
+  duration_ms: 1.535292
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 55 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.41125
+  ...
+# Subtest: resolves root and src path aliases
+ok 56 - resolves root and src path aliases
+  ---
+  duration_ms: 0.5435
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 57 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.548791
+  ...
+# Subtest: resolves default imported text
+ok 58 - resolves default imported text
+  ---
+  duration_ms: 0.531542
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 59 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 0.361125
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 60 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 792.513209
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 61 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 12.666792
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 62 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 17.42375
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 63 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 23.817583
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 64 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 9.188125
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 65 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 1.358292
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 66 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 1.305833
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 67 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 9.405041
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 68 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 2.610959
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 69 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 2.004708
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 70 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.785084
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 71 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 11.580875
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 72 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 6.211416
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 73 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 338.7335
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 74 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 3.520584
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 75 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.385959
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 76 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.925833
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 77 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.280375
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 78 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.723042
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 79 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.274083
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 80 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.214209
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 81 - ties the first-run flow to the copy WelcomeFlowScreen actually renders
+  ---
+  duration_ms: 1.296292
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 82 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 3.865667
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 83 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 4.156375
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 84 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 49.701166
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 85 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 5.526458
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 86 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 3.397125
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 87 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.520417
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 88 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.131625
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 89 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 1.565875
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 90 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 10.416291
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 91 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 4.474583
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 92 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 4.355416
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 93 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 7.658459
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 94 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 3.309292
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 95 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 42.065042
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 96 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 28.454833
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 97 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 15.654375
+  ...
+1..97
+# tests 97
+# suites 0
+# pass 97
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 965.040916
+
+Focused Jest Node 20.20.2 (CTA products unchanged afterward):
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/journey/components/nodeCopy.test.ts src/features/journey/components/JourneyTrail.test.tsx src/features/journey/screens/JourneyHomeScreen.flow.test.tsx
+
+PASS src/features/journey/screens/JourneyHomeScreen.flow.test.tsx (11.755 s)
+  ● Console
+
+    console.error
+      [JourneyHomeScreen] Failed to load journey snapshot: Error: storage unavailable
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx:545:66)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      88 |       hasLoadedRef.current = true;
+      89 |     } catch (cause) {
+    > 90 |       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
+         |               ^
+      91 |       setError('Não foi possível carregar a trilha.');
+      92 |     } finally {
+      93 |       setLoading(false);
+
+      at error (src/features/journey/screens/JourneyHomeScreen.tsx:90:15)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+PASS src/features/journey/components/JourneyTrail.test.tsx
+  ● Console
+
+    console.error
+      An update to VirtualizedList inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at Object.enqueueSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14179:14)
+      at VirtualizedList.Object.<anonymous>.process.env.NODE_ENV.Component.setState (node_modules/react/cjs/react.development.js:632:20)
+      at node_modules/@babel/runtime/helpers/superPropGet.js:6:14
+      at VirtualizedList.setState (node_modules/react-native/node_modules/@react-native/virtualized-lists/Lists/StateSafePureComponent.js:39:7)
+      at VirtualizedList.setState [as _updateCellsToRender] (node_modules/react-native/node_modules/@react-native/virtualized-lists/Lists/VirtualizedList.js:1907:10)
+      at Timeout._updateCellsToRender [as _onTimeout] (node_modules/react-native/node_modules/@react-native/virtualized-lists/Lists/VirtualizedList.js:1804:16)
+
+PASS src/features/journey/components/nodeCopy.test.ts
+
+Test Suites: 3 passed, 3 total
+Tests:       147 passed, 147 total
+Snapshots:   0 total
+Time:        13.517 s, estimated 14 s
+Ran all test suites matching /src\/features\/journey\/components\/nodeCopy.test.ts|src\/features\/journey\/components\/JourneyTrail.test.tsx|src\/features\/journey\/screens\/JourneyHomeScreen.flow.test.tsx/i.
+
+Focused ESLint Node 20.20.2: exit 0, no output
+
+=== Fix round 1 final Node 20.20.2: three contracts + original reviewer reproductions ===
+TAP version 13
+# Subtest: R1 destructured function return
+ok 1 - R1 destructured function return
+  ---
+  duration_ms: 11.047167
+  ...
+# Subtest: R2 returned array retains argument environment
+ok 2 - R2 returned array retains argument environment
+  ---
+  duration_ms: 1.49375
+  ...
+# Subtest: R3 uppercase static template
+ok 3 - R3 uppercase static template
+  ---
+  duration_ms: 1.3785
+  ...
+# Subtest: R4 visible join separator
+ok 4 - R4 visible join separator
+  ---
+  duration_ms: 0.822584
+  ...
+# Subtest: R5 numeric array length is not text elements
+ok 5 - R5 numeric array length is not text elements
+  ---
+  duration_ms: 0.704667
+  ...
+# Subtest: R6 renamed React Native Alert sink
+ok 6 - R6 renamed React Native Alert sink
+  ---
+  duration_ms: 1.140792
+  ...
+# Subtest: R7 serialized visible text is not transport
+ok 7 - R7 serialized visible text is not transport
+  ---
+  duration_ms: 0.708708
+  ...
+# Subtest: parses only the closed, finite and mode-matching performance envelope
+ok 8 - parses only the closed, finite and mode-matching performance envelope
+  ---
+  duration_ms: 0.754041
+  ...
+# Subtest: extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+ok 9 - extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+  ---
+  duration_ms: 0.114291
+  ...
+# Subtest: uses nearest-rank p95 and closes all four gates with twenty samples
+ok 10 - uses nearest-rank p95 and closes all four gates with twenty samples
+  ---
+  duration_ms: 1.021334
+  ...
+# Subtest: uses only cold first frames for the delta while requiring one resume per active sample
+ok 11 - uses only cold first frames for the delta while requiring one resume per active sample
+  ---
+  duration_ms: 0.343208
+  ...
+# Subtest: fails closed when an active cold cohort has no matching recovery provenance
+ok 12 - fails closed when an active cold cohort has no matching recovery provenance
+  ---
+  duration_ms: 0.22025
+  ...
+# Subtest: fails closed when a cohort has fewer than twenty valid samples
+ok 13 - fails closed when a cohort has fewer than twenty valid samples
+  ---
+  duration_ms: 0.304917
+  ...
+# Subtest: never demands a delta finer than the baseline own upper-tail spread
+ok 14 - never demands a delta finer than the baseline own upper-tail spread
+  ---
+  duration_ms: 0.430459
+  ...
+# Subtest: keeps the stricter fixed floor when the baseline is quiet
+ok 15 - keeps the stricter fixed floor when the baseline is quiet
+  ---
+  duration_ms: 0.250875
+  ...
+# Subtest: reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+ok 16 - reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+  ---
+  duration_ms: 0.358041
+  ...
+# Subtest: stays conclusive at the noise floor an idle host produced
+ok 17 - stays conclusive at the noise floor an idle host produced
+  ---
+  duration_ms: 0.323791
+  ...
+# Subtest: treats a noise floor exactly at the ceiling as still conclusive
+ok 18 - treats a noise floor exactly at the ceiling as still conclusive
+  ---
+  duration_ms: 0.264958
+  ...
+# Subtest: gates the first-frame delta and keeps cold start advisory only
+ok 19 - gates the first-frame delta and keeps cold start advisory only
+  ---
+  duration_ms: 0.365375
+  ...
+# Subtest: fails the first-frame gate when the candidate regresses beyond the allowed delta
+ok 20 - fails the first-frame gate when the candidate regresses beyond the allowed delta
+  ---
+  duration_ms: 0.399833
+  ...
+# Subtest: fails closed when a baseline log carries any checkpoint metric
+ok 21 - fails closed when a baseline log carries any checkpoint metric
+  ---
+  duration_ms: 0.313125
+  ...
+# Subtest: accepts a baseline log that carries only the mode-independent startup mark
+ok 22 - accepts a baseline log that carries only the mode-independent startup mark
+  ---
+  duration_ms: 0.221791
+  ...
+# Subtest: fails closed when the first-frame cohort is short of twenty samples
+ok 23 - fails closed when the first-frame cohort is short of twenty samples
+  ---
+  duration_ms: 0.284292
+  ...
+# Copy AST: 325 sources, 1603 sinks, 135 findings; 922 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 24 - detects JSX Text jargon
+  ---
+  duration_ms: 8.813416
+  ...
+# Subtest: detects prop dash
+ok 25 - detects prop dash
+  ---
+  duration_ms: 1.507167
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 26 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 0.873625
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 27 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 0.589792
+  ...
+# Subtest: detects uppercase literal
+ok 28 - detects uppercase literal
+  ---
+  duration_ms: 0.60675
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 29 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.506834
+  ...
+# Subtest: detects singular settings jargon
+ok 30 - detects singular settings jargon
+  ---
+  duration_ms: 0.404708
+  ...
+# Subtest: detects en dash with spaces
+ok 31 - detects en dash with spaces
+  ---
+  duration_ms: 0.48925
+  ...
+# Subtest: detects template static span
+ok 32 - detects template static span
+  ---
+  duration_ms: 3.519709
+  ...
+# Subtest: detects template interpolation
+ok 33 - detects template interpolation
+  ---
+  duration_ms: 0.756958
+  ...
+# Subtest: detects local alias
+ok 34 - detects local alias
+  ---
+  duration_ms: 1.499292
+  ...
+# Subtest: detects object property
+ok 35 - detects object property
+  ---
+  duration_ms: 1.308709
+  ...
+# Subtest: detects array element
+ok 36 - detects array element
+  ---
+  duration_ms: 1.697875
+  ...
+# Subtest: detects map array copy
+ok 37 - detects map array copy
+  ---
+  duration_ms: 0.904542
+  ...
+# Subtest: detects copy function return
+ok 38 - detects copy function return
+  ---
+  duration_ms: 0.56
+  ...
+# Subtest: detects copy function argument
+ok 39 - detects copy function argument
+  ---
+  duration_ms: 0.5345
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 40 - detects ternary ignores discriminant
+  ---
+  duration_ms: 0.574917
+  ...
+# Subtest: detects Alert title and message
+ok 41 - detects Alert title and message
+  ---
+  duration_ms: 4.319667
+  ...
+# Subtest: detects hint is copy
+ok 42 - detects hint is copy
+  ---
+  duration_ms: 0.272583
+  ...
+# Subtest: detects shared uppercase style
+ok 43 - detects shared uppercase style
+  ---
+  duration_ms: 0.513708
+  ...
+# Subtest: detects uppercase call on text
+ok 44 - detects uppercase call on text
+  ---
+  duration_ms: 0.290541
+  ...
+# Subtest: detects nested copy objects
+ok 45 - detects nested copy objects
+  ---
+  duration_ms: 0.277
+  ...
+# Subtest: detects Pixel phrases array
+ok 46 - detects Pixel phrases array
+  ---
+  duration_ms: 0.467334
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 47 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 1.666917
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 48 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.553875
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 49 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 0.754583
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 50 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.241459
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 51 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.482791
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 52 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 0.827459
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 53 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.667916
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 54 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.273
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 55 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.075
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 56 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.339334
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 57 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.277834
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 58 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.2805
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 59 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 1.596625
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 60 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.82025
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 61 - resolves copy from array find and map return values
+  ---
+  duration_ms: 0.702208
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 62 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.5205
+  ...
+# Subtest: resolves root and src path aliases
+ok 63 - resolves root and src path aliases
+  ---
+  duration_ms: 0.576083
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 64 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.487292
+  ...
+# Subtest: resolves default imported text
+ok 65 - resolves default imported text
+  ---
+  duration_ms: 0.584375
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 66 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 0.38675
+  ...
+# Subtest: fixes R1 destructured function return
+ok 67 - fixes R1 destructured function return
+  ---
+  duration_ms: 2.061792
+  ...
+# Subtest: fixes R1 renamed local binding
+ok 68 - fixes R1 renamed local binding
+  ---
+  duration_ms: 0.868708
+  ...
+# Subtest: fixes R2 returned array parameter environment
+ok 69 - fixes R2 returned array parameter environment
+  ---
+  duration_ms: 0.565959
+  ...
+# Subtest: fixes R2 returned shorthand parameter environment
+ok 70 - fixes R2 returned shorthand parameter environment
+  ---
+  duration_ms: 0.657542
+  ...
+# Subtest: fixes R2 returned property parameter environment
+ok 71 - fixes R2 returned property parameter environment
+  ---
+  duration_ms: 0.486625
+  ...
+# Subtest: fixes R3 uppercase template number
+ok 72 - fixes R3 uppercase template number
+  ---
+  duration_ms: 1.668041
+  ...
+# Subtest: fixes R4 visible join separator
+ok 73 - fixes R4 visible join separator
+  ---
+  duration_ms: 0.789875
+  ...
+# Subtest: fixes R6 React Native Alert import alias
+ok 74 - fixes R6 React Native Alert import alias
+  ---
+  duration_ms: 0.302834
+  ...
+# Subtest: fixes R7 serialized visible string
+ok 75 - fixes R7 serialized visible string
+  ---
+  duration_ms: 0.263292
+  ...
+# Subtest: R3 mixed-case template static span is allowed
+ok 76 - R3 mixed-case template static span is allowed
+  ---
+  duration_ms: 0.249375
+  ...
+# Subtest: R4 empty and singleton joins do not render their separator
+ok 77 - R4 empty and singleton joins do not render their separator
+  ---
+  duration_ms: 0.244167
+  ...
+# Subtest: R5 array length is numeric and never exposes its internal strings
+ok 78 - R5 array length is numeric and never exposes its internal strings
+  ---
+  duration_ms: 0.307958
+  ...
+# Subtest: R6 unrelated alert method is not the React Native sink
+ok 79 - R6 unrelated alert method is not the React Native sink
+  ---
+  duration_ms: 0.312417
+  ...
+# Subtest: R7 real HTTP serialized body remains transport while adjacent serialization is visible
+ok 80 - R7 real HTTP serialized body remains transport while adjacent serialization is visible
+  ---
+  duration_ms: 0.286792
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 81 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 479.553541
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 82 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.623291
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 83 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.153458
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 84 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 19.171208
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 85 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 6.971042
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 86 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.674208
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 87 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.694708
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 88 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 9.809167
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 89 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.525
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 90 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.2045
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 91 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.883916
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 92 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 11.317958
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 93 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 5.161125
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 94 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 232.006208
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 95 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.604708
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 96 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.218
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 97 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.453666
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 98 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.182458
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 99 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.331459
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 100 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.280584
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 101 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.2075
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 102 - ties the first-run flow to the copy WelcomeFlowScreen actually renders
+  ---
+  duration_ms: 0.681625
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 103 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.532166
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 104 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.389833
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 105 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 38.754916
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 106 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 3.10725
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 107 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.692333
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 108 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.218958
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 109 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.063542
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 110 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 1.25075
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 111 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 7.836542
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 112 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 4.276583
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 113 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 3.866166
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 114 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.432084
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 115 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 3.469583
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 116 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 33.112667
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 117 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.346334
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 118 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 13.105792
+  ...
+1..118
+# tests 118
+# suites 0
+# pass 118
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 651.187417
+
+Fix round 1 focused ESLint, from radiant-app, exit 0 (no output); git diff --check exit 0.
+
+=== Fix round 2 final Node 20.20.2: three contracts + R1/R2 original review repros ===
+TAP version 13
+# Subtest: R1 destructured function return
+ok 1 - R1 destructured function return
+  ---
+  duration_ms: 11.433292
+  ...
+# Subtest: R2 returned array retains argument environment
+ok 2 - R2 returned array retains argument environment
+  ---
+  duration_ms: 1.5465
+  ...
+# Subtest: R3 uppercase static template
+ok 3 - R3 uppercase static template
+  ---
+  duration_ms: 1.396292
+  ...
+# Subtest: R4 visible join separator
+ok 4 - R4 visible join separator
+  ---
+  duration_ms: 1.600459
+  ...
+# Subtest: R5 numeric array length is not text elements
+ok 5 - R5 numeric array length is not text elements
+  ---
+  duration_ms: 1.118291
+  ...
+# Subtest: R6 renamed React Native Alert sink
+ok 6 - R6 renamed React Native Alert sink
+  ---
+  duration_ms: 2.295625
+  ...
+# Subtest: R7 serialized visible text is not transport
+ok 7 - R7 serialized visible text is not transport
+  ---
+  duration_ms: 0.736667
+  ...
+# Subtest: R2-A namespace copy import remains resolved
+ok 8 - R2-A namespace copy import remains resolved
+  ---
+  duration_ms: 15.279
+  ...
+# Subtest: R2-B singleton join with empty spread has no visible separator
+ok 9 - R2-B singleton join with empty spread has no visible separator
+  ---
+  duration_ms: 2.523083
+  ...
+# Subtest: R2-C shadowing parameter is not imported Native Alert
+ok 10 - R2-C shadowing parameter is not imported Native Alert
+  ---
+  duration_ms: 1.759875
+  ...
+# Subtest: parses only the closed, finite and mode-matching performance envelope
+ok 11 - parses only the closed, finite and mode-matching performance envelope
+  ---
+  duration_ms: 1.073125
+  ...
+# Subtest: extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+ok 12 - extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+  ---
+  duration_ms: 0.172958
+  ...
+# Subtest: uses nearest-rank p95 and closes all four gates with twenty samples
+ok 13 - uses nearest-rank p95 and closes all four gates with twenty samples
+  ---
+  duration_ms: 1.213209
+  ...
+# Subtest: uses only cold first frames for the delta while requiring one resume per active sample
+ok 14 - uses only cold first frames for the delta while requiring one resume per active sample
+  ---
+  duration_ms: 0.404375
+  ...
+# Subtest: fails closed when an active cold cohort has no matching recovery provenance
+ok 15 - fails closed when an active cold cohort has no matching recovery provenance
+  ---
+  duration_ms: 0.226708
+  ...
+# Subtest: fails closed when a cohort has fewer than twenty valid samples
+ok 16 - fails closed when a cohort has fewer than twenty valid samples
+  ---
+  duration_ms: 0.608792
+  ...
+# Subtest: never demands a delta finer than the baseline own upper-tail spread
+ok 17 - never demands a delta finer than the baseline own upper-tail spread
+  ---
+  duration_ms: 0.303834
+  ...
+# Subtest: keeps the stricter fixed floor when the baseline is quiet
+ok 18 - keeps the stricter fixed floor when the baseline is quiet
+  ---
+  duration_ms: 0.289291
+  ...
+# Subtest: reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+ok 19 - reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+  ---
+  duration_ms: 0.399292
+  ...
+# Subtest: stays conclusive at the noise floor an idle host produced
+ok 20 - stays conclusive at the noise floor an idle host produced
+  ---
+  duration_ms: 0.358292
+  ...
+# Subtest: treats a noise floor exactly at the ceiling as still conclusive
+ok 21 - treats a noise floor exactly at the ceiling as still conclusive
+  ---
+  duration_ms: 0.301375
+  ...
+# Subtest: gates the first-frame delta and keeps cold start advisory only
+ok 22 - gates the first-frame delta and keeps cold start advisory only
+  ---
+  duration_ms: 0.933458
+  ...
+# Subtest: fails the first-frame gate when the candidate regresses beyond the allowed delta
+ok 23 - fails the first-frame gate when the candidate regresses beyond the allowed delta
+  ---
+  duration_ms: 1.100042
+  ...
+# Subtest: fails closed when a baseline log carries any checkpoint metric
+ok 24 - fails closed when a baseline log carries any checkpoint metric
+  ---
+  duration_ms: 0.760916
+  ...
+# Subtest: accepts a baseline log that carries only the mode-independent startup mark
+ok 25 - accepts a baseline log that carries only the mode-independent startup mark
+  ---
+  duration_ms: 0.482334
+  ...
+# Subtest: fails closed when the first-frame cohort is short of twenty samples
+ok 26 - fails closed when the first-frame cohort is short of twenty samples
+  ---
+  duration_ms: 0.6375
+  ...
+# Copy AST: 325 sources, 1603 sinks, 135 findings; 922 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 27 - detects JSX Text jargon
+  ---
+  duration_ms: 9.36675
+  ...
+# Subtest: detects prop dash
+ok 28 - detects prop dash
+  ---
+  duration_ms: 3.148208
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 29 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 1.502708
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 30 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 1.219625
+  ...
+# Subtest: detects uppercase literal
+ok 31 - detects uppercase literal
+  ---
+  duration_ms: 0.733209
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 32 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.575709
+  ...
+# Subtest: detects singular settings jargon
+ok 33 - detects singular settings jargon
+  ---
+  duration_ms: 0.851666
+  ...
+# Subtest: detects en dash with spaces
+ok 34 - detects en dash with spaces
+  ---
+  duration_ms: 1.210459
+  ...
+# Subtest: detects template static span
+ok 35 - detects template static span
+  ---
+  duration_ms: 2.974042
+  ...
+# Subtest: detects template interpolation
+ok 36 - detects template interpolation
+  ---
+  duration_ms: 0.741458
+  ...
+# Subtest: detects local alias
+ok 37 - detects local alias
+  ---
+  duration_ms: 1.070292
+  ...
+# Subtest: detects object property
+ok 38 - detects object property
+  ---
+  duration_ms: 1.145334
+  ...
+# Subtest: detects array element
+ok 39 - detects array element
+  ---
+  duration_ms: 2.144833
+  ...
+# Subtest: detects map array copy
+ok 40 - detects map array copy
+  ---
+  duration_ms: 0.955459
+  ...
+# Subtest: detects copy function return
+ok 41 - detects copy function return
+  ---
+  duration_ms: 0.581583
+  ...
+# Subtest: detects copy function argument
+ok 42 - detects copy function argument
+  ---
+  duration_ms: 0.546375
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 43 - detects ternary ignores discriminant
+  ---
+  duration_ms: 0.572709
+  ...
+# Subtest: detects Alert title and message
+ok 44 - detects Alert title and message
+  ---
+  duration_ms: 4.590208
+  ...
+# Subtest: detects hint is copy
+ok 45 - detects hint is copy
+  ---
+  duration_ms: 0.301125
+  ...
+# Subtest: detects shared uppercase style
+ok 46 - detects shared uppercase style
+  ---
+  duration_ms: 0.527333
+  ...
+# Subtest: detects uppercase call on text
+ok 47 - detects uppercase call on text
+  ---
+  duration_ms: 0.294083
+  ...
+# Subtest: detects nested copy objects
+ok 48 - detects nested copy objects
+  ---
+  duration_ms: 0.286708
+  ...
+# Subtest: detects Pixel phrases array
+ok 49 - detects Pixel phrases array
+  ---
+  duration_ms: 0.503417
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 50 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 2.205666
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 51 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.812875
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 52 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 1.31825
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 53 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.286542
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 54 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.565417
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 55 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 1.326917
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 56 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.828708
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 57 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.3235
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 58 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.091375
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 59 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.381875
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 60 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.309083
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 61 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.29725
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 62 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 1.311167
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 63 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.468667
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 64 - resolves copy from array find and map return values
+  ---
+  duration_ms: 0.398791
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 65 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.401458
+  ...
+# Subtest: resolves root and src path aliases
+ok 66 - resolves root and src path aliases
+  ---
+  duration_ms: 0.608
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 67 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.55525
+  ...
+# Subtest: resolves default imported text
+ok 68 - resolves default imported text
+  ---
+  duration_ms: 0.603416
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 69 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 0.368334
+  ...
+# Subtest: fixes R1 destructured function return
+ok 70 - fixes R1 destructured function return
+  ---
+  duration_ms: 0.943792
+  ...
+# Subtest: fixes R1 renamed local binding
+ok 71 - fixes R1 renamed local binding
+  ---
+  duration_ms: 0.821667
+  ...
+# Subtest: fixes R2 returned array parameter environment
+ok 72 - fixes R2 returned array parameter environment
+  ---
+  duration_ms: 0.535459
+  ...
+# Subtest: fixes R2 returned shorthand parameter environment
+ok 73 - fixes R2 returned shorthand parameter environment
+  ---
+  duration_ms: 0.744542
+  ...
+# Subtest: fixes R2 returned property parameter environment
+ok 74 - fixes R2 returned property parameter environment
+  ---
+  duration_ms: 0.600708
+  ...
+# Subtest: fixes R3 uppercase template number
+ok 75 - fixes R3 uppercase template number
+  ---
+  duration_ms: 0.595625
+  ...
+# Subtest: fixes R4 visible join separator
+ok 76 - fixes R4 visible join separator
+  ---
+  duration_ms: 3.503292
+  ...
+# Subtest: fixes R6 React Native Alert import alias
+ok 77 - fixes R6 React Native Alert import alias
+  ---
+  duration_ms: 0.675
+  ...
+# Subtest: fixes R7 serialized visible string
+ok 78 - fixes R7 serialized visible string
+  ---
+  duration_ms: 0.3735
+  ...
+# Subtest: R3 mixed-case template static span is allowed
+ok 79 - R3 mixed-case template static span is allowed
+  ---
+  duration_ms: 0.22075
+  ...
+# Subtest: R4 empty and singleton joins do not render their separator
+ok 80 - R4 empty and singleton joins do not render their separator
+  ---
+  duration_ms: 0.260334
+  ...
+# Subtest: R5 array length is numeric and never exposes its internal strings
+ok 81 - R5 array length is numeric and never exposes its internal strings
+  ---
+  duration_ms: 0.339166
+  ...
+# Subtest: R6 unrelated alert method is not the React Native sink
+ok 82 - R6 unrelated alert method is not the React Native sink
+  ---
+  duration_ms: 0.334708
+  ...
+# Subtest: R7 real HTTP serialized body remains transport while adjacent serialization is visible
+ok 83 - R7 real HTTP serialized body remains transport while adjacent serialization is visible
+  ---
+  duration_ms: 0.290334
+  ...
+# Subtest: R2-A namespace import resolves copy at its exported origin
+ok 84 - R2-A namespace import resolves copy at its exported origin
+  ---
+  duration_ms: 0.618833
+  ...
+# Subtest: R2-B empty spread before singleton does not render join separator
+ok 85 - R2-B empty spread before singleton does not render join separator
+  ---
+  duration_ms: 0.249708
+  ...
+# Subtest: R2-B spread of two strings renders its join separator
+ok 86 - R2-B spread of two strings renders its join separator
+  ---
+  duration_ms: 0.285375
+  ...
+# Subtest: R2-C shadowing parameter does not inherit the Native Alert import
+ok 87 - R2-C shadowing parameter does not inherit the Native Alert import
+  ---
+  duration_ms: 0.37675
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 88 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 524.871042
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 89 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.636292
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 90 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.509
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 91 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 23.088792
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 92 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 6.674583
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 93 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.84575
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 94 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.573083
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 95 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 9.157125
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 96 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.357458
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 97 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.753875
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 98 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.726917
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 99 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 14.14575
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 100 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 8.235458
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 101 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 272.297375
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 102 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.697708
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 103 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.229084
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 104 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.526084
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 105 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.266125
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 106 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.507667
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 107 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.348667
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 108 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.277917
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 109 - ties the first-run flow to the copy WelcomeFlowScreen actually renders
+  ---
+  duration_ms: 1.231209
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 110 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.73775
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 111 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.818292
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 112 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 46.067292
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 113 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 4.783375
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 114 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 3.7475
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 115 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.104208
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 116 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.267875
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 117 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.692333
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 118 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 9.900167
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 119 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 5.051375
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 120 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 3.196417
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 121 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.852708
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 122 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.957083
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 123 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 36.362959
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 124 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 19.6345
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 125 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 14.166125
+  ...
+1..125
+# tests 125
+# suites 0
+# pass 125
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 726.073708
+
+Fix round 2 scanner/test ESLint exit 0, no output; git diff --check exit 0. CTA Jest evidence unchanged, not rerun.
+
+=== Fix round 3 final Node 20.20.2: three contracts plus original R1/R2/R3 repros ===
+TAP version 13
+# Subtest: R1 destructured function return
+ok 1 - R1 destructured function return
+  ---
+  duration_ms: 11.132
+  ...
+# Subtest: R2 returned array retains argument environment
+ok 2 - R2 returned array retains argument environment
+  ---
+  duration_ms: 1.653833
+  ...
+# Subtest: R3 uppercase static template
+ok 3 - R3 uppercase static template
+  ---
+  duration_ms: 1.6475
+  ...
+# Subtest: R4 visible join separator
+ok 4 - R4 visible join separator
+  ---
+  duration_ms: 1.3085
+  ...
+# Subtest: R5 numeric array length is not text elements
+ok 5 - R5 numeric array length is not text elements
+  ---
+  duration_ms: 1.058458
+  ...
+# Subtest: R6 renamed React Native Alert sink
+ok 6 - R6 renamed React Native Alert sink
+  ---
+  duration_ms: 1.863209
+  ...
+# Subtest: R7 serialized visible text is not transport
+ok 7 - R7 serialized visible text is not transport
+  ---
+  duration_ms: 0.734333
+  ...
+# Subtest: R2-A namespace copy import remains resolved
+ok 8 - R2-A namespace copy import remains resolved
+  ---
+  duration_ms: 15.348875
+  ...
+# Subtest: R2-B singleton join with empty spread has no visible separator
+ok 9 - R2-B singleton join with empty spread has no visible separator
+  ---
+  duration_ms: 2.298
+  ...
+# Subtest: R2-C shadowing parameter is not imported Native Alert
+ok 10 - R2-C shadowing parameter is not imported Native Alert
+  ---
+  duration_ms: 2.232458
+  ...
+# Subtest: R3-A join preserves static text origins in conditional array spreads
+ok 11 - R3-A join preserves static text origins in conditional array spreads
+  ---
+  duration_ms: 10.918708
+  ...
+# Subtest: parses only the closed, finite and mode-matching performance envelope
+ok 12 - parses only the closed, finite and mode-matching performance envelope
+  ---
+  duration_ms: 0.82875
+  ...
+# Subtest: extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+ok 13 - extracts end-to-end cold start and Home-to-Lesson durations from completed Maestro commands
+  ---
+  duration_ms: 0.1315
+  ...
+# Subtest: uses nearest-rank p95 and closes all four gates with twenty samples
+ok 14 - uses nearest-rank p95 and closes all four gates with twenty samples
+  ---
+  duration_ms: 1.205625
+  ...
+# Subtest: uses only cold first frames for the delta while requiring one resume per active sample
+ok 15 - uses only cold first frames for the delta while requiring one resume per active sample
+  ---
+  duration_ms: 0.776125
+  ...
+# Subtest: fails closed when an active cold cohort has no matching recovery provenance
+ok 16 - fails closed when an active cold cohort has no matching recovery provenance
+  ---
+  duration_ms: 0.449166
+  ...
+# Subtest: fails closed when a cohort has fewer than twenty valid samples
+ok 17 - fails closed when a cohort has fewer than twenty valid samples
+  ---
+  duration_ms: 0.5425
+  ...
+# Subtest: never demands a delta finer than the baseline own upper-tail spread
+ok 18 - never demands a delta finer than the baseline own upper-tail spread
+  ---
+  duration_ms: 0.726041
+  ...
+# Subtest: keeps the stricter fixed floor when the baseline is quiet
+ok 19 - keeps the stricter fixed floor when the baseline is quiet
+  ---
+  duration_ms: 0.411375
+  ...
+# Subtest: reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+ok 20 - reports inconclusive instead of an empty pass when the noise floor dominates the baseline
+  ---
+  duration_ms: 0.570334
+  ...
+# Subtest: stays conclusive at the noise floor an idle host produced
+ok 21 - stays conclusive at the noise floor an idle host produced
+  ---
+  duration_ms: 0.54425
+  ...
+# Subtest: treats a noise floor exactly at the ceiling as still conclusive
+ok 22 - treats a noise floor exactly at the ceiling as still conclusive
+  ---
+  duration_ms: 0.459417
+  ...
+# Subtest: gates the first-frame delta and keeps cold start advisory only
+ok 23 - gates the first-frame delta and keeps cold start advisory only
+  ---
+  duration_ms: 0.612792
+  ...
+# Subtest: fails the first-frame gate when the candidate regresses beyond the allowed delta
+ok 24 - fails the first-frame gate when the candidate regresses beyond the allowed delta
+  ---
+  duration_ms: 0.589917
+  ...
+# Subtest: fails closed when a baseline log carries any checkpoint metric
+ok 25 - fails closed when a baseline log carries any checkpoint metric
+  ---
+  duration_ms: 0.502333
+  ...
+# Subtest: accepts a baseline log that carries only the mode-independent startup mark
+ok 26 - accepts a baseline log that carries only the mode-independent startup mark
+  ---
+  duration_ms: 0.41175
+  ...
+# Subtest: fails closed when the first-frame cohort is short of twenty samples
+ok 27 - fails closed when the first-frame cohort is short of twenty samples
+  ---
+  duration_ms: 0.552416
+  ...
+# Copy AST: 325 sources, 1603 sinks, 135 findings; 922 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 28 - detects JSX Text jargon
+  ---
+  duration_ms: 10.423083
+  ...
+# Subtest: detects prop dash
+ok 29 - detects prop dash
+  ---
+  duration_ms: 1.682208
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 30 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 0.915
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 31 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 0.770834
+  ...
+# Subtest: detects uppercase literal
+ok 32 - detects uppercase literal
+  ---
+  duration_ms: 0.627458
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 33 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.538625
+  ...
+# Subtest: detects singular settings jargon
+ok 34 - detects singular settings jargon
+  ---
+  duration_ms: 0.429292
+  ...
+# Subtest: detects en dash with spaces
+ok 35 - detects en dash with spaces
+  ---
+  duration_ms: 1.104791
+  ...
+# Subtest: detects template static span
+ok 36 - detects template static span
+  ---
+  duration_ms: 2.95375
+  ...
+# Subtest: detects template interpolation
+ok 37 - detects template interpolation
+  ---
+  duration_ms: 0.723125
+  ...
+# Subtest: detects local alias
+ok 38 - detects local alias
+  ---
+  duration_ms: 1.03775
+  ...
+# Subtest: detects object property
+ok 39 - detects object property
+  ---
+  duration_ms: 1.1025
+  ...
+# Subtest: detects array element
+ok 40 - detects array element
+  ---
+  duration_ms: 1.492958
+  ...
+# Subtest: detects map array copy
+ok 41 - detects map array copy
+  ---
+  duration_ms: 0.890917
+  ...
+# Subtest: detects copy function return
+ok 42 - detects copy function return
+  ---
+  duration_ms: 0.572666
+  ...
+# Subtest: detects copy function argument
+ok 43 - detects copy function argument
+  ---
+  duration_ms: 0.553625
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 44 - detects ternary ignores discriminant
+  ---
+  duration_ms: 0.590625
+  ...
+# Subtest: detects Alert title and message
+ok 45 - detects Alert title and message
+  ---
+  duration_ms: 4.525583
+  ...
+# Subtest: detects hint is copy
+ok 46 - detects hint is copy
+  ---
+  duration_ms: 0.281333
+  ...
+# Subtest: detects shared uppercase style
+ok 47 - detects shared uppercase style
+  ---
+  duration_ms: 0.521958
+  ...
+# Subtest: detects uppercase call on text
+ok 48 - detects uppercase call on text
+  ---
+  duration_ms: 0.289291
+  ...
+# Subtest: detects nested copy objects
+ok 49 - detects nested copy objects
+  ---
+  duration_ms: 0.280792
+  ...
+# Subtest: detects Pixel phrases array
+ok 50 - detects Pixel phrases array
+  ---
+  duration_ms: 0.490625
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 51 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 1.760959
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 52 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.612166
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 53 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 0.779333
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 54 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.238917
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 55 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.469
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 56 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 0.789917
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 57 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.664333
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 58 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.2775
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 59 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.073958
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 60 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.344083
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 61 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.282666
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 62 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.28225
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 63 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 1.134125
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 64 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.364042
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 65 - resolves copy from array find and map return values
+  ---
+  duration_ms: 0.362916
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 66 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.366208
+  ...
+# Subtest: resolves root and src path aliases
+ok 67 - resolves root and src path aliases
+  ---
+  duration_ms: 0.519667
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 68 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.467417
+  ...
+# Subtest: resolves default imported text
+ok 69 - resolves default imported text
+  ---
+  duration_ms: 0.543542
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 70 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 1.960167
+  ...
+# Subtest: fixes R1 destructured function return
+ok 71 - fixes R1 destructured function return
+  ---
+  duration_ms: 0.816
+  ...
+# Subtest: fixes R1 renamed local binding
+ok 72 - fixes R1 renamed local binding
+  ---
+  duration_ms: 0.853084
+  ...
+# Subtest: fixes R2 returned array parameter environment
+ok 73 - fixes R2 returned array parameter environment
+  ---
+  duration_ms: 0.75525
+  ...
+# Subtest: fixes R2 returned shorthand parameter environment
+ok 74 - fixes R2 returned shorthand parameter environment
+  ---
+  duration_ms: 1.136958
+  ...
+# Subtest: fixes R2 returned property parameter environment
+ok 75 - fixes R2 returned property parameter environment
+  ---
+  duration_ms: 2.146292
+  ...
+# Subtest: fixes R3 uppercase template number
+ok 76 - fixes R3 uppercase template number
+  ---
+  duration_ms: 0.839291
+  ...
+# Subtest: fixes R4 visible join separator
+ok 77 - fixes R4 visible join separator
+  ---
+  duration_ms: 0.544125
+  ...
+# Subtest: fixes R6 React Native Alert import alias
+ok 78 - fixes R6 React Native Alert import alias
+  ---
+  duration_ms: 1.184792
+  ...
+# Subtest: fixes R7 serialized visible string
+ok 79 - fixes R7 serialized visible string
+  ---
+  duration_ms: 0.447458
+  ...
+# Subtest: R3 mixed-case template static span is allowed
+ok 80 - R3 mixed-case template static span is allowed
+  ---
+  duration_ms: 0.228792
+  ...
+# Subtest: R4 empty and singleton joins do not render their separator
+ok 81 - R4 empty and singleton joins do not render their separator
+  ---
+  duration_ms: 0.262875
+  ...
+# Subtest: R5 array length is numeric and never exposes its internal strings
+ok 82 - R5 array length is numeric and never exposes its internal strings
+  ---
+  duration_ms: 0.319958
+  ...
+# Subtest: R6 unrelated alert method is not the React Native sink
+ok 83 - R6 unrelated alert method is not the React Native sink
+  ---
+  duration_ms: 0.318125
+  ...
+# Subtest: R7 real HTTP serialized body remains transport while adjacent serialization is visible
+ok 84 - R7 real HTTP serialized body remains transport while adjacent serialization is visible
+  ---
+  duration_ms: 0.275209
+  ...
+# Subtest: R2-A namespace import resolves copy at its exported origin
+ok 85 - R2-A namespace import resolves copy at its exported origin
+  ---
+  duration_ms: 0.601041
+  ...
+# Subtest: R2-B empty spread before singleton does not render join separator
+ok 86 - R2-B empty spread before singleton does not render join separator
+  ---
+  duration_ms: 0.250125
+  ...
+# Subtest: R2-B spread of two strings renders its join separator
+ok 87 - R2-B spread of two strings renders its join separator
+  ---
+  duration_ms: 0.280375
+  ...
+# Subtest: R2-C shadowing parameter does not inherit the Native Alert import
+ok 88 - R2-C shadowing parameter does not inherit the Native Alert import
+  ---
+  duration_ms: 0.366917
+  ...
+# Subtest: R3-A join retains static origins from conditional array spreads
+ok 89 - R3-A join retains static origins from conditional array spreads
+  ---
+  duration_ms: 0.282459
+  ...
+# Subtest: R3-A alternative singleton arrays do not manufacture a join separator
+ok 90 - R3-A alternative singleton arrays do not manufacture a join separator
+  ---
+  duration_ms: 0.249833
+  ...
+# Subtest: R3-A two-item alternatives retain origins and their guaranteed separator
+ok 91 - R3-A two-item alternatives retain origins and their guaranteed separator
+  ---
+  duration_ms: 0.350666
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 92 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 487.139583
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 93 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.654917
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 94 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 9.848125
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 95 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 19.219791
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 96 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 6.130333
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 97 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.668208
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 98 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.635458
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 99 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 10.510084
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 100 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.7675
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 101 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.805709
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 102 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 6.974
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 103 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 11.449958
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 104 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.997625
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 105 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 255.05575
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 106 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.381125
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 107 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.219041
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 108 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.852875
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 109 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.225625
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 110 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.282375
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 111 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.248333
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 112 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.238292
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 113 - ties the first-run flow to the copy WelcomeFlowScreen actually renders
+  ---
+  duration_ms: 0.748084
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 114 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.580167
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 115 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.654791
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 116 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 47.548041
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 117 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 3.820291
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 118 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 3.206541
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 119 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.935791
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 120 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.333291
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 121 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.961666
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 122 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 7.169958
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 123 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 3.405458
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 124 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 3.167375
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 125 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 5.541708
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 126 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.341958
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 127 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 33.81675
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 128 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.77125
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 129 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 13.928583
+  ...
+1..129
+# tests 129
+# suites 0
+# pass 129
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 695.929
+
+Fix round 3 scanner/test ESLint exit 0, no output; git diff --check exit 0. No unchanged Jest rerun.

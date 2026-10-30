@@ -102,3 +102,11 @@ tags:
     centerElement: false
     visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
+
+# Ausência conhecida é distinta da conquista válida ainda bloqueada.
+# O deep link inválido retorna automaticamente, sem botão intermediário.
+- openLink:
+    link: "radiantapp://reward?nodeId=reward-inexistente"
+- assertVisible:
+    id: journey-trail
+- assertNotVisible: Conquista indisponível

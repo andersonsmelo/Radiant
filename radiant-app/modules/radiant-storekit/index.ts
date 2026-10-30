@@ -18,6 +18,9 @@ export type RadiantStoreKitProduct = {
     id: string;
     displayName: string;
     displayPrice: string;
+    /** Número e moeda da loja; ausentes em binários anteriores a este contrato. */
+    price?: number;
+    currencyCode?: string;
 };
 
 /** Sem identificador de transação: o que não atravessa não vai parar em log. */

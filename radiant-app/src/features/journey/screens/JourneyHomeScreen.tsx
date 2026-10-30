@@ -23,10 +23,14 @@ import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
-import { JourneyRecommendationCard } from '../components/JourneyRecommendationCard';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+import { getRecommendationActionCopy } from '../components/nodeCopy';
+import { useTrailMoment } from '../hooks/useTrailMoment';
 import { PushService } from '../../push/services/PushService';
-import { PushOptInCard } from '../../push/components/PushOptInCard';
+import { ReminderRow } from '../../push/components/ReminderRow';
+import { JourneyReviewRow } from '../components/JourneyReviewRow';
+import { JourneyStarsService } from '../services/JourneyStarsService';
+import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -41,11 +45,13 @@ export default function JourneyHomeScreen() {
   const [trail, setTrail] = useState<CurriculumTrail | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  const [starsByLessonId, setStarsByLessonId] = useState<Record<string, LessonStars>>({});
   // Lembrete diário (ADR de 2026-10-16). A Home legada era a única que
-  // agendava e convidava, e ela não se alcança com a trilha. O convite aparece
-  // uma vez aqui, na volta da primeira lição concluída, e não no resumo da
-  // lição, que fica limpo por decisão de 2026-08-14.
-  const [pushInviteVisible, setPushInviteVisible] = useState(false);
+  // agendava e convidava, e ela não se alcança com a trilha. A linha do
+  // lembrete aparece aqui, na volta da primeira lição concluída, e não no
+  // resumo da lição, que fica limpo por decisão de 2026-08-14. Ela é um
+  // interruptor e não um convite: continua ali para quem quiser mudar de ideia.
+  const [reminderVisible, setReminderVisible] = useState(false);
   // O esqueleto é só da primeira leitura. Na volta à aba a releitura é
   // silenciosa: trocar a lista pelo carregamento a desmontava, e o aluno
   // voltava com a trilha no topo (visto no simulador em 2026-10-16).
@@ -58,26 +64,31 @@ export default function JourneyHomeScreen() {
       // A meta do dia saiu daqui com o hero: ela tem superfície própria e
       // completa na aba Missões, com seleção de nível, e duplicá-la na trilha
       // era o que fazia o primeiro quadro de Estude não mostrar trilha nenhuma.
-      const [nextSnapshot, nextTrail, nextHearts] = await Promise.all([
+      const [nextSnapshot, nextTrail, nextHearts, nextStars] = await Promise.all([
         JourneyProgressService.bootstrap(),
         JourneyCurriculumService.getCurriculumTrail(),
         heartsRepository.getSnapshot(Date.now()),
+        // Estrelas são enfeite da medalha: não ler o recorde não pode derrubar
+        // a trilha. Sem elas, a aula concluída aparece em ouro, sem estrelas.
+        JourneyStarsService.getRecordStarsByLessonId().catch((cause) => {
+          console.error('[JourneyHomeScreen] Failed to load lesson stars:', cause);
+          return {} as Record<string, LessonStars>;
+        }),
       ]);
       setSnapshot(nextSnapshot);
       setTrail(nextTrail);
       setHearts(nextHearts);
+      setStarsByLessonId(nextStars);
       const hasCompletedLesson = nextTrail.segments.some((segment) =>
         segment.units.some((unit) =>
           unit.nodes.some((node) => node.type === 'lesson' && node.status === 'completed'),
         ),
       );
-      if (hasCompletedLesson) {
-        void PushService.getOptIn().then((decision) => setPushInviteVisible(decision === null));
-      }
+      setReminderVisible(hasCompletedLesson);
       hasLoadedRef.current = true;
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
-      setError('Não foi possível carregar a jornada.');
+      setError('Não foi possível carregar a trilha.');
     } finally {
       setLoading(false);
     }
@@ -158,32 +169,51 @@ export default function JourneyHomeScreen() {
     router.push(href);
   }, [canOpenNode, snapshot?.nextDecision]);
 
-  const futureReviewAtMs = useMemo(() => {
-    const dates = (snapshot?.track.units.flatMap(unit => unit.nodes) ?? [])
-      .filter(node => node.type === 'review' && Number.isFinite(node.reviewAvailableAtMs)
-        && node.reviewAvailableAtMs! > Date.now())
-      .map(node => node.reviewAvailableAtMs!);
-    return dates.length > 0 ? Math.min(...dates) : undefined;
-  }, [snapshot]);
+  const dueReviewNode = useMemo(
+    () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node =>
+      node.type === 'review' && node.status === 'due-review' && canOpenNode(node) && getJourneyNodeHref(node) != null) ?? null,
+    [snapshot, canOpenNode],
+  );
+
+  const dueReviewCount = snapshot?.nextDecision?.dueReviewCount ?? snapshot?.dueReviewCount ?? 0;
 
   const trailHeader = (
     <View style={styles.trailHeader}>
-      {pushInviteVisible ? <PushOptInCard onDismiss={() => setPushInviteVisible(false)} /> : null}
       <JourneyStageHeader title={currentStage.title} completed={currentStage.completed} total={currentStage.total} />
-      <JourneyRecommendationCard
-        node={homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null}
-        reason={snapshot?.nextDecision?.reason}
-        futureReviewAtMs={futureReviewAtMs}
-        onOpen={() => { if (homeNextNode) void openNode(homeNextNode); }}
-        accessory={<PixelIllustration size="sm" state="guide" />}
+      {/* Sem o nó de revisão a linha não teria para onde levar: some junto. */}
+      <JourneyReviewRow
+        dueCount={dueReviewNode ? dueReviewCount : 0}
+        onPress={() => { if (dueReviewNode) void openNode(dueReviewNode); }}
       />
     </View>
   );
 
-  const dueReviewNode = useMemo(
-    () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node => node.status === 'due-review') ?? null,
-    [snapshot],
-  );
+  const recommendedNodeId = snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId;
+  const completedNodeIds = useMemo(() => new Set(
+    (trail?.segments ?? []).flatMap(segment => segment.units.flatMap(unit =>
+      unit.nodes.filter(node => node.status === 'completed').map(node => node.id))),
+  ), [trail]);
+  // O momento do Pixel: na volta de uma aula concluída, ele anda até a próxima.
+  const moment = useTrailMoment(recommendedNodeId, completedNodeIds);
+
+  // A medalha azul com o Pixel ao lado é a recomendação (Regra Sem Cara de IA):
+  // o cartão saiu, e o botão que ele tinha fica sob a medalha. Ele abre o mesmo
+  // nó que a medalha, e só existe quando esse nó abre agora. A revisão que
+  // ainda não abriu diz quando abre no rótulo da própria medalha.
+  const actionNode = homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null;
+  const actionLabel = actionNode ? getRecommendationActionCopy(actionNode, snapshot?.nextDecision?.reason) : null;
+  const recommendedAction = actionNode && actionLabel ? (
+    <View testID="journey-recommendation-action" collapsable={false}>
+      <AppButton
+        label={actionLabel}
+        variant="galaxy"
+        fullWidth={false}
+        onPress={() => { void openNode(actionNode); }}
+        accessibilityLabel={actionLabel}
+        accessibilityHint="Abre o próximo passo elegível da trilha ativa."
+      />
+    </View>
+  ) : null;
 
   return (
     <View style={styles.root} testID="journey-home-screen">
@@ -195,7 +225,7 @@ export default function JourneyHomeScreen() {
           hearts={hearts?.count ?? MAX_HEARTS}
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
-          onHeartsPress={() => setHeartsSheetVisible(true)}
+          onHeartsPress={() => { if (hearts && hearts.status !== 'unlimited') setHeartsSheetVisible(true); }}
         />
         {loading ? (
           <View style={styles.centered}>
@@ -218,14 +248,23 @@ export default function JourneyHomeScreen() {
           <View style={styles.content}>
             <JourneyTrail
               header={trailHeader}
+              footer={<ReminderRow visible={reminderVisible} />}
               segments={trail?.segments ?? []}
-              recommendedNodeId={snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId}
+              recommendedNodeId={recommendedNodeId}
               recommendationReason={snapshot?.nextDecision?.reason}
-              dueReviewCount={snapshot?.nextDecision?.dueReviewCount ?? snapshot?.dueReviewCount ?? 0}
+              dueReviewCount={dueReviewCount}
+              starsByLessonId={starsByLessonId}
               onNodePress={(node) => {
                 void openNode(node);
               }}
               isNodeDisabled={(node) => !canOpenNode(node)}
+              pixelSlot={(nodeId) => (nodeId === recommendedNodeId
+                ? <PixelIllustration variant="head" size="sm" expression="feliz" />
+                : null)}
+              recommendedAction={recommendedAction}
+              moment={moment.playing && moment.fromNodeId && moment.toNodeId
+                ? { fromNodeId: moment.fromNodeId, toNodeId: moment.toNodeId, onDone: moment.done }
+                : undefined}
             />
           </View>
         )}
@@ -234,7 +273,7 @@ export default function JourneyHomeScreen() {
         <HeartsSheet
           visible={heartsSheetVisible && hearts.status !== 'unlimited'}
           snapshot={hearts}
-          dueReviewCount={snapshot?.dueReviewCount ?? 0}
+          dueReviewCount={dueReviewNode ? dueReviewCount : 0}
           storeAvailable={subscriptionService.storeAvailable()}
           onClose={() => setHeartsSheetVisible(false)}
           onReview={() => {

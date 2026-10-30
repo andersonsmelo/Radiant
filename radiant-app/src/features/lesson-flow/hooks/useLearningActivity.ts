@@ -4,6 +4,7 @@ import {
     isCompleteInteractionValue,
     isCorrectInteractionValue,
 } from '../renderers/InteractionAnswerValue';
+import { feedbackFor } from '../services/feedbackFor';
 
 /**
  * Estado do player de uma atividade v2.
@@ -106,7 +107,7 @@ export function useLearningActivity(
             }
             setLastFeedback({
                 correct,
-                message: correct ? interaction.feedback.correct : interaction.feedback.incorrect,
+                message: feedbackFor(interaction, value, correct),
             });
             if (feedbackPerItem) {
                 setShowingFeedback(true);

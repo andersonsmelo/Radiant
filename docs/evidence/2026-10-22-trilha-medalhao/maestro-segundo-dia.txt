@@ -1,0 +1,114 @@
+Running on Radiant E2E dia 2 (2026-10-18) - iOS 26.5 - 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... FAILED
+
+Assertion is false: "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible
+
+Assertion '"^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/artifacts/t7-dia2/2026-10-22_133551
+╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                │
+│   Debug tests faster by easy access to test recordings, maestro logs, screenshots, and more.   │
+│                                                                                                │
+│   Run your flows on Maestro Cloud:                                                             │
+│   maestro cloud app_file flows_folder/                                                         │
+│                                                                                                │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+
+REEXECUCAO apos dispensar alerta do iOS; sem mudar dados/relogio. 2026-10-22T13:37:08.451700
+Running on Radiant E2E dia 2 (2026-10-18) - iOS 26.5 - 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... FAILED
+
+Assertion is false: "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible
+
+Assertion '"^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/artifacts/t7-dia2-sem-alerta/2026-10-22_133710
+
+Exit code 1
+
+TERCEIRA EXECUÇÃO, após14:06 BRT — data22/10/2026 13:56 vencida naturalmente. Mesmo5FD8C926, sem clearState nem alteração de dados/relógio.
+Running on Radiant E2E dia 2 (2026-10-18) - iOS 26.5 - 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling DOWN until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling UP until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$"... COMPLETED
+Assert that "Passo 1 de 4" is visible... COMPLETED
+Assert that "Retome rapidamente o conceito central antes de seguir adiante." is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "Revisão concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$" is visible... COMPLETED
+
+Terceira execução: Exit code 0.

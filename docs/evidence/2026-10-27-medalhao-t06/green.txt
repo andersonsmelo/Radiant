@@ -1,0 +1,1691 @@
+PHASE: focal after product
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/journey/services/JourneyNodeCompletionGuard.test.tsx src/features/journey/services/JourneyProgressService.test.ts src/features/student-checkpoints/screen-integrations.test.ts
+v20.20.2
+PASS src/features/journey/services/JourneyProgressService.test.ts
+  ● Console
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Refused to complete locked node "node:foundation-2" (status: locked)
+
+      175 |         if (!JourneyRecommendationService.isNodeUnlocked(node, progress)) {
+      176 |             const status = JourneyRecommendationService.resolveNodeStatus(node, progress);
+    > 177 |             console.warn(
+          |                     ^
+      178 |                 `[JourneyProgressService] Refused to complete locked node "${nodeId}" (status: ${status})`
+      179 |             );
+      180 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:177:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Tried to complete unknown node "node:inexistente"
+
+      156 |
+      157 |         if (!node) {
+    > 158 |             console.warn(`[JourneyProgressService] Tried to complete unknown node "${nodeId}"`);
+          |                     ^
+      159 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+      160 |         }
+      161 |
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:158:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (8.429 s)
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx
+  ● Console
+
+    console.error
+      [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+          at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:499:45)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      508 |             } catch (cause) {
+    > 509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      510 |
+      511 |                 if (cancelado) {
+      512 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:509:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/student-checkpoints/screen-integrations.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       85 passed, 85 total
+Snapshots:   0 total
+Time:        10.827 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx|src\/features\/journey\/services\/JourneyNodeCompletionGuard.test.tsx|src\/features\/journey\/services\/JourneyProgressService.test.ts|src\/features\/student-checkpoints\/screen-integrations.test.ts/i.
+
+EXIT: 0
+
+PHASE: contract/static
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 node --test scripts/maestro-contract.test.mjs
+v20.20.2
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 6.995167
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.726292
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 18.617125
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 5.408416
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.631167
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.977667
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 7.631875
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.492166
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 0.886708
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.36
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 9.536958
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.385667
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 216.608042
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.327834
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.50275
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.416916
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.247916
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.28575
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.269708
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.190958
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.163875
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 3.954583
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 1.938
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.345208
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 30.93525
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.410875
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.504208
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.62675
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 0.978542
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.639708
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 5.022625
+  ...
+# Subtest: reward exit flows follow the bound Continue action and return an invalid link to the trail
+ok 32 - reward exit flows follow the bound Continue action and return an invalid link to the trail
+  ---
+  duration_ms: 4.613083
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 33 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.9785
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 34 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.892208
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 35 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.013875
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 36 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.065292
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 37 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 28.4695
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 38 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 15.698791
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 39 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 11.772917
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 515.327583
+
+EXIT: 0
+
+PHASE: contract/static
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install tsc --noEmit
+v20.20.2
+src/features/rewards/screens/RewardScreen.flow.test.tsx(289,26): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/rewards/screens/RewardScreen.flow.test.tsx(301,26): error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+EXIT: 2
+
+PHASE: contract/static
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install eslint src/features/rewards/screens/RewardScreen.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx scripts/maestro-contract.test.mjs
+v20.20.2
+
+EXIT: 0
+
+PHASE: contract/static
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npm run visual:qa:strict
+v20.20.2
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 463 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+EXIT: 0
+
+PHASE: final restored product / final tests
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 /usr/sbin/taskpolicy -b npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/journey/services/JourneyNodeCompletionGuard.test.tsx src/features/journey/services/JourneyProgressService.test.ts src/features/student-checkpoints/screen-integrations.test.ts
+v20.20.2
+PASS src/features/journey/services/JourneyProgressService.test.ts
+  ● Console
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Refused to complete locked node "node:foundation-2" (status: locked)
+
+      175 |         if (!JourneyRecommendationService.isNodeUnlocked(node, progress)) {
+      176 |             const status = JourneyRecommendationService.resolveNodeStatus(node, progress);
+    > 177 |             console.warn(
+          |                     ^
+      178 |                 `[JourneyProgressService] Refused to complete locked node "${nodeId}" (status: ${status})`
+      179 |             );
+      180 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:177:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Tried to complete unknown node "node:inexistente"
+
+      156 |
+      157 |         if (!node) {
+    > 158 |             console.warn(`[JourneyProgressService] Tried to complete unknown node "${nodeId}"`);
+          |                     ^
+      159 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+      160 |         }
+      161 |
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:158:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (42.692 s)
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx (6.885 s)
+  ● Console
+
+    console.error
+      [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+          at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:499:45)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      508 |             } catch (cause) {
+    > 509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      510 |
+      511 |                 if (cancelado) {
+      512 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:509:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/student-checkpoints/screen-integrations.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       85 passed, 85 total
+Snapshots:   0 total
+Time:        54.844 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx|src\/features\/journey\/services\/JourneyNodeCompletionGuard.test.tsx|src\/features\/journey\/services\/JourneyProgressService.test.ts|src\/features\/student-checkpoints\/screen-integrations.test.ts/i.
+
+EXIT: 0
+
+PHASE: final restored product / final tests
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/journey/screens/JourneyHomeScreen.flow.test.tsx src/features/journey/services/JourneyDefinitionService.test.ts src/features/journey/services/JourneyRecommendationService.test.ts src/features/journey/services/JourneyUnitProgress.test.ts
+v20.20.2
+PASS src/features/journey/screens/JourneyHomeScreen.flow.test.tsx (17.571 s)
+  ● Console
+
+    console.error
+      [JourneyHomeScreen] Failed to load journey snapshot: Error: storage unavailable
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx:545:66)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      88 |       hasLoadedRef.current = true;
+      89 |     } catch (cause) {
+    > 90 |       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
+         |               ^
+      91 |       setError('Não foi possível carregar a trilha.');
+      92 |     } finally {
+      93 |       setLoading(false);
+
+      at error (src/features/journey/screens/JourneyHomeScreen.tsx:90:15)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+PASS src/features/journey/services/JourneyRecommendationService.test.ts
+PASS src/features/journey/services/JourneyDefinitionService.test.ts
+PASS src/features/journey/services/JourneyUnitProgress.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       76 passed, 76 total
+Snapshots:   0 total
+Time:        18.197 s
+Ran all test suites matching /src\/features\/journey\/screens\/JourneyHomeScreen.flow.test.tsx|src\/features\/journey\/services\/JourneyDefinitionService.test.ts|src\/features\/journey\/services\/JourneyRecommendationService.test.ts|src\/features\/journey\/services\/JourneyUnitProgress.test.ts/i.
+
+EXIT: 0
+
+PHASE: final restored product / final tests
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 node --test scripts/maestro-contract.test.mjs
+v20.20.2
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.2915
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.071834
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 17.562375
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 5.151708
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.715875
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.915334
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 7.485083
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.415792
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.04975
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.423
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 9.235542
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.763125
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 228.474625
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.247917
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.193208
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.408208
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.254375
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.271167
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.253458
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.26725
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.144833
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 4.7925
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 1.550208
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.403292
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 33.617375
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.349667
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.473125
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.615625
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 0.988917
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.617667
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 5.129625
+  ...
+# Subtest: reward exit flows follow the bound Continue action and return an invalid link to the trail
+ok 32 - reward exit flows follow the bound Continue action and return an invalid link to the trail
+  ---
+  duration_ms: 4.670208
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 33 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.839334
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 34 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.696583
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 35 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.19475
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 36 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.099
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 37 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 29.018167
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 38 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.891833
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 39 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 12.148375
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 555.197708
+
+EXIT: 0
+
+PHASE: final restored product / final tests
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install tsc --noEmit
+v20.20.2
+
+EXIT: 0
+
+PHASE: final restored product / final tests
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install eslint src/features/rewards/screens/RewardScreen.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx scripts/maestro-contract.test.mjs
+v20.20.2
+
+EXIT: 0
+
+PHASE: FIX1 restored minimum focal
+2026-10-28T06:20:36.165977-03:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t unidade ausente volta sem ativar nem coletar o nó
+v20.20.2
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (6.721 s)
+  RewardScreen flow
+    ✓ unidade ausente volta sem ativar nem coletar o nó (80 ms)
+    ○ skipped carrega a conquista da área anterior pelo destino e preserva o contexto da coleta
+    ○ skipped destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta
+    ○ skipped destino inválido lesson-1 volta automaticamente sem tela indisponível nem coleta
+    ○ skipped sem ID e sem recompensa disponível volta à trilha
+    ○ skipped leitura pendente não é ausência conhecida
+    ○ skipped erro de leitura mantém recuperação e não redireciona como inválido
+    ○ skipped já coletada mostra medalha ouro real e Continuar sem nova coleta ou avaliação
+    ○ skipped recompensa disponível apresenta a medalha ouro sem inventar estrelas
+    ○ skipped erro de leitura permite tentar de novo sem conceder prêmio
+    ○ skipped coleta via fallback sem ID mantém a recompensa confirmada na tela
+    ○ skipped recusa do serviço não celebra nem solicita avaliação
+    ○ skipped barra invocações simultâneas e após confirmação pelo handler capturado
+    ○ skipped Continuar segue o destino real de lesson
+    ○ skipped Continuar segue o destino real de review
+    ○ skipped Continuar segue o destino real de checkpoint
+    ○ skipped Continuar segue o destino real de reward
+    ○ skipped destino recomendado bloqueado volta à trilha
+    ○ skipped fechar e saída secundária navegam sem conceder prêmio
+    ○ skipped explica que a coleta opcional não libera etapas
+    ○ skipped collects an available reward and updates the journey snapshot
+    ○ skipped conta só os marcos primários da unidade — review completo não entra no total nem no concluído
+    ○ skipped does not offer collection for a reward reached while still locked
+    ○ skipped never marks a locked reward completed, even if the collect path is reached
+    HUD — vidas do heartsRepository, não do contador legado
+      ○ skipped mostra as vidas que a lição descontou
+      ○ skipped assinante vê ∞
+    canCollectReward — a decisão que o handler de coleta consulta
+      ○ skipped recusa um no bloqueado
+      ○ skipped recusa todo status que nao seja disponivel ou ativo
+      ○ skipped recusa quando a conquista ja foi coletada nesta sessao
+      ○ skipped recusa quando nao ha no resolvido
+      ○ skipped aceita o no disponivel e o ativo, senao a correcao vira "nada coleta"
+
+Test Suites: 1 passed, 1 total
+Tests:       30 skipped, 1 passed, 31 total
+Snapshots:   0 total
+Time:        6.862 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx/i with tests matching "unidade ausente volta sem ativar nem coletar o nó".
+
+EXIT: 0
+
+FIX1 exact command: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t 'unidade ausente volta sem ativar nem coletar o nó'
+FIX1 argv: ["npx", "--no-install", "jest", "--runInBand", "--no-cache", "src/features/rewards/screens/RewardScreen.flow.test.tsx", "-t", "unidade ausente volta sem ativar nem coletar o nó"]
+
+PHASE: FIX2 reward full focal after local host renewal
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx
+v20.20.2
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (8.933 s)
+  RewardScreen flow
+    ✓ FIX2 renova fala e eyebrow em 1 → 3.1 sem remontar estado ou saídas (503 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 2.5 sem remontar estado ou saídas (65 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 1 sem remontar estado ou saídas (65 ms)
+    ✓ FIX2 mantém coleta em andamento e confirmação ao mudar fonte, sem repetir ganho ou avaliação (111 ms)
+    ✓ carrega a conquista da área anterior pelo destino e preserva o contexto da coleta (41 ms)
+    ✓ destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta (52 ms)
+    ✓ destino inválido lesson-1 volta automaticamente sem tela indisponível nem coleta (54 ms)
+    ✓ unidade ausente volta sem ativar nem coletar o nó (54 ms)
+    ✓ sem ID e sem recompensa disponível volta à trilha (55 ms)
+    ✓ leitura pendente não é ausência conhecida (5 ms)
+    ✓ erro de leitura mantém recuperação e não redireciona como inválido (56 ms)
+    ✓ já coletada mostra medalha ouro real e Continuar sem nova coleta ou avaliação (70 ms)
+    ✓ recompensa disponível apresenta a medalha ouro sem inventar estrelas (53 ms)
+    ✓ erro de leitura permite tentar de novo sem conceder prêmio (106 ms)
+    ✓ coleta via fallback sem ID mantém a recompensa confirmada na tela (167 ms)
+    ✓ recusa do serviço não celebra nem solicita avaliação (106 ms)
+    ✓ barra invocações simultâneas e após confirmação pelo handler capturado (89 ms)
+    ✓ Continuar segue o destino real de lesson (55 ms)
+    ✓ Continuar segue o destino real de review (54 ms)
+    ✓ Continuar segue o destino real de checkpoint (54 ms)
+    ✓ Continuar segue o destino real de reward (53 ms)
+    ✓ destino recomendado bloqueado volta à trilha (54 ms)
+    ✓ fechar e saída secundária navegam sem conceder prêmio (51 ms)
+    ✓ explica que a coleta opcional não libera etapas (52 ms)
+    ✓ collects an available reward and updates the journey snapshot (90 ms)
+    ✓ conta só os marcos primários da unidade — review completo não entra no total nem no concluído (52 ms)
+    ✓ does not offer collection for a reward reached while still locked (52 ms)
+    ✓ never marks a locked reward completed, even if the collect path is reached (51 ms)
+    HUD — vidas do heartsRepository, não do contador legado
+      ✓ mostra as vidas que a lição descontou (51 ms)
+      ✓ assinante vê ∞ (53 ms)
+    canCollectReward — a decisão que o handler de coleta consulta
+      ✓ recusa um no bloqueado
+      ✓ recusa todo status que nao seja disponivel ou ativo
+      ✓ recusa quando a conquista ja foi coletada nesta sessao
+      ✓ recusa quando nao ha no resolvido
+      ✓ aceita o no disponivel e o ativo, senao a correcao vira "nada coleta" (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       35 passed, 35 total
+Snapshots:   0 total
+Time:        9.079 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx/i.
+
+EXIT: 0
+
+PHASE: FIX2 final restored verification
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX2
+v20.20.2
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (7.298 s)
+  RewardScreen flow
+    ✓ FIX2 renova fala e eyebrow em 1 → 3.1 sem remontar estado ou saídas (501 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 2.5 sem remontar estado ou saídas (64 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 1 sem remontar estado ou saídas (65 ms)
+    ✓ FIX2 mantém coleta em andamento e confirmação ao mudar fonte, sem repetir ganho ou avaliação (110 ms)
+    ○ skipped carrega a conquista da área anterior pelo destino e preserva o contexto da coleta
+    ○ skipped destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta
+    ○ skipped destino inválido lesson-1 volta automaticamente sem tela indisponível nem coleta
+    ○ skipped unidade ausente volta sem ativar nem coletar o nó
+    ○ skipped sem ID e sem recompensa disponível volta à trilha
+    ○ skipped leitura pendente não é ausência conhecida
+    ○ skipped erro de leitura mantém recuperação e não redireciona como inválido
+    ○ skipped já coletada mostra medalha ouro real e Continuar sem nova coleta ou avaliação
+    ○ skipped recompensa disponível apresenta a medalha ouro sem inventar estrelas
+    ○ skipped erro de leitura permite tentar de novo sem conceder prêmio
+    ○ skipped coleta via fallback sem ID mantém a recompensa confirmada na tela
+    ○ skipped recusa do serviço não celebra nem solicita avaliação
+    ○ skipped barra invocações simultâneas e após confirmação pelo handler capturado
+    ○ skipped Continuar segue o destino real de lesson
+    ○ skipped Continuar segue o destino real de review
+    ○ skipped Continuar segue o destino real de checkpoint
+    ○ skipped Continuar segue o destino real de reward
+    ○ skipped destino recomendado bloqueado volta à trilha
+    ○ skipped fechar e saída secundária navegam sem conceder prêmio
+    ○ skipped explica que a coleta opcional não libera etapas
+    ○ skipped collects an available reward and updates the journey snapshot
+    ○ skipped conta só os marcos primários da unidade — review completo não entra no total nem no concluído
+    ○ skipped does not offer collection for a reward reached while still locked
+    ○ skipped never marks a locked reward completed, even if the collect path is reached
+    HUD — vidas do heartsRepository, não do contador legado
+      ○ skipped mostra as vidas que a lição descontou
+      ○ skipped assinante vê ∞
+    canCollectReward — a decisão que o handler de coleta consulta
+      ○ skipped recusa um no bloqueado
+      ○ skipped recusa todo status que nao seja disponivel ou ativo
+      ○ skipped recusa quando a conquista ja foi coletada nesta sessao
+      ○ skipped recusa quando nao ha no resolvido
+      ○ skipped aceita o no disponivel e o ativo, senao a correcao vira "nada coleta"
+
+Test Suites: 1 passed, 1 total
+Tests:       31 skipped, 4 passed, 35 total
+Snapshots:   0 total
+Time:        7.437 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx/i with tests matching "FIX2".
+
+EXIT: 0
+
+PHASE: FIX2 final restored verification
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 node --test scripts/maestro-contract.test.mjs
+v20.20.2
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 9.37575
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.159667
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 21.388042
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 5.556417
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.82825
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.912167
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 7.154416
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.464708
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.103584
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.651833
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 8.944042
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.66175
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 187.835791
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.301916
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.179625
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 1.41
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.176084
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.247167
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.263167
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.168375
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.149959
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 6.544708
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 6.188417
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.228208
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 34.389709
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.1935
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.345125
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.58125
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 0.909084
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.65275
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 4.982208
+  ...
+# Subtest: reward exit flows follow the bound Continue action and return an invalid link to the trail
+ok 32 - reward exit flows follow the bound Continue action and return an invalid link to the trail
+  ---
+  duration_ms: 4.666
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 33 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.753458
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 34 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.69375
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 35 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.015416
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 36 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.145291
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 37 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 28.764916
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 38 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.928666
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 39 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 11.955
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 621.046583
+
+EXIT: 0
+
+PHASE: FIX2 final restored verification
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install tsc --noEmit
+v20.20.2
+
+EXIT: 0
+
+PHASE: FIX2 final restored verification
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install eslint src/features/rewards/screens/RewardScreen.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx
+v20.20.2
+
+EXIT: 0
+
+PHASE: FIX2 final restored verification
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+COMMAND: EXPO_NO_DOTENV=1 npm run visual:qa:strict
+v20.20.2
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 463 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+EXIT: 0
+
+--- FIX3 GREEN inicial recompensa inteira ---
+UTC: 2026-10-28T10:34:43.924027+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (11.029 s)
+  RewardScreen flow
+    ✓ FIX2 renova fala e eyebrow em 1 → 3.1 sem remontar estado ou saídas (66 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 2.5 sem remontar estado ou saídas (59 ms)
+    ✓ FIX2 renova fala e eyebrow em 3.1 → 1 sem remontar estado ou saídas (61 ms)
+    ✓ FIX2 mantém coleta em andamento e confirmação ao mudar fonte, sem repetir ganho ou avaliação (133 ms)
+    ✓ carrega a conquista da área anterior pelo destino e preserva o contexto da coleta (54 ms)
+    ✓ destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta (53 ms)
+    ✓ destino inválido lesson-1 volta automaticamente sem tela indisponível nem coleta (53 ms)
+    ✓ unidade ausente volta sem ativar nem coletar o nó (52 ms)
+    ✓ sem ID e sem recompensa disponível volta à trilha (51 ms)
+    ✓ leitura pendente não é ausência conhecida (3 ms)
+    ✓ erro de leitura mantém recuperação e não redireciona como inválido (55 ms)
+    ✓ já coletada mostra medalha ouro real e Continuar sem nova coleta ou avaliação (56 ms)
+    ✓ recompensa disponível apresenta a medalha ouro sem inventar estrelas (54 ms)
+    ✓ erro de leitura permite tentar de novo sem conceder prêmio (103 ms)
+    ✓ coleta via fallback sem ID mantém a recompensa confirmada na tela (164 ms)
+    ✓ recusa do serviço não celebra nem solicita avaliação (106 ms)
+    ✓ barra invocações simultâneas e após confirmação pelo handler capturado (87 ms)
+    ✓ Continuar segue o destino real de lesson (55 ms)
+    ✓ Continuar segue o destino real de review (54 ms)
+    ✓ Continuar segue o destino real de checkpoint (54 ms)
+    ✓ Continuar segue o destino real de reward (56 ms)
+    ✓ destino recomendado bloqueado volta à trilha (54 ms)
+    ✓ fechar e saída secundária navegam sem conceder prêmio (52 ms)
+    ✓ explica que a coleta opcional não libera etapas (51 ms)
+    ✓ collects an available reward and updates the journey snapshot (84 ms)
+    ✓ conta só os marcos primários da unidade — review completo não entra no total nem no concluído (51 ms)
+    ✓ does not offer collection for a reward reached while still locked (53 ms)
+    ✓ never marks a locked reward completed, even if the collect path is reached (52 ms)
+    FIX3 textos locais fora do hero
+      ✓ renova cada Text em available, 1 → 3.1, mantendo controles e dados (630 ms)
+      ✓ renova cada Text em available, 3.1 → 2.5, mantendo controles e dados (73 ms)
+      ✓ renova cada Text em available, 3.1 → 1, mantendo controles e dados (72 ms)
+      ✓ renova cada Text em locked, 1 → 3.1, mantendo controles e dados (71 ms)
+      ✓ renova cada Text em locked, 3.1 → 2.5, mantendo controles e dados (70 ms)
+      ✓ renova cada Text em locked, 3.1 → 1, mantendo controles e dados (90 ms)
+      ✓ renova cada Text em completed, 1 → 3.1, mantendo controles e dados (86 ms)
+      ✓ renova cada Text em completed, 3.1 → 2.5, mantendo controles e dados (87 ms)
+      ✓ renova cada Text em completed, 3.1 → 1, mantendo controles e dados (85 ms)
+      ✓ renova erro de leitura ao vivo sem repetir pedido nem remontar botões (54 ms)
+      ✓ renova erro de coleta ao vivo sem repetir pedido nem remontar botões (126 ms)
+    HUD — vidas do heartsRepository, não do contador legado
+      ✓ mostra as vidas que a lição descontou (51 ms)
+      ✓ assinante vê ∞ (51 ms)
+    canCollectReward — a decisão que o handler de coleta consulta
+      ✓ recusa um no bloqueado
+      ✓ recusa todo status que nao seja disponivel ou ativo (2 ms)
+      ✓ recusa quando a conquista ja foi coletada nesta sessao (1 ms)
+      ✓ recusa quando nao ha no resolvido
+      ✓ aceita o no disponivel e o ativo, senao a correcao vira "nada coleta"
+
+Test Suites: 1 passed, 1 total
+Tests:       46 passed, 46 total
+Snapshots:   0 total
+Time:        11.263 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx/i.
+
+EXIT: 0
+SECONDS: 13.991
+
+--- FIX3 GREEN final restaurado: quatro suites focais sob taskpolicy-b ---
+UTC: 2026-10-28T10:36:33.451615+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 caffeinate -i /usr/sbin/taskpolicy -b npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/journey/services/JourneyNodeCompletionGuard.test.tsx src/features/journey/services/JourneyProgressService.test.ts src/features/student-checkpoints/screen-integrations.test.ts
+PASS src/features/rewards/screens/RewardScreen.flow.test.tsx (38.111 s)
+PASS src/features/journey/services/JourneyProgressService.test.ts
+  ● Console
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Store com schema desconhecido preservado, sem escrita.
+
+      448 |         const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+      449 |         if (isUnrecognizedJourneyStore(current)) {
+    > 450 |             console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+          |                     ^
+      451 |             return;
+      452 |         }
+      453 |         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:450:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Refused to complete locked node "node:foundation-2" (status: locked)
+
+      175 |         if (!JourneyRecommendationService.isNodeUnlocked(node, progress)) {
+      176 |             const status = JourneyRecommendationService.resolveNodeStatus(node, progress);
+    > 177 |             console.warn(
+          |                     ^
+      178 |                 `[JourneyProgressService] Refused to complete locked node "${nodeId}" (status: ${status})`
+      179 |             );
+      180 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:177:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      [JourneyProgressService] Tried to complete unknown node "node:inexistente"
+
+      156 |
+      157 |         if (!node) {
+    > 158 |             console.warn(`[JourneyProgressService] Tried to complete unknown node "${nodeId}"`);
+          |                     ^
+      159 |             return this.computeSnapshot(resolvedTrackDefinition, progress);
+      160 |         }
+      161 |
+
+      at JourneyProgressServiceImpl.warn (src/features/journey/services/JourneyProgressService.ts:158:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx (5.588 s)
+  ● Console
+
+    console.error
+      [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+          at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:499:45)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      507 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      508 |             } catch (cause) {
+    > 509 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      510 |
+      511 |                 if (cancelado) {
+      512 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:509:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/student-checkpoints/screen-integrations.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       100 passed, 100 total
+Snapshots:   0 total
+Time:        46.197 s
+Ran all test suites matching /src\/features\/rewards\/screens\/RewardScreen.flow.test.tsx|src\/features\/journey\/services\/JourneyNodeCompletionGuard.test.tsx|src\/features\/journey\/services\/JourneyProgressService.test.ts|src\/features\/student-checkpoints\/screen-integrations.test.ts/i.
+
+EXIT: 0
+SECONDS: 54.869
+
+--- FIX3 TypeScript ---
+UTC: 2026-10-28T10:37:44.424509+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install tsc --noEmit
+src/features/rewards/screens/RewardScreen.flow.test.tsx(289,9): error TS2322: Type '1 | 2.5 | 3.1' is not assignable to type '1 | 3.1'.
+  Type '2.5' is not assignable to type '1 | 3.1'.
+
+EXIT: 2
+SECONDS: 5.701
+
+--- FIX3 TypeScript após anotação numérica do harness ---
+UTC: 2026-10-28T10:38:14.739901+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install tsc --noEmit
+
+EXIT: 0
+SECONDS: 3.813
+
+--- FIX3 ESLint source e teste alterados ---
+UTC: 2026-10-28T10:38:20.935515+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install eslint src/features/rewards/screens/RewardScreen.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx
+
+EXIT: 0
+SECONDS: 2.975
+
+--- FIX3 contrato Maestro completo ---
+UTC: 2026-10-28T10:38:29.316693+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 node --test scripts/maestro-contract.test.mjs
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 9.123084
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 10.619292
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 22.20325
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 5.767916
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.92225
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 1.010375
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 7.514334
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.7545
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.103333
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.692291
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 9.368625
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.78875
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 195.334167
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.346458
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.193834
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 3.472958
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.18225
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.255709
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.273042
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.181459
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.143209
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 6.324167
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 6.8155
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.378333
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 37.2285
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.442375
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.406125
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.615
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 0.947166
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.663042
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 5.053417
+  ...
+# Subtest: reward exit flows follow the bound Continue action and return an invalid link to the trail
+ok 32 - reward exit flows follow the bound Continue action and return an invalid link to the trail
+  ---
+  duration_ms: 4.825625
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 33 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.82575
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 34 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.795542
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 35 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.179834
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 36 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.142208
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 37 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 29.179583
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 38 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.618625
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 39 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 12.169916
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 620.788667
+
+EXIT: 0
+SECONDS: 0.645
+
+--- FIX3 visual qa strict ---
+UTC: 2026-10-28T10:38:35.591548+00:00
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npm run visual:qa:strict
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 463 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+EXIT: 0
+SECONDS: 0.244

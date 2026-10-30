@@ -11,7 +11,6 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
-import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -22,6 +21,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import { feedbackFor } from '../services/feedbackFor';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
 // nenhum aluno os alcançava. `/learn` é o caminho vivo, e é aqui que eles
@@ -37,7 +37,6 @@ import { pickSummaryPhrase } from '../../quiz/constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
-import { Confetti } from '../../../components/ui/Confetti';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
 import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
@@ -51,7 +50,11 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
@@ -88,6 +91,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const [error, setError] = useState<string | null>(null);
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+    const [dueReviewCount, setDueReviewCount] = useState(0);
     const chargedInteractions = useRef(new Set<string>());
     const completions = useRef(new Map<string, { finishing: boolean; finished: boolean; identity: { attemptId: string; answeredAt: Date } | null }>());
     // Revisão é prática, não prova (ADR de 2026-09-14: "Revisão nunca consome
@@ -95,6 +99,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
     // revisão levou de 5 para 4 vidas. ADR de 2026-10-16.
     const isReview = useMemo(() => JourneyDefinitionService.getNodeType(nodeId) === 'review', [nodeId]);
+    // Sem nó, a aula não pertence à trilha: `learn.tsx` passa `nodeId=''`
+    // quando o deep link não o traz (`radiantapp://learn?blockId=…`, como nas
+    // aulas-bancada de exemplo). Gravar o nó vazio como atual ou como retomada,
+    // ou zerar os dois na conclusão, apagaria o ponto real em que o aluno parou.
+    // A conclusão em `LessonOutcomeService` já não premia nó desconhecido.
+    const tracksJourney = nodeId !== '';
 
     // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
     // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
@@ -145,10 +155,32 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
         return Math.max(0, Math.min(privacySafeIndex, activity.steps.length - 1));
     }, [activity, resumeCursorId]);
-    const hybrid = Boolean(block?.sessionMode);
+    // As aulas-bancada de exemplo não têm bloco legado, e é o modo da sessão que
+    // liga o retorno por item, o primeiro contato sem custo de vida e a volta do
+    // item errado (spec, seção 5). Elas correm como lição híbrida.
+    const sessionMode = block?.sessionMode
+        ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
+    const hybrid = Boolean(sessionMode);
+    const lessonContext = useMemo(() => {
+        if (nodeId) {
+            for (const track of LessonCatalogService.listTracks()) {
+                for (const unit of JourneyDefinitionService.getTrackDefinition(track.id).units) {
+                    const node = unit.nodes.find(candidate => candidate.id === nodeId);
+                    if (node) return { theme: resolveNodeTheme(node, unit), title: node.title };
+                }
+            }
+        }
+        const hook = activity?.steps.find(step => step.kind === 'presentation' && step.role === 'hook');
+        const catalogTitle = block ? LessonCatalogService.getLessonById(block.lessonId)?.title : undefined;
+        return {
+            theme: resolveNodeTheme({ theme: activity?.theme }),
+            title: catalogTitle ?? (hook?.kind === 'presentation' ? hook.payload.title : undefined),
+        };
+    }, [nodeId, activity, block]);
+    const lessonTheme = lessonContext.theme;
     const player = useLearningActivity(activity, resumeStepIndex, {
         feedbackPerItem: hybrid,
-        repeatIncorrect: block?.sessionMode === 'hybrid-lesson' && !isReview,
+        repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
     });
 
     useEffect(() => {
@@ -158,8 +190,14 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             try {
                 setLoading(true);
                 setError(null);
-                await JourneyProgressService.setCurrentNode(nodeId);
-                await JourneyProgressService.setResumableNode(nodeId);
+                if (tracksJourney) {
+                    await JourneyProgressService.setCurrentNode(nodeId);
+                    const entrySnapshot = await JourneyProgressService.setResumableNode(nodeId);
+                    // Este snapshot já vem da escrita sequenciada de entrada.
+                    // getSnapshotForNode também PERSISTE: consultá-lo no foco em
+                    // paralelo poderia sobrescrever currentNode/cursor novos.
+                    if (alive) setDueReviewCount(entrySnapshot?.dueReviewCount ?? 0);
+                }
                 const nextBlock = LessonFlowService.getBlockById(blockId);
                 // Durante a migração, consumidores legados (inclusive integrações
                 // que substituem apenas getBlockById) continuam válidos. A
@@ -197,7 +235,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         return () => {
             alive = false;
         };
-    }, [blockId, nodeId]);
+    }, [blockId, nodeId, tracksJourney]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
     useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
@@ -207,7 +245,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const currentStep = player.currentStep;
     // A lista de cursores compatíveis é estável: acrescentar um retorno não
     // deve criar outro checkpoint da mesma sessão. Reservamos até um por item.
-    const checkpointCapacity = block?.sessionMode === 'hybrid-lesson' && activity
+    const checkpointCapacity = sessionMode === 'hybrid-lesson' && activity
         ? activity.steps.length + activity.steps.filter(step => step.kind === 'interaction').length
         : totalSteps;
     const shadowCursorIds = Array.from(
@@ -226,7 +264,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        // Sem nó, o checkpoint seria uma retomada sem nó para onde voltar.
+        enabled: Boolean(activity && currentStep) && tracksJourney,
     });
     const handleRestoreFallback = useCallback(() => {
         Alert.alert(
@@ -246,18 +285,38 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        enabled: Boolean(activity && currentStep) && tracksJourney,
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
-    const canContinue = player.canContinue;
     const currentInteraction = player.currentStep?.kind === 'interaction'
         ? player.currentStep.interaction
         : null;
+    // O valor inicial da bancada já sobe ao player, então o passo está completo
+    // antes de o aluno mexer. No explorar e no corrigir o botão confere, e um
+    // toque sem mexer no controle valeria como primeira resposta errada: ele
+    // espera o alvo, como na prancheta. No desafio fica livre, porque o erro ali
+    // indica o lado certo.
+    const benchWaitsForGoal = !player.showingFeedback
+        && currentInteraction?.type === 'bench'
+        && currentInteraction.payload.mode !== 'challenge'
+        && !isCorrectInteractionValue(currentInteraction, player.value);
+    const canContinue = player.canContinue && !benchWaitsForGoal;
+    const announcedReady = useRef(new Set<string>());
+    useEffect(() => {
+        if (currentInteraction?.type !== 'bench' || currentInteraction.payload.mode === 'challenge'
+            || player.showingFeedback || !canContinue) return;
+        // Retornos têm outro índice: cada visita anuncia no máximo uma vez,
+        // mesmo quando o aluno sai do alvo e volta a ele antes de conferir.
+        const visit = `${stepIndex}:${currentInteraction.id}`;
+        if (announcedReady.current.has(visit)) return;
+        announcedReady.current.add(visit);
+        AccessibilityInfo.announceForAccessibility('Alvo alcançado. Você já pode conferir a resposta.');
+    }, [canContinue, currentInteraction, player.showingFeedback, stepIndex]);
 
     const confirmationLabel = player.showingFeedback
         ? isLastStep ? 'Concluir e voltar' : 'Continuar'
-        : currentInteraction?.type === 'multiple-choice'
+        : currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench'
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 
@@ -318,7 +377,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 emit('correct');
             }
 
-            const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
+            const message = feedbackFor(currentInteraction, player.value, correct);
             const choice = currentInteraction.type === 'multiple-choice'
                 ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
             const answer = currentInteraction.type === 'multiple-choice'
@@ -337,7 +396,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
         if (!isLastStep) {
             if (costsHeart && nextHearts.status === 'empty') {
-                await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
+                if (tracksJourney) await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
             return;
@@ -368,9 +427,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // escrita, e a leitura pode terminar antes de a marcação pousar —
             // mostrando a unidade sem a lição que acabou de fechar. Encadear a
             // partir da própria marcação elimina a corrida.
-            const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
-            await JourneyProgressService.setCurrentNode(null);
-            await JourneyProgressService.setResumableNode(undefined);
+            const snapshot = tracksJourney ? await JourneyProgressService.markNodeCompleted(nodeId) : null;
+            if (tracksJourney) {
+                await JourneyProgressService.setCurrentNode(null);
+                await JourneyProgressService.setResumableNode(undefined);
+            }
             await activeCheckpoint.finish();
 
             setJourneySnapshot(snapshot);
@@ -381,12 +442,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
     const exitLesson = useCallback(() => {
         void (async () => {
-            if (!outcome) {
+            if (!outcome && tracksJourney) {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex);
             }
             router.dismissTo('/(tabs)');
         })();
-    }, [nodeId, outcome, stepIndex]);
+    }, [nodeId, outcome, stepIndex, tracksJourney]);
 
     // Carrega as vidas para a barra do topo. Errar consome vida durante a
     // atividade, e o aluno precisa ver isso acontecer. Relê a cada foco, não
@@ -521,10 +582,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         return (
             <View style={styles.root}>
                 <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-                <Confetti count={40} run={lessonPassed} />
                 <SafeAreaView style={styles.safe} edges={['top']}>
                     {summary ? (
                         <LessonSummary
+                            title={lessonContext.title}
+                            theme={lessonTheme}
                             stars={summary.stars}
                             recordStars={summary.recordStars}
                             kind={isReview ? 'review' : 'lesson'}
@@ -604,6 +666,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                         showsVerticalScrollIndicator={false}
                     >
                         <View style={styles.contentCard}>
+                            {currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
+                                <View style={styles.openingMedal}>
+                                    <JourneyMedal node={{ id: nodeId || activity.id, type: 'lesson' }}
+                                        theme={lessonTheme} state="done" pulsing={false} size={68}
+                                        accessibilityLabel="Medalha do tema da aula" />
+                                </View>
+                            ) : null}
                             {legacyStep?.step.type === 'context' ? (
                                 <ContextStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
@@ -642,18 +711,22 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 />
                             ) : null}
 
-                            {player.showingFeedback && currentInteraction?.type === 'multiple-choice' ? (
-                                <View testID="lesson-item-feedback" accessibilityLiveRegion="polite"
+                            {player.showingFeedback && currentInteraction ? (
+                                <View testID="lesson-item-feedback"
                                     style={[styles.itemFeedback, player.lastFeedback?.correct ? styles.itemFeedbackCorrect : styles.itemFeedbackIncorrect]}
                                     onLayout={event => scrollRef.current?.scrollTo({
                                         y: Math.max(0, event.nativeEvent.layout.y - space.s3), animated: false,
                                     })}>
                                     <Text style={[styles.feedbackTitle, player.lastFeedback?.correct ? styles.feedbackTitleCorrect : styles.feedbackTitleIncorrect]}
-                                        accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+                                        accessibilityRole="header">
                                         {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
                                     </Text>
-                                    <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
-                                    <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                    {currentInteraction.type === 'multiple-choice' ? (
+                                        <>
+                                            <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
+                                            <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                        </>
+                                    ) : null}
                                     <Text style={styles.feedbackText}>{player.lastFeedback?.message}</Text>
                                 </View>
                             ) : null}
@@ -670,6 +743,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 <AdvanceStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
 
+                            {/*
+                              Na lição híbrida, o retorno de cada item já apareceu
+                              junto da resposta: o fechamento mostra o próprio
+                              título e texto, e não repete o da última interação.
+                            */}
                             {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' ? (
                                 <ReinforceStepRenderer
                                     payload={{
@@ -677,27 +755,31 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         body: currentStep.payload.body ?? '',
                                         tone: currentStep.payload.tone ?? 'neutral',
                                     }}
-                                    answeredCorrectly={player.lastFeedback?.correct}
-                                    explanation={player.lastFeedback?.message}
+                                    answeredCorrectly={hybrid ? undefined : player.lastFeedback?.correct}
+                                    explanation={hybrid ? undefined : player.lastFeedback?.message}
                                 />
                             ) : null}
                         </View>
                     </ScrollView>
 
                     <View style={styles.footer}>
-                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
+                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
+                            accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
                             {confirmationLabel}
                         </AppButton>
                     </View>
                 </View>
             </SafeAreaView>
             <HeartsSheet
-                visible={heartsSheetVisible}
+                visible={heartsSheetVisible && hearts.status !== 'unlimited'}
                 snapshot={hearts}
-                dueReviewCount={0}
+                dueReviewCount={dueReviewCount}
                 storeAvailable={subscriptionService.storeAvailable()}
                 onClose={exitLesson}
-                onReview={() => router.replace('/review')}
+                onReview={() => {
+                    setHeartsSheetVisible(false);
+                    router.replace('/review');
+                }}
                 onSubscribe={() => {
                     setHeartsSheetVisible(false);
                     router.push('/subscription');
@@ -731,6 +813,8 @@ const styles = StyleSheet.create({
     // para não anunciar a mesma coisa duas vezes.
     stepCount: {
         ...typography.micro,
+        lineHeight: undefined,
+        flexShrink: 0,
         color: galaxyColors.textSecondary,
     },
     headerTopRow: {
@@ -754,6 +838,7 @@ const styles = StyleSheet.create({
         paddingBottom: space.s4,
         gap: space.s3,
     },
+    openingMedal: { alignItems: 'center' },
     contentCard: {
         backgroundColor: semanticColors.galaxy.surface,
         borderRadius: radius.rLg,

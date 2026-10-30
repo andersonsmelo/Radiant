@@ -1,4 +1,4 @@
-import { colors } from '../theme';
+import { pixelColors } from '../theme';
 
 export type PixelExpression =
   | 'neutro'
@@ -51,37 +51,37 @@ export const PIXEL_EXPRESSIONS: Record<PixelExpression, PixelFaceShape> = {
   neutro: {
     eyeW: 0.13, eyeH: 0.4, eyeRadius: 0.45, eyeRotate: 0, eyeOffsetY: 0,
     eyeArc: false, mouthW: 0.24, mouthDip: 0.06, mouthThickness: 0.055,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   feliz: {
     eyeW: 0.15, eyeH: 0.3, eyeRadius: 0.5, eyeRotate: 0, eyeOffsetY: 0.02,
     eyeArc: true, mouthW: 0.34, mouthDip: 0.3, mouthThickness: 0.06,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   orgulhoso: {
     eyeW: 0.14, eyeH: 0.16, eyeRadius: 0.5, eyeRotate: 0, eyeOffsetY: 0.02,
     eyeArc: false, mouthW: 0.22, mouthDip: 0.2, mouthThickness: 0.055,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   emburrado: {
     eyeW: 0.14, eyeH: 0.34, eyeRadius: 0.35, eyeRotate: 16, eyeOffsetY: 0.03,
     eyeArc: false, mouthW: 0.22, mouthDip: -0.16, mouthThickness: 0.055,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   revirando: {
     eyeW: 0.13, eyeH: 0.34, eyeRadius: 0.45, eyeRotate: 0, eyeOffsetY: -0.12,
     eyeArc: false, mouthW: 0.24, mouthDip: -0.05, mouthThickness: 0.05,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   surpreso: {
     eyeW: 0.14, eyeH: 0.44, eyeRadius: 0.5, eyeRotate: 0, eyeOffsetY: 0,
     eyeArc: false, mouthW: 0.11, mouthDip: 0.02, mouthThickness: 0.05,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
   pensando: {
     eyeW: 0.13, eyeH: 0.34, eyeRadius: 0.45, eyeRotate: 0, eyeOffsetY: 0,
     eyeArc: false, mouthW: 0.18, mouthDip: 0.04, mouthThickness: 0.05,
-    glow: colors.accentStrong,
+    glow: pixelColors.glow,
   },
 };
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
+import { galaxyColors } from '../../../ui/theme';
 import { QuizTopBar } from './QuizTopBar';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
@@ -72,5 +74,36 @@ describe('QuizTopBar — vidas por estado da assinatura', () => {
     expect(screen.getByTestId('hud-heart-0')).toBeTruthy();
     expect(screen.queryByText('∞')).toBeNull();
     expect(screen.queryByLabelText('Vidas ilimitadas')).toBeNull();
+  });
+});
+
+
+describe('QuizTopBar — pílula Medalhão compartilhada com o HUD', () => {
+  it.each([0, 1, 3, 5])('desenha um coração e a contagem %i uma vez no cabeçalho da aula', (hearts) => {
+    const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} onClose={jest.fn()} />);
+    expect(rendered.getAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(1);
+    expect(rendered.getAllByText(String(hearts))).toHaveLength(1);
+    expect(rendered.getByLabelText(`${hearts} de 5 vidas`)).toBeTruthy();
+    expect(rendered.queryByText('∞')).toBeNull();
+  });
+
+  it('preserva maxHearts e a superfície da pílula ao anunciar a contagem', () => {
+    const rendered = render(<QuizTopBar questionIndex={1} totalQuestions={4} hearts={2} maxHearts={7} onClose={jest.fn()} />);
+    const label = rendered.getByLabelText('2 de 7 vidas');
+    expect(StyleSheet.flatten(label.props.style)).toMatchObject({
+      backgroundColor: galaxyColors.hudPill,
+      borderColor: galaxyColors.hudPillBorder,
+      borderWidth: 1,
+      borderRadius: 20,
+    });
+    expect(rendered.getAllByText('2')).toHaveLength(1);
+  });
+
+  it.each([0, 5])('no ilimitado count%i não desenha coração ou número', (hearts) => {
+    const rendered = render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={hearts} maxHearts={5} unlimited onClose={jest.fn()} />);
+    expect(rendered.queryAllByTestId(/^hud-heart-\d+$/u, { includeHiddenElements: true })).toHaveLength(0);
+    expect(rendered.queryByText(String(hearts))).toBeNull();
+    expect(rendered.getAllByLabelText('Vidas ilimitadas')).toHaveLength(1);
+    expect(rendered.getAllByText('∞')).toHaveLength(1);
   });
 });

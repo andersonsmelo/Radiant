@@ -1,0 +1,2757 @@
+
+=== task-5-green.txt ===
+FAIL radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (13.193 s)
+  ● T04 — abertura, retorno e botão apto › explore explica a espera e anuncia aptidão só uma vez por visita
+
+    Unable to find node on an unmounted component.
+
+      2101 |   }
+      2102 |   async function esperarBotaoApto(name: string) {
+    > 2103 |     await waitFor(() => expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true));
+           |                  ^
+      2104 |   }
+      2105 |   beforeEach(() => {
+      2106 |     jest.clearAllMocks();
+
+      at src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2103:18
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12
+      at apply (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2102:34)
+      at esperarBotaoApto (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2176:11)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › correct explica a espera e anuncia aptidão só uma vez por visita
+
+    Unable to find node on an unmounted component.
+
+      2101 |   }
+      2102 |   async function esperarBotaoApto(name: string) {
+    > 2103 |     await waitFor(() => expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true));
+           |                  ^
+      2104 |   }
+      2105 |   beforeEach(() => {
+      2106 |     jest.clearAllMocks();
+
+      at src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2103:18
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12
+      at apply (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2102:34)
+      at esperarBotaoApto (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2176:11)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+  ● Console
+
+    console.error
+      An update to PixelBody inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to PixelFace inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+    console.error
+      An update to PixelIllustration inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      51 |       .then((enabled) => {
+      52 |         if (mounted) {
+    > 53 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      54 |         }
+      55 |       })
+      56 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:53:11)
+
+PASS radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts
+PASS radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+PASS radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts
+
+Test Suites: 1 failed, 4 passed, 5 total
+Tests:       2 failed, 195 skipped, 34 passed, 231 total
+Snapshots:   0 total
+Time:        16.174 s, estimated 45 s
+Ran all test suites within paths "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx", "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx", "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts".
+
+=== task-5-green-focals.txt ===
+FAIL radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (15.525 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● FILA 58 — integração do motor híbrido › M2 limita a escala do título do feedback e mantém o corpo sem teto
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: undefined
+
+      1586 |     await open();
+      1587 |     await answer('Pneumotórax');
+    > 1588 |     expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBe(2);
+           |                                                                            ^
+      1589 |     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
+      1590 |     expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+      1591 |   });
+
+      at Object.toBe (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1588:76)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item › errar a primeira resposta de um item e acertar na volta não dá três estrelas
+
+    Property `recordQuizCompletion` does not exist in the provided object
+
+      1899 |     const { GamificationService } = require('../../gamification/services/GamificationService') as typeof import('../../gamification/services/GamificationService');
+      1900 |     const { DailyGoalService } = require('../../daily-goal/services/DailyGoalService') as typeof import('../../daily-goal/services/DailyGoalService');
+    > 1901 |     const reward = jest.spyOn(GamificationService, 'recordQuizCompletion');
+           |                         ^
+      1902 |     const dailyXp = jest.spyOn(DailyGoalService, 'recordXp');
+      1903 |     renderWithProviders(<LessonFlowScreen blockId={EXPOSICAO.id} nodeId="" />);
+      1904 |     await screen.findByText('Primeiro item?');
+
+      at ModuleMocker.spyOn (node_modules/jest-mock/build/index.js:731:13)
+      at Object.spyOn (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1901:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+PASS radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx
+  ● Console
+
+    console.error
+      [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+          at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:494:45)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      503 |             } catch (cause) {
+    > 504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      505 |
+      506 |                 if (cancelado) {
+      507 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:504:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS radiant-app/src/features/lesson-flow/hooks/useLearningActivity.test.ts
+PASS radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts
+PASS radiant-app/src/features/bench/CollimationImage.test.tsx
+PASS radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+PASS radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+PASS radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts
+PASS radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts
+
+Test Suites: 1 failed, 8 passed, 9 total
+Tests:       2 failed, 286 passed, 288 total
+Snapshots:   0 total
+Time:        23.317 s
+Ran all test suites within paths "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx", "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx", "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts", "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx", "radiant-app/src/features/bench/CollimationImage.test.tsx", "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts", "radiant-app/src/features/lesson-flow/hooks/useLearningActivity.test.ts".
+
+=== task-5-green-screen.txt ===
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (13.993 s)
+  LessonFlowScreen — escolha da alternativa
+    ✓ bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso (78 ms)
+    ✓ permite trocar a alternativa selecionada antes de confirmar (88 ms)
+    ✓ confirma a escolha corrente ao continuar e revela o reforço (93 ms)
+  LessonFlowScreen — economia de vidas
+    ✓ não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada (90 ms)
+    ✓ protege uma confirmação dupla contra cobrança duplicada (73 ms)
+    ✓ pausa no próximo passo ao chegar a zero e preserva a retomada (123 ms)
+    ✓ assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio (72 ms)
+    ✓ assinante vê ∞ no topo da lição, sem as vidas (57 ms)
+    ✓ quem não assina vê as vidas no topo da lição, sem ∞ (57 ms)
+    ✓ salva o passo atual antes de fechar (55 ms)
+    anúncio da perda de vida ao leitor de tela
+      ✓ anuncia a vida perdida e quantas restam junto da resposta incorreta (117 ms)
+      ✓ na última vida, anuncia que ela acabou em vez de "restam 0" (118 ms)
+      ✓ assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas (114 ms)
+      ✓ sem queda real do contador, não anuncia débito (117 ms)
+    folha de vidas e a loja
+      ✓ com loja no binário, a folha oferece a assinatura e leva à tela dela (128 ms)
+      ✓ sem loja no binário, a folha não oferece a assinatura (117 ms)
+      ✓ voltando da compra, a lição relê as vidas e mostra ∞ (177 ms)
+  LessonFlowScreen — apresentação do passo legado
+    ✓ não promete uma interação que não existe no passo legado (57 ms)
+  LessonFlowScreen — registro da conclusão
+    ✓ registra a conclusão com a escolha confirmada antes de marcar o nó (78 ms)
+    ✓ registra escolha confirmada incorreta como incorreta (118 ms)
+    ✓ usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco (125 ms)
+  LessonFlowScreen — retomada sem persistir respostas
+    ✓ recua para a interação não confirmada quando o cursor salvo já passou por ela (80 ms)
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ✓ pausa no índice 1 e reabre o passo privado esperado 1 pela ação real (287 ms)
+    ✓ pausa no índice 2 e reabre o passo privado esperado 2 pela ação real (293 ms)
+    ✓ pausa no índice 3 e reabre o passo privado esperado 2 pela ação real (309 ms)
+  LessonFlowScreen — atividade curricular v2 promovida
+    ✓ renderiza o material promovido sem depender de bloco legado (63 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: false) (72 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: true) (67 ms)
+    ✓ registra a conclusão usando a atividade nativa e sua resposta confirmada (81 ms)
+  LessonFlowScreen — conclusão da lição
+    ✓ mostra a conclusão em vez de devolver o aluno em silêncio para a aba (149 ms)
+    ✓ anuncia Estude na conclusão de /learn e o Continuar executa esse retorno (120 ms)
+    ✓ mostra as estrelas desta tentativa, com o recorde à parte (114 ms)
+    ✓ chega ao Continuar mesmo quando a leitura do histórico falha (121 ms)
+  LessonFlowScreen — sons e vibração
+    ✓ tocar numa alternativa toca o som de toque e vibra a seleção (64 ms)
+    ✓ continuar com erro toca só o erro, mesmo quando a vida cai (70 ms)
+    ✓ continuar com acerto toca o acerto e vibra o sucesso (66 ms)
+    ✓ o assinante erra e também ouve só o erro (68 ms)
+    ✓ a lição aprovada termina com o som de fim e a comemoração (141 ms)
+    ✓ com os interruptores desligados, nada toca e nada vibra, nem a comemoração (146 ms)
+    ✓ libera os sons ao sair da lição (55 ms)
+  LessonFlowScreen — revisão da trilha não custa vida
+    ✓ errar na revisão não gasta vida nem anuncia perda (69 ms)
+    ✓ sem vidas, a revisão continua e não pausa (63 ms)
+    ✓ a revisão termina como revisão, sem pedir avaliação de aula (138 ms)
+    ✓ a lição continua custando vida no erro (65 ms)
+  FILA 58 — integração do motor híbrido
+    ✓ M4 primeiro contato não custa; só erro no retorno custa uma vida (228 ms)
+    ✓ M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção (241 ms)
+    ✓ M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha (238 ms)
+    ✓ M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno (235 ms)
+    ✓ M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido (223 ms)
+    ✓ M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão (75 ms)
+    ✓ C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess (95 ms)
+    ✓ M2 mantém título e corpo do feedback sem teto de fonte (73 ms)
+    ✓ M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa (119 ms)
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ✓ escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo (70 ms)
+    ✓ bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha (158 ms)
+    ✓ bancada certa: o bloco mostra feedback.correct, sem dica (84 ms)
+    ✓ bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha (61 ms)
+    ✓ bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo (160 ms)
+    ✓ bancada de corrigir: o botão também espera o alvo (81 ms)
+    ✓ bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção (58 ms)
+    ✓ bancada: depois de conferir, o botão volta a "Continuar" (83 ms)
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ✓ errar a primeira resposta de um item e acertar na volta não dá três estrelas (319 ms)
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ✓ abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada (125 ms)
+    ✓ fechar a aula sem nó sai para a trilha sem gravar o passo (29 ms)
+    ✓ pausar sem vidas, sem nó, abre a folha sem gravar o passo (81 ms)
+    ✓ sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar (46 ms)
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ✓ a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida (103 ms)
+    ✓ o fechamento mostra o próprio título e texto, e não o retorno da última interação (46 ms)
+  T04 — abertura, retorno e botão apto
+    ✓ multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (51 ms)
+    ✓ multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (54 ms)
+    ✓ comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (52 ms)
+    ✓ comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (48 ms)
+    ✓ hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (60 ms)
+    ✓ hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (64 ms)
+    ✓ matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (56 ms)
+    ✓ matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (58 ms)
+    ✓ ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (59 ms)
+    ✓ ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (62 ms)
+    ✓ bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (52 ms)
+    ✓ bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (88 ms)
+    ✓ abertura usa o tema explícito sem nó e preserva o texto independente (27 ms)
+    ✓ abertura resolve tema do nó, depois da unidade real, sem ler progresso (113 ms)
+    ✓ explore explica a espera e anuncia aptidão só uma vez por visita (199 ms)
+    ✓ correct explica a espera e anuncia aptidão só uma vez por visita (93 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       84 passed, 84 total
+Snapshots:   0 total
+Time:        14.542 s, estimated 16 s
+Ran all test suites within paths "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx".
+
+=== task-5-final-focals.txt ===
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (46.127 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/lesson-flow/services/LessonFlowService.test.ts
+PASS src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+PASS src/features/journey/services/JourneyNodeCompletionGuard.test.tsx (5.667 s)
+  ● Console
+
+    console.error
+      [LessonFlowScreen] Falha ao resolver o resumo da lição: TypeError: _SpacedRepetitionService.SpacedRepetitionService.getCardState is not a function
+          at getCardState (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx:494:45)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+      503 |             } catch (cause) {
+    > 504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+          |                         ^
+      505 |
+      506 |                 if (cancelado) {
+      507 |                     return;
+
+      at error (src/features/lesson-flow/screens/LessonFlowScreen.tsx:504:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/lesson-flow/hooks/useLearningActivity.test.ts
+PASS src/features/bench/lessons/BenchLessonCatalog.test.ts
+PASS src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+PASS src/features/lesson-flow/services/feedbackFor.test.ts
+PASS src/features/bench/CollimationImage.test.tsx
+
+Test Suites: 9 passed, 9 total
+Tests:       294 passed, 294 total
+Snapshots:   0 total
+Time:        56.583 s
+Ran all test suites within paths "src/features/lesson-flow/services/LessonFlowService.test.ts", "src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx", "src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx", "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx", "src/features/bench/lessons/BenchLessonCatalog.test.ts", "src/features/journey/services/JourneyNodeCompletionGuard.test.tsx", "src/features/bench/CollimationImage.test.tsx", "src/features/lesson-flow/services/feedbackFor.test.ts", "src/features/lesson-flow/hooks/useLearningActivity.test.ts".
+
+=== task-5-final-typecheck.txt ===
+
+> radiant-app@1.4.0 typecheck
+> tsc --noEmit
+
+
+=== task-5-final-lint.txt ===
+
+/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx
+  4:10  warning  'router' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)
+
+
+=== task-5-final-maestro.txt ===
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.622625
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 9.582666
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 19.075833
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 7.519542
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.7835
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 1.265042
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 10.2755
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.594125
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 0.909
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.865125
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 10.8575
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 5.230042
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 254.896125
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 2.488917
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.268583
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.848708
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.226042
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.353833
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.331667
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.325833
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.211875
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 4.708625
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 3.688708
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.48875
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 37.603792
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.805667
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.1525
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.740708
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.167084
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.759584
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 6.702959
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 32 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 5.490666
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 33 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.816292
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 34 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.516458
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 35 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 3.052958
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 36 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 36.609
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 37 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.053167
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 38 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 14.104792
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 659.338333
+
+
+## 2026-10-27 fix1 — green
+GREEN 2026-10-27T09:52:01.641523+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+CMD EXPO_NO_DOTENV=1 /usr/bin/caffeinate -i /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+SHA256 LessonFlowScreen.tsx 7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736
+SHA256 LessonFlowScreen.flow.test.tsx 85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (46.98 s)
+  LessonFlowScreen — escolha da alternativa
+    ✓ bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso (76 ms)
+    ✓ permite trocar a alternativa selecionada antes de confirmar (82 ms)
+    ✓ confirma a escolha corrente ao continuar e revela o reforço (80 ms)
+  LessonFlowScreen — economia de vidas
+    ✓ não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada (83 ms)
+    ✓ protege uma confirmação dupla contra cobrança duplicada (70 ms)
+    ✓ pausa no próximo passo ao chegar a zero e preserva a retomada (116 ms)
+    ✓ assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio (77 ms)
+    ✓ assinante vê ∞ no topo da lição, sem as vidas (59 ms)
+    ✓ quem não assina vê as vidas no topo da lição, sem ∞ (57 ms)
+    ✓ salva o passo atual antes de fechar (58 ms)
+    anúncio da perda de vida ao leitor de tela
+      ✓ anuncia a vida perdida e quantas restam junto da resposta incorreta (117 ms)
+      ✓ na última vida, anuncia que ela acabou em vez de "restam 0" (117 ms)
+      ✓ assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas (117 ms)
+      ✓ sem queda real do contador, não anuncia débito (120 ms)
+    folha de vidas e a loja
+      ✓ com loja no binário, a folha oferece a assinatura e leva à tela dela (195 ms)
+      ✓ sem loja no binário, a folha não oferece a assinatura (117 ms)
+      ✓ voltando da compra, a lição relê as vidas e mostra ∞ (174 ms)
+  LessonFlowScreen — apresentação do passo legado
+    ✓ não promete uma interação que não existe no passo legado (57 ms)
+  LessonFlowScreen — registro da conclusão
+    ✓ registra a conclusão com a escolha confirmada antes de marcar o nó (83 ms)
+    ✓ registra escolha confirmada incorreta como incorreta (117 ms)
+    ✓ usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco (121 ms)
+  LessonFlowScreen — retomada sem persistir respostas
+    ✓ recua para a interação não confirmada quando o cursor salvo já passou por ela (70 ms)
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ✓ pausa no índice 1 e reabre o passo privado esperado 1 pela ação real (285 ms)
+    ✓ pausa no índice 2 e reabre o passo privado esperado 2 pela ação real (295 ms)
+    ✓ pausa no índice 3 e reabre o passo privado esperado 2 pela ação real (308 ms)
+  LessonFlowScreen — atividade curricular v2 promovida
+    ✓ renderiza o material promovido sem depender de bloco legado (63 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: false) (66 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: true) (64 ms)
+    ✓ registra a conclusão usando a atividade nativa e sua resposta confirmada (82 ms)
+  LessonFlowScreen — conclusão da lição
+    ✓ mostra a conclusão em vez de devolver o aluno em silêncio para a aba (179 ms)
+    ✓ anuncia Estude na conclusão de /learn e o Continuar executa esse retorno (148 ms)
+    ✓ mostra as estrelas desta tentativa, com o recorde à parte (154 ms)
+    ✓ chega ao Continuar mesmo quando a leitura do histórico falha (150 ms)
+  LessonFlowScreen — sons e vibração
+    ✓ tocar numa alternativa toca o som de toque e vibra a seleção (62 ms)
+    ✓ continuar com erro toca só o erro, mesmo quando a vida cai (72 ms)
+    ✓ continuar com acerto toca o acerto e vibra o sucesso (70 ms)
+    ✓ o assinante erra e também ouve só o erro (71 ms)
+    ✓ a lição aprovada termina com o som de fim e a comemoração (150 ms)
+    ✓ com os interruptores desligados, nada toca e nada vibra, nem a comemoração (145 ms)
+    ✓ libera os sons ao sair da lição (57 ms)
+  LessonFlowScreen — revisão da trilha não custa vida
+    ✓ errar na revisão não gasta vida nem anuncia perda (69 ms)
+    ✓ sem vidas, a revisão continua e não pausa (67 ms)
+    ✓ a revisão termina como revisão, sem pedir avaliação de aula (124 ms)
+    ✓ a lição continua custando vida no erro (69 ms)
+  FILA 58 — integração do motor híbrido
+    ✓ M4 primeiro contato não custa; só erro no retorno custa uma vida (233 ms)
+    ✓ M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção (234 ms)
+    ✓ M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha (219 ms)
+    ✓ M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno (234 ms)
+    ✓ M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido (226 ms)
+    ✓ M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão (73 ms)
+    ✓ C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess (93 ms)
+    ✓ M2 mantém título e corpo do feedback sem teto de fonte (78 ms)
+    ✓ M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa (117 ms)
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ✓ escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo (70 ms)
+    ✓ bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha (454 ms)
+    ✓ bancada certa: o bloco mostra feedback.correct, sem dica (71 ms)
+    ✓ bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha (58 ms)
+    ✓ bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo (172 ms)
+    ✓ bancada de corrigir: o botão também espera o alvo (76 ms)
+    ✓ bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção (62 ms)
+    ✓ bancada: depois de conferir, o botão volta a "Continuar" (76 ms)
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ✓ errar a primeira resposta de um item e acertar na volta não dá três estrelas (1463 ms)
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ✓ abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada (121 ms)
+    ✓ fechar a aula sem nó sai para a trilha sem gravar o passo (37 ms)
+    ✓ pausar sem vidas, sem nó, abre a folha sem gravar o passo (80 ms)
+    ✓ sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar (33 ms)
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ✓ a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida (56 ms)
+    ✓ o fechamento mostra o próprio título e texto, e não o retorno da última interação (44 ms)
+  T04 — abertura, retorno e botão apto
+    ✓ multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (46 ms)
+    ✓ multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (49 ms)
+    ✓ comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (49 ms)
+    ✓ comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (49 ms)
+    ✓ hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (51 ms)
+    ✓ hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (58 ms)
+    ✓ matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (52 ms)
+    ✓ matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (47 ms)
+    ✓ ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (53 ms)
+    ✓ ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (62 ms)
+    ✓ bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (56 ms)
+    ✓ bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (83 ms)
+    ✓ abertura usa o tema explícito sem nó e preserva o texto independente (25 ms)
+    ✓ abertura resolve tema do nó, depois da unidade real, sem ler progresso (113 ms)
+    ✓ explore explica a espera e anuncia aptidão só uma vez por visita (219 ms)
+    ✓ correct explica a espera e anuncia aptidão só uma vez por visita (84 ms)
+  T04 fix1 — contagem com texto ampliado
+    ✓ deixa a contagem crescer pelas métricas nativas, sem comprimir a linha (35 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       85 passed, 85 total
+Snapshots:   0 total
+Time:        47.738 s
+Ran all test suites within paths "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx".
+
+EXIT_CODE 0
+
+CMD node_modules/.bin/eslint src/features/lesson-flow/screens/LessonFlowScreen.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+EXIT_CODE 0
+
+CMD npm run typecheck
+
+> radiant-app@1.4.0 typecheck
+> tsc --noEmit
+
+EXIT_CODE 0
+
+CMD git diff --check
+EXIT_CODE 0
+
+
+## 2026-10-27 fix2 — green
+GREEN 2026-10-27T10:03:18.470919+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+SHA256 radiant-app/src/features/bench/CollimationImage.tsx fed89d259e74abaaee3dd729e5a8e70a196e282c19d1a4e6eae46f19c54926b2
+SHA256 radiant-app/src/features/bench/CollimationImage.test.tsx dc81456c0264fd99bc5712a347e7064fc1b6eb7cf88c60bfc6dbcf31235075e8
+
+CMD EXPO_NO_DOTENV=1 /usr/bin/caffeinate -i /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/bench/CollimationImage.test.tsx src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+PASS src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx (31.314 s)
+PASS src/features/bench/CollimationImage.test.tsx
+
+Test Suites: 2 passed, 2 total
+Tests:       34 passed, 34 total
+Snapshots:   0 total
+Time:        32.169 s
+Ran all test suites within paths "src/features/bench/CollimationImage.test.tsx", "src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx".
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 node_modules/.bin/eslint src/features/bench/CollimationImage.tsx src/features/bench/CollimationImage.test.tsx
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 npm run typecheck
+
+> radiant-app@1.4.0 typecheck
+> tsc --noEmit
+
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 git diff --check
+
+EXIT_CODE 0
+
+
+## 2026-10-27 fix3 — green
+GREEN 2026-10-27T10:08:36.731791+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+SHA256 radiant-app/src/features/bench/CollimationImage.tsx 651036a2f870dbacf069308602e233885d0c6a32f88a66817e5c5c8df36b3d73
+SHA256 radiant-app/src/features/bench/CollimationImage.test.tsx 6931f95ddf2976b0d2d79d5b383e7b7656eabe6ed91395ad803a206352e4e7d5
+
+CMD EXPO_NO_DOTENV=1 /usr/bin/caffeinate -i /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/bench/CollimationImage.test.tsx src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+PASS src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx (33.43 s)
+PASS src/features/bench/CollimationImage.test.tsx
+
+Test Suites: 2 passed, 2 total
+Tests:       34 passed, 34 total
+Snapshots:   0 total
+Time:        34.552 s
+Ran all test suites within paths "src/features/bench/CollimationImage.test.tsx", "src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx".
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 node_modules/.bin/eslint src/features/bench/CollimationImage.tsx src/features/bench/CollimationImage.test.tsx
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 npm run typecheck
+
+> radiant-app@1.4.0 typecheck
+> tsc --noEmit
+
+
+EXIT_CODE 0
+
+CMD EXPO_NO_DOTENV=1 git diff --check
+
+EXIT_CODE 0
+
+
+## 2026-10-27 fix4 — R5 AST green
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 1.094916
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.140125
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.110334
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+not ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 12.048375
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:87:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:88:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 6.191792
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.569834
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.898042
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 1.685542
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.96225
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.57725
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.465458
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.387292
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.748791
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.349375
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.466583
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 1.000042
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.197042
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.208959
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.008083
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.359042
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 0.955333
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.944125
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.871917
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.860667
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.696959
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.330708
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.138583
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.754167
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.647666
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.098708
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 11.806917
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+not ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.300375
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:150:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:151:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 30
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 187.844041
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.775959
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.124417
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.124417
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+not ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 11.36725
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:87:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:88:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.577333
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.406625
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.914417
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 2.130125
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 2.046958
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.525583
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.424208
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.365
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.68825
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.355625
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.384917
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.951708
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.055083
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.205958
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.026875
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.568541
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.140083
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.879709
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.823083
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.83825
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.689625
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.267375
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.131584
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.750958
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.637375
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.102834
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 11.834125
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+not ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.303708
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:150:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:151:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 30
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 167.926709
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.761209
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.117875
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.101375
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 10.012667
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.537042
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.459667
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 2.021458
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 1.799042
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 2.4035
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.635833
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.418208
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.39125
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.647958
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.259583
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.46225
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.998958
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.116125
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.203625
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.04325
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.382333
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 0.973208
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.813292
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.862208
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.900584
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.7005
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.224417
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.058959
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.748208
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.633125
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.099
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 11.800083
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.8475
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.758958
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 462 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.727542
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.113167
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.104875
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 9.956208
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+not ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 7.1595
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:91:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx',
+    +     line: 6,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx'
+      line: 6
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:92:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.437042
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.881834
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 1.9425
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.945958
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.521458
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.408542
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.36475
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.65275
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.246333
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.409208
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.971166
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.247583
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.302125
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.034792
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.455167
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.163625
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.887292
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.821042
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.854334
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.702792
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.2605
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.096125
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.798208
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.675458
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.089708
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 12.785291
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.789625
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 0.151375
+  ...
+# Subtest: R5 rejects forged query receiver
+ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.357041
+  ...
+# Subtest: R5 rejects query receiver reassigned
+ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.270375
+  ...
+# Subtest: R5 rejects query receiver shadowed
+ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.273
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 35
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 171.777708
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.745792
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.112417
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.111542
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 9.82525
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 6.029959
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.356958
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 2.045
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 2.020208
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.982
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.510417
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.397166
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.401791
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.646875
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.282875
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.306417
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.854625
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 0.974125
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.19425
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.009333
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.459084
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.176416
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 1.213625
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.94475
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 1.097375
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.797
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.342625
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.111625
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.848709
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.846375
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.131042
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 13.096375
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.708
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 0.145666
+  ...
+# Subtest: R5 rejects forged query receiver
+ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.333958
+  ...
+# Subtest: R5 rejects query receiver reassigned
+ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.286375
+  ...
+# Subtest: R5 rejects query receiver shadowed
+ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.296375
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 172.247708
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 462 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+
+## 2026-10-27 fix5 — namespace import green
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.771583
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.110333
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.102083
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 10.148209
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.916708
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.477
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.920458
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 2.25975
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.641125
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.481333
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.541
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.429375
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 2.456166
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.447167
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.188416
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.940875
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.130375
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.259791
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.039833
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.508791
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.166584
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.884416
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.821958
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.864208
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.923084
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.325917
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.204125
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.728916
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.594834
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.093833
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 12.653208
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.6235
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 0.136042
+  ...
+# Subtest: R5 rejects forged query receiver
+ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.212959
+  ...
+# Subtest: R5 rejects query receiver reassigned
+ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.240584
+  ...
+# Subtest: R5 rejects query receiver shadowed
+ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.223208
+  ...
+# Subtest: R5 rejects R3 extra unconditional namespace/bracket alias mount
+ok 37 - R5 rejects R3 extra unconditional namespace/bracket alias mount
+  ---
+  duration_ms: 0.825958
+  ...
+# Subtest: R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+not ok 38 - R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+  ---
+  duration_ms: 0.194583
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:177:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'kind')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    Object.isNamedImports (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/typescript/lib/typescript.js:31088:15)
+    file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:111:20
+    visit (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:76:13)
+    visitNodes (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/typescript/lib/typescript.js:32457:22)
+    forEachChildInSourceFile (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/typescript/lib/typescript.js:32670:12)
+    Object.forEachChild (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/typescript/lib/typescript.js:32970:35)
+    visit (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:77:12)
+    descendants (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:79:5)
+    isApprovedBenchCharacterUse (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:108:30)
+    Object.check (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.mjs:55:17)
+  ...
+# Subtest: R5 rejects alternate character import binding: namespace dot access
+ok 39 - R5 rejects alternate character import binding: namespace dot access
+  ---
+  duration_ms: 0.749833
+  ...
+# Subtest: R5 rejects alternate character import binding: default binding
+ok 40 - R5 rejects alternate character import binding: default binding
+  ---
+  duration_ms: 0.939334
+  ...
+# Subtest: R5 rejects alternate character import binding: named alias
+ok 41 - R5 rejects alternate character import binding: named alias
+  ---
+  duration_ms: 0.784792
+  ...
+# Subtest: R5 rejects alternate character import binding: string named alias
+ok 42 - R5 rejects alternate character import binding: string named alias
+  ---
+  duration_ms: 0.750834
+  ...
+# Subtest: R5 rejects alternate character import binding: extra default beside canonical
+ok 43 - R5 rejects alternate character import binding: extra default beside canonical
+  ---
+  duration_ms: 0.714
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot namespace
+ok 44 - R5 rejects alternate character import binding: CharacterSlot namespace
+  ---
+  duration_ms: 0.730791
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot string alias
+ok 45 - R5 rejects alternate character import binding: CharacterSlot string alias
+  ---
+  duration_ms: 0.723375
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 44
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 182.973083
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.754666
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.114666
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.1005
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 10.364167
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.862917
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.419709
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.980458
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 2.111292
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.603709
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.478458
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.401417
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.407625
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.560625
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.628834
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.196166
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.880584
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.075375
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.179209
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.008792
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.290666
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.031542
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.808708
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.757459
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.810583
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.904208
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.219084
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.117916
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.685416
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.580875
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.094625
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 13.232333
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.72375
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 0.147209
+  ...
+# Subtest: R5 rejects forged query receiver
+ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.310459
+  ...
+# Subtest: R5 rejects query receiver reassigned
+ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.272208
+  ...
+# Subtest: R5 rejects query receiver shadowed
+ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.286792
+  ...
+# Subtest: R5 rejects R3 extra unconditional namespace/bracket alias mount
+ok 37 - R5 rejects R3 extra unconditional namespace/bracket alias mount
+  ---
+  duration_ms: 0.907875
+  ...
+# Subtest: R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+ok 38 - R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+  ---
+  duration_ms: 0.0775
+  ...
+# Subtest: R5 rejects alternate character import binding: namespace dot access
+ok 39 - R5 rejects alternate character import binding: namespace dot access
+  ---
+  duration_ms: 0.807542
+  ...
+# Subtest: R5 rejects alternate character import binding: default binding
+ok 40 - R5 rejects alternate character import binding: default binding
+  ---
+  duration_ms: 1.1035
+  ...
+# Subtest: R5 rejects alternate character import binding: named alias
+ok 41 - R5 rejects alternate character import binding: named alias
+  ---
+  duration_ms: 0.819708
+  ...
+# Subtest: R5 rejects alternate character import binding: string named alias
+ok 42 - R5 rejects alternate character import binding: string named alias
+  ---
+  duration_ms: 0.740792
+  ...
+# Subtest: R5 rejects alternate character import binding: extra default beside canonical
+ok 43 - R5 rejects alternate character import binding: extra default beside canonical
+  ---
+  duration_ms: 0.764417
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot namespace
+ok 44 - R5 rejects alternate character import binding: CharacterSlot namespace
+  ---
+  duration_ms: 0.75825
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot string alias
+ok 45 - R5 rejects alternate character import binding: CharacterSlot string alias
+  ---
+  duration_ms: 0.725083
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 180.820833
+
+FINAL CHECKS — Node v20.20.2
+check 0 exit 0
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 462 files.
+Found 52 issues: 0 regressions, 49 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+
+check 1 exit 0
+
+check 2 exit 0
+{
+  "node": "v20.20.2",
+  "productFiles": 19,
+  "productMismatches": [],
+  "policyMatchesHEAD": true,
+  "policySha256": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00",
+  "guardHashes": {
+    "radiant-app/scripts/visual-qa.mjs": "8127e952e3c9756abd2a82947f556c986f82c1f381f6a009e0cb27f15b65c4a4",
+    "radiant-app/scripts/visual-qa.test.mjs": "25b0c8e4d05d2eae8fd5da6b0bbb814223c08dcf73779dbdab6eed5ad4769446"
+  }
+}

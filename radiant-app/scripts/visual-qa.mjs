@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { ts, unwrap } from './ast-helpers.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,7 +51,8 @@ const RULES = [
     },
     {
         id: 'R5', severity: 'warning', description: 'Character Misuse', regex: /(CharacterSlot|PixelIllustration)/g,
-        check: (_match, _content, file) => {
+        check: (_match, content, file) => {
+            if (isApprovedBenchCharacterUse(content, path.relative(ROOT_DIR, file))) return null;
             if (file.includes(`${path.sep}ui${path.sep}characters${path.sep}`)) return null;
             const allowed = ['Home', 'Start', 'Finish', 'Intro', 'Welcome', 'Summary', 'Character', 'Checkpoint', 'Quiz', 'Review', 'JourneyHero', 'PixelIllustration'];
             return allowed.some((name) => path.basename(file).includes(name))
@@ -60,6 +62,158 @@ const RULES = [
         oncePerFile: true,
     },
 ];
+
+// This is a bounded recognizer for the already approved T04 explanation, not
+// a new screen allowance. Unknown syntax/bindings fail closed. The historical
+// R5 rule is unchanged everywhere else, including its existing filename debt.
+const BENCH_FILE = 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx';
+const BENCH_TEST_FILE = BENCH_FILE.replace('.tsx', '.test.tsx');
+const PIXEL_MODULE = '../../../ui/characters/PixelIllustration';
+
+function descendants(node, predicate) {
+    const found = [];
+    function visit(child) {
+        if (predicate(child)) found.push(child);
+        ts.forEachChild(child, visit);
+    }
+    visit(node);
+    return found;
+}
+
+// Compare parsed syntax, ignoring comments, whitespace and transparent type
+// wrappers. In particular a correct condition in a comment cannot authorize
+// an incorrect executable condition.
+function syntaxShape(input) {
+    const node = unwrap(input);
+    if (!node || (ts.isJsxText(node) && !node.text.trim())) return null;
+    const children = [];
+    ts.forEachChild(node, (child) => { const shape = syntaxShape(child); if (shape) children.push(shape); });
+    const text = ts.isIdentifier(node) || ts.isStringLiteral(node) || ts.isNumericLiteral(node) || ts.isJsxText(node) ? node.text : undefined;
+    return [node.kind, text, children];
+}
+function matchesExpression(node, expected) {
+    const parsed = ts.createSourceFile('expected.tsx', `const expected = (${expected});`, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    return JSON.stringify(syntaxShape(node)) === JSON.stringify(syntaxShape(parsed.statements[0].declarationList.declarations[0].initializer));
+}
+
+function isApprovedBenchCharacterUse(content, file) {
+    if (file !== BENCH_FILE && file !== BENCH_TEST_FILE) return false;
+    const source = ts.createSourceFile(file, content, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    if (source.parseDiagnostics.length) return false;
+    const identifiers = (name) => descendants(source, (node) => ts.isIdentifier(node) && node.text === name);
+    // Inspect module bindings before counting identifiers: namespace/bracket
+    // aliases may never contain a PixelIllustration Identifier at all. Only
+    // the existing single named import is understood; refactors fail closed.
+    const characterNames = ['PixelIllustration', 'CharacterSlot'];
+    const characterImports = descendants(source, (node) => ts.isImportDeclaration(node)
+        && (node.moduleSpecifier.text === PIXEL_MODULE
+            || node.moduleSpecifier.text === '../../../ui/characters/CharacterSlot'
+            || (node.importClause?.namedBindings && ts.isNamedImports(node.importClause.namedBindings)
+                && node.importClause.namedBindings.elements.some((entry) =>
+                    characterNames.includes(entry.name.text) || characterNames.includes(entry.propertyName?.text)))));
+    if (characterImports.length > 1 || characterImports.some((node) => {
+        const clause = node.importClause;
+        const bindings = clause?.namedBindings;
+        if (node.moduleSpecifier.text !== PIXEL_MODULE || !clause || clause.name || clause.isTypeOnly
+            || !bindings || !ts.isNamedImports(bindings) || bindings.elements.length !== 1) return true;
+        const entry = bindings.elements[0];
+        return entry.name.text !== 'PixelIllustration' || !!entry.propertyName || entry.isTypeOnly;
+    })) return false;
+    const pixelImport = characterImports[0]?.importClause.namedBindings.elements[0];
+    const pixelNames = identifiers('PixelIllustration');
+    if (identifiers('CharacterSlot').length) return false;
+    if (file === BENCH_TEST_FILE && pixelNames.length === 0 && !pixelImport) return true;
+    if (!pixelImport) return false;
+    if (file === BENCH_TEST_FILE) {
+        // Only the existing query assertions are observational. No blanket
+        // exemption for tests, JSX, createElement, aliasing or unknown calls.
+        if (pixelNames.length === 1) return true;
+        const viewNames = identifiers('view');
+        const viewBinding = viewNames.find((name) => ts.isVariableDeclaration(name.parent));
+        if (!viewBinding || viewBinding.parent.name !== viewBinding
+            || !(viewBinding.parent.parent.flags & ts.NodeFlags.Const)
+            || !ts.isCallExpression(viewBinding.parent.initializer)
+            || !ts.isIdentifier(viewBinding.parent.initializer.expression)
+            || viewBinding.parent.initializer.expression.text !== 'render') return false;
+        if (!viewNames.every((name) => name === viewBinding
+            || (ts.isPropertyAccessExpression(name.parent) && name.parent.expression === name
+                && ts.isCallExpression(name.parent.parent) && name.parent.parent.expression === name.parent
+                && ['getByText', 'getByRole', 'UNSAFE_queryByType', 'UNSAFE_getByType'].includes(name.parent.name.text)))) return false;
+        const renderNames = identifiers('render');
+        const renderImport = renderNames.find((name) => ts.isImportSpecifier(name.parent));
+        if (!renderImport || renderImport.parent.propertyName
+            || renderImport.parent.parent.parent.parent.moduleSpecifier.text !== '@testing-library/react-native'
+            || !renderNames.every((name) => name === renderImport
+                || (ts.isCallExpression(name.parent) && name.parent.expression === name))) return false;
+        return pixelNames.every((name) => {
+            if (name === pixelImport.name) return true;
+            const call = name.parent;
+            return ts.isCallExpression(call) && call.arguments.length === 1 && call.arguments[0] === name
+                && !call.questionDotToken && ts.isPropertyAccessExpression(call.expression)
+                && !call.expression.questionDotToken && ts.isIdentifier(call.expression.expression)
+                && call.expression.expression.text === 'view'
+                && ['UNSAFE_queryByType', 'UNSAFE_getByType'].includes(call.expression.name.text);
+        });
+    }
+    const functions = source.statements.filter(ts.isFunctionDeclaration);
+    const screen = functions.find((node) => node.name?.text === 'BenchScreen');
+    const renderer = functions.find((node) => node.name?.text === 'BenchStepRenderer');
+    if (!screen?.body || screen.modifiers?.length || !renderer?.body || renderer.body.statements.length !== 2) return false;
+    const [typeGuard, returned] = renderer.body.statements;
+    if (!ts.isIfStatement(typeGuard) || typeGuard.elseStatement
+        || !matchesExpression(typeGuard.expression, "interaction.type !== 'bench'")
+        || !ts.isBlock(typeGuard.thenStatement) || typeGuard.thenStatement.statements.length !== 1
+        || !ts.isReturnStatement(typeGuard.thenStatement.statements[0])
+        || !matchesExpression(typeGuard.thenStatement.statements[0].expression, '<View />')
+        || !ts.isReturnStatement(returned)) return false;
+    if (!matchesExpression(returned.expression, `<BenchScreen
+        interactionId={interaction.id}
+        payload={interaction.payload}
+        value={value} onChange={onChange} submitted={submitted}
+        explanation={interaction.payload.mode === 'explore' && !submitted
+          && isCorrectInteractionValue(interaction, value) ? interaction.feedback.correct : undefined}
+    />`)) return false;
+    // Check the binding declaration too: an identical expression over a new
+    // default, renamed parameter or shadowed predicate is not the same proof.
+    const parameterShape = (fn) => fn.parameters.length === 1 ? syntaxShape(fn.parameters[0].name) : null;
+    const expectedRenderer = ts.createSourceFile('parameter.ts', 'function f({ interaction, value, onChange, submitted = false }) {}', ts.ScriptTarget.Latest, true);
+    if (JSON.stringify(parameterShape(renderer)) !== JSON.stringify(parameterShape(expectedRenderer.statements[0]))) return false;
+    const predicateNames = identifiers('isCorrectInteractionValue');
+    if (predicateNames.length !== 2 || !ts.isImportSpecifier(predicateNames[0].parent)
+        || predicateNames[0].parent.propertyName
+        || predicateNames[0].parent.parent.parent.parent.moduleSpecifier.text !== './InteractionAnswerValue') return false;
+    const screenNames = identifiers('BenchScreen');
+    if (screenNames.length !== 2 || screenNames[0] !== screen.name
+        || screenNames[1] !== unwrap(returned.expression).tagName) return false;
+    const pixelUsages = pixelNames.filter((node) => node !== pixelImport.name);
+    if (pixelUsages.length !== 1 || !ts.isJsxSelfClosingElement(pixelUsages[0].parent)) return false;
+    const pixel = pixelUsages[0].parent;
+    const conditions = descendants(screen.body, ts.isConditionalExpression).filter((node) =>
+        descendants(node.whenTrue, (child) => child === pixel).length === 1);
+    if (conditions.length !== 1 || !matchesExpression(conditions[0], `explanation ? (
+        <View style={styles.explanation}>
+            <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                <PixelIllustration state="happy" size="sm" />
+            </View>
+            <Text style={styles.explanationText}>{explanation}</Text>
+        </View>
+    ) : null`)) return false;
+    const screenReturn = screen.body.statements.find(ts.isReturnStatement);
+    if (!screenReturn || !ts.isJsxElement(unwrap(screenReturn.expression))) return false;
+    const directChildren = unwrap(screenReturn.expression).children;
+    if (!directChildren.some((node) => matchesExpression(node, '<Text style={styles.prompt}>{payload.prompt}</Text>'))
+        || !directChildren.some((node) => ts.isJsxExpression(node) && node.expression === conditions[0])) return false;
+    // The explanation has one local binding and exactly its condition/text
+    // reads. Extra assignments, nested shadows and defaults are not accepted.
+    const explanationNames = identifiers('explanation').filter((node) =>
+        !ts.isPropertySignature(node.parent) && !ts.isJsxAttribute(node.parent)
+        && !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
+        && !(ts.isPropertyAccessExpression(node.parent) && node.parent.name === node));
+    const binding = explanationNames.find((node) => ts.isBindingElement(node.parent));
+    if (!binding || binding.parent.initializer || binding.parent.propertyName
+        || binding.parent.parent !== screen.parameters[0]?.name || explanationNames.length !== 3) return false;
+    return true;
+}
 
 function lineAt(content, index) {
     return content.slice(0, index).split('\n').length;
@@ -206,7 +360,7 @@ function printBaselineTemplate(issues) {
     for (const [key, count] of counts) {
         const [rule, file, signature] = key.split('\u0000');
         const groupKey = `${rule}\u0000${file}`;
-        const group = grouped.get(groupKey) || { rule, file, allowances: {}, owner: 'design-system', expiresOn: '2026-10-23', reason: 'Token migration tracked in docs/plans/2026-07-23-radiant-continuation-roadmap.md.' };
+        const group = grouped.get(groupKey) || { rule, file, allowances: {}, owner: 'design-system', expiresOn: '2026-11-30', reason: 'Token migration tracked in plan 5 of the Medalhão track (FILA 67).' };
         group.allowances[signature] = count;
         grouped.set(groupKey, group);
     }

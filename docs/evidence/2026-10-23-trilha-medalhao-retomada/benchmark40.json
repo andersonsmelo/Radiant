@@ -1,0 +1,65 @@
+[
+ {
+  "rodada": 1,
+  "segundos": 30.2,
+  "quadros_framestats": 1802,
+  "media_ms": 19.42,
+  "p50": 17.29,
+  "p90": 23.04,
+  "p95": 25.04,
+  "p99": 28.73,
+  "pior_ms": 50.29,
+  "acima_16_7ms": 1782,
+  "acima_33ms": 13,
+  "resumo_gfxinfo": {
+   "Total frames rendered": "1803",
+   "Janky frames": "9 (0.50%)",
+   "50th percentile": "16ms",
+   "90th percentile": "22ms",
+   "95th percentile": "23ms",
+   "99th percentile": "27ms"
+  }
+ },
+ {
+  "rodada": 2,
+  "segundos": 30.1,
+  "quadros_framestats": 1802,
+  "media_ms": 19.0,
+  "p50": 17.21,
+  "p90": 22.89,
+  "p95": 24.7,
+  "p99": 27.94,
+  "pior_ms": 50.12,
+  "acima_16_7ms": 1781,
+  "acima_33ms": 6,
+  "resumo_gfxinfo": {
+   "Total frames rendered": "1803",
+   "Janky frames": "2 (0.11%)",
+   "50th percentile": "16ms",
+   "90th percentile": "21ms",
+   "95th percentile": "23ms",
+   "99th percentile": "26ms"
+  }
+ },
+ {
+  "rodada": 3,
+  "segundos": 30.2,
+  "quadros_framestats": 1804,
+  "media_ms": 20.79,
+  "p50": 21.28,
+  "p90": 23.34,
+  "p95": 25.42,
+  "p99": 27.86,
+  "pior_ms": 50.13,
+  "acima_16_7ms": 1789,
+  "acima_33ms": 8,
+  "resumo_gfxinfo": {
+   "Total frames rendered": "1805",
+   "Janky frames": "5 (0.28%)",
+   "50th percentile": "20ms",
+   "90th percentile": "22ms",
+   "95th percentile": "24ms",
+   "99th percentile": "27ms"
+  }
+ }
+]

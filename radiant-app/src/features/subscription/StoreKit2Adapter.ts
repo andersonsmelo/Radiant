@@ -77,7 +77,11 @@ export class StoreKit2Adapter implements StoreKitPort {
         for (const nativo of nativos) {
             const period = periodOfProduct(nativo.id);
             if (period === null) continue;
-            produtos.push({ id: nativo.id, period, title: nativo.displayName, displayPrice: nativo.displayPrice });
+            produtos.push({
+                id: nativo.id, period, title: nativo.displayName, displayPrice: nativo.displayPrice,
+                ...(nativo.price !== undefined ? { price: nativo.price } : {}),
+                ...(nativo.currencyCode !== undefined ? { currencyCode: nativo.currencyCode } : {}),
+            });
         }
         // Acordo de apps pagos inativo ou ID errado deixam a lista vazia sem
         // erro. Uma tela de planos sem planos não ajuda ninguém; "a loja não

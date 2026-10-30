@@ -6,6 +6,8 @@ import type {
     PresentationRole,
 } from '../../../types/learningActivity';
 import { validateLearningActivity } from '../../../types/learningActivity';
+import { COLIMACAO } from '../../bench/lessons/colimacao';
+import { EXPOSICAO } from '../../bench/lessons/exposicao';
 
 // O serviço legado alcança AsyncStorage por JourneyDefinitionService →
 // LessonCatalogService → TelemetryService. A validação v2 é pura e não depende
@@ -388,6 +390,207 @@ describe('validateLearningActivity', () => {
         expect(rulesFor(issues, 'interaction:ordering-1')).toContain('invalid-correct-order');
     });
 
+    describe('interação bench', () => {
+        const kvControl = { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 5, initial: 70 };
+        const masControl = { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 };
+
+        function bench(payload: Record<string, unknown> = {}): LearningInteractionV2 {
+            return multipleChoice({
+                type: 'bench',
+                id: 'interaction:bench-1',
+                payload: {
+                    prompt: 'Ajuste o kV até o contraste cair.',
+                    simulator: 'exposure',
+                    mode: 'challenge',
+                    controls: [kvControl, masControl],
+                    goal: { kind: 'reach', control: 'kv', atLeast: 100 },
+                    phantomLabel: 'Fantoma simulado',
+                    hints: { tooLow: 'Suba o kV.', tooHigh: 'Desça o kV.' },
+                    ...payload,
+                },
+            } as Partial<LearningInteractionV2>);
+        }
+
+        function issuesFor(interaction: LearningInteractionV2) {
+            return validateLearningActivity(
+                activity({
+                    steps: [
+                        presentation('step:hook', 'hook'),
+                        interactionStep(interaction),
+                        presentation('step:closing', 'closing'),
+                    ],
+                }),
+            );
+        }
+
+        it('aceita uma bancada íntegra', () => {
+            expect(issuesFor(bench())).toEqual([]);
+        });
+
+        it('recusa bancada sem controles', () => {
+            // Alvo `match` para o defeito ser só a lista vazia: um `reach` sobre
+            // controle inexistente dispara também `invalid-goal`.
+            const goal = { kind: 'match', reference: { kv: 70, mas: 10 }, tolerance: 0.05 };
+            expect(rulesFor(issuesFor(bench({ controls: [], goal })), 'interaction:bench-1'))
+                .toEqual(['invalid-controls']);
+        });
+
+        it.each([
+            ['min igual a max', { ...kvControl, min: 70, max: 70 }],
+            ['min maior que max', { ...kvControl, min: 120, max: 40 }],
+            ['min que não é número', { ...kvControl, min: Number.NaN }],
+        ])('recusa controle com %s', (_nome, control) => {
+            expect(rulesFor(issuesFor(bench({ controls: [control, masControl] })), 'interaction:bench-1'))
+                .toEqual(['invalid-controls']);
+        });
+
+        it.each([
+            ['acima do máximo', 130],
+            ['abaixo do mínimo', 30],
+        ])('recusa controle com initial %s', (_nome, initial) => {
+            expect(rulesFor(issuesFor(bench({ controls: [{ ...kvControl, initial }, masControl] })), 'interaction:bench-1'))
+                .toEqual(['invalid-initial']);
+        });
+
+        it('aceita initial exatamente nos limites da faixa', () => {
+            expect(issuesFor(bench({ controls: [{ ...kvControl, initial: 40 }, { ...masControl, initial: 40 }] })))
+                .toEqual([]);
+        });
+
+        describe('alvo (goal)', () => {
+            const reachKv = { kind: 'reach', control: 'kv' } as const;
+            const match = { kind: 'match', reference: { kv: 70, mas: 10 } } as const;
+
+            it('aceita reach nas pontas da faixa e match com tolerância positiva', () => {
+                expect(issuesFor(bench({ goal: { ...reachKv, atLeast: 40, atMost: 120 } }))).toEqual([]);
+                expect(issuesFor(bench({ goal: { ...reachKv, atMost: 60 } }))).toEqual([]);
+                expect(issuesFor(bench({ goal: { ...match, tolerance: 0.05 } }))).toEqual([]);
+            });
+
+            it('recusa goal ausente', () => {
+                expect(rulesFor(issuesFor(bench({ goal: undefined })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa reach cujo controle não está entre os controles', () => {
+                // Só o kV existe; o alvo olha o mAs, e o aluno nunca o alcançaria.
+                expect(rulesFor(
+                    issuesFor(bench({ controls: [kvControl], goal: { kind: 'reach', control: 'mas', atLeast: 5 } })),
+                    'interaction:bench-1',
+                )).toEqual(['invalid-goal']);
+            });
+
+            it('recusa reach sem atLeast e sem atMost', () => {
+                expect(rulesFor(issuesFor(bench({ goal: reachKv })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it.each([
+                ['atLeast acima do máximo', { atLeast: 130 }],
+                ['atLeast abaixo do mínimo', { atLeast: 30 }],
+                ['atMost acima do máximo', { atMost: 130 }],
+                ['atMost abaixo do mínimo', { atMost: 30 }],
+                ['atLeast que não é número', { atLeast: Number.NaN }],
+                ['limite válido ao lado de outro fora da faixa', { atLeast: 100, atMost: 130 }],
+            ])('recusa reach com %s', (_nome, limits) => {
+                expect(rulesFor(issuesFor(bench({ goal: { ...reachKv, ...limits } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it.each([
+                ['zero', 0],
+                ['negativa', -0.05],
+                ['NaN', Number.NaN],
+                ['infinita', Number.POSITIVE_INFINITY],
+                ['ausente', undefined],
+            ])('recusa match com tolerância %s', (_nome, tolerance) => {
+                expect(rulesFor(issuesFor(bench({ goal: { ...match, tolerance } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it.each([
+                ['ausente', undefined],
+                ['nula', null],
+                ['sem kv', { mas: 10 }],
+                ['sem mas', { kv: 70 }],
+                ['com kv que não é número', { kv: '70', mas: 10 }],
+                ['com mas NaN', { kv: 70, mas: Number.NaN }],
+                ['com kv infinito', { kv: Number.POSITIVE_INFINITY, mas: 10 }],
+            ])('recusa match com referência %s', (_nome, reference) => {
+                // Sem referência o "Conferir" lançaria TypeError ao ler `reference.kv`.
+                expect(rulesFor(issuesFor(bench({ goal: { kind: 'match', tolerance: 0.05, reference } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa um tipo de alvo desconhecido', () => {
+                expect(rulesFor(issuesFor(bench({ goal: { kind: 'sempre' } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+        });
+
+        it.each([
+            ['sem hints', undefined],
+            ['com tooLow vazio', { tooLow: '', tooHigh: 'Desça o kV.' }],
+            ['com tooHigh em branco', { tooLow: 'Suba o kV.', tooHigh: '   ' }],
+        ])('recusa bancada %s', (_nome, hints) => {
+            expect(rulesFor(issuesFor(bench({ hints })), 'interaction:bench-1'))
+                .toEqual(['missing-hints']);
+        });
+
+        describe('simulador de colimação', () => {
+            const widthControl = { id: 'fieldWidth', label: 'Largura do campo', unit: 'cm', min: 5, max: 27, step: 1, initial: 27 };
+            const heightControl = { id: 'fieldHeight', label: 'Altura do campo', unit: 'cm', min: 5, max: 33, step: 1, initial: 33 };
+
+            function collimation(payload: Record<string, unknown> = {}): LearningInteractionV2 {
+                return bench({
+                    prompt: 'Feche o campo até a região de interesse.',
+                    simulator: 'collimation',
+                    controls: [widthControl, heightControl],
+                    goal: { kind: 'reach', control: 'fieldWidth', atMost: 18 },
+                    hints: { tooLow: 'Abra um pouco o campo.', tooHigh: 'Feche mais o campo.' },
+                    ...payload,
+                });
+            }
+
+            it('aceita uma bancada de colimação íntegra', () => {
+                expect(issuesFor(collimation())).toEqual([]);
+                expect(issuesFor(collimation({ goal: { kind: 'reach', control: 'fieldHeight', atLeast: 10, atMost: 24 } })))
+                    .toEqual([]);
+            });
+
+            it('recusa um controle de exposição numa bancada de colimação', () => {
+                // O alvo olha a largura, que existe: o defeito é só o kV fora do simulador.
+                expect(rulesFor(issuesFor(collimation({ controls: [widthControl, kvControl] })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls']);
+            });
+
+            it('recusa um controle de colimação numa bancada de exposição', () => {
+                expect(rulesFor(issuesFor(bench({ controls: [kvControl, widthControl] })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls']);
+            });
+
+            it('recusa reach sobre o kV numa bancada de colimação, mesmo com o kV entre os controles', () => {
+                // Os dois defeitos aparecem: o controle estranho e o alvo que olha para ele.
+                const goal = { kind: 'reach', control: 'kv', atLeast: 100 };
+                expect(rulesFor(issuesFor(collimation({ controls: [widthControl, kvControl], goal })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls', 'invalid-goal']);
+            });
+
+            it('recusa match numa bancada de colimação: o match compara contraste, e a colimação não o mexe', () => {
+                const goal = { kind: 'match', reference: { kv: 70, mas: 10 }, tolerance: 0.05 };
+                expect(rulesFor(issuesFor(collimation({ goal })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa um simulador desconhecido, e só por ele', () => {
+                expect(rulesFor(issuesFor(bench({ simulator: 'posicionamento' })), 'interaction:bench-1'))
+                    .toEqual(['invalid-simulator']);
+                expect(rulesFor(issuesFor(bench({ simulator: undefined })), 'interaction:bench-1'))
+                    .toEqual(['invalid-simulator']);
+            });
+        });
+    });
+
     it('exige proveniência com versão de conteúdo', () => {
         const issues = validateLearningActivity(
             activity({ provenance: { contentVersion: '', sourceIds: [] } }),
@@ -418,6 +621,36 @@ describe('LessonFlowService — contrato legado preservado', () => {
     });
 });
 
+describe('LessonFlowService — aulas-bancada de exemplo, só em desenvolvimento até o dono revisar', () => {
+    const globalWithDev = globalThis as unknown as { __DEV__: boolean };
+    const original = globalWithDev.__DEV__;
+
+    beforeEach(() => {
+        const { JourneyDefinitionService } = jest.requireMock('../../journey/services/JourneyDefinitionService');
+        JourneyDefinitionService.getBlockById.mockReturnValue(null);
+    });
+
+    afterEach(() => {
+        globalWithDev.__DEV__ = original;
+    });
+
+    it('em build de desenvolvimento, serve as duas aulas do catálogo de exemplo', () => {
+        globalWithDev.__DEV__ = true;
+
+        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBe(EXPOSICAO);
+        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBe(COLIMACAO);
+    });
+
+    it('fora de __DEV__, não serve as aulas de exemplo: elas não saem do catálogo sem o ok do dono', () => {
+        globalWithDev.__DEV__ = false;
+
+        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBeNull();
+        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBeNull();
+        // O catálogo de produção continua respondendo no mesmo build.
+        expect(LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01')).not.toBeNull();
+    });
+});
+
 
 it('M1 serviço aceita bloco híbrido de três perguntas e mantém a adaptação V2', () => {
     const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService');
@@ -431,4 +664,36 @@ it('M1 serviço aceita bloco híbrido de três perguntas e mantém a adaptação
     JourneyDefinitionService.getBlockById.mockReturnValue({ id: 'hybrid', lessonId: 'lesson-1', sessionMode: 'hybrid-lesson', steps });
     expect(() => LessonFlowService.getActivityById('hybrid')).not.toThrow();
     expect(LessonFlowService.getActivityById('hybrid')?.steps).toHaveLength(3);
+});
+
+
+describe('T04 — metadados opcionais da aula e imagem crítica', () => {
+    function withImage(image: unknown): LearningActivityV2 {
+        const choice = multipleChoice();
+        return activity({ steps: [presentation('hook', 'hook'), interactionStep({
+            ...choice, payload: { ...choice.payload, exposureImage: image },
+        } as LearningInteractionV2), presentation('closing', 'closing')] });
+    }
+    it.each([null, {}, { input: { kv: 70, mas: 2 }, label: ' ' },
+        { input: { kv: NaN, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: Infinity, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 39, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 121, mas: 2 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: 0 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: 41 }, label: 'Fantoma' },
+        { input: { kv: 70, mas: '2' }, label: 'Fantoma' },
+        { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+    ])('rejeita imagem que não pode representar o modelo: %p', image => {
+        expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+    });
+    it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+        expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+    });
+    it('preserva a atividade antiga sem imagem ou tema', () => expect(validateLearningActivity(activity())).toEqual([]));
+    it.each(['tubo', 'protecao', 'radiacao', 'ressonancia', 'tomografia'])('aceita o tema existente %s', theme => {
+        expect(validateLearningActivity({ ...activity(), theme } as LearningActivityV2)).toEqual([]);
+    });
+    it.each(['astronomia', null, 4])('rejeita tema fora do contrato: %p', theme => {
+        expect(validateLearningActivity({ ...activity(), theme } as unknown as LearningActivityV2)).toContainEqual({ path: 'activity:protecao-1', rule: 'invalid-theme' });
+    });
 });

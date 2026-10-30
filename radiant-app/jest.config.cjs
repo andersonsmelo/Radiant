@@ -3,6 +3,7 @@ module.exports = {
   testMatch: ['**/?(*.)+(test).[tj]s?(x)'],
   watchman: false,
   moduleNameMapper: {
+    '^@shopify/react-native-skia$': '<rootDir>/src/test/mocks/reactNativeSkia.tsx',
     '^@/(.*)$': '<rootDir>/$1',
     '^expo-audio$': '<rootDir>/src/test/mocks/expoAudio.ts',
   },
