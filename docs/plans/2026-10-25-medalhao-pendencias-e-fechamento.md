@@ -611,7 +611,7 @@ store indisponível; layout pronto pode ficar com G6 nativo explicitamente pende
 **Ler evidências:** `docs/evidence/2026-10-23-trilha-medalhao-retomada.md` e
 `docs/evidence/2026-10-23-trilha-medalhao-quadro.md`.
 
-- [ ] Apresentar ao dono alternativas concretas para texto máximo, preservando
+- [x] Preparar/apresentar ao dono alternativas concretas para texto máximo, preservando
   a solução atual até a decisão. Não reduzir fonte, truncar nem consumir os
   corredores de 64 pt silenciosamente.
 - [ ] Para a alternativa aprovada, registrar teste vermelho de validade e
@@ -621,6 +621,13 @@ store indisponível; layout pronto pode ficar com G6 nativo explicitamente pende
   que foi corrigido nem criar patch de hipótese não observada.
 - [ ] Se reaparecer em T18, registrar quadro/timeline e só então abrir correção
   com reprodução específica, vermelho/verde e nova revisão.
+
+**Entrega preparatória de30/10/2026:** [pacote G1/G3](2026-10-30-medalhao-t13-pacote-de-decisao.md),
+[comparativo](../design/2026-10-30-medalhao-t13-alternativas.html) e
+[evidência](../evidence/2026-10-30-medalhao-t13.md). Recomendação A mantém64+64;
+B exige liberação explícita da direita. G3 quadro tem opções de aceitar risco
+residual ou manter bloqueio; causa aberta, nenhum patch. G1/G3 não decididos,
+implementação/capturas e aceite de T13 pendentes. T14 não iniciada.
 
 ### T14 — Revisão do conteúdo, ADR e decisões do player
 

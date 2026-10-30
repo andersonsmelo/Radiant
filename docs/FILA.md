@@ -585,6 +585,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       consulta persistente. [Evidência](evidence/2026-10-30-medalhao-t12.md).
       Prova nativa normal/AX5 pendente por GUI ausente; E2E integral sóT18.
 
+    - **T13/Task15,30/10:** [pacote de decisão G1/G3](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
+      preparado com agentes de geometria e quadro. Sem produto/nativo novo;
+      A mantém64+64, B exige G1 explícito; quadro0/13 sem causa/conserto final.
+      Decisões do dono e aplicação/prova nativa pendentes, sem avançoT14.
+
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,

@@ -663,6 +663,16 @@ recibos/lifecycle na evidência.
 Próximo cartão: [T13](superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md),
 com G1 para aplicar alternativa e G3 para aceitar o quadro. Sem aceite global.
 
+**T13/Task15 — pacote de decisão preparado, revisado e validado documentalmente em30/10/2026:** [pacote de decisão G1/G3](plans/2026-10-30-medalhao-t13-pacote-de-decisao.md) e
+[comparativo isolado](design/2026-10-30-medalhao-t13-alternativas.html). A recomenda
+dois corredores64 preservados, hifenização deliberada/data em componentes e
+lembrete alcançável por rolagem; B oferece corredor esquerdo único somente
+com G1 explícito. Sem alteração de produto e sem prova nativa nova. Auditoria
+G3 delimita0/13 como9 rastreadas+4 limpas, com ocorrência pós-conserto
+preservada em excerto e causa aberta. G1/G3 permanecem decisões do dono;
+arte/acabamento e aceite integral separados. T13 não concluída, T14 não iniciada.
+[Proveniência, revisão e validação](evidence/2026-10-30-medalhao-t13.md).
+
 ## Prazos de relógio
 
 - **Segundo dia iOS: conferência no fechamento, por decisão do dono em

@@ -250,6 +250,12 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 - **Dono:** I/high; **revisão:** RF. **Skills:** T, U, A se geometria animada afetada; **recursos:** evidências existentes, Jest, AX5/Android 200% nativos.
 - **Pré-requisito:** G1 para aplicar alternativa; G3 para aceite do quadro. **Saída:** escolha documentada e validade geométrica provada; 0/13 não vira alegação de conserto; independentes continuam.
 
+**Recorte preparatório medido em30/10:** dois agentes somente leitura (G1 geometria
+e G3 evidência), controlador documental e revisão final independente.
+[Pacote concreto](2026-10-30-medalhao-t13-pacote-de-decisao.md). Nenhum escritor
+de produto; decisões G1/G3 abertas. Não usar `Task15 complete` integral: aplicação,
+prova nativa e aceite seguem pendentes. [Recibos](../evidence/2026-10-30-medalhao-t13.md).
+
 ### Task 16: T14 — Conteúdo e decisões do player
 
 - **Dono:** I/high; **revisão:** R técnico, dono no conteúdo. **Skills:** T; **recursos:** documentos/ADR, Jest/modelos e fluxos afetados.

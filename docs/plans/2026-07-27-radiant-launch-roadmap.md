@@ -65,6 +65,9 @@ writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: 
 para T17 e aceite global bloqueado. Limites no STATUS.
 T11/Task13 validada estaticamente em29/10: R3 SpecPASS/APPROVED,48 fluxo final,17 mutações e Loop15/15 no segundo ciclo após correção dos raios. [G6 local confirmado em30/10](../evidence/2026-10-30-medalhao-t11-g6.md): Debug novo de9a62bca no E262, bridge numérico/BRL e equivalente R$12,49 na tela; StoreKit Testing sem compra real/aparelho ou aceite global.
 T12/Task14 núcleo implementado/revisado em30/10: R1 P2 de persistência concorrente corrigido sem mudar serviço, R2 SpecPASS/APPROVED;229focais/7suítes normais eCPU,5mutaçõesfix1,Maestro40/40. [Evidência T12](../evidence/2026-10-30-medalhao-t12.md). Normal/AX5 NOT_VERIFIED por GUI Simulator.app ausente; capAppButton herdado, E2E integralT18 e aceite global pendentes. Próximo cartão [T13](../superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md) dependeG1/G3; nenhuma aplicação silenciosa.
+Em30/10, T13 recebeu [pacote concreto de decisão G1/G3](2026-10-30-medalhao-t13-pacote-de-decisao.md)
+e comparativo isolado; nenhuma alternativa aplicada ou aceite consumido.
+Aplicação/prova nativa continuam pendentes, sem avanço para T14.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

@@ -31,3 +31,16 @@ Não usar/limpar/reinstalar/alterar o reservado `5FD8C926-BC5A-4E9E-B5BE-2E080B2
 G1/G3 devem vir de decisão citável; testes focais não substituem esses gates. Antes de escrita, enumerar consumidores e declarar união completa, incluindo STATUS/histórico, testes, contratos e evidências. Vermelho causal preservado, mínimo verde, mutações específicas, revisão Spec e Qualidade, texto máximo conforme decisão e uma final configurada em carga baixa/caffeinate sem runtime concorrente. CI só do SHA publicado.
 
 Ao encerrar: documentação canônica e roadmap coerentes, arquivos/branch/commit, testes/revisões, limites, CI, processos e estados separados do writer/cérebro. Próximo objetivo independente em nova conversa; não avançar silenciosamente para T14/conteúdo nem consumir gates do dono.
+
+## Pacote preparatório desta continuidade —30/10/2026
+
+O [pacote G1/G3](../../plans/2026-10-30-medalhao-t13-pacote-de-decisao.md)
+e o [comparativo isolado](../../design/2026-10-30-medalhao-t13-alternativas.html)
+estão preparados para decisão. A preserva dois64; B libera direita somente
+por G1 explícito; ambas exigem tratar quebras e provar no nativo. G3 quadro
+é aceitação explícita de risco residual ou continuação do bloqueio;0/13 não
+é conserto. [Proveniência e revisão](../../evidence/2026-10-30-medalhao-t13.md).
+
+Nenhuma decisão G1/G3, implementação ou nova captura nativa foi consumida.
+T13 continua pendente no produto; T14 não iniciada. Retomar primeiro a escolha
+citável do dono sobre as opções concretas, sem pedir que repita contexto.
