@@ -465,8 +465,8 @@ tags:
 - tapOn:
     id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: Suas vidas acabaram
-- assertVisible: '^Próxima vida em \d+ min$'
+- assertVisible: Sem vidas
+- assertVisible: '^A próxima volta em \d+ min\.$'
 - tapOn: Voltar
 - assertVisible:
     id: journey-trail

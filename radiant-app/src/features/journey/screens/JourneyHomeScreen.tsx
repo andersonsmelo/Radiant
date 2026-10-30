@@ -170,8 +170,9 @@ export default function JourneyHomeScreen() {
   }, [canOpenNode, snapshot?.nextDecision]);
 
   const dueReviewNode = useMemo(
-    () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node => node.status === 'due-review') ?? null,
-    [snapshot],
+    () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node =>
+      node.type === 'review' && node.status === 'due-review' && canOpenNode(node) && getJourneyNodeHref(node) != null) ?? null,
+    [snapshot, canOpenNode],
   );
 
   const dueReviewCount = snapshot?.nextDecision?.dueReviewCount ?? snapshot?.dueReviewCount ?? 0;
@@ -224,7 +225,7 @@ export default function JourneyHomeScreen() {
           hearts={hearts?.count ?? MAX_HEARTS}
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
-          onHeartsPress={() => setHeartsSheetVisible(true)}
+          onHeartsPress={() => { if (hearts && hearts.status !== 'unlimited') setHeartsSheetVisible(true); }}
         />
         {loading ? (
           <View style={styles.centered}>
@@ -272,7 +273,7 @@ export default function JourneyHomeScreen() {
         <HeartsSheet
           visible={heartsSheetVisible && hearts.status !== 'unlimited'}
           snapshot={hearts}
-          dueReviewCount={snapshot?.dueReviewCount ?? 0}
+          dueReviewCount={dueReviewNode ? dueReviewCount : 0}
           storeAvailable={subscriptionService.storeAvailable()}
           onClose={() => setHeartsSheetVisible(false)}
           onReview={() => {

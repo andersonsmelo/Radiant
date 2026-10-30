@@ -645,6 +645,8 @@ git commit -m "feat(assinatura): planos como medalhas e um botão só"
 
 ### Tarefa 11: Sem vidas
 
+**Execução T12 em30/10:** núcleo R2 SpecPASS/APPROVED após correção P2 de consulta persistente;229focais/7suítes normalCPU,5injeçõesfix1,Maestro40/40. [Evidência](../../evidence/2026-10-30-medalhao-t12.md). Normal/AX5 nativo pendente por GUI ausente; capAppButton herdado mantido e sem aceite global. Maestro abaixo é contrato; E2E integral só T18.
+
 **Arquivos:**
 - Modificar: `radiant-app/src/features/hearts/components/HeartsSheet.tsx`
 - Testar: `radiant-app/src/features/hearts/components/HeartsSheet.test.tsx`
@@ -656,27 +658,27 @@ git commit -m "feat(assinatura): planos como medalhas e um botão só"
   quando `dueReviewCount > 0`, e "Vidas ilimitadas" como link quando
   `storeAvailable`. As props não mudam.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - 0 vidas e 2 revisões: cinco corações vazios, "Sem vidas", "Revisar agora" e o
   link;
 - sem revisão devida: sem "Revisar agora", e "Voltar" como ação;
 - `storeAvailable` falso: sem o link.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/hearts`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
-- [ ] **Passo 4: Ver passar, com Maestro**
+- [x] **Passo 4: Ver passar focal e contrato Maestro**
 
 Run: `cd radiant-app && npx jest src/features/hearts && npm run test:maestro-contract`
 Expected: PASS. O `radiant-1-4-vidas-esgotadas.yaml` muda junto se lê o texto
 da folha.
 
-- [ ] **Passo 5: Commit**
+**Passo 5: Commit — pelo controlador após fechamento; consultar Git/CI do SHA publicado.**
 
 ```bash
 git add -A radiant-app/src/features/hearts .maestro

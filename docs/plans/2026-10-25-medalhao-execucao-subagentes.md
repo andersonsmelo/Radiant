@@ -240,6 +240,8 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 14: T12 — Vidas
 
+**Núcleo implementado/revisado em30/10:** R2 SpecPASS/APPROVED, P2 de snapshot persistente resolvido por retorno do setter já sequenciado;229focais/7suítes normalCPU,5injeçõesfix1. Final Loop15/15 em um ciclo. [Evidência](../evidence/2026-10-30-medalhao-t12.md). Normal/AX5 NOT_VERIFIED por GUI Simulator.app ausente; texto máximo nativo/aceite global não encerrados. Não marcar Task14 complete integral nem transferir G6 para nova build.
+
 - **Dono:** I; **revisão:** R. **Skills:** T, U; **recursos:** Jest, `rg`, nativo; Maestro integral só T18.
 - **Pré-requisito:** T01; chamadores enumerados. **Saída:** ilimitado não abre folha, cinco estados e recarga/revisão preservados, texto máximo conferido.
 

@@ -590,14 +590,17 @@ store indisponível; layout pronto pode ficar com G6 nativo explicitamente pende
 
 ### T12 — Folha de vidas
 
+**Núcleo implementado/revisado em30/10:** R2 SpecPASS/APPROVED após P2 de consulta persistente corrigido;229focais/7suítes normalCPU,5mutaçõesfix1,Maestro40/40. Final Loop15/15 em um ciclo. [Evidência](../evidence/2026-10-30-medalhao-t12.md). Prova nativa normal/AX5 pendente por GUI ausente, sem build/install autorizado; cap global AppButton herdado. Final/lifecycle nos recibos, sem aceite global.
+
 **Plano 5/tarefa 11. Modificar:**
 `radiant-app/src/features/hearts/components/HeartsSheet.tsx`, `HeartsSheet.test.tsx`,
 `radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml` e os chamadores reais da folha.
 
-- [ ] Enumerar chamadores; testar ilimitado sem abrir a folha, não só aparência interna.
-- [ ] Testar cinco estados de coração, tempo de recarga e ação Revisar agora.
-- [ ] Usar assinatura como link; preservar economia e retorno à aula/revisão.
-- [ ] Rodar focal e conferir texto máximo; deixar o E2E de vidas para T18.
+- [x] Enumerar chamadores; testar ilimitado sem abrir a folha, não só aparência interna.
+- [x] Testar cinco corações e estados0–5, tempo de recarga e ação Revisar agora.
+- [x] Usar assinatura como link; preservar economia e retorno à aula/revisão.
+- [x] Rodar focal/CPU e conferir estrutura de texto máximo sem cap local novo.
+- [ ] Provar folha normal/AX5 nativamente quando a GUI estiver disponível; capAppButton herdado explícito. E2E de vidas permanece T18.
 
 ### T13 — Texto máximo da trilha e aceite do quadro antecipado
 

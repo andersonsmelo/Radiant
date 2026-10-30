@@ -115,12 +115,15 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const { Text } = require('react-native');
   const { Pressable } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
       visible ? (
         <>
           <Text>Checkpoint pausado por falta de vidas</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Text>{`A revisar: ${dueReviewCount}`}</Text>
           <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+          {dueReviewCount > 0 ? <Pressable accessibilityRole="button" onPress={onReview}><Text>Revisar pela folha</Text></Pressable> : null}
+          <Pressable accessibilityRole="button" onPress={onClose}><Text>Fechar folha</Text></Pressable>
         </>
       ) : null,
   };
@@ -801,6 +804,47 @@ describe('CheckpointScreen flow', () => {
 
     afterEach(() => {
       heartsRepository().getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    });
+
+    it('T12 a folha aberta some ao voltar ilimitado sem fechar antes', async () => {
+      await bloquearNaEntrada();
+      heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+      // A releitura é uma Promise: drene-a antes da asserção negativa.
+      // Serializar o Fiber ainda aberto dentro de waitFor custa a janela em CPU limitada.
+      await act(async () => {});
+      expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+    });
+
+    it('T12 não oferece revisão global que não pertence à unidade ativa', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue({ ...productionAvailableSnapshot, dueReviewCount: 9 } as any);
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await act(async () => {});
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
+
+    it('T12 conta só revisões da unidade ativa e fecha antes de revisar', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      const snapshot = { ...productionAvailableSnapshot, dueReviewCount: 9, track: {
+        ...productionAvailableSnapshot.track, units: [
+          { ...productionAvailableSnapshot.track.units[0], nodes: [
+            ...productionAvailableSnapshot.track.units[0].nodes,
+            { id: 'due-active', type: 'review', status: 'due-review', unitId: productionAvailableSnapshot.track.units[0].id },
+          ] },
+        ],
+      } };
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot as any);
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await act(async () => {});
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      expect(await screen.findByText('A revisar: 1')).toBeTruthy();
+      fireEvent.press(screen.getByText('Revisar pela folha'));
+      expect(mockedRouter.replace).toHaveBeenCalledWith('/review');
+      expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+      expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
     });
 
     it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {

@@ -581,6 +581,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       Skia mapeado no Jest, preservando uniformes, Skottie e falhas de fallback.
       A validação final e seus limites estão na evidência T04a acima.
 
+    - **T12 Vidas,30/10:** núcleo implementado/revisado após corrigir P2 de
+      consulta persistente. [Evidência](evidence/2026-10-30-medalhao-t12.md).
+      Prova nativa normal/AX5 pendente por GUI ausente; E2E integral sóT18.
+
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,

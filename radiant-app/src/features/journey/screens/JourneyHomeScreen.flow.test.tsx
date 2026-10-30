@@ -61,12 +61,15 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const React = require('react');
   const { Pressable, Text } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
       visible ? (
         <>
           <Text>Folha de vidas aberta</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Text>{`A revisar: ${dueReviewCount}`}</Text>
           <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+          {dueReviewCount > 0 ? <Pressable accessibilityRole="button" onPress={onReview}><Text>Revisar pela folha</Text></Pressable> : null}
+          <Pressable accessibilityRole="button" onPress={onClose}><Text>Fechar folha</Text></Pressable>
         </>
       ) : null,
   };
@@ -593,6 +596,54 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 
     afterEach(() => {
       heartsRepository().getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    });
+
+    it('T12 ilimitado não deixa flag latente ao tocar no HUD', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
+      renderWithProviders(<JourneyHomeScreen />);
+      fireEvent.press(await screen.findByText('HUD vidas: unlimited'));
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      voltarParaATela();
+      await screen.findByText('HUD vidas: empty');
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
+
+    it('T12 a folha aberta some ao voltar ilimitado sem fechar antes', async () => {
+      await abrirAFolha();
+      heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+      await screen.findByText('HUD vidas: unlimited');
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
+
+    it('T12 revisão executável usa o destino real e fecha a folha antes de navegar', async () => {
+      mockedRouter.push.mockClear();
+      const snapshot = snapshotWithReviewRecommended([]);
+      snapshot.dueReviewCount = 0; // A decisão atual tem prioridade sobre a contagem legada.
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+      await abrirAFolha();
+      expect(screen.getByText('A revisar: 2')).toBeTruthy();
+      fireEvent.press(screen.getByText('Revisar pela folha'));
+      await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: {
+        nodeId: 'node-review', blockId: 'block-foundations',
+      } }));
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
+
+    it.each(['futura', 'sem bloco'])('T12 revisão %s não oferece CTA de destino inexequível', async kind => {
+      const snapshot = snapshotWithReviewRecommended([]);
+      if (kind === 'futura') snapshot.track.units[0].nodes[0].reviewAvailableAtMs = Date.now() + 86_400_000;
+      else delete snapshot.track.units[0].nodes[0].blockId;
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+      await abrirAFolha();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
+
+    it('T12 sem revisão executável não oferece CTA mesmo com contagem devida', async () => {
+      const snapshot = createSnapshot(tracks[0].id, 'Aula', 'node-1', 'block-1');
+      mockedJourneyProgressService.bootstrap.mockResolvedValue({ ...snapshot, dueReviewCount: 2, nextDecision: null } as any);
+      await abrirAFolha();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
     });
 
     it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {

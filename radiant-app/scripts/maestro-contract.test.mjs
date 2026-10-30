@@ -1582,8 +1582,9 @@ test('vidas-esgotadas: the last heart lost on the final retry completes the less
   assert.ok(lastHeart > 0, 'the flow reaches zero hearts inside a lesson');
   assert.equal(commands[lastHeart + 1]?.tapOn, 'Concluir e voltar', 'the debit happens on the final retry');
   assert.equal(commands[lastHeart + 2]?.assertVisible, 'A lição foi concluída', 'losing the last heart still completes');
-  const sheet = commands.findIndex((command) => command?.assertVisible === 'Suas vidas acabaram');
+  const sheet = commands.findIndex((command) => command?.assertVisible === 'Sem vidas');
   assert.ok(sheet > lastHeart + 2, 'the hearts sheet comes in a later session');
+  assert.equal(commands[sheet + 1]?.assertVisible, '^A próxima volta em \\d+ min\\.$', 'the sheet refill selector follows the current copy');
   assert.equal(commands[sheet - 1]?.tapOn, 'Conferir resposta', 'the sheet blocks a retry confirmation');
   assert.match(String(commands[sheet - 2]?.tapOn?.id), /^lesson-option-/, 'a retry option was chosen before the block');
   const retryMarker = commands.slice(lastHeart + 2, sheet).findLastIndex((command) => command === 'Vamos tentar novamente'
@@ -1606,12 +1607,12 @@ test('M1-M8 all eight lesson-answer flows exercise every catalog item and its in
         // Só o roteiro de vidas pode encontrar a folha no lugar do feedback: sem
         // vidas, o retorno é barrado ao conferir, antes de a resposta contar.
         const blockedRetry = name === 'radiant-1-4-vidas-esgotadas.yaml'
-          && commands[index + 2]?.assertVisible === 'Suas vidas acabaram';
+          && commands[index + 2]?.assertVisible === 'Sem vidas';
         if (!blockedRetry) {
           assert.deepEqual(commands[index + 2]?.assertVisible, { id: 'lesson-item-feedback' }, `${name}: visible feedback for ${itemId}`);
         }
       }
-      if (answered.length > 0 && (commands[index]?.tapOn === 'Concluir e voltar' || commands[index]?.assertVisible === 'Suas vidas acabaram')) {
+      if (answered.length > 0 && (commands[index]?.tapOn === 'Concluir e voltar' || commands[index]?.assertVisible === 'Sem vidas')) {
         const lesson = lessons.find(entry => entry.questions.some(q => q.id === answered[0]));
         assert.ok(lesson, `${name}: each completed/paused session must answer a real lesson`);
         const expected = lesson.questions.map(q => q.id);

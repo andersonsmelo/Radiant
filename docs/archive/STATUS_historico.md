@@ -4059,3 +4059,15 @@ pela falha de fechamento). A evidência distingue os IDs e resultados dos runs. 
 Gates humanos, bloqueio global de layout/T17 e limites nativos anteriores
 permanecem. O segundo dia fica no fechamento; o simulador reservado segue
 fora desta execução.
+
+
+## 2026-10-30 — trechos substituídos após núcleo T12
+
+**T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
+corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
+HeartsDisplay de cinco corações como API, mas integra coração único também
+no QuizTopBar: o nativo da aula mostrou que esse consumidor separado ainda
+precisava da mudança. No HUD finito,
+um coração e a contagem; no ilimitado, apenas ∞.
+
+Próxima frente: [T12 Vidas](../superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).

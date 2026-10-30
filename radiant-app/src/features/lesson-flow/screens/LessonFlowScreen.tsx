@@ -91,6 +91,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const [error, setError] = useState<string | null>(null);
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+    const [dueReviewCount, setDueReviewCount] = useState(0);
     const chargedInteractions = useRef(new Set<string>());
     const completions = useRef(new Map<string, { finishing: boolean; finished: boolean; identity: { attemptId: string; answeredAt: Date } | null }>());
     // Revisão é prática, não prova (ADR de 2026-09-14: "Revisão nunca consome
@@ -191,7 +192,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 setError(null);
                 if (tracksJourney) {
                     await JourneyProgressService.setCurrentNode(nodeId);
-                    await JourneyProgressService.setResumableNode(nodeId);
+                    const entrySnapshot = await JourneyProgressService.setResumableNode(nodeId);
+                    // Este snapshot já vem da escrita sequenciada de entrada.
+                    // getSnapshotForNode também PERSISTE: consultá-lo no foco em
+                    // paralelo poderia sobrescrever currentNode/cursor novos.
+                    if (alive) setDueReviewCount(entrySnapshot?.dueReviewCount ?? 0);
                 }
                 const nextBlock = LessonFlowService.getBlockById(blockId);
                 // Durante a migração, consumidores legados (inclusive integrações
@@ -766,12 +771,15 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 </View>
             </SafeAreaView>
             <HeartsSheet
-                visible={heartsSheetVisible}
+                visible={heartsSheetVisible && hearts.status !== 'unlimited'}
                 snapshot={hearts}
-                dueReviewCount={0}
+                dueReviewCount={dueReviewCount}
                 storeAvailable={subscriptionService.storeAvailable()}
                 onClose={exitLesson}
-                onReview={() => router.replace('/review')}
+                onReview={() => {
+                    setHeartsSheetVisible(false);
+                    router.replace('/review');
+                }}
                 onSubscribe={() => {
                     setHeartsSheetVisible(false);
                     router.push('/subscription');

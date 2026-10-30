@@ -684,9 +684,9 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
           </>}
         </ScrollView>
       </SafeAreaView>
-      <HeartsSheet visible={heartsSheetVisible} snapshot={hearts} dueReviewCount={dueReviewCount}
+      <HeartsSheet visible={heartsSheetVisible && hearts.status !== 'unlimited'} snapshot={hearts} dueReviewCount={dueReviewCount}
         storeAvailable={subscriptionService.storeAvailable()} onClose={() => setHeartsSheetVisible(false)}
-        onReview={() => router.replace('/review')}
+        onReview={() => { setHeartsSheetVisible(false); router.replace('/review'); }}
         onSubscribe={() => { setHeartsSheetVisible(false); router.push('/subscription'); }} />
     </View>
   );

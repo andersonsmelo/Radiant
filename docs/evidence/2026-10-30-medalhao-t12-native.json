@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "measuredAtUTC": "2026-10-30T14:50:45.691027+00:00",
+  "status": "NOT_VERIFIED",
+  "normalSheet": "NOT_VERIFIED",
+  "ax5Sheet": "NOT_VERIFIED",
+  "reason": "simctl and existing development client work, but Simulator.app GUI is absent from active Xcode tree; CUA getApp com.apple.iphonesimulator returned Invalid app. No UI interaction could open real HUD sheet through available native GUI. No install authorized, no injected state/handler/fixture used.",
+  "observedFilesystem": {
+    "activeDeveloperPath": "/Applications/Xcode.app/Contents/Developer",
+    "simctlPath": "/Applications/Xcode.app/Contents/Developer/usr/bin/simctl",
+    "simulatorAppPath": "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app",
+    "simulatorAppExists": false,
+    "developerApplicationsDirectoryExists": false
+  },
+  "nativeLaunch": {
+    "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "bundleId": "com.ascendcreative.radiant",
+    "pid": 91861,
+    "existingBinaryOnly": true,
+    "sourceCommit": "9a62bcae990163be74a464ef147ab092e1b327d4",
+    "installedHashesMatchedG6Before": true,
+    "metroNode": "v20.20.2",
+    "apiBaseUrl": "",
+    "remoteSync": false,
+    "dotenv": false,
+    "offline": true,
+    "initialScreenshot": "Existing journey with finite5 HUD while loading bundle, not a HeartsSheet proof. Screenshot stays local in excluded workspace."
+  },
+  "contentSize": {
+    "before": "large",
+    "after": "large",
+    "ax5WasSet": false
+  },
+  "cleanup": {
+    "appTerminated": true,
+    "targetShutdown": true,
+    "metroSessionEnded": true,
+    "simulators": {
+      "E262D4C1-99BE-496B-8567-0291C14E6533": {
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-30T14:45:53Z",
+        "dataPathSize": 3923329024
+      },
+      "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3": {
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-23T11:16:09Z",
+        "dataPathSize": 2869338112
+      }
+    },
+    "reservedMatchesBefore": true
+  },
+  "limits": [
+    "No normal/AX5/native action/VoiceOver/FPS acceptance",
+    "No new build/install/StoreKit configuration/purchase",
+    "Counts0–5/unlimited and return/economy proved only through tests so far",
+    "Existing AppButton global cap2 unchanged per rulingr1a"
+  ]
+}

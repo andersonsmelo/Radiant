@@ -367,12 +367,10 @@ parcial não medidos nativamente. Cinco corações não provam contagem de grant
 Apps, emuladores e Metro encerrados, configurações restauradas; sem build,
 instalação, merge ou consumo de gates humanos. **A T08 foi retomada posteriormente em28/10; ver seu registro abaixo.** [Evidência T07](evidence/2026-10-28-medalhao-t07.md).
 
-**T02 — premissa corrigida em 26/10:** a folha atual ainda não desenha cinco
-corações. Essa entrega continua em T12/spec §11.3; T02 preserva o export
-HeartsDisplay de cinco corações como API, mas integra coração único também
-no QuizTopBar: o nativo da aula mostrou que esse consumidor separado ainda
-precisava da mudança. No HUD finito,
-um coração e a contagem; no ilimitado, apenas ∞.
+**T02/T12 — divisão medida em30/10:** o HUD finito mantém um coração e a
+contagem; no ilimitado, apenas ∞. A folha de cinco corações de40pt foi
+implementada/revisada no núcleo da T12; sua prova nativa normal/AX5 permanece
+pendente. Ver o registro T12 abaixo. T02 preserva HeartsDisplay como API.
 
 **CI T02 medido em 26/10:** commit `9b8b3b6`, Content Scripts145/
 `40349301072` e App Quality240/`40349302763` concluídos com sucesso.
@@ -641,8 +639,29 @@ não identifica o binário: hashes built/installed/runtime iguais o comprovam.
 Leitor audível, fonte ampliada, FPS, compra real e aparelho seguem sem prova.
 Reservado preservado; sem EAS, OTA, loja ou merge.
 [Evidência T11](evidence/2026-10-29-medalhao-t11.md).
-Próxima frente: [T12 Vidas](superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).
 [Evidência T10](evidence/2026-10-29-medalhao-t10.md).
+
+### T12 Vidas — núcleo implementado/revisado em30/10/2026
+
+Três chamadores enumerados antes do writer: Journey, LessonFlow e Checkpoint.
+Cinco corações40pt, título/prazo reais, Revisar principal quando devido,
+Voltar principal sem revisão e Vidas ilimitadas como link condicionado à loja.
+Ilimitado protegido nos consumidores; economia/primeira resposta/retomada preservadas.
+R1 encontrou P2: lookup extra persistia snapshot antigo e apagava cursor/current
+mais recentes. Fix1 usa o retorno da escrita já existente do bootstrap; serviço
+inalterado. R2 SpecPASS/APPROVED, P2ADDRESSED, sem novo achado.
+229focais em7suítes normais/CPU,5injeçõesfix1 detectadas/restauradas;32históricas
+R1 preservadas. Tipos/lint e Maestro40/40 PASS. Contagem de revisão atualiza
+no bootstrap; não há alegação de polling contínuo.
+**Normal/AX5 da folha NOT_VERIFIED:** GUI Simulator.app ausente no ambiente
+ativo; nenhum build/install ou estado sintético para contornar. Cap2 herdado
+do AppButton preservado. Leitor audível/FPS/Android e E2E integral ficam pendentes/T18.
+Runtime encerrado/8081livre/fontelarge; reservado intacto. CérebroCLOSED;
+writer `run-1793361707356-9d160e66`, final configurada15/15 em um ciclo;
+recibos/lifecycle na evidência.
+[Evidência T12](evidence/2026-10-30-medalhao-t12.md).
+Próximo cartão: [T13](superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md),
+com G1 para aplicar alternativa e G3 para aceitar o quadro. Sem aceite global.
 
 ## Prazos de relógio
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import { Confetti } from '../../../components/ui/Confetti';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
@@ -180,12 +181,15 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const { Text } = require('react-native');
   const { Pressable } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
       visible ? (
         <>
           <Text>Sua lição está pausada</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Text>{`A revisar: ${dueReviewCount}`}</Text>
           <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+          {dueReviewCount > 0 ? <Pressable accessibilityRole="button" onPress={onReview}><Text>Revisar pela folha</Text></Pressable> : null}
+          <Pressable accessibilityRole="button" onPress={onClose}><Text>Fechar folha</Text></Pressable>
         </>
       ) : null,
   };
@@ -733,6 +737,169 @@ describe('LessonFlowScreen — economia de vidas', () => {
       fireEvent.press(screen.getByText('Conferir resposta'));
       expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     }
+
+    it('T12 a folha aberta some ao voltar ilimitado sem fechar antes', async () => {
+      await pausarSemVidas();
+      heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+      // A releitura é uma Promise: drene-a antes da asserção negativa.
+      // Serializar o Fiber ainda aberto dentro de waitFor custa a janela em CPU limitada.
+      await act(async () => {});
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    });
+
+    it('T12 P2 a consulta de revisões não sobrescreve currentNode nem cursor mais recentes no serviço real', async () => {
+      // JourneyProgressService executa código real, inclusive ensureProgress e
+      // persistProgress. Só as portas usam dados sintéticos em memória; o getter
+      // tem escrita e é deliberadamente pausado após capturar o store antigo.
+      const fs = require('node:fs') as typeof import('node:fs');
+      const vm = require('node:vm') as typeof import('node:vm');
+      const ts = require('typescript') as typeof import('typescript');
+      const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
+      const track = { id: 't12-track', title: 'T12', initialUnitId: 't12-unit', units: [{
+        id: 't12-unit', title: 'T12', nodes: [
+          { id: 'node-1', type: 'lesson', unitId: 't12-unit', title: 'Aula', blockId: 'block-1', lessonId: 'lesson-1' },
+          { id: 'review-1', type: 'review', unitId: 't12-unit', title: 'Revisão', blockId: 'block-1', lessonId: 'lesson-1' },
+        ],
+      }] };
+      let store = { schemaVersion: 'journey-progress.v2', activeTrackId: track.id, tracks: { [track.id]: {
+        schemaVersion: 'journey-progress.v2', activeTrackId: track.id, currentUnitId: 't12-unit',
+        currentNodeId: null as string | null, completedNodeIds: [] as string[], pendingReviewNodeIds: [] as string[],
+        lastUpdatedAt: '2026-10-30T00:00:00.000Z', resumableNodeId: 'node-1', resumableStepIndex: 2,
+        pendingSyncEvents: [],
+      } } };
+      let pauseLookup = false;
+      let releaseLookup = () => {};
+      let captured!: () => void;
+      const lookupCaptured = new Promise<void>(resolve => { captured = resolve; });
+      const pendingLookups: Promise<JourneySnapshot>[] = [];
+      const ports: Record<string, unknown> = {
+        '../../../constants/storageKeys': { STORAGE_KEYS: { JOURNEY_PROGRESS: 'synthetic-t12-journey' } },
+        '../../../storage': {
+          readJsonStorage: async () => clone(store),
+          writeJsonStorage: async (_key: string, next: typeof store) => { store = clone(next); },
+          removeStorageKey: async () => {},
+        },
+        '../../../storage/schemaVersionGuard': jest.requireActual('../../../storage/schemaVersionGuard'),
+        '../../../types/journey': jest.requireActual('../../../types/journey'),
+        '../../spaced-repetition/services/SpacedRepetitionService': { SpacedRepetitionService: {
+          getDueLessons: async () => {
+            if (pauseLookup) {
+              pauseLookup = false;
+              captured();
+              return new Promise<string[]>(resolve => { releaseLookup = () => resolve(['lesson-1']); });
+            }
+            return ['lesson-1'];
+          },
+          getReviewSchedule: async () => [{ lessonId: 'lesson-1', dueAtMs: 0 }],
+        } },
+        './JourneyRecommendationService': jest.requireActual('../../journey/services/JourneyRecommendationService'),
+        './JourneyDefinitionService': { JourneyDefinitionService: { getTrackDefinition: () => track, getDefaultTrackId: () => track.id } },
+        '../../content/services/LessonCatalogService': { LessonCatalogService: { listTracks: () => [{ id: track.id }] } },
+        '../../progress-sync/ProgressSyncService': { progressSyncService: {} },
+        './JourneyTrackUnlockService': { resolveActiveTrackId: () => track.id },
+        './trackCompletion': jest.requireActual('../../journey/services/trackCompletion'),
+      };
+      const source = fs.readFileSync(require.resolve('../../journey/services/JourneyProgressService'), 'utf8');
+      const compiled = ts.transpileModule(source, { compilerOptions: {
+        module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022,
+      } }).outputText;
+      const moduleObject = { exports: {} as { JourneyProgressService: typeof JourneyProgressService } };
+      vm.runInNewContext(compiled, {
+        exports: moduleObject.exports, module: moduleObject,
+        require: (path: string) => {
+          if (!(path in ports)) throw new Error(`Unexpected service dependency: ${path}`);
+          return ports[path];
+        }, console, Date, Set, Map, Promise,
+      });
+      const realProgress = moduleObject.exports.JourneyProgressService;
+      const previousLookup = mockedJourneyProgress.getSnapshotForNode.getMockImplementation();
+      mockedJourneyProgress.getSnapshotForNode.mockImplementation(node => {
+        pauseLookup = true;
+        const pending = realProgress.getSnapshotForNode(node);
+        pendingLookups.push(pending);
+        return pending;
+      });
+      try {
+        renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+        expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+        if (pendingLookups.length > 0) await lookupCaptured;
+        await realProgress.setCurrentNode('node-1');
+        await realProgress.setResumableNode('node-1', 7);
+        expect(store.tracks[track.id].currentNodeId).toBe('node-1');
+        expect(store.tracks[track.id].resumableStepIndex).toBe(7);
+        await act(async () => { releaseLookup(); await Promise.all(pendingLookups); });
+        expect({ currentNode: store.tracks[track.id].currentNodeId, cursor: store.tracks[track.id].resumableStepIndex })
+          .toEqual({ currentNode: 'node-1', cursor: 7 });
+      } finally {
+        releaseLookup();
+        await Promise.all(pendingLookups);
+        mockedJourneyProgress.getSnapshotForNode.mockImplementation(previousLookup!);
+      }
+    });
+
+    it('T12 consulta revisões reais do nó, fecha a folha e preserva retomada ao revisar', async () => {
+      mockedJourneyProgress.setResumableNode.mockResolvedValueOnce({ track: { units: [] }, dueReviewCount: 2 } as unknown as JourneySnapshot);
+      await pausarSemVidas();
+      expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+      expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1');
+      expect(await screen.findByText('A revisar: 2')).toBeTruthy();
+      fireEvent.press(screen.getByText('Revisar pela folha'));
+      expect(mockedRouter.replace).toHaveBeenCalledWith('/review');
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+      expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+    });
+
+    it('T12 getter falível de revisões não é chamado nem bloqueia vidas e aula', async () => {
+      const previousLookup = mockedJourneyProgress.getSnapshotForNode.getMockImplementation();
+      mockedJourneyProgress.getSnapshotForNode.mockRejectedValue(new Error('review-snapshot-unavailable'));
+      try {
+        await pausarSemVidas();
+        expect(screen.getByText('A revisar: 0')).toBeTruthy();
+        expect(screen.queryByText('Revisar pela folha')).toBeNull();
+        expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+        expect(heartsRepository.getSnapshot).toHaveBeenCalled();
+        expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+      } finally { mockedJourneyProgress.getSnapshotForNode.mockImplementation(previousLookup!); }
+    });
+
+    it('T12 resultado tardio do nó anterior não ressuscita revisão na nova aula', async () => {
+      let resolvePrevious!: (snapshot: JourneySnapshot) => void;
+      mockedJourneyProgress.setResumableNode.mockReturnValueOnce(new Promise(resolve => { resolvePrevious = resolve; }));
+      mockedJourneyProgress.setResumableNode.mockResolvedValueOnce({ track: { units: [] }, dueReviewCount: 0 } as unknown as JourneySnapshot);
+      heartsRepository.spend.mockResolvedValue(vazia);
+      const view = renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-old" />);
+      await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-old'));
+      view.rerender(<SafeAreaProvider><LessonFlowScreen blockId="block-1" nodeId="node-new" /></SafeAreaProvider>);
+      await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-new'));
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+      await act(async () => { resolvePrevious({ track: { units: [] }, dueReviewCount: 3 } as unknown as JourneySnapshot); });
+      expect(screen.getByText('A revisar: 0')).toBeTruthy();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
+
+    it('T12 fechar a folha mantém o cursor e volta para a trilha sem concluir', async () => {
+      await pausarSemVidas();
+      fireEvent.press(screen.getByText('Fechar folha'));
+      await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
+      expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', expect.any(Number));
+      expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith(undefined);
+      expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+    });
+
+    it('T12 sem nó não consulta revisão nem promete destino', async () => {
+      heartsRepository.spend.mockResolvedValue(vazia);
+      renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="" />);
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+      expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
 
     it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {
       mockedSubscription.storeAvailable.mockReturnValue(true);
