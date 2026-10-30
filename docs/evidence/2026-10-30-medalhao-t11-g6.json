@@ -1,0 +1,699 @@
+{
+  "schemaVersion": 1,
+  "objective": "T11 G6 local development StoreKit bridge validation",
+  "measuredAt": "2026-10-30T10:34:46.859929+00:00",
+  "baseCommit": "9a62bcae990163be74a464ef147ab092e1b327d4",
+  "branch": "claude/trilha-medalhao-design",
+  "worktree": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20",
+  "authorizedSimulator": "E262D4C1-99BE-496B-8567-0291C14E6533",
+  "reservedSimulator": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+  "reservedBefore": {
+    "state": "Shutdown",
+    "lastUsedAt": "2026-10-23T11:16:09Z",
+    "dataPathSize": 2869338112
+  },
+  "targetBefore": {
+    "state": "Shutdown",
+    "lastUsedAt": "2026-10-29T16:01:17Z"
+  },
+  "sourceHashes": {
+    "radiant-app/modules/radiant-storekit/ios/RadiantStoreKitModule.swift": "8041d05197642b2942f47e1e9ae44909302544c661ec9e57e5bba2799eed2ff7",
+    "radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit": "4eea8c4e1fbc90004448247ee03a84871d9986cf1490c2c37e7e2cd85b3a783c",
+    "radiant-app/src/features/subscription/StoreKit2Adapter.ts": "27e5c291b94c7149b85d06dc704bdd552eedddcb4ee737f234deb83af6f03aaf",
+    "radiant-app/src/features/subscription/screens/SubscriptionScreen.tsx": "881406a92f2b21e01a230bfb7e90484634c97113f48be588749b338c10145ef8"
+  },
+  "loop": {
+    "sessionId": "brain-session-1793356341199-1b0dc6ed",
+    "sessionState": "closed-before-writer-brain-links",
+    "runId": "run-1793356400863-1a9d536e",
+    "finishReceipt": {
+      "schemaVersion": 1,
+      "ok": true,
+      "code": "STEP_SUCCEEDED",
+      "runId": "run-1793356400863-1a9d536e",
+      "sessionId": null,
+      "state": "succeeded",
+      "data": {},
+      "nextActions": [
+        "loop memory write --run run-1793356400863-1a9d536e --input <arquivo.json>"
+      ]
+    },
+    "closeReceipt": {
+      "schemaVersion": 1,
+      "ok": true,
+      "code": "RUN_CLOSED",
+      "runId": "run-1793356400863-1a9d536e",
+      "sessionId": null,
+      "state": "closed",
+      "data": {},
+      "nextActions": []
+    },
+    "finalState": "closed",
+    "receiptBoundary": "Only lifecycle/validation receipt metadata appended after the corresponding commands returned; product and runtime evidence unchanged."
+  },
+  "scope": {
+    "allowed": [
+      "local Debug build",
+      "install E262",
+      "StoreKit Testing",
+      "JS bridge observation"
+    ],
+    "forbidden": [
+      "EAS",
+      "OTA",
+      "store submission",
+      "merge",
+      "physical device",
+      "reserved simulator mutation"
+    ]
+  },
+  "runtime": {
+    "metroNode": "v20.20.2",
+    "dotenv": false,
+    "offline": true,
+    "apiBaseUrl": "",
+    "remoteSync": false
+  },
+  "compilation": {
+    "status": "PASS",
+    "manifest": {
+      "createdAt": "2026-10-30T10:39:38.870719+00:00",
+      "head": "9a62bcae990163be74a464ef147ab092e1b327d4",
+      "configuration": "Debug",
+      "destination": "platform=iOS Simulator,id=E262D4C1-99BE-496B-8567-0291C14E6533",
+      "sourceSwiftSha256": "8041d05197642b2942f47e1e9ae44909302544c661ec9e57e5bba2799eed2ff7",
+      "storeKitConfigSha256": "4eea8c4e1fbc90004448247ee03a84871d9986cf1490c2c37e7e2cd85b3a783c",
+      "schemeSha256": "62479164437b40624d88eedda737c4d7e50475a062851b92b9b9cc4153795712",
+      "appPath": "/Users/anderson/Library/Developer/Xcode/DerivedData/Radiant-hdyoasdqmwgimmcjrxnnncgouyjc/Build/Products/Debug-iphonesimulator/Radiant.app",
+      "bundleId": "com.ascendcreative.radiant",
+      "version": "1.4.0",
+      "build": "3",
+      "files": {
+        "Radiant": "f8a174af49e308e68545e84aa4572e75668fc87cad1f985bafcbe6c7807bc18b",
+        "Radiant.debug.dylib": "329e248632dbc59953324465dd0a6637896f374b684ad5a78c578fe7be09d45d",
+        "Info.plist": "0b9c4a7cba52d3f6e442b3d1392062f0d605126095c3fb0f26dcc683ed980228"
+      },
+      "buildAttempts": [
+        {
+          "log": "build-attempt1.log",
+          "exit": 65,
+          "result": "SDK stat cache missing during Xcode component initialization"
+        },
+        {
+          "log": "build-attempt2.log",
+          "exit": 0,
+          "result": "BUILD SUCCEEDED"
+        }
+      ],
+      "buildLogSha256": "8c404cce2af9d19323f48f9ba8729e444c9eeaebf9e641589c4f5515f233088c",
+      "installation": {
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+        "container": "/Users/anderson/Library/Developer/CoreSimulator/Devices/E262D4C1-99BE-496B-8567-0291C14E6533/data/Containers/Bundle/Application/96DA9FD0-12E3-4CEA-ACD9-A25F28C15ED1/Radiant.app",
+        "files": {
+          "Radiant": "f8a174af49e308e68545e84aa4572e75668fc87cad1f985bafcbe6c7807bc18b",
+          "Radiant.debug.dylib": "329e248632dbc59953324465dd0a6637896f374b684ad5a78c578fe7be09d45d",
+          "Info.plist": "0b9c4a7cba52d3f6e442b3d1392062f0d605126095c3fb0f26dcc683ed980228"
+        },
+        "hashesEqualBuiltProduct": true,
+        "measuredAt": "2026-10-30T10:39:50.071982+00:00"
+      }
+    },
+    "runtimeInstallation": {
+      "runtimeContainer": "/Users/anderson/Library/Developer/CoreSimulator/Devices/E262D4C1-99BE-496B-8567-0291C14E6533/data/Containers/Bundle/Application/8FB80082-BA91-4952-A328-15255EFD7EA7/Radiant.app",
+      "files": {
+        "Radiant": "f8a174af49e308e68545e84aa4572e75668fc87cad1f985bafcbe6c7807bc18b",
+        "Radiant.debug.dylib": "329e248632dbc59953324465dd0a6637896f374b684ad5a78c578fe7be09d45d",
+        "Info.plist": "0b9c4a7cba52d3f6e442b3d1392062f0d605126095c3fb0f26dcc683ed980228"
+      }
+    },
+    "runtimeHashesEqualBuiltProduct": true,
+    "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:$PATH RUBYOPT=-rlogger SENTRY_DISABLE_AUTO_UPLOAD=true xcodebuild -workspace ios/Radiant.xcworkspace -scheme Radiant -configuration Debug -destination platform=iOS Simulator,id=E262D4C1-99BE-496B-8567-0291C14E6533 IPHONEOS_DEPLOYMENT_TARGET=15.1 SENTRY_DISABLE_AUTO_UPLOAD=true build",
+    "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+    "xcode": "27.1 (27A9275)",
+    "sdk": "iPhoneSimulator27.1",
+    "runtime": "iOS26.5",
+    "excerpts": [
+      "SwiftCompile normal arm64 Compiling\\ RadiantStoreKitModule.swift /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/modules/radiant-storekit/ios/RadiantStoreKitModule.swift (in target 'RadiantStoreKit' from project 'Pods')",
+      "** BUILD SUCCEEDED **"
+    ],
+    "logs": {
+      "build-attempt1.log": {
+        "sha256": "e447897e16867305c8ffad5df980003c6dd5b814a1e0d30ad5379fc50b8884c4",
+        "localPath": "/tmp/radiant-t11-g6-20261030/build-attempt1.log"
+      },
+      "build-attempt2.log": {
+        "sha256": "8c404cce2af9d19323f48f9ba8729e444c9eeaebf9e641589c4f5515f233088c",
+        "localPath": "/tmp/radiant-t11-g6-20261030/build-attempt2.log"
+      }
+    }
+  },
+  "bridge": {
+    "status": "PASS",
+    "method": "Hermes CDP Runtime.evaluate of real expo.modules.RadiantStoreKit.loadProducts; promise result stored transiently then read in a separate request",
+    "call": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:41:52.063Z",
+      "expression": "globalThis.__T11G6={status:\"pending\"};globalThis.expo.modules.RadiantStoreKit.loadProducts(['com.andersonmelo.radiant.ilimitado.mensal','com.andersonmelo.radiant.ilimitado.anual']).then(function(products){globalThis.__T11G6 = {platform:'Hermes native JS runtime',locale:Intl.NumberFormat().resolvedOptions().locale,products:products.map(function(p){return {id:p.id,displayName:p.displayName,displayPrice:p.displayPrice,price:p.price,priceType:typeof p.price,currencyCode:p.currencyCode,monthlyUnrounded:p.id.indexOf('.anual')>0?p.price/12:null,monthlyFormatted:p.id.indexOf('.anual')>0?new Intl.NumberFormat(undefined,{style:'currency',currency:p.currencyCode}).format(p.price/12):null};})};})\n",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Object",
+            "description": "Object",
+            "type": "object",
+            "value": {
+              "_h": 0,
+              "_i": 0,
+              "_j": null,
+              "_k": null
+            }
+          }
+        }
+      }
+    },
+    "observation": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:41:55.267Z",
+      "expression": "globalThis.__T11G6",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Object",
+            "description": "Object",
+            "type": "object",
+            "value": {
+              "locale": "en-BR",
+              "platform": "Hermes native JS runtime",
+              "products": [
+                {
+                  "currencyCode": "BRL",
+                  "displayName": "Radiant Ilimitado Mensal",
+                  "displayPrice": "R$ 19,90",
+                  "id": "com.andersonmelo.radiant.ilimitado.mensal",
+                  "monthlyFormatted": null,
+                  "monthlyUnrounded": null,
+                  "price": 19.9,
+                  "priceType": "number"
+                },
+                {
+                  "currencyCode": "BRL",
+                  "displayName": "Radiant Ilimitado Anual",
+                  "displayPrice": "R$ 149,90",
+                  "id": "com.andersonmelo.radiant.ilimitado.anual",
+                  "monthlyFormatted": "R$ 12,49",
+                  "monthlyUnrounded": 12.491666666666667,
+                  "price": 149.9,
+                  "priceType": "number"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "adapterModules": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:42:24.299Z",
+      "expression": "Array.from(__r.getModules()).filter(function(e){return /StoreKit2Adapter|SubscriptionScreen/.test(e[1].verboseName||'');}).map(function(e){return {id:e[0],name:e[1].verboseName,initialized:e[1].isInitialized,exports:e[1].publicModule&&e[1].publicModule.exports?Object.keys(e[1].publicModule.exports):[]};})\n",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Array",
+            "description": "Array(2)",
+            "subtype": "array",
+            "type": "object",
+            "value": [
+              {
+                "exports": [
+                  "StoreKit2Adapter",
+                  "RADIANT_STOREKIT_MODULE",
+                  "resolveStoreKitAdapter"
+                ],
+                "id": 2010,
+                "initialized": true,
+                "name": "src/features/subscription/StoreKit2Adapter.ts"
+              },
+              {
+                "exports": [
+                  "default"
+                ],
+                "id": 2595,
+                "initialized": true,
+                "name": "src/features/subscription/screens/SubscriptionScreen.tsx"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "adapterCall": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:42:32.892Z",
+      "expression": "globalThis.__T11G6Adapter={status:'pending'};new (__r(2010).StoreKit2Adapter)(globalThis.expo.modules.RadiantStoreKit).loadProducts(['com.andersonmelo.radiant.ilimitado.mensal','com.andersonmelo.radiant.ilimitado.anual']).then(function(p){globalThis.__T11G6Adapter={products:p};})\n",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Object",
+            "description": "Object",
+            "type": "object",
+            "value": {
+              "_h": 0,
+              "_i": 0,
+              "_j": null,
+              "_k": null
+            }
+          }
+        }
+      }
+    },
+    "adapterObservation": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:42:54.514Z",
+      "expression": "globalThis.__T11G6Adapter\n",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Object",
+            "description": "Object",
+            "type": "object",
+            "value": {
+              "products": [
+                {
+                  "currencyCode": "BRL",
+                  "displayPrice": "R$ 19,90",
+                  "id": "com.andersonmelo.radiant.ilimitado.mensal",
+                  "period": "monthly",
+                  "price": 19.9,
+                  "title": "Radiant Ilimitado Mensal"
+                },
+                {
+                  "currencyCode": "BRL",
+                  "displayPrice": "R$ 149,90",
+                  "id": "com.andersonmelo.radiant.ilimitado.anual",
+                  "period": "annual",
+                  "price": 149.9,
+                  "title": "Radiant Ilimitado Anual"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "limitations": "Read-only product metadata probe; no purchase or injected mock. Hermes awaitPromise did not resolve promises, so two-step observation used."
+  },
+  "monthlyEquivalence": {
+    "status": "PASS_BOUNDED",
+    "annualPrice": 149.9,
+    "currencyCode": "BRL",
+    "divisor": 12,
+    "unrounded": 12.491666666666667,
+    "expectedFormatted": "R$ 12,49",
+    "observedVisible": "R$ 12,49 por mês",
+    "observedRuntimeLocale": "en-BR",
+    "simulatorAppleLanguages": [
+      "pt-BR"
+    ],
+    "simulatorAppleLocale": "pt_BR",
+    "contentSizeBefore": "large",
+    "screenshot": "docs/evidence/2026-10-30-medalhao-t11-g6.png",
+    "reactProps": {
+      "target": {
+        "id": "afcb3416c503f999427d6be8137897ed5703d5c9-3",
+        "title": "com.ascendcreative.radiant (Radiant E2E 17 Pro)",
+        "description": "React Native Bridgeless [C++ connection]"
+      },
+      "measuredAt": "2026-10-30T10:42:32.967Z",
+      "expression": "(function(){var h=globalThis.__REACT_DEVTOOLS_GLOBAL_HOOK__;var matches=[];var seen=new Set();function walk(f){if(!f||seen.has(f))return;seen.add(f);var p=f.memoizedProps;if(p&&typeof p.accessibilityLabel==='string'&&/Anual|Mensal|por mês|Assinar/.test(p.accessibilityLabel))matches.push({label:p.accessibilityLabel,role:p.accessibilityRole,state:p.accessibilityState});walk(f.child);walk(f.sibling);}h.renderers.forEach(function(r,id){h.getFiberRoots(id).forEach(function(root){walk(root.current);});});return matches;})()\n",
+      "response": {
+        "id": 1,
+        "result": {
+          "result": {
+            "className": "Array",
+            "description": "Array(11)",
+            "subtype": "array",
+            "type": "object",
+            "value": [
+              {
+                "label": "Mensal, R$ 19,90 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Mensal, R$ 19,90 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Mensal, R$ 19,90 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Anual, R$ 149,90 por ano, R$ 12,49 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": true,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Anual, R$ 149,90 por ano, R$ 12,49 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": true,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Anual, R$ 149,90 por ano, R$ 12,49 por mês",
+                "role": "radio",
+                "state": {
+                  "checked": true,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Assinar anual",
+                "role": "button",
+                "state": {
+                  "busy": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Assinar anual",
+                "role": "button",
+                "state": {
+                  "busy": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Assinar anual",
+                "role": "button",
+                "state": {
+                  "busy": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Assinar anual",
+                "role": "button",
+                "state": {
+                  "busy": false,
+                  "disabled": false
+                }
+              },
+              {
+                "label": "Assinar anual",
+                "role": "button",
+                "state": {
+                  "busy": false,
+                  "disabled": false
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "accessibilityBoundary": "React committed accessibility props observed; no claim of native accessibility tree or audible VoiceOver.",
+    "screenshotSha256": "edab7184a32dcb72c58ac82f5fe9d8efeb090baf87873a373d8f6cf9cb494d3f"
+  },
+  "limitations": [
+    "Local StoreKit configuration is not live App Store pricing",
+    "No real purchase or physical device",
+    "No audible VoiceOver, enlarged fonts or FPS proof"
+  ],
+  "storeKitTesting": {
+    "sourceConfig": "radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit",
+    "configuration": "local, not App Store Connect sync",
+    "storefront": "BRA",
+    "locale": "pt_BR",
+    "askToBuyEnabled": true,
+    "schemeReference": "../RadiantIlimitado.storekit",
+    "launch": "Xcode Product > Perform Action > Run Without Building",
+    "activeDestinationObserved": "Radiant E2E17Pro / E262D4C1-99BE-496B-8567-0291C14E6533",
+    "transactionManagerObserved": {
+      "title": "Radiant Transactions",
+      "simulator": "Radiant E2E17Pro",
+      "app": "Radiant",
+      "state": "No Transactions"
+    },
+    "schemeBeforeSha256": "373205ee2e3798a1034f152aa424efd2c0b68244592ceedf66334d7bf9496a72",
+    "schemeConfiguredSha256": "62479164437b40624d88eedda737c4d7e50475a062851b92b9b9cc4153795712"
+  },
+  "agents": {
+    "auditor": "/root/g6_audit",
+    "nativeBuilder": "/root/g6_native",
+    "runtimeAndDocumentation": "/root"
+  },
+  "review": {
+    "status": "PASS_BOUNDED",
+    "reviewer": "/root/g6_audit",
+    "findings": [],
+    "report": "docs/evidence/2026-10-30-medalhao-t11-g6-review.md",
+    "boundary": "Reviewer independently verified artifacts/hashes/install/process; CDP capture inspected, not re-executed; cleanup/final Loop were pending at review.",
+    "documentationFinal": "PASS_BOUNDED; six existing-file diffs and new evidence checked; no material contradictions. Lifecycle receipts attached from successful commands."
+  },
+  "cleanup": {
+    "status": "PASS",
+    "measuredAt": "2026-10-30T10:47:02.904283+00:00",
+    "simulators": {
+      "E262D4C1-99BE-496B-8567-0291C14E6533": {
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-30T10:45:58Z",
+        "dataPathSize": 4046647296
+      },
+      "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3": {
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-23T11:16:09Z",
+        "dataPathSize": 2869338112
+      }
+    },
+    "reservedMatchesBefore": true,
+    "contentSizeAfter": "large",
+    "metroSessionEndedExit": 0,
+    "port8081Listening": false,
+    "appProcessRunning": false,
+    "xcodeTermination": "SIGTERM to owned Xcode15516 after CUA timeout",
+    "nativeConfiguration": {
+      "schemeRestoredSha256": "373205ee2e3798a1034f152aa424efd2c0b68244592ceedf66334d7bf9496a72",
+      "copiedStoreKitConfigExists": false,
+      "sourceSwiftSha256": "8041d05197642b2942f47e1e9ae44909302544c661ec9e57e5bba2799eed2ff7",
+      "versionedStoreKitSha256": "4eea8c4e1fbc90004448247ee03a84871d9986cf1490c2c37e7e2cd85b3a783c"
+    },
+    "sourceHashesUnchanged": true
+  },
+  "validation": {
+    "code": "VALIDATION_PASSED",
+    "state": "validating",
+    "cycles": 1,
+    "passed": 15,
+    "total": 15,
+    "envelopeSha256": "d0b668d1b199fb4a524355c357d19d17b707fea4e44dd214bffc4f421946102c",
+    "envelopeLocalPath": "/tmp/radiant-t11-g6-20261030/loop-validation.json",
+    "evidence": [
+      {
+        "id": "evidence-9b9a4ab6-deb5-45e6-a23d-05bf6ce4a081",
+        "validatorId": "docs-contract",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/qa/docs-contract.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/qa/docs-contract.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "d8de91588264f7ead203963b438be24df0a51d0808bf23aa4e55774b6459ded0",
+        "startedAt": "2026-10-30T10:47:15.366Z",
+        "finishedAt": "2026-10-30T10:47:15.545Z",
+        "durationMs": 179
+      },
+      {
+        "id": "evidence-aac53a00-578e-4315-9a5e-0c28109a1c8f",
+        "validatorId": "content-foundation",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-foundation.test.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "eb86e8108fbc060cae12a6c9ab84441f1f781bcf497471bbd53bd64a366b7003",
+        "startedAt": "2026-10-30T10:47:15.545Z",
+        "finishedAt": "2026-10-30T10:47:15.738Z",
+        "durationMs": 193
+      },
+      {
+        "id": "evidence-64d04113-9175-4bc8-928c-6f1fc077d512",
+        "validatorId": "content-wave1",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/wave-1-priority-tracks.test.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "ddbc604f48b2c22d381d1ced7f5f4567b991ede154f121647d187131d6bb6d74",
+        "startedAt": "2026-10-30T10:47:15.738Z",
+        "finishedAt": "2026-10-30T10:47:15.793Z",
+        "durationMs": 55
+      },
+      {
+        "id": "evidence-bd92b5ba-11cd-479f-9f46-1c70bf3cbb0e",
+        "validatorId": "content-production",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/production-batch.test.mjs scripts/content/audit-production-batches.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/audit-production-batches.mjs --check",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "32bccd1de944ecdf474b1e3431004c14bb67ec22937dcc792f3802339ec2f7d5",
+        "startedAt": "2026-10-30T10:47:15.793Z",
+        "finishedAt": "2026-10-30T10:47:17.303Z",
+        "durationMs": 1510
+      },
+      {
+        "id": "evidence-1903fb4f-cb50-4852-80da-9b85cb670f10",
+        "validatorId": "content-anchoring",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "e9cafeff5febe58d7af1ffff5e22b5be124cd4f7e3f904b48af48a021892a800",
+        "startedAt": "2026-10-30T10:47:17.303Z",
+        "finishedAt": "2026-10-30T10:47:17.392Z",
+        "durationMs": 89
+      },
+      {
+        "id": "evidence-100be29f-f349-40d1-b8cc-cea781fdacc2",
+        "validatorId": "content-anchoring-data",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-content-anchoring.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+        "startedAt": "2026-10-30T10:47:17.393Z",
+        "finishedAt": "2026-10-30T10:47:17.422Z",
+        "durationMs": 29
+      },
+      {
+        "id": "evidence-7bdc7dd7-5b48-4f36-982e-19f9f5937b48",
+        "validatorId": "content-no-verbatim",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-no-verbatim.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "2884c680e10949ed7b2dfe2cecc1b6e15abdae71a42cd093bd48a554ccf360ff",
+        "startedAt": "2026-10-30T10:47:17.423Z",
+        "finishedAt": "2026-10-30T10:47:21.227Z",
+        "durationMs": 3804
+      },
+      {
+        "id": "evidence-6bda016a-b077-4ad0-afce-5d91e1ae04c8",
+        "validatorId": "content-source-rights",
+        "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-source-rights.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-source-rights.mjs",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "014786e818e02cf958cfd0758694e3a269a1ec85bfafbbc299dc55fb4f45173f",
+        "startedAt": "2026-10-30T10:47:21.228Z",
+        "finishedAt": "2026-10-30T10:47:21.308Z",
+        "durationMs": 80
+      },
+      {
+        "id": "evidence-50327cbf-9379-48e8-be9b-1d939b99888c",
+        "validatorId": "content-python",
+        "command": "PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py scripts/content/extract-source.test.py scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py scripts/content/calibration-report.test.py scripts/content/destination-state.test.py scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 \"$suite\" || estado=1; done; exit $estado'",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "9c6c3d2a3322f414dc3862a87fd77bfb825bc0abf86a351b6a68514cbe5bc316",
+        "startedAt": "2026-10-30T10:47:21.308Z",
+        "finishedAt": "2026-10-30T10:47:24.554Z",
+        "durationMs": 3246
+      },
+      {
+        "id": "evidence-e0c6ae60-f1b1-4fca-b889-f3912d21b32a",
+        "validatorId": "app-quality",
+        "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "d75c546bfa37331d92a8700ea9889076d4e22d11e2585110be1df974047ad397",
+        "startedAt": "2026-10-30T10:47:24.554Z",
+        "finishedAt": "2026-10-30T10:49:01.209Z",
+        "durationMs": 96655
+      },
+      {
+        "id": "evidence-72aec072-146e-4782-9fd2-c12a49e5ddfa",
+        "validatorId": "app-test",
+        "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test -- --runInBand --no-cache",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "23ffc89a17e6de0ed2959751cc9c022fe4528b933c28c691909f706bd28747c6",
+        "startedAt": "2026-10-30T10:49:01.209Z",
+        "finishedAt": "2026-10-30T10:50:27.089Z",
+        "durationMs": 85880
+      },
+      {
+        "id": "evidence-e487e328-5d39-4b7e-82db-1524f0f9b70c",
+        "validatorId": "api-lint",
+        "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run lint",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+        "startedAt": "2026-10-30T10:50:27.089Z",
+        "finishedAt": "2026-10-30T10:50:28.557Z",
+        "durationMs": 1468
+      },
+      {
+        "id": "evidence-8db17784-24fd-4874-b24f-dd6c72d43afb",
+        "validatorId": "api-typecheck",
+        "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run typecheck",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+        "startedAt": "2026-10-30T10:50:28.557Z",
+        "finishedAt": "2026-10-30T10:50:30.631Z",
+        "durationMs": 2074
+      },
+      {
+        "id": "evidence-51d1910c-407f-49ee-9583-3a13fc6a6fa8",
+        "validatorId": "api-test",
+        "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null NODE_ENV=test CI=1 npm test",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "ac32261b7ec82b3e134f264d0ad4aa0627939d82282dfa871f32caf71de27ddb",
+        "startedAt": "2026-10-30T10:50:30.631Z",
+        "finishedAt": "2026-10-30T10:50:31.458Z",
+        "durationMs": 827
+      },
+      {
+        "id": "evidence-d4389080-759b-484d-8a73-b9877d599ec7",
+        "validatorId": "brain-links",
+        "command": "PATH=/Users/anderson/.local/bin:/usr/bin:/bin loop brain validate-links",
+        "status": "passed",
+        "exitCode": 0,
+        "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+        "startedAt": "2026-10-30T10:50:31.458Z",
+        "finishedAt": "2026-10-30T10:50:31.601Z",
+        "durationMs": 143
+      }
+    ],
+    "suiteBoundary": "Full configured app-quality (quality with in-band Jest/contracts/strict visual QA), app-test (in-band/no-cache), API, content, docs and brain-links all executed. Loop retains only first2000 output characters, so no new total of individual tests/suites is inferred."
+  }
+}

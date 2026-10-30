@@ -128,7 +128,7 @@ o dono, avance nas tarefas independentes e mantenha o item como pendente.
 | G3 — Arte/acabamento e quadro antecipado não reproduzido | Dono | Aceite final da trilha/fundação, não a execução das demais telas |
 | G4 — Inventário sai/fica, biblioteca e validadores | Dono | T19–T21; elaborar inventário em T15 é permitido |
 | G5 — Semanas do Perfil sem dados históricos completos | Proposta técnica em T09; dono aprova eventual mudança de contrato do produto | Apresentar dia desconhecido como estudado ou como falta confirmada |
-| G6 — Novo binário para metadados StoreKit, se necessário | Dono | Validação nativa da alteração em T11; outras telas continuam |
+| G6 — Novo binário para metadados StoreKit, se necessário | Dono; build/instalação locais autorizadas em30/10 | [T11 validada localmente no E262](../evidence/2026-10-30-medalhao-t11-g6.md); StoreKit Testing, sem compra real/aparelho/loja |
 | G7 — Currículo/formato e primeiro lote novo | Dono, projeto seguinte | Ativar a troca e liberar loja; duas aulas de exemplo não substituem o lote |
 | G8 — VoiceOver/TalkBack e quadros com arrasto | Agente; dono quando necessário ouvir/operar o dispositivo | Aceite integral da acessibilidade/desempenho e liberação; indisponibilidade deixa a prova pendente |
 
@@ -562,7 +562,7 @@ falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.
 
 ### T11 — Assinatura e preço mensal do anual
 
-**Recorte estático validado em29/10:** R3 SpecPASS/APPROVED após fix1 acessível e fix2 raios;48 fluxo final/17 mutações. Loop15/15 no segundo ciclo; primeiro14/15 falhou strict de raios. G6 pendente. [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
+**Recorte estático validado em29/10:** R3 SpecPASS/APPROVED após fix1 acessível e fix2 raios;48 fluxo final/17 mutações. Loop15/15 no segundo ciclo; primeiro14/15 falhou strict de raios. [G6 local confirmado em 30/10](../evidence/2026-10-30-medalhao-t11-g6.md): novo Debug do commit9a62bca no E262, preços numéricos/moeda recebidos pelo JS e anual/12 exibido. StoreKit Testing, sem compra real/aparelho ou aceite global. [Prompt estático original](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md).
 
 **Plano 5/tarefa 10. Arquivos:**
 `radiant-app/src/features/subscription/screens/SubscriptionScreen.tsx`, `SubscriptionScreen.flow.test.tsx`,

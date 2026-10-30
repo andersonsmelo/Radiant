@@ -632,8 +632,14 @@ R1 apontou P2 no rótulo acessível anual; fix1/R2 e fix2/R3 PASS/APPROVED.
 tipos/lint/copy/AST PASS. Primeira final14/15 falhou strict nos raios; corrigidos,
 segunda final15/15 PASS no writer `run-1793305617553-786111c0`; cérebro CLOSED.
 STEP_SUCCEEDED confirmado; run close separado é obrigatório antes do commit.
-G6/binário novo, renderização nativa, leitor audível e compra real pendentes.
-Sem build/instalação/Metro/simulador; reservado preservado.
+Em 30/10/2026, G6 foi executado no recorte local autorizado do commit
+`9a62bca`: Debug novo compilado/instalado no E262, bridge JS recebeu
+`price` numérico 19.9/149.9 e moeda BRL; tela mostrou R$ 12,49 por mês
+para o anual. StoreKit Testing local, sem compra. O mesmo número 1.4.0(3)
+não identifica o binário: hashes built/installed/runtime iguais o comprovam.
+[Evidência G6 e limites](evidence/2026-10-30-medalhao-t11-g6.md).
+Leitor audível, fonte ampliada, FPS, compra real e aparelho seguem sem prova.
+Reservado preservado; sem EAS, OTA, loja ou merge.
 [Evidência T11](evidence/2026-10-29-medalhao-t11.md).
 Próxima frente: [T12 Vidas](superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).
 [Evidência T10](evidence/2026-10-29-medalhao-t10.md).

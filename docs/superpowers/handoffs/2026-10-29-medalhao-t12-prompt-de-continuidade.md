@@ -17,7 +17,7 @@ Worktree `/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20`
 
 ## T11 — estado técnico e limites
 
-T11 foi implementada por I/high e revisada por RF/high: R1 encontrou P2 no nome acessível anual, corrigido em fix1/R2 SpecPASS/APPROVED. Preço numérico/moeda opcionais vêm de Swift, sem parsing de displayPrice; planos Medalhão e CTA único usam ofertas reais.159 focais iniciais,48 fluxo final,47 CPU após fix1 e17 mutações causais; tipos/lint/copy/AST estáticos. Consulte evidência final para Loop/commit/CI, sem herdar PASS de um SHA anterior. R3 aprovou fix2 geométrico; Loop final15/15 no segundo ciclo após strict de raios falhar no primeiro. Writer T11 run-1793305617553-786111c0; cérebro CLOSED. Confirmar run CLOSED e Git/CI do commit antes de iniciar. Prova nativa segue G6.
+T11 foi implementada por I/high e revisada por RF/high: R1 encontrou P2 no nome acessível anual, corrigido em fix1/R2 SpecPASS/APPROVED. Preço numérico/moeda opcionais vêm de Swift, sem parsing de displayPrice; planos Medalhão e CTA único usam ofertas reais.159 focais iniciais,48 fluxo final,47 CPU após fix1 e17 mutações causais; tipos/lint/copy/AST estáticos. Consulte evidência final para Loop/commit/CI, sem herdar PASS de um SHA anterior. R3 aprovou fix2 geométrico; Loop final15/15 no segundo ciclo após strict de raios falhar no primeiro. Writer T11 run-1793305617553-786111c0; cérebro CLOSED. Confirmar run CLOSED e Git/CI do commit antes de iniciar. G6 local executado em30/10 no Debug de9a62bca, com evidência separada abaixo.
 
 ## T12 — escopo e aceites
 
@@ -33,7 +33,7 @@ Comece pelos chamadores reais de HeartsSheet; enumerar todos antes do writer. Ar
 
 Direção Medalhão aprovada, Sora, Pixel vetorial somente nos quatro momentos, ouro funcional, lábio dos botões, `runtimeVersion: fingerprint`. Sem redesenhar identidade, SDK, currículo ou armazenamento por conveniência. Produto/currículo/storage/M7/A2 permanecem com Anderson. T10 usa filas nos serviços DailyGoal/Push para coordenar operações entre telas; não substituir por locks de navegação/UI.
 
-T11 altera contrato nativo de metadados StoreKit: **G6 fica pendente** até autorização específica de build/instalação e prova em binário compatível. O cliente 1.4.0(3) existente não prova Swift novo. Testes JS/parse são estáticos; não equivalem a compra nativa, renderização, fala audível, fonte ao vivo ou FPS. Leia o parecer RF de T11 e eventuais limites antes de usar sua entrega.
+Em30/10, o dono autorizou e foi executado [G6 local da T11](../../evidence/2026-10-30-medalhao-t11-g6.md): Debug novo de9a62bca compilado/instalado apenas no E262, bridge JS com price19.9/149.9 e BRL, equivalente R$12,49 visível. StoreKit Testing local, sem compra; hashes do produto instalado/runtime identificam o binário apesar de manter1.4.0(3). Não transfere autorização para novos builds da T12. Compra real/aparelho, fala audível, fonte ampliada, FPS e aceite global continuam separados. Leia evidência e revisão G6 antes de reutilizar a prova.
 
 G1–G8 seguem separados. G5 não permite inventar histórico semanal. G2/T14 segue conteúdo em desenvolvimento. P3 dos chevrons legais de T10 fica em T17; gesto iOS em Ajustes não passou nas duas tentativas, sem causa de produto confirmada. Segundo dia fica em T18.
 
