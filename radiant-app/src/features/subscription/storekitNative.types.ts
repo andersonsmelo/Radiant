@@ -17,6 +17,9 @@ export type StoreKitNativeProduct = {
     displayName: string;
     /** Preço localizado exatamente como a Apple o entregou. */
     displayPrice: string;
+    /** Número e moeda da loja; ausentes em binários anteriores a este contrato. */
+    price?: number;
+    currencyCode?: string;
 };
 
 export type StoreKitNativeTransaction = {

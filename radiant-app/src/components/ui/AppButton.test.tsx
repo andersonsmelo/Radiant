@@ -87,7 +87,7 @@ describe('AppButton — retorno tátil', () => {
     hapticTap.mockClear();
   });
 
-  it.each(['primary', 'galaxy'] as const)(
+  it.each(['primary', 'galaxy', 'gold'] as const)(
     'vibra na variante %s, que é a ação principal da tela',
     (variant) => {
       const { getByRole } = render(
@@ -206,6 +206,7 @@ describe('AppButton — relevo', () => {
   it.each([
     ['primary', medalColors.unit.lip],
     ['galaxy', medalColors.unit.lip],
+    ['gold', medalColors.gold.lip],
     ['secondary', galaxyColors.backgroundAlt],
     ['success', feedbackColors.success.lip],
     ['error', feedbackColors.error.lip],
@@ -405,5 +406,29 @@ describe('AppButton — relevo', () => {
 
     expect(styleOf(long.getByTestId('app-button-relief')).paddingBottom).toBe(shortLip);
     expect(shortLip).toBe(5);
+  });
+});
+
+
+describe('AppButton — ouro funcional T11', () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+  it('usa face e lábio ouro, rótulo escuro e preserva pressão, foco e bloqueio', () => {
+    const onPress = jest.fn();
+    const view = render(<AppButton label="Assinar anual" variant="gold" onPress={onPress} />);
+    const face = view.getByRole('button', { name: 'Assinar anual' });
+    expect(StyleSheet.flatten(face.props.style).backgroundColor).toBe(medalColors.gold.face);
+    expect(StyleSheet.flatten(view.getByTestId('app-button-lip').props.style).backgroundColor).toBe(medalColors.gold.lip);
+    expect(StyleSheet.flatten(view.getByText('Assinar anual').props.style).color).toBe(galaxyColors.background);
+    fireEvent(face, 'focus');
+    expect(StyleSheet.flatten(face.props.style).borderWidth).toBe(3);
+    fireEvent(face, 'pressIn');
+    act(() => { jest.advanceTimersByTime(500); });
+    expect(getAnimatedStyle(view.getByTestId('app-button-face')).transform).toEqual([{ translateY: depth.lip - 1 }]);
+    fireEvent.press(face);
+    expect(onPress).toHaveBeenCalledTimes(1);
+    view.rerender(<AppButton label="Assinar anual" variant="gold" onPress={onPress} disabled />);
+    fireEvent.press(view.getByRole('button', { name: 'Assinar anual' }));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

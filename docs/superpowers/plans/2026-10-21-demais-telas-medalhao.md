@@ -583,7 +583,7 @@ git commit -m "feat(ajustes): lista agrupada do iOS no lugar dos cartões"
 
 ### Tarefa 10: Assinatura
 
-**Próxima frente, ainda não iniciada em29/10:** [prompt autossuficiente de continuidade](../handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
+**Recorte estático validado em29/10:** R3 SpecPASS/APPROVED após fix1 acessível e fix2 raios;48 fluxo final/17 mutações. Loop15/15 no segundo ciclo; primeiro14/15 falhou strict de raios. G6 pendente. [prompt autossuficiente de continuidade](../handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
 
 **Arquivos:**
 - Modificar: `radiant-app/src/features/subscription/screens/SubscriptionScreen.tsx`
@@ -603,7 +603,7 @@ git commit -m "feat(ajustes): lista agrupada do iOS no lugar dos cartões"
   mensal" ou "Assinar anual" conforme a seleção (ouro quando é o anual);
   "Restaurar compras" em texto; e o texto legal de hoje, inteiro, menor.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - o anual vem selecionado; tocar no mensal troca o rótulo do botão;
 - o botão chama `purchase` com o `productId` do plano selecionado;
@@ -615,12 +615,12 @@ git commit -m "feat(ajustes): lista agrupada do iOS no lugar dos cartões"
   sem `price`, essa linha não aparece;
 - nenhum "—" no título.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/subscription`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
 Em 2026-10-21 o `StoreProduct` só traz `displayPrice`, o texto que a Apple
 devolve ("R$ 19,90"), e o módulo nativo não expõe número. O preço por mês exige
@@ -631,12 +631,12 @@ nativa, que entra na mesma build nova que o Skia já exige. O preço por mês é
 `price / 12` formatado com `Intl.NumberFormat` na moeda da loja. Sem os dois
 campos, a linha não aparece; não converta o texto em número.
 
-- [ ] **Passo 4: Ver passar, com os contratos da loja**
+- [x] **Passo 4: Ver passar, com os contratos da loja**
 
 Run: `cd radiant-app && npx jest src/features/subscription`
 Expected: PASS, incluindo `storekitTestingConfig.contract.test.ts`.
 
-- [ ] **Passo 5: Commit**
+- [ ] **Passo 5: Commit** (controlador, após fechar o writer; confirmar em Git)
 
 ```bash
 git add -A radiant-app/src/features/subscription radiant-app/modules/radiant-storekit

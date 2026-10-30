@@ -562,7 +562,7 @@ falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.
 
 ### T11 — Assinatura e preço mensal do anual
 
-**Próxima frente, ainda não iniciada em29/10:** [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
+**Recorte estático validado em29/10:** R3 SpecPASS/APPROVED após fix1 acessível e fix2 raios;48 fluxo final/17 mutações. Loop15/15 no segundo ciclo; primeiro14/15 falhou strict de raios. G6 pendente. [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
 
 **Plano 5/tarefa 10. Arquivos:**
 `radiant-app/src/features/subscription/screens/SubscriptionScreen.tsx`, `SubscriptionScreen.flow.test.tsx`,
@@ -574,15 +574,15 @@ falta confirmada; dados sintéticos só em testes/stories, nunca na tela real.
 `radiant-app/src/features/subscription/radiantStoreKitModule.contract.test.ts` e
 `radiant-app/src/features/subscription/storekitTestingConfig.contract.test.ts`.
 
-- [ ] Mapear produto anual: `displayPrice` é string localizada e não pode ser
+- [x] Mapear produto anual: `displayPrice` é string localizada e não pode ser
   dividido por 12. Fazer o contrato falhar sem preço numérico/moeda explícitos.
-- [ ] Propor extensão mínima do bridge nativo, tipos JS e adaptador na mesma
+- [x] Propor extensão mínima do bridge nativo, tipos JS e adaptador na mesma
   entrega. Conferir G6: não fingir que o dev client antigo já contém o bridge novo.
-- [ ] Desenhar dois planos com valores reais; anual em ouro, mensal derivado
+- [x] Desenhar dois planos com valores reais; anual em ouro, mensal derivado
   com formatação da moeda; texto legal inteiro, um botão de compra.
-- [ ] Testar assinante, carregamento, loja indisponível, falha, compra pendente,
+- [x] Testar assinante, carregamento, loja indisponível, falha, compra pendente,
   cancelamento, restauração e voltar. No assinante, mostrar Gerenciar.
-- [ ] Contratos e testes JS são evidência estática; compra/preço no binário
+- [x] Contratos e testes JS são evidência estática; compra/preço no binário
   exigem build/instalação autorizadas pelo dono e prova nativa posterior.
 
 **Aceite:** nenhuma estimativa por parsing de preço; nenhum produto falso em

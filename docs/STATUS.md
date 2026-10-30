@@ -623,8 +623,19 @@ escopo ou sucesso retroativo. Cérebro `brain-session-1793274829208-8cca2b02`
 consultado e CLOSED antes do writer. Cleanup nativo CLEAN,27fontes+2protegidos
 iguais ao freeze: apps/Metro/AVD/E262 encerrados e fontes restauradas/relidas.
 G1–G8/G2T14/G5/P3T17/segundo dia/aparelho/fala/FPS/produção permanecem separados.
-T11/Task13 ainda não iniciada; próxima frente de implementação.
-[Prompt de continuidade T11](superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md).
+### T11 Assinatura — recorte estático implementado/revisado em29/10/2026
+
+Preço/moeda explícitos no bridge/adaptador, planos Medalhão e um botão de compra.
+Sem parsing de displayPrice; metadados ausentes omitem equivalência mensal.
+R1 apontou P2 no rótulo acessível anual; fix1/R2 e fix2/R3 PASS/APPROVED.
+159 focais iniciais,48 fluxo final,47 CPU após fix1 e17 mutações causais;
+tipos/lint/copy/AST PASS. Primeira final14/15 falhou strict nos raios; corrigidos,
+segunda final15/15 PASS no writer `run-1793305617553-786111c0`; cérebro CLOSED.
+STEP_SUCCEEDED confirmado; run close separado é obrigatório antes do commit.
+G6/binário novo, renderização nativa, leitor audível e compra real pendentes.
+Sem build/instalação/Metro/simulador; reservado preservado.
+[Evidência T11](evidence/2026-10-29-medalhao-t11.md).
+Próxima frente: [T12 Vidas](superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).
 [Evidência T10](evidence/2026-10-29-medalhao-t10.md).
 
 ## Prazos de relógio

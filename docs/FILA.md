@@ -499,7 +499,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
     writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada fechada com sucesso, commit1b987c1 publicado/CI249154SUCCESS; P2 PushOptIn antecipado e corrigido localmente (R1 código PASS/R2 nativo BOUNDED,29/10; Loop final15/15 em um ciclo); Review atual/Android ao vivo/T17 sem aceite; T09 núcleo implementado/revisado em29/10 (60focais/163consumidores/105contratos, código R1 PASS/nativo R2 BOUNDED; Loop15/15 após fix1/dois ciclos; G5 preservado); T10 núcleo implementado/revisado em29/10 (R2 FIX1 PASS após2P2;374focais/consumidores+CPU40/105contratos;R3nativoBOUNDED, gesto iOS pendente e P3legal→T17; Loop final15/15 em um ciclo; commit6266495/CI252157SUCCESS; writer/cérebro CLOSED); P2 compartilhado
     para T17 e aceite global bloqueado. Limites no STATUS.
-    Próxima implementação: T11/Task13 ainda não iniciada; [prompt de continuidade](superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md).
+    T11/Task13 validada estaticamente em29/10: R3 SpecPASS/APPROVED,48 fluxo final,17 mutações e Loop15/15 no segundo ciclo após correção dos raios. G6/binário novo seguem pendentes. Próxima frente: [T12 Vidas](superpowers/handoffs/2026-10-29-medalhao-t12-prompt-de-continuidade.md).
     Gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.

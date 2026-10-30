@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 import { ExternalLink } from '../../../../components/external-link';
 import { AppButton } from '../../../components/ui/AppButton';
 import { LEGAL_LINKS } from '../../../config/legal';
-import { galaxyColors } from '../../../ui/theme';
+import { depth, galaxyColors, medalColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { formatShortDate } from '../components/SubscriptionCard';
 import { SubscriptionService, subscriptionService } from '../SubscriptionService';
@@ -28,6 +28,18 @@ type Notice =
 
 const CANCEL_COPY = 'Para gerenciar ou cancelar: Ajustes do iOS → seu nome → Assinaturas.';
 
+/** Nunca interpreta displayPrice: o binário antigo simplesmente não mostra esta linha. */
+function monthlyEquivalent(product: StoreProduct): string | null {
+    if (product.period !== 'annual' || typeof product.price !== 'number'
+        || !Number.isFinite(product.price) || product.price < 0
+        || typeof product.currencyCode !== 'string' || !/^[A-Z]{3}$/.test(product.currencyCode)) return null;
+    try {
+        return `${new Intl.NumberFormat(undefined, { style: 'currency', currency: product.currencyCode }).format(product.price / 12)} por mês`;
+    } catch {
+        return null;
+    }
+}
+
 function periodCopy(product: StoreProduct): string {
     return product.period === 'monthly' ? 'por mês' : 'por ano';
 }
@@ -43,6 +55,7 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     const [offers, setOffers] = useState<SubscriptionOffers | null>(null);
     const [notice, setNotice] = useState<Notice>(null);
     const [busy, setBusy] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [attempt, setAttempt] = useState(0);
     // Só a carga de ofertas mais recente escreve na tela. A da abertura e a da
     // troca de loja correm juntas, e sem ordem a mais antiga podia chegar por
@@ -177,6 +190,11 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         </View>
     ) : null;
 
+    const selectedProduct = offers?.status === 'available'
+        ? offers.products.find(product => product.id === selectedProductId)
+            ?? offers.products.find(product => product.period === 'annual') ?? offers.products[0]
+        : undefined;
+
     let body: React.ReactNode;
     if (status === null || offers === null) {
         body = (
@@ -237,28 +255,56 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                     </View>
                 ) : null}
 
-                <View style={styles.card}>
-                    <Text style={styles.cardTitle} accessibilityRole="header">Vidas ilimitadas — e só isso.</Text>
-                    <Text style={styles.body}>
-                        Errar não custa vida e a folha de vidas nunca aparece. Todo o conteúdo continua igual para todo mundo.
-                    </Text>
+                <View style={styles.introduction}>
+                    <Text style={styles.cardTitle}>Errar não custa vida.</Text>
+                    <Text style={styles.body}>As aulas são as mesmas para todo mundo.</Text>
                 </View>
 
-                {offers.products.map((product) => (
-                    <View key={product.id} style={styles.card}>
-                        <Text style={styles.planTitle}>{product.title}</Text>
-                        <View style={styles.priceRow}>
-                            <Text style={styles.price}>{product.displayPrice}</Text>
-                            <Text style={styles.period}>{periodCopy(product)}</Text>
-                        </View>
-                        <AppButton
-                            label={`Assinar ${product.title}`}
-                            variant="galaxy"
-                            disabled={busy}
-                            onPress={() => void purchase(product)}
-                        />
-                    </View>
-                ))}
+                <View style={styles.plans} accessibilityRole="radiogroup" accessibilityLabel="Escolha seu plano">
+                    {offers.products.map((product) => {
+                        const annual = product.period === 'annual';
+                        const selected = selectedProduct?.id === product.id;
+                        const monthly = monthlyEquivalent(product);
+                        const tone = annual ? medalColors.gold : medalColors.unit;
+                        return (
+                            <Pressable
+                                key={product.id}
+                                accessibilityRole="radio"
+                                accessibilityLabel={`${annual ? 'Anual' : 'Mensal'}, ${product.displayPrice} ${periodCopy(product)}${monthly ? `, ${monthly}` : ''}`}
+                                accessibilityState={{ checked: selected, disabled: busy }}
+                                disabled={busy}
+                                onPress={() => setSelectedProductId(product.id)}
+                                style={styles.plan}
+                            >
+                                {({ pressed }) => (
+                                    <>
+                                        <View style={styles.medal}>
+                                            <View pointerEvents="none" style={[styles.medalLip, { backgroundColor: tone.lip }]} />
+                                            <View style={[
+                                                styles.medalFace,
+                                                { backgroundColor: tone.face, borderColor: selected ? galaxyColors.textPrimary : tone.inner,
+                                                    transform: [{ translateY: pressed ? depth.lip - 1 : 0 }] },
+                                            ]}>
+                                                <Text style={[styles.planTitle, annual && styles.goldLabel]}>{annual ? 'Anual' : 'Mensal'}</Text>
+                                            </View>
+                                        </View>
+                                        <Text style={styles.price}>{product.displayPrice}</Text>
+                                        <Text style={styles.period}>{periodCopy(product)}</Text>
+                                        {monthly ? <Text style={styles.equivalent}>{monthly}</Text> : null}
+                                    </>
+                                )}
+                            </Pressable>
+                        );
+                    })}
+                </View>
+                {selectedProduct ? (
+                    <AppButton
+                        label={selectedProduct.period === 'annual' ? 'Assinar anual' : 'Assinar mensal'}
+                        variant={selectedProduct.period === 'annual' ? 'gold' : 'galaxy'}
+                        loading={busy}
+                        onPress={() => void purchase(selectedProduct)}
+                    />
+                ) : null}
 
                 {notice?.kind === 'cancelled' ? <Text style={styles.notice}>Tudo bem — nada foi cobrado.</Text> : null}
                 {notice?.kind === 'nothing-to-restore' ? (
@@ -278,7 +324,7 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                         do fim do período atual.
                     </Text>
                     <Text style={styles.legal}>{CANCEL_COPY}</Text>
-                    <AppButton label="Restaurar compras" variant="secondary" disabled={busy} onPress={() => void restore()} />
+                    <AppButton label="Restaurar compras" variant="ghost" disabled={busy} onPress={() => void restore()} />
                     <View style={styles.links}>
                         {[LEGAL_LINKS.terms, LEGAL_LINKS.privacy].map((link) => (
                             <ExternalLink key={link.href} href={link.href} asChild>
@@ -366,22 +412,65 @@ const styles = StyleSheet.create({
         ...typography.bodyRegular,
         color: galaxyColors.textSecondary,
     },
+    introduction: {
+        gap: space.s1,
+        paddingVertical: space.s2,
+    },
+    plans: {
+        flexDirection: 'row',
+        gap: space.s2,
+        paddingVertical: space.s2,
+    },
+    plan: {
+        flex: 1,
+        minWidth: 0,
+        alignItems: 'center',
+        gap: space.s1,
+    },
+    medal: {
+        width: '100%',
+        maxWidth: 128,
+        paddingBottom: depth.lip,
+    },
+    // Diâmetro aprovado de 128 pt, raio de 64 pt composto do token existente.
+    medalLip: {
+        position: 'absolute',
+        top: depth.lip,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderRadius: radius.rLg * 4,
+    },
+    medalFace: {
+        minHeight: 112,
+        borderRadius: radius.rLg * 4,
+        borderWidth: 3,
+        padding: space.s2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     planTitle: {
         ...typography.bodyStrong,
         color: galaxyColors.textPrimary,
+        textAlign: 'center',
     },
-    priceRow: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        gap: space.s1,
+    goldLabel: {
+        color: galaxyColors.background,
     },
     price: {
         ...typography.h3,
         color: galaxyColors.textPrimary,
+        textAlign: 'center',
     },
     period: {
         ...typography.bodyRegular,
         color: galaxyColors.textSecondary,
+        textAlign: 'center',
+    },
+    equivalent: {
+        ...typography.caption,
+        color: medalColors.gold.face,
+        textAlign: 'center',
     },
     notice: {
         ...typography.bodyRegular,

@@ -14,7 +14,7 @@ import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMot
 import { hapticTap } from '../../ui/feedback/haptics';
 import { LABEL_MAX_FONT_SCALE } from '../../ui/accessibility/useLargeTextLayout';
 
-type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost' | 'success' | 'error';
+type Variant = 'primary' | 'galaxy' | 'gold' | 'secondary' | 'ghost' | 'success' | 'error';
 
 /**
  * Variantes que recebem retorno tátil ao serem tocadas.
@@ -31,7 +31,7 @@ type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost' | 'success' | 'error
  * peso da ação que a tela quer. Escalar o sinal à significância do evento é a
  * mesma regra que separou `hapticLifeLost` de `hapticError`.
  */
-const HAPTIC_VARIANTS: ReadonlySet<Variant> = new Set<Variant>(['primary', 'galaxy']);
+const HAPTIC_VARIANTS: ReadonlySet<Variant> = new Set<Variant>(['primary', 'galaxy', 'gold']);
 
 const light = semanticColors.light;
 const galaxy = semanticColors.galaxy;
@@ -47,6 +47,7 @@ const galaxy = semanticColors.galaxy;
 const LIP_COLOR: Record<Exclude<Variant, 'ghost'>, string> = {
   primary: medalColors.unit.lip,
   galaxy: medalColors.unit.lip,
+  gold: medalColors.gold.lip,
   secondary: galaxyColors.backgroundAlt,
   success: feedbackColors.success.lip,
   error: feedbackColors.error.lip,
@@ -149,7 +150,9 @@ export function AppButton({
   };
 
   const onFillLabel =
-    variant === 'success'
+    variant === 'gold'
+      ? galaxyColors.background
+      : variant === 'success'
       ? feedbackColors.success.onFill
       : variant === 'error'
         ? feedbackColors.error.onFill
@@ -276,6 +279,9 @@ const styles = StyleSheet.create({
   galaxy: {
     backgroundColor: galaxy.actionPrimary,
   },
+  gold: {
+    backgroundColor: medalColors.gold.face,
+  },
   success: {
     backgroundColor: feedbackColors.success.fill,
   },
@@ -323,6 +329,7 @@ const styles = StyleSheet.create({
 const VARIANT_STYLE: Record<Variant, ViewStyle> = {
   primary: styles.primary,
   galaxy: styles.galaxy,
+  gold: styles.gold,
   secondary: styles.secondary,
   ghost: styles.ghost,
   success: styles.success,

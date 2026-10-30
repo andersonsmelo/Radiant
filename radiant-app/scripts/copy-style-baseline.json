@@ -268,7 +268,7 @@
     },
     "src/features/subscription/screens/SubscriptionScreen.tsx": {
       "eyebrow": 0,
-      "dash": 6,
+      "dash": 5,
       "jargon": 0
     },
     "src/features/telemetry/screens/TelemetryDebugScreen.tsx": {

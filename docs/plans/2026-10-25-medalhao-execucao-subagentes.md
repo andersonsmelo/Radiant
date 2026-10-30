@@ -233,7 +233,7 @@ supervisão retroativa nem usar o15/15 antigo como gate do novo run.
 
 ### Task 13: T11 — Assinatura
 
-**Próxima frente, ainda não iniciada em29/10:** [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
+**Recorte estático validado em29/10:** R3 SpecPASS/APPROVED após fix1 acessível e fix2 raios;48 fluxo final/17 mutações. Loop15/15 no segundo ciclo; primeiro14/15 falhou strict de raios. G6 pendente. [prompt autossuficiente de continuidade](../superpowers/handoffs/2026-10-29-medalhao-t11-prompt-de-continuidade.md). G6 continua limitando a prova do bridge no binário existente.
 
 - **Dono:** I/high; **revisão:** RF pelo contrato nativo. **Skills:** T, U; **recursos:** contratos Swift/JS, Jest, D condicional, N limitado.
 - **Pré-requisito:** T01; G6 limita prova nativa. **Saída:** preço/moeda explícitos no bridge/adaptador, estados reais; separar implementação/teste estático de validação em binário novo ainda autorizável.

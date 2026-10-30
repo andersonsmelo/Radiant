@@ -14,6 +14,9 @@ export type StoreProduct = {
     title: string;
     /** Preço localizado exatamente como a Apple o entregou, ex.: "R$ 19,90". */
     displayPrice: string;
+    /** Número e moeda da loja; ausentes em binários anteriores a este contrato. */
+    price?: number;
+    currencyCode?: string;
 };
 
 export type SubscriptionEntitlement = {
