@@ -1,6 +1,5 @@
 import { XP_RULES } from '../../../constants/gamification';
 import type { L1EvidenceKind, L1Misconception } from '../l1-body-reference/l1BodyReference.types';
-import { variantOf } from './l1ItemTemplates';
 import { createRng } from './seededRandom';
 import type { HybridItem } from './hybridItem.types';
 
@@ -46,7 +45,7 @@ export type HybridLessonSession = Readonly<{
   summary(): HybridSummary;
 }>;
 
-export function createHybridLessonSession(options: Readonly<{ plan: readonly HybridItem[]; now?: () => number; seed?: number }>): HybridLessonSession {
+export function createHybridLessonSession(options: Readonly<{ plan: readonly HybridItem[]; variantOf: (item: HybridItem, rng: () => number) => HybridItem; now?: () => number; seed?: number }>): HybridLessonSession {
   const now = options.now ?? Date.now;
   const rng = createRng(options.seed ?? 1);
   const queue: HybridItem[] = [...options.plan];
@@ -96,7 +95,7 @@ export function createHybridLessonSession(options: Readonly<{ plan: readonly Hyb
         heartsSpent += 1;
         events.push('heart_lost');
         if (!item.variant && !requeued.has(item.id)) {
-          const variant = variantOf(item, rng);
+          const variant = options.variantOf(item, rng);
           queue.push(variant);
           requeued.add(item.id);
           requeuedItemId = variant.id;

@@ -1,5 +1,8 @@
 # Medalhão — pendências e fechamento Implementation Plan
 
+> Atualização de autoridade em 02/11/2026: a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) sucede a ordem T19–T21 quanto à retirada local: todas as aulas, exemplos e protótipos saem antes da pesquisa. T14/G2 das amostras foram superados. T20 (dados pessoais), release e gates nativos não foram autorizados. O [novo plano de conteúdo](2026-11-02-planejamento-conteudo-radiant.md) é a entrada única para currículo, fontes e entrega. Os cartões abaixo preservam proveniência, não autorizam restaurar o corpus.
+
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Neste projeto, preserve também um implementador e um revisor independente por tarefa, com re-revisão das correções e revisão final de cada plano no modelo mais forte disponível.
 
 **Goal:** Concluir o mundo Medalhão e as pendências da aula-bancada, preparar a retirada segura do conteúdo antigo e fazer a conferência integrada ao final, preservando os gates do dono.

@@ -1,23 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 import { buildRuntimeCatalog } from "./catalog-runtime.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "../..");
-const CATALOG_PAYLOAD_PATH = path.join(
-  ROOT,
-  "conteúdo/governança/catalog-payload.json"
-);
+// Abstract fixtures exercise every question and its answer permutation.
+const lerPayload = async () => ({ version: 'synthetic-1', tracks: { quizzes: Array.from({ length: 16 }, (_, index) => ({
+  id: `bundle:test:quizzes:shape-${index}`, title: `Forma ${index}`,
+  aiContent: [0, 1].map(question => ({ question: `Escolha a forma ${index}/${question}`, options: ['cubo', 'esfera', 'cone', 'cilindro'], correct: question, explanation: 'Comparação sintética.' })),
+})) } });
 
-const lerPayload = async () =>
-  JSON.parse(await readFile(CATALOG_PAYLOAD_PATH, "utf8"));
-
-// As questões vêm da fonte, nunca de uma lista escrita aqui: uma lista à mão
-// envelhece em silêncio no dia em que o catálogo ganha a 33ª questão, e o teste
-// continua verde afirmando sobre 32.
 function questoesDaFonte(payload) {
   return (payload?.tracks?.quizzes ?? []).flatMap((bundle) =>
     (bundle.aiContent ?? []).map((questao) => ({ bundleId: bundle.id, questao }))

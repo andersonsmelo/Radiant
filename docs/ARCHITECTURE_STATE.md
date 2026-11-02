@@ -1,5 +1,8 @@
 # Radiant — estado arquitetural
 
+> No checkout Medalhão, o reinício de conteúdo de 02/11/2026 retira datasets e exemplos, preservando motores e armazenamento. O catálogo explicita `retired`. As seções históricas abaixo descrevem a arquitetura anterior, não provam conteúdo ativo. [Decisão](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
+
+
 ## Produto vigente
 
 Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso e
@@ -42,10 +45,10 @@ Componentes principais:
 
 ## Jornada atual
 
-A Learning Road V2 usa `journey-progress.v2`, preserva progresso separado por
-trilha e migra o store legado quando possível. O catálogo runtime expõe
-Fundamentos, Tórax e Abdome; as 18 atividades existentes continuam sendo o
-baseline compatível durante a evolução.
+O motor da Learning Road preserva `journey-progress.v2` e progresso separado por
+trilha. Em02/11/2026, no checkout Medalhão, o catálogo runtime está vazio e o
+bootstrap `retired` retorna antes de remoto/cache/migração. Os dados de aulas
+antigos não são baseline ativo; motores e histórico do usuário permanecem.
 
 Regra arquitetural: alternar trilhas não apaga progresso, uma falha de sync não
 bloqueia o estudo e estados vazios devem manter continuidade no fluxo principal.

@@ -21,7 +21,9 @@ import LearnRoute from '../../../app/learn';
 import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { EXPOSICAO } from '../../bench/lessons/exposicao';
+import { EXPOSICAO } from '../../../test/fixtures/syntheticLessons';
+
+jest.mock('../../bench/lessons/BenchLessonCatalog', () => ({ isBenchLessonId: (id: string) => id.startsWith('bancada:'), BenchLessonCatalog: { getActivityById: () => null } }));
 
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 

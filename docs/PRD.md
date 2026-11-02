@@ -1,5 +1,8 @@
 # Radiant — Product Requirements Document (PRD)
 
+> Direção curricular de 02/11/2026: graduação tecnológica em radiologia, seguida de especializações. O [planejamento único](plans/2026-11-02-planejamento-conteudo-radiant.md) define sequência e entrega. Todas as aulas anteriores foram abrangidas pela autorização de retirada; este PRD não é um catálogo de aulas.
+
+
 > **Estado:** requisitos-base vigentes. A evolução educacional por competências
 > foi aprovada em 2026-07-31 e está sendo implementada de forma incremental; ver
 > a [spec normativa](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
@@ -21,7 +24,7 @@ Permitir que estudantes e profissionais de radiologia:
 
 * Estudem em blocos curtos (2–5 minutos)
 * Fixem o conhecimento por meio de revisão inteligente
-* Desenvolvam raciocínio diagnóstico progressivo
+* Desenvolvam raciocínio técnico progressivo sobre aquisição e qualidade de imagens
 * Criem constância no estudo
 
 ---
@@ -30,12 +33,11 @@ Permitir que estudantes e profissionais de radiologia:
 
 ### Público Primário (MVP)
 
-* Estudantes de Radiologia
-* Técnicos e Tecnólogos em Radiologia
+* Estudantes da graduação tecnológica em Radiologia (público que orienta a sequência inicial)
 
 ### Público Secundário (fase futura)
 
-* Residentes em Radiologia
+* Tecnólogos em especializações, após a base comum
 * Profissionais em atualização
 * Instituições de ensino (B2B)
 

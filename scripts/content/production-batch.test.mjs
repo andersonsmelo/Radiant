@@ -12,7 +12,7 @@ import {
 
 import appContract from './load-app-contract.cjs';
 const { loadAppContract } = appContract;
-const baseline = JSON.parse(JSON.stringify(loadAppContract('features/student-checkpoints/production-batches.ts').PRODUCTION_BATCHES[0]));
+const baseline = JSON.parse(JSON.stringify(loadAppContract('test/fixtures/syntheticEditorialBatch.ts').PRODUCTION_BATCHES[0]));
 const { createProductionCurriculumCatalog } = loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
 function batch(overrides = {}) {
   return { ...JSON.parse(JSON.stringify(baseline)), ...overrides };

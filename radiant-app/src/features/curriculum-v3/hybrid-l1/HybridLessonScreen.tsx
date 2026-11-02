@@ -15,14 +15,16 @@ import { BodyReferenceMap } from '../l1-body-reference/BodyReferenceMap';
 import { hybridLessonMetricsRepository, type HybridLessonOutcome, type HybridLessonRecord } from './HybridLessonMetricsRepository';
 import { HybridLessonCharacter } from './HybridLessonCharacter';
 import { createHybridLessonSession, type HybridAnswerResult, type HybridSummary } from './HybridLessonSession';
-import { buildL1HybridPlan } from './l1HybridLessonPlan';
-import { isL1TemplateApproved } from './l1TemplateApproval';
 import type { HybridItem } from './hybridItem.types';
 
 type HeartsPort = Readonly<{ getSnapshot(nowMs: number): Promise<HeartsSnapshot>; spend(nowMs: number): Promise<HeartsSnapshot> }>;
 
 export type HybridLessonScreenProps = Readonly<{
   plan?: readonly HybridItem[];
+  variantOf?: (item: HybridItem, rng: () => number) => HybridItem;
+  title?: string;
+  intro?: string;
+  synthesis?: string;
   hearts?: HeartsPort;
   feedback?: LessonFeedback;
   now?: () => number;
@@ -32,7 +34,6 @@ export type HybridLessonScreenProps = Readonly<{
 
 type Phase = 'opening' | 'item' | 'feedback' | 'out_of_hearts' | 'done';
 
-const SYNTHESIS = 'A referência é o corpo, não você nem a gravidade.';
 
 function formatDuration(ms: number): string {
   const totalSeconds = Math.max(0, Math.round(ms / 1000));
@@ -56,10 +57,14 @@ function LessonShell({ scrollKey, footer, children }: Readonly<{ scrollKey: stri
   );
 }
 
-export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, now = Date.now, metrics = hybridLessonMetricsRepository, onExit }: HybridLessonScreenProps) {
+export function HybridLessonScreen(props: HybridLessonScreenProps) {
+  if (!props.plan?.length || !props.variantOf) return <Text>Conteúdo em preparação</Text>;
+  return <InjectedHybridLessonScreen {...props} plan={props.plan} variantOf={props.variantOf} />;
+}
+
+function InjectedHybridLessonScreen({ plan, variantOf, title = 'Prévia isolada', intro = '', synthesis = '', hearts = heartsRepository, feedback, now = Date.now, metrics = hybridLessonMetricsRepository, onExit }: HybridLessonScreenProps & Readonly<{ plan: readonly HybridItem[]; variantOf: (item: HybridItem, rng: () => number) => HybridItem }>) {
   const reduceMotion = useReducedMotionPreference();
-  const session = useMemo(() => createHybridLessonSession({ plan: plan ?? buildL1HybridPlan(), now }), [plan, now]);
-  const approved = useMemo(() => isL1TemplateApproved(), []);
+  const session = useMemo(() => createHybridLessonSession({ plan, variantOf, now }), [plan, variantOf, now]);
   const [phase, setPhase] = useState<Phase>('opening');
   const [item, setItem] = useState<HybridItem | null>(() => session.current());
   const [result, setResult] = useState<HybridAnswerResult | null>(null);
@@ -154,10 +159,9 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
     return (
       <LessonShell scrollKey="opening" footer={<AppButton variant="galaxy" label="Começar" onPress={start} fullWidth />}>
           <Text style={styles.eyebrow}>PILOTO · LIÇÃO HÍBRIDA</Text>
-          <Text style={styles.title} accessibilityRole="header">O corpo como referência</Text>
+          <Text style={styles.title} accessibilityRole="header">{title}</Text>
           <BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion={reduceMotion} landmarks={[]} showControls={false} compact onPostureChange={() => undefined} onPerspectiveChange={() => undefined} onRegionSelect={() => undefined} />
-          <Text style={styles.body}>A marca está à esquerda. Esquerda de quem?</Text>
-          {!approved ? <Text style={styles.notice}>Prévia: os modelos de exercício aguardam a revisão do conteúdo.</Text> : null}
+          <Text style={styles.body}>{intro}</Text>
       </LessonShell>
     );
   }
@@ -173,7 +177,7 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
             <Text style={styles.stat}>{`Tempo ${formatDuration(summary.durationMs)}`}</Text>
             <Text style={styles.stat}>{`Maior sequência ${summary.bestStreak}`}</Text>
           </View>
-          <Text style={styles.body}>{SYNTHESIS}</Text>
+          <Text style={styles.body}>{synthesis}</Text>
       </LessonShell>
     );
   }

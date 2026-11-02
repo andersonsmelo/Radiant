@@ -2,6 +2,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -12,9 +13,7 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SOURCE_SLUG = "fundamentos-de-radiologia-everton-costa-pinto"
-EXCERPTS_PATH = REPO_ROOT / "conteúdo" / "extrações" / SOURCE_SLUG / "excerpts.json"
-DECISIONS_PATH = REPO_ROOT / "conteúdo" / "classificação" / SOURCE_SLUG / "review-decisions.json"
+SOURCE_SLUG = "synthetic-source"
 
 
 class ClassifySourceTests(unittest.TestCase):
@@ -52,40 +51,27 @@ class ClassifySourceTests(unittest.TestCase):
         self.assertTrue(record["needsReview"])
         self.assertEqual(record["reviewStatus"], "needs-review")
 
-    def test_classify_source_writes_pilot_bundle(self):
+    def _generate_synthetic(self, output, decisions=None):
+        excerpts = [{"id": "excerpt:test-revisao", "sourceSlug": SOURCE_SLUG, "pageStart": 1, "pageEnd": 1, "text": "Forma abstrata desconhecida."}]
+        taxonomy = MODULE.load_taxonomy(REPO_ROOT)
+        with patch.object(MODULE, "load_source_entry", return_value={"id": "source:synthetic", "slug": SOURCE_SLUG}), \
+            patch.object(MODULE, "load_excerpts", return_value=excerpts), \
+            patch.object(MODULE, "read_json", return_value={"targetGalaxyIds": ["galaxy-fisica"]}), \
+            patch.object(MODULE, "load_taxonomy", return_value=taxonomy), \
+            patch.object(MODULE, "load_review_decisions", return_value=decisions or {"schemaVersion": 1, "decisions": []}):
+            return MODULE.classify_source(SOURCE_SLUG, REPO_ROOT, output, update_index=False)
+
+    def test_classify_source_writes_synthetic_bundle(self):
         with tempfile.TemporaryDirectory() as temp_dir:
-            result = MODULE.classify_source(
-                SOURCE_SLUG,
-                REPO_ROOT,
-                Path(temp_dir) / SOURCE_SLUG,
-                update_index=False,
-            )
-
-            bundle_path = Path(temp_dir) / SOURCE_SLUG / "classifications.json"
-            job_path = Path(temp_dir) / SOURCE_SLUG / "classification-job.json"
-            self.assertTrue(bundle_path.exists())
-            self.assertTrue(job_path.exists())
-
-            bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
-            job = json.loads(job_path.read_text(encoding="utf-8"))
-
-            excerpts = json.loads(EXCERPTS_PATH.read_text(encoding="utf-8"))["excerpts"]
-            self.assertEqual(bundle["classificationCount"], len(excerpts))
-            self.assertEqual(len(bundle["classifications"]), len(excerpts))
-            self.assertEqual(job["artifacts"]["classificationCount"], len(excerpts))
-            self.assertEqual(result["classificationCount"], len(excerpts))
-            self.assertGreater(bundle["needsReviewCount"], 0)
-            self.assertTrue(any(item["reviewStatus"] == "needs-review" for item in bundle["classifications"]))
-            self.assertTrue(
-                all(
-                    not (
-                        item["planetId"] == "planet-abdomen"
-                        and item["starId"] == "star-coluna"
-                    )
-                    for item in bundle["classifications"]
-                )
-            )
-
+            output = Path(temp_dir) / "output"
+            result = self._generate_synthetic(output)
+            bundle = json.loads((output / "classifications.json").read_text())
+            job = json.loads((output / "classification-job.json").read_text())
+            self.assertEqual(result["classificationCount"], 1)
+            self.assertEqual(bundle["classificationCount"], 1)
+            self.assertEqual(bundle["needsReviewCount"], 1)
+            self.assertEqual(job["artifacts"]["classificationCount"], 1)
+            self.assertEqual(bundle["classifications"][0]["sourceExcerptId"], "excerpt:test-revisao")
 
     # ── Camada de estrela opcional ────────────────────────────────────────
     # Os planetas do eixo tecnico nao tem estrela (decisao do dono, 2026-08-07).
@@ -357,46 +343,23 @@ class ClassifySourceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exclus"):
             self._aplicar(record, payload)
 
-    def test_decisoes_versionadas_chegam_ao_bundle(self):
-        decisoes = json.loads(DECISIONS_PATH.read_text(encoding="utf-8"))["decisions"]
-        self.assertGreater(len(decisoes), 0)
+    def test_decisoes_explicitamente_fornecidas_chegam_ao_bundle(self):
+        decisions = self._decisao(status="approved", reviewedBy="synthetic-reviewer", reviewedAt="2026-11-02")
         with tempfile.TemporaryDirectory() as temp_dir:
-            MODULE.classify_source(SOURCE_SLUG, REPO_ROOT, Path(temp_dir) / SOURCE_SLUG, update_index=False)
-            bundle = json.loads((Path(temp_dir) / SOURCE_SLUG / "classifications.json").read_text(encoding="utf-8"))
+            output = Path(temp_dir) / "output"
+            self._generate_synthetic(output, decisions)
+            record = json.loads((output / "classifications.json").read_text())["classifications"][0]
+            self.assertEqual(record["reviewStatus"], "approved")
+            self.assertEqual(record["planetId"], "planet-modalidades")
+            self.assertIn("synthetic-reviewer", record["decisionReason"])
 
-        por_excerto = {item["sourceExcerptId"]: item for item in bundle["classifications"]}
-        for decisao in decisoes:
-            with self.subTest(excerto=decisao["sourceExcerptId"]):
-                registro = por_excerto[decisao["sourceExcerptId"]]
-                if decisao["status"] == "proposed":
-                    self.assertEqual(registro["reviewStatus"], "needs-review")
-                    self.assertEqual(registro["reviewProposal"]["planetId"], decisao["planetId"])
-                    self.assertEqual(registro["reviewProposal"]["reason"], decisao["reason"])
-                else:
-                    self.assertEqual(decisao["status"], "approved")
-                    self.assertEqual(registro["reviewStatus"], "approved")
-                    self.assertEqual(registro["planetId"], decisao["planetId"])
-                    self.assertIn(decisao["reviewedBy"], registro["decisionReason"])
-                    self.assertNotIn("reviewProposal", registro)
-
-
-    def test_classificacao_no_disco_esta_em_dia_com_o_classificador(self):
-        """Guarda de sincronia (2026-09-25). Uma decisao editada em
-        `review-decisions.json`, ou uma regra de vocabulario mudada, sem regerar
-        `classifications.json` deixava o disco dizendo outra coisa, e nenhum
-        gate via. Regerar num diretorio temporario e comparar byte a byte pega
-        as duas derivas."""
-        disco = REPO_ROOT / "conteúdo" / "classificação" / SOURCE_SLUG
+    def test_generated_synthetic_outputs_are_deterministic(self):
         with tempfile.TemporaryDirectory() as temp_dir:
-            MODULE.classify_source(SOURCE_SLUG, REPO_ROOT, Path(temp_dir) / SOURCE_SLUG, update_index=False)
-            for nome in ("classifications.json", "classification-job.json"):
-                with self.subTest(arquivo=nome):
-                    self.assertEqual(
-                        (Path(temp_dir) / SOURCE_SLUG / nome).read_bytes(),
-                        (disco / nome).read_bytes(),
-                        f"{nome} no disco nao bate com o classificador; regere com "
-                        f"python3 scripts/content/classify-source.py --source-slug {SOURCE_SLUG}",
-                    )
+            first, second = Path(temp_dir) / "first", Path(temp_dir) / "second"
+            self._generate_synthetic(first)
+            self._generate_synthetic(second)
+            for name in ["classifications.json", "classification-job.json"]:
+                self.assertEqual((first / name).read_bytes(), (second / name).read_bytes())
 
 
 if __name__ == "__main__":

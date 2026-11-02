@@ -1,5 +1,8 @@
 # Melhoria da trilha — ponto de entrada
 
+> Conteúdo em reinício por decisão de 02/11/2026: nenhuma aula antiga deve ser recriada. Preservar Medalhão e motores. [Planejamento único](../plans/2026-11-02-planejamento-conteudo-radiant.md) e [ADR](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
+
+
 Esta pasta reúne o que se pesquisou, avaliou e planejou sobre a **trilha**, a
 aba "Estude" do Radiant. A trilha é o caminho gamificado de lições, revisões,
 XP, sequência e vidas, e o dono a definiu como o investimento principal do

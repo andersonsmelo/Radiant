@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { readCurriculumState, validateRetiredContent } from './curriculum-state.mjs';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -51,6 +52,7 @@ export function loadInputs(root) {
 }
 
 export function main(root = process.cwd()) {
+  if (readCurriculumState(root)) validateRetiredContent(root);
   const { map, taxonomyIds, catalogIds } = loadInputs(root);
   const erros = mapErrors({ map, taxonomyIds, catalogIds });
   process.stdout.write(

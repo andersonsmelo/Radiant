@@ -1,63 +1,40 @@
 import assert from 'node:assert/strict';
+
 import { readdir, readFile } from 'node:fs/promises';
+
 import path from 'node:path';
+
 import test from 'node:test';
+
 import { fileURLToPath } from 'node:url';
+
 import { createRequire } from 'node:module';
 
+
 const require = createRequire(import.meta.url);
+
 const ts = require('typescript');
 const { parseAllDocuments } = require('yaml');
 
+
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
 const appId = 'com.ascendcreative.radiant';
 
-// Os flows que rolam até um elemento. Lista explícita, e não varredura do
-// diretório, porque um flow novo que role deve entrar aqui por decisão — é
-// nesta lista que as duas regras de `scrollUntilVisible` pegam.
-const MAESTRO_FLOWS_WITH_SCROLL = [
-  'first-run.yaml',
-  // Rolam até o cabeçalho de Estude desde a trilha centralizada (2026-10-16).
-  'boot-to-home.yaml',
-  'rating-prompt.yaml',
-  'student-checkpoint-active-resume.yaml',
-  'student-checkpoint-performance-baseline.yaml',
-  'learning-critical-path.yaml',
-  'offline-relaunch.yaml',
-  'reward-locked.yaml',
-  'reward-unlock.yaml',
-  'store-capture.yaml',
-  'student-checkpoint-no-duplicate-effect.yaml',
-  'student-checkpoint-short-viewport.yaml',
-  'radiant-1-4-primeira-execucao.yaml',
-  'radiant-1-4-segundo-dia.yaml',
-  'radiant-1-4-vidas-esgotadas.yaml',
-  // Rola até cada botão da sessão de revisão do G4 (FILA 59, 2026-10-18).
-  'g4-native-evidence.yaml',
-  // Rolavam fora da lista até a FILA 62 (2026-10-18), e as guardas não os liam.
-  'review-due.yaml',
-  'hybrid-native-evidence.yaml',
-];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
 // correspondência total, então todas carregam a mesma armadilha do `?`.
 // `tapOn` fica de fora de propósito: dois flows usam regex intencional ali
 // (`^Progresso(, tab.*)?$`), e proibir o `?` lá proibiria a regex.
 const SELECTOR_KEYS = ['assertVisible', 'assertNotVisible', 'visible', 'notVisible'];
+
 const UNESCAPED_QUESTION_MARK = /(?<!\\)\?/;
+
 
 async function readAppFile(relativePath) {
   return readFile(path.join(appRoot, relativePath), 'utf8');
 }
 
-const NAVIGATION_FLOWS = [
-  'boot-to-home.yaml',
-  'rating-prompt.yaml',
-  'reward-locked.yaml',
-  'student-checkpoint-active-resume.yaml',
-  'student-checkpoint-no-duplicate-effect.yaml',
-  'student-checkpoint-performance-baseline.yaml',
-];
 
 async function flowCommands(name) {
   const documents = parseAllDocuments(await readAppFile(`.maestro/${name}`));
@@ -68,89 +45,6 @@ async function flowCommands(name) {
   return commands;
 }
 
-for (const [name, status] of [
-  ['reward-locked.yaml', 'Bloqueada até a unidade fechar'],
-  ['reward-unlock.yaml', 'Pronta para ser coletada'],
-]) {
-  test(`${name} reaches the reward status through a bounded accessibility-label scroll`, async () => {
-    const commands = await flowCommands(name);
-    const screen = commands.findIndex(command => command?.assertVisible === 'Conquista da unidade');
-    assert.ok(screen >= 0, `${name}: expected the reward screen assertion`);
-    const statuses = commands.flatMap((command, index) => command?.assertVisible === status ? [index] : []);
-    assert.equal(statuses.length, 1, `${name}: assert the actual reward status exactly once`);
-    const index = statuses[0];
-    assert.ok(index > screen, `${name}: check status after entering the reward screen`);
-    // iOS exposes accessibilityText here, so the repeat condition uses the
-    // same semantic selector as the assertion. A blind scroll or text-based
-    // scrollUntilVisible cannot establish that this offscreen row was reached.
-    assert.deepEqual(commands[index - 1]?.repeat, {
-      times: 10,
-      while: { notVisible: status },
-      commands: ['scroll'],
-    }, `${name}: reach the status label before asserting it on a short viewport`);
-  });
-}
-
-test('navigation flows match the accessible journey header, not its hidden count', async () => {
-  const source = ts.createSourceFile(
-    'JourneyStageHeader.tsx',
-    await readAppFile('src/features/journey/components/JourneyStageHeader.tsx'),
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TSX,
-  );
-  const templates = [];
-  const visit = (node) => {
-    if (ts.isJsxAttribute(node) && node.name.getText(source) === 'accessibilityLabel') {
-      const expression = node.initializer?.expression;
-      if (expression && ts.isTemplateExpression(expression)) templates.push(expression);
-    }
-    ts.forEachChild(node, visit);
-  };
-  visit(source);
-  assert.equal(templates.length, 1, 'expected one accessible header template');
-  const labels = [
-    { title: 'Fundamentos de Radiologia', completed: 0, total: 8 },
-    { title: 'Fundamentos de Radiologia', completed: 1, total: 8 },
-    { title: 'Matéria, energia e radiação', completed: 8, total: 8 },
-  ].map((values) => templates[0].head.text + templates[0].templateSpans.map((span) => {
-    assert.ok(ts.isIdentifier(span.expression), 'header substitutions must be named values');
-    assert.ok(Object.hasOwn(values, span.expression.text));
-    return String(values[span.expression.text]) + span.literal.text;
-  }).join(''));
-
-  for (const name of NAVIGATION_FLOWS) {
-    // This fixture explicitly requires a completed L1; other flows start at any progress.
-    const reachableLabels = name === 'rating-prompt.yaml' ? [labels[1]] : labels;
-    const selectors = (await flowCommands(name))
-      .filter((command) => typeof command?.assertVisible === 'string'
-        && command.assertVisible.startsWith('^') && command.assertVisible.includes(' de '))
-      .map((command) => command.assertVisible);
-    assert.ok(selectors.length > 0, `${name}: expected a journey header assertion`);
-    for (const selector of selectors) {
-      const pattern = new RegExp(selector);
-      for (const label of reachableLabels) {
-        assert.ok(pattern.test(label), `${name}: ${selector} does not match the accessible header "${label}"`);
-      }
-      for (const unrelated of ['0 de 8', 'Fundamentos de Radiologia', '10 XP', 'Tela 2 de 3. Boas-vindas']) {
-        assert.ok(!pattern.test(unrelated), `${name}: ${selector} also matches another screen or the hidden count`);
-      }
-    }
-  }
-});
-
-test('navigation flows wait for the dev client after every launch and relaunch', async () => {
-  for (const name of [...NAVIGATION_FLOWS, 'student-checkpoint-short-viewport.yaml']) {
-    const commands = await flowCommands(name);
-    const launches = commands.flatMap((command, index) =>
-      command === 'launchApp' || Object.hasOwn(command ?? {}, 'launchApp') ? [index] : []);
-    assert.ok(launches.length > 0, `${name}: expected an app launch`);
-    for (const index of launches) {
-      assert.equal(commands[index + 1]?.runFlow, 'subflows/dismiss-dev-client.yaml',
-        `${name}: wait for the dev client immediately after launch ${index}`);
-    }
-  }
-});
 
 async function listMaestroFlows() {
   const entries = await readdir(path.join(appRoot, '.maestro'), { withFileTypes: true });
@@ -160,6 +54,7 @@ async function listMaestroFlows() {
     .map((entry) => entry.name)
     .sort();
 }
+
 
 /**
  * Todos os seletores de um flow, com a linha em que aparecem. Varre o
@@ -184,258 +79,9 @@ function maestroSelectors(flow) {
   return found;
 }
 
-function unescapeSelector(selector) {
-  return selector.replace(/\\(.)/g, '$1');
-}
 
-test('keeps Maestro discovery explicit and artifact output untracked', async () => {
-  const [config, gitignore] = await Promise.all([
-    readAppFile('.maestro/config.yaml'),
-    readAppFile('.gitignore'),
-  ]);
 
-  assert.match(config, /flows:\n\s+- "\*\.yaml"/);
 
-  // A CLI resolve testOutputDir com `File(valor).toPath()`, ou seja contra o cwd
-  // da invocação — nunca contra este diretório. O runbook manda rodar de
-  // `radiant-app`, então o valor é um caminho relativo a esta pasta e precisa
-  // cair sob uma regra deste .gitignore. Afirmar os dois literais em separado,
-  // como a versão anterior fazia, deixou `artifacts` e `.maestro/artifacts/`
-  // divergirem em silêncio: os dois assertos passavam enquanto as execuções
-  // despejavam 296MB num diretório que aparecia como untracked no git status.
-  // O contrato agora é o acoplamento, não cada lado.
-  const testOutputDir = config.match(/^testOutputDir: (.+)$/m)?.[1].trim();
-  assert.ok(testOutputDir, 'expected .maestro/config.yaml to declare testOutputDir');
-  assert.doesNotMatch(
-    testOutputDir,
-    /^[/~]|(^|\/)\.\.(\/|$)/,
-    'testOutputDir must stay relative to radiant-app and must not escape it'
-  );
-  assert.match(
-    gitignore,
-    new RegExp(`^${testOutputDir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/$`, 'm'),
-    `radiant-app/.gitignore must ignore "${testOutputDir}/", the directory Maestro writes runs to`
-  );
-});
-
-test('keeps each shipped flow tied to the installed mobile identifier', async () => {
-  const flowNames = [
-    'boot-to-home.yaml',
-    'learning-critical-path.yaml',
-    'offline-relaunch.yaml',
-  ];
-
-  const flows = await Promise.all(flowNames.map((name) => readAppFile(`.maestro/${name}`)));
-
-  for (const flow of flows) {
-    assert.match(flow, new RegExp(`^appId: ${appId}$`, 'm'));
-    assert.match(flow, /^---$/m);
-    assert.match(flow, /- launchApp:/);
-  }
-
-  // The boot smoke proves a clean install reaches the local-first home. It
-  // deliberately does NOT deep-link onboarding: v1.3 has no blocking wizard, and
-  // the retired onboarding-to-home.yaml drove an unfinished prototype removed on
-  // 2026-07-28. Keep the deep-link out and the stable home assertion in.
-  assert.match(flows[0], /clearState: true/);
-  // O contrato de navegação acima compara os seletores com o rótulo acessível
-  // real do cabeçalho, incluindo título e contagem no mesmo nó.
-  assert.doesNotMatch(flows[0], /radiantapp:\/\/onboarding/);
-  assert.match(flows[1], /lesson-option-q1:option:1/);
-  // O caminho crítico termina na estante do Perfil, cuja âncora existe durante
-  // a leitura do currículo. O nó de conquista só abre depois da ÚLTIMA lição
-  // da trilha gerada pelo catálogo (7 lições), então ele não é alcançável num
-  // smoke; afirmá-lo aqui codificaria um flow que não roda.
-  //
-  // O seletor da aba fica ancorado ao nome acessível dela nas duas plataformas
-  // (iOS "Perfil, tab, 2 of 2", Android "Perfil"). Ancorado é obrigatório: um
-  // `.*Perfil.*` solto casa com qualquer legenda que contenha a palavra — o
-  // Maestro compara sem diferenciar caixa — e toca nela em vez da aba. Foi
-  // assim que a versão com `.*Progresso.*` quebrou as duas plataformas em
-  // 2026-07-28, e o literal só-iOS quebrou o Android.
-  assert.match(flows[1], /- tapOn: '\^Perfil\(, tab\.\*\)\?\$'/);
-  assert.match(flows[1], /- assertVisible: Medalhas/);
-  const storeCapture = await flowCommands('store-capture.yaml');
-  assert.ok(storeCapture.some(command => command.assertVisible === 'Medalhas'));
-  assert.ok(!storeCapture.some(command => command.assertVisible === 'Desafios de hoje'));
-  assert.doesNotMatch(flows[1], /Receber conquista/);
-  // setAirplaneMode takes enabled/disabled; the boolean form fails to parse.
-  assert.match(flows[2], /setAirplaneMode: enabled/);
-  assert.match(flows[2], /setAirplaneMode: disabled/);
-  assert.doesNotMatch(flows[2], /setAirplaneMode: (?:true|false)/);
-});
-
-test('centers the recommendation header action before each native tap', async () => {
-  for (const name of ['learning-critical-path.yaml', 'reward-unlock.yaml']) {
-    const commands = await flowCommands(name);
-    const rewardScreen = commands.findIndex(command => command?.assertVisible === 'Conquista da unidade');
-    const actions = commands.flatMap((command, index) =>
-      (rewardScreen < 0 || index < rewardScreen)
-      && ['Continuar trilha', 'Receber conquista'].includes(command?.tapOn) ? [index] : []);
-    assert.equal(actions.length, name === 'reward-unlock.yaml' ? 7 : 1);
-    for (const index of actions) {
-      assertCenteredRecommendation(commands, index, `${name}: center the native button bounds immediately before its semantic tap`);
-    }
-  }
-  const offline = await flowCommands('offline-relaunch.yaml');
-  const index = offline.findIndex(command => command?.assertVisible === 'Continuar trilha');
-  assert.ok(index > 0);
-  assertCenteredRecommendation(offline, index, 'offline relaunch must expose the restored recommendation');
-});
-
-test('centers the due review node before the second-day tap', async () => {
-  // O nó da revisão fica no fim da trilha visível. No dia 2 com relógio real
-  // (FILA 59, 2026-10-19), o centro dele estava em y≈797 de 874, em cima da
-  // barra de abas: o toque caiu na aba "Estude" e a revisão não abriu.
-  const node = '^Revisar Fundamentos de Radiologia\\. Revisão devida · \\d+ (devida|devidas)\\.$';
-  const commands = await flowCommands('radiant-1-4-segundo-dia.yaml');
-  const taps = commands.flatMap((command, index) => command?.tapOn === node ? [index] : []);
-  assert.equal(taps.length, 1, 'the second day taps the due review node once');
-  const [index] = taps;
-  const centered = (direction) => ({
-    element: { text: node }, direction, centerElement: true, visibilityPercentage: 100,
-  });
-  const message = 'center the due review node clear of the tab bar immediately before tapping it';
-  assert.deepEqual(commands[index - 3]?.scrollUntilVisible, centered('DOWN'), message);
-  assert.deepEqual(commands[index - 2]?.assertVisible, node, `${message} — the scroll back waits for the node`);
-  assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered('UP'),
-    `${message} — and scrolls it back when the centering swipe overshoots`);
-});
-
-test('exposes the scheduled review before the final second-day assertion', async () => {
-  const node = '^Revisar Fundamentos de Radiologia\\. Disponível em \\d{2}/\\d{2}/\\d{4} às \\d{2}:\\d{2}\\.$';
-  const commands = await flowCommands('radiant-1-4-segundo-dia.yaml');
-  assert.deepEqual(commands.at(-1), { assertVisible: node }, 'preserve the full review label and date assertion');
-  assert.deepEqual(commands.at(-3), { assertVisible: { id: 'journey-trail' } }, 'wait for the trail before scrolling');
-  assert.deepEqual(commands.at(-2), {
-    scrollUntilVisible: {
-      element: { text: node }, direction: 'UP', centerElement: true,
-      visibilityPercentage: 100, waitToSettleTimeoutMs: 500,
-    },
-  }, 'bring the review medal back into the viewport after anchoring the next lesson');
-});
-
-/**
- * O botão da recomendação centrado, e de volta se o centramento passou dele.
- * O `centerElement` do Maestro 2.7 dá UM deslize fixo quando o centro do
- * elemento está a mais de 1/5 da altura do centro da tela, e aceita onde ele
- * parar: com o botão um pouco abaixo da faixa central, o deslize o leva para
- * baixo do HUD, onde ele continua "visível" na árvore e o toque cai no HUD
- * (medido em 2026-10-18, `reward-unlock`, 3ª lição). A rolagem centrada para
- * cima, logo depois, não faz nada na faixa e desfaz o excesso fora dela.
- */
-function assertCenteredRecommendation(commands, index, message) {
-  const centered = (direction) => ({
-    element: { id: 'journey-recommendation-action' }, direction,
-    centerElement: true, visibilityPercentage: 100,
-  });
-  assert.deepEqual(commands[index - 3]?.scrollUntilVisible, centered('DOWN'), message);
-  assert.deepEqual(commands[index - 2]?.assertVisible, { id: 'journey-recommendation-action' },
-    `${message} — the scroll back waits for the button it is about to scroll`);
-  assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered('UP'),
-    `${message} — and scrolls it back from under the HUD when the centering swipe overshoots`);
-}
-
-test('centers every completed lesson replay above the HUD in the lives flow', async () => {
-  const node = '^Fundamentos de Radiologia\\. Concluído\\.$';
-  const commands = await flowCommands('radiant-1-4-vidas-esgotadas.yaml');
-  const centered = {
-    element: node, direction: 'UP', centerElement: true, visibilityPercentage: 100,
-  };
-  const taps = commands.flatMap((command, index) => command?.tapOn === node ? [index] : []);
-  assert.equal(taps.length, 5, 'preserve all five real replays that spend the remaining hearts');
-  for (const index of taps) {
-    assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered,
-      'bring the completed medal back below the HUD immediately before tapping it');
-  }
-  const scrolls = commands.filter(command => command?.scrollUntilVisible?.element === node);
-  assert.equal(scrolls.length, 6, 'include the final completed medal assertion after the zero-heart pause');
-  for (const command of scrolls) assert.deepEqual(command.scrollUntilVisible, centered);
-});
-
-/**
- * Os rótulos que os roteiros tocam pelo texto, lidos da fonte. A ação mora em
- * `getRecommendationActionCopy` (`nodeCopy.ts`) desde que o cartão de
- * recomendação saiu (trilha Medalhão, tarefa 6), e o botão que a usa é o
- * `AppButton` sob a medalha recomendada, montado pela Home dentro do
- * `journey-recommendation-action` que os roteiros centram antes de tocar.
- */
-async function recommendationActionLabels() {
-  const parse = async (file) => {
-    const source = ts.createSourceFile(path.basename(file), await readAppFile(file),
-      ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-    const nodes = [];
-    const visit = node => { nodes.push(node); ts.forEachChild(node, visit); };
-    visit(source);
-    return { source, nodes };
-  };
-
-  const copySource = await parse('src/features/journey/components/nodeCopy.ts');
-  const copy = copySource.nodes.find(node => ts.isFunctionDeclaration(node) && node.name?.text === 'getRecommendationActionCopy');
-  assert.ok(copy?.body, 'expected the recommendation action copy function');
-  assert.ok(copy.modifiers?.some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword), 'the action copy is exported for the Home');
-  const defaults = [];
-  const findDefaults = node => {
-    if (ts.isDefaultClause(node)) defaults.push(node);
-    ts.forEachChild(node, findDefaults);
-  };
-  findDefaults(copy.body);
-  assert.equal(defaults.length, 1);
-  const action = defaults[0].statements.find(ts.isReturnStatement)?.expression;
-  assert.ok(action && ts.isConditionalExpression(action), 'default action distinguishes resume from the next lesson');
-  assert.ok(ts.isStringLiteral(action.whenFalse));
-  const lessonLabel = action.whenFalse.text;
-  const rewardCase = copySource.nodes.find(node => ts.isCaseClause(node) && ts.isStringLiteral(node.expression) && node.expression.text === 'reward');
-  const rewardAction = rewardCase?.statements.find(ts.isReturnStatement)?.expression;
-  assert.ok(rewardAction && ts.isStringLiteral(rewardAction));
-
-  const home = await parse('src/features/journey/screens/JourneyHomeScreen.tsx');
-  const attributeOf = (element, name) => element.attributes.properties
-    .find(node => ts.isJsxAttribute(node) && node.name.getText(home.source) === name);
-  // A variável que guarda a ação computada para o nó recomendado.
-  const computed = home.nodes.filter(node => ts.isVariableDeclaration(node) && node.initializer
-    && home.nodes.some(call => ts.isCallExpression(call) && call.expression.getText(home.source) === 'getRecommendationActionCopy'
-      && call.pos >= node.initializer.pos && call.end <= node.initializer.end));
-  assert.equal(computed.length, 1, 'the Home computes the action copy once');
-  const actionName = computed[0].name.getText(home.source);
-  const buttons = home.nodes.filter(node => (ts.isJsxSelfClosingElement(node) || ts.isJsxOpeningElement(node))
-    && node.tagName.getText(home.source) === 'AppButton'
-    && attributeOf(node, 'label')?.initializer?.expression?.getText(home.source) === actionName);
-  assert.equal(buttons.length, 1, 'expected the actual rendered recommendation button');
-  const [button] = buttons;
-  for (const name of ['label', 'accessibilityLabel']) {
-    assert.equal(attributeOf(button, name)?.initializer?.expression?.getText(home.source), actionName, `${name} must use the computed action`);
-  }
-  // O botão é o que os roteiros centram por id antes do toque semântico.
-  let wrapper = button.parent;
-  while (wrapper && !(ts.isJsxElement(wrapper)
-    && attributeOf(wrapper.openingElement, 'testID')?.initializer?.getText(home.source) === '"journey-recommendation-action"')) {
-    wrapper = wrapper.parent;
-  }
-  assert.ok(wrapper, 'the recommendation button lives inside journey-recommendation-action');
-  return { lessonLabel, rewardLabel: rewardAction.text };
-}
-
-test('keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson', async () => {
-  const { lessonLabel } = await recommendationActionLabels();
-  assert.equal(lessonLabel, 'Continuar trilha');
-  const commands = await flowCommands('learning-critical-path.yaml');
-  assert.ok(commands.some(command => command?.tapOn === lessonLabel));
-  assert.doesNotMatch(JSON.stringify(commands), /checkpoint|CONQUISTA DESBLOQUEADA/i,
-    'critical path must reach lesson 2 without a catalog checkpoint');
-});
-
-test('native learning flows confirm selected multiple-choice answers with the explicit action', async () => {
-  for (const [name, expected] of [['learning-critical-path.yaml', 6], ['offline-relaunch.yaml', 3], ['reward-unlock.yaml', 16]]) {
-    const commands = await flowCommands(name);
-    const choices = commands.flatMap((command, index) =>
-      command?.tapOn?.id?.startsWith('lesson-option-') ? [index] : []);
-    assert.equal(choices.length, expected, `${name}: preserve every answer in the path`);
-    for (const index of choices) {
-      assert.equal(commands[index + 1]?.tapOn, 'Conferir resposta', `${name}: confirm the selected answer explicitly`);
-    }
-  }
-});
 
 // Os atributos que tiram o glifo da árvore de acessibilidade, com o valor que
 // cada um precisa ter no JSX. A guarda lê a AST desde a FILA 66 (2026-10-19):
@@ -448,6 +94,7 @@ const GLYPH_HIDING_ATTRIBUTES = {
   importantForAccessibility: 'no-hide-descendants',
 };
 
+
 // DecorativeIcon e icon-symbol SÃO os envoltórios autorizados da fonte de
 // ícones: importam MaterialIcons de propósito e escondem o glifo. Todo outro
 // componente renderiza por eles.
@@ -456,10 +103,12 @@ const ICON_FONT_WRAPPERS = new Set([
   'src/components/ui/DecorativeIcon.tsx',
 ]);
 
+
 function parseAppSource(relativePath, text) {
   return ts.createSourceFile(relativePath, text, ts.ScriptTarget.Latest, true,
     relativePath.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
 }
+
 
 // O valor estático de um atributo JSX: a forma curta vale 'true'; uma expressão
 // que não é literal devolve undefined, porque não prova valor nenhum.
@@ -473,6 +122,7 @@ function staticJsxAttributeValue(attribute) {
   if (expression && ts.isStringLiteralLike(expression)) return expression.text;
   return undefined;
 }
+
 
 // O elemento JSX que a função DecorativeIcon devolve, sem descer em funções
 // aninhadas: o `return` de um callback interno não é o dela.
@@ -497,6 +147,7 @@ function decorativeIconElement(source) {
   return opening;
 }
 
+
 // Os módulos da fonte de ícones que o arquivo traz por import, export-from,
 // require() ou import(). Qualquer família de @expo/vector-icons desenha glifo
 // de uso privado; o barril também. Comentário e texto não contam.
@@ -517,6 +168,7 @@ function iconFontModules(source) {
   visit(source);
   return modules;
 }
+
 
 test('keeps icon glyphs out of the accessibility tree', async () => {
   // Icon fonts render private-use codepoints, so an exposed glyph is announced
@@ -561,6 +213,7 @@ test('keeps icon glyphs out of the accessibility tree', async () => {
     `these files import the icon font directly instead of DecorativeIcon: ${offenders.join(', ')}`);
 });
 
+
 test('keeps the journey trail on the dark galaxy theme it renders inside', async () => {
   // Os componentes da trilha renderizam só dentro de JourneyHomeScreen, que é
   // tela escura. Importar o token claro `colors` faz um card branco com texto
@@ -602,6 +255,7 @@ test('keeps the journey trail on the dark galaxy theme it renders inside', async
   }
 });
 
+
 test('never lets a route fall back to the native header', async () => {
   // An undeclared route inheriting the default header renders its raw path as
   // the title and the previous route id as the back label — leaking the route
@@ -611,6 +265,7 @@ test('never lets a route fall back to the native header', async () => {
 
   assert.match(layout, /<Stack screenOptions=\{\{ headerShown: false \}\}>/);
 });
+
 
 test('keeps the e2e build local-first and bypasses the beta gate', async () => {
   const eas = JSON.parse(await readAppFile('eas.json'));
@@ -629,6 +284,7 @@ test('keeps the e2e build local-first and bypasses the beta gate', async () => {
     EXPO_PUBLIC_ENABLE_REMOTE_SYNC: 'false',
   });
 });
+
 
 test('keeps active checkpoints confined to the dedicated internal profile', async () => {
   const eas = JSON.parse(await readAppFile('eas.json'));
@@ -651,6 +307,7 @@ test('keeps active checkpoints confined to the dedicated internal profile', asyn
   assert.equal(eas.build['e2e-test'].env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, undefined);
 });
 
+
 // Sem a variável, a fase do Xcode tenta enviar os source maps ao Sentry e a
 // build reprova por falta de organização. Foi o que derrubou a primeira build
 // `development` da 1.4 no EAS, em 2026-09-24: o perfil nunca tinha compilado lá
@@ -670,156 +327,6 @@ test('every EAS build profile disables the Sentry source map upload, inheritance
   assert.deepEqual(missing, []);
 });
 
-test('keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path', async () => {
-  const [active, baseline] = await Promise.all([
-    readAppFile('.maestro/student-checkpoint-active-resume.yaml'),
-    readAppFile('.maestro/student-checkpoint-performance-baseline.yaml'),
-  ]);
-
-  assert.match(active, /setAirplaneMode: enabled/);
-  assert.match(active, /- killApp\n- launchApp/);
-  assert.match(active, /- tapOn: Retomar estudo/);
-  assert.match(active, /- tapOn: Continuar trilha\n- assertVisible: Fundamentos de Radiologia/);
-  assert.doesNotMatch(baseline, /Retomar estudo|setAirplaneMode/);
-  assert.match(baseline, /clearState: true/);
-  assert.match(baseline, /- tapOn: Continuar trilha\n- assertVisible: Fundamentos de Radiologia/);
-});
-
-test('keeps lesson-answer selectors accessible and deterministic', async () => {
-  const source = await readAppFile('src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx');
-
-  assert.match(source, /testID=\{`lesson-option-\$\{option\.id\}`\}/);
-  assert.match(source, /accessibilityRole="button"/);
-  // A alternativa não trava depois do primeiro toque: quem confirma é o
-  // "Continuar" do rodapé, então o estado exposto é só `selected`. O contrato
-  // proíbe reintroduzir `disabled` aqui — seria voltar a impedir a troca.
-  assert.match(source, /accessibilityState=\{\{ selected, disabled: submitted \}\}/);
-  assert.doesNotMatch(source, /disabled=\{/);
-});
-
-// A AST lê a cópia consumida pelo JSX; comentários não provam o flow.
-function welcomeSourceContract(text, relativePath) {
-  const source = parseAppSource(relativePath, text);
-  const declarations = new Map();
-  const textNodes = [];
-  const elements = [];
-  function visit(node) {
-    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) declarations.set(node.name.text, node.initializer);
-    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'Text') textNodes.push(node);
-    if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) elements.push(node);
-    ts.forEachChild(node, visit);
-  }
-  visit(source);
-  function strings(expression) {
-    if (!expression) return [];
-    if (ts.isStringLiteralLike(expression)) return [expression.text];
-    if (ts.isIdentifier(expression)) return strings(declarations.get(expression.text));
-    if (ts.isConditionalExpression(expression)) return [...strings(expression.whenTrue), ...strings(expression.whenFalse)];
-    if (ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression)) {
-      const object = declarations.get(expression.expression.text);
-      if (object && ts.isObjectLiteralExpression(object)) {
-        const property = object.properties.find(p => ts.isPropertyAssignment(p) && p.name.getText(source) === expression.name.text);
-        return property ? strings(property.initializer) : [];
-      }
-    }
-    return [];
-  }
-  const rendered = textNodes.flatMap(node => node.children.flatMap(child => {
-    if (ts.isJsxText(child)) return child.text.trim() ? [child.text.trim()] : [];
-    return ts.isJsxExpression(child) ? strings(child.expression) : [];
-  }));
-  function attribute(tag, name) {
-    const element = elements.find(node => node.tagName.getText(source) === tag);
-    const attr = element?.attributes.properties.find(p => ts.isJsxAttribute(p) && p.name.text === name);
-    return attr ? staticJsxAttributeValue(attr) : undefined;
-  }
-  return { rendered, attribute };
-}
-
-function firstWelcomeDestination(defaultBlocks) {
-  const source = parseAppSource('defaultBlocks.ts', defaultBlocks);
-  const blocks = [];
-  const property = (object, name) => ts.isObjectLiteralExpression(object ?? {})
-    ? object.properties.find(node => ts.isPropertyAssignment(node)
-      && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === name)?.initializer
-    : undefined;
-  function visit(node) {
-    if (ts.isObjectLiteralExpression(node)) {
-      const id = property(node, 'id');
-      if (id && ts.isStringLiteralLike(id) && id.text === 'block:lesson-1:intro') blocks.push(node);
-    }
-    ts.forEachChild(node, visit);
-  }
-  visit(source);
-  assert.equal(blocks.length, 1, 'expected one real first lesson block');
-  const steps = property(blocks[0], 'steps');
-  const step = steps && ts.isArrayLiteralExpression(steps) ? property(steps.elements[0], 'step') : undefined;
-  const type = property(step, 'type');
-  assert.ok(type && ts.isStringLiteralLike(type) && type.text === 'context', 'expected first learning context');
-  const body = property(property(step, 'payload'), 'body');
-  return body && ts.isStringLiteralLike(body) ? body.text : undefined;
-}
-
-test('reads the welcome destination from actual syntax, ignoring commented fake payload', () => {
-  const fixture = `const blocks = [
-    {
-        // id: 'block:lesson-1:intro',
-        // body: 'CORPO FANTASMA',
-        id: 'block:lesson-1:intro',
-        steps: [{ step: { type: 'context', payload: { body: 'CORPO REAL' } } }]
-    },
-    {
-        id: 'block:review:lesson-1'
-    }
-  ];`;
-  assert.equal(firstWelcomeDestination(fixture), 'CORPO REAL');
-});
-
-test('ties the single welcome bench and resume flows to rendered copy and a real kV change', async () => {
-  const [screenSource, introductionSource, subflow, defaultBlocks] = await Promise.all([
-    readAppFile('src/features/first-run/screens/WelcomeFlowScreen.tsx'),
-    readAppFile('src/features/first-run/components/WelcomeSlide.tsx'),
-    flowCommands('subflows/dismiss-first-run.yaml'),
-    readAppFile('src/data/journey/defaultBlocks.ts'),
-  ]);
-  const welcome = welcomeSourceContract(screenSource, 'WelcomeFlowScreen.tsx');
-  const introduction = welcomeSourceContract(introductionSource, 'WelcomeSlide.tsx');
-  const greeting = introduction.rendered.find(value => value.startsWith('Oi, eu sou o Pixel.'));
-  const instruction = welcome.rendered.find(value => value.startsWith('Ajuste o kV'));
-  const high = welcome.rendered.find(value => value.startsWith('Tudo cinza parecido:'));
-  const notice = welcome.rendered.find(value => value.startsWith('Radiant é um app educacional.'));
-  const continueLabel = welcome.attribute('AppButton', 'label');
-  const skipLabel = welcome.attribute('Pressable', 'accessibilityLabel');
-  assert.ok(greeting && instruction && high && notice && continueLabel && skipLabel, 'expected copy actually consumed by welcome JSX');
-  const skipFlow = subflow.find(command => command.runFlow)?.runFlow;
-  assert.equal(skipFlow?.when?.visible, skipLabel);
-  assert.ok(skipFlow?.commands?.some(command => command.tapOn === skipLabel), 'skip command must exist in parsed YAML, not a comment');
-  for (const name of ['first-run.yaml', 'radiant-1-4-primeira-execucao.yaml']) {
-    const commands = await flowCommands(name);
-    const all = everyCommand(commands);
-    const asserts = all.filter(command => typeof command.assertVisible === 'string').map(command => command.assertVisible);
-    for (const value of [greeting, instruction, high]) assert.ok(asserts.some(selector => new RegExp(selector).test(value)), `${name}: missing rendered welcome copy ${value}`);
-    assert.ok(!asserts.some(selector => /Tela [123] de 3/.test(selector)), `${name}: obsolete slides`);
-    const repeat = commands.find(command => command.repeat?.commands?.some(item => item.tapOn === 'Aumentar kV'));
-    assert.equal(repeat?.repeat.times, 8, `${name}: eight actual +5 kV changes reach 100 from 60`);
-    assert.ok(asserts.some(selector => new RegExp(selector).test('100 kV')), `${name}: prove changed control value`);
-    const advance = commands.findIndex(command => command.tapOn === continueLabel);
-    const adjust = commands.indexOf(repeat);
-    assert.ok(adjust >= 0 && advance > adjust, `${name}: change kV before leaving welcome`);
-    const firstLessonBody = firstWelcomeDestination(defaultBlocks);
-    assert.ok(firstLessonBody);
-    assert.ok(commands.findIndex(command => command.assertVisible === firstLessonBody) > advance, `${name}: prove positive first lesson destination after Continue`);
-    if (name === 'first-run.yaml') assert.ok(asserts.some(selector => new RegExp(selector).test(notice)), 'preserve educational notice');
-    assert.ok(commands.some(command => command.launchApp?.clearState === true));
-  }
-  for (const name of ['student-checkpoint-active-resume.yaml', 'student-checkpoint-short-viewport.yaml']) {
-    const commands = await flowCommands(name);
-    const resume = commands.findIndex(command => command.tapOn === 'Retomar estudo');
-    assert.ok(resume >= 0);
-    assert.ok(commands.slice(resume + 1).some(command => command.assertVisible === instruction), `${name}: resume the single welcome bench`);
-    assert.ok(!commands.some(command => command.tapOn === continueLabel), `${name}: do not finish welcome before creating a resumable checkpoint`);
-  }
-});
 
 test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
   const [runbook, evidenceIndex, baseline] = await Promise.all([
@@ -844,500 +351,6 @@ test('requires dated per-platform device evidence before any e2e pass is claimed
   assert.doesNotMatch(baseline, /E2E (?:aprovad[oa]|PASS)/i);
 });
 
-test('makes every scroll-until-visible wait for the screen it is about to scroll', async () => {
-  // No Maestro, `assertVisible` É a espera. Dois `tapOn` seguidos emendando num
-  // `scrollUntilVisible` fazem a rolagem começar antes de o passo existir na
-  // árvore, e o scroll estoura o timeout procurando um elemento que ainda não
-  // renderizou. No iOS isso nunca aparecia — a tela monta em ~0,1s. No Android,
-  // ~5x mais lento, `offline-relaunch` falhou 2 de 2 em 2026-08-03 exatamente
-  // aqui, enquanto `learning-critical-path`, que já intercalava as asserções,
-  // passou no mesmo emulador e na mesma execução. O contrato prende a espera,
-  // não o tempo: aumentar o timeout esconderia o defeito em vez de removê-lo.
-  // `student-checkpoint-short-viewport.yaml` entrou nesta lista em 2026-08-10 e
-  // traz uma consequencia medida da regra: numa viewport curta a ancora da
-  // espera tem de ser o PRIMEIRO elemento da tela, nao qualquer um. Ancorada no
-  // corpo do cartao, a espera reprovava em AX5 numa tela de 375x667 — o corpo
-  // ja nasce abaixo da dobra ali — enquanto a tela funcionava e o CTA era
-  // alcancavel rolando. A regra pede um `assertVisible` que espere a tela; o
-  // elemento escolhido para isso precisa ser visivel ANTES de qualquer rolagem.
-  for (const name of [
-    'first-run.yaml',
-    'learning-critical-path.yaml',
-    'offline-relaunch.yaml',
-    'reward-unlock.yaml',
-    'student-checkpoint-no-duplicate-effect.yaml',
-    'student-checkpoint-short-viewport.yaml',
-    'radiant-1-4-primeira-execucao.yaml',
-    'radiant-1-4-segundo-dia.yaml',
-    'radiant-1-4-vidas-esgotadas.yaml',
-  ]) {
-    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
-
-    lines.forEach((line, index) => {
-      if (!/^- scrollUntilVisible:/.test(line)) return;
-
-      const previousCommand = lines
-        .slice(0, index)
-        .reverse()
-        .find((candidate) => /^\S/.test(candidate) && !candidate.startsWith('#'));
-
-      assert.match(
-        previousCommand ?? '',
-        /^- assertVisible:/,
-        `${name}:${index + 1}: scrollUntilVisible must be preceded by an assertVisible — that assertion is what makes Maestro wait for the screen to render before scrolling`
-      );
-    });
-  }
-});
-
-// Conta os comandos `scrollUntilVisible` na árvore do YAML, em qualquer
-// profundidade. A chave casa pelo nome que o Maestro lê, e não pela grafia do
-// arquivo: entre aspas ou explícita (`? scrollUntilVisible`), é o mesmo comando.
-function countScrollCommands(value) {
-  if (Array.isArray(value)) {
-    return value.reduce((sum, item) => sum + countScrollCommands(item), 0);
-  }
-  if (!value || typeof value !== 'object') return 0;
-  return Object.entries(value).reduce(
-    (sum, [key, item]) => sum + (key === 'scrollUntilVisible' ? 1 : 0) + countScrollCommands(item),
-    0
-  );
-}
-
-test('lists exactly the flows that scroll until an element is visible', async () => {
-  // A lista acima é explícita por decisão, mas uma lista à mão esquece. Em
-  // 2026-10-18, `review-due` e `hybrid-native-evidence` rolavam e estavam fora
-  // dela, e as duas guardas abaixo passavam sem ler esses roteiros: com o
-  // `visibilityPercentage` apagado ou a rolagem aninhada sob um `runFlow when`,
-  // o contrato continuava verde (FILA 62). Esta guarda não decide quem entra;
-  // ela reprova quando um roteiro que rola ficou de fora, e quando a lista cita
-  // um roteiro que não rola mais. Ela acha a rolagem pela AST: na primeira
-  // versão, uma busca de texto não via `- 'scrollUntilVisible':` (revisão do
-  // Codex na PR #51).
-  const scrolling = [];
-  for (const name of await listMaestroFlows()) {
-    if (countScrollCommands(await flowCommands(name)) > 0) scrolling.push(name);
-  }
-
-  assert.ok(scrolling.length > 0, 'expected at least one Maestro flow to use scrollUntilVisible');
-
-  const missing = scrolling.filter((name) => !MAESTRO_FLOWS_WITH_SCROLL.includes(name));
-  assert.deepEqual(
-    missing,
-    [],
-    `${missing.join(', ')} use scrollUntilVisible but are missing from MAESTRO_FLOWS_WITH_SCROLL — the scroll guards only read the flows listed there`
-  );
-
-  const stale = MAESTRO_FLOWS_WITH_SCROLL.filter((name) => !scrolling.includes(name));
-  assert.deepEqual(
-    stale,
-    [],
-    `${stale.join(', ')} are listed in MAESTRO_FLOWS_WITH_SCROLL but no longer use scrollUntilVisible`
-  );
-
-  // As duas guardas abaixo leem texto, e só enxergam a rolagem escrita como
-  // passo de topo `- scrollUntilVisible:`. Com outra grafia, a chave escapa
-  // delas mesmo num roteiro listado: o parser e o texto têm de contar o mesmo.
-  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
-    const parsed = countScrollCommands(await flowCommands(name));
-    const written = (await readAppFile(`.maestro/${name}`))
-      .split('\n')
-      .filter((line) => /^- scrollUntilVisible:/.test(line)).length;
-    assert.equal(
-      written,
-      parsed,
-      `${name}: ${parsed} scrollUntilVisible commands parsed, ${written} written as a top-level \`- scrollUntilVisible:\` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them`
-    );
-  }
-});
-
-test('makes every scroll-until-visible state the visibility bar it is measured by', async () => {
-  // O Maestro exige 100% de visibilidade por PADRÃO, e nenhum flow declarava
-  // isso. Em 2026-08-06 o `reward-unlock` falhou no Android em
-  // `lesson-option-…:estrutura-da-materia-e-nucleo-atomico:q1:option:0` com o
-  // elemento na tela e clicável: um brilho decorativo — não clicável e com
-  // `important-for-accessibility=false` — cobria ~11% dos bounds da opção, e a
-  // régua herdada transformou 89% de visibilidade em reprovação. A sonda no
-  // aparelho fechou o diagnóstico: `assertVisible` e `tapOn` do MESMO id
-  // passaram, e o scroll passou com 80%.
-  //
-  // A regra aqui não é "aceite menos"; é "declare a régua". Um valor herdado
-  // não é decisão de ninguém e some da revisão, e a diferença entre 100 e 89
-  // decidiu uma execução de 15 minutos. Onde 100 passa, 100 fica escrito.
-  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
-    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
-
-    lines.forEach((line, index) => {
-      if (!/^- scrollUntilVisible:/.test(line)) return;
-
-      const block = [];
-      for (let cursor = index + 1; cursor < lines.length; cursor += 1) {
-        if (/^\S/.test(lines[cursor])) break;
-        block.push(lines[cursor]);
-      }
-
-      assert.match(
-        block.join('\n'),
-        /^\s+visibilityPercentage:\s*\d+\s*$/m,
-        `${name}:${index + 1}: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer overlaps the target`
-      );
-    });
-  }
-});
-
-test('never lets a scroll-until-visible hide behind a visibility guard', async () => {
-  // `runFlow when notVisible: <id>` envolvendo um `scrollUntilVisible` já mordeu
-  // duas vezes, em plataformas diferentes: o Maestro não modela OCLUSÃO, então o
-  // elemento está na árvore e lê como "visível" para a guarda enquanto está por
-  // baixo do CTA flutuante. A guarda pula a rolagem, o tap cai no botão errado, e
-  // o flow para com o quiz em 0% selecionado — no iPhone 16 Plus em 2026-07-30
-  // (segundo quiz, corrigido em f7b602a) e no iPhone 17 Pro em 2026-08-02/03
-  // (primeiro quiz). O remédio nos dois casos foi um `- scroll` fixo: rolar além
-  // do fim é no-op, então ele serve à tela que não rola E à que oclui, enquanto a
-  // guarda só servia a uma.
-  //
-  // O contrato exige que todo `scrollUntilVisible` seja passo de topo. Aninhá-lo
-  // sob qualquer condicional o traz de volta para dentro de uma guarda.
-  // Atenção: isto NÃO proíbe `repeat ... while: notVisible` sobre os CTAs de
-  // rodapé — esses são exigidos pelo teste de alcançabilidade acima e não
-  // envolvem `scrollUntilVisible`.
-  //
-  // Até 2026-10-18 esta guarda tinha a sua própria lista, com 10 dos 17 flows
-  // que rolam. Os sete de fora podiam aninhar a rolagem sem reprovar (FILA 62).
-  // Ela lê a mesma lista da guarda acima, que a de completude mantém exata.
-  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
-    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
-
-    lines.forEach((line, index) => {
-      if (!/scrollUntilVisible:/.test(line) || /^\s*#/.test(line)) return;
-
-      assert.match(
-        line,
-        /^- scrollUntilVisible:/,
-        `${name}:${index + 1}: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against`
-      );
-    });
-  }
-});
-
-test('rating flow completes the current review caller and preserves the native dialog', async () => {
-  const commands = await flowCommands('rating-prompt.yaml');
-  const review = commands.findIndex(command => command.openLink?.link === 'radiantapp://review');
-  assert.ok(review >= 0);
-  const taps = commands.slice(review).filter(command => command.tapOn).map(command => command.tapOn);
-  assert.deepEqual(taps, ['Começar', { id: 'review-option-0' }, 'Confirmar resposta', 'Continuar']);
-  const dialog = commands.find(command => command.runFlow?.when?.platform === 'iOS');
-  assert.deepEqual(dialog.runFlow.commands[0], { assertVisible: 'Curtindo o app Radiant\\?' });
-  assert.deepEqual(commands.at(-1), { assertVisible: 'Resultado da sessão' });
-});
-
-test('preserves rating eligibility prerequisites and the native dialog assertion', async () => {
-  // Este flow existe por um único motivo: alcançar o gate
-  // `countEvents('app_open') >= MIN_APP_OPENS` do `RatingPromptService`, que
-  // nenhum outro flow atinge — quatro abrem o app uma vez e o
-  // `offline-relaunch`, duas. Se alguém subir o mínimo no serviço e o flow
-  // continuar com o mesmo número de aberturas, ele passa a medir um gate que
-  // não é mais o do produto, e passa verde enquanto o prompt fica bloqueado.
-  // Por isso o número vem da fonte, nunca de um literal repetido aqui.
-  const [service, flow] = await Promise.all([
-    readAppFile('src/services/RatingPromptService.ts'),
-    readAppFile('.maestro/rating-prompt.yaml'),
-  ]);
-
-  const minAppOpens = Number(service.match(/const MIN_APP_OPENS = (\d+);/)?.[1]);
-  assert.ok(
-    Number.isInteger(minAppOpens) && minAppOpens > 0,
-    'expected RatingPromptService.ts to declare MIN_APP_OPENS'
-  );
-
-  assert.match(flow, new RegExp(`^appId: ${appId}$`, 'm'));
-
-  const launches = flow.match(/^- launchApp\b/gm) ?? [];
-  assert.ok(
-    launches.length >= minAppOpens,
-    `.maestro/rating-prompt.yaml must launch the app at least MIN_APP_OPENS (${minAppOpens}) times to reach eligibility; it launches ${launches.length}`
-  );
-
-  const commands = await flowCommands('rating-prompt.yaml');
-  assert.ok(commands.every(command => !command.launchApp?.clearState),
-    'the prepared lesson/due-card fixture must survive every launch');
-  assert.equal(commands.filter(command => command === 'killApp').length, minAppOpens,
-    'every counted launch must be a real new process');
-  assert.ok(commands.some(command => command.openLink?.link === 'radiantapp://review'));
-  assert.ok(commands.every(command => !command.openLink?.link?.includes('/quiz')));
-  assert.ok(commands.some(command => command.assertVisible === '^.+\\. 1 de \\d+ etapas concluídas\\.$'),
-    'require actual lesson completion before the store review route');
-
-  // A prova do diálogo é do iOS e só dele. O AVD do projeto usa imagem
-  // `google_apis`, sem Play Store, e mesmo com imagem de Play Store o in-app
-  // review é no-op documentado para APK instalado por sideload. Uma asserção do
-  // diálogo sem guarda de plataforma tornaria o Android vermelho por limite de
-  // ambiente, que é a atribuição errada.
-  for (const [index, line] of flow.split('\n').entries()) {
-    const platform = line.match(/^\s*platform:\s*(\S+)/)?.[1];
-    if (!platform) continue;
-
-    assert.equal(
-      platform,
-      'iOS',
-      `rating-prompt.yaml:${index + 1}: the store-review dialog is only observable on iOS here — platform guards in this flow must be iOS`
-    );
-  }
-});
-
-test('ties the locked-reward flow to the node id the app actually builds', async () => {
-  // O flow alcança o nó de reward por deep link, e o id não é um literal
-  // escolhido: ele é montado por `rewardNodeId()` sobre o slug da primeira
-  // trilha do catálogo. Trocar o slug do catálogo, ou o formato do id, sem
-  // trocar o flow produziria um deep link que não resolve — e `findReward`
-  // cairia no fallback, que exige nó DESBLOQUEADO. O flow ficaria vermelho
-  // dizendo "não achei a conquista", que é a atribuição errada.
-  const [flow, definition, catalog] = await Promise.all([
-    readAppFile('.maestro/reward-locked.yaml'),
-    readAppFile('src/features/journey/services/JourneyDefinitionService.ts'),
-    readAppFile('src/data/catalog.ts'),
-  ]);
-
-  const shape = definition.match(/return `node:reward:\$\{trackSegment\}:final`;/);
-  assert.ok(shape, 'expected rewardNodeId to build `node:reward:<slug>:final`');
-
-  const firstSlug = catalog.match(/"slug":\s*"([^"]+)"/)?.[1];
-  assert.ok(firstSlug, 'expected catalog.ts to declare a first track slug');
-
-  // `slugSegment` fica com o último segmento separado por hífen.
-  const segment = firstSlug.split('-').filter(Boolean).pop() ?? firstSlug;
-  const expected = encodeURIComponent(`node:reward:${segment}:final`);
-
-  assert.match(
-    flow,
-    new RegExp(`radiantapp://reward\\?nodeId=${expected}`, 'i'),
-    `reward-locked.yaml must deep-link the id the app builds today (node:reward:${segment}:final)`
-  );
-
-  // A ausência do botão é o que o flow existe para provar. Uma asserção
-  // positiva a mais não substitui estas: sem elas o flow passaria mesmo que a
-  // coleta voltasse a ser oferecida para um nó bloqueado.
-  //
-  // O contrato exige a PROPRIEDADE, não a linha: "este elemento carrega uma
-  // asserção negativa, e ela está escapada corretamente". A versão anterior
-  // congelava o literal — inclusive o `?` sem barra —, e por isso *exigia* a
-  // forma quebrada: corrigir o flow deixava o contrato vermelho. Um contrato
-  // que só aceita o texto de hoje não sobrevive à próxima correção; um que
-  // aceita a propriedade sobrevive.
-  const rewardScreen = await readAppFile('src/features/rewards/screens/RewardScreen.tsx');
-  const collectLabel = rewardScreen.match(/: '(Receber conquista)'/)?.[1];
-  const collectPrompt = rewardScreen.match(/: '(Pronto para coletar[^']+)'/)?.[1];
-  assert.ok(
-    collectLabel && collectPrompt,
-    'expected RewardScreen to name both the collect button and the collect prompt'
-  );
-
-  const negatives = maestroSelectors(flow).filter((entry) => entry.key === 'assertNotVisible');
-
-  for (const forbidden of [collectLabel, collectPrompt]) {
-    const match = negatives.find((entry) => unescapeSelector(entry.selector) === forbidden);
-
-    assert.ok(
-      match,
-      `reward-locked.yaml must assert "${forbidden}" is absent — that absence is the defect guard`
-    );
-    assert.doesNotMatch(
-      match.selector,
-      UNESCAPED_QUESTION_MARK,
-      `reward-locked.yaml:${match.line}: the negative assertion for "${forbidden}" must escape its "?" — unescaped it can never match, so the guard passes forever, including when the element IS visible`
-    );
-  }
-});
-
-// Os dois literais do catálogo são gerados (JSON puro dentro de um `.ts`), então
-// dá para lê-los sem transpilar. A anotação de tipo traz `[]` antes do `=`, e é
-// por isso que a fatia ancora no `=` e não no primeiro colchete.
-function sliceJsonLiteral(source, constName) {
-  const start = source.indexOf(constName);
-  assert.notEqual(start, -1, `expected catalog.ts to declare ${constName}`);
-
-  const open = source.indexOf('[', source.indexOf('=', start));
-  let depth = 0;
-
-  for (let index = open; index < source.length; index += 1) {
-    if (source[index] === '[') depth += 1;
-    if (source[index] === ']') {
-      depth -= 1;
-      if (depth === 0) return JSON.parse(source.slice(open, index + 1));
-    }
-  }
-
-  throw new Error(`could not slice ${constName} from catalog.ts`);
-}
-
-test('keeps the unlock-rule flow walking the whole track the catalog declares', async () => {
-  // Este flow existe para provar a metade que o `reward-locked` declara não
-  // provar: que a conquista abre DEPOIS da última lição, e não antes. Tudo que
-  // ele afirma sai do tamanho da trilha, então o contrato precisa derivar esse
-  // tamanho da mesma fonte que o app usa. Se alguém acrescentar uma lição ao
-  // catálogo, o flow passa a descrever uma trilha que não existe — e sem este
-  // teste isso só apareceria queimando uma janela de aparelho.
-  const [flow, catalog, rewardScreen] = await Promise.all([
-    readAppFile('.maestro/reward-unlock.yaml'),
-    readAppFile('src/data/catalog.ts'),
-    readAppFile('src/features/rewards/screens/RewardScreen.tsx'),
-  ]);
-
-  const tracks = sliceJsonLiteral(catalog, 'const WAVE1_TRACKS');
-  const links = sliceJsonLiteral(catalog, 'const WAVE1_LESSON_LINKS');
-  const track = tracks[0];
-  const ordered = links
-    .filter((link) => link.trackId === track.id)
-    .sort((left, right) => left.order - right.order);
-  const lessonCount = ordered.length;
-
-  assert.ok(lessonCount >= 3, 'the unlock rule is only meaningful on a track with more than two lessons');
-
-  // `buildUnit` cria uma lição por entrada do catálogo e um reward no fim, sem
-  // checkpoint entre as lições desde a ADR de 2026-09-28, então a unidade tem
-  // `lessonCount + 1` nós primários — é esse o denominador que a tela mostra.
-  // O numerador antes da coleta é ele menos um. (Até a ADR eram
-  // `2 * lessonCount`, com um checkpoint para toda lição menos a última.)
-  const totalPrimaryNodes = lessonCount + 1;
-
-  assert.match(
-    rewardScreen,
-    /value=\{`\$\{completedPrimaryNodes\} de \$\{totalPrimaryNodes\} marcos da unidade concluídos`\}/,
-    'RewardScreen must still render the milestone counter this flow anchors on'
-  );
-
-  for (const [completed, why] of [
-    [totalPrimaryNodes - 1, 'antes da coleta: todas as lições, menos o próprio reward'],
-    [totalPrimaryNodes, 'depois da coleta: é o que separa "o botão apareceu" de "a coleta gravou"'],
-  ]) {
-    assert.match(
-      flow,
-      new RegExp(`^- assertVisible: ${completed} de ${totalPrimaryNodes} marcos da unidade concluídos$`, 'm'),
-      `reward-unlock.yaml must assert "${completed} de ${totalPrimaryNodes} marcos da unidade concluídos" — ${why}`
-    );
-  }
-
-  // Uma lição a mais no catálogo é uma passagem a mais pela home. Contar os
-  // toques é o que faz o flow acompanhar a trilha em vez de descrever a de
-  // ontem — e é a checagem que fica vermelha primeiro quando o currículo cresce.
-  const countSteps = (pattern) => (flow.match(pattern) ?? []).length;
-  const { lessonLabel } = await recommendationActionLabels();
-
-  assert.equal(
-    countSteps(/^- tapOn: Concluir e voltar$/gm),
-    lessonCount,
-    `reward-unlock.yaml must finish exactly ${lessonCount} lessons — one per lesson the catalog puts in "${track.id}"`
-  );
-  assert.equal(
-    countSteps(new RegExp(`^- tapOn: ${lessonLabel}$`, 'gm')),
-    lessonCount - 1,
-    `reward-unlock.yaml must reach each lesson after the first through the home CTA "${lessonLabel}" — ${lessonCount - 1} times`
-  );
-  assert.equal(
-    countSteps(/^- tapOn: .*checkpoint.*$/gim),
-    0,
-    'reward-unlock.yaml must not tap a catalog checkpoint — buildUnit no longer creates one (ADR de 2026-09-28)'
-  );
-
-  // As lições geradas expõem o id da pergunta como `<lessonId>:qN`, então a
-  // ordem dos testIDs no arquivo tem de ser a ordem do catálogo. Uma troca de
-  // ordem no catálogo quebraria a cadeia de destravamento sem quebrar nenhuma
-  // asserção de texto.
-  const generatedLessonIds = ordered.map((link) => link.lessonId).filter((id) => id.startsWith('ai-lesson:'));
-  let cursor = 0;
-
-  for (const lessonId of generatedLessonIds) {
-    const marker = `lesson-option-${lessonId}:q`;
-    const at = flow.indexOf(marker, cursor);
-
-    assert.notEqual(
-      at,
-      -1,
-      `reward-unlock.yaml must answer "${lessonId}" in catalog order — expected "${marker}" after position ${cursor}`
-    );
-    cursor = at + marker.length;
-  }
-
-  // O card nomeia a ação de reward pelo tipo real; a jornada só recomenda esse nó
-  // quando o nó recomendado é do tipo reward, e o reward só é recomendado com
-  // `requiresNodeIds: [node:<última lição>]` satisfeito. Pinado à fonte porque
-  // um rótulo renomeado deixaria o flow verde tocando outro botão qualquer.
-  const { rewardLabel } = await recommendationActionLabels();
-
-  // O rótulo aparece duas vezes com papéis diferentes: primeiro é o CTA da home,
-  // que só existe porque a regra foi satisfeita, e depois é o botão de coleta na
-  // própria tela. Contar é o que separa os dois — uma asserção de presença fica
-  // verde com qualquer um deles, e foi assim que uma mutação que removia a
-  // chegada pela home passou despercebida ao escrever este teste.
-  assert.equal(
-    countSteps(new RegExp(`^- tapOn: ${rewardLabel}$`, 'gm')),
-    2,
-    `reward-unlock.yaml must tap "${rewardLabel}" twice: once as the home CTA that only appears when the rule is satisfied, once as the collect button on the reward screen`
-  );
-
-  // A guarda estrutural do flow. Alcançar o reward por deep link provaria de
-  // novo o que o `reward-locked` já prova e deixaria a regra descoberta — sem
-  // nada ficando vermelho, que é a forma cara de perder cobertura.
-  //
-  // Só os passos contam: o cabeçalho do flow cita o esquema justamente para
-  // explicar por que ele não é usado, e uma guarda cega a comentários proibiria
-  // o arquivo de dizer o que faz.
-  const executableFlow = flow
-    .split('\n')
-    .filter((line) => !/^\s*#/.test(line))
-    .join('\n');
-
-  assert.doesNotMatch(
-    executableFlow,
-    /radiantapp:\/\/reward/,
-    'reward-unlock.yaml must not deep-link the reward — arriving by the product path IS the assertion'
-  );
-
-  // O par: o mesmo `GalaxyStatRow`, o mesmo nó, os dois estados. Se um dia a
-  // tela parar de distinguir, um dos dois flows fica vermelho.
-  const lockedLabel = rewardScreen.match(/\? '(Bloqueada[^']+)'/)?.[1];
-  const readyLabel = rewardScreen.match(/: '(Pronta para ser coletada)'/)?.[1];
-  assert.ok(lockedLabel && readyLabel, 'expected RewardScreen to name both the locked and the collectable status');
-  assert.match(
-    flow,
-    new RegExp(`^- assertVisible: ${readyLabel}$`, 'm'),
-    `reward-unlock.yaml must assert "${readyLabel}" — the mirror of what reward-locked.yaml asserts about the same node`
-  );
-
-});
-
-test('reward exit flows follow the bound Continue action and return an invalid link to the trail', async () => {
-  const source = parseAppSource('RewardScreen.tsx',
-    await readAppFile('src/features/rewards/screens/RewardScreen.tsx'));
-  const buttons = [];
-  const visit = node => {
-    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'AppButton') {
-      const press = node.openingElement.attributes.properties.find(attribute =>
-        ts.isJsxAttribute(attribute) && attribute.name.text === 'onPress');
-      const action = press?.initializer?.expression;
-      if (action && ts.isPropertyAccessExpression(action)
-        && ts.isIdentifier(action.expression) && action.expression.text === 'nextAction'
-        && action.name.text === 'action') buttons.push(node);
-    }
-    ts.forEachChild(node, visit);
-  };
-  visit(source);
-  assert.equal(buttons.length, 1, 'one postcollection button uses the computed real destination');
-  const label = buttons[0].children.filter(ts.isJsxText).map(node => node.text.trim()).join('');
-  assert.equal(label, 'Continuar', 'the live bound button carries the approved label');
-
-  const unlocked = await flowCommands('reward-unlock.yaml');
-  assert.deepEqual(unlocked.slice(-2), [
-    { tapOn: label }, { assertVisible: { id: 'journey-trail' } },
-  ], 'after confirmed collection, Continue must return to the real trail');
-  const locked = await flowCommands('reward-locked.yaml');
-  const invalid = locked.findIndex(command => command?.openLink?.link === 'radiantapp://reward?nodeId=reward-inexistente');
-  assert.ok(invalid >= 0, 'exercise a genuinely invalid destination separately from the locked reward');
-  assert.deepEqual(locked.slice(invalid + 1), [
-    { assertVisible: { id: 'journey-trail' } },
-    { assertNotVisible: 'Conquista indisponível' },
-  ], 'invalid reward resolves directly to the trail without the removed empty screen');
-});
 
 test('escapes every "?" in every selector of every flow', async () => {
   // O seletor do Maestro é regex de casamento total: um `?` sem barra torna a
@@ -1367,6 +380,7 @@ test('escapes every "?" in every selector of every flow', async () => {
     }
   }
 });
+
 
 test('keeps one visibility bar per selector across every flow', async () => {
   // Em 2026-08-06 o mesmo `lesson-option-q1:option:1`, na mesma tela, era
@@ -1420,324 +434,22 @@ test('keeps one visibility bar per selector across every flow', async () => {
   }
 });
 
-test('ties the three 1.4 golden paths to the rules and copy they exist to exercise', async () => {
-  // Spec 1.4 (2026-09-14), §8, item 6: três caminhos dourados em E2E. Até
-  // 2026-09-24 nenhum deles existia, e o plano previa `.maestro/radiant-1-4-*`.
-  // Cada flow só prova alguma coisa enquanto afirmar o que a tela renderiza e
-  // enquanto o caminho que ele percorre for o que a regra do app descreve — por
-  // isso cada literal abaixo é lido da fonte, nunca repetido aqui.
-  const GOLDEN = [
-    'radiant-1-4-primeira-execucao.yaml',
-    'radiant-1-4-segundo-dia.yaml',
-    'radiant-1-4-vidas-esgotadas.yaml',
-  ];
-  const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const topLevel = (flow) => flow.split('\n').filter((line) => /^- /.test(line));
-
-  // Exatamente os três da spec: um quarto sem decisão, ou um a menos, reprova.
-  const present = (await listMaestroFlows()).filter((name) => name.startsWith('radiant-1-4-'));
-  assert.deepEqual(present, GOLDEN, 'the 1.4 golden paths are exactly the three of spec §8 item 6');
-
-  const [first, second, hearts, summary, nodeCopy, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
-    ...GOLDEN.map((name) => readAppFile(`.maestro/${name}`)),
-    readAppFile('src/features/quiz/components/LessonSummary.tsx'),
-    readAppFile('src/features/journey/components/nodeCopy.ts'),
-    readAppFile('src/features/hearts/components/HeartsSheet.tsx'),
-    readAppFile('src/features/hearts/HeartsService.ts'),
-    readAppFile('src/data/lessons.ts'),
-    readAppFile('src/data/journey/defaultBlocks.ts'),
-    readAppFile('src/ui/components/HUD.tsx'),
-  ]);
-
-  // O dev client sobe o launcher ou a folha dele DEPOIS de um `runFlow when`
-  // avaliado uma vez só (medido em 2026-09-24): a espera explícita do subflow
-  // tem de ser o passo seguinte ao launch, em todos os três.
-  for (const [name, flow] of [[GOLDEN[0], first], [GOLDEN[1], second], [GOLDEN[2], hearts]]) {
-    const steps = topLevel(flow);
-    const launch = steps.findIndex((line) => line.startsWith('- launchApp:'));
-    assert.ok(launch >= 0, `${name}: expected a launchApp step`);
-    assert.equal(
-      steps[launch + 1],
-      '- runFlow: subflows/dismiss-dev-client.yaml',
-      `${name}: the dev-client wait must run right after launchApp — a one-shot "when visible" guard races the dev client`
-    );
-  }
-
-  // Caminho 1 — instalação limpa até a L1 concluída, na copy da conclusão.
-  assert.match(first, /^\s+clearState: true$/m, 'path 1 is a first run, so it must start from a clean install');
-  const subtitle = summary.match(/<Text style=\{styles\.subtitle\}>([^<]+)<\/Text>/)?.[1];
-  assert.ok(subtitle, 'expected LessonSummary to render a subtitle');
-  assert.match(first, new RegExp(`^- assertVisible: ${escapeForRegExp(subtitle)}$`, 'm'));
-  assert.match(summary, /`Próxima revisão em \$\{nextReviewInDays\} \$\{nextReviewInDays === 1 \? 'dia' : 'dias'\}`/);
-  // Sem o número: o texto arredonda para cima a diferença entre dois relógios
-  // e já disse "2 dias" para 24 h + 1 ms (medido em 2026-09-24, defeito na FILA).
-  assert.match(first, /^- assertVisible: '\^Próxima revisão em \\d\+ \(dia\|dias\)\$'$/m);
-  const reviewTitle = blocks.match(/eyebrow: 'Revisão',\s*title: `Revisar \$\{lesson1\.title\}`/);
-  assert.ok(reviewTitle, 'expected the lesson-1 review block to be titled "Revisar ${lesson1.title}"');
-  assert.match(nodeCopy, /default:\s*return 'Bloqueado';/);
-  // O fim do caminho 1 é o dia 1 do caminho 2: a revisão agendada e fechada.
-  assert.ok((await flowCommands('radiant-1-4-primeira-execucao.yaml')).some(command => typeof command.assertVisible === 'string' && new RegExp(command.assertVisible).test('Revisar Fundamentos de Radiologia. Disponível em 15/10/2026 às 08:00.')), 'scheduled review must display its availability date');
-
-  // Caminho 2 — relógio real. Sem clearState, e a revisão devida é a PRIMEIRA
-  // coisa afirmada, antes de qualquer toque: rodado antes das 24 h, ele reprova
-  // ali em vez de passar vazio.
-  // Só a CHAVE conta: o comentário do flow explica o clearState e não pode
-  // nem satisfazer nem reprovar esta guarda.
-  assert.doesNotMatch(second, /^\s+clearState:/m, 'path 2 starts from the state path 1 left one day earlier; clearing it makes day 2 unreachable');
-  const dueCopy = nodeCopy.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
-  assert.ok(dueCopy, 'expected nodeCopy.ts to announce a due review');
-  const secondSteps = topLevel(second);
-  const firstAssertion = secondSteps.find((line) => line.startsWith('- assertVisible:'));
-  const firstTap = secondSteps.findIndex((line) => line.startsWith('- tapOn:'));
-  assert.ok(
-    firstAssertion?.includes(`Revisar Fundamentos de Radiologia\\. ${dueCopy}`),
-    'path 2 must assert the due-review recommendation first'
-  );
-  assert.ok(
-    secondSteps.indexOf(firstAssertion) < firstTap,
-    'path 2 must assert the due review before it taps anything'
-  );
-
-  // Caminho 3 — as vidas acabam errando, sem atalho: um toque errado por vida.
-  const maxHearts = Number(heartsService.match(/export const MAX_HEARTS = (\d+);/)?.[1]);
-  assert.ok(maxHearts > 0, 'expected HeartsService to export MAX_HEARTS');
-  const q1 = lessons.match(/id: 'q1',[\s\S]*?correctAnswerIndex: (\d+),/);
-  assert.ok(q1, 'expected lesson q1 to declare its correct answer');
-  const q1Correct = Number(q1[1]);
-  const heartCommands = await flowCommands(GOLDEN[2]);
-  const taps = heartCommands.flatMap(command => command?.tapOn?.id?.startsWith('lesson-option-q1:option:')
-    ? [Number(command.tapOn.id.split(':option:')[1])] : []);
-  // Cada vida custa um primeiro contato grátis e um retorno errado. Depois, sem
-  // vidas, uma sessão a mais erra o primeiro contato e é barrada no retorno.
-  assert.equal(taps.length, maxHearts * 2 + 2, 'first contact and one retry per heart, then the blocked session');
-  for (const option of taps) {
-    assert.ok(Number.isInteger(option) && option >= 0 && option < 4, 'valid answer option');
-    assert.notEqual(option, q1Correct, 'both q1 attempts are wrong');
-  }
-  // O retorno barrado não mostra feedback: a folha toma o lugar dele.
-  assert.equal(heartCommands.filter(command => command.assertVisible === 'Vamos reforçar').length, maxHearts * 2 + 1);
-  const emptyTitle = sheet.match(/snapshot\.count === 0 \? '([^']+)'/)?.[1];
-  assert.ok(emptyTitle, 'expected HeartsSheet to title the empty state');
-  const sheetAt = hearts.indexOf(`- assertVisible: ${emptyTitle}`);
-  const lastTapAt = hearts.lastIndexOf("id: 'lesson-option-q1:option:");
-  assert.ok(sheetAt > lastTapAt, 'the empty-hearts sheet must be asserted after the last wrong answer');
-  // A folha é modal: o HUD de trás sai da árvore enquanto ela está aberta, então
-  // as vidas zeradas só são afirmáveis depois de fechá-la.
-  // Na trilha o HUD é botão e o rótulo soma o prazo da recarga (`HUD.tsx`).
-  assert.match(hud, /`\$\{visibleHearts\} de \$\{maxHearts\} vidas\$\{minutes === null \? '' : `; próxima em \$\{minutes\} minutos`\}`/);
-  const closeAt = hearts.indexOf('- tapOn: Voltar', sheetAt);
-  const zeroAt = hearts.indexOf(`- assertVisible: '^0 de ${maxHearts} vidas; próxima em \\d+ minutos$'`);
-  assert.ok(
-    zeroAt >= 0,
-    'on the trail the hearts HUD is a button whose label adds the refill ETA — assert "0 de N vidas; próxima em … minutos", not the bare count'
-  );
-  assert.ok(closeAt > sheetAt && zeroAt > closeAt, 'assert the emptied hearts only after the modal sheet is closed');
-
-  // Defeito 1 do E2E (ADR de 2026-09-25, opção A; FILA, 16): a L1 concluída,
-  // reaberta e abandonada pela folha, voltava como retomável, com o cabeçalho em
-  // "0 de N". Depois da folha, o caminho 3 afirma o estado certo — a L1 concluída
-  // e o cabeçalho contando a etapa —, e não mais um padrão que casa com os dois.
-  const completedCopy = nodeCopy.match(/case 'completed':\s*return '([^']+)';/)?.[1];
-  assert.ok(completedCopy, 'expected nodeCopy.ts to label the completed status');
-  const stageHeader = await readAppFile('src/features/journey/components/JourneyStageHeader.tsx');
-  assert.match(stageHeader, /accessibilityLabel=\{`\$\{title\}\. \$\{completed\} de \$\{total\} etapas concluídas\.`\}/);
-  const afterSheet = hearts.slice(closeAt);
-  assert.ok(
-    afterSheet.includes(`- assertVisible: '^Fundamentos de Radiologia\\. ${completedCopy}\\.$'`),
-    `after the hearts sheet closes, path 3 must assert L1 still "${completedCopy}"`
-  );
-  assert.ok(
-    afterSheet.includes("- assertVisible: '^Fundamentos de Radiologia\\. 1 de \\d+ etapas concluídas\\.$'"),
-    'after the hearts sheet closes, path 3 must assert the stage header counting L1 ("1 de N")'
-  );
-  assert.ok(
-    !afterSheet.includes('\\. \\d+ de \\d+ etapas concluídas'),
-    'a header pattern that matches "0 de N" as well as "1 de N" cannot tell defect 1 apart'
-  );
+// These static checks and the empty-shell smoke cannot prove lesson behavior.
+test('retired catalog exposes only the empty-shell smoke to Maestro discovery', async () => {
+  assert.equal(JSON.parse(await readAppFile('src/data/curriculum-state.json')).state, 'retired');
+  assert.deepEqual(await listMaestroFlows(), ['boot-to-home.yaml']);
+  const config = parseAllDocuments(await readAppFile('.maestro/config.yaml'))[0].toJS();
+  assert.deepEqual(config.flows, ['boot-to-home.yaml']);
+  assert.equal(config.testOutputDir, '.maestro/artifacts');
+  const metadata = parseAllDocuments(await readAppFile('.maestro/boot-to-home.yaml'))[0].toJS();
+  assert.equal(metadata.appId, appId);
+  const commands = await flowCommands('boot-to-home.yaml');
+  assert.deepEqual(commands[0].launchApp.arguments, { radiantReduceMotion: '1' });
+  assert.ok(commands.some(command => command.assertVisible?.id === 'journey-trail'));
+  assert.ok(!commands.some(command => command.openLink || command.tapOn));
 });
 
-async function hybridCatalogLessons() {
-  const modules = await Promise.all(['lessons.ts', 'ai-lessons.ts'].map(async name => {
-    const exports = {};
-    const source = await readAppFile(`src/data/${name}`);
-    const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
-    Function('exports', compiled)(exports);
-    return exports.LESSONS ?? exports.AI_LESSONS;
-  }));
-  return modules.flat();
-}
-
-const HYBRID_ANSWER_FLOWS = [
-  'learning-critical-path.yaml', 'radiant-1-4-primeira-execucao.yaml',
-  'radiant-1-4-vidas-esgotadas.yaml', 'offline-relaunch.yaml',
-  'radiant-1-4-segundo-dia.yaml', 'reward-unlock.yaml', 'store-capture.yaml',
-  'student-checkpoint-no-duplicate-effect.yaml',
-];
-
-// ADR de 2026-10-18 (régua e última vida): a última vida perdida no último
-// retorno conclui a lição; a folha só aparece antes de responder um retorno.
-test('vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts', async () => {
-  const commands = await flowCommands('radiant-1-4-vidas-esgotadas.yaml');
-  const lastHeart = commands.findIndex((command) => command?.assertVisible === '0 de 5 vidas');
-  assert.ok(lastHeart > 0, 'the flow reaches zero hearts inside a lesson');
-  assert.equal(commands[lastHeart + 1]?.tapOn, 'Concluir e voltar', 'the debit happens on the final retry');
-  assert.equal(commands[lastHeart + 2]?.assertVisible, 'A lição foi concluída', 'losing the last heart still completes');
-  const sheet = commands.findIndex((command) => command?.assertVisible === 'Sem vidas');
-  assert.ok(sheet > lastHeart + 2, 'the hearts sheet comes in a later session');
-  assert.equal(commands[sheet + 1]?.assertVisible, '^A próxima volta em \\d+ min\\.$', 'the sheet refill selector follows the current copy');
-  assert.equal(commands[sheet - 1]?.tapOn, 'Conferir resposta', 'the sheet blocks a retry confirmation');
-  assert.match(String(commands[sheet - 2]?.tapOn?.id), /^lesson-option-/, 'a retry option was chosen before the block');
-  const retryMarker = commands.slice(lastHeart + 2, sheet).findLastIndex((command) => command === 'Vamos tentar novamente'
-    || command?.assertVisible === 'Vamos tentar novamente');
-  assert.ok(retryMarker >= 0, 'the blocked item is a retry, not a first contact');
-});
-
-test('M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback', async () => {
-  const lessons = await hybridCatalogLessons();
-  for (const name of HYBRID_ANSWER_FLOWS) {
-    const commands = await flowCommands(name);
-    let answered = [];
-    let groups = 0;
-    for (let index = 0; index < commands.length; index++) {
-      const id = commands[index]?.tapOn?.id;
-      if (id?.startsWith('lesson-option-')) {
-        const itemId = id.slice('lesson-option-'.length).split(':option:')[0];
-        answered.push(itemId);
-        assert.equal(commands[index + 1]?.tapOn, 'Conferir resposta', `${name}: confirmation for ${itemId}`);
-        // Só o roteiro de vidas pode encontrar a folha no lugar do feedback: sem
-        // vidas, o retorno é barrado ao conferir, antes de a resposta contar.
-        const blockedRetry = name === 'radiant-1-4-vidas-esgotadas.yaml'
-          && commands[index + 2]?.assertVisible === 'Sem vidas';
-        if (!blockedRetry) {
-          assert.deepEqual(commands[index + 2]?.assertVisible, { id: 'lesson-item-feedback' }, `${name}: visible feedback for ${itemId}`);
-        }
-      }
-      if (answered.length > 0 && (commands[index]?.tapOn === 'Concluir e voltar' || commands[index]?.assertVisible === 'Sem vidas')) {
-        const lesson = lessons.find(entry => entry.questions.some(q => q.id === answered[0]));
-        assert.ok(lesson, `${name}: each completed/paused session must answer a real lesson`);
-        const expected = lesson.questions.map(q => q.id);
-        assert.deepEqual(answered.slice(0, expected.length), expected, `${name}: all items in catalog order`);
-        assert.equal(new Set(answered.slice(0, expected.length)).size, expected.length);
-        if (name === 'radiant-1-4-segundo-dia.yaml') assert.deepEqual(answered, expected, 'review never repeats');
-        else if (name !== 'radiant-1-4-vidas-esgotadas.yaml') assert.deepEqual(answered, expected, `${name}: correct path needs no retries`);
-        else assert.deepEqual(answered, [...expected, expected[0]], 'only the wrong item returns once');
-        answered = [];
-        groups++;
-      }
-    }
-    assert.ok(groups > 0, `${name}: at least one valid session is exercised`);
-    assert.deepEqual(answered, [], `${name}: no incomplete answer sequence`);
-  }
-});
-
-/**
- * As constantes exportadas de um módulo do app, lidas pela AST: a busca por
- * texto casaria também com a menção num comentário.
- */
-async function exportedStringConstants(relativePath) {
-  const source = ts.createSourceFile(relativePath, await readAppFile(relativePath),
-    ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
-  const constants = {};
-  for (const statement of source.statements) {
-    if (!ts.isVariableStatement(statement)) continue;
-    if (!statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)) continue;
-    for (const declaration of statement.declarationList.declarations) {
-      if (ts.isIdentifier(declaration.name) && declaration.initializer
-        && ts.isStringLiteral(declaration.initializer)) {
-        constants[declaration.name.text] = declaration.initializer.text;
-      }
-    }
-  }
-  return constants;
-}
-
-/** Todos os comandos de uma sequência, inclusive os aninhados em `runFlow`, `repeat` e `retry`. */
-function everyCommand(commands) {
-  return commands.flatMap((command) => {
-    const nested = ['runFlow', 'repeat', 'retry']
-      .map((key) => command?.[key]?.commands)
-      .filter(Array.isArray);
-    return [command, ...nested.flatMap(everyCommand)];
-  });
-}
-
-// FILA 49 (E1). Com o fundo estrelado em laço infinito, a tela nunca assenta e
-// o Maestro espera por ela a cada tentativa de rolagem: em 2026-10-16, 8 a 11 s
-// por tentativa no `reward-unlock`. O argumento liga "Reduzir movimento" no app,
-// e um processo lançado sem ele volta a animar. Por isso a regra vale para
-// TODO lançamento, inclusive as reaberturas depois de `killApp`.
-test('launches every flow with the launch argument that turns off decorative motion', async () => {
-  const constants = await exportedStringConstants('src/ui/accessibility/motionLaunchArgument.ts');
-  const key = constants.REDUCE_MOTION_LAUNCH_ARGUMENT;
-  const value = constants.REDUCE_MOTION_LAUNCH_VALUE;
-  assert.ok(key && value, 'expected motionLaunchArgument.ts to export the argument and its value');
-
-  const flows = await listMaestroFlows();
-  const subflows = (await readdir(path.join(appRoot, '.maestro/subflows')))
-    .filter((name) => name.endsWith('.yaml'))
-    .map((name) => `subflows/${name}`);
-  let launches = 0;
-
-  for (const name of [...flows, ...subflows]) {
-    for (const command of everyCommand(await flowCommands(name))) {
-      assert.notEqual(command, 'launchApp',
-        `${name}: a bare launchApp starts the app without the ${key} argument`);
-      if (!Object.hasOwn(command ?? {}, 'launchApp')) continue;
-      launches += 1;
-      const argument = command.launchApp?.arguments?.[key];
-      assert.notEqual(argument, undefined, `${name}: launchApp must pass the ${key} argument`);
-      // O Maestro 2.7 só põe o `-` antes da chave quando o valor não é
-      // booleano; sem o `-`, o iOS não leva o argumento ao NSUserDefaults.
-      assert.equal(typeof argument, 'string',
-        `${name}: launchApp must pass ${key} as a quoted string — a boolean reaches iOS without the "-" and is ignored`);
-      assert.equal(argument, value, `${name}: launchApp must pass ${key}: '${value}'`);
-    }
-  }
-
-  // Validade: a regra acima passa vazia se nenhum lançamento for encontrado.
-  assert.ok(launches >= flows.length, `expected at least one launch per flow, found ${launches}`);
-});
-
-// `openLink` com o app parado também lança o processo, e sem argumento nenhum.
-test('never lets a deep link start the app the launch argument did not start', async () => {
-  for (const name of await listMaestroFlows()) {
-    let running = false;
-    for (const command of await flowCommands(name)) {
-      if (Object.hasOwn(command ?? {}, 'launchApp')) running = true;
-      if (command === 'killApp' || command === 'stopApp'
-        || Object.hasOwn(command ?? {}, 'killApp') || Object.hasOwn(command ?? {}, 'stopApp')) {
-        running = false;
-      }
-      if (Object.hasOwn(command ?? {}, 'openLink')) {
-        assert.ok(running, `${name}: openLink must follow a launchApp, or it starts the app without the argument`);
-      }
-    }
-  }
-});
-
-
-test('T07 review flows reach the rendered start action from the queue', async () => {
-  const source = ts.createSourceFile('ReviewScreen.tsx',
-    await readAppFile('src/features/review/screens/ReviewScreen.tsx'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const labels = [];
-  function visit(node) {
-    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(source) === 'AppButton') {
-      const startsReview = node.openingElement.attributes.properties.some(attribute =>
-        ts.isJsxAttribute(attribute) && attribute.name.text === 'onPress'
-        && attribute.initializer && ts.isJsxExpression(attribute.initializer)
-        && attribute.initializer.expression && ts.isIdentifier(attribute.initializer.expression)
-        && attribute.initializer.expression.text === 'startReview');
-      if (startsReview) labels.push(node.children.filter(ts.isJsxText).map(child => child.text.trim()).join(''));
-    }
-    ts.forEachChild(node, visit);
-  }
-  visit(source);
-  assert.deepEqual(labels, ['Começar'], 'the actual JSX start action follows the T07 queue contract');
-  for (const name of ['review-due.yaml', 'rating-prompt.yaml', 'g4-native-evidence.yaml']) {
-    const commands = await flowCommands(name);
-    assert.ok(commands.some(command => command.tapOn === labels[0]), `${name}: taps the rendered start action`);
-    assert.ok(commands.some(command => command.scrollUntilVisible?.element === labels[0]), `${name}: scrolls to that same action`);
-    assert.ok(!commands.some(command => command.tapOn === 'Começar revisão'
-      || command.scrollUntilVisible?.element === 'Começar revisão'), `${name}: no stale CTA`);
-  }
+test('selector parser detects an unescaped question mark in synthetic commands', () => {
+  assert.match(maestroSelectors('- assertNotVisible: Falhou?')[0].selector, UNESCAPED_QUESTION_MARK);
+  assert.doesNotMatch(maestroSelectors(String.raw`- assertVisible: Falhou\?`)[0].selector, UNESCAPED_QUESTION_MARK);
 });

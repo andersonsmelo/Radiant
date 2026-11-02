@@ -1,7 +1,7 @@
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 import { JourneyCurriculumService } from './JourneyCurriculumService';
 import { createProductionCurriculumCatalog, type ProductionCatalogEntry } from '../../student-checkpoints/createProductionCurriculumCatalog';
-import { PRODUCTION_CATALOG_ENTRIES } from '../../student-checkpoints/production-catalog-entries';
+import { PRODUCTION_CATALOG_ENTRIES } from '../../../test/fixtures/syntheticEditorialBatch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore, type JourneySnapshot } from '../../../types/journey';

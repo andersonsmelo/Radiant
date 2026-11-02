@@ -1,11 +1,14 @@
 # Pipeline editorial do Radiant
 
+> Este documento é o contrato técnico de produção e direitos. A sequência curricular e as fontes propostas pertencem exclusivamente ao [planejamento de conteúdo](plans/2026-11-02-planejamento-conteudo-radiant.md). Os dados editoriais anteriores estão sendo retirados; não regenerar nem promover lotes antigos.
+
+
 ## Objetivo
 
 Manter conteúdo educacional versionado, rastreável, revisável e seguro para
 promoção incremental ao app e à API.
 
-`Conteúdo/` é a raiz editorial canônica. Todo artefato pedagógico deve preservar
+`conteúdo/` é a raiz editorial canônica. Todo artefato pedagógico deve preservar
 proveniência até fonte, trecho e conceito. A expansão por competências acrescenta
 decisões explícitas de direitos e mídia antes da produção de novas unidades.
 
@@ -29,13 +32,13 @@ decisões explícitas de direitos e mídia antes da produção de novas unidades
 - 15 fontes `reference-only`;
 - 17 fontes `blocked`.
 
-O catálogo está em `Conteúdo/fontes/library-catalog.json`. `reference-only`
+O catálogo está em `conteúdo/fontes/library-catalog.json`. `reference-only`
 autoriza apenas consulta factual com redação original; `blocked` impede qualquer
 derivação editorial até nova decisão humana documentada.
 
 ### Mídia
 
-`Conteúdo/mídia/manifest.json` está em
+`conteúdo/mídia/manifest.json` está em
 `awaiting-authorized-assets`: há 0 ativos aprovados e 5 candidatos rejeitados.
 O validador exige autorização, SHA-256, modalidade, região, descrição acessível,
 anonimização verificada e hotspots normalizados quando aplicáveis. O manifesto
@@ -74,8 +77,9 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 Cada lote declara competências, fontes, atividades e itens. O recorte v1 mantém
 uma múltipla escolha sem mídia por atividade, uma competência por item/atividade,
 ao menos uma prática e dois itens de avaliação por competência, limiar de 80%
-e os dois ciclos de reforço existentes. O teste histórico mantém as quantidades
-12/10/5/8 e o conteúdo do H4; elas não viram regra de toda unidade.
+e os dois ciclos de reforço existentes. Testes sintéticos preservam os contratos;
+as quantidades históricas12/10/5/8 não viram regra de toda unidade. O conteúdo H4
+foi retirado, não arquivado como fixture clínica.
 
 Toda origem exige HTTPS, atribuição, data válida, fingerprint e a licença
 CC BY 4.0 já admitida. Ampliar licenças, mídia ou famílias de interação exige
@@ -87,8 +91,10 @@ rastreabilidade; a correção clínica e o uso permitido continuam com os reviso
 A publicação em arquivo executa o mesmo validador do app, carregando somente
 módulos TypeScript locais confiáveis; dados JSON nunca são executados. É preciso
 ter as dependências do app instaladas, ou TypeScript 5.9.2 via `NODE_PATH`, como
-no job de conteúdo do CI. O catálogo anterior também é validado e colisões entre
-lotes impedem a escrita. A confirmação de hash/revisores/schemas e os seis gates
+no job de conteúdo do CI. Em estado ativo, o catálogo anterior também é validado
+e colisões entre lotes impedem a escrita. Em estado `retired`, não há catálogo
+pedagógico anterior: os validadores exigem o vazio explícito e não prontidão de
+publicação; os sincronizadores recusam regenerar aulas. A confirmação de hash/revisores/schemas e os seis gates
 são obrigatórios, mesmo quando o material isolado é estruturalmente válido.
 
 `audit-production-batches.mjs` lê o registro compilado por padrão, ou um array
@@ -122,13 +128,13 @@ nesta etapa. [Evidência](evidence/2026-10-17-trilha-g3-contrato-editorial.md).
 
 ## Fontes de verdade
 
-- `Conteúdo/fontes/library-catalog.json`: inventário e direitos da nova
+- `conteúdo/fontes/library-catalog.json`: inventário e direitos da nova
   biblioteca;
-- `Conteúdo/mídia/manifest.json`: ativos aprovados e candidatos rejeitados;
-- `Conteúdo/governança/catalog-payload.json`: catálogo legado promovido;
+- `conteúdo/mídia/manifest.json`: ativos aprovados e candidatos rejeitados;
+- `conteúdo/governança/catalog-payload.json`: envelope vazio explícito durante a retirada;
 - `radiant-app/src/features/student-checkpoints/production-batches.ts`: batches
   v2 promovidos compilados pelo app;
-- `Conteúdo/governança/wave-1-priority-tracks.json`: trilhas prioritárias;
+- `conteúdo/governança/wave-1-priority-tracks.json`: trilhas prioritárias;
 - `radiant-app/src/data/ai-lessons.ts` e `ai-catalog.ts`: artefatos gerados;
 - `radiant-api/sql/003_seed_editorial_catalog.sql`: espelho gerado para a API.
 

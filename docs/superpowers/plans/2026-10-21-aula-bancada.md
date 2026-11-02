@@ -1,5 +1,8 @@
 # Aula-bancada — plano de implementação (plano 3)
 
+> Plano técnico histórico: modelos físicos, tipos e renderizadores permanecem. As duas aulas de exemplo foram retiradas por decisão de 02/11/2026; o registro abaixo não autoriza recriá-las. O conteúdo substituto será definido no [plano único](../../plans/2026-11-02-planejamento-conteudo-radiant.md).
+
+
 > **Para agentes:** sub-skill obrigatória: superpowers:subagent-driven-development
 > (recomendada) ou superpowers:executing-plans, tarefa por tarefa. Os passos
 > usam caixas (`- [ ]`) para acompanhamento.
@@ -435,7 +438,7 @@ git commit -m "docs(aula): evidência da aula-bancada no simulador e no AVD"
 iOS, **menos o VoiceOver e a medição no AVD de entrada** (pendentes); revisão
 final do plano feita, com a onda de correção revisada. **Gate do dono pendente:**
 a revisão do conteúdo das duas aulas, frase por frase
-([documento](../../conteudo-bancada/2026-10-24-aulas-de-exemplo.md)). Branch `claude/trilha-medalhao-design`,
+([documento](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/conteudo-bancada/2026-10-24-aulas-de-exemplo.md)). Branch `claude/trilha-medalhao-design`,
 de `74bc858` a `3ec1293`, cada entrega com `loop validate` 15/15.
 
 Execução com subagentes: um implementador e um revisor independente por tarefa,

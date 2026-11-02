@@ -257,14 +257,10 @@ e aula. Validação Loop **15/15** na segunda tentativa (primeira:14/15,
 app-quality timeout), writer `run-1793011345601-6bbdc725`. Prova visual finito5
 e abertura da folha em iOS/Android nos binários existentes, sem build.
 [Entrega, revisões e limites nativos](evidence/2026-10-26-medalhao-t02.md).
-T03 boas-vindas implementada e revisada em 26/10 (R4), com bancada real,
-reentrada preservada e texto ampliado conferido no iOS/Android. Validação
-final **15/15** na segunda tentativa: a primeira teve oito TS7006 em dois
-arquivos de teste, corrigidos com anotações de tipo. As duas execuções de
-`app-test` completo passaram. Writer `run-1793031412630-67f7d689`.
-CI T03 no commit `804d1e7`: App Quality241/`40403674164` e Content146/
-`40403674167` aprovados em 26/10.
-[Prova e limites T03](evidence/2026-10-26-medalhao-t03.md).
+T03: a navegação/apresentação e seus contratos permanecem; o exemplo didático
+de kV do primeiro uso foi incluído na retirada integral de02/11/2026.
+A evidência de26/10 é histórica e não aprova a apresentação sem exercício.
+[Auditoria da retirada](evidence/2026-11-02-retirada-conteudo-radiant.md).
 
 **T04 — implementada, revisada e validada em 27/10 (R2 produto/R4 guarda):** medalha temática na abertura,
 Pixel no explorar, imagem crítica com texto equivalente, retorno visível e
@@ -455,21 +451,12 @@ execução permanecem no [índice](superpowers/plans/2026-10-21-trilha-medalhao-
     da #66.
 - **Plano 3 (aula-bancada): feito em 2026-10-24, aguardando o dono.** As
   tarefas 1 a 7 foram feitas e revisadas, com uma revisão final do plano e a
-  onda de correção dela (`74bc858..3ec1293`, cada entrega com `loop validate`
-  15/15). As duas aulas de exemplo, exposição e colimação, abrem só em build
-  de desenvolvimento por `radiantapp://learn?blockId=bancada:exposicao` e
-  `…:colimacao`. Elas foram feitas inteiras no simulador iOS, e isso achou e
-  corrigiu as estrelas contadas pela resposta final (`36fa2e5`)
-  ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo dono,
-  frase por frase ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e, antes de liberar, o
-  VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
-  plano (física de radiografia digital e colimação como segunda bancada) estão
-  na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
-- **Plano 5: em execução desde 25/10.** T01 guarda, T02 HUD e T03 boas-vindas
-  foram implementadas/revisadas e validadas na branch, sem merge. T04 foi
-  implementada/revisada e conferida nos simuladores em 27/10, Loop final
-  15/15 aprovado. O inventário sai/fica ainda precisa ser produzido e aprovado
-  antes de qualquer retirada. As decisões de conteúdo continuam pendentes.
+  onda de correção dela (`74bc858..3ec1293`). Os motores ficam preservados;
+  as duas aulas de exemplo saíram da branch em02/11/2026. Não promover amostras
+  antigas nem repetir seus deep links como cenário disponível.
+- **Plano5:** componentes Medalhão preservados. A ordem da retirada local foi
+  sucedida pela ADR de02/11; inventário G4 aprovado permanece congelado. Conteúdo
+  novo segue exclusivamente o plano próprio, sem aceite nativo inferido.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
   relatórios) ficam em `.superpowers/sdd/` do worktree
@@ -690,22 +677,29 @@ framebuffer iOS e o espaço para o AVD permitirem. Não pedir G1/Q1 novamente,
 não contornar com instalação/limpeza/fixtures e não marcar T13 integral aceita.
 [Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
 
-**Task17/T15 — inventário recomendado aprovado em 01/11/2026 (G4).**
-Anderson respondeu “siga conforme recomendação” à entrega T15-v1 do commit
-`b20943a`, SHA256 `2f299f7b1e5a5d9a9fd1fc5a2cd712f6050bd085fbefe4c5e375d1e40487574f`.
-[Decisão G4](adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md) aceita as propostas
-nominais, biblioteca/direitos/taxonomia e motores preservados, separação dos dados
-mistos e adaptação dos alvos dos validadores. Não pedir G4 novamente para essa versão.
-O [inventário aprovado](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
-permanece congelado; o “pendente” nele é anterior à decisão registrada na ADR.
-Revisão PASS/APPROVED e final T15 15/15; CI Content41368497475/Quality41368497477
-SUCCESS em `b20943a`, 207 suítes/2.833 testes. Este registro tem validação própria.
-**T19 ainda não executada:** a sequência exige também contrato G7 do currículo,
-formato e IDs/geração substitutos, ainda pendente. Os 15 validadores atuais e a
-política permanecem intactos; não desligar controles do catálogo ativo sem sucessor.
-T20–T22 dependem desse contrato e das demais condições nominais aprovadas.
-G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados; sem avanço T14, retirada,
-migração, build, instalação, merge ou loja.
+**Conteúdo — reinício autorizado em 02/11/2026, em execução local.**
+G4 do inventário T15-v1 permanece aprovado e o arquivo congelado em `b20943a`.
+Anderson ampliou a retirada para todas as aulas, inclusive exemplos e protótipos,
+e definiu graduação tecnológica em radiologia, seguida de especializações.
+A [nova ADR](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) altera a ordem:
+a retirada local antecede a pesquisa e o contrato curricular substituto.
+Motores, interface Medalhão, biblioteca, direitos e dados pessoais são preservados.
+O [plano único](plans/2026-11-02-planejamento-conteudo-radiant.md) substitui a spec
+curricular V3, fichas L1/L2, atlas e documento das amostras. Não promover as amostras
+retiradas em T14/G2. Não reabrir G1=A/Q1 nem fabricar dados para T18.
+Catálogo e exemplos ativos retirados, incluindo o exercício de kV das boas-vindas;
+Pixel/navegação, motores e biblioteca preservados. Validação configurada final
+**15/15PASS** em `run-1793652411232-ce3ced90`, um ciclo no writer final; primeira
+execução do objetivo12/15, segunda15/15 e repetição15/15 após corrigir a omissão
+do onboarding. A pesquisa já havia começado quando esse resíduo foi encontrado;
+o desvio da ordem pedida e sua correção estão registrados na auditoria.
+Plano próprio entregue como proposta:84aulas de base+48de aprofundamento, fontes
+com direitos classificados, interação/gamificação e storyboard. Nenhuma aula nova
+ativada ou aprovação docente presumida. Próximo passo PC03: revisão do mapa e
+recorte de seis aulas, sem repetir a autorização de retirar conteúdo.
+[Auditoria da retirada](evidence/2026-11-02-retirada-conteudo-radiant.md).
+Sem alteração do binário distribuído, banco remoto, AsyncStorage, build, instalação,
+EAS/OTA, merge ou loja. As evidências nativas antigas não aprovam o currículo futuro.
 
 ## Prazos de relógio
 

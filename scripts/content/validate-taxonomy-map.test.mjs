@@ -257,14 +257,9 @@ test('todo taxonomyId do mapa real resolve num no de taxonomia real', () => {
   }
 });
 
-test('as 16 licoes caem exatamente nos planetas aprovados', () => {
-  const mapa = lerReal('content-manifest', 'taxonomy-catalog-map.json');
-  const observado = {};
-  for (const entrada of mapa) {
-    (observado[entrada.taxonomyId] ??= []).push(entrada.catalogId);
-  }
-  for (const planeta of Object.keys(observado)) observado[planeta].sort();
-  assert.deepEqual(observado, ATRIBUICOES);
+test('retirement removes every old curricular taxonomy link', () => {
+  const map = lerReal('content-manifest', 'taxonomy-catalog-map.json');
+  assert.deepEqual(map, []);
 });
 
 test('toda entrada do mapa carrega rationale nao vazio', () => {

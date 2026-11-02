@@ -78,9 +78,8 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
         renderWithProviders(<SettingsScreen />);
         await waitFor(() => expect(screen.getByRole('button', { name: 'Rever a apresentação' })).toBeTruthy());
         fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
-        expect(screen.getByText('60 kV')).toBeTruthy();
+        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
         if (exit === 'concluir') {
-            fireEvent.press(screen.getByLabelText('Aumentar kV'));
             fireEvent.press(screen.getByLabelText('Continuar'));
         } else {
             fireEvent.press(screen.getByLabelText('Pular apresentação'));
@@ -91,7 +90,7 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
         expect(await AsyncStorage.getItem(KEY)).toBe(ORIGINAL_MARKER);
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
         fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
-        expect(screen.getByText('60 kV')).toBeTruthy();
-        expect(screen.getByLabelText('Continuar')).toBeDisabled();
+        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
     });
 });

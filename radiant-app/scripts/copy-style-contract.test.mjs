@@ -79,6 +79,7 @@ test('excludes tests and stories but scans an external imported Alert source', (
   const result = scan('import { ExternalLink } from "../components/external-link"; <ExternalLink />', {
     'src/Bad.test.tsx': '<Text>jornada</Text>',
     'src/Bad.stories.tsx': '<Text>jornada</Text>',
+    'src/test/fixtures/synthetic.tsx': '<Text>jornada</Text>',
     'components/external-link.tsx': 'export function ExternalLink() { Alert.alert("checkpoint"); return null; }',
   });
   assert.deepEqual(classes(result), ['jargon']);

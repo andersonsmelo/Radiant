@@ -5,14 +5,14 @@ import { ts, unwrap } from './ast-helpers.mjs';
 const COPY_FIELDS = new Set(['title', 'label', 'body', 'eyebrow', 'subtitle', 'description', 'message', 'placeholder', 'accessibilityLabel', 'accessibilityHint', 'prompt', 'explanation', 'phrases']);
 const CLASSES = ['eyebrow', 'dash', 'jargon'];
 const JARGON = /(?<![\p{L}\p{N}_])(?:jornada|elegível|nó(?: liberado)?|checkpoint|configuraç(?:ão|ões))(?![\p{L}\p{N}_])/iu;
-const excludedSource = (file) => /(?:^|\/)(?:__tests__|__mocks__|test-utils)(?:\/|$)|\.(?:test|spec|stories)\.[cm]?tsx?$|\.d\.ts$/.test(file);
+const excludedSource = (file) => /^src\/test\/fixtures\//.test(file) || /(?:^|\/)(?:__tests__|__mocks__|test-utils)(?:\/|$)|\.(?:test|spec|stories)\.[cm]?tsx?$|\.d\.ts$/.test(file);
 const propertyName = (node) => node && (ts.isIdentifier(node) || ts.isStringLiteral(node) || ts.isNumericLiteral(node)) ? node.text : undefined;
 
 // Authored teaching text is protected by source AND field/context, never by a
 // generic field name across the application. Navigation titles/labels stay in.
 export const domainPolicy = {
   roots: ['src/**/*.ts', 'src/**/*.tsx', 'relative and @/* imports reachable from src (root, then src, per tsconfig)'],
-  excludedSources: ['*.test.*', '*.spec.*', '*.stories.*', '__tests__', '__mocks__', 'test-utils', '*.d.ts'],
+  excludedSources: ['*.test.*', '*.spec.*', '*.stories.*', '__tests__', '__mocks__', 'test-utils', 'src/test/fixtures', '*.d.ts'],
   clinical: [
     { sources: ['src/data/lessons.ts', 'src/data/ai-lessons.ts'], fields: ['questions.*'] },
     { sources: ['src/data/journey/defaultBlocks.ts'], fields: ['payload.prompt', 'payload.explanation', 'payload.options.*', 'teach/reinforce.payload.body'] },

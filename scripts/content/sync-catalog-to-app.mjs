@@ -13,6 +13,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { buildRuntimeCatalog } from "./catalog-runtime.mjs";
+import { readCurriculumState } from "./curriculum-state.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
@@ -213,6 +214,7 @@ export const GALAXY_NODES_BY_BODY: Record<string, JourneyNode[]> = ${JSON.string
 }
 
 // ─── main ─────────────────────────────────────────────────────────────────────
+if (readCurriculumState(ROOT)) throw Error('curriculum-retired: app content generation is disabled');
 
 const payload = JSON.parse(readFileSync(CATALOG_PAYLOAD_PATH, "utf8"));
 const wave1 = JSON.parse(readFileSync(WAVE1_PRIORITY_TRACKS_PATH, "utf8"));

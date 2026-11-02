@@ -29,10 +29,11 @@ it('resolve todos os nós do catálogo local pelo mesmo caminho usado em Estude'
         getCheckpoint: id => ProductionCurriculumCatalog.getCheckpointByNodeId(id),
     });
     expect(report.issues).toEqual([]);
-    expect(report.tracks).toHaveLength(4);
-    expect(report.tracks.reduce((sum, track) => sum + track.nodes, 0)).toBe(57);
-    expect(report.tracks.reduce((sum, track) => sum + track.resolvedActivityNodes, 0)).toBe(48);
-    expect(report.tracks.reduce((sum, track) => sum + track.resolvedCheckpointNodes, 0)).toBe(5);
+    expect(jest.requireActual('../../../data/curriculum-state.json').state).toBe('retired');
+    expect(report.tracks).toHaveLength(0);
+    expect(report.tracks.reduce((sum, track) => sum + track.nodes, 0)).toBe(0);
+    expect(report.tracks.reduce((sum, track) => sum + track.resolvedActivityNodes, 0)).toBe(0);
+    expect(report.tracks.reduce((sum, track) => sum + track.resolvedCheckpointNodes, 0)).toBe(0);
     expect(report.tracks.every(track => track.nodes === track.structurallyReachableNodes)).toBe(true);
 });
 
@@ -44,7 +45,7 @@ it('o inventário executável publica a cobertura separando legado de fonte edit
     expect(report.schemaVersion).toBe(3);
     // Ocorrências por atividade: todas as perguntas no introdutório e na revisão.
     // O catálogo não recebeu conteúdo novo.
-    expect(report.coverage.summary).toMatchObject({ promotedPracticeItems: 12, promotedCheckpointItems: 10, legacyItems: 76, declaredSources: 8, checkpointItemsWithNodes: 10 });
+    expect(report.coverage.summary).toMatchObject({ promotedPracticeItems: 0, promotedCheckpointItems: 0, legacyItems: 0, declaredSources: 0, checkpointItemsWithNodes: 0 });
     expect(report.coverage.issues).toEqual([]);
-    expect(report.coverage.items.filter((item: { provenance: string }) => item.provenance === 'legacy-unmapped')).toHaveLength(76);
+    expect(report.coverage.items.filter((item: { provenance: string }) => item.provenance === 'legacy-unmapped')).toHaveLength(0);
 });

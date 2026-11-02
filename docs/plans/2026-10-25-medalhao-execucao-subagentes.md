@@ -1,5 +1,8 @@
 # Medalhão — execução por subagentes Implementation Plan
 
+> Atualização de autoridade em 02/11/2026: aplicar a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) antes de despachar cartões T14/T19–T22 antigos. Retirada local total, sem reset de dados pessoais ou release; pesquisa posterior para tecnólogo e especializações no [plano único](2026-11-02-planejamento-conteudo-radiant.md).
+
+
 > **For Claude:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` para executar os cartões abaixo, adaptada ao contrato Radiant. `writing-plans` orienta esta redação; não autoriza execução nem substitui os gates do dono.
 
 **Goal:** Executar, quando autorizado, o plano integrador revisado por meio de entregas pequenas, com um implementador por tarefa, revisão independente e evidência verificável.

@@ -4086,3 +4086,133 @@ Sem retirada, migração, mudança de política ou avanço T14/T19–T22;
 G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados. Writer próprio e evidências
 locais de revisão/validação identificados no inventário; fechamento e CI próprio
 são conferidos pelos recibos da entrega, sem herdar checks de `5224318`.
+
+
+## Registro substituído em 02/11/2026 — reinício de conteúdo
+
+**Task17/T15 — inventário recomendado aprovado em 01/11/2026 (G4).**
+Anderson respondeu “siga conforme recomendação” à entrega T15-v1 do commit
+`b20943a`, SHA256 `2f299f7b1e5a5d9a9fd1fc5a2cd712f6050bd085fbefe4c5e375d1e40487574f`.
+[Decisão G4](adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md) aceita as propostas
+nominais, biblioteca/direitos/taxonomia e motores preservados, separação dos dados
+mistos e adaptação dos alvos dos validadores. Não pedir G4 novamente para essa versão.
+O [inventário aprovado](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+permanece congelado; o “pendente” nele é anterior à decisão registrada na ADR.
+Revisão PASS/APPROVED e final T15 15/15; CI Content41368497475/Quality41368497477
+SUCCESS em `b20943a`, 207 suítes/2.833 testes. Este registro tem validação própria.
+**T19 ainda não executada:** a sequência exige também contrato G7 do currículo,
+formato e IDs/geração substitutos, ainda pendente. Os 15 validadores atuais e a
+política permanecem intactos; não desligar controles do catálogo ativo sem sucessor.
+T20–T22 dependem desse contrato e das demais condições nominais aprovadas.
+G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados; sem avanço T14, retirada,
+migração, build, instalação, merge ou loja.
+
+
+
+## Onda J substituída em 02/11/2026 — texto original do roadmap
+
+### Onda J — Currículo V3 e aposentadoria segura do legado (nova em 2026-08-27)
+
+Esta onda substitui a direção editorial da antiga Unidade 1, mas não apaga a
+engenharia já entregue em G/H/I. Ela não autoriza build nem submissão. A spec
+canônica é
+[`2026-08-27-radiant-curriculum-v3-design.md`](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md).
+
+- **J0 [CONCLUÍDA — DESIGN]** Proposta do produto, sequência contínua, contrato
+  de lição e contratos de domínio, gamificação e acessibilidade aprovados no
+  design; Arco 1 aprovado. Auditoria independente reprovou a primeira versão e
+  aprovou a correção sem reprovação conceitual. Gates de publicação permanecem
+  abertos.
+- **J1 [CONCLUÍDA — PLANEJAMENTO]** Plano da fundação V3, IDs estáveis,
+  storage isolado, migração fail-closed e fotografia somente de leitura do
+  histórico anterior registrado em
+  [`2026-08-27-curriculum-v3-foundation.md`](../superpowers/plans/2026-08-27-curriculum-v3-foundation.md).
+  Nenhuma exclusão física foi autorizada.
+- **J2 [CONCLUÍDA — FUNDAÇÃO TÉCNICA LOCAL, 2026-08-27]** IDs/ordem dos arcos,
+  storage V3 isolado, fotografia parcial imutável e preparação explícita com
+  retomada implementados. Startup mantém currículo legado e não prepara V3;
+  catálogo e telas não foram trocados. Cinco suítes focadas/74 testes aprovados,
+  typecheck aprovado e lint sem erros (28 avisos preexistentes). Revisão de
+  código independente sem achados críticos/importantes, incluindo checagem de
+  falhas após persistência. Commit `320e10d`; 14 validadores aprovados no run
+  `run-1787851096220-d09a361b`, encerrado. Sem push, build ou submissão.
+- **J3 [P0 — EM ANDAMENTO]** Produzir o Arco 1 — L1, L2, prática intercalada,
+  L3, checkpoint em dois blocos e revisões — com fontes, taxonomia de erros,
+  direitos e alternativas acessíveis. **L1 — O corpo como referência entregue
+  localmente em 2026-08-27:** conteúdo original e fontes rastreáveis, mapa SVG
+  2.5D funcional, controles alternativos, feedback por erro, remediação e
+  recuperação independente. A auditoria independente aprovou a revisão estática
+  v4 após três ciclos de correção; testes focados, lint e typecheck foram
+  executados. Isso não ativa V3 nem substitui revisão científica especializada,
+  VoiceOver/runtime ou validação em aparelho.
+  **L2 — Cortando o espaço entregue localmente em 2026-08-28, auditoria aberta:**
+  separa plano geométrico, região espacial, espessura nominal e imagem
+  resultante; mapa 2.5D em SVG autoral com geometrias candidatas selecionáveis e
+  controle textual equivalente; `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com
+  remediação sem XP e recuperação em região nova. **Seis pareceres
+  independentes, seis reprovações** (v1 a v6; o último em 2026-09-22 sobre
+  `949a5f0`, [registro](../content/2026-09-22-l2-parecer-v6.md)). Os críticos
+  de v3, v4 e v5 estão resolvidos no código; o v6 reprovou por um crítico novo
+  (Q1) que a correção anterior criou, pela terceira passagem seguida. A L2 não
+  conta como sinalizada. **Em 2026-09-23 a v7 foi pausada** pela
+  [ADR da lição híbrida](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md):
+  a próxima tarefa do arco passa a ser o **piloto da lição híbrida na L1**
+  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+  [plano](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md);
+  **implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`**, sem
+  build de distribuição e com a aprovação dos modelos pendente com o dono), e a
+  L2 é refeita com modelos de exercício se o formato passar no teste com
+  pessoas. A ordem anterior (v7, depois a P1 conforme o
+  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md)) fica registrada
+  na [`FILA.md`](../FILA.md).
+  Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
+  e a suíte verde **não** detecta o Q1.
+  **Em 2026-09-28, a amostra do piloto foi corrigida:** a variante fica na
+  mesma postura, só com vistas reais, e o h08 passou ao ventral visto por
+  trás. Mudaram 8 dos 20 itens, e a aprovação espera o dono confirmá-los
+  (FILA, 7b)
+  ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+  [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
+- **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
+  controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
+  variantes visual e textual.
+- **J5 [P0]** Cortar as superfícies para o V3, preservar o histórico anterior e
+  validar o fluxo completo no iPhone 16. Antes do corte, inventariar consumidores
+  e stores fora da fotografia parcial (SM2, checkpoints, XP, preferências),
+  pausar escritores legados e definir a captura final: uma fotografia antecipada
+  imutável não equivale ao histórico completo no instante do corte. Só depois
+  deste gate um novo binário pode virar candidato à App Review.
+- **J6 [P1 — DESTRUTIVA, NÃO AUTORIZADA]** Remover arquivos e adaptadores
+  legados depois de provar que nenhum consumidor de runtime ou instalação
+  existente depende deles.
+
+
+## T03 substituída em02/11/2026 — exemplo inicial retirado
+
+T03 boas-vindas implementada e revisada em 26/10 (R4), com bancada real,
+reentrada preservada e texto ampliado conferido no iOS/Android. Validação
+final **15/15** na segunda tentativa: a primeira teve oito TS7006 em dois
+arquivos de teste, corrigidos com anotações de tipo. As duas execuções de
+`app-test` completo passaram. Writer `run-1793031412630-67f7d689`.
+CI T03 no commit `804d1e7`: App Quality241/`40403674164` e Content146/
+`40403674167` aprovados em 26/10.
+[Prova e limites T03](evidence/2026-10-26-medalhao-t03.md).
+
+
+## Amostras/ordem anterior substituídas em02/11/2026
+
+  onda de correção dela (`74bc858..3ec1293`, cada entrega com `loop validate`
+  15/15). As duas aulas de exemplo, exposição e colimação, abrem só em build
+  de desenvolvimento por `radiantapp://learn?blockId=bancada:exposicao` e
+  `…:colimacao`. Elas foram feitas inteiras no simulador iOS, e isso achou e
+  corrigiu as estrelas contadas pela resposta final (`36fa2e5`)
+  ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo dono,
+  frase por frase ([documento](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e, antes de liberar, o
+  VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
+  plano (física de radiografia digital e colimação como segunda bancada) estão
+  na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
+- **Plano 5: em execução desde 25/10.** T01 guarda, T02 HUD e T03 boas-vindas
+  foram implementadas/revisadas e validadas na branch, sem merge. T04 foi
+  implementada/revisada e conferida nos simuladores em 27/10, Loop final
+  15/15 aprovado. O inventário sai/fica ainda precisa ser produzido e aprovado
+  antes de qualquer retirada. As decisões de conteúdo continuam pendentes.

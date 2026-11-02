@@ -1,8 +1,9 @@
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { JourneyDefinitionService } from './JourneyDefinitionService';
+
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
-import { LessonCatalogService } from '../../content/services/LessonCatalogService';
-import { JourneyDefinitionService } from './JourneyDefinitionService';
 
 /**
  * Invariante que autorizou a absorção da Galáxia por Estude, e que continua
@@ -38,6 +39,8 @@ describe('cobertura do currículo pela trilha contínua', () => {
     const unreachable = catalogIds.filter((id) => !trailIds.has(id));
 
     expect(unreachable).toEqual([]);
-    expect(catalogIds.length).toBeGreaterThan(0);
+    expect(require('../../../data/curriculum-state.json').state).toBe('retired');
+    expect(catalogIds).toEqual([]);
+    expect(tracks).toEqual([]);
   });
 });

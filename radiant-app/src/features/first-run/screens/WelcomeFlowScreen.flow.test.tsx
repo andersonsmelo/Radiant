@@ -10,12 +10,11 @@ import { MemoryKeyValueStorage } from '../../student-checkpoints/storage';
 import { checkpoint, FIXED_NOW } from '../../student-checkpoints/testFixtures';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../../student-checkpoints/useShadowCheckpoint';
 import { AppConfig } from '../../../config';
-import { exposureModel } from '../../bench/exposureModel';
 import WelcomeFlowScreen from './WelcomeFlowScreen';
 
 jest.mock('../../../ui/accessibility/motionLaunchArgument', () => ({ isReduceMotionForcedByLaunchArgument: () => true }));
 
-// Só o renderer nativo é substituído. ExposureImage, controle, modelo e hooks são reais.
+// Renderizador gráfico nativo substituído; navegação e hooks permanecem reais.
 jest.mock('@shopify/react-native-skia', () => {
     const ReactInMock = require('react');
     const { View } = require('react-native');
@@ -29,24 +28,26 @@ jest.mock('@shopify/react-native-skia', () => {
         Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } } };
 });
 
-const LOW = 'Osso branco, partes moles escuras: muito contraste.';
-const MIDDLE = 'Contraste no meio: dá para ver osso e partes moles.';
-const HIGH = 'Tudo cinza parecido: o feixe atravessa demais.';
 const LEGAL = 'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.';
-function changeKv(value: number) {
-    fireEvent(screen.getByTestId('bench-slider-kv', { includeHiddenElements: true }), 'valueChange', value);
-}
 
-// Quebras cobertas: bancada ausente, faixa errada, imagem desligada do controle,
-// bloqueio sem interação, duplicação de saída e perda da compatibilidade legada.
-describe('WelcomeFlowScreen — primeira bancada', () => {
-    it('começa em 60 kV, sem paginação, com instrução fora da fala do Pixel', () => {
+// Regressões: conteúdo retirado, navegação idempotente, acesso e compatibilidade legada.
+describe('WelcomeFlowScreen — apresentação sem aulas', () => {
+    it('não oferece exercício de exposição no conteúdo retirado', () => {
+        const onFinish = jest.fn();
+        renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
+        expect(screen.queryByLabelText('Radiografia simulada de um fantoma')).toBeNull();
+        expect(screen.queryByTestId('bench-slider-kv', { includeHiddenElements: true })).toBeNull();
+        expect(screen.queryByText(/Ajuste o kV|Osso branco|Contraste no meio|Tudo cinza parecido|primeira radiografia/)).toBeNull();
+        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
+        fireEvent.press(screen.getByLabelText('Continuar'));
+        expect(onFinish.mock.calls).toEqual([['completed', 1]]);
+    });
+    it('começa sem paginação e permite continuar ou pular', () => {
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-        expect(screen.getByRole('image', { name: 'Radiografia simulada de um fantoma' })).toBeTruthy();
-        expect(screen.getByText('60 kV')).toBeTruthy();
-        expect(screen.getByText('Ajuste o kV e veja a imagem mudar.')).toBeTruthy();
+        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
         expect(screen.queryByLabelText(/Tela \d de/)).toBeNull();
-        expect(screen.getByLabelText('Continuar')).toBeDisabled();
+        expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
         expect(screen.getByLabelText('Pular apresentação')).not.toBeDisabled();
         expect(screen.getByText(LEGAL)).toBeTruthy();
     });
@@ -62,57 +63,9 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
         },
     );
 
-    it('não conclui sem uma mudança real de valor', () => {
-        const onFinish = jest.fn();
-        renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
-        changeKv(60);
-        fireEvent.press(screen.getByLabelText('Continuar'));
-        expect(onFinish).not.toHaveBeenCalled();
-        expect(screen.getByLabelText('Continuar')).toBeDisabled();
-    });
-
-    it.each([[65, LOW], [70, MIDDLE], [90, MIDDLE], [95, HIGH], [100, HIGH]])(
-        'ao ajustar para %s kV, muda a faixa e os números usados no shader', (kv, copy) => {
-            renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-            const before = screen.getByTestId('skia-Shader').props.uniforms;
-            changeKv(kv as number);
-            expect(screen.getByText(copy as string)).toBeTruthy();
-            expect(screen.getByText(`${kv} kV`)).toBeTruthy();
-            const after = screen.getByTestId('skia-Shader').props.uniforms;
-            const expected = exposureModel({ kv: kv as number, mas: 10 });
-            expect(after).toMatchObject(expected);
-            expect(after.soft).not.toBe(before.soft);
-            expect(after.bone).toBeCloseTo(before.bone, 12);
-            expect(after.noise).toBe(before.noise);
-            expect(after.soft).toBeGreaterThan(after.background);
-            expect(after.soft).toBeLessThan(after.bone);
-            expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
-        },
-    );
-
-    it('a imagem acompanha o preview contínuo e volta ao valor do passo ao soltar', () => {
-        renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-        const slider = screen.getByTestId('bench-slider-kv', { includeHiddenElements: true });
-        fireEvent(slider, 'valueChange', 72);
-        expect(screen.getByText('70 kV')).toBeTruthy();
-        expect(screen.getByTestId('skia-Shader').props.uniforms.soft).toBe(exposureModel({ kv: 72, mas: 10 }).soft);
-        fireEvent(slider, 'slidingComplete', 72);
-        expect(screen.getByTestId('skia-Shader').props.uniforms.soft).toBe(exposureModel({ kv: 70, mas: 10 }).soft);
-    });
-
-    it('botões e ações acessíveis operam a bancada; voltar a 60 mantém Continuar habilitado', () => {
-        renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-        fireEvent.press(screen.getByLabelText('Aumentar kV'));
-        expect(screen.getByText('65 kV')).toBeTruthy();
-        fireEvent(screen.getByRole('adjustable', { name: 'kV' }), 'accessibilityAction', { nativeEvent: { actionName: 'decrement' } });
-        expect(screen.getByText('60 kV')).toBeTruthy();
-        expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
-    });
-
     it('conclui uma vez no passo 1 mesmo com toques repetidos e Pular logo depois', () => {
         const onFinish = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
-        changeKv(100);
         fireEvent.press(screen.getByLabelText('Continuar'));
         fireEvent.press(screen.getByLabelText('Continuar'));
         fireEvent.press(screen.getByLabelText('Pular apresentação'));
@@ -120,7 +73,7 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
         expect(onFinish).toHaveBeenCalledWith('completed', 1);
     });
 
-    it('Pular sai uma vez sem operar a bancada', () => {
+    it('Pular sai uma vez imediatamente', () => {
         const onFinish = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
         fireEvent.press(screen.getByLabelText('Pular apresentação'));
@@ -129,10 +82,9 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
         expect(onFinish).toHaveBeenCalledWith('skipped', 1);
     });
 
-    it('avisa apenas o passo único, sem repetir ao ajustar kV', () => {
+    it('avisa apenas o passo único', () => {
         const onStepViewed = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} onStepViewed={onStepViewed} />);
-        changeKv(100);
         expect(onStepViewed.mock.calls).toEqual([[1]]);
     });
 
@@ -148,7 +100,6 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
             expect(scroll.findAll((node: unknown) => node === continueButton)).toHaveLength(1);
             expect(scroll.findAll((node: unknown) => node === privacy)).toHaveLength(1);
             expect(scroll.findAll((node: unknown) => node === skip)).toHaveLength(0);
-            fireEvent.press(screen.getByLabelText('Aumentar kV'));
             fireEvent.press(continueButton);
             expect(onFinish.mock.calls).toEqual([['completed', 1]]);
         } finally { dimensions.mockRestore(); }
@@ -158,7 +109,7 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
         const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
         try {
             renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-            const texts = [screen.getByText('Ajuste o kV e veja a imagem mudar.'), screen.getByText(LOW), screen.getByText(LEGAL), screen.getByText(/Sem conta\. Seu progresso fica neste/), screen.getByText('Pular')];
+            const texts = [screen.getByText('Conteúdo em preparação.'), screen.getByText(LEGAL), screen.getByText(/Sem conta\. Seu progresso fica neste/), screen.getByText('Pular')];
             for (const text of texts) {
                 const style = StyleSheet.flatten(text.props.style);
                 expect(style.lineHeight).toBeUndefined();
@@ -186,7 +137,7 @@ describe('WelcomeFlowScreen — primeira bancada', () => {
             expect(style.minHeight).toBeGreaterThanOrEqual(44);
             expect(style.minWidth).toBeGreaterThanOrEqual(44);
             expect(style.position).not.toBe('absolute');
-            expect(screen.getByText('Ajuste o kV e veja a imagem mudar.').props.numberOfLines).toBeUndefined();
+            expect(screen.getByText('Conteúdo em preparação.').props.numberOfLines).toBeUndefined();
             expect(screen.getByText(LEGAL).props.numberOfLines).toBeUndefined();
         } finally { dimensions.mockRestore(); }
     });
@@ -212,12 +163,12 @@ describe('WelcomeFlowScreen — checkpoint real em memória', () => {
         jest.restoreAllMocks();
     });
 
-    it.each(['slide-1', 'slide-2', 'slide-3'])('retoma %s na bancada única e normaliza o checkpoint persistido', async cursorId => {
+    it.each(['slide-1', 'slide-2', 'slide-3'])('retoma %s na apresentação única e normaliza o checkpoint persistido', async cursorId => {
         await store.saveCheckpoint(checkpoint({ checkpointId: 'legacy', surface: 'first-run', flowId: 'first-run-v1', contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION, cursorId, totalStepCount: 3 }));
         const fallback = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} resumeCheckpointId="legacy" resumeCursorId={cursorId} onResumeFallback={fallback} />);
         await waitFor(async () => expect(await store.getCheckpointById('legacy')).toMatchObject({ cursorId: 'slide-1', totalStepCount: 1, completedStepCount: 0 }));
-        expect(screen.getByText('60 kV')).toBeTruthy();
+        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
         expect(fallback).not.toHaveBeenCalled();
     });
 
@@ -229,7 +180,6 @@ describe('WelcomeFlowScreen — checkpoint real em memória', () => {
         const onFinish = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
         await waitFor(async () => expect(await store.getCheckpointById('welcome-checkpoint')).not.toBeNull());
-        changeKv(100);
         fireEvent.press(screen.getByLabelText('Continuar'));
         fireEvent.press(screen.getByLabelText('Continuar'));
         fireEvent.press(screen.getByLabelText('Pular apresentação'));

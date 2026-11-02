@@ -4,6 +4,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { validateRetiredContent } from './curriculum-state.mjs';
 import {
   avaliar, normalizarCaminho, coletarFontesUsadas,
   indexarTriagem, excecaoAtiva, carregar,
@@ -76,11 +77,17 @@ test('excecaoAtiva rejeita registro sem data', () => {
 // O invariante e: o verde de hoje e sustentado por uma decisao registrada —
 // classificacao explicita na triagem, ou excecao datada que morde ao vencer —
 // e nunca por ausencia de checagem. Cada fonte usada cai num dos dois ramos.
-test('SONDA — o verde do estado real e sustentado por decisao registrada, nao por ausencia', () => {
+test('SONDA — retirement is explicit; active source use still requires a recorded decision', () => {
   const entrada = carregar(process.cwd());
   const hoje = avaliar({ ...entrada, agora: new Date('2026-09-11T12:00:00Z') });
   assert.deepEqual(hoje, [], 'hoje deve estar verde');
-  assert.ok(entrada.usadas.size > 0, 'o catalogo precisa usar ao menos uma fonte');
+  if (entrada.usadas.size === 0) {
+    const retirement = validateRetiredContent(process.cwd());
+    assert.equal(retirement.state, 'retired');
+    assert.equal(retirement.lessonCount, 0);
+    assert.equal(retirement.publicationReady, false);
+    return;
+  }
 
   const excecoes = new Map((entrada.politica.exceptions ?? []).map((e) => [e.sourceId, e]));
   const classesQueLiberam = new Set(['authorized', 'reference-only']);

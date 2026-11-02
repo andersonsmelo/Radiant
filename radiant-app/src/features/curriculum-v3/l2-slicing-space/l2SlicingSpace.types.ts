@@ -16,7 +16,7 @@ export type L2Source = Readonly<{
 }>;
 
 export type L2Objective = Readonly<{
-  id: 'l2-reference-planes' | 'l2-median-is-sagittal' | 'l2-obliquity' | 'l2-spatial-region-thickness-image';
+  id: string;
   statement: string;
   misconception: L2Misconception;
 }>;
@@ -65,10 +65,10 @@ export type L2ModelLayer = Readonly<{
 }>;
 
 export type L2SlicingSpaceLesson = Readonly<{
-  id: 'lesson:v3:arc:spatial-orientation:l2-slicing-space';
-  title: 'Cortando o espaço';
+  id: string;
+  title: string;
   audienceLabel: string;
-  version: '1.0.0-draft';
+  version: string;
   sources: readonly L2Source[];
   objectives: readonly L2Objective[];
   modelLayers: readonly L2ModelLayer[];

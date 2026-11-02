@@ -45,6 +45,8 @@ export function auditProductionBatches(batches) {
     for (const rule of rules) reworkByRule[rule] = (reworkByRule[rule] ?? 0) + 1;
   }
   return { schemaVersion: 1, scope: 'local-editorial-validation',
+    publicationReady: rows.length > 0 && rows.every(row => row.outcome === 'promoted'),
+    contentState: rows.length === 0 ? 'no-production-batches' : 'has-production-batches',
     validationYield: { totalBatches: rows.length, materialValid: rows.filter(row => row.materialIssues.length === 0).length,
       promotionValid: rows.filter(row => row.promotionIssues.length === 0).length },
     reworkByRule, batches: rows };

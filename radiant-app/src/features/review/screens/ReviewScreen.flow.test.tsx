@@ -10,6 +10,10 @@ import type { QuizQuestion } from '../../../types/quiz';
 import ReviewScreen from './ReviewScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 
+jest.mock('../../../data/catalog', () => ({ LESSON_CATALOG: require('../../../test/fixtures/syntheticLessons').LESSON_CATALOG }));
+jest.mock('../../../data/lessons', () => ({ LESSONS: require('../../../test/fixtures/syntheticLessons').LESSONS }));
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
+
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 const mockUseReview = jest.fn();
 

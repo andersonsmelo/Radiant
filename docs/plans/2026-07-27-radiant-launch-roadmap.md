@@ -1,5 +1,8 @@
 # Radiant — Roadmap de Lançamento iOS e Android (2026-07-27)
 
+> Conteúdo, 02/11/2026: a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) sucede a ordem anterior T19–T21/Onda J para a retirada local integral, incluindo bancada e protótipos. G4 continua aprovado; T14/G2 antigos não se aplicam às amostras retiradas. Sem reset pessoal ou release. O [plano único](2026-11-02-planejamento-conteudo-radiant.md) conduz a pesquisa e a proposta para graduação tecnológica seguida de especializações; etapas antigas abaixo são proveniência, não currículo vigente.
+
+
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
 > [status canônico](../STATUS.md). As Tasks 11–16 do
@@ -671,7 +674,7 @@ código.
   registrados no [Trello](https://trello.com/c/f9OYyCX5). Esta auditoria não é
   aprovação clínica nem reabertura automática do lote v2 promovido. O estado
   do envio e a dependência de F1/F4 estão em [STATUS](../STATUS.md).
-  **Inventário e atlas preparados em 2026-08-27:** [Canvas e notas de revisão](../content/mapa-aulas/README.md)
+  **Inventário e atlas preparados em 2026-08-27:** [Canvas e notas de revisão](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/content/mapa-aulas/README.md)
   distinguem catálogo legado/promovido, revisões, pipeline editorial e currículo
   planejado. Contagens e fontes estão no pacote. Após autorização, o Canvas e
   as notas foram instalados em pasta separada do cérebro e conferidos no
@@ -681,7 +684,7 @@ código.
 
   **Reorientado pelo dono em 2026-08-27:** o currículo anterior não será
   corrigido lição a lição como base do produto. A direção aceita é o
-  [Currículo V3](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md),
+  [Currículo V3](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md),
   com fundamentos de anatomia, fisiologia e física, seguidos de Radiografia,
   Mamografia, Tomografia, Ressonância, Medicina Nuclear, Radioterapia e outras
   especializações. O [ADR](../adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md)
@@ -1393,80 +1396,23 @@ alcança não celebra; a que celebra o aluno não alcança. A convergência deci
 existir para o aluno, e por isso é a parte mais valiosa de I2, à frente do rearranjo da
 barra.
 
-### Onda J — Currículo V3 e aposentadoria segura do legado (nova em 2026-08-27)
+### Onda J — currículo anterior retirado; planejamento substituto em 02/11/2026
 
-Esta onda substitui a direção editorial da antiga Unidade 1, mas não apaga a
-engenharia já entregue em G/H/I. Ela não autoriza build nem submissão. A spec
-canônica é
-[`2026-08-27-radiant-curriculum-v3-design.md`](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md).
+A sequência curricular V3 e seus exemplos foram abrangidos pela retirada integral.
+J0/J1 são planejamento histórico; J2 permanece como fundação técnica. Não retomar
+J3/J4 para promover L1/L2 antigas. J5/J6 não autorizam reset pessoal nem release.
+A [ADR de 02/11](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) registra
+as decisões; o texto anterior foi preservado no histórico do STATUS.
 
-- **J0 [CONCLUÍDA — DESIGN]** Proposta do produto, sequência contínua, contrato
-  de lição e contratos de domínio, gamificação e acessibilidade aprovados no
-  design; Arco 1 aprovado. Auditoria independente reprovou a primeira versão e
-  aprovou a correção sem reprovação conceitual. Gates de publicação permanecem
-  abertos.
-- **J1 [CONCLUÍDA — PLANEJAMENTO]** Plano da fundação V3, IDs estáveis,
-  storage isolado, migração fail-closed e fotografia somente de leitura do
-  histórico anterior registrado em
-  [`2026-08-27-curriculum-v3-foundation.md`](../superpowers/plans/2026-08-27-curriculum-v3-foundation.md).
-  Nenhuma exclusão física foi autorizada.
-- **J2 [CONCLUÍDA — FUNDAÇÃO TÉCNICA LOCAL, 2026-08-27]** IDs/ordem dos arcos,
-  storage V3 isolado, fotografia parcial imutável e preparação explícita com
-  retomada implementados. Startup mantém currículo legado e não prepara V3;
-  catálogo e telas não foram trocados. Cinco suítes focadas/74 testes aprovados,
-  typecheck aprovado e lint sem erros (28 avisos preexistentes). Revisão de
-  código independente sem achados críticos/importantes, incluindo checagem de
-  falhas após persistência. Commit `320e10d`; 14 validadores aprovados no run
-  `run-1787851096220-d09a361b`, encerrado. Sem push, build ou submissão.
-- **J3 [P0 — EM ANDAMENTO]** Produzir o Arco 1 — L1, L2, prática intercalada,
-  L3, checkpoint em dois blocos e revisões — com fontes, taxonomia de erros,
-  direitos e alternativas acessíveis. **L1 — O corpo como referência entregue
-  localmente em 2026-08-27:** conteúdo original e fontes rastreáveis, mapa SVG
-  2.5D funcional, controles alternativos, feedback por erro, remediação e
-  recuperação independente. A auditoria independente aprovou a revisão estática
-  v4 após três ciclos de correção; testes focados, lint e typecheck foram
-  executados. Isso não ativa V3 nem substitui revisão científica especializada,
-  VoiceOver/runtime ou validação em aparelho.
-  **L2 — Cortando o espaço entregue localmente em 2026-08-28, auditoria aberta:**
-  separa plano geométrico, região espacial, espessura nominal e imagem
-  resultante; mapa 2.5D em SVG autoral com geometrias candidatas selecionáveis e
-  controle textual equivalente; `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com
-  remediação sem XP e recuperação em região nova. **Seis pareceres
-  independentes, seis reprovações** (v1 a v6; o último em 2026-09-22 sobre
-  `949a5f0`, [registro](../content/2026-09-22-l2-parecer-v6.md)). Os críticos
-  de v3, v4 e v5 estão resolvidos no código; o v6 reprovou por um crítico novo
-  (Q1) que a correção anterior criou, pela terceira passagem seguida. A L2 não
-  conta como sinalizada. **Em 2026-09-23 a v7 foi pausada** pela
-  [ADR da lição híbrida](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md):
-  a próxima tarefa do arco passa a ser o **piloto da lição híbrida na L1**
-  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
-  [plano](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md);
-  **implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`**, sem
-  build de distribuição e com a aprovação dos modelos pendente com o dono), e a
-  L2 é refeita com modelos de exercício se o formato passar no teste com
-  pessoas. A ordem anterior (v7, depois a P1 conforme o
-  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md)) fica registrada
-  na [`FILA.md`](../FILA.md).
-  Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
-  e a suíte verde **não** detecta o Q1.
-  **Em 2026-09-28, a amostra do piloto foi corrigida:** a variante fica na
-  mesma postura, só com vistas reais, e o h08 passou ao ventral visto por
-  trás. Mudaram 8 dos 20 itens, e a aprovação espera o dono confirmá-los
-  (FILA, 7b)
-  ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
-  [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
-- **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
-  controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
-  variantes visual e textual.
-- **J5 [P0]** Cortar as superfícies para o V3, preservar o histórico anterior e
-  validar o fluxo completo no iPhone 16. Antes do corte, inventariar consumidores
-  e stores fora da fotografia parcial (SM2, checkpoints, XP, preferências),
-  pausar escritores legados e definir a captura final: uma fotografia antecipada
-  imutável não equivale ao histórico completo no instante do corte. Só depois
-  deste gate um novo binário pode virar candidato à App Review.
-- **J6 [P1 — DESTRUTIVA, NÃO AUTORIZADA]** Remover arquivos e adaptadores
-  legados depois de provar que nenhum consumidor de runtime ou instalação
-  existente depende deles.
+- **C1 [CONCLUÍDA — ESTÁTICA LOCAL,02/11/2026]** Retirar aulas, exemplos e protótipos; provar zero
+  conteúdo ativo, impedir ressurreição remota e preservar motores/biblioteca.
+- **C2 [CONCLUÍDA — PROPOSTA ENTREGUE,02/11/2026]** Ementas de graduação tecnológica/especializações,
+  fontes gratuitas e direitos, sequência lógica, questões, interação e incentivos.
+  Uma entrada: [planejamento de conteúdo](2026-11-02-planejamento-conteudo-radiant.md).
+- **C3 [PENDENTE — REVISÃO]** Anderson revisa proposta e recorte do primeiro lote;
+  revisão técnica/editorial e validação com alunos precedem produção ampla.
+- **C4 [NÃO INICIADA]** Produção, implementação de novas interações e validação
+  nativa próprias. Novo currículo não está ativo e não há autorização de release.
 
 ### Onda K — Radiant 1.4: fluxo do usuário e robustez
 

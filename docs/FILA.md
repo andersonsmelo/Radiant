@@ -572,7 +572,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - em 2026-10-24, o plano 3 (aula-bancada) foi feito e revisado, com as
       duas aulas de exemplo, que abrem só em build de desenvolvimento
       ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo
-      **dono** ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e o VoiceOver e o AVD de
+      **dono** ([documento](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e o VoiceOver e o AVD de
       entrada pelo **agente**. As decisões de produto do plano estão na
       [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md). Plano 5 não iniciado; o 4 pode ser
       escrito;
@@ -598,13 +598,15 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       no mesmo SHA (207suítes/2.833testes), Loop15/15; writer e cérebro CLOSED,
       memória da decisão gravada pela CLI. Falta a prova nativa, não nova G1/Q1.
 
-    - **Task17/T15, 01/11/2026:** [inventário T15-v1](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
-      produzido; revisão independente PASS/APPROVED. Caminhos, consumidores e política
-      aprovados pelo dono em **G4, 01/11/2026**, conforme recomendação de `b20943a`
-      e hash da [ADR G4](adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md). T19
-      aguarda contrato G7; validadores/política atuais intactos. Preservar biblioteca,
-      direitos e motores reutilizáveis; separar dados mistos antes da retirada.
-      Sem remoção, migração, alteração do Loop ou avanço T14/T19–T22.
+    - **Conteúdo,02/11/2026:** retirada local implementada e validada15/15,
+      incluindo o exemplo embutido no primeiro uso; motores/biblioteca/UI ficam.
+      Pesquisa e proposta entregues. O onboarding residual foi encontrado depois
+      do início da pesquisa; desvio e correção estão na auditoria.
+      Próxima ação PC03: revisar mapa curricular e recorte do primeiro lote. [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md)
+      e [ADR](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
+      G4 permanece aprovado. T14/G2 das amostras antigas foram superados;
+      gates editoriais do conteúdo novo serão próprios. Sem migração de dados,
+      build, publicação ou aceite nativo inferido.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

@@ -6,8 +6,7 @@ import type {
     PresentationRole,
 } from '../../../types/learningActivity';
 import { validateLearningActivity } from '../../../types/learningActivity';
-import { COLIMACAO } from '../../bench/lessons/colimacao';
-import { EXPOSICAO } from '../../bench/lessons/exposicao';
+
 
 // O serviço legado alcança AsyncStorage por JourneyDefinitionService →
 // LessonCatalogService → TelemetryService. A validação v2 é pura e não depende
@@ -610,14 +609,15 @@ describe('LessonFlowService — contrato legado preservado', () => {
         expect(LessonFlowService.getBlockById('bloco-que-nao-existe')).toBeNull();
     });
 
-    it('resolve atividade nativa somente a partir de lote v2 promovido', () => {
-        const promoted = LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01');
-
-        expect(promoted).toMatchObject({
-            id: 'activity:materia-energia-e-radiacao:01',
-            provenance: { contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13' },
-        });
-        expect(LessonFlowService.getBlockById('activity:materia-energia-e-radiacao:01')).toBeNull();
+    it('resolve atividade nativa a partir de um catálogo promovido sintético', () => {
+        const { ProductionCurriculumCatalog } = require('../../student-checkpoints/ProductionCurriculumCatalog');
+        const { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH: fixture } = require('../../../test/fixtures/syntheticEditorialBatch');
+        const native = fixture.activities[0];
+        const lookup = jest.spyOn(ProductionCurriculumCatalog, 'getActivityById').mockImplementation((id) => id === native.id ? native : null);
+        try {
+            expect(LessonFlowService.getActivityById(native.id)).toBe(native);
+            expect(LessonFlowService.getBlockById(native.id)).toBeNull();
+        } finally { lookup.mockRestore(); }
     });
 });
 
@@ -634,11 +634,11 @@ describe('LessonFlowService — aulas-bancada de exemplo, só em desenvolvimento
         globalWithDev.__DEV__ = original;
     });
 
-    it('em build de desenvolvimento, serve as duas aulas do catálogo de exemplo', () => {
+    it('em build de desenvolvimento, não reintroduz exemplos retirados', () => {
         globalWithDev.__DEV__ = true;
 
-        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBe(EXPOSICAO);
-        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBe(COLIMACAO);
+        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBeNull();
+        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBeNull();
     });
 
     it('fora de __DEV__, não serve as aulas de exemplo: elas não saem do catálogo sem o ok do dono', () => {
@@ -647,7 +647,7 @@ describe('LessonFlowService — aulas-bancada de exemplo, só em desenvolvimento
         expect(LessonFlowService.getActivityById('bancada:exposicao')).toBeNull();
         expect(LessonFlowService.getActivityById('bancada:colimacao')).toBeNull();
         // O catálogo de produção continua respondendo no mesmo build.
-        expect(LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01')).not.toBeNull();
+        expect(LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01')).toBeNull();
     });
 });
 

@@ -1,5 +1,8 @@
 # Contexto e continuidade para outra IA
 
+> Continuidade em 02/11/2026: a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) supera qualquer instrução abaixo de restaurar amostras, V3 ou aguardar G7 para a retirada local. Todas as aulas saem; motores/biblioteca/UI/dados pessoais ficam. Público: graduação tecnológica, depois especializações. Seguir o [plano único](../plans/2026-11-02-planejamento-conteudo-radiant.md).
+
+
 > **Histórico, não usar.** Substituído em 2026-10-18 pelo
 > [prompt de continuidade (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
 > Desde essa data o Claude planeja e executa, e Codex e Argon estão em pausa

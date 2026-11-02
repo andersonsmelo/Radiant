@@ -1,7 +1,7 @@
 // Nota: `defaultTrack.ts` exporta `DEFAULT_JOURNEY_TRACK_DEFINITION`, não
 // `defaultTrack` — o brief da task usava um nome de import que não existe no
 // arquivo real. Reaproveitamos o alias para manter os testes legíveis.
-import { DEFAULT_JOURNEY_TRACK_DEFINITION as defaultTrack } from '../../../data/journey/defaultTrack';
+import { DEFAULT_JOURNEY_TRACK_DEFINITION as defaultTrack } from '../../../test/fixtures/syntheticLessons';
 import type { DueCompetency } from '../../../types/competencyReview';
 import type { JourneyProgress, JourneyTrackDefinition } from '../../../types/journey';
 import { JourneyRecommendationService } from './JourneyRecommendationService';

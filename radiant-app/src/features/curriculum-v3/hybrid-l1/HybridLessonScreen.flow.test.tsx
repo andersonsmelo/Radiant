@@ -2,13 +2,15 @@ import React from 'react';
 import { fireEvent, screen, within } from '@testing-library/react-native';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { HybridLessonScreen } from './HybridLessonScreen';
-import { buildL1HybridPlan } from './l1HybridLessonPlan';
+import { buildSyntheticHybridPlan, syntheticVariant } from '../../../test/fixtures/syntheticSpatialLessons';
 import type { HybridItem } from './hybridItem.types';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({ useReducedMotionPreference: () => true, useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: true, resolved: true }) }));
+
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
-const plan = buildL1HybridPlan();
+const plan = buildSyntheticHybridPlan();
 const FULL: HeartsSnapshot = { count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null };
 
 function makeDeps(spendResult: HeartsSnapshot = { count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null }) {
@@ -37,17 +39,27 @@ function currentItem(): HybridItem {
 }
 
 function renderScreen(deps: ReturnType<typeof makeDeps>) {
-  renderWithProviders(<HybridLessonScreen plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+  renderWithProviders(<HybridLessonScreen variantOf={syntheticVariant} plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
 }
 
 beforeAll(() => {
   // Estreia da árvore fora da janela do findBy (lição de 2026-09-23).
   const warm = makeDeps();
-  const { unmount } = renderWithProviders(<HybridLessonScreen plan={plan} hearts={warm.hearts} feedback={warm.feedback} metrics={warm.metrics} onExit={warm.onExit} />);
+  const { unmount } = renderWithProviders(<HybridLessonScreen variantOf={syntheticVariant} plan={plan} hearts={warm.hearts} feedback={warm.feedback} metrics={warm.metrics} onExit={warm.onExit} />);
   unmount();
 });
 
 describe('lição híbrida na tela', () => {
+  it('requires an explicit plan and variant factory without touching hearts or metrics', () => {
+    const deps = makeDeps();
+    renderWithProviders(<HybridLessonScreen hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+    expect(screen.getByText('Conteúdo em preparação')).toBeTruthy();
+    expect(screen.queryByText('Começar')).toBeNull();
+    expect(deps.hearts.getSnapshot).not.toHaveBeenCalled();
+    expect(deps.hearts.spend).not.toHaveBeenCalled();
+    expect(deps.metrics.append).not.toHaveBeenCalled();
+  });
+
   it('percorre a lição acertando tudo e mostra o resumo', async () => {
     const deps = makeDeps();
     renderScreen(deps);
@@ -99,12 +111,9 @@ describe('lição híbrida na tela', () => {
   });
 
   it('a descrição da opção fica só no rótulo acessível: o texto visível não entrega a resposta', () => {
-    // h03 é escolha de relação: "qual marcador está mais próximo da cabeça?".
-    // Mostrar "Marcador junto à extremidade da cabeça" no botão respondia pelo
-    // aluno — revisão local de 2026-09-23.
     const deps = makeDeps();
     const choiceItem = plan[2];
-    renderWithProviders(<HybridLessonScreen plan={plan.slice(2)} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+    renderWithProviders(<HybridLessonScreen variantOf={syntheticVariant} plan={plan.slice(2)} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
     fireEvent.press(screen.getByText('Começar'));
     expect(choiceItem.format).toBe('choice');
     for (const option of choiceItem.options) {
@@ -169,7 +178,7 @@ describe('lição híbrida na tela', () => {
 
   it('sair no meio grava o abandono e o item em que parou', async () => {
     const deps = makeDeps();
-    const { unmount } = renderWithProviders(<HybridLessonScreen plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+    const { unmount } = renderWithProviders(<HybridLessonScreen variantOf={syntheticVariant} plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
     fireEvent.press(screen.getByText('Começar'));
     unmount();
     expect(deps.metrics.append).toHaveBeenCalledWith(expect.objectContaining({ outcome: 'abandoned', abandonedAtItemId: plan[0].id }));

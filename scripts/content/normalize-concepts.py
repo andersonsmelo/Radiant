@@ -13,154 +13,6 @@ NORMALIZER_VERSION = "deterministic-page-cluster-v1"
 TAXONOMY_VERSION = "mvp-2026-04-04"
 
 
-CONCEPT_SPECS: list[dict[str, object]] = [
-    {
-        "title": "Profissão e atuação do técnico em radiologia",
-        "slug": "profissao-e-atuacao-do-tecnico-em-radiologia",
-        "pageRanges": [(1, 3)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Consolida os trechos introdutórios sobre o papel do técnico em radiologia, sua rotina de trabalho e sua atuação no fluxo de diagnóstico por imagem.",
-    },
-    {
-        "title": "Energia e matéria",
-        "slug": "energia-e-materia",
-        "pageRanges": [(4, 7)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Agrupa a base conceitual sobre energia, matéria e conversão de energia que prepara o leitor para compreender os fenômenos físicos da radiologia.",
-    },
-    {
-        "title": "Estrutura da matéria e núcleo atômico",
-        "slug": "estrutura-da-materia-e-nucleo-atomico",
-        "pageRanges": [(8, 11)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Consolida a explicação sobre átomo, núcleo, prótons, nêutrons, isótopos e fissão nuclear como fundamento da física aplicada ao livro.",
-    },
-    {
-        "title": "Radioatividade, partículas e atividade",
-        "slug": "radioatividade-particulas-e-atividade",
-        "pageRanges": [(12, 16)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Reúne os trechos sobre descoberta da radioatividade, emissão de radiações, partículas associadas e efeitos biológicos da atividade nuclear.",
-    },
-    {
-        "title": "Raios X: descoberta e propriedades",
-        "slug": "raios-x-descoberta-e-propriedades",
-        "pageRanges": [(17, 20)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Agrupa a origem histórica dos raios X, suas propriedades básicas e a relação entre radiação e produção de imagem diagnóstica.",
-    },
-    {
-        "title": "Interação das radiações e proteção radiológica",
-        "slug": "interacao-das-radiacoes-e-protecao-radiologica",
-        "pageRanges": [(21, 25), (57, 59)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Consolida os trechos sobre interação da radiação com matéria, dose, exposição ocupacional, proteção e blindagem radiológica.",
-    },
-    {
-        "title": "Aplicações radioisotópicas e medicina nuclear",
-        "slug": "aplicacoes-radioisotopicas-e-medicina-nuclear",
-        "pageRanges": [(26, 32), (39, 40)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Agrupa as aplicações dos radioisótopos em diagnóstico, terapia, indústria e estudos funcionais, com destaque para medicina nuclear.",
-    },
-    {
-        "title": "Tomografia computadorizada",
-        "slug": "tomografia-computadorizada",
-        "pageRanges": [(33, 34)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Consolida os trechos sobre aquisição de projeções, reconstrução e funcionamento básico da tomografia computadorizada.",
-    },
-    {
-        "title": "Ressonância magnética",
-        "slug": "ressonancia-magnetica",
-        "pageRanges": [(35, 38)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Reúne a base física da ressonância magnética, o comportamento dos prótons e a leitura do sinal em campo magnético.",
-    },
-    {
-        "title": "Preservação de alimentos por irradiação",
-        "slug": "preservacao-de-alimentos-por-irradicao",
-        "pageRanges": [(41, 42)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Agrupa o uso da radiação na conservação e tratamento de alimentos, com foco em finalidade, aplicação e efeito tecnológico.",
-    },
-    {
-        "title": "Equipamentos de radiologia convencional",
-        "slug": "equipamentos-de-radiologia-convencional",
-        "pageRanges": [(43, 46)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Consolida os trechos sobre equipamento fixo, equipamento móvel e a operação básica dos sistemas de radiologia convencional.",
-    },
-    {
-        "title": "Componentes básicos do equipamento",
-        "slug": "componentes-basicos-do-equipamento",
-        "pageRanges": [(47, 49)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Agrupa os elementos estruturais do equipamento radiológico, como cabeçote, colimação, feixe, mesa e estativa.",
-    },
-    {
-        "title": "Acessórios radiológicos",
-        "slug": "acessorios-radiologicos",
-        "pageRanges": [(50, 55), (60, 60)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Reúne os acessórios e suportes radiológicos usados para posicionamento, contenção, proteção e apoio operacional do exame.",
-    },
-    {
-        "title": "Processamento radiográfico",
-        "slug": "processamento-radiografico",
-        "pageRanges": [(56, 56), (61, 61), (66, 69)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Consolida os trechos sobre processamento, revelação, fixação e formação/armazenamento da imagem radiográfica.",
-    },
-    {
-        "title": "Produção dos raios X",
-        "slug": "producao-dos-raios-x",
-        "pageRanges": [(62, 65)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-formacao-imagem",
-        "starId": "star-artefatos-basicos",
-        "definition": "Agrupa a explicação sobre como o tubo e seus componentes produzem raios X a partir da aceleração e da interação de elétrons.",
-    },
-    {
-        "title": "Qualidade de imagem",
-        "slug": "qualidade-de-imagem",
-        "pageRanges": [(70, 75)],
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-radiopacidade",
-        "starId": "star-dose-radiacao",
-        "definition": "Reúne os critérios técnicos de qualidade da imagem radiográfica, incluindo contraste, densidade, distorção e velamento.",
-    },
-]
-
-
 def slugify(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
     normalized = normalized.lower()
@@ -215,7 +67,9 @@ def select_records_by_pages(records: list[dict], page_ranges: list[tuple[int, in
     return selected
 
 
-def normalize_concepts(source_slug: str, repo_root: Path, output_dir: Path, update_index: bool = True) -> dict:
+def normalize_concepts(source_slug: str, repo_root: Path, output_dir: Path, update_index: bool = True, concept_specs: list[dict] | None = None) -> dict:
+    if not concept_specs:
+        raise ValueError("Explicit non-empty concept specifications are required")
     content_root = repo_root / CONTENT_ROOT_NAME
     source_index = read_json(content_root / "fontes" / "index.json")
     classification_index = read_json(content_root / "classificação" / "index.json")
@@ -239,7 +93,7 @@ def normalize_concepts(source_slug: str, repo_root: Path, output_dir: Path, upda
     concept_source_excerpt_ids: list[str] = []
     review_queue: list[str] = []
 
-    for spec in CONCEPT_SPECS:
+    for spec in concept_specs:
         page_ranges = spec["pageRanges"]  # type: ignore[assignment]
         selected_excerpts = select_records_by_pages(excerpts, page_ranges)
         selected_classifications = [classification_by_excerpt_id[item["id"]] for item in selected_excerpts if item["id"] in classification_by_excerpt_id]
@@ -379,6 +233,7 @@ def normalize_concepts(source_slug: str, repo_root: Path, output_dir: Path, upda
 def main() -> None:
     parser = argparse.ArgumentParser(description="Normalize classified excerpts into canonical concepts.")
     parser.add_argument("--source-slug", required=True)
+    parser.add_argument("--concept-specs", required=True, help="JSON array of approved concept specifications")
     parser.add_argument("--repo-root", default=str(Path(__file__).resolve().parents[2]))
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--no-update-index", action="store_true")
@@ -392,6 +247,7 @@ def main() -> None:
         repo_root,
         output_dir,
         update_index=not args.no_update_index,
+        concept_specs=read_json(Path(args.concept_specs)),
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

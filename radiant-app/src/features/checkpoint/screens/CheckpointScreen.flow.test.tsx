@@ -10,7 +10,7 @@ import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../../test/fixtures/syntheticEditorialBatch';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
@@ -22,6 +22,8 @@ import * as shadowHook from '../../student-checkpoints/useShadowCheckpoint';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { medalColors } from '../../../ui/theme';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;

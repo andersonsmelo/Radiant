@@ -129,34 +129,17 @@ Quando documentos divergirem, use esta ordem:
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
   — execução da frente de lançamento
 
-### Currículo V3 — direção editorial vigente
+### Planejamento de conteúdo — reinício de 02/11/2026
 
-- estado e pendências: [`STATUS.md`](STATUS.md) e Onda J do
-  [roadmap ativo](plans/2026-07-27-radiant-launch-roadmap.md);
-- decisão: [ADR do currículo contínuo](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md);
-- contrato aprovado e desenho do Arco 1:
-  [spec V3](superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md);
-- fundação técnica entregue:
-  [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
-- **formato de lição vigente (2026-09-23):** lição híbrida, com piloto na L1 —
-  [spec do piloto](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)
-  e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
-  com o [plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md)
-  e o [prompt para o agente em nuvem](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md);
-  na `main` desde 2026-09-23 (PR #24), com
-  [relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
-  visto no simulador e corrigido em 2026-09-24 (PR #27). O boneco do mapa é
-  ilustração de piloto (decisão do dono, 2026-09-24).
-  A v7 da L2 está pausada até o resultado do piloto;
-- roteiro anterior de produção: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
-  sem repetir a fundação nem ativar o V3 antecipadamente;
-- inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md);
-- **auditoria independente da L2**, em três pareceres consecutivos — leia-os em
-  ordem antes de tocar na lição, porque o padrão deles é o dado mais útil:
-  [v3](content/2026-09-22-l2-parecer-v3.md) (a prosa descrevia correções que o
-  código não fazia), [v4](content/2026-09-22-l2-parecer-v4.md) (os críticos
-  estavam corrigidos; reprovou pelos defeitos que a correção criou) e
-  [v5](content/2026-09-22-l2-parecer-v5.md) (idem, terceira vez).
+- entrada curricular única: [Planejamento de conteúdo](plans/2026-11-02-planejamento-conteudo-radiant.md);
+- fontes, ementas e benchmarks: [pesquisa de apoio](research/2026-11-02-pesquisa-conteudo-radiant.md);
+- decisão de escopo: [ADR do reinício](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md);
+- prova da retirada: [auditoria](evidence/2026-11-02-retirada-conteudo-radiant.md);
+- contrato técnico preservado: [pipeline editorial](CONTENT_PIPELINE.md).
+
+A spec curricular V3, fichas L1/L2, runbook do Arco 1, atlas e amostras anteriores
+foram retirados. Relatórios e ADRs antigos registram história; não são a sequência
+vigente. Os motores dos protótipos permanecem reutilizáveis, sem suas aulas.
 
 A engenharia educacional abaixo permanece referência de contratos existentes;
 não é autorização para reaproveitar automaticamente conteúdo ou domínio do

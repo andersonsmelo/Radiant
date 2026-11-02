@@ -14,10 +14,12 @@ import { LessonOutcomeService } from './LessonOutcomeService';
 import { OnboardingService } from '../../onboarding/OnboardingService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../student-checkpoints/production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../../test/fixtures/syntheticEditorialBatch';
 import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
 import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 

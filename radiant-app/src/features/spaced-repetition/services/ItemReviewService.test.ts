@@ -2,7 +2,9 @@ import { ItemReviewCoordinator, canonicalStudyItemId, type ItemDefinition, type 
 import { ItemReviewRepository } from '../repositories/ItemReviewRepository';
 import { itemAttemptEvidence, itemReviewTiming } from '../../../types/itemReview';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
-import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE } from '../../student-checkpoints/EditorialCurriculumCandidate';
+import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE } from '../../../test/fixtures/syntheticEditorialBatch';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 function setup(count = 2) {
     const data = new Map<string, string>();

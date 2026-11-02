@@ -1,5 +1,5 @@
 import { auditCurriculumCoverage, type ActivityOccurrence } from './ProductionCurriculumCoverage';
-import { PRODUCTION_BATCHES } from './production-batches';
+import { PRODUCTION_BATCHES } from '../../test/fixtures/syntheticEditorialBatch';
 import type { ProductionBatchV1 } from './ProductionBatch';
 
 const batch = PRODUCTION_BATCHES[0];

@@ -15,6 +15,8 @@ import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from './JourneyProgressService';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Este arquivo é o contraponto dos testes de tela: aqui o
 // `JourneyProgressService` é REAL. Os testes de fluxo de cada tela mockam o

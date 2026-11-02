@@ -1,4 +1,5 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readCurriculumState, validateRetiredContent } from './curriculum-state.mjs';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -50,6 +51,11 @@ export function loadLesson(caminho) {
 }
 
 export function main(root = process.cwd()) {
+  if (readCurriculumState(root)) {
+    const retirement = validateRetiredContent(root);
+    process.stdout.write(JSON.stringify({ ...retirement, anchoring: 'no-lessons-to-validate' }) + '\n');
+    return 0;
+  }
   const pastaDeAulas = path.join(root, 'content-manifest', 'lessons');
   const manifesto = loadManifest(path.join(root, 'content-manifest', 'excerpts', 'manifest.jsonl'));
 

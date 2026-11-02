@@ -1,5 +1,8 @@
 # Lição híbrida — piloto na L1 do Arco 1
 
+> Spec histórica de arquitetura e interação. O conteúdo do piloto foi retirado; sua aprovação não autoriza conteúdo novo. A sequência pertence ao [planejamento de 02/11](../../plans/2026-11-02-planejamento-conteudo-radiant.md). Preservar o motor híbrido por injeção de definições.
+
+
 **Data:** 2026-09-23
 **Estado:** desenho aprovado pelo dono em conversa; **implementado localmente em
 2026-09-23, sem build de distribuição**, no branch `feat/licao-hibrida-piloto`
@@ -7,7 +10,7 @@
 **Decisor:** Anderson Melo
 **ADR:** [`ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md`](../../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)
 **Altera:** o contrato de lição da
-[spec V3](2026-08-27-radiant-curriculum-v3-design.md) (§5, §5.2, §6 e §7), a
+[spec V3](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md) (§5, §5.2, §6 e §7), a
 partir das lições no formato híbrido.
 
 ## 1. Por que existe

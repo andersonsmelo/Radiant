@@ -11,7 +11,7 @@ export function WelcomeSlide() {
     return (
         <View style={[styles.introduction, largeText && styles.stacked]}>
             <PixelIllustration state="happy" size="sm" accessibilityLabel="Pixel acenando" />
-            <Text style={[styles.greeting, largeText && styles.naturalText]}>Oi, eu sou o Pixel. Vamos tirar sua primeira radiografia.</Text>
+            <Text style={[styles.greeting, largeText && styles.naturalText]}>Oi, eu sou o Pixel. Vamos conhecer o Radiant.</Text>
         </View>
     );
 }

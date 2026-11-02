@@ -7,8 +7,10 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { OnboardingService } from '../../onboarding/OnboardingService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../../test/fixtures/syntheticEditorialBatch';
 import { itemAttemptEvidence, itemReviewTiming } from '../../../types/itemReview';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 

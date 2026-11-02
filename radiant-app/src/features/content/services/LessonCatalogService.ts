@@ -1,3 +1,4 @@
+import curriculumState from '../../../data/curriculum-state.json';
 import { composeCurriculumCatalog } from './composeCurriculumCatalog';
 import { LESSON_CATALOG } from '../../../data/catalog';
 import { LESSONS } from '../../../data/lessons';
@@ -135,6 +136,7 @@ class LessonCatalogServiceImpl {
     private refreshPromise: Promise<LessonCatalogManifest> | null = null;
 
     async bootstrap(): Promise<LessonCatalogManifest> {
+        if (curriculumState.state === 'retired') return this.refresh();
         if (this.refreshPromise) {
             return this.refreshPromise;
         }
@@ -150,6 +152,11 @@ class LessonCatalogServiceImpl {
     }
 
     async refresh(): Promise<LessonCatalogManifest> {
+        if (curriculumState.state === 'retired') {
+            this.manifest = createLocalManifest();
+            this.lessonsById = new Map(LOCAL_LESSONS_BY_ID);
+            return this.manifest;
+        }
         void TelemetryService.track('catalog_refresh', { source: this.getCatalogSource() });
         const remote = await RemoteCatalogService.fetchManifest(this.manifest);
         const sanitizedRemote = remote ? sanitizeRemoteManifest(remote, this.manifest) : null;

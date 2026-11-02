@@ -1,6 +1,6 @@
 import { AssessmentAttemptRepository } from './AssessmentAttemptRepository';
 import { MemoryKeyValueStorage } from './storage';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as batch } from './production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as batch } from '../../test/fixtures/syntheticEditorialBatch';
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { ItemReviewRepository } from '../spaced-repetition/repositories/ItemReviewRepository';
 

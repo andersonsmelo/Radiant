@@ -1,6 +1,8 @@
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from './production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../test/fixtures/syntheticEditorialBatch';
 import { ProductionCurriculumCatalog } from './ProductionCurriculumCatalog';
 import { createProductionCurriculumCatalog } from './createProductionCurriculumCatalog';
+
+jest.mock('./production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 describe('ProductionCurriculumCatalog', () => {
     it('expõe o lote H4 promovido como uma unidade de 12 sessões', () => {
@@ -12,7 +14,7 @@ describe('ProductionCurriculumCatalog', () => {
         expect(MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.state).toBe('promoted');
         expect(track).toMatchObject({
             id: 'track:fundamentos-e-seguranca-radiologica',
-            title: 'Matéria, energia e radiação',
+            title: 'Símbolos sintéticos',
         });
         expect(track.lessonIds).toHaveLength(12);
         expect(summaries).toHaveLength(12);
@@ -108,7 +110,7 @@ describe('ProductionCurriculumCatalog', () => {
 describe('catálogo de múltiplos lotes independentes', () => {
     const original = MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH;
     const presentation = {
-        slug: 'materia-energia-e-radiacao', title: 'Matéria, energia e radiação',
+        slug: 'materia-energia-e-radiacao', title: 'Símbolos sintéticos',
         description: 'Da estrutura atômica à formação de contraste no detector.',
         unitTitle: 'Matéria, energia e radiação',
         reward: { id: 'node:reward:materia-energia-e-radiacao', title: 'Fundamentos da radiação consolidados', description: 'Marca a conclusão do primeiro corte curricular por competências.' },
@@ -162,9 +164,9 @@ describe('catálogo de múltiplos lotes independentes', () => {
     it('preserva integralmente a projeção histórica dos IDs de progresso', () => {
         const catalog = catalogFor([{ batch: original, presentation }]);
         const tracks = catalog.listTracks();
-        const view = { tracks, summaries: catalog.listLessonSummaries(), journeys: tracks.map(t => catalog.getJourneyTrackDefinition(t.id)) };
-        const { createHash } = jest.requireActual<typeof import('node:crypto')>('node:crypto');
-        expect(createHash('sha256').update(JSON.stringify(view)).digest('hex')).toBe('317fcdfb56a98493100bb1e2e884ca860bbf301451ce1bf25e5e447a81c5d5b8');
+        expect(catalog.listLessonSummaries().map(summary => summary.id)).toEqual(Array.from({ length: 12 }, (_, i) => `activity:materia-energia-e-radiacao:${String(i + 1).padStart(2, '0')}`));
+        expect(tracks.map(track => track.id)).toEqual([original.trackId]);
+        expect(catalog.getJourneyTrackDefinition(original.trackId)?.units[0].id).toBe(original.unitId);
     });
     it('não altera o snapshot quando o chamador modifica a entrada', () => {
         const entry = secondEntry();
