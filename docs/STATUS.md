@@ -695,8 +695,14 @@ do onboarding. A pesquisa já havia começado quando esse resíduo foi encontrad
 o desvio da ordem pedida e sua correção estão registrados na auditoria.
 Plano próprio entregue como proposta:84aulas de base+48de aprofundamento, fontes
 com direitos classificados, interação/gamificação e storyboard. Nenhuma aula nova
-ativada ou aprovação docente presumida. Próximo passo PC03: revisão do mapa e
-recorte de seis aulas, sem repetir a autorização de retirar conteúdo.
+ativada ou aprovação docente presumida. Revisão do Claude em 02/11 (proposta 2):
+piloto em fatia vertical de cinco aulas no lugar de M01, Q1–Q6 ligados aos
+renderers do código (`case-decision`, prática principal de 26 aulas, não tem
+renderer), PC04 e PC05 em paralelo, storyboard refeito sobre M02.02. No mesmo dia
+a retirada (`30c95b0`) saiu da branch da PR #66, que voltou a `34147e1`, e passou
+para `claude/conteudo-reinicio-tecnologo`, local e sem PR: ela só entra na `main`
+junto com o primeiro lote aprovado. Próximo passo PC03: as seis decisões da
+seção 0 do plano, sem repetir a autorização de retirar conteúdo.
 [Auditoria da retirada](evidence/2026-11-02-retirada-conteudo-radiant.md).
 Sem alteração do binário distribuído, banco remoto, AsyncStorage, build, instalação,
 EAS/OTA, merge ou loja. As evidências nativas antigas não aprovam o currículo futuro.

@@ -1,79 +1,180 @@
-# Radiant — planejamento próprio de conteúdo
+# Radiant: planejamento próprio de conteúdo
 
-**Versão:** proposta1, 02/11/2026, America/Bahia. **Público decidido por Anderson:**
+**Versão:** proposta 2, 02/11/2026, America/Bahia. **Público decidido por Anderson:**
 graduação tecnológica em Radiologia, seguida de especializações.
 **Situação:** planejamento para revisão; nenhum conteúdo novo ativo.
 A [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md)
 autoriza a retirada das aulas anteriores, inclusive exemplos e protótipos.
 Esta é a **única sequência curricular proposta**. O
 [anexo de pesquisa](../research/2026-11-02-pesquisa-conteudo-radiant.md) guarda
-fontes/ementas/benchmarks; o [pipeline](../CONTENT_PIPELINE.md) guarda contratos
-técnicos/direitos; [STATUS](../STATUS.md) e [FILA](../FILA.md) guardam execução.
+fontes, ementas e benchmarks; o [pipeline](../CONTENT_PIPELINE.md) guarda contratos
+técnicos e direitos; [STATUS](../STATUS.md) e [FILA](../FILA.md) guardam a execução.
+A proposta 1 (Codex, commit `30c95b0`) foi revisada pelo Claude no mesmo dia; a
+[seção 15](#15-o-que-mudou-da-proposta-1) lista as mudanças.
 
-## 1. Resultado pretendido e fronteira
+## 0. Decisões que o PC03 precisa tomar
+
+Nenhuma aula começa a ser escrita antes destas seis respostas:
+
+1. **Quem revisa.** Nomear a revisão técnica de radiologia e a editorial. Os
+   estudantes do piloto vêm depois. Sem esses nomes, PC04 e PC07 não têm dono.
+2. **Primeiro lote.** Aprovar o piloto em fatia vertical da [seção 4](#4-piloto-em-fatia-vertical)
+   (cinco aulas de três módulos) no lugar das seis aulas de M01.
+3. **Ordem de navegação.** Aprovar a alternância entre M02 e M03/M04 e uma
+   primeira manipulação na primeira sessão ([seção 5](#5-ordem-dependências-e-navegação)).
+4. **Nivelamento.** Decidir se quem já é formado entra num ramo por avaliação de
+   nivelamento, sem cursar as 84 aulas do núcleo.
+5. **Quem atualiza do app atual.** Decidir o que vê o aluno cujo progresso aponta
+   para aulas retiradas. A decisão vem antes de qualquer build ([seção 14](#14-release-branch-e-quem-já-usa-o-app)).
+6. **Release conjunto.** Confirmar que a retirada só entra na `main` junto com o
+   primeiro lote aprovado.
+
+## 1. Resultado pretendido, aceite e limites
 
 O aluno deve conseguir explicar a formação de uma imagem, reconhecer estruturas
 e orientação, avaliar critérios técnicos, escolher uma correção justificada e
 reconhecer quando interromper uma ação simulada e pedir apoio. O Radiant apoia a
-formação; não substitui laboratório, estágio, supervisão ou diploma, nem promete
-habilitação, título de especialista ou diagnóstico autônomo.
+formação. Ele não substitui laboratório, estágio, supervisão ou diploma, e não
+promete habilitação, título de especialista ou diagnóstico autônomo.
 
-A proposta contém **84 aulas de núcleo comum em14 módulos**, seguidas de
-**48 aulas de aprofundamento em6 ramos**. São132 posições de planejamento, não132
-aulas escritas. A duração de referência é4–7 min por aula curta; casos integradores
-podem ter8–12 min com pausa/retomada. É hipótese de usabilidade a medir. Não converter
-essas durações em carga horária acadêmica. Revisões e avaliações são atividades
-próprias e não entram na contagem de aulas.
+A proposta tem **84 aulas de núcleo comum em 14 módulos** e **48 aulas de
+aprofundamento em 6 ramos**. São 132 posições de planejamento, e nenhuma está
+escrita. Seis aulas por módulo é a estimativa de partida; o blueprint de cada
+módulo fixa o tamanho final. A duração de referência é de 4 a 7 minutos por aula
+curta, e casos integradores podem ter de 8 a 12 minutos com pausa e retomada. É
+hipótese de usabilidade a medir, e não vira carga horária acadêmica. Revisões e
+avaliações são atividades próprias e não entram na contagem de aulas.
 
-O primeiro lote proposto tem **somente M01, seis aulas**, antes de qualquer
-produção ampla. O restante permanece mapa de cobertura. Não reutilizar textos,
-perguntas, imagens, IDs de conteúdo ou aprovações das amostras aposentadas.
+**Aceite do plano no PC03.** O mapa é aceito quando a revisão técnica confirma a
+ordem e a cobertura, o piloto tem os cinco briefs aprovados, uma aula do piloto
+existe escrita por inteiro (enunciados, alternativas e retorno por erro) e as
+seis decisões da seção 0 estão registradas.
+
+**Sempre:** fonte factual e direito de uso registrados por ativo; resposta
+confirmada antes do retorno; primeira tentativa, ajuda e retomada distinguíveis;
+erro crítico de segurança analisado à parte da média; controles alternativos ao
+gesto; texto equivalente que não entrega o gabarito.
+
+**Perguntar antes:** ampliar a política de licenças do contrato; mudar vidas,
+custo, recarga, compra ou acesso a reforço; adicionar dependência de animação ou
+3D; migrar SDK; recrutar participantes; qualquer build, migração ou publicação.
+
+**Nunca:** reutilizar textos, perguntas, imagens, IDs de conteúdo ou aprovações
+das amostras aposentadas; usar fonte `reference-only` em geração ou publicação;
+contornar licença por tradução, paráfrase automática ou troca de nomes; esconder
+bancada ou imagem dentro de um payload de múltipla escolha para passar na
+validação; registrar paciente ou dado clínico real.
 
 ## 2. De onde virá o conteúdo sem compra de acervo
 
-Acesso gratuito é requisito de aquisição da fonte; permissão de reutilização é
-requisito independente para incorporar texto, figura, áudio ou imagem no app.
-A biblioteca atual permanece preservada, mas sua presença não autoriza geração.
+Acesso gratuito é requisito de aquisição da fonte. Permissão de reutilização é
+requisito independente para incorporar texto, figura, áudio ou imagem no app. A
+biblioteca atual permanece preservada, e sua presença não autoriza geração.
 
 | Necessidade | Caminho recomendado | Restrição que precisa ser resolvida |
 | --- | --- | --- |
-| Anatomia | Virginia Tech Applied Human Anatomy, candidato CC BY; diagramas autorais revisados | Conferir edição/figuras e atribuir; não cobre toda anatomia por imagem. |
-| Exames reais | Pequena seleção de coleções TCIA com licença compatível, começando por investigar LIDC-IDRI; artigos/figuras CC BY/CC0 encontrados via PMC/Open-i | Conferir o ativo e direitos de redistribuição/privacidade; não distribuir o acervo inteiro; faltam candidatos por modalidade. |
-| Ilustrações | NIH BioArt e arquivos selecionados do Commons; desenho autoral de geometria/fluxos | Registrar licença por entrada; preservar exatidão e cumprir créditos/SA quando aplicável. |
-| Física e segurança | Consulta a IAEA e fontes normativas brasileiras; autoria independente revisada, com evidências factual/normativa rastreáveis | Pacotes IAEA são restritos a reutilização não comercial. Não importar slides/texto para o produto nem para geração automática. |
-| Mamografia/RT e atualização | Consulta ao INCA/Iowa e documentos institucionais; buscar ativos com direitos próprios antes de produzir | Materiais consultados têm NC-SA. Não adaptar sua expressão protegida ou seus bancos de exercícios para assinatura. |
-| Ementa | Comparar IFPI, UNIFESP, UTFPR, IFPE e IFBA; especializações da Santa Casa/Senac/Fametro/FACENE/Unichristus/ICESP | Uma ementa ajuda a definir cobertura; não fornece licença para copiar aula nem equivalência acadêmica. |
+| Anatomia | Virginia Tech Applied Human Anatomy, candidato CC BY; diagramas autorais revisados | Conferir edição e figuras e atribuir; não cobre toda a anatomia por imagem. |
+| Exames reais | Pequena seleção de coleções TCIA com licença compatível, começando por investigar LIDC-IDRI; artigos e figuras CC BY/CC0 encontrados via PMC/Open-i | Conferir o ativo e os direitos de redistribuição e privacidade; não distribuir o acervo inteiro; faltam candidatos por modalidade. |
+| Ilustrações | NIH BioArt e arquivos selecionados do Commons; desenho autoral de geometria e fluxos | Registrar licença por entrada; preservar exatidão e cumprir créditos e SA quando aplicável. |
+| Física e segurança | Consulta a IAEA e a fontes normativas brasileiras; autoria independente revisada, com evidências factual e normativa rastreáveis | Pacotes IAEA são restritos a reutilização não comercial. Não importar slides ou texto para o produto nem para geração automática. |
+| Mamografia, RT e atualização | Consulta ao INCA, a Iowa e a documentos institucionais; buscar ativos com direitos próprios antes de produzir | Os materiais consultados têm NC-SA. Não adaptar sua expressão protegida nem seus bancos de exercícios para assinatura. |
+| Ementa | Comparar IFPI, UNIFESP, UTFPR, IFPE e IFBA; especializações da Santa Casa, Senac, Fametro, FACENE, Unichristus e ICESP | A ementa ajuda a definir cobertura; não dá licença para copiar aula nem equivalência acadêmica. |
 
 As licenças e os links verificados estão em F01–F14 do anexo. OpenStax e Oregon
-não estão liberados como acervo comercial: páginas atuais divergem de catálogos
-antigos. `reference-only` continua fora de geração/publicação. Não contornar
-isso por tradução, paráfrase automática ou troca de nomes.
+não estão liberados como acervo comercial, porque as páginas atuais divergem de
+catálogos antigos. `reference-only` continua fora de geração e publicação.
 
-**Rota recomendada:** fatos checados em fontes gratuitas + redação original por
-autor responsável + ativos explicitamente licenciados + revisão técnica/editorial.
-Não há fonte única gratuita encontrada que possa ser copiada integralmente para
-cobrir este produto. Sem compra de conteúdo não significa sem trabalho de autoria,
-tradução autorizada, curadoria ou revisão.
+**Rota recomendada:** fatos checados em fontes gratuitas, redação original por
+autor responsável, ativos explicitamente licenciados e revisão técnica e
+editorial. Nenhuma fonte gratuita encontrada pode ser copiada inteira para cobrir
+este produto. Dispensar a compra de conteúdo não dispensa autoria, tradução
+autorizada, curadoria ou revisão.
 
-**Compatibilidade com a produção atual:** o contrato editorial de lote v1 admite
-CC BY4.0 e múltipla escolha sem mídia. Uma licença comercialmente reutilizável
-como CC BY3.0, condições próprias do BioArt, CC0 ou SA não está automaticamente
-admitida nesse contrato. Exige classificação/revisão e eventual extensão explícita
-antes de promoção. Priorizar candidatos CC BY4.0 e autoria própria no primeiro
-lote; nenhuma política de licença foi ampliada nesta tarefa.
+**Compatibilidade com a produção atual.** O contrato editorial de lote v1 exige
+que toda fonte seja CC BY 4.0 e só admite múltipla escolha sem imagem
+([`EditorialBatchContract.ts`](../../radiant-app/src/features/student-checkpoints/EditorialBatchContract.ts)).
+CC BY 3.0, as condições próprias do BioArt, CC0 e SA não estão admitidas e exigem
+classificação, revisão e extensão explícita antes de promoção. A única coleção de
+imagens reais candidata, LIDC-IDRI, é CC BY 3.0; por isso o piloto usa diagramas
+autorais. Nenhuma política de licença foi ampliada nesta tarefa.
 
-Antes de produzir cada aula, preencher um registro no contrato editorial existente:
-objetivo observável, pré-requisitos, fontes/edição/data, localização da evidência,
-direitos por ativo, erros esperados, rubrica, variantes inéditas, revisão e versão.
-A fonte de uma afirmação e a licença da figura são campos distintos. Ausência de
-licença ou revisão deixa o item bloqueado, sem fallback para conteúdo antigo.
+Antes de produzir cada aula, preencher um registro no contrato editorial
+existente: objetivo observável, pré-requisitos, fontes com edição e data,
+localização da evidência, direitos por ativo, erros esperados, rubrica, variantes
+inéditas, revisão e versão. A fonte de uma afirmação e a licença da figura são
+campos distintos. Sem licença ou revisão, o item fica bloqueado, sem fallback
+para conteúdo antigo.
 
-## 3. Ordem lógica e dependências
+## 3. Atividades e os motores que já existem
 
-A ordem deriva das ementas C01–C15 e é uma escolha pedagógica revisável.
-As bases comuns começam com segurança/cuidado e linguagem espacial, seguem por
-física/formação/qualidade e só então aplicações. A proteção reaparece dentro de
-cada modalidade. Não deixar toda segurança para o fim.
+As seis famílias de prática correspondem a tipos de interação que o app já
+declara em [`learningActivity.ts`](../../radiant-app/src/types/learningActivity.ts).
+Cinco têm renderer registrado em
+[`ActivityRendererRegistry.tsx`](../../radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx);
+a sexta tem só o tipo. Conferido no código em 02/11/2026.
+
+| Código | O aluno faz | Interação | Renderer | Contrato v1 | Aulas do núcleo |
+| --- | --- | --- | --- | --- | --- |
+| Q1 | Escolhe uma decisão e confirma antes do retorno | `multiple-choice` | registrado | aceito, sem imagem | 4 |
+| Q2 | Localiza estrutura ou orientação em imagem sem rótulo da resposta | `hotspot` | registrado | recusado | 13 |
+| Q3 | Compara duas imagens ou diagramas e aponta a diferença relevante | `comparison` | registrado | recusado | 18 |
+| Q4 | Prevê o efeito, ajusta o controle e interpreta a mudança na bancada | `bench` (`parameter-lab` tem tipo, sem renderer) | registrado | recusado | 10 |
+| Q5 | Ordena etapas ou verifica uma lista de segurança | `ordering` | registrado | recusado | 13 |
+| Q6 | Resolve minicaso com decisão, motivo e ação de apoio | `case-decision` | **ausente** | recusado | 26 |
+
+`matching` também tem renderer e não aparece no plano.
+
+Duas consequências mudam a ordem do trabalho. Ampliar o contrato para Q2–Q5 é
+liberar quatro famílias que já renderizam, com schema, proveniência, rubrica,
+acessibilidade e testes próprios de cada uma. Q6 é a prática principal de 31% do
+núcleo e precisa de renderer novo antes de qualquer aula que dependa dela.
+
+| Código | Forma equivalente acessível |
+| --- | --- |
+| Q1 | Botões com estado, nome e ordem; o leitor anuncia seleção e confirmação. |
+| Q2 | Lista estruturada ou região descrita sem fornecer o gabarito; verificar equivalência real. |
+| Q3 | Vistas alternáveis com descrição e foco persistente; sem depender só de cor. |
+| Q4 | Incrementos, botões ou campos; gesto nunca obrigatório; modelo e limitações declarados. |
+| Q5 | Mover para cima e para baixo ou escolher o próximo passo; ordem legível pelo leitor. |
+| Q6 | Sequência de decisões explícitas; sem pontuar raciocínio clínico por palavra-chave livre. |
+
+Q2 e Q3 exigem imagem ou diagrama cientificamente revisado. Quando a
+equivalência em texto entregaria a resposta, a atividade complementar é distinta
+e testada separadamente. Q4 não pode ensinar relação numérica falsa por usar um
+modelo visual simplificado.
+
+## 4. Piloto em fatia vertical
+
+O piloto testa os riscos reais do produto num lote pequeno: o pipeline editorial
+no formato já aceito, uma competência visual com diagrama autoral, a bancada e
+uma sequência de segurança. Seis aulas de M01 não testariam nada disso, porque
+M01 é o módulo menos visual, depende de protocolo de cada instituição e usa Q6
+em três das seis aulas.
+
+| Aula | Prática | O que o piloto testa | O que precisa existir antes |
+| --- | --- | --- | --- |
+| M01.01 — O trabalho do tecnólogo | Q1 | Pipeline editorial completo no contrato v1, sem extensão | Fonte CC BY 4.0 e revisão |
+| M01.02 — Identificação e comunicação | Q5 | Sequência de segurança e leitura da ordem pelo leitor de tela | Extensão do contrato para `ordering` |
+| M02.01 — Posição de referência e vistas | Q2 | Localização em diagrama autoral sem rótulo da resposta | Extensão para `hotspot` com ativo autoral |
+| M02.02 — Lateralidade e marcadores | Q3 | Comparação visual numa competência crítica para segurança | Extensão para `comparison` com ativo autoral |
+| M06.04 — Campo, colimação e espalhamento | Q4 | Bancada com o modelo de colimação já aprovado na [ADR de 24/10](../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md) | Extensão para `bench` |
+
+M06.04 entra fora da ordem do mapa de propósito: o piloto é formativo e mede o
+motor, não a sequência. Q6 fica fora do piloto até o renderer existir. Uma das
+cinco aulas é escrita por inteiro já no PC04 e serve de objeto de aceite do mapa.
+
+**Primeira vitória.** O exercício de kV das boas-vindas era a manipulação que o
+aluno fazia no primeiro uso, e saiu com a retirada. Hoje a primeira sessão de um
+aluno novo é a apresentação sem prática. O piloto deve medir se uma manipulação
+curta na primeira sessão (candidata: um ajuste de bancada autoral) melhora o
+retorno ao app, antes de o PC08 fixar a primeira aula do núcleo.
+
+## 5. Ordem, dependências e navegação
+
+A ordem deriva das ementas C01–C15 e é uma escolha pedagógica revisável. As bases
+comuns começam com segurança e linguagem espacial, seguem por física, formação e
+qualidade e só então chegam às aplicações. A proteção reaparece dentro de cada
+modalidade, em vez de ficar toda no fim.
 
 ```mermaid
 flowchart LR
@@ -103,33 +204,30 @@ flowchart LR
   M14 --> S[Seis aprofundamentos]
 ```
 
-A seta é dependência de conteúdo, não obrigação de cursar todos os ramos em
-fila. Na navegação recomendada M10 aparece antes de M11; TC **não é pré-requisito
-conceitual universal de RM**. Durante o piloto não implementar desbloqueios
-adaptativos extras: primeiro validar o mapa e usar os serviços existentes.
+A seta é dependência de conteúdo, e o aluno não precisa cursar todos os ramos em
+fila. Na navegação recomendada M10 aparece antes de M11, mas TC **não é
+pré-requisito conceitual universal de RM**.
 
-### Linguagem das atividades
+**Navegação proposta.** Seguida em fila, a sequência põe M03 e M04 (12 aulas de
+física e proteção) antes do primeiro contato com formação de imagem, e o primeiro
+posicionamento só chega em M07, depois de 36 aulas. As matrizes C02 e C04 dão
+anatomia e física em paralelo no primeiro semestre. A proposta é a trilha
+alternar aulas de M02 com aulas de M03/M04, para que uma representação de imagem
+apareça já nas primeiras sessões. É hipótese para o PC07 medir.
 
-| Código | O aluno faz | Forma equivalente acessível |
-| --- | --- | --- |
-| Q1 | Escolhe uma decisão e confirma antes do retorno | Botões com estado/nome/ordem; leitor anuncia seleção e confirmação. |
-| Q2 | Localiza estrutura/orientação em imagem sem rótulo da resposta | Lista estruturada ou região descrita sem fornecer o gabarito; verificar equivalência real. |
-| Q3 | Compara duas imagens/diagramas e aponta diferença relevante | Vistas alternáveis com descrição e foco persistente; sem depender só de cor. |
-| Q4 | Prevê efeito, ajusta controle e interpreta mudança na bancada | Incrementos/botões/campos; gesto nunca obrigatório; modelo e limitações declarados. |
-| Q5 | Ordena etapas ou verifica uma lista de segurança | Mover para cima/baixo ou escolher próximo passo; ordem legível pelo leitor. |
-| Q6 | Resolve minicaso com decisão, motivo e ação de apoio | Sequência de decisões explícitas; sem pontuar raciocínio clínico por palavra-chave livre. |
+**Nivelamento para quem já é formado.** O grafo exige M14 antes de qualquer ramo,
+o que obrigaria um tecnólogo formado a refazer o núcleo inteiro para chegar a TC.
+A proposta é uma avaliação de nivelamento na entrada de cada ramo, com casos
+novos dos pré-requisitos daquele ramo. Durante o piloto nada disso é
+implementado: primeiro se valida o mapa com os serviços que já existem.
 
-Q2/Q3 exigem imagem ou diagrama cientificamente revisado. Não substituir a
-competência visual por texto que entrega a resposta: se a equivalência não for
-possível, tratar como atividade complementar distinta e testar separadamente.
-Q4 não deve ensinar relação numérica falsa por usar um modelo visual simplificado.
+## 6. Núcleo comum: sequência de 84 aulas
 
-## 4. Núcleo comum — sequência de84 aulas
-
-As descrições são **briefs**, não enunciados/gabaritos nem protocolos para uso em
-pacientes. Cada módulo usa as fontes curriculares indicadas; os ativos/fontes
-finais de cada afirmação serão selecionados antes da autoria. Identificadores
-Mxx.yy são rótulos deste documento, não IDs persistidos no armazenamento do aluno.
+As descrições são **briefs**, não enunciados, gabaritos ou protocolos para uso em
+pacientes. Cada módulo usa as fontes curriculares indicadas; os ativos e as
+fontes finais de cada afirmação serão selecionados antes da autoria. Os
+identificadores Mxx.yy são rótulos deste documento, não IDs persistidos no
+armazenamento do aluno. As aulas do piloto estão marcadas com ★.
 
 ### M01 — Entrar na profissão e cuidar
 
@@ -137,8 +235,8 @@ Pré-requisitos: entrada. Apoio curricular: C01/C02/C05 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
-| M01.01 — O trabalho do tecnólogo | Distinguir tarefa técnica, decisão clínica e pedido de apoio. | Q1 |
-| M01.02 — Identificação e comunicação | Verificar identidade e explicar uma etapa sem jargão. | Q5 |
+| M01.01 — O trabalho do tecnólogo ★ | Distinguir tarefa técnica, decisão clínica e pedido de apoio. | Q1 |
+| M01.02 — Identificação e comunicação ★ | Verificar identidade e explicar uma etapa sem jargão. | Q5 |
 | M01.03 — Biossegurança no percurso | Reconhecer barreiras e riscos num fluxo simulado. | Q5 |
 | M01.04 — Segurança antes da imagem | Identificar uma condição que pede pausa e conferência. | Q6 |
 | M01.05 — Consentimento, privacidade e acolhimento | Escolher comunicação respeitosa e proteger informação. | Q6 |
@@ -150,8 +248,8 @@ Pré-requisitos: M01. Apoio curricular: C01/C02/C03 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
-| M02.01 — Posição de referência e vistas | Relacionar corpo, observador e vista sem trocar lados. | Q2 |
-| M02.02 — Lateralidade e marcadores | Conferir lado corporal e marcador em representações distintas. | Q3 |
+| M02.01 — Posição de referência e vistas ★ | Relacionar corpo, observador e vista sem trocar lados. | Q2 |
+| M02.02 — Lateralidade e marcadores ★ | Conferir lado corporal e marcador em representações distintas. | Q3 |
 | M02.03 — Planos e cortes | Relacionar plano, corte e orientação em modelo revisado. | Q4 |
 | M02.04 — Estruturas e sistemas | Localizar relações básicas entre estruturas e sistemas. | Q2 |
 | M02.05 — Da anatomia ao exame | Relacionar representação anatômica e região examinada. | Q3 |
@@ -172,7 +270,7 @@ Pré-requisitos: M01; M02 pode correr em paralelo. Apoio curricular: C01/C03 no 
 
 ### M04 — Radiação, interação e proteção
 
-Pré-requisitos: M03 + segurança M01. Apoio curricular: C01/C02/C03; N01/N02 no anexo.
+Pré-requisitos: M03 e a segurança de M01. Apoio curricular: C01/C02/C03; N01/N02 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -198,14 +296,14 @@ Pré-requisitos: M04; M02 para orientação. Apoio curricular: C01/C02/C03 no an
 
 ### M06 — Geometria, técnica e qualidade
 
-Pré-requisitos: M02 + M05. Apoio curricular: C01/C03/C04 no anexo.
+Pré-requisitos: M02 e M05. Apoio curricular: C01/C03/C04 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
 | M06.01 — Fonte, objeto e detector | Relacionar distância e geometria em modelo validado. | Q4 |
 | M06.02 — Projeção e distorção | Comparar alinhamento e representação. | Q3 |
 | M06.03 — Parâmetros de exposição | Prever efeitos qualitativos com limitações do simulador. | Q4 |
-| M06.04 — Campo, colimação e espalhamento | Avaliar região útil e limites do campo em esquema. | Q4 |
+| M06.04 — Campo, colimação e espalhamento ★ | Avaliar região útil e limites do campo em esquema. | Q4 |
 | M06.05 — Movimento, nitidez e repetição | Escolher correção técnica e evitar repetição automática. | Q6 |
 | M06.06 — Imagem tecnicamente adequada | Justificar aceitação ou escalonamento por critérios explícitos. | Q6 |
 
@@ -224,7 +322,7 @@ Pré-requisitos: M06. Apoio curricular: C01/C02/C05 no anexo.
 
 ### M08 — Tórax, abdome e cabeça
 
-Pré-requisitos: M07; conhecimentos básicos de sistemas M02. Apoio curricular: C01/C02/C03 no anexo.
+Pré-requisitos: M07; conhecimentos básicos de sistemas de M02. Apoio curricular: C01/C02/C03 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -237,7 +335,7 @@ Pré-requisitos: M07; conhecimentos básicos de sistemas M02. Apoio curricular: 
 
 ### M09 — Preparo, contraste e cuidado ampliado
 
-Pré-requisitos: M01 + M04; antes de qualquer caso com contraste. Apoio curricular: C02/C07/C11 no anexo.
+Pré-requisitos: M01 e M04; antes de qualquer caso com contraste. Apoio curricular: C02/C07/C11 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -245,12 +343,12 @@ Pré-requisitos: M01 + M04; antes de qualquer caso com contraste. Apoio curricul
 | M09.02 — Para que serve contraste | Distinguir finalidade e responsabilidades sem prescrever. | Q1 |
 | M09.03 — Triagem e comunicação de riscos | Reconhecer informação que exige avaliação da equipe. | Q6 |
 | M09.04 — Antes, durante e depois | Ordenar cuidados segundo protocolo validado. | Q5 |
-| M09.05 — Reconhecer intercorrência e acionar ajuda | Escolher interrupção/comunicação, sem ensinar conduta médica independente. | Q6 |
+| M09.05 — Reconhecer intercorrência e acionar ajuda | Escolher interrupção e comunicação, sem ensinar conduta médica independente. | Q6 |
 | M09.06 — Um atendimento com barreiras | Integrar acessibilidade, identificação e escalonamento. | Q6 |
 
 ### M10 — Anatomia seccional e introdução à TC
 
-Pré-requisitos: M08 + M09 + M05. Apoio curricular: C01/C03/C07 no anexo.
+Pré-requisitos: M08, M09 e M05. Apoio curricular: C01/C03/C07 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -263,7 +361,7 @@ Pré-requisitos: M08 + M09 + M05. Apoio curricular: C01/C03/C07 no anexo.
 
 ### M11 — Fundamentos próprios da RM
 
-Pré-requisitos: M02 + M03 + M09; navegação após M10 é opcional. Apoio curricular: C01/C03/C07 no anexo.
+Pré-requisitos: M02, M03 e M09; a navegação depois de M10 é opcional. Apoio curricular: C01/C03/C07 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -276,7 +374,7 @@ Pré-requisitos: M02 + M03 + M09; navegação após M10 é opcional. Apoio curri
 
 ### M12 — Mamografia e densitometria
 
-Pré-requisitos: M06 + M09; anatomia aplicada M02. Apoio curricular: C02/C05/C08 no anexo.
+Pré-requisitos: M06 e M09; anatomia aplicada de M02. Apoio curricular: C02/C05/C08 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -289,7 +387,9 @@ Pré-requisitos: M06 + M09; anatomia aplicada M02. Apoio curricular: C02/C05/C08
 
 ### M13 — Panorama de MN, RT e intervencionista
 
-Pré-requisitos: M04 + M09 + M10; visão geral antes dos ramos. Apoio curricular: C01/C09/C11/C13 no anexo.
+Pré-requisitos: M04, M09 e M10; visão geral antes dos ramos. Apoio curricular: C01/C09/C11/C13 no anexo.
+Três modalidades em seis aulas é o módulo mais comprimido do núcleo; o blueprint
+deve confirmar se ele cabe nesse tamanho.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -302,7 +402,7 @@ Pré-requisitos: M04 + M09 + M10; visão geral antes dos ramos. Apoio curricular
 
 ### M14 — Qualidade, gestão e integração
 
-Pré-requisitos: M10 + M11 + M12 + M13. Apoio curricular: C01/C02/C03; N01/N02 no anexo.
+Pré-requisitos: M10, M11, M12 e M13. Apoio curricular: C01/C02/C03; N01/N02 no anexo.
 
 | Aula | Brief de competência | Prática principal |
 | --- | --- | --- |
@@ -310,293 +410,311 @@ Pré-requisitos: M10 + M11 + M12 + M13. Apoio curricular: C01/C02/C03; N01/N02 n
 | M14.02 — Informação confiável e privacidade | Conferir registro e tratar inconsistência sem expor dados. | Q6 |
 | M14.03 — Organização, acesso e humanização | Resolver fluxo com restrições e prioridades justificadas. | Q6 |
 | M14.04 — Pesquisa e leitura crítica | Distinguir fonte, evidência, incerteza e afirmação comercial. | Q3 |
-| M14.05 — Qualidade e responsabilidade socioambiental | Identificar destino e registro de materiais segundo serviço. | Q5 |
+| M14.05 — Qualidade e responsabilidade socioambiental | Identificar destino e registro de materiais segundo o serviço. | Q5 |
 | M14.06 — Missão de integração do núcleo | Aplicar critérios em casos novos sem dicas de resposta. | Q6 |
 
-### Cobertura parcial da graduação e decisões para PC03
+### Cobertura parcial da graduação
 
-O núcleo é apoio de estudo, não uma reprodução integral da graduação.
-A comparação das matrizes revelou lacunas que precisam permanecer visíveis:
+O núcleo é apoio de estudo e não reproduz a graduação inteira. A comparação das
+matrizes revelou lacunas que precisam continuar visíveis:
 
-| Domínio | Cobertura proposta | Decisão antes da autoria/promoção |
+| Domínio | Cobertura proposta | Decisão antes da autoria ou promoção |
 | --- | --- | --- |
 | Anatomia espacial e por imagem | M02/M07/M08/M10/M12 | Coberto em briefs; selecionar imagens e conferir amplitude por região. |
-| Biologia celular e fisiologia | Introdução transversal em M02.04/M04.04 e sistemas de M08 | **Parcial.** Blueprint deve explicitar células/tecidos e funções relevantes antes das aplicações; dividir/ampliar aulas se necessário. |
-| Patologia aplicada à aquisição | Casos de M07–M13, sem ensino de diagnóstico autônomo | **Parcial.** Incluir efeitos sobre preparo/posição/qualidade e limites profissionais revisados. |
-| Odontológica | Não tem módulo próprio no núcleo 84 | **Pendente de recorte.** Conferir com docente se entra em bloco adicional de formação de imagem/qualidade; não alegar cobertura completa. |
+| Biologia celular e fisiologia | Introdução transversal em M02.04/M04.04 e nos sistemas de M08 | **Parcial.** O blueprint deve explicitar células, tecidos e funções relevantes antes das aplicações; dividir ou ampliar aulas se necessário. |
+| Patologia aplicada à aquisição | Casos de M07–M13, sem ensino de diagnóstico autônomo | **Parcial.** Incluir efeitos sobre preparo, posição e qualidade e limites profissionais revisados. |
+| Odontológica | Sem módulo próprio no núcleo | **Pendente de recorte.** Conferir com docente se entra num bloco adicional de formação de imagem e qualidade; não alegar cobertura completa. |
 | Ultrassom | Física de ondas em M03; sem percurso próprio | **Pendente.** Planejar visão técnica e limites de atuação antes de incluí-lo como modalidade coberta. |
-| Radiologia industrial | Fora deste primeiro recorte clínico | Registrar como possível expansão; requer ementa, fontes e escopo profissional próprios. |
-| Prática profissional/estágio | Apenas situações educacionais simuladas | Fora da equivalência do app; não substituir prática supervisionada por medalha. |
+| Radiologia industrial | Fora deste primeiro recorte clínico | Possível expansão; requer ementa, fontes e escopo profissional próprios. |
+| Prática profissional e estágio | Apenas situações educacionais simuladas | Fora da equivalência do app; medalha não substitui prática supervisionada. |
 
-A revisão PC03 decide se o recorte é adequado ou se o mapa precisa crescer.
-A contagem84+48 não pode esconder omissões nem justificar promover um módulo
-sem os conhecimentos necessários. Esses pontos são pendências da proposta,
-não competências já entregues ao aluno.
+O PC03 decide se o recorte é adequado ou se o mapa precisa crescer. A contagem
+84+48 não pode esconder omissões nem justificar promover um módulo sem os
+conhecimentos necessários. Esses pontos são pendências da proposta, e não
+competências já entregues ao aluno.
 
-## 5. Aprofundamentos após o núcleo —48 aulas propostas
+## 7. Aprofundamentos depois do núcleo: 48 aulas propostas
 
 São percursos educacionais de aprofundamento, não especializações certificadas.
-O aluno pode escolher um ramo; não precisa percorrer os seis em fila. A base
-comum e uma verificação dos pré-requisitos específicos precedem o ramo.
-As ementas de cursos técnicos, cursos livres e pós-graduações não são equivalentes.
-O INCA2026/C15 não será apresentado como pós para tecnólogo.
+O aluno escolhe um ramo e não precisa percorrer os seis em fila. A base comum,
+ou o nivelamento da seção 5, e uma verificação dos pré-requisitos específicos
+precedem o ramo. Ementas de cursos técnicos, cursos livres e pós-graduações não
+são equivalentes, e o INCA 2026/C15 não será apresentado como pós para tecnólogo.
 
 | Ramo e fontes | Ordem de oito aulas | Prática e avaliação final |
 | --- | --- | --- |
-| **S-TC**, C03/C07 | 01 revisão seccional/segurança →02 instrumentação/aquisição →03 parâmetros, qualidade e indicadores de dose →04 reconstrução/apresentação →05 preparo/contraste →06 organização técnica por região/finalidade →07 artefatos/falhas →08 caso integrador | Q2/Q4/Q3/Q6; comparar série inédita e justificar conferência/correção. Não comprova operação real. |
-| **S-RM**, C03/C07 | 01 física própria →02 equipamento/campos →03 riscos, triagem e barreiras →04 formação/sequências →05 parâmetros, contraste de imagem e tempo →06 posição/bobina/região →07 artefatos →08 caso integrador seguro | Q4/Q5/Q3/Q6; segurança sempre antes de qualquer simulação de entrada. Sem liberação de implante por decisão do app. |
-| **S-MD**, C08 | 01 anatomia/acolhimento →02 equipamento/física/proteção →03 posicionamento mamográfico →04 critérios técnicos →05 tecnologias/complementos →06 fundamentos/instrumentação densitometria →07 posição/qualidade densitometria →08 caso integrado | Q2/Q3/Q6; avaliar cobertura e documentação. Sem emissão autônoma de diagnóstico/classificação de laudo. |
-| **S-MN**, C09/C10 | 01 fundamentos nucleares/radiobiologia →02 percurso de radiofármacos →03 instrumentação/detecção →04 proteção/contaminação/rejeitos →05 preparo/orientação/posição →06 cintilografia/SPECT/qualidade →07 PET-CT/SPECT-CT →08 rastreabilidade do fluxo | Q5/Q3/Q6; localizar falha de processo. Não habilita manipulação/administração real de radiofármacos. |
-| **S-RT**, C13/C14 | 01 paciente/equipe →02 física/radiobiologia/proteção →03 equipamentos/modalidades →04 posição/imobilização →05 simulação/localização/verificação →06 introdução ao planejamento/dosimetria →07 técnicas/controles/desvios →08 verificação e comunicação | Q2/Q5/Q6; reconhecer divergência e escalar. Não comprova planejamento clínico, entrega de tratamento ou formação de dosimetrista. |
-| **S-IR**, C11/C12 | 01 anatomia vascular/seccional →02 imagem/equipamento →03 acessórios/sala →04 biossegurança/proteção →05 preparo/contraste/equipe →06 protocolos/posição/documentação →07 processamento/qualidade/otimização →08 suporte técnico integrado | Q2/Q5/Q6; preparar/verificar cenário simulado. Não ensina execução médica independente de ato invasivo. |
+| **S-TC**, C03/C07 | 01 revisão seccional e segurança → 02 instrumentação e aquisição → 03 parâmetros, qualidade e indicadores de dose → 04 reconstrução e apresentação → 05 preparo e contraste → 06 organização técnica por região e finalidade → 07 artefatos e falhas → 08 caso integrador | Q2/Q4/Q3/Q6; comparar série inédita e justificar conferência ou correção. Não comprova operação real. |
+| **S-RM**, C03/C07 | 01 física própria → 02 equipamento e campos → 03 riscos, triagem e barreiras → 04 formação e sequências → 05 parâmetros, contraste de imagem e tempo → 06 posição, bobina e região → 07 artefatos → 08 caso integrador seguro | Q4/Q5/Q3/Q6; segurança sempre antes de qualquer simulação de entrada. O app não libera implante. |
+| **S-MD**, C08 | 01 anatomia e acolhimento → 02 equipamento, física e proteção → 03 posicionamento mamográfico → 04 critérios técnicos → 05 tecnologias e complementos → 06 fundamentos e instrumentação da densitometria → 07 posição e qualidade na densitometria → 08 caso integrado | Q2/Q3/Q6; avaliar cobertura e documentação. Sem emissão autônoma de diagnóstico ou classificação de laudo. |
+| **S-MN**, C09/C10 | 01 fundamentos nucleares e radiobiologia → 02 percurso de radiofármacos → 03 instrumentação e detecção → 04 proteção, contaminação e rejeitos → 05 preparo, orientação e posição → 06 cintilografia, SPECT e qualidade → 07 PET-CT e SPECT-CT → 08 rastreabilidade do fluxo | Q5/Q3/Q6; localizar falha de processo. Não habilita manipulação ou administração real de radiofármacos. |
+| **S-RT**, C13/C14 | 01 paciente e equipe → 02 física, radiobiologia e proteção → 03 equipamentos e modalidades → 04 posição e imobilização → 05 simulação, localização e verificação → 06 introdução ao planejamento e à dosimetria → 07 técnicas, controles e desvios → 08 verificação e comunicação | Q2/Q5/Q6; reconhecer divergência e escalar. Não comprova planejamento clínico, entrega de tratamento ou formação de dosimetrista. |
+| **S-IR**, C11/C12 | 01 anatomia vascular e seccional → 02 imagem e equipamento → 03 acessórios e sala → 04 biossegurança e proteção → 05 preparo, contraste e equipe → 06 protocolos, posição e documentação → 07 processamento, qualidade e otimização → 08 suporte técnico integrado | Q2/Q5/Q6; preparar e verificar cenário simulado. Não ensina execução médica independente de ato invasivo. |
 
-As posições01–08 de cada ramo serão desdobradas em briefs com a mesma estrutura
-da seção4 depois da revisão do mapa. C06/C09 não expuseram toda ementa detalhada;
-a ordem acima é inferência das fontes combinadas. Quantidade e escopo precisam
-ser calibrados: assuntos densos podem exigir dividir aulas, sem transformar a
-contagem132 em compromisso de lançamento.
+As posições 01–08 de cada ramo serão desdobradas em briefs com a mesma estrutura
+da seção 6 depois da revisão do mapa. C06/C09 não expuseram toda a ementa
+detalhada, e a ordem acima é inferência das fontes combinadas. Assuntos densos
+podem exigir dividir aulas, e a contagem 132 não vira compromisso de lançamento.
 
-## 6. Como a aula chega ao aluno
+## 8. Como a aula chega ao aluno
 
-**Laço recomendado:** lembrar → prever → observar/operar → explicar → aplicar em
-situação diferente → recuperar depois. Isso é estrutura didática, não obrigação
-de repetir a mesma tela seis vezes. As evidências P01/P02 apoiam recuperação e
+**Laço recomendado:** lembrar, prever, observar ou operar, explicar, aplicar em
+situação diferente e recuperar depois. É uma estrutura didática, e nenhuma tela
+precisa se repetir seis vezes. As evidências P01/P02 apoiam recuperação e
 espaçamento; P03 apoia investigar intercalação. Nenhum estudo citado comprova
 esta implementação específica ou habilitação profissional.
 
-| Momento | Experiência | Questão/retorno | Evidência de aprendizagem |
+| Momento | Experiência | Questão e retorno | Evidência de aprendizagem |
 | --- | --- | --- | --- |
-| Entrada | “Hoje você vai conseguir…” em uma frase, situação concreta, duração estimada | Recuperar um pré-requisito; se faltar, oferecer reforço curto | Diagnóstico inicial separado da nota final. |
-| Previsão | Pergunta ou comparação antes de mover o controle | Comprometer escolha e confirmar; sem gabarito em rótulo/acessibilidade/arte | Primeira resposta preservada. |
-| Exploração guiada | Bancada, corte, sequência ou caso em passos | Um objetivo por interação; pista localizada, desfazer/repetir | Eventos de ajuda separados de resposta independente. |
-| Explicação | Resultado ligado à decisão e fonte disponível | “Você mudou X; observe Y” e limite do modelo; alternativa errada tem motivo próprio | Não aceitar mero toque em “entendi” como domínio. |
-| Transferência | Nova imagem, novo contexto ou parâmetro | Mesma competência em variante diferente, sem copiar a anterior | Acerto independente + justificativa estruturada. |
-| Saída | Resumo de competência, próxima ação e revisão futura | “O que você consegue fazer agora” e uma recuperação final | Conclusão da sessão distinta de domínio consolidado. |
-| Retorno | Fila com itens devidos e variedade de modalidades | Responder antes de revelar; ajuda continua disponível | Retenção atrasada e reaplicação. |
+| Entrada | "Hoje você vai conseguir…" em uma frase, situação concreta e duração estimada | Recuperar um pré-requisito; se faltar, oferecer reforço curto | Diagnóstico inicial separado da nota final. |
+| Previsão | Pergunta ou comparação antes de mover o controle | Comprometer a escolha e confirmar; sem gabarito em rótulo, acessibilidade ou arte | Primeira resposta preservada. |
+| Exploração guiada | Bancada, corte, sequência ou caso em passos | Um objetivo por interação; pista localizada, desfazer e repetir | Eventos de ajuda separados da resposta independente. |
+| Explicação | Resultado ligado à decisão e fonte disponível | "Você mudou X; observe Y" e o limite do modelo; cada alternativa errada tem motivo próprio | Tocar em "entendi" não conta como domínio. |
+| Transferência | Nova imagem, novo contexto ou novo parâmetro | Mesma competência em variante diferente, sem copiar a anterior | Acerto independente com justificativa estruturada. |
+| Saída | Resumo de competência, próxima ação e revisão futura | "O que você consegue fazer agora" e uma recuperação final | Concluir a sessão é diferente de consolidar domínio. |
+| Retorno | Fila com itens devidos e variedade de modalidades | Responder antes de revelar; a ajuda continua disponível | Retenção atrasada e reaplicação. |
 
-### Ordem de questões dentro e entre aulas
+### Ordem das questões dentro e entre aulas
 
-Para uma aula introdutória, propor **4–6 decisões**, mais exploração
-livre orientada. Diagnóstico, previsão e assistência não se tornam evidência de
-domínio por estarem na sessão; pontuação/XP dependem do papel de cada atividade
-e dos contratos vigentes. Uma sequência candidata:1 pré-requisito →1 previsão →1 comparação
-com ajuda opcional →1 aplicação sem ajuda →1 transferência →recuperação final se
-necessária. Não inflar a sessão com duas questões que medem a mesma pista.
+Uma aula introdutória tem de 4 a 6 decisões, mais exploração livre orientada.
+Diagnóstico, previsão e assistência não viram evidência de domínio por estarem na
+sessão; pontuação e XP dependem do papel de cada atividade e dos contratos
+vigentes. Uma sequência candidata: um pré-requisito, uma previsão, uma comparação
+com ajuda opcional, uma aplicação sem ajuda, uma transferência e a recuperação
+final se necessária. Duas questões que medem a mesma pista inflam a sessão sem
+medir nada novo.
 
-Após duas aulas, inserir prática intercalada de competências já introduzidas.
-Ao fechar o módulo, propor avaliação curta com casos novos: relações/identificação,
-decisão técnica e segurança, sem sequência previsível de respostas. O número e o
-peso de cada domínio dependem do blueprint, não de copiar distribuição de prova
-médica. Questões críticas de segurança são analisadas separadamente; uma média de
-acertos não deve esconder uma decisão insegura.
+Depois de duas aulas entra a prática intercalada das competências já
+introduzidas. No fim do módulo, uma avaliação curta com casos novos cobre
+relações e identificação, decisão técnica e segurança, sem sequência previsível
+de respostas. O número e o peso de cada domínio vêm do blueprint, não da
+distribuição de prova médica. Questões críticas de segurança são analisadas
+separadamente, porque uma média de acertos esconde uma decisão insegura.
 
-Recuperação após erro: retorno específico →exemplo orientado diferente →nova
-questão independente em outro contexto. Repetir o mesmo item depois de mostrar
-a resposta não comprova recuperação. A primeira tentativa, ajuda e retomada
-precisam permanecer distinguíveis nos contratos já existentes.
+A recuperação depois do erro segue retorno específico, exemplo orientado
+diferente e nova questão independente em outro contexto. Repetir o mesmo item
+depois de mostrar a resposta não comprova recuperação. Primeira tentativa, ajuda
+e retomada continuam distinguíveis nos contratos que já existem.
 
-A agenda existente é o ponto de partida. Intervalos e critérios de domínio serão
-calibrados com dados de retenção; não fixar um algoritmo novo porque um concorrente
-usa determinada mecânica. Proposta de aceite educacional do piloto: evidência de
-recuperação sem ajuda em variante e em retorno posterior. Limiar estatístico e
-peso dos erros serão definidos com docente antes de virar bloqueio para o aluno.
+A agenda de revisão existente é o ponto de partida. Intervalos e critérios de
+domínio serão calibrados com dados de retenção, sem copiar o algoritmo de um
+concorrente. Aceite educacional proposto para o piloto: recuperação sem ajuda em
+variante e em retorno posterior. Limiar estatístico e peso dos erros são
+definidos com o docente antes de virar bloqueio para o aluno.
 
 ### Variação com propósito
 
-- **Laboratório de previsão:** manipular um fator, comparar antes/depois e explicar
-  o efeito. Sem pontuação por arrastar muito ou decorar uma posição de slider.
+- **Laboratório de previsão:** manipular um fator, comparar antes e depois e
+  explicar o efeito. Arrastar muito ou decorar a posição de um slider não pontua.
 - **Detetive da qualidade:** escolher qual imagem merece conferência e indicar a
-  pista técnica; variar região, contexto e direção do defeito.
-- **Navegação espacial:** alternar corpo/corte/imagem e voltar a uma vista estável;
-  remover gradualmente as pistas, com controles alternativos equivalentes.
-- **Percurso seguro:** ordenar verificações e decidir quando parar/chamar a equipe.
-  Erro explica a barreira; não dramatizar dano real como diversão.
-- **Caso em capítulos:** contexto →decisão →consequência técnica →nova informação;
-  pausa/retomada em ponto seguro e sem duplicar XP/vidas.
-- **Duelo de explicações:** selecionar motivo mais adequado entre alternativas
-  plausíveis; evita que toda atividade seja reconhecimento por quatro botões.
-- **Missão de revisão:** misturar competências devidas em2–4 min, com resposta
-  antes da revelação. A revisão conserva sua identidade visual sem Pixel, conforme
-  decisões Medalhão existentes; não importar mascote para essa tela por hábito.
+  pista técnica, variando região, contexto e direção do defeito.
+- **Navegação espacial:** alternar corpo, corte e imagem e voltar a uma vista
+  estável, retirando as pistas aos poucos, com controles alternativos equivalentes.
+- **Percurso seguro:** ordenar verificações e decidir quando parar e chamar a
+  equipe. O erro explica a barreira, e dano real nunca vira diversão.
+- **Caso em capítulos:** contexto, decisão, consequência técnica e nova
+  informação, com pausa e retomada em ponto seguro e sem duplicar XP ou vidas.
+  Depende do renderer de `case-decision`.
+- **Duelo de explicações:** escolher o motivo mais adequado entre alternativas
+  plausíveis, para que nem toda atividade seja reconhecimento em quatro botões.
+- **Missão de revisão:** misturar competências devidas em 2 a 4 minutos, com
+  resposta antes da revelação. A revisão mantém sua identidade visual sem Pixel,
+  como nas decisões Medalhão existentes.
 
-## 7. Gamificação forte ligada a competência
+## 9. Gamificação ligada a competência
 
-A força vem de retorno frequente e significado, não de adicionar moedas sem fim.
-Manter Medalhão, Pixel, estrelas, XP, metas e serviços existentes. Novas regras
-abaixo são propostas para revisão, não alterações da economia entregue.
+A força vem de retorno frequente e com significado, e não de moedas sem fim.
+Medalhão, Pixel, estrelas, XP, metas e os serviços existentes ficam. As regras
+abaixo são propostas para revisão e não alteram a economia entregue.
 
 | Escala | Mecânica proposta | O que incentiva | Como evitar uma falsa vitória |
 | --- | --- | --- | --- |
-| Cada decisão | Retorno visual preciso + pista de progresso | Entender consequência e tentar outra estratégia | Sem recompensa extra por chutar rapidamente; gabarito após confirmação. |
-| Aula | Cunhagem do medalhão e estrelas ligadas à evidência registrada | Concluir e recuperar competência | Distinguir conclusão, ajuda e retenção; repetição não cria novos efeitos financeiros/XP. |
-| Módulo | Missão de integração com cenário novo | Transferir o que aprendeu | Só contar competência aprovada por rubrica, sem converter XP em diagnóstico de domínio. |
-| Semana | Meta escolhida, distribuição de prática, revisão e retorno | Constância possível entre aula/plantão | Recuperar rotina sem linguagem de culpa; métrica de quantidade não apaga erros de segurança. |
-| Percurso | Coleção de medalhas com significado explícito | Ver evolução de habilidades | Texto explica a evidência; selo educacional não diz “profissional habilitado”. |
-| Exploração opcional | Desafios de variação e colecionáveis cosméticos aprovados | Curiosidade e escolha | Não exigir compra, publicidade ou competição para acessar orientação de segurança. |
+| Cada decisão | Retorno visual preciso e pista de progresso | Entender a consequência e tentar outra estratégia | Sem recompensa extra por chutar rápido; gabarito só depois da confirmação. |
+| Aula | Cunhagem do medalhão e estrelas ligadas à evidência registrada | Concluir e recuperar a competência | Distinguir conclusão, ajuda e retenção; repetir não gera novos efeitos financeiros ou de XP. |
+| Módulo | Missão de integração com cenário novo | Transferir o que aprendeu | Só conta competência aprovada por rubrica; XP não vira diagnóstico de domínio. |
+| Semana | Meta escolhida, distribuição de prática, revisão e retorno | Constância possível entre aula e plantão | Retomar a rotina sem linguagem de culpa; métrica de quantidade não apaga erro de segurança. |
+| Percurso | Coleção de medalhas com significado explícito | Ver a evolução das habilidades | O texto explica a evidência; o selo não diz "profissional habilitado". |
+| Exploração opcional | Desafios de variação e colecionáveis cosméticos aprovados | Curiosidade e escolha | Orientação de segurança nunca depende de compra, publicidade ou competição. |
 
 Narrativa proposta: o aluno monta seu repertório de trabalho em missões de
-observação, aquisição e conferência. Pixel acolhe, orienta atenção e celebra a
-evolução em momentos breves; não vira narrador que interrompe toda questão.
-Missão nunca exige expor caso de paciente, foto clínica ou dado pessoal.
+observação, aquisição e conferência. Pixel acolhe, orienta a atenção e celebra a
+evolução em momentos breves, sem narrar cada questão. Nenhuma missão exige expor
+caso de paciente, foto clínica ou dado pessoal.
 
-Começar com metas pessoais e coleção individual. Ranking público, times, chat,
-economia nova e eventos sazonais ficam para validação posterior, com necessidade
-comprovada. Não são pré-requisito para uma experiência envolvente. P04/P05 mostram
-que elementos têm efeitos distintos e badges sozinhos podem não melhorar desempenho.
+O começo tem metas pessoais e coleção individual. Ranking público, times, chat,
+economia nova e eventos sazonais esperam validação posterior com necessidade
+comprovada. P04/P05 mostram que cada elemento tem efeito distinto e que badges
+sozinhos podem não melhorar o desempenho.
 
-**Vidas:** preservar a regra existente e seus contratos neste reset. O desenho
-novo deve separar exploração guiada, prática pontuável e avaliação; qualquer
-mudança de custo, recarga, compra ou acesso a reforço exige decisão de produto
-própria. Propor teste com alunos sobre frustração e retorno antes de alterar.
-Não confundir o pedido de pesquisa com autorização para reequilibrar assinaturas.
+**Vidas:** a regra existente e seus contratos ficam como estão neste reset. O
+desenho novo separa exploração guiada, prática pontuável e avaliação. Mudar
+custo, recarga, compra ou acesso a reforço exige decisão de produto própria e um
+teste com alunos sobre frustração e retorno. O pedido de pesquisa não autoriza
+reequilibrar assinaturas.
 
-## 8. Direção visual, animação e microinterações
-
-### Filosofia visual — domínio visível
+## 10. Direção visual, animação e microinterações
 
 A composição mantém o mundo Medalhão: grafite profundo, ouro como evidência de
-avanço, Sora e controles com volume contido. Espaço e alinhamento organizam a
-atenção; o centro visual pertence ao objeto que o aluno precisa compreender.
-A execução deve cuidar de contorno, escala e contraste em cada estado.
-
-O material sugere ferramenta de trabalho bem construída. Proporção e acabamento
-substituem excesso de brilho. O ouro concentra significado; ícone, forma e texto
-completam o estado, para que nenhuma informação dependa só de cor.
+avanço, Sora e controles com volume contido. O centro visual pertence ao objeto
+que o aluno precisa compreender. O ouro concentra significado, e ícone, forma e
+texto completam cada estado para que nenhuma informação dependa só de cor.
 
 O ritmo alterna observar, agir e conferir. Uma imagem tem tempo e área para ser
-vista; a interface responde ao gesto sem saltar entre medidas ou esconder partes
-sob feedback. A qualidade aparece nos detalhes: foco estável, transição curta e
-leitura contínua quando o aluno amplia a fonte.
+vista, e a interface responde ao gesto sem saltar entre medidas nem esconder
+partes sob o retorno. O movimento mostra relação causal, passagem espacial ou
+confirmação; a celebração ocupa o instante da conquista e termina. Sem movimento,
+a mesma informação continua clara.
 
-Movimento mostra relação causal, passagem espacial ou confirmação. Celebração
-ocupa o instante de uma conquista e termina. Sem movimento, a mesma informação
-continua clara. O refinamento consiste em retirar disputa visual e deixar a
-consequência da ação legível.
+O [storyboard](../design/2026-11-02-conteudo-radiant-storyboard.png) mostra três
+momentos da aula M02.02 do piloto, com diagramas autorais e o texto de trabalho
+marcado para revisão técnica. A [fonte HTML](../design/2026-11-02-conteudo-radiant-storyboard.html)
+fica ao lado. É estudo estático de composição e ritmo, e não captura do app nem
+aula produzida.
 
-[Storyboard visual da proposta](../design/2026-11-02-conteudo-radiant-storyboard.png).
-É estudo estático de composição/ritmo, não captura do app nem aula produzida.
-
-| Evento | Resposta candidata | Duração de referência para protótipo | Reduce Motion / acesso |
+| Evento | Resposta candidata | Duração de referência para protótipo | Reduce Motion e acesso |
 | --- | --- | --- | --- |
-| Pressionar controle | Depressão curta e retorno; valor responde imediatamente |80–120 ms | Estado por contraste/contorno; sem exigir sensação tátil. |
-| Ajustar parâmetro | Visualização acompanha o valor, mantendo foco no efeito |Resposta contínua; sem esperar animação para agir | Campo/+/− e leitura do valor; descrição da mudança. |
-| Confirmar resposta | Estado selecionado →confirmado →retorno localizado |120–180 ms | Texto e anúncio único; não depender de tremor/vermelho. |
-| Mudar de etapa | Conteúdo entra com pouca amplitude e referência espacial estável |160–240 ms | Troca simples; foco no título/retorno correto. |
-| Concluir aula | Medalhão recebe marca de progresso e assentamento breve |450–700 ms, pulável | Marca estática com resumo acessível; sem bloquear CTA. |
-| Atualizar revisão/meta | Contagem real e uma confirmação sutil |150–250 ms | Número/texto final direto; sem loop. |
+| Pressionar controle | Depressão curta e retorno; o valor responde na hora | 80–120 ms | Estado por contraste e contorno; sem exigir sensação tátil. |
+| Ajustar parâmetro | A visualização acompanha o valor, com foco no efeito | Resposta contínua; agir não espera animação | Campo ou +/− e leitura do valor; descrição da mudança. |
+| Confirmar resposta | Selecionado, confirmado e retorno localizado | 120–180 ms | Texto e anúncio único; sem depender de tremor ou vermelho. |
+| Mudar de etapa | Conteúdo entra com pouca amplitude e referência espacial estável | 160–240 ms | Troca simples; foco no título ou no retorno correto. |
+| Concluir aula | Medalhão recebe a marca de progresso e assenta | 450–700 ms, pulável | Marca estática com resumo acessível; o CTA não fica bloqueado. |
+| Atualizar revisão ou meta | Contagem real e confirmação sutil | 150–250 ms | Número final direto; sem loop. |
 
 São valores de desenho para experimentar, não medidas atuais nem requisitos
-científicos universais. Testar em aparelho, texto máximo e leitor de tela antes
-de aprovar. Áudio/haptic opcionais, desligáveis e não exclusivos; evitar sobrepor
-fala do leitor. Nenhuma animação deve modificar geometria científica só para ficar
-mais atraente. Cenas didáticas têm pausar, avançar por etapa e repetir.
+científicos universais. Antes de aprovar, testar em aparelho, com texto máximo e
+leitor de tela. Áudio e háptico são opcionais, desligáveis e nunca a única via, e
+não se sobrepõem à fala do leitor. Nenhuma animação altera geometria científica
+para ficar mais atraente. Cenas didáticas têm pausar, avançar por etapa e repetir.
 
-### Papel das tecnologias pedidas
+### Tecnologias de animação e o que o app já tem
 
-| Recurso | Uso proporcional proposto | Condição antes de incorporar |
-| --- | --- | --- |
-| Reanimated/Skia e componentes atuais | Base nativa para feedback, diagramas, controles e Medalhão | Reutilizar contratos de foco/retomada, medir renderização e consumo. |
-| Motion/Framer e GSAP | Estudos web de ritmo/composição se necessários | Protótipo web não prova comportamento React Native; não criar dependência no app por analogia. |
-| Rive | Candidato para estados interativos do Pixel/objeto quando houver benefício verificável | Validar runtime existente/necessário, máquina de estados, acessibilidade, licença e custo de bundle. |
-| Lottie / text-to-Lottie | Candidato para acento finito/celebração, com contrato de reprodução e quadro estático | Gerar JSON não prova compatibilidade do player nativo; verificar em aparelho antes de adotar. |
-| Three.js/3D | Candidato somente para relação espacial que2.5D não explique bem | Validar correção anatômica, gestos equivalentes, aparelho modesto, offline e bateria. Sem modelo clínico gerado sem revisão. |
-| Expo UI | Consultado como opção de controles nativos | O projeto atual usa SDK 54; a skill consultada descreve camada universal SDK 56+. Não migrar SDK nem instalar pacote como efeito do planejamento. |
+Estado conferido no `package.json` do app em 02/11/2026.
 
-Humanizer orienta frases diretas, motivos específicos e ausência de culpa; UI UX
-Pro Max/Taste/Impeccable orientam hierarquia e estados sem criar outro sistema
-visual. Genjutsu segue a direção de melhorar o mundo existente, sem redesenho da
-marca. Canvas Design fundamenta a filosofia e o storyboard. As bibliotecas são
-alternativas por necessidade, não uma lista de dependências obrigatórias.
-XTool/instalador/Build iOS só serão pertinentes numa etapa autorizada de validação
-nativa. Não foram acionados para pesquisa documental ou para instalar aplicativos.
+| Recurso | No app hoje | Uso proporcional proposto | Condição antes de incorporar |
+| --- | --- | --- | --- |
+| Reanimated e Skia | `react-native-reanimated` ~4.1.1 e `@shopify/react-native-skia` 2.2.12 instalados | Base nativa para retorno, diagramas, controles e Medalhão | Reutilizar contratos de foco e retomada; medir renderização e consumo. |
+| SVG | `react-native-svg` 15.12.1 instalado | Diagramas autorais de Q2/Q3 do piloto | Geometria revisada; texto equivalente sem gabarito. |
+| Motion/Framer e GSAP | Não se aplicam ao app nativo | Estudos web de ritmo e composição, se necessários | Protótipo web não prova comportamento React Native; nada de dependência no app por analogia. |
+| Rive | Não instalado | Estados interativos do Pixel ou de objeto, quando o benefício for verificável | Validar runtime, máquina de estados, acessibilidade, licença e custo de bundle. |
+| Lottie / text-to-Lottie | Não instalado | Acento finito ou celebração, com contrato de reprodução e quadro estático | JSON gerado não prova compatibilidade do player nativo; verificar em aparelho. |
+| Three.js / 3D | Não instalado | Só para relação espacial que 2.5D não explique bem | Validar correção anatômica, gestos equivalentes, aparelho modesto, offline e bateria. Nada de modelo clínico gerado sem revisão. |
+| Expo UI | Não instalado; o app usa Expo ~54.0.32 | Controles nativos, consultados como opção | A camada universal pede SDK 56+. Não migrar SDK nem instalar pacote como efeito do planejamento. |
 
-### Lacuna entre a proposta e o lote editorial atual
+Humanizer orienta frases diretas, motivos específicos e ausência de culpa. UI UX
+Pro Max, Taste e Impeccable orientam hierarquia e estados sem criar outro sistema
+visual. Genjutsu segue a direção de melhorar o mundo existente sem redesenhar a
+marca. As bibliotecas são alternativas por necessidade, não uma lista de
+dependências obrigatórias. XTool, instalador e build iOS só entram numa etapa
+autorizada de validação nativa.
 
-Os motores existentes têm interações variadas, mas o contrato de publicação de
-lotes v1 continua limitado a múltipla escolha sem mídia. Isso impede declarar
-Q2–Q6 publicáveis só porque há um renderer. PC05 deve especificar a extensão de
-schema/proveniência/rubrica/acessibilidade e testes necessária para cada família;
-PC06 só implementa o recorte aprovado. Não disfarçar uma bancada ou imagem dentro
-de um payload de múltipla escolha para contornar a validação. O piloto pode
-começar com o formato admitido e um protótipo separado revisável, sem promover
-conteúdo incompleto. Essa é uma dependência de entrega, não uma funcionalidade
-já implementada por este planejamento.
+## 11. Produção, revisão e rastreabilidade
 
-## 9. Produção, revisão e rastreabilidade
-
-1. **Blueprint:** docente/autor liga objetivo, pré-requisito, erro e rubrica à
-   cobertura do mapa. A pergunta nasce da competência, não da disponibilidade de
-   uma imagem bonita.
-2. **Dossiê de fontes:** registrar referência factual e direitos de cada ativo;
-   impedir uso de fonte bloqueada/reference-only em prompts ou exportação.
-3. **Autoria:** escrever conteúdo original curto e alternativas plausíveis;
-   deixar explícito o limite de simuladores. Não copiar questão de concurso/app.
+1. **Blueprint:** o docente ou autor liga objetivo, pré-requisito, erro e rubrica
+   à cobertura do mapa. A pergunta nasce da competência, e não da disponibilidade
+   de uma imagem bonita.
+2. **Dossiê de fontes:** registrar a referência factual e os direitos de cada
+   ativo; fonte bloqueada ou `reference-only` fica fora de prompts e exportação.
+3. **Autoria:** conteúdo original curto e alternativas plausíveis, com o limite
+   dos simuladores explícito. Nenhuma questão copiada de concurso ou de app.
 4. **Revisão técnica e editorial:** profissional qualificado por modalidade
    confere fatos, papéis, termos, normas vigentes e adequação do nível.
-5. **Revisão didática/acessível:** verificar pistas involuntárias, resposta antes
-   do feedback, equivalência dos controles, leitura e texto máximo.
-6. **Protótipo do lote:** usar contratos e motores atuais; novas interações só
-   depois de especificação revisável. Pipeline valida schema, fontes e direitos.
-7. **Teste com público:** estudantes realizam tarefas com variantes inéditas,
-   retornam após intervalo e relatam dificuldades. Medir aprendizagem e acesso.
-8. **Promoção explícita:** somente itens aprovados entram num catálogo versionado;
-   zero aulas aprovadas mantém estado retirado. Reset/migração de dados pessoais,
+5. **Revisão didática e de acessibilidade:** pistas involuntárias, resposta antes
+   do retorno, equivalência dos controles, leitura e texto máximo.
+6. **Protótipo do lote:** contratos e motores atuais; interação nova só depois de
+   especificação revisável. O pipeline valida schema, fontes e direitos.
+7. **Teste com público:** estudantes fazem tarefas com variantes inéditas,
+   retornam depois de um intervalo e relatam dificuldades. Mede-se aprendizagem e
+   acesso.
+8. **Promoção explícita:** só itens aprovados entram num catálogo versionado;
+   zero aulas aprovadas mantém o estado retirado. Migração de dados pessoais,
    build e publicação têm escopo e autorização próprios.
 
-IDs finais devem separar identidade de competência, versão de conteúdo, item e
-variante. Não reciclar `lesson-1`, H4, bancada ou L1/L2; progresso antigo não pode
-validar uma aula nova só porque o rótulo coincide. A definição concreta de IDs e
+Os IDs finais separam identidade de competência, versão de conteúdo, item e
+variante. `lesson-1`, H4, bancada e L1/L2 não são reciclados, e progresso antigo
+não valida uma aula nova porque o rótulo coincide. A definição concreta de IDs e
 compatibilidade entra no contrato do primeiro lote, antes de ativá-lo. O reset
-atual não limpa nem transforma histórico do aluno.
+atual não limpa nem transforma o histórico do aluno.
 
-## 10. Piloto, métricas e critérios de avanço
+## 12. Piloto, métricas e critérios de avanço
 
-Proposta de piloto com5–8 estudantes de fases iniciais e2 docentes/revisores, amostra
-formativa sem pretensão de estimar eficácia. Adaptar recrutamento e permissões
-institucionais quando aplicáveis. Não registrar pacientes ou dados clínicos reais.
-Esses participantes ainda não foram recrutados; os números são planejamento.
+Proposta de piloto com 5 a 8 estudantes de fases iniciais e 2 docentes ou
+revisores, amostra formativa sem pretensão de estimar eficácia. Recrutamento e
+permissões institucionais se adaptam quando aplicáveis, e nenhum paciente ou
+dado clínico real é registrado. Esses participantes ainda não foram recrutados.
 
 - **Compreensão:** explicar a própria escolha, transferir para variante inédita e
-  recuperar após intervalo; comparar pré/pós sem expor gabaritos idênticos.
-- **Segurança:** analisar cada erro crítico e sua recuperação, separado da média.
-- **Experiência:** conseguir iniciar/pausar/retomar; entender o retorno; controlar
-  movimento/áudio; completar as tarefas com leitor e texto máximo.
-- **Hábito:** retornar por escolha, usar revisão e distribuir prática. Constância
-  complementa aprendizagem; não é sua substituta.
+  recuperar depois de um intervalo; comparar antes e depois sem repetir gabaritos.
+- **Segurança:** cada erro crítico e sua recuperação, separados da média.
+- **Experiência:** iniciar, pausar e retomar; entender o retorno; controlar
+  movimento e áudio; completar as tarefas com leitor e texto máximo.
+- **Primeira sessão:** comparar o retorno ao app com e sem a manipulação inicial
+  da seção 4.
+- **Hábito:** voltar por escolha, usar a revisão e distribuir a prática.
+  Constância complementa a aprendizagem e não a substitui.
 - **Qualidade técnica:** resposta fluida, nenhum efeito duplicado, estado íntegro
-  após interrupção e funcionamento offline em ambiente autorizado.
+  depois de interrupção e funcionamento offline em ambiente autorizado.
 
-Critérios de avanço: nenhuma falha crítica científica/de direitos/acessibilidade
-sem tratamento; compreensão suficiente observada para revisar o lote; ações
-corretivas registradas e rechecadas. Não declarar sucesso por satisfação, tempo
-na tela ou testes automatizados sozinhos. Definir limiares quantitativos com os
-revisores após observar variabilidade, antes de testar expansão do currículo.
+Critérios de avanço: nenhuma falha crítica científica, de direitos ou de
+acessibilidade sem tratamento; compreensão suficiente observada para revisar o
+lote; ações corretivas registradas e rechecadas. Satisfação, tempo de tela ou
+testes automatizados sozinhos não declaram sucesso. Os limiares quantitativos são
+definidos com os revisores depois de observar a variabilidade, antes de expandir
+o currículo.
 
-## 11. Plano de execução próprio
+## 13. Plano de execução
 
-| Etapa | Entrega concreta | Dependência | Dono proposto / aceite |
+| Etapa | Entrega concreta | Dependência | Dono proposto e aceite |
 | --- | --- | --- | --- |
-| PC01 | Retirada integral, catálogo explícito e auditoria técnica | Autorização já dada | Agente; guardas e validação configurada; prova na evidência. |
-| PC02 | Este mapa, pesquisa e storyboard | PC01 antes de pesquisar | Agente; revisão de fontes/ordem/direitos e documentação única. |
-| PC03 | Revisão do público, cobertura84+48 e recorte de seis aulas | PC02 | Anderson + docente; registrar alterações aceitas. Não repetir autorização de apagar. |
-| PC04 | Seis briefs M01 com fontes/ativos liberados e rubricas | PC03 | Autor/editor/revisor de radiologia; nenhum item sem direitos ou revisão. |
-| PC05 | Especificação de questões/variantes, IDs e contrato do primeiro lote | PC04 | Produto+engenharia; revisão de retomada, evidência e compatibilidade. |
-| PC06 | Protótipo nativo do lote e microinterações prioritárias | PC05 e autorização de implementação | Agente; testes de comportamento/acesso e prova nativa própria. |
-| PC07 | Piloto e retenção atrasada; ajustes | PC06 | Docente+alunos; resultados e falhas, sem alegar validação clínica. |
-| PC08 | Produção por módulos e ramos escolhidos | PC07 aceito | Autor/revisor; lotes pequenos versionados, sem geração em massa não revisada. |
-| PC09 | Migração/restauração e candidato de distribuição | Conteúdo aprovado + escopo específico | Engenharia/Anderson; autorização e gates próprios. Não iniciado aqui. |
+| PC01 | Retirada integral, catálogo explícito e auditoria técnica | Autorização já dada | Agente; feito em 02/11, prova na [auditoria](../evidence/2026-11-02-retirada-conteudo-radiant.md). |
+| PC02 | Mapa, pesquisa e storyboard | PC01 | Agente; proposta 1 e revisão (proposta 2) em 02/11. |
+| PC03 | As seis decisões da seção 0, revisão do mapa e aprovação do piloto | PC02 | Anderson e revisão técnica; registrar o que for aceito. |
+| PC04 | Cinco briefs do piloto com fontes e ativos liberados e rubricas; uma aula escrita por inteiro | PC03 | Autor, editor e revisor de radiologia; nenhum item sem direitos ou revisão. |
+| PC05 | Extensão do contrato para `ordering`, `hotspot`, `comparison` e `bench`, IDs, contrato do primeiro lote e transição de quem já usa o app | PC03; corre **em paralelo** com o PC04 | Produto e engenharia; a conferência final dos payloads espera os briefs do PC04. |
+| PC06 | Protótipo nativo do lote, microinterações prioritárias e renderer de `case-decision` | PC04, PC05 e autorização de implementação | Agente; testes de comportamento e acesso e prova nativa própria. O renderer de Q6 é pré-requisito de 26 aulas do núcleo. |
+| PC07 | Piloto, retenção atrasada e ajustes | PC06 | Docente e alunos; resultados e falhas, sem alegar validação clínica. |
+| PC08 | Produção por módulos e ramos escolhidos, primeira aula do núcleo e nivelamento dos ramos | PC07 aceito | Autor e revisor; lotes pequenos versionados, sem geração em massa não revisada. |
+| PC09 | Release conjunto da retirada com o primeiro lote aprovado | Conteúdo aprovado e decisão 5 da seção 0 | Engenharia e Anderson; autorização e gates próprios. Não iniciado. |
 
-Pendências não impedem revisar a proposta concreta: aprovar/ajustar mapa e primeiro
-lote, nomear revisão técnica e selecionar os primeiros ativos licenciados.
-Workflow operacional permanece na FILA/Trello quando autorizado; não criar uma
-lista pessoal no Todoist nem duplicar este plano em outro sistema. Aulas completas
-para escrita/revisão posterior terão documento de produção adequado; este arquivo
-é especificação técnica/editorial do produto.
+O fluxo operacional fica na FILA, e o Trello só quando autorizado. Nada de lista
+pessoal no Todoist nem cópia deste plano em outro sistema. As aulas completas
+para escrita e revisão terão documento de produção próprio; este arquivo é a
+especificação técnica e editorial do produto.
 
-## 12. Aceite e evidência desta etapa
+## 14. Release, branch e quem já usa o app
 
-A retirada e os testes são descritos na
-[auditoria de02/11](../evidence/2026-11-02-retirada-conteudo-radiant.md), incluindo
-perdas de roteiros E2E e limites. O plano é revisável: nenhuma recomendação aqui
+A retirada vale só para este checkout e não muda o binário distribuído. Em
+02/11/2026 o commit da retirada (`30c95b0`) saiu da branch
+`claude/trilha-medalhao-design`, que alimenta a
+[PR #66](https://github.com/andersonsmelo/Radiant/pull/66) do Medalhão, e foi para
+a branch `claude/conteudo-reinicio-tecnologo`. A branch da PR #66 voltou ao
+estado publicado (`34147e1`). Sem essa separação, o próximo push levaria a
+retirada para a PR do Medalhão, e o merge dela publicaria um app sem aulas.
+
+A retirada só entra na `main` junto com o primeiro lote aprovado (PC09). Até lá,
+a branch do conteúdo acompanha a `main` por merge e não abre PR de retirada
+isolada.
+
+O aluno que atualiza do app atual pode ter progresso, revisão devida ou deep link
+apontando para aulas que não existem mais. Pela ADR do reinício, o runtime recusa
+reintroduzir essas aulas por catálogo remoto, fallback ou deep link antigo, mas a
+tela que esse aluno encontra não foi decidida. O PC05 especifica
+essa transição, e a decisão 5 da seção 0 vem antes de qualquer build.
+
+## 15. O que mudou da proposta 1
+
+- O primeiro lote passou de seis aulas de M01 para o piloto em fatia vertical da seção 4.
+- A seção 3 liga Q1–Q6 aos tipos de interação e renderers do código e registra que `case-decision` não tem renderer.
+- PC04 e PC05 correm em paralelo; o PC06 inclui o renderer de Q6.
+- A seção 5 propõe navegação alternada e nivelamento para formados; a seção 4 trata da primeira vitória perdida com a retirada.
+- Seis aulas por módulo virou estimativa, e M13 ficou marcado como o mais comprimido.
+- A seção 0 reúne as decisões pendentes no topo, e a seção 1 tem aceite e limites.
+- A tabela de tecnologias registra o que está instalado.
+- A seção 14 registra a separação da branch e o release conjunto.
+- O storyboard foi refeito sobre a aula M02.02.
+
+## 16. Aceite e evidência desta etapa
+
+A retirada e os testes estão descritos na
+[auditoria de 02/11](../evidence/2026-11-02-retirada-conteudo-radiant.md),
+incluindo as perdas de roteiros E2E e os limites. O plano é revisável: nada aqui
 significa que uma biblioteca foi instalada, que uma aula foi escrita, que a
 sequência foi aprovada clinicamente ou que houve publicação.

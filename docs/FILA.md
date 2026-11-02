@@ -602,7 +602,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       incluindo o exemplo embutido no primeiro uso; motores/biblioteca/UI ficam.
       Pesquisa e proposta entregues. O onboarding residual foi encontrado depois
       do início da pesquisa; desvio e correção estão na auditoria.
-      Próxima ação PC03: revisar mapa curricular e recorte do primeiro lote. [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md)
+      Plano revisado pelo Claude em 02/11 (proposta 2); a retirada está na branch
+      local `claude/conteudo-reinicio-tecnologo`, fora da PR #66, e só entra na
+      `main` com o primeiro lote aprovado.
+      Próxima ação PC03: as seis decisões da seção 0 do plano. [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md)
       e [ADR](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
       G4 permanece aprovado. T14/G2 das amostras antigas foram superados;
       gates editoriais do conteúdo novo serão próprios. Sem migração de dados,
