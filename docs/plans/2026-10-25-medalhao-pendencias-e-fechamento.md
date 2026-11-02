@@ -679,7 +679,7 @@ e os caminhos de conteúdo encontrados pela grafia real do disco.
 - [x] Mapear imports, testes, roteiros e validadores dependentes de cada retirada.
 - [x] Produzir o inventário completo, a lista de validadores e a proposta de
   política em seção própria.
-- [ ] Obter aprovação de Anderson da versão/commit/hash concretos (G4).
+- [x] Obter aprovação de Anderson da recomendação T15-v1 de `b20943a`/hash concreto (G4), em 01/11/2026.
 - [x] Conferir links/escopo e revisar independentemente o inventário e apontadores.
   Publicar somente estes arquivos, com recibo de commit/CI na entrega. Nada é apagado.
 
@@ -691,7 +691,10 @@ produzida; revisão independente Spec PASS/Qualidade APPROVED; contrato document
 Validação final e fechamento registrados nos recibos do writer identificado no inventário.
 O inventário distingue tipos/dados H4 e dependências L1 dos motores, preserva
 biblioteca/direitos na recomendação e enumera consumidores de recomeço/restore.
-G4 pendente; T19–T22 não iniciadas. Este registro não aprova a retirada.
+**G4 aprovado em 01/11/2026**, “siga conforme recomendação”, do inventário
+`b20943a`/hash na [ADR G4](../adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md).
+O snapshot aprovado permanece sem alterações. T19–T22 ainda não iniciadas:
+contrato substituto G7 e condições de execução continuam pendentes.
 
 ### T16 — Acessibilidade e quadros da bancada
 
@@ -802,7 +805,9 @@ permanece prova do catálogo legado na interface Medalhão, não do substituto.
 **Gate G4. Arquivos:** `.loop/project.yaml`, `.github/workflows/content-scripts.yml`,
 os scripts `scripts/content` e seus consumidores listados individualmente em T15.
 
-- [ ] Confirmar a aprovação da versão exata do inventário e das mudanças de política.
+- [x] Confirmar G4 da recomendação T15-v1 de `b20943a`/hash concreto, conforme ADR de 01/11.
+- [ ] Dispor do contrato G7 substituto exigido na §4 e concretizar o diff nominal
+  de política/alvos sem desligar controles do catálogo ainda ativo.
 - [ ] Conferir a união de todos os caminhos T20/T21 contra a política atual;
   resolver grafia NFD/NFC com o disco, não com caminho digitado de memória.
 - [ ] Se precisar de janela de escrita, abrir/validar/fechar essa política

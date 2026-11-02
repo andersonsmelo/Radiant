@@ -279,8 +279,10 @@ continua pendente da prova nativa; G1/Q1 já decididos. Sem avançoT14.
 **Execução documental de 01/11/2026:** [T15-v1](../superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
 produzido por duas inspeções somente leitura (fontes/biblioteca e consumidores)
 e consolidação em um writer documental. Revisão independente PASS/APPROVED.
-G4 permanece pendente da versão/hash concretos; política, remoção e migração
-não executadas. G1=A/Q1 e os limites nativos de T13 permanecem separados.
+**G4 aprovado em 01/11/2026**: Anderson aceitou a recomendação T15-v1 de `b20943a`,
+com hash na [ADR G4](../adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md).
+T19 ainda requer o contrato G7 substituto previsto na ordem do integrador;
+política, remoção e migração não executadas. G1=A/Q1 e os limites T13 preservados.
 
 ### Task 18: T16 — Acessibilidade e desempenho
 

@@ -690,19 +690,22 @@ framebuffer iOS e o espaço para o AVD permitirem. Não pedir G1/Q1 novamente,
 não contornar com instalação/limpeza/fixtures e não marcar T13 integral aceita.
 [Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
 
-**Task17/T15 — inventário do Plano 4 produzido em 01/11/2026; revisão independente PASS/APPROVED.**
-[Inventário canônico T15-v1](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
-separa dados/lotes antigos, motores mistos, currículo/governança e biblioteca;
-lista consumidores, testes, Maestro, CI e os 15 validadores atuais.
-Propõe preservar referência/direitos/taxonomia e motores reutilizáveis;
-`EditorialCurriculumCandidate.ts` e a sessão híbrida exigem separar dados/tipos.
-O restore atual mescla IDs sem geração curricular: recomeço seguro é trabalho T20,
-não implementação existente. Proposta de política permanece só documental.
-**G4 PENDENTE**, exige aprovação de Anderson da versão/commit/hash concretos.
-Sem retirada, migração, mudança de política ou avanço T14/T19–T22;
-G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados. Writer próprio e evidências
-locais de revisão/validação identificados no inventário; fechamento e CI próprio
-são conferidos pelos recibos da entrega, sem herdar checks de `5224318`.
+**Task17/T15 — inventário recomendado aprovado em 01/11/2026 (G4).**
+Anderson respondeu “siga conforme recomendação” à entrega T15-v1 do commit
+`b20943a`, SHA256 `2f299f7b1e5a5d9a9fd1fc5a2cd712f6050bd085fbefe4c5e375d1e40487574f`.
+[Decisão G4](adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md) aceita as propostas
+nominais, biblioteca/direitos/taxonomia e motores preservados, separação dos dados
+mistos e adaptação dos alvos dos validadores. Não pedir G4 novamente para essa versão.
+O [inventário aprovado](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+permanece congelado; o “pendente” nele é anterior à decisão registrada na ADR.
+Revisão PASS/APPROVED e final T15 15/15; CI Content41368497475/Quality41368497477
+SUCCESS em `b20943a`, 207 suítes/2.833 testes. Este registro tem validação própria.
+**T19 ainda não executada:** a sequência exige também contrato G7 do currículo,
+formato e IDs/geração substitutos, ainda pendente. Os 15 validadores atuais e a
+política permanecem intactos; não desligar controles do catálogo ativo sem sucessor.
+T20–T22 dependem desse contrato e das demais condições nominais aprovadas.
+G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados; sem avanço T14, retirada,
+migração, build, instalação, merge ou loja.
 
 ## Prazos de relógio
 
