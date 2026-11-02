@@ -670,20 +670,28 @@ continua pendente da prova nativa; G1/Q1 já decididos. Sem avançoT14.
 `scripts/content`, `.github/workflows/content-scripts.yml`, `.loop/project.yaml`
 e os caminhos de conteúdo encontrados pela grafia real do disco.
 
-- [ ] Enumerar cada arquivo candidato com caminho exato, categoria, motivo,
+- [x] Enumerar cada arquivo candidato com caminho exato, categoria, motivo,
   consumidor, decisão proposta sai/fica, gate e substituto necessário.
-- [ ] Separar dados do G3 de motores genéricos de avaliação; não remover o
+- [x] Separar dados do G3 de motores genéricos de avaliação; não remover o
   módulo `student-checkpoints` inteiro por conter um lote antigo.
-- [ ] Separar biblioteca de referência: livros, extrações, taxonomia e direitos.
+- [x] Separar biblioteca de referência: livros, extrações, taxonomia e direitos.
   Inventariar nomes/metadados; não ler PDFs nem decidir remoção por associação.
-- [ ] Mapear imports, testes, roteiros e validadores dependentes de cada retirada.
-- [ ] Apresentar ao dono o inventário completo, a lista de validadores e a
-  proposta de política em seção própria. Registrar aprovação por versão/hash.
-- [ ] Conferir links/escopo, revisar independentemente e commitar só o inventário
-  e seus apontadores. Nada é apagado nesta tarefa.
+- [x] Mapear imports, testes, roteiros e validadores dependentes de cada retirada.
+- [x] Produzir o inventário completo, a lista de validadores e a proposta de
+  política em seção própria.
+- [ ] Obter aprovação de Anderson da versão/commit/hash concretos (G4).
+- [x] Conferir links/escopo e revisar independentemente o inventário e apontadores.
+  Publicar somente estes arquivos, com recibo de commit/CI na entrega. Nada é apagado.
 
 **Aceite:** o dono aprova lista concreta. A aprovação do layout ou deste plano
-não equivale à aprovação do inventário ainda inexistente.
+não equivale à aprovação desta versão concreta do inventário.
+
+**Entrega documental de 01/11/2026:** [T15-v1](../superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+produzida; revisão independente Spec PASS/Qualidade APPROVED; contrato documental focal PASS.
+Validação final e fechamento registrados nos recibos do writer identificado no inventário.
+O inventário distingue tipos/dados H4 e dependências L1 dos motores, preserva
+biblioteca/direitos na recomendação e enumera consumidores de recomeço/restore.
+G4 pendente; T19–T22 não iniciadas. Este registro não aprova a retirada.
 
 ### T16 — Acessibilidade e quadros da bancada
 

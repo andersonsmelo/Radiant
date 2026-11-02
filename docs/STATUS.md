@@ -690,6 +690,20 @@ framebuffer iOS e o espaço para o AVD permitirem. Não pedir G1/Q1 novamente,
 não contornar com instalação/limpeza/fixtures e não marcar T13 integral aceita.
 [Histórico preparatório](evidence/2026-10-30-medalhao-t13.md).
 
+**Task17/T15 — inventário do Plano 4 produzido em 01/11/2026; revisão independente PASS/APPROVED.**
+[Inventário canônico T15-v1](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+separa dados/lotes antigos, motores mistos, currículo/governança e biblioteca;
+lista consumidores, testes, Maestro, CI e os 15 validadores atuais.
+Propõe preservar referência/direitos/taxonomia e motores reutilizáveis;
+`EditorialCurriculumCandidate.ts` e a sessão híbrida exigem separar dados/tipos.
+O restore atual mescla IDs sem geração curricular: recomeço seguro é trabalho T20,
+não implementação existente. Proposta de política permanece só documental.
+**G4 PENDENTE**, exige aprovação de Anderson da versão/commit/hash concretos.
+Sem retirada, migração, mudança de política ou avanço T14/T19–T22;
+G1=A/Q1 e T13 nativo0/7NOT_VERIFIED preservados. Writer próprio e evidências
+locais de revisão/validação identificados no inventário; fechamento e CI próprio
+são conferidos pelos recibos da entrega, sem herdar checks de `5224318`.
+
 ## Prazos de relógio
 
 - **Segundo dia iOS: conferência no fechamento, por decisão do dono em

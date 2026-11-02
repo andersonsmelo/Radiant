@@ -76,6 +76,11 @@ MEMORY_WRITTEN/RUN_CLOSED e cérebroCLOSED confirmados; CI Quality41127437509
 /Content41127437415 SUCCESS no mesmo SHA,207suítes/2.833testes PASS.
 [Evidência A e recibos](../evidence/2026-10-30-medalhao-t13-a.md). Aceite nativo
 integral permanece pendente; sem novo pedido G1/Q1 e sem avanço para T14.
+**Task17/T15, 01/11/2026:** [inventário T15-v1](../superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+produzido, com revisão independente PASS/APPROVED, caminhos individuais, consumidores e proposta
+separada de política/validadores. Dados antigos e motores reutilizáveis/biblioteca
+foram separados; **G4 pendente** de versão/hash concretos, sem remoção, migração,
+mudança de política ou início de T14/T19–T22. O aceite do layout não aprova esta lista.
 O [STATUS](../STATUS.md) mantém o estado
 vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
 

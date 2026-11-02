@@ -276,6 +276,12 @@ continua pendente da prova nativa; G1/Q1 já decididos. Sem avançoT14.
 - **Dono:** I/high; **revisão:** RF. **Skills:** P, revisão documental; **recursos:** `rg`, Git, metadados/consumidores/validadores locais.
 - **Pré-requisito:** T00; não precisa de G4 para elaborar proposta. **Saída:** inventário sai/fica, substitutos e política por versão/hash para aprovação G4; nenhuma retirada ou leitura de PDFs.
 
+**Execução documental de 01/11/2026:** [T15-v1](../superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+produzido por duas inspeções somente leitura (fontes/biblioteca e consumidores)
+e consolidação em um writer documental. Revisão independente PASS/APPROVED.
+G4 permanece pendente da versão/hash concretos; política, remoção e migração
+não executadas. G1=A/Q1 e os limites nativos de T13 permanecem separados.
+
 ### Task 18: T16 — Acessibilidade e desempenho
 
 - **Dono:** I/high de evidências; **revisão:** RF. **Skills:** U, A quando pertinente; **recursos:** N, VoiceOver/TalkBack, ADB `gfxinfo`, AVD `radiant-entrada-api34`.

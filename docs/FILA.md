@@ -598,6 +598,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       no mesmo SHA (207suítes/2.833testes), Loop15/15; writer e cérebro CLOSED,
       memória da decisão gravada pela CLI. Falta a prova nativa, não nova G1/Q1.
 
+    - **Task17/T15, 01/11/2026:** [inventário T15-v1](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+      produzido; revisão independente PASS/APPROVED. Caminhos, consumidores e política
+      propostos para decisão **G4 pendente** por versão/hash. Preservar biblioteca,
+      direitos e motores reutilizáveis; separar dados mistos antes da retirada.
+      Sem remoção, migração, alteração do Loop ou avanço T14/T19–T22.
+
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,
