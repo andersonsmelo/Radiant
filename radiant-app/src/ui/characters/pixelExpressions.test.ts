@@ -1,3 +1,4 @@
+import { pixelColors } from '../theme';
 import { PIXEL_EXPRESSIONS, type PixelExpression } from './pixelExpressions';
 
 const TODAS: PixelExpression[] = [
@@ -33,5 +34,11 @@ describe('catálogo de expressões do Pixel', () => {
     // para que a inversão volte a falhar aqui, e não na cara do usuário.
     expect(PIXEL_EXPRESSIONS.emburrado.mouthDip).toBeLessThan(0);
     expect(PIXEL_EXPRESSIONS.revirando.mouthDip).toBeLessThan(0);
+  });
+
+  it('acende o rosto no ciano do Pixel, em todas as sete expressões', () => {
+    for (const nome of TODAS) {
+      expect(PIXEL_EXPRESSIONS[nome].glow).toBe(pixelColors.glow);
+    }
   });
 });

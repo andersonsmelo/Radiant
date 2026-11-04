@@ -16,9 +16,9 @@ tags:
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
-- assertVisible: 'Tela 1 de 3\..*'
-- tapOn: Continuar
-- assertVisible: 'Tela 2 de 3\..*'
+- assertVisible: 'Ajuste o kV e veja a imagem mudar.'
+- tapOn: 'Aumentar kV'
+- assertVisible: '65 kV'
 - setAirplaneMode: enabled
 - killApp
 - launchApp:
@@ -26,7 +26,7 @@ tags:
       radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 - assertVisible: 'Continuar de onde você parou\?'
-- assertNotVisible: 'Tela 2 de 3\..*'
+- assertNotVisible: 'Ajuste o kV e veja a imagem mudar.'
 # O titulo e asseverado duas vezes de proposito. A segunda e a espera que o
 # contrato exige imediatamente antes de `scrollUntilVisible`, e tem de ser o
 # titulo: medido em 2026-08-10 nesta tela de 375x667, em AX5 o CORPO do cartao
@@ -40,5 +40,5 @@ tags:
     visibilityPercentage: 100
     timeout: 20000
 - tapOn: Retomar estudo
-- assertVisible: 'Tela 2 de 3\..*'
+- assertVisible: 'Ajuste o kV e veja a imagem mudar.'
 - setAirplaneMode: disabled

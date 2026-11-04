@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
-import { AppButton } from '../../../components/ui/AppButton';
+import { GroupedList } from '../../../ui/components/GroupedList';
+import { IconSymbol } from '../../../../components/ui/icon-symbol';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space, typography } from '../../../ui/styles';
+import { space, typography } from '../../../ui/styles';
 import type { SubscriptionStatus } from '../subscription.types';
 
 type SubscriptionCardProps = {
@@ -50,65 +51,24 @@ function describe(status: SubscriptionStatus): { headline: string; detail: strin
  * transação; só o que o aluno tem e quando renova.
  */
 export function SubscriptionCard({ status, onOpen }: SubscriptionCardProps) {
-    if (status === null) {
-        return (
-            <View style={styles.card} accessibilityRole="progressbar" accessibilityLabel="Carregando a assinatura">
-                <View style={styles.skeletonLine} />
-                <View style={[styles.skeletonLine, styles.skeletonShort]} />
-            </View>
-        );
-    }
-
+    const { fontScale } = useWindowDimensions();
+    if (status === null) return <GroupedList><View style={styles.row} accessibilityRole="progressbar" accessibilityLabel="Carregando a assinatura">
+        <Text key={`loading-${fontScale}`} style={styles.detail}>Carregando assinatura…</Text>
+    </View></GroupedList>;
     const { headline, detail, action } = describe(status);
-
-    return (
-        <View style={styles.card}>
-            <Text style={styles.eyebrow}>ASSINATURA</Text>
-            <Text style={styles.headline} accessibilityRole="header">{headline}</Text>
-            <Text style={styles.detail}>{detail}</Text>
-            {action ? (
-                <AppButton
-                    label={action}
-                    variant="secondary"
-                    onPress={onOpen}
-                    style={styles.button}
-                    accessibilityHint="Abre a tela da assinatura."
-                />
-            ) : null}
+    return <GroupedList><Pressable onPress={onOpen} accessibilityRole="button" accessibilityLabel={action ?? 'Radiant Ilimitado'}
+        accessibilityHint={`${headline}. ${detail} Abre a tela da assinatura.`} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
+        <View style={styles.copy}>
+            <Text key={`title-${fontScale}`} style={styles.headline}>{headline}</Text>
+            <Text key={`detail-${fontScale}`} style={styles.detail}>{detail}</Text>
         </View>
-    );
+        <IconSymbol name="chevron.right" size={20} color={galaxyColors.textSecondary} />
+    </Pressable></GroupedList>;
 }
-
 const styles = StyleSheet.create({
-    card: {
-        backgroundColor: galaxyColors.surface,
-        borderRadius: radius.rLg,
-        borderWidth: 1,
-        borderColor: galaxyColors.border,
-        padding: space.s3,
-        gap: space.s1,
-    },
-    eyebrow: {
-        ...typography.label,
-        color: galaxyColors.textTertiary,
-    },
-    headline: {
-        ...typography.h3,
-        color: galaxyColors.textPrimary,
-    },
-    detail: {
-        ...typography.bodyRegular,
-        color: galaxyColors.textSecondary,
-    },
-    button: {
-        marginTop: space.s2,
-    },
-    skeletonLine: {
-        height: 16,
-        borderRadius: radius.rSm,
-        backgroundColor: galaxyColors.surfaceActive,
-    },
-    skeletonShort: {
-        width: '60%',
-    },
+    row: { minHeight: 56, paddingVertical: space.s2, flexDirection: 'row', alignItems: 'center', gap: space.s2 },
+    copy: { flex: 1, minWidth: 0, gap: space.s0 },
+    headline: { ...typography.bodyStrong, lineHeight: undefined, color: galaxyColors.textPrimary },
+    detail: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
+    pressed: { opacity: 0.7 },
 });

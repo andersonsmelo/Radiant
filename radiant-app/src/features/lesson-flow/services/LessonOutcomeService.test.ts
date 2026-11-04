@@ -655,6 +655,45 @@ describe('LessonOutcomeService — evidência por interação', () => {
         );
     });
 
+    it('atividade com duas interações: o placar conta a PRIMEIRA resposta, não a final (ADR da régua, 2026-10-18)', async () => {
+        // Defeito medido no simulador em 2026-10-24: o aluno errou a primeira
+        // resposta de um item da aula-bancada, acertou na volta e a conclusão
+        // disse "Três estrelas". `activityToQuizResult` contava só as finais.
+        const base = nativeActivity.steps[1];
+        if (base.kind !== 'interaction') throw new Error('Fixture sem interação');
+        const duasInteracoes: LearningActivityV2 = {
+            ...nativeActivity,
+            steps: [
+                nativeActivity.steps[0],
+                base,
+                { kind: 'interaction', interaction: { ...base.interaction, id: 'native-question-2' } },
+                nativeActivity.steps[2],
+            ],
+        };
+
+        const outcome = await LessonOutcomeService.recordActivityCompletion({
+            activity: duasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'native-question': true, 'native-question-2': true },
+            firstConfirmedAnswers: { 'native-question': true, 'native-question-2': false },
+            answeredAt: new Date('2026-10-24T12:00:00.000Z'),
+        });
+
+        expect(outcome.result).toMatchObject({ correctAnswers: 1, totalQuestions: 2 });
+        expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledWith(
+            expect.objectContaining({ correctAnswers: 1, totalQuestions: 2 }),
+        );
+        // Validade: sem `firstConfirmedAnswers` (caminho não híbrido), vale a
+        // resposta final e o placar continua cheio.
+        const semPrimeira = await LessonOutcomeService.recordActivityCompletion({
+            activity: duasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'native-question': true, 'native-question-2': true },
+            answeredAt: new Date('2026-10-24T12:01:00.000Z'),
+        });
+        expect(semPrimeira.result).toMatchObject({ correctAnswers: 2, totalQuestions: 2 });
+    });
+
     it('registra incorrect quando a escolha confirmada não estava certa', async () => {
         await LessonOutcomeService.recordCompletion({
             block,

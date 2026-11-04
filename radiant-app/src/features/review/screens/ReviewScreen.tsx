@@ -1,14 +1,19 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Alert, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { ProgressRing } from '../../../components/ui/ProgressRing';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
-import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
+import { ListRow } from '../../../ui/components/ListRow';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+import { itemKey } from '../../../types/itemReview';
+import type { ReviewItem } from '../hooks/useReview';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import { duration, useFadeInUp } from '../../../ui/motion';
@@ -26,7 +31,7 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
-import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
   count: 5,
@@ -44,11 +49,51 @@ type ReviewScreenProps = {
   resumeCursorId?: string;
 };
 
+function reviewHistory(item: ReviewItem, now: number): string {
+  const reviewedAt = item.card?.lastReviewedAt ? Date.parse(item.card.lastReviewedAt) : NaN;
+  if (!item.card?.lastAttemptId || !Number.isFinite(reviewedAt) || reviewedAt > now) {
+    return 'Última revisão sem registro';
+  }
+  const reviewedDate = new Date(reviewedAt);
+  const currentDate = new Date(now);
+  const sameLocalDay = reviewedDate.getFullYear() === currentDate.getFullYear()
+    && reviewedDate.getMonth() === currentDate.getMonth()
+    && reviewedDate.getDate() === currentDate.getDate();
+  if (sameLocalDay) return 'Revisado hoje';
+  const days = Math.floor((now - reviewedAt) / 86400000);
+  return days === 0 ? 'Revisado há menos de 1 dia' : `Revisado há ${days} ${days === 1 ? 'dia' : 'dias'}`;
+}
+
+function reviewRows(queue: ReviewItem[]) {
+  const origins = LessonCatalogService.listTracks().flatMap(track =>
+    JourneyDefinitionService.getTrackDefinition(track.id).units.flatMap(unit =>
+      unit.nodes.filter(node => node.type === 'lesson' || node.type === 'checkpoint')
+        .map(node => ({ node, unit, unitKey: `${track.id}:${unit.id}` }))));
+  const now = Date.now();
+  return queue.map(item => {
+    const origin = origins.find(({ node }) => node.type === 'lesson' ? node.lessonId === item.lessonId
+      : node.id === item.lessonId && ProductionCurriculumCatalog.getCheckpointByNodeId(item.lessonId) !== null);
+    return {
+      key: item.card ? itemKey(item.card.item) : JSON.stringify([item.lessonId, item.question.id]),
+      origin,
+      title: origin?.node.title ?? 'Origem desconhecida',
+      detail: [origin?.unit.title, reviewHistory(item, now)].filter(Boolean).join(' · '),
+    };
+  });
+}
+
 export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
   const largeText = useLargeTextLayout();
+  const { fontScale } = useWindowDimensions();
   const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitAnswer, continueReview, answerFeedback, saving, persistenceError, retrySubmission } = useReview({
     resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
   });
+  const rows = useMemo(() => reviewRows(queue), [queue]);
+  const originSummary = rows.every(row => !row.origin) ? 'origem desconhecida'
+    : rows.every(row => row.origin?.unitKey === rows[0].origin?.unitKey) ? rows[0].origin!.unit.title
+    : 'diferentes origens';
+  const minutes = Math.round(queue.length * 40 / 60);
+  const queueDescription = `${queue.length} ${queue.length === 1 ? 'item' : 'itens'} de ${originSummary}. Leva uns ${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}.`;
   const retryRef = useRef(retrySubmission);
   retryRef.current = retrySubmission;
   useEffect(() => {
@@ -206,70 +251,50 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               >
                 <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
               </Pressable>
-              <Text style={styles.headerLabel}>Revisão</Text>
+              <Text key={`header-${fontScale}`} style={styles.headerLabel} accessibilityRole="header">Revisão</Text>
               <View style={styles.iconSpacer} />
             </View>
 
-            <View style={styles.actionCard}>
-              {persistenceError ? (
-                <AppButton onPress={() => { void retrySubmission(); }} style={styles.fullWidthButton}>
-                  Tentar novamente
-                </AppButton>
-              ) : hasItems ? (
-                <AppButton onPress={startReview} style={styles.fullWidthButton}>
-                  Começar revisão
-                </AppButton>
-              ) : (
-                <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
-                  Voltar para jornada
-                </AppButton>
-              )}
-              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{persistenceError ? 'Revisão indisponível' : hasItems ? 'Revise no seu ritmo' : 'Nenhuma revisão pendente'}</Text>
-              <Text style={styles.actionBody}>
-                {persistenceError ? persistenceError : hasItems
-                  ? 'Revise os itens disponíveis e acompanhe sua próxima revisão.'
-                  : 'Você pode voltar para a jornada e continuar o próximo nó recomendado.'}
-              </Text>
-            </View>
-
-            <Animated.View style={fadeAnim.style}>
-              <View style={styles.heroCard}>
-                <PixelHeroSplit
-                  eyebrow="Repetição espaçada"
-                  message={persistenceError ? 'Seu progresso foi preservado. Tente abrir a revisão novamente.' : hasItems ? 'Confira o que você lembra, um item por vez.' : 'Sua fila de revisão está em dia.'}
-                  ringValue={0}
-                  ringTotal={Math.max(queue.length, 1)}
-                  ringLabel={persistenceError ? 'Revisão indisponível' : hasItems ? `${queue.length} itens na fila` : 'Nenhum item agora'}
-                  state={hasItems ? 'guide' : 'idle'}
-                  tier={hasItems ? 'intermediate' : 'starter'}
-                  accessibilityLabel="Pixel guiando a revisão"
-                />
+            {persistenceError ? (
+              <View style={styles.message}>
+                <Text key={`error-title-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">Revisão indisponível</Text>
+                <Text key={`error-body-${fontScale}`} style={styles.actionBody}>{persistenceError}</Text>
               </View>
-            </Animated.View>
-
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">Como essa sessão funciona</Text>
-              <View style={styles.statsList}>
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Formato"
-                  value="Escolha uma alternativa e confirme, ou consulte a resposta com ajuda"
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="timeline" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Objetivo"
-                  value="Consolidar memória antes de puxar conteúdo novo"
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Recompensa"
-                  value="XP por resposta correta sem consultar o gabarito"
-                />
+            ) : hasItems ? (
+              <>
+                <Text key={`count-${fontScale}`} style={styles.actionBody}>{queueDescription}</Text>
+                <View>
+                  {rows.map(row => <ListRow
+                    key={row.key}
+                    title={row.title}
+                    detail={row.detail}
+                    leading={row.origin ? <JourneyMedal
+                      node={row.origin.node}
+                      theme={resolveNodeTheme(row.origin.node, row.origin.unit)}
+                      state="next"
+                      pulsing={false}
+                      visible={false}
+                      size={17}
+                      accessibilityLabel={row.title}
+                    /> : undefined}
+                  />)}
+                </View>
+                <Text key={`instructions-${fontScale}`} style={styles.actionBody}>
+                  Escolha uma alternativa e confirme, ou consulte a resposta com ajuda
+                </Text>
+              </>
+            ) : (
+              <View style={styles.message}>
+                <Text key={`empty-title-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">Nenhuma revisão pendente</Text>
+                <Text key={`empty-body-${fontScale}`} style={styles.actionBody}>Sua fila está em dia. Continue sua jornada.</Text>
               </View>
-            </View>
-
-
+            )}
           </ScrollView>
+          <View style={styles.footer}>
+            {persistenceError ? <AppButton onPress={() => { void retrySubmission(); }} style={styles.fullWidthButton}>Tentar novamente</AppButton>
+              : hasItems ? <AppButton onPress={startReview} style={styles.fullWidthButton}>Começar</AppButton>
+                : <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>Voltar para jornada</AppButton>}
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -297,43 +322,16 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               >
                 <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
               </Pressable>
-              <Text style={styles.headerLabel}>Revisão</Text>
+              <Text key={`header-${fontScale}`} style={styles.headerLabel} accessibilityRole="header">Revisão</Text>
               <View style={styles.iconSpacer} />
             </View>
 
-            <Animated.View style={fadeAnim.style}>
-              <View style={styles.heroCard}>
-                <PixelHeroSplit
-                  eyebrow="Sessão concluída"
-                  message="Boa. Você fechou a fila de revisão e devolveu estabilidade para a trilha."
-                  ringValue={totalItems}
-                  ringTotal={Math.max(totalItems, 1)}
-                  ringLabel="Fila encerrada"
-                  state="celebrate"
-                  tier="advanced"
-                  accessibilityLabel="Pixel celebrando a revisão"
-                />
-              </View>
-            </Animated.View>
-
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">Resultado da sessão</Text>
+              <Text key={`section-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">Resultado da sessão</Text>
               <View style={styles.statsList}>
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Itens"
-                  value={`${totalItems} concluídos nesta rodada`}
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="stars" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="XP"
-                  value={`+${sessionXp} XP confirmado`}
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="sync" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Estado"
-                  value="Cards já atualizados no fluxo local-first"
-                />
+                <ListRow title="Itens" detail={`${totalItems} ${totalItems === 1 ? 'concluído' : 'concluídos'} nesta rodada`} />
+                <ListRow title="XP" detail={`+${sessionXp} XP confirmado`} />
+                <ListRow title="Estado" detail="Revisão salva neste aparelho" />
               </View>
             </View>
 
@@ -344,8 +342,8 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             ) : null}
 
             <View style={styles.actionCard}>
-              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Fila limpa</Text>
-              <Text style={styles.actionBody}>
+              <Text key={`action-title-${fontScale}`} style={styles.actionTitle}>Fila limpa</Text>
+              <Text key={`action-body-${fontScale}`} style={styles.actionBody}>
                 A próxima decisão agora volta para a jornada principal. Revise só quando realmente estiver devido.
               </Text>
               <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
@@ -385,24 +383,19 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             >
               <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
-            <Text style={styles.headerLabel}>Revisão</Text>
-            <Text style={styles.headerProgressText}>{progressValue}/{Math.max(totalItems, 1)}</Text>
+            <Text key={`header-${fontScale}`} style={styles.headerLabel} accessibilityRole="header">Revisão</Text>
+            <Text key={`progress-${fontScale}`} style={styles.headerProgressText}>{progressValue}/{Math.max(totalItems, 1)}</Text>
           </View>
 
           <View style={styles.activeHeroCard}>
             <View style={[styles.activeHeroHeader, largeText && styles.activeHeroHeaderStacked]}>
               <View style={[styles.activeHeroCopy, largeText && styles.activeHeroCopyStacked]}>
-                <Text style={styles.activeTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Sessão ativa</Text>
-                <Text style={styles.activeBody}>
+                <Text key={`active-title-${fontScale}`} style={styles.activeTitle}>Sessão ativa</Text>
+                <Text key={`active-body-${fontScale}`} style={styles.activeBody}>
                   Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.
                 </Text>
               </View>
-              <ProgressRing
-                value={progressValue}
-                total={Math.max(totalItems, 1)}
-                label="Progresso"
-                size={space.s6 * 3}
-              />
+
             </View>
           </View>
 
@@ -421,7 +414,9 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: galaxyColors.background },
   safe: { flex: 1 },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
+  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5, maxWidth: SCREEN_MAX_WIDTH, width: '100%', alignSelf: 'center' },
+  footer: { padding: space.s3, paddingBottom: space.s5, maxWidth: SCREEN_MAX_WIDTH, width: '100%', alignSelf: 'center' },
+  message: { gap: space.s2 },
   activeLayout: { flexGrow: 1, padding: space.s3, gap: space.s3, maxWidth: SCREEN_MAX_WIDTH, width: '100%', alignSelf: 'center' },
   headerRow: { ...layout.rowBetween, width: '100%' },
   iconButton: {
@@ -436,26 +431,17 @@ const styles = StyleSheet.create({
   },
   iconSpacer: { width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE },
   headerLabel: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: 'rgba(255,255,255,0.35)',
-    letterSpacing: 3,
-    textTransform: 'uppercase',
+    ...typography.h3,
+    lineHeight: undefined,
+    color: galaxyColors.textPrimary,
+    flexShrink: 1,
   },
   headerProgressText: {
     ...typography.caption,
     color: galaxyColors.textSecondary,
-    width: ICON_BUTTON_SIZE,
     textAlign: 'right',
-  },
-  heroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s3,
-    overflow: 'hidden',
+    flexShrink: 1,
+    lineHeight: undefined,
   },
   sectionCard: {
     backgroundColor: galaxyColors.surface,
@@ -465,7 +451,7 @@ const styles = StyleSheet.create({
     padding: space.s3,
     gap: space.s2,
   },
-  sectionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+  sectionTitle: { ...typography.h3, lineHeight: undefined, color: galaxyColors.textPrimary },
   statsList: { gap: space.s2, marginTop: space.s1 },
   actionCard: {
     backgroundColor: 'rgba(255,255,255,0.03)',
@@ -475,8 +461,8 @@ const styles = StyleSheet.create({
     padding: space.s3,
     gap: space.s2,
   },
-  actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  actionTitle: { ...typography.h3, lineHeight: undefined, color: galaxyColors.textPrimary },
+  actionBody: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
   fullWidthButton: { width: '100%' },
   pushCard: { width: '100%', maxWidth: SCREEN_MAX_WIDTH, alignSelf: 'center' },
   activeHeroCard: {
@@ -491,7 +477,7 @@ const styles = StyleSheet.create({
   activeHeroHeaderStacked: { flexDirection: 'column', alignItems: 'stretch' },
   activeHeroCopy: { flex: 1, gap: space.s1 },
   activeHeroCopyStacked: { flex: 0 },
-  activeTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  activeBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  activeTitle: { ...typography.h3, lineHeight: undefined, color: galaxyColors.textPrimary },
+  activeBody: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
   focusArea: { width: '100%' },
 });

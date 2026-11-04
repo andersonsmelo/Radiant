@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "objective": "Task15/T13 alternative A, real native text-layout observation after frozen 8-source manifest; Q1 unchanged",
+  "measuredAtUTC": "2026-10-30T20:48:48.505201+00:00",
+  "status": "NOT_VERIFIED",
+  "head": "b1bc3543f74e86f19dbd48644ba92c738d637a2f",
+  "writerOwnedByController": "run-1793391172160-16609a84",
+  "freezeManifestSha256": "013acd6bb5619d0783a8a426d5bf3b1ff787b6acd31fea9a9f7ccfa346ffcf77",
+  "sourceHashes": [
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyTrail.tsx",
+      "before": "e6a7767e8721c52c47d00810bac4d587aa26fe6e09cbd0eb1b3a26873dcc0ba2",
+      "after": "e6a7767e8721c52c47d00810bac4d587aa26fe6e09cbd0eb1b3a26873dcc0ba2",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyTrail.test.tsx",
+      "before": "b9f40e23abffeaab3e1e8c5d6cb5bbf01161d020d079f9b2de81ad08e6c34a6b",
+      "after": "b9f40e23abffeaab3e1e8c5d6cb5bbf01161d020d079f9b2de81ad08e6c34a6b",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/trailLayout.test.ts",
+      "before": "88d79d848b4753af6eae7c9157fb4cc0e3343562fd21582b3c617145bd72104d",
+      "after": "88d79d848b4753af6eae7c9157fb4cc0e3343562fd21582b3c617145bd72104d",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/trailTextPresentation.ts",
+      "before": "30b58f338a62f18ca54f6c51ff693b61a9b1e2abfce339f5a8df0eae833afa40",
+      "after": "30b58f338a62f18ca54f6c51ff693b61a9b1e2abfce339f5a8df0eae833afa40",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/trailTextPresentation.test.ts",
+      "before": "c490a806a3c75167cfbbec1f566bd1674d438e4d4268bde1b21d2420a9c7bd77",
+      "after": "c490a806a3c75167cfbbec1f566bd1674d438e4d4268bde1b21d2420a9c7bd77",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx",
+      "before": "4b9641d00ccf00b137e18960041199ba90af84a318f56ecdbd730cfad2dd56a8",
+      "after": "4b9641d00ccf00b137e18960041199ba90af84a318f56ecdbd730cfad2dd56a8",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
+      "before": "3399f167f473bf11aaef1ad2da6b0eda5e1733cd749edb245341e7c544b49c49",
+      "after": "3399f167f473bf11aaef1ad2da6b0eda5e1733cd749edb245341e7c544b49c49",
+      "unchanged": true
+    },
+    {
+      "path": "radiant-app/src/features/push/components/ReminderRow.test.tsx",
+      "before": "251e3aaae9edd39991481af6b869a4910dd450a3b0dd92fda9e99742af1fd270",
+      "after": "251e3aaae9edd39991481af6b869a4910dd450a3b0dd92fda9e99742af1fd270",
+      "unchanged": true
+    }
+  ],
+  "sourceUnchanged": true,
+  "tools": {
+    "nodeMetro": "20.20.2",
+    "maestro": "2.7.0 (version inventory only, no device execution)",
+    "adb": "1.0.41 / 37.0.1-15733141",
+    "androidEmulator": "37.2.12.0",
+    "iOSRuntime": "26.5",
+    "simulatorGUI": "Absent from active Xcode and /Applications; no install attempted"
+  },
+  "preflight": {
+    "startedAtUTC": "2026-10-30T20:46:01.592194+00:00",
+    "sourceManifestMatches": "8/8",
+    "initialLoadAverage": "2.72 4.62 5.17",
+    "portsBefore": "COMMAND   PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nadb     22919 anderson   14u  IPv4 0x555601e5ad5873b9      0t0  TCP 127.0.0.1:5037 (LISTEN)\n",
+    "allSimulatorsInitiallyShutdown": true,
+    "adbDevicesInitiallyEmpty": true
+  },
+  "ios": {
+    "target": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "status": "NOT_VERIFIED",
+    "existingClient": {
+      "publicAppInfoReturned": true,
+      "CFBundleIdentifier": "com.ascendcreative.radiant",
+      "CFBundleName": "Radiant",
+      "CFBundleShortVersionString": "1.4.0",
+      "CFBundleVersion": "3",
+      "ApplicationType": "User",
+      "compatibilityWithCurrentBundle": "NOT_VERIFIED; installed version alone is insufficient and app could not launch",
+      "noContainerRead": true
+    },
+    "font": {
+      "publicQuery": "xcrun simctl ui E262D4C1-99BE-496B-8567-0291C14E6533 content_size",
+      "before": "large",
+      "afterBeforeShutdown": "large",
+      "changed": false,
+      "ax5Applied": false
+    },
+    "commands": [
+      {
+        "command": "xcrun simctl boot E262D4C1-99BE-496B-8567-0291C14E6533",
+        "result": "NSPOSIXErrorDomain22 Invalid argument"
+      },
+      {
+        "command": "xcrun simctl bootstatus E262D4C1-99BE-496B-8567-0291C14E6533 -b",
+        "result": "Device became Booted; Waiting on System App remained through at least elapsed57s; no app-ready success observed"
+      },
+      {
+        "command": "xcrun simctl launch E262D4C1-99BE-496B-8567-0291C14E6533 com.ascendcreative.radiant",
+        "result": "FBSOpenApplicationServiceErrorDomain5: Simulator device failed to launch; The system shell probably crashed"
+      },
+      {
+        "command": "xcrun simctl openurl E262D4C1-99BE-496B-8567-0291C14E6533 radiantapp://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081",
+        "result": "NSPOSIXErrorDomain60: Operation timed out"
+      },
+      {
+        "command": "xcrun simctl io E262D4C1-99BE-496B-8567-0291C14E6533 screenshot .superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task15-a/native/ios-launch.png",
+        "result": "NSPOSIXErrorDomain22: Device does not have a default display port; no image created"
+      },
+      {
+        "command": "xcrun simctl shutdown E262D4C1-99BE-496B-8567-0291C14E6533",
+        "exitCode": 0,
+        "result": "Shutdown reconfirmed"
+      }
+    ],
+    "limits": [
+      "No current native render, normal/AX5 update/initial, text geometry, footer, screen-reader or FPS proof",
+      "No GUI fallback, component installation, public-touch substitute or private preference attempted"
+    ]
+  },
+  "android": {
+    "avd": "radiant-entrada-api34",
+    "status": "NOT_VERIFIED",
+    "command": "/Users/anderson/Library/Android/sdk/emulator/emulator -avd radiant-entrada-api34 -no-window -no-audio -no-boot-anim",
+    "exitCode": 1,
+    "error": [
+      "INFO         |      Error: Your device does not have enough disk space to run avd: `radiant-entrada-api34`",
+      "FATAL        | Your device does not have enough disk space to run avd: `radiant-entrada-api34`."
+    ],
+    "diskMeasurement": {
+      "exitCode": 0,
+      "stdout": "Filesystem      Size    Used   Avail Capacity iused ifree %iused  Mounted on\n/dev/disk3s5   460Gi   425Gi   2.9Gi   100%    7.1M   30M   19%   /System/Volumes/Data",
+      "stderr": ""
+    },
+    "font": {
+      "before": null,
+      "after": null,
+      "changed": false,
+      "reason": "No Android device booted; settings get system font_scale could not run. Null here means unmeasured, not an observed absent setting."
+    },
+    "publicInventoryAttempts": {
+      "serial": "emulator-5554",
+      "getpropBootCompleted": "adb: device emulator-5554 not found",
+      "fontScale": "adb: device emulator-5554 not found",
+      "packageMetadata": "adb: device emulator-5554 not found",
+      "installedClientCompatibility": "NOT_VERIFIED"
+    },
+    "log": {
+      "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task15-a/native/android-emulator.log",
+      "bytes": 982,
+      "sha256": "6863fe627c996968bb61c210fb31afa0260ae4f10d8b51006f0bdb2dc35a198a",
+      "durability": "local excluded scratch only; sanitized fatal excerpt also preserved in this JSON"
+    },
+    "limits": [
+      "No booted Android device, app render, normal/200% update/initial/footer, package version or current font proof",
+      "No storage cleanup, AVD change, installation, snapshot reset, clearState, workaround or second attempt"
+    ]
+  },
+  "metro": {
+    "node": "20.20.2",
+    "env": {
+      "EXPO_NO_DOTENV": "1",
+      "EXPO_NO_TYPESCRIPT_SETUP": "1",
+      "CI": "1",
+      "EXPO_PUBLIC_API_BASE_URL": "",
+      "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+      "EXPO_PUBLIC_ENABLE_REMOTE_CONTENT_CATALOG": "false",
+      "EXPO_PUBLIC_SENTRY_DSN": "",
+      "EXPO_PUBLIC_ENABLE_CRASH_REPORTING": "false"
+    },
+    "firstAttempt": {
+      "arguments": "start --dev-client --host localhost --port8081 --offline",
+      "result": "CommandError: Specify at most one of: --offline, --host, --tunnel, --lan, --localhost; no server started"
+    },
+    "activeCommand": "node node_modules/expo/bin/cli start --dev-client --localhost --port 8081",
+    "observedPID": 44447,
+    "observedListener": "*:8081",
+    "shutdown": "SIGINT sent only to owned PID44447; process absent and port8081 free afterward",
+    "bundleDeliveredToNativeClient": false
+  },
+  "captures": [
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/ios-normal.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "iOS system shell launch failure and no default framebuffer display"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/ios-ax5-update.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "iOS system shell launch failure and no default framebuffer display"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/ios-ax5-initial.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "iOS system shell launch failure and no default framebuffer display"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/android-normal.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Existing AVD aborted before boot because of insufficient disk space"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/android-200-update.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Existing AVD aborted before boot because of insufficient disk space"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/android-200-initial.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Existing AVD aborted before boot because of insufficient disk space"
+    },
+    {
+      "path": "docs/evidence/2026-10-30-medalhao-t13-a/android-200-footer.png",
+      "exists": false,
+      "sha256": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Existing AVD aborted before boot because of insufficient disk space"
+    }
+  ],
+  "cleanup": {
+    "runtimeEnded": true,
+    "devices": [
+      {
+        "name": "Radiant E2E 17 Pro",
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-30T20:46:02Z"
+      },
+      {
+        "name": "Radiant E2E dia 2 (2026-10-18)",
+        "udid": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-23T11:16:09Z"
+      },
+      {
+        "name": "Radiant FILA 58 Codex",
+        "udid": "17D1EBE2-3F91-48C5-937D-8970B55CEE8D",
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-18T12:05:51Z"
+      },
+      {
+        "name": "Radiant E2E item 38",
+        "udid": "0A1B5AAA-A517-484B-A386-0F48D3B229A1",
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-30T10:36:18Z"
+      },
+      {
+        "name": "Radiant E2E viewport curta (38)",
+        "udid": "AB503A5A-0941-41C5-8CFC-D714D532855E",
+        "state": "Shutdown",
+        "lastUsedAt": "2026-10-14T10:59:24Z"
+      }
+    ],
+    "adbDevicesAfter": {
+      "exitCode": 0,
+      "stdout": "List of devices attached",
+      "stderr": ""
+    },
+    "portsAfter": {
+      "exitCode": 1,
+      "stdout": "COMMAND   PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nadb     22919 anderson   14u  IPv4 0x555601e5ad5873b9      0t0  TCP 127.0.0.1:5037 (LISTEN)",
+      "stderr": ""
+    },
+    "ownedMetroPIDAbsent": true,
+    "nativeAppOrEmulatorProcessObservedAfter": false,
+    "adbPreexistingPID22919Preserved": true,
+    "fontRestoration": {
+      "ios": "unchanged large before/after",
+      "android": "not measurable; never changed"
+    },
+    "reserved": {
+      "udid": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+      "directedCommands": false,
+      "observedStateAfter": "Shutdown",
+      "observedLastUsedAtAfter": "2026-10-23T11:16:09Z",
+      "matchesBeforeLastUsedAt": true
+    }
+  },
+  "restrictionsRespected": [
+    "No build/install/download/component/driver or Maestro device command",
+    "No fixture, clock, private storage, clearState or lesson/review consumption",
+    "No reserved-target command",
+    "No product/state-doc edits or own Loop session/run",
+    "Q1 historical flash evidence unchanged; no new reproduction claim"
+  ],
+  "nextAction": "Native matrix remains NOT_VERIFIED. Retry only when existing iOS system shell/framebuffer can launch and disk capacity permits existing Android AVD; no such remediation was performed by this agent."
+}

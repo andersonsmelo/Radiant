@@ -15,12 +15,18 @@ tags:
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
-- assertVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
+- assertVisible: 'Oi, eu sou o Pixel\. Vamos tirar sua primeira radiografia\.'
+- assertVisible: 'Ajuste o kV e veja a imagem mudar\.'
+- repeat:
+    times: 8
+    commands:
+      - tapOn: 'Aumentar kV'
+- assertVisible: '100 kV'
+- assertVisible: 'Tudo cinza parecido: o feixe atravessa demais\.'
+- scrollUntilVisible:
+    element: 'Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.'
+    direction: DOWN
+    visibilityPercentage: 100
+- assertVisible: 'Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.'
 - tapOn: 'Continuar'
-- assertVisible: '^Tela 2 de 3\. Trilha, quiz e revisão\..*$'
-- tapOn: 'Continuar'
-- assertVisible: '^Tela 3 de 3\. Funciona offline, sem conta\..*$'
-- assertVisible: '.*Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.$'
-- tapOn: 'Começar'
-- assertNotVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
 - assertVisible: 'Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade.'

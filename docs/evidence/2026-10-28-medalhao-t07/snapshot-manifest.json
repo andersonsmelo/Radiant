@@ -1,0 +1,373 @@
+{
+  "baseTask": "c694f95191d990f78056f4985c958b9ebe7518e5",
+  "head": "c694f95191d990f78056f4985c958b9ebe7518e5",
+  "round": "final",
+  "files": [
+    {
+      "path": "docs/FILA.md",
+      "type": "modified",
+      "size": 77487,
+      "sha256": "f80ae6edd15b7d54881dc746ae0f60c7497471096b2ee5119c4bb38f6d53220e",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/FILA.md"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "type": "modified",
+      "size": 70525,
+      "sha256": "c59b9e725b1eccb73eecec4a64deb45dd00c63373b63820beaef92c5e55905a5",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/STATUS.md"
+    },
+    {
+      "path": "docs/archive/STATUS_historico.md",
+      "type": "modified",
+      "size": 239697,
+      "sha256": "7bd9366df076278d891e334cb329e35b222e5aaa46c41b109d9ca2c6acd3d099",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/archive/STATUS_historico.md"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t06.md",
+      "type": "modified",
+      "size": 11035,
+      "sha256": "cfdc674eb7d5401517b11189fa393125b5577187a22234a90126696e1d6b6f25",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-27-medalhao-t06.md"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07.md",
+      "type": "new",
+      "size": 8453,
+      "sha256": "96bf99325feb79f2d1211b96b1f56952dc8dedc35bb2dcc3b3bd34607db32d17",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07.md"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-active-normal.png",
+      "type": "new",
+      "size": 228344,
+      "sha256": "c1cc84c8be25e758426233e254bde2a0b3e64db773db69eba5db96190f245121",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-active-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-active-ui.xml",
+      "type": "new",
+      "size": 21268,
+      "sha256": "019c1f54e9527ec693ddc1fe4daadbf9163308efa143aed8b3612c9cc9a25322",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-active-ui.xml"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-empty-normal.png",
+      "type": "new",
+      "size": 85946,
+      "sha256": "adbbc87989575e379e13d262ed2fd51bee8e411ebdabb59231a907b663f90dcd",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-empty-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-result-normal.png",
+      "type": "new",
+      "size": 164198,
+      "sha256": "091c792515ea6f9235bc9ce7a57bd90333ba9219171668b1e19a89f66983e205",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-result-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-result-ui.xml",
+      "type": "new",
+      "size": 27753,
+      "sha256": "375a22c06ce0719c19f8d9459f0aeba2aa18ecf597e37d048899e556f094efb9",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-result-ui.xml"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-return-home.png",
+      "type": "new",
+      "size": 195003,
+      "sha256": "a56c78ab2f045804931219bd31589c517e11532d3bcd9dc4b25b407845a3149d",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-return-home.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-start-max.png",
+      "type": "new",
+      "size": 204165,
+      "sha256": "280ec9006cf53e554ed79fdbaa927a0d69b4508d9751fd7a8042f172685aa2b0",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-start-max.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-start-normal.png",
+      "type": "new",
+      "size": 215526,
+      "sha256": "7352707abae44c3e7b06bee855a810fa081cd6d7d051edf2a8ec1d8ff81d0b27",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-start-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/android-start-ui.xml",
+      "type": "new",
+      "size": 44496,
+      "sha256": "f8e6f21a4c88486d85ec45d2bae0e6f4d4f082faebed38695c232ca971b86244",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/android-start-ui.xml"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/audit.md",
+      "type": "new",
+      "size": 4737,
+      "sha256": "d96a6ba784c9171fc0b1781c39a9a6f0fe3d4230ecc9ad0029d941b2d0bd1067",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/audit.md"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/green.txt",
+      "type": "new",
+      "size": 133066,
+      "sha256": "338eae79eaef94828eca9afa9be34cbd4ae8b5ea0db92793edafde738ed00579",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/green.txt"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/implementation-report.md",
+      "type": "new",
+      "size": 12279,
+      "sha256": "d686df625482ba87a19dd1d63cc455c41bc802848d39ac451c227d52b5f66d93",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/implementation-report.md"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-active-normal.png",
+      "type": "new",
+      "size": 271844,
+      "sha256": "70659749e16b03418acfbf377c7146f21b0328061da853750a11d1cfba0594b2",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-active-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-active-ui.json",
+      "type": "new",
+      "size": 2264,
+      "sha256": "9fc95cc0d04618b7316134a73fe60864a623c2ac016798be9d5b8fa2efcee20e",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-active-ui.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-empty-normal.png",
+      "type": "new",
+      "size": 140719,
+      "sha256": "162efb9dcd52273d35009da0c4071beac69f292f4eef37b70fe00098e7480368",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-empty-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-result-max.png",
+      "type": "new",
+      "size": 204067,
+      "sha256": "3f131aeb7f3632739def11e09cf0cea75b62faf924a6c83a4efec87c7a34cbd9",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-result-max.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-result-normal.png",
+      "type": "new",
+      "size": 214952,
+      "sha256": "19b83bbd49afad143a17fb3b5a570753060c65019ebbb4ddc6bcd90b19c69db7",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-result-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-result-ui.json",
+      "type": "new",
+      "size": 2192,
+      "sha256": "a97dcb1a07412be0fd441ef7e713df86d3c4a548dbace5747939010447d69646",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-result-ui.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-return-home.png",
+      "type": "new",
+      "size": 323635,
+      "sha256": "db829d051ef6a2304ea2bb260d5214bb8ccf5a1a5a52be02b5e0f1fbaba29180",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-return-home.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-start-max.png",
+      "type": "new",
+      "size": 233989,
+      "sha256": "d2ac4b69f6f6b0aed77bde75e7e496626d96f1c086046341b099973e4a962315",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-start-max.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-start-normal.png",
+      "type": "new",
+      "size": 269933,
+      "sha256": "e4889af2b98cc4503571fce8e149b35988c547661d573d26619e2564fe881d39",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-start-normal.png"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/ios-start-ui.json",
+      "type": "new",
+      "size": 2289,
+      "sha256": "40be5facc04b4604d745282883b112aaabf8f03c5978282d10ce04e3eb805b6d",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/ios-start-ui.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/mutations.json",
+      "type": "new",
+      "size": 20537,
+      "sha256": "39e05690acaaac5916a1d88c5a3a6ec38383347a3a9248a862bba1210f5a35fa",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/mutations.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/native-runtime.txt",
+      "type": "new",
+      "size": 1739019,
+      "sha256": "8605e091baaddcaefa81d797556689ef0cc510f6e222ab363396ef465ce879f3",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/native-runtime.txt"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/native-settings-before-after.json",
+      "type": "new",
+      "size": 2402,
+      "sha256": "50fbd7f9cae7409a81e1d8a6d2c2f0cd0a72c9f4bc2760c49005a7694bf2f966",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/native-settings-before-after.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/native-source-manifest.json",
+      "type": "new",
+      "size": 3931,
+      "sha256": "44ddd87a3e401ff31ef25cbc032b0870be508a64475e26f64e0e51aa8cac9732",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/native-source-manifest.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/native-state.json",
+      "type": "new",
+      "size": 2522165,
+      "sha256": "50d89ac0c9a29bc5a00c55fd4023c29c7fedd37f7b67de57747ddc2bb4cc783e",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/native-state.json"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/red.txt",
+      "type": "new",
+      "size": 460405,
+      "sha256": "8f56ed8c0d999f3e2ac929188c7081dc5bf66a4773c30508191e4190431834ea",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/red.txt"
+    },
+    {
+      "path": "docs/evidence/2026-10-28-medalhao-t07/task-brief.md",
+      "type": "new",
+      "size": 12432,
+      "sha256": "1057b25986a429d8562711b79d4960b32eb841fd484e389183e68d9945927f86",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/evidence/2026-10-28-medalhao-t07/task-brief.md"
+    },
+    {
+      "path": "docs/plans/2026-07-27-radiant-launch-roadmap.md",
+      "type": "modified",
+      "size": 137718,
+      "sha256": "e3465515d16191e6bff6b9929134748b6f9b96e48fe3278a9fcba50e1f115f1e",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-07-27-radiant-launch-roadmap.md"
+    },
+    {
+      "path": "docs/plans/2026-10-25-medalhao-execucao-subagentes.md",
+      "type": "modified",
+      "size": 38577,
+      "sha256": "0c33580e8da81a78c9d925a212640c35be7ee33d52ffac933460de098b63a67d",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-10-25-medalhao-execucao-subagentes.md"
+    },
+    {
+      "path": "docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md",
+      "type": "modified",
+      "size": 59847,
+      "sha256": "6a030c792f5a2348ef431dc8437b510c4deb3de9ecbaadbba502184b9585ca88",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md",
+      "type": "modified",
+      "size": 36659,
+      "sha256": "374f02e9dbf708ad8dd5720a650d35bb2f416a81cd1468ba6a12f4fc9ec336a8",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md",
+      "type": "modified",
+      "size": 18182,
+      "sha256": "1a51daf85cf03ce45a08a04739a83e24cfed2ba89455a84aa219bade1996fdb6",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md"
+    },
+    {
+      "path": "radiant-app/.maestro/g4-native-evidence.yaml",
+      "type": "modified",
+      "size": 3790,
+      "sha256": "e1b56f5737763d04ddaa7fc0cb53f29686f5e245f22dd748fcbf0b21187e33bf",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/g4-native-evidence.yaml"
+    },
+    {
+      "path": "radiant-app/.maestro/rating-prompt.yaml",
+      "type": "modified",
+      "size": 3650,
+      "sha256": "ce50ba964e44938c2f44fe92be8e7a6dd2e54453848afda990ff307e13d513be",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/rating-prompt.yaml"
+    },
+    {
+      "path": "radiant-app/.maestro/review-due.yaml",
+      "type": "modified",
+      "size": 1989,
+      "sha256": "96e982c604b542e1130f73a3e5da10be15843bf420bd5971e922e529a0d3525f",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/.maestro/review-due.yaml"
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "type": "modified",
+      "size": 91168,
+      "sha256": "6de86c8367ce70f86d1ca2d71693c8781c4e140651b275d7602b92cc5bbbade2",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/maestro-contract.test.mjs"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx",
+      "type": "modified",
+      "size": 27396,
+      "sha256": "fb05f2d82aca0475bdec2850d27c65bb446a49f99e230f29ff39acc721ea9404",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.tsx",
+      "type": "modified",
+      "size": 20721,
+      "sha256": "f33df619dc6da9c33b43bb1e14ac2dac67d17da8292d10bab7bbff4d10a90176",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/review/screens/ReviewScreen.tsx"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.test.tsx",
+      "type": "new",
+      "size": 2424,
+      "sha256": "dce6d83458b6ba2283c27cb4f8ba04042efd062adb7bed69285c6caa3e8b0000",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/components/ListRow.test.tsx"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.tsx",
+      "type": "new",
+      "size": 2387,
+      "sha256": "ce3519819ff93f3e58a83eb997ec33b4d275c92960b628c622cf83732be0f08e",
+      "inspectPath": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/ui/components/ListRow.tsx"
+    }
+  ],
+  "productFreeze": [
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.tsx",
+      "sha256": "f33df619dc6da9c33b43bb1e14ac2dac67d17da8292d10bab7bbff4d10a90176"
+    },
+    {
+      "path": "radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx",
+      "sha256": "fb05f2d82aca0475bdec2850d27c65bb446a49f99e230f29ff39acc721ea9404"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.tsx",
+      "sha256": "ce3519819ff93f3e58a83eb997ec33b4d275c92960b628c622cf83732be0f08e"
+    },
+    {
+      "path": "radiant-app/src/ui/components/ListRow.test.tsx",
+      "sha256": "dce6d83458b6ba2283c27cb4f8ba04042efd062adb7bed69285c6caa3e8b0000"
+    },
+    {
+      "path": "radiant-app/.maestro/review-due.yaml",
+      "sha256": "96e982c604b542e1130f73a3e5da10be15843bf420bd5971e922e529a0d3525f"
+    },
+    {
+      "path": "radiant-app/.maestro/rating-prompt.yaml",
+      "sha256": "ce50ba964e44938c2f44fe92be8e7a6dd2e54453848afda990ff307e13d513be"
+    },
+    {
+      "path": "radiant-app/.maestro/g4-native-evidence.yaml",
+      "sha256": "e1b56f5737763d04ddaa7fc0cb53f29686f5e245f22dd748fcbf0b21187e33bf"
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "sha256": "6de86c8367ce70f86d1ca2d71693c8781c4e140651b275d7602b92cc5bbbade2"
+    }
+  ],
+  "briefSha256": "1057b25986a429d8562711b79d4960b32eb841fd484e389183e68d9945927f86",
+  "packageSha256": "af213a905c1736f0246c144b97e895ceafbd04d8b7382788b472e7298cefdc04",
+  "status": " M docs/FILA.md\n M docs/STATUS.md\n M docs/archive/STATUS_historico.md\n M docs/evidence/2026-10-27-medalhao-t06.md\n M docs/plans/2026-07-27-radiant-launch-roadmap.md\n M docs/plans/2026-10-25-medalhao-execucao-subagentes.md\n M docs/plans/2026-10-25-medalhao-pendencias-e-fechamento.md\n M docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md\n M docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md\n M radiant-app/.maestro/g4-native-evidence.yaml\n M radiant-app/.maestro/rating-prompt.yaml\n M radiant-app/.maestro/review-due.yaml\n M radiant-app/scripts/maestro-contract.test.mjs\n M radiant-app/src/features/review/screens/ReviewScreen.flow.test.tsx\n M radiant-app/src/features/review/screens/ReviewScreen.tsx\n?? docs/evidence/2026-10-28-medalhao-t07.md\n?? docs/evidence/2026-10-28-medalhao-t07/\n?? radiant-app/src/ui/components/ListRow.test.tsx\n?? radiant-app/src/ui/components/ListRow.tsx\n"
+}

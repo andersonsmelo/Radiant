@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import type { InteractionType, LearningInteractionV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { BenchStepRenderer } from './BenchStepRenderer';
 import { ComparisonStepRenderer } from './ComparisonStepRenderer';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
 import { MatchingStepRenderer } from './MatchingStepRenderer';
@@ -49,6 +50,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
                 // A tela do player apresenta o feedback, preservando a explicação autoral.
                 explanation: interaction.feedback.correct,
             }}
+            exposureImage={interaction.payload.exposureImage}
             selectedOptionId={value}
             onSelect={onChange}
             confirmationLabel={confirmationLabel}
@@ -102,6 +104,14 @@ function OrderingInteraction({ interaction, value, onChange }: InteractionRender
     return <OrderingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
 }
 
+function BenchInteraction(props: InteractionRendererProps) {
+    if (props.interaction.type !== 'bench') {
+        return <UnsupportedInteraction interaction={props.interaction} />;
+    }
+
+    return <BenchStepRenderer {...props} />;
+}
+
 /**
  * Erro seguro: tipo sem renderizador não derruba a lição.
  *
@@ -128,6 +138,7 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     comparison: ComparisonInteraction,
     matching: MatchingInteraction,
     ordering: OrderingInteraction,
+    bench: BenchInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

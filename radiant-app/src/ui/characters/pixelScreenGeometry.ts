@@ -4,8 +4,10 @@ import { PIXEL_MOUTH_BASELINE } from './pixelExpressions';
  * Onde fica a "tela" do Pixel — o retângulo escuro que faz as vezes de rosto —
  * dentro do asset, em fração da própria imagem.
  *
- * Medido em 2026-08-11 sobre pixel_core.png (576×864) por detecção dos pixels
- * escuros no terço superior: x 168…336, y 200…312.
+ * Vem do desenho vetorial `PixelBody` (`PIXEL_SCREEN_RECT`, numa caixa de
+ * 576×864): x 168…336, y 200…312. Desde 2026-10-21 a fonte é o SVG, e não mais
+ * a detecção de pixels escuros sobre pixel_core.png (2026-08-11); o contrato
+ * `pixel-screen-geometry-contract` confere as frações contra o retângulo do SVG.
  *
  * Estas frações descrevem a IMAGEM, não o frame do componente. É toda a
  * diferença: a versão anterior do rosto se posicionava com `top: 22%` do frame,

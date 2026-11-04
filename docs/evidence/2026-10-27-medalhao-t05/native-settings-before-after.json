@@ -1,0 +1,151 @@
+{
+  "measuredAt": "2026-10-27T17:56:29.949021+00:00",
+  "before": {
+    "iosContentSize": {
+      "code": 0,
+      "out": "large",
+      "err": ""
+    },
+    "androidFontScale": {
+      "code": 0,
+      "out": "null",
+      "err": ""
+    },
+    "androidTransition": {
+      "code": 0,
+      "out": "1.0",
+      "err": ""
+    },
+    "androidWindow": {
+      "code": 0,
+      "out": "1.0",
+      "err": ""
+    },
+    "androidAnimator": {
+      "code": 0,
+      "out": "null",
+      "err": ""
+    }
+  },
+  "after": {
+    "androidFontScale": {
+      "code": 0,
+      "out": "null",
+      "err": ""
+    },
+    "androidTransition": {
+      "code": 0,
+      "out": "1.0",
+      "err": ""
+    },
+    "androidWindow": {
+      "code": 0,
+      "out": "1.0",
+      "err": ""
+    },
+    "androidAnimator": {
+      "code": 0,
+      "out": "null",
+      "err": ""
+    },
+    "iosContentSize": {
+      "code": 0,
+      "out": "large",
+      "err": ""
+    }
+  },
+  "restorationNotes": "Android fontScale initial absence null restored by delete, OS-only reboot confirmed exact values. iOS OS-only reboot confirms large. Earlier transient iOS content_size unknown was unavailable; no default normalizing claim.",
+  "restoredExactly": true,
+  "tested": {
+    "iosContentSize": "accessibility-extra-extra-extra-large AX5",
+    "androidFontScale": "2.0 caused native activity recreation",
+    "reduceMotion": "NOT_TESTED"
+  },
+  "finalFreeze3Restoration": {
+    "ios": {
+      "contentSizeBefore": "large",
+      "contentSizeAfter": "large read before shutdown",
+      "appStopped": "MCPstop_app_sim success",
+      "principalSimulator": "Shutdown; simctl list devices booted empty",
+      "metro": "controller owned left running",
+      "android": "never operated",
+      "reservedSimulator": "never operated"
+    },
+    "android": {
+      "measuredAt": "2026-10-27T23:19:20.896263+00:00",
+      "settingsAfter": {
+        "font_scale": "null",
+        "transition_animation_scale": "1.0",
+        "window_animation_scale": "1.0",
+        "animator_duration_scale": "null"
+      },
+      "operations": [
+        {
+          "operation": [
+            "shell",
+            "am",
+            "force-stop",
+            "com.ascendcreative.radiant"
+          ],
+          "code": 0,
+          "out": ""
+        },
+        {
+          "operation": [
+            "shell",
+            "settings",
+            "put",
+            "global",
+            "transition_animation_scale",
+            "1.0"
+          ],
+          "code": 0,
+          "out": ""
+        },
+        {
+          "operation": [
+            "shell",
+            "settings",
+            "put",
+            "global",
+            "window_animation_scale",
+            "1.0"
+          ],
+          "code": 0,
+          "out": ""
+        },
+        {
+          "operation": [
+            "shell",
+            "settings",
+            "delete",
+            "global",
+            "animator_duration_scale"
+          ],
+          "code": 0,
+          "out": "Deleted 0 rows"
+        },
+        {
+          "operation": [
+            "shell",
+            "settings",
+            "delete",
+            "system",
+            "font_scale"
+          ],
+          "code": 0,
+          "out": "Deleted 1 rows"
+        },
+        {
+          "operation": "emu kill",
+          "code": 0,
+          "out": "OK: killing emulator, bye bye\nOK"
+        }
+      ],
+      "appForceStopped": true,
+      "emulatorKillSucceeded": true,
+      "adbDevicesAfter": "Listofdevicesattached; empty"
+    },
+    "settingsRestoredExactly": true
+  }
+}

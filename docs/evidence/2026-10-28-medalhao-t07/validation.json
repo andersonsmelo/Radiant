@@ -1,0 +1,305 @@
+{
+  "summary": {
+    "startedAt": "2026-10-28T16:00:16.623353+00:00",
+    "finishedAt": "2026-10-28T16:03:34.617005+00:00",
+    "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20",
+    "command": [
+      "caffeinate",
+      "-i",
+      "loop",
+      "validate",
+      "--run",
+      "run-1793196624149-d9c215ee"
+    ],
+    "exitCode": 0,
+    "code": "VALIDATION_PASSED",
+    "state": "validating",
+    "validators": [
+      {
+        "id": "docs-contract",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 220
+      },
+      {
+        "id": "content-foundation",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 177
+      },
+      {
+        "id": "content-wave1",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 58
+      },
+      {
+        "id": "content-production",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 1536
+      },
+      {
+        "id": "content-anchoring",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 89
+      },
+      {
+        "id": "content-anchoring-data",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 31
+      },
+      {
+        "id": "content-no-verbatim",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 3001
+      },
+      {
+        "id": "content-source-rights",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 86
+      },
+      {
+        "id": "content-python",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 3226
+      },
+      {
+        "id": "app-quality",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 97546
+      },
+      {
+        "id": "app-test",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 86620
+      },
+      {
+        "id": "api-lint",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 1305
+      },
+      {
+        "id": "api-typecheck",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 1902
+      },
+      {
+        "id": "api-test",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 870
+      },
+      {
+        "id": "brain-links",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 715
+      }
+    ]
+  },
+  "envelope": {
+    "schemaVersion": 1,
+    "ok": true,
+    "code": "VALIDATION_PASSED",
+    "runId": "run-1793196624149-d9c215ee",
+    "sessionId": null,
+    "state": "validating",
+    "data": {
+      "evidence": [
+        {
+          "id": "evidence-fac2cd6e-4ed8-46c6-a358-86d145e8adb1",
+          "validatorId": "docs-contract",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/qa/docs-contract.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/qa/docs-contract.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "24d3d2d8bf2b75fa038dfba35067e5f07a4017c70190fed095f3a03b4b27e576",
+          "outputPreview": "TAP version 13\n# Subtest: governs the living status document, at a path that cannot age\nok 1 - governs the living status document, at a path that cannot age\n  ---\n  duration_ms: 0.8185\n  ...\n# Subtest: flags a machine-local user path in a current-state document\nok 2 - flags a machine-local user path in a current-state document\n  ---\n  duration_ms: 0.340125\n  ...\n# Subtest: flags an API availability statement that contradicts the known inactive state\nok 3 - flags an API availability statement that contradicts the known inactive state\n  ---\n  duration_ms: 0.105041\n  ...\n# Subtest: flags an editorial approval claim that hides items needing review\nok 4 - flags an editorial approval claim that hides items needing review\n  ---\n  duration_ms: 0.1\n  ...\n# Subtest: flags the same editorial claim when Markdown code marks surround the values\nok 5 - flags the same editorial claim when Markdown code marks surround the values\n  ---\n  duration_ms: 0.05\n  ...\n# Subtest: accepts an honest local-first status statement\nok 6 - accepts an honest local-first status statement\n  ---\n  duration_ms: 0.062167\n  ...\n# Subtest: derives the distributed capabilities from eas.json and app.json\nok 7 - derives the distributed capabilities from eas.json and app.json\n  ---\n  duration_ms: 2.487167\n  ...\n# Subtest: classifies every release document as instructional or not\nok 8 - classifies every release document as instructional or not\n  ---\n  duration_ms: 0.209708\n  ...\n# Subtest: flags a smoke step that instructs a login the build cannot reach\nok 9 - flags a smoke step that instructs a login the build cannot reach\n  ---\n  duration_ms: 0.4445\n  ...\n# Subtest: flags reviewer notes that promise sync the production profile turns off\nok 10 - flags reviewer notes that promise sync the production profile turns off\n  ---\n  duration_ms: 0.274875\n  ...\n# Subtest: flags a tablet instruction item while the build ships phone-only\nok 11 - flags a tablet instruction item while the build ships phone-only\n  ---\n  dura",
+          "startedAt": "2026-10-28T16:00:17.120Z",
+          "finishedAt": "2026-10-28T16:00:17.340Z",
+          "durationMs": 220
+        },
+        {
+          "id": "evidence-22b4ffa4-9e92-47bb-8ee5-08f9541b539f",
+          "validatorId": "content-foundation",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-foundation.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "fdaf2a511667ed2f5d2ad4e94b5c63dd4201c0440585ad777a27f7f85a5515e6",
+          "outputPreview": "{\n  \"ok\": true,\n  \"errors\": [],\n  \"summary\": {\n    \"sourceCount\": 1,\n    \"extractionJobCount\": 1,\n    \"sourceSlugs\": [\n      \"fundamentos-de-radiologia-everton-costa-pinto\"\n    ],\n    \"sourceExtractionStatuses\": [\n      \"extracted\"\n    ],\n    \"sourceClassificationStatuses\": [\n      \"classified\"\n    ],\n    \"sourceConceptStatuses\": [\n      \"normalized\"\n    ],\n    \"sourceFormatStatuses\": [\n      \"generated\"\n    ],\n    \"extractionStatuses\": [\n      \"extracted\"\n    ],\n    \"extractedJobCount\": 1,\n    \"extractedPageCount\": 75,\n    \"extractedExcerptCount\": 105,\n    \"classificationJobCount\": 1,\n    \"classificationStatuses\": [\n      \"classified\"\n    ],\n    \"classifiedJobCount\": 1,\n    \"classificationRecordCount\": 105,\n    \"needsReviewCount\": 1,\n    \"conceptJobCount\": 1,\n    \"conceptStatuses\": [\n      \"normalized\"\n    ],\n    \"conceptRecordCount\": 16,\n    \"conceptNeedsReviewCount\": 7,\n    \"formatJobCount\": 6,\n    \"formatBundleCount\": 96,\n    \"formatNeedsReviewCount\": 42,\n    \"formatStatuses\": [\n      \"generated\",\n      \"generated\",\n      \"generated\",\n      \"generated\",\n      \"generated\",\n      \"generated\"\n    ],\n    \"formatTypes\": [\n      \"casos\",\n      \"checkpoints\",\n      \"microlições\",\n      \"quizzes\",\n      \"reviews\",\n      \"rewards\"\n    ],\n    \"classificationSourceSlugs\": [\n      \"fundamentos-de-radiologia-everton-costa-pinto\"\n    ],\n    \"galaxyCount\": 4,\n    \"planetCount\": 13,\n    \"starCount\": 6,\n    \"galaxyIds\": [\n      \"galaxy-anatomia\",\n      \"galaxy-fisica\",\n      \"galaxy-patologias\",\n      \"galaxy-tecnologia\"\n    ],\n    \"wave1PriorityTrackIds\": [\n      \"track-radiology-foundations\",\n      \"track-thorax-patterns\",\n      \"track-abdomen-essentials\"\n    ],\n    \"libraryPdfFileCount\": 41,\n    \"uniqueSourceCount\": 36,\n    \"duplicateFileCount\": 5,\n    \"competencyTrackId\": \"track:fundamentos-e-seguranca-radiologica\",\n    \"competencyUnitCount\": 6,\n    \"competencyCount\": 30,\n    \"criticalSafetyCompetencyCount\": 10,\n    \"competencyCycleCount\": 0,\n    \"orphanCompetencyCount\": 0,\n",
+          "startedAt": "2026-10-28T16:00:17.341Z",
+          "finishedAt": "2026-10-28T16:00:17.518Z",
+          "durationMs": 177
+        },
+        {
+          "id": "evidence-cf5970c1-102c-4afd-9a4b-bc76086f7b99",
+          "validatorId": "content-wave1",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/wave-1-priority-tracks.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "a23ab8e5d25b56707423ec09bf7dd4acffd9e7bc9b334c18553bf792514b7ae2",
+          "outputPreview": "TAP version 13\n# Subtest: wave 1 priority tracks define a stable launch contract\nok 1 - wave 1 priority tracks define a stable launch contract\n  ---\n  duration_ms: 0.664583\n  ...\n# Subtest: wave 1 contract is mirrored by the editorial taxonomia\nok 2 - wave 1 contract is mirrored by the editorial taxonomia\n  ---\n  duration_ms: 0.057917\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 35.438375",
+          "startedAt": "2026-10-28T16:00:17.518Z",
+          "finishedAt": "2026-10-28T16:00:17.576Z",
+          "durationMs": 58
+        },
+        {
+          "id": "evidence-fd64e751-8ede-4370-8049-a0888c1025bd",
+          "validatorId": "content-production",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/production-batch.test.mjs scripts/content/audit-production-batches.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/audit-production-batches.mjs --check",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "fe215b3b5b44379d5c05d92cc20c6163e908787096855ebe71672b09a74edab0",
+          "outputPreview": "TAP version 13\n# Subtest: mede cobertura e rendimento da amostra sem promover candidato pendente\nok 1 - mede cobertura e rendimento da amostra sem promover candidato pendente\n  ---\n  duration_ms: 58.323875\n  ...\n# Subtest: contabiliza retrabalho detectado e não chama hash antigo de aprovação\nok 2 - contabiliza retrabalho detectado e não chama hash antigo de aprovação\n  ---\n  duration_ms: 25.860667\n  ...\n# Subtest: recusa raiz inválida e preserva ausência de prova para entradas incompletas\nok 3 - recusa raiz inválida e preserva ausência de prova para entradas incompletas\n  ---\n  duration_ms: 0.45625\n  ...\n# Subtest: production batch atomic catalog\n    # Subtest: publica batch e changelog juntos a partir de catálogo ausente\n    ok 1 - publica batch e changelog juntos a partir de catálogo ausente\n      ---\n      duration_ms: 76.221083\n      ...\n    # Subtest: recusa expected hash stale sem alterar o catálogo\n    ok 2 - recusa expected hash stale sem alterar o catálogo\n      ---\n      duration_ms: 28.083417\n      ...\n    # Subtest: remove o temporário e preserva o catálogo quando a promoção falha antes do rename\n    ok 3 - remove o temporário e preserva o catálogo quando a promoção falha antes do rename\n      ---\n      duration_ms: 58.293833\n      ...\n    # Subtest: recusa gate ausente e batchId já publicado\n    ok 4 - recusa gate ausente e batchId já publicado\n      ---\n      duration_ms: 111.796083\n      ...\n    # Subtest: recusa conteúdo material alterado depois das aprovações\n    ok 5 - recusa conteúdo material alterado depois das aprovações\n      ---\n      duration_ms: 16.381125\n      ...\n    # Subtest: recusa colisão entre lotes sem perder o catálogo anterior\n    ok 6 - recusa colisão entre lotes sem perder o catálogo anterior\n      ---\n      duration_ms: 137.869042\n      ...\n    # Subtest: serializa escritores para impedir que duas promoções sobrescrevam o mesmo catálogo\n    ok 7 - serializa escritores para impedir que duas promoções sobrescrevam o mesmo catálogo",
+          "startedAt": "2026-10-28T16:00:17.576Z",
+          "finishedAt": "2026-10-28T16:00:19.112Z",
+          "durationMs": 1536
+        },
+        {
+          "id": "evidence-a339a979-ab96-46af-b32e-bb51ac7a2b46",
+          "validatorId": "content-anchoring",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "a1d937a4ed4e421bdc9cbd57512a98a481727526da96b728f4e8159481881f20",
+          "outputPreview": "TAP version 13\n# {\n#   \"aulas\": 0,\n#   \"excertos\": 0,\n#   \"porAula\": {},\n#   \"erro\": \"nenhuma aula ancorada encontrada: verde so pode significar que validei dados\"\n# }\n# {\n#   \"aulas\": 1,\n#   \"excertos\": 1,\n#   \"porAula\": {\n#     \"piloto.anchored.json\": []\n#   }\n# }\n# {\n#   \"aulas\": 1,\n#   \"excertos\": 1,\n#   \"porAula\": {\n#     \"piloto.anchored.json\": [\n#       \"hash divergente para excerpt:a:p1:c1: fonte mudou desde a ancoragem\"\n#     ]\n#   }\n# }\n# Subtest: aula com toda afirmacao ancorada passa\nok 1 - aula com toda afirmacao ancorada passa\n  ---\n  duration_ms: 0.580375\n  ...\n# Subtest: MUTACAO: afirmacao sem excerto reprova\nok 2 - MUTACAO: afirmacao sem excerto reprova\n  ---\n  duration_ms: 0.069375\n  ...\n# Subtest: MUTACAO: hash divergente reprova\nok 3 - MUTACAO: hash divergente reprova\n  ---\n  duration_ms: 0.03825\n  ...\n# Subtest: MUTACAO: excerto nao autorizado reprova\nok 4 - MUTACAO: excerto nao autorizado reprova\n  ---\n  duration_ms: 0.039542\n  ...\n# Subtest: MUTACAO: excerto de fonte que nao permite referencia factual reprova\nok 5 - MUTACAO: excerto de fonte que nao permite referencia factual reprova\n  ---\n  duration_ms: 0.078084\n  ...\n# Subtest: MUTACAO: excerto fora do manifesto reprova\nok 6 - MUTACAO: excerto fora do manifesto reprova\n  ---\n  duration_ms: 0.033167\n  ...\n# Subtest: MUTACAO: main devolve 1 quando nao ha aula ancorada nenhuma\nok 7 - MUTACAO: main devolve 1 quando nao ha aula ancorada nenhuma\n  ---\n  duration_ms: 1.070334\n  ...\n# Subtest: MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada\nok 8 - MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada\n  ---\n  duration_ms: 1.76225\n  ...\n# Subtest: MUTACAO: o modulo pode ser importado por um contexto sem script de entrada\nok 9 - MUTACAO: o modulo pode ser importado por um contexto sem script de entrada\n  ---\n  duration_ms: 23.312209\n  ...\n# Subtest: MUTACAO: main devolve 1 quando o hash do excerto mudou desde a ancoragem\nok 10 - MUTACAO: main devolve 1 quando o hash ",
+          "startedAt": "2026-10-28T16:00:19.112Z",
+          "finishedAt": "2026-10-28T16:00:19.201Z",
+          "durationMs": 89
+        },
+        {
+          "id": "evidence-e58c87c1-39ee-42cc-b290-7898b0beb04a",
+          "validatorId": "content-anchoring-data",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-content-anchoring.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+          "outputPreview": "{\n  \"aulas\": 1,\n  \"excertos\": 282,\n  \"porAula\": {\n    \"ai-lesson-qualidade-de-imagem.anchored.json\": []\n  }\n}",
+          "startedAt": "2026-10-28T16:00:19.202Z",
+          "finishedAt": "2026-10-28T16:00:19.233Z",
+          "durationMs": 31
+        },
+        {
+          "id": "evidence-48617f73-4ff3-4f10-a440-8f6b04b39d9c",
+          "validatorId": "content-no-verbatim",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-no-verbatim.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "7942e4a17747cc75d9eddda041c88e260b7525c2443c68f60be134c114162850",
+          "outputPreview": "TAP version 13\n# fatal: not a git repository (or any of the parent directories): .git\n# {\n#   \"aulas\": 1,\n#   \"excertos\": 1,\n#   \"textosDeExtracaoLidos\": \"ausentes: as checagens de copia NAO rodaram\",\n#   \"arquivosRastreadosVarridos\": \"git indisponivel: a varredura da arvore rastreada NAO rodou\",\n#   \"erros\": []\n# }\n# fatal: not a git repository (or any of the parent directories): .git\n# {\n#   \"aulas\": 1,\n#   \"excertos\": 1,\n#   \"textosDeExtracaoLidos\": \"ausentes: as checagens de copia NAO rodaram\",\n#   \"arquivosRastreadosVarridos\": \"git indisponivel: a varredura da arvore rastreada NAO rodou\",\n#   \"erros\": [\n#     \"piloto.anchored.json: valor identico ao texto do excerto excerpt:a:p1:c1\"\n#   ]\n# }\n# Subtest: linha de manifesto com as chaves do contrato passa\nok 1 - linha de manifesto com as chaves do contrato passa\n  ---\n  duration_ms: 0.577417\n  ...\n# Subtest: MUTACAO: chave a mais na linha de manifesto reprova, e a mensagem nomeia a chave\nok 2 - MUTACAO: chave a mais na linha de manifesto reprova, e a mensagem nomeia a chave\n  ---\n  duration_ms: 0.070583\n  ...\n# Subtest: MUTACAO: chave a mais numa claim ancorada reprova\nok 3 - MUTACAO: chave a mais numa claim ancorada reprova\n  ---\n  duration_ms: 0.051041\n  ...\n# Subtest: MUTACAO: string rastreada cujo hash bate com um excerto reprova\nok 4 - MUTACAO: string rastreada cujo hash bate com um excerto reprova\n  ---\n  duration_ms: 0.073541\n  ...\n# Subtest: claim escrita a mao, que nao e copia, passa\nok 5 - claim escrita a mao, que nao e copia, passa\n  ---\n  duration_ms: 0.047084\n  ...\n# Subtest: MUTACAO: claim que e trecho literal do excerto reprova\nok 6 - MUTACAO: claim que e trecho literal do excerto reprova\n  ---\n  duration_ms: 0.091875\n  ...\n# Subtest: claim que reformula o mesmo fato passa\nok 7 - claim que reformula o mesmo fato passa\n  ---\n  duration_ms: 0.07875\n  ...\n# Subtest: MUTACAO: arquivo rastreado fora de content-manifest com texto de fonte reprova\nok 8 - MUTACAO: arquivo rastreado fora de content-manifest",
+          "startedAt": "2026-10-28T16:00:19.233Z",
+          "finishedAt": "2026-10-28T16:00:22.234Z",
+          "durationMs": 3001
+        },
+        {
+          "id": "evidence-031fb485-e94b-4d5b-ab02-3ba18dbf99c4",
+          "validatorId": "content-source-rights",
+          "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-source-rights.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-source-rights.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "bd79ecb206fa353c46a5ab0a910c74f83c8d8ce9fc5501f2a49b595f04120f00",
+          "outputPreview": "TAP version 13\n# Subtest: fonte blocked sem excecao reprova\nok 1 - fonte blocked sem excecao reprova\n  ---\n  duration_ms: 0.471166\n  ...\n# Subtest: fonte blocked com excecao ativa passa\nok 2 - fonte blocked com excecao ativa passa\n  ---\n  duration_ms: 0.20575\n  ...\n# Subtest: excecao vencida volta a reprovar sozinha\nok 3 - excecao vencida volta a reprovar sozinha\n  ---\n  duration_ms: 0.046042\n  ...\n# Subtest: fonte authorized passa sem precisar de excecao\nok 4 - fonte authorized passa sem precisar de excecao\n  ---\n  duration_ms: 0.037875\n  ...\n# Subtest: fonte usada sem source.json reprova em vez de passar em silencio\nok 5 - fonte usada sem source.json reprova em vez de passar em silencio\n  ---\n  duration_ms: 0.081833\n  ...\n# Subtest: caixa e forma Unicode nao separam o mesmo caminho\nok 6 - caixa e forma Unicode nao separam o mesmo caminho\n  ---\n  duration_ms: 0.064958\n  ...\n# Subtest: coletarFontesUsadas encontra sourceId em qualquer profundidade\nok 7 - coletarFontesUsadas encontra sourceId em qualquer profundidade\n  ---\n  duration_ms: 0.081541\n  ...\n# Subtest: excecaoAtiva rejeita registro sem data\nok 8 - excecaoAtiva rejeita registro sem data\n  ---\n  duration_ms: 0.072333\n  ...\n# Subtest: SONDA — o verde do estado real e sustentado por decisao registrada, nao por ausencia\nok 9 - SONDA — o verde do estado real e sustentado por decisao registrada, nao por ausencia\n  ---\n  duration_ms: 1.837916\n  ...\n1..9\n# tests 9\n# suites 0\n# pass 9\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 34.347958\nFontes que alimentam o catalogo: 1\nOK: nenhuma fonte com direitos negados alimenta a geracao.",
+          "startedAt": "2026-10-28T16:00:22.234Z",
+          "finishedAt": "2026-10-28T16:00:22.320Z",
+          "durationMs": 86
+        },
+        {
+          "id": "evidence-9dcff5dd-8077-45f0-8551-accf578c3c0b",
+          "validatorId": "content-python",
+          "command": "PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py scripts/content/extract-source.test.py scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py scripts/content/calibration-report.test.py scripts/content/destination-state.test.py scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 \"$suite\" || estado=1; done; exit $estado'",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "e8e2abc7913f231e906ed05ebc501636919ae7b8cce9175e2eac7b7653cd8e8a",
+          "outputPreview": "..........\n----------------------------------------------------------------------\nRan 10 tests in 0.003s\n\nOK\ns......\n----------------------------------------------------------------------\nRan 7 tests in 0.002s\n\nOK (skipped=1)\n...\n----------------------------------------------------------------------\nRan 3 tests in 0.003s\n\nOK\n..............\n----------------------------------------------------------------------\nRan 14 tests in 0.013s\n\nOK\n.......\n----------------------------------------------------------------------\nRan 7 tests in 0.000s\n\nOK\n.....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n......\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n.........................\n----------------------------------------------------------------------\nRan 25 tests in 0.649s\n\nOK",
+          "startedAt": "2026-10-28T16:00:22.321Z",
+          "finishedAt": "2026-10-28T16:00:25.547Z",
+          "durationMs": 3226
+        },
+        {
+          "id": "evidence-3b5ee069-a59e-4495-bcf1-b3e2a3fd6207",
+          "validatorId": "app-quality",
+          "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "c8849481ab839d9c952df07048df5db2d88291f073305c5920ce032edb655c72",
+          "outputPreview": "> radiant-app@1.4.0 quality\n> npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:copy-style-contract && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test:route-tree-purity-contract && npm run test:env-precedence-contract && npm run test:ci-gate-parity-contract && npm run test:native-version-contract && npm run test -- --runInBand && npm run visual:qa:strict\n\n\n> radiant-app@1.4.0 lint\n> eslint src components constants hooks scripts eslint.config.js\n\n\n/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/components/ui/AnimatedCounter.tsx\n  59:6  warning  React Hook React.useEffect has a missing dependency: 'progress'. Either include it or remove the dependency array  react-hooks/exhaustive-deps\n\n/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/components/ui/AnimatedProgressBar.tsx\n  60:6  warning  React Hook useEffect has a missing dependency: 'fill'. Either include it or remove the dependency array  react-hooks/exhaustive-deps\n\n/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/components/ui/Confetti.tsx\n  41:6  warning  React Hook useEffect has missing dependencies: 'cx', 'delay', 'dur', 'opacity', 'rot', 'rotate', 'translateX', and 'translateY'. Either include them or remove the dependency array  react-hooks/exhaustive-deps\n\n/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/components/ui/ProgressRing.tsx\n  71:6  warning  React Hook useEffect has a missing dependency: 'progress'. Either include it or remove the depen",
+          "startedAt": "2026-10-28T16:00:25.547Z",
+          "finishedAt": "2026-10-28T16:02:03.093Z",
+          "durationMs": 97546
+        },
+        {
+          "id": "evidence-9d556ad6-05fb-4721-bd4c-7241feef405d",
+          "validatorId": "app-test",
+          "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test -- --runInBand --no-cache",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "fabb58bdfaf8b70d6fbab7fca9aaea2175ab436efed328f8c69da46c1578395f",
+          "outputPreview": "> radiant-app@1.4.0 test\n> jest --runInBand --no-cache\n\nPASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (16.215 s)\n  ● Console\n\n    console.error\n      An update to LessonFlowAttempt inside a test was not wrapped in act(...).\n      \n      When testing, code that causes React state updates should be wrapped into act(...):\n      \n      act(() => {\n        /* fire events that update state */\n      });\n      /* assert on the output */\n      \n      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act\n\n      545 |             ) ?? null;\n      546 |\n    > 547 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));\n          |         ^\n      548 |     }, [outcome, journeySnapshot]);\n      549 |\n      550 |     const lessonPassed = outcome\n\n      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19\n      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)\n      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)\n      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)\n      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)\n      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)\n      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:547:9)\n      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)\n      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)\n      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)\n      at commitHookPassiveMountEffects (nod",
+          "startedAt": "2026-10-28T16:02:03.100Z",
+          "finishedAt": "2026-10-28T16:03:29.720Z",
+          "durationMs": 86620
+        },
+        {
+          "id": "evidence-bf7021fb-5617-4d65-84db-031856bf1f2c",
+          "validatorId": "api-lint",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run lint",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+          "outputPreview": "> radiant-api@0.1.0 lint\n> eslint src --ext .ts",
+          "startedAt": "2026-10-28T16:03:29.721Z",
+          "finishedAt": "2026-10-28T16:03:31.026Z",
+          "durationMs": 1305
+        },
+        {
+          "id": "evidence-c9c9e8f7-939b-4be6-a8fa-d3b777c64089",
+          "validatorId": "api-typecheck",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run typecheck",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+          "outputPreview": "> radiant-api@0.1.0 typecheck\n> tsc -p tsconfig.json --noEmit --pretty false",
+          "startedAt": "2026-10-28T16:03:31.026Z",
+          "finishedAt": "2026-10-28T16:03:32.928Z",
+          "durationMs": 1902
+        },
+        {
+          "id": "evidence-42a252e7-939e-4f77-a7ff-72913f906d58",
+          "validatorId": "api-test",
+          "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null NODE_ENV=test CI=1 npm test",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "a699d75729b03f7a29892618c2803bb35531816ad2cc88d4ba2e4d2cdd15a54b",
+          "outputPreview": "> radiant-api@0.1.0 test\n> tsx --test src/*.test.ts src/**/*.test.ts\n\nTAP version 13\n# Subtest: rate limiter blocks requests above configured threshold\nok 1 - rate limiter blocks requests above configured threshold\n  ---\n  duration_ms: 354.79575\n  ...\n# Subtest: rate limiter can skip explicit health paths\nok 2 - rate limiter can skip explicit health paths\n  ---\n  duration_ms: 2.339959\n  ...\n# Subtest: auth routes preserve the public contract\nok 3 - auth routes preserve the public contract\n  ---\n  duration_ms: 364.035542\n  ...\n# Subtest: auth routes reject invalid payloads before hitting the service layer\nok 4 - auth routes reject invalid payloads before hitting the service layer\n  ---\n  duration_ms: 6.358833\n  ...\n# Subtest: auth routes surface invalid password reset token responses\nok 5 - auth routes surface invalid password reset token responses\n  ---\n  duration_ms: 1.769959\n  ...\n# Subtest: GET /v1/content/catalog adds metadata when upstream omits it\nok 6 - GET /v1/content/catalog adds metadata when upstream omits it\n  ---\n  duration_ms: 357.935042\n  ...\n# Subtest: the content seed serves journey stages with only the fields the app reads\nok 7 - the content seed serves journey stages with only the fields the app reads\n  ---\n  duration_ms: 5.131416\n  ...\n# Subtest: GET /v1/content/catalog returns the launch catalog contract\nok 8 - GET /v1/content/catalog returns the launch catalog contract\n  ---\n  duration_ms: 356.100833\n  ...\n# Subtest: GET /health returns the service health payload\nok 9 - GET /health returns the service health payload\n  ---\n  duration_ms: 356.689459\n  ...\n# Subtest: GET /ready returns readiness status\nok 10 - GET /ready returns readiness status\n  ---\n  duration_ms: 356.311833\n  ...\n# Subtest: PUT /v1/sync/lesson-progress preserves the contract\nok 11 - PUT /v1/sync/lesson-progress preserves the contract\n  ---\n  duration_ms: 361.924125\n  ...\n# Subtest: PUT /v1/sync/lesson-progress rejects invalid payloads\nok 12 - PUT /v1/sync/lesson-progress reject",
+          "startedAt": "2026-10-28T16:03:32.928Z",
+          "finishedAt": "2026-10-28T16:03:33.798Z",
+          "durationMs": 870
+        },
+        {
+          "id": "evidence-64fb1830-4d2e-4307-9cf6-7749b8f61fae",
+          "validatorId": "brain-links",
+          "command": "PATH=/Users/anderson/.local/bin:/usr/bin:/bin loop brain validate-links",
+          "status": "passed",
+          "exitCode": 0,
+          "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+          "outputPreview": "{\"schemaVersion\":1,\"ok\":true,\"code\":\"BRAIN_LINKS_VALID\",\"runId\":null,\"sessionId\":null,\"state\":null,\"data\":{\"brainPath\":\"/Users/anderson/Documents/obsidian/Cerebro/Developer/Radiant\",\"vaultPath\":\"/Users/anderson/Documents/obsidian\",\"scannedFiles\":10,\"linkCount\":10,\"issues\":[]},\"nextActions\":[]}",
+          "startedAt": "2026-10-28T16:03:33.798Z",
+          "finishedAt": "2026-10-28T16:03:34.513Z",
+          "durationMs": 715
+        }
+      ]
+    },
+    "nextActions": [
+      "loop step finish --run run-1793196624149-d9c215ee"
+    ]
+  }
+}

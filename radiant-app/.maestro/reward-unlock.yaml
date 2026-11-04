@@ -147,7 +147,7 @@ tags:
 
 # ── Para a lição 2 ───────────────────────────────────────────────────────────
 # Sem checkpoint entre as lições (ADR de 2026-09-28): o próximo nó recomendado é
-# a lição seguinte, e o CTA da home diz "Continuar jornada". Centralizar o
+# a lição seguinte, e o CTA da home diz "Continuar trilha". Centralizar o
 # botão do header rolável antes de tocar preserva alcance em telas curtas.
 - scrollUntilVisible:
     element:
@@ -170,7 +170,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 2 ────────────────────────────────────────────────────────────────
 - assertVisible: Princípios de Tomografia Computadorizada
@@ -248,7 +248,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Profissão e atuação do técnico em radiologia'
@@ -310,7 +310,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 4 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Energia e matéria'
@@ -372,7 +372,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Estrutura da matéria e núcleo atômico'
@@ -434,7 +434,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Radioatividade, partículas e atividade'
@@ -496,7 +496,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 
 # ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
 - assertVisible: 'Quiz: Raios X: descoberta e propriedades'
@@ -601,3 +601,7 @@ tags:
 - assertVisible: Conquista registrada
 - assertVisible: Salva no seu progresso
 - assertVisible: 8 de 8 marcos da unidade concluídos
+# A ação póscoleta usa o destino real calculado pelo snapshot.
+- tapOn: Continuar
+- assertVisible:
+    id: journey-trail

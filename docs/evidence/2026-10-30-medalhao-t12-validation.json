@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "runId": "run-1793361707356-9d160e66",
+  "code": "VALIDATION_PASSED",
+  "stateAtValidationReturn": "validating",
+  "configuredCycles": 1,
+  "passed": 15,
+  "total": 15,
+  "evidence": [
+    {
+      "id": "evidence-b295be7a-84bf-4982-ae8b-5a7ba0f6451d",
+      "validatorId": "docs-contract",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/qa/docs-contract.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/qa/docs-contract.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "76d623165b9ea8e58d1e9c4f2d6f5b4ebb173927349902ea776687a8e01a1077",
+      "startedAt": "2026-10-30T15:04:45.705Z",
+      "finishedAt": "2026-10-30T15:04:45.904Z",
+      "durationMs": 199
+    },
+    {
+      "id": "evidence-4da47629-9338-422b-a4bd-69c2a668d535",
+      "validatorId": "content-foundation",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-foundation.test.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "f426a57c81b2346326e18c4ff3b3a90cf0b99585300ab232bb97934ca6649b82",
+      "startedAt": "2026-10-30T15:04:45.904Z",
+      "finishedAt": "2026-10-30T15:04:46.072Z",
+      "durationMs": 168
+    },
+    {
+      "id": "evidence-2cabe666-1c14-4e36-ac5d-6b2da32aa259",
+      "validatorId": "content-wave1",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/wave-1-priority-tracks.test.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "34877b394cc3596bd05ce6b27e3bf8913c282d51c81085b7f5966001f7fc88a2",
+      "startedAt": "2026-10-30T15:04:46.072Z",
+      "finishedAt": "2026-10-30T15:04:46.128Z",
+      "durationMs": 56
+    },
+    {
+      "id": "evidence-f9515daf-96b0-4fa6-bde8-c39c5731e003",
+      "validatorId": "content-production",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/production-batch.test.mjs scripts/content/audit-production-batches.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/audit-production-batches.mjs --check",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "67ae7de851a08e13dfe2f4646efd6dd8300aabab70ed86a9934a13e72b84d3e0",
+      "startedAt": "2026-10-30T15:04:46.128Z",
+      "finishedAt": "2026-10-30T15:04:47.627Z",
+      "durationMs": 1499
+    },
+    {
+      "id": "evidence-dd8abd06-1596-4b01-9464-4fcc7e401eb5",
+      "validatorId": "content-anchoring",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "67876368806ca2ad14579347c98c4e13e4c0e4d745f55f1523ca11a9f999629a",
+      "startedAt": "2026-10-30T15:04:47.627Z",
+      "finishedAt": "2026-10-30T15:04:47.714Z",
+      "durationMs": 87
+    },
+    {
+      "id": "evidence-5fe43465-d632-4f32-bc8b-32680b0776eb",
+      "validatorId": "content-anchoring-data",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-content-anchoring.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5",
+      "startedAt": "2026-10-30T15:04:47.715Z",
+      "finishedAt": "2026-10-30T15:04:47.745Z",
+      "durationMs": 30
+    },
+    {
+      "id": "evidence-acb28e7d-57ee-451c-8f12-f9f515d56a7f",
+      "validatorId": "content-no-verbatim",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-no-verbatim.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "8c387d3f7cf9177d019dedfcdd0f84fe4869c7b945dccde20a45bed4775bc6f4",
+      "startedAt": "2026-10-30T15:04:47.745Z",
+      "finishedAt": "2026-10-30T15:04:51.148Z",
+      "durationMs": 3403
+    },
+    {
+      "id": "evidence-ee1e859e-f491-4213-8a17-2ba87ea3eacd",
+      "validatorId": "content-source-rights",
+      "command": "PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node --test scripts/content/validate-source-rights.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/validate-source-rights.mjs",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "aca1a246f95741747d086b444c8f5c10e46657047150ba3bd2a464313c1a23b8",
+      "startedAt": "2026-10-30T15:04:51.148Z",
+      "finishedAt": "2026-10-30T15:04:51.232Z",
+      "durationMs": 84
+    },
+    {
+      "id": "evidence-a0b1b705-45cb-498e-b849-788b262e1cbd",
+      "validatorId": "content-python",
+      "command": "PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py scripts/content/extract-source.test.py scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py scripts/content/calibration-report.test.py scripts/content/destination-state.test.py scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 \"$suite\" || estado=1; done; exit $estado'",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "9fb3cdcf22b6d7a91f15a7aecbe19a8280b61c2004f3b7c61edd8f56cc889726",
+      "startedAt": "2026-10-30T15:04:51.232Z",
+      "finishedAt": "2026-10-30T15:04:54.088Z",
+      "durationMs": 2856
+    },
+    {
+      "id": "evidence-f1c91ff9-2bd5-4035-94cd-c524c9821a07",
+      "validatorId": "app-quality",
+      "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "e9d157640d4eb36e13084103d4d768e749d227438e8fcd14f5448ad5899a243d",
+      "startedAt": "2026-10-30T15:04:54.088Z",
+      "finishedAt": "2026-10-30T15:06:27.234Z",
+      "durationMs": 93146
+    },
+    {
+      "id": "evidence-753ff813-ad02-474a-a996-d472f2c65bf4",
+      "validatorId": "app-test",
+      "command": "cd radiant-app && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test -- --runInBand --no-cache",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "6c2cece338c3840f6338a222af8088a4874f33d57fbe6524c79430a3fea7d61d",
+      "startedAt": "2026-10-30T15:06:27.235Z",
+      "finishedAt": "2026-10-30T15:07:56.081Z",
+      "durationMs": 88846
+    },
+    {
+      "id": "evidence-68a01fa1-a8fa-4789-82ea-eadff023bd69",
+      "validatorId": "api-lint",
+      "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run lint",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5",
+      "startedAt": "2026-10-30T15:07:56.081Z",
+      "finishedAt": "2026-10-30T15:07:57.487Z",
+      "durationMs": 1406
+    },
+    {
+      "id": "evidence-a3d69c8e-5294-416a-8184-5c9148846d25",
+      "validatorId": "api-typecheck",
+      "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null npm run typecheck",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0",
+      "startedAt": "2026-10-30T15:07:57.487Z",
+      "finishedAt": "2026-10-30T15:07:59.273Z",
+      "durationMs": 1786
+    },
+    {
+      "id": "evidence-36e5494c-ad23-47bd-adb5-e9a0acfc30e1",
+      "validatorId": "api-test",
+      "command": "cd radiant-api && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin DOTENV_CONFIG_PATH=/dev/null NODE_ENV=test CI=1 npm test",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "1e2feaccf4b2e04b6eaee9fae32601264522e3c538e722a19df0b8b17fd20f54",
+      "startedAt": "2026-10-30T15:07:59.273Z",
+      "finishedAt": "2026-10-30T15:08:00.134Z",
+      "durationMs": 861
+    },
+    {
+      "id": "evidence-b33e3ad7-d381-4c27-bdb6-76d2166aba21",
+      "validatorId": "brain-links",
+      "command": "PATH=/Users/anderson/.local/bin:/usr/bin:/bin loop brain validate-links",
+      "status": "passed",
+      "exitCode": 0,
+      "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432",
+      "startedAt": "2026-10-30T15:08:00.135Z",
+      "finishedAt": "2026-10-30T15:08:00.750Z",
+      "durationMs": 615
+    }
+  ],
+  "envelopeSha256": "29dacbcd77a2802a7f0aa0cb8a37dfbdcf1759ba086c4d085763e5d8304e1b0d",
+  "sourceBoundary": "R2 product/test freeze unchanged through full configured validation; no source edit after validation. Receipt metadata and historical relative-link correction are documentary only.",
+  "fullSuiteBoundary": "app-quality runs exact EXPO_NO_DOTENV=1 npm run quality (Jest in-band/contracts/strict visual QA), app-test full in-band/no-cache; no individual-suite counts inferred from truncated Loop previews. API/content/docs/brain-links all executed.",
+  "nativeBoundary": "Normal/AX5 NOT_VERIFIED; static validation does not supply native proof.",
+  "lifecycle": {
+    "sessionId": "brain-session-1793361533658-b36e155e",
+    "sessionState": "closed",
+    "writerFinish": "succeeded",
+    "writerClose": "closed",
+    "finishReceipt": {
+      "ok": true,
+      "code": "STEP_SUCCEEDED",
+      "state": "succeeded",
+      "runId": "run-1793361707356-9d160e66",
+      "envelopeSha256": "3e9bdaa8308bfec37c71b66d3296e4b277f9688f3232cd6171483194be0e4970"
+    },
+    "memoryReceipt": {
+      "ok": true,
+      "code": "MEMORY_WRITTEN",
+      "state": "memory_written",
+      "runId": "run-1793361707356-9d160e66",
+      "envelopeSha256": "f300e461184ada9bdd7b6ccba1ac00154e4aa70124bbc847ddc26e3aac0efc69"
+    },
+    "closeReceipt": {
+      "ok": true,
+      "code": "RUN_CLOSED",
+      "state": "closed",
+      "runId": "run-1793361707356-9d160e66",
+      "envelopeSha256": "7359c534072d65417a9a748ac763eeec8f9b5eea33fefb992018c95e77384349"
+    },
+    "receiptBoundary": "Only immutable command-result metadata attached after commands returned; no product edit after R2/final validation."
+  },
+  "documentaryFollowup": {
+    "command": "Node20.20.2 node scripts/qa/docs-contract.mjs",
+    "exitCode": 0,
+    "output": "PASS documentation contract",
+    "reason": "Check documentary-only receipt metadata and relocated historical link after configured validation."
+  }
+}

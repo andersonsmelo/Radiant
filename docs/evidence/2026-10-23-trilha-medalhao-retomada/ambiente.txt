@@ -1,0 +1,14 @@
+Ambiente da retomada — 2026-10-23 (America/Bahia)
+Worktree: .claude/worktrees/trilha-2026-10-20, branch claude/trilha-medalhao-design; HEAD de partida 8ad10e85b4cb9302f158a386910930b14c7de3fc; origin da branch 83de747c197cf1eb608dc58394620a5e5d7e2172 (WIP local 1 à frente) às 08:09.
+Writer run-1792757625819-e00263ec (37 caminhos); sessão de leitura brain-session-1792753779305-372f9f9d.
+Node app/Metro/testes: v20.20.2; Loop: v24.14.1.
+Metro: npx expo start --dev-client --port 8081 com EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 CI=1 (sem watch).
+  - sem instrumentação: worktree da frente (dia 2, rodadas limpas 2–5, conserto fix1–4);
+  - instrumentado: cópia descartável 'git worktree add --detach <scratch> 8ad10e8' com node_modules clonado (cp -c) + patches desta pasta;
+  - benchmark 40: mesma cópia, sem instrumentação, só com storybook-asset-stub.patch (STORYBOOK_ENABLED=true); arquivos de produto com SHA-256 iguais aos da worktree.
+AVD: radiant-entrada-api34, 14/API 34/arm64-v8a; Physical size: 1080x2340; Physical density: 440; font_scale=null (null = 1,0); window/transition animation scale 1.0.
+Dev client Android: exp+radiant-app://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081 com adb reverse tcp:8081.
+Gravação: adb emu screenrecord start --fps 60 --time-limit 14 (webm VFR 1080x2340); toque por adb shell input tap 538 2205 ('Continuar' do resumo).
+iOS: simulador reservado 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 (iOS 26.5) ligado só para ler a data; app encerrado e simulador desligado; nada tocado.
+Mac: carga 1 min entre 3,3 e 4,6 durante as medições; tela desbloqueada (ioreg sem CGSSessionScreenIsLocked).
+Preparação do momento elegível: clearState → onboarding → introdução L1 → 'Fechar quiz' → trilha lê L1 (hook-decide sem conclusão) → retomar pela ação real → 3/3 → resumo → gravar → 'Continuar'.

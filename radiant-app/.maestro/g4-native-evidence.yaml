@@ -23,13 +23,13 @@ tags:
     link: radiantapp://review
 - assertVisible: Revisão
 - scrollUntilVisible:
-    element: Começar revisão
+    element: Começar
     direction: DOWN
     centerElement: false
     visibilityPercentage: 80
 - waitForAnimationToEnd:
     timeout: 2000
-- tapOn: Começar revisão
+- tapOn: Começar
 - assertVisible: Sessão ativa
 # Item 1 (q1, certa na posição 1): a pergunta chega sem gabarito e sem seleção.
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'

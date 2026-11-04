@@ -1,0 +1,493 @@
+{
+  "phase": "T06 retomada 2026-10-28",
+  "sourceSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+  "restored": true,
+  "cases": [
+    {
+      "id": "invalid-auto-grants",
+      "kind": "product",
+      "testPattern": "destino inválido reward-inexistente",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t destino inválido reward-inexistente",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta"
+      ],
+      "seconds": 9.891,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-invalid-auto-grants.txt",
+      "logSha256": "2d9ae7bf838b3bee79ae1a29f43da43717429ed07461ac064569894d548745e7",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "2b6adf16e4fdaf98837d9465bf157a0d3a48d42a0c296525422aca39a5f98fce",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "invalid-no-dismiss",
+      "kind": "product",
+      "testPattern": "destino inválido reward-inexistente",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t destino inválido reward-inexistente",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › destino inválido reward-inexistente volta automaticamente sem tela indisponível nem coleta"
+      ],
+      "seconds": 10.38,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-invalid-no-dismiss.txt",
+      "logSha256": "9fed9fc8a23ce0165551b53a8d1cd20ca60df8bf6ad2b05b10aab721c5a7153f",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "6784a64600d425c79f9b22e3a9deba3323dab67fb85f1657c40f85c34325d611",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "invalid-unit-activated",
+      "kind": "product",
+      "testPattern": "unidade ausente",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t unidade ausente",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › unidade ausente volta sem ativar nem coletar o nó"
+      ],
+      "seconds": 10.451,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-invalid-unit-activated.txt",
+      "logSha256": "aebcbe9dc159feb54053804a617800e197957f146e3dfc3ee41966230d879e3b",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "6cc140ff9112283c47e6e604bb315ee538ff74fbcff9ed4cdefcc9354f57e1fc",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "proofScope": "return-to-trail only",
+      "failureLocation": "RewardScreen.flow.test.tsx:253",
+      "killedByExactNamedBarrier": false,
+      "limitation": "The original injection removes the unit guard; missing dismiss fails at line 253 before setCurrentNode absence at line 255. Preserved as return coverage, not activation-barrier proof."
+    },
+    {
+      "id": "duplicate-inflight",
+      "kind": "product",
+      "testPattern": "barra invocações simultâneas",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t barra invocações simultâneas",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › barra invocações simultâneas e após confirmação pelo handler capturado"
+      ],
+      "seconds": 9.867,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-duplicate-inflight.txt",
+      "logSha256": "d11ee09c68d7586fb1c0f34b96f025148c3fba67c9ab56549a89ae78f3d1ad4e",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "e2a3ed61cd02491cb7efd5d1f6d3b6890b101e88109801056e20c1816a670a64",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "duplicate-after-confirmed",
+      "kind": "product",
+      "testPattern": "barra invocações simultâneas",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t barra invocações simultâneas",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › barra invocações simultâneas e após confirmação pelo handler capturado"
+      ],
+      "seconds": 9.849,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-duplicate-after-confirmed.txt",
+      "logSha256": "c2379d22f04ac503ce5753b1b494eb222ae80d1028ec8bf39e788295d00b2563",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "f7b4455ad49bc361a8cb6f51c978ce6740604aa3f0e0f4e45c29a10c8f22e06f",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "refusal-prompts-review",
+      "kind": "product",
+      "testPattern": "recusa do serviço",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t recusa do serviço",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › recusa do serviço não celebra nem solicita avaliação"
+      ],
+      "seconds": 10.029,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-refusal-prompts-review.txt",
+      "logSha256": "78b9202ac46fb02caac5065f40af870fc49f8c177249aff326747eba9c41dfdc",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "af61486e5adab9fa6d6acc677c98150d3f3c0b504a8cfa2e84e32f9ac0ab6e67",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "fallback-forgets-selected",
+      "kind": "product",
+      "testPattern": "coleta via fallback",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t coleta via fallback",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › coleta via fallback sem ID mantém a recompensa confirmada na tela"
+      ],
+      "seconds": 10.883,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fallback-forgets-selected.txt",
+      "logSha256": "2c31022e6ac329463662d0fe76f2bd94542559a496c6268105b18f6dc545d27a",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "79de76f0211940442d2760425ab62718123fe2f50430bc8167dfba7187b1afb2",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "eligibility-ignores-completion",
+      "kind": "product",
+      "testPattern": "recusa quando a conquista ja foi coletada nesta sessao",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t recusa quando a conquista ja foi coletada nesta sessao",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › canCollectReward — a decisão que o handler de coleta consulta › recusa quando a conquista ja foi coletada nesta sessao"
+      ],
+      "seconds": 9.398,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-eligibility-ignores-completion.txt",
+      "logSha256": "970023cf3c4de947955c53112881985623ca75a417d1e97ebd077a57e3db5d2f",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "6255ee9c85ecc1f792813baef5f1735c613c6d7929c6ab7106a36c5ae2521994",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "continue-unbound",
+      "kind": "contract",
+      "path": "src/features/rewards/screens/RewardScreen.tsx",
+      "command": "node --test --test-name-pattern reward exit flows scripts/maestro-contract.test.mjs",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedFailure": "one postcollection button uses the computed real destination",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-continue-unbound.txt",
+      "logSha256": "ce6e2303663f5aad88be9d935d8f1bc26c56cbfe9e5f19319750b1872a656020",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "0515a5682ad27aeee073d419b4fab7d50c05a92801dd09a6e942d80d0961101b",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7"
+    },
+    {
+      "id": "flow-missing-continue",
+      "kind": "contract",
+      "path": ".maestro/reward-unlock.yaml",
+      "command": "node --test --test-name-pattern reward exit flows scripts/maestro-contract.test.mjs",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedFailure": "after confirmed collection, Continue must return to the real trail",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-flow-missing-continue.txt",
+      "logSha256": "674ab3c06af072ba1912b0618c0a44157c5492ca234258690886af2e59078dc1",
+      "sourceBeforeSha256": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+      "mutantSha256": "e996b96b5d0dcf599f185dd17c0c37b81c0da3a1d24fb05d34a52c49db898136",
+      "restoredSha256": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7"
+    },
+    {
+      "id": "flow-missing-invalid-link",
+      "kind": "contract",
+      "path": ".maestro/reward-locked.yaml",
+      "command": "node --test --test-name-pattern reward exit flows scripts/maestro-contract.test.mjs",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedFailure": "exercise a genuinely invalid destination separately from the locked reward",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-flow-missing-invalid-link.txt",
+      "logSha256": "b912db284b1887ea50a9f0c040888cf02202a564f1bbf187a38088177cf158a9",
+      "sourceBeforeSha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+      "mutantSha256": "7487924a4301a87694593ec6123d4086b49804980f531720b6c95c5026dfbeb9",
+      "restoredSha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53"
+    },
+    {
+      "id": "flow-missing-invalid-negative",
+      "kind": "contract",
+      "path": ".maestro/reward-locked.yaml",
+      "command": "node --test --test-name-pattern reward exit flows scripts/maestro-contract.test.mjs",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedFailure": "invalid reward resolves directly to the trail without the removed empty screen",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-flow-missing-invalid-negative.txt",
+      "logSha256": "f9ac0b2b51ff8fb6d431c2bba2a8c3552445684b78a1ad527901a135c32dbc6d",
+      "sourceBeforeSha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+      "mutantSha256": "b75441189782725f823318c032b9ed16488cf902afa76c5f3e317a015710e580",
+      "restoredSha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53"
+    },
+    {
+      "id": "invalid-unit-activation-preserves-dismiss",
+      "kind": "product",
+      "phase": "FIX1",
+      "testPattern": "unidade ausente volta sem ativar nem coletar o nó",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t 'unidade ausente volta sem ativar nem coletar o nó'",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "killedByExactNamedBarrier": true,
+      "failureLocation": "RewardScreen.flow.test.tsx:255",
+      "expectedFailure": "expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled(): expected 0 calls, received 1",
+      "preservedBehavior": [
+        "router.dismissTo(/(tabs)) reached before the failure at test line 253",
+        "RewardScreen rendered no children before the failure at test line 254"
+      ],
+      "injectionBefore": "      if (!rewardNode || !rewardUnit) {\n        setSnapshot(null);",
+      "injectionAfter": "      if (!rewardNode || !rewardUnit) {\n        if (rewardNode && !rewardUnit) {\n          await JourneyProgressService.setCurrentNode(rewardNode.id, baseSnapshot.track);\n        }\n        setSnapshot(null);",
+      "seconds": 13.768,
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-fix1-mutation-invalid-unit-activation-preserves-dismiss.txt",
+      "logSha256": "45344207c2b62664941b5fb3d747cc8137a7ec6e159fae13b6831b503da169ba",
+      "sourceBeforeSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "mutantSha256": "cb4981c5fe3a4774f0943739160f4ba3103ca1201b1c7626e14798e2d40b6931",
+      "restoredSha256": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+      "argv": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/rewards/screens/RewardScreen.flow.test.tsx",
+        "-t",
+        "unidade ausente volta sem ativar nem coletar o nó"
+      ]
+    },
+    {
+      "id": "fix2-font-host-not-renewed",
+      "kind": "product",
+      "phase": "FIX2",
+      "proofScope": "Caller renews hero native paragraph/measurement host for each exact fontScale; Jest does not rasterize clipping.",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX2",
+      "argv": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/rewards/screens/RewardScreen.flow.test.tsx",
+        "-t",
+        "FIX2"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › FIX2 renova fala e eyebrow em 1 → 3.1 sem remontar estado ou saídas",
+        "● RewardScreen flow › FIX2 renova fala e eyebrow em 3.1 → 2.5 sem remontar estado ou saídas",
+        "● RewardScreen flow › FIX2 renova fala e eyebrow em 3.1 → 1 sem remontar estado ou saídas",
+        "● RewardScreen flow › FIX2 mantém coleta em andamento e confirmação ao mudar fonte, sem repetir ganho ou avaliação"
+      ],
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fix2-font-host-not-renewed.txt",
+      "logSha256": "cb2780b9748da886389c2db05b0f74381707f6ca0a53948a7191369767deeb7c",
+      "sourceBeforeSha256": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+      "mutantSha256": "f2db78ef67d190f674f5355fb4c3aeb30ef97b3ffd55880b66afd43aefa54203",
+      "restoredSha256": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+      "seconds": 10.04,
+      "injectionBefore": "              key={`reward-pixel-${fontScale}`}\n",
+      "injectionAfter": ""
+    },
+    {
+      "id": "fix2-font-host-coarse-threshold",
+      "kind": "product",
+      "phase": "FIX2",
+      "proofScope": "Caller renews hero native paragraph/measurement host for each exact fontScale; Jest does not rasterize clipping.",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX2",
+      "argv": [
+        "npx",
+        "--no-install",
+        "jest",
+        "--runInBand",
+        "--no-cache",
+        "src/features/rewards/screens/RewardScreen.flow.test.tsx",
+        "-t",
+        "FIX2"
+      ],
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "failures": [
+        "● RewardScreen flow › FIX2 renova fala e eyebrow em 3.1 → 2.5 sem remontar estado ou saídas"
+      ],
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fix2-font-host-coarse-threshold.txt",
+      "logSha256": "7148476a473767f7c78066800138ab66fe2fb3ba8cf1b40f136b2ebe25a24cbb",
+      "sourceBeforeSha256": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+      "mutantSha256": "14baac97203906102da9132ab1ae55e21a2e84d0829abc5748c9aaf74389fe2f",
+      "restoredSha256": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+      "seconds": 10.058,
+      "injectionBefore": "              key={`reward-pixel-${fontScale}`}\n",
+      "injectionAfter": "              key={fontScale > 1.3 ? 'large' : 'normal'}\n"
+    },
+    {
+      "id": "fix3-local-hosts-not-renewed",
+      "phase": "FIX3",
+      "kind": "product",
+      "proofScope": "Identity of real Text hosts and retained state/controls; no rasterized native proof.",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX3",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedSummary": "11 failed, 35 skipped",
+      "assertion": "toEqual",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fix3-local-hosts-not-renewed.txt",
+      "logSha256": "39718e3c4b5c08f34c7f5db43ef986a010a874ec7905e1e07ec430b3dee439c7",
+      "sourceBeforeSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "mutantSha256": "d50a418157189e0c4cea497166bbea0fe021b030c90078cc542b7b5bce42a6f8",
+      "failures": [
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em available, 1 → 3.1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em available, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em available, 3.1 → 1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em locked, 1 → 3.1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em locked, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em locked, 3.1 → 1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 1 → 3.1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 3.1 → 1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova erro de leitura ao vivo sem repetir pedido nem remontar botões",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova erro de coleta ao vivo sem repetir pedido nem remontar botões"
+      ],
+      "restoredSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "seconds": 17.046,
+      "assertionLines": [
+        291,
+        330
+      ],
+      "restoreMethod": "finally: restore original bytes, assert exact bytes and SHA256",
+      "injection": {
+        "operation": "remove exactly the 15 FIX3 keys, retaining FIX2 hero key",
+        "removedKeys": [
+          "key={`reward-load-error-${fontScale}`}",
+          "key={`reward-header-${fontScale}`}",
+          "key={`reward-unit-label-${fontScale}`}",
+          "key={`reward-unit-title-${fontScale}`}",
+          "key={`reward-title-${fontScale}`}",
+          "key={`reward-description-${fontScale}`}",
+          "key={`reward-status-${fontScale}`}",
+          "key={`reward-progress-${fontScale}`}",
+          "key={`reward-review-${fontScale}`}",
+          "key={`reward-xp-label-${fontScale}`}",
+          "key={`reward-streak-title-${fontScale}`}",
+          "key={`reward-streak-body-${fontScale}`}",
+          "key={`reward-collect-error-${fontScale}`}",
+          "key={`reward-action-title-${fontScale}`}",
+          "key={`reward-action-body-${fontScale}`}"
+        ]
+      }
+    },
+    {
+      "id": "fix3-local-hosts-coarse-threshold",
+      "phase": "FIX3",
+      "kind": "product",
+      "proofScope": "Identity of real Text hosts and retained state/controls; no rasterized native proof.",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX3",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedSummary": "5 failed, 35 skipped, 6 passed",
+      "assertion": "toEqual",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fix3-local-hosts-coarse-threshold.txt",
+      "logSha256": "8ef1c05606859b0201af527bc113ad5c1cbd7697c8d50db0bdf413534315196b",
+      "sourceBeforeSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "mutantSha256": "339ddb501fbf9d3e106acc32537ee701dbd4046338ac6e8f78ac8f71ee8edec3",
+      "failures": [
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em available, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em locked, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova erro de leitura ao vivo sem repetir pedido nem remontar botões",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova erro de coleta ao vivo sem repetir pedido nem remontar botões"
+      ],
+      "restoredSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "harnessNote": "Initial aggregation expected Jest summary in another order; raw product failure at :291/:330 confirmed, no rerun.",
+      "seconds": 12.746,
+      "assertionLines": [
+        291,
+        330
+      ],
+      "restoreMethod": "finally: restore original bytes, assert exact bytes and SHA256",
+      "injection": {
+        "operation": "replace exact fontScale inside only the 15 FIX3 keys",
+        "before": "${fontScale}",
+        "after": "${fontScale > 1.3 ? 'large' : 'normal'}",
+        "count": 15
+      }
+    },
+    {
+      "id": "fix3-counter-remounted",
+      "phase": "FIX3",
+      "kind": "product",
+      "proofScope": "Identity of real Text hosts and retained state/controls; no rasterized native proof.",
+      "command": "EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/rewards/screens/RewardScreen.flow.test.tsx -t FIX3",
+      "cwd": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app",
+      "node": "v20.20.2",
+      "exit": 1,
+      "killedByAssertion": true,
+      "expectedSummary": "3 failed, 35 skipped, 8 passed",
+      "assertion": "AnimatedCounter) === counter",
+      "log": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/task8-mutation-fix3-counter-remounted.txt",
+      "logSha256": "c0d7cd883b8e46093579a8cb1b42c081d11caddb3248dcde3e77b3ae430820ea",
+      "sourceBeforeSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "mutantSha256": "3d47ebef4467a6d07bccd3e638309005a2fd5ad0b5bc8f8c6fdf5b1cbfb4a667",
+      "failures": [
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 1 → 3.1, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 3.1 → 2.5, mantendo controles e dados",
+        "RewardScreen flow › FIX3 textos locais fora do hero › renova cada Text em completed, 3.1 → 1, mantendo controles e dados"
+      ],
+      "restoredSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "seconds": 12.355,
+      "assertionLines": [
+        297
+      ],
+      "restoreMethod": "finally: restore original bytes, assert exact bytes and SHA256",
+      "injection": {
+        "before": "<AnimatedCounter\n",
+        "after": "<AnimatedCounter\n                    key={`counter-${fontScale}`}\n",
+        "count": 1
+      }
+    }
+  ],
+  "fix1FrozenHashes": {
+    "radiant-app/src/features/rewards/screens/RewardScreen.tsx": "727cc17bf1099af3218ce70ff1c3f8fd2f5a29a8a8a0c3dc2a9809444aa026e7",
+    "radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx": "5f34ce4e62c27f433eb0d4fb6ab09e1b170a8a0d2d25e91a2363e3d1d1cfa5c9",
+    "radiant-app/.maestro/reward-locked.yaml": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+    "radiant-app/.maestro/reward-unlock.yaml": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+    "radiant-app/scripts/maestro-contract.test.mjs": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+    "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28"
+  },
+  "fix2SourceSha256": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+  "sourceSha256Meaning": "Original T06 freeze R1 source; retained for historical mutation records. Current source is currentFrozenHashes after FIX3.",
+  "currentFrozenHashes": {
+    "radiant-app/src/features/rewards/screens/RewardScreen.tsx": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+    "radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx": "5194883d9e612bbdbe680eff037bf0075da990524da0dbe8949595220d55910d",
+    "radiant-app/.maestro/reward-locked.yaml": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+    "radiant-app/.maestro/reward-unlock.yaml": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+    "radiant-app/scripts/maestro-contract.test.mjs": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+    "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28"
+  },
+  "currentFreeze": "FIX3",
+  "fix2FrozenHashes": {
+    "radiant-app/src/features/rewards/screens/RewardScreen.tsx": "55f8d535692d9acebff733def9c32e225488b63a8d40629b1f95cc5cebc95344",
+    "radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx": "19956acd8ee00996dc450025aece0be321faff58df3b43b958c6e3cc9101b4da",
+    "radiant-app/.maestro/reward-locked.yaml": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+    "radiant-app/.maestro/reward-unlock.yaml": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+    "radiant-app/scripts/maestro-contract.test.mjs": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+    "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28"
+  },
+  "fix3SourceSha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+  "currentFreezeAt": "2026-10-28T07:41:04.914137-03:00",
+  "fix3Notes": {
+    "nativeGate": "Pending controller native R3 and independent R5; Jest identity is not rasterized proof.",
+    "p3": "Real tail residue explicitly deferred to T17; no shared/copy/padding workaround.",
+    "typecheck": "Initial TS2322 in new test corrected with from as number only. Final tsc/lint passed; no suite repeated for erased type annotation.",
+    "aggregator": "Coarse-threshold product failure was correct. Auxiliary expected Jest summary in another order, stopped after restoration; corrected classification from raw output and ran only pending counter case. No false product mutation or rerun."
+  }
+}

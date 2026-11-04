@@ -1,6 +1,8 @@
 import React from 'react';
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { HeartIcon } from '../../../ui/components/HudIcons';
 import { AppButton } from '../../../components/ui/AppButton';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
@@ -24,7 +26,7 @@ function waitCopy(snapshot: HeartsSnapshot, nowMs: number): string {
 
   const remainingMs = Math.max(0, Date.parse(snapshot.nextRefillAt) - nowMs);
   const minutes = Math.max(1, Math.ceil(remainingMs / 60_000));
-  return `Próxima vida em ${minutes} min`;
+  return `A próxima volta em ${minutes} min.`;
 }
 
 export function HeartsSheet({
@@ -37,9 +39,11 @@ export function HeartsSheet({
   onSubscribe,
   nowMs = Date.now(),
 }: HeartsSheetProps) {
+  if (snapshot.status === 'unlimited') return null;
+
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <View style={styles.overlay}>
+      <SafeAreaView edges={['top', 'bottom']} style={styles.overlay}>
         <Pressable
           style={StyleSheet.absoluteFill}
           onPress={onClose}
@@ -48,31 +52,37 @@ export function HeartsSheet({
         />
         <View style={styles.sheet} accessibilityViewIsModal>
           <View style={styles.handle} />
-          <Text accessibilityRole="header" style={styles.title}>
-            {snapshot.count === 0 ? 'Suas vidas acabaram' : 'Suas vidas'}
-          </Text>
-          <Text style={styles.body}>
-            Você pode esperar, revisar algo que já estudou ou conhecer as vidas ilimitadas.
-          </Text>
+          <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+            <Text accessibilityRole="header" style={styles.title}>
+              {snapshot.count === 0 ? 'Sem vidas' : 'Suas vidas'}
+            </Text>
+            <View style={styles.hearts} accessible accessibilityLabel={`${snapshot.count} de 5 vidas`}>
+              {[0, 1, 2, 3, 4].map(index => (
+                <HeartIcon key={index} size={40} filled={index < snapshot.count} />
+              ))}
+            </View>
+            <Text style={styles.body}>
+              Você pode esperar, revisar algo que já estudou ou conhecer as vidas ilimitadas.
+            </Text>
 
-          <View style={styles.waitCard}>
-            <Text style={styles.waitTitle}>Esperar</Text>
             <Text style={styles.waitText}>{waitCopy(snapshot, nowMs)}</Text>
-          </View>
 
-          {dueReviewCount > 0 ? (
-            <AppButton label="Revisar agora" variant="secondary" onPress={onReview} />
-          ) : null}
+            {dueReviewCount > 0 ? (
+              <AppButton label="Revisar agora" variant="galaxy" onPress={onReview} />
+            ) : null}
 
-          {storeAvailable ? (
-            <AppButton label="Ver assinatura" variant="galaxy" onPress={onSubscribe} />
-          ) : (
-            <Text style={styles.unavailable}>Assinatura indisponível neste aparelho.</Text>
-          )}
+            {storeAvailable ? (
+              <Pressable accessibilityRole="link" onPress={onSubscribe} style={styles.subscribe}>
+                <Text style={styles.subscribeText}>Vidas ilimitadas</Text>
+              </Pressable>
+            ) : (
+              <Text style={styles.unavailable}>Assinatura indisponível neste aparelho.</Text>
+            )}
 
-          <AppButton label="Voltar" variant="ghost" onPress={onClose} />
+            <AppButton label="Voltar" variant={dueReviewCount > 0 ? 'ghost' : 'galaxy'} onPress={onClose} />
+          </ScrollView>
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 }
@@ -89,10 +99,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: galaxyColors.border,
     backgroundColor: galaxyColors.backgroundAlt,
-    padding: space.s3,
-    paddingBottom: space.s4,
-    gap: space.s2,
+    maxHeight: '100%',
+    flexShrink: 1,
+    paddingTop: space.s2,
   },
+  scroll: { flexShrink: 1 },
+  content: { padding: space.s3, paddingBottom: space.s4, gap: space.s2 },
+  hearts: { flexDirection: 'row', justifyContent: 'center', gap: space.s1 },
+  subscribe: { minHeight: 48, justifyContent: 'center', alignItems: 'center' },
+  subscribeText: { ...typography.body, color: galaxyColors.navBlue, textDecorationLine: 'underline', textAlign: 'center' },
   handle: {
     alignSelf: 'center',
     width: 48,
@@ -102,15 +117,6 @@ const styles = StyleSheet.create({
   },
   title: { ...typography.h2, color: galaxyColors.textPrimary },
   body: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  waitCard: {
-    borderRadius: radius.rMd,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    backgroundColor: galaxyColors.surface,
-    padding: space.s2,
-    gap: space.s1,
-  },
-  waitTitle: { ...typography.body, color: galaxyColors.textPrimary, fontWeight: '800' },
   waitText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   unavailable: { ...typography.caption, color: galaxyColors.textSecondary, textAlign: 'center' },
 });

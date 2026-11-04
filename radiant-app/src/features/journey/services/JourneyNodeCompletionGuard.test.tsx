@@ -43,6 +43,7 @@ jest.mock('expo-router', () => ({
     replace: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
+    dismissTo: jest.fn(),
   },
   // Lição e checkpoint releem as vidas a cada foco; aqui basta o da montagem.
   useFocusEffect: (callback: () => void | (() => void)) => {
@@ -53,7 +54,11 @@ jest.mock('expo-router', () => ({
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
+  useMedalPulse: () => ({}),
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
@@ -97,7 +102,7 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
   // `QuizTopBar`, adotada por `LessonFlowScreen`, renderiza as vidas por aqui.
-  HeartsDisplay: () => null,
+  HeartsCountPill: () => null,
 }));
 
 jest.mock('../../lesson-flow/services/LessonFlowService', () => ({
@@ -154,6 +159,7 @@ jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
   SpacedRepetitionService: {
     getTrackedLessonIds: jest.fn(),
     getDueLessons: jest.fn(),
+    getCardState: jest.fn().mockResolvedValue(null),
   },
 }));
 
@@ -356,47 +362,28 @@ describe('markNodeCompleted authorization boundary', () => {
   });
 
   it('recusa o checkpoint bloqueado alcançado pela tela de checkpoint', async () => {
-    // Caminho 3: `CheckpointScreen` resolve o nó por id filtrando por TIPO e
-    // não por status, então um checkpoint ainda bloqueado é alcançável por
-    // deep link. Desde a ADR de 2026-09-28, os únicos checkpoints são as
-    // avaliações da V2: o aluno responde as perguntas, acerta todas, e a
-    // conclusão ainda assim tem de ser recusada.
+    // O deep link deve ser barrado antes das perguntas e do journal. A guarda
+    // do serviço continua coberta acima; aqui provamos a barreira da tela e
+    // ausência de conclusão/eventos persistidos com o serviço REAL.
     mockedLessonCatalog.listTracks.mockReturnValue([PRODUCTION_TRACK]);
-    const items = ProductionCurriculumCatalog.getCheckpointByNodeId(PRODUCTION_CHECKPOINT_NODE_ID)!.items;
-    expect(items.length).toBeGreaterThan(0);
-
     renderWithProviders(<CheckpointScreen nodeId={PRODUCTION_CHECKPOINT_NODE_ID} />);
-
-    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
-    for (const [index, item] of items.entries()) {
-      const correct = item.options.find((option) => option.id === item.correctOptionId)!;
-      fireEvent.press(await screen.findByLabelText(correct.label));
-      fireEvent.press(screen.getByText(index === items.length - 1 ? 'Enviar checkpoint' : 'Próxima questão'));
-    }
-
-    // A tela não pode comemorar o que foi recusado. Ela compara o nó com o
-    // snapshot que o serviço devolveu e cai no estado de erro que já existia,
-    // e é esse estado que serve de ponto de sincronia: ele só aparece depois
-    // de a escrita ter ido e voltado.
-    await waitFor(() => {
-      expect(screen.getByText('Nao foi possivel concluir o checkpoint agora.')).toBeTruthy();
-    });
-    expect(screen.queryByText('CONQUISTA DESBLOQUEADA')).toBeNull();
+    expect(await screen.findByText(/Abre depois das 3 aulas. Faltam 3./u)).toBeTruthy();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
+    expect(screen.queryByRole('radio')).toBeNull();
+    expect(screen.queryByText('Avaliação concluída')).toBeNull();
 
     const progress = readStoredProgress()!.tracks[PRODUCTION_TRACK.id];
     expect(progress.completedNodeIds).not.toContain(PRODUCTION_CHECKPOINT_NODE_ID);
     expect(progress.pendingSyncEvents.map((event) => event.nodeId)).not.toContain(PRODUCTION_CHECKPOINT_NODE_ID);
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining(`Refused to complete locked node "${PRODUCTION_CHECKPOINT_NODE_ID}"`)
-    );
+    expect(progress.pendingSyncEvents).toEqual([]);
   });
 
   it('um link antigo para o checkpoint de catálogo que saiu não oferece conclusão nem grava nada', async () => {
     renderWithProviders(<CheckpointScreen nodeId={REMOVED_CATALOG_CHECKPOINT_ID} />);
 
-    expect(await screen.findByText('Checkpoint indisponível')).toBeTruthy();
+    await waitFor(() => expect(router.dismissTo).toHaveBeenCalledWith('/(tabs)'));
     expect(screen.queryByText('Concluir checkpoint')).toBeNull();
-    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(screen.queryByText('Começar avaliação')).toBeNull();
     const store = readStoredProgress();
     expect(store?.tracks['track-radiology-foundations']?.completedNodeIds ?? []).not.toContain(
       REMOVED_CATALOG_CHECKPOINT_ID

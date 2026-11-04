@@ -1,4 +1,7 @@
 import React from 'react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import * as ts from 'typescript';
 import { render, fireEvent } from '@testing-library/react-native';
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
 import {
@@ -10,6 +13,8 @@ import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { ReinforceStepRenderer } from './ReinforceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
+
+// O mapper global do Jest expõe os inputs de Skia sem rasterizar o fantoma.
 
 function multipleChoice(overrides: Partial<LearningInteractionV2> = {}): LearningInteractionV2 {
     return {
@@ -34,6 +39,43 @@ function multipleChoice(overrides: Partial<LearningInteractionV2> = {}): Learnin
 }
 
 describe('ActivityRendererRegistry', () => {
+    it('importa a bancada estaticamente e usa o binding no JSX, sem require preguiçoso', () => {
+        const source = ts.createSourceFile(
+            'ActivityRendererRegistry.tsx',
+            readFileSync(join(__dirname, 'ActivityRendererRegistry.tsx'), 'utf8'),
+            ts.ScriptTarget.Latest,
+            true,
+            ts.ScriptKind.TSX,
+        );
+        const benchImport = source.statements.find((node): node is ts.ImportDeclaration =>
+            ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier) &&
+            node.moduleSpecifier.text === './BenchStepRenderer',
+        );
+        expect(benchImport).toBeDefined();
+        const bindings = benchImport?.importClause?.namedBindings;
+        expect(bindings && ts.isNamedImports(bindings)).toBe(true);
+        if (!bindings || !ts.isNamedImports(bindings)) return;
+        const imported = bindings.elements.find((node) =>
+            (node.propertyName ?? node.name).text === 'BenchStepRenderer',
+        );
+        expect(imported).toBeDefined();
+        expect(benchImport?.importClause?.isTypeOnly).toBe(false);
+        expect(imported?.isTypeOnly).toBe(false);
+        const tags: string[] = [];
+        const lazyImports: string[] = [];
+        const visit = (node: ts.Node) => {
+            if (ts.isJsxSelfClosingElement(node) && ts.isIdentifier(node.tagName)) tags.push(node.tagName.text);
+            if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'require') {
+                for (const argument of node.arguments) {
+                    if (ts.isStringLiteral(argument)) lazyImports.push(argument.text);
+                }
+            }
+            ts.forEachChild(node, visit);
+        };
+        visit(source);
+        expect(tags).toContain(imported?.name.text);
+        expect(lazyImports).not.toContain('./BenchStepRenderer');
+    });
     it('resolve o tipo registrado e renderiza o enunciado e as opções', () => {
         const { getByText } = render(
             <ActivityInteractionRenderer interaction={multipleChoice()} value={undefined} onChange={jest.fn()} />,
@@ -112,15 +154,47 @@ describe('ActivityRendererRegistry', () => {
         expect(getByText(/jogo-que-nao-existe/)).toBeTruthy();
     });
 
-    it('declara os cinco tipos que já têm renderizador', () => {
+    it('declara os seis tipos que já têm renderizador', () => {
+        expect(isInteractionTypeRegistered('case-decision')).toBe(false);
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
         expect(isInteractionTypeRegistered('hotspot')).toBe(true);
         expect(isInteractionTypeRegistered('comparison')).toBe(true);
         expect(isInteractionTypeRegistered('matching')).toBe(true);
         expect(isInteractionTypeRegistered('ordering')).toBe(true);
+        expect(isInteractionTypeRegistered('bench')).toBe(true);
         expect(isInteractionTypeRegistered('parameter-lab')).toBe(false);
         expect(REGISTERED_INTERACTION_TYPES).toContain('multiple-choice');
-        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(5);
+        expect(REGISTERED_INTERACTION_TYPES).toContain('bench');
+        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(6);
+    });
+
+    it('renderiza a bancada pelo registro: enunciado, fantoma e o JSON inicial no onChange', () => {
+        const onChange = jest.fn();
+        const bancada = {
+            ...multipleChoice(),
+            type: 'bench',
+            payload: {
+                prompt: 'Suba o kV até 100.',
+                simulator: 'exposure',
+                mode: 'explore',
+                controls: [
+                    { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 },
+                    { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 },
+                ],
+                goal: { kind: 'reach', control: 'kv', atLeast: 100 },
+                phantomLabel: 'Fantoma simulado',
+                hints: { tooLow: 'Suba.', tooHigh: 'Desça.' },
+            },
+        } as unknown as LearningInteractionV2;
+
+        const { getByText, queryByText } = render(
+            <ActivityInteractionRenderer interaction={bancada} value={undefined} onChange={onChange} />,
+        );
+
+        expect(getByText('Suba o kV até 100.')).toBeTruthy();
+        expect(getByText('Fantoma simulado')).toBeTruthy();
+        expect(queryByText('Esta atividade não pode ser exibida')).toBeNull();
+        expect(onChange).toHaveBeenCalledWith('{"kv":70,"mas":10}');
     });
 
     it('mantém a pergunta e o gabarito visíveis junto à explicação no passo de reforço', () => {
@@ -149,7 +223,6 @@ describe('ActivityRendererRegistry', () => {
     });
 });
 
-
 it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na tela', () => {
     const onChange = jest.fn();
     const { getByLabelText } = render(<ActivityInteractionRenderer
@@ -159,4 +232,21 @@ it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na t
     fireEvent.press(getByLabelText('Osso'));
     expect(onChange).not.toHaveBeenCalled();
     expect(getByLabelText('Ar')).toBeTruthy();
+});
+
+it('T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta', () => {
+    const interaction = multipleChoice();
+    const image = { input: { kv: 70, mas: 2 }, label: 'Fantoma simulado' };
+    const withImage = { ...interaction, payload: { ...interaction.payload, exposureImage: image } } as LearningInteractionV2;
+    const view = render(<ActivityInteractionRenderer interaction={withImage} value={undefined} onChange={jest.fn()} />);
+    expect(view.getByRole('image', { name: 'Fantoma simulado' })).toBeTruthy();
+    expect(view.getByText('Qual estrutura aparece mais radiopaca?')).toBeTruthy();
+    const uniforms = view.getByTestId('skia-Shader').props.uniforms;
+    expect(uniforms.noise).toBeCloseTo(0.045 * Math.sqrt(12 / 2));
+    const grain = uniforms.noise as number;
+    view.rerender(<ActivityInteractionRenderer interaction={{ ...interaction, payload: { ...interaction.payload, exposureImage: { ...image, input: { kv: 70, mas: 10 } } } } as LearningInteractionV2} value={undefined} onChange={jest.fn()} />);
+    const reference = view.getByTestId('skia-Shader').props.uniforms;
+    expect(grain).toBeGreaterThan(reference.noise);
+    for (const tone of ['bone', 'soft', 'background']) expect(uniforms[tone]).toBe(reference[tone]);
+    expect(view.getByRole('button', { name: 'Ar' })).toBeTruthy();
 });

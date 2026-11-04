@@ -1,0 +1,121 @@
+{
+  "currentFreeze": "freeze3",
+  "productFreeze": [
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.tsx",
+      "sha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.test.tsx",
+      "sha256": "3149cfd38cb230ca7c85c7a3a91862b62384feac0381bc2ab4448451ee9a11b6"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.tsx",
+      "sha256": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx",
+      "sha256": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx",
+      "sha256": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx",
+      "sha256": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7"
+    },
+    {
+      "path": "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx",
+      "sha256": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d"
+    },
+    {
+      "path": "radiant-app/src/ui/motion.ts",
+      "sha256": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4"
+    },
+    {
+      "path": "radiant-app/src/ui/__tests__/motion.test.ts",
+      "sha256": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.tsx",
+      "sha256": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e"
+    },
+    {
+      "path": "radiant-app/src/features/journey/components/JourneyMedal.test.tsx",
+      "sha256": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22"
+    },
+    {
+      "path": "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx",
+      "sha256": null
+    },
+    {
+      "path": "radiant-app/.rnstorybook/storybook.requires.ts",
+      "sha256": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+    }
+  ],
+  "snapshotManifestSha256": "285372e73d96be0b965de707222a341be4e6698d5537663262dbdfe869f35473",
+  "servedIosSource": {
+    "elapsedSec": 0.906153416,
+    "mapSources": 2614,
+    "SummaryMatches": [
+      {
+        "source": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/quiz/components/LessonSummary.tsx",
+        "sha256": "68a7f89960af099900fad1cae570d54f848339a35e5d85cd658cc5090514a9cd",
+        "fontScaleKeyCount": 12
+      }
+    ],
+    "stage": "freeze3"
+  },
+  "priorNativeSourceRecord": {
+    "measuredAt": "2026-10-27T17:56:02.172842+00:00",
+    "head": "ae2e769d89bac2a4de3b11e5a4fe602d86b31323",
+    "before": {
+      "radiant-app/src/features/quiz/components/LessonSummary.tsx": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "636cf9cb8271b792d9ca4f7324ad65bdd8cff1218502e090324a40e84a9ebc60",
+      "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+      "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+      "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+      "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+      "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+      "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+      "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+      "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+    },
+    "freezeMatches": true,
+    "reviewedSnapshotMatches": true,
+    "after": {
+      "radiant-app/src/features/quiz/components/LessonSummary.tsx": "ee9523558726ffebf45b0152b3161d075d43bd3e09295466b967f446199ddfea",
+      "radiant-app/src/features/quiz/components/LessonSummary.test.tsx": "636cf9cb8271b792d9ca4f7324ad65bdd8cff1218502e090324a40e84a9ebc60",
+      "radiant-app/src/features/quiz/screens/QuizScreen.tsx": "aca5e6a5c72064215eff7cecbdedebaffb15c43eee1bc946b7fbc057978ab8aa",
+      "radiant-app/src/features/quiz/screens/QuizScreen.flow.test.tsx": "688b7f14dfdf87ce3a1b8900e6a1e7a2c487edba86547a68c82009b75bedf855",
+      "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "ae1d0a900659f0879919a05bcd9aaf1116520e437f41c7df5d9d49851340b26c",
+      "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "e80fdc3dccc7df9259974f5dee465c5f9a1105689b383b6336d14e0f57cee263",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.tsx": "c94155b7cc184e318bb7e443ad8e12fa0d9c0b6e6856e74193285356d66064b7",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonCharacter.test.tsx": "318987ca7c33a86389cf221dd60e40d5b3429fe8dce797b514a0e4edb25c61a7",
+      "radiant-app/src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx": "4e769742a9d71cf8dbae1a28a0acb5b4a1334573ce209c845ca9b1848314591d",
+      "radiant-app/src/ui/motion.ts": "f237df1ff7a22a1c59916d461643f33c743e7d7a5fb49ea84fa135d3329da9b4",
+      "radiant-app/src/ui/__tests__/motion.test.ts": "f2ef3f5f9a00933867363e648a7c4fb8aeaf53ac17c7650770c489693256dcb7",
+      "radiant-app/src/features/journey/components/JourneyMedal.tsx": "47ec26068573d8540dfe609eeb48d53471c810f3b4beeb8f3833766b0cb1575e",
+      "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "024da8e6d82d258f9e9d305b895d1ba8aba4b78546e6f12d7ffdfb3729febe22",
+      "radiant-app/src/features/quiz/components/LessonSummary.stories.tsx": null,
+      "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f"
+    },
+    "unchanged": true,
+    "afterMeasuredAt": "2026-10-27T18:07:38.376652+00:00"
+  },
+  "note": "Current native artifacts are indexed by attempt in native-state.json. R1 video/remaining original artifacts do not prove freeze3 timing."
+}

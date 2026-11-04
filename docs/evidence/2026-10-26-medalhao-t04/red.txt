@@ -1,0 +1,4079 @@
+FAIL radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (42.867 s)
+  ● T04 — abertura, retorno e botão apto › multiple-choice mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    expect(received).toBeUndefined()
+
+    Received: "polite"
+
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+    > 2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+           |                                                    ^
+      2127 |     expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(message))).toHaveLength(1);
+      2128 |     // A pergunta continua na tela; o segundo toque, não a seleção, avança.
+      2129 |     await esperarBotaoApto('Continuar');
+
+      at toBeUndefined (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2126:52)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › comparison mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 33,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"2"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m3[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mEscolha a resposta.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta comparação. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção A"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<View[39m
+                          [33maccessible[39m=[32m{false}[39m
+                        [36m>[39m
+                          [36m<Text>[39m
+                            [0mOpção [0m
+                            [0m1[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0m1[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0mOpção A[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta comparação. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção B"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<View[39m
+                          [33maccessible[39m=[32m{false}[39m
+                        [36m>[39m
+                          [36m<Text>[39m
+                            [0mOpção [0m
+                            [0m2[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0m2[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0mOpção B[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<Text>[39m
+                          [0m✓ Selecionada[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2121 |     await esperarBotaoApto(confirm);
+      2122 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2123 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+      2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2123:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › hotspot mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 33,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"3"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m3[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mEscolha a região.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<Image[39m
+                        [33maccessibilityLabel[39m=[32m"Imagem da atividade"[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m/>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta região. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região A na imagem"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m1[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta região. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região B na imagem"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m✓[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                    [36m<View>[39m
+                      [36m<Text>[39m
+                        [0mAlternativa textual[0m
+                      [36m</Text>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Equivale a tocar a região na imagem. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região A na lista"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m1[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mRegião A[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Equivale a tocar a região na imagem. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região B na lista"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m2[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mRegião B[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mSelecionada[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2121 |     await esperarBotaoApto(confirm);
+      2122 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2123 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+      2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2123:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › matching mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 33,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"4"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m3[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mAssocie os pares.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<Text>[39m
+                        [0mAssociações escolhidas[0m
+                      [36m</Text>[39m
+                      [36m<Text>[39m
+                        [0mA[0m
+                        [0m — [0m
+                        [0mBeta[0m
+                      [36m</Text>[39m
+                      [36m<Text>[39m
+                        [0mB[0m
+                        [0m — [0m
+                        [0mAlfa[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                    [36m<Text>[39m
+                      [0mTodas as associações foram selecionadas.[0m
+                    [36m</Text>[39m
+                    [36m<View[39m
+                      [33maccessibilityLabel[39m=[32m"Desfazer última associação"[39m
+                      [33maccessibilityRole[39m=[32m"button"[39m
+                      [33maccessible[39m=[32m{true}[39m
+                    [36m>[39m
+                      [36m<Text>[39m
+                        [0mDesfazer última associação[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2121 |     await esperarBotaoApto(confirm);
+      2122 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2123 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+      2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2123:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › ordering mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 33,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"5"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m3[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mOrdene os itens.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View>[39m
+                        [36m<Text>[39m
+                          [0m1[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mPrimeiro[0m
+                        [36m</Text>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Subir Primeiro"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↑[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Descer Primeiro"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": false,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↓[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                      [36m<View>[39m
+                        [36m<Text>[39m
+                          [0m2[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mSegundo[0m
+                        [36m</Text>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Subir Segundo"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": false,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↑[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Descer Segundo"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↓[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                    [36m<View[39m
+                      [33maccessibilityHint[39m=[32m"Seleciona a sequência atual. Você confirma em Continuar."[39m
+                      [33maccessibilityLabel[39m=[32m"Selecionar esta ordem"[39m
+                      [33maccessibilityRole[39m=[32m"button"[39m
+                      [33maccessibilityState[39m=[32m{
+                        {
+                          "selected": true,
+                        }
+                      }[39m
+                      [33maccessible[39m=[32m{true}[39m
+                    [36m>[39m
+                      [36m<Text>[39m
+                        [0mOrdem selecionada[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2121 |     await esperarBotaoApto(confirm);
+      2122 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2123 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+      2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2123:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › bench mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    expect(received).toBeUndefined()
+
+    Received: "polite"
+
+      2124 |     expect(within(feedback).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+      2125 |     expect(within(feedback).getByText(message)).toBeTruthy();
+    > 2126 |     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+           |                                                    ^
+      2127 |     expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(message))).toHaveLength(1);
+      2128 |     // A pergunta continua na tela; o segundo toque, não a seleção, avança.
+      2129 |     await esperarBotaoApto('Continuar');
+
+      at toBeUndefined (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2126:52)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › abertura usa o tema explícito sem nó e preserva o texto independente
+
+    No instances found with node type: "JourneyMedal"
+
+      2136 |     const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+      2137 |     await screen.findByText('Estrutura e carga');
+    > 2138 |     expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+           |                 ^
+      2139 |     expect(screen.getByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+      2140 |     expect(mockedJourneyProgress.bootstrap).not.toHaveBeenCalled();
+      2141 |     expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalled();
+
+      at Object.UNSAFE_getByType (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2138:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › abertura resolve tema do nó, depois da unidade real, sem ler progresso
+
+    No instances found with node type: "JourneyMedal"
+
+      2150 |       const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+      2151 |       await screen.findByText('Estrutura e carga');
+    > 2152 |       expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('ressonancia');
+           |                   ^
+      2153 |       view.unmount();
+      2154 |       definition.getTrackDefinition.mockReturnValue({ units: [{ theme: 'protecao', nodes: [{ id: 'node:theme', type: 'lesson' }] }] });
+      2155 |       const second = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+
+      at Object.UNSAFE_getByType (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2152:19)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › explore explica a espera e anuncia aptidão só uma vez por visita
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Alcance o alvo indicado na atividade para conferir a resposta."
+    Received: undefined
+
+      2166 |     const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+      2167 |     await screen.findByText('Ajuste o controle.');
+    > 2168 |     expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBe('Alcance o alvo indicado na atividade para conferir a resposta.');
+           |                                                                                               ^
+      2169 |     for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+      2170 |     await esperarBotaoApto('Conferir resposta');
+      2171 |     const ready = 'Alvo alcançado. Você já pode conferir a resposta.';
+
+      at toBe (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2168:95)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › correct explica a espera e anuncia aptidão só uma vez por visita
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Alcance o alvo indicado na atividade para conferir a resposta."
+    Received: undefined
+
+      2166 |     const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+      2167 |     await screen.findByText('Ajuste o controle.');
+    > 2168 |     expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBe('Alcance o alvo indicado na atividade para conferir a resposta.');
+           |                                                                                               ^
+      2169 |     for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+      2170 |     await esperarBotaoApto('Conferir resposta');
+      2171 |     const ready = 'Alvo alcançado. Você já pode conferir a resposta.';
+
+      at toBe (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2168:95)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: null
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": " "}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita imagem que não pode representar o modelo: {"input": [Object], "label": "Fantoma"}
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "interaction:mc-1", "rule": "invalid-exposure-image"}
+    Received array: []
+
+      685 |         { input: { kv: 70, mas: -Infinity }, label: 'Fantoma' },
+      686 |     ])('rejeita imagem que não pode representar o modelo: %p', image => {
+    > 687 |         expect(validateLearningActivity(withImage(image))).toContainEqual({ path: 'interaction:mc-1', rule: 'invalid-exposure-image' });
+          |                                                            ^
+      688 |     });
+      689 |     it.each([{ kv: 40, mas: 1 }, { kv: 120, mas: 40 }, { kv: 70, mas: 2 }])('aceita imagem válida inclusive nos limites: %p', input => {
+      690 |         expect(validateLearningActivity(withImage({ input, label: 'Fantoma simulado' }))).toEqual([]);
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:687:60)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita tema fora do contrato: "astronomia"
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "activity:protecao-1", "rule": "invalid-theme"}
+    Received array: []
+
+      695 |     });
+      696 |     it.each(['astronomia', null, 4])('rejeita tema fora do contrato: %p', theme => {
+    > 697 |         expect(validateLearningActivity({ ...activity(), theme } as unknown as LearningActivityV2)).toContainEqual({ path: 'activity:protecao-1', rule: 'invalid-theme' });
+          |                                                                                                     ^
+      698 |     });
+      699 | });
+      700 |
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:697:101)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita tema fora do contrato: null
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "activity:protecao-1", "rule": "invalid-theme"}
+    Received array: []
+
+      695 |     });
+      696 |     it.each(['astronomia', null, 4])('rejeita tema fora do contrato: %p', theme => {
+    > 697 |         expect(validateLearningActivity({ ...activity(), theme } as unknown as LearningActivityV2)).toContainEqual({ path: 'activity:protecao-1', rule: 'invalid-theme' });
+          |                                                                                                     ^
+      698 |     });
+      699 | });
+      700 |
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:697:101)
+
+  ● T04 — metadados opcionais da aula e imagem crítica › rejeita tema fora do contrato: 4
+
+    expect(received).toContainEqual(expected) // deep equality
+
+    Expected value: {"path": "activity:protecao-1", "rule": "invalid-theme"}
+    Received array: []
+
+      695 |     });
+      696 |     it.each(['astronomia', null, 4])('rejeita tema fora do contrato: %p', theme => {
+    > 697 |         expect(validateLearningActivity({ ...activity(), theme } as unknown as LearningActivityV2)).toContainEqual({ path: 'activity:protecao-1', rule: 'invalid-theme' });
+          |                                                                                                     ^
+      698 |     });
+      699 | });
+      700 |
+
+      at toContainEqual (src/features/lesson-flow/services/LessonFlowService.test.ts:697:101)
+
+FAIL radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+  ● T04 o explorar nomeia o efeito com Pixel mantendo a instrução independente
+
+    No instances found with node type: "PixelIllustration"
+
+      398 |     fireEvent.press(view.getByRole('button', { name: 'Aumentar Tensão' }));
+      399 |     fireEvent.press(view.getByRole('button', { name: 'Aumentar Tensão' }));
+    > 400 |     expect(view.UNSAFE_getByType(PixelIllustration)).toBeTruthy();
+          |                 ^
+      401 |     expect(view.getByText(interaction.feedback.correct)).toBeTruthy();
+      402 |     expect(view.getByText(interaction.payload.prompt)).toBeTruthy();
+      403 | });
+
+      at Object.UNSAFE_getByType (src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx:400:17)
+
+FAIL radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts
+  ● T04 dá tema explícito aos exemplos e imagem à leitura sem alterar o gabarito
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  -   1
+    + Received  + 213
+
+      Object {
+    -   "theme": "tubo",
+    +   "competencyIds": Array [
+    +     "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia",
+    +     "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato",
+    +   ],
+    +   "id": "bancada:exposicao",
+    +   "provenance": Object {
+    +     "contentVersion": "bancada-exemplo-2026-10-24-revisao-pendente",
+    +     "sourceIds": Array [
+    +       "docs/design/2026-10-21-aula-bancada.html",
+    +       "radiant-app/src/features/bench/exposureModel.ts",
+    +     ],
+    +   },
+    +   "steps": Array [
+    +     Object {
+    +       "id": "bancada:exposicao:abertura",
+    +       "kind": "presentation",
+    +       "payload": Object {
+    +         "body": "Você vai operar o aparelho. Em quatro passos, descobre o que o kV e o mAs fazem com a imagem, mexendo neles.",
+    +         "title": "O kV e o contraste",
+    +       },
+    +       "role": "hook",
+    +     },
+    +     Object {
+    +       "interaction": Object {
+    +         "accessibility": Object {
+    +           "label": "Bancada de exposição: suba o kV até 100",
+    +         },
+    +         "competencyIds": Array [
+    +           "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia",
+    +         ],
+    +         "completionRule": "answered",
+    +         "criticalSafety": false,
+    +         "evidenceKind": "guided-practice",
+    +         "feedback": Object {
+    +           "correct": "Viu? Com kV alto o feixe atravessa mais, e osso e partes moles ficam com tons parecidos: menos contraste.",
+    +           "incorrect": "Suba o kV até 100 para ver o que acontece com o contraste.",
+    +         },
+    +         "id": "bancada:exposicao:explorar",
+    +         "payload": Object {
+    +           "controls": Array [
+    +             Object {
+    +               "id": "kv",
+    +               "initial": 60,
+    +               "label": "Tensão do tubo",
+    +               "max": 120,
+    +               "min": 50,
+    +               "step": 5,
+    +               "unit": "kV",
+    +             },
+    +           ],
+    +           "goal": Object {
+    +             "atLeast": 100,
+    +             "control": "kv",
+    +             "kind": "reach",
+    +           },
+    +           "hints": Object {
+    +             "tooHigh": "O kV já passou de 100. Compare o tom do osso com o das partes moles.",
+    +             "tooLow": "Ainda abaixo de 100 kV. Suba mais o kV e compare o tom do osso com o das partes moles.",
+    +           },
+    +           "mode": "explore",
+    +           "phantomLabel": "Fantoma simulado",
+    +           "prompt": "Arraste o kV até 100 e observe a diferença entre o osso e as partes moles.",
+    +           "simulator": "exposure",
+    +         },
+    +         "type": "bench",
+    +       },
+    +       "kind": "interaction",
+    +     },
+    +     Object {
+    +       "interaction": Object {
+    +         "accessibility": Object {
+    +           "label": "Bancada de exposição: iguale o contraste da referência",
+    +         },
+    +         "competencyIds": Array [
+    +           "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia",
+    +         ],
+    +         "completionRule": "answered",
+    +         "criticalSafety": false,
+    +         "evidenceKind": "independent-recall",
+    +         "feedback": Object {
+    +           "correct": "O contraste ficou como o da referência, que foi feita com 70 kV.",
+    +           "incorrect": "Compare o contraste entre osso e partes moles nas duas imagens e ajuste o kV.",
+    +         },
+    +         "id": "bancada:exposicao:desafio",
+    +         "payload": Object {
+    +           "controls": Array [
+    +             Object {
+    +               "id": "kv",
+    +               "initial": 110,
+    +               "label": "Tensão do tubo",
+    +               "max": 120,
+    +               "min": 50,
+    +               "step": 5,
+    +               "unit": "kV",
+    +             },
+    +           ],
+    +           "goal": Object {
+    +             "kind": "match",
+    +             "reference": Object {
+    +               "kv": 70,
+    +               "mas": 10,
+    +             },
+    +             "tolerance": 0.03,
+    +           },
+    +           "hints": Object {
+    +             "tooHigh": "Sua imagem tem menos contraste que a referência: o kV está alto. Desça o kV e compare de novo.",
+    +             "tooLow": "Sua imagem tem mais contraste que a referência: o kV está baixo. Suba o kV e compare de novo.",
+    +           },
+    +           "mode": "challenge",
+    +           "phantomLabel": "Fantoma simulado",
+    +           "prompt": "Ajuste o kV até o contraste da sua imagem ficar igual ao da referência.",
+    +           "simulator": "exposure",
+    +         },
+    +         "type": "bench",
+    +       },
+    +       "kind": "interaction",
+    +     },
+    +     Object {
+    +       "interaction": Object {
+    +         "accessibility": Object {
+    +           "label": "Leitura da imagem: o que deixou a imagem granulada?",
+    +         },
+    +         "competencyIds": Array [
+    +           "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato",
+    +         ],
+    +         "completionRule": "answered",
+    +         "criticalSafety": false,
+    +         "evidenceKind": "applied-transfer",
+    +         "feedback": Object {
+    +           "correct": "Com mAs baixo, poucos fótons formam a imagem. O processamento ajusta o brilho, mas o ruído continua: é o granulado.",
+    +           "incorrect": "O contraste está igual ao da referência, e o que mudou foi o granulado. Pense na quantidade de fótons.",
+    +         },
+    +         "id": "bancada:exposicao:leitura",
+    +         "payload": Object {
+    +           "correctOptionId": "mas-baixo",
+    +           "options": Array [
+    +             Object {
+    +               "id": "mas-baixo",
+    +               "label": "O mAs ficou baixo demais",
+    +             },
+    +             Object {
+    +               "explanation": "Com mAs alto, mais fótons formam a imagem, e o ruído cai. A imagem sairia mais limpa, e não granulada.",
+    +               "id": "mas-alto",
+    +               "label": "O mAs ficou alto demais",
+    +             },
+    +             Object {
+    +               "explanation": "O kV muda o contraste entre osso e partes moles, e o contraste aqui está igual ao da referência. O granulado vem de outra coisa.",
+    +               "id": "kv-alto",
+    +               "label": "O kV ficou alto demais",
+    +             },
+    +           ],
+    +           "prompt": "Uma imagem do fantoma saiu granulada, com o mesmo kV da referência. O contraste entre osso e partes moles está igual ao dela, mas a imagem toda tem pontos claros e escuros espalhados. O que mudou?",
+    +         },
+    +         "type": "multiple-choice",
+    +       },
+    +       "kind": "interaction",
+    +     },
+    +     Object {
+    +       "interaction": Object {
+    +         "accessibility": Object {
+    +           "label": "Bancada de exposição: suba o mAs até 16",
+    +         },
+    +         "competencyIds": Array [
+    +           "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato",
+    +         ],
+    +         "completionRule": "answered",
+    +         "criticalSafety": false,
+    +         "evidenceKind": "guided-practice",
+    +         "feedback": Object {
+    +           "correct": "Com mais fótons, o ruído caiu, e o brilho continuou o mesmo. Quadruplicar o mAs divide o ruído por dois.",
+    +           "incorrect": "Suba o mAs para formar a imagem com mais fótons.",
+    +         },
+    +         "id": "bancada:exposicao:corrigir",
+    +         "payload": Object {
+    +           "controls": Array [
+    +             Object {
+    +               "id": "mas",
+    +               "initial": 2,
+    +               "label": "Corrente × tempo",
+    +               "max": 20,
+    +               "min": 1,
+    +               "step": 1,
+    +               "unit": "mAs",
+    +             },
+    +           ],
+    +           "goal": Object {
+    +             "atLeast": 16,
+    +             "control": "mas",
+    +             "kind": "reach",
+    +           },
+    +           "hints": Object {
+    +             "tooHigh": "O mAs já passou de 16. Compare o granulado com o do começo.",
+    +             "tooLow": "Ainda abaixo de 16 mAs, e o granulado continua. Suba mais o mAs.",
+    +           },
+    +           "mode": "correct",
+    +           "phantomLabel": "Fantoma simulado",
+    +           "prompt": "Agora corrija: suba o mAs até 16. O mAs define quantos fótons formam a imagem, e com poucos fótons sobra ruído, mesmo com o brilho ajustado pelo processamento.",
+    +           "simulator": "exposure",
+    +         },
+    +         "type": "bench",
+    +       },
+    +       "kind": "interaction",
+    +     },
+    +     Object {
+    +       "id": "bancada:exposicao:fechamento",
+    +       "kind": "presentation",
+    +       "payload": Object {
+    +         "body": "O kV mexe no contraste. O mAs mexe na quantidade de fótons e no ruído.",
+    +         "title": "O que cada controle faz",
+    +       },
+    +       "role": "closing",
+    +     },
+    +   ],
+      }
+
+      352 |
+      353 | it('T04 dá tema explícito aos exemplos e imagem à leitura sem alterar o gabarito', () => {
+    > 354 |   expect(EXPOSICAO).toMatchObject({ theme: 'tubo' });
+          |                     ^
+      355 |   expect(COLIMACAO).toMatchObject({ theme: 'protecao' });
+      356 |   const step = EXPOSICAO.steps[3];
+      357 |   expect(step).toMatchObject({ kind: 'interaction', interaction: { id: 'bancada:exposicao:leitura', type: 'multiple-choice', payload: {
+
+      at Object.toMatchObject (src/features/bench/lessons/BenchLessonCatalog.test.ts:354:21)
+
+FAIL radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  ● T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta
+
+    Unable to find an element with role: image, name: Fantoma simulado
+
+    [36m<View>[39m
+      [36m<Text>[39m
+        [0mQual estrutura aparece mais radiopaca?[0m
+      [36m</Text>[39m
+      [36m<View>[39m
+        [36m<View[39m
+          [33maccessibilityHint[39m=[32m"Seleciona esta resposta. Você confirma em Continuar."[39m
+          [33maccessibilityLabel[39m=[32m"Osso"[39m
+          [33maccessibilityRole[39m=[32m"button"[39m
+          [33maccessibilityState[39m=[32m{
+            {
+              "disabled": false,
+              "selected": false,
+            }
+          }[39m
+          [33maccessible[39m=[32m{true}[39m
+          [33mtestID[39m=[32m"lesson-option-a"[39m
+        [36m>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mOsso[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+        [36m<View[39m
+          [33maccessibilityHint[39m=[32m"Seleciona esta resposta. Você confirma em Continuar."[39m
+          [33maccessibilityLabel[39m=[32m"Ar"[39m
+          [33maccessibilityRole[39m=[32m"button"[39m
+          [33maccessibilityState[39m=[32m{
+            {
+              "disabled": false,
+              "selected": false,
+            }
+          }[39m
+          [33maccessible[39m=[32m{true}[39m
+          [33mtestID[39m=[32m"lesson-option-b"[39m
+        [36m>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mAr[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      218 |     const withImage = { ...interaction, payload: { ...interaction.payload, exposureImage: image } } as LearningInteractionV2;
+      219 |     const view = render(<ActivityInteractionRenderer interaction={withImage} value={undefined} onChange={jest.fn()} />);
+    > 220 |     expect(view.getByRole('image', { name: 'Fantoma simulado' })).toBeTruthy();
+          |                 ^
+      221 |     expect(view.getByText('Qual estrutura aparece mais radiopaca?')).toBeTruthy();
+      222 |     const uniforms = view.getByTestId('skia-Shader').props.uniforms;
+      223 |     expect(uniforms.noise).toBeCloseTo(0.045 * Math.sqrt(12 / 2));
+
+      at Object.getByRole (src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx:220:17)
+
+Test Suites: 5 failed, 5 total
+Tests:       27 failed, 195 skipped, 9 passed, 231 total
+Snapshots:   0 total
+Time:        45.959 s
+Ran all test suites within paths "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx", "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx", "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts".
+
+=== Specific discriminating mutations, restored by SHA ===
+Node20.20.2; EXPO_NO_DOTENV=1; taskpolicy -b; cwd=/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+
+CASE font-cap original-sha256=ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6
+CMD ['/usr/sbin/taskpolicy', '-b', '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/.bin/jest', '--runInBand', '--runTestsByPath', 'src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx', '-t', 'M2 mantém título']
+FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (8.179 s)
+  LessonFlowScreen — escolha da alternativa
+    ○ skipped bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso
+    ○ skipped permite trocar a alternativa selecionada antes de confirmar
+    ○ skipped confirma a escolha corrente ao continuar e revela o reforço
+  LessonFlowScreen — economia de vidas
+    ○ skipped não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada
+    ○ skipped protege uma confirmação dupla contra cobrança duplicada
+    ○ skipped pausa no próximo passo ao chegar a zero e preserva a retomada
+    ○ skipped assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio
+    ○ skipped assinante vê ∞ no topo da lição, sem as vidas
+    ○ skipped quem não assina vê as vidas no topo da lição, sem ∞
+    ○ skipped salva o passo atual antes de fechar
+    anúncio da perda de vida ao leitor de tela
+      ○ skipped anuncia a vida perdida e quantas restam junto da resposta incorreta
+      ○ skipped na última vida, anuncia que ela acabou em vez de "restam 0"
+      ○ skipped assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas
+      ○ skipped sem queda real do contador, não anuncia débito
+    folha de vidas e a loja
+      ○ skipped com loja no binário, a folha oferece a assinatura e leva à tela dela
+      ○ skipped sem loja no binário, a folha não oferece a assinatura
+      ○ skipped voltando da compra, a lição relê as vidas e mostra ∞
+  LessonFlowScreen — apresentação do passo legado
+    ○ skipped não promete uma interação que não existe no passo legado
+  LessonFlowScreen — registro da conclusão
+    ○ skipped registra a conclusão com a escolha confirmada antes de marcar o nó
+    ○ skipped registra escolha confirmada incorreta como incorreta
+    ○ skipped usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco
+  LessonFlowScreen — retomada sem persistir respostas
+    ○ skipped recua para a interação não confirmada quando o cursor salvo já passou por ela
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ○ skipped pausa no índice 1 e reabre o passo privado esperado 1 pela ação real
+    ○ skipped pausa no índice 2 e reabre o passo privado esperado 2 pela ação real
+    ○ skipped pausa no índice 3 e reabre o passo privado esperado 2 pela ação real
+  LessonFlowScreen — atividade curricular v2 promovida
+    ○ skipped renderiza o material promovido sem depender de bloco legado
+    ○ skipped preserva o CTA da comparação V2 (último passo: false)
+    ○ skipped preserva o CTA da comparação V2 (último passo: true)
+    ○ skipped registra a conclusão usando a atividade nativa e sua resposta confirmada
+  LessonFlowScreen — conclusão da lição
+    ○ skipped mostra a conclusão em vez de devolver o aluno em silêncio para a aba
+    ○ skipped anuncia Estude na conclusão de /learn e o Continuar executa esse retorno
+    ○ skipped mostra as estrelas desta tentativa, com o recorde à parte
+    ○ skipped chega ao Continuar mesmo quando a leitura do histórico falha
+  LessonFlowScreen — sons e vibração
+    ○ skipped tocar numa alternativa toca o som de toque e vibra a seleção
+    ○ skipped continuar com erro toca só o erro, mesmo quando a vida cai
+    ○ skipped continuar com acerto toca o acerto e vibra o sucesso
+    ○ skipped o assinante erra e também ouve só o erro
+    ○ skipped a lição aprovada termina com o som de fim e a comemoração
+    ○ skipped com os interruptores desligados, nada toca e nada vibra, nem a comemoração
+    ○ skipped libera os sons ao sair da lição
+  LessonFlowScreen — revisão da trilha não custa vida
+    ○ skipped errar na revisão não gasta vida nem anuncia perda
+    ○ skipped sem vidas, a revisão continua e não pausa
+    ○ skipped a revisão termina como revisão, sem pedir avaliação de aula
+    ○ skipped a lição continua custando vida no erro
+  FILA 58 — integração do motor híbrido
+    ✕ M2 mantém título e corpo do feedback sem teto de fonte (88 ms)
+    ○ skipped M4 primeiro contato não custa; só erro no retorno custa uma vida
+    ○ skipped M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção
+    ○ skipped M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha
+    ○ skipped M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno
+    ○ skipped M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido
+    ○ skipped M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão
+    ○ skipped C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess
+    ○ skipped M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ○ skipped escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo
+    ○ skipped bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha
+    ○ skipped bancada certa: o bloco mostra feedback.correct, sem dica
+    ○ skipped bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha
+    ○ skipped bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo
+    ○ skipped bancada de corrigir: o botão também espera o alvo
+    ○ skipped bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção
+    ○ skipped bancada: depois de conferir, o botão volta a "Continuar"
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ○ skipped errar a primeira resposta de um item e acertar na volta não dá três estrelas
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ○ skipped abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada
+    ○ skipped fechar a aula sem nó sai para a trilha sem gravar o passo
+    ○ skipped pausar sem vidas, sem nó, abre a folha sem gravar o passo
+    ○ skipped sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ○ skipped a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida
+    ○ skipped o fechamento mostra o próprio título e texto, e não o retorno da última interação
+  T04 — abertura, retorno e botão apto
+    ○ skipped multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped abertura usa o tema explícito sem nó e preserva o texto independente
+    ○ skipped abertura resolve tema do nó, depois da unidade real, sem ler progresso
+    ○ skipped explore explica a espera e anuncia aptidão só uma vez por visita
+    ○ skipped correct explica a espera e anuncia aptidão só uma vez por visita
+
+  ● FILA 58 — integração do motor híbrido › M2 mantém título e corpo do feedback sem teto de fonte
+
+    expect(received).toBeUndefined()
+
+    Received: 2
+
+      1587 |     await open();
+      1588 |     await answer('Pneumotórax');
+    > 1589 |     expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBeUndefined();
+           |                                                                            ^
+      1590 |     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
+      1591 |     expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+      1592 |   });
+
+      at Object.toBeUndefined (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1589:76)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 83 skipped, 84 total
+Snapshots:   0 total
+Time:        8.721 s, estimated 14 s
+Ran all test suites within paths "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx".
+EXIT=1
+RESTORED radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx sha256=ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6 match=True
+
+CASE correct-feedback-hidden original-sha256=ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6
+CMD ['/usr/sbin/taskpolicy', '-b', '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/.bin/jest', '--runInBand', '--runTestsByPath', 'src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx', '-t', 'correto=true']
+FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (11.328 s)
+  LessonFlowScreen — escolha da alternativa
+    ○ skipped bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso
+    ○ skipped permite trocar a alternativa selecionada antes de confirmar
+    ○ skipped confirma a escolha corrente ao continuar e revela o reforço
+  LessonFlowScreen — economia de vidas
+    ○ skipped não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada
+    ○ skipped protege uma confirmação dupla contra cobrança duplicada
+    ○ skipped pausa no próximo passo ao chegar a zero e preserva a retomada
+    ○ skipped assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio
+    ○ skipped assinante vê ∞ no topo da lição, sem as vidas
+    ○ skipped quem não assina vê as vidas no topo da lição, sem ∞
+    ○ skipped salva o passo atual antes de fechar
+    anúncio da perda de vida ao leitor de tela
+      ○ skipped anuncia a vida perdida e quantas restam junto da resposta incorreta
+      ○ skipped na última vida, anuncia que ela acabou em vez de "restam 0"
+      ○ skipped assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas
+      ○ skipped sem queda real do contador, não anuncia débito
+    folha de vidas e a loja
+      ○ skipped com loja no binário, a folha oferece a assinatura e leva à tela dela
+      ○ skipped sem loja no binário, a folha não oferece a assinatura
+      ○ skipped voltando da compra, a lição relê as vidas e mostra ∞
+  LessonFlowScreen — apresentação do passo legado
+    ○ skipped não promete uma interação que não existe no passo legado
+  LessonFlowScreen — registro da conclusão
+    ○ skipped registra a conclusão com a escolha confirmada antes de marcar o nó
+    ○ skipped registra escolha confirmada incorreta como incorreta
+    ○ skipped usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco
+  LessonFlowScreen — retomada sem persistir respostas
+    ○ skipped recua para a interação não confirmada quando o cursor salvo já passou por ela
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ○ skipped pausa no índice 1 e reabre o passo privado esperado 1 pela ação real
+    ○ skipped pausa no índice 2 e reabre o passo privado esperado 2 pela ação real
+    ○ skipped pausa no índice 3 e reabre o passo privado esperado 2 pela ação real
+  LessonFlowScreen — atividade curricular v2 promovida
+    ○ skipped renderiza o material promovido sem depender de bloco legado
+    ○ skipped preserva o CTA da comparação V2 (último passo: false)
+    ○ skipped preserva o CTA da comparação V2 (último passo: true)
+    ○ skipped registra a conclusão usando a atividade nativa e sua resposta confirmada
+  LessonFlowScreen — conclusão da lição
+    ○ skipped mostra a conclusão em vez de devolver o aluno em silêncio para a aba
+    ○ skipped anuncia Estude na conclusão de /learn e o Continuar executa esse retorno
+    ○ skipped mostra as estrelas desta tentativa, com o recorde à parte
+    ○ skipped chega ao Continuar mesmo quando a leitura do histórico falha
+  LessonFlowScreen — sons e vibração
+    ○ skipped tocar numa alternativa toca o som de toque e vibra a seleção
+    ○ skipped continuar com erro toca só o erro, mesmo quando a vida cai
+    ○ skipped continuar com acerto toca o acerto e vibra o sucesso
+    ○ skipped o assinante erra e também ouve só o erro
+    ○ skipped a lição aprovada termina com o som de fim e a comemoração
+    ○ skipped com os interruptores desligados, nada toca e nada vibra, nem a comemoração
+    ○ skipped libera os sons ao sair da lição
+  LessonFlowScreen — revisão da trilha não custa vida
+    ○ skipped errar na revisão não gasta vida nem anuncia perda
+    ○ skipped sem vidas, a revisão continua e não pausa
+    ○ skipped a revisão termina como revisão, sem pedir avaliação de aula
+    ○ skipped a lição continua custando vida no erro
+  FILA 58 — integração do motor híbrido
+    ○ skipped M4 primeiro contato não custa; só erro no retorno custa uma vida
+    ○ skipped M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção
+    ○ skipped M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha
+    ○ skipped M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno
+    ○ skipped M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido
+    ○ skipped M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão
+    ○ skipped C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess
+    ○ skipped M2 mantém título e corpo do feedback sem teto de fonte
+    ○ skipped M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ○ skipped escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo
+    ○ skipped bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha
+    ○ skipped bancada certa: o bloco mostra feedback.correct, sem dica
+    ○ skipped bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha
+    ○ skipped bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo
+    ○ skipped bancada de corrigir: o botão também espera o alvo
+    ○ skipped bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção
+    ○ skipped bancada: depois de conferir, o botão volta a "Continuar"
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ○ skipped errar a primeira resposta de um item e acertar na volta não dá três estrelas
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ○ skipped abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada
+    ○ skipped fechar a aula sem nó sai para a trilha sem gravar o passo
+    ○ skipped pausar sem vidas, sem nó, abre a folha sem gravar o passo
+    ○ skipped sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ○ skipped a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida
+    ○ skipped o fechamento mostra o próprio título e texto, e não o retorno da última interação
+  T04 — abertura, retorno e botão apto
+    ✕ multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1051 ms)
+    ✕ comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1044 ms)
+    ✕ hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1059 ms)
+    ✕ matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1052 ms)
+    ✕ ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1043 ms)
+    ✕ bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (1515 ms)
+    ○ skipped multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped abertura usa o tema explícito sem nó e preserva o texto independente
+    ○ skipped abertura resolve tema do nó, depois da unidade real, sem ler progresso
+    ○ skipped explore explica a espera e anuncia aptidão só uma vez por visita
+    ○ skipped correct explica a espera e anuncia aptidão só uma vez por visita
+
+  ● T04 — abertura, retorno e botão apto › multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"1"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mEscolha a resposta.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Resposta já conferida. Leia o feedback e continue."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção A"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "disabled": true,
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                        [33mtestID[39m=[32m"lesson-option-a"[39m
+                      [36m>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0mOpção A[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0mSelecionada[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Resposta já conferida. Leia o feedback e continue."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção B"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "disabled": true,
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                        [33mtestID[39m=[32m"lesson-option-b"[39m
+                      [36m>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0mOpção B[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"2"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mEscolha a resposta.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta comparação. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção A"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<View[39m
+                          [33maccessible[39m=[32m{false}[39m
+                        [36m>[39m
+                          [36m<Text>[39m
+                            [0mOpção [0m
+                            [0m1[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0m1[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0mOpção A[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<Text>[39m
+                          [0m✓ Selecionada[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta comparação. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Opção B"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<View[39m
+                          [33maccessible[39m=[32m{false}[39m
+                        [36m>[39m
+                          [36m<Text>[39m
+                            [0mOpção [0m
+                            [0m2[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0m2[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0mOpção B[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"3"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mEscolha a região.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<Image[39m
+                        [33maccessibilityLabel[39m=[32m"Imagem da atividade"[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m/>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta região. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região A na imagem"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m✓[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta região. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região B na imagem"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m2[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                    [36m<View>[39m
+                      [36m<Text>[39m
+                        [0mAlternativa textual[0m
+                      [36m</Text>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Equivale a tocar a região na imagem. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região A na lista"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": true,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m1[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mRegião A[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mSelecionada[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Equivale a tocar a região na imagem. Você confirma em Continuar."[39m
+                        [33maccessibilityLabel[39m=[32m"Selecionar Região B na lista"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                      [36m>[39m
+                        [36m<Text>[39m
+                          [0m2[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mRegião B[0m
+                        [36m</Text>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"4"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mAssocie os pares.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<Text>[39m
+                        [0mAssociações escolhidas[0m
+                      [36m</Text>[39m
+                      [36m<Text>[39m
+                        [0mA[0m
+                        [0m — [0m
+                        [0mAlfa[0m
+                      [36m</Text>[39m
+                      [36m<Text>[39m
+                        [0mB[0m
+                        [0m — [0m
+                        [0mBeta[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                    [36m<Text>[39m
+                      [0mTodas as associações foram selecionadas.[0m
+                    [36m</Text>[39m
+                    [36m<View[39m
+                      [33maccessibilityLabel[39m=[32m"Desfazer última associação"[39m
+                      [33maccessibilityRole[39m=[32m"button"[39m
+                      [33maccessible[39m=[32m{true}[39m
+                    [36m>[39m
+                      [36m<Text>[39m
+                        [0mDesfazer última associação[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"5"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mOrdene os itens.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View>[39m
+                        [36m<Text>[39m
+                          [0m1[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mSegundo[0m
+                        [36m</Text>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Subir Segundo"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↑[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Descer Segundo"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": false,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↓[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                      [36m<View>[39m
+                        [36m<Text>[39m
+                          [0m2[0m
+                        [36m</Text>[39m
+                        [36m<Text>[39m
+                          [0mPrimeiro[0m
+                        [36m</Text>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Subir Primeiro"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": false,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↑[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Descer Primeiro"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m↓[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                    [36m<View[39m
+                      [33maccessibilityHint[39m=[32m"Seleciona a sequência atual. Você confirma em Continuar."[39m
+                      [33maccessibilityLabel[39m=[32m"Selecionar esta ordem"[39m
+                      [33maccessibilityRole[39m=[32m"button"[39m
+                      [33maccessibilityState[39m=[32m{
+                        {
+                          "selected": true,
+                        }
+                      }[39m
+                      [33maccessible[39m=[32m{true}[39m
+                    [36m>[39m
+                      [36m<Text>[39m
+                        [0mOrdem selecionada[0m
+                      [36m</Text>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● T04 — abertura, retorno e botão apto › bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 50,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"6"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m1[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mAjuste o controle.[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Fantoma simulado: 100 kV e 10 mAs"[39m
+                            [33maccessibilityRole[39m=[32m"image"[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<View[39m
+                              [33mtestID[39m=[32m"skia-Canvas"[39m
+                            [36m>[39m
+                              [36m<View[39m
+                                [33mtestID[39m=[32m"skia-Fill"[39m
+                              [36m>[39m
+                                [36m<View[39m
+                                  [33mtestID[39m=[32m"skia-Shader"[39m
+                                [36m/>[39m
+                              [36m</View>[39m
+                            [36m</View>[39m
+                          [36m</View>[39m
+                          [36m<Text>[39m
+                            [0mFantoma simulado[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                    [36m<View>[39m
+                      [36m<View>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0mTensão[0m
+                          [36m</Text>[39m
+                          [36m<Text>[39m
+                            [0m100 kV[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                        [36m<View>[39m
+                          [36m<View[39m
+                            [33maccessibilityHint[39m=[32m"Tira um passo de 10 kV."[39m
+                            [33maccessibilityLabel[39m=[32m"Diminuir Tensão"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m−[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityLabel[39m=[32m"Tensão"[39m
+                            [33maccessibilityRole[39m=[32m"adjustable"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessibilityValue[39m=[32m{
+                              {
+                                "max": 120,
+                                "min": 40,
+                                "now": 100,
+                                "text": "100 kV",
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<View>[39m
+                              [36m<RNCSlider[39m
+                                [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                                [33maccessibilityState[39m=[32m{
+                                  {
+                                    "disabled": true,
+                                  }
+                                }[39m
+                                [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                                [33mtestID[39m=[32m"bench-slider-kv"[39m
+                                [33mvalue[39m=[32m{100}[39m
+                              [36m/>[39m
+                            [36m</View>[39m
+                          [36m</View>[39m
+                          [36m<View[39m
+                            [33maccessibilityHint[39m=[32m"Soma um passo de 10 kV."[39m
+                            [33maccessibilityLabel[39m=[32m"Aumentar Tensão"[39m
+                            [33maccessibilityRole[39m=[32m"button"[39m
+                            [33maccessibilityState[39m=[32m{
+                              {
+                                "disabled": true,
+                              }
+                            }[39m
+                            [33maccessible[39m=[32m{true}[39m
+                          [36m>[39m
+                            [36m<Text>[39m
+                              [0m+[0m
+                            [36m</Text>[39m
+                          [36m</View>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": false,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mContinuar[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      2139 |     await esperarBotaoApto(confirm);
+      2140 |     fireEvent.press(screen.getByRole('button', { name: confirm }));
+    > 2141 |     const feedback = await screen.findByTestId('lesson-item-feedback');
+           |                                   ^
+      2142 |     expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+      2143 |     const expectedMessage = correct ? 'Certo.' : message;
+      2144 |     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2141:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       6 failed, 78 skipped, 84 total
+Snapshots:   0 total
+Time:        11.844 s
+Ran all test suites within paths "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx".
+EXIT=1
+RESTORED radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx sha256=ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6 match=True
+
+CASE grain-input-reference original-sha256=5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc
+CMD ['/usr/sbin/taskpolicy', '-b', '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/.bin/jest', '--runInBand', '--runTestsByPath', 'src/features/bench/lessons/BenchLessonCatalog.test.ts', '-t', 'T04 dá tema']
+FAIL src/features/bench/lessons/BenchLessonCatalog.test.ts
+  ✕ T04 dá tema explícito aos exemplos e imagem à leitura sem alterar o gabarito (6 ms)
+  BenchLessonCatalog — só em build de desenvolvimento, porque o dono ainda não revisou o texto
+    ○ skipped lista as duas aulas de exemplo, exposição e colimação
+    ○ skipped com __DEV__, serve cada aula pelo id, e nada para outro id
+    ○ skipped fora de __DEV__, não serve nenhuma aula, nem pelo id certo
+    ○ skipped sem __DEV__ definido, como nos scripts de QA em Node, não serve nenhuma aula e não lança
+  a aula bancada:exposicao
+    ○ skipped passa na validação v2 sem nenhuma violação
+    ○ skipped não tem aviso editorial
+    ○ skipped tem ao menos uma bancada, e cada uma diz que o fantoma é simulado
+    ○ skipped mostra ao aluno as faixas da prancheta: kV de 50 a 120 e mAs de 1 a 20
+    ○ skipped cada alvo reach cabe na faixa do controle, com atLeast <= atMost quando há os dois
+    ○ skipped o ponto de partida de cada bancada não cumpre o alvo: o passo não se responde sozinho
+    ○ skipped cada bancada tem ao menos uma posição dos controles, ao alcance dos botões, que cumpre o alvo
+    ○ skipped cada match tem a referência dentro da faixa dos controles, e no ponto de referência o que a bancada não oferece
+    ○ skipped cada alternativa errada tem explicação própria, diferente das outras e do retorno genérico
+  a aula bancada:colimacao
+    ○ skipped passa na validação v2 sem nenhuma violação
+    ○ skipped não tem aviso editorial
+    ○ skipped tem ao menos uma bancada, e cada uma diz que o fantoma é simulado
+    ○ skipped mostra ao aluno as faixas da prancheta: kV de 50 a 120 e mAs de 1 a 20
+    ○ skipped cada alvo reach cabe na faixa do controle, com atLeast <= atMost quando há os dois
+    ○ skipped o ponto de partida de cada bancada não cumpre o alvo: o passo não se responde sozinho
+    ○ skipped cada bancada tem ao menos uma posição dos controles, ao alcance dos botões, que cumpre o alvo
+    ○ skipped cada match tem a referência dentro da faixa dos controles, e no ponto de referência o que a bancada não oferece
+    ○ skipped cada alternativa errada tem explicação própria, diferente das outras e do retorno genérico
+  o texto das aulas (A Regra Sem Cara de IA)
+    ○ skipped a varredura alcança todas as frases: título, enunciado, dicas, alternativas, explicações, retornos e fechamento
+    ○ skipped nenhuma frase usa "quase"
+    ○ skipped nenhuma frase usa travessão de efeito
+    ○ skipped na colimação, nenhuma frase diz "dose" solta: a grandeza que cai com a área é o produto dose-área
+  o desafio de enquadrar da colimação cobre o joelho inteiro, com as partes moles
+    ○ skipped a medida da pele bate com a do revisor: 22,6 cm
+    ○ skipped toda largura aceita cobre a pele dos dois lados
+    ○ skipped a menor largura que cobre a pele, no passo do controle, é aceita
+    ○ skipped o campo todo não é aceito: ainda sobra campo fora do joelho
+  o documento de revisão do dono
+    ○ skipped traz, na tabela da aula bancada:exposicao, cada frase do código, igual, caractere por caractere
+    ○ skipped traz, na tabela da aula bancada:colimacao, cada frase do código, igual, caractere por caractere
+    ○ skipped deixa vazia a coluna "ok do dono" da aula bancada:exposicao
+    ○ skipped deixa vazia a coluna "ok do dono" da aula bancada:colimacao
+
+  ● T04 dá tema explícito aos exemplos e imagem à leitura sem alterar o gabarito
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -4,11 +4,11 @@
+          "payload": Object {
+            "correctOptionId": "mas-baixo",
+            "exposureImage": Object {
+              "input": Object {
+                "kv": 70,
+    -           "mas": 2,
+    +           "mas": 10,
+              },
+              "label": "Fantoma simulado",
+            },
+          },
+          "type": "multiple-choice",
+
+      355 |   expect(COLIMACAO).toMatchObject({ theme: 'protecao' });
+      356 |   const step = EXPOSICAO.steps[3];
+    > 357 |   expect(step).toMatchObject({ kind: 'interaction', interaction: { id: 'bancada:exposicao:leitura', type: 'multiple-choice', payload: {
+          |                ^
+      358 |     exposureImage: { input: { kv: 70, mas: 2 }, label: 'Fantoma simulado' }, correctOptionId: 'mas-baixo',
+      359 |   } } });
+      360 |   expect(EXPOSICAO.steps.map(s => s.kind === 'presentation' ? s.id : s.interaction.id)).toEqual([
+
+      at Object.toMatchObject (src/features/bench/lessons/BenchLessonCatalog.test.ts:357:16)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 34 skipped, 35 total
+Snapshots:   0 total
+Time:        1.307 s
+Ran all test suites within paths "src/features/bench/lessons/BenchLessonCatalog.test.ts".
+EXIT=1
+RESTORED radiant-app/src/features/bench/lessons/exposicao.ts sha256=5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc match=True
+
+
+## 2026-10-27 fix1 — red
+RED 2026-10-27T09:50:56.654905+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+CMD EXPO_NO_DOTENV=1 /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx --testNamePattern T04 fix1
+BEFORE_SHA256 LessonFlowScreen.tsx ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6
+BEFORE_SHA256 LessonFlowScreen.flow.test.tsx 85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278
+FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (37.507 s)
+  LessonFlowScreen — escolha da alternativa
+    ○ skipped bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso
+    ○ skipped permite trocar a alternativa selecionada antes de confirmar
+    ○ skipped confirma a escolha corrente ao continuar e revela o reforço
+  LessonFlowScreen — economia de vidas
+    ○ skipped não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada
+    ○ skipped protege uma confirmação dupla contra cobrança duplicada
+    ○ skipped pausa no próximo passo ao chegar a zero e preserva a retomada
+    ○ skipped assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio
+    ○ skipped assinante vê ∞ no topo da lição, sem as vidas
+    ○ skipped quem não assina vê as vidas no topo da lição, sem ∞
+    ○ skipped salva o passo atual antes de fechar
+    anúncio da perda de vida ao leitor de tela
+      ○ skipped anuncia a vida perdida e quantas restam junto da resposta incorreta
+      ○ skipped na última vida, anuncia que ela acabou em vez de "restam 0"
+      ○ skipped assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas
+      ○ skipped sem queda real do contador, não anuncia débito
+    folha de vidas e a loja
+      ○ skipped com loja no binário, a folha oferece a assinatura e leva à tela dela
+      ○ skipped sem loja no binário, a folha não oferece a assinatura
+      ○ skipped voltando da compra, a lição relê as vidas e mostra ∞
+  LessonFlowScreen — apresentação do passo legado
+    ○ skipped não promete uma interação que não existe no passo legado
+  LessonFlowScreen — registro da conclusão
+    ○ skipped registra a conclusão com a escolha confirmada antes de marcar o nó
+    ○ skipped registra escolha confirmada incorreta como incorreta
+    ○ skipped usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco
+  LessonFlowScreen — retomada sem persistir respostas
+    ○ skipped recua para a interação não confirmada quando o cursor salvo já passou por ela
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ○ skipped pausa no índice 1 e reabre o passo privado esperado 1 pela ação real
+    ○ skipped pausa no índice 2 e reabre o passo privado esperado 2 pela ação real
+    ○ skipped pausa no índice 3 e reabre o passo privado esperado 2 pela ação real
+  LessonFlowScreen — atividade curricular v2 promovida
+    ○ skipped renderiza o material promovido sem depender de bloco legado
+    ○ skipped preserva o CTA da comparação V2 (último passo: false)
+    ○ skipped preserva o CTA da comparação V2 (último passo: true)
+    ○ skipped registra a conclusão usando a atividade nativa e sua resposta confirmada
+  LessonFlowScreen — conclusão da lição
+    ○ skipped mostra a conclusão em vez de devolver o aluno em silêncio para a aba
+    ○ skipped anuncia Estude na conclusão de /learn e o Continuar executa esse retorno
+    ○ skipped mostra as estrelas desta tentativa, com o recorde à parte
+    ○ skipped chega ao Continuar mesmo quando a leitura do histórico falha
+  LessonFlowScreen — sons e vibração
+    ○ skipped tocar numa alternativa toca o som de toque e vibra a seleção
+    ○ skipped continuar com erro toca só o erro, mesmo quando a vida cai
+    ○ skipped continuar com acerto toca o acerto e vibra o sucesso
+    ○ skipped o assinante erra e também ouve só o erro
+    ○ skipped a lição aprovada termina com o som de fim e a comemoração
+    ○ skipped com os interruptores desligados, nada toca e nada vibra, nem a comemoração
+    ○ skipped libera os sons ao sair da lição
+  LessonFlowScreen — revisão da trilha não custa vida
+    ○ skipped errar na revisão não gasta vida nem anuncia perda
+    ○ skipped sem vidas, a revisão continua e não pausa
+    ○ skipped a revisão termina como revisão, sem pedir avaliação de aula
+    ○ skipped a lição continua custando vida no erro
+  FILA 58 — integração do motor híbrido
+    ○ skipped M4 primeiro contato não custa; só erro no retorno custa uma vida
+    ○ skipped M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção
+    ○ skipped M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha
+    ○ skipped M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno
+    ○ skipped M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido
+    ○ skipped M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão
+    ○ skipped C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess
+    ○ skipped M2 mantém título e corpo do feedback sem teto de fonte
+    ○ skipped M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ○ skipped escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo
+    ○ skipped bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha
+    ○ skipped bancada certa: o bloco mostra feedback.correct, sem dica
+    ○ skipped bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha
+    ○ skipped bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo
+    ○ skipped bancada de corrigir: o botão também espera o alvo
+    ○ skipped bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção
+    ○ skipped bancada: depois de conferir, o botão volta a "Continuar"
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ○ skipped errar a primeira resposta de um item e acertar na volta não dá três estrelas
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ○ skipped abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada
+    ○ skipped fechar a aula sem nó sai para a trilha sem gravar o passo
+    ○ skipped pausar sem vidas, sem nó, abre a folha sem gravar o passo
+    ○ skipped sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ○ skipped a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida
+    ○ skipped o fechamento mostra o próprio título e texto, e não o retorno da última interação
+  T04 — abertura, retorno e botão apto
+    ○ skipped multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada
+    ○ skipped abertura usa o tema explícito sem nó e preserva o texto independente
+    ○ skipped abertura resolve tema do nó, depois da unidade real, sem ler progresso
+    ○ skipped explore explica a espera e anuncia aptidão só uma vez por visita
+    ○ skipped correct explica a espera e anuncia aptidão só uma vez por visita
+  T04 fix1 — contagem com texto ampliado
+    ✕ deixa a contagem crescer pelas métricas nativas, sem comprimir a linha (71 ms)
+
+  ● T04 fix1 — contagem com texto ampliado › deixa a contagem crescer pelas métricas nativas, sem comprimir a linha
+
+    expect(received).toBeUndefined()
+
+    Received: 16
+
+      2212 |     // lineHeight 16 herdado do micro recortou os glifos na evidência iOS AX5.
+      2213 |     const style = StyleSheet.flatten(count.props.style);
+    > 2214 |     expect(style.lineHeight).toBeUndefined();
+           |                              ^
+      2215 |     expect(style.flexShrink).toBe(0);
+      2216 |     expect(style.fontSize).toBeGreaterThan(0);
+      2217 |     expect(style.fontFamily).toBe('Sora-SemiBold');
+
+      at Object.toBeUndefined (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:2214:30)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 84 skipped, 85 total
+Snapshots:   0 total
+Time:        38.579 s
+Ran all test suites within paths "src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx".
+
+EXIT_CODE 1
+
+
+## 2026-10-27 fix2 — red
+RED 2026-10-27T10:02:38.157792+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+CMD EXPO_NO_DOTENV=1 /usr/bin/caffeinate -i /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/bench/CollimationImage.test.tsx
+BEFORE_PRODUCT_SHA256 {"radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736", "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175", "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb", "radiant-app/src/features/lesson-flow/services/feedbackFor.ts": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9", "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6", "radiant-app/src/types/learningActivity.ts": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2", "radiant-app/src/features/bench/CollimationImage.tsx": "c829f35dde050a6525242e90a3f615933e9a1adeae26fdaea81d351274fe199d", "radiant-app/src/features/bench/CollimationImage.test.tsx": "dc81456c0264fd99bc5712a347e7064fc1b6eb7cf88c60bfc6dbcf31235075e8", "radiant-app/src/features/bench/lessons/exposicao.ts": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc", "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e", "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704", "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c", "radiant-app/src/features/bench/lessons/colimacao.ts": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405", "radiant-app/scripts/copy-style-baseline.json": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4", "radiant-app/scripts/visual-qa-policy.json": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00"}
+FAIL src/features/bench/CollimationImage.test.tsx (7.338 s)
+  CollimationImage
+    ✓ pinta o fantoma com a exposição de referência: colimar não muda kV nem mAs (19 ms)
+    ✓ entrega ao shader a fração do campo que o modelo calcula (2 ms)
+    ✓ fechar o campo encolhe a máscara, e ela continua dentro da imagem (5 ms)
+    ✓ é uma imagem para o leitor de tela, com o rótulo recebido (2 ms)
+  CollimationReadout
+    ✕ estica o readout e as linhas à largura disponível mesmo num pai centralizado (645 ms)
+    ✕ centraliza Campo de 27 × 33 cm, 891 cm² dentro da linha sem limitar seu refluxo ou tamanho de fonte (5 ms)
+    ✕ centraliza Produto dose-área: 100% do campo todo dentro da linha sem limitar seu refluxo ou tamanho de fonte (3 ms)
+    ✓ diz em texto o campo, a área e o produto dose-área (4 ms)
+    ✓ não chama de dose o que é produto dose-área: a dose do feixe direto num ponto não cai ao colimar (6 ms)
+    ✓ o campo todo é 100% (2 ms)
+    ✓ mostra o meio centímetro com vírgula, e não arredonda a medida (3 ms)
+    ✓ o produto dose-área fala sozinho ao mudar, para quem não vê a imagem (2 ms)
+
+  ● CollimationReadout › estica o readout e as linhas à largura disponível mesmo num pai centralizado
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 1
+
+      Object {
+    -   "alignItems": "stretch",
+    -   "alignSelf": "stretch",
+    +   "alignItems": "center",
+      }
+
+      78 |         const readout = StyleSheet.flatten(UNSAFE_getByType(View).props.style);
+      79 |
+    > 80 |         expect(readout).toMatchObject({ alignSelf: 'stretch', alignItems: 'stretch' });
+         |                         ^
+      81 |         expect(readout.width).toBeUndefined();
+      82 |         expect(readout.height).toBeUndefined();
+      83 |         expect(readout.maxHeight).toBeUndefined();
+
+      at Object.toMatchObject (src/features/bench/CollimationImage.test.tsx:80:25)
+
+  ● CollimationReadout › centraliza Campo de 27 × 33 cm, 891 cm² dentro da linha sem limitar seu refluxo ou tamanho de fonte
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "center"
+    Received: undefined
+
+      92 |             const style = StyleSheet.flatten(line.props.style);
+      93 |
+    > 94 |             expect(style.textAlign).toBe('center');
+         |                                     ^
+      95 |             expect(style.fontFamily).toBe('Sora-Bold');
+      96 |             expect(style.fontSize).toBe(16);
+      97 |             expect(style.height).toBeUndefined();
+
+      at toBe (src/features/bench/CollimationImage.test.tsx:94:37)
+
+  ● CollimationReadout › centraliza Produto dose-área: 100% do campo todo dentro da linha sem limitar seu refluxo ou tamanho de fonte
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "center"
+    Received: undefined
+
+      92 |             const style = StyleSheet.flatten(line.props.style);
+      93 |
+    > 94 |             expect(style.textAlign).toBe('center');
+         |                                     ^
+      95 |             expect(style.fontFamily).toBe('Sora-Bold');
+      96 |             expect(style.fontSize).toBe(16);
+      97 |             expect(style.height).toBeUndefined();
+
+      at toBe (src/features/bench/CollimationImage.test.tsx:94:37)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 9 passed, 12 total
+Snapshots:   0 total
+Time:        8.528 s
+Ran all test suites within paths "src/features/bench/CollimationImage.test.tsx".
+
+EXIT_CODE 1
+
+
+## 2026-10-27 fix3 — red
+RED 2026-10-27T10:08:00.510690+00:00
+CWD /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE v20.20.2
+CMD EXPO_NO_DOTENV=1 /usr/bin/caffeinate -i /usr/sbin/taskpolicy -b node_modules/.bin/jest --runInBand --no-cache --runTestsByPath src/features/bench/CollimationImage.test.tsx
+BEFORE_PRODUCT_SHA256 {"radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx": "7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736", "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": "85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8", "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175", "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609", "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb", "radiant-app/src/features/lesson-flow/services/feedbackFor.ts": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9", "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6", "radiant-app/src/types/learningActivity.ts": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2", "radiant-app/src/features/bench/CollimationImage.tsx": "fed89d259e74abaaee3dd729e5a8e70a196e282c19d1a4e6eae46f19c54926b2", "radiant-app/src/features/bench/CollimationImage.test.tsx": "6931f95ddf2976b0d2d79d5b383e7b7656eabe6ed91395ad803a206352e4e7d5", "radiant-app/src/features/bench/lessons/exposicao.ts": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc", "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e", "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704", "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c", "radiant-app/src/features/bench/lessons/colimacao.ts": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405", "radiant-app/scripts/copy-style-baseline.json": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4", "radiant-app/scripts/visual-qa-policy.json": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00"}
+FAIL src/features/bench/CollimationImage.test.tsx (8.64 s)
+  CollimationImage
+    ✓ pinta o fantoma com a exposição de referência: colimar não muda kV nem mAs (28 ms)
+    ✓ entrega ao shader a fração do campo que o modelo calcula (5 ms)
+    ✓ fechar o campo encolhe a máscara, e ela continua dentro da imagem (7 ms)
+    ✓ é uma imagem para o leitor de tela, com o rótulo recebido (4 ms)
+  CollimationReadout
+    ✓ estica o readout e as linhas à largura disponível mesmo num pai centralizado (700 ms)
+    ✕ centraliza Campo de 27 × 33 cm, 891 cm² dentro da linha sem limitar seu refluxo ou tamanho de fonte (4 ms)
+    ✕ centraliza Produto dose-área: 100% do campo todo dentro da linha sem limitar seu refluxo ou tamanho de fonte (5 ms)
+    ✓ diz em texto o campo, a área e o produto dose-área (3 ms)
+    ✓ não chama de dose o que é produto dose-área: a dose do feixe direto num ponto não cai ao colimar (5 ms)
+    ✓ o campo todo é 100% (2 ms)
+    ✓ mostra o meio centímetro com vírgula, e não arredonda a medida (3 ms)
+    ✓ o produto dose-área fala sozinho ao mudar, para quem não vê a imagem (2 ms)
+
+  ● CollimationReadout › centraliza Campo de 27 × 33 cm, 891 cm² dentro da linha sem limitar seu refluxo ou tamanho de fonte
+
+    expect(received).toBeUndefined()
+
+    Received: 24
+
+       95 |             expect(style.fontFamily).toBe('Sora-Bold');
+       96 |             expect(style.fontSize).toBe(16);
+    >  97 |             expect(style.lineHeight).toBeUndefined();
+          |                                      ^
+       98 |             expect(style.height).toBeUndefined();
+       99 |             expect(style.maxHeight).toBeUndefined();
+      100 |             expect(style.overflow).not.toBe('hidden');
+
+      at toBeUndefined (src/features/bench/CollimationImage.test.tsx:97:38)
+
+  ● CollimationReadout › centraliza Produto dose-área: 100% do campo todo dentro da linha sem limitar seu refluxo ou tamanho de fonte
+
+    expect(received).toBeUndefined()
+
+    Received: 24
+
+       95 |             expect(style.fontFamily).toBe('Sora-Bold');
+       96 |             expect(style.fontSize).toBe(16);
+    >  97 |             expect(style.lineHeight).toBeUndefined();
+          |                                      ^
+       98 |             expect(style.height).toBeUndefined();
+       99 |             expect(style.maxHeight).toBeUndefined();
+      100 |             expect(style.overflow).not.toBe('hidden');
+
+      at toBeUndefined (src/features/bench/CollimationImage.test.tsx:97:38)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 10 passed, 12 total
+Snapshots:   0 total
+Time:        9.617 s
+Ran all test suites within paths "src/features/bench/CollimationImage.test.tsx".
+
+EXIT_CODE 1
+
+
+## 2026-10-27 fix4 — R5 AST red
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 1.149417
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.231625
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.118625
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+not ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 1.202584
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:87:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:88:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+not ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 0.158834
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:91:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx',
+    +     line: 6,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx'
+      line: 6
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:92:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 0.087083
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 0.064958
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 0.350333
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 0.1345
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 0.113459
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 0.054875
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 0.088167
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 0.051958
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 0.093875
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 0.04825
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.074459
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 0.048791
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 0.109334
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 0.048375
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 0.081334
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 0.048542
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.048917
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.047834
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.037834
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 3.058667
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 0.061375
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 0.047167
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.043584
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.041334
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 1.217541
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+not ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 0.219
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:134:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx',
+    +     line: 1,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx'
+      line: 1
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.test.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:136:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+not ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 0.158666
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:150:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   {
+    +     file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx',
+    +     line: 7,
+    +     msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.',
+    +     rule: 'R5',
+    +     severity: 'warning',
+    +     signature: 'character-usage'
+    +   }
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      rule: 'R5'
+      severity: 'warning'
+      file: 'src/features/lesson-flow/renderers/BenchStepRenderer.tsx'
+      line: 7
+      signature: 'character-usage'
+      msg: 'Character usage in potential non-standard screen: BenchStepRenderer.tsx. verify archetype rules.'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:151:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 28
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 61.625917
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.777333
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.122375
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.1025
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 9.744541
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.441958
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.747667
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 2.005666
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 1.747833
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.980333
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.541917
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.435792
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.357417
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.646417
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.280542
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.366625
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.959083
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.100834
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.14
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.059584
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.466208
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.10275
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.855166
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.795917
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.839875
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.707333
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.210625
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.149917
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.729333
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.616042
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.095042
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 11.10775
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.705417
+  ...
+# Subtest: R5 does not approve a CharacterSlot-only test or a forged query receiver
+not ok 33 - R5 does not approve a CharacterSlot-only test or a forged query receiver
+  ---
+  duration_ms: 1.121292
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:156:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:157:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 32
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.000791
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.721416
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.11475
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.104417
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 10.010167
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 5.400583
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.357625
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.903625
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 1.713417
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.952708
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.465542
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.433166
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.372667
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.671916
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.402084
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.286
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.871541
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.006916
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.173542
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 1.102125
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.432083
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.138958
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.896125
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.81225
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.838667
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.701125
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.218875
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.169542
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.85925
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.686042
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.1115
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 11.79225
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.732792
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+not ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 1.080375
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:45)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects forged query receiver
+not ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.294333
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:45)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects query receiver reassigned
+not ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.448666
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:45)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects query receiver shadowed
+not ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.338541
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:163:45)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 32
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 168.82375
+
+
+## 2026-10-27 fix5 — namespace import red
+
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+
+TAP version 13
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 1 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 0.772042
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 2 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.109958
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 3 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.102
+  ...
+# Subtest: R5 accepts the actual approved exploration explanation without a policy entry
+ok 4 - R5 accepts the actual approved exploration explanation without a policy entry
+  ---
+  duration_ms: 10.33075
+  ...
+# Subtest: R5 accepts actual observational Pixel queries without exempting the test file
+ok 5 - R5 accepts actual observational Pixel queries without exempting the test file
+  ---
+  duration_ms: 6.085292
+  ...
+# Subtest: R5 rejects approved-source mutation: challenge
+ok 6 - R5 rejects approved-source mutation: challenge
+  ---
+  duration_ms: 2.528042
+  ...
+# Subtest: R5 rejects approved-source mutation: correct
+ok 7 - R5 rejects approved-source mutation: correct
+  ---
+  duration_ms: 1.928917
+  ...
+# Subtest: R5 rejects approved-source mutation: always true
+ok 8 - R5 rejects approved-source mutation: always true
+  ---
+  duration_ms: 2.292
+  ...
+# Subtest: R5 rejects approved-source mutation: submitted guard removed
+ok 9 - R5 rejects approved-source mutation: submitted guard removed
+  ---
+  duration_ms: 1.682959
+  ...
+# Subtest: R5 rejects approved-source mutation: target guard removed
+ok 10 - R5 rejects approved-source mutation: target guard removed
+  ---
+  duration_ms: 1.542125
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong feedback
+ok 11 - R5 rejects approved-source mutation: wrong feedback
+  ---
+  duration_ms: 1.377375
+  ...
+# Subtest: R5 rejects approved-source mutation: false branch visible
+ok 12 - R5 rejects approved-source mutation: false branch visible
+  ---
+  duration_ms: 1.415875
+  ...
+# Subtest: R5 rejects approved-source mutation: unconditional mount
+ok 13 - R5 rejects approved-source mutation: unconditional mount
+  ---
+  duration_ms: 1.628375
+  ...
+# Subtest: R5 rejects approved-source mutation: second Pixel
+ok 14 - R5 rejects approved-source mutation: second Pixel
+  ---
+  duration_ms: 1.458666
+  ...
+# Subtest: R5 rejects approved-source mutation: extra caller
+ok 15 - R5 rejects approved-source mutation: extra caller
+  ---
+  duration_ms: 1.1905
+  ...
+# Subtest: R5 rejects approved-source mutation: export helper
+ok 16 - R5 rejects approved-source mutation: export helper
+  ---
+  duration_ms: 0.955625
+  ...
+# Subtest: R5 rejects approved-source mutation: escaped helper
+ok 17 - R5 rejects approved-source mutation: escaped helper
+  ---
+  duration_ms: 1.125709
+  ...
+# Subtest: R5 rejects approved-source mutation: explanation text removed
+ok 18 - R5 rejects approved-source mutation: explanation text removed
+  ---
+  duration_ms: 1.260208
+  ...
+# Subtest: R5 rejects approved-source mutation: essential text inside Pixel
+ok 19 - R5 rejects approved-source mutation: essential text inside Pixel
+  ---
+  duration_ms: 0.989542
+  ...
+# Subtest: R5 rejects approved-source mutation: prompt removed
+ok 20 - R5 rejects approved-source mutation: prompt removed
+  ---
+  duration_ms: 1.480125
+  ...
+# Subtest: R5 rejects approved-source mutation: decorative flag removed
+ok 21 - R5 rejects approved-source mutation: decorative flag removed
+  ---
+  duration_ms: 1.163625
+  ...
+# Subtest: R5 rejects approved-source mutation: prop overridden by spread
+ok 22 - R5 rejects approved-source mutation: prop overridden by spread
+  ---
+  duration_ms: 0.893459
+  ...
+# Subtest: R5 rejects approved-source mutation: comment cannot repair condition
+ok 23 - R5 rejects approved-source mutation: comment cannot repair condition
+  ---
+  duration_ms: 0.808125
+  ...
+# Subtest: R5 rejects approved-source mutation: correctness function shadowed
+ok 24 - R5 rejects approved-source mutation: correctness function shadowed
+  ---
+  duration_ms: 0.849166
+  ...
+# Subtest: R5 rejects approved-source mutation: shadowed interaction
+ok 25 - R5 rejects approved-source mutation: shadowed interaction
+  ---
+  duration_ms: 0.885333
+  ...
+# Subtest: R5 rejects approved-source mutation: mutated explanation
+ok 26 - R5 rejects approved-source mutation: mutated explanation
+  ---
+  duration_ms: 1.075458
+  ...
+# Subtest: R5 rejects approved-source mutation: nested binding shadows explanation
+ok 27 - R5 rejects approved-source mutation: nested binding shadows explanation
+  ---
+  duration_ms: 1.079209
+  ...
+# Subtest: R5 rejects approved-source mutation: alias import unsupported
+ok 28 - R5 rejects approved-source mutation: alias import unsupported
+  ---
+  duration_ms: 0.771542
+  ...
+# Subtest: R5 rejects approved-source mutation: wrong import module
+ok 29 - R5 rejects approved-source mutation: wrong import module
+  ---
+  duration_ms: 0.673666
+  ...
+# Subtest: R5 keeps legacy classification outside the exact renderer and test paths
+ok 30 - R5 keeps legacy classification outside the exact renderer and test paths
+  ---
+  duration_ms: 0.089958
+  ...
+# Subtest: R5 test references must remain observational; import and comments alone are not mounting
+ok 31 - R5 test references must remain observational; import and comments alone are not mounting
+  ---
+  duration_ms: 13.268125
+  ...
+# Subtest: R5 accepts harmless comments and parentheses but not malformed syntax
+ok 32 - R5 accepts harmless comments and parentheses but not malformed syntax
+  ---
+  duration_ms: 1.724208
+  ...
+# Subtest: R5 rejects CharacterSlot-only test
+ok 33 - R5 rejects CharacterSlot-only test
+  ---
+  duration_ms: 0.146917
+  ...
+# Subtest: R5 rejects forged query receiver
+ok 34 - R5 rejects forged query receiver
+  ---
+  duration_ms: 1.334208
+  ...
+# Subtest: R5 rejects query receiver reassigned
+ok 35 - R5 rejects query receiver reassigned
+  ---
+  duration_ms: 1.368792
+  ...
+# Subtest: R5 rejects query receiver shadowed
+ok 36 - R5 rejects query receiver shadowed
+  ---
+  duration_ms: 1.303333
+  ...
+# Subtest: R5 rejects R3 extra unconditional namespace/bracket alias mount
+not ok 37 - R5 rejects R3 extra unconditional namespace/bracket alias mount
+  ---
+  duration_ms: 5.112333
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:169:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:174:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+not ok 38 - R5 rejects R3 test namespace/bracket createElement mount without named identifiers
+  ---
+  duration_ms: 0.15375
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:177:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:182:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: namespace dot access
+not ok 39 - R5 rejects alternate character import binding: namespace dot access
+  ---
+  duration_ms: 1.576042
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:197:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: default binding
+not ok 40 - R5 rejects alternate character import binding: default binding
+  ---
+  duration_ms: 0.079166
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:196:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: named alias
+ok 41 - R5 rejects alternate character import binding: named alias
+  ---
+  duration_ms: 1.018875
+  ...
+# Subtest: R5 rejects alternate character import binding: string named alias
+not ok 42 - R5 rejects alternate character import binding: string named alias
+  ---
+  duration_ms: 0.078083
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:196:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: extra default beside canonical
+not ok 43 - R5 rejects alternate character import binding: extra default beside canonical
+  ---
+  duration_ms: 0.063958
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:196:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot namespace
+not ok 44 - R5 rejects alternate character import binding: CharacterSlot namespace
+  ---
+  duration_ms: 0.060375
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:196:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: R5 rejects alternate character import binding: CharacterSlot string alias
+not ok 45 - R5 rejects alternate character import binding: CharacterSlot string alias
+  ---
+  duration_ms: 0.053041
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:195:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/visual-qa.test.mjs:196:16)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 37
+# fail 8
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 189.876541

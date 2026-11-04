@@ -1,0 +1,73 @@
+Linha do tempo do momento no AVD, rodada instrumentada (2026-10-23 08:29 -03).
+Fonte: cópia descartável em 8ad10e8 + instrumentacao-momento.patch (só logs). Tempos em s relativos ao toque em Continuar do resumo (adb input tap).
+Relógio: Date.now() do JS (logcat -v epoch); toque/gravação: time.time() do Mac. Marcas: {'rec_start_cmd': -2.186, 'rec_started': -2.067, 'tap': 0.0, 'tap_done': 0.247, 'rec_stop': 9.804}
+Omitidos: visible-calc e row-height repetidos; ui-frame resumido (reação no thread de UI, por mudança de valor).
+ +0.028 trail-state {"recommendedNodeId":"node:lesson-1","recommendedIndex":0,"playing":false,"ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-1","width":47.99999237060547,"height":46.18182373046875},"routeNodes":[],"measuredRoute":false,"visible":["node:lesson-1","node:revie
+ +0.030 screen-focus 
+ +0.058 trail-state {"recommendedNodeId":"node:lesson-1","recommendedIndex":0,"playing":false,"ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-1","width":47.99999237060547,"height":46.18182373046875},"routeNodes":[],"measuredRoute":false,"visible":["node:lesson-1","node:revie
+ +0.096 trail-state {"recommendedNodeId":"node:lesson-1","recommendedIndex":0,"playing":false,"ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-1","width":47.99999237060547,"height":46.18182373046875},"routeNodes":[],"measuredRoute":false,"visible":["node:lesson-1","node:revie
+ +0.133 hook-decide {"previous":"node:lesson-1","next":"node:lesson-2","completedStep":true}
+ +0.330 content-size {"w":360.7272644042969,"h":2588.363525390625}
+ +0.331 anchor-request {"index":2,"viewPosition":0.5}
+ +0.333 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.334 row-height {"nodeId":"node:lesson-1","height":193.81817626953125,"valid":true}
+ +0.334 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.335 row-height {"nodeId":"node:review:lesson-1","height":204.727294921875,"valid":true}
+ +0.341 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.341 row-height {"nodeId":"node:lesson-2","height":253.81817626953125,"valid":true}
+ +0.341 slot-layout {"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125}
+ +0.341 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.341 row-height {"nodeId":"node:review:lesson-2","height":164.36358642578125,"valid":true}
+ +0.341 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.358 styles-not-animate {"playing":true,"wantsMotion":true,"ready":false,"finishAtOnce":false,"resolved":true}
+ +0.359 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":true,"from":"node:lesson-1","ready":false,"holding":true,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-1","width":47.99999237060547,"height":46.18182373046875},"routeNodes":["node:lesson-1","node:review:lesson-1","
+ +0.561 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":true,"from":"node:lesson-1","ready":false,"holding":true,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125},"routeNodes":["node:lesson-1","node:review:lesson-1","
+ +0.567 content-size {"w":360.7272644042969,"h":2585.818115234375}
+ +0.567 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.567 row-height {"nodeId":"node:lesson-1","height":193.45455932617188,"valid":true}
+ +0.567 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.567 row-height {"nodeId":"node:review:lesson-1","height":204.72726440429688,"valid":true}
+ +0.567 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.567 row-height {"nodeId":"node:lesson-2","height":253.45452880859375,"valid":true}
+ +0.567 slot-layout {"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125}
+ +0.568 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.568 row-height {"nodeId":"node:review:lesson-2","height":164.36370849609375,"valid":true}
+ +0.568 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.568 row-height {"nodeId":"node:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia","height":172.363525390625,"valid":true}
+ +0.568 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.570 row-height {"nodeId":"node:review:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia","height":164.3636474609375,"valid":true}
+ +0.570 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.570 row-height {"nodeId":"node:ai-lesson:energia-e-materia","height":154.181884765625,"valid":true}
+ +0.570 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.570 row-height {"nodeId":"node:review:ai-lesson:energia-e-materia","height":164.3636474609375,"valid":true}
+ +0.570 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.570 row-height {"nodeId":"node:ai-lesson:estrutura-da-materia-e-nucleo-atomico","height":172.3636474609375,"valid":true}
+ +0.570 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.570 row-height {"nodeId":"node:review:ai-lesson:estrutura-da-materia-e-nucleo-atomico","height":164.3636474609375,"valid":true}
+ +0.571 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.571 row-height {"nodeId":"node:ai-lesson:radioatividade-particulas-e-atividade","height":172.3636474609375,"valid":true}
+ +0.571 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.571 row-height {"nodeId":"node:review:ai-lesson:radioatividade-particulas-e-atividade","height":164.363525390625,"valid":true}
+ +0.571 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.571 row-height {"nodeId":"node:ai-lesson:raios-x-descoberta-e-propriedades","height":172.36376953125,"valid":true}
+ +0.571 visible-calc {"ids":["node:lesson-1","node:review:lesson-1","node:lesson-2"]}
+ +0.571 row-height {"nodeId":"node:review:ai-lesson:raios-x-descoberta-e-propriedades","height":164.363525390625,"valid":true}
+ +0.610 styles-animate-start {"runKey":"node:lesson-1>node:lesson-2","routeLen":23,"fadeIn":false}
+ +0.612 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":true,"from":"node:lesson-1","ready":true,"holding":true,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125},"routeNodes":["node:lesson-1","node:review:lesson-1","n
+ +0.620 scroll {"y":287,"h":612}
+ +0.620 visible-calc {"ids":["node:review:lesson-1","node:lesson-2"]}
+ +0.636 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":true,"from":"node:lesson-1","ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125},"routeNodes":["node:lesson-1","node:review:lesson-1","
+ +2.022 styles-timer-finished {"runKey":"node:lesson-1>node:lesson-2"}
+ +2.022 hook-done 
+ +2.044 styles-cleanup {"runKey":"node:lesson-1>node:lesson-2"}
+ +2.045 styles-not-animate {"playing":false,"wantsMotion":false,"ready":true,"finishAtOnce":false,"resolved":true}
+ +2.046 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":false,"ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125},"routeNodes":[],"measuredRoute":false,"visible":["node:review:lesson-1","nod
+ +2.055 trail-state {"recommendedNodeId":"node:lesson-2","recommendedIndex":2,"playing":false,"ready":true,"holding":false,"measuredWidth":360.7272644042969,"slot":{"nodeId":"node:lesson-2","width":47.99999237060547,"height":45.81817626953125},"routeNodes":[],"measuredRoute":false,"visible":["node:review:lesson-1","nod
+ui-frame: 86 mudanças de valor entre +0.671 e +2.070 s
+   +0.671 {'seg': 0, 'travel': 0, 'medal': 1, 'cta': 0}
+   +0.672 {'seg': 0.05, 'travel': 0, 'medal': 1, 'cta': 0}
+   +0.689 {'seg': 0.281, 'travel': 0, 'medal': 1, 'cta': 0}
+   +1.119 {'seg': 1, 'travel': 0.148, 'medal': 1, 'cta': 0}
+   +1.135 {'seg': 1, 'travel': 0.203, 'medal': 1, 'cta': 0}
+   +2.059 {'seg': 1, 'travel': 1, 'medal': 1, 'cta': 1}
+   +2.070 {'seg': 1, 'travel': 1, 'medal': 1, 'cta': 1}

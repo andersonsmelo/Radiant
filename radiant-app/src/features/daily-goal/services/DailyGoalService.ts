@@ -36,6 +36,35 @@ interface DailyGoalStore {
  * Automatically resets progress when a new day is detected.
  */
 class DailyGoalServiceClass {
+    // Uma fila por domínio, viva além de qualquer montagem de tela. O erro é
+    // devolvido ao chamador; somente a cauda recupera para liberar o próximo.
+    private operationTail: Promise<void> = Promise.resolve();
+
+    private ordered<T>(operation: () => Promise<T>): Promise<T> {
+        const result = this.operationTail.then(operation);
+        this.operationTail = result.then(() => undefined, () => undefined);
+        return result;
+    }
+
+    getSnapshot(now: Date = new Date()): Promise<DailyGoalSnapshot> {
+        const atCall = new Date(now.getTime());
+        return this.ordered(() => this.getSnapshotUnlocked(atCall));
+    }
+
+    recordXp(amount: number, answeredAt: Date = new Date()): Promise<DailyGoalSnapshot> {
+        const atCall = new Date(answeredAt.getTime());
+        return this.ordered(() => this.recordXpUnlocked(amount, atCall));
+    }
+
+    setTier(tierId: DailyGoalTierId, now: Date = new Date()): Promise<DailyGoalSnapshot> {
+        const atCall = new Date(now.getTime());
+        return this.ordered(() => this.setTierUnlocked(tierId, atCall));
+    }
+
+    reset(): Promise<void> {
+        return this.ordered(() => this.resetUnlocked());
+    }
+
     /**
      * Loads the current store from AsyncStorage
      * Returns safe defaults if storage is missing or corrupt
@@ -139,7 +168,7 @@ class DailyGoalServiceClass {
      * @param now - Optional date to use as "today" (defaults to current time)
      * @returns Current daily goal snapshot
      */
-    async getSnapshot(now: Date = new Date()): Promise<DailyGoalSnapshot> {
+    private async getSnapshotUnlocked(now: Date): Promise<DailyGoalSnapshot> {
         const todayKey = formatLocalDateKey(now);
         let store = await this.loadStore();
         const didResetForNewDay = store.dateKey !== todayKey;
@@ -161,7 +190,7 @@ class DailyGoalServiceClass {
      * @param answeredAt - The date/time when the quiz was completed
      * @returns Updated daily goal snapshot
      */
-    async recordXp(amount: number, answeredAt: Date = new Date()): Promise<DailyGoalSnapshot> {
+    private async recordXpUnlocked(amount: number, answeredAt: Date): Promise<DailyGoalSnapshot> {
         const dayKey = formatLocalDateKey(answeredAt);
         let store = await this.loadStore();
 
@@ -181,7 +210,7 @@ class DailyGoalServiceClass {
         return this.recordXp(10, answeredAt);
     }
 
-    async setTier(tierId: DailyGoalTierId, now: Date = new Date()): Promise<DailyGoalSnapshot> {
+    private async setTierUnlocked(tierId: DailyGoalTierId, now: Date): Promise<DailyGoalSnapshot> {
         const tier = DAILY_GOAL_TIERS.find((entry) => entry.id === tierId) ?? DAILY_GOAL_TIERS[0];
         let store = this.ensureDateSync(await this.loadStore(), formatLocalDateKey(now));
         store = { ...store, tierId: tier.id, goalPerDay: tier.xp, completedToday: Math.min(store.completedToday, tier.xp) };
@@ -189,7 +218,7 @@ class DailyGoalServiceClass {
         return this.toSnapshot(store);
     }
 
-    async reset(): Promise<void> {
+    private async resetUnlocked(): Promise<void> {
         await AsyncStorage.removeItem(DAILY_GOAL_STORAGE_KEY);
     }
 }

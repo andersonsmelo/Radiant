@@ -28,6 +28,6 @@ tags:
     centerElement: false
     visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
-- assertVisible: Continuar jornada
-- tapOn: Continuar jornada
+- assertVisible: Continuar trilha
+- tapOn: Continuar trilha
 - assertVisible: Fundamentos de Radiologia

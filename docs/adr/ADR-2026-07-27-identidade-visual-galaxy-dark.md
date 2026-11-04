@@ -2,7 +2,9 @@
 
 - **Data:** 2026-07-27
 - **Decisor:** Anderson (product owner), em sessão de crítica de design assistida
-- **Status:** aceita
+- **Status:** aceita; **substituída em 2026-10-21 quanto ao mundo visual** pela
+  [ADR da trilha Medalhão e da aula-bancada](ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md).
+  A regra de uma identidade única no app continua valendo.
 
 ## Contexto
 

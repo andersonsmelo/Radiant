@@ -1,0 +1,243 @@
+# Saida do dumpsys gfxinfo — AVD radiant-entrada-api34 (Android 14 / API 34, arm64, 2 GB, 2 nucleos), 2026-10-21 (America/Bahia)
+# Ferramenta: adb shell dumpsys gfxinfo com.ascendcreative.radiant reset; 6 pares de swipe (cima/baixo) em ~13 s; adb shell dumpsys gfxinfo com.ascendcreative.radiant
+# Dev client Debug com Skia 2.2.12, JS servido pelo Metro (nao e build Release). Emulador num Mac Apple M5; nao e aparelho de entrada.
+# 'acima de 32 ms' = soma das faixas do HISTOGRAM maiores que 32 ms (script hist.py da evidencia).
+#
+# Linha do tempo (hora do dump; mediana; quadros acima de 32 ms):
+#   12:06:44 gfx-sb-1         50th percentile: 14ms | histograma: 1157 quadros; acima de 32 ms: 18 (1.56%); 32 ms ou mais: 30 (2.59%)
+#   12:07:24 gfx-sb-2         50th percentile: 15ms | histograma: 1151 quadros; acima de 32 ms: 3 (0.26%); 32 ms ou mais: 7 (0.61%)
+#   12:07:43 gfx-sb-3         50th percentile: 14ms | histograma: 1139 quadros; acima de 32 ms: 6 (0.53%); 32 ms ou mais: 8 (0.70%)
+#   12:17:55 gfx-estude-1     50th percentile: 17ms | histograma: 1041 quadros; acima de 32 ms: 20 (1.92%); 32 ms ou mais: 37 (3.55%)
+#   12:18:13 gfx-estude-2     50th percentile: 21ms | histograma: 1040 quadros; acima de 32 ms: 16 (1.54%); 32 ms ou mais: 32 (3.08%)
+#   12:18:31 gfx-estude-3     50th percentile: 22ms | histograma: 961 quadros; acima de 32 ms: 107 (11.13%); 32 ms ou mais: 226 (23.52%)
+#   12:18:59 gfx-estude-4     50th percentile: 44ms | histograma: 625 quadros; acima de 32 ms: 381 (60.96%); 32 ms ou mais: 527 (84.32%)
+#   12:19:18 gfx-estude-5     50th percentile: 40ms | histograma: 672 quadros; acima de 32 ms: 366 (54.46%); 32 ms ou mais: 507 (75.45%)
+#   12:19:54 gfx-estude-6     50th percentile: 32ms | histograma: 709 quadros; acima de 32 ms: 314 (44.29%); 32 ms ou mais: 517 (72.92%)
+#   12:20:14 gfx-estude-idle  50th percentile: 32ms | histograma: 464 quadros; acima de 32 ms: 163 (35.13%); 32 ms ou mais: 320 (68.97%)
+#   12:20:56 gfx-trilha-idle  50th percentile: 32ms | histograma: 437 quadros; acima de 32 ms: 173 (39.59%); 32 ms ou mais: 302 (69.11%)
+#   12:21:50 gfx-r-idle       50th percentile: 32ms | histograma: 469 quadros; acima de 32 ms: 129 (27.51%); 32 ms ou mais: 319 (68.02%)
+#   12:22:10 gfx-r-1          50th percentile: 44ms | histograma: 596 quadros; acima de 32 ms: 359 (60.23%); 32 ms ou mais: 510 (85.57%)
+#   12:22:28 gfx-r-2          50th percentile: 40ms | histograma: 757 quadros; acima de 32 ms: 426 (56.27%); 32 ms ou mais: 623 (82.30%)
+#   12:22:47 gfx-r-3          50th percentile: 32ms | histograma: 794 quadros; acima de 32 ms: 355 (44.71%); 32 ms ou mais: 647 (81.49%)
+#   12:25:06 gfx-sb-4         50th percentile: 30ms | histograma: 680 quadros; acima de 32 ms: 265 (38.97%); 32 ms ou mais: 281 (41.32%)
+#   12:25:26 gfx-sb-5         50th percentile: 40ms | histograma: 644 quadros; acima de 32 ms: 345 (53.57%); 32 ms ou mais: 364 (56.52%)
+#   12:26:13 gfx-sb-6         50th percentile: 42ms | histograma: 557 quadros; acima de 32 ms: 462 (82.94%); 32 ms ou mais: 479 (86.00%)
+#   12:26:35 gfx-sb-7         50th percentile: 46ms | histograma: 505 quadros; acima de 32 ms: 478 (94.65%); 32 ms ou mais: 485 (96.04%)
+#   12:43:28 gfx-cold-sb-1    50th percentile: 57ms | histograma: 464 quadros; acima de 32 ms: 443 (95.47%); 32 ms ou mais: 448 (96.55%)
+#   12:43:50 gfx-cold-sb-2    50th percentile: 57ms | histograma: 432 quadros; acima de 32 ms: 399 (92.36%); 32 ms ou mais: 405 (93.75%)
+#   12:44:13 gfx-cold-sb-3    50th percentile: 57ms | histograma: 439 quadros; acima de 32 ms: 423 (96.36%); 32 ms ou mais: 430 (97.95%)
+#   12:46:58 gfx-hl-sb-1      50th percentile: 42ms | histograma: 630 quadros; acima de 32 ms: 432 (68.57%); 32 ms ou mais: 515 (81.75%)
+#   sb = historia Trilha/ThemeIllustration/Todos Nos Tres Estados (15 medalhas, 10 animando); estude = aba Estude no app;
+#   idle = 10 s sem toque; r = depois de reiniciar o app; cold = depois de reiniciar o emulador; hl = emulador -no-window (render por software, 841% de CPU no host).
+#   A partir de 12:18:31 todas as medicoes pioram, inclusive a mesma historia sb que dava 14 ms de mediana. As 12:45 o host
+#   reportou CGSSessionScreenIsLocked=Yes (tela do Mac bloqueada). Medicoes depois de 12:18 nao valem como desempenho do app.
+
+======== gfx-sb-1 (12:06:44) ========
+** Graphics info for pid 5069 [com.ascendcreative.radiant] **
+
+Stats since: 421785123534ns
+Total frames rendered: 1157
+Janky frames: 43 (3.72%)
+Janky frames (legacy): 109 (9.42%)
+50th percentile: 14ms
+90th percentile: 21ms
+95th percentile: 29ms
+99th percentile: 46ms
+Number Missed Vsync: 18
+Number High input latency: 1829
+Number Slow UI thread: 25
+Number Slow bitmap uploads: 4
+Number Slow issue draw commands: 33
+Number Frame deadline missed: 43
+Number Frame deadline missed (legacy): 34
+HISTOGRAM: 5ms=8 6ms=0 7ms=1 8ms=0 9ms=1 10ms=1 11ms=6 12ms=11 13ms=138 14ms=606 15ms=115 16ms=8 17ms=8 18ms=17 19ms=57 20ms=49 21ms=17 22ms=11 23ms=7 24ms=4 25ms=6 26ms=8 27ms=7 28ms=5 29ms=11 30ms=12 31ms=13 32ms=12 34ms=2 36ms=0 38ms=0 40ms=1 42ms=0 44ms=1 46ms=3 48ms=3 53ms=0 57ms=1 61ms=1 65ms=3 69ms=0 73ms=2 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=1 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 13ms
+90th gpu percentile: 17ms
+95th gpu percentile: 18ms
+99th gpu percentile: 21ms
+GPU HISTOGRAM: 1ms=7 2ms=10 3ms=6 4ms=12 5ms=10 6ms=10 7ms=10 8ms=9 9ms=21 10ms=19 11ms=66 12ms=245 13ms=471 14ms=50 15ms=19 16ms=26 17ms=58 18ms=63 19ms=19 20ms=10 21ms=6 22ms=1 23ms=2 24ms=0 25ms=1 4950ms=6
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2527200
+  Max resource usage: 121.31MB (x48)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 37.34 KB (1 entry)
+  Glyph Count: 10 
+Total CPU memory usage:
+  38237 bytes, 37.34 KB (0.00 bytes is purgeable)
+GPU Caches:
+  Other:
+    Other: 9.19 KB (1 entry)
+  Image:
+
+======== gfx-sb-2 (12:07:24) ========
+** Graphics info for pid 5069 [com.ascendcreative.radiant] **
+
+Stats since: 463045377845ns
+Total frames rendered: 1151
+Janky frames: 14 (1.22%)
+Janky frames (legacy): 166 (14.42%)
+50th percentile: 15ms
+90th percentile: 22ms
+95th percentile: 27ms
+99th percentile: 31ms
+Number Missed Vsync: 4
+Number High input latency: 2103
+Number Slow UI thread: 9
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 12
+Number Frame deadline missed: 14
+Number Frame deadline missed (legacy): 13
+HISTOGRAM: 5ms=5 6ms=1 7ms=0 8ms=1 9ms=2 10ms=2 11ms=3 12ms=53 13ms=91 14ms=404 15ms=99 16ms=4 17ms=6 18ms=20 19ms=108 20ms=153 21ms=68 22ms=25 23ms=17 24ms=12 25ms=5 26ms=8 27ms=11 28ms=7 29ms=13 30ms=16 31ms=10 32ms=4 34ms=0 36ms=0 38ms=0 40ms=0 42ms=0 44ms=0 46ms=2 48ms=1 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 13ms
+90th gpu percentile: 18ms
+95th gpu percentile: 19ms
+99th gpu percentile: 22ms
+GPU HISTOGRAM: 1ms=4 2ms=14 3ms=9 4ms=6 5ms=9 6ms=6 7ms=6 8ms=8 9ms=14 10ms=45 11ms=99 12ms=236 13ms=224 14ms=26 15ms=12 16ms=40 17ms=124 18ms=190 19ms=43 20ms=13 21ms=8 22ms=4 23ms=0 24ms=4 25ms=0 4950ms=7
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2527200
+  Max resource usage: 121.31MB (x48)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 37.34 KB (1 entry)
+  Glyph Count: 10 
+Total CPU memory usage:
+  38237 bytes, 37.34 KB (0.00 bytes is purgeable)
+GPU Caches:
+  Other:
+    Other: 9.19 KB (1 entry)
+  Image:
+
+======== gfx-sb-3 (12:07:43) ========
+** Graphics info for pid 5069 [com.ascendcreative.radiant] **
+
+Stats since: 482567774354ns
+Total frames rendered: 1139
+Janky frames: 18 (1.58%)
+Janky frames (legacy): 80 (7.02%)
+50th percentile: 14ms
+90th percentile: 20ms
+95th percentile: 21ms
+99th percentile: 31ms
+Number Missed Vsync: 7
+Number High input latency: 1627
+Number Slow UI thread: 8
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 12
+Number Frame deadline missed: 18
+Number Frame deadline missed (legacy): 13
+HISTOGRAM: 5ms=8 6ms=3 7ms=0 8ms=3 9ms=1 10ms=1 11ms=14 12ms=74 13ms=139 14ms=563 15ms=166 16ms=4 17ms=1 18ms=12 19ms=25 20ms=48 21ms=23 22ms=8 23ms=10 24ms=4 25ms=2 26ms=4 27ms=1 28ms=3 29ms=3 30ms=6 31ms=5 32ms=2 34ms=0 36ms=0 38ms=0 40ms=1 42ms=1 44ms=1 46ms=2 48ms=1 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 12ms
+90th gpu percentile: 17ms
+95th gpu percentile: 18ms
+99th gpu percentile: 20ms
+GPU HISTOGRAM: 1ms=2 2ms=14 3ms=4 4ms=4 5ms=6 6ms=11 7ms=11 8ms=12 9ms=16 10ms=40 11ms=155 12ms=357 13ms=342 14ms=23 15ms=9 16ms=15 17ms=39 18ms=42 19ms=25 20ms=3 21ms=2 22ms=2 23ms=1 24ms=0 25ms=0 4950ms=4
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2527200
+  Max resource usage: 121.31MB (x48)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 37.34 KB (1 entry)
+  Glyph Count: 10 
+Total CPU memory usage:
+  38237 bytes, 37.34 KB (0.00 bytes is purgeable)
+GPU Caches:
+  Other:
+    Other: 9.19 KB (1 entry)
+  Image:
+
+======== gfx-estude-1 (12:17:55) ========
+** Graphics info for pid 5747 [com.ascendcreative.radiant] **
+
+Stats since: 1096121443313ns
+Total frames rendered: 1041
+Janky frames: 17 (1.63%)
+Janky frames (legacy): 463 (44.48%)
+50th percentile: 17ms
+90th percentile: 23ms
+95th percentile: 27ms
+99th percentile: 40ms
+Number Missed Vsync: 0
+Number High input latency: 2048
+Number Slow UI thread: 13
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 13
+Number Frame deadline missed: 17
+Number Frame deadline missed (legacy): 17
+HISTOGRAM: 5ms=0 6ms=0 7ms=0 8ms=0 9ms=0 10ms=0 11ms=0 12ms=0 13ms=0 14ms=0 15ms=1 16ms=352 17ms=213 18ms=10 19ms=0 20ms=52 21ms=98 22ms=141 23ms=80 24ms=26 25ms=9 26ms=5 27ms=5 28ms=4 29ms=5 30ms=3 31ms=0 32ms=17 34ms=0 36ms=1 38ms=8 40ms=2 42ms=1 44ms=0 46ms=4 48ms=4 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 14ms
+90th gpu percentile: 18ms
+95th gpu percentile: 19ms
+99th gpu percentile: 25ms
+GPU HISTOGRAM: 1ms=0 2ms=1 3ms=3 4ms=2 5ms=4 6ms=5 7ms=6 8ms=5 9ms=4 10ms=14 11ms=69 12ms=154 13ms=198 14ms=130 15ms=19 16ms=70 17ms=115 18ms=138 19ms=56 20ms=17 21ms=3 22ms=6 23ms=3 24ms=7 25ms=5 4950ms=7
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2527200
+  Max resource usage: 121.31MB (x48)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 279.79 KB (1 entry)
+  Shadows: 7.01 KB (1 entry)
+  Glyph Count: 42 
+Total CPU memory usage:
+  293687 bytes, 286.80 KB (0.00 bytes is purgeable)
+GPU Caches:
+  SW Path Mask:
+    Texture: 806.20 KB (4 entries)
+
+======== gfx-estude-2 (12:18:13) ========
+** Graphics info for pid 5747 [com.ascendcreative.radiant] **
+
+Stats since: 1113942425489ns
+Total frames rendered: 1040
+Janky frames: 17 (1.63%)
+Janky frames (legacy): 668 (64.23%)
+50th percentile: 21ms
+90th percentile: 23ms
+95th percentile: 26ms
+99th percentile: 36ms
+Number Missed Vsync: 0
+Number High input latency: 1998
+Number Slow UI thread: 14
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 12
+Number Frame deadline missed: 17
+Number Frame deadline missed (legacy): 15
+HISTOGRAM: 5ms=0 6ms=0 7ms=0 8ms=0 9ms=0 10ms=0 11ms=0 12ms=0 13ms=0 14ms=1 15ms=1 16ms=238 17ms=125 18ms=2 19ms=3 20ms=65 21ms=211 22ms=239 23ms=68 24ms=24 25ms=6 26ms=6 27ms=9 28ms=4 29ms=1 30ms=3 31ms=2 32ms=16 34ms=4 36ms=2 38ms=4 40ms=2 42ms=1 44ms=0 46ms=0 48ms=3 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 17ms
+90th gpu percentile: 19ms
+95th gpu percentile: 20ms
+99th gpu percentile: 24ms
+GPU HISTOGRAM: 1ms=0 2ms=4 3ms=2 4ms=2 5ms=6 6ms=4 7ms=7 8ms=2 9ms=1 10ms=6 11ms=38 12ms=127 13ms=126 14ms=73 15ms=26 16ms=66 17ms=195 18ms=224 19ms=73 20ms=20 21ms=9 22ms=9 23ms=8 24ms=3 25ms=0 4950ms=9
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2527200
+  Max resource usage: 121.31MB (x48)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 279.79 KB (1 entry)
+  Shadows: 7.01 KB (1 entry)
+  Glyph Count: 42 
+Total CPU memory usage:
+  293687 bytes, 286.80 KB (0.00 bytes is purgeable)
+GPU Caches:
+  SW Path Mask:
+    Texture: 806.20 KB (4 entries)
