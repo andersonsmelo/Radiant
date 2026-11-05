@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { isResolvedInteractionImage, type InteractionImageResolver } from './InteractionImageSource';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -10,6 +11,9 @@ type HotspotStepRendererProps = {
     accessibilityLabel: string;
     selectedRegionId?: string;
     onSelect: (regionId: string) => void;
+    resolveImageSource?: InteractionImageResolver;
+    submitted?: boolean;
+    confirmationLabel?: string;
 };
 
 function regionPosition(region: NormalizedRegion) {
@@ -26,14 +30,19 @@ export function HotspotStepRenderer({
     accessibilityLabel,
     selectedRegionId,
     onSelect,
+    resolveImageSource,
+    submitted = false,
+    confirmationLabel = 'Continuar',
 }: HotspotStepRendererProps) {
+    const resolved = resolveImageSource?.(payload.imageRef);
+    if (resolveImageSource && !isResolvedInteractionImage(resolved)) return <Text>Imagem indisponível para esta atividade.</Text>;
     return (
         <View style={styles.activity}>
             <Text style={styles.prompt}>{payload.prompt}</Text>
 
-            <View style={styles.imageFrame}>
+            <View testID="hotspot-image-frame" style={[styles.imageFrame, resolved && { aspectRatio: resolved.width / resolved.height }]}>
                 <Image
-                    source={{ uri: payload.imageRef }}
+                    source={resolved?.source ?? { uri: payload.imageRef }}
                     resizeMode="contain"
                     style={styles.image}
                     accessible
@@ -44,11 +53,12 @@ export function HotspotStepRenderer({
                     return (
                         <Pressable
                             key={region.id}
-                            onPress={() => onSelect(region.id)}
+                            onPress={() => { if (!submitted) onSelect(region.id); }}
+                            disabled={submitted}
                             accessibilityRole="button"
                             accessibilityLabel={`Selecionar ${region.label} na imagem`}
-                            accessibilityHint="Seleciona esta região. Você confirma em Continuar."
-                            accessibilityState={{ selected }}
+                            accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona esta região. Você confirma em ${confirmationLabel}.`}
+                            accessibilityState={{ selected, ...(submitted ? { disabled: true } : {}) }}
                             style={[
                                 styles.hotspot,
                                 regionPosition(region),
@@ -68,11 +78,12 @@ export function HotspotStepRenderer({
                     return (
                         <Pressable
                             key={region.id}
-                            onPress={() => onSelect(region.id)}
+                            onPress={() => { if (!submitted) onSelect(region.id); }}
+                            disabled={submitted}
                             accessibilityRole="button"
                             accessibilityLabel={`Selecionar ${region.label} na lista`}
-                            accessibilityHint="Equivale a tocar a região na imagem. Você confirma em Continuar."
-                            accessibilityState={{ selected }}
+                            accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Equivale a tocar a região na imagem. Você confirma em ${confirmationLabel}.`}
+                            accessibilityState={{ selected, ...(submitted ? { disabled: true } : {}) }}
                             style={[styles.textOption, selected && styles.selected]}
                         >
                             <Text style={styles.optionIndex}>{index + 1}</Text>
@@ -109,15 +120,25 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
         backgroundColor: 'rgba(3,3,13,0.34)',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // The corner keeps the index clear of labels drawn inside the image itself.
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        padding: space.s1,
     },
     selected: {
         borderWidth: 3,
         borderColor: galaxy.statusSuccess,
         backgroundColor: 'rgba(93,227,174,0.16)',
     },
-    hotspotIndex: { ...typography.bodyStrong, color: galaxy.textPrimary },
+    // Opaque badge: the image behind it can be light, as the local diagrams are.
+    hotspotIndex: {
+        ...typography.bodyStrong,
+        color: galaxy.textPrimary,
+        backgroundColor: galaxyColors.background,
+        borderRadius: radius.rMd,
+        overflow: 'hidden',
+        paddingHorizontal: space.s2,
+    },
     textAlternatives: { gap: space.s2 },
     alternativeTitle: { ...typography.bodyStrong, color: galaxy.textSecondary },
     textOption: {
