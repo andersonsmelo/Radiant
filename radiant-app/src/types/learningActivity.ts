@@ -208,6 +208,10 @@ export type RiskHuntPayload = {
 };
 
 export type CaseDecisionPayload = {
+    /** Text-only case context; each chapter may introduce new information. */
+    context?: string;
+    /** Explicit authored stage; no free-text keyword scoring. */
+    phase?: 'decision' | 'reason' | 'support';
     prompt: string;
     options: ChoiceOption[];
     correctOptionId: string;
@@ -428,9 +432,24 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             break;
         }
         case 'comparison':
-        case 'case-decision':
             validateChoice(issues, interaction, interaction.payload.options, interaction.payload.correctOptionId);
             break;
+        case 'case-decision': {
+            const { options, context, phase } = interaction.payload;
+            if (!Array.isArray(options) || options.some(option => !option || !isFilled(option.id) || !isFilled(option.label))
+                || new Set(options.map(option => option.id)).size !== options.length) {
+                push(issues, path, 'invalid-case-options');
+            } else {
+                validateChoice(issues, interaction, options, interaction.payload.correctOptionId);
+            }
+            if (context !== undefined && !isFilled(context)) push(issues, path, 'invalid-case-context');
+            if (phase !== undefined && !['decision', 'reason', 'support'].includes(phase)) push(issues, path, 'invalid-case-phase');
+            // This renderer is textual: do not silently discard visual evidence.
+            if (Array.isArray(options) && options.some(option => option && option.imageRef !== undefined)) {
+                push(issues, path, 'unsupported-case-image');
+            }
+            break;
+        }
         case 'hotspot': {
             const regions = interaction.payload.regions ?? [];
             if (regions.length === 0) {

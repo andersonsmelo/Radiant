@@ -14,6 +14,35 @@ import appContract from './load-app-contract.cjs';
 const { loadAppContract } = appContract;
 const baseline = JSON.parse(JSON.stringify(loadAppContract('test/fixtures/syntheticEditorialBatch.ts').PRODUCTION_BATCHES[0]));
 const { createProductionCurriculumCatalog } = loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
+describe('PC05 shared pilot contract', () => {
+  it('publishes and audits the five interaction families without a choice-only response assumption', async () => {
+    const candidate = loadAppContract('test/fixtures/syntheticEditorialPilot.ts').syntheticEditorialPilot();
+    const shared = loadAppContract('features/student-checkpoints/ProductionBatch.ts');
+    const materialSha256 = shared.fingerprintProductionBatchMaterial(candidate);
+    const value = shared.promoteProductionBatch({ schemaVersion: 1, state: 'ready-for-promotion',
+      batchId: 'batch:rtg-2026:synthetic:pilot', candidate, materialSha256, media: candidate.pilot.assets,
+      schemaRefs: { activity: 'learning-activity.v2', checkpoint: 'unit-checkpoint.v1', batch: 'production-batch.v1' },
+      approvals: shared.PRODUCTION_BATCH_APPROVAL_GATES.map(gate => ({ schemaVersion: 1, gate, decision: 'approved',
+        reviewerRef: 'synthetic-only', reviewerRole: gate, decidedAt: '2026-11-03T09:00:00Z', materialSha256 })),
+    }, { promotedAt: '2026-11-03T09:01:00Z', promotionRef: 'synthetic-only' });
+    assert.equal(fingerprintProductionBatchMaterial(value), materialSha256);
+    assert.deepEqual(Array.from(validatePromotedBatch(value)), []);
+    const { auditProductionBatches } = await import('./audit-production-batches.mjs');
+    assert.equal(auditProductionBatches([value]).validationYield.promotionValid, 1);
+    const root = await mkdtemp(join(tmpdir(), 'radiant-pilot-contract-'));
+    try {
+      const catalogPath = join(root, 'catalog.json');
+      await promoteProductionBatchArtifact({ batch: value, catalogPath, expectedCatalogSha256: 'absent' });
+      const saved = JSON.parse(await readFile(catalogPath, 'utf8')).batches[0];
+      assert.equal(saved.activities.length, 5);
+      assert.equal(saved.pilot.evidence.length, 7);
+      assert.equal(fingerprintProductionBatchMaterial(saved), materialSha256);
+      const changed = JSON.parse(JSON.stringify(saved)); changed.pilot.evidence[0].successCriterion += ' changed';
+      assert.ok(validatePromotedBatch(changed).includes('production-batch-material-hash-mismatch'));
+    } finally { await rm(root, { recursive: true, force: true }); }
+  });
+});
+
 function batch(overrides = {}) {
   return { ...JSON.parse(JSON.stringify(baseline)), ...overrides };
 }

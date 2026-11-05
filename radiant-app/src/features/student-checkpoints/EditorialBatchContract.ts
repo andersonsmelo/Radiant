@@ -1,6 +1,8 @@
 import { AUTHORED_EVIDENCE_KINDS, validateLearningActivity } from '../../types/learningActivity';
 import type { ClaimProvenanceV1, EditorialCurriculumCandidateV1 } from './EditorialCurriculumCandidate';
 
+import { PILOT_ACTIVITY_FAMILIES, pilotActivityClaims, pilotResponseIds, validateEditorialPilotContract } from './EditorialPilotContract';
+
 const GATES = ['technical', 'editorial', 'accessibility', 'rights', 'schema', 'product'];
 const filled = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 function date(value: string): boolean {
@@ -11,9 +13,8 @@ function https(value: string): boolean {
     return /^https:\/\/[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?(?::\d{1,5})?(?:[/?#][^\s]*)?$/i.test(value);
 }
 
-/** Contrato v1 sem mídia: uma múltipla escolha por atividade, estágio por competência.
- * Tamanhos e identidades são declarados pelo lote. Não concede nenhum dos seis gates.
- * Outros formatos exigem vínculo de claims/mídia próprio antes de serem promovidos.
+/** V1 keeps its original limits; the versioned pilot extension admits four extra families.
+ * Neither contract grants any of the six promotion gates.
  */
 export function validateEditorialBatchContract(value: unknown): string[] {
     try { return validate(value as EditorialCurriculumCandidateV1); }
@@ -22,6 +23,8 @@ export function validateEditorialBatchContract(value: unknown): string[] {
 
 function validate(candidate: EditorialCurriculumCandidateV1): string[] {
     const issues: string[] = [];
+    const pilot = candidate.pilot !== undefined;
+    if (pilot) issues.push(...validateEditorialPilotContract(candidate));
     const add = (code: string, id?: string) => issues.push(id ? `${code}:${id}` : code);
     const identities = new Set<string>();
     const claimIdentity = (id: string) => {
@@ -58,19 +61,25 @@ function validate(candidate: EditorialCurriculumCandidateV1): string[] {
     if (!candidate.activities.length) add('missing-learning-material');
     for (const activity of candidate.activities) {
         claimIdentity(activity.id);
+        if (!pilot && activity.steps.some(step => step.kind === 'presentation' && step.payload.imageRef !== undefined)) add('unsupported-activity-family', activity.id);
         if (validateLearningActivity(activity).length) add('invalid-activity', activity.id);
         if (activity.provenance.contentVersion !== candidate.contentVersion) add('activity-version-mismatch', activity.id);
         const interactions = activity.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
         activity.steps.forEach(step => claimIdentity(step.kind === 'interaction' ? step.interaction.id : step.id));
-        if (interactions.length !== 1 || interactions[0].type !== 'multiple-choice') { add('unsupported-activity-family', activity.id); continue; }
+        if (interactions.length !== 1 || !(pilot ? PILOT_ACTIVITY_FAMILIES.some(type => type === interactions[0].type)
+            : interactions[0].type === 'multiple-choice')) { add('unsupported-activity-family', activity.id); continue; }
         const interaction = interactions[0];
-        if (interaction.type !== 'multiple-choice') continue;
         if (!validCompetency(activity.competencyIds) || !validCompetency(interaction.competencyIds)
-            || activity.competencyIds[0] !== interaction.competencyIds[0] || interaction.criticalSafety
+            || activity.competencyIds[0] !== interaction.competencyIds[0] || (!pilot && interaction.criticalSafety)
             || !AUTHORED_EVIDENCE_KINDS.some(kind => kind === interaction.evidenceKind)
             || !validSources(activity.provenance.sourceIds)) add('invalid-activity-contract', activity.id);
-        if (interaction.payload.options.some(option => option.imageRef)) add('unsupported-activity-family', activity.id);
-        claims(activity.id, interaction.payload.options, interaction.payload.correctOptionId, activity.provenance.sourceIds);
+        if (pilot) {
+            pilotResponseIds(interaction).forEach(claimIdentity);
+            requiredClaims.push(...pilotActivityClaims(activity));
+        } else if (interaction.type === 'multiple-choice') {
+            if (interaction.payload.options.some(option => option.imageRef) || interaction.payload.exposureImage !== undefined) add('unsupported-activity-family', activity.id);
+            claims(activity.id, interaction.payload.options, interaction.payload.correctOptionId, activity.provenance.sourceIds);
+        }
     }
     if (candidate.checkpoint.targetScoreBasisPoints !== 8000 || !candidate.checkpoint.items.length) add('invalid-checkpoint-shape');
     const positionGroups = new Map<number, Set<number>>();

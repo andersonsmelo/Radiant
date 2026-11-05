@@ -2,6 +2,7 @@ import {
     validateEditorialCurriculumCandidate,
     type EditorialCurriculumCandidateV1,
 } from './EditorialCurriculumCandidate';
+import type { EditorialDiagramAssetV1, EditorialPilotContractV1 } from './EditorialPilotContract';
 
 export const PRODUCTION_BATCH_APPROVAL_GATES = [
     'technical',
@@ -34,7 +35,7 @@ export type ProductionBatchDraftV1 = Readonly<{
         checkpoint: 'unit-checkpoint.v1';
         batch: 'production-batch.v1';
     }>;
-    media: readonly never[];
+    media: readonly EditorialDiagramAssetV1[];
     candidate: EditorialCurriculumCandidateV1;
     approvals: readonly ProductionBatchApprovalV1[];
 }>;
@@ -53,6 +54,7 @@ export type ProductionBatchV1 = Readonly<{
     checkpoint: EditorialCurriculumCandidateV1['checkpoint'];
     reinforcement: EditorialCurriculumCandidateV1['reinforcement'];
     claimProvenance: EditorialCurriculumCandidateV1['claimProvenance'];
+    pilot?: EditorialPilotContractV1;
     schemaRefs: ProductionBatchDraftV1['schemaRefs'];
     media: ProductionBatchDraftV1['media'];
     approvals: readonly ProductionBatchApprovalV1[];
@@ -151,6 +153,7 @@ export function fingerprintProductionBatchMaterial(candidate: EditorialCurriculu
         checkpoint: candidate.checkpoint,
         reinforcement: candidate.reinforcement,
         claimProvenance: candidate.claimProvenance,
+        ...(candidate.pilot !== undefined ? { pilot: candidate.pilot } : {}),
     })));
 }
 
@@ -174,6 +177,7 @@ export function validatePromotedProductionBatch(value: unknown): string[] {
             trackId: batch.trackId, unitId: batch.unitId, contentVersion: batch.contentVersion,
             competencyIds: batch.competencyIds, sources: batch.sources, activities: batch.activities,
             checkpoint: batch.checkpoint, reinforcement: batch.reinforcement, claimProvenance: batch.claimProvenance,
+            ...(batch.pilot !== undefined ? { pilot: batch.pilot } : {}),
             approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
         };
         issues.push(...validateProductionBatchDraft({ ...batch, state: 'ready-for-promotion', candidate }));
@@ -210,8 +214,13 @@ export function validateProductionBatchDraft(draft: ProductionBatchDraftV1): str
         || draft.schemaRefs.batch !== 'production-batch.v1') {
         issues.push('invalid-production-batch-schema-refs');
     }
-    if (!Array.isArray(draft.media) || draft.media.length !== 0) {
+    const pilot = draft.candidate.pilot;
+    if (!Array.isArray(draft.media) || (pilot === undefined ? draft.media.length !== 0
+        : JSON.stringify(canonicalize(draft.media)) !== JSON.stringify(canonicalize(pilot.assets)))) {
         issues.push('unapproved-production-batch-media');
+    }
+    if (pilot !== undefined && !/^batch:rtg-2026:[a-z0-9-]+(?::[a-z0-9-]+)*$/.test(draft.batchId)) {
+        issues.push('invalid-pilot-batch-identity');
     }
     issues.push(...validateEditorialCurriculumCandidate(draft.candidate).map(
         (issue) => `invalid-editorial-candidate:${issue}`,
@@ -274,6 +283,7 @@ export function promoteProductionBatch(
         checkpoint: candidate.checkpoint,
         reinforcement: candidate.reinforcement,
         claimProvenance: candidate.claimProvenance,
+        ...(candidate.pilot !== undefined ? { pilot: candidate.pilot } : {}),
         schemaRefs: draft.schemaRefs,
         media: draft.media,
         approvals: draft.approvals,

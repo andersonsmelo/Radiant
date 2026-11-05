@@ -50,6 +50,7 @@ type FirstRunTarget = {
 
 export type ActiveResumeLaunch =
     | { kind: 'none' }
+    | { kind: 'content-updated'; checkpointId: string }
     | {
         kind: 'offer';
         checkpointId: string;
@@ -131,11 +132,16 @@ export class ActiveCheckpointRuntime {
         return this.dependencies.performance?.measure(metric, task) ?? task();
     }
 
-    async inspectLaunch(input: { contentVersion: string; firstRunAvailable: boolean }): Promise<ActiveResumeLaunch> {
+    async inspectLaunch(input: { contentVersion: string; firstRunAvailable: boolean; isContentAvailable?: (reference: { surface: string; flowId: string; journeyNodeId?: string }) => boolean }): Promise<ActiveResumeLaunch> {
         if (this.mode !== 'active') return { kind: 'none' };
         try {
             const checkpoint = await this.dependencies.store.getGlobalResumeCandidate();
             if (!checkpoint || !ACTIVE_SURFACE_SET.has(checkpoint.surface)) return { kind: 'none' };
+            // Missing catalog content is not a corrupt cursor: preserve the record
+            // and do not spend restore retries or create a new attempt.
+            if (input.isContentAvailable?.(checkpoint) === false) {
+                return { kind: 'content-updated', checkpointId: checkpoint.checkpointId };
+            }
             const target = routeTarget(checkpoint, input.firstRunAvailable);
             if (checkpoint.contentVersion !== input.contentVersion || !target) {
                 const failed = await this.dependencies.coordinator.restoreCandidate({

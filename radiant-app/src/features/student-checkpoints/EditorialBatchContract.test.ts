@@ -20,6 +20,20 @@ function candidate(): EditorialCurriculumCandidateV1 {
 }
 
 describe('contrato editorial genérico G3', () => {
+    it.each(['presentation', 'bench'] as const)('keeps %s imagery out of the original v1 contract', kind => {
+        const value = candidate();
+        if (kind === 'presentation') {
+            const step = value.activities[0].steps.find(step => step.kind === 'presentation')!;
+            if (step.kind === 'presentation') step.payload.imageRef = 'https://example.invalid/synthetic.svg';
+        } else {
+            const step = value.activities[0].steps.find(step => step.kind === 'interaction')!;
+            if (step.kind === 'interaction' && step.interaction.type === 'multiple-choice') {
+                step.interaction.payload.exposureImage = { label: 'Synthetic', input: { kv: 60, mas: 5 } };
+            }
+        }
+        expect(validateEditorialCurriculumCandidate(value)).toContain(`unsupported-activity-family:${value.activities[0].id}`);
+    });
+
     it('valida lote menor, com competências e fontes declaradas, e compila pelo catálogo do app', () => {
         const material = candidate();
         expect(validateEditorialCurriculumCandidate(material)).toEqual([]);

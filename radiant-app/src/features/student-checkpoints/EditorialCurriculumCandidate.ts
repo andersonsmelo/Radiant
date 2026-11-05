@@ -1,4 +1,5 @@
 import type { LearningActivityV2 } from '../../types/learningActivity';
+import type { EditorialPilotContractV1 } from './EditorialPilotContract';
 
 type ApprovalState = 'pending' | 'approved';
 type ClaimKind = 'prompt' | 'correct-answer' | 'distractor' | 'feedback';
@@ -50,6 +51,8 @@ export type EditorialCurriculumCandidateV1 = Readonly<{
     reinforcement: Readonly<{ cycles: readonly [{ cycle: 1; mode: 'guided-recovery' }, { cycle: 2; mode: 'different-context-retry' }] }>;
     approvals: Readonly<Record<'technical' | 'editorial' | 'accessibility' | 'rights' | 'schema' | 'product', ApprovalState>>;
     claimProvenance: readonly ClaimProvenanceV1[];
+    /** Explicit opt-in; absence keeps the original multiple-choice-only contract. */
+    pilot?: EditorialPilotContractV1;
 }>;
 
 export { validateEditorialBatchContract as validateEditorialCurriculumCandidate } from './EditorialBatchContract';
