@@ -880,7 +880,8 @@ sem prova em aparelho; catálogo vazio.
 Um subagente Claude novo achou o checkpoint da M02.01 aprovável com uma resposta constante,
 retornos que não explicavam o erro e legenda de produção na M06.04; corrigido. O Doc guarda
 a primeira versão e está atrás do repositório. "Produto dose-área" no renderer genérico
-segue aberto para o PC06.
+segue aberto para o PC06. O contrato agora recusa checkpoint que uma resposta constante aprova.
+A branch recebeu a `main` em 05/11, com conflitos resolvidos do lado dela.
 [Evidência e texto](evidence/2026-11-05-pc04-quatro-aulas.md).
 O [handoff anterior](superpowers/handoffs/2026-11-03-conteudo-pc06-prompt-de-continuidade.md)
 consolida a passagem histórica de 03/11, decisões, gates e limites. Fechamento documental de 03/11 supervisionado
@@ -902,7 +903,7 @@ As evidências nativas antigas não aprovam o currículo futuro.
   para avançar nas demais telas. Preservar o container e verificar a revisão
   naturalmente devida só na conferência final. A retirada do conteúdo não
   pode destruir a preparação; o teste legado não aprova o catálogo novo.
-- **2026-11-30: vence a política de visual QA.** Os 23 registros de
+- **2026-11-30: vence a política de visual QA.** Os 17 registros de
   `radiant-app/scripts/visual-qa-policy.json` venciam em 2026-10-23 e foram
   renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha
   Medalhão (FILA 67). Cada registro sai quando o plano refaz o arquivo dele, e

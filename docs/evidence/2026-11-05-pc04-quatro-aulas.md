@@ -74,6 +74,9 @@ Aplicado:
 - **Ajustes menores:** jargão de brief, pistas de redação, ajuda da M02.01, "pense ou
   diga" no lugar de "diga em voz alta" e o título do fechamento das recuperações.
 
+Depois da revisão, o contrato passou a recusar esse defeito por
+`checkpoint-constant-answer`. A guarda compara o texto da resposta, não o sentido.
+
 Aberto, sem mudança:
 
 - **"Produto dose-área":** `CollimationImage` mostra esse texto no renderer genérico,

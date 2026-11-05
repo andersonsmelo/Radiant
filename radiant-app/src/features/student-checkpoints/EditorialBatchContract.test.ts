@@ -20,6 +20,18 @@ function candidate(): EditorialCurriculumCandidateV1 {
 }
 
 describe('contrato editorial genérico G3', () => {
+    it('refuses a checkpoint that always answering the same text can pass', () => {
+        const input = candidate();
+        const competency = input.competencyIds[0];
+        const items = input.checkpoint.items.filter(item => item.competencyIds.includes(competency));
+        expect(items.length).toBeGreaterThan(1);
+        items.forEach((item, index) => {
+            const correct = item.options.find(option => option.id === item.correctOptionId) as { label: string };
+            correct.label = index ? ' mesma resposta. ' : 'Mesma resposta.';
+        });
+        expect(validateEditorialCurriculumCandidate(input)).toContain(`checkpoint-constant-answer:${competency}`);
+    });
+
     it.each(['presentation', 'bench'] as const)('keeps %s imagery out of the original v1 contract', kind => {
         const value = candidate();
         if (kind === 'presentation') {

@@ -99,6 +99,10 @@ function validate(candidate: EditorialCurriculumCandidateV1): string[] {
     for (const competency of competencies) {
         if (!candidate.activities.some(activity => activity.competencyIds.includes(competency))) add('activity-coverage', competency);
         if (candidate.checkpoint.items.filter(item => item.competencyIds.includes(competency)).length < 2) add('checkpoint-coverage', competency);
+        // shortcut: compares answer text, not meaning; a reviewer still catches paraphrases of one answer.
+        const answers = candidate.checkpoint.items.filter(item => item.competencyIds.includes(competency))
+            .map(item => item.options.find(option => option.id === item.correctOptionId)?.label.trim().toLowerCase());
+        if (answers.length > 1 && new Set(answers).size === 1) add('checkpoint-constant-answer', competency);
     }
     const cycles = candidate.reinforcement.cycles;
     if (cycles.length !== 2 || cycles[0].cycle !== 1 || cycles[0].mode !== 'guided-recovery'

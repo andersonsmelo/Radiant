@@ -25,6 +25,14 @@ test('losing a checkpoint item reopens the lot coverage gap', async () => {
   assert.ok((await checkPilotPayloads(pack)).errors.some(error => error.startsWith('full-lot:checkpoint-coverage:')));
 });
 
+test('a lesson checkpoint passed by one constant answer is refused', async () => {
+  const pack = await load();
+  const [first, second] = pack.reviewEnvelope.checkpoint.items.filter(item => item.id.includes('m02-01-a-check'));
+  const correct = item => item.options.find(option => option.id === item.correctOptionId);
+  correct(second).label = correct(first).label;
+  assert.ok((await checkPilotPayloads(pack)).errors.some(error => error.startsWith('full-lot:checkpoint-constant-answer:')));
+});
+
 test('each new lesson keeps its own per-option feedback, help and two recoveries', async () => {
   const feedback = await load(); const entry = feedback.lessonCompanions[0].checkpointOptionFeedback[0];
   delete entry.byOptionId[Object.keys(entry.byOptionId)[0]];

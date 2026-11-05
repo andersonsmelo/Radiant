@@ -236,7 +236,8 @@ altura antiga; experiência real de leitor de tela segue pendente.
 
 **Pacote do piloto, 05/11/2026:** `lessonCompanions` guarda retornos por alternativa,
 ajuda e recuperações das quatro aulas novas. O verificador agora exige o lote sem recusa
-de cobertura e a promoção recusada sem aprovações.
+de cobertura e a promoção recusada sem aprovações. O contrato recusa, com
+`checkpoint-constant-answer`, a competência cujos itens têm todos o mesmo texto de resposta.
 [Evidência](evidence/2026-11-05-pc04-quatro-aulas.md).
 
 ### IDs do primeiro lote e versões
