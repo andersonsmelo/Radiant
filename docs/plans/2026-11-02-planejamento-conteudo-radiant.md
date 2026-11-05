@@ -7,6 +7,13 @@ aceite editorial do piloto (PC03-B) pendente; nenhum conteúdo novo ativo.
 **Atualização de 03/11/2026:** base técnica do PC05 implementada; primeira
 [conferência dos payloads reais](../evidence/2026-11-03-pc05-payloads.md) executada,
 com quatro lacunas de checkpoint e integrações ainda pendentes. PC03-B recebeu aceite técnico/editorial por IA do Claude em 03/11; cinco briefs e M01.01 completa revisados, com três ajustes menores conferidos. Anderson aprovou em 03/11 o crédito/CC BY 4.0 delimitados dos diagramas e o uso didático delimitado da bancada. [Parecer](../evidence/2026-11-03-pc03b-revisao-claude.md). [Pacote de revisão](../evidence/2026-11-03-pc04-pacote-piloto.md). [Contrato e transição](../CONTENT_PIPELINE.md#pc05--extensão-explícita-do-piloto-03112026).
+**Atualização de 05/11/2026, 20:30:** a
+[ADR da delegação](../adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)
+muda três pontos deste plano: a revisão por IA independente substitui os aceites
+pendentes, o PC07 deixa de ser condição do PC08 e a aula passa a ter cinco
+interações num contrato amplo. O mapa das seções 5 a 7 continua sendo a sequência
+curricular. A execução está no
+[plano de trilha ampla e engajamento](2026-11-05-radiant-trilha-ampla-e-engajamento.md).
 A [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md)
 autoriza a retirada das aulas anteriores, inclusive exemplos e protótipos.
 Esta é a **única sequência curricular proposta**. O

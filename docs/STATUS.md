@@ -34,6 +34,28 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Trilha ampla e engajamento — delegação de 2026-11-05
+
+**Medido em 2026-11-05, às 20:30 (America/Bahia).** O dono delegou ao Claude as
+decisões de construção, melhoria e ampliação do app até o fim de 2026-11-06 e
+autorizou escrever o conteúdo a partir de pesquisa em fontes gratuitas
+([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)). A execução
+segue o [plano de trilha ampla e engajamento](plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md),
+na branch `claude/conteudo-reinicio-tecnologo`, que contém o Medalhão inteiro da
+PR #66 mais o conteúdo.
+
+- **Feito:** ADR, plano e [guia de autoria](content/2026-11-05-guia-de-autoria-rtg-2026.md).
+- **Em andamento:** autoria das unidades M01 a M07 por subagentes, fora do
+  repositório. Nenhuma aula entrou na trilha ainda: o catálogo de produção segue
+  vazio e o aluno novo vê "Nova trilha em preparação".
+- **Não muda:** build, loja, texto de loja e merge na `main` são do dono. Nenhuma
+  pessoa da área revisou o conteúdo; a revisão é por IA independente.
+
+```bash
+ls content-manifest/rtg-2026/aulas 2>/dev/null | wc -l   # unidades já no repositório
+grep -c "rtg-2026" radiant-app/src/features/student-checkpoints/production-batches.ts
+```
+
 ## A 1.4 publicada
 
 **A `1.4.0 (12)`, compilada do `221e2ec`, foi aprovada e liberada no
