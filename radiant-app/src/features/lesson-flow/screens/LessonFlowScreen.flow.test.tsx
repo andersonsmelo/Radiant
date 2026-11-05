@@ -479,6 +479,36 @@ beforeAll(async () => {
 }, 30_000);
 
 describe('LessonFlowScreen — escolha da alternativa', () => {
+  it.each([true, false])('Q6 final feedback precedes completion; correct=%s', async correct => {
+    const hearts = require('../../hearts/HeartsRepository').heartsRepository;
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: Date.now() + 60000, unlimitedUntil: null });
+    const interaction: LearningInteractionV2 = { id: 'case-final', type: 'case-decision',
+      competencyIds: ['competency:fixture'], evidenceKind: 'applied-transfer', criticalSafety: false, completionRule: 'answered',
+      accessibility: { label: 'Apoio no treino' }, feedback: { correct: 'Apoio confirmado no treino.', incorrect: 'Apoio ainda não confirmado no treino.' },
+      payload: { phase: 'support', context: 'A ficha do treino pede confirmar com o instrutor.', prompt: 'Qual apoio escolher no treino?',
+        options: [{ id: 'a', label: 'Confirmar com o instrutor' }, { id: 'b', label: 'Pressionar ao acaso', explanation: 'A tentativa ao acaso não confirma a ficha do treino.' }], correctOptionId: 'a' } };
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ id: 'activity:fixture:case-final', competencyIds: ['competency:fixture'],
+      provenance: { contentVersion: 'fixture-v1', sourceIds: ['source:fixture'] }, steps: [
+        { kind: 'presentation', id: 'case-hook', role: 'hook', payload: { title: 'Treino fictício' } },
+        { kind: 'presentation', id: 'case-concept', role: 'concept', payload: { title: 'Regra do treino' } },
+        { kind: 'interaction', interaction },
+      ] });
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+    renderWithProviders(<LessonFlowScreen blockId="activity:fixture:case-final" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Qual apoio escolher no treino?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText(correct ? 'Confirmar com o instrutor' : 'Pressionar ao acaso'));
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(correct ? 'Apoio confirmado no treino.' : 'A tentativa ao acaso não confirma a ficha do treino.')).toBeTruthy();
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1);
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    await waitFor(() => expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1));
+    expect(mockedOutcome.recordActivityCompletion.mock.calls[0][0].firstConfirmedAnswers).toEqual({ 'case-final': correct });
+    expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1);
+  });
   beforeEach(() => {
     jest.clearAllMocks();
     const { LessonFlowService } = jest.requireMock('../services/LessonFlowService') as {

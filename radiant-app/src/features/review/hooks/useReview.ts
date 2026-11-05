@@ -1,3 +1,4 @@
+import curriculumState from '../../../data/curriculum-state.json';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -21,6 +22,7 @@ const REVIEW_XP_PER_ITEM = 4;
 export function useReview(options: UseReviewOptions = {}) {
     const [state, setState] = useState<ReviewState>('loading');
     const [queue, setQueue] = useState<ReviewItem[]>([]);
+    const [hasUnavailableReviews, setHasUnavailableReviews] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sessionXp, setSessionXp] = useState(0);
     const [persistenceError, setPersistenceError] = useState<string | null>(null);
@@ -48,6 +50,8 @@ export function useReview(options: UseReviewOptions = {}) {
                 }).slice(0, 50);
             }
 
+            setHasUnavailableReviews(items.length === 0 && (curriculumState.state === 'retired'
+                || legacyCards.some(card => !(LessonCatalogService.getReviewQuestionsForLesson(card.lessonId)?.length))));
             legacyTally.current.clear();
             setQueue(items);
             setCurrentIndex(0);
@@ -200,6 +204,7 @@ export function useReview(options: UseReviewOptions = {}) {
         currentItem: queue[currentIndex],
         sessionXp,
         totalItems: queue.length,
+        hasUnavailableReviews,
         loading: state === 'loading',
         startReview,
         submitRating,

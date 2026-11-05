@@ -23,6 +23,7 @@ import { PushOptInCard } from '../../push/components/PushOptInCard';
 import { PushService } from '../../push/services/PushService';
 import { ReviewCard } from '../components/ReviewCard';
 import { useReview } from '../hooks/useReview';
+import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
@@ -85,7 +86,7 @@ function reviewRows(queue: ReviewItem[]) {
 export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
   const largeText = useLargeTextLayout();
   const { fontScale } = useWindowDimensions();
-  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitAnswer, continueReview, answerFeedback, saving, persistenceError, retrySubmission } = useReview({
+  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, hasUnavailableReviews, startReview, submitAnswer, continueReview, answerFeedback, saving, persistenceError, retrySubmission } = useReview({
     resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
   });
   const rows = useMemo(() => reviewRows(queue), [queue]);
@@ -175,6 +176,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
   const reviewCursorId = currentItem?.question.id ?? `review-${state}`;
   useShadowCheckpoint({
     surface: 'review',
+    enabled: !loading && totalItems > 0,
     flowId: 'review-session-v1',
     contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
     cursorId: reviewCursorId,
@@ -205,7 +207,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
     completedStepCount: progressValue,
     totalStepCount: Math.max(totalItems, 1),
     reviewCardId: currentItem?.question.id,
-    enabled: !loading,
+    enabled: !loading && totalItems > 0,
     resumeCheckpointId,
     onRestoreFallback: handleRestoreFallback,
   });
@@ -213,6 +215,10 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
   useEffect(() => {
     if (state === 'finished') void activeCheckpoint.finish();
   }, [activeCheckpoint, state]);
+
+  if (!loading && totalItems === 0 && hasUnavailableReviews && !persistenceError) {
+    return <ContentUpdatedScreen review />;
+  }
 
   if (loading) {
     return (

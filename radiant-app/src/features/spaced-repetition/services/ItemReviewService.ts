@@ -116,11 +116,11 @@ export class ItemReviewCoordinator {
     }
     async dueCount(legacy: { lessonId: string; dueAtMs: number }[], now: Date) {
         if (!(await this.repository.inspect()).readable) {
-            return Math.min(SR_SAFETY_CAPS.MAX_CARDS_PER_SESSION, legacy.filter(entry => entry.dueAtMs <= now.getTime()).length);
+            return Math.min(SR_SAFETY_CAPS.MAX_CARDS_PER_SESSION, legacy.filter(entry => entry.dueAtMs <= now.getTime() && this.catalog.definitions(entry.lessonId).length > 0).length);
         }
         const managed = new Set((await this.repository.getCards()).map(card => card.item.lessonId));
         const current = await this.loadQueue([], now);
-        const fallback = legacy.filter(entry => !managed.has(entry.lessonId) && entry.dueAtMs <= now.getTime()).length;
+        const fallback = legacy.filter(entry => !managed.has(entry.lessonId) && entry.dueAtMs <= now.getTime() && this.catalog.definitions(entry.lessonId).length > 0).length;
         return Math.min(SR_SAFETY_CAPS.MAX_CARDS_PER_SESSION, current.length + fallback);
     }
     async recordReview(item: ReviewItem, correct: boolean, now: Date = new Date()) {

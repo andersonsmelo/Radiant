@@ -69,6 +69,18 @@ function rulesFor(issues: { path: string; rule: string }[], path: string): strin
 }
 
 describe('validateLearningActivity', () => {
+    it.each([
+        [{ context: '' }, 'invalid-case-context'],
+        [{ phase: 'free-keyword' }, 'invalid-case-phase'],
+        [{ options: [{ id: 'a', label: 'A' }, { id: 'a', label: 'B' }] }, 'invalid-case-options'],
+        [{ options: [{ id: 'a', label: '' }, { id: 'b', label: 'B' }] }, 'invalid-case-options'],
+        [{ options: [{ id: 'a', label: 'A', imageRef: 'unrendered-image' }, { id: 'b', label: 'B' }] }, 'unsupported-case-image'],
+    ])('Q6 rejects an unsupported or ambiguous payload: %s', (patch, rule) => {
+        const base = multipleChoice();
+        const interaction = { ...base, type: 'case-decision', payload: { ...base.payload, ...patch } } as LearningInteractionV2;
+        const result = validateLearningActivity(activity({ steps: [presentation('case-hook', 'hook'), interactionStep(interaction), presentation('case-close', 'closing')] }));
+        expect(rulesFor(result, interaction.id)).toContain(rule);
+    });
     it('aceita uma atividade íntegra de três passos com uma interação', () => {
         expect(validateLearningActivity(activity())).toEqual([]);
     });

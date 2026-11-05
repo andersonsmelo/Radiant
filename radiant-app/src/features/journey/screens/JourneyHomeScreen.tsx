@@ -32,6 +32,9 @@ import { JourneyReviewRow } from '../components/JourneyReviewRow';
 import { JourneyStarsService } from '../services/JourneyStarsService';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 
+import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
+import { isLearningContentMissing } from '../../content/services/ContentAvailability';
+
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
   // na `HomeScreen` legada — inalcançável com `ENABLE_LEARNING_ROAD=true` —,
@@ -40,6 +43,7 @@ export default function JourneyHomeScreen() {
 
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
+  const [contentUpdated, setContentUpdated] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [trail, setTrail] = useState<CurriculumTrail | null>(null);
@@ -165,6 +169,10 @@ export default function JourneyHomeScreen() {
       return;
     }
 
+    if (node.blockId && isLearningContentMissing(node.blockId)) {
+      setContentUpdated(true);
+      return;
+    }
     await JourneyProgressService.setCurrentNode(node.id);
     router.push(href);
   }, [canOpenNode, snapshot?.nextDecision]);
@@ -215,6 +223,8 @@ export default function JourneyHomeScreen() {
     </View>
   ) : null;
 
+  if (contentUpdated) return <ContentUpdatedScreen onOpenTrail={() => setContentUpdated(false)} />;
+
   return (
     <View style={styles.root} testID="journey-home-screen">
       <StarfieldBackground variant="focused" backgroundColor={galaxyColors.background} />
@@ -246,6 +256,16 @@ export default function JourneyHomeScreen() {
           </View>
         ) : (
           <View style={styles.content}>
+            {!(trail?.segments ?? []).some(segment => segment.units.some(unit => unit.nodes.length > 0)) ? (
+              <View style={styles.centered}>
+                <Text style={styles.loadingText} accessibilityRole="header">Nova trilha em preparação</Text>
+                <Text style={styles.loadingText}>Seus dados e conquistas foram preservados. As novas aulas aparecerão aqui quando estiverem disponíveis.</Text>
+              </View>
+            ) : null}
+            {snapshot?.progress?.resumableNodeId
+              && !snapshot.track.units.some(unit => unit.nodes.some(node => node.id === snapshot.progress.resumableNodeId)) ? (
+              <Text style={styles.loadingText} accessibilityRole="alert">Seu ponto salvo pertence a um conteúdo atualizado. Seus dados e conquistas foram preservados. Escolha por onde começar na trilha atual.</Text>
+            ) : null}
             <JourneyTrail
               header={trailHeader}
               footer={<ReminderRow visible={reminderVisible} />}

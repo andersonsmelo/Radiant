@@ -12,6 +12,14 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
     removeItem: jest.fn(),
 }));
 
+// Clock fixtures represent eligible content, not retired lessons.
+// The promoted-item test still resolves its real synthetic production batch.
+jest.mock('../../content/services/LessonCatalogService', () => ({ LessonCatalogService: {
+    getReviewQuestionsForLesson: (lessonId: string) => ['future', 'recent', 'oldest', 'exact'].includes(lessonId)
+        ? [{ id: `question:${lessonId}`, type: 'multiple-choice', prompt: 'Clock fixture',
+            options: [{ label: 'A' }, { label: 'B' }], correctAnswerIndex: 0, explanation: 'Clock fixture' }] : [],
+} }));
+
 const storage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 
 function card(lessonId: string, nextReviewAt: string) {

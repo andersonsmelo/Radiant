@@ -1,3 +1,5 @@
+import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
+import { isLearningContentMissing } from '../../content/services/ContentAvailability';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -78,6 +80,7 @@ type LessonFlowScreenProps = {
 
 export default function LessonFlowScreen(props: LessonFlowScreenProps) {
     const [attempt, setAttempt] = useState(0);
+    if (isLearningContentMissing(props.blockId)) return <ContentUpdatedScreen />;
     return <LessonFlowAttempt key={`${props.blockId}:${props.nodeId}:${attempt}`} {...props}
         resumeCheckpointId={attempt === 0 ? props.resumeCheckpointId : undefined}
         resumeCursorId={attempt === 0 ? props.resumeCursorId : undefined}
@@ -161,6 +164,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const sessionMode = block?.sessionMode
         ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
     const hybrid = Boolean(sessionMode);
+    const perItemFeedback = hybrid || Boolean(activity?.steps.some(step =>
+        step.kind === 'interaction' && step.interaction.type === 'case-decision'));
     const lessonContext = useMemo(() => {
         if (nodeId) {
             for (const track of LessonCatalogService.listTracks()) {
@@ -179,7 +184,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     }, [nodeId, activity, block]);
     const lessonTheme = lessonContext.theme;
     const player = useLearningActivity(activity, resumeStepIndex, {
-        feedbackPerItem: hybrid,
+        feedbackPerItem: perItemFeedback,
         repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
     });
 
@@ -190,14 +195,6 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             try {
                 setLoading(true);
                 setError(null);
-                if (tracksJourney) {
-                    await JourneyProgressService.setCurrentNode(nodeId);
-                    const entrySnapshot = await JourneyProgressService.setResumableNode(nodeId);
-                    // Este snapshot já vem da escrita sequenciada de entrada.
-                    // getSnapshotForNode também PERSISTE: consultá-lo no foco em
-                    // paralelo poderia sobrescrever currentNode/cursor novos.
-                    if (alive) setDueReviewCount(entrySnapshot?.dueReviewCount ?? 0);
-                }
                 const nextBlock = LessonFlowService.getBlockById(blockId);
                 // Durante a migração, consumidores legados (inclusive integrações
                 // que substituem apenas getBlockById) continuam válidos. A
@@ -216,6 +213,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                     return;
                 }
 
+                // Availability is resolved before any progress/cursor write.
+                if (tracksJourney) {
+                    await JourneyProgressService.setCurrentNode(nodeId);
+                    const entrySnapshot = await JourneyProgressService.setResumableNode(nodeId);
+                    if (!alive) return;
+                    setDueReviewCount(entrySnapshot?.dueReviewCount ?? 0);
+                }
                 setBlock(nextBlock);
                 setActivity(nextActivity);
             } catch (cause) {
@@ -316,7 +320,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
     const confirmationLabel = player.showingFeedback
         ? isLastStep ? 'Concluir e voltar' : 'Continuar'
-        : currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench'
+        : currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench' || currentInteraction?.type === 'case-decision'
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 
@@ -390,7 +394,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
         const nextConfirmed = player.confirm();
         // Conferir mantém a pergunta na tela. Só o segundo toque avança ou conclui.
-        if (hybrid && currentInteraction && !player.showingFeedback) {
+        if (perItemFeedback && currentInteraction && !player.showingFeedback) {
             return;
         }
 
@@ -411,14 +415,14 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                       block,
                       nodeId,
                       confirmedAnswers: nextConfirmed,
-                      firstConfirmedAnswers: hybrid ? player.firstConfirmedAnswers : nextConfirmed,
+                      firstConfirmedAnswers: perItemFeedback ? player.firstConfirmedAnswers : nextConfirmed,
                       ...completion.identity,
                   })
                 : await LessonOutcomeService.recordActivityCompletion({
                       activity,
                       nodeId,
                       confirmedAnswers: nextConfirmed,
-                      firstConfirmedAnswers: hybrid ? player.firstConfirmedAnswers : nextConfirmed,
+                      firstConfirmedAnswers: perItemFeedback ? player.firstConfirmedAnswers : nextConfirmed,
                       ...completion.identity,
                   });
 

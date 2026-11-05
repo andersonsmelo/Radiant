@@ -1,3 +1,4 @@
+import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -40,6 +41,15 @@ interface QuizScreenProps {
 }
 
 export default function QuizScreen({ mode = 'normal', lessonIds = [], lessonId }: QuizScreenProps) {
+  const eligible = lessonIds.filter(id => Boolean(LessonCatalogService.getLessonById(id)));
+  if (mode === 'review' ? eligible.length === 0
+    : !(lessonId ? LessonCatalogService.getLessonById(lessonId) : LessonCatalogService.getInitialLesson())) {
+    return <ContentUpdatedScreen review={mode === 'review'} />;
+  }
+  return <AvailableQuizScreen mode={mode} lessonId={lessonId} lessonIds={mode === 'review' ? eligible : lessonIds} />;
+}
+
+function AvailableQuizScreen({ mode = 'normal', lessonIds = [], lessonId }: QuizScreenProps) {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [currentLesson, setCurrentLesson] = useState<QuizLesson | null>(null);
   const [loading, setLoading] = useState(mode === 'review');
