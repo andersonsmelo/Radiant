@@ -2,7 +2,11 @@
 
 **Versão:** proposta 2, 02/11/2026, America/Bahia. **Público decidido por Anderson:**
 graduação tecnológica em Radiologia, seguida de especializações.
-**Situação:** planejamento para revisão; nenhum conteúdo novo ativo.
+**Situação em 02/11/2026:** PC03-A aprovado por Anderson para iniciar PC04 e PC05;
+aceite editorial do piloto (PC03-B) pendente; nenhum conteúdo novo ativo.
+**Atualização de 03/11/2026:** base técnica do PC05 implementada; primeira
+[conferência dos payloads reais](../evidence/2026-11-03-pc05-payloads.md) executada,
+com quatro lacunas de checkpoint e integrações ainda pendentes. PC03-B recebeu aceite técnico/editorial por IA do Claude em 03/11; cinco briefs e M01.01 completa revisados, com três ajustes menores conferidos. Anderson aprovou em 03/11 o crédito/CC BY 4.0 delimitados dos diagramas e o uso didático delimitado da bancada. [Parecer](../evidence/2026-11-03-pc03b-revisao-claude.md). [Pacote de revisão](../evidence/2026-11-03-pc04-pacote-piloto.md). [Contrato e transição](../CONTENT_PIPELINE.md#pc05--extensão-explícita-do-piloto-03112026).
 A [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md)
 autoriza a retirada das aulas anteriores, inclusive exemplos e protótipos.
 Esta é a **única sequência curricular proposta**. O
@@ -12,22 +16,43 @@ técnicos e direitos; [STATUS](../STATUS.md) e [FILA](../FILA.md) guardam a exec
 A proposta 1 (Codex, commit `30c95b0`) foi revisada pelo Claude no mesmo dia; a
 [seção 15](#15-o-que-mudou-da-proposta-1) lista as mudanças.
 
-## 0. Decisões que o PC03 precisa tomar
+## 0. Decisões do PC03-A — aprovadas em 02/11/2026
 
-Nenhuma aula começa a ser escrita antes destas seis respostas:
+**Decisor:** Anderson Melo, nas respostas explícitas desta conversa. Esta seção
+é o registro canônico das seis decisões de produto; a
+[ADR](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md#complemento-pc03--autorização-de-produto-e-aceite-editorial)
+registra a separação dos gates. A autorização permite iniciar PC04 e PC05.
 
-1. **Quem revisa.** Nomear a revisão técnica de radiologia e a editorial. Os
-   estudantes do piloto vêm depois. Sem esses nomes, PC04 e PC07 não têm dono.
-2. **Primeiro lote.** Aprovar o piloto em fatia vertical da [seção 4](#4-piloto-em-fatia-vertical)
-   (cinco aulas de três módulos) no lugar das seis aulas de M01.
-3. **Ordem de navegação.** Aprovar a alternância entre M02 e M03/M04 e uma
-   primeira manipulação na primeira sessão ([seção 5](#5-ordem-dependências-e-navegação)).
-4. **Nivelamento.** Decidir se quem já é formado entra num ramo por avaliação de
-   nivelamento, sem cursar as 84 aulas do núcleo.
-5. **Quem atualiza do app atual.** Decidir o que vê o aluno cujo progresso aponta
-   para aulas retiradas. A decisão vem antes de qualquer build ([seção 14](#14-release-branch-e-quem-já-usa-o-app)).
-6. **Release conjunto.** Confirmar que a retirada só entra na `main` junto com o
-   primeiro lote aprovado.
+1. **Revisão indicada: Claude.** Anderson respondeu “o claude pode fazer a
+   revisão” ao pedido de revisão técnica de radiologia e editorial. Claude
+   realizou essa revisão por IA em 03/11/2026, com fontes rastreáveis e limites declarados; parecer favorável registrado no PC03-B.
+   A indicação não significa revisão realizada, qualificação profissional ou
+   aprovação clínica. Os critérios de fontes, direitos, revisão e segurança
+   das seções 1 e 11 continuam exigíveis; participantes do piloto vêm depois.
+2. **Primeiro lote aprovado.** Piloto em fatia vertical da
+   [seção 4](#4-piloto-em-fatia-vertical): cinco aulas de três módulos,
+   em lugar das seis aulas de M01. O recorte está aprovado; os briefs e a aula
+   completa foram produzidos no PC04 e receberam aceite editorial por IA no PC03-B em 03/11/2026; direitos dos quatro diagramas foram aprovados por Anderson no recorte delimitado do [pacote PC04](../evidence/2026-11-03-pc04-pacote-piloto.md).
+3. **Navegação aprovada para testar.** Alternar M02 com M03/M04 e testar uma
+   primeira manipulação na primeira sessão, conforme a
+   [seção 5](#5-ordem-dependências-e-navegação). A aprovação não afirma eficácia
+   nem fixa o resultado do teste com alunos.
+4. **Nivelamento aprovado.** Prever avaliação na entrada de cada ramo para
+   formados, sem obrigá-los a cursar as 84 aulas do núcleo. O desenho e a
+   implementação ficam no PC08, após o piloto aceito.
+5. **Transição aprovada.** Preservar os dados e conquistas existentes; ao abrir
+   uma aula retirada, mostrar aviso claro e oferecer acesso à nova trilha.
+   Não converter progresso antigo em conclusão das aulas novas. PC05 define
+   texto, caminhos e compatibilidade antes de qualquer build; nada disso foi
+   implementado por esta aprovação.
+6. **Release conjunto confirmado.** A retirada só entra na `main` junto com o
+   primeiro lote aprovado. PC09 mantém autorização e gates próprios; esta
+   decisão não autoriza build, merge ou publicação agora.
+
+**Separação aprovada por Anderson:** PC03-A é a autorização de produto acima;
+PC03-B é o aceite editorial do mapa e do piloto depois da produção do PC04.
+PC03-B continua obrigatório antes do PC06. Assim, a aula completa exigida para o
+aceite pode ser escrita sem presumir que já foi aprovada.
 
 ## 1. Resultado pretendido, aceite e limites
 
@@ -38,17 +63,30 @@ formação. Ele não substitui laboratório, estágio, supervisão ou diploma, e
 promete habilitação, título de especialista ou diagnóstico autônomo.
 
 A proposta tem **84 aulas de núcleo comum em 14 módulos** e **48 aulas de
-aprofundamento em 6 ramos**. São 132 posições de planejamento, e nenhuma está
-escrita. Seis aulas por módulo é a estimativa de partida; o blueprint de cada
+aprofundamento em 6 ramos**. São 132 posições de planejamento. Em 03/11/2026,
+M01.01 está escrita por inteiro como rascunho para revisão no PC04; as outras
+quatro aulas do piloto têm briefs editorialmente aceitos, ainda sem aula completa. Seis aulas por módulo é a estimativa de partida; o blueprint de cada
 módulo fixa o tamanho final. A duração de referência é de 4 a 7 minutos por aula
 curta, e casos integradores podem ter de 8 a 12 minutos com pausa e retomada. É
 hipótese de usabilidade a medir, e não vira carga horária acadêmica. Revisões e
 avaliações são atividades próprias e não entram na contagem de aulas.
 
-**Aceite do plano no PC03.** O mapa é aceito quando a revisão técnica confirma a
-ordem e a cobertura, o piloto tem os cinco briefs aprovados, uma aula do piloto
-existe escrita por inteiro (enunciados, alternativas e retorno por erro) e as
-seis decisões da seção 0 estão registradas.
+**Autorização de produto (PC03-A):** concluída com as seis decisões da seção 0;
+libera a produção do PC04 e o contrato do PC05 em paralelo.
+
+**Aceite técnico/editorial por IA do mapa e do piloto (PC03-B): aceito pelo
+Claude em 03/11/2026.** A revisão cobriu ordem/cobertura do mapa, cinco briefs,
+M01.01 completa e quatro PNGs. Os três ajustes menores foram conferidos, sem
+novos achados; [parecer e evidência](../evidence/2026-11-03-pc03b-revisao-claude.md).
+Não é aprovação clínica. Anderson aprovou separadamente crédito/licença dos
+diagramas e uso didático da bancada em 03/11/2026, nos limites do
+[registro de aceite](../evidence/2026-11-03-pc03b-revisao-claude.md#aceites-posteriores-de-anderson-03112026).
+PC04 está concluído nesse recorte; PC05 teve a primeira conferência real, com
+as lacunas e integrações registradas no pacote. PC06 mantém essas
+dependências e autorização de implementação. VoiceOver é prova de saída do PC06,
+pois depende do protótipo. A integridade offline era também; por decisão de Anderson
+em 04/11/2026, ela passa ao primeiro lote promovido, sobre o conteúdo real, porque o
+grafo de release exclui as prévias.
 
 **Sempre:** fonte factual e direito de uso registrados por ativo; resposta
 confirmada antes do retorno; primeira tentativa, ajuda e retomada distinguíveis;
@@ -93,6 +131,8 @@ autorizada, curadoria ou revisão.
 **Compatibilidade com a produção atual.** O contrato editorial de lote v1 exige
 que toda fonte seja CC BY 4.0 e só admite múltipla escolha sem imagem
 ([`EditorialBatchContract.ts`](../../radiant-app/src/features/student-checkpoints/EditorialBatchContract.ts)).
+O PC05 acrescenta uma extensão explícita para as quatro famílias do piloto e
+diagramas autorais em CC BY 4.0; não altera o caminho v1 sem extensão.
 CC BY 3.0, as condições próprias do BioArt, CC0 e SA não estão admitidas e exigem
 classificação, revisão e extensão explícita antes de promoção. A única coleção de
 imagens reais candidata, LIDC-IDRI, é CC BY 3.0; por isso o piloto usa diagramas
@@ -113,21 +153,31 @@ Cinco têm renderer registrado em
 [`ActivityRendererRegistry.tsx`](../../radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx);
 a sexta tem só o tipo. Conferido no código em 02/11/2026.
 
-| Código | O aluno faz | Interação | Renderer | Contrato v1 | Aulas do núcleo |
+| Código | O aluno faz | Interação | Renderer | V1 sem extensão | Aulas do núcleo |
 | --- | --- | --- | --- | --- | --- |
 | Q1 | Escolhe uma decisão e confirma antes do retorno | `multiple-choice` | registrado | aceito, sem imagem | 4 |
 | Q2 | Localiza estrutura ou orientação em imagem sem rótulo da resposta | `hotspot` | registrado | recusado | 13 |
 | Q3 | Compara duas imagens ou diagramas e aponta a diferença relevante | `comparison` | registrado | recusado | 18 |
 | Q4 | Prevê o efeito, ajusta o controle e interpreta a mudança na bancada | `bench` (`parameter-lab` tem tipo, sem renderer) | registrado | recusado | 10 |
 | Q5 | Ordena etapas ou verifica uma lista de segurança | `ordering` | registrado | recusado | 13 |
-| Q6 | Resolve minicaso com decisão, motivo e ação de apoio | `case-decision` | **ausente** | recusado | 26 |
+| Q6 | Resolve minicaso com decisão, motivo e ação de apoio | `case-decision` | textual registrado em 03/11, PC06-D | recusado | 26 |
 
 `matching` também tem renderer e não aparece no plano.
+
+**PC05, 03/11/2026:** a extensão explícita `pilot` aceita Q1–Q5, com diagrama
+autoral CC BY 4.0, rubrica, alternativa acessível, fontes, variantes e hash dos
+metadados. A tabela descreve o v1 sem essa extensão. Q6 continua recusado.
+**PC06-D, 03/11/2026:** renderer textual registrado com contexto e fases
+opcionais em capítulos explícitos; isso não amplia o contrato editorial.
+[Evidência e limites](../evidence/2026-11-03-pc06d-renderer-case-decision.md).
+O [contrato técnico](../CONTENT_PIPELINE.md#pc05--extensão-explícita-do-piloto-03112026)
+registra campos, restrições, IDs e transição. Nenhuma atividade real foi promovida.
 
 Duas consequências mudam a ordem do trabalho. Ampliar o contrato para Q2–Q5 é
 liberar quatro famílias que já renderizam, com schema, proveniência, rubrica,
 acessibilidade e testes próprios de cada uma. Q6 é a prática principal de 31% do
-núcleo e precisa de renderer novo antes de qualquer aula que dependa dela.
+núcleo. O renderer textual foi entregue no PC06-D; contrato editorial, conteúdo
+revisado e provas nativas permanecem necessários antes de publicar aulas Q6.
 
 | Código | Forma equivalente acessível |
 | --- | --- |
@@ -157,10 +207,10 @@ em três das seis aulas.
 | M01.02 — Identificação e comunicação | Q5 | Sequência de segurança e leitura da ordem pelo leitor de tela | Extensão do contrato para `ordering` |
 | M02.01 — Posição de referência e vistas | Q2 | Localização em diagrama autoral sem rótulo da resposta | Extensão para `hotspot` com ativo autoral |
 | M02.02 — Lateralidade e marcadores | Q3 | Comparação visual numa competência crítica para segurança | Extensão para `comparison` com ativo autoral |
-| M06.04 — Campo, colimação e espalhamento | Q4 | Bancada com o modelo de colimação já aprovado na [ADR de 24/10](../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md) | Extensão para `bench` |
+| M06.04 — Campo, colimação e espalhamento | Q4 | Bancada com o motor genérico de colimação existente; a [ADR de 24/10](../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md) mantém aval científico do dono pendente | Extensão para `bench`, cena abstrata nova e revisão técnica; sem reaproveitar aula retirada |
 
 M06.04 entra fora da ordem do mapa de propósito: o piloto é formativo e mede o
-motor, não a sequência. Q6 fica fora do piloto até o renderer existir. Uma das
+motor, não a sequência. Q6 fica fora do piloto até ter renderer, contrato editorial e aceites próprios. Uma das
 cinco aulas é escrita por inteiro já no PC04 e serve de objeto de aceite do mapa.
 
 **Primeira vitória.** O exercício de kV das boas-vindas era a manipulação que o
@@ -211,14 +261,14 @@ pré-requisito conceitual universal de RM**.
 **Navegação proposta.** Seguida em fila, a sequência põe M03 e M04 (12 aulas de
 física e proteção) antes do primeiro contato com formação de imagem, e o primeiro
 posicionamento só chega em M07, depois de 36 aulas. As matrizes C02 e C04 dão
-anatomia e física em paralelo no primeiro semestre. A proposta é a trilha
-alternar aulas de M02 com aulas de M03/M04, para que uma representação de imagem
-apareça já nas primeiras sessões. É hipótese para o PC07 medir.
+anatomia e física em paralelo no primeiro semestre. A navegação aprovada no
+PC03-A alterna aulas de M02 com aulas de M03/M04, para que uma representação de imagem
+apareça já nas primeiras sessões. Seu efeito é hipótese para o PC07 medir.
 
 **Nivelamento para quem já é formado.** O grafo exige M14 antes de qualquer ramo,
 o que obrigaria um tecnólogo formado a refazer o núcleo inteiro para chegar a TC.
-A proposta é uma avaliação de nivelamento na entrada de cada ramo, com casos
-novos dos pré-requisitos daquele ramo. Durante o piloto nada disso é
+A decisão do PC03-A aprova uma avaliação de nivelamento na entrada de cada ramo,
+com casos novos dos pré-requisitos daquele ramo. Durante o piloto nada disso é
 implementado: primeiro se valida o mapa com os serviços que já existem.
 
 ## 6. Núcleo comum: sequência de 84 aulas
@@ -387,7 +437,7 @@ Pré-requisitos: M06 e M09; anatomia aplicada de M02. Apoio curricular: C02/C05/
 
 ### M13 — Panorama de MN, RT e intervencionista
 
-Pré-requisitos: M04, M09 e M10; visão geral antes dos ramos. Apoio curricular: C01/C09/C11/C13 no anexo.
+Pré-requisitos diretos: M04 e M10; M09 é pré-requisito herdado via M10. Visão geral antes dos ramos. Apoio curricular: C01/C09/C11/C13 no anexo.
 Três modalidades em seis aulas é o módulo mais comprimido do núcleo; o blueprint
 deve confirmar se ele cabe nesse tamanho.
 
@@ -666,10 +716,11 @@ o currículo.
 | --- | --- | --- | --- |
 | PC01 | Retirada integral, catálogo explícito e auditoria técnica | Autorização já dada | Agente; feito em 02/11, prova na [auditoria](../evidence/2026-11-02-retirada-conteudo-radiant.md). |
 | PC02 | Mapa, pesquisa e storyboard | PC01 | Agente; proposta 1 e revisão (proposta 2) em 02/11. |
-| PC03 | As seis decisões da seção 0, revisão do mapa e aprovação do piloto | PC02 | Anderson e revisão técnica; registrar o que for aceito. |
-| PC04 | Cinco briefs do piloto com fontes e ativos liberados e rubricas; uma aula escrita por inteiro | PC03 | Autor, editor e revisor de radiologia; nenhum item sem direitos ou revisão. |
-| PC05 | Extensão do contrato para `ordering`, `hotspot`, `comparison` e `bench`, IDs, contrato do primeiro lote e transição de quem já usa o app | PC03; corre **em paralelo** com o PC04 | Produto e engenharia; a conferência final dos payloads espera os briefs do PC04. |
-| PC06 | Protótipo nativo do lote, microinterações prioritárias e renderer de `case-decision` | PC04, PC05 e autorização de implementação | Agente; testes de comportamento e acesso e prova nativa própria. O renderer de Q6 é pré-requisito de 26 aulas do núcleo. |
+| PC03-A | As seis decisões de produto da seção 0 e autorização para iniciar PC04/PC05 | PC02 | **Aprovado por Anderson em 02/11/2026**; Claude indicado para revisão por IA, realizada no PC03-B em 03/11/2026. |
+| PC04 | Cinco briefs do piloto com fontes e ativos liberados e rubricas; uma aula escrita por inteiro | PC03-A | **Concluído no recorte de autoria/revisão em 03/11/2026:** cinco briefs, M01.01 completa e quatro diagramas autorais; [pacote e documento canônico](../evidence/2026-11-03-pc04-pacote-piloto.md). Licenças das fontes verificadas; revisão por Claude aceita no PC03-B. Anderson aprovou crédito/CC BY 4.0 delimitados dos diagramas e uso didático delimitado da bancada. **05/11/2026:** as quatro aulas restantes, oito itens de checkpoint e as recuperações foram escritos como rascunho de IA, sem revisão ([evidência e texto](../evidence/2026-11-05-pc04-quatro-aulas.md)); o texto está em [documento próprio](https://docs.google.com/document/d/1g7JAN5szNx4qBogWupp363i3HHOgCMSMew6dUA46iwY); faltam revisão independente e aceites por hash. |
+| PC05 | Extensão do contrato para `ordering`, `hotspot`, `comparison` e `bench`, IDs, contrato do primeiro lote e transição de quem já usa o app | PC03-A; corre **em paralelo** com o PC04 | **Base implementada e primeira conferência real em 03/11/2026**; [payloads](../evidence/2026-11-03-pc05-payloads.md) de M01.01 e das quatro práticas, variante e recuperação. Extensão aceita as cinco famílias, mas o lote inteiro continua recusado por quatro competências sem checkpoint. Retornos/ajuda/recuperação, cena abstrata, resolução local dos ativos e UI da transição foram integrados localmente em PC06-A/B/C; empacotamento/prova offline e nativa continuam pendentes. Nenhuma promoção/ativação. |
+| PC03-B | Aceite editorial do mapa, cinco briefs e uma aula completa do piloto | Entregas do PC04 | **Aceito por Claude em 03/11/2026**, revisão técnica/editorial por IA e conferência de três ajustes menores. [Parecer](../evidence/2026-11-03-pc03b-revisao-claude.md). Sem liberação de direitos ou aprovação clínica. |
+| PC06 | Protótipo nativo do lote, microinterações prioritárias e renderer de `case-decision` | PC03-B, PC04, PC05 e autorização de implementação | **Em implementação local, 03/11/2026:** [PC06-A](../evidence/2026-11-03-pc06a-previa-editorial.md), prévia M01.01/ajuda/retornos/recuperação; [PC06-B](../evidence/2026-11-03-pc06b-cena-e-ativos-locais.md), cena abstrata e módulos locais de diagramas, com verificação de bytes no repositório. PC06-A/B continuam sem rota de conteúdo ativa. [PC06-C](../evidence/2026-11-03-pc06c-transicao-conteudo-retirado.md) implementa a transição nas entradas existentes, sem converter histórico. Sem build ou prova nativa/offline. [PC06-D](../evidence/2026-11-03-pc06d-renderer-case-decision.md) entrega o renderer textual Q6, com capítulos e confirmação antes do feedback (8 suítes/318 testes focados). PC06-D fechado com memória validada e gate final 15/15. **PC06-E integrado localmente em 04/11:** entrada opt-in `/editorial-preview`, isolamento no resolvedor Metro de release, pacote PC05 único, Q6 sintético separado, bloqueio da ordenação e foco/texto grande. Prova nativa no E262: interação por toque em M01.01 e Q2–Q6, com quatro defeitos de renderer corrigidos, e bundle de release sem material do laboratório; VoiceOver/TalkBack pendentes; prova offline adiada para o primeiro lote promovido (Anderson, 04/11), sem build/instalação. [Evidência PC06-E](../evidence/2026-11-04-pc06e-integracao-e-provas.md); o [prompt anterior](../superpowers/handoffs/2026-11-03-conteudo-pc06-prompt-de-continuidade.md) conserva a autorização e restrições. **05/11:** corrigida a medição do aviso de retirada na troca de escala com a tela aberta, com foco/anúncio único e botão preservados; quatro suítes/30 testes e prova de altura nativa no E262, sem build/instalação ([evidência](../evidence/2026-11-05-pc06e-aviso-texto-ampliado.md)). **Passagem física de 05/11:** iPhone 16/iOS 27.2 inventariado; cliente de desenvolvimento informado pelo dono, versão/build e menu não confirmados. VoiceOver NÃO EXECUTADO, sem aceite; Metro próprio encerrado. **Medido às 11:41 de 05/11:** o Radiant 1.4.0 (11) do iPhone não carrega o Metro nem tem a rota da prévia; prova física bloqueada até autorização de build e instalação de cliente de desenvolvimento ([evidência](../evidence/2026-11-05-pc06e-iphone-cliente-sem-metro.md)). [Continuidade atual](../superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md). O contrato editorial ainda recusa Q6, pré-requisito de 26 aulas do núcleo; PC06 permanece aberto. |
 | PC07 | Piloto, retenção atrasada e ajustes | PC06 | Docente e alunos; resultados e falhas, sem alegar validação clínica. |
 | PC08 | Produção por módulos e ramos escolhidos, primeira aula do núcleo e nivelamento dos ramos | PC07 aceito | Autor e revisor; lotes pequenos versionados, sem geração em massa não revisada. |
 | PC09 | Release conjunto da retirada com o primeiro lote aprovado | Conteúdo aprovado e decisão 5 da seção 0 | Engenharia e Anderson; autorização e gates próprios. Não iniciado. |
@@ -695,14 +746,18 @@ isolada.
 
 O aluno que atualiza do app atual pode ter progresso, revisão devida ou deep link
 apontando para aulas que não existem mais. Pela ADR do reinício, o runtime recusa
-reintroduzir essas aulas por catálogo remoto, fallback ou deep link antigo, mas a
-tela que esse aluno encontra não foi decidida. O PC05 especifica
-essa transição, e a decisão 5 da seção 0 vem antes de qualquer build.
+reintroduzir essas aulas por catálogo remoto, fallback ou deep link antigo.
+Anderson aprovou no PC03-A preservar dados e conquistas, mostrar aviso claro ao
+abrir uma aula retirada e oferecer acesso à nova trilha, sem converter progresso
+antigo em conclusão das aulas novas. O PC05 especifica texto, rotas, revisão
+devida e compatibilidade antes de qualquer build. A experiência de transição
+está implementada localmente desde o PC06-C e foi vista no simulador, sem prova com
+leitor de tela; a decisão não autoriza reset ou migração de dados pessoais.
 
 ## 15. O que mudou da proposta 1
 
 - O primeiro lote passou de seis aulas de M01 para o piloto em fatia vertical da seção 4.
-- A seção 3 liga Q1–Q6 aos tipos de interação e renderers do código e registra que `case-decision` não tem renderer.
+- A seção 3 liga Q1–Q6 aos tipos de interação e renderers do código e registrava a ausência de renderer de `case-decision` na proposta 2; o PC06-D entregou a versão textual em 03/11/2026.
 - PC04 e PC05 correm em paralelo; o PC06 inclui o renderer de Q6.
 - A seção 5 propõe navegação alternada e nivelamento para formados; a seção 4 trata da primeira vitória perdida com a retirada.
 - Seis aulas por módulo virou estimativa, e M13 ficou marcado como o mais comprimido.

@@ -31,6 +31,29 @@ continua congelado como evidência da decisão anterior; a autorização atual i
 também exemplos da bancada e protótipos V3. Não se exige nova confirmação da retirada
 já pedida. O novo currículo será pesquisado e proposto, sem promover conteúdo clínico.
 
+## Complemento PC03 — autorização de produto e aceite editorial
+
+**Data:** 02/11/2026, America/Bahia. **Decisor:** Anderson Melo, nas respostas
+explícitas às perguntas do PC03 nesta conversa. **Estado:** aceita quanto às
+seis decisões de produto, registradas na
+[seção 0 do plano](../plans/2026-11-02-planejamento-conteudo-radiant.md#0-decisões-do-pc03-a--aprovadas-em-02112026).
+Anderson indicou Claude para a revisão técnica e editorial por IA. A indicação
+não é parecer concluído, qualificação profissional ou aprovação clínica.
+
+O aceite anterior exigia uma aula completa no PC03, enquanto a autoria estava
+no PC04 e dependia desse mesmo aceite. Anderson aprovou separar o gate em:
+
+- **PC03-A:** autorização de produto para iniciar PC04 e PC05 em paralelo;
+  aprovada nesta data.
+- **PC03-B:** aceite editorial do mapa, dos cinco briefs e de uma aula completa,
+  depois das entregas do PC04; pendente e obrigatório antes do PC06.
+
+A separação elimina o ciclo sem dispensar evidência ou revisão. A transição do
+aluno atual e o release conjunto foram aprovados como decisões de produto;
+especificação, implementação, aceite de conteúdo e autorização de release
+continuam nas etapas próprias. Nenhum build, migração, merge ou publicação foi
+autorizado por estas respostas.
+
 ## Escopo da retirada
 
 Retirar conteúdo de aulas dos dados legados/IA, H4/registro de produção, exemplos
@@ -105,3 +128,32 @@ Os runs anteriores não recebem sucesso retroativo.
 Abertura anterior `run-1793624190997-c5e9fff3` foi fechada sem nenhuma edição após
 preflight descobrir um gerador com corpus fora da primeira lista. Nenhum sucesso
 retroativo: a baseline de implementação estava limpa.
+
+## Registro posterior — PC03-B, 03/11/2026
+
+Claude realizou a revisão técnica/editorial por IA do mapa e pacote PC04 e
+emitiu aceite editorial, após três ajustes menores conferidos sem novos achados.
+O [parecer](../evidence/2026-11-03-pc03b-revisao-claude.md) distingue as fontes
+consultadas e corrige a proveniência alegada de S02 no primeiro retorno.
+Este é registro do gate aprovado por Anderson, sem nova decisão de produto.
+Direitos dos diagramas e aval científico da bancada permanecem pendentes;
+payloads reais/PC05 e autorização de implementação ainda antecedem PC06.
+A prova de VoiceOver/offline ocorre durante e na saída do protótipo PC06, antes
+de promoção, não antes de existir o protótipo. Sem aprovação clínica ou release.
+
+## Aceites posteriores de Anderson — 03/11/2026
+
+Em respostas explícitas nesta conversa, Anderson confirmou:
+
+- **“Aprovar crédito e licença propostos”**: “Radiant — criado com assistência
+  de IA (Codex), 2026” e CC BY 4.0 para os quatro diagramas, nos direitos que
+  possam ser concedidos, sem afirmar autoria humana ou exclusividade de saída de IA.
+- **“Aprovar esse uso didático delimitado”**: modelo qualitativo de detector
+  27×33 cm e área relativa, cena abstrata nova com alvo de 18 cm e faixa
+  didática 18–20 cm; não cálculo de dose/espalhamento físico ou protocolo clínico.
+
+Esses aceites sucedem as pendências registradas acima, no recorte do piloto
+novo; não reativam os exemplos retirados. PC04 concluído no escopo de cinco
+briefs e uma aula completa com fontes/ativos liberados nos limites declarados.
+PC05 ainda depende de gerar e conferir os payloads reais; não há promoção,
+build, migração ou release concedidos por estas respostas.

@@ -1409,10 +1409,64 @@ as decisões; o texto anterior foi preservado no histórico do STATUS.
 - **C2 [CONCLUÍDA — PROPOSTA ENTREGUE,02/11/2026]** Ementas de graduação tecnológica/especializações,
   fontes gratuitas e direitos, sequência lógica, questões, interação e incentivos.
   Uma entrada: [planejamento de conteúdo](2026-11-02-planejamento-conteudo-radiant.md).
-- **C3 [PENDENTE — REVISÃO]** Anderson revisa proposta e recorte do primeiro lote;
-  revisão técnica/editorial e validação com alunos precedem produção ampla.
-- **C4 [NÃO INICIADA]** Produção, implementação de novas interações e validação
-  nativa próprias. Novo currículo não está ativo e não há autorização de release.
+- **C3 [PC03-A APROVADO,02/11; PC03-B ACEITO POR IA,03/11/2026]**
+  Anderson aprovou as seis decisões da seção 0 do plano e indicou Claude para
+  revisão técnica/editorial por IA. Claude revisou mapa, cinco briefs, M01.01
+  e quatro PNGs; três ajustes menores corrigidos e conferidos, sem novos achados.
+  [Parecer PC03-B](../evidence/2026-11-03-pc03b-revisao-claude.md). Anderson aprovou
+  crédito/licença delimitados dos diagramas e uso didático da bancada em 03/11;
+  validação com alunos precede produção ampla.
+- **C4 [PC04 CONCLUÍDO; PC05 CONFERÊNCIA INICIAL EXECUTADA,03/11/2026]** Extensão editorial
+  opt-in Q1–Q5, IDs e transição especificados; [evidência PC05](../evidence/2026-11-03-pc05-contrato-editorial.md).
+  PC04: cinco briefs, M01.01 completa e quatro diagramas autorais em rascunho;
+  [pacote de revisão e Google Docs canônico](../evidence/2026-11-03-pc04-pacote-piloto.md).
+  PC03-B aceito por IA; direitos dos diagramas e uso didático da bancada
+  aprovados por Anderson no recorte registrado. Conferência final dos payloads
+  reais teve primeira execução em 03/11: M01.01 serializada, quatro práticas,
+  uma variante e recuperação; cinco famílias aceitas na extensão e quatro
+  competências ainda sem checkpoint, mantendo o lote não promovível.
+  [Payloads e conferência](../evidence/2026-11-03-pc05-payloads.md).
+  Retornos/recuperação auxiliares, cena abstrata e ativos offline exigem
+  integração explícita. Protótipo PC06 mantém os demais
+  gates. Novo currículo não está ativo e não há autorização de release.
+  **PC06-A iniciado e implementado localmente em 03/11:** prévia M01.01 com
+  ajuda, retorno por alternativa e recuperação por injeção, sem registro no
+  catálogo. [Teste e limites](../evidence/2026-11-03-pc06a-previa-editorial.md).
+  Próximo PC06-B: cena abstrata nova e ativos locais; transição, Q6 e provas
+  nativas permanecem na etapa PC06, que não está concluída.
+  **PC06-B implementado localmente em 03/11:** cena abstrata de campo e
+  quatro diagramas por módulos estáticos, com bytes/dimensões/imports
+  conferidos no repositório e renderers proporcionais.
+  [Evidência e limites](../evidence/2026-11-03-pc06b-cena-e-ativos-locais.md).
+  **PC06-C implementado localmente em 03/11:** aviso comum, revisão elegível,
+  retomada protegida e histórico preservado; [evidência](../evidence/2026-11-03-pc06c-transicao-conteudo-retirado.md).
+  9 suítes/297 testes focados e quatro suítes/71 testes de guardas passaram.
+  **PC06-D implementado localmente em 03/11:** renderer textual Q6 registrado,
+  com capítulos explícitos e feedback antes da conclusão; oito suítes/318 testes
+  focados passaram. [Evidência e limites](../evidence/2026-11-03-pc06d-renderer-case-decision.md).
+  PC06-D fechado com memória validada e gate final 15/15.
+  **PC06-E integrado localmente em 04/11:** rota opt-in e exclusão de material
+  pelo resolvedor de release; ordenação bloqueada após confirmar e foco/texto
+  grande tratados. Menu normal/AX5 e aviso retirado observados no E262.
+  Segunda passagem: interação por toque medida no E262 e quatro defeitos de
+  renderer corrigidos; VoiceOver/TalkBack permanecem pendentes. Prova offline adiada
+  para o primeiro lote promovido (Anderson, 04/11), sem build/instalação.
+  [Evidência PC06-E](../evidence/2026-11-04-pc06e-integracao-e-provas.md).
+  **05/11:** aviso de retirada remede título/corpo ao mudar a escala com a tela
+  aberta; mantém botão e guarda de foco. Quatro suítes/30 testes e medição nativa
+  no E262; [evidência](../evidence/2026-11-05-pc06e-aviso-texto-ampliado.md).
+  **Passagem de 05/11:** iPhone físico inventariado, cliente informado pelo dono,
+  versão/build e menu não confirmados; VoiceOver NÃO EXECUTADO. Metro próprio
+  encerrado. Medido às 11:41: o Radiant 1.4.0 (11) do iPhone não carrega o Metro
+  nem tem a rota da prévia; prova física bloqueada até autorização de build e
+  instalação de cliente de desenvolvimento
+  ([evidência](../evidence/2026-11-05-pc06e-iphone-cliente-sem-metro.md),
+  [handoff atual](../superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md)).
+  **PC04, 05/11:** quatro aulas e checkpoints escritos como rascunho de IA, sem
+  revisão; promoção segue recusada
+  ([evidência](../evidence/2026-11-05-pc04-quatro-aulas.md)).
+  PC06 permanece aberto; Q6 continua recusado pelo contrato editorial.
+  Entregas locais sem commit/push; promoção e release pendentes.
 
 ### Onda K — Radiant 1.4: fluxo do usuário e robustez
 

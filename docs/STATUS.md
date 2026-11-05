@@ -700,12 +700,198 @@ piloto em fatia vertical de cinco aulas no lugar de M01, Q1–Q6 ligados aos
 renderers do código (`case-decision`, prática principal de 26 aulas, não tem
 renderer), PC04 e PC05 em paralelo, storyboard refeito sobre M02.02. No mesmo dia
 a retirada (`30c95b0`) saiu da branch da PR #66, que voltou a `34147e1`, e passou
-para `claude/conteudo-reinicio-tecnologo`, local e sem PR: ela só entra na `main`
-junto com o primeiro lote aprovado. Próximo passo PC03: as seis decisões da
-seção 0 do plano, sem repetir a autorização de retirar conteúdo.
+para `claude/conteudo-reinicio-tecnologo`: ela só entra na `main` junto com o
+primeiro lote aprovado. Branch local e remota conferidas em `dcb6810` em
+02/11/2026; a branch Medalhão permanece em `34147e1`.
+**PC03-A aprovado por Anderson em 02/11/2026:** seis decisões de produto na
+seção 0 do plano, com Claude indicado para revisão técnica/editorial por IA,
+realizada posteriormente em 03/11/2026. Autorizados PC04 (briefs e uma aula completa) e PC05
+(contrato e transição), em paralelo. Anderson aprovou separar o aceite editorial
+PC03-B, realizado depois do rascunho PC04 em 03/11 e obrigatório antes do PC06.
+A aprovação de produto não declara revisão concluída nem aprovação clínica.
+**PC05, base técnica medida em 03/11/2026:** extensão explícita para Q1–Q5,
+diagramas autorais CC BY 4.0, rubricas/acesso/variantes e metadados vinculados ao
+hash e aos seis gates existentes. V1 sem extensão mantém seus limites; catálogo
+ativo permanece vazio. IDs e transição foram especificados no
+[contrato técnico](CONTENT_PIPELINE.md#pc05--extensão-explícita-do-piloto-03112026),
+sem implementar UI, migrar histórico ou presumir revisão editorial.
+[Evidência PC05](evidence/2026-11-03-pc05-contrato-editorial.md).
+**PC04, rascunho preparado para revisão em 03/11/2026:** cinco briefs, uma aula
+M01.01 completa, cinco fontes com declaração CC BY 4.0 conferida e quatro
+diagramas autorais SVG/PNG. Produção canônica no Google Docs; hashes e limites
+no [pacote de revisão](evidence/2026-11-03-pc04-pacote-piloto.md). Direitos dos
+ativos aprovados por Anderson no recorte abaixo; revisão por Claude aceita no PC03-B. Nenhum
+candidato gerado ou conteúdo ativado. Corrigida a referência ao modelo M06.04: a ADR
+de 24/10 continha aval pendente; Anderson aprovou agora o uso didático delimitado no novo piloto, sem reativar os exemplos retirados.
+**PC03-B aceito por Claude em 03/11/2026:** execução real de Claude Code
+`2.1.215`, modelo `claude-sonnet-5`, somente leitura. Cobriu mapa, cinco briefs,
+M01.01 e quatro PNGs. Três ajustes menores corrigidos e conferidos, sem novos
+achados. Proveniência de S02 corrigida no fechamento; S01/S02/S03 confirmadas
+por excertos primários. [Parecer e evidência](evidence/2026-11-03-pc03b-revisao-claude.md).
+**Aceites de Anderson em 03/11/2026:** crédito “Radiant — criado com assistência
+de IA (Codex), 2026” e CC BY 4.0 dos quatro diagramas, nos direitos que possam
+ser concedidos, sem afirmar autoria humana/exclusividade; uso didático do
+modelo 27×33 cm/área relativa, cena abstrata nova 18 cm/faixa 18–20 cm, sem
+cálculo de dose/espalhamento ou protocolo clínico. PC04 concluído nesse recorte.
+Os payloads e a primeira conferência PC05 constam abaixo. VoiceOver e integridade
+offline eram prova da saída do PC06, sem criar dependência circular; a parte offline
+passou ao primeiro lote promovido por decisão de 04/11, registrada abaixo. Aceite editorial por IA
+não é aprovação clínica, liberação de direitos ou autorização de build/release.
+Não repetir os pedidos de aprovação de produto já respondidos.
+**PC05, primeira conferência de payloads reais em 03/11/2026:** serializados
+M01.01 (quatro etapas, prática e dois itens), quatro práticas dos briefs,
+variante de costas e dois contextos de recuperação. A extensão aceita as
+cinco famílias; o lote completo continua recusado pelas quatro competências
+sem checkpoint, e M01.01 continua sem os seis aceites por hash. Quatro PNG/SVG
+locais conferidos; retornos específicos de checkpoint, ajuda e recuperação
+preservados como dados auxiliares, ainda sem integração. Cena abstrata nova,
+resolução offline, transição e prova acessível ficam no PC06; quatro aulas
+completas/itens inéditos faltam antes da promoção do lote inteiro.
+[Pacote, conferência e limites](evidence/2026-11-03-pc05-payloads.md).
+Validação local configurada: 15/15 em um ciclo; testes focados novos 6/6.
+Writer `run-1793732396388-304aaa9c`; dados e entradas documentais locais,
+sem commit ou CI desta entrega. Alterações anteriores preservadas.
+**PC06-A — implementação local e testes em 03/11/2026:** componente de prévia
+M01.01 por injeção explícita, com ajuda, retornos por alternativa do checkpoint
+e dois contextos de recuperação. Reutiliza motor/renderers; confirmação e
+observações idempotentes por montagem, sem gravar progresso ou conceder XP/vidas.
+Recusa dados auxiliares incompletos, IDs antigos e recuperações trocadas.
+4 suítes/62 testes focados passaram, incluindo 20 novos; lint/typecheck passaram.
+Não há rota, material padrão, promoção ou prova nativa. PC06 permanece aberto.
+Gate final configurado: 15/15 no terceiro ciclo, após corrigir o título da
+avaliação e usar `layout.screen`, sem novas exceções. Writer
+`run-1793733495523-85ad88f7`; sem commit ou CI desta entrega.
+[Evidência e limites](evidence/2026-11-03-pc06a-previa-editorial.md).
+PC06-B registrado abaixo, com cena abstrata nova e ativos locais conferidos; depois
+transição, Q6 e prova acessível/nativa do conjunto.
+**PC06-B — implementação local e testes em 03/11/2026:** prévia de práticas
+por injeção, cena abstrata nova de campo/retângulo, controles existentes e
+diagramas resolvidos por módulos locais estáticos. Hashes, dimensões e imports
+dos quatro PNGs conferidos; quadro proporcional e comparações sem corte (só em
+Jest: no aparelho a Q3 cortava, corrigido em 04/11, ver PC06-E), com confirmação e bloqueio das alternativas. Sem hash de arquivo em runtime,
+bundle/build ou prova offline em aparelho. Não há nova aula ativa ou promoção.
+[Evidência e limites](evidence/2026-11-03-pc06b-cena-e-ativos-locais.md).
+13 suítes/123 testes focados passaram, incluindo 40 novos; lint/typecheck e
+gate configurado final 15/15 em um ciclo. Writer `run-1793735875963-ef2cb665`;
+sem commit ou CI desta entrega. Alterações anteriores preservadas.
+**PC06-C — transição implementada localmente em 03/11/2026:** aviso comum em
+learn/quiz/híbrida, revisão vazia elegível e retomada de conteúdo ausente antes
+de escrita/restauração. A trilha informa preparação quando vazia; histórico de
+conclusões e cartões retirados é preservado, sem conversão para IDs novos.
+9 suítes/297 testes focados passaram; quatro suítes/71 testes de guardas passaram
+após conferir também cursor antigo com outro catálogo disponível. Typecheck e lint passaram sem avisos. Gate final **15/15**, após corrigir
+expectativas de duas suítes antigas (primeiro gate 13/15). Writer substituto
+`run-1793748470812-ae4f23ac`, um ciclo; implementação inicial supervisionada
+por `run-1793747264755-f7cc7eee`. Sem prova nativa, commit ou CI.
+[Evidência e limites](evidence/2026-11-03-pc06c-transicao-conteudo-retirado.md).
+**PC06-D — renderer Q6 implementado localmente em 03/11/2026:**
+`case-decision` textual registrado; contexto e fases de decisão/motivo/apoio
+por capítulos explícitos, seleção por ID e confirmação antes do feedback.
+A última decisão exige um segundo toque para concluir; acerto/erro mantêm a
+economia existente. Imagens não suportadas são recusadas. O contrato editorial
+continua recusando Q6 e nenhuma aula foi promovida. Passaram 8 suítes/318 testes
+focados; typecheck e lint sem saída de erro. Primeiro gate 14/15 (R2 de layout local); corrigido com
+`layout.stackSm`; segundo gate **15/15** no writer
+`run-1793749103231-cbf042db`. [Evidência e limites](evidence/2026-11-03-pc06d-renderer-case-decision.md).
+**Fechamento conferido em 03/11/2026:** writer PC06-D fechado com
+`MEMORY_WRITTEN` e `RUN_CLOSED`; sessão
+`brain-session-1793748895817-6631edbb` fechada. PC06-B e writer substituto PC06-C
+também estão fechados. Branch permanece `claude/conteudo-reinicio-tecnologo`,
+HEAD `dcb681072ddc95ab5e00aa9e8a34a770c9252ad0`; entregas PC03–PC06 estão na
+árvore local suja, sem commit/push. Não absorver alterações de outras etapas.
+**PC06-E — integração local e prova nativa parcial em 04/11/2026:** entrada
+`/editorial-preview`, somente `__DEV__` com opt-in explícito; o resolvedor Metro
+bloqueia o laboratório, cenário sintético Q6 e JSON de revisão no grafo de release.
+Reutiliza o pacote PC05 único, prévias, cena abstrata e aviso de retirada. Corrigidos
+bloqueio da ordenação após confirmar, foco/anúncio solicitado e remedição dos
+textos ao mudar a escala, sem reiniciar a tentativa. Catálogo vazio, contrato Q6
+e seis aceites por hash preservados. No E262, cliente existente 1.4.0(3), foram
+observados menu normal/AX5 e aviso real de aula retirada. A captura inicial AX5
+revelou corte por medida antiga; a correção foi reconferida no menu. Não houve
+interação por driver, VoiceOver/TalkBack ou prova offline autônoma: cliente sem
+`main.jsbundle`, bridge Maestro vazio, nenhum runner instalado. Fonte `large`
+restaurada, app/simulador/Metro encerrados; reservado preservado. PC06-E tem
+integração entregue e provas restantes pendentes; PC06 permanece aberto.
+[Evidência PC06-E, comandos e limites](evidence/2026-11-04-pc06e-integracao-e-provas.md).
+Passaram 15 suítes/237 testes focados e 11 contratos de isolamento/Metro.
+Gate final configurado **15/15**, segundo ciclo após corrigir o lint CJS,
+no writer `run-1793791456840-0d771202`; sem commit ou CI desta entrega.
+**PC06-E — interação nativa por toque em 04/11/2026, segunda passagem:** sem build,
+instalação ou driver, no mesmo cliente do E262, passaram seleção, confirmação,
+bloqueio, próxima interação limpa e feedback final em M01.01, Q2–Q6. Quatro defeitos
+reais corrigidos em renderers compartilhados: Q3 com diagrama cortado, índice do
+hotspot ilegível e sobre o rótulo do desenho, setas da ordenação sem aparência de
+travadas, e coluna estreita em AX5. Bundle JS de release com opt-in medido: sem
+material do laboratório e sem os quatro PNGs. **Sem prova:** offline autônomo (um
+Release nunca conterá as prévias) e VoiceOver/TalkBack (simulador sem VoiceOver).
+**Decisão de Anderson em 04/11/2026:** a prova offline passa ao primeiro lote
+promovido, sobre o conteúdo real, sem build de revisão das prévias. VoiceOver segue
+pendente, em aparelho físico. PC06 permanece aberto.
+Achado editorial aberto: práticas do pacote PC05 expõem texto de brief ao aluno.
+17 suítes/245 testes focados; gate configurado **15/15** em um ciclo. Writer
+`run-1793799555460-cecc68c9`; sem commit ou CI.
+**PC06-E — aviso de retirada e texto ampliado, 05/11/2026:** corrigida a
+medição de título/corpo quando a escala muda com a tela aberta, incluindo a
+versão de revisão indisponível. Somente os textos são remontados por escala;
+tela, botão e guarda de foco/anúncio único permanecem. Passaram quatro
+suítes/30 testes focados, TypeScript, lint e visual estrito sem regressão nova.
+No E262, normal→AX5, AX4→AX5 e montagem inicial em AX5 foram exercitados sem
+build/instalação. Medição nativa por identidade de nó confirmou altura suficiente
+para título e corpo de ambas as versões. A instrumentação foi retirada; não é
+prova de VoiceOver nem novo aceite geral de acessibilidade. PC06 continua aberto,
+offline segue no primeiro lote promovido e o achado editorial continua pendente.
+[Evidência e capturas do aviso](evidence/2026-11-05-pc06e-aviso-texto-ampliado.md).
+Gate final configurado **15/15 em um ciclo**, writer
+`run-1793875917068-c8297725`; sessão de leitura fechada antes dele.
+**PC06-E — preparação de VoiceOver físico e passagem em 05/11/2026:** Anderson
+informou iPhone com cliente de desenvolvimento; inventário identificou iPhone 16
+com iOS 27.2. Versão/build do app não verificados: consulta falhou por bloqueio/DDI
+e CoreDevice 4016, sem comprovar incompatibilidade. Metro LAN foi preparado, mas
+não houve confirmação do menu, cliente no inspector ou relato de VoiceOver.
+**Prova física NÃO EXECUTADA, sem aceite.** Metro próprio encerrado, sem listener
+em 8081 na conferência; nenhuma instalação, limpeza ou edição de dados do iPhone
+pelo agente.
+[Prompt atual de continuidade](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md)
+orienta a retomada física com cliente existente; preserva a decisão de offline no
+primeiro lote promovido. PC06 segue aberto, sem promoção ou release.
+Fechamento documental de 05/11: sete arquivos, 18 testes documentais e links
+conferidos; gate configurado **13/15**, `app-quality`/`app-test` em timeout sob
+carga elevada (pico medido ~84), sem nova tentativa. Writer
+`run-1793883210851-fe26b896` sem sucesso validado; encerramento pela CLI sem
+`step finish`/memória. Sessão `brain-session-1793883178064-d5b6f7b6` fechada.
+O Jest próprio remanescente foi encerrado após o timeout; processos alheios
+preservados. O resultado não substitui os gates 15/15 anteriores.
+**PC06-E — iPhone físico, 05/11/2026, 11:41:** por cabo, o Mac leu iPhone 16, iOS
+27.2 e Radiant **1.4.0 (11)**. Esse app ignorou a URL do cliente de desenvolvimento,
+fez zero pedidos ao Metro e respondeu "Unmatched Route" à rota da prévia. O cliente
+existente **não serve** para a prova. **VoiceOver NÃO EXECUTADO, prova física
+bloqueada.** Anderson escolheu registrar e encerrar, sem autorizar build; o VoiceOver
+não saiu dos critérios do PC06, que segue aberto. Retomar exige autorização de build e
+instalação de cliente de desenvolvimento. Metro encerrado; nada instalado.
+Gate deste registro documental: **14/15**, `app-quality` em timeout sob `ffmpeg`
+alheio; o mesmo comando direto passou em 215 s. Writer
+`run-1793889878168-4fd88a0e` fechado sem sucesso validado e sem memória.
+[Evidência](evidence/2026-11-05-pc06e-iphone-cliente-sem-metro.md).
+**PC04 — quatro aulas do piloto, 05/11/2026:** M01.02, M02.01, M02.02 e M06.04 escritas
+com oito itens de checkpoint, recuperações e ajuda. O lote deixa de ter recusa de
+cobertura e a promoção segue recusada, sem as seis aprovações. O texto de brief saiu
+das práticas. **Rascunho de IA sem revisão independente**, em [Google Doc próprio](https://docs.google.com/document/d/1g7JAN5szNx4qBogWupp363i3HHOgCMSMew6dUA46iwY),
+sem prova em aparelho; catálogo vazio.
+Um subagente Claude novo achou o checkpoint da M02.01 aprovável com uma resposta constante,
+retornos que não explicavam o erro e legenda de produção na M06.04; corrigido. O Doc guarda
+a primeira versão e está atrás do repositório. "Produto dose-área" no renderer genérico
+segue aberto para o PC06.
+[Evidência e texto](evidence/2026-11-05-pc04-quatro-aulas.md).
+O [handoff anterior](superpowers/handoffs/2026-11-03-conteudo-pc06-prompt-de-continuidade.md)
+consolida a passagem histórica de 03/11, decisões, gates e limites. Fechamento documental de 03/11 supervisionado
+por `run-1793750532874-2b8afc6c`, gate **15/15** em um ciclo;
+18 testes documentais e caminhos/links do handoff conferidos. Nenhum Metro, build ou
+E2E iniciado naquele fechamento; sem listener em 8081 no preflight de 03/11.
 [Auditoria da retirada](evidence/2026-11-02-retirada-conteudo-radiant.md).
-Sem alteração do binário distribuído, banco remoto, AsyncStorage, build, instalação,
-EAS/OTA, merge ou loja. As evidências nativas antigas não aprovam o currículo futuro.
+Sem alteração do binário distribuído ou banco remoto, limpeza/migração de AsyncStorage,
+build, instalação, EAS/OTA, merge ou loja. O bootstrap normal do cliente foi executado
+na prova PC06-E; não foi medida igualdade byte a byte do armazenamento real.
+As evidências nativas antigas não aprovam o currículo futuro.
 
 ## Prazos de relógio
 
@@ -1046,9 +1232,11 @@ Medido em 2026-10-10, às 09:55:
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-- **Prompt de continuidade, atualizado em 2026-10-19 à noite:**
-  [prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md).
-  As referências anteriores ficam no histórico; não representam a ordem atual.
+- **Continuidade do conteúdo, 05/11/2026:**
+  [PC06-E / VoiceOver físico](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md);
+  integração entregue localmente, prova física não executada.
+  O [prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md)
+  é histórico da frente anterior; não rege a sequência atual de conteúdo.
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

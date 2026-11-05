@@ -48,6 +48,16 @@ Quando documentos divergirem, use esta ordem:
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
 - [`STATUS.md`](STATUS.md) — estado vivo e handoff para a próxima sessão
 
+### Conteúdo — reinício de 2026-11-02
+
+- [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md), com decisões
+  aprovadas e sequência PC01–PC09; o estado vivo continua em [STATUS](STATUS.md).
+- [Continuidade PC06-E: VoiceOver físico](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md)
+  — passagem de 05/11: integração e toque já medidos; prova física preparada,
+  sem execução/aceite. Contém checkout, decisões, roteiro e limites.
+- [Handoff após PC06-D, histórico](superpowers/handoffs/2026-11-03-conteudo-pc06-prompt-de-continuidade.md)
+  — fotografia de 03/11; a integração prevista já foi entregue.
+
 ### Qualidade e evidências locais
 
 - [Medalhão — pendências e fechamento](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
