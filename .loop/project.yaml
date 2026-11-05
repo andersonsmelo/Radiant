@@ -36,6 +36,10 @@ context:
     # `git status`, mas o guarda de escopo a via: em 2026-09-24 derrubou um run
     # em `needs_human` com os 14 validadores verdes. Decisão do dono, 2026-09-24.
     - .claude/settings.local.json
+    # Índice da Serena: qualquer sessão com o servidor ativo reescreve o cache
+    # no meio do run, e o guarda de escopo fotografa o disco inteiro. Decisão do
+    # dono, 2026-11-03.
+    - .serena
     - node_modules
     - dist
     - coverage
