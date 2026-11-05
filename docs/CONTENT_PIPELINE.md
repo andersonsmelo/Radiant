@@ -185,8 +185,8 @@ permanece igual; não há migração automática de artefatos ou aprovações an
 O [pacote PC05](evidence/2026-11-03-pc05-payloads.md) serializa a aula M01.01
 e as práticas dos quatro briefs, com uma variante e dois contextos de recuperação.
 O verificador `scripts/content/check-pilot-payloads.mjs` é somente leitura:
-usa o schema real, confere bytes locais e exige que o lote incompleto continue
-recusado pelas quatro competências sem checkpoint. O candidato M01.01 valida
+usa o schema real, confere bytes locais e, desde 05/11, exige o lote sem recusa
+de cobertura e a promoção recusada sem aprovações. O candidato M01.01 valida
 sem conceder os seis aceites por hash. Retornos por alternativa do checkpoint,
 ajuda e recuperação são dados auxiliares pendentes de integração no PC06;
 não foram introduzidos por campo oculto no contrato v1. O JSON é artefato de

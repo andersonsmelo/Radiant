@@ -1461,12 +1461,12 @@ as decisões; o texto anterior foi preservado no histórico do STATUS.
   nem tem a rota da prévia; prova física bloqueada até autorização de build e
   instalação de cliente de desenvolvimento
   ([evidência](../evidence/2026-11-05-pc06e-iphone-cliente-sem-metro.md),
-  [handoff atual](../superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md)).
+  [handoff atual](../superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md)).
   **PC04, 05/11:** quatro aulas e checkpoints escritos como rascunho de IA, sem
   revisão; promoção segue recusada
   ([evidência](../evidence/2026-11-05-pc04-quatro-aulas.md)).
   PC06 permanece aberto; Q6 continua recusado pelo contrato editorial.
-  Entregas locais sem commit/push; promoção e release pendentes.
+  Entregas publicadas na branch em 05/11, sem PR; promoção e release pendentes.
 
 ### Onda K — Radiant 1.4: fluxo do usuário e robustez
 

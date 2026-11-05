@@ -146,6 +146,9 @@ antes de qualquer comando dirigido. Não mate processos de outras sessões.
 
 ### Correção medida em 05/11, 11:41: o caminho abaixo está bloqueado
 
+**Este prompt é histórico como entrada:** use o
+[prompt do lote do piloto](2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md).
+
 O Radiant do iPhone, **1.4.0 (11)**, ignorou a URL do cliente, não fez pedido ao
 Metro e respondeu "Unmatched Route" à rota da prévia. O "cliente existente" não serve
 para esta prova, e Anderson escolheu registrar e encerrar. Não repita os passos abaixo

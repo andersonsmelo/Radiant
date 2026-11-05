@@ -52,9 +52,10 @@ Quando documentos divergirem, use esta ordem:
 
 - [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md), com decisões
   aprovadas e sequência PC01–PC09; o estado vivo continua em [STATUS](STATUS.md).
-- [Continuidade PC06-E: VoiceOver físico](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md)
-  — passagem de 05/11: integração e toque já medidos; prova física preparada,
-  sem execução/aceite. Contém checkout, decisões, roteiro e limites.
+- [Continuidade: lote do piloto](superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md) — entrada atual: quatro aulas escritas, o que
+  falta e o que depende do dono.
+- [Continuidade PC06-E: VoiceOver físico, histórico](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md) — roteiro da prova, bloqueada
+  pelo cliente do iPhone.
 - [Handoff após PC06-D, histórico](superpowers/handoffs/2026-11-03-conteudo-pc06-prompt-de-continuidade.md)
   — fotografia de 03/11; a integração prevista já foi entregue.
 

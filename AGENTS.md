@@ -495,6 +495,25 @@ defeito que se queria pegar.
   e `10.0.2.2`, deixou a tela branca em 2026-10-19, sem pedido de bundle no
   Metro.
 
+### Quatro lições de 2026-11-05 (conteúdo do piloto)
+
+- **Render de vídeo alheio derruba o gate sem nada mudar no código.** Com `ffmpeg` em uso,
+  o `app-quality` levou 215 s e estourou o prazo de 180 s; com a máquina livre, 98 s. A carga
+  de 1 minuto engana, porque cai entre um arquivo e outro da fila. Antes de validar, leia
+  também a CPU somada do `ffmpeg` e espere ficar abaixo de ~60%.
+- **"Cliente de desenvolvimento" se mede, não se herda de relato.** O Radiant 1.4.0 (11) do
+  iPhone ignorou a URL do cliente, fez zero pedidos ao Metro e respondeu "Unmatched Route".
+  `builtByDeveloper: true` só descreve a assinatura. Aparelho `unavailable` costuma ser cabo:
+  peça isso antes dos passos de rede. Para ver o resultado sem instalar nada, use
+  `xcrun devicectl device capture screenshot`. Isso não prova fala do VoiceOver.
+- **Contrato verde não prova que a questão avalia.** Um checkpoint de dois itens passava com
+  os dois gabaritos de mesmo texto, então marcar sempre a mesma resposta fazia 2/2. Só a
+  revisão achou; agora `checkpoint-constant-answer` barra o texto igual, não o sentido igual.
+- **Google Docs por aqui:** o `gws` local não tem cliente OAuth, e `gws auth login` falha.
+  O conector do Drive cria documentos, mas não os edita, e o modo automático só libera a
+  criação com pedido explícito do dono. Texto que ainda vai mudar fica no repositório até
+  estabilizar: recriar o documento custa um arquivo novo a cada versão.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

@@ -624,7 +624,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       lote. Nenhuma promoção/ativação. [Payloads e limites](evidence/2026-11-03-pc05-payloads.md).
       Integração local de retornos/recuperação, cena abstrata e transição entregue
       nos recortes PC06-A/B/C abaixo; prova nativa/offline permanece pendente.
-      Completar as outras quatro aulas/itens antes de promover o lote inteiro. VoiceOver/offline são prova de saída do protótipo.
+      As outras quatro aulas e seus itens foram escritos em 05/11, ver abaixo. VoiceOver é prova de saída do protótipo; offline fica no primeiro lote promovido.
       **PC06-A implementado localmente em 03/11:** prévia M01.01 injetada,
       ajuda/retornos/recuperação integrados ao motor, 20 testes novos; sem rota,
       catálogo, persistência ou prova nativa. [Evidência](evidence/2026-11-03-pc06a-previa-editorial.md).
@@ -649,7 +649,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       interações nativas, leitores de tela e offline autônomo ainda pendentes.
       Nenhum driver/build/instalação autorizado por inferência.
       [Evidência PC06-E](evidence/2026-11-04-pc06e-integracao-e-provas.md).
-      [Prompt atual: VoiceOver físico](superpowers/handoffs/2026-11-05-conteudo-pc06e-voiceover-prompt-de-continuidade.md).
+      [Prompt atual: lote do piloto](superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md).
       **Segunda passagem em 04/11:** toque nativo no E262 passou em M01.01 e Q2–Q6;
       quatro defeitos de renderer corrigidos (Q3 cortada, índice do hotspot, setas
       da ordenação, coluna em AX5); bundle de release sem material do laboratório.
@@ -674,7 +674,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       de cobertura, e a promoção segue recusada. Texto de brief corrigido. Passada de
       revisão por subagente aplicada; o Doc ficou atrás do repositório.
       [Evidência e texto das aulas](evidence/2026-11-05-pc04-quatro-aulas.md).
-      PC06 permanece aberto; entregas ainda sem commit/push.
+      PC06 permanece aberto. Entregas publicadas na branch em 05/11, sem PR.
+      **Próximo passo do agente só com o dono:** revisão independente e as decisões do [STATUS](STATUS.md).
       [Evidência PC05](evidence/2026-11-03-pc05-contrato-editorial.md).
       [Plano único](plans/2026-11-02-planejamento-conteudo-radiant.md)
       e [ADR](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
