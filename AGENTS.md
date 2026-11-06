@@ -514,6 +514,28 @@ defeito que se queria pegar.
   criação com pedido explícito do dono. Texto que ainda vai mudar fica no repositório até
   estabilizar: recriar o documento custa um arquivo novo a cada versão.
 
+### Seis lições de 2026-11-05 e 06 (trilha ampla, cerca de quarenta subagentes)
+
+- **A janela de uso de 5 horas é o limite real, e nada acorda uma sessão cortada.** Dez
+  subagentes juntos a esgotaram em 30 minutos, três vezes. Meça o uso antes de cada
+  lote, lance o caminho crítico primeiro e deixe um `sleep` em segundo plano até o
+  horário do reset, que reinvoca a sessão. Agente interrompido continua por mensagem.
+- **Cada aviso de subagente acorda o controlador, que relê o contexto inteiro.** Com
+  mais de três ou quatro trabalhadores, use um orquestrador de contexto pequeno que
+  devolva uma tabela só, com prazo e teto de uso escritos no brief.
+- **O verificador que o autor vê precisa ser tão rígido quanto os gates do app.** Três
+  regras só apareceram depois da revisão: a conferência usa as quatro posições de
+  resposta, texto todo em maiúsculas conta como ênfase e há palavras reservadas. Passe
+  uma unidade pelo gerador e pelo gate antes de produzir em volume.
+- **O run do Loop pede a lista exata de arquivos.** Escreva o plano com o nome de cada
+  arquivo novo antes de abrir, monte a lista por script e diga ao subagente que só cria
+  os arquivos da lista dele.
+- **Teste que roda um script e lê a saída tem teto de 1 MiB.** O inventário da trilha
+  passou disso com 14 unidades e o `execFileSync` devolveu `ENOBUFS`. Passe `maxBuffer`.
+- **Branch sem PR não tem CI.** Um teste quebrado pela retirada de 2026-11-02 só
+  apareceu quando a PR #69 abriu. Abra a PR em rascunho cedo. E data de sequência se
+  testa fora de UTC: o defeito do fuso só falhava na máquina, não no CI.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

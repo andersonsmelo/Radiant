@@ -95,6 +95,16 @@ candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
 [evidência](../evidence/2026-10-18-motor-hibrido.md) definem escopo e prova; o
 estado vivo continua no STATUS. Não é entrega de loja.
 
+**Atualização de 2026-11-06 — trilha ampla (FILA 68).** Fora das ondas A a H, por
+delegação do dono em 2026-11-05
+([ADR](../adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)): a branch
+`claude/conteudo-reinicio-tecnologo` tem o núcleo da trilha rtg-2026 (14 unidades, 84
+aulas, revisão por IA), a aula com diálogo e as metas, na PR em rascunho #69, com o CI
+verde no commit `2bf480f`. Nada disso está na `main` nem na loja. Faltam os seis
+aprofundamentos, a prova completa no simulador e as imagens. Plano:
+[trilha ampla e engajamento](2026-11-05-radiant-trilha-ampla-e-engajamento.md);
+relatório: [2026-11-06](../superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
+
 ## 3. Estratégia
 
 1. **Local-first é o produto lançável.** A API não entra no caminho crítico do

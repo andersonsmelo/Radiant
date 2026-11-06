@@ -65,7 +65,7 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   [pipeline](CONTENT_PIPELINE.md)).
 - **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu exit 0, com
   **233 suítes e 3053 testes**, e o `loop validate` passou. É medição local,
-  com os arquivos da entrega na árvore. **CI na PR em rascunho [#69](https://github.com/andersonsmelo/Radiant/pull/69), em 2026-11-06 às 09:20:** `quality` passou; `content` reprovou em `concepts-reader.test.py`, que exigia ao menos um conceito e o índice está vazio desde a retirada de 2026-11-02. A falha era anterior a esta entrega e nunca tinha aparecido, porque a branch não tinha PR. O teste passou a seguir o índice; confira o CI do commit seguinte com `gh pr checks 69`.
+  com os arquivos da entrega na árvore. **CI na PR em rascunho [#69](https://github.com/andersonsmelo/Radiant/pull/69), em 2026-11-06 às 09:20:** `quality` passou; `content` reprovou em `concepts-reader.test.py`, que exigia ao menos um conceito e o índice está vazio desde a retirada de 2026-11-02. A falha era anterior a esta entrega e nunca tinha aparecido, porque a branch não tinha PR. O teste passou a seguir o índice, e **no commit `2bf480f` os dois jobs passaram** (medido às 09:45). Remede com `gh pr checks 69`. O que foi feito está no [relatório de 2026-11-06](superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
 - **Visto no simulador `E262D4C1`** (Debug, 2026-11-06 às 03:56, commit `1e8725f`):
   a trilha nova, a cena de diálogo, o conceito, a pergunta e o retorno de erro com
   perda de vida ([capturas](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
