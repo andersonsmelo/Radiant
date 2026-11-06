@@ -2,13 +2,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SpacedRepetitionService } from './SpacedRepetitionService';
 import { itemReviewRepository } from '../repositories/ItemReviewRepository';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../../test/fixtures/syntheticEditorialBatch';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
     getItem: jest.fn(),
     setItem: jest.fn(),
     removeItem: jest.fn(),
 }));
+
+// Clock fixtures represent eligible content, not retired lessons.
+// The promoted-item test still resolves its real synthetic production batch.
+jest.mock('../../content/services/LessonCatalogService', () => ({ LessonCatalogService: {
+    getReviewQuestionsForLesson: (lessonId: string) => ['future', 'recent', 'oldest', 'exact'].includes(lessonId)
+        ? [{ id: `question:${lessonId}`, type: 'multiple-choice', prompt: 'Clock fixture',
+            options: [{ label: 'A' }, { label: 'B' }], correctAnswerIndex: 0, explanation: 'Clock fixture' }] : [],
+} }));
 
 const storage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 

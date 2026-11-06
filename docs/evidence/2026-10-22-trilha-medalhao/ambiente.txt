@@ -1,0 +1,180 @@
+2026-10-22T13:34:15.103159-03:00
+HEAD 76158274b0f253e56467a3a61a6370ff2b9f6f97
+Run T7 run-1792686789421-4d7b1961
+Dev client iOS existente: com.ascendcreative.radiant 1.4.0 (3)
+SHA256 Radiant.debug.dylib f6389a8c9e3b24d10b5184ff085c41e342ee9d7e882a2b4d4eb786e99d8c315e
+Instalado no simulador dia2 sem uninstall/clearState; verificar estado pela UI.
+Build Debug existente; JS por Metro da worktree. Sem build nesta tarefa.
+Node app v20.20.2
+Node Loop v24.14.1
+
+Medidas nativas iOS via CDP, somente leitura de measureInWindow (scratch global apagado):
+[{"level":0,"name":"RCTView","testID":"journey-pixel-slot-node:lesson-2","style":"[{\"opacity\":1,\"transform\":[{\"translateX\":0},{\"translateY\":0}]}]","layout":{"x":-249.75,"y":389.00000508626306,"width":48,"height":46}},{"level":4,"name":"RCTView","style":"[{\"position\":\"absolute\",\"top\":0,\"bottom\":0,\"justifyContent\":\"center\"},{\"right\":\"100%\",\"marginRight\":8},false]","layout":{"x":-249.75,"y":368.00000508626306,"width":48,"height":88}},{"level":6,"name":"RCTView","style":"{\"alignItems\":\"center\"}","layout":{"x":96.25,"y":368.00000508626306,"width":80,"height":88}},{"level":8,"name":"RCTView","testID":"journey-anchor-node:lesson-2","style":"[{\"alignItems\":\"center\",\"paddingTop\":25},false,{\"transform\":[{\"translateX\":-64.75}]}]","layout":{"x":37.25,"y":343.00000508626306,"width":198,"height":222}},{"level":10,"name":"RCTView","testID":"journey-trail-row-node:lesson-2","style":"[{\"alignItems\":\"center\"},{\"paddingBottom\":12}]","layout":{"x":16,"y":343.00000508626306,"width":370,"height":234}},{"level":13,"name":"RCTView","style":"null","layout":{"x":16,"y":343.00000508626306,"width":370,"height":234}},{"level":19,"name":"RCTScrollContentView","style":"[false,{\"position\":\"relative\",\"paddingBottom\":16}]","layout":{"x":16,"y":-64.33333841959632,"width":370,"height":2555.33349609375}},{"level":20,"name":"RCTScrollView","testID":"journey-trail","style":"{\"flexGrow\":1,\"flexShrink\":1,\"flexDirection\":\"column\",\"overflow\":\"scroll\"}","layout":{"x":16,"y":148.3333282470703,"width":370,"height":563.6666870117188}}]
+
+Estado do console antes do benchmark: [{'kCGSSessionOnConsoleKey': True, 'kCGSessionLoginDoneKey': True}]; chave de bloqueio ausente.
+
+Android FlatList CDP somente leitura: 60 itens, 57 nós, 3 faixas; completed1, due-review1, available1, locked54; initialNumToRender12,windowSize7. Sem alteração de dados.
+Video nativo23.495s; quadros extraídos5.7/6.0/6.5s. Preparação Maestro normal-motion interrompida no passo2/5 (exit130), continuação por toques nativos até3/3 e resumo. Não confundir com flow canônico PASS com reduzir movimento.
+Reduzir movimento: launch -radiantReduceMotion 1, relançamento com dados preservados; PNGs1206x2622 separados por~1s idênticos pixel a pixel.
+Encerramento da coleta: apps parados, E262D4C1 e5FD8C926 shutdown; emulator-5554 encerrado, reverse8081 removido; Metro encerrado.
+
+Extratos originais de hierarquias Maestro (somente atributos relevantes):
+[
+  {
+    "source": "radiant-app/.maestro/artifacts/t7-dia2-sem-alerta/2026-10-22_133710/Caminho dourado 2 — segundo dia com revisão devida/screen-hierarchy/step-010-assertCondition-^Revisar_Fundamentos_de.json",
+    "attributes": [
+      {
+        "resource-id": "journey-trail",
+        "bounds": "[16,148][386,712]",
+        "enabled": "true",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      },
+      {
+        "accessibilityText": "Fundamentos de Radiologia. Concluído.",
+        "value": "3 estrelas",
+        "text": "3 estrelas",
+        "bounds": "[102,48][170,145]",
+        "enabled": "true",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      },
+      {
+        "accessibilityText": "Revisar Fundamentos de Radiologia. Disponível em 22/10/2026 às 13:56.",
+        "bounds": "[236,223][296,291]",
+        "enabled": "false",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      }
+    ]
+  },
+  {
+    "source": "radiant-app/.maestro/artifacts/t7-vidas/2026-10-22_134609/Caminho dourado 3 — primeiro contato grátis e erro no retorno esgota vidas/screen-hierarchy/step-063-assertCondition-Passo_1_de_5.json",
+    "attributes": [
+      {
+        "resource-id": "journey-trail",
+        "bounds": "[16,148][386,712]",
+        "enabled": "true",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      },
+      {
+        "accessibilityText": "Fundamentos de Radiologia. Concluído.",
+        "value": "2 estrelas",
+        "text": "2 estrelas",
+        "bounds": "[102,29][170,126]",
+        "enabled": "true",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      },
+      {
+        "accessibilityText": "Revisar Fundamentos de Radiologia. Disponível em 23/10/2026 às 13:47.",
+        "bounds": "[236,204][296,272]",
+        "enabled": "false",
+        "focused": "false",
+        "selected": "false",
+        "checked": "false"
+      }
+    ]
+  }
+]
+
+Recoleta após o gate15/15:5FD8C926 relançado com Metro; abertura carregada conferida e ios-abertura.png substituída; revisão22/10/2026 13:56 vencida naturalmente após14:06. Terceira execução dia2PASS exit0, mesmo container sem clearState, sem alteração de dados/relógio. App parado,5FD8shutdown,Metro encerrado outra vez. AVD não relançado, conserva revisão devida para remedição futura.
+Envelope Loop configurado: {"code": "VALIDATION_PASSED", "runId": "run-1792686789421-4d7b1961", "state": "validating"}
+[
+  {
+    "validatorId": "docs-contract",
+    "status": "passed",
+    "evidenceId": "evidence-1a45bf08-a42d-4500-9589-417efe0fd1c3",
+    "outputHash": "781f4bffbbd503c4e14c9b5e6f8c31dbc810a7261fa9a80df28588091ed5fb96"
+  },
+  {
+    "validatorId": "content-foundation",
+    "status": "passed",
+    "evidenceId": "evidence-f99cc016-1214-4b42-ac5d-d061044a04e6",
+    "outputHash": "48fe4248b9c0f70a9c6f0f783281507914cce3934fa39048124ec910460bda57"
+  },
+  {
+    "validatorId": "content-wave1",
+    "status": "passed",
+    "evidenceId": "evidence-a032defb-914b-401b-87b2-2b5bc52baf41",
+    "outputHash": "55dd7680b2633adde72dd760759bf38f42478aeef843ad80212673d2aa0f5b30"
+  },
+  {
+    "validatorId": "content-production",
+    "status": "passed",
+    "evidenceId": "evidence-c4346189-c78f-4a58-8b2a-4177ff4d40ae",
+    "outputHash": "cc4b672848dc074da127052882c0872173ccf584bda7a86a541f89f1d02f82c2"
+  },
+  {
+    "validatorId": "content-anchoring",
+    "status": "passed",
+    "evidenceId": "evidence-cb07fbe8-217b-4669-ad31-757d5f8090dc",
+    "outputHash": "60b10407eacfcd2046b9357d87106b6ce36c4dd2906b73398ccd8553c551564b"
+  },
+  {
+    "validatorId": "content-anchoring-data",
+    "status": "passed",
+    "evidenceId": "evidence-3450c2b2-d148-47a5-a60e-9032800e6f25",
+    "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5"
+  },
+  {
+    "validatorId": "content-no-verbatim",
+    "status": "passed",
+    "evidenceId": "evidence-43fdf982-548b-4148-905b-95058e61ee6d",
+    "outputHash": "56bb17cfb5eb44c5bb53a03b698fb2567e0b059e838c4e969af344534ae69242"
+  },
+  {
+    "validatorId": "content-source-rights",
+    "status": "passed",
+    "evidenceId": "evidence-8ce7ce45-cab6-42c5-be54-2eb1fddda8aa",
+    "outputHash": "1678b97f9b46dafd3933bd0042cd91a39502a7181c5a9d9ed16b57859bab20c9"
+  },
+  {
+    "validatorId": "content-python",
+    "status": "passed",
+    "evidenceId": "evidence-81b4321d-80c3-47d8-bf32-1b2fa6d833dc",
+    "outputHash": "10789d8fde7cc17bf07877a014e2b501bc8ae38937c0c72e63e15ca90269b9af"
+  },
+  {
+    "validatorId": "app-quality",
+    "status": "passed",
+    "evidenceId": "evidence-30169c9e-020d-4a47-9e57-daa791e34318",
+    "outputHash": "c47784ab1149ee79a8485ec62d709af82e50919e7d9d8cb4e175696c4d579ac2"
+  },
+  {
+    "validatorId": "app-test",
+    "status": "passed",
+    "evidenceId": "evidence-70690850-e8f2-416c-8a4b-49f711b192d0",
+    "outputHash": "9a92918ded413aed0b234aa3ca880cd21c48f84bcb3fa08c5dbf108863f46c72"
+  },
+  {
+    "validatorId": "api-lint",
+    "status": "passed",
+    "evidenceId": "evidence-49fdd45a-0664-4278-8717-2088880a8bcd",
+    "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5"
+  },
+  {
+    "validatorId": "api-typecheck",
+    "status": "passed",
+    "evidenceId": "evidence-db72749b-ee5a-42a1-934d-4f9410941259",
+    "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0"
+  },
+  {
+    "validatorId": "api-test",
+    "status": "passed",
+    "evidenceId": "evidence-6a5b6413-bf1e-494a-83e4-da7312b34f92",
+    "outputHash": "0c6c9650f8ae6336a0caa76bfad2e24ac243716861356a7b6b6f43bde94762b3"
+  },
+  {
+    "validatorId": "brain-links",
+    "status": "passed",
+    "evidenceId": "evidence-2e6f222c-ff63-42e3-aea3-5d8595012ca6",
+    "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432"
+  }
+]

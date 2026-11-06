@@ -1,0 +1,2748 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "s-tc",
+    "code": "S-TC",
+    "title": "Aprofundamento em tomografia computadorizada",
+    "summary": "Aprofunda a tomografia em simulação supervisionada: instrumentação, parâmetros, reconstrução, preparo, artefatos e comparação de séries descritas. Não comprova operação real."
+  },
+  "sources": [
+    {
+      "id": "statpearls-tc-fisica",
+      "title": "Computed Tomography Instrumentation and Physics (StatPearls)",
+      "publisher": "NCBI Bookshelf",
+      "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK597347/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "statpearls-contraste-iv",
+      "title": "Intravenous Contrast Media in Medical Imaging (StatPearls)",
+      "publisher": "NCBI Bookshelf",
+      "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK557794/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-contraste",
+      "title": "Contrast Materials",
+      "publisher": "RadiologyInfo (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/safety-contrast",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-tc-torax",
+      "title": "Chest CT",
+      "publisher": "RadiologyInfo (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/chestct",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "esur-extravasamento-2022",
+      "title": "Intravenous contrast medium extravasation: systematic review and updated ESUR Contrast Media Safety Committee Guidelines",
+      "publisher": "European Radiology, via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9038843/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-ctdi",
+      "title": "CT dose index",
+      "publisher": "Radiopaedia",
+      "url": "https://radiopaedia.org/articles/ct-dose-index-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-artefatos-tc",
+      "title": "CT artifacts",
+      "publisher": "Radiopaedia",
+      "url": "https://radiopaedia.org/articles/ct-artifacts",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "burbridge-mah-tc",
+      "title": "Computed Tomography (CT), em Undergraduate Diagnostic Imaging Fundamentals",
+      "publisher": "Burbridge e Mah, via LibreTexts",
+      "url": "https://med.libretexts.org/Bookshelves/Allied_Health/Undergraduate_Diagnostic_Imaging_Fundamentals_(Burbridge_and_Mah)/03%3A_Principles_of_Imaging_Techniques/3.06%3A_Computed_Tomography_(CT)",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença CC BY-NC-SA 4.0 declarada na página; só consulta de fatos, com redação própria."
+    },
+    {
+      "id": "anvisa-rdc-611-2022",
+      "title": "RDC nº 611, de 9 de março de 2022 (cópia hospedada pelo CBR)",
+      "publisher": "Anvisa",
+      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; lidos os arts. 2º (XII), 23, 37, 38, 44, 53, 56 e 57, sem reprodução de texto."
+    },
+    {
+      "id": "mccollough-2011-ctdi",
+      "title": "CT Dose Index and Patient Dose: They Are Not the Same Thing",
+      "publisher": "Radiology, via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3079120",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-angio-tc",
+      "title": "CT Angiography (CTA)",
+      "publisher": "RadiologyInfo (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/angioct",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-hu",
+      "title": "Hounsfield unit",
+      "publisher": "Radiopaedia",
+      "url": "https://radiopaedia.org/articles/hounsfield-unit",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos com redação própria; sem reprodução de texto."
+    },
+    {
+      "id": "tanabe-2022-kernel",
+      "title": "Kernel Conversion for Robust Quantitative Measurements of Archived Chest Computed Tomography Using Deep Learning-Based Image-to-Image Translation",
+      "publisher": "Frontiers in Artificial Intelligence, via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8801695/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença CC BY declarada na página; só consulta de fatos, com redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "s-tc-01",
+      "code": "S-TC.01",
+      "title": "Revisão seccional e segurança",
+      "objective": "Hoje você vai conseguir conferir lado, plano e valores de uma série e dizer o que levar à equipe antes de continuar.",
+      "competency": "Retomar a leitura seccional e reconhecer as regras de sala que pedem parar e avisar a equipe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório de tomografia simulado, início do turno",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Caio, faz tempo que não vejo tomografia. Abro a série e já esqueço de que lado estou olhando."
+          },
+          {
+            "speaker": "caio",
+            "text": "Normal. Antes de qualquer coisa fina, eu retomo o básico: lado, plano e número. E a sala tem as regras dela."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Se uma dessas leituras não fechar, o que vem primeiro: corrigir ou contar para alguém?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Lado, plano, número e as regras da sala",
+        "body": "Três leituras voltam aqui. Lado: o observador fica ao pé da mesa, e o lado direito do paciente aparece à esquerda da tela. Plano: coronal e sagital saem dos dados axiais, sem nova exposição. Número: pulmão entre -950 e -650 HU, gordura perto de -100, tecido mole entre 25 e 50, conforme o órgão, osso, centenas de HU ou mais. A sala tem regras na RDC 611/2022: um paciente por vez; acompanhante só se imprescindível, nunca gestante ou menor de 18 anos; suspeita de gravidez informada antes do exame. Se algo não fecha, nesta ordem: parar, descrever sem interpretar, levar à equipe e seguir só com a orientação recebida.",
+        "keyPoints": [
+          "Lado direito do paciente à esquerda da tela.",
+          "Coronal e sagital saem dos dados axiais, sem nova exposição.",
+          "Não fechou: parar, descrever, levar à equipe, seguir com orientação."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M10 você viu a convenção da série axial. Com o observador ao pé da mesa, onde aparece o lado direito do paciente?",
+          "options": [
+            {
+              "label": "À direita da tela",
+              "correct": false,
+              "feedback": "Essa posição contraria a convenção. Retome: o observador olha do pé da mesa, de frente para o paciente."
+            },
+            {
+              "label": "À esquerda da tela",
+              "correct": true,
+              "feedback": "Isso. O observador olha dos pés para a cabeça, então o lado direito do paciente fica à esquerda de quem vê."
+            },
+            {
+              "label": "Na parte de cima da tela",
+              "correct": false,
+              "feedback": "O lado do paciente não se lê no alto da tela. Procure nas margens laterais."
+            },
+            {
+              "label": "Na parte de baixo da tela",
+              "correct": false,
+              "feedback": "A pergunta é sobre direita e esquerda do paciente, e isso se lê nas margens laterais, não embaixo."
+            }
+          ],
+          "sourceIds": [
+            "burbridge-mah-tc"
+          ],
+          "help": "Imagine-se ao pé da mesa, de frente para quem está deitado."
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Você confere valores de referência numa série de treino sem contraste. Ligue cada material ao valor ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Pulmão",
+              "right": "Entre -950 e -650 HU"
+            },
+            {
+              "left": "Gordura",
+              "right": "Perto de -100 HU"
+            },
+            {
+              "left": "Tecido mole",
+              "right": "Entre 25 e 50 HU"
+            },
+            {
+              "left": "Osso",
+              "right": "Centenas de HU ou mais"
+            }
+          ],
+          "feedbackCorrect": "Escala retomada: o pulmão bem abaixo de zero, a gordura um pouco abaixo, o tecido mole um pouco acima e o osso muito acima.",
+          "feedbackIncorrect": "Retome a ordem na escala: quem tem mais ar fica mais abaixo de zero e quem é mais denso fica mais acima.",
+          "help": "Comece pelos dois extremos da escala: o material com mais ar e o mais denso.",
+          "sourceIds": [
+            "radiopaedia-hu"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Uma leitura não fecha na estação de treino. Ponha as ações na ordem ensinada nesta aula.",
+          "items": [
+            "Parar o que estava fazendo",
+            "Descrever o que viu, sem interpretar",
+            "Levar a descrição à equipe",
+            "Seguir só com a orientação recebida"
+          ],
+          "feedbackCorrect": "Essa é a sequência: parar primeiro, descrever sem interpretar, levar à equipe e só então seguir, com orientação.",
+          "feedbackIncorrect": "Confira de novo: nada avança antes de parar, e seguir em frente é sempre o último passo, depois da orientação.",
+          "help": "Pense no que evita que o erro siga adiante e no que precisa existir antes de a equipe ajudar.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No treino, a paciente simulada Dona Marta já está na mesa e comenta: \"Minha menstruação atrasou. Será que tem problema?\". A ficha fictícia não traz essa informação, e o exame está pronto no console.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Sigo, porque o pedido médico já autorizou o exame",
+              "correct": false,
+              "feedback": "O pedido foi escrito sem essa informação. Retome a regra da sala: a suspeita precisa chegar à equipe antes do exame."
+            },
+            {
+              "label": "Digo que a dose da tomografia é baixa e continuo o preparo",
+              "correct": false,
+              "feedback": "Tranquilizar com uma avaliação não é sua parte. Interrompa e leve a fala dela a quem pode avaliar."
+            },
+            {
+              "label": "Cancelo o exame e peço que ela volte em outro dia",
+              "correct": false,
+              "feedback": "Cancelar também é decidir sozinho. Confira de novo sua parte: interromper e avisar a equipe."
+            },
+            {
+              "label": "Interrompo o preparo e aviso a equipe antes de qualquer exposição",
+              "correct": true,
+              "feedback": "Isso. Suspeita de gravidez se informa antes do exame. Quem avalia é a equipe, e você garante que a informação chegue a ela."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "radiologyinfo-tc-torax"
+          ],
+          "help": "O que a regra da sala pede a quem tem essa suspeita, e para quem a informação precisa ir?"
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na estação de treino, uma série axial de ombro traz a letra L à esquerda da tela e a letra R à direita. R marca o lado direito do paciente; L, o esquerdo. A ficha fictícia pede o ombro do lado esquerdo do paciente, e a série está pronta para arquivar.",
+          "prompt": "O que você faz com essa série?",
+          "options": [
+            {
+              "label": "Descrevo as letras invertidas à equipe e aguardo antes de arquivar",
+              "correct": true,
+              "feedback": "Isso. As letras contrariam a convenção, e o lado do paciente está em jogo. Você descreve, a equipe verifica."
+            },
+            {
+              "label": "Inverto a imagem na estação e arquivo a série já corrigida",
+              "correct": false,
+              "feedback": "Inverter sozinho pode criar o erro de lado em vez de corrigir. Pare e leve a divergência à equipe."
+            },
+            {
+              "label": "Arquivo, porque a região é a mesma do pedido",
+              "correct": false,
+              "feedback": "A região confere, mas o lado não está garantido. Confira de novo a convenção: as letras estão ao contrário dela."
+            },
+            {
+              "label": "Corrijo na ficha o lado que parece ser o certo",
+              "correct": false,
+              "feedback": "A ficha não se ajusta por impressão. Retome a sequência: parar, descrever e levar à equipe."
+            }
+          ],
+          "sourceIds": [
+            "burbridge-mah-tc",
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "Compare as letras com a convenção da série axial e pense em quem pode verificar a divergência."
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue retomar lado, plano e valores numa série descrita e reconhecer quando uma regra de sala pede parar, descrever e levar à equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quem se lembra do básico antes de avançar poupa a equipe de muitas surpresas."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Seu Alceu, paciente simulado, pede que o neto de 16 anos fique na sala para acalmá-lo durante o exame. O que a RDC 611/2022 diz sobre esse papel?",
+          "options": [
+            {
+              "label": "Ele pode ficar, desde que use vestimenta de proteção",
+              "correct": false,
+              "feedback": "A vestimenta é obrigatória para o acompanhante permitido, mas não libera quem a norma proíbe. Retome quem não pode."
+            },
+            {
+              "label": "Ele pode ficar, se for a primeira vez dele",
+              "correct": false,
+              "feedback": "Repetir o papel de forma regular é vedado, mas a idade já o impede aqui, mesmo sendo a primeira vez."
+            },
+            {
+              "label": "Ele não pode, por ser menor de 18 anos",
+              "correct": true,
+              "feedback": "Certo. A norma proíbe esse papel a gestantes e a menores de 18 anos. Leve o pedido à equipe, que vê outra forma de ajudar."
+            },
+            {
+              "label": "Ele pode ficar, por ser parente do paciente",
+              "correct": false,
+              "feedback": "O parentesco não muda a regra. A norma olha para a idade e para a gestação de quem acompanha."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "prompt": "Um colega propõe repetir a varredura de um treino só para obter o plano sagital. O que você leva à conversa com a equipe?",
+          "options": [
+            {
+              "label": "O sagital sai dos dados axiais, sem nova exposição",
+              "correct": true,
+              "feedback": "Isso. Coronal e sagital são calculados a partir dos dados axiais, então pedir o plano não pede nova varredura."
+            },
+            {
+              "label": "O sagital exige nova varredura com outro posicionamento",
+              "correct": false,
+              "feedback": "Esse raciocínio exporia de novo sem necessidade. Retome de onde saem os planos coronal e sagital."
+            },
+            {
+              "label": "O sagital só existe com a janela de pulmão",
+              "correct": false,
+              "feedback": "Janela é ajuste de exibição e vale para qualquer plano. Ela não limita a existência do sagital."
+            },
+            {
+              "label": "O sagital pede um contraste diferente na veia",
+              "correct": false,
+              "feedback": "Gerar outro plano é cálculo sobre dados já medidos. Contraste não entra nessa conta."
+            }
+          ],
+          "sourceIds": [
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na convenção axial, o observador fica ao … da mesa.",
+          "item": {
+            "prompt": "De onde o observador olha a série axial, nessa convenção?",
+            "options": [
+              {
+                "label": "Da cabeceira da mesa",
+                "correct": false,
+                "feedback": "Da cabeceira, os lados pareceriam trocados em relação à convenção. Volte ao ponto de vista combinado."
+              },
+              {
+                "label": "Do lado direito do paciente",
+                "correct": false,
+                "feedback": "Esse ponto de vista seria lateral, e o corte axial é visto ao longo do corpo. Retome a convenção."
+              },
+              {
+                "label": "Ao pé da mesa",
+                "correct": true,
+                "feedback": "Certo. Olhando dos pés para a cabeça, o lado direito do paciente fica à esquerda da tela."
+              },
+              {
+                "label": "De cima do paciente",
+                "correct": false,
+                "feedback": "De cima não é o ponto de vista da convenção. Ela olha ao longo do corpo, a partir de uma das pontas da mesa."
+              }
+            ],
+            "sourceIds": [
+              "burbridge-mah-tc"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Durante um treino, outro paciente simulado entra na sala para esperar sentado enquanto o primeiro está na mesa. O que a regra da sala pede?",
+            "options": [
+              {
+                "label": "Ele fica, se estiver de avental de proteção",
+                "correct": false,
+                "feedback": "O avental não muda a regra. Na sala, permanece um paciente de cada vez."
+              },
+              {
+                "label": "Ele fica, se sentar longe do gantry",
+                "correct": false,
+                "feedback": "A distância não libera a presença. A regra é sobre quantos pacientes podem estar na sala."
+              },
+              {
+                "label": "Ele não fica: aviso a equipe",
+                "correct": true,
+                "feedback": "Isso. A norma manda afixar na sala que só pode permanecer um paciente de cada vez. Avise a equipe para organizar a espera."
+              },
+              {
+                "label": "Ele fica, se a exposição for curta",
+                "correct": false,
+                "feedback": "O tempo de exposição não altera a regra. Retome a regra da sala."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte axial esquemático com um observador ao pé da mesa e uma seta do lado direito do paciente até a margem esquerda da tela.",
+        "Porta de sala com as regras: um paciente por vez, acompanhante só se imprescindível, gravidez informada antes."
+      ]
+    },
+    {
+      "id": "s-tc-02",
+      "code": "S-TC.02",
+      "title": "Instrumentação e aquisição",
+      "objective": "Hoje você vai conseguir seguir o feixe do tubo aos detectores e explicar o que o pitch compara.",
+      "competency": "Relacionar componentes do tomógrafo à sua função e interpretar o pitch como relação entre mesa e feixe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Maquete do tomógrafo no laboratório",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Na maquete tem filtro, colimador, detector... Eu decorei os nomes, mas troco quem faz o quê."
+          },
+          {
+            "speaker": "caio",
+            "text": "Decorar o nome não ajuda muito. Eu sigo o caminho do feixe, peça por peça. Fica mais difícil se perder."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então, antes de o feixe chegar ao paciente, o que já mudou nele?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O caminho do feixe e o pitch",
+        "body": "Siga o caminho do feixe. O tubo produz os raios X, e a tensão e a corrente definem a intensidade. O filtro retira fótons de baixa energia, o que baixa a dose e reduz o endurecimento do feixe. O colimador reduz a radiação espalhada e define o feixe e a espessura da seção. Os detectores convertem o que chega em sinal, e o computador reconstrói os cortes. Tubo e detectores giram no gantry. No modo helicoidal, a mesa anda enquanto o conjunto gira. O pitch divide o quanto a mesa anda em uma volta pela largura do feixe: 1 não sobrepõe; abaixo de 1, sobrepõe; acima de 1, deixa intervalos.",
+        "keyPoints": [
+          "Tubo, filtro, colimador, detectores, computador.",
+          "Colimador: feixe e espessura da seção.",
+          "Pitch: mesa por volta dividida pela largura do feixe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M10 você viu a geometria da tomografia. O que acontece com tubo e detectores durante a aquisição?",
+          "options": [
+            {
+              "label": "Giram ao redor do paciente, dentro do gantry",
+              "correct": true,
+              "feedback": "Isso. O gantry abriga os dois, e eles giram em volta do paciente."
+            },
+            {
+              "label": "Ficam parados enquanto só a mesa se move",
+              "correct": false,
+              "feedback": "A mesa pode se mover, mas as medidas em muitos ângulos vêm do giro. Retome a M10."
+            },
+            {
+              "label": "Só o tubo gira, e os detectores ficam na mesa",
+              "correct": false,
+              "feedback": "Os detectores não ficam na mesa: eles estão no gantry, junto com o tubo."
+            },
+            {
+              "label": "Giram em sentidos opostos, fora do gantry",
+              "correct": false,
+              "feedback": "Os dois estão dentro do gantry e giram como um conjunto. Confira de novo."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Pense em como obter medidas de muitos ângulos diferentes em volta do corpo."
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Faça a previsão, neste esquema: em uma volta, a mesa anda o dobro da largura do feixe. Qual é o pitch?",
+          "options": [
+            {
+              "label": "0,5, meia largura de feixe por volta",
+              "correct": false,
+              "feedback": "Essa conta está invertida. A mesa anda mais que uma largura de feixe, então o resultado passa de 1."
+            },
+            {
+              "label": "1, uma largura de feixe por volta",
+              "correct": false,
+              "feedback": "Pitch 1 é a mesa andando exatamente uma largura. Aqui ela anda o dobro disso."
+            },
+            {
+              "label": "4, o dobro elevado ao quadrado",
+              "correct": false,
+              "feedback": "O pitch é só uma divisão, sem quadrado. Retome: percurso da mesa por volta dividido pela largura do feixe."
+            },
+            {
+              "label": "2, duas larguras de feixe por volta",
+              "correct": true,
+              "feedback": "Isso. O pitch divide o percurso da mesa pela largura do feixe. É uma conta do esquema, não um ajuste a aplicar."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Escreva a divisão: o que vai em cima e o que vai embaixo?"
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada peça do tomógrafo à função ensinada nesta aula.",
+          "pairs": [
+            {
+              "left": "Filtro",
+              "right": "Retira fótons de baixa energia"
+            },
+            {
+              "left": "Colimador",
+              "right": "Define o feixe e a espessura da seção"
+            },
+            {
+              "left": "Detectores",
+              "right": "Convertem os raios X em sinal"
+            },
+            {
+              "left": "Gantry",
+              "right": "Abriga o tubo e os detectores"
+            }
+          ],
+          "feedbackCorrect": "Mapa pronto: o filtro muda a energia do feixe, o colimador muda a forma dele, os detectores medem e o gantry sustenta o conjunto.",
+          "feedbackIncorrect": "Retome o caminho do feixe. O filtro e o colimador agem antes da medida; os detectores medem; o gantry é a estrutura.",
+          "help": "Pergunte de cada peça: ela muda o feixe, mede o feixe ou sustenta o conjunto?",
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Siga o feixe na ordem ensinada nesta aula, da produção ao corte pronto.",
+          "items": [
+            "Tubo produz os raios X",
+            "Filtro retira fótons de baixa energia",
+            "Colimador define o feixe",
+            "Detectores convertem o que chega em sinal",
+            "Computador reconstrói os cortes"
+          ],
+          "feedbackCorrect": "Caminho certo: o feixe nasce no tubo, é filtrado e limitado, chega aos detectores e vira corte no computador.",
+          "feedbackIncorrect": "Confira de novo: o corte é a última etapa e depende do sinal, que depende do feixe. Volte ao tubo e siga adiante.",
+          "help": "Comece pelo lugar onde os raios X nascem e termine no que você vê na tela.",
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "No treino, a ficha do equipamento fictício indica que o teste de constância, avaliação rotineira dos parâmetros do equipamento, está vencido. Caio ainda não chegou, e a turma quer começar logo.",
+          "prompt": "O que você faz com a ficha do equipamento?",
+          "options": [
+            {
+              "label": "Ignoro a ficha e sigo, pois o treino é simples",
+              "correct": false,
+              "feedback": "A ficha aponta algo que pode afetar a qualidade, seja o treino simples ou não. Informe antes de começar."
+            },
+            {
+              "label": "Não inicio e informo a ficha à supervisão",
+              "correct": true,
+              "feedback": "Isso. Toda circunstância que possa afetar qualidade ou segurança se informa de imediato. O que fazer com o equipamento é decisão do serviço."
+            },
+            {
+              "label": "Faço eu mesmo um teste e registro o resultado",
+              "correct": false,
+              "feedback": "Testar e registrar por conta própria cria um dado sem respaldo. Leve a ficha à supervisão."
+            },
+            {
+              "label": "Sigo e confiro depois se a imagem ficou boa",
+              "correct": false,
+              "feedback": "Uma imagem boa não substitui o teste. Retome o que a norma pede: informar a circunstância de imediato."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "Quem no serviço precisa saber disso, e quando?"
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue seguir o feixe peça por peça, dizer o que cada componente faz e ler o pitch como uma relação entre o percurso da mesa e a largura do feixe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na sala, quem sabe o caminho do feixe entende melhor o que cada aviso quer dizer."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda anotou que o filtro do feixe serve para reconstruir os cortes. Que correção você propõe a ela?",
+          "options": [
+            {
+              "label": "Ele define a espessura da seção do corte",
+              "correct": false,
+              "feedback": "Quem define feixe e espessura da seção é o colimador. Retome o que muda quando o feixe passa pelo filtro."
+            },
+            {
+              "label": "Ele converte os raios X em sinal elétrico",
+              "correct": false,
+              "feedback": "Converter em sinal é função dos detectores. O filtro age bem antes, ainda perto do tubo."
+            },
+            {
+              "label": "Ele abriga o tubo e os detectores do aparelho",
+              "correct": false,
+              "feedback": "Quem abriga os dois é o gantry. Confira de novo o caminho do feixe."
+            },
+            {
+              "label": "Ele retira fótons de baixa energia do feixe",
+              "correct": true,
+              "feedback": "Certo. O filtro atua no feixe, antes de qualquer corte existir, retirando fótons de baixa energia."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "prompt": "A ficha de uma aquisição simulada traz pitch menor que 1. O que esse dado indica sobre a mesa?",
+          "options": [
+            {
+              "label": "Anda mais que a largura do feixe por volta",
+              "correct": false,
+              "feedback": "Isso daria pitch acima de 1. Retome a divisão: percurso da mesa pela largura do feixe."
+            },
+            {
+              "label": "Anda menos que a largura do feixe por volta",
+              "correct": true,
+              "feedback": "Isso. Pitch abaixo de 1 significa percurso menor que a largura do feixe, com sobreposição."
+            },
+            {
+              "label": "Fica parada durante toda a aquisição",
+              "correct": false,
+              "feedback": "Mesa parada não dá percurso por volta. Aqui o dado fala de quanto ela anda, e não de ela ficar parada."
+            },
+            {
+              "label": "Anda exatamente uma largura de feixe por volta",
+              "correct": false,
+              "feedback": "Essa é a definição de pitch 1, e não de um valor menor que ele."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o pitch é o quanto a mesa anda em uma volta dividido pela … do feixe.",
+          "item": {
+            "prompt": "O que entra no divisor do pitch?",
+            "options": [
+              {
+                "label": "A espessura da mesa",
+                "correct": false,
+                "feedback": "A mesa entra pelo percurso dela, não pela espessura. Volte à definição."
+              },
+              {
+                "label": "O tempo de uma volta",
+                "correct": false,
+                "feedback": "O tempo não aparece nessa divisão. Ela compara duas distâncias."
+              },
+              {
+                "label": "O valor da corrente",
+                "correct": false,
+                "feedback": "A corrente afeta a intensidade do feixe, não o pitch. Retome a comparação entre mesa e feixe."
+              },
+              {
+                "label": "A largura do feixe",
+                "correct": true,
+                "feedback": "Certo. Percurso da mesa em uma volta dividido pela largura do feixe."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Você pinta uma parede com rolo, e cada passada avança menos que a largura do rolo. Com que situação da tomografia isso se parece?",
+            "options": [
+              {
+                "label": "Pitch acima de 1, sem sobreposição",
+                "correct": false,
+                "feedback": "Avançar mais que o rolo é que corresponderia a esse caso. Na parede, cada passada avança menos."
+              },
+              {
+                "label": "Pitch abaixo de 1, com sobreposição",
+                "correct": true,
+                "feedback": "Isso. Como cada passada avança menos que o rolo, as faixas se sobrepõem, como no pitch abaixo de 1."
+              },
+              {
+                "label": "Pitch igual a 1, sem sobreposição",
+                "correct": false,
+                "feedback": "No pitch 1, o avanço é igual à largura. Na parede, o avanço é menor que o rolo."
+              },
+              {
+                "label": "Pitch zero, com a mesa parada",
+                "correct": false,
+                "feedback": "O rolo avança a cada passada, ainda que pouco. Mesa parada não descreve essa cena."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte lateral do gantry com o feixe saindo do tubo, passando por filtro e colimador, atravessando o corpo e chegando aos detectores.",
+        "Três hélices em volta de um cilindro: pitch abaixo de 1, igual a 1 e acima de 1."
+      ]
+    },
+    {
+      "id": "s-tc-03",
+      "code": "S-TC.03",
+      "title": "Parâmetros, qualidade e indicadores de dose",
+      "objective": "Hoje você vai conseguir prever como mAs, kV, pitch e espessura mudam ruído, iodo visível e indicadores, sem ajustar nada sozinho.",
+      "competency": "Prever o sentido das relações entre parâmetros, qualidade e indicadores no protocolo aprovado.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de aula, relatórios fictícios sobre a mesa",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Se mais corrente dá menos ruído, por que não usam sempre o máximo?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta. O que mais sobe junto com a corrente? E quem define esse equilíbrio no serviço?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos olhar cada ajuste assim: o que ele ganha e o que ele cobra."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada ajuste cobra um preço",
+        "body": "Cada ajuste cobra um preço, e quem os define é o protocolo aprovado pelo serviço. Mais mA ou mAs: menos ruído, mais dose. Só neste esquema, com o resto igual, quadruplicar a corrente dobra a relação sinal-ruído e quadruplica a dose. Mais kV: tende a menos ruído, com mais dose; kV mais baixo deixa o iodo mais visível. O CTDIvol é o CTDIw dividido pelo pitch: para o mesmo CTDIw, pitch maior dá CTDIvol menor; pitch menor traz menos artefato de interpolação. Corte mais fino: mais detalhe, mais ruído. CTDIvol e DLP indicam a saída do equipamento, não a dose do paciente.",
+        "keyPoints": [
+          "Mais mAs: menos ruído, mais dose.",
+          "kV mais baixo: iodo mais visível.",
+          "CTDIvol e DLP indicam saída, não dose do paciente."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M10 você viu o DLP no relatório de dose. Como ele se relaciona com o CTDIvol?",
+          "options": [
+            {
+              "label": "É o CTDIvol dividido pelo pitch",
+              "correct": false,
+              "feedback": "Essa divisão aparece um passo antes: é o CTDIw dividido pelo pitch que dá o CTDIvol. Retome o que entra no DLP."
+            },
+            {
+              "label": "É o CTDIvol somado ao ruído da série",
+              "correct": false,
+              "feedback": "Ruído descreve qualidade e não entra na conta do DLP. Volte à unidade mGy·cm: ela dá a pista."
+            },
+            {
+              "label": "É o CTDIvol vezes o comprimento varrido",
+              "correct": true,
+              "feedback": "Isso. Por isso uma faixa mais longa aumenta o DLP, mesmo com o CTDIvol igual."
+            },
+            {
+              "label": "É o CTDIvol ajustado pelo peso do paciente",
+              "correct": false,
+              "feedback": "Esses indicadores não consideram o tamanho do paciente. Retome: eles descrevem a saída do equipamento."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-ctdi"
+          ],
+          "help": "A unidade do DLP é mGy·cm. De onde vem esse cm?"
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Faça a previsão. Num objeto simulador, só a corrente do tubo sobe e todo o resto fica igual. O que muda?",
+          "options": [
+            {
+              "label": "Menos ruído e mais dose",
+              "correct": true,
+              "feedback": "Isso. Mais fótons melhoram a relação sinal-ruído, e a dose acompanha a corrente."
+            },
+            {
+              "label": "Mais ruído e menos dose",
+              "correct": false,
+              "feedback": "É o sentido contrário: esse seria o efeito de reduzir a corrente. Retome as duas setas."
+            },
+            {
+              "label": "Menos ruído e menos dose",
+              "correct": false,
+              "feedback": "O ganho no ruído tem preço. A dose não cai quando a corrente sobe."
+            },
+            {
+              "label": "Mais ruído e mais dose",
+              "correct": false,
+              "feedback": "A dose sobe, sim, mas o ruído cai, porque chegam mais fótons ao detector."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Pense em quantos fótons chegam ao detector quando a corrente sobe."
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada mudança ao efeito ensinado nesta aula, com o resto igual.",
+          "pairs": [
+            {
+              "left": "Mais mAs",
+              "right": "Menos ruído e mais dose"
+            },
+            {
+              "left": "kV mais baixo",
+              "right": "Iodo mais visível"
+            },
+            {
+              "left": "Pitch maior, mesmo CTDIw",
+              "right": "CTDIvol menor"
+            },
+            {
+              "left": "Corte mais fino",
+              "right": "Mais detalhe e mais ruído"
+            }
+          ],
+          "feedbackCorrect": "Quatro relações no lugar. Elas explicam o que você vê; quem ajusta esses valores é o protocolo aprovado.",
+          "feedbackIncorrect": "Retome uma seta por vez. Comece pelo mAs e pelo corte fino, depois encaixe kV e pitch.",
+          "help": "Para cada mudança, pergunte: o que ela melhora e o que ela cobra?",
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "radiopaedia-ctdi"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No treino, Duda lê o relatório de dose de uma série e vê o CTDIvol. O paciente simulado, Seu Jorge, pergunta: \"Quanto de radiação eu levei?\". Duda está pronta para responder com aquele número.",
+          "prompt": "Qual orientação você dá à Duda?",
+          "options": [
+            {
+              "label": "O índice mostra a saída do equipamento: leve a pergunta à equipe",
+              "correct": true,
+              "feedback": "Isso. O CTDIvol é índice de saída para comparação, não a dose absorvida por ele, que depende também do corpo de cada pessoa. A pergunta dele merece resposta da equipe."
+            },
+            {
+              "label": "Responder com o CTDIvol, que é a dose recebida por ele",
+              "correct": false,
+              "feedback": "O CTDIvol não é a dose de quem está na mesa. Retome o que esse índice descreve e leve a pergunta à equipe."
+            },
+            {
+              "label": "Somar CTDIvol e DLP e informar o total a ele",
+              "correct": false,
+              "feedback": "Essa soma não tem sentido físico, e estimar dose de paciente não é tarefa do estudante."
+            },
+            {
+              "label": "Dizer que a dose foi zero, para acalmá-lo",
+              "correct": false,
+              "feedback": "Isso seria falso. Acolher é ouvir e encaminhar a pergunta à equipe, sem inventar um número."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-ctdi",
+            "mccollough-2011-ctdi",
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "O índice descreve o paciente ou o equipamento? E quem responde a Seu Jorge?"
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Duas séries simuladas da mesma região têm o mesmo CTDIvol. O DLP da série B é bem maior que o da série A. Os valores de mAs, kV e pitch estão iguais nos dois relatórios.",
+          "prompt": "Que diferença técnica explica isso?",
+          "options": [
+            {
+              "label": "A série B foi exibida em janela mais larga",
+              "correct": false,
+              "feedback": "Janela é ajuste de exibição e não entra em nenhum indicador. Confira de novo o que compõe o DLP."
+            },
+            {
+              "label": "A série B tem um pitch muito maior",
+              "correct": false,
+              "feedback": "O pitch está igual, como diz o caso. E o pitch entra no CTDIvol, que é o mesmo nas duas séries."
+            },
+            {
+              "label": "A faixa varrida na série B é mais longa",
+              "correct": true,
+              "feedback": "Isso. Com o CTDIvol igual, sobra o comprimento varrido para explicar um DLP maior."
+            },
+            {
+              "label": "A série B mostra menos ruído na imagem",
+              "correct": false,
+              "feedback": "Ruído é qualidade de imagem e não aparece na conta do DLP. Retome os dois termos dela."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-ctdi"
+          ],
+          "help": "Escreva o DLP como produto. Se um termo está igual, qual sobra?"
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue prever o sentido das relações entre mAs, kV, pitch, espessura e indicadores, e separar o que o relatório diz sobre o equipamento do que ele não diz sobre o paciente.",
+        "line": {
+          "speaker": "lia",
+          "text": "Entender a relação é seu. Mudar o valor é do protocolo aprovado, com a equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O ruído de uma série de treino chamou sua atenção. Um colega sugere subir o mAs do protocolo na próxima aquisição, sem falar com ninguém. Qual é a sua resposta?",
+          "options": [
+            {
+              "label": "Subo o mAs, pois mais corrente sempre melhora o exame",
+              "correct": false,
+              "feedback": "Menos ruído vem com mais dose, e a mudança não é sua. Retome quem define o protocolo."
+            },
+            {
+              "label": "O protocolo é do serviço: descrevo o ruído e levo à equipe",
+              "correct": true,
+              "feedback": "Certo. A equipe trabalha conforme os protocolos do serviço. Você descreve o que viu, e quem pode avaliar decide."
+            },
+            {
+              "label": "Baixo o kV, pois isso elimina o ruído da imagem",
+              "correct": false,
+              "feedback": "O sentido está errado: nesta aula, kV mais alto é que reduz ruído. E o ajuste também não é seu."
+            },
+            {
+              "label": "Mudo a janela e registro que o ruído foi corrigido",
+              "correct": false,
+              "feedback": "Janela muda a exibição, não corrige a aquisição, e o registro ficaria falso. Descreva e leve à equipe."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "prompt": "Neste esquema, com todo o resto igual, a corrente do tubo é quadruplicada. O que acontece com a relação sinal-ruído?",
+          "options": [
+            {
+              "label": "Quadruplica",
+              "correct": false,
+              "feedback": "Quem quadruplica nesse esquema é a dose. A relação sinal-ruído sobe menos que isso."
+            },
+            {
+              "label": "Cai pela metade",
+              "correct": false,
+              "feedback": "Mais fótons melhoram a relação, não pioram. Retome o sentido da seta."
+            },
+            {
+              "label": "Não muda",
+              "correct": false,
+              "feedback": "A relação muda, porque chegam mais fótons ao detector. Confira quanto ela sobe no esquema."
+            },
+            {
+              "label": "Dobra",
+              "correct": true,
+              "feedback": "Isso. A relação melhora bem menos que a corrente: quatro vezes a corrente, duas vezes a relação sinal-ruído."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: com mais mAs e o resto igual, o ruído da imagem …",
+          "item": {
+            "prompt": "Com mais mAs, mantido o resto, o que o ruído faz?",
+            "options": [
+              {
+                "label": "Aumenta",
+                "correct": false,
+                "feedback": "Esse seria o efeito de usar menos mAs. Retome o que acontece com os fótons."
+              },
+              {
+                "label": "Diminui",
+                "correct": true,
+                "feedback": "Certo. Mais fótons chegam ao detector e o ruído cai, enquanto a dose sobe."
+              },
+              {
+                "label": "Não muda",
+                "correct": false,
+                "feedback": "O mAs tem efeito direto no ruído. Volte à relação sinal-ruído."
+              },
+              {
+                "label": "Desaparece",
+                "correct": false,
+                "feedback": "O ruído cai, mas não some. Sempre há algum, e o preço da queda é a dose."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num celular, a foto tirada com pouca luz sai granulada; com mais luz, o granulado diminui. Qual relação da tomografia se parece com isso?",
+            "options": [
+              {
+                "label": "Corte mais fino, menos ruído, como na luz forte",
+                "correct": false,
+                "feedback": "O corte mais fino traz mais ruído, e não menos. Retome o sentido dessa relação."
+              },
+              {
+                "label": "Janela mais larga, menos fótons no detector",
+                "correct": false,
+                "feedback": "A janela é só exibição: não muda quantos fótons chegaram. Procure o ajuste que muda o sinal."
+              },
+              {
+                "label": "Mais kV, mais iodo visível na imagem",
+                "correct": false,
+                "feedback": "O sentido está trocado: kV mais baixo é que deixa o iodo mais visível. Aqui, pense em quantidade de luz."
+              },
+              {
+                "label": "Mais fótons, menos ruído, como com mais mAs",
+                "correct": true,
+                "feedback": "Isso. Nos dois casos, mais sinal chegando ao sensor deixa a imagem menos granulada."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Painel com quatro alavancas (mAs, kV, pitch, espessura) e, para cada uma, setas de ruído e de indicador; a etiqueta \"protocolo aprovado\" trava todas.",
+        "Duas barras de faixa varrida com o mesmo CTDIvol e áreas diferentes representando o DLP."
+      ]
+    },
+    {
+      "id": "s-tc-04",
+      "code": "S-TC.04",
+      "title": "Reconstrução e apresentação aprofundadas",
+      "objective": "Hoje você vai conseguir comparar kernel, método de reconstrução e campo de visão em séries descritas e dizer o que muda.",
+      "competency": "Prever o efeito de kernel, método de reconstrução e campo de visão em séries descritas.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Estação de visualização do laboratório",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Duas séries do mesmo treino: uma lisinha, outra granulada, com borda bem nítida. A janela é a mesma. O que mudou?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Olhe a etiqueta do filtro de reconstrução. Eu sempre confiro isso antes de pensar em radiação."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Se a aquisição foi uma só, de que tipo é a diferença entre elas?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Kernel, método e campo de visão",
+        "body": "O computador transforma as medidas em cortes. A retroprojeção filtrada ainda é usada; a reconstrução iterativa compara projeções calculadas com as medidas e reduz ruído; a reconstrução por aprendizado profundo também reduz ruído e artefatos. O filtro de reconstrução, ou kernel, pesa detalhe contra ruído: o suave dá menos ruído e menos detalhe, comum em tecidos moles; o duro dá mais detalhe e, por comparação, mais ruído, comum em osso. Aumentar o campo de visão exibido aumenta o pixel e reduz a resolução espacial. Se uma reconstrução prevista faltar, descreva a falta à equipe e pergunte como seguir.",
+        "keyPoints": [
+          "Kernel suave: menos ruído, menos detalhe.",
+          "Kernel duro: mais detalhe, mais ruído, comum em osso.",
+          "Campo de visão exibido maior: pixel maior, menos resolução."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retomando a aula anterior: uma aquisição é reconstruída com cortes mais finos. O que tende a acontecer?",
+          "options": [
+            {
+              "label": "Menos detalhe e menos ruído",
+              "correct": false,
+              "feedback": "Esse é o efeito do corte mais espesso. Retome o que muda dentro do voxel fino."
+            },
+            {
+              "label": "Mais detalhe e mais ruído",
+              "correct": true,
+              "feedback": "Isso. O voxel fino mistura menos tecidos e reúne menos sinal."
+            },
+            {
+              "label": "Mais detalhe e menos ruído",
+              "correct": false,
+              "feedback": "O detalhe sobe, mas o sinal por voxel cai, e o ruído aumenta. Não vêm os dois ganhos juntos."
+            },
+            {
+              "label": "Menos detalhe e mais ruído",
+              "correct": false,
+              "feedback": "Corte fino não perde detalhe; ele mistura menos tecidos. Confira de novo as duas setas."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Pense em quanto tecido e quanto sinal cabem num voxel fino."
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Faça a previsão. Duas séries de treino têm a mesma aquisição e a mesma janela: uma com kernel suave, outra com kernel duro. O que a série com kernel duro tende a mostrar?",
+          "options": [
+            {
+              "label": "Menos detalhe e menos ruído",
+              "correct": false,
+              "feedback": "Esse é o perfil do kernel suave. Retome os dois lados da troca."
+            },
+            {
+              "label": "Mais detalhe e menos dose",
+              "correct": false,
+              "feedback": "O kernel pertence à reconstrução, e este caso tem uma só aquisição. Retome o que ele troca."
+            },
+            {
+              "label": "Mais ruído e mais dose",
+              "correct": false,
+              "feedback": "A aquisição é a mesma, então a dose não muda. Procure o que o kernel realmente troca."
+            },
+            {
+              "label": "Mais detalhe e mais ruído",
+              "correct": true,
+              "feedback": "Isso. O kernel duro aumenta a resolução espacial e, por comparação, deixa o fundo mais granulado."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "tanabe-2022-kernel"
+          ],
+          "help": "O kernel atua depois da aquisição. Ele troca o quê por o quê?"
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada recurso de reconstrução ao efeito ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Kernel suave",
+              "right": "Menos ruído, menos detalhe"
+            },
+            {
+              "left": "Kernel duro",
+              "right": "Mais detalhe, comum em osso"
+            },
+            {
+              "left": "Campo de visão exibido maior",
+              "right": "Pixel maior, menos resolução espacial"
+            },
+            {
+              "left": "Reconstrução iterativa",
+              "right": "Compara projeções e reduz ruído"
+            }
+          ],
+          "feedbackCorrect": "Quatro recursos, um efeito cada. Todos trabalham sobre o que já foi medido.",
+          "feedbackIncorrect": "Retome um de cada vez: os dois kernels trocam detalhe por ruído; o campo de visão mexe no tamanho do pixel.",
+          "help": "Comece pelos dois kernels. Depois pergunte qual dos recursos restantes muda o tamanho do pixel.",
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "O protocolo fictício de um treino prevê uma reconstrução com kernel duro para osso. Na estação só há a série com kernel suave, e as bordas ósseas aparecem pouco definidas.",
+          "prompt": "O que você faz diante dessa falta?",
+          "options": [
+            {
+              "label": "Descrevo a falta à equipe e pergunto como seguir",
+              "correct": true,
+              "feedback": "Isso. A falta está descrita, e como resolver é decisão da equipe."
+            },
+            {
+              "label": "Peço uma nova aquisição, porque as bordas estão ruins",
+              "correct": false,
+              "feedback": "Pedir nova varredura é decidir sozinho, e varredura é nova exposição. Descreva a falta e pergunte como seguir."
+            },
+            {
+              "label": "Estreito a janela até ficar nítido e arquivo a série",
+              "correct": false,
+              "feedback": "Janela muda a exibição, e o kernel previsto continuaria faltando. Confira de novo o protocolo."
+            },
+            {
+              "label": "Arquivo, porque menos ruído é sempre melhor",
+              "correct": false,
+              "feedback": "O kernel suave reduz ruído, mas perde detalhe, e o protocolo prevê outro para osso. Descreva a falta."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "O que você sabe de fato sobre a falta, e quem decide como resolver?"
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Em outra série de treino, os cortes foram gerados com campo de visão exibido bem maior que a região do pedido. Uma estrutura pequena aparece com aspecto de blocos, e a mesma aquisição, com campo de visão menor, não mostra isso.",
+          "prompt": "Qual é a leitura técnica e o próximo passo?",
+          "options": [
+            {
+              "label": "Faltou radiação na aquisição: peço mais mAs à equipe",
+              "correct": false,
+              "feedback": "A mesma aquisição, com campo menor, não mostra isso. A causa está depois da aquisição, no tamanho do pixel."
+            },
+            {
+              "label": "A estrutura é mesmo assim: registro como achado",
+              "correct": false,
+              "feedback": "Descrever como achado é interpretar. O aspecto muda com o campo de visão, então a leitura é técnica."
+            },
+            {
+              "label": "Pixel maior reduziu a resolução: levo a comparação à equipe",
+              "correct": true,
+              "feedback": "Isso. Campo de visão maior significa pixel maior, e a comparação descrita ajuda a equipe a avaliar."
+            },
+            {
+              "label": "Houve movimento do paciente: repito o exame",
+              "correct": false,
+              "feedback": "Movimento apareceria também na outra série. E repetir é nova exposição, que não cabe a você decidir."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Compare as duas séries: o que muda quando só o campo de visão muda?"
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue prever o que kernel, método de reconstrução e campo de visão fazem com o detalhe e o ruído, e levar à equipe uma diferença entre séries, sem pedir nova exposição por conta própria.",
+        "line": {
+          "speaker": "caio",
+          "text": "Muita imagem estranha se resolve lendo a etiqueta da série antes de pedir qualquer coisa."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda compara duas reconstruções da mesma aquisição, com a mesma espessura: uma iterativa e outra por retroprojeção filtrada. Qual tende a mostrar menos ruído?",
+          "options": [
+            {
+              "label": "A iterativa",
+              "correct": true,
+              "feedback": "Certo. A reconstrução iterativa compara projeções calculadas com as medidas e reduz o ruído."
+            },
+            {
+              "label": "A retroprojeção filtrada",
+              "correct": false,
+              "feedback": "Esse método ainda é usado, mas a redução de ruído é a vantagem do outro. Retome o que a aula comparou."
+            },
+            {
+              "label": "As duas terão ruído igual",
+              "correct": false,
+              "feedback": "O método de reconstrução muda o ruído, mesmo com os dados iguais. Confira de novo."
+            },
+            {
+              "label": "Depende só da janela usada",
+              "correct": false,
+              "feedback": "A janela muda a exibição, e o método muda o resultado do cálculo. São etapas diferentes."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "prompt": "Numa série de treino, o campo de visão exibido diminui e a matriz fica igual. O que acontece com o pixel e com a resolução espacial?",
+          "options": [
+            {
+              "label": "Pixel maior e menos resolução espacial",
+              "correct": false,
+              "feedback": "Esse é o efeito de aumentar o campo de visão. Aqui ele diminui."
+            },
+            {
+              "label": "Pixel maior e mais resolução espacial",
+              "correct": false,
+              "feedback": "Pixel maior não traz mais resolução. Retome o sentido da relação."
+            },
+            {
+              "label": "Pixel menor e mais resolução espacial",
+              "correct": true,
+              "feedback": "Isso. Com a mesma matriz, campo menor significa pixel menor e mais resolução espacial."
+            },
+            {
+              "label": "Pixel menor e menos resolução espacial",
+              "correct": false,
+              "feedback": "O pixel diminui, sim, mas a resolução melhora. Confira de novo."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o kernel suave dá menos ruído e menos …",
+          "item": {
+            "prompt": "O que o kernel suave perde em troca de menos ruído?",
+            "options": [
+              {
+                "label": "Radiação",
+                "correct": false,
+                "feedback": "O kernel atua depois da aquisição e não altera a radiação. Procure o que ele troca na imagem."
+              },
+              {
+                "label": "Contraste de iodo",
+                "correct": false,
+                "feedback": "O kernel não mexe no iodo presente. Pense no que fica menos definido nas bordas."
+              },
+              {
+                "label": "Detalhe",
+                "correct": true,
+                "feedback": "Certo. É a troca do kernel: menos ruído, menos resolução espacial."
+              },
+              {
+                "label": "Número de cortes",
+                "correct": false,
+                "feedback": "A quantidade de cortes não depende do kernel. Retome o que muda dentro de cada corte."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um aplicativo de fotos tem um filtro de suavizar e um de aumentar a nitidez. Aplicado à mesma foto, o filtro de nitidez realça as bordas e também o granulado. Com que recurso da tomografia ele se parece?",
+            "options": [
+              {
+                "label": "Com o kernel duro",
+                "correct": true,
+                "feedback": "Isso. Como esse filtro, o kernel duro realça detalhes e deixa o fundo mais granulado."
+              },
+              {
+                "label": "Com o kernel suave",
+                "correct": false,
+                "feedback": "O kernel suave é como o filtro de suavizar: reduz o granulado e amacia as bordas."
+              },
+              {
+                "label": "Com um pitch maior",
+                "correct": false,
+                "feedback": "O pitch pertence à aquisição, e o filtro da foto age sobre uma imagem já feita."
+              },
+              {
+                "label": "Com mais mAs na varredura",
+                "correct": false,
+                "feedback": "O mAs muda o sinal captado. O filtro da foto só recalcula o que já foi captado."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica",
+              "tanabe-2022-kernel"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Mesmo trecho de borda óssea em duas versões, kernel suave e kernel duro, com setas de detalhe e ruído.",
+        "Campo de visão pequeno e grande sobre a mesma região, com grades mostrando o tamanho do pixel."
+      ]
+    },
+    {
+      "id": "s-tc-05",
+      "code": "S-TC.05",
+      "title": "Preparo e contraste",
+      "objective": "Hoje você vai conseguir reconhecer o que levar à equipe no preparo e durante o contraste, sem decidir, prescrever nem administrar.",
+      "competency": "Reconhecer informações e sinais ligados ao preparo e ao contraste e transmiti-los à equipe na hora.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de preparo simulada",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "text": "Moça, da outra vez que tomei esse contraste me deu umas manchas na pele. Preciso avisar alguém?",
+            "name": "Seu Jorge"
+          },
+          {
+            "speaker": "duda",
+            "text": "Caio, eu digo para ele não se preocupar? Ou isso muda o exame?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Quem decide é a equipe. Agora, se a fala dele não chegar até nós, ninguém decide nada."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então qual é exatamente a parte do estudante nessa conversa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O que é da equipe e o que é seu",
+        "body": "Preparo e contraste são da equipe e do protocolo; no treino, você observa e transmite. O serviço pode orientar jejum de algumas horas, retirada de joias e troca de roupa. Para o iodado na veia, perguntam-se, entre outros pontos, reações anteriores, alergias, doença renal, diabetes, tireoide e gravidez. Reação anterior é o maior fator de risco. Sinais leves: náusea, coceira, urticária. Graves: dificuldade para respirar, inchaço na garganta, queda forte da pressão. Dor ou inchaço no local podem ser extravasamento. Uma erupção pode surgir horas ou dias depois. Em qualquer sinal, sua parte é avisar a equipe na hora.",
+        "keyPoints": [
+          "Decidir, prescrever e administrar: da equipe.",
+          "Reação anterior: o maior fator de risco.",
+          "Qualquer sinal ou fala nova: avisar na hora."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula S-TC.03 você viu uma relação entre o kV e o iodo. Qual é ela?",
+          "options": [
+            {
+              "label": "kV mais alto deixa o iodo mais visível",
+              "correct": false,
+              "feedback": "É o sentido contrário. Retome a relação ensinada na aula de parâmetros."
+            },
+            {
+              "label": "O kV não altera a visibilidade do iodo",
+              "correct": false,
+              "feedback": "A visibilidade muda com o kV. Volte à aula de parâmetros e confira o sentido."
+            },
+            {
+              "label": "kV mais baixo apaga o iodo da imagem",
+              "correct": false,
+              "feedback": "O iodo não some com kV mais baixo: ele fica mais evidente. Confira de novo."
+            },
+            {
+              "label": "kV mais baixo deixa o iodo mais visível",
+              "correct": true,
+              "feedback": "Isso. Essa é uma relação física; escolher o valor continua sendo do protocolo aprovado."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Volte à aula de parâmetros e procure a frase sobre o iodo."
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação do treino ao que ela representa e ao que você faz.",
+          "pairs": [
+            {
+              "left": "Náusea e coceira",
+              "right": "Sinal leve: avise na hora"
+            },
+            {
+              "left": "Dificuldade para respirar",
+              "right": "Sinal grave: chame a equipe na hora"
+            },
+            {
+              "left": "Dor e inchaço no local da veia",
+              "right": "Possível extravasamento: avise na hora"
+            },
+            {
+              "left": "Reação anterior na ficha",
+              "right": "Informação a levar antes do exame"
+            }
+          ],
+          "feedbackCorrect": "Em todos os casos a sua parte é a mesma: transmitir já. O que muda é o que a equipe vai avaliar.",
+          "feedbackIncorrect": "Retome os grupos da aula: sinais leves, sinais graves, sinal no local da veia e informação que vem de antes do exame.",
+          "help": "Separe primeiro o que aparece antes do exame do que aparece durante a injeção.",
+          "sourceIds": [
+            "statpearls-contraste-iv",
+            "radiologyinfo-contraste",
+            "esur-extravasamento-2022"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na ficha fictícia de Seu Jorge consta: \"teve urticária depois de contraste iodado, há dois anos\". O exame no console prevê contraste. Caio está em outra sala, e a turma de treino está esperando.",
+          "prompt": "Qual é a sua parte agora?",
+          "options": [
+            {
+              "label": "Retiro o contraste da lista e sigo sem ele",
+              "correct": false,
+              "feedback": "Decidir se há contraste não é tarefa do estudante. Leve a informação a quem decide."
+            },
+            {
+              "label": "Levo a informação à equipe antes de qualquer preparo",
+              "correct": true,
+              "feedback": "Isso. Reação anterior é o maior fator de risco. Quem avalia é a equipe, e ela precisa saber antes de seguir."
+            },
+            {
+              "label": "Sigo, porque a reação foi leve e já faz tempo",
+              "correct": false,
+              "feedback": "Pesar a gravidade e o tempo é avaliação da equipe. Sua parte é garantir que ela saiba."
+            },
+            {
+              "label": "Oriento Seu Jorge a tomar um antialérgico antes",
+              "correct": false,
+              "feedback": "Isso seria prescrever, e prescrever não é seu papel. Retome: observar e transmitir."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-contraste-iv",
+            "radiologyinfo-contraste"
+          ],
+          "help": "Quem decide o que fazer com essa informação, e o que precisa acontecer antes?"
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No treino simulado de injeção, Dona Marta fala: \"Está doendo e inchando aqui no braço, onde está a agulha\". A injeção simulada segue em andamento, e o tecnólogo Caio está no console.",
+          "prompt": "O que você faz diante da fala dela?",
+          "options": [
+            {
+              "label": "Peço que ela aguente até o fim da injeção",
+              "correct": false,
+              "feedback": "A diretriz europeia manda interromper a injeção, e pedir que ela aguente vai no sentido contrário. Essa dor precisa ser relatada já."
+            },
+            {
+              "label": "Massageio o braço para espalhar o líquido",
+              "correct": false,
+              "feedback": "Tocar no local e tratar não é sua parte. Avise quem pode avaliar a paciente."
+            },
+            {
+              "label": "Coloco uma compressa e aviso Caio ao final",
+              "correct": false,
+              "feedback": "A conduta local é da equipe, e o aviso não pode esperar o fim. Retome: avisar na hora."
+            },
+            {
+              "label": "Aviso Caio na hora do que ela relatou",
+              "correct": true,
+              "feedback": "Isso. Dor e inchaço podem ser extravasamento. A diretriz europeia manda interromper a injeção e consultar o médico; essa conduta é da equipe, e avisar já é com você."
+            }
+          ],
+          "sourceIds": [
+            "esur-extravasamento-2022",
+            "statpearls-contraste-iv"
+          ],
+          "help": "O que a fala dela pode indicar? Retome o que a aula diz sobre esse sinal."
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na ficha fictícia, Seu Alceu não marcou nenhuma alergia. Antes de deitar na mesa, ele comenta com você: \"Só tenho alergia a camarão, nem coloquei, porque não deve importar\".",
+          "prompt": "O que você faz com o que ele contou?",
+          "options": [
+            {
+              "label": "Digo que camarão impede o uso de contraste",
+              "correct": false,
+              "feedback": "A alergia a frutos do mar não é ligada ao iodado, segundo a referência, e a avaliação não cabe a você."
+            },
+            {
+              "label": "Anoto a fala e levo à equipe, que avalia",
+              "correct": true,
+              "feedback": "Isso. O serviço pergunta sobre alergias, e o que importa no caso dele é a equipe que avalia."
+            },
+            {
+              "label": "Digo que não importa e sigo sem comentar",
+              "correct": false,
+              "feedback": "Ele acabou de contar algo que a ficha não traz. Julgar e omitir não é sua parte: transmita."
+            },
+            {
+              "label": "Peço que ele mesmo resolva com o médico depois",
+              "correct": false,
+              "feedback": "Depois pode ser tarde, e a informação já chegou a você. Leve à equipe agora."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-contraste",
+            "statpearls-contraste-iv"
+          ],
+          "help": "A ficha está diferente do que ele falou. Quem precisa saber disso?"
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue reconhecer a informação ou o sinal que precisa chegar à equipe e transmitir na hora, sem decidir sobre contraste, prescrever, administrar ou conduzir uma reação.",
+        "line": {
+          "speaker": "lia",
+          "text": "Sua fala certa, na hora certa, é parte real da segurança do paciente."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Dona Marta conta na recepção do treino que tomou café há pouco, e a orientação recebida era de jejum. Qual é a sua parte?",
+          "options": [
+            {
+              "label": "Cancelar o exame e remarcar para outro dia",
+              "correct": false,
+              "feedback": "Cancelar é decisão da equipe. Retome sua parte: observar e transmitir."
+            },
+            {
+              "label": "Seguir, porque café não conta como refeição",
+              "correct": false,
+              "feedback": "Julgar o que conta no jejum não é sua parte. Transmita o que ela contou."
+            },
+            {
+              "label": "Pedir que ela espere uma hora e seguir",
+              "correct": false,
+              "feedback": "Definir um novo tempo de espera seria decidir pela equipe. Leve a fala adiante."
+            },
+            {
+              "label": "Relatar o que ela disse à equipe antes de seguir",
+              "correct": true,
+              "feedback": "Certo. A orientação de jejum vem do serviço, e o que fazer com a fala dela é a equipe que avalia."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-tc-torax"
+          ]
+        },
+        {
+          "prompt": "Logo depois da injeção simulada, Seu Alceu diz que a garganta está inchando e que está difícil respirar. Como você classifica o relato, e o que faz?",
+          "options": [
+            {
+              "label": "Sinal leve: aviso a equipe ao final do treino",
+              "correct": false,
+              "feedback": "Inchaço na garganta e dificuldade para respirar não são sinais leves, e nenhum sinal espera o fim. Retome os grupos da aula."
+            },
+            {
+              "label": "Sinal grave: chamo a equipe na hora",
+              "correct": true,
+              "feedback": "Isso. Esses dois sinais estão entre os graves. Conduzir a reação é da equipe; chamar já é com você."
+            },
+            {
+              "label": "Sinal grave: peço que respire devagar e aguardo",
+              "correct": false,
+              "feedback": "O sinal foi reconhecido, mas aguardar atrasa a ajuda, e conduzir a reação é da equipe. Chame na hora."
+            },
+            {
+              "label": "Reação tardia: oriento procurar um médico depois",
+              "correct": false,
+              "feedback": "Reação tardia é a que surge horas ou dias depois. Aqui o sinal é agora, e a equipe precisa saber já."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-contraste"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: reação anterior ao contraste é o maior fator de …",
+          "item": {
+            "prompt": "A ficha traz reação anterior a contraste. O que essa informação representa?",
+            "options": [
+              {
+                "label": "Um dado sem relação com o iodado",
+                "correct": false,
+                "feedback": "Ela tem relação direta. É o principal dado que a equipe procura nessa pergunta."
+              },
+              {
+                "label": "Uma reação que nunca se repete",
+                "correct": false,
+                "feedback": "Ela pode se repetir, e é por isso que a equipe precisa saber. Retome o fator de risco."
+              },
+              {
+                "label": "O maior fator de risco para nova reação",
+                "correct": true,
+                "feedback": "Certo. Por isso ela precisa chegar à equipe antes de o exame seguir."
+              },
+              {
+                "label": "Um motivo para aumentar a injeção",
+                "correct": false,
+                "feedback": "Mudar a injeção não é sua parte, e essa ideia vai no sentido errado. Transmita a informação."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-contraste-iv"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um dia depois de um exame simulado com contraste, o paciente liga para o serviço e conta que surgiu uma erupção na pele. Você atende a ligação no treino. O que faz?",
+            "options": [
+              {
+                "label": "Anoto o relato e transmito à equipe na hora",
+                "correct": true,
+                "feedback": "Isso. Erupção pode surgir horas ou dias depois. Quem orienta o paciente é a equipe, com o seu relato em mãos."
+              },
+              {
+                "label": "Digo que é impossível, pois já passou um dia",
+                "correct": false,
+                "feedback": "Reações tardias existem. Confira de novo: erupção pode surgir horas ou dias depois."
+              },
+              {
+                "label": "Indico uma pomada e encerro a ligação",
+                "correct": false,
+                "feedback": "Indicar tratamento não é sua parte. Transmita o relato a quem pode orientar."
+              },
+              {
+                "label": "Peço que ele aguarde a próxima consulta",
+                "correct": false,
+                "feedback": "Essa orientação cabe à equipe, depois de ouvir o relato. Leve adiante agora."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-contraste"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Duas colunas, \"da equipe\" (decidir, prescrever, administrar, conduzir) e \"sua, no treino\" (observar, registrar, avisar na hora).",
+        "Linha do tempo do exame: antes (perguntas), durante (sinais e local da veia), depois (erupção tardia)."
+      ]
+    },
+    {
+      "id": "s-tc-06",
+      "code": "S-TC.06",
+      "title": "Organização técnica por região e finalidade",
+      "objective": "Hoje você vai conseguir conferir se região, faixa, fases e reconstruções combinam com o protocolo, sem escolher nada sozinho.",
+      "competency": "Conferir se o que está no console combina com o pedido e com o protocolo aprovado do serviço.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Mural de protocolos fictícios do laboratório",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Tórax, abdome, osso, vaso... Tem protocolo demais aqui. Eu preciso saber todos de cabeça?"
+          },
+          {
+            "speaker": "caio",
+            "text": "De cabeça, não. Eles estão escritos justamente para isso. Eu leio, mesmo depois de tantos anos."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Se quem define é a equipe, o que resta para você conferir?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O protocolo organiza, você confere",
+        "body": "O serviço precisa ter protocolos escritos, atualizados e acessíveis, e a equipe trabalha por eles. A região e a pergunta do pedido organizam o que o protocolo traz: faixa, fases e reconstruções. Definir é da equipe. Nesta simulação, você confere nesta ordem: ler região e pergunta; abrir o protocolo indicado pela equipe; comparar faixa, fases e reconstruções; levar divergências à equipe. Exemplos: no tórax, respiração e movimento borram; para osso, é comum kernel duro; para tecidos moles, suave; na angiotomografia, as imagens são obtidas enquanto o contraste passa pelos vasos; o tempo de cada fase depende da pergunta. Limitar a faixa à região também reduz o DLP.",
+        "keyPoints": [
+          "Protocolo escrito, atualizado e acessível.",
+          "Definir é da equipe; conferir é a sua parte aqui.",
+          "Faixa além do necessário aumenta o DLP."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retomando a S-TC.04: numa reconstrução voltada para osso, que kernel costuma aparecer?",
+          "options": [
+            {
+              "label": "Kernel duro",
+              "correct": true,
+              "feedback": "Isso. Ele aumenta a resolução espacial, o que favorece bordas ósseas, ao custo de mais ruído."
+            },
+            {
+              "label": "Kernel suave",
+              "correct": false,
+              "feedback": "O suave é mais comum em tecidos moles. Retome a troca entre detalhe e ruído."
+            },
+            {
+              "label": "Retroprojeção sem filtro",
+              "correct": false,
+              "feedback": "A retroprojeção da aula é filtrada, e o kernel é justamente esse filtro. Volte aos dois tipos comparados."
+            },
+            {
+              "label": "Janela de osso, sem kernel",
+              "correct": false,
+              "feedback": "Janela é ajuste de exibição e não substitui o filtro de reconstrução. Retome a S-TC.04."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "tanabe-2022-kernel"
+          ],
+          "help": "O osso pede bordas bem definidas. Qual dos dois kernels dá mais detalhe?"
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Você recebe um pedido fictício na estação de treino. Ponha a conferência na ordem ensinada nesta aula.",
+          "items": [
+            "Ler a região e a pergunta do pedido",
+            "Abrir o protocolo indicado pela equipe",
+            "Comparar faixa, fases e reconstruções",
+            "Levar qualquer divergência à equipe"
+          ],
+          "feedbackCorrect": "Sequência certa: primeiro o pedido, depois o protocolo indicado, depois a comparação e, se preciso, a equipe.",
+          "feedbackIncorrect": "Confira de novo: sem ler o pedido, nada pode ser comparado, e a equipe recebe a divergência depois da comparação.",
+          "help": "O que você precisa ter em mãos antes de comparar?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada região ou finalidade ao ponto de atenção desta aula.",
+          "pairs": [
+            {
+              "left": "Tórax",
+              "right": "Respiração e movimento podem borrar a imagem"
+            },
+            {
+              "left": "Reconstrução para osso",
+              "right": "Costuma usar kernel duro"
+            },
+            {
+              "left": "Reconstrução para tecidos moles",
+              "right": "Costuma usar kernel suave"
+            },
+            {
+              "left": "Angiotomografia",
+              "right": "Imagens enquanto o contraste passa pelos vasos"
+            }
+          ],
+          "feedbackCorrect": "Quatro pontos de atenção no lugar. Eles ajudam a entender o protocolo, e não a escolhê-lo.",
+          "feedbackIncorrect": "Retome os exemplos do conceito. Os dois kernels ficam com as finalidades de reconstrução; os outros dois tratam de movimento e de contraste.",
+          "help": "Comece pelas duas reconstruções, que pedem kernels diferentes.",
+          "sourceIds": [
+            "radiologyinfo-tc-torax",
+            "statpearls-tc-fisica",
+            "radiologyinfo-angio-tc"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O pedido fictício é de tomografia do abdome, e o protocolo indicado pela equipe prevê varredura dessa região. Antes de a aquisição simulada começar, você vê que a faixa no console começa bem acima, pegando todo o tórax.",
+          "prompt": "O que você faz diante dessa faixa?",
+          "options": [
+            {
+              "label": "Encurto a faixa eu mesmo, para ganhar tempo no treino",
+              "correct": false,
+              "feedback": "O problema foi visto corretamente, mas ajustar sozinho não é sua parte. Leve à equipe."
+            },
+            {
+              "label": "Sigo, porque mais região sempre dá mais informação",
+              "correct": false,
+              "feedback": "Mais região também aumenta o DLP, e o protocolo fala em abdome. Retome a otimização."
+            },
+            {
+              "label": "Aponto à equipe, antes de adquirir, que a faixa excede a região",
+              "correct": true,
+              "feedback": "Isso. Faixa além do necessário aumenta o DLP. Você mostra a divergência, e a equipe confere e ajusta."
+            },
+            {
+              "label": "Sigo e explico a diferença depois, no registro",
+              "correct": false,
+              "feedback": "Depois da aquisição, a exposição já ocorreu. O aviso vale antes de adquirir."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "radiopaedia-ctdi",
+            "burbridge-mah-tc"
+          ],
+          "help": "Compare a faixa com o protocolo e pense no momento do aviso."
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na conferência de um treino, o protocolo fictício lista duas fases de contraste para o exame. O arquivo só traz uma série, e o relatório não explica a ausência da outra. O paciente simulado já saiu da sala.",
+          "prompt": "O que você faz diante dessa ausência?",
+          "options": [
+            {
+              "label": "Peço que o paciente volte para adquirir a outra fase",
+              "correct": false,
+              "feedback": "Chamar de volta significaria nova exposição e nova injeção, o que é decisão da equipe. Comece descrevendo."
+            },
+            {
+              "label": "Descrevo a fase ausente e levo a dúvida à equipe",
+              "correct": true,
+              "feedback": "Isso. Pode haver um motivo que você não conhece, e a falta precisa ser verificada por quem conduziu o exame."
+            },
+            {
+              "label": "Considero completa, pois existe uma série arquivada",
+              "correct": false,
+              "feedback": "Haver uma série não fecha a conferência. Compare o arquivo com o que o protocolo lista."
+            },
+            {
+              "label": "Renomeio a série para que ela conte como as duas fases",
+              "correct": false,
+              "feedback": "Isso falsifica o registro. Descreva a falta e peça apoio à equipe."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-contraste-iv",
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "Compare o arquivo com o protocolo e pense em quem pode explicar a diferença."
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue ler um pedido, comparar com o protocolo indicado e apontar divergências de faixa, fase ou reconstrução para a equipe, sem escolher exame, protocolo ou fase.",
+        "line": {
+          "speaker": "caio",
+          "text": "Protocolo não é coisa de quem esquece. É coisa de quem trabalha em equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um colega diz que sabe os protocolos de cabeça e que escrever é perda de tempo. O que a RDC 611/2022 pede?",
+          "options": [
+            {
+              "label": "Protocolos só na memória dos mais experientes",
+              "correct": false,
+              "feedback": "A norma pede o contrário: tudo por escrito e ao alcance da equipe."
+            },
+            {
+              "label": "Protocolos guardados só com o responsável legal",
+              "correct": false,
+              "feedback": "Ele responde por eles, mas a equipe toda precisa ter acesso fácil. Retome esse ponto."
+            },
+            {
+              "label": "Protocolos escritos, atualizados e acessíveis",
+              "correct": true,
+              "feedback": "Certo. Eles precisam estar em linguagem acessível, atualizados e em local de fácil acesso a toda a equipe."
+            },
+            {
+              "label": "Protocolos só para os exames com contraste",
+              "correct": false,
+              "feedback": "A norma vale para todas as atividades executadas pelo serviço, não só para essas."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "prompt": "Por que limitar a faixa varrida à região do pedido aparece como otimização?",
+          "options": [
+            {
+              "label": "Porque o comprimento varrido entra no DLP",
+              "correct": true,
+              "feedback": "Isso. Com o mesmo CTDIvol, menos comprimento dá menos DLP."
+            },
+            {
+              "label": "Porque faixa curta reduz o ruído dos cortes",
+              "correct": false,
+              "feedback": "O ruído depende de outros fatores, como mAs e espessura. Retome a conta do DLP."
+            },
+            {
+              "label": "Porque faixa curta muda o kernel usado",
+              "correct": false,
+              "feedback": "O kernel é parte da reconstrução, e não depende do comprimento da faixa."
+            },
+            {
+              "label": "Porque faixa curta dispensa o protocolo",
+              "correct": false,
+              "feedback": "O protocolo continua valendo. A faixa é uma das coisas que ele organiza."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-ctdi",
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: definir o protocolo é da equipe; nesta simulação, a sua parte é …",
+          "item": {
+            "prompt": "Na simulação, o que cabe a você diante do protocolo?",
+            "options": [
+              {
+                "label": "Escolher o protocolo pelo pedido",
+                "correct": false,
+                "feedback": "Escolher não é sua parte. O protocolo é indicado pela equipe."
+              },
+              {
+                "label": "Ajustar a fase de contraste",
+                "correct": false,
+                "feedback": "Isso é definição da equipe. Você confere o que está previsto."
+              },
+              {
+                "label": "Adaptar o protocolo ao paciente",
+                "correct": false,
+                "feedback": "Adaptar exige avaliação da equipe. Sua parte vem antes: apontar o que não combina."
+              },
+              {
+                "label": "Conferir e levar divergências à equipe",
+                "correct": true,
+                "feedback": "Certo. Você compara o que está no console com o protocolo e aponta o que não combina."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa sala de radiografia do estágio, a folha de técnica afixada difere do que um colega faz de memória. Nada parece errado na imagem. O que você faz?",
+            "options": [
+              {
+                "label": "Adoto o jeito do colega, que tem mais prática",
+                "correct": false,
+                "feedback": "Experiência ajuda, mas o trabalho segue o protocolo do serviço. Leve a diferença adiante."
+              },
+              {
+                "label": "Levo a diferença à supervisão, sem acusar",
+                "correct": true,
+                "feedback": "Isso. A norma pede trabalho conforme os protocolos e informação do que possa afetar a qualidade. A supervisão esclarece."
+              },
+              {
+                "label": "Altero a folha para combinar com o colega",
+                "correct": false,
+                "feedback": "Alterar um protocolo não cabe a você. Mostre a diferença a quem responde por ele."
+              },
+              {
+                "label": "Deixo para lá, se a imagem saiu boa",
+                "correct": false,
+                "feedback": "A imagem boa não resolve a divergência. Ela pode afetar outros exames: informe."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Ficha de pedido ao lado de ficha de protocolo, com linhas ligando região, faixa, fases e reconstruções, e um sinal de divergência em uma delas.",
+        "Silhueta de corpo com uma faixa correta sobre o abdome e outra excedente subindo pelo tórax, com o DLP de cada uma."
+      ]
+    },
+    {
+      "id": "s-tc-07",
+      "code": "S-TC.07",
+      "title": "Artefatos e falhas",
+      "objective": "Hoje você vai conseguir descrever um artefato em série descrita, situar a origem e levar à equipe, sem interpretar como doença.",
+      "competency": "Reconhecer artefatos em descrições, situar a origem e relatar o achado técnico à equipe.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Revisão de séries de treino",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Lia, olha essa série: umas faixas escuras entre os ossos. Será que é alguma coisa do paciente?"
+          },
+          {
+            "speaker": "lia",
+            "text": "O que exatamente você vê, e em quais cortes? Antes de dizer o que é, diga como é."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Se o desenho na imagem não existe no corpo, de onde ele poderia vir?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três origens e um relato",
+        "body": "Artefato é algo na imagem que não existe no corpo. Há três origens. Paciente: movimento dá borrão, imagem dupla e faixas; joias e objetos de metal usados pelo paciente, retirados sempre que possível, geram riscos intensos. Física: endurecimento do feixe dá faixas escuras entre estruturas densas e efeito de taça; volume parcial mistura tecidos num voxel e sombreia bordas, e cortes mais finos o reduzem. Equipamento: anéis vêm de elemento de detector com defeito ou desalinhado; arco elétrico no tubo pede avaliação técnica. Alguns podem imitar doença, então não interprete. Descreva série, cortes e aspecto e leve à equipe. Repetir é decisão dela, porque é nova exposição.",
+        "keyPoints": [
+          "Origens: paciente, física, equipamento.",
+          "Artefato pode imitar doença: descreva, não interprete.",
+          "Repetir é nova exposição, e decidir é da equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retomando a M10: o que um corte mais fino faz com a mistura de tecidos dentro do voxel?",
+          "options": [
+            {
+              "label": "Mistura mais tecidos",
+              "correct": false,
+              "feedback": "Isso acontece com o corte mais espesso, que reúne mais tecido no mesmo voxel."
+            },
+            {
+              "label": "Elimina todo o ruído",
+              "correct": false,
+              "feedback": "O corte fino aumenta o ruído, em vez de eliminar. Retome o preço dele."
+            },
+            {
+              "label": "Não muda a mistura",
+              "correct": false,
+              "feedback": "A espessura muda o quanto de tecido cabe no voxel. Confira de novo."
+            },
+            {
+              "label": "Mistura menos tecidos",
+              "correct": true,
+              "feedback": "Isso. É por isso que o corte fino reduz o efeito de volume parcial, ao custo de mais ruído."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ],
+          "help": "Pense no tamanho do voxel quando a espessura diminui."
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue o que a série mostra à causa técnica ensinada nesta aula.",
+          "pairs": [
+            {
+              "left": "Borrão e imagem dupla após o paciente se mexer",
+              "right": "Movimento"
+            },
+            {
+              "left": "Riscos intensos a partir de uma joia",
+              "right": "Metal"
+            },
+            {
+              "left": "Faixas escuras entre duas estruturas densas",
+              "right": "Endurecimento do feixe"
+            },
+            {
+              "left": "Anéis na imagem",
+              "right": "Elemento de detector com defeito"
+            }
+          ],
+          "feedbackCorrect": "Quatro aspectos, quatro causas. Essa ligação ajuda a descrever melhor para a equipe, e não dispensa a conferência dela.",
+          "feedbackIncorrect": "Retome as três origens do conceito. Comece pelo que depende do paciente, depois pelo que depende do feixe e do equipamento.",
+          "help": "Dois destes dependem do paciente; um, do feixe; um, do equipamento.",
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "radiopaedia-artefatos-tc"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Numa série de treino, há faixas escuras entre duas estruturas densas, em cortes consecutivos. Em qual das origens ensinadas esse padrão entra?",
+          "options": [
+            {
+              "label": "Física do feixe",
+              "correct": true,
+              "feedback": "Isso. Fótons de baixa energia são absorvidos primeiro e o feixe endurece, gerando essas faixas."
+            },
+            {
+              "label": "Movimento do paciente",
+              "correct": false,
+              "feedback": "Movimento dá borrão e imagem dupla, e não esse padrão entre estruturas densas."
+            },
+            {
+              "label": "Defeito no detector",
+              "correct": false,
+              "feedback": "Defeito de detector costuma aparecer como anéis. Retome o aspecto deste caso."
+            },
+            {
+              "label": "Ajuste da janela",
+              "correct": false,
+              "feedback": "A janela muda a exibição, mas não cria um padrão ligado a estruturas densas."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "radiopaedia-artefatos-tc"
+          ],
+          "help": "Olhe o que fica em volta das faixas: estruturas densas."
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Ao revisar o treino, você percebe anéis em várias séries feitas no mesmo equipamento fictício, em pacientes simulados diferentes. Ninguém comentou nada no turno, e a próxima lista de exames simulados já está aberta.",
+          "prompt": "O que você faz diante desse padrão?",
+          "options": [
+            {
+              "label": "Sigo, porque anel não afeta a segurança do exame",
+              "correct": false,
+              "feedback": "O anel pode afetar a qualidade, e isso a norma manda informar. Pare e leve as séries à supervisão."
+            },
+            {
+              "label": "Recalibro os detectores pelo menu do console",
+              "correct": false,
+              "feedback": "Intervir no equipamento não é sua parte. Avaliar exige o serviço técnico. Informe a supervisão."
+            },
+            {
+              "label": "Informo a supervisão, citando as séries afetadas",
+              "correct": true,
+              "feedback": "Isso. O padrão aponta para o equipamento. Informar de imediato é dever de cada membro da equipe, e o serviço decide o que fazer."
+            },
+            {
+              "label": "Apago as séries e refaço os treinos do turno",
+              "correct": false,
+              "feedback": "Apagar destrói a evidência de que a equipe precisa. Preserve as séries e informe."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "O padrão se repete em pacientes diferentes. Isso aponta para quem, e quem precisa saber?"
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Numa série simulada do pescoço, há riscos intensos saindo de um ponto muito denso. A ficha registra que Dona Marta deitou na mesa usando colar. A imagem está no console, e ela ainda está na sala.",
+          "prompt": "O que você faz diante desses riscos?",
+          "options": [
+            {
+              "label": "Repito a varredura sem o colar, para ganhar tempo",
+              "correct": false,
+              "feedback": "A causa parece boa, mas repetir é nova exposição e cabe à equipe decidir. Comece descrevendo."
+            },
+            {
+              "label": "Mudo a janela até os riscos sumirem e arquivo",
+              "correct": false,
+              "feedback": "Esconder os riscos na tela não muda a aquisição. Descreva e leve à equipe."
+            },
+            {
+              "label": "Descrevo os riscos e o colar à equipe e aguardo a decisão",
+              "correct": true,
+              "feedback": "Isso. Sua descrição liga o aspecto à provável origem, e a equipe avalia se algo muda, inclusive repetir."
+            },
+            {
+              "label": "Anoto que há um achado no pescoço da paciente",
+              "correct": false,
+              "feedback": "Registrar achado é interpretar, e o aspecto sugere metal. Descreva o que viu, sem nomear doença."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "radiopaedia-artefatos-tc",
+            "radiologyinfo-tc-torax"
+          ],
+          "help": "O que a ficha explica sobre o aspecto, e o que repetir causaria?"
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue descrever um artefato pelo aspecto, situar a origem provável e levar à equipe um relato com série e cortes, sem interpretar como doença nem repetir por conta própria.",
+        "line": {
+          "speaker": "lia",
+          "text": "Um bom relato poupa uma exposição desnecessária. Isso também é cuidado."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma série de treino com cortes espessos mostra sombra na borda de uma estrutura densa, provável volume parcial. Segundo a aula, em que tipo de série esse efeito tende a aparecer menos?",
+          "options": [
+            {
+              "label": "Na série de cortes mais finos",
+              "correct": true,
+              "feedback": "Certo. Menos tecidos no mesmo voxel, menos volume parcial, com mais ruído como preço. Mudar a técnica é com a equipe."
+            },
+            {
+              "label": "Na série de cortes mais espessos",
+              "correct": false,
+              "feedback": "Isso aumentaria a mistura dentro do voxel. Retome o sentido da relação."
+            },
+            {
+              "label": "Na série com janela mais estreita",
+              "correct": false,
+              "feedback": "A janela muda a exibição, e a mistura no voxel continuaria igual."
+            },
+            {
+              "label": "Na série com campo de visão maior",
+              "correct": false,
+              "feedback": "Isso aumentaria o pixel e não reduz a mistura na espessura do corte."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "prompt": "Por que, ao ver um artefato, você não escreve que há uma alteração no paciente?",
+          "options": [
+            {
+              "label": "Porque artefato nunca aparece em imagem real",
+              "correct": false,
+              "feedback": "Artefatos são comuns em imagem real. Retome a definição do conceito."
+            },
+            {
+              "label": "Porque artefato só existe em série axial",
+              "correct": false,
+              "feedback": "Artefato não depende de plano de exibição. Confira o motivo no conceito."
+            },
+            {
+              "label": "Porque alguns artefatos podem imitar doença",
+              "correct": true,
+              "feedback": "Isso. Por isso se descreve o aspecto e se leva à equipe, sem nomear doença."
+            },
+            {
+              "label": "Porque artefato sempre some ao trocar a janela",
+              "correct": false,
+              "feedback": "Trocar a janela não elimina artefato. O motivo é outro: o risco de confundir."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-artefatos-tc"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: anéis na imagem costumam apontar para um elemento de … com defeito.",
+          "item": {
+            "prompt": "Em qual parte está a causa provável de anéis na imagem?",
+            "options": [
+              {
+                "label": "No detector",
+                "correct": true,
+                "feedback": "Certo. Elemento de detector com defeito ou desalinhado é a causa ensinada. A avaliação é técnica."
+              },
+              {
+                "label": "Na mesa do paciente",
+                "correct": false,
+                "feedback": "A mesa não produz esse padrão. Retome a origem ligada ao equipamento de medida."
+              },
+              {
+                "label": "Na janela de exibição",
+                "correct": false,
+                "feedback": "Janela é ajuste de tela e não cria anéis."
+              },
+              {
+                "label": "No avental do paciente",
+                "correct": false,
+                "feedback": "A pista está no padrão: anéis apontam para o equipamento, e não para o paciente."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Todas as fotos de um celular saem com a mesma mancha no mesmo lugar, em qualquer cena. O que esse padrão sugere, por analogia com os anéis?",
+            "options": [
+              {
+                "label": "A falha está em cada cena fotografada",
+                "correct": false,
+                "feedback": "Se fosse da cena, mudaria de foto para foto. Aqui ela se repete sempre."
+              },
+              {
+                "label": "A mancha depende da luz de cada foto",
+                "correct": false,
+                "feedback": "A mancha não muda com a cena. Retome a pista da repetição."
+              },
+              {
+                "label": "A mancha some ao mudar o brilho da tela",
+                "correct": false,
+                "feedback": "Mudar o brilho é como mudar a janela: não elimina a causa."
+              },
+              {
+                "label": "A falha está no aparelho, não na cena",
+                "correct": true,
+                "feedback": "Isso. Um padrão que se repete em cenas diferentes aponta para o aparelho, como anéis em pacientes diferentes."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-tc-fisica"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quadro com três colunas (paciente, física, equipamento) e um esquema de cada aspecto: borrão, riscos, faixas escuras, anéis.",
+        "Modelo de relato em uma linha: série, cortes, aspecto, origem provável, pedido à equipe."
+      ]
+    },
+    {
+      "id": "s-tc-08",
+      "code": "S-TC.08",
+      "title": "Caso integrador: comparar séries",
+      "objective": "Hoje você vai conseguir comparar duas séries descritas e justificar um pedido de conferência à equipe.",
+      "competency": "Comparar séries inéditas descritas em texto e justificar conferência, sem corrigir nem diagnosticar.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Estação de treino, fim do turno simulado",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Duas séries do mesmo treino. Quero uma justificativa que outra pessoa consiga conferir, não uma opinião."
+          },
+          {
+            "speaker": "duda",
+            "text": "Mas as duas são diferentes em um monte de coisas. Por onde eu começo?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vale fazer quatro perguntas, sempre na mesma ordem. Qual você faria primeiro?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quatro perguntas para comparar",
+        "body": "Comparar duas séries é responder a quatro perguntas, nesta ordem. O que é igual? O que difere? A diferença vem da apresentação, da reconstrução, da aquisição ou do equipamento? O que levar à equipe? Apresentação e reconstrução usam dados já medidos; a aquisição, não. Sua entrega é uma justificativa que outra pessoa consiga conferir: série, cortes, aspecto, origem provável e pedido. Você não corrige sozinho, não diagnostica e não decide repetir. Esta aula treina raciocínio sobre descrições em texto: não comprova operação real de um tomógrafo, que exige formação e supervisão.",
+        "keyPoints": [
+          "Igual, diferente, origem, pedido: nessa ordem.",
+          "Justificativa: série, cortes, aspecto, origem, pedido.",
+          "Treino sobre descrições não comprova operação real."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retomando a S-TC.07: uma série tem artefato e alguém sugere repetir a varredura. Quem decide isso, e por quê?",
+          "options": [
+            {
+              "label": "O estudante, se a imagem estiver ruim",
+              "correct": false,
+              "feedback": "A descrição da imagem é parte do seu relato, mas a decisão não é sua. Retome a S-TC.07."
+            },
+            {
+              "label": "A equipe, pois repetir é nova exposição",
+              "correct": true,
+              "feedback": "Isso. Sua parte é entregar a descrição que ajuda a equipe a decidir."
+            },
+            {
+              "label": "O paciente, se ele aceitar repetir",
+              "correct": false,
+              "feedback": "Aceitar não basta: a decisão técnica pertence à equipe. Confira de novo."
+            },
+            {
+              "label": "O estudante, se o DLP estiver baixo",
+              "correct": false,
+              "feedback": "Esse indicador não autoriza nada. Repetir continua sendo decisão da equipe."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ],
+          "help": "Pense no que repetir causa, e em quem responde por isso."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Você recebe duas séries de treino para comparar. Ponha as etapas na ordem ensinada nesta aula.",
+          "items": [
+            "Listar o que é igual nas duas séries",
+            "Listar o que difere entre elas",
+            "Apontar a origem provável da diferença",
+            "Levar a justificativa à equipe"
+          ],
+          "feedbackCorrect": "Sequência certa: o que é igual reduz as hipóteses, o que difere dirige a busca da origem, e a justificativa segue para a equipe.",
+          "feedbackIncorrect": "Confira de novo: só dá para apontar a origem depois de saber o que difere, e a equipe recebe a justificativa pronta.",
+          "help": "O que precisa estar pronto antes de você apontar uma origem?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Duas séries do mesmo treino têm CTDIvol, DLP, espessura e janela iguais. Na série B, as bordas ósseas estão mais definidas e o fundo, mais granulado.",
+          "prompt": "De onde vem provavelmente a diferença?",
+          "options": [
+            {
+              "label": "Apresentação: a série B usa janela diferente",
+              "correct": false,
+              "feedback": "O caso diz que a janela é igual. Retome o que sobrou depois das igualdades."
+            },
+            {
+              "label": "Aquisição: a série B recebeu mais mAs",
+              "correct": false,
+              "feedback": "Mais mAs daria menos ruído e mudaria o CTDIvol, e os indicadores são iguais."
+            },
+            {
+              "label": "Paciente: houve movimento na série B",
+              "correct": false,
+              "feedback": "Movimento dá borrão e imagem dupla. Aqui as bordas estão mais definidas."
+            },
+            {
+              "label": "Reconstrução: a série B usa kernel duro",
+              "correct": true,
+              "feedback": "Isso. Com a aquisição igual, detalhe e granulado maiores apontam para o kernel."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "tanabe-2022-kernel"
+          ],
+          "help": "Risque o que o caso diz ser igual. O que resta para explicar detalhe e granulado?"
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada diferença entre duas séries à origem mais provável, conforme esta aula.",
+          "pairs": [
+            {
+              "left": "Só a janela difere",
+              "right": "Apresentação"
+            },
+            {
+              "left": "Só o kernel difere",
+              "right": "Reconstrução"
+            },
+            {
+              "left": "O CTDIvol difere",
+              "right": "Aquisição"
+            },
+            {
+              "left": "Anéis em pacientes diferentes",
+              "right": "Equipamento"
+            }
+          ],
+          "feedbackCorrect": "Quatro origens no lugar. Saber de onde vem a diferença organiza o que você leva à equipe.",
+          "feedbackIncorrect": "Retome: janela é exibição, kernel é cálculo, o indicador vem da aquisição e o padrão repetido em pacientes diferentes aponta para o aparelho.",
+          "help": "Pergunte de cada diferença: isso é tela, cálculo, varredura ou aparelho?",
+          "sourceIds": [
+            "statpearls-tc-fisica",
+            "radiopaedia-ctdi"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Série A e série B, do mesmo treino, com abdome no pedido. CTDIvol igual. O DLP da B é maior, e a faixa dela começa bem acima do abdome. Nos primeiros cortes da B há borrão e imagem dupla, e a ficha registra que o paciente simulado tossiu nesse momento.",
+          "prompt": "Qual justificativa você leva à equipe?",
+          "options": [
+            {
+              "label": "B é mais completa e traz mais dados: proponho arquivar só ela",
+              "correct": false,
+              "feedback": "Mais faixa não é vantagem se excede o pedido, e o DLP maior vem disso. Compare com o pedido."
+            },
+            {
+              "label": "B excede a faixa pedida e tem borrão de movimento: peço conferência",
+              "correct": true,
+              "feedback": "Isso. Você cita o que difere, a origem provável de cada ponto e faz um pedido. Quem decide é a equipe."
+            },
+            {
+              "label": "A está incompleta porque o DLP é menor: proponho refazer a A",
+              "correct": false,
+              "feedback": "DLP menor combina com a faixa mais curta da A. Refazer seria nova exposição sem motivo descrito."
+            },
+            {
+              "label": "O borrão de B some com outra janela: ajusto e arquivo a série",
+              "correct": false,
+              "feedback": "Janela não desfaz movimento, e arquivar sozinho pula a equipe. Retome as quatro perguntas."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-ctdi",
+            "statpearls-tc-fisica"
+          ],
+          "help": "Responda às quatro perguntas, em ordem, antes de ler as alternativas."
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue comparar séries descritas em texto, separar apresentação, reconstrução, aquisição e equipamento, e escrever uma justificativa conferível. Isso é raciocínio em simulação, e não prova de operação real.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa justificativa é a que outra pessoa consegue conferir sem estar na sua cabeça."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual destas anotações serve melhor como justificativa ao comparar duas séries de treino?",
+          "options": [
+            {
+              "label": "Série B ficou feia em alguns cortes; acho melhor refazer tudo antes do fim do turno",
+              "correct": false,
+              "feedback": "Sem cortes nem aspecto, ninguém consegue conferir, e refazer não é decisão sua."
+            },
+            {
+              "label": "Série B, cortes 40 a 52: faixas escuras entre ossos; provável endurecimento; peço conferência",
+              "correct": true,
+              "feedback": "Certo. Série, cortes, aspecto, origem provável e pedido: outra pessoa consegue conferir essa anotação."
+            },
+            {
+              "label": "Série B mostra alteração óssea nos cortes 40 a 52; registrei como achado no prontuário",
+              "correct": false,
+              "feedback": "Isso interpreta como doença e registra sozinho. Descreva o aspecto e leve à equipe."
+            },
+            {
+              "label": "Série B está boa o bastante; troquei a janela e arquivei sem comentar com a equipe",
+              "correct": false,
+              "feedback": "Trocar a janela e arquivar em silêncio pula a conferência. Retome os elementos da justificativa."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "statpearls-tc-fisica"
+          ]
+        },
+        {
+          "prompt": "Duas séries têm CTDIvol, DLP, espessura e kernel iguais. A série B está menos ruidosa, e o relatório indica métodos de reconstrução diferentes. O que explica a diferença?",
+          "options": [
+            {
+              "label": "Retroprojeção filtrada na série B",
+              "correct": false,
+              "feedback": "Entre os dois métodos, o que reduz ruído é o outro. Retome a S-TC.04."
+            },
+            {
+              "label": "Mais mAs na varredura da série B",
+              "correct": false,
+              "feedback": "Mais mAs mudaria o CTDIvol, e os indicadores são iguais nas duas."
+            },
+            {
+              "label": "Janela mais larga na série B",
+              "correct": false,
+              "feedback": "A janela muda a exibição, e o relatório aponta outro tipo de diferença."
+            },
+            {
+              "label": "Reconstrução iterativa na série B",
+              "correct": true,
+              "feedback": "Isso. Com a aquisição igual, o método de reconstrução é o que resta, e o iterativo reduz o ruído."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-tc-fisica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: apresentação e reconstrução usam dados já …",
+          "item": {
+            "prompt": "Qual destas diferenças entre séries não exige nova exposição?",
+            "options": [
+              {
+                "label": "Mais mAs na varredura",
+                "correct": false,
+                "feedback": "O mAs é parte da aquisição, então mudar esse valor exige varrer de novo."
+              },
+              {
+                "label": "Faixa varrida mais longa",
+                "correct": false,
+                "feedback": "Faixa mais longa precisa ser adquirida: é aquisição."
+              },
+              {
+                "label": "Outra janela ou outro plano",
+                "correct": true,
+                "feedback": "Certo. Os dois saem de dados já medidos, sem nova varredura."
+              },
+              {
+                "label": "Outra fase do contraste",
+                "correct": false,
+                "feedback": "Fase depende do momento da aquisição, e por isso não sai dos dados já medidos."
+              }
+            ],
+            "sourceIds": [
+              "burbridge-mah-tc",
+              "statpearls-tc-fisica"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No estágio, um colega diz: \"Terminei essa unidade no app, já posso operar o tomógrafo sozinho\". Qual resposta combina com o que a unidade treinou?",
+            "options": [
+              {
+                "label": "Não pode: operar exige formação e supervisão",
+                "correct": true,
+                "feedback": "Isso. A unidade treina raciocínio sobre descrições. Operação real exige formação e supervisão do serviço."
+              },
+              {
+                "label": "Pode operar, desde que siga o protocolo de cabeça",
+                "correct": false,
+                "feedback": "Protocolo é escrito, e a unidade não prova operação. Retome o limite desta aula."
+              },
+              {
+                "label": "Pode operar, se a imagem sair boa na primeira vez",
+                "correct": false,
+                "feedback": "Imagem boa não habilita ninguém. Retome o limite da unidade."
+              },
+              {
+                "label": "Pode operar, pois já conhece os artefatos principais",
+                "correct": false,
+                "feedback": "Reconhecer artefato em texto é raciocínio, e não prática supervisionada."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Tabela comparativa de duas séries com linhas igual ou diferente e, à direita, a origem provável de cada diferença.",
+        "Funil com as quatro perguntas terminando numa etiqueta de justificativa: série, cortes, aspecto, origem, pedido."
+      ]
+    }
+  ]
+}

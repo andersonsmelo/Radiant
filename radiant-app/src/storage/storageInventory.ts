@@ -67,6 +67,8 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant:hearts_v1', 'economia'),
     exact('@radiant:checkpoint_charged_items_v1', 'economia'),
     exact('@radiant:subscription_v1', 'economia'),
+    exact('@radiant:streak_freeze_v1', 'economia'),
+    exact('@radiant:daily_missions_v1', 'economia'),
 
     exact('@radiant:item_review_quarantine_v1', 'quarentena'),
     exact('@radiant:competency_review_v1:quarantine', 'quarentena'),
@@ -87,6 +89,7 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant:rating_prompt_v1', 'controle'),
     exact('@radiant:paywall_v1', 'controle'),
     exact('@radiant:upgrade_interest_v1', 'controle'),
+    exact('@radiant:unit_celebrations_v1', 'controle'),
     exact('@radiant/beta_access', 'controle'),
     exact('@radiant/beta_feedback', 'controle'),
     exact('push.lastSent.v1', 'controle'),

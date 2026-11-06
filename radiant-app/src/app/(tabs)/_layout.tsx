@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import { ProfileTabIcon, StudyTabIcon } from '@/src/ui/components/TabIcons';
 import { radius, space } from '@/src/ui/styles';
 import { galaxyColors } from '@/src/ui/theme';
 
@@ -15,7 +15,7 @@ export default function TabLayout() {
         sceneStyle: {
           backgroundColor: galaxyColors.background,
         },
-        tabBarActiveTintColor: galaxyColors.navBlue,
+        tabBarActiveTintColor: galaxyColors.textPrimary,
         tabBarInactiveTintColor: galaxyColors.tabBarInactive,
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
@@ -53,9 +53,7 @@ export default function TabLayout() {
           // rótulo antigo prometia um lugar para onde voltar; o novo nomeia o
           // que se faz ali.
           title: 'Estude',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="graduationcap.fill" color={color} />
-          ),
+          tabBarIcon: ({ focused }) => <StudyTabIcon focused={focused} />,
         }}
       />
       <Tabs.Screen
@@ -65,9 +63,7 @@ export default function TabLayout() {
           // ser seções do Perfil, junto da identidade do aluno. A barra ficou com
           // duas abas: o que se faz (Estude) e quem faz (Perfil).
           title: 'Perfil',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="person.fill" color={color} />
-          ),
+          tabBarIcon: ({ focused }) => <ProfileTabIcon focused={focused} />,
         }}
       />
     </Tabs>

@@ -1,20 +1,7 @@
 # Classificação
 
-Esta pasta guarda a camada editorial que liga `extrações/` à `taxonomia/`.
+Motor editorial preservado. Em 02/11/2026 os registros, jobs e decisões do piloto foram retirados por autorização do dono; `index.json` está vazio. A biblioteca e os excertos de referência permanecem preservados.
 
-## Regras
+Registros futuros devem manter proveniência, classificação hierárquica válida e revisão humana identificada. Estrela nula é permitida para planetas sem estrela.
 
-- cada `excerpt` extraído deve gerar um `classification record`
-- cada registro precisa apontar para `galaxyId`, `planetId` e `starId` válidos
-- registros com baixa confiança ficam marcados para revisão
-- a classificação do piloto usa um baseline determinístico local, sem API externa
-
-## Estado atual
-
-O livro-piloto `Fundamentos de Radiologia` é a primeira obra destinada a receber classificação completa nesta camada.
-
-Snapshot atual do piloto:
-
-- `109` registros de classificação
-- `30` itens em `needs-review`
-- consistência `galáxia -> planeta -> estrela` validada pelo pipeline
+O [planejamento único](../../docs/plans/2026-11-02-planejamento-conteudo-radiant.md) define o próximo currículo. Este diretório não contém um currículo paralelo.

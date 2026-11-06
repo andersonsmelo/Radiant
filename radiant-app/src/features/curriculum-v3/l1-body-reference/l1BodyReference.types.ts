@@ -53,10 +53,10 @@ export type L1Challenge = Readonly<{
 }>;
 
 export type L1BodyReferenceLesson = Readonly<{
-  id: 'lesson:v3:arc:spatial-orientation:l1-body-reference';
-  title: 'O corpo como referência';
+  id: string;
+  title: string;
   audienceLabel: string;
-  version: '1.0.0-draft';
+  version: string;
   sources: readonly L1Source[];
   relationships: readonly L1Relationship[];
   challenges: readonly L1Challenge[];

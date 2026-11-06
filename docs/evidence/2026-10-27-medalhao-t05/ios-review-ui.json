@@ -1,0 +1,46 @@
+{
+  "schema": "xcodebuildmcp.output.capture-result",
+  "schemaVersion": "2",
+  "didError": false,
+  "error": null,
+  "data": {
+    "summary": {
+      "status": "SUCCEEDED"
+    },
+    "artifacts": {
+      "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    },
+    "capture": {
+      "type": "runtime-snapshot",
+      "rs": "1",
+      "screenHash": "0j40bqf",
+      "seq": 61,
+      "count": 50,
+      "targets": [
+        "e43|tap|button|Continuar||app-button-face"
+      ],
+      "scroll": [
+        "e19|swipe|scroll-view|||"
+      ],
+      "text": [
+        "e24|text|text|3 de 3 estrelas||",
+        "e28|text|text|Três estrelas. Nada passou despercebido.||",
+        "e29|text|text|Três estrelas. Nada passou despercebido.||",
+        "e30|text|text|Revisão concluída||",
+        "e31|text|text|Revisão concluída||",
+        "e32|text|text|XP: +18 XP nesta tentativa||",
+        "e34|text|text|Respostas corretas: 3 de 3 corretas||",
+        "e35|text|text|Progresso da unidade: 1 de 8 etapas||",
+        "e36|text|text|Esta tentativa fechou sua meta diária de módulos com sucesso.||",
+        "e37|text|text|Esta tentativa fechou sua meta diária de módulos com sucesso.||"
+      ],
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    }
+  },
+  "nextSteps": [
+    "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+    "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+    "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e19 --direction up --distance 0.5",
+    "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e43"
+  ]
+}

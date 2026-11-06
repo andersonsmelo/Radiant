@@ -530,7 +530,7 @@ describe('SubscriptionService — escolha do adaptador padrão', () => {
     it('com o módulo nativo no binário, as ofertas vêm do StoreKit', async () => {
         (requireOptionalNativeModule as jest.Mock).mockReturnValue({
             loadProducts: jest.fn(async () => [
-                { id: 'com.andersonmelo.radiant.ilimitado.anual', displayName: 'Radiant Ilimitado Anual', displayPrice: 'R$ 149,90' },
+                { id: 'com.andersonmelo.radiant.ilimitado.anual', displayName: 'Radiant Ilimitado Anual', displayPrice: 'R$ 149,90', price: 149.9, currencyCode: 'BRL' },
             ]),
             currentEntitlements: jest.fn(async () => []),
             purchase: jest.fn(),
@@ -546,6 +546,8 @@ describe('SubscriptionService — escolha do adaptador padrão', () => {
                 period: 'annual',
                 title: 'Radiant Ilimitado Anual',
                 displayPrice: 'R$ 149,90',
+                price: 149.9,
+                currencyCode: 'BRL',
             }],
         });
     });

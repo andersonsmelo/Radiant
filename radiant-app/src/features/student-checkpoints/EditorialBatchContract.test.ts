@@ -1,4 +1,4 @@
-import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE, validateEditorialCurriculumCandidate, type EditorialCurriculumCandidateV1 } from './EditorialCurriculumCandidate';
+import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE, validateEditorialCurriculumCandidate, type EditorialCurriculumCandidateV1 } from '../../test/fixtures/syntheticEditorialBatch';
 import { fingerprintProductionBatchMaterial, promoteProductionBatch, PRODUCTION_BATCH_APPROVAL_GATES, type ProductionBatchDraftV1 } from './ProductionBatch';
 import { createProductionCurriculumCatalog } from './createProductionCurriculumCatalog';
 
@@ -14,12 +14,38 @@ function candidate(): EditorialCurriculumCandidateV1 {
     const ids = [...activities, ...items].map(item => item.id);
     return { ...base, unitId: 'unit:synthetic-g3', contentVersion: 'synthetic-g3-v1', competencyIds: base.competencyIds.slice(0, 2),
         activities, checkpoint: { ...base.checkpoint, items },
-        sources: base.sources.filter(source => ['source:h4:s1', 'source:h4:s2', 'source:h4:s4', 'source:h4:s7'].includes(source.id)).map(source => ({ ...source, accessedAt: '2026-10-17' })),
+        sources: base.sources.filter(source => ['source:h4:s1', 'source:h4:s2', 'source:h4:s3', 'source:h4:s4', 'source:h4:s5'].includes(source.id)).map(source => ({ ...source, accessedAt: '2026-10-17' })),
         claimProvenance: base.claimProvenance.filter(claim => ids.some(id => claim.claimId.startsWith(`${id}:`))),
     };
 }
 
 describe('contrato editorial genérico G3', () => {
+    it('refuses a checkpoint that always answering the same text can pass', () => {
+        const input = candidate();
+        const competency = input.competencyIds[0];
+        const items = input.checkpoint.items.filter(item => item.competencyIds.includes(competency));
+        expect(items.length).toBeGreaterThan(1);
+        items.forEach((item, index) => {
+            const correct = item.options.find(option => option.id === item.correctOptionId) as { label: string };
+            correct.label = index ? ' mesma resposta. ' : 'Mesma resposta.';
+        });
+        expect(validateEditorialCurriculumCandidate(input)).toContain(`checkpoint-constant-answer:${competency}`);
+    });
+
+    it.each(['presentation', 'bench'] as const)('keeps %s imagery out of the original v1 contract', kind => {
+        const value = candidate();
+        if (kind === 'presentation') {
+            const step = value.activities[0].steps.find(step => step.kind === 'presentation')!;
+            if (step.kind === 'presentation') step.payload.imageRef = 'https://example.invalid/synthetic.svg';
+        } else {
+            const step = value.activities[0].steps.find(step => step.kind === 'interaction')!;
+            if (step.kind === 'interaction' && step.interaction.type === 'multiple-choice') {
+                step.interaction.payload.exposureImage = { label: 'Synthetic', input: { kv: 60, mas: 5 } };
+            }
+        }
+        expect(validateEditorialCurriculumCandidate(value)).toContain(`unsupported-activity-family:${value.activities[0].id}`);
+    });
+
     it('valida lote menor, com competências e fontes declaradas, e compila pelo catálogo do app', () => {
         const material = candidate();
         expect(validateEditorialCurriculumCandidate(material)).toEqual([]);

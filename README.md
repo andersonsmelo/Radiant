@@ -1,5 +1,8 @@
 # Radiant
 
+> Planejamento de conteúdo em reinício (02/11/2026): público inicial de graduação tecnológica em radiologia, seguido de especializações. [Entrada única](docs/plans/2026-11-02-planejamento-conteudo-radiant.md). Esta retirada é local à branch Medalhão; não altera o app distribuído.
+
+
 Radiant é um aplicativo mobile educacional de radiologia, local-first, com
 microaprendizagem, prática ativa, revisão espaçada e gamificação não punitiva.
 
@@ -51,28 +54,24 @@ Em 2026-08-02 entrou o **motor de aprendizagem v2**, do contrato ao player:
   retenção e gate crítico de segurança;
 - player desacoplado dos tipos de atividade, por registro de renderizadores.
 
-Essa fundação já ganhou um corte vertical visível em H4: uma unidade promovida
-com 12 atividades v2 nativas, checkpoint de 10 itens e aprovação inclusiva em
-80%. A primeira atividade passou em smoke no simulador; checkpoint completo,
-retomada sem respostas e acessibilidade ainda precisam de evidência em aparelho.
+O corte vertical H4 e seus dados foram retirados desta branch em02/11/2026.
+Os contratos do motor, do agendador, de evidência e de quarentena permanecem;
+nenhuma aprovação antiga autoriza aulas futuras. Catálogos ativos estão vazios,
+com estado explícito `retired`, e não importam remoto/cache ou migram histórico
+no bootstrap. A apresentação inicial mantém Pixel/navegação, sem exercício de kV.
 
-O agendador por competência (Task 11) também está pronto, mas permanece inerte:
-o lado de leitura ainda não foi ativado pelo limite de rollout, embora H4 já
-forneça conteúdo v2 real. Stores numéricos não finitos são rejeitados e enviados
-à quarentena, e competências sintéticas legadas falham fechadas.
-
-Essa frente continua em ordem no
-[`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
-O primeiro lote original e sintético já foi autorizado, com proveniência e
-anonimização verificáveis. A engenharia da Task 12/H4 está integrada à `main`;
-falta somente o gate operacional em aparelho. Produção continua `off`.
+O [plano de conteúdo](docs/plans/2026-11-02-planejamento-conteudo-radiant.md) é a
+única proposta curricular. O [pipeline](docs/CONTENT_PIPELINE.md) continua sendo
+contrato técnico; o [STATUS](docs/STATUS.md) guarda o estado vivo. O
+[README anterior no Git](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/README.md)
+registra o corte vertical histórico, sem mantê-lo como catálogo atual.
 
 ## Estrutura
 
 ```text
 radiant-app/       cliente Expo/React Native
 radiant-api/       API Fastify/PostgreSQL para auth e sincronização
-Conteúdo/          fontes e pipeline editorial versionado
+conteúdo/          fontes e pipeline editorial versionado
 scripts/content/   geração, catálogo, promoção e validadores editoriais
 scripts/qa/        contratos de documentação e smokes do repositório
 docs/              estado, decisões, planos, specs e runbooks

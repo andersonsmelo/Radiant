@@ -3,6 +3,7 @@ import type { LearningActivityV2, ValidationIssue } from '../../../types/learnin
 import { validateLearningActivity } from '../../../types/learningActivity';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { BenchLessonCatalog } from '../../bench/lessons/BenchLessonCatalog';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 function validateBlock(block: LessonBlock): void {
@@ -74,8 +75,14 @@ class LessonFlowServiceImpl {
      * A busca no catálogo mora aqui, e não no adaptador, que é puro de propósito.
      * O caminho de blocos (`getBlockById`) continua disponível; o modo da sessão
      * habilita várias perguntas nos blocos híbridos.
+     *
+     * As aulas-bancada de exemplo vêm primeiro, e só em build de
+     * desenvolvimento: fora de `__DEV__` o catálogo delas devolve `null`, e o
+     * mesmo id não chega a nenhuma aula.
      */
     getActivityById(blockId: string): LearningActivityV2 | null {
+        const bench = BenchLessonCatalog.getActivityById(blockId);
+        if (bench) return bench;
         const promoted = ProductionCurriculumCatalog.getActivityById(blockId);
         if (promoted) return promoted;
         const block = JourneyDefinitionService.getBlockById(blockId);

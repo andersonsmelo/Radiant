@@ -52,7 +52,7 @@ function commandRun(coldStartMs, homeToLessonMs) {
       metadata: { status: 'COMPLETED', timestamp: 100, duration: coldStartMs },
     },
     {
-      command: { tapOnElement: { selector: { textRegex: 'Continuar jornada' } } },
+      command: { tapOnElement: { selector: { textRegex: 'Continuar trilha' } } },
       metadata: { status: 'COMPLETED', timestamp: 1000, duration: 10 },
     },
     {

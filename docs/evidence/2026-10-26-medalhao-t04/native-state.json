@@ -1,0 +1,576 @@
+{
+  "measuredAt": "2026-10-27T10:16:19.400659+00:00",
+  "status": "NATIVE_APPROVED_R2_PRODUCT_AND_R4_GUARD_UNCHANGED_RUNTIME",
+  "productBase": "804d1e701f818bc793718b481a490ab377dda850",
+  "productHashesBeforeFix": {
+    "base": "804d1e701f818bc793718b481a490ab377dda850",
+    "workspace": "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20",
+    "createdAtUtc": "2026-10-26T21:54:14.249275+00:00",
+    "files": [
+      {
+        "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+        "sha256": "ff8af7b4d9ccd86f6de1964dd591a2e5bebf90873ef489019b055a22e73c4da6",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+        "sha256": "54ee323743e72067293856ae65599fb8ca48bc72d7ef18b52d0da89823545f8a",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx",
+        "sha256": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+        "sha256": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx",
+        "sha256": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+        "sha256": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+        "sha256": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.ts",
+        "sha256": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9",
+        "changedFromBase": false
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts",
+        "sha256": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6",
+        "changedFromBase": false
+      },
+      {
+        "path": "radiant-app/src/types/learningActivity.ts",
+        "sha256": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/bench/CollimationImage.tsx",
+        "sha256": "c829f35dde050a6525242e90a3f615933e9a1adeae26fdaea81d351274fe199d",
+        "changedFromBase": false
+      },
+      {
+        "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+        "sha256": "ba371f7ee0fe52fe0d3841d82742864fae33c2a64fb9db5c1806836a5190e813",
+        "changedFromBase": false
+      },
+      {
+        "path": "radiant-app/src/features/bench/lessons/exposicao.ts",
+        "sha256": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts",
+        "sha256": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts",
+        "sha256": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+        "sha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/src/features/bench/lessons/colimacao.ts",
+        "sha256": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405",
+        "changedFromBase": true
+      },
+      {
+        "path": "radiant-app/scripts/copy-style-baseline.json",
+        "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4",
+        "changedFromBase": false
+      },
+      {
+        "path": "radiant-app/scripts/visual-qa-policy.json",
+        "sha256": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00",
+        "changedFromBase": false
+      }
+    ]
+  },
+  "ios": {
+    "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "logicalWidthPt": 402,
+    "pixels": [
+      1206,
+      2622
+    ],
+    "os": "26.5",
+    "fontNormal": "large",
+    "fontAmplified": "accessibility-extra-extra-extra-large",
+    "fontRestored": "large",
+    "result": "step indicator intact; dose-area full phrase in five lines at maximum category and two at normal category; CTA enabled at target16 and correct feedback readable across scrolling",
+    "appFinal": "terminated",
+    "simulatorFinal": "Shutdown"
+  },
+  "android": {
+    "avd": "radiant-entrada-api34",
+    "serial": "emulator-5554",
+    "pixels": [
+      1080,
+      2340
+    ],
+    "densityDpi": 440,
+    "logicalWidthDp": 392.72727272727275,
+    "fontOriginal": "unset (null)",
+    "fontAmplified": 2.0,
+    "fontRestored": "delete setting returned 1.0 on final read, normal default",
+    "result": "final fix3: step indicator and full dose-area phrase in two lines at font2 cold start",
+    "appFinal": "force-stopped",
+    "emulatorFinal": "shutdown",
+    "reverse8081": "removed",
+    "versionName": "1.4.0",
+    "versionCode": 3
+  },
+  "scenarios": [
+    "opening themed medal",
+    "explore 60 to100 kV; Pixel and essential explanation; enabled CTA",
+    "correct explore and incorrect challenge visible feedback",
+    "critical image and textual equivalent, 70kV/2mAs source contract",
+    "dose-area default and amplified text",
+    "exit returns to journey; observed18XP/1day/5hearts"
+  ],
+  "limits": [
+    "screen-reader spoken announcement not audibly evaluated",
+    "cloud unavailable on simulated binaries",
+    "no build or installation; existing dev clients; T03 measured 1.4.0(3), no install occurred since",
+    "second-day reserved device untouched",
+    "Native no-XP UI proof is complete on iOS; Android only partial lessons. Unit tests separately verify forbidden persistence calls. No direct device storage inspection."
+  ],
+  "reserved": {
+    "udid": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+    "final": "Shutdown",
+    "used": false
+  },
+  "metroFinal": "stopped",
+  "frameRoles": {
+    "ios-dose.png": "BEFORE readout fix2: intact step indicator after fix1, clipped final letter of campo todo at iOS402pt AX5",
+    "ios-dose-text.png": "AFTER fix3, final sources: iOS402pt AX5 full dose-area phrase in five lines",
+    "android-dose.png": "normal font dose-area",
+    "android-dose-text.png": "AFTER fix3, final sources: Android font2 full phrase in two lines",
+    "ios-exit.png": "Completed exposure without node, four of four correct, Sem XP nesta tentativa"
+  },
+  "finalProductHashesFix1": [
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx",
+      "sha256": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+      "sha256": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx",
+      "sha256": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+      "sha256": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+      "sha256": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.ts",
+      "sha256": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts",
+      "sha256": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6"
+    },
+    {
+      "path": "radiant-app/src/types/learningActivity.ts",
+      "sha256": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.tsx",
+      "sha256": "c829f35dde050a6525242e90a3f615933e9a1adeae26fdaea81d351274fe199d"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+      "sha256": "ba371f7ee0fe52fe0d3841d82742864fae33c2a64fb9db5c1806836a5190e813"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/exposicao.ts",
+      "sha256": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts",
+      "sha256": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts",
+      "sha256": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704"
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/colimacao.ts",
+      "sha256": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405"
+    },
+    {
+      "path": "radiant-app/scripts/copy-style-baseline.json",
+      "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4"
+    },
+    {
+      "path": "radiant-app/scripts/visual-qa-policy.json",
+      "sha256": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00"
+    }
+  ],
+  "nativeNoXpCaptures": [
+    {
+      "sourceLocal": "1793094862137984000-snapshot-ui.json",
+      "sourceSha256": "60c150175494b861ae277288844173cc9bc800e83f3cbcf0f3c1ee0f934a1e68",
+      "capture": {
+        "type": "runtime-snapshot",
+        "rs": "1",
+        "screenHash": "0g3a0e1",
+        "seq": 1,
+        "count": 168,
+        "targets": [
+          "e40|tap|button|1 item para revisar. Revisar.||",
+          "e45|tap|button|Fundamentos de Radiologia. Concluído.|3 estrelas|",
+          "e54|tap|button|Revisar Fundamentos de Radiologia. Revisão devida · 1 devida.||",
+          "e67|tap|button|Princípios de Tomografia Computadorizada. Disponível.||",
+          "e162|tap|button|Estude, tab, 1 of 2||",
+          "e163|tap|button|Perfil, tab, 2 of 2||",
+          "e26|tap|button|5 de 5 vidas||",
+          "e58|tap|button|Fazer revisão||app-button-face",
+          "e155|tap|switch|Lembrete diário|0|"
+        ],
+        "scroll": [
+          "e28|swipe|other|||journey-trail",
+          "e29|swipe|scroll-view|||"
+        ],
+        "text": [
+          "e38|text|text|1 de 8||",
+          "e39|text|text|1 de 8||",
+          "e24|text|text|18 XP||",
+          "e25|text|text|1 dia de sequência||",
+          "e156|text|text|Lembrete diário||",
+          "e157|text|text|Lembrete diário||"
+        ],
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+      }
+    },
+    {
+      "sourceLocal": "1793094985476146000-tap.json",
+      "sourceSha256": "3ad7e32afa583636803c28ca09fb2a7b4a68b780d0cdce00d02122fe4870b689",
+      "capture": {
+        "type": "runtime-snapshot",
+        "rs": "1",
+        "screenHash": "1jom1xd",
+        "seq": 34,
+        "count": 60,
+        "targets": [
+          "e43|tap|button|Avaliar a aula com 1 de 5||",
+          "e44|tap|button|Avaliar a aula com 2 de 5||",
+          "e45|tap|button|Avaliar a aula com 3 de 5||",
+          "e46|tap|button|Avaliar a aula com 4 de 5||",
+          "e47|tap|button|Avaliar a aula com 5 de 5||",
+          "e53|tap|button|Continuar||app-button-face"
+        ],
+        "scroll": [
+          "e19|swipe|scroll-view|||"
+        ],
+        "text": [
+          "e31|text|text|3 de 3 estrelas||",
+          "e34|text|text|A lição foi concluída||",
+          "e35|text|text|A lição foi concluída||",
+          "e37|text|text|Respostas corretas: 4 de 4 corretas||",
+          "e38|text|text|XP: Sem XP nesta tentativa||",
+          "e39|text|text|Avalie a aula||",
+          "e40|text|text|Avalie a aula||",
+          "e41|text|text|É opcional||",
+          "e42|text|text|É opcional||"
+        ],
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+      }
+    },
+    {
+      "sourceLocal": "1793094997994858000-snapshot-ui.json",
+      "sourceSha256": "33c04a6df094bb1db42c872d85f74c24f20bdecc8407618d1f11bc4e4727f46e",
+      "capture": {
+        "type": "runtime-snapshot",
+        "rs": "1",
+        "screenHash": "1jom1xd",
+        "seq": 35,
+        "count": 60,
+        "targets": [
+          "e43|tap|button|Avaliar a aula com 1 de 5||",
+          "e44|tap|button|Avaliar a aula com 2 de 5||",
+          "e45|tap|button|Avaliar a aula com 3 de 5||",
+          "e46|tap|button|Avaliar a aula com 4 de 5||",
+          "e47|tap|button|Avaliar a aula com 5 de 5||",
+          "e53|tap|button|Continuar||app-button-face"
+        ],
+        "scroll": [
+          "e19|swipe|scroll-view|||"
+        ],
+        "text": [
+          "e31|text|text|3 de 3 estrelas||",
+          "e34|text|text|A lição foi concluída||",
+          "e35|text|text|A lição foi concluída||",
+          "e37|text|text|Respostas corretas: 4 de 4 corretas||",
+          "e38|text|text|XP: Sem XP nesta tentativa||",
+          "e39|text|text|Avalie a aula||",
+          "e40|text|text|Avalie a aula||",
+          "e41|text|text|É opcional||",
+          "e42|text|text|É opcional||"
+        ],
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+      }
+    },
+    {
+      "sourceLocal": "1793095000438944000-tap.json",
+      "sourceSha256": "06b7a8c264670cbc67950a14bb94683fc633a6bee0fce966869699e5117dd20c",
+      "capture": {
+        "type": "runtime-snapshot",
+        "rs": "1",
+        "screenHash": "0g3a0e1",
+        "seq": 36,
+        "count": 168,
+        "targets": [
+          "e40|tap|button|1 item para revisar. Revisar.||",
+          "e45|tap|button|Fundamentos de Radiologia. Concluído.|3 estrelas|",
+          "e54|tap|button|Revisar Fundamentos de Radiologia. Revisão devida · 1 devida.||",
+          "e67|tap|button|Princípios de Tomografia Computadorizada. Disponível.||",
+          "e162|tap|button|Estude, tab, 1 of 2||",
+          "e163|tap|button|Perfil, tab, 2 of 2||",
+          "e26|tap|button|5 de 5 vidas||",
+          "e58|tap|button|Fazer revisão||app-button-face",
+          "e155|tap|switch|Lembrete diário|0|"
+        ],
+        "scroll": [
+          "e28|swipe|other|||journey-trail",
+          "e29|swipe|scroll-view|||"
+        ],
+        "text": [
+          "e38|text|text|1 de 8||",
+          "e39|text|text|1 de 8||",
+          "e24|text|text|18 XP||",
+          "e25|text|text|1 dia de sequência||",
+          "e156|text|text|Lembrete diário||",
+          "e157|text|text|Lembrete diário||"
+        ],
+        "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+      }
+    }
+  ],
+  "finalSourceHashes": [
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx",
+      "sha256": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+      "sha256": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx",
+      "sha256": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+      "sha256": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+      "sha256": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.ts",
+      "sha256": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts",
+      "sha256": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6"
+    },
+    {
+      "path": "radiant-app/src/types/learningActivity.ts",
+      "sha256": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.tsx",
+      "sha256": "651036a2f870dbacf069308602e233885d0c6a32f88a66817e5c5c8df36b3d73"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+      "sha256": "6931f95ddf2976b0d2d79d5b383e7b7656eabe6ed91395ad803a206352e4e7d5"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/exposicao.ts",
+      "sha256": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts",
+      "sha256": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts",
+      "sha256": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704"
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/colimacao.ts",
+      "sha256": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405"
+    },
+    {
+      "path": "radiant-app/scripts/copy-style-baseline.json",
+      "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4"
+    },
+    {
+      "path": "radiant-app/scripts/visual-qa-policy.json",
+      "sha256": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00"
+    }
+  ],
+  "sourceStages": {
+    "R1": "task-5-product-hashes.json; 2026-10-26 initial screenshots except named below",
+    "fix1": "ios-exit.png complete native exposure and ios-dose.png failing readout before fix2",
+    "fix3": "ios-dose-text.png and android-dose-text.png; final CollimationImage SHA651036a2f870dbacf069308602e233885d0c6a32f88a66817e5c5c8df36b3d73; final Screen SHA7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736"
+  },
+  "localSupplementalFrames": [
+    {
+      "name": "task-5-ios-dose-normal-final.png",
+      "sha256": "98ee98b0c484e2c9c72cca8ec93ba9f38cad908845db3f5bafc06a68d014c0c1",
+      "stage": "fix3 final source"
+    },
+    {
+      "name": "task-5-ios-feedback-max.png",
+      "sha256": "06d97beb00866d527af86da91047395688902455a5a18c8824e32cce98dc6d91",
+      "stage": "fix3 final source"
+    },
+    {
+      "name": "task-5-ios-feedback-max-body.png",
+      "sha256": "ebc4c5a346127a33cb31c2d565b101b6638914b386a9681e67501db0822340d0",
+      "stage": "fix3 final source"
+    },
+    {
+      "name": "task-5-ios-feedback-max-end.png",
+      "sha256": "4fb6597052f5ba69298766bd2b7efbc57898f67df2a44a9bac6e39cf67e42c42",
+      "stage": "fix3 final source"
+    }
+  ],
+  "versionedFrames": [
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-critical.png",
+      "sha256": "56ac132f7062d0c3be1909bdd61d56136abb1da495968e947b84e0eaca51b8e1",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-dose-text.png",
+      "sha256": "629c136c40d625aafe9e26b21e084a5ba66d2f6383d6b0470beac9c4575653bb",
+      "stage": "fix3"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-dose.png",
+      "sha256": "71350aabc3ada385fdf44a940975a9a2bd41c618e5030eda71e758315ab93e95",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-exit.png",
+      "sha256": "3b32339a2de72370d45c21f75c342215d4632a12350faf2586e67a0bf079a645",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-explore.png",
+      "sha256": "221053d7775a6088fe772409127bc5446d29bf974e7e8b7d6fcf7a7bec2db82f",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-feedback.png",
+      "sha256": "adee1c54c987f16052b8b96eac5d44fdfb602dcfa25691594e7bba15895c81fb",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-opening.png",
+      "sha256": "3e75b554ed8d8082dcdf6f27d43d07751b215d279e3313afdde786759438e76b",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-critical.png",
+      "sha256": "e4a330262a2b153bb996168d02219b2e86d98c346bd863a83a217f03a80dcf8f",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-dose-text.png",
+      "sha256": "d893ff0b3d8a60e142fe722ff1d39b721331f00118e436b5b3e4afea424c0177",
+      "stage": "fix3"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-dose.png",
+      "sha256": "d43ef3ee0c575f93821f18b2a9341b5dd1972bb4f9e73e24add681d5d0133a29",
+      "stage": "fix1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-exit.png",
+      "sha256": "69e7ce9323e2afef05bd81f101f934e4d5dfa05115d90da120b80fb5c67dd816",
+      "stage": "fix1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-explore.png",
+      "sha256": "f73c82f56537bfd71b4de71f4756ac0155aa4d5b2cf5ac1d8e8bb0b25ba8253b",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-feedback.png",
+      "sha256": "f00a4b7a68d06a481bb4b0d0c8a42dca0a0b3aad2106960fa3fe4b4b2e3af723",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-opening.png",
+      "sha256": "bc751cd6a0497c88da7cd31576a64e3dcc323f444711d389f7d8a6ff183a34df",
+      "stage": "R1"
+    }
+  ],
+  "finalDeviceStates": [
+    {
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+      "state": "Shutdown"
+    },
+    {
+      "udid": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3",
+      "state": "Shutdown"
+    }
+  ],
+  "finalAdbDevices": "List of devices attached",
+  "reviewEvidence": "review.md, independent R2 verifies native proof; R4 preserves runtime and native bytes"
+}

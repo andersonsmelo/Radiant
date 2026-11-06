@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import { it } from 'node:test';
 import { auditProductionBatches } from './audit-production-batches.mjs';
 import appContract from './load-app-contract.cjs';
-const baseline = appContract.loadAppContract('features/student-checkpoints/production-batches.ts').PRODUCTION_BATCHES[0];
-const candidate = appContract.loadAppContract('features/student-checkpoints/EditorialCurriculumCandidate.ts').MATERIA_ENERGIA_E_RADIACAO_CANDIDATE;
+const baseline = appContract.loadAppContract('test/fixtures/syntheticEditorialBatch.ts').PRODUCTION_BATCHES[0];
+const candidate = appContract.loadAppContract('test/fixtures/syntheticEditorialBatch.ts').MATERIA_ENERGIA_E_RADIACAO_CANDIDATE;
 
 it('mede cobertura e rendimento da amostra sem promover candidato pendente', () => {
   const report = auditProductionBatches([baseline, { batchId: 'candidate:pending', candidate }]);
@@ -26,6 +26,12 @@ it('contabiliza retrabalho detectado e não chama hash antigo de aprovação', (
   assert.ok(report.batches[0].promotionIssues.includes('production-batch-material-hash-mismatch'));
   assert.ok(report.batches[0].gates.every(gate => gate.state === 'pending-or-invalid'));
   assert.equal(report.reworkByRule['activity-version-mismatch'], 1);
+});
+it('zero batches is explicitly not publication-ready', () => {
+  const report = auditProductionBatches([]);
+  assert.equal(report.contentState, 'no-production-batches');
+  assert.equal(report.publicationReady, false);
+  assert.equal(report.validationYield.totalBatches, 0);
 });
 it('recusa raiz inválida e preserva ausência de prova para entradas incompletas', () => {
   assert.throws(() => auditProductionBatches({}), /expected-batch-array/);

@@ -1,7 +1,7 @@
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 import { JourneyCurriculumService } from './JourneyCurriculumService';
 import { createProductionCurriculumCatalog, type ProductionCatalogEntry } from '../../student-checkpoints/createProductionCurriculumCatalog';
-import { PRODUCTION_CATALOG_ENTRIES } from '../../student-checkpoints/production-catalog-entries';
+import { PRODUCTION_CATALOG_ENTRIES } from '../../../test/fixtures/syntheticEditorialBatch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore, type JourneySnapshot } from '../../../types/journey';
@@ -155,6 +155,34 @@ describe('JourneyProgressService', () => {
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    it('keeps stored history byte-for-byte when opening an empty replacement track', async () => {
+        const original = await JourneyProgressService.bootstrap();
+        const raw = JSON.parse(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]) as JourneyProgressStore;
+        const progress = raw.tracks[original.track.id];
+        progress.completedNodeIds = ['retired-completion'];
+        progress.resumableNodeId = 'retired-resume';
+        progress.resumableStepIndex = 7;
+        storageState[STORAGE_KEYS.JOURNEY_PROGRESS] = JSON.stringify(raw);
+        const before = storageState[STORAGE_KEYS.JOURNEY_PROGRESS];
+        storage.setItem.mockClear();
+        const result = await JourneyProgressService.getSnapshot({ ...original.track,
+            units: original.track.units.map(unit => ({ ...unit, nodes: [] })) });
+        expect(result.nextRecommendedNode).toBeNull();
+        expect(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]).toBe(before);
+        expect(storage.setItem).not.toHaveBeenCalled();
+    });
+
+    it('preserves retired completions when a current node is explicitly opened', async () => {
+        const original = await JourneyProgressService.bootstrap();
+        const raw = JSON.parse(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]) as JourneyProgressStore;
+        raw.tracks[original.track.id].completedNodeIds = ['retired-completion'];
+        storageState[STORAGE_KEYS.JOURNEY_PROGRESS] = JSON.stringify(raw);
+        await JourneyProgressService.setCurrentNode('node:foundation-1');
+        const after = JSON.parse(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]) as JourneyProgressStore;
+        expect(after.tracks[original.track.id].completedNodeIds).toContain('retired-completion');
+        expect(after.tracks[original.track.id].completedNodeIds).not.toContain('node:foundation-1');
     });
 
     it('preserva o progresso e libera a próxima unidade pela avaliação, com conquista opcional', async () => {

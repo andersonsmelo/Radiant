@@ -1,0 +1,1897 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m01",
+    "code": "M01",
+    "title": "Rotina de estudo da turma",
+    "summary": "Unidade sintética de teste: organiza materiais de estudo em seis sessões curtas, sem conteúdo clínico."
+  },
+  "sources": [
+    {
+      "id": "guia-de-estudo",
+      "title": "Guia de estudo da turma",
+      "publisher": "Radiant, material de teste",
+      "url": "https://example.org/radiant/guia-de-estudo",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Fonte fictícia, usada só nos testes do gerador."
+    },
+    {
+      "id": "manual-da-turma",
+      "title": "Manual da turma",
+      "publisher": "Radiant, material de teste",
+      "url": "https://example.org/radiant/manual-da-turma",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "Fonte fictícia com atribuição simulada, usada só nos testes."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m01-01",
+      "code": "M01.01",
+      "title": "Organizar fichas de estudo",
+      "objective": "Hoje você vai conseguir organizar fichas de estudo em uma sessão curta de estudo.",
+      "competency": "Organizar fichas de estudo seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com a ficha."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar a ficha com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de fichas de estudo",
+        "body": "Organizar fichas de estudo começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir a ficha vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir a ficha, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Conferir a ficha antes de começar",
+              "correct": true,
+              "feedback": "Conferir a ficha antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Guardar a ficha sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar a ficha sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Trocar a ficha por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar a ficha por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar a ficha para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar a ficha para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Pense no que evita retrabalho com a ficha."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de fichas de estudo.",
+          "items": [
+            "Conferir a ficha",
+            "Comparar a ficha com o plano",
+            "Anotar a data em a ficha",
+            "Marcar o que falta em a ficha"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em a ficha.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de a ficha vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de fichas de estudo ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de fichas de estudo protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de fichas de estudo evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que a ficha da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em a ficha, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa a ficha na primeira sessão?",
+          "options": [
+            {
+              "label": "Copiar a ficha de um colega",
+              "correct": false,
+              "feedback": "Copiar a ficha de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Rasgar a ficha e esquecer",
+              "correct": false,
+              "feedback": "Rasgar a ficha e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Comparar a ficha com o plano",
+              "correct": true,
+              "feedback": "Comparar a ficha com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Enfeitar a ficha com cores",
+              "correct": false,
+              "feedback": "Enfeitar a ficha com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com a ficha."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza fichas de estudo",
+        "body": "Agora você consegue conferir, comparar e datar a ficha, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com a ficha, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular a data de a ficha hoje",
+              "correct": false,
+              "feedback": "Pular a data de a ficha hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Inventar a data de a ficha",
+              "correct": false,
+              "feedback": "Inventar a data de a ficha: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar a data de a ficha já",
+              "correct": false,
+              "feedback": "Riscar a data de a ficha já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Anotar a data em a ficha hoje",
+              "correct": true,
+              "feedback": "Anotar a data em a ficha hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar a ficha, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Reler a ficha em voz baixa",
+              "correct": true,
+              "feedback": "Reler a ficha em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Fechar a ficha sem reler",
+              "correct": false,
+              "feedback": "Fechar a ficha sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Emprestar a ficha sem ver",
+              "correct": false,
+              "feedback": "Emprestar a ficha sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar a ficha ao meio",
+              "correct": false,
+              "feedback": "Dobrar a ficha ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar a ficha, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em a ficha. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder o que falta em a ficha",
+                "correct": false,
+                "feedback": "Esconder o que falta em a ficha: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Marcar o que falta em a ficha",
+                "correct": true,
+                "feedback": "Marcar o que falta em a ficha: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Negar que falta algo em a ficha",
+                "correct": false,
+                "feedback": "Negar que falta algo em a ficha: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta em a ficha",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em a ficha: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara a ficha para a revisão?",
+            "options": [
+              {
+                "label": "Misturar a ficha com recibos",
+                "correct": false,
+                "feedback": "Misturar a ficha com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Perder a ficha de propósito",
+                "correct": false,
+                "feedback": "Perder a ficha de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Separar a ficha por assunto",
+                "correct": true,
+                "feedback": "Separar a ficha por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Empilhar a ficha sem ordem",
+                "correct": false,
+                "feedback": "Empilhar a ficha sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-02",
+      "code": "M01.02",
+      "title": "Organizar mapas de conceitos",
+      "objective": "Hoje você vai conseguir organizar mapas de conceitos em uma sessão curta de estudo.",
+      "competency": "Organizar mapas de conceitos seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o mapa."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar o mapa com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de mapas de conceitos",
+        "body": "Organizar mapas de conceitos começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir o mapa vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir o mapa, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Guardar o mapa sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar o mapa sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Trocar o mapa por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar o mapa por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar o mapa para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar o mapa para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Conferir o mapa antes de começar",
+              "correct": true,
+              "feedback": "Conferir o mapa antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Pense no que evita retrabalho com o mapa."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de mapas de conceitos.",
+          "items": [
+            "Conferir o mapa",
+            "Comparar o mapa com o plano",
+            "Anotar a data em o mapa",
+            "Marcar o que falta em o mapa"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em o mapa.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de o mapa vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de mapas de conceitos ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de mapas de conceitos protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de mapas de conceitos evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que o mapa da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em o mapa, o que você faz agora?",
+          "options": [
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa o mapa na primeira sessão?",
+          "options": [
+            {
+              "label": "Copiar o mapa de um colega",
+              "correct": false,
+              "feedback": "Copiar o mapa de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Comparar o mapa com o plano",
+              "correct": true,
+              "feedback": "Comparar o mapa com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Rasgar o mapa e esquecer",
+              "correct": false,
+              "feedback": "Rasgar o mapa e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar o mapa com cores",
+              "correct": false,
+              "feedback": "Enfeitar o mapa com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com o mapa."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza mapas de conceitos",
+        "body": "Agora você consegue conferir, comparar e datar o mapa, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com o mapa, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular a data de o mapa hoje",
+              "correct": false,
+              "feedback": "Pular a data de o mapa hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Inventar a data de o mapa",
+              "correct": false,
+              "feedback": "Inventar a data de o mapa: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Anotar a data em o mapa hoje",
+              "correct": true,
+              "feedback": "Anotar a data em o mapa hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Riscar a data de o mapa já",
+              "correct": false,
+              "feedback": "Riscar a data de o mapa já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o mapa, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Fechar o mapa sem reler",
+              "correct": false,
+              "feedback": "Fechar o mapa sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Emprestar o mapa sem ver",
+              "correct": false,
+              "feedback": "Emprestar o mapa sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o mapa ao meio",
+              "correct": false,
+              "feedback": "Dobrar o mapa ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Reler o mapa em voz baixa",
+              "correct": true,
+              "feedback": "Reler o mapa em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o mapa, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em o mapa. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Marcar o que falta em o mapa",
+                "correct": true,
+                "feedback": "Marcar o que falta em o mapa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Esconder o que falta em o mapa",
+                "correct": false,
+                "feedback": "Esconder o que falta em o mapa: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Negar que falta algo em o mapa",
+                "correct": false,
+                "feedback": "Negar que falta algo em o mapa: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta em o mapa",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em o mapa: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara o mapa para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o mapa com recibos",
+                "correct": false,
+                "feedback": "Misturar o mapa com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Separar o mapa por assunto",
+                "correct": true,
+                "feedback": "Separar o mapa por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Perder o mapa de propósito",
+                "correct": false,
+                "feedback": "Perder o mapa de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar o mapa sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o mapa sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-03",
+      "code": "M01.03",
+      "title": "Organizar listas de revisão",
+      "objective": "Hoje você vai conseguir organizar listas de revisão em uma sessão curta de estudo.",
+      "competency": "Organizar listas de revisão seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com a lista."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar a lista com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de listas de revisão",
+        "body": "Organizar listas de revisão começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir a lista vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir a lista, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Guardar a lista sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar a lista sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Trocar a lista por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar a lista por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Conferir a lista antes de começar",
+              "correct": true,
+              "feedback": "Conferir a lista antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Deixar a lista para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar a lista para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Pense no que evita retrabalho com a lista."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de listas de revisão.",
+          "items": [
+            "Conferir a lista",
+            "Comparar a lista com o plano",
+            "Anotar a data em a lista",
+            "Marcar o que falta em a lista"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em a lista.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de a lista vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de listas de revisão ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de listas de revisão protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de listas de revisão evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que a lista da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em a lista, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa a lista na primeira sessão?",
+          "options": [
+            {
+              "label": "Comparar a lista com o plano",
+              "correct": true,
+              "feedback": "Comparar a lista com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Copiar a lista de um colega",
+              "correct": false,
+              "feedback": "Copiar a lista de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Rasgar a lista e esquecer",
+              "correct": false,
+              "feedback": "Rasgar a lista e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar a lista com cores",
+              "correct": false,
+              "feedback": "Enfeitar a lista com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com a lista."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza listas de revisão",
+        "body": "Agora você consegue conferir, comparar e datar a lista, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com a lista, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular a data de a lista hoje",
+              "correct": false,
+              "feedback": "Pular a data de a lista hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Anotar a data em a lista hoje",
+              "correct": true,
+              "feedback": "Anotar a data em a lista hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Inventar a data de a lista",
+              "correct": false,
+              "feedback": "Inventar a data de a lista: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar a data de a lista já",
+              "correct": false,
+              "feedback": "Riscar a data de a lista já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar a lista, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Fechar a lista sem reler",
+              "correct": false,
+              "feedback": "Fechar a lista sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Emprestar a lista sem ver",
+              "correct": false,
+              "feedback": "Emprestar a lista sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Reler a lista em voz baixa",
+              "correct": true,
+              "feedback": "Reler a lista em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Dobrar a lista ao meio",
+              "correct": false,
+              "feedback": "Dobrar a lista ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar a lista, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em a lista. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder o que falta em a lista",
+                "correct": false,
+                "feedback": "Esconder o que falta em a lista: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Negar que falta algo em a lista",
+                "correct": false,
+                "feedback": "Negar que falta algo em a lista: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta em a lista",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em a lista: essa escolha adia a conferência e o erro só aparece tarde demais."
+              },
+              {
+                "label": "Marcar o que falta em a lista",
+                "correct": true,
+                "feedback": "Marcar o que falta em a lista: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara a lista para a revisão?",
+            "options": [
+              {
+                "label": "Separar a lista por assunto",
+                "correct": true,
+                "feedback": "Separar a lista por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Misturar a lista com recibos",
+                "correct": false,
+                "feedback": "Misturar a lista com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Perder a lista de propósito",
+                "correct": false,
+                "feedback": "Perder a lista de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar a lista sem ordem",
+                "correct": false,
+                "feedback": "Empilhar a lista sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-04",
+      "code": "M01.04",
+      "title": "Organizar cadernos de turma",
+      "objective": "Hoje você vai conseguir organizar cadernos de turma em uma sessão curta de estudo.",
+      "competency": "Organizar cadernos de turma seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o caderno."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar o caderno com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de cadernos de turma",
+        "body": "Organizar cadernos de turma começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir o caderno vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir o caderno, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Guardar o caderno sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar o caderno sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Conferir o caderno antes de começar",
+              "correct": true,
+              "feedback": "Conferir o caderno antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Trocar o caderno por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar o caderno por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar o caderno para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar o caderno para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Pense no que evita retrabalho com o caderno."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de cadernos de turma.",
+          "items": [
+            "Conferir o caderno",
+            "Comparar o caderno com o plano",
+            "Anotar a data em o caderno",
+            "Marcar o que falta em o caderno"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em o caderno.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de o caderno vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de cadernos de turma ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de cadernos de turma protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de cadernos de turma evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que o caderno da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em o caderno, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa o caderno na primeira sessão?",
+          "options": [
+            {
+              "label": "Copiar o caderno de um colega",
+              "correct": false,
+              "feedback": "Copiar o caderno de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Rasgar o caderno e esquecer",
+              "correct": false,
+              "feedback": "Rasgar o caderno e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar o caderno com cores",
+              "correct": false,
+              "feedback": "Enfeitar o caderno com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Comparar o caderno com o plano",
+              "correct": true,
+              "feedback": "Comparar o caderno com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com o caderno."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza cadernos de turma",
+        "body": "Agora você consegue conferir, comparar e datar o caderno, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com o caderno, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Anotar a data em o caderno hoje",
+              "correct": true,
+              "feedback": "Anotar a data em o caderno hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Pular a data de o caderno hoje",
+              "correct": false,
+              "feedback": "Pular a data de o caderno hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Inventar a data de o caderno",
+              "correct": false,
+              "feedback": "Inventar a data de o caderno: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar a data de o caderno já",
+              "correct": false,
+              "feedback": "Riscar a data de o caderno já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o caderno, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Fechar o caderno sem reler",
+              "correct": false,
+              "feedback": "Fechar o caderno sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Reler o caderno em voz baixa",
+              "correct": true,
+              "feedback": "Reler o caderno em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Emprestar o caderno sem ver",
+              "correct": false,
+              "feedback": "Emprestar o caderno sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o caderno ao meio",
+              "correct": false,
+              "feedback": "Dobrar o caderno ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o caderno, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em o caderno. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder o que falta em o caderno",
+                "correct": false,
+                "feedback": "Esconder o que falta em o caderno: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Negar que falta algo em o caderno",
+                "correct": false,
+                "feedback": "Negar que falta algo em o caderno: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Marcar o que falta em o caderno",
+                "correct": true,
+                "feedback": "Marcar o que falta em o caderno: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Culpar a turma pela falta em o caderno",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em o caderno: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara o caderno para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o caderno com recibos",
+                "correct": false,
+                "feedback": "Misturar o caderno com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Perder o caderno de propósito",
+                "correct": false,
+                "feedback": "Perder o caderno de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar o caderno sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o caderno sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              },
+              {
+                "label": "Separar o caderno por assunto",
+                "correct": true,
+                "feedback": "Separar o caderno por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-05",
+      "code": "M01.05",
+      "title": "Organizar quadros de metas",
+      "objective": "Hoje você vai conseguir organizar quadros de metas em uma sessão curta de estudo.",
+      "competency": "Organizar quadros de metas seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o quadro."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar o quadro com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de quadros de metas",
+        "body": "Organizar quadros de metas começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir o quadro vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir o quadro, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Conferir o quadro antes de começar",
+              "correct": true,
+              "feedback": "Conferir o quadro antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Guardar o quadro sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar o quadro sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Trocar o quadro por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar o quadro por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar o quadro para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar o quadro para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Pense no que evita retrabalho com o quadro."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de quadros de metas.",
+          "items": [
+            "Conferir o quadro",
+            "Comparar o quadro com o plano",
+            "Anotar a data em o quadro",
+            "Marcar o que falta em o quadro"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em o quadro.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de o quadro vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de quadros de metas ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de quadros de metas protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de quadros de metas evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que o quadro da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em o quadro, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa o quadro na primeira sessão?",
+          "options": [
+            {
+              "label": "Copiar o quadro de um colega",
+              "correct": false,
+              "feedback": "Copiar o quadro de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Rasgar o quadro e esquecer",
+              "correct": false,
+              "feedback": "Rasgar o quadro e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Comparar o quadro com o plano",
+              "correct": true,
+              "feedback": "Comparar o quadro com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Enfeitar o quadro com cores",
+              "correct": false,
+              "feedback": "Enfeitar o quadro com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com o quadro."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza quadros de metas",
+        "body": "Agora você consegue conferir, comparar e datar o quadro, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com o quadro, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular a data de o quadro hoje",
+              "correct": false,
+              "feedback": "Pular a data de o quadro hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Inventar a data de o quadro",
+              "correct": false,
+              "feedback": "Inventar a data de o quadro: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar a data de o quadro já",
+              "correct": false,
+              "feedback": "Riscar a data de o quadro já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Anotar a data em o quadro hoje",
+              "correct": true,
+              "feedback": "Anotar a data em o quadro hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o quadro, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Reler o quadro em voz baixa",
+              "correct": true,
+              "feedback": "Reler o quadro em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Fechar o quadro sem reler",
+              "correct": false,
+              "feedback": "Fechar o quadro sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Emprestar o quadro sem ver",
+              "correct": false,
+              "feedback": "Emprestar o quadro sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o quadro ao meio",
+              "correct": false,
+              "feedback": "Dobrar o quadro ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o quadro, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em o quadro. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder o que falta em o quadro",
+                "correct": false,
+                "feedback": "Esconder o que falta em o quadro: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Marcar o que falta em o quadro",
+                "correct": true,
+                "feedback": "Marcar o que falta em o quadro: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Negar que falta algo em o quadro",
+                "correct": false,
+                "feedback": "Negar que falta algo em o quadro: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta em o quadro",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em o quadro: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara o quadro para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o quadro com recibos",
+                "correct": false,
+                "feedback": "Misturar o quadro com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Perder o quadro de propósito",
+                "correct": false,
+                "feedback": "Perder o quadro de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Separar o quadro por assunto",
+                "correct": true,
+                "feedback": "Separar o quadro por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Empilhar o quadro sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o quadro sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-06",
+      "code": "M01.06",
+      "title": "Organizar agendas da semana",
+      "objective": "Hoje você vai conseguir organizar agendas da semana em uma sessão curta de estudo.",
+      "competency": "Organizar agendas da semana seguindo uma ordem combinada com a turma.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com a agenda."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "No meu tempo a gente conferia tudo antes de guardar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal olhar a agenda com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar de agendas da semana",
+        "body": "Organizar agendas da semana começa por conferir o que já existe. Depois você compara com o plano da turma, anota a data e marca o que falta. Quando algo não bate, a atitude certa é avisar e pedir apoio, sem apagar o registro.",
+        "keyPoints": [
+          "Conferir a agenda vem antes de tudo.",
+          "Divergência se avisa, não se apaga."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de abrir a agenda, qual é o primeiro cuidado da sessão?",
+          "options": [
+            {
+              "label": "Guardar a agenda sem olhar nada",
+              "correct": false,
+              "feedback": "Guardar a agenda sem olhar nada: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Trocar a agenda por outra qualquer",
+              "correct": false,
+              "feedback": "Trocar a agenda por outra qualquer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar a agenda para o fim do dia",
+              "correct": false,
+              "feedback": "Deixar a agenda para o fim do dia: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Conferir a agenda antes de começar",
+              "correct": true,
+              "feedback": "Conferir a agenda antes de começar: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Pense no que evita retrabalho com a agenda."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar de agendas da semana.",
+          "items": [
+            "Conferir a agenda",
+            "Comparar a agenda com o plano",
+            "Anotar a data em a agenda",
+            "Marcar o que falta em a agenda"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, comparar, datar e marcar o que falta em a agenda.",
+          "feedbackIncorrect": "Retome a ordem: a conferência de a agenda vem antes da comparação e da data.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo de agendas da semana ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material errado"
+            },
+            {
+              "left": "Comparar",
+              "right": "Fugir do plano da turma"
+            },
+            {
+              "left": "Datar",
+              "right": "Perder a sequência das sessões"
+            },
+            {
+              "left": "Marcar faltas",
+              "right": "Esquecer o que ficou pendente"
+            }
+          ],
+          "feedbackCorrect": "Cada passo de agendas da semana protege a sessão de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo de agendas da semana evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a sessão, você percebe que a agenda da turma traz uma data diferente da combinada e ninguém sabe explicar o motivo.",
+          "prompt": "Diante da divergência em a agenda, o que você faz agora?",
+          "options": [
+            {
+              "label": "Avisar a turma e pedir apoio",
+              "correct": true,
+              "feedback": "Avisar a turma e pedir apoio: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Seguir sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Apagar tudo e recomeçar só",
+              "correct": false,
+              "feedback": "Apagar tudo e recomeçar só: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir só",
+              "correct": false,
+              "feedback": "Esperar o problema sumir só: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ],
+          "help": "Divergência não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa turma nova, como você usa a agenda na primeira sessão?",
+          "options": [
+            {
+              "label": "Copiar a agenda de um colega",
+              "correct": false,
+              "feedback": "Copiar a agenda de um colega: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Comparar a agenda com o plano",
+              "correct": true,
+              "feedback": "Comparar a agenda com o plano: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Rasgar a agenda e esquecer",
+              "correct": false,
+              "feedback": "Rasgar a agenda e esquecer: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar a agenda com cores",
+              "correct": false,
+              "feedback": "Enfeitar a agenda com cores: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ],
+          "help": "Leve para a turma nova o mesmo cuidado com a agenda."
+        }
+      ],
+      "closing": {
+        "title": "Você organiza agendas da semana",
+        "body": "Agora você consegue conferir, comparar e datar a agenda, e sabe avisar a turma quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa sessão. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar a sessão com a agenda, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular a data de a agenda hoje",
+              "correct": false,
+              "feedback": "Pular a data de a agenda hoje: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Inventar a data de a agenda",
+              "correct": false,
+              "feedback": "Inventar a data de a agenda: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Anotar a data em a agenda hoje",
+              "correct": true,
+              "feedback": "Anotar a data em a agenda hoje: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            },
+            {
+              "label": "Riscar a data de a agenda já",
+              "correct": false,
+              "feedback": "Riscar a data de a agenda já: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "guia-de-estudo"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar a agenda, qual atitude fecha a sessão?",
+          "options": [
+            {
+              "label": "Fechar a agenda sem reler",
+              "correct": false,
+              "feedback": "Fechar a agenda sem reler: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+            },
+            {
+              "label": "Emprestar a agenda sem ver",
+              "correct": false,
+              "feedback": "Emprestar a agenda sem ver: essa escolha troca o material certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar a agenda ao meio",
+              "correct": false,
+              "feedback": "Dobrar a agenda ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Reler a agenda em voz baixa",
+              "correct": true,
+              "feedback": "Reler a agenda em voz baixa: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+            }
+          ],
+          "sourceIds": [
+            "manual-da-turma"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar a agenda, eu sempre...",
+          "item": {
+            "prompt": "Faltou um trecho em a agenda. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Marcar o que falta em a agenda",
+                "correct": true,
+                "feedback": "Marcar o que falta em a agenda: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Esconder o que falta em a agenda",
+                "correct": false,
+                "feedback": "Esconder o que falta em a agenda: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Negar que falta algo em a agenda",
+                "correct": false,
+                "feedback": "Negar que falta algo em a agenda: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta em a agenda",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta em a agenda: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "guia-de-estudo"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra matéria, como você prepara a agenda para a revisão?",
+            "options": [
+              {
+                "label": "Misturar a agenda com recibos",
+                "correct": false,
+                "feedback": "Misturar a agenda com recibos: essa escolha deixa a dúvida crescer e atrasa a revisão combinada."
+              },
+              {
+                "label": "Separar a agenda por assunto",
+                "correct": true,
+                "feedback": "Separar a agenda por assunto: essa escolha mantém o estudo organizado desde o primeiro passo da sessão."
+              },
+              {
+                "label": "Perder a agenda de propósito",
+                "correct": false,
+                "feedback": "Perder a agenda de propósito: essa escolha troca o material certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar a agenda sem ordem",
+                "correct": false,
+                "feedback": "Empilhar a agenda sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "manual-da-turma"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

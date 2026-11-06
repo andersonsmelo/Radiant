@@ -1,0 +1,4047 @@
+{
+  "schemaVersion": 1,
+  "kind": "pc05-review-payloads",
+  "state": "review-only-not-promotable",
+  "productionDocument": {
+    "url": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+    "documentId": "1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+    "revisionId": "AHj4eMQaAjPaiP1MW2FlzsIA9iD13ZyDzsmL1dNWl48fERU0n2wAGbMtZDrpxUippP1WwEi5xE291qWyOfWJEQuuxJyr-ILXqJErUSOV7LE",
+    "textSha256": "c0495acb4fe29a92c84c33750ab9478cfd4a43819c17916be41310ad51d4be20",
+    "textHashConvention": "UTF-8 complete native readback body including final empty paragraph; inline image excluded",
+    "textMatchesReadback": true,
+    "paragraphs": 148,
+    "headings": 21,
+    "nativeBullets": 11,
+    "inlineImages": 1
+  },
+  "materialBasis": "PC04 source text and accepted briefs; on 2026-11-05 four lessons, checkpoints and recoveries were authored as an unreviewed AI draft bound to no approval.",
+  "completeCandidate": {
+    "schemaVersion": 1,
+    "promotionState": "human-gates-pending",
+    "trackId": "track:rtg-2026:pilot:core",
+    "unitId": "unit:rtg-2026:pilot:m01-01",
+    "contentVersion": "rtg-2026-pilot.2026-11-03",
+    "competencyIds": [
+      "competency:rtg-2026:pilot:m01-01-roles"
+    ],
+    "sources": [
+      {
+        "id": "source:rtg-2026:pilot:roles",
+        "title": "The evolution of radiographers",
+        "attribution": "Cornacchione et al. (2026)",
+        "url": "https://link.springer.com/article/10.1186/s13244-026-02442-x",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "c65f3430eac7870c67c4b09179110221bb7394982b8d9174deb8d21ca616bba5",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      },
+      {
+        "id": "source:rtg-2026:pilot:safety",
+        "title": "Patient Safety in Medical Imaging",
+        "attribution": "European Society of Radiology e European Federation of Radiographer Societies (2019)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "3aa98420284e7883486aa2020160d71861a8a491a9683b807bfd6834dd8e51ab",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      }
+    ],
+    "activities": [
+      {
+        "id": "activity:rtg-2026:pilot:m01-01-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m01-01-roles"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-hook",
+            "role": "hook",
+            "payload": {
+              "title": "Antes da imagem",
+              "body": "Uma imagem é feita dentro de um percurso de cuidado. Neste treino, você acompanha uma equipe e aprende a reconhecer o que está sendo pedido em cada tarefa."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Qual é a tarefa?",
+              "body": "Conferir enquadramento e identificação faz parte da aquisição e da avaliação técnica de uma imagem. Uma pergunta sobre a indicação do exame ou o significado de um achado precisa ser tratada pela equipe responsável, dentro de seus papéis. Quando uma orientação não ficou clara, descreva a dúvida e peça apoio antes de seguir. Aqui você atua como estudante em uma simulação supervisionada."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m01-01-a",
+              "type": "multiple-choice",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m01-01-roles"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": false,
+              "feedback": {
+                "correct": "Você identificou a tarefa: conferir se a imagem atende ao que o roteiro definiu.",
+                "incorrect": "Retome o pedido de conferir enquadramento e identificação."
+              },
+              "accessibility": {
+                "label": "Escolha uma alternativa e confirme a resposta."
+              },
+              "payload": {
+                "prompt": "O roteiro da simulação já define a área a representar. O professor pede que você confira o enquadramento e a identificação da imagem. Qual tarefa está sendo proposta?",
+                "options": [
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-a",
+                    "label": "Definir a indicação de outro exame.",
+                    "explanation": "Essa alternativa trata da escolha do exame. A tarefa dada foi conferir os critérios técnicos já definidos."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-b",
+                    "label": "Concluir se existe uma doença na imagem.",
+                    "explanation": "Uma conclusão sobre doença não é o que o professor pediu. O treino solicita uma conferência técnica."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-c",
+                    "label": "Conferir a aquisição e seus critérios técnicos.",
+                    "explanation": "Você identificou a tarefa: conferir se a imagem atende ao que o roteiro definiu."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-d",
+                    "label": "Escolher uma conduta para o problema clínico.",
+                    "explanation": "A conduta assistencial não foi solicitada. Retome o pedido de conferir enquadramento e identificação."
+                  }
+                ],
+                "correctOptionId": "option:rtg-2026:pilot:m01-01-a-c"
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Uma tarefa bem definida",
+              "body": "Você reconheceu uma conferência técnica. Ao longo da trilha, novas situações vão pedir que você observe a imagem, identifique a tarefa e esclareça dúvidas com a equipe."
+            }
+          }
+        ]
+      }
+    ],
+    "checkpoint": {
+      "id": "checkpoint:rtg-2026:pilot:m01-01",
+      "targetScoreBasisPoints": 8000,
+      "items": [
+        {
+          "id": "item:rtg-2026:pilot:m01-01-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-01-roles"
+          ],
+          "prompt": "Uma atividade tem duas partes: escolher qual exame responde à pergunta assistencial e conferir se a imagem segue os critérios de aquisição dados. Qual parte corresponde à conferência técnica neste treino?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+              "label": "A segunda parte."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-b",
+              "label": "A primeira parte."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-c",
+              "label": "As duas partes são a mesma decisão."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-d",
+              "label": "Nenhuma das duas partes."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+          "feedback": {
+            "correct": "A segunda parte compara a imagem com critérios técnicos definidos.",
+            "incorrect": "Escolher o exame e conferir sua aquisição são tarefas diferentes no cenário."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m01-01-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-01-roles"
+          ],
+          "prompt": "Na sala simulada, uma orientação ficou ambígua. Você explica a dúvida ao responsável e combina como seguir. Qual descrição corresponde a essa ação?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-a",
+              "label": "Conclusão diagnóstica."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+              "label": "Pedido de apoio e alinhamento."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-c",
+              "label": "Troca autônoma da indicação."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-d",
+              "label": "Ajuste técnico que já estava definido."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+          "feedback": {
+            "correct": "Você tornou a dúvida explícita e buscou alinhamento antes de seguir.",
+            "incorrect": "A orientação ainda não estava clara; a ação foi esclarecer o que fazer."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        }
+      ]
+    },
+    "reinforcement": {
+      "cycles": [
+        {
+          "cycle": 1,
+          "mode": "guided-recovery"
+        },
+        {
+          "cycle": 2,
+          "mode": "different-context-retry"
+        }
+      ]
+    },
+    "approvals": {
+      "technical": "pending",
+      "editorial": "pending",
+      "accessibility": "pending",
+      "rights": "pending",
+      "schema": "pending",
+      "product": "pending"
+    },
+    "claimProvenance": [
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-c",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      }
+    ]
+  },
+  "practiceDrafts": [
+    {
+      "id": "activity:rtg-2026:pilot:m01-02-a",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m01-02-identification"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-02-a-hook",
+          "role": "hook",
+          "payload": {
+            "title": "Quem está na simulação?",
+            "body": "Antes de qualquer etapa, a equipe precisa saber com quem está falando. Neste treino, a ficha e a pulseira são inteiramente fictícias, e ninguém informa dados reais."
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-02-a-concept",
+          "role": "concept",
+          "payload": {
+            "title": "Perguntar e comparar",
+            "body": "Peça que a pessoa diga os próprios identificadores, em vez de dizer um nome e esperar um sim. Depois, compare a resposta com os registros. A posição na sala ou a ordem da fila não substituem essa conferência. Se os dados divergirem, pare e peça apoio. Com a identidade confirmada, explique a etapa e verifique se ela foi entendida."
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m01-02-a",
+            "type": "ordering",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m01-02-identification"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": true,
+            "feedback": {
+              "correct": "A conferência e o entendimento antecedem a continuação neste cenário. Divergência exige pausa e apoio.",
+              "incorrect": "Reconstrua a sequência declarada: cada cartão depende da confirmação obtida na anterior. Não continue com identidade não confirmada."
+            },
+            "accessibility": {
+              "label": "Use Mover para cima ou Mover para baixo, escute a posição e confirme a sequência."
+            },
+            "payload": {
+              "prompt": "Coloque os quatro cartões na ordem em que acontecem nesta simulação.",
+              "items": [
+                {
+                  "id": "option:rtg-2026:pilot:m01-02-a-step-3",
+                  "label": "Havendo correspondência, explicar a etapa definida e verificar entendimento."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-02-a-step-1",
+                  "label": "Pedir os identificadores fictícios."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-02-a-step-4",
+                  "label": "Com conferência e entendimento confirmados, continuar a simulação."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-02-a-step-2",
+                  "label": "Comparar a resposta com os registros."
+                }
+              ],
+              "correctOrder": [
+                "option:rtg-2026:pilot:m01-02-a-step-1",
+                "option:rtg-2026:pilot:m01-02-a-step-2",
+                "option:rtg-2026:pilot:m01-02-a-step-3",
+                "option:rtg-2026:pilot:m01-02-a-step-4"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-02-a-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Conferir antes de seguir",
+            "body": "Você ordenou a conferência desta simulação. Cada serviço define seu próprio procedimento; aqui, divergência significa parar e pedir apoio."
+          }
+        }
+      ]
+    },
+    {
+      "id": "activity:rtg-2026:pilot:m02-01-a",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m02-01-views"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-01-a-hook",
+          "role": "hook",
+          "payload": {
+            "title": "De quem é a direita?",
+            "body": "Em um diagrama, a direita do personagem nem sempre fica do lado direito da tela. Os desenhos desta aula são esquemáticos: mostram uma referência espacial, não um posicionamento de exame."
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-01-a-concept",
+          "role": "concept",
+          "payload": {
+            "title": "Comece pela vista",
+            "body": "Direita e esquerda pertencem ao corpo, e não a quem observa. Por isso, antes de responder, veja se o personagem está de frente ou de costas. A mesma região da tela pode corresponder a lados diferentes do corpo, conforme a vista."
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m02-01-a",
+            "type": "hotspot",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m02-01-views"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": false,
+            "feedback": {
+              "correct": "A referência é o lado do personagem na vista informada.",
+              "incorrect": "Compare a vista informada com a posição das regiões da tela; a direita do observador não é uma regra fixa para o corpo."
+            },
+            "accessibility": {
+              "label": "Personagem de frente. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme."
+            },
+            "payload": {
+              "prompt": "Personagem de frente. Selecione a região correspondente ao lado direito do corpo e confirme.",
+              "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+              "regions": [
+                {
+                  "label": "Região A: à esquerda da tela",
+                  "x": 0.13,
+                  "y": 0.25,
+                  "width": 0.3,
+                  "height": 0.55,
+                  "id": "option:rtg-2026:pilot:m02-01-a-a"
+                },
+                {
+                  "label": "Região B: à direita da tela",
+                  "x": 0.57,
+                  "y": 0.25,
+                  "width": 0.3,
+                  "height": 0.55,
+                  "id": "option:rtg-2026:pilot:m02-01-a-b"
+                }
+              ],
+              "correctRegionIds": [
+                "option:rtg-2026:pilot:m02-01-a-a"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-01-a-closing",
+          "role": "closing",
+          "payload": {
+            "title": "A vista muda a tela",
+            "body": "Você usou o lado do personagem como referência. Em outra vista, a posição na tela pode mudar, e o lado do corpo continua o mesmo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "activity:rtg-2026:pilot:m02-02-a",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m02-02-markers"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-02-a-hook",
+          "role": "hook",
+          "payload": {
+            "title": "O que o marcador indica?",
+            "body": "R vem de right, direita, e L vem de left, esquerda. O marcador se refere ao lado do corpo. Os diagramas desta aula são esquemáticos e mostram um personagem de frente."
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-02-a-concept",
+          "role": "concept",
+          "payload": {
+            "title": "Conferir, não corrigir",
+            "body": "Para conferir um marcador, use a vista informada e o lado do corpo, e não o lado da tela ou a posição habitual de um órgão. Se algo parecer incoerente, descreva a inconsistência e leve à equipe responsável. Neste treino, você não altera nem inventa informação da imagem."
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m02-02-a",
+            "type": "comparison",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m02-02-markers"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": true,
+            "feedback": {
+              "correct": "Na vista de frente, a direita do personagem aparece à esquerda da tela.",
+              "incorrect": "Na Imagem B, o R está à direita da tela. De frente, ali fica o lado esquerdo do corpo. Localize primeiro a direita do personagem."
+            },
+            "accessibility": {
+              "label": "Compare Imagem A e Imagem B pelos botões nomeados e confirme."
+            },
+            "payload": {
+              "prompt": "Compare os dois diagramas de frente. Qual apresenta R no lado direito do corpo?",
+              "options": [
+                {
+                  "id": "option:rtg-2026:pilot:m02-02-a-a",
+                  "label": "Imagem A: personagem de frente, R à esquerda da tela.",
+                  "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-a.png"
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m02-02-a-b",
+                  "label": "Imagem B: personagem de frente, R à direita da tela.",
+                  "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-b.png"
+                }
+              ],
+              "correctOptionId": "option:rtg-2026:pilot:m02-02-a-a"
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-02-a-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Inconsistência se comunica",
+            "body": "Você relacionou o marcador ao lado do corpo na vista informada. Neste treino, um marcador incoerente é comunicado à equipe, sem correção por conta própria."
+          }
+        }
+      ]
+    },
+    {
+      "id": "activity:rtg-2026:pilot:m06-04-a",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m06-04-field"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m06-04-a-hook",
+          "role": "hook",
+          "payload": {
+            "title": "Campo e área na simulação",
+            "body": "O detector didático mede 27×33 cm. A altura fica fixa. A cena é um modelo qualitativo, sem recomendação para paciente."
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m06-04-a-concept",
+          "role": "concept",
+          "payload": {
+            "title": "Abrir menos, sem cortar o alvo",
+            "body": "Colimar limita a área atingida pelo feixe e influencia o espalhamento. Um campo aberto demais inclui largura sem necessidade; um campo estreito demais deixa parte do alvo de fora. Recortar a imagem depois da aquisição muda o que se vê, e não a exposição que já aconteceu. Antes de ajustar, pense ou diga o que espera que aconteça com a área."
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m06-04-a",
+            "type": "bench",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m06-04-field"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": false,
+            "feedback": {
+              "correct": "O alvo está inteiro e a largura extra foi reduzida. O resultado vale só para esta cena.",
+              "incorrect": "Compare o campo com o alvo. O modelo calcula área relativa, sem calcular dose em paciente ou espalhamento físico."
+            },
+            "accessibility": {
+              "label": "Controle da largura do campo, em centímetros. Use incrementar ou decrementar e confirme; sem gesto obrigatório."
+            },
+            "payload": {
+              "prompt": "Ajuste a abertura horizontal para manter o alvo inteiro e reduzir a margem extra. Confirme quando terminar.",
+              "simulator": "collimation",
+              "mode": "challenge",
+              "controls": [
+                {
+                  "id": "fieldWidth",
+                  "label": "Largura do campo",
+                  "unit": "cm",
+                  "min": 1,
+                  "max": 27,
+                  "step": 1,
+                  "initial": 27
+                }
+              ],
+              "goal": {
+                "kind": "reach",
+                "control": "fieldWidth",
+                "atLeast": 18,
+                "atMost": 20
+              },
+              "phantomLabel": "Cena abstrata: retângulo central e campo ajustável.",
+              "hints": {
+                "tooLow": "Parte do alvo ficou fora do campo.",
+                "tooHigh": "Há margem horizontal extra em torno do alvo."
+              }
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m06-04-a-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Menos área, alvo inteiro",
+            "body": "Você ajustou o campo para conter o alvo com menos margem. O resultado vale para esta cena: o modelo mostra área relativa, não calcula dose nem espalhamento e não é técnica para paciente."
+          }
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "activity:rtg-2026:pilot:m02-01-b",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m02-01-views"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-01-b-hook",
+          "role": "hook",
+          "payload": {
+            "title": "Agora de costas",
+            "body": "Esta vista é nova: o personagem está de costas. Use a indicação da vista antes de responder. O desenho continua esquemático."
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m02-01-b",
+            "type": "hotspot",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m02-01-views"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": false,
+            "feedback": {
+              "correct": "A referência é o lado do personagem na vista informada.",
+              "incorrect": "De costas, você e o personagem olham na mesma direção. Confira de novo de que lado da tela fica a direita dele."
+            },
+            "accessibility": {
+              "label": "Personagem de costas. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme."
+            },
+            "payload": {
+              "prompt": "Personagem de costas. Selecione a região correspondente ao lado direito do corpo e confirme.",
+              "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+              "regions": [
+                {
+                  "label": "Região A: à esquerda da tela",
+                  "x": 0.13,
+                  "y": 0.25,
+                  "width": 0.3,
+                  "height": 0.55,
+                  "id": "option:rtg-2026:pilot:m02-01-b-a"
+                },
+                {
+                  "label": "Região B: à direita da tela",
+                  "x": 0.57,
+                  "y": 0.25,
+                  "width": 0.3,
+                  "height": 0.55,
+                  "id": "option:rtg-2026:pilot:m02-01-b-b"
+                }
+              ],
+              "correctRegionIds": [
+                "option:rtg-2026:pilot:m02-01-b-b"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m02-01-b-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Mesmo lado, outra posição",
+            "body": "O lado do corpo continua o mesmo, e a vista mudou o lugar em que ele aparece na tela."
+          }
+        }
+      ]
+    }
+  ],
+  "recoveryActivities": [
+    {
+      "id": "activity:rtg-2026:pilot:m01-01-recovery-1",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m01-01-roles"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-01-recovery-1-hook",
+          "role": "hook",
+          "payload": {
+            "title": "Reforço guiado",
+            "body": "Complete a frase: eu entendi o objetivo, mas preciso esclarecer…"
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m01-01-recovery-1",
+            "type": "multiple-choice",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m01-01-roles"
+            ],
+            "evidenceKind": "guided-practice",
+            "completionRule": "confirmed",
+            "criticalSafety": false,
+            "feedback": {
+              "correct": "Descrever a dúvida permite receber uma orientação específica.",
+              "incorrect": "Sem esclarecer o termo, você ainda não sabe qual tarefa foi pedida."
+            },
+            "accessibility": {
+              "label": "Escolha e confirme a alternativa."
+            },
+            "payload": {
+              "prompt": "No laboratório didático, a ficha informa o objetivo da atividade, mas você não entendeu um termo usado pelo instrutor. Antes de manipular os controles, o que ajuda a esclarecer a tarefa?",
+              "options": [
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-1-a",
+                  "label": "Repetir o que o colega fez, sem conferir.",
+                  "explanation": "O colega pode estar em outra etapa. A dúvida sobre a tarefa permanece."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-1-b",
+                  "label": "Ajustar os controles por tentativa até a tela mudar.",
+                  "explanation": "Mudar controles não esclarece o termo da orientação."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-1-c",
+                  "label": "Explicar qual termo não entendeu e pedir orientação.",
+                  "explanation": "Descrever a dúvida permite receber uma orientação específica."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-1-d",
+                  "label": "Tratar o silêncio do instrutor como confirmação.",
+                  "explanation": "Sem esclarecer o termo, você ainda não sabe qual tarefa foi pedida."
+                }
+              ],
+              "correctOptionId": "option:rtg-2026:pilot:m01-01-recovery-1-c"
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-01-recovery-1-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Retome a tarefa definida"
+          }
+        }
+      ]
+    },
+    {
+      "id": "activity:rtg-2026:pilot:m01-01-recovery-2",
+      "competencyIds": [
+        "competency:rtg-2026:pilot:m01-01-roles"
+      ],
+      "provenance": {
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ],
+        "contentVersion": "rtg-2026-pilot.2026-11-03"
+      },
+      "steps": [
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-01-recovery-2-hook",
+          "role": "hook",
+          "payload": {
+            "title": "Outro contexto"
+          }
+        },
+        {
+          "kind": "interaction",
+          "interaction": {
+            "id": "interaction:rtg-2026:pilot:m01-01-recovery-2",
+            "type": "multiple-choice",
+            "competencyIds": [
+              "competency:rtg-2026:pilot:m01-01-roles"
+            ],
+            "evidenceKind": "applied-transfer",
+            "completionRule": "confirmed",
+            "criticalSafety": false,
+            "feedback": {
+              "correct": "A comparação verifica os critérios técnicos da aquisição.",
+              "incorrect": "A hipótese clínica não é confirmada por essa conferência técnica."
+            },
+            "accessibility": {
+              "label": "Escolha e confirme a alternativa."
+            },
+            "payload": {
+              "prompt": "Em outra simulação, a equipe já escolheu o exame e definiu os critérios da atividade. Você compara o enquadramento obtido com esses critérios. O que essa comparação verifica?",
+              "options": [
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-2-a",
+                  "label": "Se a aquisição atende aos critérios técnicos dados.",
+                  "explanation": "A comparação verifica os critérios técnicos da aquisição."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-2-b",
+                  "label": "Se a hipótese clínica está confirmada.",
+                  "explanation": "A hipótese clínica não é confirmada por essa conferência técnica."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-2-c",
+                  "label": "Se o tratamento deve ser trocado.",
+                  "explanation": "A situação não descreve uma decisão de tratamento."
+                },
+                {
+                  "id": "option:rtg-2026:pilot:m01-01-recovery-2-d",
+                  "label": "Se qualquer exame poderia substituir o escolhido.",
+                  "explanation": "A escolha do exame já foi definida no cenário."
+                }
+              ],
+              "correctOptionId": "option:rtg-2026:pilot:m01-01-recovery-2-a"
+            }
+          }
+        },
+        {
+          "kind": "presentation",
+          "id": "step:rtg-2026:pilot:m01-01-recovery-2-closing",
+          "role": "closing",
+          "payload": {
+            "title": "Retome a tarefa definida"
+          }
+        }
+      ]
+    }
+  ],
+  "checkpointOptionFeedback": [
+    {
+      "targetId": "item:rtg-2026:pilot:m01-01-a-check-1",
+      "byOptionId": {
+        "option:rtg-2026:pilot:m01-01-a-check-1-a": "A segunda parte compara a imagem com critérios técnicos definidos.",
+        "option:rtg-2026:pilot:m01-01-a-check-1-b": "A primeira parte trata da escolha do exame; a pergunta pede a conferência de aquisição.",
+        "option:rtg-2026:pilot:m01-01-a-check-1-c": "Escolher o exame e conferir sua aquisição são tarefas diferentes no cenário.",
+        "option:rtg-2026:pilot:m01-01-a-check-1-d": "A segunda parte descreve explicitamente a conferência técnica."
+      }
+    },
+    {
+      "targetId": "item:rtg-2026:pilot:m01-01-a-check-2",
+      "byOptionId": {
+        "option:rtg-2026:pilot:m01-01-a-check-2-a": "Nenhuma conclusão sobre diagnóstico foi apresentada.",
+        "option:rtg-2026:pilot:m01-01-a-check-2-b": "Você tornou a dúvida explícita e buscou alinhamento antes de seguir.",
+        "option:rtg-2026:pilot:m01-01-a-check-2-c": "A situação não descreve uma troca de exame por decisão própria.",
+        "option:rtg-2026:pilot:m01-01-a-check-2-d": "A orientação ainda não estava clara; a ação foi esclarecer o que fazer."
+      }
+    }
+  ],
+  "optionalHelp": {
+    "targetId": "activity:rtg-2026:pilot:m01-01-a",
+    "text": "Compare o pedido do professor com o que cada alternativa propõe fazer.",
+    "tracking": "help-opened; preserve distinction from independent first attempt"
+  },
+  "assetBindings": [
+    {
+      "id": "asset:rtg-2026:pilot:view-front",
+      "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+      "localPath": "radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+      "sha256": "63e7e8ece236d87b41b7c8f04bb40f50af61da7393d031b3a36810297a41361f",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/view-front.svg",
+      "sourceSha256": "cadae71de36fb0fe26814e41f89812933ac42034a23dd53597b88ab0a4c58814",
+      "availability": "local-only-verified; HTTPS delivery not established"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:view-back",
+      "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+      "localPath": "radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+      "sha256": "106cf74a072538ab0514666010b5d91c560078207c5bbf12562f51b5245e34d4",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/view-back.svg",
+      "sourceSha256": "bf4aab990fa76f710b93038c3b7ee8469c32eec91f3fe2b9139e4367ca5ba01c",
+      "availability": "local-only-verified; HTTPS delivery not established"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:marker-a",
+      "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-a.png",
+      "localPath": "radiant-app/assets/content/rtg-2026/pilot/marker-a.png",
+      "sha256": "46065fd10483173d88e26c521d73752bd7c8132803cebfa147f4fe8f334d1728",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/marker-a.svg",
+      "sourceSha256": "7d22f010c469c254ee71823c83321f56c3a0659b9c4c73e4aa59f20627b2bf08",
+      "availability": "local-only-verified; HTTPS delivery not established"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:marker-b",
+      "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-b.png",
+      "localPath": "radiant-app/assets/content/rtg-2026/pilot/marker-b.png",
+      "sha256": "89e3da9cc7136483ee426df44ebaf1476eecc00eed389d4e672abd6e91de3ac3",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/marker-b.svg",
+      "sourceSha256": "d776a010b94e4dc3ea547c72f50df6db31d8aeea510731ba81251afa161f369b",
+      "availability": "local-only-verified; HTTPS delivery not established"
+    }
+  ],
+  "reviewEnvelope": {
+    "schemaVersion": 1,
+    "promotionState": "human-gates-pending",
+    "trackId": "track:rtg-2026:pilot:core",
+    "unitId": "unit:rtg-2026:pilot:pilot-review",
+    "contentVersion": "rtg-2026-pilot.2026-11-03",
+    "competencyIds": [
+      "competency:rtg-2026:pilot:m01-01-roles",
+      "competency:rtg-2026:pilot:m01-02-identification",
+      "competency:rtg-2026:pilot:m02-01-views",
+      "competency:rtg-2026:pilot:m02-02-markers",
+      "competency:rtg-2026:pilot:m06-04-field"
+    ],
+    "sources": [
+      {
+        "id": "source:rtg-2026:pilot:roles",
+        "title": "The evolution of radiographers",
+        "attribution": "Cornacchione et al. (2026)",
+        "url": "https://link.springer.com/article/10.1186/s13244-026-02442-x",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "c65f3430eac7870c67c4b09179110221bb7394982b8d9174deb8d21ca616bba5",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      },
+      {
+        "id": "source:rtg-2026:pilot:safety",
+        "title": "Patient Safety in Medical Imaging",
+        "attribution": "European Society of Radiology e European Federation of Radiographer Societies (2019)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "3aa98420284e7883486aa2020160d71861a8a491a9683b807bfd6834dd8e51ab",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      },
+      {
+        "id": "source:rtg-2026:pilot:markers",
+        "title": "A clinical audit of anatomical side marker use",
+        "attribution": "Chung et al. (2020)",
+        "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0242594",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "f15e137004cebac4830d5c5341a37de53a830f6c8efd3b59f029805a662fc090",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      },
+      {
+        "id": "source:rtg-2026:pilot:collimation",
+        "title": "Evaluation of radiographers",
+        "attribution": "Alsleem et al. (2019)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6920681/",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "b43ffc9ebb04718b4fe476677b3c82768089d5a8a79253b59766d1d264c8967d",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      },
+      {
+        "id": "source:rtg-2026:pilot:coordinates",
+        "title": "Considerations for Using the Vasculature",
+        "attribution": "Weber, Ju e Börner (2020)",
+        "url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2020.00029/full",
+        "license": {
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "accessedAt": "2026-11-03",
+        "retrievedMaterialSha256": "d88796142aafbafea1b9865c3c69aa1e7e4dd0fc012128a89f2b0610b7cb3eb3",
+        "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores."
+      }
+    ],
+    "activities": [
+      {
+        "id": "activity:rtg-2026:pilot:m01-01-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m01-01-roles"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-hook",
+            "role": "hook",
+            "payload": {
+              "title": "Antes da imagem",
+              "body": "Uma imagem é feita dentro de um percurso de cuidado. Neste treino, você acompanha uma equipe e aprende a reconhecer o que está sendo pedido em cada tarefa."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Qual é a tarefa?",
+              "body": "Conferir enquadramento e identificação faz parte da aquisição e da avaliação técnica de uma imagem. Uma pergunta sobre a indicação do exame ou o significado de um achado precisa ser tratada pela equipe responsável, dentro de seus papéis. Quando uma orientação não ficou clara, descreva a dúvida e peça apoio antes de seguir. Aqui você atua como estudante em uma simulação supervisionada."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m01-01-a",
+              "type": "multiple-choice",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m01-01-roles"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": false,
+              "feedback": {
+                "correct": "Você identificou a tarefa: conferir se a imagem atende ao que o roteiro definiu.",
+                "incorrect": "Retome o pedido de conferir enquadramento e identificação."
+              },
+              "accessibility": {
+                "label": "Escolha uma alternativa e confirme a resposta."
+              },
+              "payload": {
+                "prompt": "O roteiro da simulação já define a área a representar. O professor pede que você confira o enquadramento e a identificação da imagem. Qual tarefa está sendo proposta?",
+                "options": [
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-a",
+                    "label": "Definir a indicação de outro exame.",
+                    "explanation": "Essa alternativa trata da escolha do exame. A tarefa dada foi conferir os critérios técnicos já definidos."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-b",
+                    "label": "Concluir se existe uma doença na imagem.",
+                    "explanation": "Uma conclusão sobre doença não é o que o professor pediu. O treino solicita uma conferência técnica."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-c",
+                    "label": "Conferir a aquisição e seus critérios técnicos.",
+                    "explanation": "Você identificou a tarefa: conferir se a imagem atende ao que o roteiro definiu."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-01-a-d",
+                    "label": "Escolher uma conduta para o problema clínico.",
+                    "explanation": "A conduta assistencial não foi solicitada. Retome o pedido de conferir enquadramento e identificação."
+                  }
+                ],
+                "correctOptionId": "option:rtg-2026:pilot:m01-01-a-c"
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-01-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Uma tarefa bem definida",
+              "body": "Você reconheceu uma conferência técnica. Ao longo da trilha, novas situações vão pedir que você observe a imagem, identifique a tarefa e esclareça dúvidas com a equipe."
+            }
+          }
+        ]
+      },
+      {
+        "id": "activity:rtg-2026:pilot:m01-02-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m01-02-identification"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-02-a-hook",
+            "role": "hook",
+            "payload": {
+              "title": "Quem está na simulação?",
+              "body": "Antes de qualquer etapa, a equipe precisa saber com quem está falando. Neste treino, a ficha e a pulseira são inteiramente fictícias, e ninguém informa dados reais."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-02-a-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Perguntar e comparar",
+              "body": "Peça que a pessoa diga os próprios identificadores, em vez de dizer um nome e esperar um sim. Depois, compare a resposta com os registros. A posição na sala ou a ordem da fila não substituem essa conferência. Se os dados divergirem, pare e peça apoio. Com a identidade confirmada, explique a etapa e verifique se ela foi entendida."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m01-02-a",
+              "type": "ordering",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m01-02-identification"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": true,
+              "feedback": {
+                "correct": "A conferência e o entendimento antecedem a continuação neste cenário. Divergência exige pausa e apoio.",
+                "incorrect": "Reconstrua a sequência declarada: cada cartão depende da confirmação obtida na anterior. Não continue com identidade não confirmada."
+              },
+              "accessibility": {
+                "label": "Use Mover para cima ou Mover para baixo, escute a posição e confirme a sequência."
+              },
+              "payload": {
+                "prompt": "Coloque os quatro cartões na ordem em que acontecem nesta simulação.",
+                "items": [
+                  {
+                    "id": "option:rtg-2026:pilot:m01-02-a-step-3",
+                    "label": "Havendo correspondência, explicar a etapa definida e verificar entendimento."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-02-a-step-1",
+                    "label": "Pedir os identificadores fictícios."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-02-a-step-4",
+                    "label": "Com conferência e entendimento confirmados, continuar a simulação."
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m01-02-a-step-2",
+                    "label": "Comparar a resposta com os registros."
+                  }
+                ],
+                "correctOrder": [
+                  "option:rtg-2026:pilot:m01-02-a-step-1",
+                  "option:rtg-2026:pilot:m01-02-a-step-2",
+                  "option:rtg-2026:pilot:m01-02-a-step-3",
+                  "option:rtg-2026:pilot:m01-02-a-step-4"
+                ]
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m01-02-a-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Conferir antes de seguir",
+              "body": "Você ordenou a conferência desta simulação. Cada serviço define seu próprio procedimento; aqui, divergência significa parar e pedir apoio."
+            }
+          }
+        ]
+      },
+      {
+        "id": "activity:rtg-2026:pilot:m02-01-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m02-01-views"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-01-a-hook",
+            "role": "hook",
+            "payload": {
+              "title": "De quem é a direita?",
+              "body": "Em um diagrama, a direita do personagem nem sempre fica do lado direito da tela. Os desenhos desta aula são esquemáticos: mostram uma referência espacial, não um posicionamento de exame."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-01-a-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Comece pela vista",
+              "body": "Direita e esquerda pertencem ao corpo, e não a quem observa. Por isso, antes de responder, veja se o personagem está de frente ou de costas. A mesma região da tela pode corresponder a lados diferentes do corpo, conforme a vista."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m02-01-a",
+              "type": "hotspot",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m02-01-views"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": false,
+              "feedback": {
+                "correct": "A referência é o lado do personagem na vista informada.",
+                "incorrect": "Compare a vista informada com a posição das regiões da tela; a direita do observador não é uma regra fixa para o corpo."
+              },
+              "accessibility": {
+                "label": "Personagem de frente. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme."
+              },
+              "payload": {
+                "prompt": "Personagem de frente. Selecione a região correspondente ao lado direito do corpo e confirme.",
+                "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+                "regions": [
+                  {
+                    "label": "Região A: à esquerda da tela",
+                    "x": 0.13,
+                    "y": 0.25,
+                    "width": 0.3,
+                    "height": 0.55,
+                    "id": "option:rtg-2026:pilot:m02-01-a-a"
+                  },
+                  {
+                    "label": "Região B: à direita da tela",
+                    "x": 0.57,
+                    "y": 0.25,
+                    "width": 0.3,
+                    "height": 0.55,
+                    "id": "option:rtg-2026:pilot:m02-01-a-b"
+                  }
+                ],
+                "correctRegionIds": [
+                  "option:rtg-2026:pilot:m02-01-a-a"
+                ]
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-01-a-closing",
+            "role": "closing",
+            "payload": {
+              "title": "A vista muda a tela",
+              "body": "Você usou o lado do personagem como referência. Em outra vista, a posição na tela pode mudar, e o lado do corpo continua o mesmo."
+            }
+          }
+        ]
+      },
+      {
+        "id": "activity:rtg-2026:pilot:m02-02-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m02-02-markers"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-02-a-hook",
+            "role": "hook",
+            "payload": {
+              "title": "O que o marcador indica?",
+              "body": "R vem de right, direita, e L vem de left, esquerda. O marcador se refere ao lado do corpo. Os diagramas desta aula são esquemáticos e mostram um personagem de frente."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-02-a-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Conferir, não corrigir",
+              "body": "Para conferir um marcador, use a vista informada e o lado do corpo, e não o lado da tela ou a posição habitual de um órgão. Se algo parecer incoerente, descreva a inconsistência e leve à equipe responsável. Neste treino, você não altera nem inventa informação da imagem."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m02-02-a",
+              "type": "comparison",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m02-02-markers"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": true,
+              "feedback": {
+                "correct": "Na vista de frente, a direita do personagem aparece à esquerda da tela.",
+                "incorrect": "Na Imagem B, o R está à direita da tela. De frente, ali fica o lado esquerdo do corpo. Localize primeiro a direita do personagem."
+              },
+              "accessibility": {
+                "label": "Compare Imagem A e Imagem B pelos botões nomeados e confirme."
+              },
+              "payload": {
+                "prompt": "Compare os dois diagramas de frente. Qual apresenta R no lado direito do corpo?",
+                "options": [
+                  {
+                    "id": "option:rtg-2026:pilot:m02-02-a-a",
+                    "label": "Imagem A: personagem de frente, R à esquerda da tela.",
+                    "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-a.png"
+                  },
+                  {
+                    "id": "option:rtg-2026:pilot:m02-02-a-b",
+                    "label": "Imagem B: personagem de frente, R à direita da tela.",
+                    "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-b.png"
+                  }
+                ],
+                "correctOptionId": "option:rtg-2026:pilot:m02-02-a-a"
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-02-a-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Inconsistência se comunica",
+              "body": "Você relacionou o marcador ao lado do corpo na vista informada. Neste treino, um marcador incoerente é comunicado à equipe, sem correção por conta própria."
+            }
+          }
+        ]
+      },
+      {
+        "id": "activity:rtg-2026:pilot:m06-04-a",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m06-04-field"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m06-04-a-hook",
+            "role": "hook",
+            "payload": {
+              "title": "Campo e área na simulação",
+              "body": "O detector didático mede 27×33 cm. A altura fica fixa. A cena é um modelo qualitativo, sem recomendação para paciente."
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m06-04-a-concept",
+            "role": "concept",
+            "payload": {
+              "title": "Abrir menos, sem cortar o alvo",
+              "body": "Colimar limita a área atingida pelo feixe e influencia o espalhamento. Um campo aberto demais inclui largura sem necessidade; um campo estreito demais deixa parte do alvo de fora. Recortar a imagem depois da aquisição muda o que se vê, e não a exposição que já aconteceu. Antes de ajustar, pense ou diga o que espera que aconteça com a área."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m06-04-a",
+              "type": "bench",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m06-04-field"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": false,
+              "feedback": {
+                "correct": "O alvo está inteiro e a largura extra foi reduzida. O resultado vale só para esta cena.",
+                "incorrect": "Compare o campo com o alvo. O modelo calcula área relativa, sem calcular dose em paciente ou espalhamento físico."
+              },
+              "accessibility": {
+                "label": "Controle da largura do campo, em centímetros. Use incrementar ou decrementar e confirme; sem gesto obrigatório."
+              },
+              "payload": {
+                "prompt": "Ajuste a abertura horizontal para manter o alvo inteiro e reduzir a margem extra. Confirme quando terminar.",
+                "simulator": "collimation",
+                "mode": "challenge",
+                "controls": [
+                  {
+                    "id": "fieldWidth",
+                    "label": "Largura do campo",
+                    "unit": "cm",
+                    "min": 1,
+                    "max": 27,
+                    "step": 1,
+                    "initial": 27
+                  }
+                ],
+                "goal": {
+                  "kind": "reach",
+                  "control": "fieldWidth",
+                  "atLeast": 18,
+                  "atMost": 20
+                },
+                "phantomLabel": "Cena abstrata: retângulo central e campo ajustável.",
+                "hints": {
+                  "tooLow": "Parte do alvo ficou fora do campo.",
+                  "tooHigh": "Há margem horizontal extra em torno do alvo."
+                }
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m06-04-a-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Menos área, alvo inteiro",
+              "body": "Você ajustou o campo para conter o alvo com menos margem. O resultado vale para esta cena: o modelo mostra área relativa, não calcula dose nem espalhamento e não é técnica para paciente."
+            }
+          }
+        ]
+      },
+      {
+        "id": "activity:rtg-2026:pilot:m02-01-b",
+        "competencyIds": [
+          "competency:rtg-2026:pilot:m02-01-views"
+        ],
+        "provenance": {
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ],
+          "contentVersion": "rtg-2026-pilot.2026-11-03"
+        },
+        "steps": [
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-01-b-hook",
+            "role": "hook",
+            "payload": {
+              "title": "Agora de costas",
+              "body": "Esta vista é nova: o personagem está de costas. Use a indicação da vista antes de responder. O desenho continua esquemático."
+            }
+          },
+          {
+            "kind": "interaction",
+            "interaction": {
+              "id": "interaction:rtg-2026:pilot:m02-01-b",
+              "type": "hotspot",
+              "competencyIds": [
+                "competency:rtg-2026:pilot:m02-01-views"
+              ],
+              "evidenceKind": "guided-practice",
+              "completionRule": "confirmed",
+              "criticalSafety": false,
+              "feedback": {
+                "correct": "A referência é o lado do personagem na vista informada.",
+                "incorrect": "De costas, você e o personagem olham na mesma direção. Confira de novo de que lado da tela fica a direita dele."
+              },
+              "accessibility": {
+                "label": "Personagem de costas. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme."
+              },
+              "payload": {
+                "prompt": "Personagem de costas. Selecione a região correspondente ao lado direito do corpo e confirme.",
+                "imageRef": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+                "regions": [
+                  {
+                    "label": "Região A: à esquerda da tela",
+                    "x": 0.13,
+                    "y": 0.25,
+                    "width": 0.3,
+                    "height": 0.55,
+                    "id": "option:rtg-2026:pilot:m02-01-b-a"
+                  },
+                  {
+                    "label": "Região B: à direita da tela",
+                    "x": 0.57,
+                    "y": 0.25,
+                    "width": 0.3,
+                    "height": 0.55,
+                    "id": "option:rtg-2026:pilot:m02-01-b-b"
+                  }
+                ],
+                "correctRegionIds": [
+                  "option:rtg-2026:pilot:m02-01-b-b"
+                ]
+              }
+            }
+          },
+          {
+            "kind": "presentation",
+            "id": "step:rtg-2026:pilot:m02-01-b-closing",
+            "role": "closing",
+            "payload": {
+              "title": "Mesmo lado, outra posição",
+              "body": "O lado do corpo continua o mesmo, e a vista mudou o lugar em que ele aparece na tela."
+            }
+          }
+        ]
+      }
+    ],
+    "checkpoint": {
+      "id": "checkpoint:rtg-2026:pilot:m01-01",
+      "targetScoreBasisPoints": 8000,
+      "items": [
+        {
+          "id": "item:rtg-2026:pilot:m01-01-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-01-roles"
+          ],
+          "prompt": "Uma atividade tem duas partes: escolher qual exame responde à pergunta assistencial e conferir se a imagem segue os critérios de aquisição dados. Qual parte corresponde à conferência técnica neste treino?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+              "label": "A segunda parte."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-b",
+              "label": "A primeira parte."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-c",
+              "label": "As duas partes são a mesma decisão."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-1-d",
+              "label": "Nenhuma das duas partes."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+          "feedback": {
+            "correct": "A segunda parte compara a imagem com critérios técnicos definidos.",
+            "incorrect": "Escolher o exame e conferir sua aquisição são tarefas diferentes no cenário."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m01-01-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-01-roles"
+          ],
+          "prompt": "Na sala simulada, uma orientação ficou ambígua. Você explica a dúvida ao responsável e combina como seguir. Qual descrição corresponde a essa ação?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-a",
+              "label": "Conclusão diagnóstica."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+              "label": "Pedido de apoio e alinhamento."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-c",
+              "label": "Troca autônoma da indicação."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-01-a-check-2-d",
+              "label": "Ajuste técnico que já estava definido."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+          "feedback": {
+            "correct": "Você tornou a dúvida explícita e buscou alinhamento antes de seguir.",
+            "incorrect": "A orientação ainda não estava clara; a ação foi esclarecer o que fazer."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m01-02-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-02-identification"
+          ],
+          "prompt": "Na simulação, a ficha fictícia traz o nome Lia Prado. Qual pergunta confere a identificação sem induzir a resposta?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-1-a",
+              "label": "“A senhora é a Lia Prado, certo?”"
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-1-b",
+              "label": "“Pode me dizer seu nome completo?”"
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-1-c",
+              "label": "“Foi a senhora que chamaram agora?”"
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-1-d",
+              "label": "“Está na sala certa para o exame?”"
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-02-a-check-1-b",
+          "feedback": {
+            "correct": "Você pediu que a pessoa informasse o dado, sem sugerir a resposta.",
+            "incorrect": "Peça que a pessoa informe o dado, sem sugerir a resposta."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m01-02-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-02-identification"
+          ],
+          "prompt": "O nome coincide, mas a pessoa informa que nasceu em 12/03/1990, e a pulseira fictícia mostra 21/03/1990. O que fazer neste cenário?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-2-a",
+              "label": "Seguir, porque o nome coincidiu."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-2-b",
+              "label": "Corrigir a pulseira com a data dita."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-2-c",
+              "label": "Usar a data da pulseira e seguir."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m01-02-a-check-2-d",
+              "label": "Interromper e pedir apoio à equipe."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m01-02-a-check-2-d",
+          "feedback": {
+            "correct": "Divergência interrompe a continuação: você parou e pediu apoio.",
+            "incorrect": "Com dados divergentes, a simulação não continua sem apoio."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m02-01-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-01-views"
+          ],
+          "prompt": "Um personagem está de frente para você na tela. Em que lado da tela aparece o lado esquerdo do corpo dele?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-1-a",
+              "label": "À direita da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-1-b",
+              "label": "À esquerda da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-1-c",
+              "label": "No centro da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-1-d",
+              "label": "Depende do tamanho do desenho."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m02-01-a-check-1-a",
+          "feedback": {
+            "correct": "De frente, o lado esquerdo do corpo aparece à direita de quem observa.",
+            "incorrect": "Comece pela vista: o personagem está de frente para você."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m02-01-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-01-views"
+          ],
+          "prompt": "Um personagem está de costas para você na tela. Em que lado da tela aparece o lado esquerdo do corpo dele?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-2-a",
+              "label": "À direita da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-2-b",
+              "label": "No centro da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-2-c",
+              "label": "À esquerda da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-01-a-check-2-d",
+              "label": "Não é possível saber pela vista."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m02-01-a-check-2-c",
+          "feedback": {
+            "correct": "De costas, o lado esquerdo do corpo aparece à esquerda de quem observa.",
+            "incorrect": "Comece pela vista: o personagem está de costas para você."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m02-02-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-02-markers"
+          ],
+          "prompt": "Um diagrama mostra um personagem de frente, com o marcador L à direita da tela. Esse marcador está coerente com o lado que indica?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-1-a",
+              "label": "Não: L deveria ficar à esquerda da tela."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-1-b",
+              "label": "Sim: o lado esquerdo do corpo fica ali."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-1-c",
+              "label": "Não: só o marcador R pode ser usado."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-1-d",
+              "label": "Sim: a tela define o lado do corpo."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m02-02-a-check-1-b",
+          "feedback": {
+            "correct": "De frente, o lado esquerdo do corpo aparece à direita da tela.",
+            "incorrect": "Relacione o marcador ao lado do corpo na vista informada."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m02-02-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-02-markers"
+          ],
+          "prompt": "Na simulação, o marcador de uma imagem fictícia não combina com o lado informado no roteiro. O que fazer neste cenário?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-2-a",
+              "label": "Trocar o marcador na imagem e seguir."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-2-b",
+              "label": "Decidir pela posição de um órgão."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-2-c",
+              "label": "Seguir, porque a imagem parece boa."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m02-02-a-check-2-d",
+              "label": "Descrever o problema e avisar a equipe."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m02-02-a-check-2-d",
+          "feedback": {
+            "correct": "Você tornou a inconsistência explícita, sem corrigir por conta própria.",
+            "incorrect": "Uma inconsistência não autoriza inventar ou corrigir informação."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m06-04-a-check-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m06-04-field"
+          ],
+          "prompt": "Com a altura fixa, em uma cena didática, o alvo cabe inteiro no campo, e sobra margem dos dois lados. Você reduz a largura e mantém o alvo inteiro. O que acontece com a área do campo?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-1-a",
+              "label": "Ela fica menor."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-1-b",
+              "label": "Ela fica maior."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-1-c",
+              "label": "Ela não muda."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-1-d",
+              "label": "Ela passa a indicar a dose."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m06-04-a-check-1-a",
+          "feedback": {
+            "correct": "Com altura fixa, reduzir a largura diminui a área do campo.",
+            "incorrect": "Compare a abertura antes e depois do ajuste."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "id": "item:rtg-2026:pilot:m06-04-a-check-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m06-04-field"
+          ],
+          "prompt": "Uma imagem foi adquirida com o campo aberto demais, e depois as bordas são recortadas na tela. O que o recorte muda?",
+          "options": [
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-2-a",
+              "label": "A área atingida na aquisição."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-2-b",
+              "label": "A exposição, que diminui junto."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-2-c",
+              "label": "O que aparece na imagem exibida."
+            },
+            {
+              "id": "option:rtg-2026:pilot:m06-04-a-check-2-d",
+              "label": "Nada: equivale a colimar antes."
+            }
+          ],
+          "correctOptionId": "option:rtg-2026:pilot:m06-04-a-check-2-c",
+          "feedback": {
+            "correct": "O recorte muda o que se vê, e não o que já foi exposto.",
+            "incorrect": "Separe o que acontece antes e depois da aquisição."
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ]
+        }
+      ]
+    },
+    "reinforcement": {
+      "cycles": [
+        {
+          "cycle": 1,
+          "mode": "guided-recovery"
+        },
+        {
+          "cycle": 2,
+          "mode": "different-context-retry"
+        }
+      ]
+    },
+    "approvals": {
+      "technical": "pending",
+      "editorial": "pending",
+      "accessibility": "pending",
+      "rights": "pending",
+      "schema": "pending",
+      "product": "pending"
+    },
+    "claimProvenance": [
+      {
+        "claimId": "step:rtg-2026:pilot:m01-01-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m01-01-concept:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m01-01-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-01-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-c",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m01-02-a-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m01-02-a-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-02-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-02-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-02-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-step-3",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-step-1",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-step-4",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-step-2",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m01-02-a:answer",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-01-a-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-01-a-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-a",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-b",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-a:answer",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-02-a-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-02-a-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-02-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-02-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-02-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-a",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m06-04-a-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m06-04-a-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m06-04-a:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m06-04-a:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m06-04-a:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m06-04-a:answer",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m06-04-a:model",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-01-b-hook:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-01-b-closing:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-b:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-b:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-b:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-b-a",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-b-b",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "activity:rtg-2026:pilot:m02-01-b:answer",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-a",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-b",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-01-a-check-2-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-01-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:roles",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m01-02-a-concept:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-1-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-1-b",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-2-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-2-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m01-02-a-check-2-d",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m01-02-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-01-a-concept:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-1-a",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-1-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-2-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-2-c",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-01-a-check-2-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-01-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:coordinates",
+          "source:rtg-2026:pilot:markers"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m02-02-a-concept:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-1-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-1-b",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-2-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-2-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m02-02-a-check-2-d",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m02-02-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:markers",
+          "source:rtg-2026:pilot:coordinates"
+        ]
+      },
+      {
+        "claimId": "step:rtg-2026:pilot:m06-04-a-concept:presentation",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-1:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-1-a",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-1-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-1-c",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-1-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-1:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-1:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-2:prompt",
+        "claimKind": "prompt",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-2-a",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-2-b",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-2-c",
+        "claimKind": "correct-answer",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "option:rtg-2026:pilot:m06-04-a-check-2-d",
+        "claimKind": "distractor",
+        "provenanceKind": "authorial-distractor",
+        "sourceIds": []
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-2:feedback:correct",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      },
+      {
+        "claimId": "item:rtg-2026:pilot:m06-04-a-check-2:feedback:incorrect",
+        "claimKind": "feedback",
+        "provenanceKind": "source-backed",
+        "sourceIds": [
+          "source:rtg-2026:pilot:collimation",
+          "source:rtg-2026:pilot:safety"
+        ]
+      }
+    ],
+    "pilot": {
+      "schemaVersion": 1,
+      "namespace": "rtg-2026",
+      "assets": [
+        {
+          "id": "asset:rtg-2026:pilot:view-front",
+          "kind": "authorial-diagram",
+          "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+          "author": "Radiant — criado com assistência de IA (Codex), 2026",
+          "attribution": "Radiant — criado com assistência de IA (Codex), 2026",
+          "authorshipRef": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+          "sha256": "63e7e8ece236d87b41b7c8f04bb40f50af61da7393d031b3a36810297a41361f",
+          "license": {
+            "label": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "id": "asset:rtg-2026:pilot:view-back",
+          "kind": "authorial-diagram",
+          "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+          "author": "Radiant — criado com assistência de IA (Codex), 2026",
+          "attribution": "Radiant — criado com assistência de IA (Codex), 2026",
+          "authorshipRef": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+          "sha256": "106cf74a072538ab0514666010b5d91c560078207c5bbf12562f51b5245e34d4",
+          "license": {
+            "label": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "id": "asset:rtg-2026:pilot:marker-a",
+          "kind": "authorial-diagram",
+          "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-a.png",
+          "author": "Radiant — criado com assistência de IA (Codex), 2026",
+          "attribution": "Radiant — criado com assistência de IA (Codex), 2026",
+          "authorshipRef": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+          "sha256": "46065fd10483173d88e26c521d73752bd7c8132803cebfa147f4fe8f334d1728",
+          "license": {
+            "label": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "id": "asset:rtg-2026:pilot:marker-b",
+          "kind": "authorial-diagram",
+          "uri": "https://raw.githubusercontent.com/andersonsmelo/Radiant/refs/heads/claude/conteudo-reinicio-tecnologo/radiant-app/assets/content/rtg-2026/pilot/marker-b.png",
+          "author": "Radiant — criado com assistência de IA (Codex), 2026",
+          "attribution": "Radiant — criado com assistência de IA (Codex), 2026",
+          "authorshipRef": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+          "sha256": "89e3da9cc7136483ee426df44ebaf1476eecc00eed389d4e672abd6e91de3ac3",
+          "license": {
+            "label": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "targetId": "activity:rtg-2026:pilot:m01-01-a",
+          "variantId": "variant:rtg-2026:pilot:m01-01-a",
+          "successCriterion": "Distinguir a conferência técnica da conclusão clínica.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Escolha uma alternativa e confirme a resposta.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "activity:rtg-2026:pilot:m01-02-a",
+          "variantId": "variant:rtg-2026:pilot:m01-02-a",
+          "successCriterion": "Reconstruir a sequência dependente declarada; interromper em divergência.",
+          "criticalErrors": [
+            "Continuar a simulação com identidade não confirmada."
+          ],
+          "accessibleAlternative": "Use Mover para cima ou Mover para baixo, escute a posição e confirme a sequência.",
+          "responseMode": "order-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "activity:rtg-2026:pilot:m02-01-a",
+          "variantId": "variant:rtg-2026:pilot:m02-01-a",
+          "successCriterion": "Usar a referência do corpo na vista informada.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Personagem de frente. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme.",
+          "responseMode": "region-list",
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "targetId": "activity:rtg-2026:pilot:m02-02-a",
+          "variantId": "variant:rtg-2026:pilot:m02-02-a",
+          "successCriterion": "Escolher o marcador coerente com a vista e a referência corporal.",
+          "criticalErrors": [
+            "Tratar inconsistência do marcador como autorização para editar informação clínica."
+          ],
+          "accessibleAlternative": "Compare Imagem A e Imagem B pelos botões nomeados e confirme.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "targetId": "activity:rtg-2026:pilot:m06-04-a",
+          "variantId": "variant:rtg-2026:pilot:m06-04-a",
+          "successCriterion": "Alvo inteiro, sem margem horizontal extra além da tolerância artificial da cena; confirmar o ajuste.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Controle da largura do campo, em centímetros. Use incrementar ou decrementar e confirme; sem gesto obrigatório.",
+          "responseMode": "increment-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ],
+          "modelLimits": "Detector didático de 27×33 cm; altura fixa, alvo abstrato de 18 cm e faixa artificial 18–20 cm. Somente área relativa; sem cálculo de dose ou espalhamento. Previsão e explicação verbais, sem pontuação automática."
+        },
+        {
+          "targetId": "activity:rtg-2026:pilot:m02-01-b",
+          "variantId": "variant:rtg-2026:pilot:m02-01-b",
+          "successCriterion": "Usar a referência do corpo na vista informada.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Personagem de costas. Região A à esquerda da tela; região B à direita. Selecione pela lista e confirme.",
+          "responseMode": "region-list",
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m01-01-a-check-1",
+          "variantId": "variant:rtg-2026:pilot:m01-01-a-check-1",
+          "successCriterion": "Reconhecer a tarefa descrita no novo contexto.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m01-01-a-check-2",
+          "variantId": "variant:rtg-2026:pilot:m01-01-a-check-2",
+          "successCriterion": "Reconhecer a tarefa descrita no novo contexto.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:roles",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m01-02-a-check-1",
+          "variantId": "variant:rtg-2026:pilot:m01-02-a-check-1",
+          "successCriterion": "Escolher a pergunta que não induz a confirmação da identidade.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m01-02-a-check-2",
+          "variantId": "variant:rtg-2026:pilot:m01-02-a-check-2",
+          "successCriterion": "Interromper a simulação diante de dados divergentes.",
+          "criticalErrors": [
+            "Continuar a simulação com identidade não confirmada."
+          ],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-01-a-check-1",
+          "variantId": "variant:rtg-2026:pilot:m02-01-a-check-1",
+          "successCriterion": "Relacionar o lado do corpo à tela na vista de frente.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-01-a-check-2",
+          "variantId": "variant:rtg-2026:pilot:m02-01-a-check-2",
+          "successCriterion": "Relacionar o lado do corpo à tela na vista de costas.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:coordinates",
+            "source:rtg-2026:pilot:markers"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-02-a-check-1",
+          "variantId": "variant:rtg-2026:pilot:m02-02-a-check-1",
+          "successCriterion": "Julgar o marcador pelo lado do corpo na vista informada.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-02-a-check-2",
+          "variantId": "variant:rtg-2026:pilot:m02-02-a-check-2",
+          "successCriterion": "Comunicar a inconsistência sem alterar informação da imagem.",
+          "criticalErrors": [
+            "Alterar ou inventar informação da imagem."
+          ],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:markers",
+            "source:rtg-2026:pilot:coordinates"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m06-04-a-check-1",
+          "variantId": "variant:rtg-2026:pilot:m06-04-a-check-1",
+          "successCriterion": "Prever qualitativamente o efeito de reduzir a largura sobre a área.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ]
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m06-04-a-check-2",
+          "variantId": "variant:rtg-2026:pilot:m06-04-a-check-2",
+          "successCriterion": "Distinguir recorte posterior de colimação anterior à exposição.",
+          "criticalErrors": [],
+          "accessibleAlternative": "Alternativas em botões nomeados; seleção e confirmação separadas do retorno.",
+          "responseMode": "choice-buttons",
+          "sourceIds": [
+            "source:rtg-2026:pilot:collimation",
+            "source:rtg-2026:pilot:safety"
+          ]
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "The four lessons authored on 2026-11-05 are an AI draft: they have no editorial, technical or clinical review and no hash-bound acceptance.",
+    "reviewEnvelope now passes checkpoint coverage; structural completeness does not make it a promotion candidate, and promotion stays refused without the six approvals.",
+    "Checkpoint per-option feedback, help and recovery are companion payloads, not wired into the production contract; the preview lab reads only those of M01.01.",
+    "The first text of the four lessons is in its own private Google Doc (lessonDraftDocument); after the 2026-11-05 review pass, docs/evidence/2026-11-05-pc04-quatro-aulas.md is ahead of that Doc.",
+    "Bench target scene is absent in the generic current renderer; PC06 must implement it before use.",
+    "HTTPS asset identities are proposed; only local bytes are checked. No remote availability, bundling or offline proof."
+  ],
+  "activation": {
+    "promoted": false,
+    "activeContentAdded": false
+  },
+  "lessonCompanions": [
+    {
+      "targetId": "activity:rtg-2026:pilot:m01-02-a",
+      "competencyId": "competency:rtg-2026:pilot:m01-02-identification",
+      "checkpointOptionFeedback": [
+        {
+          "targetId": "item:rtg-2026:pilot:m01-02-a-check-1",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m01-02-a-check-1-a": "Essa pergunta entrega o nome e convida a um sim.",
+            "option:rtg-2026:pilot:m01-02-a-check-1-b": "Você pediu que a pessoa informasse o dado, sem sugerir a resposta.",
+            "option:rtg-2026:pilot:m01-02-a-check-1-c": "Ter sido chamada não confirma quem é a pessoa.",
+            "option:rtg-2026:pilot:m01-02-a-check-1-d": "A sala não informa a identidade. Peça o dado à pessoa."
+          }
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m01-02-a-check-2",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m01-02-a-check-2-a": "Um dado divergente deixa a identidade sem confirmação.",
+            "option:rtg-2026:pilot:m01-02-a-check-2-b": "Neste treino, você não altera o registro por conta própria.",
+            "option:rtg-2026:pilot:m01-02-a-check-2-c": "Escolher um dos dados não resolve a divergência.",
+            "option:rtg-2026:pilot:m01-02-a-check-2-d": "Divergência interrompe a continuação: você parou e pediu apoio."
+          }
+        }
+      ],
+      "optionalHelp": {
+        "targetId": "activity:rtg-2026:pilot:m01-02-a",
+        "text": "Para cada cartão, pergunte: o que precisa estar confirmado antes dele?",
+        "tracking": "help-opened; preserve distinction from independent first attempt"
+      },
+      "recoveryActivities": [
+        {
+          "id": "activity:rtg-2026:pilot:m01-02-recovery-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-02-identification"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:safety"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m01-02-recovery-1-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Reforço guiado",
+                "body": "Antes de responder, complete: eu só sigo depois de confirmar…"
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m01-02-recovery-1",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m01-02-identification"
+                ],
+                "evidenceKind": "guided-practice",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "Pedir e comparar os dados confirma a identidade, sem depender da fila.",
+                  "incorrect": "Retome: primeiro pedir os identificadores e comparar com os registros."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "A pessoa da simulação está na primeira cadeira da fila, e um colega diz que ela é a próxima. A identidade ainda não foi conferida. Qual é o próximo passo?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-1-a",
+                      "label": "Pedir os identificadores e comparar.",
+                      "explanation": "Pedir e comparar os dados confirma a identidade, sem depender da fila."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-1-b",
+                      "label": "Chamar pelo nome da ficha e seguir.",
+                      "explanation": "Dizer o nome induz a confirmação. Peça o dado à pessoa."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-1-c",
+                      "label": "Confiar na ordem indicada pela fila.",
+                      "explanation": "A fila mostra a ordem de chamada, não quem é a pessoa."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-1-d",
+                      "label": "Explicar a etapa e conferir depois.",
+                      "explanation": "A explicação vem depois de a identidade estar confirmada."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m01-02-recovery-1-a"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m01-02-recovery-1-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        },
+        {
+          "id": "activity:rtg-2026:pilot:m01-02-recovery-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m01-02-identification"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:safety"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m01-02-recovery-2-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Outro contexto",
+                "body": "Esta situação é nova. Responda sem consultar a questão anterior."
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m01-02-recovery-2",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m01-02-identification"
+                ],
+                "evidenceKind": "applied-transfer",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "Divergência interrompe a continuação: você parou e chamou apoio.",
+                  "incorrect": "Com dados divergentes, a simulação não continua sem apoio."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Em outra simulação, a data de nascimento confere, mas a pessoa diz um sobrenome diferente do registrado na pulseira fictícia. O que fazer neste cenário?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-2-a",
+                      "label": "Seguir, porque a data coincidiu.",
+                      "explanation": "Um dado divergente deixa a identidade sem confirmação."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-2-b",
+                      "label": "Parar e chamar apoio da equipe.",
+                      "explanation": "Divergência interrompe a continuação: você parou e chamou apoio."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-2-c",
+                      "label": "Usar o sobrenome da pulseira.",
+                      "explanation": "Escolher um dos dados não resolve a divergência."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m01-02-recovery-2-d",
+                      "label": "Explicar a etapa e conferir depois.",
+                      "explanation": "A explicação vem depois de a identidade estar confirmada."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m01-02-recovery-2-b"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m01-02-recovery-2-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "targetId": "activity:rtg-2026:pilot:m02-01-a",
+      "competencyId": "competency:rtg-2026:pilot:m02-01-views",
+      "checkpointOptionFeedback": [
+        {
+          "targetId": "item:rtg-2026:pilot:m02-01-a-check-1",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m02-01-a-check-1-a": "De frente, o lado esquerdo do corpo aparece à direita de quem observa.",
+            "option:rtg-2026:pilot:m02-01-a-check-1-b": "Essa é a posição do lado direito do corpo nesta vista.",
+            "option:rtg-2026:pilot:m02-01-a-check-1-c": "O lado do corpo não fica no centro do desenho.",
+            "option:rtg-2026:pilot:m02-01-a-check-1-d": "O tamanho não muda a relação entre a vista e o lado do corpo."
+          }
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-01-a-check-2",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m02-01-a-check-2-a": "Isso vale para o lado esquerdo na vista de frente, não na de costas.",
+            "option:rtg-2026:pilot:m02-01-a-check-2-b": "O lado do corpo não fica no centro do desenho.",
+            "option:rtg-2026:pilot:m02-01-a-check-2-c": "De costas, o lado esquerdo do corpo aparece à esquerda de quem observa.",
+            "option:rtg-2026:pilot:m02-01-a-check-2-d": "A vista informada basta para relacionar o corpo e a tela."
+          }
+        }
+      ],
+      "optionalHelp": {
+        "targetId": "activity:rtg-2026:pilot:m02-01-a",
+        "text": "Imagine alguém de frente para você levantando a mão direita. De que lado você vê essa mão?",
+        "tracking": "help-opened; preserve distinction from independent first attempt"
+      },
+      "recoveryActivities": [
+        {
+          "id": "activity:rtg-2026:pilot:m02-01-recovery-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-01-views"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:coordinates",
+              "source:rtg-2026:pilot:markers"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-01-recovery-1-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Reforço guiado",
+                "body": "Antes de responder, complete: o personagem está de… e por isso a direita dele fica…"
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m02-01-recovery-1",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m02-01-views"
+                ],
+                "evidenceKind": "guided-practice",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "A vista informada mostra onde cada lado do corpo aparece na tela.",
+                  "incorrect": "Retome a vista informada antes de relacionar o corpo e a tela."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Um colega diz: “A direita do corpo é sempre o lado direito da tela.” O diagrama mostra um personagem de frente. O que corrige essa frase?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-1-a",
+                      "label": "A vista define onde o lado aparece.",
+                      "explanation": "A vista informada mostra onde cada lado do corpo aparece na tela."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-1-b",
+                      "label": "A direita de quem observa vale sempre.",
+                      "explanation": "Essa é a frase que precisa de correção: quem observa não define o lado do corpo."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-1-c",
+                      "label": "A letra da região define o lado.",
+                      "explanation": "As letras só marcam regiões da tela."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-1-d",
+                      "label": "O lado do corpo muda a cada vista.",
+                      "explanation": "O lado do corpo é o mesmo; muda a posição dele na tela."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m02-01-recovery-1-a"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-01-recovery-1-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        },
+        {
+          "id": "activity:rtg-2026:pilot:m02-01-recovery-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-01-views"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:coordinates",
+              "source:rtg-2026:pilot:markers"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-01-recovery-2-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Outro contexto",
+                "body": "Esta situação é nova. Responda sem consultar a questão anterior."
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m02-01-recovery-2",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m02-01-views"
+                ],
+                "evidenceKind": "applied-transfer",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "De costas, o lado direito da tela coincide com o lado direito do corpo.",
+                  "incorrect": "Retome a vista: o personagem está de costas."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Uma tela fictícia mostra um personagem de costas, com uma seta marcando a região à direita da tela. Essa região corresponde a qual lado do corpo?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-2-a",
+                      "label": "O lado esquerdo do corpo.",
+                      "explanation": "Nesta vista, o lado esquerdo do corpo fica à esquerda da tela."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-2-b",
+                      "label": "Depende de quem olha a tela.",
+                      "explanation": "O lado do corpo não muda conforme quem observa."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-2-c",
+                      "label": "Não dá para relacionar os dois.",
+                      "explanation": "A vista informada permite relacionar a tela e o corpo."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-01-recovery-2-d",
+                      "label": "O lado direito do corpo.",
+                      "explanation": "De costas, o lado direito da tela coincide com o lado direito do corpo."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m02-01-recovery-2-d"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-01-recovery-2-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "targetId": "activity:rtg-2026:pilot:m02-02-a",
+      "competencyId": "competency:rtg-2026:pilot:m02-02-markers",
+      "checkpointOptionFeedback": [
+        {
+          "targetId": "item:rtg-2026:pilot:m02-02-a-check-1",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m02-02-a-check-1-a": "Essa resposta usa o lado da tela, e não o lado do corpo.",
+            "option:rtg-2026:pilot:m02-02-a-check-1-b": "De frente, o lado esquerdo do corpo aparece à direita da tela.",
+            "option:rtg-2026:pilot:m02-02-a-check-1-c": "L também é um marcador de lado: indica a esquerda.",
+            "option:rtg-2026:pilot:m02-02-a-check-1-d": "A conclusão coincide, mas o motivo não: quem define é o corpo na vista."
+          }
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m02-02-a-check-2",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m02-02-a-check-2-a": "Neste treino, você não altera informação da imagem.",
+            "option:rtg-2026:pilot:m02-02-a-check-2-b": "A posição de um órgão não substitui a conferência do marcador.",
+            "option:rtg-2026:pilot:m02-02-a-check-2-c": "A aparência da imagem não resolve a inconsistência.",
+            "option:rtg-2026:pilot:m02-02-a-check-2-d": "Você tornou a inconsistência explícita, sem corrigir por conta própria."
+          }
+        }
+      ],
+      "optionalHelp": {
+        "targetId": "activity:rtg-2026:pilot:m02-02-a",
+        "text": "Localize primeiro a direita do personagem e só depois procure o R.",
+        "tracking": "help-opened; preserve distinction from independent first attempt"
+      },
+      "recoveryActivities": [
+        {
+          "id": "activity:rtg-2026:pilot:m02-02-recovery-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-02-markers"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:markers",
+              "source:rtg-2026:pilot:coordinates"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-02-recovery-1-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Reforço guiado",
+                "body": "Antes de responder, complete: o R se refere ao lado… do personagem."
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m02-02-recovery-1",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m02-02-markers"
+                ],
+                "evidenceKind": "guided-practice",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "A conferência relaciona o marcador ao lado do corpo na vista.",
+                  "incorrect": "Retome: o marcador se refere ao lado do corpo."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Um personagem está de frente. Um colega diz que o R está certo porque aparece à direita da tela. O que a conferência precisa observar?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-1-a",
+                      "label": "O lado da tela em que o R aparece.",
+                      "explanation": "O lado da tela sozinho não confere o marcador."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-1-b",
+                      "label": "O tamanho do R em relação ao desenho.",
+                      "explanation": "O tamanho do marcador não informa o lado do corpo."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-1-c",
+                      "label": "O lado do corpo na vista informada.",
+                      "explanation": "A conferência relaciona o marcador ao lado do corpo na vista."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-1-d",
+                      "label": "A posição habitual de um órgão.",
+                      "explanation": "A posição de um órgão não substitui a conferência do marcador."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m02-02-recovery-1-c"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-02-recovery-1-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        },
+        {
+          "id": "activity:rtg-2026:pilot:m02-02-recovery-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m02-02-markers"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:markers",
+              "source:rtg-2026:pilot:coordinates"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-02-recovery-2-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Outro contexto",
+                "body": "Esta situação é nova. Responda sem consultar a questão anterior."
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m02-02-recovery-2",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m02-02-markers"
+                ],
+                "evidenceKind": "applied-transfer",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "De costas, o lado direito do corpo aparece à direita da tela.",
+                  "incorrect": "Retome a vista antes de julgar o marcador."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Em outra simulação, o personagem está de costas e o R aparece à direita da tela. O marcador está coerente?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-2-a",
+                      "label": "Sim: de costas, corpo e tela coincidem.",
+                      "explanation": "De costas, o lado direito do corpo aparece à direita da tela."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-2-b",
+                      "label": "Não: o R sempre fica à esquerda.",
+                      "explanation": "À esquerda da tela só seria coerente na vista de frente."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-2-c",
+                      "label": "Não: de costas, ele perde o sentido.",
+                      "explanation": "O marcador continua indicando o lado do corpo."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m02-02-recovery-2-d",
+                      "label": "Sim: qualquer posição serve para o R.",
+                      "explanation": "A posição importa: ela precisa coincidir com o lado direito do corpo."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m02-02-recovery-2-a"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m02-02-recovery-2-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "targetId": "activity:rtg-2026:pilot:m06-04-a",
+      "competencyId": "competency:rtg-2026:pilot:m06-04-field",
+      "checkpointOptionFeedback": [
+        {
+          "targetId": "item:rtg-2026:pilot:m06-04-a-check-1",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m06-04-a-check-1-a": "Com altura fixa, reduzir a largura diminui a área do campo.",
+            "option:rtg-2026:pilot:m06-04-a-check-1-b": "A área só aumentaria se a abertura aumentasse.",
+            "option:rtg-2026:pilot:m06-04-a-check-1-c": "Com a altura fixa, a largura altera a área.",
+            "option:rtg-2026:pilot:m06-04-a-check-1-d": "O modelo mostra área relativa, sem calcular dose."
+          }
+        },
+        {
+          "targetId": "item:rtg-2026:pilot:m06-04-a-check-2",
+          "byOptionId": {
+            "option:rtg-2026:pilot:m06-04-a-check-2-a": "A aquisição já aconteceu; o recorte vem depois dela.",
+            "option:rtg-2026:pilot:m06-04-a-check-2-b": "O recorte não altera a exposição já realizada.",
+            "option:rtg-2026:pilot:m06-04-a-check-2-c": "O recorte muda o que se vê, e não o que já foi exposto.",
+            "option:rtg-2026:pilot:m06-04-a-check-2-d": "Recortar depois não substitui colimar o feixe antes da exposição."
+          }
+        }
+      ],
+      "optionalHelp": {
+        "targetId": "activity:rtg-2026:pilot:m06-04-a",
+        "text": "Reduza um passo de cada vez e observe se o alvo continua inteiro dentro do campo.",
+        "tracking": "help-opened; preserve distinction from independent first attempt"
+      },
+      "recoveryActivities": [
+        {
+          "id": "activity:rtg-2026:pilot:m06-04-recovery-1",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m06-04-field"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:collimation",
+              "source:rtg-2026:pilot:safety"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m06-04-recovery-1-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Reforço guiado",
+                "body": "Antes de responder, complete: o alvo precisa ficar… e a margem extra…"
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m06-04-recovery-1",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m06-04-field"
+                ],
+                "evidenceKind": "guided-practice",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "O campo precisa conter o alvo inteiro, sem abrir além do necessário.",
+                  "incorrect": "Retome o objetivo: alvo inteiro, com menos margem."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Na bancada, você reduziu tanto a largura que parte do alvo ficou fora do campo. Qual ajuste faz sentido nesta cena?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-1-a",
+                      "label": "Reduzir mais, para diminuir a área.",
+                      "explanation": "Reduzir mais deixaria ainda mais alvo de fora."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-1-b",
+                      "label": "Aumentar até o alvo caber inteiro.",
+                      "explanation": "O campo precisa conter o alvo inteiro, sem abrir além do necessário."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-1-c",
+                      "label": "Manter, porque a área ficou menor.",
+                      "explanation": "Área menor não compensa o alvo incompleto."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-1-d",
+                      "label": "Recortar depois a parte que faltou.",
+                      "explanation": "O recorte não recupera o que ficou fora do campo."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m06-04-recovery-1-b"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m06-04-recovery-1-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        },
+        {
+          "id": "activity:rtg-2026:pilot:m06-04-recovery-2",
+          "competencyIds": [
+            "competency:rtg-2026:pilot:m06-04-field"
+          ],
+          "provenance": {
+            "sourceIds": [
+              "source:rtg-2026:pilot:collimation",
+              "source:rtg-2026:pilot:safety"
+            ],
+            "contentVersion": "rtg-2026-pilot.2026-11-03"
+          },
+          "steps": [
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m06-04-recovery-2-hook",
+              "role": "hook",
+              "payload": {
+                "title": "Outro contexto",
+                "body": "Esta situação é nova. Responda sem consultar a questão anterior."
+              }
+            },
+            {
+              "kind": "interaction",
+              "interaction": {
+                "id": "interaction:rtg-2026:pilot:m06-04-recovery-2",
+                "type": "multiple-choice",
+                "competencyIds": [
+                  "competency:rtg-2026:pilot:m06-04-field"
+                ],
+                "evidenceKind": "applied-transfer",
+                "completionRule": "confirmed",
+                "criticalSafety": false,
+                "feedback": {
+                  "correct": "A abertura extra aumenta a área sem atender ao cenário.",
+                  "incorrect": "Compare a abertura com o que o alvo precisa."
+                },
+                "accessibility": {
+                  "label": "Escolha e confirme a alternativa."
+                },
+                "payload": {
+                  "prompt": "Em outra cena, o alvo é menor, e o campo começa bem mais largo que ele. Ampliar o campo “por garantia” tem qual efeito no modelo?",
+                  "options": [
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-2-a",
+                      "label": "Diminui a área do campo.",
+                      "explanation": "Ampliar a abertura aumenta a área."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-2-b",
+                      "label": "Mede a dose em cada órgão.",
+                      "explanation": "O modelo não calcula dose."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-2-c",
+                      "label": "Dispensa conferir o alvo.",
+                      "explanation": "O alvo continua precisando ser conferido."
+                    },
+                    {
+                      "id": "option:rtg-2026:pilot:m06-04-recovery-2-d",
+                      "label": "Aumenta a área, sem ganho para o alvo.",
+                      "explanation": "A abertura extra aumenta a área sem atender ao cenário."
+                    }
+                  ],
+                  "correctOptionId": "option:rtg-2026:pilot:m06-04-recovery-2-d"
+                }
+              }
+            },
+            {
+              "kind": "presentation",
+              "id": "step:rtg-2026:pilot:m06-04-recovery-2-closing",
+              "role": "closing",
+              "payload": {
+                "title": "Reforço concluído",
+                "body": "Esta tentativa é um reforço e não substitui a resposta independente da avaliação."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lessonDraftDocument": {
+    "url": "https://docs.google.com/document/d/1g7JAN5szNx4qBogWupp363i3HHOgCMSMew6dUA46iwY",
+    "state": "ai-draft-unreviewed-behind-repository",
+    "createdAt": "2026-11-05"
+  }
+}

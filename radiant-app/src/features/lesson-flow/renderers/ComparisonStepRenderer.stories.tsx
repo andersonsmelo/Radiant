@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import { fn } from 'storybook/test';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { ComparisonStepRenderer } from './ComparisonStepRenderer';
 
-const xrayPanel = Image.resolveAssetSource(require('../assets/lesson-xray-panel.png')).uri;
+// As opções vão só com texto: `imageRef` é opcional nesta interação. A imagem
+// antiga era um mockup com texto em inglês e saiu do app em `b06c7eb`.
 
 const meta = {
     title: 'Aprendizagem/Comparação',
@@ -13,8 +14,8 @@ const meta = {
         payload: {
             prompt: 'Qual opção representa a melhor delimitação da região de interesse?',
             options: [
-                { id: 'amplo', label: 'Campo amplo, além da região necessária', imageRef: xrayPanel },
-                { id: 'restrito', label: 'Campo delimitado à região necessária', imageRef: xrayPanel },
+                { id: 'amplo', label: 'Campo amplo, além da região necessária' },
+                { id: 'restrito', label: 'Campo delimitado à região necessária' },
             ],
             correctOptionId: 'restrito',
         },

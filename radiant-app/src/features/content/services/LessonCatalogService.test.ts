@@ -4,6 +4,17 @@ import { RemoteCatalogService } from './RemoteCatalogService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import type { QuizLessonJourneyStageCopy } from '../../../types/quiz';
 
+jest.mock('../../../data/curriculum-state.json', () => ({ schemaVersion: 1, state: 'active' }));
+jest.mock('../../../data/lessons', () => ({ LESSONS: require('../../../test/fixtures/syntheticLessons').LESSONS }));
+jest.mock('../../../data/ai-lessons', () => ({ AI_LESSONS: [] }));
+jest.mock('../../../data/catalog', () => {
+ const { LESSONS } = require('../../../test/fixtures/syntheticLessons');
+ return { LESSON_CATALOG: { version: 'synthetic.v1', initialLessonId: 'lesson-1',
+ tracks: [{ id: 'track-radiology-foundations', slug: 'symbols', title: 'Símbolos', description: 'Teste.', lessonIds: ['lesson-1','lesson-2'] }],
+ lessons: LESSONS.map((lesson: { id: string; title: string }, i: number) => ({ id: lesson.id, title: lesson.title, slug: lesson.id, difficulty: 'beginner', trackId: 'track-radiology-foundations', order: i+1 })) } };
+});
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
+
 jest.mock('@react-native-async-storage/async-storage', () => ({ getItem: jest.fn(), setItem: jest.fn() }));
 
 const storage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
@@ -103,7 +114,7 @@ describe('LessonCatalogService', () => {
     expect(summaries).toHaveLength(12);
     expect(summaries[0]).toMatchObject({
       id: 'activity:materia-energia-e-radiacao:01',
-      title: 'Estrutura e carga',
+      title: 'Símbolo 1',
       order: 1,
     });
     expect(LessonCatalogService.getLessonById(summaries[0].id)).toBeNull();

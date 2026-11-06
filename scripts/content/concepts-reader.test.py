@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import unittest
 from pathlib import Path
 
@@ -13,7 +14,12 @@ class ConceptsReaderTests(unittest.TestCase):
     def test_load_all_concepts_returns_list(self):
         concepts = MODULE.load_all_concepts()
         self.assertIsInstance(concepts, list)
-        self.assertGreater(len(concepts), 0)
+        # Desde a retirada de 2026-11-02 o índice não tem jobs; o leitor devolve o que o índice declara.
+        index = json.loads((MODULE.CONTENT_ROOT / "conceitos" / "index.json").read_text(encoding="utf-8"))
+        if index["jobs"]:
+            self.assertGreater(len(concepts), 0)
+        else:
+            self.assertEqual(concepts, [])
 
     def test_each_concept_has_required_fields(self):
         concepts = MODULE.load_all_concepts()

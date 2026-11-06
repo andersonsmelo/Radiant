@@ -14,7 +14,7 @@ const MOMENTS = {
  * regra R5 do visual QA, como no quiz legado (`QuizFeedback`, `LessonSummary`):
  * o personagem fica em componente de arquétipo, não na tela que o usa.
  */
-export function HybridLessonCharacter({ moment, reduceMotion }: Readonly<{ moment: Moment; reduceMotion: boolean }>) {
+export function HybridLessonCharacter({ moment }: Readonly<{ moment: Moment; reduceMotion: boolean }>) {
   const spec = MOMENTS[moment];
-  return <PixelIllustration size={spec.size} state={reduceMotion ? 'happy' : 'celebrate'} expression={spec.expression} accessibilityLabel={spec.accessibilityLabel} />;
+  return <PixelIllustration size={spec.size} state="celebrate" expression={spec.expression} accessibilityLabel={spec.accessibilityLabel} />;
 }

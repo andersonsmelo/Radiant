@@ -46,43 +46,21 @@ class AnchorLessonTest(unittest.TestCase):
         self.assertEqual(relatorio["claims"][0]["hash"], "abc")
 
 
-class ClaimsDoPilotoTest(unittest.TestCase):
-    def setUp(self):
+class RetiredCatalogTest(unittest.TestCase):
+    def test_retirada_exige_marcador_explicito_e_nenhuma_copia_de_aula(self):
         raiz = Path(__file__).resolve().parents[2]
-        self.pasta = raiz / "content-manifest" / "lessons"
-        self.manifesto = {
-            json.loads(l)["id"]
-            for l in (raiz / "content-manifest" / "excerpts" / "manifest.jsonl")
-            .read_text(encoding="utf-8")
-            .splitlines()
-            if l.strip()
-        }
-
-    def test_ha_pelo_menos_um_arquivo_de_claims(self):
-        self.assertTrue(sorted(self.pasta.glob("*.claims.json")))
-
-    def test_forma_do_arquivo_de_claims(self):
-        for arquivo in sorted(self.pasta.glob("*.claims.json")):
-            dados = json.loads(arquivo.read_text(encoding="utf-8"))
-            self.assertTrue(dados["lessonId"].startswith("ai-lesson:"))
-            self.assertGreaterEqual(len(dados["claims"]), 5)
-            self.assertLessEqual(len(dados["claims"]), 10)
-            ids = [c["id"] for c in dados["claims"]]
-            self.assertEqual(len(ids), len(set(ids)), "ids de claim repetidos")
-            for c in dados["claims"]:
-                self.assertTrue(c["claim"].strip())
-                self.assertNotIn("hash", c, "hash e derivado; a Task 5 resolve")
-                self.assertNotIn("vector", c, "o arquivo em disco nao guarda vetor")
-
-    def test_todo_excerptId_existe_no_manifesto(self):
-        for arquivo in sorted(self.pasta.glob("*.claims.json")):
-            dados = json.loads(arquivo.read_text(encoding="utf-8"))
-            for c in dados["claims"]:
-                self.assertIn(
-                    c["excerptId"],
-                    self.manifesto,
-                    f"{c['id']} aponta para excerto fora do manifesto",
-                )
+        estado = json.loads(
+            (raiz / "radiant-app/src/data/curriculum-state.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(estado, {
+            "schemaVersion": 1,
+            "state": "retired",
+            "audience": "radiology-technologist",
+            "reason": "content-restart-2026-11-02",
+        })
+        pasta = raiz / "content-manifest" / "lessons"
+        self.assertEqual(sorted(pasta.glob("*.claims.json")), [])
+        self.assertEqual(sorted(pasta.glob("*.anchored.json")), [])
 
 
 class LoadAllowedTest(unittest.TestCase):

@@ -1,0 +1,90 @@
+{
+  "measuredOn": "2026-10-26",
+  "base": "55e21aef2d7aa1ab3c78685996c59629752595a8",
+  "ios": {
+    "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "installedBundleId": "com.ascendcreative.radiant",
+    "version": "1.4.0",
+    "build": "3",
+    "reduceMotionLaunchArgument": "-radiantReduceMotion 1",
+    "accessibilityLabelsObserved": [
+      "5 de 5 vidas",
+      "Fechar quiz",
+      "Continuar",
+      "Fechar opções de vidas",
+      "Voltar"
+    ]
+  },
+  "android": {
+    "serial": "emulator-5554",
+    "avd": "radiant-entrada-api34",
+    "package": "com.ascendcreative.radiant",
+    "versions": [
+      "versionCode=3 minSdk=24 targetSdk=36",
+      "versionName=1.4.0"
+    ],
+    "avdCommandResponse": "radiant-entrada-api34\nOK",
+    "accessibilityDump": "Two uiautomator dump attempts failed to reach idle with ongoing animation; screenshots and UI interactions verified visually, not TalkBack."
+  },
+  "buildOrInstallExecuted": false,
+  "reservedSimulatorTouched": false,
+  "screens": [
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/ios-trilha.png",
+      "width": 1206,
+      "height": 2622,
+      "sha256": "de1e3cceb4905fac997f49585da0dc41d997711580f0168e53e1de8fced3492c",
+      "observation": "single heart + 5 pill"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/ios-aula.png",
+      "width": 1206,
+      "height": 2622,
+      "sha256": "e476e421d57ff6a30a69e58068b73027ba605b33111c5f9e5408a392d88aadd5",
+      "observation": "single heart + 5 pill"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/ios-hearts.png",
+      "width": 1206,
+      "height": 2622,
+      "sha256": "d2ad314ef3b6619f2e799fcec560c6b42648200893afcb65b1e6c53a411dd9c6",
+      "observation": "existing sheet opened from HUD pill; sheet restyle remains T12"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/android-trilha.png",
+      "width": 1080,
+      "height": 2340,
+      "sha256": "70995ea8b2953fec2594d3b47d858e97c9cd7d1db6c9db3cc99d63ae53a6f495",
+      "observation": "single heart + 5 pill"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/android-aula.png",
+      "width": 1080,
+      "height": 2340,
+      "sha256": "c7508b5512d996c16ce80c689f6ba78003baf1b87ceb62cb2bd9385a5acac660",
+      "observation": "single heart + 5 pill"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t02/android-hearts.png",
+      "width": 1080,
+      "height": 2340,
+      "sha256": "6c81d130e045ba587e851c433caf8081b8d688951df73bcc9e1732cd9cfd5f3d",
+      "observation": "existing sheet opened from HUD pill; sheet restyle remains T12"
+    }
+  ],
+  "writerRun": "run-1793011345601-6bbdc725",
+  "supersededRun": "run-1793009906160-fa339b65",
+  "nativeVisualScope": "finite count 5, journey and lesson on both platforms; sheet opening action",
+  "nativeUnlimitedOrZeroStatesVerified": false,
+  "nativePulseMeasured": false,
+  "systemClockChanged": false,
+  "appDataCleared": false,
+  "captureMethod": {
+    "ios": "simctl io exact principal UDID screenshot --type=png; MCP optimized JPEG used only during inspection",
+    "android": "adb -s emulator-5554 exec-out screencap -p"
+  },
+  "sourceHashes": {
+    "radiant-app/src/ui/components/HUD.tsx": "2dc4b92955a951ff1dee3dd3f0cab8cf578d6ed776bdafa7df5f2b7c16b50508",
+    "radiant-app/src/features/quiz/components/QuizTopBar.tsx": "424708481944eb197253f961f2cc7fda52ddda3fec0360d27cb0eb07a5ea5bb8"
+  }
+}

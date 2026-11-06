@@ -353,7 +353,12 @@ class LessonOutcomeServiceImpl {
         };
     }
 
-    private activityToQuizResult({ activity, confirmedAnswers, answeredAt }: ActivityOutcomeInput): QuizResult {
+    private activityToQuizResult({ activity, confirmedAnswers, firstConfirmedAnswers, answeredAt }: ActivityOutcomeInput): QuizResult {
+        // Estrelas e placar contam a PRIMEIRA resposta de cada item (spec §5, ADR
+        // da régua de 2026-10-18), como `toQuizResult`. Na lição híbrida o item
+        // errado volta ao fim e a resposta final pode ser certa; fora dela, a
+        // tela passa as finais também como primeiras, e nada muda.
+        const scored = firstConfirmedAnswers ?? confirmedAnswers;
         const interactionIds = activity.steps
             .filter((step) => step.kind === 'interaction')
             .map((step) => step.kind === 'interaction' ? step.interaction.id : '');
@@ -361,7 +366,7 @@ class LessonOutcomeServiceImpl {
         return {
             lessonId: activity.id,
             totalQuestions: interactionIds.length,
-            correctAnswers: interactionIds.filter((interactionId) => confirmedAnswers[interactionId] === true).length,
+            correctAnswers: interactionIds.filter((interactionId) => scored[interactionId] === true).length,
             answeredAt: answeredAt ?? new Date(),
         };
     }

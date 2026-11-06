@@ -172,7 +172,7 @@ jest.mock('./screens/WelcomeFlowScreen', () => {
       null,
       ReactActual.createElement(
         Pressable,
-        { testID: 'welcome-finish', onPress: () => onFinish('completed', 3) },
+        { testID: 'welcome-finish', onPress: () => onFinish('completed', 1) },
         ReactActual.createElement(Text, null, 'WELCOME_STUB'),
       ),
       ReactActual.createElement(
@@ -529,7 +529,7 @@ describe('gate de abertura em RootLayout', () => {
     const bootstrapsAntesDaSaida = journeyBootstrapCalls();
     fireEvent.press(finishButton);
 
-    expect(FirstRunService.markSeen).toHaveBeenCalledWith('completed', 3);
+    expect(FirstRunService.markSeen).toHaveBeenCalledWith('completed', 1);
 
     await waitFor(() => {
       expect(screen.getByTestId('stack-root')).toBeTruthy();

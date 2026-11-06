@@ -1,0 +1,176 @@
+{
+  "base": "804d1e701f818bc793718b481a490ab377dda850",
+  "requirementsSha256": "a2f1fd7ceebf4e2d239656ee7ed52bb22300a717695552727ad3f8b6560b8a65",
+  "r1ManifestSha256": "f5fb9c83ab329c0967afdba0048ea7052d1a43170eef8dbef5c2b84cb5a8cb32",
+  "finalSourceHashes": [
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx",
+      "sha256": "7fa4ea179c7441c283245e62b12d65e7f3750f82c5509142294416ccc8867736"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "85f3d42707f7f45986dd1ed3c15d9e79a3d7a0c952f871b2647a9f1b24b80278"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.tsx",
+      "sha256": "b9b654e112fa5c3c618c07c197290d205bfe167a8edf510ca676eda3dd7d4fb8"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+      "sha256": "0433824e1067ad6c9f12cfdd3f7308d747f446de823f83d78381a76557e32175"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx",
+      "sha256": "7868e63455c43b01e4c8720e8acc3962a19be51e522ad98dad00cae37d07aecd"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+      "sha256": "05c9fd9d70b3996f93a6fdff9d18fe35ab57f973e4416a0da9a4e1b48639c609"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+      "sha256": "ec0f1fd9e74e768468677dff8e317d7183721b686a1a04a06175ceef3bed29fb"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.ts",
+      "sha256": "354bdfca903d403cdbbce2e3a9ee5bd2252ed2f777e9365c076375660a4a6ed9"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/feedbackFor.test.ts",
+      "sha256": "db0be20679274f80b628e7709ed4349048c86a511f50af2068faccb8434bc6d6"
+    },
+    {
+      "path": "radiant-app/src/types/learningActivity.ts",
+      "sha256": "e5dc18d5ccfc6d0e67ef7473ea7cf471e513e608343279939abd29adf0202db2"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.tsx",
+      "sha256": "651036a2f870dbacf069308602e233885d0c6a32f88a66817e5c5c8df36b3d73"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+      "sha256": "6931f95ddf2976b0d2d79d5b383e7b7656eabe6ed91395ad803a206352e4e7d5"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/exposicao.ts",
+      "sha256": "5dde50a02fbb9dab0fc0ab2ca0db1ee06a905bfba093663d38f1e9011e61e0dc"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/BenchLessonCatalog.test.ts",
+      "sha256": "1bfc6d9a9b66008ae35100bb2ac3027e9de1f0a331dd50b3e4a6bdbd9bf00e3e"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/services/LessonFlowService.test.ts",
+      "sha256": "848b9acf3b4bd1833cbe6662787aa6bbe9bb890207fe7d8202f4434ea5b12704"
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "58a2cfeeadb45a62ffe4aabf736ca86d7a98380d7f55e5d0aa7b2e79ac57e97c"
+    },
+    {
+      "path": "radiant-app/src/features/bench/lessons/colimacao.ts",
+      "sha256": "8d72d132c1186c73ec4ebe62aad45d7b99fd6ebdc614cf77a485d9f99343e405"
+    },
+    {
+      "path": "radiant-app/scripts/copy-style-baseline.json",
+      "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4"
+    },
+    {
+      "path": "radiant-app/scripts/visual-qa-policy.json",
+      "sha256": "5ac598287cdfab8a293f1cd89cdff16101feb7bad86deedaec81d5617dee0e00"
+    }
+  ],
+  "versionedFrames": [
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-critical.png",
+      "sha256": "56ac132f7062d0c3be1909bdd61d56136abb1da495968e947b84e0eaca51b8e1",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-dose-text.png",
+      "sha256": "629c136c40d625aafe9e26b21e084a5ba66d2f6383d6b0470beac9c4575653bb",
+      "stage": "fix3"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-dose.png",
+      "sha256": "71350aabc3ada385fdf44a940975a9a2bd41c618e5030eda71e758315ab93e95",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-exit.png",
+      "sha256": "3b32339a2de72370d45c21f75c342215d4632a12350faf2586e67a0bf079a645",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-explore.png",
+      "sha256": "221053d7775a6088fe772409127bc5446d29bf974e7e8b7d6fcf7a7bec2db82f",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-feedback.png",
+      "sha256": "adee1c54c987f16052b8b96eac5d44fdfb602dcfa25691594e7bba15895c81fb",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/android-opening.png",
+      "sha256": "3e75b554ed8d8082dcdf6f27d43d07751b215d279e3313afdde786759438e76b",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-critical.png",
+      "sha256": "e4a330262a2b153bb996168d02219b2e86d98c346bd863a83a217f03a80dcf8f",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-dose-text.png",
+      "sha256": "d893ff0b3d8a60e142fe722ff1d39b721331f00118e436b5b3e4afea424c0177",
+      "stage": "fix3"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-dose.png",
+      "sha256": "d43ef3ee0c575f93821f18b2a9341b5dd1972bb4f9e73e24add681d5d0133a29",
+      "stage": "fix1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-exit.png",
+      "sha256": "69e7ce9323e2afef05bd81f101f934e4d5dfa05115d90da120b80fb5c67dd816",
+      "stage": "fix1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-explore.png",
+      "sha256": "f73c82f56537bfd71b4de71f4756ac0155aa4d5b2cf5ac1d8e8bb0b25ba8253b",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-feedback.png",
+      "sha256": "f00a4b7a68d06a481bb4b0d0c8a42dca0a0b3aad2106960fa3fe4b4b2e3af723",
+      "stage": "R1"
+    },
+    {
+      "path": "docs/evidence/2026-10-26-medalhao-t04/ios-opening.png",
+      "sha256": "bc751cd6a0497c88da7cd31576a64e3dcc323f444711d389f7d8a6ff183a34df",
+      "stage": "R1"
+    }
+  ],
+  "scope": "Source and native provenance; complete immutable review snapshot R2 is local SDD; this file does not hash itself.",
+  "guardFix4Superseded": [
+    {
+      "path": "radiant-app/scripts/visual-qa.mjs",
+      "sha256": "bd5611b7a4f7d63e29d7f19976de9b1c758edd0401ad23fe31f66b80e2f50bf2"
+    },
+    {
+      "path": "radiant-app/scripts/visual-qa.test.mjs",
+      "sha256": "5b64b3b5f25454ffb6641d815ce8f1b7871e0ccb63b97b94651a0d9670d942ca"
+    }
+  ],
+  "guardFinalFix5": [
+    {
+      "path": "radiant-app/scripts/visual-qa.mjs",
+      "sha256": "8127e952e3c9756abd2a82947f556c986f82c1f381f6a009e0cb27f15b65c4a4"
+    },
+    {
+      "path": "radiant-app/scripts/visual-qa.test.mjs",
+      "sha256": "25b0c8e4d05d2eae8fd5da6b0bbb814223c08dcf73779dbdab6eed5ad4769446"
+    }
+  ]
+}

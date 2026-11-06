@@ -2,7 +2,7 @@ import {
     MATERIA_ENERGIA_E_RADIACAO_CANDIDATE,
     validateEditorialCurriculumCandidate,
     type EditorialCurriculumCandidateV1,
-} from './EditorialCurriculumCandidate';
+} from '../../test/fixtures/syntheticEditorialBatch';
 
 const competencyIds = [
     'competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao',
@@ -82,40 +82,9 @@ describe('candidato editorial H4 — Matéria, energia e radiação', () => {
         ]);
     });
 
-    it('evita gabarito posicional e mantém distinções físicas críticas no artefato executável', () => {
+    it('distribui a posição correta na fixture sintética', () => {
         const candidate = MATERIA_ENERGIA_E_RADIACAO_CANDIDATE;
-        const correctPositions = candidate.checkpoint.items.map((item) =>
-            item.options.findIndex((option) => option.id === item.correctOptionId),
-        );
-
-        expect(new Set(correctPositions)).toEqual(new Set([0, 1, 2, 3]));
-
-        const photonCountActivity = candidate.activities.find((activity) =>
-            activity.id.endsWith(':05'),
-        );
-        const photonCountInteraction = photonCountActivity?.steps.find((step) => step.kind === 'interaction');
-        if (!photonCountInteraction || photonCountInteraction.kind !== 'interaction' || photonCountInteraction.interaction.type !== 'multiple-choice') {
-            throw new Error('activity 05 must expose a multiple-choice interaction');
-        }
-        const photonCountMultipleChoice = photonCountInteraction.interaction as Extract<
-            typeof photonCountInteraction.interaction,
-            { type: 'multiple-choice' }
-        >;
-        const photonCountOptions = photonCountMultipleChoice.payload.options;
-        const photonCountCorrect = photonCountOptions.find(
-            (option) => option.id === photonCountMultipleChoice.payload.correctOptionId,
-        );
-        expect(photonCountCorrect?.label).toBe('Não — a quantidade de fótons não altera a energia de cada fóton.');
-
-        const spectrumQuestion = candidate.checkpoint.items.find((item) => item.id.endsWith(':07'));
-        const spectrumCorrect = spectrumQuestion?.options.find((option) => option.id === spectrumQuestion.correctOptionId);
-        expect(spectrumCorrect?.label).toContain('processo de produção');
-
-        const detectorBridge = candidate.activities.find((activity) => activity.id.endsWith(':12'));
-        expect(detectorBridge?.provenance.sourceIds).toContain('source:h4:s8');
-        expect(candidate.checkpoint.items.filter((item) => item.id.endsWith(':09') || item.id.endsWith(':10')).every(
-            (item) => item.sourceIds.includes('source:h4:s8'),
-        )).toBe(true);
+        expect(new Set(candidate.checkpoint.items.map(item => item.options.findIndex(option => option.id === item.correctOptionId)))).toEqual(new Set([0, 1, 2, 3]));
     });
 
     it('rejeita metadado que mantém o rótulo CC BY 4.0 com URL de licença divergente', () => {

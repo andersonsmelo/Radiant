@@ -6,7 +6,7 @@ import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import { BodyReferenceMap, type BodyPerspective, type BodyPosture } from './BodyReferenceMap';
 import { createBodyReferenceLessonSession, type BodyReferenceAnswerResult } from './BodyReferenceLessonSession';
-import { L1_BODY_REFERENCE } from './l1BodyReferenceContent';
+import type { L1BodyReferenceLesson } from './l1BodyReference.types';
 
 type PreviewState = 'answering' | 'feedback';
 
@@ -25,23 +25,28 @@ function relationForChallenge(objectiveId: string): string {
   return 'medial-lateral';
 }
 
-export function BodyReferenceLessonPreview() {
-  const session = useMemo(() => createBodyReferenceLessonSession(), []);
+export function BodyReferenceLessonPreview({ lesson }: Readonly<{ lesson?: L1BodyReferenceLesson }> = {}) {
+  if (!lesson || lesson.challenges.length === 0) return <Text>Conteúdo em preparação</Text>;
+  return <BodyReferencePreview lesson={lesson} />;
+}
+
+function BodyReferencePreview({ lesson }: Readonly<{ lesson: L1BodyReferenceLesson }>) {
+  const session = useMemo(() => createBodyReferenceLessonSession(lesson), [lesson]);
   const reduceMotion = useReducedMotionPreference();
-  const [challengeId, setChallengeId] = useState('l1-diagnostic-laterality');
+  const [challengeId, setChallengeId] = useState(lesson.sequence[0] ?? lesson.challenges[0].id);
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [state, setState] = useState<PreviewState>('answering');
   const [result, setResult] = useState<BodyReferenceAnswerResult | null>(null);
   const [posture, setPosture] = useState<BodyPosture>('anatomical');
   const [perspective, setPerspective] = useState<BodyPerspective>('front');
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const challenge = L1_BODY_REFERENCE.challenges.find((entry) => entry.id === challengeId);
+  const challenge = lesson.challenges.find((entry) => entry.id === challengeId);
   const isScenarioAligned = posture === challenge?.posture && perspective === challenge?.perspective;
 
   if (!challenge) throw new Error(`UNKNOWN_L1_PREVIEW_CHALLENGE:${challengeId}`);
 
   const showChallenge = (nextChallengeId: string) => {
-    const next = L1_BODY_REFERENCE.challenges.find((entry) => entry.id === nextChallengeId);
+    const next = lesson.challenges.find((entry) => entry.id === nextChallengeId);
     if (!next) throw new Error(`UNKNOWN_L1_PREVIEW_CHALLENGE:${nextChallengeId}`);
     setChallengeId(next.id);
     setPosture(next.posture);
@@ -71,10 +76,9 @@ export function BodyReferenceLessonPreview() {
     : result?.correct ? result.nextActionLabel ?? null : null;
 
   return (
-    <ScrollView contentContainerStyle={styles.content} accessibilityLabel="Prévia isolada da lição O corpo como referência">
-      <Text style={styles.eyebrow}>L1 · ORIENTAÇÃO ESPACIAL · RASCUNHO LOCAL</Text>
-      <Text style={styles.title}>{L1_BODY_REFERENCE.title}</Text>
-      <Text style={styles.intro}>Antes de uma imagem, descreva as relações pelo corpo — não pelo lado da tela ou pela gravidade.</Text>
+    <ScrollView contentContainerStyle={styles.content} accessibilityLabel="Prévia isolada de conteúdo injetado">
+      <Text style={styles.eyebrow}>PRÉVIA ISOLADA</Text>
+      <Text style={styles.title}>{lesson.title}</Text>
       <BodyReferenceMap
         posture={posture}
         perspective={perspective}
@@ -143,7 +147,7 @@ export function BodyReferenceLessonPreview() {
       </View>
       <View style={styles.summary}>
         <Text style={styles.summaryTitle}>Síntese para retomar depois</Text>
-        {L1_BODY_REFERENCE.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}
+        {lesson.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}
       </View>
     </ScrollView>
   );

@@ -1,5 +1,4 @@
-import { L1_BODY_REFERENCE } from './l1BodyReferenceContent';
-import type { L1Challenge, L1EvidenceKind, L1Misconception } from './l1BodyReference.types';
+import type { L1BodyReferenceLesson, L1Challenge, L1EvidenceKind, L1Misconception } from './l1BodyReference.types';
 
 export type BodyReferenceEvidence = Readonly<{
   challengeId: string;
@@ -27,13 +26,13 @@ export type BodyReferenceLessonSession = Readonly<{
   snapshot(): Readonly<{ evidence: readonly BodyReferenceEvidence[] }>;
 }>;
 
-function challengeById(challengeId: string): L1Challenge {
-  const challenge = L1_BODY_REFERENCE.challenges.find((entry) => entry.id === challengeId);
+function challengeById(lesson: L1BodyReferenceLesson, challengeId: string): L1Challenge {
+  const challenge = lesson.challenges.find((entry) => entry.id === challengeId);
   if (!challenge) throw new Error(`UNKNOWN_L1_CHALLENGE:${challengeId}`);
   return challenge;
 }
 
-export function createBodyReferenceLessonSession(): BodyReferenceLessonSession {
+export function createBodyReferenceLessonSession(lesson: L1BodyReferenceLesson): BodyReferenceLessonSession {
   const evidence: BodyReferenceEvidence[] = [];
   const remediationOrigins = new Map<string, string>();
   const objectivesWithAssistance = new Set<string>();
@@ -41,7 +40,7 @@ export function createBodyReferenceLessonSession(): BodyReferenceLessonSession {
 
   return {
     answer(challengeId, answerId) {
-      const challenge = challengeById(challengeId);
+      const challenge = challengeById(lesson, challengeId);
       const attemptedForObjective = attemptedChallengeIds.get(challenge.objectiveId) ?? new Set<string>();
       const wasAlreadyAttempted = attemptedForObjective.has(challenge.id);
       attemptedForObjective.add(challenge.id);
@@ -83,8 +82,8 @@ export function createBodyReferenceLessonSession(): BodyReferenceLessonSession {
       };
     },
     requestHint(challengeId) {
-      const challenge = challengeById(challengeId);
-      return `Compare a relação pedida com a referência anatômica antes de escolher. Depois, responda a ${challenge.remediationChallengeId} sem considerar isso domínio.`;
+      const challenge = challengeById(lesson, challengeId);
+      return `Compare os dados do desafio antes de escolher. Depois, responda a ${challenge.remediationChallengeId} sem considerar isso domínio.`;
     },
     snapshot() {
       return { evidence: [...evidence] };

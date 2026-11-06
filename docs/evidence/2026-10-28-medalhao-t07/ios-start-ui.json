@@ -1,0 +1,48 @@
+{
+  "schema": "xcodebuildmcp.output.capture-result",
+  "schemaVersion": "2",
+  "didError": false,
+  "error": null,
+  "data": {
+    "summary": {
+      "status": "SUCCEEDED"
+    },
+    "artifacts": {
+      "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    },
+    "capture": {
+      "type": "runtime-snapshot",
+      "rs": "1",
+      "screenHash": "1iwn8as",
+      "seq": 28,
+      "count": 47,
+      "targets": [
+        "e26|tap|button|Fechar revisão||",
+        "e40|tap|button|Começar||app-button-face"
+      ],
+      "scroll": [
+        "e23|swipe|scroll-view|||"
+      ],
+      "text": [
+        "e20|text|text|5 de 5 vidas||",
+        "e18|text|text|54 XP||",
+        "e19|text|text|1 dia de sequência||",
+        "e29|text|text|3 itens de Fundamentos de Radiologia. Leva uns 2 minutos.||",
+        "e30|text|text|3 itens de Fundamentos de Radiologia. Leva uns 2 minutos.||",
+        "e31|text|text|Fundamentos de Radiologia. Fundamentos de Radiologia · Revisado há 5 dias||",
+        "e32|text|text|Fundamentos de Radiologia. Fundamentos de Radiologia · Revisado há 5 dias||",
+        "e33|text|text|Fundamentos de Radiologia. Fundamentos de Radiologia · Revisado há 5 dias||",
+        "e34|text|text|Escolha uma alternativa e confirme, ou consulte a resposta com ajuda||",
+        "e35|text|text|Escolha uma alternativa e confirme, ou consulte a resposta com ajuda||"
+      ],
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    }
+  },
+  "nextSteps": [
+    "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+    "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+    "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e26\"},{\"action\":\"tap\",\"elementRef\":\"e40\"}]}'",
+    "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e26",
+    "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+  ]
+}

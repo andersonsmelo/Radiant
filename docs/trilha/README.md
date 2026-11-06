@@ -1,5 +1,8 @@
 # Melhoria da trilha — ponto de entrada
 
+> Conteúdo em reinício por decisão de 02/11/2026: nenhuma aula antiga deve ser recriada. Preservar Medalhão e motores. [Planejamento único](../plans/2026-11-02-planejamento-conteudo-radiant.md) e [ADR](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
+
+
 Esta pasta reúne o que se pesquisou, avaliou e planejou sobre a **trilha**, a
 aba "Estude" do Radiant. A trilha é o caminho gamificado de lições, revisões,
 XP, sequência e vidas, e o dono a definiu como o investimento principal do
@@ -15,6 +18,18 @@ a entrada da próxima sessão.
 
 ## Direção
 
+- **A trilha e a aula são redesenhadas, e o conteúdo recomeça.** Decidido por
+  Anderson em 2026-10-21:
+  - trilha na direção Medalhão;
+  - aula no formato bancada, em que o aluno opera o equipamento e a imagem;
+  - o mundo visual novo vale para o app inteiro;
+  - todas as aulas atuais saem, com a fonte, e o currículo novo é escolhido em
+    conjunto.
+
+  ([ADR](../adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md) ·
+  [spec](../superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md) ·
+  [prancheta da trilha](../design/2026-10-21-trilha-medalhao.html) ·
+  [prancheta da aula](../design/2026-10-21-aula-bancada.html))
 - **Evolução global, sem aula piloto como gate.** Decidido por Anderson em
   2026-10-16. A frente parte do diagnóstico da trilha inteira para uma
   implementação compartilhada, um currículo organizado e conteúdo em escala

@@ -1,5 +1,5 @@
 flows:
-  - "*.yaml"
+  - "boot-to-home.yaml"
 # Resolvido contra o cwd da invocação (`File(valor).toPath()` na CLI), nunca
 # contra este diretório: rodando de `radiant-app/`, como manda o E2E_RUNBOOK, um
 # `artifacts` pelado caía em `radiant-app/artifacts/` — fora do .gitignore e do

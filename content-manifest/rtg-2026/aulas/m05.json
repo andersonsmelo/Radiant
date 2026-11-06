@@ -1,0 +1,2155 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m05",
+    "code": "M05",
+    "title": "Formação da imagem digital",
+    "summary": "Do sinal no detector ao arquivo rastreável: como a imagem digital é adquirida, amostrada, processada, exibida e guardada, sem confundir aparência na tela com dose."
+  },
+  "sources": [
+    {
+      "id": "nibib-medical-x-rays",
+      "title": "Medical X-rays",
+      "publisher": "National Institute of Biomedical Imaging and Bioengineering (NIBIB/NIH)",
+      "url": "https://nibib.nih.gov/science-education/science-topics/medical-x-rays",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iaea-rpop-digital-radiography",
+      "title": "Digital radiography (Radiation Protection of Patients)",
+      "publisher": "IAEA",
+      "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/radiography/digital-radiography",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional da AIEA; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "seibert-2006-flat-panel",
+      "title": "Flat-panel detectors: how much better are they? (Seibert JA, Pediatr Radiol 2006;36 Suppl 2:173-181)",
+      "publisher": "Pediatric Radiology / PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2663651/",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Artigo com texto integral gratuito no PMC; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "seibert-morin-2011-exposure-index",
+      "title": "The standardized exposure index for digital radiography (Seibert JA, Morin RL, Pediatr Radiol 2011;41:573-581)",
+      "publisher": "Pediatric Radiology / PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3076558/",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto com licença não comercial; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "gale-2000-modality-worklist",
+      "title": "DICOM Modality Worklist: an essential component in a PACS environment (Gale ME, Gale DR, J Digit Imaging 2000;13:101-108)",
+      "publisher": "Journal of Digital Imaging / PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3452969/",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Resumo e texto gratuitos no PMC; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-about",
+      "title": "About DICOM: Overview",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://www.dicomstandard.org/about",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página oficial do padrão; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-iod-model",
+      "title": "DICOM PS3.3, Anexo A, seção A.1.2: IOD Entity-Relationship Model",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/chapter_A.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-patient-module",
+      "title": "DICOM PS3.3, seção C.7.1.1: Patient Module",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-study-module",
+      "title": "DICOM PS3.3, seção C.7.2.1: General Study Module",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-series-module",
+      "title": "DICOM PS3.3, seção C.7.3.1: General Series Module",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-sop-common",
+      "title": "DICOM PS3.3, seção C.12.1: SOP Common Module",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-voi-lut",
+      "title": "DICOM PS3.3, seção C.11.2: VOI LUT Module (Window Center e Window Width)",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.11.2.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "dicom-dx-series",
+      "title": "DICOM PS3.3, seção C.8.11.1: DX Series Module (Presentation Intent Type)",
+      "publisher": "DICOM Standard (NEMA/MITA)",
+      "url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.8.11.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Texto do padrão DICOM; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-digital-images",
+      "title": "Physics Teaching File for Radiology Residents: Digital Images",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/intro/digital.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-display",
+      "title": "Physics Teaching File for Radiology Residents: Displaying Images (window/level settings)",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/intro/display.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-image-quality",
+      "title": "Physics Teaching File for Radiology Residents: Image Quality Overview",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/intro/quality.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-pixel-size",
+      "title": "Physics Teaching File for Radiology Residents: Effect of Pixel Size on Resolution",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/radiography/pixelsize.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-mas",
+      "title": "Physics Teaching File for Radiology Residents: Tube Current - Exposure Time Product (mAs)",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/radiography/mas.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-exposure-issues",
+      "title": "Physics Teaching File for Radiology Residents: Exposure Issues",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/radiography/issues.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-artifacts",
+      "title": "Physics Teaching File for Radiology Residents: Digital Radiography Image Artifacts",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/radiography/artifact.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "upstate-image-processing",
+      "title": "Physics Teaching File for Radiology Residents: Image Processing",
+      "publisher": "SUNY Upstate Medical University (Huda, Seibert, Ogden, Gingold, Schaetzing; apoio RSNA R&E Foundation)",
+      "url": "https://www.upstate.edu/radiology/education/rsna/processing/index.php",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Material didático universitário aberto; consultado para fatos, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m05-01",
+      "code": "M05.01",
+      "title": "Do detector ao arquivo",
+      "objective": "Hoje você vai conseguir ordenar as etapas que levam o sinal do detector até a imagem arquivada.",
+      "competency": "Ordenar aquisição, conversão e apresentação da imagem digital.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia do laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Na foto do celular eu entendo: a luz entra e a foto sai. Aqui o feixe passa pelo simulador e a imagem aparece na tela em segundos. O que acontece no meio?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Muita coisa, e rápido. O detector capta, a eletrônica transforma em números e o computador prepara o que você vê."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir o sinal passo a passo, do detector ao arquivo. Em que ponto você acha que ele vira número?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Uma cadeia com etapas separadas",
+        "body": "O feixe que atravessa o corpo chega ao detector com intensidades diferentes em cada ponto. No painel plano de conversão indireta, um cintilador transforma os raios X em luz e um fotodiodo transforma a luz em carga elétrica. Na conversão direta, um semicondutor como o selênio amorfo gera a carga sem passar pela luz. Na radiografia computadorizada (CR), uma placa de fósforo guarda o sinal até ser lida por laser. Em todos os casos, o sinal é digitalizado, corrigido, processado para apresentação, exibido e arquivado. Na imagem digital, aquisição, processamento e exibição são etapas separadas.",
+        "keyPoints": [
+          "Indireta: raios X viram luz e depois carga. Direta: raios X viram carga.",
+          "Depois de digitalizado, o sinal é corrigido e processado antes de aparecer na tela.",
+          "Aquisição, processamento e exibição são etapas separadas."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na cadeia que você ordenou em M04, o que chega ao detector depois que o feixe atravessa o corpo?",
+          "options": [
+            {
+              "label": "Um feixe igual ao que saiu do tubo, sem nenhuma alteração",
+              "correct": false,
+              "feedback": "Se nada mudasse no trajeto, o detector receberia um sinal uniforme e não haveria imagem. Retome a atenuação: cada tecido retira uma parte diferente do feixe."
+            },
+            {
+              "label": "Um feixe com intensidades diferentes, conforme a atenuação no trajeto",
+              "correct": true,
+              "feedback": "Isso. Cada ponto do detector recebe mais ou menos radiação conforme o que o feixe atravessou. É esse padrão que o detector vai transformar em sinal."
+            },
+            {
+              "label": "Somente a radiação espalhada, pois o feixe primário é todo absorvido",
+              "correct": false,
+              "feedback": "Parte do feixe primário atravessa o corpo e é ela que carrega a informação. O espalhamento também chega, mas atrapalha em vez de formar a imagem."
+            },
+            {
+              "label": "Luz visível gerada dentro do corpo durante a exposição",
+              "correct": false,
+              "feedback": "O corpo não emite luz visível na radiografia. A luz só aparece dentro de alguns detectores, como você vai ver nesta aula."
+            }
+          ],
+          "help": "Pense na sombra: o que faz uma região do detector receber menos radiação que a vizinha?",
+          "sourceIds": [
+            "nibib-medical-x-rays"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o caminho do sinal num painel plano de conversão indireta, da chegada dos raios X até a imagem pronta para a tela.",
+          "items": [
+            "Os raios X que atravessaram o corpo chegam ao cintilador",
+            "O cintilador converte os raios X em luz",
+            "O fotodiodo converte a luz em carga elétrica",
+            "A carga é lida linha a linha e digitalizada",
+            "O sistema corrige e processa os dados para apresentação"
+          ],
+          "feedbackCorrect": "Ordem certa: raios X, luz, carga, números e só então correção e processamento. A tela mostra o fim dessa cadeia, não o sinal bruto.",
+          "feedbackIncorrect": "Confira de novo a sequência das conversões: no painel indireto, a luz vem antes da carga, e a digitalização vem antes de qualquer processamento.",
+          "help": "Siga a forma do sinal: radiação, depois luz, depois carga elétrica, depois número.",
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada componente ao que ele faz na formação da imagem.",
+          "pairs": [
+            {
+              "left": "Cintilador (ex.: iodeto de césio)",
+              "right": "Converte raios X em luz"
+            },
+            {
+              "left": "Fotodiodo",
+              "right": "Converte luz em carga elétrica"
+            },
+            {
+              "left": "Selênio amorfo",
+              "right": "Converte raios X diretamente em carga"
+            },
+            {
+              "left": "Placa de fósforo da CR",
+              "right": "Guarda o sinal até a leitura por laser"
+            }
+          ],
+          "feedbackCorrect": "Você separou os três caminhos: indireto (cintilador e fotodiodo), direto (selênio amorfo) e CR (placa lida depois por laser).",
+          "feedbackIncorrect": "Retome o caminho de cada tecnologia: só a indireta passa pela luz, a direta gera carga de uma vez e a CR guarda o sinal para ler depois.",
+          "help": "Pergunte a cada componente: o que entra nele e o que sai dele?",
+          "sourceIds": [
+            "seibert-2006-flat-panel",
+            "iaea-rpop-digital-radiography",
+            "upstate-artifacts"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "No laboratório, a turma usa um sistema CR com chassi. Caio lembra que a placa de fósforo é reutilizável: depois da leitura, ela é apagada para a próxima exposição. Duda encontra um chassi sem etiqueta de controle e não sabe se a placa foi lida e apagada depois do último uso.",
+          "prompt": "Antes de usar esse chassi na simulação, o que Duda faz?",
+          "options": [
+            {
+              "label": "Usa assim mesmo, porque o leitor separa sozinho a imagem nova da antiga",
+              "correct": false,
+              "feedback": "O leitor não distingue sinais: o que restou na placa aparece somado à imagem nova. Confira de novo o que significa a placa ser reutilizável."
+            },
+            {
+              "label": "Avisa o Caio e pede a conferência da placa antes de expor",
+              "correct": true,
+              "feedback": "Certo. Placa sem apagar pode trazer sinal residual sobreposto à imagem nova. Conferir antes evita uma exposição que teria de ser repetida."
+            },
+            {
+              "label": "Expõe duas vezes para que o sinal novo cubra o sinal antigo",
+              "correct": false,
+              "feedback": "Duas exposições na mesma placa somam sinais e geram dupla exposição. Além de não resolver, isso dobra a irradiação sem necessidade."
+            },
+            {
+              "label": "Aumenta a técnica para compensar um possível sinal residual",
+              "correct": false,
+              "feedback": "Aumentar a técnica não remove o que ficou na placa e eleva a exposição sem motivo. O caminho é conferir a placa com a equipe."
+            }
+          ],
+          "help": "A placa guarda sinal até ser lida e apagada. O que acontece se ela for exposta sem ter sido apagada?",
+          "sourceIds": [
+            "upstate-artifacts"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "A ficha de um detector diz: 'os raios X geram carga numa camada de selênio amorfo, lida por uma matriz de transistores'. Em relação ao painel indireto, que etapa não aparece nessa descrição?",
+          "options": [
+            {
+              "label": "A digitalização do sinal elétrico",
+              "correct": false,
+              "feedback": "Nos dois tipos de painel a carga é lida e digitalizada. Sem essa etapa não haveria imagem digital em nenhum deles."
+            },
+            {
+              "label": "A leitura da carga pela matriz de transistores",
+              "correct": false,
+              "feedback": "A matriz de transistores existe nos dois painéis: é ela que entrega a carga de cada elemento para a eletrônica."
+            },
+            {
+              "label": "O processamento para apresentação",
+              "correct": false,
+              "feedback": "O processamento acontece depois da digitalização em qualquer detector. A diferença entre direto e indireto está antes, na conversão."
+            },
+            {
+              "label": "A conversão dos raios X em luz",
+              "correct": true,
+              "feedback": "Isso. No painel direto, o selênio amorfo transforma os raios X em carga sem a etapa intermediária de luz."
+            }
+          ],
+          "help": "Compare a ficha com a cadeia do painel indireto, etapa por etapa, a partir da chegada dos raios X.",
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue seguir o sinal em ordem: detecção, conversão em carga, digitalização, correção, processamento, exibição e arquivo. Também distingue conversão indireta, conversão direta e CR pelo caminho que o sinal faz.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quando uma imagem sair estranha, você já vai saber perguntar: em que etapa isso apareceu?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num detector de conversão indireta, o que o fotodiodo recebe e o que ele entrega?",
+          "options": [
+            {
+              "label": "Recebe luz do cintilador e entrega carga elétrica",
+              "correct": true,
+              "feedback": "Certo. O fotodiodo fica depois do cintilador e transforma a luz em carga, que será lida e digitalizada."
+            },
+            {
+              "label": "Recebe raios X do paciente e entrega luz visível",
+              "correct": false,
+              "feedback": "Esse é o papel do cintilador. O fotodiodo vem em seguida e trabalha com a luz que o cintilador produz."
+            },
+            {
+              "label": "Recebe carga elétrica e entrega valores digitais",
+              "correct": false,
+              "feedback": "Transformar carga em número é a digitalização, feita pela eletrônica de leitura depois do fotodiodo."
+            },
+            {
+              "label": "Recebe valores digitais e entrega tons de cinza",
+              "correct": false,
+              "feedback": "Converter números em tons de cinza é tarefa da exibição, no fim da cadeia. O fotodiodo atua no começo."
+            }
+          ],
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        },
+        {
+          "prompt": "Em que momento da cadeia o sinal do detector passa a ser um conjunto de números?",
+          "options": [
+            {
+              "label": "Quando o feixe atravessa o paciente",
+              "correct": false,
+              "feedback": "Nesse ponto só existe radiação com intensidades diferentes. Ainda não há sinal elétrico nem número."
+            },
+            {
+              "label": "Quando o cintilador emite luz",
+              "correct": false,
+              "feedback": "A luz ainda é um sinal contínuo. Ela precisa virar carga e ser lida antes de virar número."
+            },
+            {
+              "label": "Quando a carga lida é digitalizada",
+              "correct": true,
+              "feedback": "Isso. A digitalização transforma a carga de cada elemento do detector num valor numérico."
+            },
+            {
+              "label": "Quando a imagem é aberta no monitor",
+              "correct": false,
+              "feedback": "No monitor os números já existem há várias etapas. Ali eles são traduzidos em brilho."
+            }
+          ],
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na conversão indireta, os raios X viram primeiro …, e só depois carga elétrica.",
+          "item": {
+            "prompt": "O que os raios X viram primeiro num detector de conversão indireta?",
+            "options": [
+              {
+                "label": "Carga elétrica, direto no semicondutor",
+                "correct": false,
+                "feedback": "Esse é o caminho da conversão direta. Na indireta existe uma etapa antes da carga."
+              },
+              {
+                "label": "Luz, produzida no cintilador",
+                "correct": true,
+                "feedback": "Certo. O cintilador produz luz, e o fotodiodo transforma essa luz em carga elétrica."
+              },
+              {
+                "label": "Valores digitais, já na matriz",
+                "correct": false,
+                "feedback": "Os números só aparecem na digitalização, depois que a carga é lida."
+              },
+              {
+                "label": "Tons de cinza, já no monitor",
+                "correct": false,
+                "feedback": "Tons de cinza pertencem à exibição, no fim da cadeia. A pergunta é sobre a primeira conversão."
+              }
+            ],
+            "sourceIds": [
+              "seibert-2006-flat-panel"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num sistema CR, a placa exposta ainda não foi levada ao leitor. Onde está a informação da imagem nesse momento?",
+            "options": [
+              {
+                "label": "Já no arquivo do serviço, enviada pelo chassi",
+                "correct": false,
+                "feedback": "O chassi não transmite nada. O sinal só vira arquivo depois da leitura e da digitalização."
+              },
+              {
+                "label": "No monitor da estação, aguardando abertura",
+                "correct": false,
+                "feedback": "A estação só recebe a imagem depois que a placa é lida. Antes disso não há dado digital."
+              },
+              {
+                "label": "No tubo de raios X, até a próxima exposição",
+                "correct": false,
+                "feedback": "O tubo produz o feixe e não guarda imagem. Confira de novo onde o sinal fica retido na CR."
+              },
+              {
+                "label": "Guardada na placa de fósforo, à espera da leitura",
+                "correct": true,
+                "feedback": "Isso. Na CR a placa retém o sinal até ser varrida pelo laser no leitor, quando então é digitalizado."
+              }
+            ],
+            "sourceIds": [
+              "iaea-rpop-digital-radiography",
+              "upstate-artifacts"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte esquemático lado a lado de um detector indireto (cintilador, fotodiodo, matriz de transistores) e de um direto (selênio amorfo, eletrodo), com setas raios X, luz, carga e raios X, carga.",
+        "Linha do tempo horizontal com sete caixas: detecção, conversão, digitalização, correção, processamento, exibição e arquivo."
+      ]
+    },
+    {
+      "id": "m05-02",
+      "code": "M05.02",
+      "title": "Pixel, matriz e campo de visão",
+      "objective": "Hoje você vai conseguir relacionar tamanho do pixel, matriz e campo de visão numa grade simples.",
+      "competency": "Relacionar amostragem espacial (pixel, matriz e campo de visão) em diagramas.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Bancada de informática do laboratório",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Dei zoom na radiografia do simulador e ela virou um monte de quadradinhos."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Cada quadradinho é um pixel e guarda um único número. O tamanho dele depende de duas coisas. Quais você chuta?"
+          },
+          {
+            "speaker": "duda",
+            "text": "O tamanho da área que a imagem cobre e quantos quadradinhos cabem nela?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa hipótese. Vamos testar numa grade e ver se ela se sustenta."
+          }
+        ]
+      },
+      "concept": {
+        "title": "A imagem é uma grade de números",
+        "body": "A imagem digital é uma grade de pixels. Cada pixel guarda um valor, a média do sinal naquela pequena área. A matriz é o número de pixels em cada direção, e o campo de visão é a área coberta. Dividindo o campo pela matriz, você obtém o tamanho do pixel: 20 cm cobertos por 1000 pixels dão 0,2 mm por pixel. Com o mesmo campo, uma matriz maior dá pixels menores e permite mostrar detalhes mais finos. A profundidade de bits define quantos valores cada pixel pode assumir: com n bits são 2 elevado a n valores, e 8 bits dão 256 tons de cinza.",
+        "keyPoints": [
+          "Tamanho do pixel = campo de visão ÷ matriz.",
+          "Mesmo campo, matriz maior: pixels menores.",
+          "Com n bits, cada pixel pode assumir 2 elevado a n valores."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Para comparar tamanhos de pixel, você vai converter unidades como em M03. Quanto é 0,2 mm em micrômetros?",
+          "options": [
+            {
+              "label": "2 µm",
+              "correct": false,
+              "feedback": "Aqui o valor foi multiplicado por 10. Um milímetro tem 1000 micrômetros: refaça a conta com esse fator."
+            },
+            {
+              "label": "20 µm",
+              "correct": false,
+              "feedback": "Aqui o fator usado foi 100. Entre milímetro e micrômetro o fator é 1000."
+            },
+            {
+              "label": "200 µm",
+              "correct": true,
+              "feedback": "Certo: 0,2 vezes 1000 dá 200 µm. É a ordem de grandeza comum para pixels de radiografia nesta aula."
+            },
+            {
+              "label": "2000 µm",
+              "correct": false,
+              "feedback": "2000 µm seriam 2 mm, dez vezes mais que o valor pedido. Confira a posição da vírgula."
+            }
+          ],
+          "help": "Um milímetro equivale a mil micrômetros.",
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Uma imagem cobre 20 cm com 1000 pixels por lado. Se o campo continuar em 20 cm e a matriz passar para 2000 pixels por lado, o que acontece com o tamanho do pixel?",
+          "options": [
+            {
+              "label": "Cai pela metade, de 0,2 mm para 0,1 mm",
+              "correct": true,
+              "feedback": "Isso. A mesma largura dividida pelo dobro de pixels dá pixels com metade do tamanho."
+            },
+            {
+              "label": "Dobra, de 0,2 mm para 0,4 mm",
+              "correct": false,
+              "feedback": "O pixel dobraria se a matriz caísse para 500. Aqui a matriz aumentou: há mais divisões na mesma largura."
+            },
+            {
+              "label": "Fica igual, porque o campo não mudou",
+              "correct": false,
+              "feedback": "O campo é só um dos dois termos. Com o mesmo campo e mais pixels, cada pixel cobre menos."
+            },
+            {
+              "label": "Cai para um quarto, de 0,2 mm para 0,05 mm",
+              "correct": false,
+              "feedback": "Um quarto é o que acontece com a área do pixel. A pergunta é sobre o lado, que cai pela metade."
+            }
+          ],
+          "help": "Divida o campo pela nova matriz e compare com o valor anterior.",
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada situação ao tamanho do pixel. Vale só para esta grade quadrada simplificada.",
+          "pairs": [
+            {
+              "left": "Campo de 20 cm, matriz de 500",
+              "right": "0,4 mm por pixel"
+            },
+            {
+              "left": "Campo de 20 cm, matriz de 1000",
+              "right": "0,2 mm por pixel"
+            },
+            {
+              "left": "Campo de 20 cm, matriz de 2000",
+              "right": "0,1 mm por pixel"
+            },
+            {
+              "left": "Campo de 30 cm, matriz de 1000",
+              "right": "0,3 mm por pixel"
+            }
+          ],
+          "feedbackCorrect": "Você aplicou a mesma divisão nos quatro casos: campo dividido pela matriz. Mudar qualquer um dos dois muda o pixel.",
+          "feedbackIncorrect": "Refaça a divisão de cada linha com o campo em milímetros: 200 mm ou 300 mm divididos pelo número de pixels.",
+          "help": "Converta o campo para milímetros antes de dividir pela matriz.",
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene estas grades do menor para o maior tamanho de pixel. Todas cobrem o mesmo campo de 20 cm.",
+          "items": [
+            "Matriz de 2000 × 2000",
+            "Matriz de 1000 × 1000",
+            "Matriz de 500 × 500",
+            "Matriz de 250 × 250"
+          ],
+          "feedbackCorrect": "Certo. Com o campo fixo, a matriz maior tem o menor pixel: 0,1 mm, depois 0,2 mm, 0,4 mm e 0,8 mm.",
+          "feedbackIncorrect": "Confira de novo a relação: com o campo fixo, mais pixels por lado significam pixels menores, não maiores.",
+          "help": "A mesma largura está sendo dividida em mais ou menos partes.",
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Caio mostra duas imagens do mesmo objeto de teste, descritas na ficha do laboratório. Imagem A: chassi pequeno, pixel de 0,1 mm. Imagem B: chassi grande, pixel de 0,18 mm. Duda diz que a B 'tem mais resolução porque é maior'.",
+          "prompt": "Qual leitura da ficha está correta?",
+          "options": [
+            {
+              "label": "A imagem B mostra detalhes mais finos, pois cobre uma área maior",
+              "correct": false,
+              "feedback": "Cobrir mais área não refina o detalhe. Na B cada pixel representa um pedaço maior do objeto."
+            },
+            {
+              "label": "As duas mostram os mesmos detalhes, pois o objeto é o mesmo",
+              "correct": false,
+              "feedback": "O objeto é o mesmo, mas a amostragem não. Pixels de tamanhos diferentes registram detalhes diferentes."
+            },
+            {
+              "label": "A imagem A tende a mostrar detalhes mais finos, pois o pixel é menor",
+              "correct": true,
+              "feedback": "Isso. O pixel menor amostra o objeto em passos mais curtos, e o limite de detalhe fica melhor na imagem A."
+            },
+            {
+              "label": "Não dá para comparar sem saber a técnica usada na exposição",
+              "correct": false,
+              "feedback": "A técnica muda outras coisas, como o ruído. O limite de amostragem desta comparação vem do tamanho do pixel, que está na ficha."
+            }
+          ],
+          "help": "Separe tamanho da imagem de tamanho do pixel. Qual dos dois limita o menor detalhe registrado?",
+          "sourceIds": [
+            "upstate-pixel-size"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue calcular o tamanho do pixel a partir do campo de visão e da matriz, prever o efeito de mudar um dos dois e dizer quantos valores cabem em n bits.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Pixel menor mostra detalhe mais fino. Se a imagem fica melhor no conjunto, isso é assunto da próxima aula."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma grade cobre 25 cm com 500 pixels por lado. Qual é o tamanho de cada pixel?",
+          "options": [
+            {
+              "label": "0,05 mm",
+              "correct": false,
+              "feedback": "Esse valor sai quando o campo fica em centímetros. Em milímetros, 250 divididos por 500 dão outro resultado."
+            },
+            {
+              "label": "0,5 mm",
+              "correct": true,
+              "feedback": "Certo: 250 mm divididos por 500 pixels dão 0,5 mm por pixel."
+            },
+            {
+              "label": "5 mm",
+              "correct": false,
+              "feedback": "5 mm por pixel dariam só 50 pixels em 25 cm. Confira a divisão."
+            },
+            {
+              "label": "20 mm",
+              "correct": false,
+              "feedback": "Aqui a divisão foi invertida: 500 por 25 dá pixels por centímetro, não o tamanho do pixel."
+            }
+          ],
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        },
+        {
+          "prompt": "Um pixel codificado com 10 bits pode assumir quantos valores diferentes?",
+          "options": [
+            {
+              "label": "10 valores",
+              "correct": false,
+              "feedback": "Dez é o número de bits. Cada bit dobra a quantidade de valores possíveis."
+            },
+            {
+              "label": "20 valores",
+              "correct": false,
+              "feedback": "Vinte é 10 vezes 2. A conta é 2 elevado a 10: dobrar dez vezes seguidas."
+            },
+            {
+              "label": "512 valores",
+              "correct": false,
+              "feedback": "Quinhentos e doze valores correspondem a 9 bits. Falta uma dobra."
+            },
+            {
+              "label": "1024 valores",
+              "correct": true,
+              "feedback": "Isso: 2 elevado a 10 dá 1024 valores, de 0 a 1023."
+            }
+          ],
+          "sourceIds": [
+            "upstate-digital-images"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: com o mesmo campo de visão, quanto maior a matriz, … fica cada pixel.",
+          "item": {
+            "prompt": "Mantendo o campo de visão e aumentando a matriz, como fica cada pixel?",
+            "options": [
+              {
+                "label": "Menor, pois a mesma área tem mais divisões",
+                "correct": true,
+                "feedback": "Certo. Mais pixels na mesma largura significam pixels menores."
+              },
+              {
+                "label": "Maior, porque cada pixel recebe mais sinal",
+                "correct": false,
+                "feedback": "A matriz maior não aumenta o pixel. Ela reparte a mesma área em mais pedaços."
+              },
+              {
+                "label": "Igual, porque só o campo define o pixel",
+                "correct": false,
+                "feedback": "O pixel depende dos dois termos: campo e matriz. Mudando a matriz, ele muda."
+              },
+              {
+                "label": "Mais escuro, porque há mais pixels na tela",
+                "correct": false,
+                "feedback": "Brilho é assunto de exibição. A pergunta é sobre tamanho, que vem da divisão do campo pela matriz."
+              }
+            ],
+            "sourceIds": [
+              "upstate-digital-images"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um pixel passa de 8 para 9 bits. O que acontece com o número de valores que ele pode assumir?",
+            "options": [
+              {
+                "label": "Aumenta em um valor, de 256 para 257",
+                "correct": false,
+                "feedback": "Um bit a mais não soma um valor: ele duplica todas as combinações possíveis."
+              },
+              {
+                "label": "Fica igual, em 256 valores",
+                "correct": false,
+                "feedback": "Cada bit acrescentado muda a contagem. Refaça: 2 elevado a 9."
+              },
+              {
+                "label": "Cai pela metade, de 256 para 128",
+                "correct": false,
+                "feedback": "Cair pela metade é o que acontece ao retirar um bit. Aqui um bit foi acrescentado."
+              },
+              {
+                "label": "Dobra, de 256 para 512",
+                "correct": true,
+                "feedback": "Isso. Cada bit a mais dobra o número de valores: 2 elevado a 9 dá 512."
+              }
+            ],
+            "sourceIds": [
+              "upstate-digital-images"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "O mesmo quadrado de 20 cm dividido em grades 4 × 4, 8 × 8 e 16 × 16, com uma régua mostrando o tamanho do pixel em cada uma.",
+        "Barra de tons de cinza com 1, 2, 4 e 8 bits (2, 4, 16 e 256 degraus)."
+      ]
+    },
+    {
+      "id": "m05-03",
+      "code": "M05.03",
+      "title": "Contraste, ruído e resolução",
+      "objective": "Hoje você vai conseguir dizer se a diferença entre duas imagens descritas é de contraste, de ruído ou de nitidez.",
+      "competency": "Distinguir dimensões de qualidade (contraste, ruído e resolução) em pares de imagens.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de revisão de imagens do laboratório",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Três imagens do mesmo simulador, três queixas: 'lavada', 'granulada' e 'borrada'. Para você é tudo imagem ruim?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu falaria 'ruim' nas três. Dá para ser mais específica?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Dá. Cada palavra aponta para uma dimensão diferente. Que pergunta você faria a cada imagem?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três perguntas diferentes",
+        "body": "Contraste é a diferença de brilho entre uma estrutura e o que está em volta: quanto maior, mais ela se destaca. Ruído é a flutuação aleatória que dá aspecto granulado à imagem. Ele cresce quando menos fótons chegam ao detector e pode esconder estruturas de baixo contraste. Resolução espacial é a capacidade de mostrar detalhes finos separados: o borramento, por movimento ou por pixel grande, reduz a nitidez. As três dimensões variam de forma independente. Uma imagem pode ser nítida e granulada, ou lisa e borrada. Por isso, descreva o que vê com a palavra certa antes de pensar em causa.",
+        "keyPoints": [
+          "Contraste: diferença de brilho entre estrutura e fundo.",
+          "Ruído: granulado aleatório, maior com menos fótons no detector.",
+          "Resolução: detalhes finos separados. Borramento reduz a nitidez."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que acontecia com o detalhe mais fino que a grade consegue mostrar quando o pixel ficava maior?",
+          "options": [
+            {
+              "label": "O limite melhorava, pois cada pixel recebia mais sinal",
+              "correct": false,
+              "feedback": "Mais sinal por pixel não refina o detalhe. Pixel maior amostra o objeto em passos mais largos."
+            },
+            {
+              "label": "Nada mudava, pois o detalhe depende só do monitor",
+              "correct": false,
+              "feedback": "O monitor exibe o que foi amostrado. Se o detalhe não foi registrado pela grade, a tela não o recupera."
+            },
+            {
+              "label": "O contraste aumentava e os detalhes ficavam mais evidentes",
+              "correct": false,
+              "feedback": "Tamanho do pixel e contraste são dimensões diferentes. Retome a comparação das imagens A e B da aula anterior."
+            },
+            {
+              "label": "O limite piorava: detalhes muito finos se fundiam",
+              "correct": true,
+              "feedback": "Isso. Com pixel maior, dois detalhes vizinhos podem cair no mesmo pixel e deixar de aparecer separados."
+            }
+          ],
+          "help": "Lembre das duas fichas: pixel de 0,1 mm e pixel de 0,18 mm.",
+          "sourceIds": [
+            "upstate-pixel-size"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Duas imagens do mesmo simulador são feitas com a mesma tensão. Na segunda, o produto corrente-tempo (mAs) foi reduzido à metade. Vale para este modelo de laboratório: o que você espera ver na segunda?",
+          "options": [
+            {
+              "label": "Imagem mais clara, como acontecia com o filme",
+              "correct": false,
+              "feedback": "No filme, menos exposição dava mesmo uma imagem mais clara. No sistema digital o sinal é reescalado, e o brilho na tela tende a ficar parecido."
+            },
+            {
+              "label": "Mais granulado, pois menos fótons chegaram ao detector",
+              "correct": true,
+              "feedback": "Isso. Com metade dos fótons, a flutuação aleatória pesa mais e o granulado aumenta. O brilho na tela pode nem mudar."
+            },
+            {
+              "label": "Bordas mais borradas, pois o tempo de exposição mudou",
+              "correct": false,
+              "feedback": "Borramento vem de movimento ou de amostragem. Num simulador parado, reduzir o mAs não arrasta as bordas."
+            },
+            {
+              "label": "Mais contraste, pois há menos radiação espalhada",
+              "correct": false,
+              "feedback": "Reduzir o mAs reduz primário e espalhada na mesma proporção. O que muda é a quantidade de fótons, e com ela o ruído."
+            }
+          ],
+          "help": "O mAs controla a quantidade de fótons. Qual das três dimensões depende de quantos fótons chegam ao detector?",
+          "sourceIds": [
+            "upstate-mas",
+            "upstate-exposure-issues"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada descrição de imagem à dimensão de qualidade envolvida.",
+          "pairs": [
+            {
+              "left": "Nódulo quase do mesmo tom do fundo",
+              "right": "Contraste baixo"
+            },
+            {
+              "left": "Nódulo muito mais escuro que o fundo",
+              "right": "Contraste alto"
+            },
+            {
+              "left": "Aspecto granulado em toda a imagem",
+              "right": "Ruído alto"
+            },
+            {
+              "left": "Traços finos vizinhos aparecem fundidos",
+              "right": "Resolução espacial baixa"
+            }
+          ],
+          "feedbackCorrect": "Você usou a palavra certa para cada pista: tom em relação ao fundo é contraste, granulado é ruído, detalhe fundido é resolução.",
+          "feedbackIncorrect": "Retome as três perguntas: a estrutura se destaca do fundo? O fundo é liso ou granulado? Detalhes vizinhos aparecem separados?",
+          "help": "Para cada descrição, pergunte se ela fala de diferença de tom, de textura ou de detalhe.",
+          "sourceIds": [
+            "upstate-image-quality"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Par de imagens do mesmo simulador de tórax, descritas na ficha. Imagem 1: contornos das costelas bem definidos, textura lisa. Imagem 2: mesma textura lisa, mas os contornos das costelas aparecem arrastados na horizontal, como um rastro. O brilho geral das duas é parecido.",
+          "prompt": "Qual dimensão de qualidade distingue a imagem 2 da imagem 1?",
+          "options": [
+            {
+              "label": "Ruído, pois a textura da imagem 2 mudou",
+              "correct": false,
+              "feedback": "A ficha diz que a textura continua lisa nas duas. Confira de novo o que mudou: os contornos."
+            },
+            {
+              "label": "Contraste, pois o brilho geral da imagem 2 mudou",
+              "correct": false,
+              "feedback": "O brilho geral é parecido nas duas, segundo a ficha. A diferença está na definição das bordas."
+            },
+            {
+              "label": "Nitidez, pois há borramento numa só direção",
+              "correct": true,
+              "feedback": "Isso. Bordas arrastadas numa direção são perda de nitidez, pista típica de movimento durante a exposição."
+            },
+            {
+              "label": "Profundidade de bits, pois há menos tons de cinza",
+              "correct": false,
+              "feedback": "Nada na ficha indica menos tons de cinza. O rastro nas bordas fala de nitidez, não de quantização."
+            }
+          ],
+          "help": "Leia a ficha dimensão por dimensão: tom, textura e bordas. Em qual delas as duas imagens diferem?",
+          "sourceIds": [
+            "upstate-image-quality"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Duda compara duas imagens de um objeto de teste com um disco de baixo contraste. Imagem A: disco visível, fundo liso. Imagem B: o disco tem a mesma diferença de brilho em relação ao fundo, mas o fundo está tão granulado que ela não consegue apontar onde o disco está.",
+          "prompt": "O que explica melhor a dificuldade na imagem B?",
+          "options": [
+            {
+              "label": "O ruído encobre uma estrutura de baixo contraste",
+              "correct": true,
+              "feedback": "Isso. O contraste do disco é o mesmo, mas a flutuação do fundo ficou comparável a ele. Ruído e contraste interagem na detecção."
+            },
+            {
+              "label": "A resolução espacial da imagem B é menor",
+              "correct": false,
+              "feedback": "Nada no caso fala de bordas ou detalhes fundidos. A pista está na textura do fundo."
+            },
+            {
+              "label": "O contraste do disco caiu em relação à imagem A",
+              "correct": false,
+              "feedback": "O caso afirma que a diferença de brilho é a mesma nas duas. O que mudou foi o fundo."
+            },
+            {
+              "label": "O campo de visão da imagem B é maior",
+              "correct": false,
+              "feedback": "O caso não muda o campo de visão. Confira de novo qual característica do fundo difere entre A e B."
+            }
+          ],
+          "help": "O que mudou entre A e B, segundo a descrição? Parta daí.",
+          "sourceIds": [
+            "upstate-image-quality"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue nomear o que distingue duas imagens: contraste, ruído ou nitidez. E sabe que uma dimensão pode mudar sem que as outras mudem.",
+        "line": {
+          "speaker": "caio",
+          "text": "'Imagem ruim' não ajuda ninguém. 'Granulada, mas nítida' já diz onde olhar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma ficha descreve: 'estrutura bem nítida, fundo liso, mas quase do mesmo tom do tecido em volta'. Qual dimensão limita essa imagem?",
+          "options": [
+            {
+              "label": "Ruído alto",
+              "correct": false,
+              "feedback": "A ficha descreve fundo liso, o oposto de ruído alto. Leia de novo a parte sobre o tom."
+            },
+            {
+              "label": "Resolução espacial baixa",
+              "correct": false,
+              "feedback": "A estrutura está bem nítida, então a resolução não é o limite aqui."
+            },
+            {
+              "label": "Contraste baixo",
+              "correct": true,
+              "feedback": "Certo. Quase o mesmo tom do entorno significa pouca diferença de brilho: contraste baixo."
+            },
+            {
+              "label": "Matriz pequena",
+              "correct": false,
+              "feedback": "Matriz pequena apareceria como perda de detalhe fino, e a ficha diz que a estrutura está nítida."
+            }
+          ],
+          "sourceIds": [
+            "upstate-image-quality"
+          ]
+        },
+        {
+          "prompt": "Qual descrição corresponde a uma imagem com ruído alto e boa nitidez?",
+          "options": [
+            {
+              "label": "Bordas definidas e aspecto granulado no fundo",
+              "correct": true,
+              "feedback": "Isso. Bordas definidas indicam boa nitidez, e o granulado indica ruído alto. As duas coisas podem coexistir."
+            },
+            {
+              "label": "Bordas arrastadas e fundo liso",
+              "correct": false,
+              "feedback": "Essa descrição é o inverso: pouca nitidez e pouco ruído."
+            },
+            {
+              "label": "Bordas definidas e fundo liso",
+              "correct": false,
+              "feedback": "Aqui a nitidez é boa, mas o fundo liso indica ruído baixo."
+            },
+            {
+              "label": "Bordas arrastadas e aspecto granulado no fundo",
+              "correct": false,
+              "feedback": "O granulado confere com ruído alto, mas bordas arrastadas indicam nitidez ruim."
+            }
+          ],
+          "sourceIds": [
+            "upstate-image-quality"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o aspecto granulado, que aumenta quando menos fótons chegam ao detector, chama-se …",
+          "item": {
+            "prompt": "Como se chama a flutuação aleatória que dá aspecto granulado à imagem?",
+            "options": [
+              {
+                "label": "Contraste",
+                "correct": false,
+                "feedback": "Contraste é a diferença de brilho entre uma estrutura e o fundo, não a textura granulada."
+              },
+              {
+                "label": "Ruído",
+                "correct": true,
+                "feedback": "Certo. Ruído é a flutuação aleatória, mais visível quando poucos fótons chegam ao detector."
+              },
+              {
+                "label": "Borramento",
+                "correct": false,
+                "feedback": "Borramento é perda de definição das bordas. O granulado é outra dimensão."
+              },
+              {
+                "label": "Distorção",
+                "correct": false,
+                "feedback": "Distorção altera a forma do objeto na imagem. A pergunta é sobre a textura granulada."
+              }
+            ],
+            "sourceIds": [
+              "upstate-image-quality",
+              "upstate-mas"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num simulador de pelve, a equipe do laboratório compara duas imagens: a segunda recebeu o dobro de fótons no detector, sem outra mudança. Vale para este modelo: o que muda na segunda?",
+            "options": [
+              {
+                "label": "As bordas ficam mais definidas",
+                "correct": false,
+                "feedback": "Definição de bordas depende de movimento e amostragem, que não mudaram neste teste."
+              },
+              {
+                "label": "O contraste entre osso e partes moles dobra",
+                "correct": false,
+                "feedback": "A quantidade de fótons não dobra a diferença de brilho entre tecidos. Ela muda a flutuação aleatória."
+              },
+              {
+                "label": "O pixel fica menor",
+                "correct": false,
+                "feedback": "O pixel é definido por campo e matriz. A quantidade de fótons não altera a grade."
+              },
+              {
+                "label": "O granulado diminui",
+                "correct": true,
+                "feedback": "Isso. Mais fótons no detector reduzem o peso da flutuação aleatória, e a imagem fica mais lisa."
+              }
+            ],
+            "sourceIds": [
+              "upstate-mas"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Trio autoral do mesmo objeto de teste (disco sobre fundo): versão com contraste baixo, versão granulada e versão borrada, ao lado da referência.",
+        "Perfil de linha cruzando o disco: degrau alto ou baixo (contraste), linha tremida (ruído) e rampa suave (borramento)."
+      ]
+    },
+    {
+      "id": "m05-04",
+      "code": "M05.04",
+      "title": "Processamento e apresentação",
+      "objective": "Hoje você vai conseguir separar o que foi adquirido pelo detector do que é só ajuste de exibição na tela.",
+      "competency": "Separar dado adquirido de aparência exibida.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Estação de visualização do laboratório",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Mexi no mouse e a imagem escureceu inteira. Estraguei o exame do simulador?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Respira. Você mexeu na janela de exibição. Vamos ver o que isso muda de verdade."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Existem duas coisas aqui: o dado e a aparência. Qual delas você acha que o mouse alcança?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O dado e a aparência",
+        "body": "Depois das correções do detector, a imagem ainda é um dado 'para processamento'. O sistema então ajusta contraste, realça bordas e reduz ruído conforme a região anatômica selecionada, gerando a imagem 'para apresentação'. Na tela, uma tabela de conversão transforma valores de pixel em brilho. O nível da janela escolhe o valor que aparece em cinza médio. A largura escolhe a faixa de valores exibida: janela estreita aumenta o contraste na tela. Mudar a janela altera a exibição, sem alterar os valores guardados. Há um limite: onde o detector saturou, todos os pixels têm o valor máximo e nenhum ajuste recupera a informação.",
+        "keyPoints": [
+          "Dado adquirido e aparência exibida são coisas diferentes.",
+          "Nível: brilho na tela. Largura: contraste na tela.",
+          "Pixel saturado não se recupera com ajuste."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na cadeia que você ordenou em M05.01, o que vem logo depois das correções do detector e antes da exibição?",
+          "options": [
+            {
+              "label": "A conversão dos raios X em luz",
+              "correct": false,
+              "feedback": "Essa conversão acontece no começo, dentro do detector indireto, antes de existir qualquer número."
+            },
+            {
+              "label": "O processamento para apresentação",
+              "correct": true,
+              "feedback": "Isso. O dado corrigido é processado para apresentação e só então aparece na tela."
+            },
+            {
+              "label": "A leitura da carga pelo painel",
+              "correct": false,
+              "feedback": "A leitura da carga vem antes da digitalização e das correções. Retome a ordem da primeira aula."
+            },
+            {
+              "label": "O arquivamento da imagem",
+              "correct": false,
+              "feedback": "O arquivo fecha a cadeia. Entre as correções e a tela existe uma etapa que prepara a aparência."
+            }
+          ],
+          "help": "Recupere a sequência: digitalização, correção e depois o quê, antes da tela?",
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Numa imagem aberta na estação, você estreita a largura da janela sem mexer no nível. O que você espera ver na tela?",
+          "options": [
+            {
+              "label": "Imagem inteira mais clara, com o mesmo contraste",
+              "correct": false,
+              "feedback": "Clarear ou escurecer a imagem inteira é efeito do nível. A largura mexe na faixa de valores exibida."
+            },
+            {
+              "label": "Menos granulado, pois o ruído é filtrado",
+              "correct": false,
+              "feedback": "A janela não filtra nada: ela só redistribui tons. Com janela estreita, o ruído pode até ficar mais visível."
+            },
+            {
+              "label": "Mais contraste entre tons próximos da faixa",
+              "correct": true,
+              "feedback": "Isso. Uma faixa menor de valores ocupa toda a escala de brilho, e valores próximos ficam mais separados na tela."
+            },
+            {
+              "label": "Detalhes mais finos, pois o pixel diminui",
+              "correct": false,
+              "feedback": "O pixel foi definido na aquisição, por campo e matriz. Nenhum ajuste de janela muda a grade."
+            }
+          ],
+          "help": "A largura define quantos valores de pixel são distribuídos entre o preto e o branco da tela.",
+          "sourceIds": [
+            "upstate-display"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada ação ao que ela muda.",
+          "pairs": [
+            {
+              "left": "Aumentar o nível da janela",
+              "right": "A imagem fica mais escura na tela"
+            },
+            {
+              "left": "Estreitar a largura da janela",
+              "right": "O contraste na tela aumenta"
+            },
+            {
+              "left": "Aplicar realce de bordas",
+              "right": "Contornos e detalhes finos ficam mais evidentes"
+            },
+            {
+              "left": "Expor de novo com outra técnica",
+              "right": "O dado adquirido pelo detector muda"
+            }
+          ],
+          "feedbackCorrect": "Você separou as três camadas: janela muda a exibição, realce muda o processamento e só uma nova exposição muda o dado adquirido.",
+          "feedbackIncorrect": "Confira de novo cada ação: ela age na tela, no processamento ou na aquisição? Só uma delas envolve nova exposição.",
+          "help": "Pergunte a cada ação: isso exige irradiar de novo ou acontece só no computador?",
+          "sourceIds": [
+            "upstate-display",
+            "upstate-image-processing",
+            "seibert-morin-2011-exposure-index"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, a imagem de tórax do manequim mostra uma faixa do pulmão totalmente preta e uniforme. Duda tenta várias janelas e a faixa continua sem nenhuma estrutura. Um colega sugere 'repetir logo para garantir'. Outro sugere 'aplicar mais filtro até aparecer algo'.",
+          "prompt": "Qual é a conduta adequada para a estudante neste momento?",
+          "options": [
+            {
+              "label": "Repetir a exposição por conta própria, com técnica menor",
+              "correct": false,
+              "feedback": "Repetir é uma nova exposição, e essa decisão não é da estudante sozinha. Primeiro descreva o achado e chame a supervisão."
+            },
+            {
+              "label": "Aplicar filtros até a região mostrar alguma estrutura",
+              "correct": false,
+              "feedback": "Onde o detector saturou não há informação para recuperar. Filtrar pode criar aparência de estrutura que não foi adquirida."
+            },
+            {
+              "label": "Enviar a imagem como está, sem registrar o achado",
+              "correct": false,
+              "feedback": "Uma área sem informação precisa ser descrita. Enviar sem registro esconde da equipe um limite real da imagem."
+            },
+            {
+              "label": "Parar, descrever a área sem informação e chamar a supervisão",
+              "correct": true,
+              "feedback": "Certo. Área que nenhuma janela resolve sugere saturação: dado perdido. A decisão sobre o que fazer é da equipe, com a sua descrição."
+            }
+          ],
+          "help": "Se nenhuma janela mostra estrutura, o problema está na exibição ou no dado? E quem decide uma nova exposição?",
+          "sourceIds": [
+            "iaea-rpop-digital-radiography",
+            "upstate-exposure-issues"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Caio reprocessa a mesma aquisição de uma mão de simulador com dois protocolos. Na primeira versão, usa o protocolo 'mão'. Na segunda, de propósito, o protocolo 'tórax'. A segunda tem aparência bem diferente: os ossos se destacam menos. Não houve nova exposição.",
+          "prompt": "O que mudou entre as duas versões da imagem?",
+          "options": [
+            {
+              "label": "A quantidade de radiação que chegou ao detector",
+              "correct": false,
+              "feedback": "As duas versões vêm da mesma aquisição. A radiação que chegou ao detector é uma só."
+            },
+            {
+              "label": "O processamento aplicado ao mesmo dado adquirido",
+              "correct": true,
+              "feedback": "Isso. O processamento é ajustado por região anatômica. Protocolo errado muda a aparência sem mudar o dado adquirido."
+            },
+            {
+              "label": "O tamanho do pixel do detector",
+              "correct": false,
+              "feedback": "O pixel pertence à aquisição e é o mesmo nas duas versões. Confira de novo o que Caio alterou."
+            },
+            {
+              "label": "A posição da mão sobre o detector",
+              "correct": false,
+              "feedback": "Não houve nova exposição, então a posição é a mesma. A diferença nasceu depois da aquisição."
+            }
+          ],
+          "help": "O caso diz o que foi mantido e o que foi trocado. Em que etapa da cadeia fica o que foi trocado?",
+          "sourceIds": [
+            "upstate-image-processing",
+            "seibert-morin-2011-exposure-index",
+            "dicom-dx-series"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer se uma mudança está no dado adquirido ou só na exibição, prever o efeito de nível e largura da janela e reconhecer quando nenhum ajuste recupera a informação.",
+        "line": {
+          "speaker": "lia",
+          "text": "Antes de dizer que a imagem está clara ou escura, pergunte: é o dado ou é a janela?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Você altera o nível e a largura da janela e depois fecha a imagem. O que aconteceu com os valores de pixel guardados?",
+          "options": [
+            {
+              "label": "Continuam os mesmos: a janela só muda a exibição",
+              "correct": true,
+              "feedback": "Certo. A janela define como os valores guardados viram brilho na tela. Os valores em si não são tocados."
+            },
+            {
+              "label": "Foram reescritos com os novos tons de cinza",
+              "correct": false,
+              "feedback": "A janela não reescreve o dado. Ela é uma regra de conversão aplicada na hora de exibir."
+            },
+            {
+              "label": "Foram reduzidos à faixa mostrada na tela",
+              "correct": false,
+              "feedback": "Os valores fora da faixa só aparecem como preto ou branco na tela. No arquivo eles continuam inteiros."
+            },
+            {
+              "label": "Foram apagados fora da faixa da janela",
+              "correct": false,
+              "feedback": "Nada é apagado: basta alargar a janela para os valores voltarem a ser distinguidos na tela."
+            }
+          ],
+          "sourceIds": [
+            "dicom-voi-lut",
+            "upstate-display"
+          ]
+        },
+        {
+          "prompt": "Qual destas situações um ajuste de janela ou de processamento não resolve?",
+          "options": [
+            {
+              "label": "Imagem exibida escura demais na tela",
+              "correct": false,
+              "feedback": "Imagem escura na tela é caso típico de ajuste de nível. O dado está lá."
+            },
+            {
+              "label": "Contraste baixo na tela para tons próximos",
+              "correct": false,
+              "feedback": "Estreitar a largura da janela separa tons próximos. Isso é exibição."
+            },
+            {
+              "label": "Região em que o detector saturou",
+              "correct": true,
+              "feedback": "Isso. Na saturação todos os pixels têm o valor máximo. Não há diferença guardada para a janela mostrar."
+            },
+            {
+              "label": "Nível da janela mal escolhido para a região",
+              "correct": false,
+              "feedback": "O cinza médio é definido pelo nível da janela e pode ser reajustado à vontade."
+            }
+          ],
+          "sourceIds": [
+            "iaea-rpop-digital-radiography",
+            "upstate-exposure-issues"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: mexer na janela muda a …, e não o dado que o detector adquiriu.",
+          "item": {
+            "prompt": "O que o ajuste de nível e largura da janela altera?",
+            "options": [
+              {
+                "label": "A dose recebida na exposição",
+                "correct": false,
+                "feedback": "A exposição já aconteceu. Nada que se faça na estação muda a radiação recebida."
+              },
+              {
+                "label": "Os valores adquiridos pelo detector",
+                "correct": false,
+                "feedback": "Os valores adquiridos ficam guardados como estão. A janela atua depois, na conversão para brilho."
+              },
+              {
+                "label": "A exibição da imagem na tela",
+                "correct": true,
+                "feedback": "Certo. Nível e largura mudam como os valores são mostrados, não os valores."
+              },
+              {
+                "label": "O tamanho da matriz da imagem",
+                "correct": false,
+                "feedback": "A matriz é definida na aquisição. A janela não acrescenta nem retira pixels."
+              }
+            ],
+            "sourceIds": [
+              "dicom-voi-lut",
+              "upstate-display"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "O serviço guardou a imagem 'para processamento' de um objeto de teste. A equipe de física médica quer ver o mesmo dado com outro algoritmo. O que é preciso fazer?",
+            "options": [
+              {
+                "label": "Expor o objeto de novo com a mesma técnica",
+                "correct": false,
+                "feedback": "Nova exposição não é necessária: o dado corrigido está guardado e pode ser processado outra vez."
+              },
+              {
+                "label": "Reprocessar o dado guardado, sem nova exposição",
+                "correct": true,
+                "feedback": "Isso. A imagem 'para processamento' existe justamente para poder receber outro processamento depois."
+              },
+              {
+                "label": "Alterar a janela até o algoritmo mudar",
+                "correct": false,
+                "feedback": "Janela é exibição. Ela não troca o algoritmo de processamento aplicado ao dado."
+              },
+              {
+                "label": "Trocar o detector antes de abrir a imagem",
+                "correct": false,
+                "feedback": "O detector já cumpriu o papel dele na aquisição. O que muda agora é uma etapa posterior."
+              }
+            ],
+            "sourceIds": [
+              "dicom-dx-series"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Histograma de valores de pixel com uma janela deslizante (nível no centro, largura na extensão) ligada a uma rampa de preto a branco.",
+        "Fluxo em quatro caixas: dado corrigido ('para processamento'), processamento por região anatômica, imagem 'para apresentação' e janela na tela."
+      ]
+    },
+    {
+      "id": "m05-05",
+      "code": "M05.05",
+      "title": "DICOM, PACS e rastreabilidade",
+      "objective": "Hoje você vai conseguir localizar, num estudo fictício, quem é o paciente, qual é a série e por onde o arquivo passou.",
+      "competency": "Reconhecer identificação, série e percurso do arquivo.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Recepção do setor de imagem (simulação)",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Moça, fiz o raio X da mão ontem. Como o médico do posto vai ver, se não me deram filme nenhum?"
+          },
+          {
+            "speaker": "duda",
+            "text": "A imagem fica guardada num sistema, Dona Marta. Vou confirmar com a equipe como ela chega até o seu médico."
+          },
+          {
+            "speaker": "caio",
+            "text": "Boa. E para achar a imagem certa lá dentro, o que precisa estar certo desde o começo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Imagem com identidade e endereço",
+        "body": "DICOM é o padrão internacional para imagens médicas e as informações que as acompanham. Um arquivo DICOM traz a imagem e um cabeçalho com dados como nome e identificador do paciente, data, modalidade e parâmetros da aquisição. A organização é em níveis: o paciente tem estudos, cada estudo reúne séries e cada série reúne imagens do mesmo equipamento e da mesma modalidade. Estudo, série e imagem têm identificadores únicos. O PACS é o sistema que arquiva e distribui essas imagens. A lista de trabalho leva os dados do pedido, vindos do sistema de informação, até o equipamento, sem redigitação.",
+        "keyPoints": [
+          "Níveis: paciente, estudo, série e imagem.",
+          "O cabeçalho DICOM carrega a identificação e os dados da aquisição.",
+          "O PACS arquiva e distribui. A lista de trabalho evita redigitar dados."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Em M02 você conferia lado corporal e marcador. Numa imagem digital, por que o marcador de lado posto na aquisição continua importante?",
+          "options": [
+            {
+              "label": "Porque direita e esquerda podem sair trocadas sem aviso",
+              "correct": true,
+              "feedback": "Isso. Num chassi de CR exposto ao contrário, por exemplo, direita e esquerda podem sair trocadas sem que ninguém perceba. O marcador posto na aquisição é a referência que acompanha a imagem."
+            },
+            {
+              "label": "Porque o marcador aumenta o contraste da região examinada",
+              "correct": false,
+              "feedback": "O marcador não altera contraste. A função dele é registrar o lado no momento da aquisição."
+            },
+            {
+              "label": "Porque sem marcador o arquivo não pode ser gravado",
+              "correct": false,
+              "feedback": "O sistema grava o arquivo com ou sem marcador. O risco é outro: perder a referência de lado."
+            },
+            {
+              "label": "Porque o marcador reduz o ruído perto das bordas",
+              "correct": false,
+              "feedback": "Ruído depende da quantidade de fótons, não do marcador. Retome o que o marcador registra."
+            }
+          ],
+          "help": "O marcador é posto antes da exposição. O que pode acontecer com a imagem depois disso, sem deixar sinal?",
+          "sourceIds": [
+            "upstate-artifacts"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os níveis da organização DICOM, do mais amplo ao mais específico.",
+          "items": [
+            "Paciente",
+            "Estudo",
+            "Série",
+            "Imagem"
+          ],
+          "feedbackCorrect": "Certo. Um paciente tem estudos, cada estudo reúne séries e cada série reúne imagens.",
+          "feedbackIncorrect": "Confira de novo quem contém quem: a série fica dentro de um estudo, e o estudo pertence a um paciente.",
+          "help": "Comece por quem pode ter vários exames e termine na unidade que guarda os pixels.",
+          "sourceIds": [
+            "dicom-iod-model"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada dado do cabeçalho ao nível que ele identifica.",
+          "pairs": [
+            {
+              "left": "Nome e identificador do paciente",
+              "right": "Paciente"
+            },
+            {
+              "left": "Número de acesso (o número do pedido)",
+              "right": "Estudo"
+            },
+            {
+              "left": "Modalidade e número da série",
+              "right": "Série"
+            },
+            {
+              "left": "Identificador único da instância",
+              "right": "Imagem"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada dado ao seu nível. É essa estrutura que permite achar uma imagem específica entre milhares.",
+          "feedbackIncorrect": "Retome os níveis: o pedido do exame se liga ao estudo, a modalidade se liga à série e cada imagem tem um identificador só dela.",
+          "help": "Pergunte a cada dado: ele vale para a pessoa, para o exame inteiro, para um conjunto de imagens ou para uma só?",
+          "sourceIds": [
+            "dicom-patient-module",
+            "dicom-study-module",
+            "dicom-series-module",
+            "dicom-sop-common"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Duda abre no equipamento a lista de trabalho e seleciona 'Marta S. Lima'. Ao conferir a pulseira fictícia da paciente simulada, lê 'Marta S. Lins', com outra data de nascimento. A imagem ainda não foi feita. Um colega diz: 'É quase igual, depois você edita o nome no sistema'.",
+          "prompt": "O que Duda faz agora?",
+          "options": [
+            {
+              "label": "Faz a imagem e edita o nome no cabeçalho depois",
+              "correct": false,
+              "feedback": "A imagem nasceria ligada a outra pessoa, e corrigir registro por conta própria não cabe à estudante. A divergência se resolve antes da exposição."
+            },
+            {
+              "label": "Para, relata a divergência e pede apoio à equipe antes de expor",
+              "correct": true,
+              "feedback": "Certo. Nome e data de nascimento diferentes indicam que o registro selecionado pode ser de outra pessoa. Parar e chamar a equipe vem antes de qualquer exposição."
+            },
+            {
+              "label": "Digita um novo cadastro por conta própria e segue o exame",
+              "correct": false,
+              "feedback": "Criar cadastro manual sem a equipe pode duplicar ou trocar registros. A lista de trabalho existe para evitar essa redigitação."
+            },
+            {
+              "label": "Escolhe o nome mais parecido da lista e segue o exame",
+              "correct": false,
+              "feedback": "Nome parecido não é identidade confirmada. Com dois dados divergentes, seguir é assumir o risco de trocar pacientes."
+            }
+          ],
+          "help": "A imagem herda a identificação escolhida na lista. O que acontece se essa identificação for de outra pessoa?",
+          "sourceIds": [
+            "gale-2000-modality-worklist",
+            "dicom-patient-module"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Dias depois de uma simulação, a imagem de punho do manequim não aparece na estação. Um colega propõe refazer a exposição. Caio lembra que a imagem foi enviada ao PACS naquele dia.",
+          "prompt": "Antes de qualquer repetição, qual é o primeiro passo coerente com o percurso do arquivo?",
+          "options": [
+            {
+              "label": "Refazer a exposição, pois é mais rápido que procurar",
+              "correct": false,
+              "feedback": "Repetir significa irradiar de novo por um problema que pode ser só de busca. Primeiro procure o arquivo."
+            },
+            {
+              "label": "Reprocessar outra imagem do mesmo manequim",
+              "correct": false,
+              "feedback": "Outra imagem não substitui a que falta. O caminho é localizar o arquivo que já foi enviado."
+            },
+            {
+              "label": "Buscar no PACS por nome, data e identificador",
+              "correct": true,
+              "feedback": "Isso. A busca por nome parecido, data, modalidade e identificador vem antes de qualquer nova exposição. Se não achar, descreva e chame a equipe."
+            },
+            {
+              "label": "Apagar os estudos antigos para liberar espaço",
+              "correct": false,
+              "feedback": "Apagar estudos não ajuda a achar a imagem e pode destruir registros. Confira de novo por onde o arquivo passou."
+            }
+          ],
+          "help": "Se o arquivo foi enviado, ele está em algum lugar. Com que dados você o procuraria?",
+          "sourceIds": [
+            "iaea-rpop-digital-radiography"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue ler a organização paciente, estudo, série e imagem, dizer o que o cabeçalho carrega e seguir o arquivo do equipamento ao PACS. Diante de identificação divergente, você para e chama a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Imagem boa no paciente errado é problema. Identificação certa vem antes da exposição."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Segundo a organização DICOM, o que as imagens de uma mesma série têm em comum?",
+          "options": [
+            {
+              "label": "O mesmo identificador único de instância",
+              "correct": false,
+              "feedback": "Cada imagem tem um identificador próprio, diferente de todas as outras."
+            },
+            {
+              "label": "Pacientes diferentes, atendidos no mesmo dia",
+              "correct": false,
+              "feedback": "Uma série pertence a um único estudo, e um estudo pertence a um único paciente."
+            },
+            {
+              "label": "A mesma janela de exibição, fixada no arquivo",
+              "correct": false,
+              "feedback": "A janela é ajuste de exibição e não é o que define uma série."
+            },
+            {
+              "label": "Mesmo estudo, mesmo equipamento e mesma modalidade",
+              "correct": true,
+              "feedback": "Certo. A série agrupa imagens de um só estudo, feitas no mesmo equipamento e na mesma modalidade."
+            }
+          ],
+          "sourceIds": [
+            "dicom-iod-model"
+          ]
+        },
+        {
+          "prompt": "Qual sistema arquiva as imagens e permite que sejam vistas em outros pontos da rede?",
+          "options": [
+            {
+              "label": "O sistema PACS",
+              "correct": true,
+              "feedback": "Isso. O PACS recebe as imagens dos equipamentos, arquiva e distribui para as estações."
+            },
+            {
+              "label": "A lista de trabalho",
+              "correct": false,
+              "feedback": "A lista de trabalho leva dados do pedido até o equipamento. Ela não guarda imagens."
+            },
+            {
+              "label": "O detector digital",
+              "correct": false,
+              "feedback": "O detector adquire o sinal. O arquivamento acontece depois, em outro sistema."
+            },
+            {
+              "label": "O cabeçalho DICOM",
+              "correct": false,
+              "feedback": "O cabeçalho é parte do arquivo e carrega os dados da imagem. Ele não é um sistema de arquivo."
+            }
+          ],
+          "sourceIds": [
+            "gale-2000-modality-worklist",
+            "iaea-rpop-digital-radiography"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na organização DICOM, um estudo reúne uma ou mais …, e cada uma delas reúne imagens.",
+          "item": {
+            "prompt": "O que fica entre o estudo e a imagem na organização DICOM?",
+            "options": [
+              {
+                "label": "O paciente",
+                "correct": false,
+                "feedback": "O paciente fica acima do estudo, no topo da organização."
+              },
+              {
+                "label": "A série",
+                "correct": true,
+                "feedback": "Certo. O estudo reúne séries, e cada série reúne imagens."
+              },
+              {
+                "label": "A lista de trabalho",
+                "correct": false,
+                "feedback": "A lista de trabalho é um serviço que leva dados ao equipamento, não um nível da organização."
+              },
+              {
+                "label": "O sistema PACS",
+                "correct": false,
+                "feedback": "O PACS é o sistema que arquiva tudo isso. Ele não é um nível entre estudo e imagem."
+              }
+            ],
+            "sourceIds": [
+              "dicom-iod-model"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega quer saber com que parâmetros uma imagem de teste foi adquirida num sistema digital direto. A aparência na tela não ajuda. Onde ele procura primeiro?",
+            "options": [
+              {
+                "label": "No brilho geral da imagem",
+                "correct": false,
+                "feedback": "O brilho é resultado de processamento e janela. Ele não revela os parâmetros usados."
+              },
+              {
+                "label": "No tamanho do arquivo",
+                "correct": false,
+                "feedback": "O tamanho do arquivo depende da matriz e dos bits, não da técnica de exposição."
+              },
+              {
+                "label": "No cabeçalho DICOM da imagem",
+                "correct": true,
+                "feedback": "Isso. Nos sistemas digitais diretos, os parâmetros de exposição normalmente ficam registrados no cabeçalho."
+              },
+              {
+                "label": "No nome da pasta do computador",
+                "correct": false,
+                "feedback": "Pasta e nome de arquivo não são registro confiável da aquisição. Os dados ficam dentro do arquivo."
+              }
+            ],
+            "sourceIds": [
+              "iaea-rpop-digital-radiography"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Árvore com paciente, estudo, séries e imagens, com etiqueta do identificador em cada nível.",
+        "Mapa do percurso: sistema de informação, lista de trabalho, equipamento, PACS e estação de visualização."
+      ]
+    },
+    {
+      "id": "m05-06",
+      "code": "M05.06",
+      "title": "Onde surgiu a falha",
+      "objective": "Hoje você vai conseguir apontar a etapa provável de uma falha de imagem sem tirar conclusões sobre dose pela aparência.",
+      "competency": "Localizar a etapa provável de uma falha sem confundir aparência com dose.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Reunião de revisão do laboratório",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Hoje é dia de detetive. Quatro imagens do simulador com problema. A pergunta não é de quem é a culpa, é em que etapa apareceu."
+          },
+          {
+            "speaker": "duda",
+            "text": "Essa aqui está clarinha. Então recebeu pouca radiação, certo?"
+          },
+          {
+            "speaker": "lia",
+            "text": "No filme, talvez. No digital, o que o brilho da tela consegue dizer sobre a exposição?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "A pista aponta para uma etapa",
+        "body": "Cada falha deixa uma pista. Granulado sugere pouco sinal no detector. Linha reta sugere leitura ou detector. Faixas regulares sobre toda a imagem sugerem interferência entre a grade antidifusora e a amostragem. Contraste estranho sugere processamento. Imagem clara ou escura que a janela resolve é exibição. Dados trocados são identificação. O brilho não mede exposição: o sistema reescala o sinal, e a imagem superexposta costuma parecer ótima. O índice de exposição estima, numa região da imagem, a radiação que chegou ao detector. Não é a dose do paciente e pode enganar se essa região ou a parte do corpo selecionada estiverem erradas. Na dúvida, descreva e chame a equipe.",
+        "keyPoints": [
+          "Descreva a pista antes de apontar a etapa.",
+          "Brilho na tela não mede exposição nem dose.",
+          "O índice de exposição se refere ao detector, não ao paciente."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "ordering",
+          "role": "prerequisite",
+          "prompt": "Recupere a cadeia da primeira aula: ordene as etapas, do feixe ao arquivo.",
+          "items": [
+            "Detecção e conversão do sinal",
+            "Digitalização e correções",
+            "Processamento para apresentação",
+            "Exibição na tela",
+            "Arquivo no PACS"
+          ],
+          "feedbackCorrect": "Essa é a cadeia que você vai usar como mapa: cada falha desta aula mora numa dessas etapas.",
+          "feedbackIncorrect": "Retome a ordem: o sinal é detectado, vira número, é corrigido, processado, exibido e por fim arquivado.",
+          "help": "O sinal precisa virar número antes de ser processado, e ser processado antes de aparecer na tela.",
+          "sourceIds": [
+            "seibert-2006-flat-panel"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Relacione cada pista à etapa em que a falha provavelmente surgiu.",
+          "pairs": [
+            {
+              "left": "Granulado em toda a imagem",
+              "right": "Aquisição: pouco sinal no detector"
+            },
+            {
+              "left": "Linha clara e reta ao longo da imagem",
+              "right": "Leitura da placa ou detector"
+            },
+            {
+              "left": "Tela escura que a janela corrige",
+              "right": "Exibição"
+            },
+            {
+              "left": "Imagem na pasta de outro paciente",
+              "right": "Identificação e arquivo"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada pista a uma etapa. Esse é o raciocínio: descrever primeiro, localizar depois.",
+          "feedbackIncorrect": "Confira de novo cada pista: ela fala de quantidade de sinal, de leitura, de tela ou de registro?",
+          "help": "Pergunte onde a pista poderia ter nascido: no sinal, no leitor, no monitor ou no cadastro.",
+          "sourceIds": [
+            "upstate-exposure-issues",
+            "upstate-artifacts",
+            "upstate-display",
+            "iaea-rpop-digital-radiography"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Imagem CR de um simulador de crânio em perfil, feita com grade antidifusora fixa. Sobre toda a imagem aparece um padrão de faixas onduladas e regulares, que não acompanha a anatomia. O granulado é normal, os contornos são nítidos e a identificação está correta.",
+          "prompt": "Qual é a etapa provável dessa falha?",
+          "options": [
+            {
+              "label": "Exibição: a janela de visualização está estreita demais",
+              "correct": false,
+              "feedback": "Janela estreita muda o contraste dos tons, mas não cria um padrão regular sobre a imagem inteira."
+            },
+            {
+              "label": "Identificação: o estudo foi gravado na série errada",
+              "correct": false,
+              "feedback": "O caso informa que a identificação está correta. A pista é visual e está na própria imagem."
+            },
+            {
+              "label": "Movimento: o simulador se deslocou durante a exposição",
+              "correct": false,
+              "feedback": "Movimento borra contornos, e o caso diz que eles estão nítidos. Um padrão regular pede outra explicação."
+            },
+            {
+              "label": "Amostragem: a grade antidifusora interfere com os pixels",
+              "correct": true,
+              "feedback": "Isso. As lâminas regulares de uma grade fixa, amostradas pela grade de pixels, podem gerar um padrão de interferência, o moiré, sobre a imagem."
+            }
+          ],
+          "help": "Um padrão regular sobre a imagem inteira não nasce do objeto. O que mais, nessa aquisição, tem estrutura regular?",
+          "sourceIds": [
+            "upstate-artifacts"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Três imagens seguidas do simulador de abdome ficaram com ótima aparência: lisas, sem granulado. Neste sistema, o índice de exposição sobe com a radiação que chega ao detector. Duda nota que ele está bem acima do alvo definido para esse exame nas três. Um colega diz: 'Se a imagem está linda, a técnica está certa. Segue assim'.",
+          "prompt": "O que Duda faz antes da próxima imagem?",
+          "options": [
+            {
+              "label": "Segue com a mesma técnica, já que a aparência está ótima",
+              "correct": false,
+              "feedback": "Imagem superexposta costuma parecer ótima. Seguir pela aparência é o caminho pelo qual a exposição sobe sem ninguém notar."
+            },
+            {
+              "label": "Reduz a técnica por conta própria até a imagem granular",
+              "correct": false,
+              "feedback": "Ajustar técnica até ver granulado troca um problema por outro, e a decisão não é da estudante sozinha. Leve os valores à supervisão."
+            },
+            {
+              "label": "Registra os valores e leva à supervisão antes de continuar",
+              "correct": true,
+              "feedback": "Certo. O índice acima do alvo é a pista que a aparência não dá. Registrar e chamar a supervisão permite à equipe rever a técnica."
+            },
+            {
+              "label": "Ajusta a janela para a imagem parecer menos exposta",
+              "correct": false,
+              "feedback": "A janela muda só a exibição. A exposição que chegou ao detector continua a mesma, e o índice também."
+            }
+          ],
+          "help": "Qual das duas informações fala da exposição no detector: a beleza da imagem ou o índice?",
+          "sourceIds": [
+            "seibert-morin-2011-exposure-index",
+            "upstate-exposure-issues",
+            "iaea-rpop-digital-radiography"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Imagem de joelho de um simulador com prótese metálica. A aparência é boa, mas o índice de exposição mostrado é muito diferente do das outras imagens feitas com a mesma técnica no mesmo simulador sem prótese.",
+          "prompt": "Qual hipótese é coerente com o que você aprendeu, antes de qualquer conclusão sobre dose?",
+          "options": [
+            {
+              "label": "O sistema delimitou mal a região útil da imagem",
+              "correct": true,
+              "feedback": "Isso. O índice depende da região que o sistema analisa. Uma prótese metálica pode fazer esse reconhecimento falhar, e o ajuste cabe à equipe. Descreva o que viu e leve a ela."
+            },
+            {
+              "label": "A prótese aumentou a dose em todo o simulador",
+              "correct": false,
+              "feedback": "O índice fala do detector, não da dose no objeto. Com a mesma técnica, essa conclusão não se sustenta."
+            },
+            {
+              "label": "O monitor da estação está com brilho desregulado",
+              "correct": false,
+              "feedback": "O índice é calculado a partir do dado adquirido. O monitor não participa desse cálculo."
+            },
+            {
+              "label": "O PACS alterou os valores ao arquivar a imagem",
+              "correct": false,
+              "feedback": "O arquivo guarda o que recebeu. O índice é gerado no sistema de aquisição, antes do envio."
+            }
+          ],
+          "help": "O índice nasce de uma análise automática da imagem. O que há nesta imagem que não havia nas outras?",
+          "sourceIds": [
+            "seibert-morin-2011-exposure-index"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue descrever a pista, apontar a etapa provável (aquisição, leitura, processamento, exibição ou identificação) e evitar o atalho de julgar exposição pelo brilho. Diante de índice fora do alvo ou de dúvida, você registra e chama a equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Imagem bonita não prova técnica certa. Quem responde sobre exposição é o registro, não o brilho."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma imagem digital aparece clara na tela. O que isso permite afirmar sobre a exposição usada?",
+          "options": [
+            {
+              "label": "Que a exposição ficou abaixo do necessário",
+              "correct": false,
+              "feedback": "Essa leitura valia para o filme. No digital, pouca exposição aparece como granulado, não como imagem clara."
+            },
+            {
+              "label": "Nada: o brilho vem do processamento e da janela",
+              "correct": true,
+              "feedback": "Certo. O sistema reescala o sinal e a janela define o brilho. A tela clara não informa a exposição."
+            },
+            {
+              "label": "Que a exposição ficou acima do necessário",
+              "correct": false,
+              "feedback": "Excesso de exposição costuma dar imagem de ótima aparência, sem pista no brilho."
+            },
+            {
+              "label": "Que o índice de exposição ficou no alvo",
+              "correct": false,
+              "feedback": "O índice precisa ser lido no sistema. O brilho da tela não o revela."
+            }
+          ],
+          "sourceIds": [
+            "seibert-morin-2011-exposure-index",
+            "upstate-exposure-issues"
+          ]
+        },
+        {
+          "prompt": "O que o índice de exposição mostrado pelo sistema informa?",
+          "options": [
+            {
+              "label": "A dose efetiva recebida pelo paciente",
+              "correct": false,
+              "feedback": "A dose do paciente depende de técnica, tamanho do corpo e área irradiada. O índice não a calcula."
+            },
+            {
+              "label": "O brilho médio da imagem no monitor",
+              "correct": false,
+              "feedback": "Brilho é exibição. O índice é calculado a partir do dado adquirido."
+            },
+            {
+              "label": "O número de imagens repetidas no estudo",
+              "correct": false,
+              "feedback": "Repetições se verificam nos registros do estudo. O índice trata de cada exposição individual."
+            },
+            {
+              "label": "Uma estimativa da exposição no detector",
+              "correct": true,
+              "feedback": "Isso. O índice estima a radiação que chegou ao detector e serve de retorno sobre a técnica, não de dose do paciente."
+            }
+          ],
+          "sourceIds": [
+            "seibert-morin-2011-exposure-index"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na imagem digital, pouca exposição no detector aparece como …, e não como imagem clara.",
+          "item": {
+            "prompt": "Como a subexposição do detector costuma aparecer numa imagem digital?",
+            "options": [
+              {
+                "label": "Como imagem mais clara, igual ao filme",
+                "correct": false,
+                "feedback": "No digital o sinal é reescalado, e o brilho tende a ficar parecido. A pista é outra."
+              },
+              {
+                "label": "Como aumento do granulado",
+                "correct": true,
+                "feedback": "Certo. Com poucos fótons no detector, o ruído aparece como granulado."
+              },
+              {
+                "label": "Como imagem mais escura, igual ao filme",
+                "correct": false,
+                "feedback": "Escurecimento era a resposta do filme ao excesso de exposição. Aqui a pergunta é sobre falta, no digital."
+              },
+              {
+                "label": "Como linhas retas ao longo da imagem",
+                "correct": false,
+                "feedback": "Linhas retas apontam para leitura ou detector, não para quantidade de sinal."
+              }
+            ],
+            "sourceIds": [
+              "seibert-morin-2011-exposure-index",
+              "upstate-exposure-issues"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma imagem de teste sai com contraste estranho. A equipe reprocessa o mesmo dado com o protocolo anatômico correto e a aparência normaliza, sem nova exposição. Em que etapa estava a falha?",
+            "options": [
+              {
+                "label": "Na aquisição pelo detector",
+                "correct": false,
+                "feedback": "Se o mesmo dado serviu depois de reprocessado, a aquisição estava adequada."
+              },
+              {
+                "label": "Na identificação do paciente",
+                "correct": false,
+                "feedback": "Nada no caso fala de dados trocados. A mudança aconteceu ao trocar o protocolo."
+              },
+              {
+                "label": "No arquivo do PACS",
+                "correct": false,
+                "feedback": "O arquivo guardou o dado corretamente, tanto que ele pôde ser reprocessado."
+              },
+              {
+                "label": "No processamento",
+                "correct": true,
+                "feedback": "Isso. O dado era bom e o protocolo de processamento estava errado. Corrigido o processamento, a aparência normalizou."
+              }
+            ],
+            "sourceIds": [
+              "upstate-image-processing",
+              "dicom-dx-series"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Cadeia de cinco etapas com um cartão de pista encaixável em cada uma (granulado, linha, contraste estranho, tela escura, pasta errada).",
+        "Par autoral: a mesma imagem com índice de exposição no alvo e muito acima do alvo, visualmente quase idênticas, com o indicador ao lado."
+      ]
+    }
+  ]
+}

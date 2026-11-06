@@ -2318,3 +2318,14 @@ atualizado em 2026-10-19 à noite:** as PRs #52 a #62 entraram na `main`, a #61
 
       ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
       **Dono:** o merge da PR;
+
+
+## Substituído em 02/11/2026 — nova autorização de conteúdo
+
+    - **Task17/T15, 01/11/2026:** [inventário T15-v1](superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+      produzido; revisão independente PASS/APPROVED. Caminhos, consumidores e política
+      aprovados pelo dono em **G4, 01/11/2026**, conforme recomendação de `b20943a`
+      e hash da [ADR G4](adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md). T19
+      aguarda contrato G7; validadores/política atuais intactos. Preservar biblioteca,
+      direitos e motores reutilizáveis; separar dados mistos antes da retirada.
+      Sem remoção, migração, alteração do Loop ou avanço T14/T19–T22.

@@ -1,5 +1,8 @@
 # Radiant — estado arquitetural
 
+> No checkout Medalhão, o reinício de conteúdo de 02/11/2026 retira datasets e exemplos, preservando motores e armazenamento. O catálogo explicita `retired`. As seções históricas abaixo descrevem a arquitetura anterior, não provam conteúdo ativo. [Decisão](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
+
+
 ## Produto vigente
 
 Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso e
@@ -42,10 +45,10 @@ Componentes principais:
 
 ## Jornada atual
 
-A Learning Road V2 usa `journey-progress.v2`, preserva progresso separado por
-trilha e migra o store legado quando possível. O catálogo runtime expõe
-Fundamentos, Tórax e Abdome; as 18 atividades existentes continuam sendo o
-baseline compatível durante a evolução.
+O motor da Learning Road preserva `journey-progress.v2` e progresso separado por
+trilha. Em02/11/2026, no checkout Medalhão, o catálogo runtime está vazio e o
+bootstrap `retired` retorna antes de remoto/cache/migração. Os dados de aulas
+antigos não são baseline ativo; motores e histórico do usuário permanecem.
 
 Regra arquitetural: alternar trilhas não apaga progresso, uma falha de sync não
 bloqueia o estudo e estados vazios devem manter continuidade no fluxo principal.
@@ -392,6 +395,38 @@ independente sem ajuda e prática guiada ao consultar resposta; legado permanece
 legado. `itemReviewTiming` fornece sinal temporal operacional, sem promoção a
 `delayed-retention`. A adaptação continua sem ativação nova.
 [Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+
+## Trilha ampla rtg-2026 — medido em 2026-11-06, só na branch
+
+Vale para a branch `claude/conteudo-reinicio-tecnologo` (PR #69 em rascunho). Nada
+disto está na `main` nem na loja.
+
+- **Conteúdo como dado.** Cada unidade é um arquivo
+  `content-manifest/rtg-2026/aulas/<unidade>.json`. `scripts/content/rtg-lesson-lint.mjs`
+  confere a forma e `scripts/content/build-rtg-batches.mjs` gera, de forma
+  determinística, um lote por unidade em
+  `radiant-app/src/features/student-checkpoints/batches/`, mais `index.ts` e
+  `entries.ts`. `production-batches.ts` lê o índice. O modo `--check` reprova lote
+  defasado e roda no CI. Arquivo gerado não se edita à mão.
+- **Contrato.** `EditorialBatchContract` aceita a extensão `wide`
+  (`EditorialWideContract.ts`): de 3 a 8 interações por atividade, famílias
+  `multiple-choice`, `case-decision`, `ordering` e `matching`, e fonte
+  `factual-reference`. Sem `wide`, o v1 e a extensão `pilot` não mudam.
+- **Trilha.** Uma trilha por unidade, na ordem M01 a M14. Por aula: um nó de aula e
+  um nó de conferência com dois itens; um nó de recompensa por unidade. São 14
+  unidades e 84 aulas.
+- **Aula.** `LessonFlowScreen` mostra a cena (`DialogueScene`, `CastAvatar`), os
+  pontos-chave, a pista (`LessonHelpButton`), o retorno (`AnswerFeedbackCard`) e o
+  selo de combo (`lessonCombo`, `ComboBadge`). Som e vibração passam por
+  `lessonFeedback`, com nove sons em `assets/sounds/`.
+- **Metas.** `levelFromXp`, `StreakFreezeService`, `DailyMissionsService` e
+  `UnitCompleteCelebration`. Chaves novas no inventário: `@radiant:streak_freeze_v1`,
+  `@radiant:daily_missions_v1` e `@radiant:unit_celebrations_v1`, com `schemaVersion`.
+- **Recuperação.** Conferência reprovada semeia os dois itens de recuperação da aula
+  na fila de revisão por item (`AssessmentAttemptRepository`, `ItemReviewService`).
+- **Evidências:** [motor](evidence/2026-11-06-trilha-ampla-motor.md),
+  [experiência](evidence/2026-11-06-trilha-ampla-experiencia.md) e
+  [metas](evidence/2026-11-06-trilha-ampla-metas.md).
 
 ## Fontes de verdade
 

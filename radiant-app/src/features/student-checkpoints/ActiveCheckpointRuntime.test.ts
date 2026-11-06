@@ -70,6 +70,18 @@ function measuredRuntime() {
 }
 
 describe('ActiveCheckpointRuntime', () => {
+    it.each([true, false])('keeps a retired checkpoint intact with node=%s', async withNode => {
+        const subject = runtime();
+        await subject.store.saveCheckpoint(checkpoint({ phase: 'in_progress',
+            flowId: 'lesson:retired-activity', contentVersion: 'old-version',
+            journeyNodeId: withNode ? 'retired-node' : undefined }));
+        const before = await subject.store.getCheckpointById('checkpoint-1');
+        await expect(subject.runtime.inspectLaunch({ contentVersion: 'content-v1',
+            firstRunAvailable: false, isContentAvailable: () => false,
+        })).resolves.toEqual({ kind: 'content-updated', checkpointId: 'checkpoint-1' });
+        expect(await subject.store.getCheckpointById('checkpoint-1')).toEqual(before);
+        expect(subject.commit).not.toHaveBeenCalled();
+    });
     it('offers a lesson resume target without navigating automatically', async () => {
         const subject = runtime();
         await subject.store.saveCheckpoint(checkpoint({

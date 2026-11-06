@@ -1,5 +1,4 @@
-import { L2_SLICING_SPACE } from './l2SlicingSpaceContent';
-import type { L2Challenge, L2EvidenceKind, L2Misconception } from './l2SlicingSpace.types';
+import type { L2SlicingSpaceLesson, L2Challenge, L2EvidenceKind, L2Misconception } from './l2SlicingSpace.types';
 
 type L2EvidenceRecord = Readonly<{
   challengeId: string;
@@ -28,17 +27,17 @@ export type SlicingSpaceLessonSession = Readonly<{
   snapshot: () => Readonly<{ evidence: readonly L2EvidenceRecord[] }>;
 }>;
 
-const challengeById = (challengeId: string): L2Challenge => {
-  const challenge = L2_SLICING_SPACE.challenges.find(({ id }) => id === challengeId);
+const challengeById = (lesson: L2SlicingSpaceLesson, challengeId: string): L2Challenge => {
+  const challenge = lesson.challenges.find(({ id }) => id === challengeId);
   if (!challenge) throw new Error(`Unknown L2 challenge: ${challengeId}`);
   return challenge;
 };
 
-export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => {
+export const createSlicingSpaceLessonSession = (lesson: L2SlicingSpaceLesson): SlicingSpaceLessonSession => {
   const evidence: L2EvidenceRecord[] = [];
 
   const answer = (challengeId: string, answerId: string): SlicingSpaceAnswerResult => {
-    const challenge = challengeById(challengeId);
+    const challenge = challengeById(lesson, challengeId);
     const correct = challenge.correctAnswerId === answerId;
     const attemptedThisRecovery = challenge.evidenceKind === 'later_independent_retrieval'
       && evidence.some((entry) => entry.challengeId === challengeId);
@@ -100,7 +99,7 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
     // `nextChallengeId` do apoio — ele aponta justamente para a recuperação
     // que acabou de ser errada. O percurso segue de onde o objetivo seguia:
     // o destino declarado pelo item inicial daquele objetivo.
-    const onwardAfterBlockedRecovery = L2_SLICING_SPACE.challenges.find((entry) =>
+    const onwardAfterBlockedRecovery = lesson.challenges.find((entry) =>
       entry.objectiveId === challenge.objectiveId && entry.evidenceKind === 'initial_independent')?.nextChallengeId;
     const nextChallengeId = !correct
       ? challenge.remediationChallengeId

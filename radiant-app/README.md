@@ -94,7 +94,7 @@ Estado atual:
 - primitives novas em `src/components/ui/*` com `AppButton`, `SurfaceCard`, `ProgressRing`, `SpeechBubble` e `StatItem`;
 - hero compartilhado do mascote em `src/components/ui/PixelHeroSplit.tsx`;
 - mascote oficial `Pixel` encapsulado em `src/ui/characters/PixelIllustration.tsx`;
-- resolução de assets do mascote centralizada em `src/ui/characters/pixelAssets.ts`;
+- corpo do mascote desenhado em vetor por `src/ui/characters/PixelBody.tsx`, com as poses em `src/ui/characters/pixelPoses.ts`;
 - domínio `journey` implementado em `src/types/journey.ts` e `src/features/journey/services/*`;
 - persistência local versionada para progresso da jornada (`journey-progress.v2`);
 - progresso separado por trilha, preservado ao alternar entre `Fundamentos`, `Tórax` e `Abdome`;
@@ -230,15 +230,18 @@ Esses componentes são a base obrigatória para telas novas do rollout V2. `Prim
 
 O mascote oficial do app é `Pixel`, com contrato técnico em:
 
-- `src/ui/characters/PixelIllustration.tsx`
-- `src/ui/characters/pixelAssets.ts`
-- `src/ui/characters/assets/pixel/*`
+- `src/ui/characters/PixelIllustration.tsx` — o frame: tamanho, rótulo de acessibilidade e flutuação;
+- `src/ui/characters/PixelBody.tsx` — o corpo em vetor, em três tons por material, sem rosto;
+- `src/ui/characters/pixelPoses.ts` — as poses dos braços e a tabela `poseForState`;
+- `src/ui/characters/PixelFace.tsx` — o rosto ciano, desenhado por cima da tela do corpo.
 
-Estratégia atual:
+Estratégia atual (prancheta aprovada em 2026-10-21, [`docs/design/2026-10-21-pixel-medalhao.html`](../docs/design/2026-10-21-pixel-medalhao.html)):
 
-- exports base por tamanho (`sm`, `md`, `lg`);
-- variações visuais compostas em UI para `idle`, `thinking`, `guide`, `happy`, `celebrate` e `oops`;
-- suporte já preparado para assets dedicados por `state + tier + size`, com fallback seguro para os exports base.
+- tamanhos `sm`, `md` e `lg`, com o desenho na mesma caixa de 576 × 864 do PNG antigo;
+- cada estado vira uma pose dos braços: `idle` e `oops` em `repouso`, `guide` em `aponta`, `thinking` em `pensa`, `happy` em `acena` e `celebrate` em `comemora`;
+- `happy` acena com o braço direito; o Pixel inteiro flutua devagar em todos os estados, e com "reduzir movimento" nada se move;
+- `variant="head"` recorta só a cabeça da mesma caixa, sempre em `repouso` e sem aceno, para ficar ao lado de uma medalha;
+- o `tier` segue na API, mas não muda mais o desenho; não há halo, grade, painel nem partícula.
 
 Superfícies principais já padronizadas com hero compartilhado do mascote:
 

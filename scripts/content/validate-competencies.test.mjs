@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
+import { validateRetiredContent } from './curriculum-state.mjs';
 import {
   loadCompetencyGraph,
   validateCompetencyGraph,
@@ -188,25 +190,23 @@ test('rejeita método de evidência fora do contrato', () => {
   assert.ok(rulesFor(result, units[2].competencies[1].id).includes('invalid-evidence-method'));
 });
 
-test('o grafo versionado do repositório é válido e tem 30 competências sem ciclos', () => {
-  const result = validateCompetencyGraph(loadCompetencyGraph());
-
-  assert.equal(result.ok, true, JSON.stringify(result.errors, null, 2));
-  assert.equal(result.summary.unitCount, 6);
-  assert.equal(result.summary.competencyCount, 30);
-  assert.equal(result.summary.cycleCount, 0);
+test('the former competency payload is absent under explicit retirement', () => {
+  const retirement = validateRetiredContent(fileURLToPath(new URL('../..', import.meta.url)));
+  assert.equal(retirement.state, 'retired');
+  assert.equal(retirement.publicationReady, false);
+  assert.throws(() => loadCompetencyGraph(), /ENOENT/);
 });
 
-test('o grafo versionado marca competências críticas de segurança na unidade de proteção', () => {
-  const graphFromRepo = loadCompetencyGraph();
-  const protectionUnit = graphFromRepo.units.at(-1);
-
-  assert.equal(protectionUnit.slug, 'protecao-radiologica');
-  assert.ok(protectionUnit.competencies.every((item) => item.criticalSafety === true));
+test('synthetic critical competencies remain supported by the generic validator', () => {
+  const fixture = graph();
+  fixture.units.at(-1).competencies.forEach(item => { item.criticalSafety = true; });
+  const result = validateCompetencyGraph(fixture);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.summary.criticalSafetyCount, 5);
 });
 
-test('toda competência do grafo versionado é alcançável a partir de uma raiz', () => {
-  const result = validateCompetencyGraph(loadCompetencyGraph());
+test('every synthetic competency is reachable from a root', () => {
+  const result = validateCompetencyGraph(graph());
 
   assert.equal(result.summary.orphanCount, 0, JSON.stringify(result.errors));
   assert.ok(result.summary.rootCount >= 1);

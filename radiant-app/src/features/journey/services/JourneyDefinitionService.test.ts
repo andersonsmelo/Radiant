@@ -3,6 +3,8 @@ import { LessonCatalogService } from '../../content/services/LessonCatalogServic
 import type { ContentLesson, LearningTrack, LessonCatalogSummary } from '../../content/content.types';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
+
 jest.mock('../../content/services/LessonCatalogService', () => ({
     LessonCatalogService: {
         listTracks: jest.fn(),

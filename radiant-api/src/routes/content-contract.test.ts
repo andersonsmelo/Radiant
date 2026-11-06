@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import Fastify from 'fastify';
-import { readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import type { ApiCatalogLessonSummary } from '../types.js';
 import { registerContentRoutes } from './content.js';
@@ -43,14 +43,9 @@ const stageWithReinforce: JourneyStage = { reinforceBody: 'Reforço' };
 void stageWithIndex;
 void stageWithReinforce;
 
-test('the content seed serves journey stages with only the fields the app reads', () => {
-    const seed = readFileSync(fileURLToPath(new URL('../../sql/002_seed_content.sql', import.meta.url)), 'utf8');
-    const payloads = [...seed.matchAll(/\$\$([\s\S]*?)\$\$/g)].map(([, json]) => JSON.parse(json) as {
-        id: string; journey?: Record<string, Record<string, unknown>>;
-    });
-    assert.ok(payloads.length >= 2, `the seed parse found only ${payloads.length} payloads`);
-
-    const stray = payloads.flatMap((payload) => Object.entries(payload.journey ?? {}).flatMap(([stage, copy]) =>
-        Object.keys(copy).filter((key) => !['contextBody', 'teachBody'].includes(key)).map((key) => `${payload.id}.${stage}.${key}`)));
-    assert.deepEqual(stray, []);
+test('retirement removes lesson seeds while preserving the database schema', () => {
+    for (const seed of ['002_seed_content.sql', '003_seed_editorial_catalog.sql']) {
+        assert.equal(existsSync(fileURLToPath(new URL(`../../sql/${seed}`, import.meta.url))), false, seed);
+    }
+    assert.equal(existsSync(fileURLToPath(new URL('../../sql/001_initial_schema.sql', import.meta.url))), true);
 });

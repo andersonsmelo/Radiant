@@ -35,6 +35,9 @@ export const STORAGE_KEYS = {
     V14_MIGRATION_STATE: '@radiant:migration_v14_state',
     FEEDBACK_PREFERENCES: '@radiant:feedback_preferences_v1',
     HYBRID_LESSON_METRICS: '@radiant:v3:hybrid_lesson_metrics_v1',
+    STREAK_FREEZE: '@radiant:streak_freeze_v1',
+    DAILY_MISSIONS: '@radiant:daily_missions_v1',
+    UNIT_CELEBRATIONS: '@radiant:unit_celebrations_v1',
 } as const;
 
 export const STUDENT_CHECKPOINT_STORAGE_KEYS = {

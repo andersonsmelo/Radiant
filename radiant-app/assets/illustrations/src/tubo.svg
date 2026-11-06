@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Tubo de raios X: IL.tube da prancheta docs/design/2026-10-21-trilha-medalhao.html.
+     Arte em 80x80 centrada em 0,0, posta no quadro de 120 com escala 1,4.
+     Pose principal (quadro 60 do Lottie). Classe no-sil: luz, some na silhueta. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g transform="translate(60 60) scale(1.4)">
+    <path class="no-sil" d="M-8,9 L8,9 L24,40 L-24,40 Z" fill="#9BEBFF" opacity=".85"/>
+    <circle class="no-sil" cx="-6" cy="16" r="2.2" fill="#E6FBFF"/>
+    <circle class="no-sil" cx="7" cy="18" r="2.2" fill="#E6FBFF"/>
+    <circle class="no-sil" cx="0" cy="14" r="2.2" fill="#E6FBFF"/>
+    <rect x="-10" y="1" width="20" height="11" rx="2.5" fill="#3C4458"/>
+    <rect x="-10" y="1" width="20" height="4" rx="2" fill="#566079"/>
+    <rect x="-35" y="-26" width="70" height="28" rx="14" fill="#F3F5FA"/>
+    <path d="M-35,-12 H35 A14,14 0 0,1 21,2 H-21 A14,14 0 0,1 -35,-12 Z" fill="#C4CBDA"/>
+    <rect x="-27" y="-21" width="38" height="4.5" rx="2.25" fill="#FFFFFF"/>
+    <rect x="-42" y="-24" width="11" height="24" rx="4" fill="#5A6378"/>
+    <rect x="-42" y="-24" width="11" height="6" rx="3" fill="#768099"/>
+    <circle class="no-sil" cx="14" cy="-12" r="4.5" fill="#FFB020"/>
+  </g>
+</svg>

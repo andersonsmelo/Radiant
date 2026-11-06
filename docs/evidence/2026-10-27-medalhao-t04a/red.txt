@@ -1,0 +1,524 @@
+T04a real red evidence — 2026-10-27
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+PATH prefix: /Users/anderson/.nvm/versions/node/v20.20.2/bin
+NODE measured: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx src/test/mocks/reactNativeSkia.test.tsx -t 'importa a bancada estaticamente|resolve o pacote'
+EXIT: 1
+PHASE: Before static import and before global mapper. Real assertion failures, not loader errors.
+
+FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  ● ActivityRendererRegistry › importa a bancada estaticamente e usa o binding no JSX, sem require preguiçoso
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      68 |             node.moduleSpecifier.text === './BenchStepRenderer',
+      69 |         );
+    > 70 |         expect(benchImport).toBeDefined();
+         |                             ^
+      71 |         const bindings = benchImport?.importClause?.namedBindings;
+      72 |         expect(bindings && ts.isNamedImports(bindings)).toBe(true);
+      73 |         if (!bindings || !ts.isNamedImports(bindings)) return;
+
+      at Object.toBeDefined (src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx:70:29)
+
+FAIL src/test/mocks/reactNativeSkia.test.tsx
+  ● o dublê global do Skia › resolve o pacote pelo mapper compartilhado sem carregar o módulo nativo
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/test/mocks/reactNativeSkia.tsx"
+    Received: "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@shopify/react-native-skia/lib/module/index.js"
+
+      1 | describe('o dublê global do Skia', () => {
+      2 |   it('resolve o pacote pelo mapper compartilhado sem carregar o módulo nativo', () => {
+    > 3 |     expect(require.resolve('@shopify/react-native-skia')).toBe(
+        |                                                           ^
+      4 |       require('node:path').join(__dirname, 'reactNativeSkia.tsx'),
+      5 |     );
+      6 |   });
+
+      at Object.toBe (src/test/mocks/reactNativeSkia.test.tsx:3:59)
+
+Test Suites: 2 failed, 2 total
+Tests:       2 failed, 11 skipped, 13 total
+Snapshots:   0 total
+Time:        1.693 s
+Ran all test suites matching /src\/features\/lesson-flow\/renderers\/ActivityRendererRegistry.test.tsx|src\/test\/mocks\/reactNativeSkia.test.tsx/i with tests matching "importa a bancada estaticamente|resolve o pacote".
+
+
+ID: missing-uniform-seed
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/bench/ExposureImage.test.tsx -t passa exatamente os uniformes
+EXIT: 1
+
+FAIL src/features/bench/ExposureImage.test.tsx
+  ExposureImage
+    com o shader compilado
+      ✕ passa exatamente os uniformes que o SkSL declara, nem um a mais nem um a menos (57 ms)
+      ○ skipped compila o SkSL da bancada e o aplica no Canvas, sem fallback
+      ○ skipped entrega ao shader os números do modelo, e só eles
+      ○ skipped muda o uniforme com a exposição: mais kV, menos contraste; mais mAs, menos ruído
+      ○ skipped sem campo, a máscara cobre a imagem toda: field é [1, 1]
+      ○ skipped com campo, passa ao shader a fração da imagem que o feixe cobre
+      ○ skipped passa o tamanho do fantoma, na proporção da prancheta (270 por 330)
+      ○ skipped é uma imagem para o leitor de tela, com o rótulo recebido
+    SkSL
+      ○ skipped declara os sete uniformes que a imagem alimenta
+      ○ skipped fora do campo pinta o tom sem feixe do modelo de colimação, como float
+      ○ skipped não usa pow(): com base negativa ele é indefinido e pode dar NaN na GPU
+    sem o shader (fallback de Views)
+      ○ skipped com Make devolvendo null, desenha o fantoma de Views e avisa uma vez só
+      ○ skipped com Make lançando, desenha o fantoma de Views e avisa uma vez só, sem derrubar a tela
+      ○ skipped pinta o fundo, as partes moles e o osso com os três tons do modelo
+      ○ skipped sem campo, não desenha faixa colimada
+      ○ skipped com campo, cobre fora dele com o tom sem feixe, em quatro faixas centradas
+      ○ skipped segue sendo uma imagem para o leitor de tela, com o rótulo recebido
+  grayTone
+    ○ skipped converte a luminância de 0 a 1 em cinza e limita fora da faixa
+
+  ● ExposureImage › com o shader compilado › passa exatamente os uniformes que o SkSL declara, nem um a mais nem um a menos
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 0
+
+      Array [
+        "background",
+        "bone",
+        "field",
+        "noise",
+    -   "seed",
+        "size",
+        "soft",
+      ]
+
+       97 |             const declared = declaredUniforms(EXPOSURE_SKSL);
+       98 |             const plain = render(<ExposureImage input={INPUT} size={200} label="x" />);
+    >  99 |             expect(Object.keys(plain.getByTestId('skia-Shader').props.uniforms).sort()).toEqual(declared);
+          |                                                                                         ^
+      100 |             plain.unmount();
+      101 |
+      102 |             const masked = render(<ExposureImage input={INPUT} size={200} label="x" field={{ width: 0.5, height: 0.4 }} />);
+
+      at Object.toEqual (src/features/bench/ExposureImage.test.tsx:99:89)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 17 skipped, 18 total
+Snapshots:   0 total
+Time:        1.229 s
+Ran all test suites matching /src\/features\/bench\/ExposureImage.test.tsx/i with tests matching "passa exatamente os uniformes".
+
+
+ID: removed-shader-fallback
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/bench/ExposureImage.test.tsx -t com Make devolvendo null|com Make lançando
+EXIT: 1
+
+FAIL src/features/bench/ExposureImage.test.tsx
+  ExposureImage
+    com o shader compilado
+      ○ skipped compila o SkSL da bancada e o aplica no Canvas, sem fallback
+      ○ skipped entrega ao shader os números do modelo, e só eles
+      ○ skipped muda o uniforme com a exposição: mais kV, menos contraste; mais mAs, menos ruído
+      ○ skipped passa exatamente os uniformes que o SkSL declara, nem um a mais nem um a menos
+      ○ skipped sem campo, a máscara cobre a imagem toda: field é [1, 1]
+      ○ skipped com campo, passa ao shader a fração da imagem que o feixe cobre
+      ○ skipped passa o tamanho do fantoma, na proporção da prancheta (270 por 330)
+      ○ skipped é uma imagem para o leitor de tela, com o rótulo recebido
+    SkSL
+      ○ skipped declara os sete uniformes que a imagem alimenta
+      ○ skipped fora do campo pinta o tom sem feixe do modelo de colimação, como float
+      ○ skipped não usa pow(): com base negativa ele é indefinido e pode dar NaN na GPU
+    sem o shader (fallback de Views)
+      ✕ com Make devolvendo null, desenha o fantoma de Views e avisa uma vez só (46 ms)
+      ✕ com Make lançando, desenha o fantoma de Views e avisa uma vez só, sem derrubar a tela (2 ms)
+      ○ skipped pinta o fundo, as partes moles e o osso com os três tons do modelo
+      ○ skipped sem campo, não desenha faixa colimada
+      ○ skipped com campo, cobre fora dele com o tom sem feixe, em quatro faixas centradas
+      ○ skipped segue sendo uma imagem para o leitor de tela, com o rótulo recebido
+  grayTone
+    ○ skipped converte a luminância de 0 a 1 em cinza e limita fora da faixa
+
+  ● ExposureImage › sem o shader (fallback de Views) › com Make devolvendo null, desenha o fantoma de Views e avisa uma vez só
+
+    Unable to find an element with testID: exposure-image-fallback
+
+    [36m<View[39m
+      [33maccessibilityLabel[39m=[32m"Fantoma simulado"[39m
+      [33maccessibilityRole[39m=[32m"image"[39m
+      [33maccessible[39m=[32m{true}[39m
+    [36m/>[39m
+
+      169 |
+      170 |             const first = render(<ExposureImage input={INPUT} size={200} label="Fantoma simulado" />);
+    > 171 |             expect(first.getByTestId('exposure-image-fallback')).toBeTruthy();
+          |                          ^
+      172 |             expect(first.queryByTestId('skia-Canvas')).toBeNull();
+      173 |             first.unmount();
+      174 |
+
+      at Object.getByTestId (src/features/bench/ExposureImage.test.tsx:171:26)
+
+  ● ExposureImage › sem o shader (fallback de Views) › com Make lançando, desenha o fantoma de Views e avisa uma vez só, sem derrubar a tela
+
+    Unable to find an element with testID: exposure-image-fallback
+
+    [36m<View[39m
+      [33maccessibilityLabel[39m=[32m"x"[39m
+      [33maccessibilityRole[39m=[32m"image"[39m
+      [33maccessible[39m=[32m{true}[39m
+    [36m/>[39m
+
+      188 |             const second = render(<ExposureImage input={INPUT} size={200} label="x" />);
+      189 |
+    > 190 |             expect(second.getByTestId('exposure-image-fallback')).toBeTruthy();
+          |                           ^
+      191 |             expect(warn).toHaveBeenCalledTimes(1);
+      192 |             expect(String(warn.mock.calls[0][0])).toContain('shader quebrado');
+      193 |         });
+
+      at Object.getByTestId (src/features/bench/ExposureImage.test.tsx:190:27)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 16 skipped, 18 total
+Snapshots:   0 total
+Time:        1.008 s
+Ran all test suites matching /src\/features\/bench\/ExposureImage.test.tsx/i with tests matching "com Make devolvendo null|com Make lançando".
+
+
+ID: wrong-fallback-tone
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/bench/ExposureImage.test.tsx -t pinta o fundo, as partes moles
+EXIT: 1
+
+FAIL src/features/bench/ExposureImage.test.tsx
+  ExposureImage
+    com o shader compilado
+      ○ skipped compila o SkSL da bancada e o aplica no Canvas, sem fallback
+      ○ skipped entrega ao shader os números do modelo, e só eles
+      ○ skipped muda o uniforme com a exposição: mais kV, menos contraste; mais mAs, menos ruído
+      ○ skipped passa exatamente os uniformes que o SkSL declara, nem um a mais nem um a menos
+      ○ skipped sem campo, a máscara cobre a imagem toda: field é [1, 1]
+      ○ skipped com campo, passa ao shader a fração da imagem que o feixe cobre
+      ○ skipped passa o tamanho do fantoma, na proporção da prancheta (270 por 330)
+      ○ skipped é uma imagem para o leitor de tela, com o rótulo recebido
+    SkSL
+      ○ skipped declara os sete uniformes que a imagem alimenta
+      ○ skipped fora do campo pinta o tom sem feixe do modelo de colimação, como float
+      ○ skipped não usa pow(): com base negativa ele é indefinido e pode dar NaN na GPU
+    sem o shader (fallback de Views)
+      ✕ pinta o fundo, as partes moles e o osso com os três tons do modelo (47 ms)
+      ○ skipped com Make devolvendo null, desenha o fantoma de Views e avisa uma vez só
+      ○ skipped com Make lançando, desenha o fantoma de Views e avisa uma vez só, sem derrubar a tela
+      ○ skipped sem campo, não desenha faixa colimada
+      ○ skipped com campo, cobre fora dele com o tom sem feixe, em quatro faixas centradas
+      ○ skipped segue sendo uma imagem para o leitor de tela, com o rótulo recebido
+  grayTone
+    ○ skipped converte a luminância de 0 a 1 em cinza e limita fora da faixa
+
+  ● ExposureImage › sem o shader (fallback de Views) › pinta o fundo, as partes moles e o osso com os três tons do modelo
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "rgb(206, 206, 206)"
+    Received: "rgb(238, 238, 238)"
+
+      202 |
+      203 |             expect(color('exposure-fallback-background')).toBe(grayTone(out.background));
+    > 204 |             expect(color('exposure-fallback-soft')).toBe(grayTone(out.soft));
+          |                                                     ^
+      205 |             expect(color('exposure-fallback-bone')).toBe(grayTone(out.bone));
+      206 |             // Os três tons são distintos, na ordem da radiografia: osso > partes moles > fundo.
+      207 |             expect(new Set([
+
+      at Object.toBe (src/features/bench/ExposureImage.test.tsx:204:53)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 17 skipped, 18 total
+Snapshots:   0 total
+Time:        0.955 s
+Ran all test suites matching /src\/features\/bench\/ExposureImage.test.tsx/i with tests matching "pinta o fundo, as partes moles".
+
+
+ID: collimation-field-lost
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/bench/CollimationImage.test.tsx -t entrega ao shader a fração
+EXIT: 1
+
+FAIL src/features/bench/CollimationImage.test.tsx
+  CollimationImage
+    ✕ entrega ao shader a fração do campo que o modelo calcula (60 ms)
+    ○ skipped pinta o fantoma com a exposição de referência: colimar não muda kV nem mAs
+    ○ skipped fechar o campo encolhe a máscara, e ela continua dentro da imagem
+    ○ skipped é uma imagem para o leitor de tela, com o rótulo recebido
+  CollimationReadout
+    ○ skipped estica o readout e as linhas à largura disponível mesmo num pai centralizado
+    ○ skipped centraliza Campo de 27 × 33 cm, 891 cm² dentro da linha sem limitar seu refluxo ou tamanho de fonte
+    ○ skipped centraliza Produto dose-área: 100% do campo todo dentro da linha sem limitar seu refluxo ou tamanho de fonte
+    ○ skipped diz em texto o campo, a área e o produto dose-área
+    ○ skipped não chama de dose o que é produto dose-área: a dose do feixe direto num ponto não cai ao colimar
+    ○ skipped o campo todo é 100%
+    ○ skipped mostra o meio centímetro com vírgula, e não arredonda a medida
+    ○ skipped o produto dose-área fala sozinho ao mudar, para quem não vê a imagem
+
+  ● CollimationImage › entrega ao shader a fração do campo que o modelo calcula
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+    -   0.6666666666666666,
+    -   0.7272727272727273,
+    +   1,
+    +   1,
+      ]
+
+      31 |         const { fieldFraction } = collimationModel({ fieldWidth: 18, fieldHeight: 24 });
+      32 |
+    > 33 |         expect(getByTestId('skia-Shader').props.uniforms.field).toEqual([fieldFraction.width, fieldFraction.height]);
+         |                                                                 ^
+      34 |     });
+      35 |
+      36 |     it('fechar o campo encolhe a máscara, e ela continua dentro da imagem', () => {
+
+      at Object.toEqual (src/features/bench/CollimationImage.test.tsx:33:65)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 11 skipped, 12 total
+Snapshots:   0 total
+Time:        1.587 s
+Ran all test suites matching /src\/features\/bench\/CollimationImage.test.tsx/i with tests matching "entrega ao shader a fração".
+
+
+ID: silhouette-light-on
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/ui/illustrations/ThemeIllustration.test.tsx -t bloqueada pinta a silhueta
+EXIT: 1
+
+FAIL src/ui/illustrations/ThemeIllustration.test.tsx (6.285 s)
+  os Lottie das ilustrações
+    ○ skipped todo tema tem asset
+    radiacao
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    tubo
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    tomografia
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    protecao
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    ressonancia
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+  ThemeIllustration
+    ✕ bloqueada pinta a silhueta no posterFrame e apaga as luzes (9 ms)
+    ○ skipped o tubo vem do JSON versionado, com o quadro de pose e o slot de luz
+    ○ skipped asset ausente mostra só a medalha e avisa uma vez
+    ○ skipped JSON inválido mostra só a medalha e avisa uma vez (Make lança)
+    ○ skipped JSON inválido mostra só a medalha e avisa uma vez (Make devolve null)
+    ○ skipped é decorativa para o leitor de tela
+    ○ skipped desbloqueada e sem redução de movimento toca o Skottie em laço
+    ○ skipped reduzir movimento para no posterFrame do JSON, sem Skottie em laço
+    ○ skipped fora do viewport mantém a pose, desmonta o Skottie e só volta ao laço ao ficar visível
+    ○ skipped antes de saber a preferência de movimento, não começa a animar
+    ○ skipped posterFrame fora do laço no JSON: para no quadro padrão e avisa uma vez
+    ○ skipped escala o quadro do Lottie para o tamanho pedido
+
+  ● ThemeIllustration › bloqueada pinta a silhueta no posterFrame e apaga as luzes
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "seek:37",
+    -   "render:luz=0",
+    +   "render:luz=100",
+      ]
+
+      265 |     // Quadro de pose, com a luz (o slot `luz`) apagada no desenho.
+      266 |     expect(LIGHT_SLOT).toBe('luz');
+    > 267 |     expect(animation.calls).toEqual(['seek:37', 'render:luz=0']);
+          |                             ^
+      268 |     // E devolvida depois, para a mesma animação poder voltar a tocar.
+      269 |     expect(animation.slots.luz).toBe(100);
+      270 |   });
+
+      at Object.toEqual (src/ui/illustrations/ThemeIllustration.test.tsx:267:29)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 27 skipped, 28 total
+Snapshots:   0 total
+Time:        6.425 s
+Ran all test suites matching /src\/ui\/illustrations\/ThemeIllustration.test.tsx/i with tests matching "bloqueada pinta a silhueta".
+
+
+ID: broken-skottie-fallback
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/ui/illustrations/ThemeIllustration.test.tsx -t JSON inválido mostra
+EXIT: 1
+
+FAIL src/ui/illustrations/ThemeIllustration.test.tsx (5.899 s)
+  os Lottie das ilustrações
+    ○ skipped todo tema tem asset
+    radiacao
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    tubo
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    tomografia
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    protecao
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+    ressonancia
+      ○ skipped declara meta.posterFrame inteiro em [1, op − 1]
+      ○ skipped declara o slot escalar de luz, aceso, e apaga a luz por ele
+      ○ skipped cumpre o formato: 120 × 120, 60 fps, laço de 144 quadros, até 12 camadas e 30 KB
+  ThemeIllustration
+    ✕ JSON inválido mostra só a medalha e avisa uma vez (Make lança) (8 ms)
+    ✕ JSON inválido mostra só a medalha e avisa uma vez (Make devolve null) (3 ms)
+    ○ skipped o tubo vem do JSON versionado, com o quadro de pose e o slot de luz
+    ○ skipped asset ausente mostra só a medalha e avisa uma vez
+    ○ skipped é decorativa para o leitor de tela
+    ○ skipped desbloqueada e sem redução de movimento toca o Skottie em laço
+    ○ skipped reduzir movimento para no posterFrame do JSON, sem Skottie em laço
+    ○ skipped fora do viewport mantém a pose, desmonta o Skottie e só volta ao laço ao ficar visível
+    ○ skipped antes de saber a preferência de movimento, não começa a animar
+    ○ skipped bloqueada pinta a silhueta no posterFrame e apaga as luzes
+    ○ skipped posterFrame fora do laço no JSON: para no quadro padrão e avisa uma vez
+    ○ skipped escala o quadro do Lottie para o tamanho pedido
+
+  ● ThemeIllustration › JSON inválido mostra só a medalha e avisa uma vez (Make lança)
+
+    missing Skottie fallback
+
+      145 |   );
+      146 |
+    > 147 |   if (!animation) throw new Error('missing Skottie fallback');
+          |                         ^
+      148 |
+      149 |   const scale = size / animation.size().width;
+      150 |
+
+      at ThemeIllustration (src/ui/illustrations/ThemeIllustration.tsx:147:25)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13976:20)
+      at renderWithHooks (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2866:22)
+      at updateFunctionComponent (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:6006:19)
+      at beginWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7474:18)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at performUnitOfWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10972:22)
+      at workLoopSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10816:41)
+      at renderRootSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10797:11)
+      at performWorkOnRoot (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10384:39)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2094:7)
+      at flushActQueue (node_modules/react/cjs/react.development.js:566:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:859:10)
+      at actImplementation (node_modules/@testing-library/react-native/src/act.ts:30:25)
+      at renderWithAct (node_modules/@testing-library/react-native/src/render-act.ts:13:11)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:69:33)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:44:10)
+      at src/ui/illustrations/ThemeIllustration.test.tsx:171:25
+
+  ● ThemeIllustration › JSON inválido mostra só a medalha e avisa uma vez (Make devolve null)
+
+    missing Skottie fallback
+
+      145 |   );
+      146 |
+    > 147 |   if (!animation) throw new Error('missing Skottie fallback');
+          |                         ^
+      148 |
+      149 |   const scale = size / animation.size().width;
+      150 |
+
+      at ThemeIllustration (src/ui/illustrations/ThemeIllustration.tsx:147:25)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13976:20)
+      at renderWithHooks (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2866:22)
+      at updateFunctionComponent (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:6006:19)
+      at beginWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7474:18)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at performUnitOfWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10972:22)
+      at workLoopSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10816:41)
+      at renderRootSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10797:11)
+      at performWorkOnRoot (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10384:39)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2094:7)
+      at flushActQueue (node_modules/react/cjs/react.development.js:566:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:859:10)
+      at actImplementation (node_modules/@testing-library/react-native/src/act.ts:30:25)
+      at renderWithAct (node_modules/@testing-library/react-native/src/render-act.ts:13:11)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:69:33)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:44:10)
+      at src/ui/illustrations/ThemeIllustration.test.tsx:171:25
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 26 skipped, 28 total
+Snapshots:   0 total
+Time:        6.047 s
+Ran all test suites matching /src\/ui\/illustrations\/ThemeIllustration.test.tsx/i with tests matching "JSON inválido mostra".
+
+
+ID: mock-drops-uniforms
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/test/mocks/reactNativeSkia.test.tsx -t preserva children
+EXIT: 1
+
+FAIL src/test/mocks/reactNativeSkia.test.tsx
+  o dublê global do Skia
+    ✕ preserva children, tamanho, fonte e uniformes em vez de esconder a árvore (302 ms)
+    ○ skipped resolve o pacote pelo mapper compartilhado sem carregar o módulo nativo
+    ○ skipped preserva animação, quadro, camada, cor, matriz e picture
+    ○ skipped aceita testID do consumidor e mantém os demais props
+    ○ skipped RuntimeEffect.Make permite sucesso, null e exceção sem contaminar a chamada seguinte
+    ○ skipped Skottie.Make permite sucesso, null e exceção sem contaminar a chamada seguinte
+    ○ skipped expõe bounds, canvas e picture para observar a gravação de quadro parado
+
+  ● o dublê global do Skia › preserva children, tamanho, fonte e uniformes em vez de esconder a árvore
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"bone": 0.75, "size": [200, 240]}
+    Received: undefined
+
+      23 |     expect(screen.getByTestId('skia-Fill').findByProps({ testID: 'skia-Shader' })).toBeTruthy();
+      24 |     expect(screen.getByTestId('skia-Shader').props.source).toBe(effect);
+    > 25 |     expect(screen.getByTestId('skia-Shader').props.uniforms).toEqual({ bone: 0.75, size: [200, 240] });
+         |                                                              ^
+      26 |   });
+      27 |
+      28 |   it('preserva animação, quadro, camada, cor, matriz e picture', () => {
+
+      at Object.toEqual (src/test/mocks/reactNativeSkia.test.tsx:25:62)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 6 skipped, 7 total
+Snapshots:   0 total
+Time:        0.958 s
+Ran all test suites matching /src\/test\/mocks\/reactNativeSkia.test.tsx/i with tests matching "preserva children".

@@ -12,6 +12,24 @@ type MatchingStepRendererProps = {
     onChange: (value: string) => void;
 };
 
+/**
+ * Ordem em que a coluna da direita aparece: fixa pelo conteúdo, para não
+ * mudar entre renderizações, e nunca igual à ordem dos pares. Na ordem dos
+ * pares, a resposta certa era sempre o primeiro botão.
+ */
+export function matchingDisplayOrder(pairs: MatchingPayload['pairs']): MatchingPayload['pairs'] {
+    const hash = (text: string) => {
+        let value = 2166136261;
+        for (let index = 0; index < text.length; index += 1) {
+            value = Math.imul(value ^ text.charCodeAt(index), 16777619);
+        }
+        return value >>> 0;
+    };
+    const shown = [...pairs].sort((a, b) => hash(a.id + a.right) - hash(b.id + b.right) || a.id.localeCompare(b.id));
+    const sameAsPairs = shown.every((pair, index) => pair.id === pairs[index].id);
+    return sameAsPairs && shown.length > 1 ? [...shown.slice(1), shown[0]] : shown;
+}
+
 export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepRendererProps) {
     const validIds = new Set(payload.pairs.map((pair) => pair.id));
     const selectedRightIds = decodeInteractionIdSequence(value)
@@ -43,7 +61,7 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
             {currentLeft ? (
                 <View style={styles.currentPair}>
                     <Text style={styles.sectionTitle}>Agora associe: {currentLeft.left}</Text>
-                    {payload.pairs.filter((pair) => !usedIds.has(pair.id)).map((right) => (
+                    {matchingDisplayOrder(payload.pairs).filter((pair) => !usedIds.has(pair.id)).map((right) => (
                         <Pressable
                             key={right.id}
                             onPress={() => onChange(encodeInteractionIdSequence([...selectedRightIds, right.id]))}

@@ -8,9 +8,9 @@ export interface FirstRunState {
     /** Quando a pessoa saiu (concluindo ou pulando). */
     exitedAt: number | null;
 
-    /** Concluiu as três telas ou pulou. */
+    /** Concluiu a apresentação ou pulou. */
     exitReason: FirstRunExitReason | null;
 
-    /** Em qual tela (1..3) a pessoa saiu. Mede a cópia. */
+    /** Passo em que a pessoa saiu; 1 na bancada atual, 1..3 nos registros anteriores. */
     exitStep: number | null;
 }

@@ -1,0 +1,52 @@
+{
+  "schema": "xcodebuildmcp.output.capture-result",
+  "schemaVersion": "2",
+  "didError": false,
+  "error": null,
+  "data": {
+    "summary": {
+      "status": "SUCCEEDED"
+    },
+    "artifacts": {
+      "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    },
+    "capture": {
+      "type": "runtime-snapshot",
+      "rs": "1",
+      "screenHash": "16q3v5o",
+      "seq": 59,
+      "count": 58,
+      "targets": [
+        "e41|tap|button|Avaliar a aula com 1 de 5||",
+        "e42|tap|button|Avaliar a aula com 2 de 5||",
+        "e43|tap|button|Avaliar a aula com 3 de 5||",
+        "e44|tap|button|Avaliar a aula com 4 de 5||",
+        "e45|tap|button|Avaliar a aula com 5 de 5||",
+        "e51|tap|button|Continuar||app-button-face"
+      ],
+      "scroll": [
+        "e19|swipe|scroll-view|||"
+      ],
+      "text": [
+        "e27|text|text|3 de 3 estrelas||",
+        "e30|text|text|Três estrelas. Nada passou despercebido.||",
+        "e31|text|text|Três estrelas. Nada passou despercebido.||",
+        "e32|text|text|A lição foi concluída||",
+        "e33|text|text|A lição foi concluída||",
+        "e34|text|text|XP: Sem XP nesta tentativa||",
+        "e36|text|text|Respostas corretas: 4 de 4 corretas||",
+        "e37|text|text|Avalie a aula||",
+        "e38|text|text|Avalie a aula||",
+        "e39|text|text|É opcional||",
+        "e40|text|text|É opcional||"
+      ],
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+    }
+  },
+  "nextSteps": [
+    "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+    "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+    "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e41",
+    "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e19 --direction up --distance 0.5"
+  ]
+}

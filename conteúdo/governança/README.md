@@ -1,33 +1,16 @@
-# Governança Editorial
+# Governança editorial
 
-Esta pasta guarda os contratos e regras que tornam o pipeline de conteúdo auditável.
+Os schemas, direitos, taxonomia, mídia e biblioteca continuam preservados. Em 02/11/2026 o catálogo, a sequência e as prioridades curriculares foram esvaziados; competências e prompts do piloto foram retirados.
 
-## Objetivos
+O marcador canônico é `../../radiant-app/src/data/curriculum-state.json`. O estado `retired` é explícito e validado estritamente: coleções curriculares devem estar vazias, sem bundles ocultos. O validador mantém as verificações de biblioteca, schemas, mídia e integridade da taxonomia. Um verde nessa condição prova coerência da retirada local; não prova prontidão editorial nem publicação.
 
-- rastrear origem de cada artefato
-- padronizar contratos para extração, classificação, conceitos e formatos
-- permitir validação automática antes de qualquer integração com app ou API
-
-## Contratos atuais
-
-- `catalog-payload.json`: bundles aprovados e promovidos para runtime;
-- `wave-1-priority-tracks.json`: trilhas que formam o baseline da Wave 1;
-- `esquemas/library-source.schema.json`: metadados e classes de direitos da
-  biblioteca ampliada;
-- `esquemas/media-manifest.schema.json`: autorização, anonimização,
-  acessibilidade e hotspots de mídia educacional.
-
-O manifesto de mídia vive em `../mídia/manifest.json`. Em 2026-07-31 ele está
-`awaiting-authorized-assets`: 0 itens aprovados e 5 candidatos rejeitados. Esse
-estado é intencional; nenhum arquivo deve ser promovido apenas para deixar o
-manifesto preenchido.
-
-## Gates
+Comandos de leitura:
 
 ```bash
 node scripts/content/validate-foundation.mjs
-node scripts/content/validate-media-manifest.mjs
+node scripts/content/validate-content-anchoring.mjs
+node scripts/content/validate-taxonomy-map.mjs
+node scripts/content/audit-production-batches.mjs --check
 ```
 
-Um gate verde confirma coerência dos artefatos presentes. Prontidão editorial
-também exige que o lote tenha ativos autorizados e revisão humana concluída.
+Os comandos são executados a partir da raiz do repositório. O [planejamento único](../../docs/plans/2026-11-02-planejamento-conteudo-radiant.md) governa a nova produção. A retirada não altera banco remoto, storage do aluno nem app distribuído.

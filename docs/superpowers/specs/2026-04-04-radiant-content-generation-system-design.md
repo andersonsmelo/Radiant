@@ -1,5 +1,8 @@
 # Radiant — Sistema de Geração Automática de Conteúdo
 
+> Contrato técnico histórico preservado. Qualquer sequência curricular ou lote citado aqui foi superado pelo [planejamento único de conteúdo](../../plans/2026-11-02-planejamento-conteudo-radiant.md), conforme [ADR de 02/11](../../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md). Não reintroduzir aulas antigas.
+
+
 ## 1. Objetivo
 
 Definir o design do sistema que transforma a base editorial do Radiant (`conteúdo/`) em conteúdo pedagógico gerado automaticamente por IA, com curadoria humana seletiva, e entregue ao app via catálogo remoto.

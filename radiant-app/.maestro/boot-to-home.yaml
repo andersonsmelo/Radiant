@@ -1,13 +1,10 @@
 appId: com.ascendcreative.radiant
-name: Clean install passes through the first-run welcome and reaches the local-first home
+name: Empty-catalog shell smoke (does not validate lessons)
 tags:
   - smoke
-  - local-first
+  - retired-catalog
 ---
-# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
-# para e o confete não sobe, e a tela assenta antes de cada rolagem
-# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
-# todo lançamento: um processo aberto sem ele volta a animar.
+# Proposed shell flow only; native execution has not been performed.
 - launchApp:
     arguments:
       radiantReduceMotion: '1'
@@ -16,19 +13,5 @@ tags:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
-# A clean install (clearState) now passes through the first-run welcome before
-# the Learning Road home — the subflow above dismisses it. The retired
-# onboarding smoke deep-linked into an unfinished prototype that was removed on
-# 2026-07-28; this flow proves what actually matters — a fresh install, welcome
-# dismissed, reaches the local-first home — against a stable pt-BR assertion.
-# Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
-- scrollUntilVisible:
-    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'

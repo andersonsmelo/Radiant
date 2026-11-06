@@ -1,0 +1,923 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m06",
+    "code": "M06",
+    "title": "Geometria, técnica e qualidade",
+    "summary": "Do esquema fonte, objeto e detector à conferência de uma imagem: como distância, alinhamento, exposição, campo e movimento mudam a qualidade, e quando parar e chamar a equipe."
+  },
+  "sources": [
+    { "id": "iaea-rpop-unnecessary-exposure", "title": "Preventing unnecessary exposure in radiography", "publisher": "IAEA, Radiation Protection of Patients (RPOP)", "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/radiography/unnecessary-exposure", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da IAEA; consultada para fatos sobre kV, faixa dinâmica digital e indicador de exposição, sem reprodução de texto." },
+    { "id": "iaea-rpop-good-practices", "title": "Good practices in radiography", "publisher": "IAEA, Radiation Protection of Patients (RPOP)", "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/radiography/good-practices", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da IAEA; consultada para fatos sobre análise de rejeição e tamanho do campo, sem reprodução de texto." },
+    { "id": "iaea-rpop-digital-radiography", "title": "Digital radiography", "publisher": "IAEA, Radiation Protection of Patients (RPOP)", "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/radiography/digital-radiography", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da IAEA; consultada para fatos sobre excesso não percebido, repetições sem registro e saturação, sem reprodução de texto." },
+    { "id": "iaea-rpop-optimization", "title": "Optimization in radiography", "publisher": "IAEA, Radiation Protection of Patients (RPOP)", "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/radiography/optimization", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da IAEA; consultada para fatos sobre tabelas de técnica e escolha do kV, sem reprodução de texto." },
+    { "id": "iaea-hhc-handbook-ch06", "title": "Diagnostic Radiology Physics: A Handbook for Teachers and Students, capítulo 6, Projection Radiography (slides)", "publisher": "IAEA, Human Health Campus", "url": "https://humanhealth.iaea.org/HHW/MedicalPhysics/TheMedicalPhysicist/Studentscorner/HandbookforTeachersandStudents/Chapter_06.pdf", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Material didático da IAEA; consultados os slides 18 a 24 para ampliação, distorção de forma, lei do inverso do quadrado e ponto focal, sem reprodução de texto ou figuras." },
+    { "id": "statpearls-image-production-procedures", "title": "X-ray Image Production Procedures (StatPearls, NBK564352)", "publisher": "StatPearls Publishing, NCBI Bookshelf", "url": "https://www.ncbi.nlm.nih.gov/books/NBK564352/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Licença CC BY-NC-ND 4.0; consultado apenas para fatos sobre kVp, mAs, ruído, distorção, ponto focal e grade, com redação própria." },
+    { "id": "statpearls-image-production-quality", "title": "Radiographic Image Production and Quality (StatPearls, NBK553145)", "publisher": "StatPearls Publishing, NCBI Bookshelf", "url": "https://www.ncbi.nlm.nih.gov/books/NBK553145/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Licença CC BY-NC-ND 4.0; consultado apenas para fatos sobre distorção de tamanho e forma, marcadores, borramento, ruído e artefatos, com redação própria." },
+    { "id": "statpearls-image-acquisition", "title": "X-ray Image Acquisition (StatPearls, NBK563236)", "publisher": "StatPearls Publishing, NCBI Bookshelf", "url": "https://www.ncbi.nlm.nih.gov/books/NBK563236/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Licença CC BY-NC-ND 4.0; consultado apenas para fatos sobre movimento, colimação e avaliação técnica da imagem, com redação própria." },
+    { "id": "bomer-2013-electronic-collimation", "title": "Electronic collimation and radiation protection in paediatric digital radiography: revival of the silver lining", "publisher": "Insights into Imaging (Springer), via PubMed Central PMC3781259", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3781259/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Artigo de acesso aberto; consultado para fatos sobre colimação, espalhamento e recorte eletrônico, sem reprodução de texto ou imagens." },
+    { "id": "ringin-2025-beam-geometry", "title": "Optimising Beam Geometry in Orthopaedic X-Rays: A Phantom Study", "publisher": "Journal of Medical Radiation Sciences (Wiley), via PubMed Central PMC12420662", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12420662/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Artigo de acesso aberto; consultado para a tendência de encurtamento e alongamento em estudo com simulador, sem reprodução de texto, números ou figuras." },
+    { "id": "jones-2015-paediatric-extremities", "title": "Optimization of image quality and patient dose in radiographs of paediatric extremities using direct digital radiography", "publisher": "British Journal of Radiology, via PubMed Central PMC4628445", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4628445/", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Artigo disponível no PubMed Central; consultado para a relação entre movimento, tempo de exposição e nitidez, sem reprodução de texto." },
+    { "id": "suny-upstate-exposure-issues", "title": "Exposure Issues (digital radiography tutorial)", "publisher": "SUNY Upstate Medical University, Department of Radiology", "url": "https://www.upstate.edu/radiology/education/rsna/radiography/issues.php", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página educacional universitária; consultada para fatos sobre subexposição, ruído, excesso não percebido e saturação, sem reprodução de texto ou figuras." },
+    { "id": "openstax-university-physics-v1-16-4", "title": "University Physics Volume 1, seção 16.4 Energy and Power of a Wave", "publisher": "OpenStax", "url": "https://openstax.org/books/university-physics-volume-1/pages/16-4-energy-and-power-of-a-wave", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Livro aberto da OpenStax; consultado apenas para a queda da intensidade com o quadrado da distância em onda esférica, com redação própria." }
+  ],
+  "lessons": [
+    {
+      "id": "m06-01",
+      "code": "M06.01",
+      "title": "Fonte, objeto e detector",
+      "objective": "Hoje você vai conseguir prever como as distâncias entre fonte, objeto e detector mudam o tamanho da projeção e a intensidade do feixe.",
+      "competency": "Relacionar distância e geometria em modelo validado.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Esquema lateral com ponto focal, objeto e detector, mostrando o feixe divergente e a projeção para duas posições do objeto.",
+        "Dois quadrados a distâncias d e 2d da fonte, com a mesma radiação cobrindo uma área quatro vezes maior."
+      ],
+      "scene": {
+        "setting": "Laboratório didático, bancada de geometria",
+        "lines": [
+          { "speaker": "duda", "text": "Coloquei o bloco de teste mais alto, longe do detector, e a sombra dele ficou maior. O bloco não cresceu, né?" },
+          { "speaker": "caio", "text": "Não cresceu. Na sala a gente vive disso: onde está o tubo, onde está a peça, onde está o detector." },
+          { "speaker": "pixel", "text": "Três posições, duas distâncias. Qual delas você mudou, Duda?" }
+        ]
+      },
+      "concept": {
+        "title": "Um feixe que se abre",
+        "body": "O feixe de raios X sai de uma área pequena do tubo, o ponto focal, e se abre até o detector. Por isso toda projeção amplia o objeto. Quanto mais longe o objeto fica do detector, maior ele aparece. Afastar a fonte do detector, ou seja, aumentar a distância foco-detector com o objeto no lugar, reduz essa ampliação. A nitidez das bordas também depende da geometria: um ponto focal menor favorece o detalhe fino. E, para uma fonte pontual, a intensidade do feixe cai com o quadrado da distância. Este é um esquema simplificado: serve para comparar situações, não para definir técnica nem calcular dose de paciente.",
+        "keyPoints": [
+          "Objeto mais longe do detector: imagem maior.",
+          "Fonte mais longe do detector: menos ampliação.",
+          "Fonte pontual: a intensidade cai com o quadrado da distância."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na unidade anterior você seguiu a imagem do detector ao arquivo. Em qual etapa a geometria entre fonte, objeto e detector já fica definida?",
+          "options": [
+            { "label": "Na aquisição, antes do processamento", "correct": true, "feedback": "A posição de cada elemento é decidida antes da exposição. O que vem depois trabalha sobre uma projeção já formada." },
+            { "label": "No processamento, ao ajustar o contraste", "correct": false, "feedback": "O processamento muda tons da imagem. Ele não reposiciona fonte, objeto ou detector." },
+            { "label": "Na exibição, ao escolher a janela", "correct": false, "feedback": "A janela muda o que se vê na tela. A projeção já chegou pronta a essa etapa." },
+            { "label": "No arquivamento, ao enviar ao PACS", "correct": false, "feedback": "O arquivamento guarda e distribui a imagem. Retome onde a projeção nasce." }
+          ],
+          "help": "Pense em qual etapa ainda envolve o tubo e o detector na sala.",
+          "sourceIds": ["statpearls-image-production-procedures", "bomer-2013-electronic-collimation"]
+        },
+        {
+          "id": "i2", "type": "multiple-choice", "role": "prediction",
+          "prompt": "No esquema, a fonte e o detector ficam parados. Você afasta o objeto do detector, aproximando-o da fonte. O que você espera ver na projeção?",
+          "options": [
+            { "label": "A projeção fica menor que antes", "correct": false, "feedback": "Menor seria o efeito de aproximar o objeto do detector. Confira de novo para onde o objeto foi." },
+            { "label": "A projeção fica maior que antes", "correct": true, "feedback": "Com o objeto mais longe do detector, o feixe abre mais depois dele e a projeção cresce. Vale para este esquema." },
+            { "label": "A projeção mantém o mesmo tamanho", "correct": false, "feedback": "O tamanho só se manteria se o feixe fosse paralelo. Ele se abre a partir do ponto focal." },
+            { "label": "A projeção fica mais escura, só isso", "correct": false, "feedback": "Brilho não é o que esta mudança altera no esquema. Retome a abertura do feixe depois do objeto." }
+          ],
+          "help": "Acompanhe os dois raios que passam pelas bordas do objeto até o detector.",
+          "sourceIds": ["iaea-hhc-handbook-ch06", "statpearls-image-production-procedures"]
+        },
+        {
+          "id": "i3", "type": "matching", "role": "practice",
+          "prompt": "Ligue cada mudança no esquema ao efeito esperado. Vale só para este modelo simplificado, com fonte pontual.",
+          "pairs": [
+            { "left": "Afastar o objeto do detector", "right": "Ampliação maior" },
+            { "left": "Afastar a fonte do detector", "right": "Ampliação menor" },
+            { "left": "Usar ponto focal menor", "right": "Bordas mais nítidas" },
+            { "left": "Dobrar a distância até a fonte", "right": "Intensidade cai para um quarto" }
+          ],
+          "feedbackCorrect": "Você separou os três efeitos: o tamanho depende das distâncias, a nitidez do ponto focal e a intensidade do quadrado da distância.",
+          "feedbackIncorrect": "Algum par trocou tamanho com nitidez ou intensidade. Retome: quem mexe na ampliação são as duas distâncias.",
+          "help": "Pergunte de cada mudança: ela mexe no tamanho, na borda ou na quantidade de radiação que chega?",
+          "sourceIds": ["iaea-hhc-handbook-ch06", "statpearls-image-production-procedures", "openstax-university-physics-v1-16-4"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "practice",
+          "context": "Na bancada, Caio aumentou a distância entre a fonte e o detector para reduzir a ampliação de um bloco de teste. O objeto e o detector não saíram do lugar, e os parâmetros de exposição ficaram iguais.",
+          "prompt": "O que você espera que aconteça com a radiação que chega ao detector neste esquema?",
+          "options": [
+            { "label": "Aumenta, porque o feixe fica mais reto", "correct": false, "feedback": "Feixe menos aberto não significa mais radiação. Retome a relação entre intensidade e distância." },
+            { "label": "Não muda, porque os parâmetros são os mesmos", "correct": false, "feedback": "Os parâmetros definem o que sai do tubo. O que chega ao detector também depende da distância." },
+            { "label": "Diminui, porque a fonte ficou mais longe", "correct": true, "feedback": "Mais distância distribui o feixe por uma área maior, e menos radiação chega a cada ponto. Na prática, a técnica é compensada conforme o protocolo do serviço." },
+            { "label": "Dobra, porque a ampliação diminuiu", "correct": false, "feedback": "Ampliação e intensidade não andam juntas assim. Confira de novo o efeito do quadrado da distância." }
+          ],
+          "help": "A mesma radiação sai do tubo. Por qual área ela se distribui quando o detector fica mais longe?",
+          "sourceIds": ["iaea-hhc-handbook-ch06"]
+        },
+        {
+          "id": "i5", "type": "multiple-choice", "role": "transfer",
+          "prompt": "Dois objetos idênticos estão no mesmo feixe: um encostado no detector, outro alguns centímetros acima dele. Como eles aparecem na projeção?",
+          "options": [
+            { "label": "Iguais, porque têm o mesmo tamanho real", "correct": false, "feedback": "Tamanho real igual não garante projeção igual: a posição no feixe conta." },
+            { "label": "O de cima aparece menor que o de baixo", "correct": false, "feedback": "Menor seria se o feixe convergisse. Ele diverge a partir do ponto focal." },
+            { "label": "Só o de baixo aparece, o outro é apagado", "correct": false, "feedback": "Os dois são atravessados pelo feixe e projetados. A diferença está no tamanho." },
+            { "label": "O de cima aparece maior que o de baixo", "correct": true, "feedback": "O objeto mais afastado do detector é projetado maior. É por isso que a profundidade confunde tamanhos numa radiografia." }
+          ],
+          "help": "Use o que você já sabe sobre a distância entre objeto e detector.",
+          "sourceIds": ["iaea-hhc-handbook-ch06"]
+        }
+      ],
+      "closing": {
+        "title": "Geometria antes da exposição",
+        "body": "Agora você consegue prever, num esquema, o que acontece com o tamanho da projeção e com a intensidade do feixe quando fonte, objeto ou detector mudam de lugar, e o que um ponto focal menor faz com a nitidez. São relações qualitativas: a técnica de cada exame vem do protocolo do serviço.",
+        "line": { "speaker": "lia", "text": "Antes de olhar a imagem, olhe a montagem. Metade da resposta já está nela." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A fonte é afastada do detector, e o objeto fica onde estava, à mesma distância do detector. O que acontece com a ampliação?",
+          "options": [
+            { "label": "Diminui: o feixe chega menos aberto ao objeto", "correct": true, "feedback": "Com a fonte mais longe, os raios que passam pelas bordas do objeto abrem menos até o detector." },
+            { "label": "Aumenta: há mais distância para o feixe abrir", "correct": false, "feedback": "A distância que amplia é a do objeto ao detector, e ela não mudou." },
+            { "label": "Não muda: a ampliação depende só do objeto", "correct": false, "feedback": "A ampliação depende das duas distâncias, e a da fonte mudou." },
+            { "label": "Dobra: a ampliação acompanha a distância da fonte", "correct": false, "feedback": "Afastar a fonte tem o efeito oposto sobre a ampliação. Confira de novo o esquema." }
+          ],
+          "sourceIds": ["statpearls-image-production-procedures"]
+        },
+        {
+          "prompt": "Qual mudança favorece bordas mais nítidas num esquema de projeção, sem mexer nas distâncias?",
+          "options": [
+            { "label": "Aumentar o tempo de exposição", "correct": false, "feedback": "Tempo maior não afina a borda, e ainda dá mais chance de movimento." },
+            { "label": "Selecionar um ponto focal menor", "correct": true, "feedback": "Quanto mais a fonte se aproxima de um ponto, menos borrão geométrico na borda." },
+            { "label": "Abrir mais o campo de radiação", "correct": false, "feedback": "Abrir o campo muda a área irradiada, não a origem do borrão geométrico." },
+            { "label": "Recortar a imagem depois de pronta", "correct": false, "feedback": "Recorte muda o que se exibe. A borda já foi formada na aquisição." }
+          ],
+          "sourceIds": ["iaea-hhc-handbook-ch06", "statpearls-image-production-procedures"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quanto mais longe do detector o objeto está, mais … ele aparece.",
+          "item": {
+            "prompt": "No esquema, o bloco foi aproximado do detector até encostar nele. O que acontece com a projeção do bloco?",
+            "options": [
+              { "label": "Fica maior, pois chegou perto do detector", "correct": false, "feedback": "Perto do detector o feixe quase não abre depois do objeto. Retome a frase do gancho." },
+              { "label": "Fica duplicada, pois encostou no detector", "correct": false, "feedback": "Encostar no detector não duplica a projeção. O que muda é o tamanho." },
+              { "label": "Fica mais próxima do tamanho real", "correct": true, "feedback": "Com o objeto junto ao detector, a ampliação é mínima neste esquema." },
+              { "label": "Fica invisível, pois saiu do feixe", "correct": false, "feedback": "O bloco continua dentro do feixe. O que muda é o tamanho projetado." }
+            ],
+            "sourceIds": ["statpearls-image-production-procedures", "iaea-hhc-handbook-ch06"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma lâmpada pequena ilumina uma parede. Você leva a lâmpada para mais longe, sem mudar a potência. O que acontece com a claridade em cada ponto da parede?",
+            "options": [
+              { "label": "Fica mais forte, porque a área cresce", "correct": false, "feedback": "Área iluminada maior com a mesma luz significa menos luz em cada ponto." },
+              { "label": "Fica igual, porque a potência não mudou", "correct": false, "feedback": "A potência é a mesma, mas agora se distribui por uma área maior." },
+              { "label": "Some, porque a luz não chega à parede", "correct": false, "feedback": "A luz continua chegando. Ela só chega mais espalhada." },
+              { "label": "Fica mais fraca: a mesma luz cobre mais área", "correct": true, "feedback": "É a mesma ideia do feixe de raios X: mais distância, mais área, menos intensidade em cada ponto." }
+            ],
+            "sourceIds": ["openstax-university-physics-v1-16-4", "iaea-hhc-handbook-ch06"]
+          }
+        }
+      }
+    },
+    {
+      "id": "m06-02",
+      "code": "M06.02",
+      "title": "Projeção e distorção",
+      "objective": "Hoje você vai conseguir comparar alinhamentos de feixe, objeto e detector e prever se a forma projetada alonga ou encurta.",
+      "competency": "Comparar alinhamento e representação.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Três montagens lado a lado (referência, objeto inclinado com feixe reto, tubo angulado) com o comprimento projetado de cada uma.",
+        "Feixe divergente sobre esferas iguais no centro e na periferia do campo."
+      ],
+      "scene": {
+        "setting": "Sala de simulação, mesa de exames",
+        "lines": [
+          { "speaker": "duda", "text": "O mesmo osso de treino saiu comprido numa projeção e curtinho na outra. Trocaram a peça?" },
+          { "speaker": "caio", "text": "A peça é a mesma. O que mudou foi o ângulo dela e do tubo em relação ao detector." },
+          { "speaker": "lia", "text": "Antes de olhar o resultado, descreva a montagem: o que estava paralelo e o que estava perpendicular?" }
+        ]
+      },
+      "concept": {
+        "title": "Paralelo e perpendicular",
+        "body": "Distorção é quando a imagem representa mal o tamanho ou a forma do objeto. A de tamanho é a ampliação da aula anterior. A de forma aparece quando o alinhamento falha. A referência: objeto paralelo ao detector e raio central perpendicular aos dois. Com o objeto inclinado e o raio central perpendicular ao detector (feixe reto), a projeção encurta. Com o tubo angulado até ficar perpendicular ao objeto inclinado, e o detector no lugar, ela tende a alongar. Longe do centro a forma também se altera: os raios da periferia saem mais inclinados. Essas tendências vêm de esquemas e de estudo com simulador: valem como modelo, não como técnica.",
+        "keyPoints": [
+          "Referência: objeto paralelo ao detector, raio central perpendicular.",
+          "Objeto inclinado com feixe reto: encurtamento.",
+          "Longe do centro do feixe, a deformação cresce."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na aula anterior, o que acontecia com a projeção quando o objeto se afastava do detector?",
+          "options": [
+            { "label": "Ela encolhia em relação ao objeto real", "correct": false, "feedback": "Encolher exigiria um feixe convergente. O feixe se abre a partir do ponto focal." },
+            { "label": "Ela crescia em relação ao objeto real", "correct": true, "feedback": "Mais distância entre objeto e detector, mais ampliação. Essa é a distorção de tamanho." },
+            { "label": "Ela mantinha o tamanho do objeto real", "correct": false, "feedback": "O tamanho só se aproxima do real com o objeto junto ao detector." },
+            { "label": "Ela trocava de lado em relação ao centro", "correct": false, "feedback": "O lado não muda com essa distância. Retome o que acontece com o tamanho." }
+          ],
+          "help": "Lembre do bloco de teste da Duda e da sombra que cresceu.",
+          "sourceIds": ["iaea-hhc-handbook-ch06", "statpearls-image-production-quality"]
+        },
+        {
+          "id": "i2", "type": "multiple-choice", "role": "prediction",
+          "prompt": "Um bastão está inclinado em relação ao detector. O raio central continua perpendicular ao detector. O que você espera do comprimento projetado?",
+          "options": [
+            { "label": "Fica maior que o real: alongamento", "correct": false, "feedback": "Alongamento é a tendência quando o tubo é angulado para acompanhar o objeto. Aqui o feixe ficou reto." },
+            { "label": "Fica igual ao real: sem distorção", "correct": false, "feedback": "Sem distorção exigiria o bastão paralelo ao detector." },
+            { "label": "Fica menor que o real: encurtamento", "correct": true, "feedback": "Visto de frente por um feixe reto, o bastão inclinado mostra menos do seu comprimento. Vale para este esquema." },
+            { "label": "Fica duplicado: duas imagens do bastão", "correct": false, "feedback": "Uma única exposição projeta o bastão uma vez. O que muda é o comprimento." }
+          ],
+          "help": "Imagine olhar de cima uma régua que alguém levantou por uma das pontas.",
+          "sourceIds": ["ringin-2025-beam-geometry", "iaea-hhc-handbook-ch06"]
+        },
+        {
+          "id": "i3", "type": "matching", "role": "practice",
+          "prompt": "Ligue cada montagem do esquema à representação esperada.",
+          "pairs": [
+            { "left": "Objeto paralelo, raio central perpendicular", "right": "Forma mais fiel ao objeto" },
+            { "left": "Objeto inclinado, feixe reto", "right": "Encurtamento" },
+            { "left": "Tubo angulado, perpendicular ao objeto inclinado", "right": "Alongamento" },
+            { "left": "Objeto na periferia do feixe", "right": "Deformação maior que no centro" }
+          ],
+          "feedbackCorrect": "Você ligou cada alinhamento ao seu efeito. A montagem de referência é a que deixa objeto e detector paralelos.",
+          "feedbackIncorrect": "Algum alinhamento foi trocado. Retome: feixe reto sobre objeto inclinado encurta, tubo acompanhando o objeto alonga.",
+          "help": "Pense na sombra de uma régua: o que muda quando você inclina a régua, e quando inclina a lanterna?",
+          "sourceIds": ["ringin-2025-beam-geometry", "statpearls-image-production-procedures", "statpearls-image-production-quality"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
+          "context": "Na simulação, a ficha pede o antebraço do manequim paralelo ao detector. O manequim está com o cotovelo travado em flexão, e o antebraço fica inclinado. Duda sugere angular o tubo até o feixe ficar perpendicular ao antebraço e expor assim mesmo.",
+          "prompt": "O que você faz antes de qualquer exposição?",
+          "options": [
+            { "label": "Exponho com o tubo reto e aviso depois", "correct": false, "feedback": "Expor primeiro e avisar depois pula a conferência. Com feixe reto, o antebraço inclinado tende a encurtar." },
+            { "label": "Sigo a sugestão e angulo o tubo no olho", "correct": false, "feedback": "Angular por conta própria muda a geometria prevista na ficha e tende a alongar a projeção." },
+            { "label": "Forço o cotovelo até o antebraço deitar", "correct": false, "feedback": "Forçar a articulação não é ajuste de posicionamento. Diante de limitação, pare e peça apoio." },
+            { "label": "Paro, descrevo a limitação e chamo a Lia", "correct": true, "feedback": "A montagem não bate com a ficha. Descrever o que impede o alinhamento e pedir apoio é o passo seguro na simulação." }
+          ],
+          "help": "A montagem real coincide com a que a ficha descreve? Se não, de quem é a decisão?",
+          "sourceIds": ["ringin-2025-beam-geometry", "statpearls-image-acquisition"]
+        },
+        {
+          "id": "i5", "type": "multiple-choice", "role": "transfer",
+          "prompt": "Num esquema, duas esferas iguais são projetadas: uma no centro do feixe, outra perto da borda do campo. O que muda na esfera da borda?",
+          "options": [
+            { "label": "A forma: ela tende a sair deformada", "correct": true, "feedback": "Na periferia os raios chegam mais inclinados, e a projeção se deforma mais que no centro." },
+            { "label": "Nada: esferas iguais dão imagens iguais", "correct": false, "feedback": "Objetos iguais em posições diferentes do feixe não são projetados do mesmo jeito." },
+            { "label": "O lado: ela aparece espelhada", "correct": false, "feedback": "A divergência do feixe não espelha o objeto. Ela altera a forma projetada." },
+            { "label": "A dose: ela indica quanto foi recebido", "correct": false, "feedback": "A forma projetada não mede dose. Retome o efeito da inclinação dos raios." }
+          ],
+          "help": "Compare a direção do raio que passa pelo centro com a do raio que passa pela borda.",
+          "sourceIds": ["statpearls-image-production-procedures"]
+        }
+      ],
+      "closing": {
+        "title": "Descrever a montagem primeiro",
+        "body": "Agora você consegue comparar alinhamentos e prever se a forma projetada tende a encurtar, alongar ou se deformar. Quando a montagem não bate com a ficha, você descreve a diferença e pede apoio, em vez de improvisar um ângulo.",
+        "line": { "speaker": "caio", "text": "Na dúvida, eu digo em voz alta: paralelo com quê, perpendicular a quê." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma estrutura aparece mais curta do que é na projeção. Qual montagem combina com esse resultado no esquema?",
+          "options": [
+            { "label": "Estrutura paralela e feixe perpendicular", "correct": false, "feedback": "Essa é a montagem de referência, a que menos distorce a forma." },
+            { "label": "Estrutura inclinada e feixe reto", "correct": true, "feedback": "O feixe reto vê a estrutura inclinada de frente, e o comprimento projetado diminui." },
+            { "label": "Estrutura afastada do detector, sem inclinação", "correct": false, "feedback": "Afastar do detector amplia a imagem inteira. Não encurta." },
+            { "label": "Estrutura encostada no detector e paralela", "correct": false, "feedback": "Encostada e paralela, a estrutura é projetada perto do tamanho real." }
+          ],
+          "sourceIds": ["ringin-2025-beam-geometry", "iaea-hhc-handbook-ch06"]
+        },
+        {
+          "prompt": "O que a distorção de tamanho e a distorção de forma têm de diferente?",
+          "options": [
+            { "label": "A de tamanho vem do ruído, a de forma do brilho", "correct": false, "feedback": "Ruído e brilho são outras dimensões da qualidade. Distorção é geometria." },
+            { "label": "A de tamanho só existe em filme, a de forma em digital", "correct": false, "feedback": "As duas vêm da projeção e existem em qualquer receptor." },
+            { "label": "A de tamanho vem das distâncias, a de forma do alinhamento", "correct": true, "feedback": "Distâncias mudam a ampliação. Inclinação de objeto, tubo ou detector muda a forma." },
+            { "label": "A de tamanho é corrigida no recorte, a de forma na janela", "correct": false, "feedback": "Recorte e janela mudam a exibição. A geometria já ficou registrada na aquisição." }
+          ],
+          "sourceIds": ["statpearls-image-production-quality"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a montagem de referência tem o objeto … ao detector e o raio central … aos dois.",
+          "item": {
+            "prompt": "No esquema, o objeto está paralelo ao detector e o raio central chega perpendicular aos dois. O que esperar da forma projetada?",
+            "options": [
+              { "label": "Alongamento acentuado do objeto", "correct": false, "feedback": "Alongamento aparece quando o tubo é angulado. Aqui ele está reto." },
+              { "label": "Encurtamento acentuado do objeto", "correct": false, "feedback": "Encurtamento pede objeto inclinado. Aqui ele está paralelo." },
+              { "label": "Imagem espelhada do objeto", "correct": false, "feedback": "Alinhamento não espelha a imagem. Retome a frase do gancho." },
+              { "label": "Forma próxima à do objeto", "correct": true, "feedback": "Paralelo e perpendicular: é a montagem que melhor preserva a forma neste modelo." }
+            ],
+            "sourceIds": ["ringin-2025-beam-geometry"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No fim da tarde, o sol está baixo e a sua sombra no chão fica bem mais comprida que você. O que explica esse efeito?",
+            "options": [
+              { "label": "A luz chega inclinada em relação ao chão", "correct": true, "feedback": "Luz inclinada sobre a superfície que recebe a sombra alonga a projeção. É a mesma geometria do tubo angulado." },
+              { "label": "O sol fica mais perto da Terra à tarde", "correct": false, "feedback": "A distância ao sol praticamente não muda ao longo do dia. O que muda é o ângulo." },
+              { "label": "O chão amplia tudo que encosta nele", "correct": false, "feedback": "Quem está junto da superfície é projetado com pouca ampliação. O efeito vem do ângulo." },
+              { "label": "A sombra cresce porque a luz enfraquece", "correct": false, "feedback": "Luz mais fraca muda a claridade, não o comprimento da sombra." }
+            ],
+            "sourceIds": ["iaea-hhc-handbook-ch06", "ringin-2025-beam-geometry"]
+          }
+        }
+      }
+    },
+    {
+      "id": "m06-03",
+      "code": "M06.03",
+      "title": "Parâmetros de exposição",
+      "objective": "Hoje você vai conseguir prever o efeito qualitativo de kV e mAs na imagem, sabendo o que o simulador não mostra.",
+      "competency": "Prever efeitos qualitativos com limitações do simulador.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Três miniaturas esquemáticas da mesma cena com mAs baixo, adequado e alto: o ruído cai da primeira para a segunda, e as duas últimas parecem iguais.",
+        "Barra do indicador de exposição com a faixa do protocolo destacada."
+      ],
+      "scene": {
+        "setting": "Laboratório didático, painel do simulador",
+        "lines": [
+          { "speaker": "duda", "text": "Aumentei o mAs no simulador e a imagem ficou linda. Então quanto mais, melhor?" },
+          { "speaker": "caio", "text": "No digital a imagem não escurece quando passa do ponto. Ela fica bonita e não conta que sobrou exposição." },
+          { "speaker": "pixel", "text": "Se a aparência não avisa, onde você procura essa informação?" }
+        ]
+      },
+      "concept": {
+        "title": "Três controles, efeitos diferentes",
+        "body": "O kV define a energia do feixe: mais kV, mais penetração e, em geral, menos contraste. O mAs, corrente vezes tempo, define a quantidade de radiação: pouco mAs deixa a imagem granulada, com ruído. No sistema digital, o processamento ajusta o brilho, então uma exposição acima do necessário pode parecer ótima. Por isso a equipe acompanha o indicador de exposição do equipamento e segue a tabela de técnica do serviço. Baixar o kV não é atalho para proteger: exige mais mAs para o mesmo sinal no detector. O simulador mostra tendências. Ele não calcula dose nem substitui o protocolo.",
+        "keyPoints": [
+          "kV: energia, penetração e contraste.",
+          "mAs: quantidade de radiação e ruído.",
+          "No digital, imagem bonita não prova exposição adequada."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na unidade anterior você separou contraste, ruído e resolução. Uma imagem com aspecto granulado, como chuvisco, tem problema em qual dimensão?",
+          "options": [
+            { "label": "Contraste, a diferença entre tons vizinhos", "correct": false, "feedback": "Contraste fala da separação entre tons. O chuvisco é variação aleatória." },
+            { "label": "Resolução, a separação de detalhes finos", "correct": false, "feedback": "Resolução fala de detalhes pequenos e bordas. O granulado é outra coisa." },
+            { "label": "Ruído, a variação aleatória do sinal", "correct": true, "feedback": "O granulado é ruído. Nesta aula você vai ligar esse aspecto à quantidade de radiação." },
+            { "label": "Geometria, o alinhamento da projeção", "correct": false, "feedback": "Geometria muda tamanho e forma. O aspecto granulado vem do sinal." }
+          ],
+          "help": "Qual das dimensões descreve pontos claros e escuros espalhados sem padrão?",
+          "sourceIds": ["statpearls-image-production-quality", "statpearls-image-production-procedures"]
+        },
+        {
+          "id": "i2", "type": "multiple-choice", "role": "prediction",
+          "prompt": "No simulador, você mantém o kV e reduz bastante o mAs. O que você espera ver na imagem?",
+          "options": [
+            { "label": "Imagem bem mais clara, como no filme", "correct": false, "feedback": "Clarear era o que o filme fazia com pouca exposição. No digital o processamento reajusta o brilho, e o que denuncia a falta de sinal é outra coisa." },
+            { "label": "Estruturas maiores, por ampliação", "correct": false, "feedback": "Ampliação depende das distâncias, não do mAs." },
+            { "label": "Bordas alongadas, por distorção", "correct": false, "feedback": "Distorção de forma vem do alinhamento. Retome o que o mAs controla." },
+            { "label": "Aspecto mais granulado, com ruído", "correct": true, "feedback": "Menos fótons chegam ao detector, e a variação aleatória aparece mais. É uma tendência, não um valor." }
+          ],
+          "help": "O mAs fala de quantidade. O que acontece com uma imagem feita com pouco sinal?",
+          "sourceIds": ["statpearls-image-production-procedures", "suny-upstate-exposure-issues"]
+        },
+        {
+          "id": "i3", "type": "matching", "role": "practice",
+          "prompt": "Ligue cada situação do simulador ao efeito qualitativo esperado.",
+          "pairs": [
+            { "left": "Aumentar o kV", "right": "Feixe mais penetrante, contraste tende a cair" },
+            { "left": "Aumentar o mAs", "right": "Mais radiação no detector, menos ruído" },
+            { "left": "Reduzir muito o mAs", "right": "Imagem granulada" },
+            { "left": "Processamento reajusta o brilho", "right": "Excesso de exposição sem aviso visual" }
+          ],
+          "feedbackCorrect": "Você separou energia de quantidade. E lembrou que, no digital, o excesso não aparece na imagem.",
+          "feedbackIncorrect": "Algum par misturou energia com quantidade. Retome: kV fala de penetração, mAs fala de quantos fótons chegam.",
+          "help": "Pergunte de cada ajuste: ele muda a energia do feixe ou a quantidade de radiação?",
+          "sourceIds": ["statpearls-image-production-procedures", "iaea-rpop-unnecessary-exposure", "suny-upstate-exposure-issues"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
+          "context": "Na simulação, a imagem de um manequim saiu com ótimo aspecto. Ao conferir o painel, você nota que o indicador de exposição aponta exposição bem acima da faixa que a tabela do serviço traz para aquele protocolo. Duda diz que não precisa falar nada, já que a imagem ficou boa.",
+          "prompt": "O que você faz com essa informação?",
+          "options": [
+            { "label": "Descrevo o achado e aviso a supervisão", "correct": true, "feedback": "A aparência não mostra excesso no digital. O indicador fora da faixa é um achado para descrever e levar à equipe." },
+            { "label": "Ignoro, porque a imagem está excelente", "correct": false, "feedback": "Imagem excelente não prova exposição adequada num sistema digital." },
+            { "label": "Refaço a exposição com mAs bem menor", "correct": false, "feedback": "Repetir por conta própria soma uma exposição. A imagem já existe, e o achado é do indicador." },
+            { "label": "Apago a imagem para o índice sumir", "correct": false, "feedback": "Apagar esconde a informação de que a equipe precisa para revisar a técnica." }
+          ],
+          "help": "Se a imagem não denuncia excesso, qual dado da tela denuncia? E quem precisa saber dele?",
+          "sourceIds": ["iaea-rpop-unnecessary-exposure", "iaea-rpop-digital-radiography"]
+        },
+        {
+          "id": "i5", "type": "multiple-choice", "role": "transfer",
+          "prompt": "Um colega propõe baixar bastante o kV em todos os protocolos do simulador “para proteger mais”. O que essa mudança tende a exigir para manter o mesmo sinal no detector?",
+          "options": [
+            { "label": "Menos mAs, pois o feixe fica mais forte", "correct": false, "feedback": "Com kV menor o feixe sai menos intenso e penetra menos. Não sobra sinal." },
+            { "label": "Mais mAs, pois o feixe penetra menos", "correct": true, "feedback": "Menos penetração pede mais quantidade para o mesmo sinal, e isso tende a aumentar a exposição. A escolha do kV vem da tabela do serviço." },
+            { "label": "Nenhum ajuste, pois o digital compensa", "correct": false, "feedback": "O processamento ajusta brilho, mas não cria sinal que não chegou ao detector." },
+            { "label": "Mais distância, pois o feixe abre menos", "correct": false, "feedback": "O kV não muda a abertura do feixe. Retome o que acontece com a penetração." }
+          ],
+          "help": "Um feixe de menor energia atravessa o objeto com mais ou com menos facilidade?",
+          "sourceIds": ["iaea-rpop-unnecessary-exposure", "iaea-rpop-optimization"]
+        }
+      ],
+      "closing": {
+        "title": "Tendências, não receita",
+        "body": "Agora você consegue prever o que kV e mAs tendem a fazer com penetração, contraste e ruído, e sabe que no digital a aparência não denuncia excesso. O simulador mostra direções. A técnica de cada exame vem da tabela do serviço.",
+        "line": { "speaker": "pixel", "text": "Imagem bonita é um bom começo. O indicador de exposição conta o resto da história." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num sistema digital, por que uma exposição acima do necessário pode passar despercebida?",
+          "options": [
+            { "label": "Porque o detector desliga ao atingir o limite", "correct": false, "feedback": "O detector continua registrando. O limite extremo aparece como saturação, não como desligamento." },
+            { "label": "Porque o excesso sempre escurece a imagem", "correct": false, "feedback": "Escurecer era o aviso do filme. No digital o brilho é reajustado." },
+            { "label": "Porque o processamento ajusta o brilho exibido", "correct": true, "feedback": "A imagem é reescalada e fica com boa aparência numa faixa larga de exposições." },
+            { "label": "Porque o ruído aumenta junto com a exposição", "correct": false, "feedback": "Mais exposição tende a reduzir o ruído. É por isso que a imagem parece melhor." }
+          ],
+          "sourceIds": ["iaea-rpop-unnecessary-exposure", "suny-upstate-exposure-issues"]
+        },
+        {
+          "prompt": "No simulador, qual ajuste muda principalmente a penetração do feixe?",
+          "options": [
+            { "label": "O tempo de exposição, em segundos", "correct": false, "feedback": "O tempo entra na quantidade de radiação, junto com a corrente." },
+            { "label": "A corrente do tubo, em mA", "correct": false, "feedback": "A corrente define quantos fótons são produzidos, não a energia deles." },
+            { "label": "O recorte da imagem exibida", "correct": false, "feedback": "Recorte é pós-processamento. Não altera o feixe." },
+            { "label": "A tensão do tubo, em kV", "correct": true, "feedback": "A tensão define a energia dos fótons, e com ela a penetração." }
+          ],
+          "sourceIds": ["statpearls-image-production-procedures"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o kV controla a … do feixe, e o mAs controla a … de radiação.",
+          "item": {
+            "prompt": "No simulador, a imagem saiu granulada e o kV está na faixa da tabela. Qual controle está mais ligado a esse aspecto?",
+            "options": [
+              { "label": "O mAs, que define a quantidade", "correct": true, "feedback": "Pouca quantidade de radiação no detector aparece como ruído." },
+              { "label": "O foco, que define a nitidez da borda", "correct": false, "feedback": "O ponto focal afeta a borda, não o aspecto granulado deste caso." },
+              { "label": "O ângulo, que define a distorção", "correct": false, "feedback": "Ângulo muda a forma. Retome a frase do gancho." },
+              { "label": "A janela, que define o brilho exibido", "correct": false, "feedback": "Janela muda a exibição. O ruído já veio da aquisição." }
+            ],
+            "sourceIds": ["statpearls-image-production-procedures"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma foto tirada à noite com o celular, sem flash, sai cheia de pontinhos. O que essa foto tem em comum com uma radiografia digital feita com pouca radiação?",
+            "options": [
+              { "label": "As duas ficam ampliadas pela distância", "correct": false, "feedback": "Os pontinhos não vêm da geometria. Vêm da falta de sinal." },
+              { "label": "As duas têm pouco sinal e muito ruído", "correct": true, "feedback": "Pouca luz no sensor ou poucos fótons no detector: a variação aleatória fica visível." },
+              { "label": "As duas ficam distorcidas pelo ângulo", "correct": false, "feedback": "Ângulo deforma. Pontinhos espalhados são ruído." },
+              { "label": "As duas mostram excesso de exposição", "correct": false, "feedback": "Excesso tende a dar imagem limpa. Granulado indica falta." }
+            ],
+            "sourceIds": ["suny-upstate-exposure-issues", "statpearls-image-production-procedures"]
+          }
+        }
+      }
+    },
+    {
+      "id": "m06-04",
+      "code": "M06.04",
+      "title": "Campo, colimação e espalhamento",
+      "objective": "Hoje você vai conseguir ajustar o campo, num esquema, para conter o alvo inteiro com a menor margem possível.",
+      "competency": "Avaliar região útil e limites do campo em esquema.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Retângulo do detector com alvo central e campo ajustável em três estados: largo demais, justo e cortando o alvo.",
+        "Par aquisição e exibição: o campo real exposto e a moldura do recorte por cima."
+      ],
+      "scene": {
+        "setting": "Bancada didática, detector de 27×33 cm",
+        "lines": [
+          { "speaker": "pixel", "text": "O detector didático mede 27×33 cm. O alvo é o retângulo do centro, e a altura do campo fica fixa." },
+          { "speaker": "duda", "text": "Posso abrir tudo e recortar depois na tela? Dá no mesmo, não dá?" },
+          { "speaker": "lia", "text": "Antes de ajustar, diga o que você espera que aconteça com a área. Depois a gente compara." }
+        ]
+      },
+      "concept": {
+        "title": "Abrir menos, sem cortar o alvo",
+        "body": "Colimar limita a área atingida pelo feixe. Menos área irradiada significa menos tecido no feixe direto e menos radiação espalhada, e o espalhamento rouba contraste da imagem. Um campo aberto demais inclui largura sem necessidade. Um campo estreito demais deixa parte do alvo de fora. Recortar a imagem depois da aquisição muda o que se vê, e não a exposição que já aconteceu. O recorte ainda pode esconder o tamanho real do campo usado. Nesta cena o modelo mostra área relativa: ele não calcula dose nem espalhamento, e não é técnica para paciente.",
+        "keyPoints": [
+          "Campo certo: alvo inteiro, margem mínima.",
+          "Colimar reduz área irradiada e espalhamento.",
+          "Recorte na tela não desfaz a exposição."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na aula anterior, o que você aprendeu sobre a aparência de uma imagem digital feita com exposição acima do necessário?",
+          "options": [
+            { "label": "Ela fica escura e denuncia o excesso", "correct": false, "feedback": "Escurecer era o comportamento do filme. No digital o brilho é reajustado." },
+            { "label": "Ela fica granulada e pede repetição", "correct": false, "feedback": "Granulado indica falta de sinal, o oposto do excesso." },
+            { "label": "Ela fica alongada e muda de forma", "correct": false, "feedback": "A forma depende do alinhamento, não da quantidade de exposição." },
+            { "label": "Ela pode parecer ótima, sem avisar", "correct": true, "feedback": "A aparência não denuncia o excesso. A mesma lógica vale para o campo: a tela não mostra tudo o que foi exposto." }
+          ],
+          "help": "Lembre do que o Caio disse sobre a imagem bonita no digital.",
+          "sourceIds": ["iaea-rpop-unnecessary-exposure"]
+        },
+        {
+          "id": "i2", "type": "multiple-choice", "role": "prediction",
+          "prompt": "Com a altura fixa, o alvo cabe inteiro no campo e sobra margem dos dois lados. Você reduz a largura e mantém o alvo inteiro. O que acontece com a área do campo?",
+          "options": [
+            { "label": "Ela fica menor", "correct": true, "feedback": "Com altura fixa, reduzir a largura diminui a área do campo. O resultado vale só para esta cena." },
+            { "label": "Ela fica maior", "correct": false, "feedback": "A área só aumentaria se a abertura aumentasse." },
+            { "label": "Ela não muda", "correct": false, "feedback": "Com a altura fixa, a largura altera a área." },
+            { "label": "Ela passa a indicar a dose", "correct": false, "feedback": "O modelo mostra área relativa, sem calcular dose." }
+          ],
+          "help": "A área de um retângulo depende de duas medidas. Qual delas você mexeu?",
+          "sourceIds": ["iaea-rpop-good-practices"]
+        },
+        {
+          "id": "i3", "type": "ordering", "role": "practice",
+          "prompt": "Ordene os passos para ajustar o campo nesta cena didática.",
+          "items": [
+            "Localizar o alvo e seus limites no esquema",
+            "Dizer o que espera que aconteça com a área",
+            "Reduzir a largura um passo de cada vez",
+            "Conferir se o alvo continua inteiro no campo",
+            "Confirmar o ajuste e ler a área relativa"
+          ],
+          "feedbackCorrect": "Você previu antes de mexer e conferiu o alvo a cada passo. Esse é o hábito que a cena treina.",
+          "feedbackIncorrect": "A ordem pulou a previsão ou a conferência do alvo. Retome: localizar, prever, reduzir, conferir, confirmar.",
+          "help": "O que precisa ser conhecido antes de mexer na abertura? E o que se confere depois de cada passo?",
+          "sourceIds": ["iaea-rpop-good-practices", "bomer-2013-electronic-collimation"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "practice",
+          "context": "Na bancada, você reduziu tanto a largura que a borda direita do alvo ficou fora do campo. A área relativa mostrada pelo modelo é a menor da sessão. Duda comenta que dá para completar a parte que faltou no recorte da tela.",
+          "prompt": "Qual ajuste faz sentido nesta cena?",
+          "options": [
+            { "label": "Reduzir mais, para diminuir ainda mais a área", "correct": false, "feedback": "Reduzir mais deixaria ainda mais alvo de fora." },
+            { "label": "Aumentar a largura até o alvo caber inteiro", "correct": true, "feedback": "O campo precisa conter o alvo inteiro, sem abrir além do necessário." },
+            { "label": "Manter assim, porque a área ficou a menor", "correct": false, "feedback": "Área menor não compensa o alvo incompleto." },
+            { "label": "Recortar depois a parte que faltou na tela", "correct": false, "feedback": "O recorte não recupera o que ficou fora do campo." }
+          ],
+          "help": "Reduza ou aumente um passo de cada vez e observe se o alvo fica inteiro dentro do campo.",
+          "sourceIds": ["bomer-2013-electronic-collimation", "iaea-rpop-good-practices"]
+        },
+        {
+          "id": "i5", "type": "multiple-choice", "role": "transfer",
+          "prompt": "Em outra cena, a imagem foi adquirida com o campo bem mais largo que o alvo, e depois as bordas foram recortadas na tela. Quem olha só a imagem recortada deixa de saber o quê?",
+          "options": [
+            { "label": "Qual era o brilho escolhido na exibição", "correct": false, "feedback": "O brilho continua visível e ajustável na imagem exibida." },
+            { "label": "Qual era o nome do protocolo usado", "correct": false, "feedback": "O protocolo fica nos dados do exame, não nas bordas da imagem." },
+            { "label": "Qual era o tamanho real do campo exposto", "correct": true, "feedback": "O recorte esconde os limites do campo. A área exposta foi maior do que a imagem mostra." },
+            { "label": "Qual era a posição do alvo no detector", "correct": false, "feedback": "O alvo continua visível no recorte. O que some é a borda do campo." }
+          ],
+          "help": "O que as bordas originais de uma imagem informam sobre a aquisição?",
+          "sourceIds": ["bomer-2013-electronic-collimation"]
+        }
+      ],
+      "closing": {
+        "title": "Menos área, alvo inteiro",
+        "body": "Você ajustou o campo para conter o alvo com menos margem e separou colimar de recortar. O resultado vale para esta cena: o modelo mostra área relativa, não calcula dose nem espalhamento e não é técnica para paciente.",
+        "line": { "speaker": "lia", "text": "Colimar é decisão de antes da exposição. Depois dela, só resta exibir." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma imagem foi adquirida com o campo aberto demais, e depois as bordas são recortadas na tela. O que o recorte muda?",
+          "options": [
+            { "label": "A área atingida na aquisição", "correct": false, "feedback": "A aquisição já aconteceu; o recorte vem depois dela." },
+            { "label": "A exposição, que diminui junto", "correct": false, "feedback": "O recorte não altera a exposição já realizada." },
+            { "label": "O que aparece na imagem exibida", "correct": true, "feedback": "O recorte muda o que se vê, e não o que já foi exposto." },
+            { "label": "Nada: equivale a colimar antes", "correct": false, "feedback": "Recortar depois não substitui colimar o feixe antes da exposição." }
+          ],
+          "sourceIds": ["bomer-2013-electronic-collimation"]
+        },
+        {
+          "prompt": "Por que um campo mais fechado, que ainda contém o alvo, tende a favorecer o contraste da imagem?",
+          "options": [
+            { "label": "Porque aumenta a energia do feixe", "correct": false, "feedback": "A energia vem do kV. A colimação não muda a energia." },
+            { "label": "Porque amplia o alvo no detector", "correct": false, "feedback": "Ampliação depende das distâncias, não da abertura do campo." },
+            { "label": "Porque dispensa conferir o alvo", "correct": false, "feedback": "O alvo continua precisando ser conferido a cada ajuste." },
+            { "label": "Porque gera menos espalhamento", "correct": true, "feedback": "Menos área irradiada produz menos radiação espalhada chegando ao detector." }
+          ],
+          "sourceIds": ["bomer-2013-electronic-collimation", "statpearls-image-acquisition"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Antes de responder, complete: o alvo precisa ficar … e a margem extra precisa ficar …",
+          "item": {
+            "prompt": "Com a altura fixa, o campo está estreito e corta a borda esquerda do alvo. Qual é o primeiro ajuste nesta cena?",
+            "options": [
+              { "label": "Abrir a largura até o alvo caber", "correct": true, "feedback": "Primeiro o alvo inteiro. Depois, tirar a margem que sobrar." },
+              { "label": "Fechar a largura mais um passo", "correct": false, "feedback": "Fechar mais corta ainda mais o alvo." },
+              { "label": "Deslocar o recorte da tela", "correct": false, "feedback": "O recorte da tela não muda o que o feixe atingiu." },
+              { "label": "Aceitar, pois a área é pequena", "correct": false, "feedback": "Área pequena com alvo cortado não atende ao objetivo da cena." }
+            ],
+            "sourceIds": ["bomer-2013-electronic-collimation"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra cena, o alvo é menor, e o campo começa bem mais largo que ele. Ampliar o campo “por garantia” tem qual efeito no modelo?",
+            "options": [
+              { "label": "Diminui a área relativa do campo", "correct": false, "feedback": "Ampliar a abertura aumenta a área." },
+              { "label": "Aumenta a área, sem ganho para o alvo", "correct": true, "feedback": "A abertura extra aumenta a área sem atender ao cenário." },
+              { "label": "Mede a dose recebida em cada órgão", "correct": false, "feedback": "O modelo não calcula dose, só área relativa." },
+              { "label": "Dispensa conferir o alvo outra vez", "correct": false, "feedback": "O alvo continua precisando ser conferido." }
+            ],
+            "sourceIds": ["iaea-rpop-good-practices", "bomer-2013-electronic-collimation"]
+          }
+        }
+      }
+    },
+    {
+      "id": "m06-05",
+      "code": "M06.05",
+      "title": "Movimento, nitidez e repetição",
+      "objective": "Hoje você vai conseguir reconhecer borramento por movimento, apontar a causa provável e decidir sem repetir no automático.",
+      "competency": "Escolher correção técnica e evitar repetição automática.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Par esquemático da mesma borda nítida e borrada, com seta indicando a direção do movimento.",
+        "Linha do tempo com exposição curta e exposição longa sobre o mesmo deslocamento do objeto."
+      ],
+      "scene": {
+        "setting": "Sala de simulação, fim do plantão",
+        "lines": [
+          { "speaker": "paciente", "name": "Seu Jorge", "text": "Moça, eu tossi bem na hora. Estragou a chapa?" },
+          { "speaker": "duda", "text": "As bordas ficaram borradas. Vou repetir logo, é rapidinho." },
+          { "speaker": "caio", "text": "Calma. Repetir é outra exposição. Primeiro a gente entende por que borrou, senão borra de novo." }
+        ]
+      },
+      "concept": {
+        "title": "Entender antes de repetir",
+        "body": "Se o paciente se move durante a exposição, as bordas perdem nitidez. Duas frentes reduzem o risco: prevenir o movimento e usar tempo de exposição curto, conforme o protocolo. Exemplos desta aula: orientar com clareza, rever apoio e conforto, esperar a tosse passar antes do disparo. No digital, apagar e repetir é fácil, e repetições podem passar sem registro. Cada repetição é uma nova exposição. Por isso os serviços analisam as imagens rejeitadas: a causa encontrada vira ajuste técnico e treinamento. Na simulação, diante de uma imagem borrada, você descreve o que vê, aponta a causa provável e leva à supervisão. A decisão de repetir não é automática.",
+        "keyPoints": [
+          "Movimento durante a exposição borra as bordas.",
+          "Prevenir: orientar, apoiar, tempo curto conforme o protocolo.",
+          "Repetir é nova exposição: causa primeiro, decisão com a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na primeira aula desta unidade, qual fator da montagem favorecia bordas mais nítidas?",
+          "options": [
+            { "label": "Ponto focal menor", "correct": true, "feedback": "Fonte mais próxima de um ponto, menos borrão geométrico. Hoje entra outra causa de borrão: o movimento." },
+            { "label": "Campo mais aberto", "correct": false, "feedback": "Abrir o campo aumenta a área irradiada e o espalhamento. Não afina bordas." },
+            { "label": "Objeto longe do detector", "correct": false, "feedback": "Afastar o objeto do detector amplia a projeção. Não a deixa mais nítida." },
+            { "label": "Recorte mais fechado", "correct": false, "feedback": "Recorte muda a exibição, não a formação da borda." }
+          ],
+          "help": "Pense no que acontece com a borda quando a fonte se parece mais com um ponto.",
+          "sourceIds": ["iaea-hhc-handbook-ch06", "statpearls-image-production-procedures"]
+        },
+        {
+          "id": "i2", "type": "ordering", "role": "practice",
+          "prompt": "Ordene o que fazer, na simulação, diante de uma imagem com bordas borradas.",
+          "items": [
+            "Parar, sem expor de novo no impulso",
+            "Descrever o que se vê: onde e como borrou",
+            "Levantar a causa provável do borramento",
+            "Levar a descrição e a causa à supervisão",
+            "Seguir a decisão da equipe sobre repetir"
+          ],
+          "feedbackCorrect": "Você pôs a causa antes da decisão. Repetir sem entender tende a repetir também o defeito.",
+          "feedbackIncorrect": "A ordem deixou a decisão de repetir antes da causa. Retome: parar, descrever, levantar a causa, levar à equipe.",
+          "help": "O que precisa estar claro antes de alguém decidir por uma nova exposição?",
+          "sourceIds": ["iaea-rpop-good-practices", "iaea-rpop-digital-radiography"]
+        },
+        {
+          "id": "i3", "type": "matching", "role": "practice",
+          "prompt": "Ligue cada situação da simulação à medida de prevenção que esta aula deu como exemplo.",
+          "pairs": [
+            { "left": "Paciente não entendeu quando ficar parado", "right": "Orientar de novo, com frase curta e clara" },
+            { "left": "Posição instável, difícil de manter", "right": "Rever apoio e conforto conforme o protocolo" },
+            { "left": "Tempo de exposição longo no protocolo", "right": "Levar à supervisão a revisão da técnica" },
+            { "left": "Paciente tossindo no momento do disparo", "right": "Esperar a tosse passar e combinar o momento" }
+          ],
+          "feedbackCorrect": "Cada causa pede uma medida diferente. Nenhuma delas é repetir de imediato.",
+          "feedbackIncorrect": "Alguma medida não conversa com a causa. Retome: a pergunta é o que fez o paciente se mover.",
+          "help": "Para cada situação, pergunte: o que tornaria mais fácil ficar parado durante a exposição?",
+          "sourceIds": ["jones-2015-paediatric-extremities", "statpearls-image-acquisition"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
+          "context": "Na simulação, a imagem do tórax de Seu Jorge saiu borrada porque ele tossiu. Duda já está com a mão no disparador para repetir e diz que depois apaga a primeira, assim ninguém precisa saber. Seu Jorge ainda está tossindo.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            { "label": "Deixo repetir, já que apagar resolve", "correct": false, "feedback": "Apagar não desfaz a exposição e esconde a repetição da análise do serviço." },
+            { "label": "Peço para parar e chamamos o Caio", "correct": true, "feedback": "Sem a causa resolvida, o defeito tende a voltar. A imagem borrada fica registrada, e a decisão de repetir passa pela equipe." },
+            { "label": "Repito eu, com Seu Jorge ainda tossindo", "correct": false, "feedback": "Expor com a tosse em curso tende a borrar de novo e soma exposição sem ganho." },
+            { "label": "Seguro o tórax dele para não mexer", "correct": false, "feedback": "Conter o paciente com as mãos não é medida prevista e coloca você no campo. Pare e peça apoio." }
+          ],
+          "help": "A causa do borramento já foi resolvida? E de quem é a decisão de uma nova exposição?",
+          "sourceIds": ["iaea-rpop-digital-radiography", "iaea-rpop-good-practices"]
+        },
+        {
+          "id": "i5", "type": "case-decision", "role": "transfer",
+          "context": "Num exercício de análise de rejeição, a turma recebe a lista do mês de um serviço fictício: a maior parte das imagens rejeitadas tem como motivo o posicionamento, e uma parte menor, o movimento. Um colega propõe resolver deixando todo mundo repetir mais rápido.",
+          "prompt": "Qual uso dessa lista combina com o objetivo da análise?",
+          "options": [
+            { "label": "Esconder os rejeitos para o índice cair", "correct": false, "feedback": "Esconder rejeitos tira da equipe a informação que orienta a melhoria." },
+            { "label": "Punir quem teve mais imagens rejeitadas", "correct": false, "feedback": "A análise serve para corrigir causas e treinar, não para apontar culpados." },
+            { "label": "Usar as causas para orientar treino e ajustes", "correct": true, "feedback": "O objetivo é reduzir repetições corrigindo problemas técnicos e melhorando a habilidade da equipe." },
+            { "label": "Agilizar a repetição para ninguém perceber", "correct": false, "feedback": "Repetir mais rápido não reduz repetições. Só as torna menos visíveis." }
+          ],
+          "help": "Para que um serviço guarda e estuda as imagens que rejeitou?",
+          "sourceIds": ["iaea-rpop-good-practices"]
+        }
+      ],
+      "closing": {
+        "title": "Causa primeiro, decisão depois",
+        "body": "Agora você consegue reconhecer o borramento por movimento, ligar a situação a uma medida de prevenção e tratar a repetição como decisão da equipe, com a causa descrita. Toda imagem rejeitada ensina alguma coisa quando fica registrada.",
+        "line": { "speaker": "caio", "text": "Repetir sem saber o motivo é jogar a mesma moeda de novo." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que apagar uma imagem borrada e repetir em seguida, sem registro, é um problema para o serviço?",
+          "options": [
+            { "label": "Porque a imagem apagada volta ao PACS", "correct": false, "feedback": "Imagem apagada antes do arquivamento não volta. O problema é o que se perde com ela." },
+            { "label": "Porque o detector precisa esfriar antes", "correct": false, "feedback": "O intervalo entre exposições não é a questão: o problema continuaria mesmo com pausa. Retome o que a análise de rejeição precisa enxergar." },
+            { "label": "Porque a segunda imagem sai sempre pior", "correct": false, "feedback": "A segunda pode sair boa. A questão é a exposição extra que ninguém contabilizou." },
+            { "label": "Porque a repetição fica fora da análise", "correct": true, "feedback": "Sem registro, a exposição extra não aparece, e a causa não vira ajuste nem treinamento." }
+          ],
+          "sourceIds": ["iaea-rpop-digital-radiography", "iaea-rpop-good-practices"]
+        },
+        {
+          "prompt": "Qual medida atua diretamente sobre o borramento por movimento do paciente?",
+          "options": [
+            { "label": "Orientar bem e manter a exposição curta", "correct": true, "feedback": "Paciente que entende o que fazer se move menos, e tempo curto dá menos chance ao movimento." },
+            { "label": "Abrir o campo para sobrar margem", "correct": false, "feedback": "Campo maior aumenta a área irradiada. Não segura o movimento." },
+            { "label": "Aumentar o brilho na estação de trabalho", "correct": false, "feedback": "Brilho é exibição. A borda borrada já foi adquirida assim." },
+            { "label": "Afastar o paciente do detector", "correct": false, "feedback": "Afastar do detector amplia a imagem. Não reduz o movimento." }
+          ],
+          "sourceIds": ["jones-2015-paediatric-extremities", "statpearls-image-acquisition"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de pensar em repetir, eu preciso saber … a imagem borrou.",
+          "item": {
+            "prompt": "Na simulação, a imagem saiu borrada e o paciente simulado diz que não entendeu a hora de prender a respiração. Qual é a causa provável a descrever?",
+            "options": [
+              { "label": "Ponto focal grande demais no tubo", "correct": false, "feedback": "O relato aponta para outra coisa. Retome o que o paciente disse." },
+              { "label": "Orientação que não foi compreendida", "correct": true, "feedback": "O paciente se moveu porque não entendeu a instrução. É isso que a descrição leva à equipe." },
+              { "label": "Campo fechado demais na colimação", "correct": false, "feedback": "Campo fechado corta anatomia. Não borra bordas." },
+              { "label": "Excesso de exposição no detector", "correct": false, "feedback": "Excesso tende a dar imagem limpa, não borrada." }
+            ],
+            "sourceIds": ["statpearls-image-acquisition"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Você fotografa uma criança correndo num quarto pouco iluminado, e ela sai como um vulto. O que mais ajudaria a registrar a criança nítida?",
+            "options": [
+              { "label": "Aproximar o celular do rosto dela", "correct": false, "feedback": "Chegar perto muda o enquadramento. O vulto vem do movimento durante o registro." },
+              { "label": "Recortar a foto depois de pronta", "correct": false, "feedback": "Recorte não devolve nitidez a um registro que já saiu borrado." },
+              { "label": "Registrar em um tempo mais curto", "correct": true, "feedback": "Quanto menos tempo dura o registro, menos movimento cabe dentro dele. Vale para a foto e para a exposição." },
+              { "label": "Aumentar o brilho da tela ao ver", "correct": false, "feedback": "Brilho da tela é exibição. O borrão está na imagem registrada." }
+            ],
+            "sourceIds": ["jones-2015-paediatric-extremities"]
+          }
+        }
+      }
+    },
+    {
+      "id": "m06-06",
+      "code": "M06.06",
+      "title": "Imagem tecnicamente adequada",
+      "objective": "Hoje você vai conseguir conferir uma imagem por critérios técnicos explícitos e justificar se ela segue ou se você chama a equipe.",
+      "competency": "Justificar aceitação ou escalonamento por critérios explícitos.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Cartão de conferência com os critérios em sequência e espaço para marcar atende ou não atende.",
+        "Fluxo simples: todos os critérios atendem, a imagem segue; algum falha, nomear, descrever e escalonar."
+      ],
+      "scene": {
+        "setting": "Estação de trabalho da sala de simulação",
+        "lines": [
+          { "speaker": "lia", "text": "Três imagens de treino na tela. Para cada uma: segue adiante ou você me chama? E por quê?" },
+          { "speaker": "duda", "text": "Essa aqui eu achei feia. Serve como motivo?" },
+          { "speaker": "pixel", "text": "Feia não é critério. O que exatamente você conferiu nela?" }
+        ]
+      },
+      "concept": {
+        "title": "Critérios no lugar de impressão",
+        "body": "Avaliar a qualidade técnica não é interpretar a imagem. É conferir, um a um, critérios que você já conhece. A ordem desta aula é uma convenção de estudo: identificação e marcador de lado; região pedida inteira no campo colimado; alinhamento sem distorção evidente; nitidez, ruído e artefatos; indicador de exposição na faixa do protocolo. Se uma área importante está saturada, o processamento não recupera a informação. Quando um critério falha, você nomeia o critério, descreve o que vê e leva à supervisão. Aceitar com ressalva ou repetir é decisão da equipe, conforme o protocolo do serviço. Você não corrige o registro por conta própria.",
+        "keyPoints": [
+          "Critério nomeado, achado descrito.",
+          "Qualidade técnica não é diagnóstico.",
+          "Falhou um critério: escalonar, sem corrigir sozinho."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1", "type": "multiple-choice", "role": "prerequisite",
+          "prompt": "Na aula anterior, o que vinha antes de qualquer decisão de repetir uma imagem borrada?",
+          "options": [
+            { "label": "Apagar a primeira imagem da estação", "correct": false, "feedback": "Apagar esconde a repetição da análise do serviço." },
+            { "label": "Aumentar o mAs por segurança", "correct": false, "feedback": "Mais mAs não trata o movimento e aumenta a exposição." },
+            { "label": "Expor de novo o mais rápido possível", "correct": false, "feedback": "Rapidez sem causa conhecida tende a repetir o defeito." },
+            { "label": "Descrever o achado e a causa provável", "correct": true, "feedback": "Causa primeiro, decisão depois, com a equipe. Hoje você aplica isso a todos os critérios." }
+          ],
+          "help": "Lembre da frase do Caio sobre entender por que borrou.",
+          "sourceIds": ["iaea-rpop-good-practices"]
+        },
+        {
+          "id": "i2", "type": "ordering", "role": "practice",
+          "prompt": "Ordene a conferência de uma imagem de treino na ordem ensinada nesta aula, do que identifica ao que qualifica.",
+          "items": [
+            "Identificação e marcador de lado",
+            "Região pedida inteira dentro do campo",
+            "Alinhamento e ausência de distorção evidente",
+            "Nitidez, ruído e artefatos",
+            "Indicador de exposição na faixa do protocolo"
+          ],
+          "feedbackCorrect": "Você começou por saber de quem e de que lado é a imagem, e só então qualificou o resto.",
+          "feedbackIncorrect": "A sequência começou pela qualidade antes da identificação. Retome: primeiro quem e o quê, depois como ficou.",
+          "help": "De que adianta uma imagem nítida se você não sabe de quem é ou de que lado?",
+          "sourceIds": ["statpearls-image-production-quality", "statpearls-image-acquisition"]
+        },
+        {
+          "id": "i3", "type": "matching", "role": "practice",
+          "prompt": "Ligue cada achado ao critério técnico que ele descumpre.",
+          "pairs": [
+            { "left": "Contornos sem definição na imagem inteira", "right": "Ausência de borramento" },
+            { "left": "Aspecto granulado em toda a imagem", "right": "Ruído aceitável" },
+            { "left": "Parte da região pedida fora da imagem", "right": "Região inteira no campo" },
+            { "left": "Estrutura visivelmente alongada", "right": "Alinhamento sem distorção" }
+          ],
+          "feedbackCorrect": "Você deu nome ao critério de cada achado. É esse nome que vai na sua descrição para a equipe.",
+          "feedbackIncorrect": "Algum achado ficou com o critério errado. Retome o que cada aula da unidade ensinou a reconhecer.",
+          "help": "Cada achado veio de uma aula desta unidade: geometria, exposição, campo ou movimento.",
+          "sourceIds": ["statpearls-image-production-quality", "statpearls-image-production-procedures"]
+        },
+        {
+          "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
+          "context": "Na estação de treino, a imagem de um punho simulado está nítida e bem exposta, mas não tem marcador de lado visível. A ficha fictícia diz punho direito. Duda sugere digitar um “D” na imagem pelo software e enviar, para não atrasar.",
+          "prompt": "O que você faz antes de enviar a imagem?",
+          "options": [
+            { "label": "Paro e levo à Lia a falta do marcador", "correct": true, "feedback": "Lado é critério de identificação. Sem marcador registrado na aquisição, a conferência e a decisão são da supervisão." },
+            { "label": "Digito o “D” e envio, pois a ficha confirma", "correct": false, "feedback": "Acrescentar o lado por conta própria é corrigir o registro sem conferência. A ficha também pode estar errada." },
+            { "label": "Envio sem marcador, pois a imagem está boa", "correct": false, "feedback": "Imagem nítida sem identificação de lado descumpre um critério básico." },
+            { "label": "Repito a exposição para incluir o marcador", "correct": false, "feedback": "Repetir é decisão da equipe e soma exposição. Primeiro descreva o que falta." }
+          ],
+          "help": "Qual critério falhou? E quem pode decidir como ele será resolvido?",
+          "sourceIds": ["statpearls-image-production-quality", "statpearls-image-acquisition"]
+        },
+        {
+          "id": "i5", "type": "case-decision", "role": "transfer",
+          "context": "Outra imagem de treino: tórax simulado, identificação e marcador presentes, sem borramento, indicador de exposição na faixa. Na base, o campo termina um pouco acima do limite que o protocolo fictício pede incluir. Duda acha que “quase tudo” é suficiente.",
+          "prompt": "Como você justifica o que fazer com esta imagem?",
+          "options": [
+            { "label": "Aceito: a maioria dos critérios foi cumprida", "correct": false, "feedback": "Critérios não se compensam por maioria. Um deles falhou e precisa ser nomeado." },
+            { "label": "Escalono: a região pedida não está inteira", "correct": true, "feedback": "Você nomeou o critério que falhou e descreveu o achado. Aceitar com ressalva ou repetir é decisão da equipe." },
+            { "label": "Repito: qualquer falha exige nova exposição", "correct": false, "feedback": "Nem toda falha leva à repetição, e essa decisão não é sua na simulação." },
+            { "label": "Recorto: assim a base deixa de aparecer", "correct": false, "feedback": "Recortar esconde o problema e não inclui o que ficou fora do campo." }
+          ],
+          "help": "Percorra os critérios um a um. Algum deles não foi atendido?",
+          "sourceIds": ["statpearls-image-acquisition", "bomer-2013-electronic-collimation"]
+        }
+      ],
+      "closing": {
+        "title": "Aceitar ou escalonar, com motivo",
+        "body": "Agora você consegue conferir uma imagem por critérios explícitos, dar nome ao que falhou e justificar por que ela segue ou vai para a supervisão. Avaliar qualidade técnica não é diagnosticar, e a decisão de repetir continua sendo da equipe.",
+        "line": { "speaker": "lia", "text": "Quem diz o critério e o achado já fez a parte mais difícil da conversa." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma imagem de treino tem uma área importante totalmente saturada. O que isso significa para a conferência?",
+          "options": [
+            { "label": "Que basta escurecer a janela na estação", "correct": false, "feedback": "Ajuste de janela não recupera informação que o detector não registrou." },
+            { "label": "Que o ruído daquela área está excessivo", "correct": false, "feedback": "Saturação é sinal no máximo, não variação aleatória." },
+            { "label": "Que a informação ali não é recuperável", "correct": true, "feedback": "Na saturação o dado se perde. É um achado para descrever e levar à equipe." },
+            { "label": "Que o marcador de lado foi trocado", "correct": false, "feedback": "Saturação não tem relação com o marcador. Retome o que acontece com o sinal no limite." }
+          ],
+          "sourceIds": ["iaea-rpop-digital-radiography", "suny-upstate-exposure-issues"]
+        },
+        {
+          "prompt": "Qual justificativa de escalonamento usa um critério explícito?",
+          "options": [
+            { "label": "“Não gostei do jeito que ficou”", "correct": false, "feedback": "Impressão pessoal não diz o que conferir nem o que corrigir." },
+            { "label": "“A imagem está feia e estranha”", "correct": false, "feedback": "Feia não é critério. Falta dizer o que foi conferido." },
+            { "label": "“Acho melhor repetir por garantia”", "correct": false, "feedback": "Repetir por garantia não aponta critério nem causa." },
+            { "label": "“A região pedida está cortada”", "correct": true, "feedback": "A frase nomeia o critério e descreve o achado. Com ela a equipe consegue decidir." }
+          ],
+          "sourceIds": ["statpearls-image-acquisition"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o critério que falhou foi … e o que eu vejo na imagem é …",
+          "item": {
+            "prompt": "Na imagem de treino, tudo confere, mas as bordas ósseas estão borradas. Qual frase descreve o achado por critério?",
+            "options": [
+              { "label": "“A imagem não me convenceu muito”", "correct": false, "feedback": "Falta nomear o critério. Retome a frase do gancho." },
+              { "label": "“O exame precisa ser refeito já”", "correct": false, "feedback": "Isso é uma decisão, e ela é da equipe. Antes vem o critério." },
+              { "label": "“Há borramento: falta nitidez”", "correct": true, "feedback": "Critério nomeado e achado descrito. Agora a equipe tem com o que decidir." },
+              { "label": "“O paciente simulado é agitado”", "correct": false, "feedback": "Isso é uma suposição sobre a causa, não a descrição do que a imagem mostra." }
+            ],
+            "sourceIds": ["statpearls-image-production-quality"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num laboratório de fotografia de documentos, uma cópia saiu com o canto da página cortado. O restante está legível. Como um conferente descreveria o problema por critério?",
+            "options": [
+              { "label": "“A cópia ficou com cara de malfeita”", "correct": false, "feedback": "Aparência geral não diz qual requisito falhou." },
+              { "label": "“O papel usado não era o melhor”", "correct": false, "feedback": "O papel não é o achado. Retome o que está faltando na cópia." },
+              { "label": "“A maior parte está boa, pode seguir”", "correct": false, "feedback": "A maioria atendida não apaga o requisito que falhou." },
+              { "label": "“O conteúdo não está inteiro na área”", "correct": true, "feedback": "Mesmo raciocínio da imagem: nomear o requisito e descrever o que falta." }
+            ],
+            "sourceIds": ["statpearls-image-acquisition"]
+          }
+        }
+      }
+    }
+  ]
+}

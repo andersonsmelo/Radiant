@@ -1,5 +1,8 @@
 # Radiant — Arcabouço de Conhecimento e Pipeline Editorial
 
+> Referência técnica de conhecimento/direitos. As sequências e instâncias curriculares anteriores foram retiradas. A proposta vigente é o [planejamento único de conteúdo](../../plans/2026-11-02-planejamento-conteudo-radiant.md); este arquivo não mantém um currículo paralelo.
+
+
 ## 1. Objetivo
 
 Definir o desenho do sistema editorial do Radiant para transformar livros e materiais de estudo em uma base de conhecimento cumulativa, classificada e reaproveitável.

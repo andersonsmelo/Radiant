@@ -12,6 +12,8 @@ import { BetaService } from '../features/beta/BetaService';
 import BetaGateScreen from '../features/beta/screens/BetaGateScreen';
 import { AuthService } from '../features/auth/AuthService';
 import { LessonCatalogService } from '../features/content/services/LessonCatalogService';
+import { ContentUpdatedScreen } from '../features/content/components/ContentUpdatedScreen';
+import { isResumeContentAvailable } from '../features/content/services/ContentAvailability';
 import { FirstRunService } from '../features/first-run/FirstRunService';
 import WelcomeFlowScreen from '../features/first-run/screens/WelcomeFlowScreen';
 import type { FirstRunExitReason } from '../features/first-run/first-run.types';
@@ -292,6 +294,7 @@ function RootLayout() {
           getNativeActiveCheckpointRuntime(checkpointMode).inspectLaunch({
             contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
             firstRunAvailable: shouldShowWelcome,
+            isContentAvailable: isResumeContentAvailable,
           })
         ));
         if (!active) return;
@@ -340,7 +343,7 @@ function RootLayout() {
   useEffect(() => {
     if (startupPhase !== 'ready') return;
     const frame = requestAnimationFrame(() => startupProbe.recordFirstFrame(
-      firstFrameLaunchPhase(checkpointLaunch.kind),
+      firstFrameLaunchPhase(checkpointLaunch.kind === 'content-updated' ? 'fallback' : checkpointLaunch.kind),
     ));
     return () => cancelAnimationFrame(frame);
   }, [checkpointLaunch.kind, startupPhase]);
@@ -431,6 +434,16 @@ function RootLayout() {
     );
   }
 
+  if (checkpointLaunch.kind === 'content-updated') {
+    return <ThemeProvider value={navigationTheme}>
+      <ContentUpdatedScreen onOpenTrail={() => {
+        handleCheckpointHome();
+        setPendingCheckpointHref('/(tabs)');
+      }} />
+      <StatusBar style="light" />
+    </ThemeProvider>;
+  }
+
   if (checkpointLaunch.kind === 'offer' || checkpointLaunch.kind === 'fallback') {
     return (
       <ThemeProvider value={navigationTheme}>
@@ -493,6 +506,7 @@ function RootLayout() {
         <Stack.Screen name="review" />
         <Stack.Screen name="subscription" />
         <Stack.Screen name="settings" />
+        <Stack.Screen name="missions" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
         <Stack.Screen name="licao-hibrida" />

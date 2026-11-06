@@ -17,6 +17,10 @@ const EXPECTED: readonly (readonly [LessonFeedbackEvent, string, keyof typeof ha
   ['streak', 'sequencia', 'hapticStreak'],
   ['heart_lost', 'vida', 'hapticLifeLost'],
   ['lesson_complete', 'fim', 'hapticCelebrate'],
+  // Trilha ampla (plano de 2026-11-05, I6): 5 e 10 seguidas, nível e unidade.
+  ['combo', 'combo', 'hapticStreak'],
+  ['level_up', 'nivel', 'hapticCelebrate'],
+  ['unit_complete', 'unidade', 'hapticCelebrate'],
 ];
 
 beforeEach(() => jest.clearAllMocks());

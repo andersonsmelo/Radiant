@@ -304,12 +304,21 @@ class JourneyProgressServiceImpl {
 
         if (!normalized) {
             const migrated = await this.buildInitialProgress(trackDefinition);
-            await this.persistProgress(trackDefinition, migrated, store);
+            if (trackDefinition.units.some(unit => unit.nodes.length > 0)) {
+                await this.persistProgress(trackDefinition, migrated, store);
+            }
             return migrated;
         }
 
+        // Empty or replaced catalog: derive a view without rewriting historical
+        // completions/cursors just because their nodes are no longer present.
+        const unavailableHistory = [...normalized.completedNodeIds, ...normalized.pendingReviewNodeIds,
+            ...(normalized.resumableNodeId ? [normalized.resumableNodeId] : [])]
+            .some(id => !this.findNode(trackDefinition, id));
         const hydrated = await this.hydrateProgress(trackDefinition, normalized);
-        await this.persistProgress(trackDefinition, hydrated, store);
+        if (!unavailableHistory && trackDefinition.units.some(unit => unit.nodes.length > 0)) {
+            await this.persistProgress(trackDefinition, hydrated, store);
+        }
         return hydrated;
     }
 
@@ -464,7 +473,19 @@ class JourneyProgressServiceImpl {
             activeTrackId: trackDefinition.id,
             tracks: {
                 ...store.tracks,
-                [trackDefinition.id]: progress,
+                [trackDefinition.id]: {
+                    ...progress,
+                    // Retain historical IDs; recommendation and counts still use
+                    // the current definition. No mapping to new competencies.
+                    completedNodeIds: Array.from(new Set([
+                        ...(store.tracks[trackDefinition.id]?.completedNodeIds ?? []).filter(id => !this.findNode(trackDefinition, id)),
+                        ...progress.completedNodeIds,
+                    ])),
+                    pendingReviewNodeIds: Array.from(new Set([
+                        ...(store.tracks[trackDefinition.id]?.pendingReviewNodeIds ?? []).filter(id => !this.findNode(trackDefinition, id)),
+                        ...progress.pendingReviewNodeIds,
+                    ])),
+                },
             },
         });
     }

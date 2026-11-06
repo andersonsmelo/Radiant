@@ -14,6 +14,8 @@ const reanimatedComponents = [
   // Contrato que enumera seus alvos não diz nada sobre quem ele não nomeia.
   'src/ui/characters/PixelIllustration.tsx',
   'src/ui/characters/PixelFace.tsx',
+  // O corpo vetorial acena com Reanimated (2026-10-21) e declara o próprio easing.
+  'src/ui/characters/PixelBody.tsx',
   // O balão passou a animar em 2026-08-14 (nasce e recolhe a partir do
   // rabicho). Entra aqui no mesmo run que ganhou a animação, justamente pelo
   // motivo escrito acima: um contrato que enumera alvos não protege quem ele

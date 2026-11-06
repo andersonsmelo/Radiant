@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 1,
+  "kind": "editorial-review-package-manifest",
+  "state": "accepted-for-candidate-authoring",
+  "measuredAt": "2026-11-03",
+  "loopRun": "run-1793704555798-67c710be",
+  "namespace": "rtg-2026",
+  "productionDocument": {
+    "url": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+    "documentId": "1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+    "revisionId": "AHj4eMQaAjPaiP1MW2FlzsIA9iD13ZyDzsmL1dNWl48fERU0n2wAGbMtZDrpxUippP1WwEi5xE291qWyOfWJEQuuxJyr-ILXqJErUSOV7LE",
+    "textSha256": "c0495acb4fe29a92c84c33750ab9478cfd4a43819c17916be41310ad51d4be20",
+    "textHashConvention": "UTF-8 complete native readback body including final empty paragraph; inline image excluded",
+    "textMatchesReadback": true,
+    "paragraphs": 148,
+    "headings": 21,
+    "nativeBullets": 11,
+    "inlineImages": 1
+  },
+  "completeLesson": {
+    "curricularLabel": "M01.01",
+    "status": "complete-draft-editorially-accepted",
+    "steps": 4,
+    "practiceItems": 1,
+    "checkpointItems": 2,
+    "recoveryItems": 2,
+    "optionCountPerItem": 4
+  },
+  "briefs": [
+    {
+      "curricularLabel": "M01.01",
+      "title": "O trabalho do tecnólogo",
+      "family": "Q1 • multiple-choice • v1 sem extensão",
+      "proposedActivityId": "activity:rtg-2026:pilot:m01-01-a",
+      "sourceIds": [
+        "source:rtg-2026:pilot:roles",
+        "source:rtg-2026:pilot:safety"
+      ],
+      "productionContent": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+      "status": "accepted-for-candidate-authoring",
+      "rightsReview": "sources-verified-and-diagrams-owner-approved",
+      "technicalReview": "accepted-by-claude-pc03b-2026-11-03"
+    },
+    {
+      "curricularLabel": "M01.02",
+      "title": "Identificação e comunicação",
+      "family": "Q5 • ordering • extensão pilot",
+      "proposedActivityId": "activity:rtg-2026:pilot:m01-02-a",
+      "sourceIds": [
+        "source:rtg-2026:pilot:safety"
+      ],
+      "productionContent": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+      "status": "accepted-for-candidate-authoring",
+      "rightsReview": "sources-verified-and-diagrams-owner-approved",
+      "technicalReview": "accepted-by-claude-pc03b-2026-11-03"
+    },
+    {
+      "curricularLabel": "M02.01",
+      "title": "Posição de referência e vistas",
+      "family": "Q2 • hotspot • extensão pilot",
+      "proposedActivityId": "activity:rtg-2026:pilot:m02-01-a",
+      "sourceIds": [
+        "source:rtg-2026:pilot:coordinates",
+        "source:rtg-2026:pilot:markers"
+      ],
+      "productionContent": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+      "status": "accepted-for-candidate-authoring",
+      "rightsReview": "sources-verified-and-diagrams-owner-approved",
+      "technicalReview": "accepted-by-claude-pc03b-2026-11-03"
+    },
+    {
+      "curricularLabel": "M02.02",
+      "title": "Lateralidade e marcadores",
+      "family": "Q3 • comparison • extensão pilot",
+      "proposedActivityId": "activity:rtg-2026:pilot:m02-02-a",
+      "sourceIds": [
+        "source:rtg-2026:pilot:markers",
+        "source:rtg-2026:pilot:coordinates"
+      ],
+      "productionContent": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+      "status": "accepted-for-candidate-authoring",
+      "rightsReview": "sources-verified-and-diagrams-owner-approved",
+      "technicalReview": "accepted-by-claude-pc03b-2026-11-03"
+    },
+    {
+      "curricularLabel": "M06.04",
+      "title": "Campo, colimação e espalhamento",
+      "family": "Q4 • bench • extensão pilot",
+      "proposedActivityId": "activity:rtg-2026:pilot:m06-04-a",
+      "sourceIds": [
+        "source:rtg-2026:pilot:collimation",
+        "source:rtg-2026:pilot:safety"
+      ],
+      "productionContent": "https://docs.google.com/document/d/1-OLHVS-QnG69Gm5EGwV_UslxBj3OP3g9W62GEUvAEUE",
+      "status": "accepted-for-candidate-authoring",
+      "rightsReview": "sources-verified-and-diagrams-owner-approved",
+      "technicalReview": "accepted-by-claude-pc03b-2026-11-03"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source:rtg-2026:pilot:roles",
+      "slug": "roles",
+      "title": "The evolution of radiographers",
+      "attribution": "Cornacchione et al. (2026)",
+      "url": "https://link.springer.com/article/10.1186/s13244-026-02442-x",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "accessedAt": "2026-11-03",
+      "retrievedAt": "2026-11-03T11:16:58.227150+00:00",
+      "retrievedMaterialSha256": "c65f3430eac7870c67c4b09179110221bb7394982b8d9174deb8d21ca616bba5",
+      "retrievedBytes": 458048,
+      "licenseEvidence": {
+        "marker": "creativecommons.org/licenses/by/4.0",
+        "verifiedInCapturedBody": true
+      },
+      "locator": "Background; Clinical role and perceived autonomy",
+      "use": "factual-text-only; no figures, tables, questionnaires or patient images copied",
+      "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores.",
+      "rightsReview": "CC-BY-4.0-verified-for-declared-text-use; no third-party figures copied",
+      "technicalReview": "accepted-for-declared-factual-scope-by-claude-pc03b",
+      "documentLabel": "S01",
+      "citation": "Cornacchione P. et al. (2026). The evolution of radiographers—an investigation into radiographers’ role and perspectives: a EuroAIM/EFRS survey. Insights into Imaging 17, 271."
+    },
+    {
+      "id": "source:rtg-2026:pilot:safety",
+      "slug": "safety",
+      "title": "Patient Safety in Medical Imaging",
+      "attribution": "European Society of Radiology e European Federation of Radiographer Societies (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "accessedAt": "2026-11-03",
+      "retrievedAt": "2026-11-03T11:16:55.672398+00:00",
+      "retrievedMaterialSha256": "3aa98420284e7883486aa2020160d71861a8a491a9683b807bfd6834dd8e51ab",
+      "retrievedBytes": 239723,
+      "licenseEvidence": {
+        "marker": "Creative Commons Attribution 4.0 International License",
+        "verifiedInCapturedBody": true
+      },
+      "locator": "Patient Identification; Patient information; Communication among professionals",
+      "use": "factual-text-only; no figures, tables, questionnaires or patient images copied",
+      "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores.",
+      "rightsReview": "CC-BY-4.0-verified-for-declared-text-use; no third-party figures copied",
+      "technicalReview": "accepted-for-declared-factual-scope-by-claude-pc03b",
+      "documentLabel": "S02",
+      "citation": "European Society of Radiology; European Federation of Radiographer Societies (2019). Patient Safety in Medical Imaging: a joint paper of the ESR and EFRS. Insights into Imaging 10, 45."
+    },
+    {
+      "id": "source:rtg-2026:pilot:markers",
+      "slug": "markers",
+      "title": "A clinical audit of anatomical side marker use",
+      "attribution": "Chung et al. (2020)",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0242594",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "accessedAt": "2026-11-03",
+      "retrievedAt": "2026-11-03T11:16:56.128168+00:00",
+      "retrievedMaterialSha256": "f15e137004cebac4830d5c5341a37de53a830f6c8efd3b59f029805a662fc090",
+      "retrievedBytes": 197514,
+      "licenseEvidence": {
+        "marker": "creativecommons.org/licenses/by/4.0",
+        "verifiedInCapturedBody": true
+      },
+      "locator": "Introduction, definição de ASM e uso do marcador",
+      "use": "factual-text-only; no figures, tables, questionnaires or patient images copied",
+      "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores.",
+      "rightsReview": "CC-BY-4.0-verified-for-declared-text-use; no third-party figures copied",
+      "technicalReview": "accepted-for-declared-factual-scope-by-claude-pc03b",
+      "documentLabel": "S04",
+      "citation": "Chung L, Kumar S, Oldfield J, Phillips M, Stratfold M (2020). A clinical audit of anatomical side marker use in a pediatric medical imaging department: A quantitative and qualitative investigation. PLOS ONE 15(11):e0242594."
+    },
+    {
+      "id": "source:rtg-2026:pilot:collimation",
+      "slug": "collimation",
+      "title": "Evaluation of radiographers",
+      "attribution": "Alsleem et al. (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6920681/",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "accessedAt": "2026-11-03",
+      "retrievedAt": "2026-11-03T11:16:55.825830+00:00",
+      "retrievedMaterialSha256": "b43ffc9ebb04718b4fe476677b3c82768089d5a8a79253b59766d1d264c8967d",
+      "retrievedBytes": 187114,
+      "licenseEvidence": {
+        "marker": "creativecommons.org/licenses/by/4.0",
+        "verifiedInCapturedBody": true
+      },
+      "locator": "Discussion, Colimação e diferença em relação ao recorte eletrônico",
+      "use": "factual-text-only; no figures, tables, questionnaires or patient images copied",
+      "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores.",
+      "rightsReview": "CC-BY-4.0-verified-for-declared-text-use; no third-party figures copied",
+      "technicalReview": "accepted-for-declared-factual-scope-by-claude-pc03b",
+      "documentLabel": "S05",
+      "citation": "Alsleem H. et al. (2019). Evaluation of radiographers’ knowledge and attitudes of image quality optimisation in paediatric digital radiography in Saudi Arabia and Australia: a survey-based study. Journal of Medical Radiation Sciences 66:229–237."
+    },
+    {
+      "id": "source:rtg-2026:pilot:coordinates",
+      "slug": "coordinates",
+      "title": "Considerations for Using the Vasculature",
+      "attribution": "Weber, Ju e Börner (2020)",
+      "url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2020.00029/full",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "accessedAt": "2026-11-03",
+      "retrievedAt": "2026-11-03T11:16:56.249973+00:00",
+      "retrievedMaterialSha256": "d88796142aafbafea1b9865c3c69aa1e7e4dd0fc012128a89f2b0610b7cb3eb3",
+      "retrievedBytes": 564852,
+      "licenseEvidence": {
+        "marker": "creativecommons.org/licenses/by/4.0",
+        "verifiedInCapturedBody": true
+      },
+      "locator": "Introduction, parágrafo que define os três eixos em posição anatômica",
+      "use": "factual-text-only; no figures, tables, questionnaires or patient images copied",
+      "adaptationNotice": "Síntese e atividades originais em português; não é tradução integral; sem endosso dos autores.",
+      "rightsReview": "CC-BY-4.0-verified-for-declared-text-use; no third-party figures copied",
+      "technicalReview": "accepted-for-declared-factual-scope-by-claude-pc03b",
+      "documentLabel": "S03",
+      "citation": "Weber GM, Ju Y, Börner K (2020). Considerations for Using the Vasculature as a Coordinate System to Map All the Cells in the Human Body. Frontiers in Cardiovascular Medicine 7:29."
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset:rtg-2026:pilot:view-front",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/view-front.svg",
+      "sourceSha256": "cadae71de36fb0fe26814e41f89812933ac42034a23dd53597b88ab0a4c58814",
+      "renderPath": "radiant-app/assets/content/rtg-2026/pilot/view-front.png",
+      "view": "anterior",
+      "kind": "authorial-diagram",
+      "origin": "created-for-this-pilot-with-AI-assistance; no third-party figure imported",
+      "proposedLicense": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "technicalReview": "accepted-editorially-by-claude-pc03b-2026-11-03",
+      "rightsReview": "approved-by-Anderson-2026-11-03",
+      "renderSha256": "63e7e8ece236d87b41b7c8f04bb40f50af61da7393d031b3a36810297a41361f",
+      "width": 800,
+      "height": 1000,
+      "creationRecord": {
+        "svgCreation": "conceived-and-written-by-Codex-AI",
+        "pngCreation": "rasterized-from-declared-SVG",
+        "humanContributionRecorded": "Anderson defined audience and approved pilot scope; no manual drawing edits recorded",
+        "copyrightStatus": "not-determined-by-this-review",
+        "licenseAcceptance": "approved-by-Anderson-2026-11-03",
+        "attributionProposed": "Radiant — criado com assistência de IA (Codex), 2026",
+        "licensingScope": "only rights the eventual licensor can grant; no claim of exclusive copyright over AI output"
+      },
+      "reviewedSourceSha256": "5949cffa9f345208eac11e5a85b43f20e5eb654257bc6910ca218caa0bc25978",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "scope": "rights that can be granted; no assertion of human authorship or exclusive copyright over AI output"
+      },
+      "attribution": "Radiant — criado com assistência de IA (Codex), 2026"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:view-back",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/view-back.svg",
+      "sourceSha256": "bf4aab990fa76f710b93038c3b7ee8469c32eec91f3fe2b9139e4367ca5ba01c",
+      "renderPath": "radiant-app/assets/content/rtg-2026/pilot/view-back.png",
+      "view": "posterior",
+      "kind": "authorial-diagram",
+      "origin": "created-for-this-pilot-with-AI-assistance; no third-party figure imported",
+      "proposedLicense": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "technicalReview": "accepted-editorially-by-claude-pc03b-2026-11-03",
+      "rightsReview": "approved-by-Anderson-2026-11-03",
+      "renderSha256": "106cf74a072538ab0514666010b5d91c560078207c5bbf12562f51b5245e34d4",
+      "width": 800,
+      "height": 1000,
+      "creationRecord": {
+        "svgCreation": "conceived-and-written-by-Codex-AI",
+        "pngCreation": "rasterized-from-declared-SVG",
+        "humanContributionRecorded": "Anderson defined audience and approved pilot scope; no manual drawing edits recorded",
+        "copyrightStatus": "not-determined-by-this-review",
+        "licenseAcceptance": "approved-by-Anderson-2026-11-03",
+        "attributionProposed": "Radiant — criado com assistência de IA (Codex), 2026",
+        "licensingScope": "only rights the eventual licensor can grant; no claim of exclusive copyright over AI output"
+      },
+      "reviewedSourceSha256": "0a6c5c29ad2ffe27d6f21a5d23259b1209323547575f967837374c44bf6084e2",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "scope": "rights that can be granted; no assertion of human authorship or exclusive copyright over AI output"
+      },
+      "attribution": "Radiant — criado com assistência de IA (Codex), 2026"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:marker-a",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/marker-a.svg",
+      "sourceSha256": "7d22f010c469c254ee71823c83321f56c3a0659b9c4c73e4aa59f20627b2bf08",
+      "renderPath": "radiant-app/assets/content/rtg-2026/pilot/marker-a.png",
+      "view": "anterior",
+      "kind": "authorial-diagram",
+      "origin": "created-for-this-pilot-with-AI-assistance; no third-party figure imported",
+      "proposedLicense": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "technicalReview": "accepted-editorially-by-claude-pc03b-2026-11-03",
+      "rightsReview": "approved-by-Anderson-2026-11-03",
+      "renderSha256": "46065fd10483173d88e26c521d73752bd7c8132803cebfa147f4fe8f334d1728",
+      "width": 800,
+      "height": 1000,
+      "creationRecord": {
+        "svgCreation": "conceived-and-written-by-Codex-AI",
+        "pngCreation": "rasterized-from-declared-SVG",
+        "humanContributionRecorded": "Anderson defined audience and approved pilot scope; no manual drawing edits recorded",
+        "copyrightStatus": "not-determined-by-this-review",
+        "licenseAcceptance": "approved-by-Anderson-2026-11-03",
+        "attributionProposed": "Radiant — criado com assistência de IA (Codex), 2026",
+        "licensingScope": "only rights the eventual licensor can grant; no claim of exclusive copyright over AI output"
+      },
+      "reviewedSourceSha256": "39d973d1bda22e3cfbc5e50b5430b1c042875b8fe278a2871de9cbf4cc7a9836",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "scope": "rights that can be granted; no assertion of human authorship or exclusive copyright over AI output"
+      },
+      "attribution": "Radiant — criado com assistência de IA (Codex), 2026"
+    },
+    {
+      "id": "asset:rtg-2026:pilot:marker-b",
+      "sourcePath": "radiant-app/assets/content/rtg-2026/pilot/marker-b.svg",
+      "sourceSha256": "d776a010b94e4dc3ea547c72f50df6db31d8aeea510731ba81251afa161f369b",
+      "renderPath": "radiant-app/assets/content/rtg-2026/pilot/marker-b.png",
+      "view": "anterior",
+      "kind": "authorial-diagram",
+      "origin": "created-for-this-pilot-with-AI-assistance; no third-party figure imported",
+      "proposedLicense": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "technicalReview": "accepted-editorially-by-claude-pc03b-2026-11-03",
+      "rightsReview": "approved-by-Anderson-2026-11-03",
+      "renderSha256": "89e3da9cc7136483ee426df44ebaf1476eecc00eed389d4e672abd6e91de3ac3",
+      "width": 800,
+      "height": 1000,
+      "creationRecord": {
+        "svgCreation": "conceived-and-written-by-Codex-AI",
+        "pngCreation": "rasterized-from-declared-SVG",
+        "humanContributionRecorded": "Anderson defined audience and approved pilot scope; no manual drawing edits recorded",
+        "copyrightStatus": "not-determined-by-this-review",
+        "licenseAcceptance": "approved-by-Anderson-2026-11-03",
+        "attributionProposed": "Radiant — criado com assistência de IA (Codex), 2026",
+        "licensingScope": "only rights the eventual licensor can grant; no claim of exclusive copyright over AI output"
+      },
+      "reviewedSourceSha256": "e0264f0817bd03744ac090c1a2a99e34c0ca7bd04085a17eb99d560413497ab9",
+      "license": {
+        "label": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "scope": "rights that can be granted; no assertion of human authorship or exclusive copyright over AI output"
+      },
+      "attribution": "Radiant — criado com assistência de IA (Codex), 2026"
+    }
+  ],
+  "hotspotDraft": {
+    "coordinateSpace": "800x1000 normalized",
+    "regions": [
+      {
+        "label": "A",
+        "x": 0.13,
+        "y": 0.25,
+        "width": 0.3,
+        "height": 0.55
+      },
+      {
+        "label": "B",
+        "x": 0.57,
+        "y": 0.25,
+        "width": 0.3,
+        "height": 0.55
+      }
+    ],
+    "notAnatomicalBoundaries": true
+  },
+  "benchDraft": {
+    "control": "fieldWidth",
+    "detectorWidthCm": 27,
+    "detectorHeightCm": 33,
+    "abstractTargetWidthCm": 18,
+    "goalWidthCm": [
+      18,
+      20
+    ],
+    "initialWidthCm": 27,
+    "stepCm": 1,
+    "clinicalRecommendation": false,
+    "patientDoseCalculation": false,
+    "scatterCalculation": false,
+    "predictionCapture": "verbal-observation-only",
+    "nativeScene": "not-implemented",
+    "ownerApproval": "approved-for-declared-didactic-scope-2026-11-03"
+  },
+  "review": {
+    "reviewerDesignatedByAnderson": "Claude",
+    "reviewMode": "AI technical/editorial",
+    "reviewPerformed": true,
+    "PC03B": "accepted-editorially-by-Claude-2026-11-03",
+    "rightsAcceptance": "approved-by-Anderson-2026-11-03",
+    "clinicalApproval": false,
+    "model": "claude-sonnet-5",
+    "evidence": "2026-11-03-pc03b-review.json"
+  },
+  "validation": {
+    "pdfPages": 11,
+    "pdfSha256": "0b39ae962198586838d562144ddaeea1ffd1267e65a85f3e4250f6fda925c9d7",
+    "pdfBytes": 322634,
+    "visualInspection": "all pages inspected; image and caption together after one pagination correction; no clipping/blank page observed",
+    "configuredLoopValidation": {
+      "code": "VALIDATION_PASSED",
+      "passed": 15,
+      "total": 15,
+      "cycles": 1,
+      "evidenceIds": [
+        "evidence-78f9f124-b342-4536-bbcf-cc4880921b89",
+        "evidence-b03c3250-32e0-4c06-a4cf-318da2d87e51",
+        "evidence-5369275e-91ac-40dd-a11c-18e1a6a702d8",
+        "evidence-333c3574-ed42-4f19-b61e-c688871d33ba",
+        "evidence-33801a6d-8bbc-4eb5-971b-b69a724bc155",
+        "evidence-d090f48f-18d0-4dc2-b1de-2a1877a49c6f",
+        "evidence-70a252ee-7dec-4d86-8031-ffba066103c0",
+        "evidence-ddb5a25b-4929-4ffd-81f3-7b4f340c22bf",
+        "evidence-5586ca3f-a11a-4ad8-a44a-d40d4c7c131c",
+        "evidence-870b141e-2432-41eb-929f-2430e207bd8a",
+        "evidence-faafef0b-2846-4929-a71c-b7cd39c1124b",
+        "evidence-6773d4bc-0e18-449c-a008-c98ff2980c4a",
+        "evidence-5b38ad84-92fe-4992-89bb-1d7f8678656e",
+        "evidence-cb8f5b0d-58a8-48e8-bbfa-007bda0b72e1",
+        "evidence-b8cf92ea-5414-4451-9513-1e21d95cbd82"
+      ],
+      "postApprovalFocusedCheck": "documentation contract passed; SVG geometry unchanged; XML/hash checks passed"
+    },
+    "pdfAppliesTo": "current native document revision; PC03-B final verification"
+  },
+  "activation": {
+    "candidateGenerated": false,
+    "payloadContractVerification": "pending",
+    "promoted": false,
+    "activeContentAdded": false,
+    "build": false,
+    "release": false
+  },
+  "ownerApprovals": {
+    "date": "2026-11-03",
+    "decider": "Anderson Melo",
+    "evidence": "explicit answers in this conversation",
+    "creditAndLicenseAnswer": "Aprovar crédito e licença propostos",
+    "benchAnswer": "Aprovar esse uso didático delimitado",
+    "credit": "Radiant — criado com assistência de IA (Codex), 2026",
+    "license": {
+      "label": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "scope": "rights that can be granted; no assertion of human authorship or exclusive copyright over AI output"
+    },
+    "benchScope": {
+      "detectorCm": [
+        27,
+        33
+      ],
+      "measurement": "relative area",
+      "newAbstractTargetCm": 18,
+      "didacticRangeCm": [
+        18,
+        20
+      ],
+      "patientDose": false,
+      "physicalScatter": false,
+      "clinicalProtocol": false
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "baseTask": "ab20c6a69cb374ee73cc46c30826ce6e346aabac",
+  "head": "ab20c6a69cb374ee73cc46c30826ce6e346aabac",
+  "round": "r1",
+  "files": [
+    {
+      "path": "docs/STATUS.md",
+      "type": "modified",
+      "size": 65782,
+      "sha256": "e5fb5972b716290729f83e448d839538cd43157e906ba722678fb42d02cd5c8c"
+    },
+    {
+      "path": "docs/archive/STATUS_historico.md",
+      "type": "modified",
+      "size": 219066,
+      "sha256": "7652760120402def522e22e05fa1074514d31eea0d8d5e0576fd020cf600df73"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/audit.md",
+      "type": "new",
+      "size": 6951,
+      "sha256": "f4e552da05092c1db253b14d62c988e66fa2d5765dfaec7875df3e9fb21897c9"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/green.txt",
+      "type": "new",
+      "size": 23978,
+      "sha256": "29cb4c7c052bb0436766b5b99943425870cd97507cba6449bd0ad24249d87cc2"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/implementation-report.md",
+      "type": "new",
+      "size": 4755,
+      "sha256": "54d375c723c1a183b9d6d51746595de1ddb2333d2ef99d1a46b523ff6eda821c"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/mutations.json",
+      "type": "new",
+      "size": 9252,
+      "sha256": "f96a17df92eca89afb1f240fbe77332b4efc6e5818f8808b81e8a987efa1112c"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/red.txt",
+      "type": "new",
+      "size": 28359,
+      "sha256": "65db569a91e0f0a7c30ac8de76d5e7cbc0322eb630742defdca6716c527223f9"
+    },
+    {
+      "path": "docs/evidence/2026-10-27-medalhao-t04a/task-brief.md",
+      "type": "new",
+      "size": 8810,
+      "sha256": "279ef0b9c5ba0d456162095f18c28a71fef11f4a31759b2313e5f4a0fc208735"
+    },
+    {
+      "path": "radiant-app/jest.config.cjs",
+      "type": "modified",
+      "size": 486,
+      "sha256": "d1822879b1bcfdec08d80056aaedd4002ac37c6fd3a376cd2ee75dd7847d9599"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+      "type": "modified",
+      "size": 6397,
+      "sha256": "42e966758440590a04bf361e3f044c872a691cb6953eaf7e8746d391977149d7"
+    },
+    {
+      "path": "radiant-app/src/features/bench/ExposureImage.test.tsx",
+      "type": "modified",
+      "size": 13383,
+      "sha256": "53a9abe3a6f716f6a2cd7e3e48246877e697bac0a521821cec4e0802828b05b9"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+      "type": "modified",
+      "size": 12253,
+      "sha256": "59c10b096d7d376c99f6621b4e03255ee667ac3a91728fc3fdd77380a0a41774"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+      "type": "modified",
+      "size": 6494,
+      "sha256": "3d4d76247ef3f7d7c7dcd744ac4c7af5eddabe18c23eea34fd6995846fffda99"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+      "type": "modified",
+      "size": 18023,
+      "sha256": "68bf43c7905d9c78610707c733eb68d37fba481920a48e70580f878449c88e56"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "type": "modified",
+      "size": 109460,
+      "sha256": "8448ff3ced217ab7e686f222445882242f864d35c9338e6d065300c39b5e588a"
+    },
+    {
+      "path": "radiant-app/src/test/mocks/reactNativeSkia.test.tsx",
+      "type": "new",
+      "size": 4099,
+      "sha256": "88d50aedec9f2a233d44134946175497186c8f42bd26b3e6bd8355a9dac807ea"
+    },
+    {
+      "path": "radiant-app/src/test/mocks/reactNativeSkia.tsx",
+      "type": "new",
+      "size": 1710,
+      "sha256": "555c05b7302243a036a035fa484e9c32cf1351599637e515cbc6b2d8ce9450a5"
+    },
+    {
+      "path": "radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx",
+      "type": "modified",
+      "size": 12946,
+      "sha256": "43d5c923939bcd34538ccba7f2c4aa37e693608b921f7ff725f8e71ebabaf386"
+    }
+  ],
+  "productFreeze": [
+    {
+      "path": "radiant-app/jest.config.cjs",
+      "sha256": "d1822879b1bcfdec08d80056aaedd4002ac37c6fd3a376cd2ee75dd7847d9599"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.test.tsx",
+      "sha256": "42e966758440590a04bf361e3f044c872a691cb6953eaf7e8746d391977149d7"
+    },
+    {
+      "path": "radiant-app/src/features/bench/CollimationImage.tsx",
+      "sha256": "651036a2f870dbacf069308602e233885d0c6a32f88a66817e5c5c8df36b3d73"
+    },
+    {
+      "path": "radiant-app/src/features/bench/ExposureImage.test.tsx",
+      "sha256": "53a9abe3a6f716f6a2cd7e3e48246877e697bac0a521821cec4e0802828b05b9"
+    },
+    {
+      "path": "radiant-app/src/features/bench/ExposureImage.tsx",
+      "sha256": "9f56ff4b59a8d8a2b38b8142c1b54554d9527e664425e99762713244b27290bd"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx",
+      "sha256": "59c10b096d7d376c99f6621b4e03255ee667ac3a91728fc3fdd77380a0a41774"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx",
+      "sha256": "3d4d76247ef3f7d7c7dcd744ac4c7af5eddabe18c23eea34fd6995846fffda99"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx",
+      "sha256": "68bf43c7905d9c78610707c733eb68d37fba481920a48e70580f878449c88e56"
+    },
+    {
+      "path": "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx",
+      "sha256": "8448ff3ced217ab7e686f222445882242f864d35c9338e6d065300c39b5e588a"
+    },
+    {
+      "path": "radiant-app/src/test/mocks/reactNativeSkia.test.tsx",
+      "sha256": "88d50aedec9f2a233d44134946175497186c8f42bd26b3e6bd8355a9dac807ea"
+    },
+    {
+      "path": "radiant-app/src/test/mocks/reactNativeSkia.tsx",
+      "sha256": "555c05b7302243a036a035fa484e9c32cf1351599637e515cbc6b2d8ce9450a5"
+    },
+    {
+      "path": "radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx",
+      "sha256": "43d5c923939bcd34538ccba7f2c4aa37e693608b921f7ff725f8e71ebabaf386"
+    },
+    {
+      "path": "radiant-app/src/ui/illustrations/ThemeIllustration.tsx",
+      "sha256": "c79a75a9c606f37d8c5e5f6fa964b5721263959928b64852bd963f22f1c4e119"
+    }
+  ],
+  "briefSha256": "279ef0b9c5ba0d456162095f18c28a71fef11f4a31759b2313e5f4a0fc208735",
+  "packageSha256": "cc6fd8c0a2a69e0a4a85b12b2f56a44e2a3f2a1c1bbbb69a709eddab32973933",
+  "status": " M docs/STATUS.md\n M docs/archive/STATUS_historico.md\n M radiant-app/jest.config.cjs\n M radiant-app/src/features/bench/CollimationImage.test.tsx\n M radiant-app/src/features/bench/ExposureImage.test.tsx\n M radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx\n M radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx\n M radiant-app/src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx\n M radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx\n M radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx\n?? docs/evidence/2026-10-27-medalhao-t04a/\n?? radiant-app/src/test/mocks/reactNativeSkia.test.tsx\n?? radiant-app/src/test/mocks/reactNativeSkia.tsx\n"
+}
