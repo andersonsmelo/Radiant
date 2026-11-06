@@ -75,7 +75,10 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   não foram medidos.
 - **Falta:** os seis aprofundamentos (TC, RM, mamografia e densitometria, medicina
   nuclear, radioterapia, intervencionista) e a prova completa no simulador. A PR #69 está aberta em rascunho.
-  Imagem radiográfica real depende de autorização explícita do dono.
+  **Imagem radiográfica:** em 2026-11-06 o dono autorizou baixar radiografias de
+  acervos abertos com licença CC0 ou CC BY
+  ([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md#complemento-de-2026-11-06--imagens-de-acervos-abertos));
+  nenhuma foi baixada, e o procedimento está no prompt de continuidade.
 - **Do dono:** merge, build, loja e texto de loja. O app e a loja não podem dizer
   "revisado por especialista".
 

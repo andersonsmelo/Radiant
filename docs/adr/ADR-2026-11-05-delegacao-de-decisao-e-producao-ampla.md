@@ -66,6 +66,26 @@ ele.
 6. **Elenco.** As aulas ganham diálogo com Pixel, Profa. Lia, Caio, Duda e pacientes
    simulados com nome fictício.
 
+## Complemento de 2026-11-06 — imagens de acervos abertos
+
+**Decisor:** Anderson Melo, na conversa, em 2026-11-06, por volta das 09:50
+(America/Bahia). O Claude perguntou: "Autoriza baixar radiografias de acervos abertos
+(Wikimedia Commons, CC0 ou CC BY) para a trilha?". A resposta foi: "Autorizo".
+
+Isto encerra o item 5 de "O que o Claude decidiu", que deixava as imagens fora até
+essa autorização. O alcance, lido do que foi perguntado:
+
+- **Coberto:** baixar radiografias de acervos abertos, com licença CC0 ou CC BY
+  conferida na página de cada arquivo, para uso na trilha do Radiant.
+- **Não coberto:** CC BY-SA, licenças NC ou ND, Radiopaedia, os PDFs locais, imagem
+  com identificação de paciente visível e qualquer uso fora da trilha.
+- **Continua obrigatório:** crédito de autor e licença por arquivo, registro da
+  origem e do hash, e uma tela de créditos no app antes de qualquer release com
+  imagem CC BY.
+
+Nenhuma imagem foi baixada nesta data. O procedimento está no
+[prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md#imagens-radiográficas--autorizado-em-2026-11-06).
+
 ## O que não muda
 
 - Build, envio à loja, texto da loja, merge na `main` e gasto de dinheiro continuam

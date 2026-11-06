@@ -153,9 +153,49 @@ conversa está na última seção.
 4. **Documentação final:** `docs/STATUS.md`, `docs/FILA.md` (item 68), as caixas do
    plano e o roadmap.
 5. **PR da branch para a `main`**, com o CI verde. O merge, o build e a loja são do dono.
-6. **Depois:** diagramas autorais em SVG a partir do campo `diagramIdeas` de cada
-   aula, para abrir as famílias `hotspot` e `comparison` na trilha ampla. Imagem
-   radiográfica real só com autorização explícita do dono.
+6. **Imagens:** radiografias de acervos abertos, pela seção "Imagens radiográficas"
+   abaixo, e diagramas autorais em SVG a partir do campo `diagramIdeas` de cada aula.
+   As duas coisas abrem as famílias `hotspot` e `comparison` na trilha ampla.
+
+## Imagens radiográficas — autorizado em 2026-11-06
+
+O dono autorizou baixar radiografias de acervos abertos (Wikimedia Commons), com
+licença **CC0 ou CC BY**, para a trilha
+([ADR, complemento de 2026-11-06](../../adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md#complemento-de-2026-11-06--imagens-de-acervos-abertos)).
+Nenhuma imagem foi baixada ainda. Não cobre CC BY-SA, NC, ND, Radiopaedia nem PDFs
+locais. Faça **depois** dos aprofundamentos e da prova no simulador, nesta ordem:
+
+1. **Piloto pequeno primeiro:** uma unidade só (M08, tórax), de 6 a 10 imagens. Não
+   baixe em massa. Só amplie depois de ver o piloto no simulador.
+2. **Por arquivo, antes de baixar:** abra a página do arquivo no Commons e leia a
+   licença no modelo de licença da própria página, nunca num resumo de busca. Anote
+   autor, URL da página, licença e URL da licença. **Recuse** a imagem que mostrar
+   nome, número de registro ou data de paciente, e a que não disser na descrição que
+   projeção e que região mostra.
+3. **Arquivo:** baixe o original, registre o SHA-256, reduza para no máximo 1200 px
+   no lado maior e cerca de 150 KB, e guarde em
+   `radiant-app/assets/content/rtg-2026/imagens/<unidade>/<nome>.jpg`. O app funciona
+   sem rede: imagem remota não serve.
+4. **Registro:** um arquivo `content-manifest/rtg-2026/imagens.json` com, por imagem:
+   `id`, `file`, `sourcePage`, `author`, `license`, `licenseUrl`, `retrievedAt`,
+   `sha256Original`, `sha256Asset`, `modification` (por exemplo "recorte e redução"),
+   `alt` e `usedIn`. O texto alternativo descreve a imagem sem entregar a resposta.
+5. **Engenharia, com teste vermelho primeiro:** a extensão `wide` hoje recusa ativos.
+   Ela precisa aceitar o tipo `licensed-image` (CC0 ou CC BY, com os campos acima) e
+   as famílias `hotspot` e `comparison`; o verificador e o gerador precisam conhecer
+   as imagens; e a `LessonFlowScreen` precisa passar aos renderers um resolvedor local
+   de imagem (hoje ela não passa nenhum, e os renderers caem numa URL remota). O
+   resolvedor da prévia editorial, em
+   `radiant-app/src/features/editorial-preview/EditorialLocalDiagrams.ts`, é o modelo.
+6. **Créditos no app:** uma tela "Créditos das imagens", alcançável pela
+   Configuração, com autor e licença de cada imagem. CC BY exige o crédito. Sem essa
+   tela, nenhuma build com imagem CC BY pode sair.
+7. **Uso didático:** a imagem serve para orientação, lateralidade, anatomia e
+   critérios técnicos (rotação, cobertura, inspiração). Nunca para o aluno achar
+   doença. O item só afirma o que a descrição da imagem no acervo sustenta: um modelo
+   de IA não é fonte para dizer o que uma radiografia mostra.
+8. **Revisão:** o revisor independente reabre a página de cada arquivo, confere a
+   licença e confere que o item não diz mais do que a descrição do acervo.
 
 ## Dívidas conhecidas
 

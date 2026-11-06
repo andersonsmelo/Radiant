@@ -248,7 +248,8 @@ Quem continua segue o
 ## Fora desta etapa, de propósito
 
 - Imagem radiográfica real e as famílias `hotspot`, `comparison` e `bench` na trilha
-  ampla. O app não deve prometer "casos com imagem" em texto de loja ou de assinatura.
+  ampla. **Em 2026-11-06 o dono autorizou baixar radiografias CC0 ou CC BY de acervos
+  abertos**; o procedimento está no prompt de continuidade e nada foi baixado ainda. O app não deve prometer "casos com imagem" em texto de loja ou de assinatura.
 - Ligas, ranking e voz sintetizada: pedem servidor ou dependência nativa.
 - Nivelamento na entrada dos ramos: os ramos abrem em sequência depois de M14.
 - Android, VoiceOver e TalkBack audíveis, aparelho físico, build e envio.
