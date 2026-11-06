@@ -108,3 +108,21 @@ node scripts/content/rtg-lesson-lint.mjs content-manifest/rtg-2026/aulas/<unidad
 ```
 
 O verificador confere forma, não verdade. A exatidão dos fatos é sua responsabilidade: na dúvida, corte o fato.
+
+## 6. Lições da primeira onda (M01 a M07), de 2026-11-06
+
+Saíram das sete revisões independentes e dos gates do app. Valem como regra.
+
+1. **Norma vigente de proteção radiológica:** "Norma ANSN 3.01" (Resolução CNEN nº 344/2025, DOU de 07/07/2025). Pode ser chamada de "norma 3.01 da CNEN". O texto de 2024 não é mais o vigente. A RDC 611/2022 remete aos limites dessa norma (arts. 45 e 48).
+2. **RDC 611/2022:** o site do Diário Oficial costuma recusar a leitura. Há cópia compilada no site do Colégio Brasileiro de Radiologia (cbr.org.br). Sem ler o texto, não atribua nada à norma.
+3. **OpenStax é só consulta.** Os livros hoje declaram CC BY-NC-SA 4.0: use `factual-reference`, sem aproveitar frase nem figura.
+4. **Fato de segurança com fonte única de tipo wiki** (Radiopaedia, por exemplo): busque uma segunda fonte institucional ou escreva "siga o protocolo do serviço e peça apoio à equipe".
+5. **Não cobre o que a aula não ensinou.** Foi o achado mais comum: item de conferência fora da competência, termo usado sem definição, mecanismo cobrado sem estar no conceito.
+6. **Sequência didática é declarada.** Se a ordem de um item `ordering` é uma convenção sua, o conceito a ensina e o enunciado diz "na ordem ensinada nesta aula".
+7. **A pista não entrega a resposta.** Várias ajudas foram reescritas por isso.
+8. **Erro que dois autores repetiram:** com pouco mAs, a imagem em filme fica mais clara, não mais escura. Confira o sentido de toda relação antes de escrever o distrator.
+9. **Conferência usa as quatro posições.** Nos 12 itens de conferência da unidade, a resposta correta precisa aparecer em cada uma das quatro posições ao menos uma vez.
+10. **Sem texto todo em maiúsculas.** Uma alternativa que é só uma sigla de quatro letras ou mais ("O PACS") reprova no contrato de texto do app: dê uma palavra à sigla ("O sistema PACS").
+11. **Diga de quem é o lado.** "Lado esquerdo do paciente", nunca só "lado esquerdo".
+12. **Índices de exposição variam por fabricante.** Escreva "neste sistema o índice sobe com a exposição", nunca como regra geral.
+13. **Palavras reservadas do app.** O contrato de texto trata "jornada", "nó", "checkpoint", "configuração" e "elegível" como jargão de interface e reprova a unidade. Use "turno", "ajuste", "conferência" ou outra palavra.

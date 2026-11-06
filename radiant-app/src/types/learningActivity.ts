@@ -227,6 +227,8 @@ type InteractionBase = {
     criticalSafety: boolean;
     feedback: InteractionFeedback;
     accessibility: InteractionAccessibility;
+    /** Pista opcional, oferecida antes da resposta; orienta sem entregar o gabarito. */
+    help?: string;
 };
 
 export type LearningInteractionV2 =
@@ -240,6 +242,11 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'risk-hunt'; payload: RiskHuntPayload })
     | (InteractionBase & { type: 'case-decision'; payload: CaseDecisionPayload });
 
+/** Elenco das cenas de diálogo da trilha rtg-2026. */
+export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
+export type LessonDialogueLine = { speaker: LessonCastId; name?: string; text: string };
+export type LessonDialogue = { setting?: string; lines: LessonDialogueLine[] };
+
 export type PresentationPayload = {
     title: string;
     /**
@@ -251,6 +258,10 @@ export type PresentationPayload = {
     eyebrow?: string;
     imageRef?: string;
     tone?: 'positive' | 'neutral' | 'corrective';
+    /** Cena em diálogo que abre ou fecha a aula; as falas vêm antes do corpo. */
+    dialogue?: LessonDialogue;
+    /** Dois ou três pontos curtos que resumem o conceito. */
+    keyPoints?: string[];
 };
 
 export type LearningStepV2 =
@@ -263,14 +274,14 @@ export type LearningActivityV2 = {
     id: string;
     competencyIds: string[];
     provenance: ActivityProvenance;
-    /** Sessão de 3 a 6 passos, dos quais 1 a 4 são interações. */
+    /** Sessão de 3 a 12 passos, dos quais 1 a 8 são interações. */
     steps: LearningStepV2[];
 };
 
 const MIN_STEPS = 3;
-const MAX_STEPS = 6;
+const MAX_STEPS = 12;
 const MIN_INTERACTIONS = 1;
-const MAX_INTERACTIONS = 4;
+const MAX_INTERACTIONS = 8;
 const PRESENTATION_ROLES = new Set<string>(['hook', 'concept', 'closing']);
 const COMPLETION_RULES = new Set<string>(['displayed', 'answered', 'confirmed']);
 
@@ -419,6 +430,9 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
     if (!isFilled((interaction.payload as { prompt?: string })?.prompt)) {
         push(issues, path, 'missing-prompt');
     }
+    if (interaction.help !== undefined && !isFilled(interaction.help)) {
+        push(issues, path, 'invalid-help');
+    }
 
     switch (interaction.type) {
         case 'multiple-choice': {
@@ -536,6 +550,23 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
     }
 }
 
+export const LESSON_CAST_IDS: readonly LessonCastId[] = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
+
+/**
+ * Uma cena sem fala, com falante fora do elenco ou com paciente sem nome
+ * fictício não tem como ser desenhada nem lida pelo leitor de tela.
+ */
+function isDialogueValid(dialogue: LessonDialogue): boolean {
+    return dialogue !== null && typeof dialogue === 'object'
+        && (dialogue.setting === undefined || isFilled(dialogue.setting))
+        && Array.isArray(dialogue.lines) && dialogue.lines.length > 0
+        && dialogue.lines.every((line) => line !== null && typeof line === 'object'
+            && (LESSON_CAST_IDS as readonly unknown[]).includes(line.speaker)
+            && isFilled(line.text)
+            && (line.name === undefined || isFilled(line.name))
+            && (line.speaker !== 'paciente' || isFilled(line.name)));
+}
+
 export function validateLearningActivity(activity: LearningActivityV2): ValidationIssue[] {
     const issues: ValidationIssue[] = [];
     const path = activity?.id ?? 'activity';
@@ -578,6 +609,13 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             }
             if (!isFilled(step.payload?.title)) {
                 push(issues, stepId, 'incomplete-presentation');
+            }
+            if (step.payload?.dialogue !== undefined && !isDialogueValid(step.payload.dialogue)) {
+                push(issues, stepId, 'invalid-dialogue');
+            }
+            const keyPoints = step.payload?.keyPoints;
+            if (keyPoints !== undefined && (!Array.isArray(keyPoints) || keyPoints.length === 0 || !keyPoints.every(isFilled))) {
+                push(issues, stepId, 'invalid-key-points');
             }
         } else {
             validateInteraction(issues, step.interaction);

@@ -1,5 +1,6 @@
 import type { LearningActivityV2 } from '../../types/learningActivity';
 import type { EditorialPilotContractV1 } from './EditorialPilotContract';
+import type { EditorialWideContractV1, EditorialWideSourceV1 } from './EditorialWideContract';
 
 type ApprovalState = 'pending' | 'approved';
 type ClaimKind = 'prompt' | 'correct-answer' | 'distractor' | 'feedback';
@@ -53,6 +54,17 @@ export type EditorialCurriculumCandidateV1 = Readonly<{
     claimProvenance: readonly ClaimProvenanceV1[];
     /** Explicit opt-in; absence keeps the original multiple-choice-only contract. */
     pilot?: EditorialPilotContractV1;
+    /** O contrato amplo tem tipo próprio (`EditorialWideCandidateV1`), porque as fontes dele têm outra forma. */
+    wide?: undefined;
 }>;
+
+/** Explicit opt-in to 3–8 interactions, four families and factual-reference sources. */
+export type EditorialWideCandidateV1 = Readonly<Omit<EditorialCurriculumCandidateV1, 'sources' | 'pilot' | 'wide'> & {
+    sources: readonly EditorialWideSourceV1[];
+    wide: EditorialWideContractV1;
+    pilot?: undefined;
+}>;
+
+export type EditorialCandidate = EditorialCurriculumCandidateV1 | EditorialWideCandidateV1;
 
 export { validateEditorialBatchContract as validateEditorialCurriculumCandidate } from './EditorialBatchContract';

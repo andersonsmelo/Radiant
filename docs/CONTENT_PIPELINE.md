@@ -292,10 +292,81 @@ Implementação estrutural e limites registrados na
 [evidência PC05](evidence/2026-11-03-pc05-contrato-editorial.md) e na
 [ADR](adr/ADR-2026-11-03-pc05-contrato-piloto-e-identidades.md).
 
+## Contrato amplo (wide), 06/11/2026
+
+Criado sob a [ADR da delegação](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md).
+É uma terceira forma do mesmo contrato de lotes: quem não declara `wide` continua
+no contrato v1 ou na extensão `pilot`, sem mudança. Evidência do motor em
+[`evidence/2026-11-06-trilha-ampla-motor.md`](evidence/2026-11-06-trilha-ampla-motor.md).
+
+**Fluxo.** A aula é escrita como dado, uma unidade por arquivo, em
+`content-manifest/rtg-2026/aulas/<unidade>.json`, no formato do
+[guia de autoria](content/2026-11-05-guia-de-autoria-rtg-2026.md). Daí em diante
+nada é escrito à mão:
+
+```bash
+node scripts/content/rtg-lesson-lint.mjs content-manifest/rtg-2026/aulas/<unidade>.json   # forma
+node scripts/content/build-rtg-batches.mjs            # gera os lotes
+node scripts/content/build-rtg-batches.mjs --check    # falha se o gerado estiver defasado
+```
+
+O gerador roda o verificador, monta o lote em
+`radiant-app/src/features/student-checkpoints/batches/rtgBatchFactory.ts`, valida
+com o contrato e grava `batches/rtg-2026-<unidade>.ts`, `batches/index.ts` (a ordem
+da trilha) e `batches/entries.ts` (os textos de apresentação). A saída depende só
+das aulas-fonte: não há relógio nem ordem de leitura de pasta. Uma unidade com
+qualquer erro reprova a geração inteira; não existe lote parcial.
+
+**O que `wide` aceita** (`EditorialWideContract.ts`):
+
+- de 3 a 8 interações por atividade, nas famílias `multiple-choice`,
+  `case-decision`, `ordering` e `matching`. `hotspot`, `comparison` e `bench`
+  ficam fora, porque dependem de ativo que esta etapa não tem;
+- fonte com `use: 'cc-by-4.0' | 'factual-reference'`, mais `publisher`, `url`
+  https, `accessedAt` e `licenseNote`. Não há hash do corpo recuperado: a fonte de
+  consulta sustenta o fato, e a redação é própria;
+- um par de itens de recuperação por competência, em `wide.recovery`
+  (`hook`, `guided`, `transfer`), com identidade e proveniência próprias;
+- identidades no espaço `rtg-2026`: `<tipo>:rtg-2026:<unidade>:<nome>`.
+
+**O que continua valendo**, pelo contrato genérico: identidade única em todo o
+lote, proveniência por afirmação (também nas apresentações e na recuperação),
+duas questões de conferência por competência, `checkpoint-constant-answer` e
+`checkpoint-answer-position-bias`. Esta última exige que os itens de conferência
+da unidade usem as quatro posições de resposta; o verificador de forma repete a
+regra, para o autor ver o erro antes do gerador.
+
+**Como a aula vira atividade.** Uma aula é uma atividade e uma competência:
+apresentação de abertura com a cena em `dialogue`, apresentação de conceito com
+`keyPoints`, as cinco interações com `help` e o retorno de cada alternativa em
+`explanation`, e o fecho, com a fala final em `dialogue` quando existe. A
+ordenação é gravada em ordem de exibição embaralhada por semente fixa, e
+`correctOrder` guarda a ordem da aula-fonte. Os dois itens de `checkpoint` viram
+a conferência daquela competência.
+
+**Aceites.** Os seis registros usam `reviewerRole: 'ai-review-delegated'` e
+`reviewerRef: 'claude-fable-5.1:ADR-2026-11-05'`, com data fixa e o hash do
+material. Isso registra revisão por IA sob delegação. Não é revisão por
+profissional de radiologia.
+
+**Trilha.** Uma trilha por unidade, na ordem `m01`…`m14` e depois `s-tc`, `s-rm`,
+`s-md`, `s-mn`, `s-rt`, `s-ir`. A trilha seguinte abre quando a anterior termina,
+então os ramos só abrem depois de M14. `curriculum-state.json` continua `retired`:
+ele descreve o conteúdo antigo, que não volta.
+
+**Depois de uma conferência reprovada.** O app bloqueia nova tentativa até o
+aluno refazer a aula daquela competência (`AssessmentAttemptRepository`, sem
+mudança). Os itens de `recovery` estão no lote e o catálogo os entrega por nó de
+conferência (`getRecoveryByCheckpointNodeId`), mas nenhuma tela os mostra ainda:
+ligar isso à revisão pede mudança em `ItemReviewService` e em
+`AssessmentAttemptRepository`, descrita na evidência.
+
 ## Ferramentas
 
 | Comando | Finalidade |
 | --- | --- |
+| `node scripts/content/rtg-lesson-lint.mjs <aula-fonte>...` | confere a forma de uma unidade da trilha rtg-2026 |
+| `node scripts/content/build-rtg-batches.mjs [--check]` | gera os lotes rtg-2026, ou confere se estão em dia |
 | `node scripts/content/catalog-library-sources.mjs` | gera o inventário determinístico da biblioteca |
 | `node scripts/content/validate-foundation.mjs` | valida a fundação editorial agregada |
 | `node scripts/content/validate-media-manifest.mjs` | valida autorização e anonimização da mídia |

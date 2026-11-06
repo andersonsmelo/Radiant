@@ -73,6 +73,8 @@ jest.mock('@react-native-async-storage/async-storage', () => require('@react-nat
 
 jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
 
+// O tremor da área de resposta no erro: um mock só, para o teste contar as chamadas.
+const mockAnswerShake = jest.fn();
 jest.mock('../../../ui/motion', () => ({
   ...jest.requireActual('../../../ui/motion'),
   useMedalPulse: () => ({}),
@@ -82,8 +84,11 @@ jest.mock('../../../ui/motion', () => ({
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({ animatedStyle: {}, onPressIn: jest.fn(), onPressOut: jest.fn() }),
-  useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
+  useShakeError: () => ({ style: {}, animateIn: mockAnswerShake }),
 }));
+
+// O coração que esvazia no aviso de vida perdida é vetor animado, como os do HUD.
+jest.mock('../../../ui/components/HudIcons', () => ({ HeartIcon: () => null }));
 
 jest.mock('../../../components/ui/AppButton', () => {
   const React = require('react');
@@ -1361,7 +1366,8 @@ describe('LessonFlowScreen — conclusão da lição', () => {
       await screen.findByText('1 de 1 corretas');
       expect(screen.getByRole('header', { name: 'Formação da imagem' })).toBeTruthy();
       expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe(expectedTheme);
-      expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+      // 1 de 1 são três estrelas: a conclusão comemora (plano de 2026-11-05, frente C).
+      expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
       if (kind === 'review') expect(screen.queryAllByLabelText(/Pixel/u)).toHaveLength(0);
     } finally {
       catalogSpy.mockRestore();
@@ -1476,11 +1482,11 @@ describe('LessonFlowScreen — sons e vibração', () => {
     expect(haptics.hapticSelection).toHaveBeenCalledTimes(1);
   });
 
-  it('continuar com erro toca só o erro, mesmo quando a vida cai', async () => {
-    // Decisão do dono, 2026-09-28, depois de ouvir no iPhone: o som do coração
-    // saía 2 ms depois do erro (medido no log do simulador) e os dois viravam
-    // um só. Sem animação em primeiro plano que o justifique, o coração cai só
-    // no HUD e no anúncio ao leitor de tela. O som volta com o item 26.
+  it('a vida perdida soa depois do erro, junto do aviso visível no topo da aula', async () => {
+    // Decisão do dono, 2026-09-28: o som do coração saía 2 ms depois do erro e
+    // os dois viravam um só, sem nada em primeiro plano que o justificasse.
+    // Desde o plano de 2026-11-05 (FILA 26) ele volta, mas só junto do aviso
+    // de vida perdida no topo, e depois do som do erro.
     await abrir();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByText('Conferir resposta'));
@@ -1488,9 +1494,16 @@ describe('LessonFlowScreen — sons e vibração', () => {
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
     expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining('Você perdeu uma vida; restam 4.'));
+    // No instante do erro, só o erro: o coração ainda não soou nem apareceu.
     expect(tocados()).toEqual(['toque', 'erro']);
-    expect(haptics.hapticError).toHaveBeenCalledTimes(1);
     expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('lesson-heart-loss')).toBeNull();
+
+    expect(await screen.findByTestId('lesson-heart-loss')).toBeTruthy();
+    expect(screen.getByText('Menos 1 vida')).toBeTruthy();
+    expect(tocados()).toEqual(['toque', 'erro', 'vida']);
+    expect(haptics.hapticError).toHaveBeenCalledTimes(1);
+    expect(haptics.hapticLifeLost).toHaveBeenCalledTimes(1);
   });
 
   it('continuar com acerto toca o acerto e vibra o sucesso', async () => {
@@ -1512,9 +1525,11 @@ describe('LessonFlowScreen — sons e vibração', () => {
     fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
-    await act(async () => {});
+    // Espera além do atraso do som da vida: para o assinante ele nunca vem.
+    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
     expect(tocados()).toEqual(['toque', 'erro']);
     expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('lesson-heart-loss')).toBeNull();
   });
 
   it('a lição aprovada termina com o som de fim e a comemoração', async () => {
@@ -2202,7 +2217,7 @@ describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha', 
     expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
     expect(screen.getByRole('header', { name: 'Estrutura e carga' })).toBeTruthy();
     expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
-    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
     expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
     expectNoJourneyWrites();
   });
@@ -2446,5 +2461,378 @@ describe('T04 fix1 — contagem com texto ampliado', () => {
     expect(count.props.allowFontScaling).not.toBe(false);
     expect(count.props.maxFontSizeMultiplier).toBeUndefined();
     expect(count.props.numberOfLines).toBeUndefined();
+  });
+});
+
+// Plano de 2026-11-05, frente C: aula ampla (até 8 interações) com cena de
+// diálogo, retorno animado, sequência de acertos, pista e comemoração.
+describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', () => {
+  const haptics = jest.requireMock('../../../ui/feedback/haptics') as Record<string, jest.Mock>;
+  const preferences = jest.requireMock('../../../ui/feedback/feedbackPreferences') as { readFeedbackPreferences: jest.Mock };
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id);
+  const falas = () => screen.getAllByTestId('dialogue-line').map((fala) => fala.props.accessibilityLabel);
+  const IDS = ['q1', 'q2', 'q3', 'q4', 'q5'];
+
+  function aulaAmpla(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    const item = (n: number, help?: string): LearningActivityV2['steps'][number] => ({
+      kind: 'interaction',
+      interaction: {
+        ...original.interaction, id: `q${n}`, type: 'multiple-choice' as const, help,
+        accessibility: { label: `Pergunta ${n}?` },
+        feedback: { correct: `Retorno certo ${n}.`, incorrect: `Retorno de reforço ${n}.` },
+        payload: {
+          prompt: `Pergunta ${n}?`,
+          options: [{ id: 'errada', label: `Errada ${n}` }, { id: 'certa', label: `Certa ${n}` }],
+          correctOptionId: 'certa',
+        },
+      },
+    });
+    return {
+      ...promotedActivityFixture,
+      id: 'activity:rtg-2026:m01:01',
+      steps: [
+        { kind: 'presentation', id: 'abertura', role: 'hook', payload: {
+          title: 'Pedido conferido', body: 'Conferir o pedido evita repetir o exame.',
+          dialogue: { setting: 'Sala de exames, início do plantão.', lines: [
+            { speaker: 'lia', text: 'Antes de posicionar, confira o pedido.' },
+            { speaker: 'paciente', name: 'Seu Antônio', text: 'Vai demorar muito?' },
+            { speaker: 'pixel', text: 'Repare em como ela responde.' },
+          ] },
+        } },
+        { kind: 'presentation', id: 'conceito', role: 'concept', payload: {
+          title: 'O pedido orienta o exame', body: 'Ele diz o que examinar e por quê.',
+          keyPoints: ['Leia o pedido inteiro.', 'Confirme a identidade.'],
+        } },
+        item(1), item(2, 'Pense em quem assina o pedido.'), item(3), item(4), item(5),
+        { kind: 'presentation', id: 'fecho', role: 'closing', payload: {
+          title: 'Síntese', body: 'Você conferiu o pedido antes de posicionar.',
+          dialogue: { lines: [
+            { speaker: 'caio', text: 'Pedido conferido, exame certo.' },
+            { speaker: 'duda', text: 'Anotei para o próximo plantão.' },
+          ] },
+        } },
+      ],
+    };
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: true, haptics: true });
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(aulaAmpla());
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: 5 } });
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  async function abrir(props: { resumeCheckpointId?: string; resumeCursorId?: string } = {}) {
+    const view = renderWithProviders(<LessonFlowScreen blockId="activity:rtg-2026:m01:01" nodeId="node-1" {...props} />);
+    await screen.findByText(/^Passo \d+ de 8$/u);
+    await act(async () => {});
+    return view;
+  }
+  /** Revela as falas que faltam e passa pelo conceito, até a primeira pergunta. */
+  async function atePrimeiraPergunta() {
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('O pedido orienta o exame');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 1?');
+  }
+  async function responder(label: string) {
+    fireEvent.press(screen.getByLabelText(label));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+  async function responderEAvancar(label: string, proximo: string | RegExp) {
+    await responder(label);
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText(proximo);
+  }
+  async function concluirPeloFecho() {
+    // Duas falas no fecho: a primeira já está na tela.
+    expect(screen.queryByText('Concluir e voltar')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+  }
+
+  it('(d) a cena de abertura revela uma fala por toque, na ordem, com o nome de quem fala, e o botão continua ao alcance', async () => {
+    await abrir();
+
+    expect(screen.getByText('Sala de exames, início do plantão.')).toBeTruthy();
+    expect(falas()).toEqual(['Profa. Lia: Antes de posicionar, confira o pedido.']);
+    expect(screen.getByText('Fala 1 de 3')).toBeTruthy();
+    // O corpo espera as falas: elas vêm antes dele.
+    expect(screen.queryByText('Conferir o pedido evita repetir o exame.')).toBeNull();
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(falas()).toEqual(['Profa. Lia: Antes de posicionar, confira o pedido.', 'Seu Antônio: Vai demorar muito?']);
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Seu Antônio: Vai demorar muito?');
+    // Ainda é o primeiro passo: o toque revelou a fala, não avançou a aula.
+    expect(screen.getByText('Passo 1 de 8')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityState?.disabled).not.toBe(true);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(falas()).toEqual([
+      'Profa. Lia: Antes de posicionar, confira o pedido.',
+      'Seu Antônio: Vai demorar muito?',
+      'Pixel: Repare em como ela responde.',
+    ]);
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Pixel: Repare em como ela responde.');
+    expect(screen.getByText('Conferir o pedido evita repetir o exame.')).toBeTruthy();
+    expect(screen.getByText('Passo 1 de 8')).toBeTruthy();
+
+    // Com todas as falas na tela, o mesmo botão avança o passo.
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(await screen.findByText('Passo 2 de 8')).toBeTruthy();
+    expect(screen.getByText('Leia o pedido inteiro.')).toBeTruthy();
+    expect(screen.getByText('Confirme a identidade.')).toBeTruthy();
+  });
+
+  it('(a) a aula com cinco interações vai até o fim: retorno por item, selo de 3 e de 5 seguidas, fecho em diálogo e comemoração', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+
+    await responder('Certa 1');
+    // Cada item mostra o próprio retorno antes de seguir, com o Pixel reagindo.
+    expect(screen.getByText('Resposta correta')).toBeTruthy();
+    expect(screen.getByText('Retorno certo 1.')).toBeTruthy();
+    expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 2?');
+    await responderEAvancar('Certa 2', 'Pergunta 3?');
+
+    await responder('Certa 3');
+    expect(screen.getByText('3 seguidas')).toBeTruthy();
+    expect(announceForAccessibility).toHaveBeenLastCalledWith(expect.stringContaining('3 respostas certas seguidas.'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 4?');
+    await responder('Certa 4');
+    // A 4ª seguida não repete o selo da 3ª.
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 5?');
+    await responder('Certa 5');
+    expect(screen.getByText('5 seguidas')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await screen.findByTestId('dialogue-scene');
+    expect(falas()).toEqual(['Caio: Pedido conferido, exame certo.']);
+    await concluirPeloFecho();
+
+    expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+    // No marco, o som da sequência entra no lugar do acerto: um som por momento.
+    await waitFor(() => expect(tocados()).toEqual([
+      'toque', 'acerto', 'toque', 'acerto', 'toque', 'sequencia', 'toque', 'acerto', 'toque', 'combo', 'fim',
+    ]));
+    expect(haptics.hapticStreak).toHaveBeenCalledTimes(2);
+    expect(mockAnswerShake).not.toHaveBeenCalled();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+      firstConfirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+    }));
+  });
+
+  it('um erro treme a área de resposta, zera a sequência e o selo só volta com três novas seguidas', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+    await responderEAvancar('Certa 2', 'Pergunta 3?');
+    expect(mockAnswerShake).not.toHaveBeenCalled();
+    await responder('Errada 3');
+    expect(mockAnswerShake).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Vamos reforçar')).toBeTruthy();
+    expect(screen.getByLabelText('Pixel pensando com você')).toBeTruthy();
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 4?');
+    await responderEAvancar('Certa 4', 'Pergunta 5?');
+    await responder('Certa 5');
+    // Duas seguidas depois do erro: sem selo, e sem som de sequência.
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    expect(tocados()).not.toContain('sequencia');
+    expect(tocados()).not.toContain('combo');
+  });
+
+  it('(b) interromper depois da terceira interação e retomar volta à primeira pergunta, sem XP nem vida em dobro (foco 2)', async () => {
+    const primeira = await abrir();
+    await atePrimeiraPergunta();
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+    await responder('Errada 2');
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 3?');
+    await responderEAvancar('Certa 3', 'Pergunta 4?');
+
+    // Fecha no meio: a tela grava o passo em que o aluno parou (o sexto, índice 5).
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+    await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenLastCalledWith('node-1', 5));
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    primeira.unmount();
+
+    // As respostas não entram no checkpoint (privacidade), então a sessão é
+    // refeita a partir da primeira interação: nem a cena de abertura de novo,
+    // nem a quarta pergunta com três respostas que ninguém guardou.
+    await abrir({ resumeCheckpointId: 'checkpoint-ampla', resumeCursorId: 'step-6' });
+    expect(screen.getByText('Passo 3 de 8')).toBeTruthy();
+    expect(screen.getByText('Pergunta 1?')).toBeTruthy();
+    expect(screen.queryByTestId('dialogue-scene')).toBeNull();
+    expect(screen.queryByText('Pergunta 4?')).toBeNull();
+
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+    expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+
+    // Uma conclusão só, com as respostas da sessão retomada; a vida gasta antes
+    // da interrupção não é cobrada de novo.
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+    }));
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    expect(mockedJourneyProgress.markNodeCompleted).toHaveBeenCalledTimes(1);
+  });
+
+  it('(c) sem som, sem vibração e com "Reduzir movimento", cada estado continua escrito na tela (foco 5)', async () => {
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: false, haptics: false });
+    // Troca e devolve a função inteira: `mockRestore` num dublê do preset do
+    // React Native o deixaria sem implementação para os testes seguintes.
+    const originalReduceMotion = AccessibilityInfo.isReduceMotionEnabled;
+    AccessibilityInfo.isReduceMotionEnabled = jest.fn().mockResolvedValue(true);
+    try {
+      await abrir();
+      // Cena: cenário, nome e fala em texto.
+      expect(screen.getByText('Sala de exames, início do plantão.')).toBeTruthy();
+      expect(screen.getByText('Profa. Lia')).toBeTruthy();
+      expect(screen.getByText('Antes de posicionar, confira o pedido.')).toBeTruthy();
+      await atePrimeiraPergunta();
+
+      // Erro: título, as duas respostas, o retorno e a vida perdida, tudo em texto.
+      await responder('Errada 1');
+      expect(screen.getByText('Vamos reforçar')).toBeTruthy();
+      expect(screen.getByText('Sua resposta: Errada 1')).toBeTruthy();
+      expect(screen.getByText('Resposta certa: Certa 1')).toBeTruthy();
+      expect(screen.getByText('Retorno de reforço 1.')).toBeTruthy();
+      expect(await screen.findByText('Menos 1 vida')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 2?');
+
+      // Pista e acerto.
+      fireEvent.press(screen.getByRole('button', { name: 'Ver pista' }));
+      expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
+      await responder('Certa 2');
+      expect(screen.getByText('Resposta correta')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 3?');
+      await responderEAvancar('Certa 3', 'Pergunta 4?');
+      // Sequência: o selo é texto.
+      await responder('Certa 4');
+      expect(screen.getByText('3 seguidas')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 5?');
+      await responder('Certa 5');
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pedido conferido, exame certo.');
+      await concluirPeloFecho();
+      expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+      expect(screen.getByText('A lição foi concluída')).toBeTruthy();
+
+      await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
+      expect(mockSoundPlayer.play).not.toHaveBeenCalled();
+      for (const haptic of Object.values(haptics)) expect(haptic).not.toHaveBeenCalled();
+    } finally {
+      AccessibilityInfo.isReduceMotionEnabled = originalReduceMotion;
+    }
+  });
+
+  it('a pista aparece só no item que a tem, antes da resposta, e some da oferta depois de responder', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+    expect(screen.queryByRole('button', { name: 'Ver pista' })).toBeNull();
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+
+    expect(screen.getByRole('button', { name: 'Ver pista' })).toBeTruthy();
+    expect(screen.queryByText('Pista: Pense em quem assina o pedido.')).toBeNull();
+    await responder('Certa 2');
+    expect(screen.queryByRole('button', { name: 'Ver pista' })).toBeNull();
+  });
+
+  it('usar a pista não muda estrelas nem acertos; o uso segue para a evidência do item, como o serviço já previa', async () => {
+    const { LessonOutcomeService: real } = jest.requireActual('../services/LessonOutcomeService');
+    mockedOutcome.recordActivityCompletion.mockImplementation((input) => real.recordActivityCompletion(input));
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      await abrir();
+      await atePrimeiraPergunta();
+      await responderEAvancar('Certa 1', 'Pergunta 2?');
+      fireEvent.press(screen.getByRole('button', { name: 'Ver pista' }));
+      expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
+      for (const n of [2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+      await responder('Certa 5');
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByTestId('dialogue-scene');
+      await concluirPeloFecho();
+
+      // O placar sai do serviço real: a pista não tira acerto nem estrela.
+      expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+      expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+      expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+        hintUsedByInteraction: { q2: true },
+      }));
+    } finally {
+      warnSpy.mockRestore();
+      errorSpy.mockRestore();
+    }
+  });
+
+  it.each([1, 3])('com %i de 5 corretas há estrela, e a conclusão toca o fim e solta o confete', async (corretas) => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: corretas } });
+    await abrir({ resumeCursorId: 'step-3' });
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+
+    expect(await screen.findByText(`${corretas} de 5 corretas`)).toBeTruthy();
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+    await waitFor(() => expect(tocados().filter((id) => id === 'fim')).toHaveLength(1));
+    expect(haptics.hapticCelebrate).toHaveBeenCalledTimes(1);
+  });
+
+  it('com zero acerto, a conclusão não comemora: sem confete, sem som de fim, sem vibração de festa', async () => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: 0 } });
+    await abrir({ resumeCursorId: 'step-3' });
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+
+    expect(await screen.findByText('0 de 5 corretas')).toBeTruthy();
+    await act(async () => {});
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+    expect(tocados()).not.toContain('fim');
+    expect(haptics.hapticCelebrate).not.toHaveBeenCalled();
   });
 });

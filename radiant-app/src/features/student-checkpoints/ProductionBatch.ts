@@ -1,8 +1,10 @@
 import {
     validateEditorialCurriculumCandidate,
+    type EditorialCandidate,
     type EditorialCurriculumCandidateV1,
 } from './EditorialCurriculumCandidate';
 import type { EditorialDiagramAssetV1, EditorialPilotContractV1 } from './EditorialPilotContract';
+import type { EditorialWideContractV1 } from './EditorialWideContract';
 
 export const PRODUCTION_BATCH_APPROVAL_GATES = [
     'technical',
@@ -36,7 +38,7 @@ export type ProductionBatchDraftV1 = Readonly<{
         batch: 'production-batch.v1';
     }>;
     media: readonly EditorialDiagramAssetV1[];
-    candidate: EditorialCurriculumCandidateV1;
+    candidate: EditorialCandidate;
     approvals: readonly ProductionBatchApprovalV1[];
 }>;
 
@@ -49,12 +51,13 @@ export type ProductionBatchV1 = Readonly<{
     unitId: string;
     contentVersion: string;
     competencyIds: EditorialCurriculumCandidateV1['competencyIds'];
-    sources: EditorialCurriculumCandidateV1['sources'];
+    sources: EditorialCandidate['sources'];
     activities: EditorialCurriculumCandidateV1['activities'];
     checkpoint: EditorialCurriculumCandidateV1['checkpoint'];
     reinforcement: EditorialCurriculumCandidateV1['reinforcement'];
     claimProvenance: EditorialCurriculumCandidateV1['claimProvenance'];
     pilot?: EditorialPilotContractV1;
+    wide?: EditorialWideContractV1;
     schemaRefs: ProductionBatchDraftV1['schemaRefs'];
     media: ProductionBatchDraftV1['media'];
     approvals: readonly ProductionBatchApprovalV1[];
@@ -142,7 +145,7 @@ function canonicalize(value: unknown): unknown {
     return value;
 }
 
-export function fingerprintProductionBatchMaterial(candidate: EditorialCurriculumCandidateV1): string {
+export function fingerprintProductionBatchMaterial(candidate: EditorialCandidate): string {
     return sha256(JSON.stringify(canonicalize({
         trackId: candidate.trackId,
         unitId: candidate.unitId,
@@ -154,6 +157,7 @@ export function fingerprintProductionBatchMaterial(candidate: EditorialCurriculu
         reinforcement: candidate.reinforcement,
         claimProvenance: candidate.claimProvenance,
         ...(candidate.pilot !== undefined ? { pilot: candidate.pilot } : {}),
+        ...(candidate.wide !== undefined ? { wide: candidate.wide } : {}),
     })));
 }
 
@@ -172,14 +176,15 @@ export function validatePromotedProductionBatch(value: unknown): string[] {
         const issues: string[] = [];
         if (batch.state !== 'promoted') issues.push('invalid-promoted-envelope');
         if (!isIsoTimestamp(batch.promotedAt) || !isFilled(batch.promotionRef)) issues.push('invalid-promotion-authorization');
-        const candidate: EditorialCurriculumCandidateV1 = {
+        const candidate = {
             schemaVersion: 1, promotionState: 'human-gates-pending',
             trackId: batch.trackId, unitId: batch.unitId, contentVersion: batch.contentVersion,
             competencyIds: batch.competencyIds, sources: batch.sources, activities: batch.activities,
             checkpoint: batch.checkpoint, reinforcement: batch.reinforcement, claimProvenance: batch.claimProvenance,
             ...(batch.pilot !== undefined ? { pilot: batch.pilot } : {}),
+            ...(batch.wide !== undefined ? { wide: batch.wide } : {}),
             approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
-        };
+        } as EditorialCandidate;
         issues.push(...validateProductionBatchDraft({ ...batch, state: 'ready-for-promotion', candidate }));
         return issues;
     } catch { return ['invalid-production-batch-shape']; }
@@ -221,6 +226,9 @@ export function validateProductionBatchDraft(draft: ProductionBatchDraftV1): str
     }
     if (pilot !== undefined && !/^batch:rtg-2026:[a-z0-9-]+(?::[a-z0-9-]+)*$/.test(draft.batchId)) {
         issues.push('invalid-pilot-batch-identity');
+    }
+    if (draft.candidate.wide !== undefined && !/^batch:rtg-2026:[a-z0-9-]+$/.test(draft.batchId)) {
+        issues.push('invalid-wide-batch-identity');
     }
     issues.push(...validateEditorialCurriculumCandidate(draft.candidate).map(
         (issue) => `invalid-editorial-candidate:${issue}`,
@@ -284,6 +292,7 @@ export function promoteProductionBatch(
         reinforcement: candidate.reinforcement,
         claimProvenance: candidate.claimProvenance,
         ...(candidate.pilot !== undefined ? { pilot: candidate.pilot } : {}),
+        ...(candidate.wide !== undefined ? { wide: candidate.wide } : {}),
         schemaRefs: draft.schemaRefs,
         media: draft.media,
         approvals: draft.approvals,

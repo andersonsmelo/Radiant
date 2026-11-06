@@ -1,0 +1,2064 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m02",
+    "code": "M02",
+    "title": "Corpo, orientação e linguagem",
+    "summary": "Desenvolve a linguagem espacial do corpo: posição de referência, lados, marcadores, planos, cavidades e regiões, até orientar uma imagem nova sem ajuda."
+  },
+  "sources": [
+    {
+      "id": "openstax-ap-1-6",
+      "title": "Anatomy and Physiology 2e, seção 1.6 Anatomical Terminology",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (posição anatômica, termos direcionais, planos, cavidades, regiões e quadrantes), com redação própria."
+    },
+    {
+      "id": "openstax-ap-1-2",
+      "title": "Anatomy and Physiology 2e, seção 1.2 Structural Organization of the Human Body",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-2-structural-organization-of-the-human-body",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (órgão, sistema e órgãos de cada sistema), com redação própria."
+    },
+    {
+      "id": "nci-seer-terminologia",
+      "title": "SEER Training Modules: Anatomical Terminology",
+      "publisher": "National Cancer Institute, National Institutes of Health",
+      "url": "https://training.seer.cancer.gov/anatomy/body/terminology.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do governo dos Estados Unidos; consultada para fatos (planos, termos direcionais e conteúdo das cavidades), sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-posicao-anatomica",
+      "title": "Anatomical position",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/anatomical-position",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de referência com licença restrita; consultado só para conferir a descrição da posição anatômica, sem reprodução de texto."
+    },
+    {
+      "id": "chung-2020-marcadores",
+      "title": "A clinical audit of anatomical side marker use in a pediatric medical imaging department: A quantitative and qualitative investigation",
+      "publisher": "PLoS One",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7685512",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "Chung L, Kumar S, Oldfield J, Phillips M, Stratfold M. PLoS One 15(11): e0242594, 2020. Licença CC BY 4.0. Fatos consultados, com redação própria."
+    },
+    {
+      "id": "fabian-2005-lateralidade",
+      "title": "Knowing right from left on X-rays: A way to minimize errors of laterality",
+      "publisher": "Applied Radiology",
+      "url": "https://www.appliedradiology.com/articles/knowing-right-from-left-on-x-rays-a-way-to-minimize-errors-of-laterality",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de Carl E. Fabian, 2005, de leitura gratuita; consultado para fatos sobre erros de lateralidade e posição do coração, sem reprodução de texto."
+    },
+    {
+      "id": "burbridge-mah-tc",
+      "title": "Undergraduate Diagnostic Imaging Fundamentals, seção 3.6 Computed Tomography (CT)",
+      "publisher": "University of Saskatchewan, espelhado em Medicine LibreTexts",
+      "url": "https://med.libretexts.org/Bookshelves/Allied_Health/Undergraduate_Diagnostic_Imaging_Fundamentals_(Burbridge_and_Mah)/03%3A_Principles_of_Imaging_Techniques/3.06%3A_Computed_Tomography_(CT)",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto de Brent Burbridge e Evan Mah, licença CC BY-NC-SA 4.0; consultado para fatos sobre a exibição do corte axial e os marcadores R, L, A e P, com redação própria."
+    },
+    {
+      "id": "ms-identificacao-paciente",
+      "title": "Protocolo de Identificação do Paciente (Programa Nacional de Segurança do Paciente)",
+      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
+      "url": "https://www.gov.br/saude/pt-br/composicao/saes/seguranca-do-paciente/protocolos-de-seguranca-do-paciente/protocolo-de-identificacao-do-paciente",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Protocolo federal de segurança do paciente; consultado para fatos sobre a conferência da identificação, sem reprodução de texto."
+    },
+    {
+      "id": "scor-marcadores",
+      "title": "Use of anatomical side markers",
+      "publisher": "Society and College of Radiographers (SCoR)",
+      "url": "https://www.sor.org/learning-advice/professional-body-guidance-and-publications/documents-and-publications/policy-guidance-document-library/use-of-anatomical-side-markers",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Orientação de entidade profissional do Reino Unido, reafirmada em 2024; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "coseac-uff-2023-identificacao",
+      "title": "Respostas aos recursos da prova de Técnico em Radiologia, concurso FEMAR, Edital 1/2023 (questão 50, identificação da imagem)",
+      "publisher": "COSEAC, Universidade Federal Fluminense",
+      "url": "https://portal.coseac.uff.br/wp-content/uploads/2023/12/Resposta_recurso_FEMAR_Medio_TecnicoemRadiologia.pdf",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Documento público de banca universitária que cita Biasoli Jr., Técnicas radiográficas, 2. ed., 2016, p. 121. Fonte secundária, usada só para o fato de que as letras D e E identificam o lado no Brasil, sem reprodução de texto."
+    },
+    {
+      "id": "nibabel-convencao-radiologica",
+      "title": "Radiological vs neurological conventions",
+      "publisher": "NiBabel (projeto NIPY)",
+      "url": "https://nipy.org/nibabel/neuro_radio_conventions.html",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Documentação técnica de software aberto de neuroimagem; segunda fonte da convenção de exibição vista a partir dos pés, sem reprodução de texto."
+    },
+    {
+      "id": "openstax-ap-19-1",
+      "title": "Anatomy and Physiology 2e, seção 19.1 Heart Anatomy",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (posição anatômica, termos direcionais, planos, cavidades, regiões e quadrantes), com redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m02-01",
+      "code": "M02.01",
+      "title": "Posição de referência e vistas",
+      "objective": "Hoje você vai conseguir dizer em que lado da tela aparece cada lado do corpo, de frente e de costas.",
+      "competency": "Relacionar corpo, observador e vista sem trocar lados.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Boneco esquemático em duas vistas, de frente e de costas, com a mão direita destacada e a tela dividida em duas metades.",
+        "Vista de cima de um observador aos pés de um paciente deitado, com setas mostrando para onde cada um olha."
+      ],
+      "scene": {
+        "setting": "Laboratório didático, diante de um boneco anatômico",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Lia, levantei a mão direita do boneco e ela ficou do meu lado esquerdo. Qual das duas direitas vale?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta. Antes de responder, me diga: o boneco está de frente ou de costas para você?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos descobrir de quem é a direita e o que acontece quando a vista muda."
+          }
+        ]
+      },
+      "concept": {
+        "title": "A direita é de quem?",
+        "body": "Para descrever o corpo, a anatomia usa uma postura combinada, a posição anatômica: em pé, olhando para a frente, braços ao lado do corpo e palmas voltadas para a frente. Os termos valem como se o corpo estivesse assim, mesmo que a pessoa esteja deitada. Direita e esquerda são os lados do corpo descrito, e não os de quem observa. Por isso, comece pela vista. De frente, a direita do corpo aparece à esquerda de quem olha. De costas, corpo e observador olham na mesma direção, e os lados coincidem.",
+        "keyPoints": [
+          "A posição anatômica é a referência, em qualquer postura.",
+          "Direita e esquerda pertencem ao corpo descrito.",
+          "De frente, os lados se cruzam com os seus; de costas, coincidem."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de falar de corpo e vista, retome a M01. Na simulação, o que confirma a identidade do paciente simulado antes de qualquer etapa?",
+          "options": [
+            {
+              "label": "Conferir o número do leito no mapa do setor.",
+              "correct": false,
+              "feedback": "O leito mostra onde a pessoa está, não quem ela é. Retome: peça os dados a ela e compare."
+            },
+            {
+              "label": "Pedir nome completo e nascimento e comparar.",
+              "correct": true,
+              "feedback": "Você pediu que a pessoa declarasse os dados e comparou com o registro: é isso que confirma a identidade antes do cuidado."
+            },
+            {
+              "label": "Perguntar se ele é o Seu Jorge e ouvir o sim.",
+              "correct": false,
+              "feedback": "Essa pergunta entrega o nome e convida a um sim por engano. Peça que a pessoa diga o próprio nome."
+            },
+            {
+              "label": "Ler o nome na etiqueta presa acima da maca.",
+              "correct": false,
+              "feedback": "A etiqueta pode estar no lugar errado. Confira de novo com o que a própria pessoa declara."
+            }
+          ],
+          "help": "Pense em quem fornece o dado: a pessoa, o papel ou o lugar?",
+          "sourceIds": [
+            "ms-identificacao-paciente"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Duda fica de frente para você e levanta a mão direita. Antes de conferir, preveja: de que lado do seu campo de visão essa mão aparece?",
+          "options": [
+            {
+              "label": "À sua direita.",
+              "correct": false,
+              "feedback": "Isso aconteceria se vocês olhassem na mesma direção. De frente, os lados se cruzam. Confira de novo a vista."
+            },
+            {
+              "label": "Bem no centro, acima da cabeça dela.",
+              "correct": false,
+              "feedback": "Levantar a mão não a leva para o centro: ela continua do lado direito do corpo de Duda. Retome a vista de frente."
+            },
+            {
+              "label": "Depende de você ser destro ou canhoto.",
+              "correct": false,
+              "feedback": "A mão com que você escreve não entra na conta. Vale o lado do corpo de Duda e a vista em que ela está."
+            },
+            {
+              "label": "À sua esquerda.",
+              "correct": true,
+              "feedback": "De frente, a direita dela fica do seu lado esquerdo. A mão é dela; o campo de visão é seu."
+            }
+          ],
+          "help": "Imagine apertar a mão direita de alguém que está de frente para você. Para que lado você estende o braço?",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele descreve.",
+          "pairs": [
+            {
+              "left": "Posição anatômica",
+              "right": "Em pé, olhando para a frente, palmas para a frente"
+            },
+            {
+              "left": "Vista de frente",
+              "right": "A direita do corpo aparece à esquerda da tela"
+            },
+            {
+              "left": "Vista de costas",
+              "right": "A direita do corpo aparece à direita da tela"
+            },
+            {
+              "left": "Direita do paciente",
+              "right": "Lado do corpo dele, em qualquer vista"
+            }
+          ],
+          "feedbackCorrect": "Você separou três coisas: a postura de referência, o lado do corpo e o lugar em que ele aparece em cada vista.",
+          "feedbackIncorrect": "Confira de novo as duas vistas: de frente, os lados se cruzam com os seus; de costas, coincidem. O lado do corpo não muda.",
+          "help": "Comece pelo par que não depende da tela e deixe as duas vistas para o fim.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem o raciocínio para dizer onde um lado do corpo aparece na tela.",
+          "items": [
+            "Ler qual vista o diagrama informa",
+            "Localizar o lado pedido no corpo do personagem",
+            "Relacionar esse lado com a esquerda ou a direita da tela",
+            "Responder citando o lado do corpo e a vista"
+          ],
+          "feedbackCorrect": "A vista vem primeiro, porque é ela que diz onde cada lado do corpo vai aparecer para quem observa.",
+          "feedbackIncorrect": "Retome o começo: sem saber a vista, não há como relacionar o corpo com a tela. A resposta só vem no fim.",
+          "help": "Pergunte, para cada cartão: o que eu preciso saber antes dele?",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Jorge, paciente simulado, está deitado de barriga para cima na mesa do laboratório. Você está em pé junto aos pés dele, olhando em direção à cabeça. Caio pede: “Coloque o apoio ao lado do joelho direito dele.”",
+          "prompt": "De que lado do seu campo de visão fica o joelho direito do Seu Jorge?",
+          "options": [
+            {
+              "label": "À sua esquerda, como numa vista de frente.",
+              "correct": true,
+              "feedback": "Olhando dos pés para a cabeça de alguém de barriga para cima, os lados se cruzam com os seus, como numa vista de frente."
+            },
+            {
+              "label": "À sua direita, porque ele está deitado.",
+              "correct": false,
+              "feedback": "Estar deitado não troca os lados do corpo. Retome: de onde você olha e para onde ele está voltado?"
+            },
+            {
+              "label": "À sua direita, como numa vista de costas.",
+              "correct": false,
+              "feedback": "Os lados só coincidiriam se ele estivesse de costas para você. Aqui ele está de barriga para cima. Confira de novo."
+            },
+            {
+              "label": "Não dá para saber com o paciente deitado.",
+              "correct": false,
+              "feedback": "Os termos valem em qualquer postura, como se o corpo estivesse na posição anatômica. A posição informada basta."
+            }
+          ],
+          "help": "Deitado ou em pé, o corpo é o mesmo. Imagine a mesa se erguendo pela cabeceira até ele ficar em pé. Ele ficaria de frente ou de costas para você?",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "A vista muda a tela, não o corpo",
+        "body": "Agora você consegue partir da vista informada e dizer onde cada lado do corpo aparece para quem observa. O lado do corpo não muda: muda o lugar dele na tela.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na dúvida, volte à pergunta inicial: a direita é de quem?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um diagrama mostra um personagem de frente. Em que lado da tela aparece o lado esquerdo do corpo dele?",
+          "options": [
+            {
+              "label": "À esquerda da tela.",
+              "correct": false,
+              "feedback": "Nesta vista, esse é o lugar do lado direito do corpo. Confira de novo a vista informada."
+            },
+            {
+              "label": "No centro da tela.",
+              "correct": false,
+              "feedback": "O centro marca o meio do corpo, não um dos lados. Retome: qual vista o diagrama informa?"
+            },
+            {
+              "label": "À direita da tela.",
+              "correct": true,
+              "feedback": "De frente, os lados se cruzam: o lado esquerdo do corpo aparece à direita de quem observa."
+            },
+            {
+              "label": "Depende do tamanho do desenho.",
+              "correct": false,
+              "feedback": "Ampliar ou reduzir o desenho não muda a relação entre a vista e o lado do corpo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        },
+        {
+          "prompt": "Outro diagrama mostra o personagem de costas. Em que lado da tela aparece o lado esquerdo do corpo dele?",
+          "options": [
+            {
+              "label": "À direita da tela.",
+              "correct": false,
+              "feedback": "Isso vale para o lado esquerdo na vista de frente. De costas, os lados coincidem com os seus."
+            },
+            {
+              "label": "No centro da tela.",
+              "correct": false,
+              "feedback": "O lado do corpo não vai para o centro quando a vista muda. Confira de novo: de costas, os lados coincidem."
+            },
+            {
+              "label": "À esquerda da tela.",
+              "correct": true,
+              "feedback": "De costas, personagem e observador olham na mesma direção, e o lado esquerdo do corpo fica à esquerda da tela."
+            },
+            {
+              "label": "Não é possível saber pela vista.",
+              "correct": false,
+              "feedback": "A vista informada é justamente o que permite relacionar o corpo e a tela."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o personagem está de… e por isso a direita dele fica…",
+          "item": {
+            "prompt": "Um colega diz: “A direita do corpo é sempre o lado direito da tela.” O diagrama mostra um personagem de frente. O que corrige essa frase?",
+            "options": [
+              {
+                "label": "A vista define onde o lado aparece.",
+                "correct": true,
+                "feedback": "É a vista informada que mostra em que lugar da tela cada lado do corpo aparece."
+              },
+              {
+                "label": "A direita de quem observa vale sempre.",
+                "correct": false,
+                "feedback": "Essa é a ideia que precisa de correção: quem observa não define o lado do corpo."
+              },
+              {
+                "label": "A letra da região define o lado.",
+                "correct": false,
+                "feedback": "Letras e rótulos só nomeiam regiões da tela. Retome a vista do personagem."
+              },
+              {
+                "label": "O lado do corpo muda a cada vista.",
+                "correct": false,
+                "feedback": "O lado do corpo é sempre o mesmo. O que muda é a posição dele na tela."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma tela fictícia mostra um personagem de costas, com uma seta na região à direita da tela. Essa região corresponde a qual lado do corpo?",
+            "options": [
+              {
+                "label": "O lado esquerdo do corpo.",
+                "correct": false,
+                "feedback": "Nesta vista, o lado esquerdo do corpo fica à esquerda da tela. Confira de novo."
+              },
+              {
+                "label": "Depende de quem olha a tela.",
+                "correct": false,
+                "feedback": "O lado do corpo não muda conforme quem observa. A vista informada resolve."
+              },
+              {
+                "label": "Não dá para relacionar os dois.",
+                "correct": false,
+                "feedback": "Dá, sim: a vista de costas diz que os lados do corpo e da tela coincidem."
+              },
+              {
+                "label": "O lado direito do corpo.",
+                "correct": true,
+                "feedback": "De costas, o lado direito da tela coincide com o lado direito do corpo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m02-02",
+      "code": "M02.02",
+      "title": "Lateralidade e marcadores",
+      "objective": "Hoje você vai conseguir conferir se um marcador de lado combina com o lado do corpo na vista informada.",
+      "competency": "Conferir lado corporal e marcador em representações distintas.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Par de diagramas de frente, A e B, idênticos exceto pela posição do R, para a comparação da prática.",
+        "Linha do tempo simples com dois momentos: marcador radiopaco antes da exposição e anotação digital depois."
+      ],
+      "scene": {
+        "setting": "Sala de comando simulada",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Olha esta imagem do treino: tem um R no canto. Antes de qualquer coisa, eu sempre confiro essa letrinha."
+          },
+          {
+            "speaker": "duda",
+            "text": "R de right, direita. Mas direita da tela ou direita do paciente?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Guarde essa dúvida. Ela é a pergunta certa para hoje."
+          }
+        ]
+      },
+      "concept": {
+        "title": "O marcador fala do corpo",
+        "body": "O marcador de lado é uma letra que indica qual lado do corpo a imagem mostra: R, de right, para o direito, e L, de left, para o esquerdo. No Brasil, também se usam D e E. Ele pode ser uma peça radiopaca posta no campo antes da exposição, a melhor prática segundo entidades profissionais, ou uma anotação digital feita depois. Para conferir, use a vista e o lado do corpo, não o lado da tela nem a posição habitual de um órgão. Se o marcador faltar ou não combinar com o pedido, descreva e leve à equipe. Neste treino, você não altera nem acrescenta informação à imagem.",
+        "keyPoints": [
+          "R indica o lado direito do corpo; L, o esquerdo.",
+          "A conferência usa a vista e o lado do corpo.",
+          "Marcador ausente ou incoerente: pare, descreva e peça apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Num diagrama de frente, em que lado da tela fica a mão direita do personagem?",
+          "options": [
+            {
+              "label": "À direita da tela.",
+              "correct": false,
+              "feedback": "Esse seria o lugar na vista de costas. De frente, os lados se cruzam. Retome a vista."
+            },
+            {
+              "label": "À esquerda da tela.",
+              "correct": true,
+              "feedback": "De frente, a direita do personagem aparece à esquerda de quem observa. É a base para conferir marcadores."
+            },
+            {
+              "label": "Na metade de cima da tela.",
+              "correct": false,
+              "feedback": "Em cima e embaixo não dizem nada sobre direita e esquerda. Confira de novo a vista de frente."
+            },
+            {
+              "label": "Em qualquer lado, conforme o zoom.",
+              "correct": false,
+              "feedback": "O zoom muda o tamanho, não o lado. A relação vem da vista informada."
+            }
+          ],
+          "help": "Lembre do aperto de mão com alguém que está de frente para você.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada elemento ao que ele informa.",
+          "pairs": [
+            {
+              "left": "Letra R",
+              "right": "Lado direito do corpo"
+            },
+            {
+              "left": "Letra L",
+              "right": "Lado esquerdo do corpo"
+            },
+            {
+              "left": "Marcador radiopaco",
+              "right": "Peça colocada no campo antes da exposição"
+            },
+            {
+              "left": "Marcador digital",
+              "right": "Anotação acrescentada depois da exposição"
+            }
+          ],
+          "feedbackCorrect": "R e L falam do corpo, como D e E nos serviços que usam as letras em português. Radiopaco e digital dizem quando o marcador entrou na imagem: antes ou depois da exposição.",
+          "feedbackIncorrect": "Retome em duas etapas: primeiro o que cada letra indica, depois o momento em que cada tipo de marcador é aplicado.",
+          "help": "Duas linhas falam de lado do corpo, e duas falam de quando o marcador aparece.",
+          "sourceIds": [
+            "chung-2020-marcadores",
+            "scor-marcadores",
+            "coseac-uff-2023-identificacao"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Dois diagramas mostram o mesmo personagem de frente. No diagrama A, o R está à esquerda da tela. No diagrama B, o R está à direita da tela. Qual deles traz o R no lado direito do corpo?",
+          "options": [
+            {
+              "label": "O diagrama B.",
+              "correct": false,
+              "feedback": "No B, o R está à direita da tela. De frente, ali fica o lado esquerdo do corpo. Localize primeiro a direita do personagem."
+            },
+            {
+              "label": "Os dois diagramas.",
+              "correct": false,
+              "feedback": "Na mesma vista, o lado direito do corpo só aparece em um lugar da tela. Confira de novo qual é."
+            },
+            {
+              "label": "Nenhum dos dois.",
+              "correct": false,
+              "feedback": "Um deles está coerente. Retome: de frente, onde fica a direita do personagem?"
+            },
+            {
+              "label": "O diagrama A.",
+              "correct": true,
+              "feedback": "De frente, a direita do personagem fica à esquerda da tela, que é onde o R do diagrama A está."
+            }
+          ],
+          "help": "Localize primeiro a direita do personagem e só depois procure o R.",
+          "sourceIds": [
+            "chung-2020-marcadores",
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, o pedido fictício diz “punho esquerdo”. A imagem de treino mostra um punho com o marcador R. A fila do laboratório está cheia, e Duda sugere trocar a letra na tela para adiantar.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Troco o R por L na tela e sigo com a fila.",
+              "correct": false,
+              "feedback": "Trocar a letra esconde a divergência e altera a informação da imagem. Neste treino, você não corrige por conta própria."
+            },
+            {
+              "label": "Paro, descrevo a divergência e chamo a Profa. Lia.",
+              "correct": true,
+              "feedback": "Você tornou a divergência visível e pediu apoio. Marcador trocado pode levar a erro de lado, e a decisão é da equipe."
+            },
+            {
+              "label": "Sigo, porque os dois punhos são parecidos.",
+              "correct": false,
+              "feedback": "Seguir deixa uma imagem com lado duvidoso no fluxo. Retome: pedido e marcador não combinam."
+            },
+            {
+              "label": "Apago o marcador e deixo a imagem sem letra.",
+              "correct": false,
+              "feedback": "Sem marcador, ninguém consegue conferir o lado depois. Confira de novo: o que a equipe precisa saber?"
+            }
+          ],
+          "help": "A pressa da fila muda o que o pedido e o marcador estão dizendo?",
+          "sourceIds": [
+            "chung-2020-marcadores"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Em outra simulação, o diagrama mostra Seu Jorge deitado de barriga para cima, como você o veria dos pés da mesa, olhando em direção à cabeça dele. O marcador L aparece à direita da tela. O marcador está coerente com o lado que indica?",
+          "options": [
+            {
+              "label": "Não: o L deveria ficar à esquerda da tela.",
+              "correct": false,
+              "feedback": "Essa resposta usa o lado da tela. Retome a posição de observação e localize a esquerda do corpo."
+            },
+            {
+              "label": "Não: deitado, o marcador perde o sentido.",
+              "correct": false,
+              "feedback": "O marcador continua indicando um lado do corpo em qualquer postura. Confira de novo a vista."
+            },
+            {
+              "label": "Sim: o lado esquerdo dele fica ali.",
+              "correct": true,
+              "feedback": "Visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
+            },
+            {
+              "label": "Sim: qualquer borda serve para o L.",
+              "correct": false,
+              "feedback": "A conclusão coincide, mas o motivo não: a posição importa e precisa cair no lado esquerdo do corpo."
+            }
+          ],
+          "help": "Antes de olhar a letra, diga onde fica a esquerda do corpo nesta posição de observação.",
+          "sourceIds": [
+            "chung-2020-marcadores",
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Marcador incoerente se comunica",
+        "body": "Agora você consegue ligar o marcador ao lado do corpo na vista informada e reconhecer quando ele falta ou não combina. Nesse caso, você descreve e leva à equipe, sem alterar a imagem.",
+        "line": {
+          "speaker": "caio",
+          "text": "Letrinha pequena, conferência grande. Vale os dez segundos."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um diagrama mostra um personagem de frente, com o marcador L à direita da tela. Esse marcador está coerente com o lado que indica?",
+          "options": [
+            {
+              "label": "Sim: o lado esquerdo do corpo fica ali.",
+              "correct": true,
+              "feedback": "De frente, o lado esquerdo do corpo aparece à direita da tela, onde o L está."
+            },
+            {
+              "label": "Não: o L deveria ficar à esquerda da tela.",
+              "correct": false,
+              "feedback": "Essa resposta olha o lado da tela, e não o lado do corpo na vista de frente."
+            },
+            {
+              "label": "Não: só o marcador R pode ser usado.",
+              "correct": false,
+              "feedback": "O L também é um marcador de lado: indica o lado esquerdo do corpo."
+            },
+            {
+              "label": "Sim: a tela define o lado do corpo.",
+              "correct": false,
+              "feedback": "A conclusão coincide, mas o motivo não: quem define é o corpo na vista informada."
+            }
+          ],
+          "sourceIds": [
+            "chung-2020-marcadores",
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "prompt": "Na simulação, uma imagem fictícia chega sem nenhum marcador de lado. O que fazer neste cenário?",
+          "options": [
+            {
+              "label": "Acrescentar a letra que parecer certa.",
+              "correct": false,
+              "feedback": "Acrescentar uma letra por suposição cria uma informação que ninguém conferiu."
+            },
+            {
+              "label": "Descrever a falta e avisar a equipe.",
+              "correct": true,
+              "feedback": "Você registrou o que faltava e levou a quem decide, sem acrescentar informação por conta própria."
+            },
+            {
+              "label": "Decidir o lado pela posição de um órgão.",
+              "correct": false,
+              "feedback": "A posição habitual de um órgão tem exceções raras e não substitui o marcador."
+            },
+            {
+              "label": "Seguir, porque a imagem parece boa.",
+              "correct": false,
+              "feedback": "A aparência da imagem não informa o lado do corpo. Retome: o que falta nela?"
+            }
+          ],
+          "sourceIds": [
+            "chung-2020-marcadores",
+            "fabian-2005-lateralidade"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o R se refere ao lado… do personagem, e não ao lado… da tela.",
+          "item": {
+            "prompt": "Um personagem está de frente. Um colega diz que o R está certo porque aparece à direita da tela. O que a conferência precisa observar?",
+            "options": [
+              {
+                "label": "O lado da tela em que o R aparece.",
+                "correct": false,
+                "feedback": "O lado da tela, sozinho, não confere o marcador. De frente, os lados se cruzam."
+              },
+              {
+                "label": "O tamanho do R em relação ao desenho.",
+                "correct": false,
+                "feedback": "O tamanho da letra não informa o lado do corpo. Retome a vista do personagem."
+              },
+              {
+                "label": "A posição habitual de um órgão.",
+                "correct": false,
+                "feedback": "Órgãos podem fugir do padrão em casos raros. A conferência usa o marcador e a vista."
+              },
+              {
+                "label": "O lado do corpo na vista informada.",
+                "correct": true,
+                "feedback": "A conferência liga o marcador ao lado do corpo, usando a vista."
+              }
+            ],
+            "sourceIds": [
+              "chung-2020-marcadores",
+              "fabian-2005-lateralidade"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra simulação, o personagem está de costas e o R aparece à direita da tela. O marcador está coerente?",
+            "options": [
+              {
+                "label": "Sim: de costas, corpo e tela coincidem.",
+                "correct": true,
+                "feedback": "De costas, o lado direito do corpo aparece à direita da tela, onde o R está."
+              },
+              {
+                "label": "Não: o R sempre fica à esquerda.",
+                "correct": false,
+                "feedback": "À esquerda da tela só seria coerente na vista de frente. Confira de novo a vista."
+              },
+              {
+                "label": "Não: de costas, ele perde o sentido.",
+                "correct": false,
+                "feedback": "O marcador continua indicando o lado do corpo em qualquer vista."
+              },
+              {
+                "label": "Sim: qualquer posição serve para o R.",
+                "correct": false,
+                "feedback": "A posição importa: ela precisa coincidir com o lado direito do corpo."
+              }
+            ],
+            "sourceIds": [
+              "chung-2020-marcadores",
+              "openstax-ap-1-6"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m02-03",
+      "code": "M02.03",
+      "title": "Planos e cortes",
+      "objective": "Hoje você vai conseguir dizer qual plano produz um corte e que partes do corpo ele separa.",
+      "competency": "Relacionar plano, corte e orientação em modelo revisado.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Figura em posição anatômica atravessada por três lâminas coloridas, uma por plano, cada uma com as duas partes que separa.",
+        "Tronco esquemático com uma fatia transversal destacada e puxada para fora, mostrando as bordas direita, esquerda, anterior e posterior."
+      ],
+      "scene": {
+        "setting": "Laboratório didático, com um modelo de tronco desmontável",
+        "lines": [
+          {
+            "speaker": "pixel",
+            "text": "Imagine um pão de forma. Dá para fatiar de três jeitos diferentes, e cada fatia mostra uma coisa."
+          },
+          {
+            "speaker": "duda",
+            "text": "No corpo também? Eu sempre confundo coronal com sagital."
+          },
+          {
+            "speaker": "lia",
+            "text": "Então não comece pelo nome. Pergunte primeiro: este plano separa o quê do quê?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três planos, três separações",
+        "body": "Um plano é uma superfície imaginária que atravessa o corpo. O plano sagital é vertical e separa o lado direito do esquerdo; quando passa exatamente no meio, chama-se mediano. O plano coronal, ou frontal, também é vertical e separa a parte anterior da posterior. O plano transversal, ou axial, é horizontal e separa a parte superior da inferior. Um corte é a superfície plana que aparece quando o corpo é atravessado por um desses planos. Exames como a tomografia mostram cortes virtuais, e só dá para interpretar um corte sabendo em que plano ele foi feito.",
+        "keyPoints": [
+          "Sagital: direita e esquerda.",
+          "Coronal ou frontal: anterior e posterior.",
+          "Transversal ou axial: superior e inferior."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome o começo da unidade. Na posição anatômica, para onde ficam voltadas as palmas das mãos?",
+          "options": [
+            {
+              "label": "Para trás.",
+              "correct": false,
+              "feedback": "Essa não é a postura combinada. Retome: o corpo todo fica voltado para a frente, inclusive as palmas."
+            },
+            {
+              "label": "Para as coxas.",
+              "correct": false,
+              "feedback": "Essa é a postura relaxada do dia a dia, não a de referência. Confira de novo a descrição da posição anatômica."
+            },
+            {
+              "label": "Para a frente.",
+              "correct": true,
+              "feedback": "Na posição anatômica, a pessoa está em pé, olhando para a frente, com as palmas voltadas para a frente."
+            },
+            {
+              "label": "Para cima.",
+              "correct": false,
+              "feedback": "Na posição anatômica os braços ficam ao lado do corpo, e as palmas não apontam para cima. Retome a descrição."
+            }
+          ],
+          "help": "Pense na postura de referência usada para todos os termos: para onde o corpo inteiro está voltado?",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "radiopaedia-posicao-anatomica"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Antes de conferir no modelo, preveja: um plano vertical passa exatamente no meio do corpo, da frente para trás. O que fica separado?",
+          "options": [
+            {
+              "label": "A parte da frente e a parte de trás.",
+              "correct": false,
+              "feedback": "Para separar frente e trás, o plano vertical teria de correr de um lado ao outro. Esse é o coronal."
+            },
+            {
+              "label": "A parte de cima e a parte de baixo.",
+              "correct": false,
+              "feedback": "Cima e baixo são separados por um plano horizontal, o transversal. O plano descrito é vertical."
+            },
+            {
+              "label": "A metade direita e a metade esquerda.",
+              "correct": true,
+              "feedback": "Esse é o plano mediano, um plano sagital que passa bem no meio e separa direita e esquerda."
+            },
+            {
+              "label": "A pele de um lado e os ossos do outro.",
+              "correct": false,
+              "feedback": "Um plano atravessa todas as camadas no caminho. Retome: o que fica de cada lado dele?"
+            }
+          ],
+          "help": "Imagine uma folha de papel em pé, entrando pelo nariz e saindo pela nuca.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada plano ao que ele separa.",
+          "pairs": [
+            {
+              "left": "Plano sagital",
+              "right": "Lado direito e lado esquerdo"
+            },
+            {
+              "left": "Plano coronal (frontal)",
+              "right": "Parte anterior e parte posterior"
+            },
+            {
+              "left": "Plano transversal (axial)",
+              "right": "Parte superior e parte inferior"
+            },
+            {
+              "left": "Plano mediano",
+              "right": "Metades direita e esquerda, bem no meio"
+            }
+          ],
+          "feedbackCorrect": "Cada plano tem a sua separação. O mediano é o sagital que passa exatamente no meio.",
+          "feedbackIncorrect": "Retome a pergunta da Profa. Lia: este plano separa o quê do quê? Os dois planos verticais são os mais fáceis de trocar.",
+          "help": "Dois planos são verticais e um é horizontal. Comece pelo horizontal.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Um modelo do corpo em pé é fatiado em cortes transversais, do mais superior ao mais inferior. Ordene as regiões por onde as fatias passam.",
+          "items": [
+            "Cabeça",
+            "Pescoço",
+            "Tórax",
+            "Abdome",
+            "Pelve"
+          ],
+          "feedbackCorrect": "Cortes transversais se empilham de cima para baixo: cada fatia fica inferior à anterior.",
+          "feedbackIncorrect": "Retome o sentido da pilha: superior é em direção à cabeça, inferior é em direção aos pés.",
+          "help": "Comece pela região mais próxima do alto da cabeça e desça.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na bancada, Caio mostra um corte do modelo de tronco, sem dizer o plano. Nele aparecem, ao mesmo tempo, estruturas do lado direito e do lado esquerdo, e estruturas da frente e de trás. Tudo o que se vê está na mesma altura do tórax: nada mais acima, nada mais abaixo.",
+          "prompt": "Em que plano esse corte foi feito?",
+          "options": [
+            {
+              "label": "No plano transversal (axial).",
+              "correct": true,
+              "feedback": "O que ficou fora do corte foi o que está acima e abaixo: é o plano transversal que separa superior de inferior."
+            },
+            {
+              "label": "No plano sagital.",
+              "correct": false,
+              "feedback": "Um corte sagital mostraria cima e baixo, e não direita e esquerda lado a lado. Confira de novo o que ficou de fora."
+            },
+            {
+              "label": "No plano coronal (frontal).",
+              "correct": false,
+              "feedback": "Um corte coronal mostraria cima e baixo, mas não frente e trás juntos. Retome a pista da altura."
+            },
+            {
+              "label": "No plano mediano.",
+              "correct": false,
+              "feedback": "O mediano é um plano sagital: passa pelo meio e deixa direita e esquerda em lados opostos dele. Confira de novo."
+            }
+          ],
+          "help": "Pergunte o que não aparece no corte: foi isso que o plano deixou de um lado e do outro.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Nomear o plano pelo que ele separa",
+        "body": "Agora você consegue olhar um corte, dizer o que ele separa e nomear o plano: sagital, coronal ou transversal. Isso vale para modelos e para os cortes virtuais dos exames.",
+        "line": {
+          "speaker": "lia",
+          "text": "Antes do nome, a pergunta: separa o quê do quê?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um corte do modelo separa a parte da frente da parte de trás do corpo. Qual plano faz essa separação?",
+          "options": [
+            {
+              "label": "O plano sagital.",
+              "correct": false,
+              "feedback": "O sagital separa direita de esquerda. Aqui a separação é entre frente e trás."
+            },
+            {
+              "label": "O plano transversal.",
+              "correct": false,
+              "feedback": "O transversal é horizontal e separa superior de inferior."
+            },
+            {
+              "label": "O plano mediano.",
+              "correct": false,
+              "feedback": "O mediano é o sagital que passa no meio: separa as metades direita e esquerda."
+            },
+            {
+              "label": "O plano coronal.",
+              "correct": true,
+              "feedback": "O coronal, ou frontal, é o plano vertical que separa anterior de posterior."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "prompt": "Uma imagem de tomografia do treino é descrita como corte axial. Que partes do corpo esse plano separa?",
+          "options": [
+            {
+              "label": "A direita da esquerda.",
+              "correct": false,
+              "feedback": "Essa é a separação feita pelo plano sagital."
+            },
+            {
+              "label": "A superior da inferior.",
+              "correct": true,
+              "feedback": "Axial é outro nome do plano transversal, que é horizontal e separa superior de inferior."
+            },
+            {
+              "label": "A anterior da posterior.",
+              "correct": false,
+              "feedback": "Essa é a separação feita pelo plano coronal, ou frontal."
+            },
+            {
+              "label": "A superficial da profunda.",
+              "correct": false,
+              "feedback": "Superficial e profundo descrevem a distância até a superfície do corpo, e nenhum dos três planos separa isso."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia",
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o plano sagital separa… de…, e o coronal separa… de…",
+          "item": {
+            "prompt": "Duda diz que o corte que divide o corpo em direita e esquerda é o coronal. Qual plano faz essa divisão?",
+            "options": [
+              {
+                "label": "O plano coronal.",
+                "correct": false,
+                "feedback": "É a troca mais comum. O coronal separa a frente da parte de trás."
+              },
+              {
+                "label": "O plano transversal.",
+                "correct": false,
+                "feedback": "O transversal é horizontal: separa o que está acima do que está abaixo."
+              },
+              {
+                "label": "O plano oblíquo.",
+                "correct": false,
+                "feedback": "Um plano oblíquo corta em ângulo, sem acompanhar nenhuma das três separações."
+              },
+              {
+                "label": "O plano sagital.",
+                "correct": true,
+                "feedback": "O sagital é o plano vertical que separa o lado direito do esquerdo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro treino, uma fatia horizontal de um modelo de abdome separa o que está acima dela do que está abaixo. Que nome esse plano recebe?",
+            "options": [
+              {
+                "label": "Sagital ou mediano.",
+                "correct": false,
+                "feedback": "Esses planos são verticais e separam direita de esquerda. Retome: a fatia é horizontal."
+              },
+              {
+                "label": "Transversal ou axial.",
+                "correct": true,
+                "feedback": "O plano horizontal que separa superior de inferior é o transversal, também chamado axial."
+              },
+              {
+                "label": "Coronal ou frontal.",
+                "correct": false,
+                "feedback": "Esse plano é vertical e separa frente de trás. Confira de novo a direção da fatia."
+              },
+              {
+                "label": "Anterior ou posterior.",
+                "correct": false,
+                "feedback": "Anterior e posterior são direções, não nomes de plano. A fatia descrita é horizontal."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6",
+              "nci-seer-terminologia"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m02-04",
+      "code": "M02.04",
+      "title": "Estruturas e sistemas",
+      "objective": "Hoje você vai conseguir situar um órgão na sua cavidade, no seu sistema e em relação a um vizinho.",
+      "competency": "Localizar relações básicas entre estruturas e sistemas.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Silhueta do tronco com as cavidades craniana, torácica e abdominopélvica em blocos de cor e o diafragma como linha divisória.",
+        "Esquema do tórax de frente com coração e pulmões e setas rotuladas: medial, lateral, superior e inferior."
+      ],
+      "scene": {
+        "setting": "Sala de estudos, com um atlas aberto",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Decorei que o coração fica “no meio do peito”. Mas no meio de quê, exatamente?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Na sala a gente descreve assim: em qual cavidade fica, de qual sistema é, perto de qual vizinho."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Três perguntas, então: onde mora, com quem trabalha e quem está ao lado."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Onde mora, com quem trabalha",
+        "body": "Um órgão é uma estrutura formada por dois ou mais tecidos, e um sistema é um grupo de órgãos que trabalham juntos. O coração pertence ao sistema cardiovascular; os pulmões, ao respiratório; os rins, ao urinário. Os órgãos também ocupam cavidades. A craniana abriga o encéfalo. A torácica abriga coração e pulmões. Abaixo dela, separada pelo diafragma, fica a abdominopélvica, com a maior parte dos órgãos digestórios. Para relacionar vizinhos, use pares de termos: superior e inferior, anterior e posterior, medial e lateral. Medial é o mais próximo da linha média do corpo; lateral, o mais afastado. Os pulmões, por exemplo, ficam laterais ao coração.",
+        "keyPoints": [
+          "Sistema: órgãos que trabalham juntos.",
+          "O diafragma separa a cavidade torácica da abdominopélvica.",
+          "Vizinhos se descrevem com pares de termos direcionais."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula de planos. Qual plano é horizontal e separa a parte superior da inferior?",
+          "options": [
+            {
+              "label": "O sagital.",
+              "correct": false,
+              "feedback": "O sagital é vertical e separa direita de esquerda. Retome: qual plano é horizontal?"
+            },
+            {
+              "label": "O coronal (frontal).",
+              "correct": false,
+              "feedback": "O coronal é vertical e separa frente de trás. Confira de novo o plano horizontal."
+            },
+            {
+              "label": "O transversal (axial).",
+              "correct": true,
+              "feedback": "O plano transversal, ou axial, é o horizontal. Ele ajuda a dizer o que fica acima e abaixo de uma estrutura."
+            },
+            {
+              "label": "O mediano.",
+              "correct": false,
+              "feedback": "O mediano é o sagital do meio do corpo, também vertical."
+            }
+          ],
+          "help": "Só um dos planos é horizontal.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada órgão ao sistema a que ele pertence.",
+          "pairs": [
+            {
+              "left": "Coração",
+              "right": "Sistema cardiovascular"
+            },
+            {
+              "left": "Pulmões",
+              "right": "Sistema respiratório"
+            },
+            {
+              "left": "Rins",
+              "right": "Sistema urinário"
+            },
+            {
+              "left": "Estômago",
+              "right": "Sistema digestório"
+            }
+          ],
+          "feedbackCorrect": "Cada órgão trabalha com outros num sistema. Muitos órgãos também contribuem para mais de um sistema.",
+          "feedbackIncorrect": "Retome a pergunta “com quem trabalha?”: pense na função principal de cada órgão.",
+          "help": "Pergunte a que função cada órgão serve: circulação, respiração, urina ou digestão?",
+          "sourceIds": [
+            "openstax-ap-1-2"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Com o corpo na posição anatômica, ordene as estruturas da mais superior para a mais inferior.",
+          "items": [
+            "Encéfalo",
+            "Pulmões",
+            "Diafragma",
+            "Estômago",
+            "Reto"
+          ],
+          "feedbackCorrect": "Você desceu pelas cavidades: craniana, torácica, o diafragma como divisa e, abaixo dele, a abdominopélvica.",
+          "feedbackIncorrect": "Use o diafragma como divisa: o que é da cavidade torácica fica acima dele, e o que é da abdominopélvica, abaixo.",
+          "help": "Encontre primeiro o lugar do diafragma e distribua os órgãos acima e abaixo dele.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Qual frase descreve corretamente a relação entre o coração e os pulmões?",
+          "options": [
+            {
+              "label": "O coração fica medial aos pulmões.",
+              "correct": true,
+              "feedback": "O coração fica entre os dois pulmões, mais perto da linha média: por isso, medial a eles."
+            },
+            {
+              "label": "O coração fica lateral aos pulmões.",
+              "correct": false,
+              "feedback": "Lateral quer dizer mais afastado da linha média. Confira de novo quem está no meio do tórax."
+            },
+            {
+              "label": "O coração fica inferior ao diafragma.",
+              "correct": false,
+              "feedback": "O diafragma é o piso da cavidade torácica, e o coração fica acima dele. Retome a divisa das cavidades."
+            },
+            {
+              "label": "O coração fica inferior aos pulmões.",
+              "correct": false,
+              "feedback": "Coração e pulmões ficam lado a lado, na mesma cavidade. Entre eles, o que muda é a distância até a linha média."
+            }
+          ],
+          "help": "Medial e lateral se medem pela distância até a linha média do corpo.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "openstax-ap-19-1"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na simulação, Caio lê um trecho de roteiro sem dizer o nome do órgão: “fica na cavidade abdominopélvica, abaixo do diafragma, e pertence ao sistema urinário”. Você precisa apontar no atlas a estrutura que atende às três informações ao mesmo tempo.",
+          "prompt": "Qual estrutura combina com a descrição inteira?",
+          "options": [
+            {
+              "label": "O estômago.",
+              "correct": false,
+              "feedback": "A cavidade e a posição combinam, mas o estômago é do sistema digestório. Confira de novo a terceira informação."
+            },
+            {
+              "label": "Os rins.",
+              "correct": true,
+              "feedback": "Os rins ficam na porção abdominal da cavidade, abaixo do diafragma, e fazem parte do sistema urinário."
+            },
+            {
+              "label": "Os pulmões.",
+              "correct": false,
+              "feedback": "Os pulmões ficam na cavidade torácica, acima do diafragma, e são do sistema respiratório."
+            },
+            {
+              "label": "O coração.",
+              "correct": false,
+              "feedback": "O coração é do sistema cardiovascular e fica acima do diafragma. Retome as três informações, uma por vez."
+            }
+          ],
+          "help": "Elimine quem falha em uma das três informações: cavidade, posição ou sistema.",
+          "sourceIds": [
+            "openstax-ap-1-2",
+            "nci-seer-terminologia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Três perguntas para situar um órgão",
+        "body": "Agora você consegue situar uma estrutura dizendo em que cavidade ela fica, a que sistema pertence e como se relaciona com um vizinho, usando os pares de termos direcionais.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Onde mora, com quem trabalha, quem está ao lado. Guarde as três."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No atlas do treino, qual estrutura separa a cavidade torácica da cavidade abdominopélvica?",
+          "options": [
+            {
+              "label": "O mediastino.",
+              "correct": false,
+              "feedback": "O mediastino é a região do tórax onde fica o coração. Não é a divisa com o abdome."
+            },
+            {
+              "label": "O coração.",
+              "correct": false,
+              "feedback": "O coração é um órgão da cavidade torácica e fica acima da divisa."
+            },
+            {
+              "label": "O estômago.",
+              "correct": false,
+              "feedback": "O estômago é um órgão da cavidade abdominopélvica e fica abaixo da divisa."
+            },
+            {
+              "label": "O diafragma.",
+              "correct": true,
+              "feedback": "O diafragma forma o piso da cavidade torácica e a separa da abdominopélvica."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "prompt": "Um diagrama do treino destaca os pulmões. A que sistema eles pertencem?",
+          "options": [
+            {
+              "label": "Ao sistema respiratório.",
+              "correct": true,
+              "feedback": "Os pulmões fazem parte do sistema respiratório, com a cavidade nasal e a traqueia."
+            },
+            {
+              "label": "Ao sistema cardiovascular.",
+              "correct": false,
+              "feedback": "O coração e os vasos formam o cardiovascular. Os pulmões são vizinhos dele, de outro sistema."
+            },
+            {
+              "label": "Ao sistema digestório.",
+              "correct": false,
+              "feedback": "O digestório reúne órgãos como estômago, fígado e intestinos."
+            },
+            {
+              "label": "Ao sistema urinário.",
+              "correct": false,
+              "feedback": "O urinário reúne os rins e a bexiga urinária."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-2"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o coração fica na cavidade…, e o estômago fica… do diafragma.",
+          "item": {
+            "prompt": "Duda diz que o estômago fica na cavidade torácica. Usando o diafragma como referência, onde o estômago fica?",
+            "options": [
+              {
+                "label": "Acima dele, junto do coração e dos pulmões.",
+                "correct": false,
+                "feedback": "Acima do diafragma fica a cavidade torácica, que abriga coração e pulmões. Confira de novo."
+              },
+              {
+                "label": "Ao lado dele, dentro da cavidade craniana.",
+                "correct": false,
+                "feedback": "A cavidade craniana fica na cabeça e abriga o encéfalo. Retome a divisa do tronco."
+              },
+              {
+                "label": "Abaixo dele, na cavidade abdominopélvica.",
+                "correct": true,
+                "feedback": "O estômago é um órgão digestório da cavidade abdominopélvica, que fica abaixo do diafragma."
+              },
+              {
+                "label": "Dentro dele, entre os dois pulmões.",
+                "correct": false,
+                "feedback": "Entre os dois pulmões fica o coração. O diafragma é a divisa, não um espaço para órgãos."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6",
+              "nci-seer-terminologia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro atlas, o encéfalo aparece destacado. Qual descrição combina com ele?",
+            "options": [
+              {
+                "label": "Cavidade torácica, sistema nervoso.",
+                "correct": false,
+                "feedback": "O sistema combina, mas a cavidade torácica abriga coração e pulmões. Confira de novo a cavidade."
+              },
+              {
+                "label": "Cavidade craniana, sistema esquelético.",
+                "correct": false,
+                "feedback": "A cavidade combina, mas o esquelético reúne ossos, articulações e cartilagens. Retome o sistema."
+              },
+              {
+                "label": "Cavidade craniana, sistema nervoso.",
+                "correct": true,
+                "feedback": "O encéfalo fica na cavidade craniana e faz parte do sistema nervoso."
+              },
+              {
+                "label": "Cavidade vertebral, sistema muscular.",
+                "correct": false,
+                "feedback": "A cavidade vertebral, ou canal vertebral, abriga a medula espinal, e o sistema muscular reúne músculos e tendões."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6",
+              "openstax-ap-1-2"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m02-05",
+      "code": "M02.05",
+      "title": "Da anatomia ao exame",
+      "objective": "Hoje você vai conseguir ligar o nome de uma região num pedido fictício ao segmento e ao lado do corpo que ele indica.",
+      "competency": "Relacionar representação anatômica e região examinada.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Membro superior e membro inferior esquemáticos, com os segmentos em faixas de cor e uma seta de proximal a distal.",
+        "Abdome de frente com os quatro quadrantes e os rótulos de direita e esquerda do paciente."
+      ],
+      "scene": {
+        "setting": "Recepção do laboratório de simulação",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Moço, o papel diz “perna direita”. Mas o que me dói é aqui em cima, na coxa."
+          },
+          {
+            "speaker": "caio",
+            "text": "Boa hora para parar e olhar o pedido com calma. Na anatomia, perna e coxa não são a mesma coisa."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que pedaço do corpo cada palavra do pedido indica? É isso que vamos conferir."
+          }
+        ]
+      },
+      "concept": {
+        "title": "A palavra do pedido tem endereço",
+        "body": "No dia a dia, braço e perna nomeiam o membro inteiro. Na anatomia, cada segmento tem nome próprio. No membro superior: braço, entre ombro e cotovelo; antebraço, entre cotovelo e punho; punho; e mão. No membro inferior: coxa, entre quadril e joelho; perna, entre joelho e tornozelo; tornozelo; e pé. Proximal é o que fica mais perto do tronco; distal, o que fica mais longe. O abdome costuma ser descrito em quatro quadrantes, por duas linhas que se cruzam no umbigo. O lado é sempre o do paciente. Se o pedido e o relato da pessoa não combinam, pare e leve à equipe.",
+        "keyPoints": [
+          "Braço e antebraço, coxa e perna são segmentos diferentes.",
+          "Proximal: mais perto do tronco. Distal: mais longe.",
+          "Pedido e relato divergentes: pare e peça apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Qual par de termos descreve o que está mais acima e o que está mais abaixo no corpo?",
+          "options": [
+            {
+              "label": "Superior e inferior.",
+              "correct": true,
+              "feedback": "Superior aponta em direção à cabeça, e inferior, em direção aos pés. Hoje entra mais um par, usado nos membros."
+            },
+            {
+              "label": "Medial e lateral.",
+              "correct": false,
+              "feedback": "Esse par mede a distância até a linha média do corpo. Retome o par de cima e de baixo."
+            },
+            {
+              "label": "Anterior e posterior.",
+              "correct": false,
+              "feedback": "Esse par separa frente e trás. Confira de novo qual par fala de altura."
+            },
+            {
+              "label": "Superficial e profundo.",
+              "correct": false,
+              "feedback": "Esse par fala da distância até a superfície do corpo, não da altura."
+            }
+          ],
+          "help": "Pense no par que você usou para ordenar encéfalo, pulmões e estômago.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os segmentos do membro superior, do mais proximal ao mais distal.",
+          "items": [
+            "Braço",
+            "Antebraço",
+            "Punho",
+            "Mão"
+          ],
+          "feedbackCorrect": "Proximal é perto do tronco. Do braço à mão, cada segmento fica distal ao anterior.",
+          "feedbackIncorrect": "Retome: proximal é o que fica mais perto do tronco. Comece pelo segmento ligado ao ombro.",
+          "help": "Comece pelo segmento que se prende ao tronco e termine na ponta do membro.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada palavra de um pedido fictício ao segmento do corpo que ela indica.",
+          "pairs": [
+            {
+              "left": "Braço",
+              "right": "Entre o ombro e o cotovelo"
+            },
+            {
+              "left": "Antebraço",
+              "right": "Entre o cotovelo e o punho"
+            },
+            {
+              "left": "Coxa",
+              "right": "Entre o quadril e o joelho"
+            },
+            {
+              "left": "Perna",
+              "right": "Entre o joelho e o tornozelo"
+            }
+          ],
+          "feedbackCorrect": "Na anatomia, braço e perna são só um segmento cada, e não o membro inteiro.",
+          "feedbackIncorrect": "Confira de novo os dois pares mais trocados: braço não é antebraço, e perna não é coxa.",
+          "help": "Cada membro tem um segmento acima e outro abaixo da articulação do meio: cotovelo ou joelho.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, o pedido fictício de Dona Marta diz “perna direita”. Ela aponta a coxa direita e diz que a dor é ali. A identificação já foi conferida e está correta. Duda comenta que “perna é tudo” e sugere seguir.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Sigo com a perna, como está no papel.",
+              "correct": false,
+              "feedback": "Seguir ignora o que Dona Marta acabou de dizer e leva a divergência adiante. Retome: pedido e relato combinam?"
+            },
+            {
+              "label": "Troco para a coxa, onde ela sente a dor.",
+              "correct": false,
+              "feedback": "Trocar a região é decidir o exame por conta própria. Neste treino, a divergência vai para a equipe."
+            },
+            {
+              "label": "Faço as duas regiões, para não faltar nada.",
+              "correct": false,
+              "feedback": "Fazer mais uma região é acrescentar um exame que ninguém pediu. Confira de novo o seu papel aqui."
+            },
+            {
+              "label": "Paro, descrevo a diferença e chamo a equipe.",
+              "correct": true,
+              "feedback": "Você apontou que o pedido e o relato indicam segmentos diferentes e levou a quem decide. Definir a região não cabe a você."
+            }
+          ],
+          "help": "O pedido fala de um segmento e a pessoa aponta outro. Quem resolve essa diferença?",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Um roteiro fictício cita o “quadrante superior direito do abdome”. O paciente simulado está em pé, de frente para você. Onde essa região aparece no seu campo de visão?",
+          "options": [
+            {
+              "label": "Acima do umbigo, à sua direita.",
+              "correct": false,
+              "feedback": "A altura está certa, mas o lado é o do paciente. De frente, os lados se cruzam com os seus."
+            },
+            {
+              "label": "Acima do umbigo, à sua esquerda.",
+              "correct": true,
+              "feedback": "Superior é acima da linha do umbigo, e a direita do paciente, de frente, fica à sua esquerda."
+            },
+            {
+              "label": "Abaixo do umbigo, à sua esquerda.",
+              "correct": false,
+              "feedback": "O lado está certo, mas superior indica a parte acima da linha que passa pelo umbigo."
+            },
+            {
+              "label": "Abaixo do umbigo, à sua direita.",
+              "correct": false,
+              "feedback": "Esse é o lugar do quadrante inferior esquerdo. Retome as duas pistas: altura e lado do paciente."
+            }
+          ],
+          "help": "Resolva em duas etapas: primeiro acima ou abaixo do umbigo, depois o lado do paciente.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Do nome no papel ao lugar no corpo",
+        "body": "Agora você consegue ler o nome de uma região num pedido fictício e apontar o segmento e o lado do corpo que ele indica. Quando pedido e relato não combinam, você para e chama a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Perna, coxa, braço, antebraço. Parece detalhe, até o dia em que não é."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num roteiro fictício, a região de interesse fica entre o joelho e o tornozelo. Que nome anatômico esse segmento recebe?",
+          "options": [
+            {
+              "label": "Coxa.",
+              "correct": false,
+              "feedback": "A coxa fica acima do joelho, entre o quadril e ele."
+            },
+            {
+              "label": "Pé.",
+              "correct": false,
+              "feedback": "O pé fica depois do tornozelo, na ponta do membro."
+            },
+            {
+              "label": "Membro inferior.",
+              "correct": false,
+              "feedback": "Membro inferior é o conjunto todo, da coxa ao pé."
+            },
+            {
+              "label": "Perna.",
+              "correct": true,
+              "feedback": "Na anatomia, perna é só o segmento entre o joelho e o tornozelo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "prompt": "No membro superior, o punho fica em que posição em relação ao cotovelo?",
+          "options": [
+            {
+              "label": "Proximal.",
+              "correct": false,
+              "feedback": "Proximal seria mais perto do tronco. O punho fica mais longe que o cotovelo."
+            },
+            {
+              "label": "Distal.",
+              "correct": true,
+              "feedback": "O punho está mais longe do tronco que o cotovelo: por isso, distal a ele."
+            },
+            {
+              "label": "Medial.",
+              "correct": false,
+              "feedback": "Medial fala da distância até a linha média, não da posição ao longo do membro."
+            },
+            {
+              "label": "Posterior.",
+              "correct": false,
+              "feedback": "Posterior indica o que está atrás. A pergunta é sobre a posição ao longo do membro."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "nci-seer-terminologia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na anatomia, a perna vai do… ao…, e o antebraço vai do… ao…",
+          "item": {
+            "prompt": "Seu Jorge, paciente simulado, diz que machucou “o braço” e aponta a região entre o cotovelo e o punho. Que nome anatômico essa região recebe?",
+            "options": [
+              {
+                "label": "Braço.",
+                "correct": false,
+                "feedback": "Na anatomia, braço é só o segmento entre o ombro e o cotovelo. Confira de novo onde ele aponta."
+              },
+              {
+                "label": "Punho.",
+                "correct": false,
+                "feedback": "O punho é a região que liga o antebraço à mão, mais distal que a apontada."
+              },
+              {
+                "label": "Antebraço.",
+                "correct": true,
+                "feedback": "Entre o cotovelo e o punho fica o antebraço, mesmo que no dia a dia se diga braço."
+              },
+              {
+                "label": "Cotovelo.",
+                "correct": false,
+                "feedback": "O cotovelo é a articulação entre o braço e o antebraço, logo acima da região apontada."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num diagrama do abdome visto de frente, uma seta marca a região abaixo do umbigo, à direita da tela. Que quadrante é esse?",
+            "options": [
+              {
+                "label": "Quadrante inferior esquerdo.",
+                "correct": true,
+                "feedback": "Abaixo da linha do umbigo é inferior, e a direita da tela, de frente, é o lado esquerdo do paciente."
+              },
+              {
+                "label": "Quadrante inferior direito.",
+                "correct": false,
+                "feedback": "A altura está certa, mas esse nome usa o lado da tela. De frente, os lados se cruzam com os seus."
+              },
+              {
+                "label": "Quadrante superior esquerdo.",
+                "correct": false,
+                "feedback": "O lado está certo, mas a seta fica abaixo da linha do umbigo. Confira de novo a altura."
+              },
+              {
+                "label": "Quadrante superior direito.",
+                "correct": false,
+                "feedback": "Esse quadrante fica acima do umbigo e do outro lado da tela. Retome as duas pistas, uma por vez."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-1-6"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m02-06",
+      "code": "M02.06",
+      "title": "Orientar uma imagem nova",
+      "objective": "Hoje você vai conseguir orientar uma imagem descrita pela primeira vez, juntando vista, plano e marcador.",
+      "competency": "Transferir lateralidade e orientação sem rótulos de ajuda.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Corte axial esquemático com as letras R, L, A e P nas bordas e um pequeno boneco deitado mostrando o ponto de observação aos pés.",
+        "Cartão com as três perguntas (vista, plano, marcador) como lista de conferência visual."
+      ],
+      "scene": {
+        "setting": "Sala de comando simulada, no fim do treino",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Última do dia: uma imagem que você nunca viu, sem ninguém dizendo o que é."
+          },
+          {
+            "speaker": "duda",
+            "text": "Sem dica nenhuma? Por onde eu começo?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Pelas mesmas perguntas que você já fez nesta unidade. Quais são elas?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três perguntas para qualquer imagem",
+        "body": "Diante de uma imagem nova, faça três perguntas. Primeira: de onde estou vendo? Num diagrama de frente, a direita do corpo aparece à esquerda da tela; de costas, os lados coincidem. Segunda: é uma vista do corpo ou um corte? Um corte axial de tomografia costuma ser exibido como se você olhasse o paciente, deitado de barriga para cima, dos pés em direção à cabeça: a direita dele aparece à esquerda da tela. Terceira: o que dizem os marcadores? R e L indicam direita e esquerda; A e P, anterior e posterior. Se as respostas não combinam entre si ou com o pedido, pare, descreva e peça apoio.",
+        "keyPoints": [
+          "Vista, plano e marcador, nessa ordem.",
+          "No corte axial de tomografia, a direita do paciente costuma aparecer à esquerda da tela.",
+          "Informações que não combinam pedem pausa e apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Que nome anatômico recebe o segmento entre o ombro e o cotovelo?",
+          "options": [
+            {
+              "label": "Antebraço.",
+              "correct": false,
+              "feedback": "O antebraço fica entre o cotovelo e o punho. Confira de novo o segmento ligado ao ombro."
+            },
+            {
+              "label": "Braço.",
+              "correct": true,
+              "feedback": "Braço é só o segmento entre o ombro e o cotovelo. Nomear a região certa faz parte de orientar uma imagem."
+            },
+            {
+              "label": "Membro superior.",
+              "correct": false,
+              "feedback": "Membro superior é o conjunto todo, do braço à mão. A pergunta é sobre um segmento."
+            },
+            {
+              "label": "Punho.",
+              "correct": false,
+              "feedback": "O punho fica entre o antebraço e a mão, bem mais distal."
+            }
+          ],
+          "help": "No uso anatômico, o nome do dia a dia vale só para um segmento.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as perguntas que você faz diante de uma imagem nova, na ordem ensinada nesta aula.",
+          "items": [
+            "De que vista ou posição estou observando?",
+            "É uma vista do corpo ou um corte? Em que plano?",
+            "O que os marcadores indicam?",
+            "As respostas combinam com o pedido fictício?"
+          ],
+          "feedbackCorrect": "Vista, plano, marcador e, por fim, a conferência com o pedido: cada resposta apoia a seguinte.",
+          "feedbackIncorrect": "Retome o começo: sem saber de onde está olhando, você não consegue interpretar plano nem marcador.",
+          "help": "A última pergunta depende de todas as outras.",
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "burbridge-mah-tc",
+            "chung-2020-marcadores"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada letra de orientação ao que ela indica numa imagem.",
+          "pairs": [
+            {
+              "left": "R",
+              "right": "Lado direito do paciente"
+            },
+            {
+              "left": "L",
+              "right": "Lado esquerdo do paciente"
+            },
+            {
+              "left": "A",
+              "right": "Parte anterior, a da frente"
+            },
+            {
+              "left": "P",
+              "right": "Parte posterior, a de trás"
+            }
+          ],
+          "feedbackCorrect": "R e L falam dos lados do paciente. A e P, da frente e de trás.",
+          "feedbackIncorrect": "Confira de novo: duas letras indicam lados do paciente, e duas indicam frente e trás.",
+          "help": "Duas letras vêm de right e left. As outras duas, de anterior e posterior.",
+          "sourceIds": [
+            "burbridge-mah-tc",
+            "chung-2020-marcadores"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Num corte axial de tomografia do treino, a letra R aparece na borda esquerda da tela, como de costume. O texto do roteiro fictício fala em uma estrutura “do lado esquerdo do paciente”, mas a seta do roteiro aponta para perto da borda esquerda da tela, a mesma do R. Caio saiu da sala por um minuto.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Mudo a seta para o outro lado da tela e sigo.",
+              "correct": false,
+              "feedback": "Mover a seta altera o roteiro por conta própria, sem saber qual das duas informações está certa."
+            },
+            {
+              "label": "Concluo que o R está trocado e sigo.",
+              "correct": false,
+              "feedback": "Supor que o marcador está errado é escolher um lado sem conferência. Retome: quem resolve a divergência?"
+            },
+            {
+              "label": "Ignoro o texto e fico só com a seta.",
+              "correct": false,
+              "feedback": "Escolher uma das informações não resolve a diferença entre elas. Confira de novo o que a equipe precisa saber."
+            },
+            {
+              "label": "Paro e descrevo a divergência para a equipe.",
+              "correct": true,
+              "feedback": "Texto e seta indicam lados diferentes do paciente. Você parou, descreveu o que viu e deixou a decisão com a equipe."
+            }
+          ],
+          "help": "Diga, só para você, que lado do paciente o texto indica e que lado a seta indica.",
+          "sourceIds": [
+            "burbridge-mah-tc",
+            "chung-2020-marcadores"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Um corte axial de tomografia do treino traz a letra L na borda direita da tela. Uma estrutura aparece junto à borda esquerda da tela. De que lado do paciente ela está?",
+          "options": [
+            {
+              "label": "Do lado direito do paciente.",
+              "correct": true,
+              "feedback": "O L marca a borda do lado esquerdo do paciente. A borda oposta, à esquerda da tela, é o lado direito dele."
+            },
+            {
+              "label": "Do lado esquerdo do paciente.",
+              "correct": false,
+              "feedback": "Essa resposta usa o lado da tela. Confira de novo o que o L diz sobre a borda direita."
+            },
+            {
+              "label": "Na parte anterior do paciente.",
+              "correct": false,
+              "feedback": "Anterior e posterior são indicados por A e P. O L fala de direita e esquerda."
+            },
+            {
+              "label": "Não dá para saber pelo marcador.",
+              "correct": false,
+              "feedback": "Dá, sim: se o L está numa borda, a borda oposta é o lado direito do paciente."
+            }
+          ],
+          "help": "Um marcador numa borda também informa o que há na borda oposta.",
+          "sourceIds": [
+            "burbridge-mah-tc"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Orientar antes de interpretar",
+        "body": "Agora você consegue receber uma imagem nova e orientá-la com três perguntas: vista, plano e marcador. Quando as respostas não combinam, você descreve a divergência e pede apoio.",
+        "line": {
+          "speaker": "lia",
+          "text": "As perguntas são suas agora. Leve com você para os próximos módulos."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma imagem nova do treino mostra um personagem de costas, com o R à esquerda da tela. O marcador combina com a vista?",
+          "options": [
+            {
+              "label": "Sim: o R sempre fica à esquerda da tela.",
+              "correct": false,
+              "feedback": "À esquerda da tela seria coerente na vista de frente. Confira de novo a vista informada."
+            },
+            {
+              "label": "Sim: de costas, os lados se invertem.",
+              "correct": false,
+              "feedback": "A inversão acontece de frente. De costas, você e o personagem olham na mesma direção."
+            },
+            {
+              "label": "Não: de costas, a direita fica à direita.",
+              "correct": true,
+              "feedback": "De costas, os lados do corpo coincidem com os da tela. Um R à esquerda não combina com essa vista."
+            },
+            {
+              "label": "Não: de costas não se usa marcador.",
+              "correct": false,
+              "feedback": "A conclusão coincide, mas o motivo não: o marcador vale em qualquer vista e aqui está no lado errado."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-1-6",
+            "chung-2020-marcadores"
+          ]
+        },
+        {
+          "prompt": "Um corte axial de tomografia do treino é exibido do modo habitual. De onde você imagina estar olhando o paciente?",
+          "options": [
+            {
+              "label": "Da cabeça, em direção aos pés.",
+              "correct": false,
+              "feedback": "Dessa posição os lados coincidiriam com os seus. A exibição habitual parte do lado oposto."
+            },
+            {
+              "label": "Do lado direito da mesa.",
+              "correct": false,
+              "feedback": "De lado você veria um perfil, não um corte axial com direita e esquerda."
+            },
+            {
+              "label": "Dos pés, em direção à cabeça.",
+              "correct": true,
+              "feedback": "No modo habitual, é como estar aos pés da mesa: a direita do paciente aparece à esquerda da tela."
+            },
+            {
+              "label": "De cima, olhando o rosto dele.",
+              "correct": false,
+              "feedback": "De cima você veria a frente do corpo inteiro, não uma fatia horizontal."
+            }
+          ],
+          "sourceIds": [
+            "burbridge-mah-tc",
+            "nibabel-convencao-radiologica"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: primeiro vejo a…, depois o… e por fim os…",
+          "item": {
+            "prompt": "Duda recebe uma imagem nova e começa procurando o coração para descobrir o lado. Pelas três perguntas da aula, por onde ela deveria começar?",
+            "options": [
+              {
+                "label": "Pela vista ou posição de observação.",
+                "correct": true,
+                "feedback": "A primeira pergunta é de onde se está vendo. Sem ela, plano e marcador ficam sem referência."
+              },
+              {
+                "label": "Pela posição habitual dos órgãos.",
+                "correct": false,
+                "feedback": "O coração costuma ficar mais à esquerda, mas há exceções raras. Órgão não substitui vista nem marcador."
+              },
+              {
+                "label": "Pelo tamanho da imagem na tela.",
+                "correct": false,
+                "feedback": "O tamanho não orienta a imagem. Retome a primeira das três perguntas."
+              },
+              {
+                "label": "Pela letra que estiver maior.",
+                "correct": false,
+                "feedback": "Os marcadores são a terceira pergunta, e o tamanho da letra não muda o que ela indica."
+              }
+            ],
+            "sourceIds": [
+              "fabian-2005-lateralidade",
+              "openstax-ap-1-6"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra simulação, um diagrama mostra o paciente deitado de barriga para cima, como você o veria dos pés da mesa, olhando em direção à cabeça dele. O R aparece à direita da tela. O marcador está coerente?",
+            "options": [
+              {
+                "label": "Sim: deitado, os lados coincidem.",
+                "correct": false,
+                "feedback": "Os lados só coincidiriam olhando a partir da cabeça. Confira de novo a posição de observação."
+              },
+              {
+                "label": "Sim: o R vale para qualquer borda.",
+                "correct": false,
+                "feedback": "A borda importa: o R precisa cair no lado direito do corpo."
+              },
+              {
+                "label": "Não: deitado não existe lado direito.",
+                "correct": false,
+                "feedback": "A conclusão coincide, mas o motivo não: os lados do corpo valem em qualquer postura."
+              },
+              {
+                "label": "Não: dali, a direita dele fica à esquerda.",
+                "correct": true,
+                "feedback": "Visto dos pés, a direita do paciente aparece à esquerda da tela. Um R à direita não combina."
+              }
+            ],
+            "sourceIds": [
+              "burbridge-mah-tc",
+              "chung-2020-marcadores"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -57,6 +57,18 @@ jobs:
           echo "suites: $(echo "$suites" | wc -l)"
           node --test $suites
 
+      # Os lotes da trilha rtg-2026 são gerados das aulas-fonte. `--check` roda o
+      # verificador de forma e o contrato do lote em cada unidade e falha se um
+      # arquivo gerado estiver defasado, ausente ou sobrando. Os testes do
+      # verificador e do gerador (`rtg-lesson-lint.test.mjs`,
+      # `build-rtg-batches.test.mjs`) já entram no passo acima pelo padrão de nome.
+      - name: Generated rtg-2026 batches are up to date
+        env:
+          NODE_PATH: ${{ runner.temp }}/radiant-content-contract/node_modules
+        run: |
+          set -euo pipefail
+          node scripts/content/build-rtg-batches.mjs --check
+
       # Exclusões: as três leem `conteúdo/extrações/*/excerpts.json`, dado local
       # que não é versionado.
       - name: Python tests

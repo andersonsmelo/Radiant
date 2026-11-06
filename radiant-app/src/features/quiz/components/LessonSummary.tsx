@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
+import { Confetti } from '../../../components/ui/Confetti';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
@@ -35,6 +36,13 @@ export type LessonSummaryProps = {
   onContinue: () => void;
   onRetry?: () => void;
   continueHint?: string;
+  /**
+   * Confete na conclusão (plano de 2026-11-05, frente C). Quem pede é a aula da
+   * trilha; mesmo pedido, só aparece com pelo menos uma estrela. Não captura
+   * toque, então o Continuar responde enquanto ele cai, e some com "Reduzir
+   * movimento" (o `Confetti` decide).
+   */
+  celebrate?: boolean;
 };
 
 const TOTAL_STARS = 3;
@@ -116,6 +124,7 @@ export function LessonSummary({
   onContinue,
   onRetry,
   continueHint = 'Continua o estudo',
+  celebrate = false,
 }: LessonSummaryProps) {
   const { fontScale } = useWindowDimensions();
   const largeText = isLargeTextScale(fontScale);
@@ -231,6 +240,8 @@ export function LessonSummary({
           <AppButton label="Refazer" onPress={onRetry} variant="secondary" />
         ) : null}
       </View>
+      {/* Zero estrela é zero acerto: nada a comemorar, e a frase já diz o resultado. */}
+      {celebrate && !isZeroStars ? <Confetti count={36} /> : null}
     </View>
   );
 }

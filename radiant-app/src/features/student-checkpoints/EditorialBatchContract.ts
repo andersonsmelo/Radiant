@@ -1,5 +1,6 @@
 import { AUTHORED_EVIDENCE_KINDS, validateLearningActivity } from '../../types/learningActivity';
-import type { ClaimProvenanceV1, EditorialCurriculumCandidateV1 } from './EditorialCurriculumCandidate';
+import type { ClaimProvenanceV1, EditorialCandidate, EditorialCurriculumCandidateV1, EditorialSourceV1, EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
+import { validateEditorialWideContract, wideActivityClaims, wideResponseIds } from './EditorialWideContract';
 
 import { PILOT_ACTIVITY_FAMILIES, pilotActivityClaims, pilotResponseIds, validateEditorialPilotContract } from './EditorialPilotContract';
 
@@ -17,14 +18,16 @@ function https(value: string): boolean {
  * Neither contract grants any of the six promotion gates.
  */
 export function validateEditorialBatchContract(value: unknown): string[] {
-    try { return validate(value as EditorialCurriculumCandidateV1); }
+    try { return validate(value as EditorialCandidate); }
     catch { return ['invalid-candidate-shape']; }
 }
 
-function validate(candidate: EditorialCurriculumCandidateV1): string[] {
+function validate(candidate: EditorialCandidate): string[] {
     const issues: string[] = [];
     const pilot = candidate.pilot !== undefined;
-    if (pilot) issues.push(...validateEditorialPilotContract(candidate));
+    if (pilot) issues.push(...validateEditorialPilotContract(candidate as EditorialCurriculumCandidateV1));
+    const wide = candidate.wide !== undefined;
+    if (wide) issues.push(...validateEditorialWideContract(candidate as EditorialWideCandidateV1));
     const add = (code: string, id?: string) => issues.push(id ? `${code}:${id}` : code);
     const identities = new Set<string>();
     const claimIdentity = (id: string) => {
@@ -42,10 +45,10 @@ function validate(candidate: EditorialCurriculumCandidateV1): string[] {
     if (new Set(slugs).size !== slugs.length || slugs.some(slug => !filled(slug))) add('duplicate-stage-slug');
     const sourceIds = new Set(candidate.sources.map(source => source.id));
     if (sourceIds.size !== candidate.sources.length) add('duplicate-source');
-    if (!sourceIds.size || candidate.sources.some(source => !filled(source.id) || !filled(source.title) || !filled(source.attribution)
+    if (!sourceIds.size || (!wide && (candidate.sources as readonly EditorialSourceV1[]).some(source => !filled(source.id) || !filled(source.title) || !filled(source.attribution)
         || !https(source.url) || !date(source.accessedAt) || !filled(source.adaptationNotice)
         || !/^[a-f0-9]{64}$/.test(source.retrievedMaterialSha256)
-        || source.license.label !== 'CC BY 4.0' || source.license.url !== 'https://creativecommons.org/licenses/by/4.0/')) add('invalid-source-metadata');
+        || source.license.label !== 'CC BY 4.0' || source.license.url !== 'https://creativecommons.org/licenses/by/4.0/'))) add('invalid-source-metadata');
     const validSources = (ids: readonly string[]) => ids.length > 0 && new Set(ids).size === ids.length && ids.every(id => sourceIds.has(id));
     const validCompetency = (ids: readonly string[]) => ids.length === 1 && competencies.has(ids[0]);
     const requiredClaims: ClaimProvenanceV1[] = [];
@@ -66,6 +69,12 @@ function validate(candidate: EditorialCurriculumCandidateV1): string[] {
         if (activity.provenance.contentVersion !== candidate.contentVersion) add('activity-version-mismatch', activity.id);
         const interactions = activity.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
         activity.steps.forEach(step => claimIdentity(step.kind === 'interaction' ? step.interaction.id : step.id));
+        if (wide) {
+            // Contagem, famílias e forma já foram conferidas pela extensão; aqui ficam identidade e proveniência.
+            interactions.flatMap(wideResponseIds).forEach(claimIdentity);
+            requiredClaims.push(...wideActivityClaims(activity));
+            continue;
+        }
         if (interactions.length !== 1 || !(pilot ? PILOT_ACTIVITY_FAMILIES.some(type => type === interactions[0].type)
             : interactions[0].type === 'multiple-choice')) { add('unsupported-activity-family', activity.id); continue; }
         const interaction = interactions[0];
@@ -93,6 +102,11 @@ function validate(candidate: EditorialCurriculumCandidateV1): string[] {
         const positions = positionGroups.get(item.options.length) ?? new Set<number>();
         positions.add(correct); positionGroups.set(item.options.length, positions);
         groupSizes.set(item.options.length, (groupSizes.get(item.options.length) ?? 0) + 1);
+        claims(item.id, item.options, item.correctOptionId, item.sourceIds);
+    }
+    for (const entry of candidate.wide?.recovery ?? []) for (const item of [entry.guided, entry.transfer]) {
+        if (!item || !Array.isArray(item.options)) continue;
+        claimIdentity(item.id);
         claims(item.id, item.options, item.correctOptionId, item.sourceIds);
     }
     for (const [count, positions] of positionGroups) if (positions.size < Math.min(count, groupSizes.get(count)!)) add('checkpoint-answer-position-bias');

@@ -188,18 +188,17 @@ describe('validateLearningActivity', () => {
         expect(rulesFor(issues, 'activity:protecao-1')).toContain('invalid-step-count');
     });
 
-    it('recusa mais de seis passos', () => {
-        const steps: LearningStepV2[] = [
+    // Limites da aula ampla (plano de 2026-11-05, I2): 12 passos e 8 interações.
+    it('aceita doze passos e recusa treze', () => {
+        const comPassos = (total: number): LearningStepV2[] => [
             presentation('step:1', 'hook'),
-            presentation('step:2', 'concept'),
-            presentation('step:3', 'concept'),
-            presentation('step:4', 'concept'),
-            presentation('step:5', 'concept'),
-            presentation('step:6', 'concept'),
+            ...Array.from({ length: total - 2 }, (_, index) => presentation(`step:${index + 2}`, 'concept')),
             interactionStep(multipleChoice()),
         ];
 
-        expect(rulesFor(validateLearningActivity(activity({ steps })), 'activity:protecao-1'))
+        expect(rulesFor(validateLearningActivity(activity({ steps: comPassos(12) })), 'activity:protecao-1'))
+            .not.toContain('invalid-step-count');
+        expect(rulesFor(validateLearningActivity(activity({ steps: comPassos(13) })), 'activity:protecao-1'))
             .toContain('invalid-step-count');
     });
 
@@ -217,17 +216,15 @@ describe('validateLearningActivity', () => {
         expect(rulesFor(issues, 'activity:protecao-1')).toContain('invalid-interaction-count');
     });
 
-    it('recusa mais de quatro interações', () => {
-        const steps: LearningStepV2[] = [
+    it('aceita oito interações e recusa nove', () => {
+        const comInteracoes = (total: number): LearningStepV2[] => [
             presentation('step:hook', 'hook'),
-            interactionStep(multipleChoice({ id: 'interaction:1' })),
-            interactionStep(multipleChoice({ id: 'interaction:2' })),
-            interactionStep(multipleChoice({ id: 'interaction:3' })),
-            interactionStep(multipleChoice({ id: 'interaction:4' })),
-            interactionStep(multipleChoice({ id: 'interaction:5' })),
+            ...Array.from({ length: total }, (_, index) => interactionStep(multipleChoice({ id: `interaction:${index + 1}` }))),
         ];
 
-        expect(rulesFor(validateLearningActivity(activity({ steps })), 'activity:protecao-1'))
+        expect(rulesFor(validateLearningActivity(activity({ steps: comInteracoes(8) })), 'activity:protecao-1'))
+            .not.toContain('invalid-interaction-count');
+        expect(rulesFor(validateLearningActivity(activity({ steps: comInteracoes(9) })), 'activity:protecao-1'))
             .toContain('invalid-interaction-count');
     });
 

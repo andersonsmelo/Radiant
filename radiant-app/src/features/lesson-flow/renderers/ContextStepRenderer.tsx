@@ -12,7 +12,8 @@ export function ContextStepRenderer({ payload }: { payload: ContextPayload }) {
         <View style={styles.container}>
             {payload.eyebrow ? <Text style={styles.eyebrow}>{payload.eyebrow}</Text> : null}
             <Text style={styles.title}>{payload.title}</Text>
-            <Text style={styles.body}>{payload.body}</Text>
+            {/* Na abertura em diálogo o corpo vem depois das falas, fora daqui. */}
+            {payload.body ? <Text style={styles.body}>{payload.body}</Text> : null}
         </View>
     );
 }

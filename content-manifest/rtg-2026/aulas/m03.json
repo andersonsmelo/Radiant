@@ -1,0 +1,2155 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m03",
+    "code": "M03",
+    "title": "Bases quantitativas e físicas",
+    "summary": "Desenvolve a leitura de unidades, proporções e gráficos e as ideias de átomo, onda, eletricidade e magnetismo que sustentam as modalidades de imagem."
+  },
+  "sources": [
+    {
+      "id": "bipm-si-prefixos",
+      "title": "SI prefixes",
+      "publisher": "Bureau International des Poids et Mesures (BIPM)",
+      "url": "https://www.bipm.org/en/measurement-units/si-prefixes",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do BIPM; consultada para nomes, símbolos e fatores dos prefixos, sem reprodução de texto."
+    },
+    {
+      "id": "bipm-si-unidades-base",
+      "title": "SI base units",
+      "publisher": "Bureau International des Poids et Mesures (BIPM)",
+      "url": "https://www.bipm.org/en/measurement-units/si-base-units",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do BIPM; consultada para as sete unidades de base, sem reprodução de texto."
+    },
+    {
+      "id": "openstax-up1-escala",
+      "title": "University Physics Volume 1, 1.1 The Scope and Scale of Physics",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/1-1-the-scope-and-scale-of-physics",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para fatos, com redação própria, sem reprodução de texto ou figura."
+    },
+    {
+      "id": "openstax-up1-unidades",
+      "title": "University Physics Volume 1, 1.2 Units and Standards",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/1-2-units-and-standards",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para fatos, com redação própria, sem reprodução de texto ou figura."
+    },
+    {
+      "id": "openstax-cp-graficos",
+      "title": "College Physics 2e, 2.8 Graphical Analysis of One-Dimensional Motion",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/college-physics-2e/pages/2-8-graphical-analysis-of-one-dimensional-motion",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA na data do acesso; consultada para fatos, com redação própria, sem reprodução de texto ou figura."
+    },
+    {
+      "id": "openstax-up1-intensidade",
+      "title": "University Physics Volume 1, 17.3 Sound Intensity",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/17-3-sound-intensity",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para a relação entre intensidade e distância, com redação própria."
+    },
+    {
+      "id": "openstax-up1-ondas",
+      "title": "University Physics Volume 1, 16.1 Traveling Waves",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/16-1-traveling-waves",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para fatos, com redação própria, sem reprodução de texto ou figura."
+    },
+    {
+      "id": "openstax-up2-espectro",
+      "title": "University Physics Volume 2, 16.5 The Electromagnetic Spectrum",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/16-5-the-electromagnetic-spectrum",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para fatos, com redação própria, sem reprodução de texto ou figura."
+    },
+    {
+      "id": "openstax-up3-fotons",
+      "title": "University Physics Volume 3, 6.2 Photoelectric Effect",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para a energia do fóton, com redação própria."
+    },
+    {
+      "id": "openstax-up3-bohr",
+      "title": "University Physics Volume 3, 6.4 Bohr's Model of the Hydrogen Atom",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-3/pages/6-4-bohrs-model-of-the-hydrogen-atom",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para níveis de energia, emissão, absorção e ionização, com redação própria."
+    },
+    {
+      "id": "openstax-up3-nucleos",
+      "title": "University Physics Volume 3, 10.1 Properties of Nuclei",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-3/pages/10-1-properties-of-nuclei",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para composição do núcleo, Z, A e isótopos, com redação própria."
+    },
+    {
+      "id": "openstax-up2-potencial",
+      "title": "University Physics Volume 2, 7.2 Electric Potential and Potential Difference",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/7-2-electric-potential-and-potential-difference",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para volt e elétron-volt, com redação própria."
+    },
+    {
+      "id": "openstax-up2-corrente",
+      "title": "University Physics Volume 2, 9.1 Electrical Current",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/9-1-electrical-current",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para corrente, ampere e carga, com redação própria."
+    },
+    {
+      "id": "openstax-up2-campo-magnetico",
+      "title": "University Physics Volume 2, 11.2 Magnetic Fields and Lines",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/11-2-magnetic-fields-and-lines",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para o tesla e o campo da Terra, com redação própria."
+    },
+    {
+      "id": "openstax-up2-fontes-campo",
+      "title": "University Physics Volume 2, 12 Introduction (Sources of Magnetic Fields)",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/12-introduction",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para a origem do campo magnético em cargas em movimento, com redação própria."
+    },
+    {
+      "id": "openstax-up2-faraday",
+      "title": "University Physics Volume 2, 13.1 Faraday's Law",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/13-1-faradays-law",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para a indução por campo variável, com redação própria."
+    },
+    {
+      "id": "openstax-up2-transformadores",
+      "title": "University Physics Volume 2, 15.6 Transformers",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA 4.0 na data do acesso; consultada para a relação entre tensões e espiras, com redação própria."
+    },
+    {
+      "id": "openstax-cp-raios-x",
+      "title": "College Physics 2e, 30.4 X Rays: Atomic Origins and Applications",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/college-physics-2e/pages/30-4-x-rays-atomic-origins-and-applications",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "A página indicava licença CC BY-NC-SA na data do acesso; consultada para a aceleração dos elétrons no tubo de raios X, com redação própria."
+    },
+    {
+      "id": "radiopaedia-mas",
+      "title": "Milliampere-seconds (mAs)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/milliampere-seconds-mas",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso gratuito com licença restrita; consultado só para a definição de mAs como produto de corrente e tempo, com redação própria."
+    },
+    {
+      "id": "nibib-ultrassom",
+      "title": "Ultrasound",
+      "publisher": "National Institute of Biomedical Imaging and Bioengineering (NIBIB/NIH)",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/ultrasound",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do NIH; consultada para a natureza sonora do ultrassom e sua faixa de frequência, sem reprodução de texto."
+    },
+    {
+      "id": "nibib-rm",
+      "title": "Magnetic Resonance Imaging (MRI)",
+      "publisher": "National Institute of Biomedical Imaging and Bioengineering (NIBIB/NIH)",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/magnetic-resonance-imaging-mri",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do NIH; consultada para o princípio da ressonância magnética e o alcance do campo, sem reprodução de texto."
+    },
+    {
+      "id": "fda-rm-riscos",
+      "title": "MRI (Magnetic Resonance Imaging): Benefits and Risks",
+      "publisher": "U.S. Food and Drug Administration (FDA)",
+      "url": "https://www.fda.gov/radiation-emitting-products/mri-magnetic-resonance-imaging/benefits-and-risks",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional da FDA; consultada para o risco de projétil e a triagem antes da sala, sem reprodução de texto."
+    },
+    {
+      "id": "maglab-rm",
+      "title": "MRI: A Guided Tour",
+      "publisher": "National High Magnetic Field Laboratory (MagLab)",
+      "url": "https://nationalmaglab.org/magnet-academy/read-science-stories/science-simplified/mri-a-guided-tour/",
+      "accessedAt": "2026-11-05",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa do MagLab; consultada para a ordem de grandeza do campo de ímãs de ressonância, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m03-01",
+      "code": "M03.01",
+      "title": "Unidades e ordens de grandeza",
+      "objective": "Hoje você vai conseguir comparar dois valores conferindo a grandeza, a unidade e o prefixo de cada um.",
+      "competency": "Comparar grandezas sem confundir unidade e quantidade.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de aula prática",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Caio, anotei 80 no tempo e 80 na tensão da tabela de treino. Dá no mesmo, né?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Oitenta o quê? Um era 80 ms, o outro 80 kV. Na sala, número sem unidade é meio recado."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então vale perguntar a cada número: o que você mede, e em que tamanho?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Número e unidade andam juntos",
+        "body": "Medir é comparar com um padrão. Por isso todo valor tem duas partes: número e unidade. O SI tem sete unidades de base, como o segundo (s), o metro (m), o quilograma (kg) e o ampere (A); as demais derivam delas. Os prefixos ajustam a unidade ao tamanho do que se mede: quilo (k) multiplica por mil e mega (M) por um milhão; mili (m) divide por mil e micro (µ) por um milhão. Cada fator de dez é uma ordem de grandeza. 0,1 s e 100 ms são a mesma quantidade escrita de dois jeitos. Só se compara o que mede a mesma grandeza, na mesma unidade.",
+        "keyPoints": [
+          "Todo valor é número mais unidade; sem unidade, o número não informa.",
+          "O prefixo muda a escrita, não a quantidade.",
+          "Antes de comparar, confira a grandeza e converta para a mesma unidade."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Uma receita pede 0,5 kg de farinha e a balança da cozinha marca em gramas. Que valor você procura no visor?",
+          "options": [
+            {
+              "label": "5 g",
+              "correct": false,
+              "feedback": "Esse valor multiplica por dez, e o prefixo pede mil. Retome: quilo quer dizer mil vezes a unidade."
+            },
+            {
+              "label": "50 g",
+              "correct": false,
+              "feedback": "Aqui o fator usado foi cem. O prefixo quilo vale mil, então confira de novo a conta com esse fator."
+            },
+            {
+              "label": "500 g",
+              "correct": true,
+              "feedback": "Quilo multiplica por mil: 0,5 vezes mil gramas dá 500 g. A quantidade de farinha é a mesma, só mudou a escrita."
+            },
+            {
+              "label": "5000 g",
+              "correct": false,
+              "feedback": "Isso seriam 5 kg, dez vezes mais farinha. Confira a posição da vírgula ao multiplicar por mil."
+            }
+          ],
+          "help": "Pense no que o prefixo quilo faz com o grama.",
+          "sourceIds": [
+            "bipm-si-prefixos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada prefixo do SI ao que ele faz com a unidade.",
+          "pairs": [
+            {
+              "left": "quilo (k)",
+              "right": "multiplica por mil"
+            },
+            {
+              "left": "mega (M)",
+              "right": "multiplica por um milhão"
+            },
+            {
+              "left": "mili (m)",
+              "right": "divide por mil"
+            },
+            {
+              "left": "micro (µ)",
+              "right": "divide por um milhão"
+            }
+          ],
+          "feedbackCorrect": "Quilo e mega aumentam a unidade, mili e micro reduzem. De micro a mili, de mili à unidade, dela a quilo e de quilo a mega, cada passo vale mil.",
+          "feedbackIncorrect": "Algum par trocou de lado. Retome: letra maiúscula M é mega, que multiplica; m minúsculo é mili, que divide.",
+          "help": "Separe primeiro os que aumentam a unidade dos que a reduzem.",
+          "sourceIds": [
+            "bipm-si-prefixos",
+            "openstax-up1-unidades"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os tempos do menor para o maior.",
+          "items": [
+            "50 µs",
+            "2 ms",
+            "0,1 s",
+            "3 s"
+          ],
+          "feedbackCorrect": "Em segundos: 0,00005, depois 0,002, depois 0,1 e por fim 3. O número 50 era o maior da lista, mas vinha com o menor prefixo.",
+          "feedbackIncorrect": "A ordem seguiu o número e deixou o prefixo de lado. Escreva os quatro valores em segundos e compare de novo.",
+          "help": "Converta todos para a mesma unidade antes de comparar.",
+          "sourceIds": [
+            "bipm-si-prefixos",
+            "openstax-up1-escala"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Duda recebe a planilha de treino de um colega. Na coluna de tempo aparece só o número 20, sem unidade. As outras linhas usam ms, mas uma delas usa s. A Profa. Lia está na sala ao lado.",
+          "prompt": "O que Duda faz com esse valor antes de seguir a atividade?",
+          "options": [
+            {
+              "label": "Assume ms, porque é o que a maioria das linhas usa",
+              "correct": false,
+              "feedback": "Assumir pela maioria troca conferência por palpite: 20 ms e 20 s diferem mil vezes. Retome: valor sem unidade pede pausa."
+            },
+            {
+              "label": "Para, descreve o que falta e pede apoio à Profa. Lia",
+              "correct": true,
+              "feedback": "Parar e descrever o que falta devolve a dúvida a quem pode confirmar o que foi medido. O número só volta a valer com a unidade."
+            },
+            {
+              "label": "Completa a planilha com s, que é a unidade de base",
+              "correct": false,
+              "feedback": "Completar por conta própria altera o registro de outra pessoa sem confirmar a medida. Confira de novo o que fazer diante de dúvida."
+            },
+            {
+              "label": "Segue a atividade e deixa para perguntar no fim do turno",
+              "correct": false,
+              "feedback": "Seguir adiante carrega um valor incerto para os próximos passos. A dúvida se resolve antes de usar o número."
+            }
+          ],
+          "help": "Quanto mudaria o valor se a unidade fosse outra? Quem pode confirmar?",
+          "sourceIds": [
+            "openstax-up1-unidades",
+            "bipm-si-prefixos"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Um colega diz que os valores são iguais. O que você responde?",
+          "options": [
+            {
+              "label": "São iguais, porque o número é o mesmo nas duas",
+              "correct": false,
+              "feedback": "Olhar só o número ignora a unidade. Retome: volt e ampere medem grandezas diferentes."
+            },
+            {
+              "label": "O de kV é maior, porque quilo vale mais que mili",
+              "correct": false,
+              "feedback": "O prefixo só permite comparar valores da mesma grandeza. Aqui uma ficha mede tensão e a outra, corrente."
+            },
+            {
+              "label": "O de mA é maior, porque corrente conta mais que tensão",
+              "correct": false,
+              "feedback": "Não existe hierarquia entre grandezas. Confira de novo o que cada unidade mede antes de comparar."
+            },
+            {
+              "label": "Não dá para comparar: são grandezas diferentes",
+              "correct": true,
+              "feedback": "Volt mede tensão e ampere mede corrente. Maior ou menor só faz sentido dentro da mesma grandeza."
+            }
+          ],
+          "help": "Olhe a letra que vem depois do prefixo em cada valor.",
+          "sourceIds": [
+            "openstax-up1-unidades",
+            "bipm-si-unidades-base"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você lê um valor em três partes: número, prefixo e unidade. Converte antes de comparar, reconhece quando duas escritas dizem a mesma quantidade e para quando falta a unidade.",
+        "line": {
+          "speaker": "caio",
+          "text": "Agora, quando alguém disser só oitenta, você já sabe a pergunta: oitenta o quê?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A ficha de treino informa corrente de 250 mA. Como esse valor fica escrito em ampere?",
+          "options": [
+            {
+              "label": "0,025 A",
+              "correct": false,
+              "feedback": "Esse valor divide por dez mil. Mili divide por mil: confira de novo quantas casas a vírgula anda."
+            },
+            {
+              "label": "0,25 A",
+              "correct": true,
+              "feedback": "Mili divide por mil, então 250 dividido por mil dá 0,25 A. É a mesma corrente, escrita na unidade sem prefixo."
+            },
+            {
+              "label": "2,5 A",
+              "correct": false,
+              "feedback": "Aqui a divisão foi por cem. Retome: de mA para A a vírgula anda três casas para a esquerda."
+            },
+            {
+              "label": "25 A",
+              "correct": false,
+              "feedback": "Esse valor divide por dez e fica cem vezes maior que a corrente da ficha. Retome o fator do prefixo mili."
+            }
+          ],
+          "sourceIds": [
+            "bipm-si-prefixos"
+          ]
+        },
+        {
+          "prompt": "Qual par mostra a mesma quantidade escrita de dois jeitos?",
+          "options": [
+            {
+              "label": "1500 V e 1,5 MV",
+              "correct": false,
+              "feedback": "Mega multiplica por um milhão, então 1,5 MV são 1 milhão e meio de volts. Confira de novo o prefixo."
+            },
+            {
+              "label": "1500 V e 15 kV",
+              "correct": false,
+              "feedback": "15 kV são 15 mil volts, dez vezes mais que 1500 V. Confira a posição da vírgula."
+            },
+            {
+              "label": "150 V e 1,5 kV",
+              "correct": false,
+              "feedback": "1,5 kV são 1500 V, não 150 V. Retome: quilo vale mil, não cem."
+            },
+            {
+              "label": "1500 V e 1,5 kV",
+              "correct": true,
+              "feedback": "Quilo multiplica por mil: 1,5 vezes mil volts dá 1500 V. As duas escritas dizem a mesma tensão."
+            }
+          ],
+          "sourceIds": [
+            "bipm-si-prefixos"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: mili quer dizer milésimo, então para passar de ms para s eu divido por…",
+          "item": {
+            "prompt": "Seguindo essa ideia, 40 ms correspondem a quantos segundos?",
+            "options": [
+              {
+                "label": "0,4 s",
+                "correct": false,
+                "feedback": "Esse valor divide por cem. O prefixo mili pede divisão por mil: ande três casas com a vírgula."
+              },
+              {
+                "label": "4 s",
+                "correct": false,
+                "feedback": "Aqui a divisão foi por dez, e o tempo ficou cem vezes maior. Retome o fator do mili."
+              },
+              {
+                "label": "0,04 s",
+                "correct": true,
+                "feedback": "40 dividido por mil dá 0,04 s. A duração é a mesma, agora escrita em segundos."
+              },
+              {
+                "label": "0,004 s",
+                "correct": false,
+                "feedback": "Esse valor divide por dez mil, uma casa a mais que o necessário. Confira de novo: são três casas."
+              }
+            ],
+            "sourceIds": [
+              "bipm-si-prefixos"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Dois ímãs didáticos têm campo de 0,5 mT e 500 µT. O que a comparação mostra?",
+            "options": [
+              {
+                "label": "O de 500 µT é mil vezes mais forte",
+                "correct": false,
+                "feedback": "O número 500 é maior, mas micro é mil vezes menor que mili. Converta os dois para a mesma unidade."
+              },
+              {
+                "label": "O de 0,5 mT é mil vezes mais forte",
+                "correct": false,
+                "feedback": "O prefixo mili é maior, mas o número 0,5 compensa. Retome a conversão antes de concluir."
+              },
+              {
+                "label": "Não dá para comparar mT com µT",
+                "correct": false,
+                "feedback": "Dá, porque os dois medem a mesma grandeza em tesla. O que falta é escrever na mesma unidade."
+              },
+              {
+                "label": "Os dois campos têm o mesmo valor",
+                "correct": true,
+                "feedback": "0,5 mT são 500 µT, porque cada militesla contém mil microteslas. Mesma grandeza, mesma quantidade."
+              }
+            ],
+            "sourceIds": [
+              "bipm-si-prefixos",
+              "openstax-up2-campo-magnetico"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Régua de prefixos em escala de potências de dez, de micro a mega, com um mesmo valor deslizando entre as escritas.",
+        "Cartão de valor dividido em três campos: número, prefixo e unidade."
+      ]
+    },
+    {
+      "id": "m03-02",
+      "code": "M03.02",
+      "title": "Proporção e leitura de gráficos",
+      "objective": "Hoje você vai conseguir ler eixos e linha de um gráfico simples e dizer que tipo de proporção ele mostra.",
+      "competency": "Interpretar variação e proporção em gráfico simples.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Duda, este gráfico de treino mostra o produto corrente × tempo, em mAs, para vários tempos com a corrente fixa."
+          },
+          {
+            "speaker": "duda",
+            "text": "Vejo uma reta subindo. Só não sei dizer o que ela conta."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Antes da reta, os eixos. O que está na horizontal, o que está na vertical, e em que unidade?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O desenho da relação",
+        "body": "Um gráfico mostra como uma grandeza muda quando outra muda. Comece pelos eixos: cada um traz uma grandeza e sua unidade. Na proporção direta, dobrar uma dobra a outra, e o desenho é uma reta que passa pela origem. A inclinação dessa reta é a variação vertical dividida pela horizontal, com unidade própria. Na proporção inversa, dobrar uma reduz a outra à metade. No inverso do quadrado, dobrar a distância reduz a intensidade a um quarto: é o que prevê o modelo de uma fonte pequena que espalha energia por igual, sem absorção no caminho.",
+        "keyPoints": [
+          "Leia grandeza e unidade dos eixos antes de olhar a linha.",
+          "Reta que passa pela origem indica proporção direta.",
+          "No modelo de fonte pequena, dobrar a distância deixa um quarto da intensidade."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você vai ler um gráfico pela primeira vez. Pelo que aprendeu sobre valores e unidades, o que confere primeiro em cada eixo?",
+          "options": [
+            {
+              "label": "A cor da linha e a espessura do traço",
+              "correct": false,
+              "feedback": "Cor e traço ajudam a separar curvas, mas não dizem o que foi medido. Retome: todo valor precisa de grandeza e unidade."
+            },
+            {
+              "label": "A grandeza representada e a sua unidade",
+              "correct": true,
+              "feedback": "Sem grandeza e unidade, os números do eixo não informam nada. Com elas, cada ponto vira um par de valores completos."
+            },
+            {
+              "label": "O maior número escrito no fim do eixo",
+              "correct": false,
+              "feedback": "O maior número mostra só o limite da escala. Confira de novo o que dá sentido a esse número."
+            },
+            {
+              "label": "O ponto em que a linha termina no papel",
+              "correct": false,
+              "feedback": "O fim da linha é um ponto entre muitos, e ainda não se sabe o que ele mede. Comece pelo que os eixos representam."
+            }
+          ],
+          "help": "Lembre do que faltava no número 80 da tabela da Duda.",
+          "sourceIds": [
+            "openstax-cp-graficos",
+            "openstax-up1-unidades"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Num esquema de treino, a corrente fica fixa em 100 mA. Com 0,1 s, o produto corrente × tempo vale 10 mAs. O que você prevê para 0,2 s?",
+          "options": [
+            {
+              "label": "5 mAs",
+              "correct": false,
+              "feedback": "Esse valor reduz o produto à metade, como numa proporção inversa. Aqui o tempo multiplica a corrente: retome a conta."
+            },
+            {
+              "label": "10 mAs",
+              "correct": false,
+              "feedback": "Manter 10 mAs supõe que o tempo não entra no produto. Confira de novo: o segundo fator dobrou."
+            },
+            {
+              "label": "40 mAs",
+              "correct": false,
+              "feedback": "Quadruplicar caberia numa relação com quadrado. O produto de dois fatores só dobra quando um deles dobra."
+            },
+            {
+              "label": "20 mAs",
+              "correct": true,
+              "feedback": "Com a corrente fixa, o produto acompanha o tempo: dobrou o tempo, dobrou o mAs. No gráfico, isso desenha uma reta pela origem."
+            }
+          ],
+          "help": "O que acontece com um produto quando só um dos fatores dobra?",
+          "sourceIds": [
+            "radiopaedia-mas",
+            "openstax-up2-corrente"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada descrição de gráfico à relação que ela mostra.",
+          "pairs": [
+            {
+              "left": "Reta que passa pela origem",
+              "right": "Proporção direta"
+            },
+            {
+              "left": "Reta horizontal",
+              "right": "Grandeza que não muda"
+            },
+            {
+              "left": "Dobra o x e o y cai à metade",
+              "right": "Proporção inversa"
+            },
+            {
+              "left": "Dobra o x e o y cai a um quarto",
+              "right": "Inverso do quadrado"
+            }
+          ],
+          "feedbackCorrect": "Você leu o comportamento antes do nome. A pergunta que separa as curvas é sempre a mesma: quando x dobra, o que y faz?",
+          "feedbackIncorrect": "Dois pares se misturaram. Para cada descrição, teste a pergunta: se x dobra, y dobra, não muda, cai à metade ou cai a um quarto?",
+          "help": "Teste cada desenho com a mesma pergunta: o que acontece com y quando x dobra?",
+          "sourceIds": [
+            "openstax-cp-graficos",
+            "openstax-up1-intensidade"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os passos para ler um valor num gráfico de linha.",
+          "items": [
+            "Ler o título e a grandeza de cada eixo",
+            "Conferir a unidade e a escala de cada eixo",
+            "Achar o valor pedido no eixo horizontal",
+            "Subir até a linha e ler o eixo vertical",
+            "Dizer o resultado com número e unidade"
+          ],
+          "feedbackCorrect": "Primeiro o que o gráfico mede, depois o ponto, por fim a resposta completa. Assim o número lido já chega com sentido.",
+          "feedbackIncorrect": "A leitura do ponto veio antes de saber o que os eixos medem. Retome: grandeza e unidade primeiro, valor depois.",
+          "help": "O que você precisa saber sobre os eixos antes de procurar um ponto?",
+          "sourceIds": [
+            "openstax-cp-graficos"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "No laboratório didático, um sensor de luz fica diante de uma lâmpada pequena. A 1 m, o visor marca 80 unidades. A turma afasta o sensor para 2 m, sem mudar a lâmpada nem a sala. Vale o modelo de fonte pequena que espalha a luz por igual, sem absorção.",
+          "prompt": "Que leitura esse modelo prevê a 2 m, e por quê?",
+          "options": [
+            {
+              "label": "40 unidades, porque dobrar a distância divide a leitura por dois",
+              "correct": false,
+              "feedback": "Metade seria proporção inversa simples. A luz se espalha por uma área, e a área cresce com o quadrado da distância. Retome o modelo."
+            },
+            {
+              "label": "20 unidades, porque dobrar a distância divide a leitura por quatro",
+              "correct": true,
+              "feedback": "No modelo, a mesma luz cobre uma área quatro vezes maior a 2 m, e o sensor recebe um quarto. Vale só enquanto a fonte puder ser tratada como pequena."
+            },
+            {
+              "label": "80 unidades, porque a lâmpada continua emitindo a mesma luz",
+              "correct": false,
+              "feedback": "A lâmpada emite o mesmo, mas a luz chega mais espalhada ao sensor. Confira de novo o que a distância faz com a intensidade."
+            },
+            {
+              "label": "160 unidades, porque de longe o sensor capta uma área bem maior de luz",
+              "correct": false,
+              "feedback": "O sensor tem o mesmo tamanho nas duas posições; quem cresce é a área por onde a luz se espalha. A leitura cai, não sobe."
+            }
+          ],
+          "help": "Por que área a mesma luz se espalha quando a distância dobra?",
+          "sourceIds": [
+            "openstax-up1-intensidade"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você lê um gráfico começando pelos eixos, reconhece proporção direta, inversa e inverso do quadrado pelo que acontece quando uma grandeza dobra e diz o limite do modelo que usou.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quando encontrar uma curva nova, faça a mesma pergunta: se uma grandeza dobra, o que a outra faz?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um gráfico de treino é uma reta pela origem que passa pelo ponto 0,2 s e 40 mAs. Que corrente fixa essa inclinação representa?",
+          "options": [
+            {
+              "label": "8 mA",
+              "correct": false,
+              "feedback": "Esse valor multiplica 40 por 0,2. A inclinação é uma divisão: variação vertical pela horizontal. Retome a conta."
+            },
+            {
+              "label": "20 mA",
+              "correct": false,
+              "feedback": "Aqui a divisão perdeu uma casa decimal. Confira de novo: 40 dividido por 0,2."
+            },
+            {
+              "label": "200 mA",
+              "correct": true,
+              "feedback": "A inclinação é 40 mAs dividido por 0,2 s, que dá 200 mA. A unidade da inclinação sai da divisão das unidades dos eixos."
+            },
+            {
+              "label": "400 mA",
+              "correct": false,
+              "feedback": "Esse valor é o dobro da inclinação: sairia de dividir por 0,1 s. Confira o tempo do ponto, 0,2 s, e refaça a divisão."
+            }
+          ],
+          "sourceIds": [
+            "openstax-cp-graficos",
+            "radiopaedia-mas"
+          ]
+        },
+        {
+          "prompt": "No modelo de fonte pequena sem absorção, um sensor de luz vai de 1 m para 3 m da lâmpada. O que acontece com a leitura?",
+          "options": [
+            {
+              "label": "Cai para um nono do valor inicial",
+              "correct": true,
+              "feedback": "A distância triplicou, e a área por onde a luz se espalha ficou nove vezes maior. O sensor recebe um nono."
+            },
+            {
+              "label": "Cai para um terço do valor inicial",
+              "correct": false,
+              "feedback": "Um terço seria proporção inversa simples. Retome: no modelo, o fator da distância entra ao quadrado."
+            },
+            {
+              "label": "Cai para um sexto do valor inicial",
+              "correct": false,
+              "feedback": "Um sexto dobra o fator três em vez de elevá-lo ao quadrado. Confira de novo a conta."
+            },
+            {
+              "label": "Fica igual ao valor inicial",
+              "correct": false,
+              "feedback": "A fonte emite o mesmo, mas a luz chega mais espalhada. Retome o que a distância faz com a intensidade."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up1-intensidade"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na proporção direta, as duas grandezas mudam pelo mesmo fator; se uma triplica, a outra…",
+          "item": {
+            "prompt": "Num gráfico de distância por tempo, a reta passa pela origem e por 2 s com 6 m. Seguindo a proporção direta, que distância corresponde a 6 s?",
+            "options": [
+              {
+                "label": "9 m",
+                "correct": false,
+                "feedback": "Esse valor soma 3 m em vez de multiplicar. O tempo triplicou, então a distância também triplica."
+              },
+              {
+                "label": "12 m",
+                "correct": false,
+                "feedback": "Dobrar a distância serviria para 4 s. Confira de novo: de 2 s para 6 s o fator é três."
+              },
+              {
+                "label": "18 m",
+                "correct": true,
+                "feedback": "O tempo triplicou, e a distância acompanha: 6 m vezes três dá 18 m. A reta pela origem garante o mesmo fator."
+              },
+              {
+                "label": "36 m",
+                "correct": false,
+                "feedback": "Multiplicar 6 por 6 usa o tempo como fator, não a razão entre os tempos. Retome: 6 s é três vezes 2 s."
+              }
+            ],
+            "sourceIds": [
+              "openstax-cp-graficos"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma tabela mostra o tempo para cruzar o mesmo corredor em três velocidades: 20 s a 1 m/s, 10 s a 2 m/s e 5 s a 4 m/s. Que relação os dados mostram?",
+            "options": [
+              {
+                "label": "Proporção inversa: o produto dos dois valores não muda",
+                "correct": true,
+                "feedback": "Em todas as linhas, tempo vezes velocidade dá 20 m. Quando uma grandeza dobra, a outra cai à metade."
+              },
+              {
+                "label": "Proporção direta: os dois valores sobem juntos",
+                "correct": false,
+                "feedback": "Na tabela, quando a velocidade sobe o tempo desce. Confira de novo o sentido da variação."
+              },
+              {
+                "label": "Inverso do quadrado: dobrar um divide o outro por quatro",
+                "correct": false,
+                "feedback": "De 1 m/s para 2 m/s o tempo caiu de 20 s para 10 s, metade e não um quarto. Retome o teste do dobro."
+              },
+              {
+                "label": "Sem relação: os valores variam sem padrão algum",
+                "correct": false,
+                "feedback": "Há um padrão: multiplique tempo por velocidade em cada linha e compare os resultados."
+              }
+            ],
+            "sourceIds": [
+              "openstax-cp-graficos"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Três miniaturas de gráfico lado a lado (reta pela origem, hipérbole, inverso do quadrado) com o mesmo par de pontos destacado em x e 2x.",
+        "Esquema de fonte pequena com duas cascas esféricas, a r e a 2r, mostrando a mesma luz cobrindo uma área quatro vezes maior."
+      ]
+    },
+    {
+      "id": "m03-03",
+      "code": "M03.03",
+      "title": "Átomos e energia",
+      "objective": "Hoje você vai conseguir apontar as partes do átomo num esquema e dizer se uma mudança é excitação, emissão ou ionização.",
+      "competency": "Distinguir componentes e mudanças de energia em esquema.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de estudo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Pixel, o material fala em nível, excitar, ionizar. Para mim é tudo elétron pulando."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos separar. Onde o elétron está antes, e onde ele está depois?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Leve essa pergunta para o esquema. Se ele continua no átomo, é uma coisa. Se sai, é outra."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Núcleo, elétrons e níveis",
+        "body": "O átomo tem um núcleo muito pequeno, com prótons (carga positiva) e nêutrons (sem carga), e elétrons (carga negativa) ao redor. O número atômico Z conta os prótons; o número de massa A soma prótons e nêutrons. Os elétrons ocupam níveis de energia definidos. Ao absorver energia, um elétron pode subir de nível: é a excitação. Quando volta, o átomo emite um fóton com a diferença de energia entre os níveis. Se a energia basta para arrancar o elétron, ocorre a ionização. Nessa escala, a energia se mede em elétron-volt (eV). No modelo de Bohr do hidrogênio, ionizar a partir do nível fundamental exige 13,6 eV.",
+        "keyPoints": [
+          "Z conta prótons; A soma prótons e nêutrons.",
+          "Excitação: o elétron sobe de nível e continua no átomo.",
+          "Ionização: o elétron recebe energia suficiente para sair do átomo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Hoje aparece uma unidade de energia chamada elétron-volt (eV). Pelo que você sabe de prefixos, 1 keV corresponde a quanto?",
+          "options": [
+            {
+              "label": "0,001 eV",
+              "correct": false,
+              "feedback": "Dividir por mil é o que faz o mili, com m minúsculo. Retome: k é o símbolo de quilo."
+            },
+            {
+              "label": "100 eV",
+              "correct": false,
+              "feedback": "Cem seria o fator de hecto. Confira de novo o fator do prefixo quilo."
+            },
+            {
+              "label": "1 milhão de eV",
+              "correct": false,
+              "feedback": "Um milhão é o fator de mega, escrito com M maiúsculo. O k minúsculo indica outro prefixo."
+            },
+            {
+              "label": "1000 eV",
+              "correct": true,
+              "feedback": "Quilo multiplica por mil em qualquer unidade, do grama ao elétron-volt. O prefixo não depende do que se mede."
+            }
+          ],
+          "help": "O prefixo é o mesmo de quilograma e quilovolt.",
+          "sourceIds": [
+            "bipm-si-prefixos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo do esquema do átomo à sua descrição.",
+          "pairs": [
+            {
+              "left": "Próton",
+              "right": "Carga positiva, fica no núcleo"
+            },
+            {
+              "left": "Nêutron",
+              "right": "Sem carga, fica no núcleo"
+            },
+            {
+              "left": "Elétron",
+              "right": "Carga negativa, ao redor do núcleo"
+            },
+            {
+              "left": "Número atômico (Z)",
+              "right": "Quantidade de prótons do átomo"
+            }
+          ],
+          "feedbackCorrect": "Núcleo com prótons e nêutrons, elétrons ao redor, e Z contando os prótons. Esse mapa serve para qualquer esquema de átomo.",
+          "feedbackIncorrect": "Algum termo foi para o lugar errado. Retome: no núcleo ficam as partículas positivas e as sem carga; as negativas ficam ao redor.",
+          "help": "Comece pelo lugar: o que fica no núcleo e o que fica ao redor?",
+          "sourceIds": [
+            "openstax-up3-nucleos",
+            "openstax-up2-corrente"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o que acontece quando um átomo absorve energia e depois emite luz.",
+          "items": [
+            "Elétron está no nível de menor energia",
+            "Átomo absorve energia",
+            "Elétron sobe para um nível mais alto",
+            "Elétron volta para o nível mais baixo",
+            "Átomo emite um fóton com a diferença de energia"
+          ],
+          "feedbackCorrect": "A energia entra, o elétron sobe; o elétron desce, a energia sai como fóton. O que entra e o que sai é a diferença entre os níveis.",
+          "feedbackIncorrect": "A emissão apareceu antes da descida do elétron. Retome: o fóton só sai quando o elétron volta para um nível mais baixo.",
+          "help": "A energia precisa entrar antes de sair. Em que momento o elétron sobe?",
+          "sourceIds": [
+            "openstax-up3-bohr"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "No esquema do hidrogênio (modelo de Bohr), o elétron está no nível fundamental, em -13,6 eV, e o nível seguinte fica em -3,4 eV. O átomo absorve um fóton de 10,2 eV. O que o esquema mostra em seguida?",
+          "options": [
+            {
+              "label": "O elétron sai do átomo, que fica ionizado",
+              "correct": false,
+              "feedback": "Para sair do nível fundamental o elétron precisaria de 13,6 eV. Com 10,2 eV ele não chega lá: confira a diferença entre os níveis."
+            },
+            {
+              "label": "O elétron sobe para o nível seguinte e fica no átomo",
+              "correct": true,
+              "feedback": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV. O elétron sobe um nível e continua ligado: é excitação."
+            },
+            {
+              "label": "O elétron permanece no nível fundamental, sem mudança",
+              "correct": false,
+              "feedback": "O fóton tem justamente a energia que separa os dois níveis, então a absorção acontece. Retome a conta da diferença."
+            },
+            {
+              "label": "O núcleo perde um próton e o átomo muda de elemento",
+              "correct": false,
+              "feedback": "Esse esquema trata só dos níveis do elétron; o núcleo não participa. Retome onde a energia do fóton é absorvida."
+            }
+          ],
+          "help": "Compare a energia do fóton com a distância entre os dois níveis.",
+          "sourceIds": [
+            "openstax-up3-bohr"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Num esquema didático de um átomo fictício há dois níveis desenhados: um em -8 eV e outro em -2 eV. Uma seta mostra o elétron descendo do nível de -2 eV para o de -8 eV. Duda precisa legendar a seta com o que o átomo faz nesse momento. Os valores valem só para este esquema.",
+          "prompt": "Que legenda descreve a seta?",
+          "options": [
+            {
+              "label": "Absorve um fóton de 6 eV",
+              "correct": false,
+              "feedback": "A diferença está certa, mas a seta desce. Absorver faria o elétron subir: confira de novo o sentido."
+            },
+            {
+              "label": "Emite um fóton de 10 eV",
+              "correct": false,
+              "feedback": "Dez é a soma dos dois números. O fóton leva a diferença entre os níveis: retome a conta."
+            },
+            {
+              "label": "Emite um fóton de 6 eV",
+              "correct": true,
+              "feedback": "O elétron desce, então a energia sai. A diferença entre -2 eV e -8 eV é 6 eV, e é isso que o fóton carrega."
+            },
+            {
+              "label": "Fica ionizado com 8 eV",
+              "correct": false,
+              "feedback": "Na ionização o elétron sai do átomo. Aqui ele só troca de nível e continua ligado: retome o destino da seta."
+            }
+          ],
+          "help": "A seta sobe ou desce? Quanto de energia separa os dois níveis?",
+          "sourceIds": [
+            "openstax-up3-bohr"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você localiza prótons, nêutrons e elétrons num esquema, usa Z e A para contar partículas e nomeia uma mudança pelo destino do elétron: subiu, desceu emitindo um fóton ou saiu do átomo.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Guarde a ionização. Ela volta quando a gente falar de radiação e proteção."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A ficha de um núcleo informa Z = 6 e A = 14. Quantos nêutrons esse núcleo tem?",
+          "options": [
+            {
+              "label": "6",
+              "correct": false,
+              "feedback": "Seis é o número de prótons, que é o próprio Z. Os nêutrons saem da diferença entre A e Z."
+            },
+            {
+              "label": "8",
+              "correct": true,
+              "feedback": "A soma prótons e nêutrons. Tirando os 6 prótons de 14, sobram 8 nêutrons."
+            },
+            {
+              "label": "14",
+              "correct": false,
+              "feedback": "Catorze é o total de partículas do núcleo. Retome: desse total, quantas são prótons?"
+            },
+            {
+              "label": "20",
+              "correct": false,
+              "feedback": "Vinte soma A com Z. Para achar os nêutrons a conta é uma subtração: confira de novo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up3-nucleos"
+          ]
+        },
+        {
+          "prompt": "Num esquema, um elétron recebe energia e deixa o átomo, que fica com um elétron a menos. Como você nomeia essa mudança?",
+          "options": [
+            {
+              "label": "Excitação do átomo",
+              "correct": false,
+              "feedback": "Na excitação o elétron sobe de nível e continua ligado. Aqui ele saiu: retome o destino do elétron."
+            },
+            {
+              "label": "Emissão de um fóton",
+              "correct": false,
+              "feedback": "A emissão acontece quando o elétron desce de nível. No esquema ele recebe energia e vai embora."
+            },
+            {
+              "label": "Ionização do átomo",
+              "correct": true,
+              "feedback": "O elétron recebeu energia suficiente para se soltar. O átomo ficou com um elétron a menos: é ionização."
+            },
+            {
+              "label": "Mudança no número atômico",
+              "correct": false,
+              "feedback": "O número atômico conta os prótons, e o núcleo não mudou. O esquema mostra uma mudança nos elétrons."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up3-bohr"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se o elétron sobe de nível e continua preso ao átomo, a mudança se chama…",
+          "item": {
+            "prompt": "No esquema, o elétron vai do primeiro para o terceiro nível e continua no átomo. Que nome essa mudança recebe?",
+            "options": [
+              {
+                "label": "Excitação",
+                "correct": true,
+                "feedback": "O elétron ganhou energia, subiu de nível e continua ligado ao núcleo. Esse é o retrato da excitação."
+              },
+              {
+                "label": "Ionização",
+                "correct": false,
+                "feedback": "Ionizar é tirar o elétron do átomo. No esquema ele só mudou de nível: confira de novo onde ele termina."
+              },
+              {
+                "label": "Emissão de fóton",
+                "correct": false,
+                "feedback": "A emissão acompanha a descida do elétron. Aqui a seta sobe, sinal de que a energia entrou."
+              },
+              {
+                "label": "Perda de próton",
+                "correct": false,
+                "feedback": "Os prótons ficam no núcleo e não aparecem nessa mudança. Retome: quem trocou de lugar foi o elétron."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up3-bohr"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duas fichas de núcleo mostram Z = 1 nas duas, mas uma tem A = 1 e a outra tem A = 3. O que você conclui?",
+            "options": [
+              {
+                "label": "São elementos diferentes, porque o valor de A mudou",
+                "correct": false,
+                "feedback": "Quem define o elemento é Z, o número de prótons, e ele é igual nas duas fichas. Retome o que A soma."
+              },
+              {
+                "label": "São o mesmo elemento, com número diferente de nêutrons",
+                "correct": true,
+                "feedback": "Com Z igual, o elemento é o mesmo. A diferença em A vem dos nêutrons: nenhum numa ficha, dois na outra. Núcleos assim se chamam isótopos."
+              },
+              {
+                "label": "São íons, porque a carga do núcleo ficou diferente",
+                "correct": false,
+                "feedback": "A carga do núcleo vem dos prótons, e Z não mudou. Nêutrons não têm carga: confira de novo."
+              },
+              {
+                "label": "São o mesmo núcleo, escrito de dois jeitos distintos",
+                "correct": false,
+                "feedback": "A = 1 e A = 3 contam quantidades diferentes de partículas no núcleo. Não é só mudança de escrita."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up3-nucleos"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Esquema de átomo com núcleo ampliado (prótons e nêutrons em cores distintas) e elétrons em níveis, com legenda de Z e A.",
+        "Escada de níveis de energia do hidrogênio com setas de absorção, emissão e ionização, cada uma com o valor em eV."
+      ]
+    },
+    {
+      "id": "m03-04",
+      "code": "M03.04",
+      "title": "Ondas e espectro",
+      "objective": "Hoje você vai conseguir relacionar frequência, comprimento de onda e energia do fóton ao comparar faixas do espectro.",
+      "competency": "Relacionar grandezas de onda em representação autoral.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Corredor do setor de imagem (simulação)",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Rádio do carro, micro-ondas da copa, luz do corredor e raios X da sala 2. Tudo parente."
+          },
+          {
+            "speaker": "duda",
+            "text": "Parente como? Um esquenta marmita e o outro faz imagem."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que muda de um para o outro quando você olha a frequência e o comprimento de onda?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Uma onda, três grandezas",
+        "body": "Toda onda periódica tem comprimento de onda (distância entre duas cristas vizinhas), frequência (oscilações por segundo, em hertz) e velocidade. As três se ligam por v = f × λ. Ondas eletromagnéticas não precisam de meio e, no vácuo, viajam todas a cerca de 300 mil km/s. Por isso, quanto maior a frequência, menor o comprimento de onda. O espectro vai das ondas de rádio, passa por micro-ondas, infravermelho, luz visível e ultravioleta, e chega aos raios X e gama. A energia de cada fóton cresce com a frequência: E = h × f. Já o som, inclusive o ultrassom, é onda mecânica: precisa de matéria para se propagar.",
+        "keyPoints": [
+          "v = f × λ liga velocidade, frequência e comprimento de onda.",
+          "No vácuo, frequência maior significa comprimento de onda menor.",
+          "Quanto maior a frequência, maior a energia de cada fóton."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Duas grandezas têm produto constante. Pelo que você viu em proporção, o que acontece com uma quando a outra dobra?",
+          "options": [
+            {
+              "label": "Também dobra",
+              "correct": false,
+              "feedback": "Dobrar junto é proporção direta, e aí o produto quadruplicaria. Retome: o produto precisa ficar igual."
+            },
+            {
+              "label": "Cai à metade",
+              "correct": true,
+              "feedback": "Para o produto não mudar, o que uma ganha a outra perde no mesmo fator. É a proporção inversa, e ela aparece hoje nas ondas."
+            },
+            {
+              "label": "Cai a um quarto",
+              "correct": false,
+              "feedback": "Um quarto é a marca do inverso do quadrado. Com produto constante, o fator é o mesmo nos dois lados."
+            },
+            {
+              "label": "Não se altera",
+              "correct": false,
+              "feedback": "Se uma dobrasse e a outra ficasse parada, o produto dobraria. Confira de novo a condição do enunciado."
+            }
+          ],
+          "help": "Teste com números: dois valores cujo produto é 12.",
+          "sourceIds": [
+            "openstax-cp-graficos",
+            "openstax-up1-ondas"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Uma onda eletromagnética viaja no vácuo. Se você escolher outra com o dobro da frequência, o que prevê para o comprimento de onda?",
+          "options": [
+            {
+              "label": "Fica igual, porque a velocidade não muda",
+              "correct": false,
+              "feedback": "A velocidade não muda mesmo, mas ela é o produto das outras duas. Se a frequência dobra, algo precisa compensar."
+            },
+            {
+              "label": "Dobra, porque acompanha a frequência",
+              "correct": false,
+              "feedback": "Se os dois dobrassem, a velocidade quadruplicaria. No vácuo ela é fixa: retome v = f × λ."
+            },
+            {
+              "label": "Cai a um quarto, pela lei do inverso do quadrado",
+              "correct": false,
+              "feedback": "O inverso do quadrado descreve intensidade e distância. Entre frequência e comprimento de onda a relação é um produto simples."
+            },
+            {
+              "label": "Cai à metade, porque o produto é constante",
+              "correct": true,
+              "feedback": "No vácuo, f × λ dá sempre a mesma velocidade. Dobrou a frequência, o comprimento de onda cai à metade."
+            }
+          ],
+          "help": "O que fica fixo quando a onda eletromagnética está no vácuo?",
+          "sourceIds": [
+            "openstax-up2-espectro",
+            "openstax-up1-ondas"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as faixas do espectro eletromagnético da menor para a maior frequência.",
+          "items": [
+            "Ondas de rádio",
+            "Micro-ondas",
+            "Luz visível",
+            "Ultravioleta",
+            "Raios X"
+          ],
+          "feedbackCorrect": "Do rádio aos raios X a frequência sobe, o comprimento de onda encolhe e cada fóton carrega mais energia.",
+          "feedbackIncorrect": "Alguma faixa saiu do lugar. Retome pelas pontas: rádio tem a menor frequência da lista e raios X, a maior.",
+          "help": "Fixe as duas pontas primeiro e depois encaixe as faixas do meio.",
+          "sourceIds": [
+            "openstax-up2-espectro"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada grandeza da aula à sua descrição.",
+          "pairs": [
+            {
+              "left": "Comprimento de onda",
+              "right": "Distância entre duas cristas vizinhas"
+            },
+            {
+              "left": "Frequência",
+              "right": "Número de oscilações por segundo"
+            },
+            {
+              "left": "Velocidade da onda",
+              "right": "Distância que a onda avança por segundo"
+            },
+            {
+              "left": "Energia do fóton",
+              "right": "Aumenta quando a frequência aumenta"
+            }
+          ],
+          "feedbackCorrect": "Uma mede distância ao longo da onda, uma mede o ritmo e uma mede o avanço. A energia do fóton acompanha o ritmo: frequência maior, mais energia.",
+          "feedbackIncorrect": "Dois termos se confundiram. Retome pelas unidades: comprimento de onda em metros, frequência em hertz, velocidade em metros por segundo.",
+          "help": "Pense na unidade de cada grandeza: metro, hertz ou metro por segundo?",
+          "sourceIds": [
+            "openstax-up1-ondas",
+            "openstax-up3-fotons"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na revisão em dupla, Duda monta um quadro do espectro eletromagnético. Ela escreve o ultrassom entre as ondas de rádio e as micro-ondas. A justificativa dela: os transdutores trabalham em megahertz, e hertz é unidade de frequência como no resto do quadro.",
+          "prompt": "O que você aponta ao conferir o quadro com ela?",
+          "options": [
+            {
+              "label": "O lugar está certo: megahertz define a faixa do quadro",
+              "correct": false,
+              "feedback": "Hertz mede o ritmo de qualquer oscilação, não diz que tipo de onda é. Retome: o que oscila no ultrassom?"
+            },
+            {
+              "label": "O ultrassom deveria ficar depois dos raios X",
+              "correct": false,
+              "feedback": "Mudar de posição mantém o ultrassom num quadro que não é o dele. Confira de novo a natureza dessa onda."
+            },
+            {
+              "label": "O ultrassom é som: onda mecânica, fora desse espectro",
+              "correct": true,
+              "feedback": "O ultrassom é som acima da faixa audível e precisa de matéria para se propagar. Ter frequência em hertz não o torna onda eletromagnética."
+            },
+            {
+              "label": "O ultrassom deveria ficar junto da luz visível",
+              "correct": false,
+              "feedback": "A luz visível é onda eletromagnética e viaja no vácuo. O ultrassom depende de um meio material: retome a diferença."
+            }
+          ],
+          "help": "A mesma unidade de frequência garante que duas ondas sejam do mesmo tipo?",
+          "sourceIds": [
+            "nibib-ultrassom",
+            "openstax-up1-ondas"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você usa v = f × λ para prever como frequência e comprimento de onda se compensam, ordena as faixas do espectro, compara a energia dos fótons e separa onda eletromagnética de onda mecânica.",
+        "line": {
+          "speaker": "caio",
+          "text": "Parente é isso: mesma família de onda, frequências diferentes. Só o ultrassom é de outra família."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um quadro compara um fóton de luz visível e um fóton de raios X. Qual carrega mais energia, e por quê?",
+          "options": [
+            {
+              "label": "O de luz visível, porque seu comprimento de onda é maior",
+              "correct": false,
+              "feedback": "Comprimento de onda maior vem com frequência menor, e a energia do fóton acompanha a frequência. Retome E = h × f."
+            },
+            {
+              "label": "O de raios X, porque sua frequência é maior",
+              "correct": true,
+              "feedback": "A energia de cada fóton cresce com a frequência, e os raios X ficam muito acima da luz visível no espectro."
+            },
+            {
+              "label": "Os dois têm a mesma energia, pois a velocidade é igual",
+              "correct": false,
+              "feedback": "A velocidade no vácuo é a mesma, mas a energia do fóton depende da frequência. Confira de novo a relação."
+            },
+            {
+              "label": "O de raios X, porque viaja mais rápido no vácuo",
+              "correct": false,
+              "feedback": "A escolha do fóton está certa, mas o motivo não: no vácuo toda onda eletromagnética tem a mesma velocidade."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up3-fotons",
+            "openstax-up2-espectro"
+          ]
+        },
+        {
+          "prompt": "Num tanque didático, uma onda tem frequência de 2 Hz e comprimento de onda de 3 m. Qual é a velocidade dessa onda?",
+          "options": [
+            {
+              "label": "6 m/s",
+              "correct": true,
+              "feedback": "Velocidade é frequência vezes comprimento de onda: 2 vezes 3 dá 6 m/s. A cada segundo a onda avança dois comprimentos de onda, de 3 m cada."
+            },
+            {
+              "label": "1,5 m/s",
+              "correct": false,
+              "feedback": "Esse valor divide o comprimento de onda pela frequência. Retome: em v = f × λ as grandezas se multiplicam."
+            },
+            {
+              "label": "5 m/s",
+              "correct": false,
+              "feedback": "Somar grandezas diferentes não dá velocidade. Confira de novo a relação entre as três."
+            },
+            {
+              "label": "0,67 m/s",
+              "correct": false,
+              "feedback": "Aqui a frequência foi dividida pelo comprimento de onda. A relação pede o produto dos dois valores."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up1-ondas"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no vácuo a velocidade é a mesma para toda onda eletromagnética, então frequência maior pede comprimento de onda…",
+          "item": {
+            "prompt": "Micro-ondas têm frequência maior que ondas de rádio. No vácuo, o que isso diz sobre o comprimento de onda das micro-ondas?",
+            "options": [
+              {
+                "label": "É maior que o das ondas de rádio",
+                "correct": false,
+                "feedback": "Se frequência e comprimento de onda crescessem juntos, a velocidade mudaria. No vácuo ela é fixa: retome o produto."
+              },
+              {
+                "label": "É igual ao das ondas de rádio",
+                "correct": false,
+                "feedback": "Com a mesma velocidade e frequências diferentes, os comprimentos de onda não podem coincidir. Confira de novo."
+              },
+              {
+                "label": "É menor que o das ondas de rádio",
+                "correct": true,
+                "feedback": "O produto f × λ é fixo no vácuo. Como a frequência das micro-ondas é maior, o comprimento de onda é menor."
+              },
+              {
+                "label": "Não tem relação com a frequência",
+                "correct": false,
+                "feedback": "As duas grandezas estão amarradas pela velocidade da onda. Retome v = f × λ."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-espectro"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um feixe de luz de uma só frequência tem a intensidade dobrada, sem mudar a cor. No modelo de fótons, o que muda?",
+            "options": [
+              {
+                "label": "A energia de cada fóton dobra",
+                "correct": false,
+                "feedback": "A energia de cada fóton depende só da frequência, e ela não mudou. Retome o que a intensidade conta."
+              },
+              {
+                "label": "A frequência de cada um dos fótons dobra",
+                "correct": false,
+                "feedback": "Se a frequência dobrasse, a cor mudaria. O enunciado diz que a cor ficou igual: confira de novo."
+              },
+              {
+                "label": "A velocidade dos fótons dobra",
+                "correct": false,
+                "feedback": "A velocidade da luz não depende da intensidade do feixe. O que aumenta é outra coisa."
+              },
+              {
+                "label": "O número de fótons por segundo dobra",
+                "correct": true,
+                "feedback": "Intensidade maior, com a mesma frequência, significa mais fótons chegando por segundo, cada um com a mesma energia."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up3-fotons"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Faixa horizontal do espectro eletromagnético com três réguas alinhadas: frequência, comprimento de onda e energia do fóton.",
+        "Duas ondas senoidais na mesma escala, uma com o dobro da frequência da outra, com o comprimento de onda marcado em cada uma."
+      ]
+    },
+    {
+      "id": "m03-05",
+      "code": "M03.05",
+      "title": "Eletricidade e magnetismo",
+      "objective": "Hoje você vai conseguir dizer o que tensão, corrente e campo magnético medem e onde cada relação aparece nas modalidades.",
+      "competency": "Identificar relações físicas usadas nas modalidades.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando (simulação)",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "No painel de treino tem kV e mAs. Na porta da ressonância, o aviso fala em tesla. Três unidades, três ideias."
+          },
+          {
+            "speaker": "duda",
+            "text": "kV empurra, mA conta, tesla puxa? É mais ou menos isso?"
+          },
+          {
+            "speaker": "lia",
+            "text": "É um começo. Agora diga o que cada uma mede, com as palavras da física."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Tensão, corrente e campo",
+        "body": "Corrente elétrica é carga em movimento: 1 ampere é 1 coulomb por segundo. Por isso, corrente × tempo dá carga, e o mAs da radiologia é esse produto. Tensão é energia por carga: 1 volt é 1 joule por coulomb. Acelerado por 100 kV, um elétron ganha 100 keV: é assim no tubo de raios X. Cargas em movimento criam campo magnético, medido em tesla (T). Um campo que varia induz tensão numa bobina: é o princípio do transformador, que muda a tensão alternada conforme o número de espiras. A ressonância magnética usa radiofrequência e um ímã forte, cujo campo vai além do equipamento e atrai objetos de ferro.",
+        "keyPoints": [
+          "Corrente × tempo = carga: mA × s = mAs.",
+          "A tensão em volts dá a energia do elétron acelerado em eV.",
+          "Campo magnético que varia induz tensão; campo constante, não."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Das faixas do espectro que você ordenou, qual tem a menor frequência? É ela que a ressonância magnética usa em seus pulsos.",
+          "options": [
+            {
+              "label": "Raios X",
+              "correct": false,
+              "feedback": "Os raios X ficam na ponta de alta frequência do espectro. Retome a ordem: qual faixa abre a lista?"
+            },
+            {
+              "label": "Raios ultravioleta",
+              "correct": false,
+              "feedback": "O ultravioleta vem logo depois da luz visível, já na parte alta. Confira de novo a ponta de baixa frequência."
+            },
+            {
+              "label": "Ondas de rádio",
+              "correct": true,
+              "feedback": "As ondas de rádio abrem o espectro, com a menor frequência. A ressonância magnética usa pulsos de radiofrequência."
+            },
+            {
+              "label": "Luz visível",
+              "correct": false,
+              "feedback": "A luz visível fica no meio do espectro. A ressonância trabalha numa faixa de frequência bem mais baixa."
+            }
+          ],
+          "help": "Lembre das duas pontas do espectro que você fixou na aula passada.",
+          "sourceIds": [
+            "openstax-up2-espectro",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada grandeza elétrica ou magnética à sua unidade.",
+          "pairs": [
+            {
+              "left": "Tensão",
+              "right": "volt (V): joule por coulomb"
+            },
+            {
+              "left": "Corrente",
+              "right": "ampere (A): coulomb por segundo"
+            },
+            {
+              "left": "Carga",
+              "right": "coulomb (C)"
+            },
+            {
+              "left": "Campo magnético",
+              "right": "tesla (T)"
+            }
+          ],
+          "feedbackCorrect": "Tensão é energia por carga, corrente é carga por tempo. As próprias unidades contam o que cada grandeza mede.",
+          "feedbackIncorrect": "Tensão e corrente trocaram de unidade. Retome: joule por coulomb fala de energia; coulomb por segundo fala de ritmo.",
+          "help": "Leia a unidade por extenso: o que está sendo dividido pelo quê?",
+          "sourceIds": [
+            "openstax-up2-potencial",
+            "openstax-up2-corrente",
+            "openstax-up2-campo-magnetico",
+            "openstax-up2-fontes-campo"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Num esquema de tubo de raios X, a tensão entre os eletrodos é de 80 kV. Que energia cada elétron ganha ao atravessar essa diferença de potencial?",
+          "options": [
+            {
+              "label": "80 eV",
+              "correct": false,
+              "feedback": "Esse valor perdeu o prefixo: 80 eV viriam de 80 V. Confira de novo a tensão do esquema."
+            },
+            {
+              "label": "8 keV",
+              "correct": false,
+              "feedback": "Aqui o valor foi dividido por dez. A energia em eV tem o mesmo número da tensão em volts: retome."
+            },
+            {
+              "label": "800 keV",
+              "correct": false,
+              "feedback": "Esse valor é dez vezes maior que a tensão permite. O elétron ganha em eV o que a tensão marca em volts."
+            },
+            {
+              "label": "80 keV",
+              "correct": true,
+              "feedback": "Um elétron acelerado por 1 V ganha 1 eV. Por 80 kV, ganha 80 keV: o prefixo acompanha a conta."
+            }
+          ],
+          "help": "Quanto um elétron ganha ao ser acelerado por 1 volt?",
+          "sourceIds": [
+            "openstax-up2-potencial",
+            "openstax-cp-raios-x"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, a turma vai conhecer a sala de ressonância magnética. Na porta, Duda percebe que ainda está com o chaveiro e uma tesoura pequena no bolso do jaleco. O grupo já está entrando, e Caio, responsável pela triagem, está alguns passos atrás conversando com outro aluno.",
+          "prompt": "O que Duda faz nesse momento?",
+          "options": [
+            {
+              "label": "Entra rápido e fica longe do equipamento",
+              "correct": false,
+              "feedback": "Distância não resolve: o campo se estende além do equipamento e atrai objetos magnetizáveis. Retome a triagem antes da porta."
+            },
+            {
+              "label": "Para antes da porta, avisa Caio e aguarda",
+              "correct": true,
+              "feedback": "Parar fora da sala mantém os objetos longe do campo. Avisar e aguardar deixa a conferência com quem responde pela triagem."
+            },
+            {
+              "label": "Entra e segura o bolso com a mão durante a visita",
+              "correct": false,
+              "feedback": "Segurar não é barreira: o campo pode puxar o objeto com força e transformá-lo em projétil. Confira de novo quando a triagem acontece."
+            },
+            {
+              "label": "Deixa os objetos no chão ao lado da porta e entra",
+              "correct": false,
+              "feedback": "Largar os objetos e entrar pula a conferência de quem responde pela triagem, que pode achar outros itens. O caminho é parar e avisar."
+            }
+          ],
+          "help": "Onde o campo do ímã atua, e quem confere os objetos antes da entrada?",
+          "sourceIds": [
+            "fda-rm-riscos",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num kit didático, um ímã fica parado dentro de uma bobina ligada a um medidor. Depois, alguém puxa o ímã para fora rapidamente. O que o medidor mostra nos dois momentos?",
+          "options": [
+            {
+              "label": "Tensão nos dois momentos, porque o ímã está sempre presente",
+              "correct": false,
+              "feedback": "A presença do campo não basta. Retome: o que precisa acontecer com o campo para surgir tensão na bobina?"
+            },
+            {
+              "label": "Nada nos dois momentos, porque não há pilha no circuito",
+              "correct": false,
+              "feedback": "A indução dispensa pilha: a tensão vem da variação do campo que atravessa a bobina. Confira o segundo momento."
+            },
+            {
+              "label": "Tensão só com o ímã parado, quando o campo é mais forte",
+              "correct": false,
+              "feedback": "Campo forte e parado não induz nada. O que conta é a mudança do campo ao longo do tempo."
+            },
+            {
+              "label": "Nada com o ímã parado e tensão enquanto ele se move",
+              "correct": true,
+              "feedback": "Só há tensão induzida enquanto o campo que atravessa a bobina varia. Com o ímã parado, o medidor fica em zero."
+            }
+          ],
+          "help": "Compare os dois momentos: em qual deles o campo dentro da bobina está mudando?",
+          "sourceIds": [
+            "openstax-up2-faraday"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você diz o que tensão, corrente, carga e campo magnético medem, liga kV à energia dos elétrons e mAs à carga, reconhece quando há indução e para antes da porta da ressonância com objeto metálico.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula não entra relação nova. Entra a escolha: qual delas a situação pede."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa tabela didática, a corrente é de 200 mA durante 0,5 s. Qual é o produto corrente × tempo?",
+          "options": [
+            {
+              "label": "400 mAs",
+              "correct": false,
+              "feedback": "Esse valor divide a corrente pelo tempo. O produto pede multiplicação: retome a conta."
+            },
+            {
+              "label": "100 mAs",
+              "correct": true,
+              "feedback": "200 mA vezes 0,5 s dá 100 mAs. Como ampere é coulomb por segundo, esse produto é uma quantidade de carga."
+            },
+            {
+              "label": "1000 mAs",
+              "correct": false,
+              "feedback": "Esse valor multiplica por 5 e perde a vírgula do tempo. Confira de novo: a tabela informa 0,5 s, meio segundo."
+            },
+            {
+              "label": "10 mAs",
+              "correct": false,
+              "feedback": "Esse valor usa 0,05 s, uma casa decimal a mais. Retome o tempo informado."
+            }
+          ],
+          "sourceIds": [
+            "radiopaedia-mas",
+            "openstax-up2-corrente"
+          ]
+        },
+        {
+          "prompt": "Num transformador didático, o secundário tem o dobro de espiras do primário. Com 10 V alternados no primário, que tensão o modelo ideal prevê no secundário?",
+          "options": [
+            {
+              "label": "5 V",
+              "correct": false,
+              "feedback": "Metade da tensão viria de um secundário com metade das espiras. Aqui ele tem o dobro: confira de novo."
+            },
+            {
+              "label": "10 V",
+              "correct": false,
+              "feedback": "A tensão só ficaria igual com o mesmo número de espiras nos dois lados. Retome a razão entre elas."
+            },
+            {
+              "label": "20 V",
+              "correct": true,
+              "feedback": "No modelo ideal, a razão entre as tensões é igual à razão entre as espiras. Dobro de espiras, dobro de tensão."
+            },
+            {
+              "label": "40 V",
+              "correct": false,
+              "feedback": "Quadruplicar exigiria quatro vezes mais espiras. A razão do enunciado é de dois para um."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up2-transformadores"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a energia que o elétron ganha, em eV, tem o mesmo número da tensão em volts; então 60 kV dão…",
+          "item": {
+            "prompt": "Num esquema, um elétron é acelerado por uma diferença de potencial de 60 kV. Que energia ele ganha?",
+            "options": [
+              {
+                "label": "60 keV",
+                "correct": true,
+                "feedback": "O número se mantém e o prefixo acompanha: 60 kV de tensão dão 60 keV de energia ao elétron."
+              },
+              {
+                "label": "6 keV",
+                "correct": false,
+                "feedback": "Esse valor divide por dez sem motivo. A energia em eV repete o número da tensão em volts."
+              },
+              {
+                "label": "60 eV",
+                "correct": false,
+                "feedback": "Aqui o quilo ficou para trás: 60 eV viriam de 60 V. Confira de novo o prefixo da tensão."
+              },
+              {
+                "label": "600 keV",
+                "correct": false,
+                "feedback": "Esse valor é dez vezes o que a tensão fornece. Retome: mesmo número, mesmo prefixo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-potencial"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "O campo magnético da Terra vale cerca de 0,00005 T na superfície. Um ímã de ressonância de 3 T é quantas vezes mais forte, em ordem de grandeza?",
+            "options": [
+              {
+                "label": "Cerca de 60 vezes",
+                "correct": false,
+                "feedback": "Esse valor perdeu três casas na divisão. Escreva o campo da Terra como 50 µT e refaça a comparação."
+              },
+              {
+                "label": "Cerca de 600 vezes",
+                "correct": false,
+                "feedback": "Ainda faltam duas ordens de grandeza. Confira quantas casas decimais há em 0,00005."
+              },
+              {
+                "label": "Cerca de 6 mil vezes",
+                "correct": false,
+                "feedback": "Faltou um fator de dez. Retome a divisão de 3 por 0,00005 contando as casas com calma."
+              },
+              {
+                "label": "Cerca de 60 mil vezes",
+                "correct": true,
+                "feedback": "3 dividido por 0,00005 dá 60 mil. É essa diferença que faz o ímã puxar objetos que o campo da Terra nem move."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-campo-magnetico",
+              "maglab-rm"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Esquema de tubo de raios X simplificado com a tensão em kV entre cátodo e ânodo e a energia do elétron crescendo ao longo do percurso.",
+        "Bobina com ímã em dois quadros (parado e em movimento) e o ponteiro do medidor em cada caso."
+      ]
+    },
+    {
+      "id": "m03-06",
+      "code": "M03.06",
+      "title": "Escolher a relação física",
+      "objective": "Hoje você vai conseguir escolher, numa situação nova, a relação física que liga os dados ao que se pede e justificar a escolha.",
+      "competency": "Aplicar uma relação em situação inédita e justificar.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Sala de revisão",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje não tem fórmula nova. Tem situação nova, e vocês escolhem a relação."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se eu souber todas as fórmulas, mas travar na hora de escolher?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então comece pelo que a situação entrega: quais grandezas aparecem, e qual é pedida?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Da situação à relação",
+        "body": "Escolher a relação física é um raciocínio em passos. Primeiro, liste o que a situação dá e o que ela pede, com as unidades. Depois, procure a relação que liga exatamente essas grandezas: prefixos para mudar a escrita, Q = I × t para carga, energia em eV igual à tensão em volts para o elétron acelerado, v = f × λ para ondas, E = h × f para fótons, inverso do quadrado para a fonte pequena que se afasta. Por fim, confira a unidade e o tamanho do resultado. Todo modelo tem limite: diga qual é ao justificar. Se os dados não fecham, pare e peça apoio.",
+        "keyPoints": [
+          "Liste as grandezas dadas e a pedida antes de pensar em fórmula.",
+          "A relação certa liga exatamente essas grandezas.",
+          "Justificar inclui dizer o limite do modelo usado."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você viu que corrente é carga por tempo. Que relação usa para achar a carga quando conhece a corrente e o tempo?",
+          "options": [
+            {
+              "label": "Carga = corrente ÷ tempo",
+              "correct": false,
+              "feedback": "Dividir a corrente pelo tempo daria coulomb por segundo ao quadrado. Confira de novo as unidades."
+            },
+            {
+              "label": "Carga = tempo ÷ corrente",
+              "correct": false,
+              "feedback": "Essa divisão dá segundo por ampere, que não é unidade de carga. Retome: ampere é coulomb por segundo."
+            },
+            {
+              "label": "Carga = corrente × tempo",
+              "correct": true,
+              "feedback": "Coulomb por segundo vezes segundo dá coulomb. As unidades confirmam a relação, e é ela que está por trás do mAs."
+            },
+            {
+              "label": "Carga = corrente + tempo",
+              "correct": false,
+              "feedback": "Grandezas diferentes não se somam. Olhe as unidades: o que fazer com coulomb por segundo para sobrar coulomb?"
+            }
+          ],
+          "help": "Escreva o ampere como coulomb por segundo e veja o que cancela.",
+          "sourceIds": [
+            "openstax-up2-corrente"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os passos para resolver uma situação com uma relação física.",
+          "items": [
+            "Listar as grandezas dadas, com unidades",
+            "Identificar a grandeza pedida",
+            "Escolher a relação que liga essas grandezas",
+            "Calcular com as unidades convertidas",
+            "Conferir unidade e tamanho do resultado"
+          ],
+          "feedbackCorrect": "Dados, pedido, relação, conta e conferência. A fórmula entra no terceiro passo, quando você já sabe o que precisa ligar.",
+          "feedbackIncorrect": "A relação foi escolhida antes de saber o que a situação dá e pede. Retome: a escolha depende dessa lista.",
+          "help": "O que você precisa saber antes de conseguir escolher uma relação?",
+          "sourceIds": [
+            "openstax-up1-unidades",
+            "openstax-up1-escala"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação à relação que a resolve.",
+          "pairs": [
+            {
+              "left": "Escrever 0,3 s em milissegundos",
+              "right": "Prefixo do SI: multiplicar por mil"
+            },
+            {
+              "left": "Achar o comprimento de onda pela frequência",
+              "right": "v = f × λ"
+            },
+            {
+              "left": "Achar a carga com corrente e tempo",
+              "right": "Q = I × t"
+            },
+            {
+              "left": "Achar a energia do elétron acelerado",
+              "right": "Energia em eV = tensão em V"
+            }
+          ],
+          "feedbackCorrect": "Em cada par, a relação contém justamente as grandezas que a situação cita. Esse é o critério da escolha.",
+          "feedbackIncorrect": "Alguma relação não contém as grandezas da situação a que foi ligada. Confira de novo: quais letras aparecem em cada uma?",
+          "help": "Procure, em cada relação, as grandezas que a situação menciona.",
+          "sourceIds": [
+            "bipm-si-prefixos",
+            "openstax-up1-ondas",
+            "openstax-up2-corrente",
+            "openstax-up2-potencial"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "No quadro de revisão há dois fótons de luz visível: um com comprimento de onda de 400 nm (nanômetros) e outro com 700 nm. Os dois viajam no vácuo. A tarefa pede para dizer qual carrega mais energia e justificar a resposta.",
+          "prompt": "Que resposta você escreve?",
+          "options": [
+            {
+              "label": "O de 700 nm: maior λ, maior f (v = f × λ), mais energia (E = h × f)",
+              "correct": false,
+              "feedback": "A cadeia tem os dois elos, mas o primeiro saiu invertido: com a velocidade fixa, comprimento de onda maior vem com frequência menor. Retome v = f × λ."
+            },
+            {
+              "label": "O de 400 nm: menor λ, maior f (v = f × λ), mais energia (E = h × f)",
+              "correct": true,
+              "feedback": "Duas relações em cadeia: no vácuo, menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia."
+            },
+            {
+              "label": "Os dois iguais: no vácuo a velocidade é a mesma (v = f × λ)",
+              "correct": false,
+              "feedback": "A velocidade é igual, mas ela não mede a energia do fóton. Confira de novo qual relação fala de energia."
+            },
+            {
+              "label": "O de 400 nm: luz de λ menor é sempre mais intensa (inverso do quadrado)",
+              "correct": false,
+              "feedback": "O fóton está certo, a justificativa não: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
+            }
+          ],
+          "help": "A situação dá comprimento de onda e pede energia. Que grandeza faz a ponte entre as duas?",
+          "sourceIds": [
+            "openstax-up2-espectro",
+            "openstax-up3-fotons"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Num kit de ondas, um motor balança a ponta de uma corda esticada 4 vezes por segundo. Pelas marcas da bancada, a onda percorre 12 m a cada segundo. A professora pede a distância entre duas cristas vizinhas e a justificativa. Os valores valem só para este kit.",
+          "prompt": "Que resposta e que justificativa você dá?",
+          "options": [
+            {
+              "label": "3 m, porque λ = v ÷ f",
+              "correct": true,
+              "feedback": "O kit dá frequência (4 Hz) e velocidade (12 m/s) e pede comprimento de onda. De v = f × λ sai λ = 12 ÷ 4, que dá 3 m."
+            },
+            {
+              "label": "48 m, porque λ = v × f",
+              "correct": false,
+              "feedback": "Multiplicar daria metro por segundo ao quadrado, que não é distância. Retome v = f × λ e isole o que foi pedido."
+            },
+            {
+              "label": "8 m, porque λ = v − f",
+              "correct": false,
+              "feedback": "Subtrair grandezas diferentes não tem sentido físico. Confira de novo a relação que liga as três."
+            },
+            {
+              "label": "0,33 m, porque λ = f ÷ v",
+              "correct": false,
+              "feedback": "Essa divisão está invertida e dá o inverso de metro. Olhe as unidades: o resultado precisa sair em metros."
+            }
+          ],
+          "help": "Dê nome às grandezas: o que são as 4 vezes por segundo e os 12 m a cada segundo?",
+          "sourceIds": [
+            "openstax-up1-ondas"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Diante de uma situação nova, você lista o que é dado e pedido, escolhe a relação que liga essas grandezas, confere unidade e tamanho do resultado e justifica dizendo o limite do modelo.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Essas relações voltam na próxima unidade, quando a radiação encontra a matéria."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No modelo de fonte pequena sem absorção, um sensor de luz marca 90 unidades a 2 m da lâmpada. Que leitura o modelo prevê a 6 m, e por quê?",
+          "options": [
+            {
+              "label": "30 unidades, por proporção inversa simples",
+              "correct": false,
+              "feedback": "Dividir por três trata a luz como se ela se espalhasse numa linha. No modelo ela se espalha por uma área: retome."
+            },
+            {
+              "label": "15 unidades, dividindo a leitura pelos 6 m",
+              "correct": false,
+              "feedback": "A conta usou a distância final como fator. No modelo entra quantas vezes a distância cresceu, e esse fator vai ao quadrado."
+            },
+            {
+              "label": "10 unidades, pelo inverso do quadrado",
+              "correct": true,
+              "feedback": "De 2 m para 6 m a distância triplicou, e a leitura cai por três ao quadrado: 90 dividido por 9 dá 10 unidades."
+            },
+            {
+              "label": "2,5 unidades, dividindo por 6 ao quadrado",
+              "correct": false,
+              "feedback": "O quadrado está certo, o fator não: de 2 m para 6 m a distância triplicou. Confira de novo a conta com o fator três."
+            }
+          ],
+          "sourceIds": [
+            "openstax-up1-intensidade"
+          ]
+        },
+        {
+          "prompt": "Para dizer quantas vezes um campo de 3 T é maior que um de 0,5 mT, o que você faz antes de dividir?",
+          "options": [
+            {
+              "label": "Escreve os dois valores na mesma unidade",
+              "correct": true,
+              "feedback": "Com os dois em tesla, ou os dois em militesla, a divisão compara quantidades de verdade: 3000 mT por 0,5 mT."
+            },
+            {
+              "label": "Soma os dois valores e tira a média",
+              "correct": false,
+              "feedback": "A média não responde quantas vezes um é maior que o outro. Retome o que a pergunta pede."
+            },
+            {
+              "label": "Troca o tesla por volt nos dois valores",
+              "correct": false,
+              "feedback": "Volt mede tensão, outra grandeza. A unidade pode mudar de prefixo, não de natureza."
+            },
+            {
+              "label": "Arredonda 0,5 mT para 1 T e segue a conta",
+              "correct": false,
+              "feedback": "Esse arredondamento apaga o prefixo e muda o valor duas mil vezes. Confira de novo o que o mili faz."
+            }
+          ],
+          "sourceIds": [
+            "bipm-si-prefixos",
+            "openstax-up1-unidades"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de escolher a fórmula, eu listo o que a situação dá e identifico a grandeza…",
+          "item": {
+            "prompt": "Uma situação informa corrente de 100 mA e tempo de 0,3 s e pede o produto em mAs. Que relação liga exatamente essas grandezas?",
+            "options": [
+              {
+                "label": "v = f × λ",
+                "correct": false,
+                "feedback": "Essa relação fala de velocidade, frequência e comprimento de onda. Nenhuma delas aparece na situação."
+              },
+              {
+                "label": "E = h × f",
+                "correct": false,
+                "feedback": "Aqui as grandezas são energia do fóton e frequência. Retome: a situação cita corrente e tempo."
+              },
+              {
+                "label": "Inverso do quadrado",
+                "correct": false,
+                "feedback": "O inverso do quadrado liga intensidade e distância. Confira de novo as grandezas do enunciado."
+              },
+              {
+                "label": "Q = I × t",
+                "correct": true,
+                "feedback": "A relação tem corrente, tempo e o produto pedido. Com ela, 100 mA durante 0,3 s dão 30 mAs."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-corrente",
+              "radiopaedia-mas"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um alto-falante de teste emite som de 500 Hz, e a tabela do kit informa comprimento de onda de 0,7 m no ar da sala. Que relação dá a velocidade do som nesse kit, e quanto vale?",
+            "options": [
+              {
+                "label": "v = f × λ, que dá 350 m/s",
+                "correct": true,
+                "feedback": "A situação dá frequência e comprimento de onda e pede velocidade: 500 vezes 0,7 dá 350 m/s. A relação vale também para o som."
+              },
+              {
+                "label": "v = f ÷ λ, que dá cerca de 714 m/s",
+                "correct": false,
+                "feedback": "Dividir hertz por metro não dá metro por segundo. Retome a relação e confira as unidades."
+              },
+              {
+                "label": "v = λ ÷ f, que dá 0,0014 m/s",
+                "correct": false,
+                "feedback": "Esse resultado é pequeno demais para uma onda que cruza a sala. Confira de novo como as grandezas se combinam."
+              },
+              {
+                "label": "v = f + λ, que dá 500,7 m/s",
+                "correct": false,
+                "feedback": "Somar hertz com metro mistura grandezas diferentes. A relação entre as três é um produto."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up1-ondas"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Mapa de decisão em uma tela: grandezas dadas e pedida de um lado, as seis relações da unidade do outro, com as ligações possíveis.",
+        "Cartões de relação com as grandezas em destaque (Q, I, t; v, f, λ; E, f) para o aluno casar com a situação."
+      ]
+    }
+  ]
+}

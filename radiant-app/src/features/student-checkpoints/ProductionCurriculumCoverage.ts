@@ -1,12 +1,13 @@
 import { AUTHORED_EVIDENCE_KINDS, type LearningActivityV2 } from '../../types/learningActivity';
 import type { ProductionBatchV1 } from './ProductionBatch';
+import { wideInteractionClaims } from './EditorialWideContract';
 import { LEGACY_COMPETENCY_PREFIX, LEGACY_CONTENT_VERSION } from '../lesson-flow/services/LegacyLessonAdapter';
 
 type Issue = { code: string; id: string; batchId?: string };
 export type ActivityOccurrence = { trackId: string; unitId: string; nodeId: string; activity: LearningActivityV2 };
 export type CheckpointOccurrence = { trackId: string; unitId: string; nodeId: string; checkpoint: ProductionBatchV1['checkpoint'] };
 type CoverageItem = {
-    id: string; kind: 'practice-interaction' | 'checkpoint-item';
+    id: string; kind: 'practice-interaction' | 'checkpoint-item' | 'recovery-item';
     provenance: 'promoted' | 'legacy-unmapped'; batchId: string | null;
     trackId: string; unitId: string; activityId: string | null; nodeIds: string[];
     contentVersion: string; competencyIds: string[]; sourceIds: string[];
@@ -81,8 +82,10 @@ export function auditCurriculumCoverage(batches: readonly ProductionBatchV1[], o
                 if (location.trackId !== batch.trackId || location.unitId !== batch.unitId) issue('activity-location-mismatch', activity.id, batch.batchId);
             }
             const interactions = activity.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
+            // No contrato amplo cada passo de apresentação também declara proveniência.
+            if (batch.wide !== undefined) for (const step of activity.steps) if (step.kind === 'presentation') expectedIds.add(`${step.id}:presentation`);
             for (const interaction of interactions) {
-                const expected = interaction.type === 'multiple-choice' && interactions.length === 1
+                const expected = batch.wide !== undefined ? wideInteractionClaims(interaction, activity.provenance.sourceIds) : interaction.type === 'multiple-choice' && interactions.length === 1
                     ? expectedMultipleChoiceClaims(activity.id, interaction.payload.options, interaction.payload.correctOptionId) : [];
                 if (!expected.length) gaps.push({ code: 'unsupported-claim-binding', id: interaction.id, batchId: batch.batchId });
                 record({ id: interaction.id, kind: 'practice-interaction', provenance: 'promoted', batchId: batch.batchId,
@@ -100,6 +103,12 @@ export function auditCurriculumCoverage(batches: readonly ProductionBatchV1[], o
             }
             record({ id: item.id, kind: 'checkpoint-item', provenance: 'promoted', batchId: batch.batchId,
                 trackId: batch.trackId, unitId: batch.unitId, activityId: null, nodeIds: locations.map(location => location.nodeId), contentVersion: batch.contentVersion,
+                competencyIds: [...item.competencyIds], sourceIds: [...item.sourceIds], interactionType: 'multiple-choice', evidenceKind: null, expectedClaimIds: [] },
+            expectedMultipleChoiceClaims(item.id, item.options, item.correctOptionId));
+        }
+        for (const entry of batch.wide?.recovery ?? []) for (const item of [entry.guided, entry.transfer]) {
+            record({ id: item.id, kind: 'recovery-item', provenance: 'promoted', batchId: batch.batchId,
+                trackId: batch.trackId, unitId: batch.unitId, activityId: null, nodeIds: [], contentVersion: batch.contentVersion,
                 competencyIds: [...item.competencyIds], sourceIds: [...item.sourceIds], interactionType: 'multiple-choice', evidenceKind: null, expectedClaimIds: [] },
             expectedMultipleChoiceClaims(item.id, item.options, item.correctOptionId));
         }
@@ -139,6 +148,7 @@ export function auditCurriculumCoverage(batches: readonly ProductionBatchV1[], o
     return { summary: {
         promotedPracticeItems: items.filter(item => item.provenance === 'promoted' && item.kind === 'practice-interaction').length,
         promotedCheckpointItems: items.filter(item => item.kind === 'checkpoint-item').length,
+        promotedRecoveryItems: items.filter(item => item.kind === 'recovery-item').length,
         legacyItems: items.filter(item => item.provenance === 'legacy-unmapped').length,
         checkpointItemsWithNodes: checkpointOccurrences ? items.filter(item => item.kind === 'checkpoint-item' && item.nodeIds.length).length : null,
         declaredSources: sources.length, declaredCompetencies: competencyDeclarations.size,

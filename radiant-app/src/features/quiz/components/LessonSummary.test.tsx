@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LessonSummary } from './LessonSummary';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
+import { Confetti } from '../../../components/ui/Confetti';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { Circle } from 'react-native-svg';
 import { medalColors } from '../../../ui/theme';
@@ -557,5 +558,37 @@ describe('T05 Dynamic Type no resultado já aberto', () => {
     } finally {
       dimensions.mockRestore();
     }
+  });
+});
+
+describe('LessonSummary — confete da conclusão', () => {
+  const noop = () => undefined;
+  const props = { ...base, currentRating: null, habitLine: null, onRate: noop, onContinue: noop };
+
+  it('com o pedido de comemoração e ao menos uma estrela, o confete aparece', () => {
+    render(<LessonSummary {...props} stars={1} correctAnswers={1} totalQuestions={5} celebrate />);
+
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+  });
+
+  it('com zero acerto, não há confete mesmo com o pedido', () => {
+    render(<LessonSummary {...props} stars={0} correctAnswers={0} totalQuestions={5} celebrate />);
+
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+    expect(screen.getByText('0 de 5 corretas')).toBeTruthy();
+  });
+
+  it('sem o pedido, o resumo continua sem confete', () => {
+    render(<LessonSummary {...props} stars={3} correctAnswers={5} totalQuestions={5} />);
+
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+  });
+
+  it('o confete não fica na frente do Continuar: a camada não captura toque', () => {
+    const onContinue = jest.fn();
+    render(<LessonSummary {...props} stars={3} correctAnswers={5} totalQuestions={5} celebrate onContinue={onContinue} />);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(onContinue).toHaveBeenCalledTimes(1);
   });
 });

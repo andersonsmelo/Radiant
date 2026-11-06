@@ -16,6 +16,7 @@ export type ProductionCatalogEntry = Readonly<{
 }>;
 
 type ProductionCheckpoint = ProductionBatchV1['checkpoint'];
+type ProductionRecovery = NonNullable<ProductionBatchV1['wide']>['recovery'][number];
 
 function activityTitle(activity: LearningActivityV2): string {
     const presentation = activity.steps.find((step) => step.kind === 'presentation');
@@ -175,6 +176,7 @@ export function createProductionCurriculumCatalog(input: readonly ProductionCata
     const activities = new Map<string, LearningActivityV2>();
     const checkpoints = new Map<string, ProductionCheckpoint>();
     const checkpointBatches = new Map<string, ProductionBatchV1>();
+    const recoveries = new Map<string, ProductionRecovery>();
     const journeys = new Map<string, JourneyTrackDefinition>();
     const identities = new Set<string>();
     const slugs = new Set<string>();
@@ -216,6 +218,11 @@ export function createProductionCurriculumCatalog(input: readonly ProductionCata
             claim(item.id);
             if (!stages.includes(primaryCompetencyOf(item) ?? '')) throw new Error('[production-catalog] orphan-checkpoint-item');
         }
+        for (const entry of batch.wide?.recovery ?? []) {
+            [entry.guided.id, entry.transfer.id].forEach(claim);
+            if (!stages.includes(entry.competencyId)) throw new Error('[production-catalog] orphan-recovery');
+            recoveries.set(`node:${batch.checkpoint.id}:${competencySlug(entry.competencyId)}`, entry);
+        }
         for (const checkpoint of stageCheckpoints(batch)) {
             claim(checkpoint.id);
             if (!checkpoint.items.length) throw new Error('[production-catalog] empty-stage-checkpoint');
@@ -246,6 +253,8 @@ export function createProductionCurriculumCatalog(input: readonly ProductionCata
         getActivityById: (id: string): LearningActivityV2 | null => activities.get(id) ?? null,
         getCheckpointByNodeId: (id: string): ProductionCheckpoint | null => checkpoints.get(id) ?? null,
         getBatchByCheckpointNodeId: (id: string): ProductionBatchV1 | null => checkpointBatches.get(id) ?? null,
+        /** Itens de recuperação da competência daquela conferência; só lotes do contrato amplo os têm. */
+        getRecoveryByCheckpointNodeId: (id: string): ProductionRecovery | null => recoveries.get(id) ?? null,
         getJourneyTrackDefinition: (id: string): JourneyTrackDefinition | null => journeys.get(id) ?? null,
     };
 }

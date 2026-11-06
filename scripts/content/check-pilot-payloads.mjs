@@ -104,7 +104,12 @@ export async function checkPilotPayloads(pack) {
   if (!lotPromotionErrors.length) errors.push('lot-promotion-without-approvals');
   const state = await readJson('radiant-app/src/data/curriculum-state.json');
   const catalog = loadAppContract('features/student-checkpoints/production-batches.ts').PRODUCTION_BATCHES;
-  if (state.state !== 'retired' || catalog.length !== 0) errors.push('active-curriculum-changed');
+  // O pacote de revisão do piloto nunca foi promovido. O catálogo ativo só pode conter
+  // lotes do contrato amplo gerados das aulas-fonte (ADR-2026-11-05), nunca o piloto.
+  const packageIds = new Set([pack.completeCandidate.unitId, pack.reviewEnvelope.unitId, ...ids]);
+  if (state.state !== 'retired' || Array.from(catalog).some(batch => batch.pilot !== undefined || batch.wide === undefined
+      || !/^batch:rtg-2026:(m\d{2}|s-[a-z]{2})$/.test(batch.batchId)
+      || packageIds.has(batch.unitId) || batch.activities.some(activity => packageIds.has(activity.id)))) errors.push('active-curriculum-changed');
   return { errors, completeCandidates: 1, completeLessons: 1 + companions.length, practiceDrafts: pack.practiceDrafts.length, recoveryActivities: pack.recoveryActivities.length, companionRecoveries: companionRecoveries.length,
     variants: pack.variants.length, assetsVerified, lotContractIssues, lotPromotionErrors, promotionReady: false, promotionErrors,
     packageSha256: fingerprint(pack), materialSha256: fingerprintProductionBatchMaterial(pack.completeCandidate),
