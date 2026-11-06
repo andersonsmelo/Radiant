@@ -40,7 +40,7 @@ gratuitas ([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)). 
 item 68 é a execução do
 [plano de trilha ampla e engajamento](plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md).
 **Estado:** núcleo entregue na branch (14 unidades, 84 aulas, motor, experiência da
-aula e metas); abertos os seis aprofundamentos, a prova completa no simulador e a PR.
+aula e metas); abertos os seis aprofundamentos e a prova completa no simulador; a PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) está em rascunho.
 **Bloqueio:** nenhum. **Dono:** agente; a partir de 2026-11-06 às 13:40 o trabalho
 continua em outro modelo, pelo
 [prompt de continuidade](superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).

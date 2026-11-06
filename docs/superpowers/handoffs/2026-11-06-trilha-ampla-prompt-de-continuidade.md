@@ -183,7 +183,8 @@ Medido em 2026-11-06, às 09:13.
 - **Não começado:** os seis aprofundamentos (item 2). Não existe rascunho de nenhum.
 - **Parcial:** a prova no simulador (item 3) cobriu trilha, cena de diálogo, conceito,
   pergunta e retorno de erro. Falta todo o resto da lista do item 3, mais as metas.
-- **Não feito:** documentação do roadmap, PR (itens 4 e 5).
+- **PR:** [#69](https://github.com/andersonsmelo/Radiant/pull/69) aberta em rascunho em 2026-11-06. No primeiro CI, `quality` passou e `content` reprovou num teste antigo (`concepts-reader.test.py` exigia conceitos, e o índice está vazio desde a retirada); o teste foi ajustado. Confira com `gh pr checks 69` e só tire do rascunho com os aprofundamentos e a prova no simulador feitos.
+- **Não feito:** documentação do roadmap (item 4).
 - **Pendências pequenas de engenharia:** `IosHomologationService` não apaga as chaves
   `@radiant:streak_freeze_v1`, `@radiant:daily_missions_v1` e
   `@radiant:unit_celebrations_v1`; a frase-gancho da recuperação não aparece na

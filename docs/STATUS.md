@@ -65,7 +65,7 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   [pipeline](CONTENT_PIPELINE.md)).
 - **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu exit 0, com
   **233 suítes e 3053 testes**, e o `loop validate` passou. É medição local,
-  com os arquivos da entrega na árvore; o CI ainda não rodou sobre esta branch.
+  com os arquivos da entrega na árvore. **CI na PR em rascunho [#69](https://github.com/andersonsmelo/Radiant/pull/69), em 2026-11-06 às 09:20:** `quality` passou; `content` reprovou em `concepts-reader.test.py`, que exigia ao menos um conceito e o índice está vazio desde a retirada de 2026-11-02. A falha era anterior a esta entrega e nunca tinha aparecido, porque a branch não tinha PR. O teste passou a seguir o índice; confira o CI do commit seguinte com `gh pr checks 69`.
 - **Visto no simulador `E262D4C1`** (Debug, 2026-11-06 às 03:56, commit `1e8725f`):
   a trilha nova, a cena de diálogo, o conceito, a pergunta e o retorno de erro com
   perda de vida ([capturas](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
@@ -74,7 +74,7 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   build de Release. Tamanho do bundle e tempo de abertura da Estude com 14 trilhas
   não foram medidos.
 - **Falta:** os seis aprofundamentos (TC, RM, mamografia e densitometria, medicina
-  nuclear, radioterapia, intervencionista), a prova completa no simulador e a PR.
+  nuclear, radioterapia, intervencionista) e a prova completa no simulador. A PR #69 está aberta em rascunho.
   Imagem radiográfica real depende de autorização explícita do dono.
 - **Do dono:** merge, build, loja e texto de loja. O app e a loja não podem dizer
   "revisado por especialista".
