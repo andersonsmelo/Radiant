@@ -92,3 +92,10 @@ Regra extra: o app não libera implante. Qualquer dúvida é parar, manter a pes
 3. s-rm-05: sentidos de TR, TE, passos de fase, sinal e tempo.
 4. "50% a 75%" com um só site, e região e movimento em s-rm-06 i2, em parte inferidos.
 5. Vigência da IN 97/2021 e periódico de Grover 2015, citado de memória.
+
+### S-MD — Aprofundamento em mamografia e densitometria
+Regra extra: sem categoria BI-RADS, sem ler T-score ou Z-score como resultado de alguém e sem decidir incidência complementar. A dose glandular média é só conceito e indicador de qualidade.
+1. s-md-02: 150 a 200 N. O INCA fala em força aplicada na mama; a IN 92/2021 fala do sistema automático. O texto segue a IN 92 e o CBR, com atribuição, e nenhum item pede aplicar valor de força.
+2. s-md-04 i2 e i4: contas com 0,5 e 1,5 cm e o critério de 1 cm.
+3. s-md-07: o que torna válida a comparação em densitometria.
+4. Dose da tomossíntese com uma só fonte, itens de implante, gestação e escalonamento à equipe, e privacidade apoiada no art. 53 da RDC 611.

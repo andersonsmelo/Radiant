@@ -179,5 +179,16 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Aprofundamento em ressonância magnética."
     }
+  },
+  "batch:rtg-2026:s-md": {
+    "slug": "rtg-2026-s-md",
+    "title": "Aprofundamento em mamografia e densitometria",
+    "description": "Aprofunda anatomia, física, posicionamento, critérios, tecnologias e densitometria em simulação supervisionada. Treina cobertura e documentação, sem laudo, e não comprova operação real.",
+    "unitTitle": "Aprofundamento em mamografia e densitometria",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-md",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em mamografia e densitometria."
+    }
   }
 };
