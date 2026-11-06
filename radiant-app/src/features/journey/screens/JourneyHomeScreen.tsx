@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
@@ -31,6 +31,13 @@ import { ReminderRow } from '../../push/components/ReminderRow';
 import { JourneyReviewRow } from '../components/JourneyReviewRow';
 import { JourneyStarsService } from '../services/JourneyStarsService';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
+import { LevelBadge } from '../../gamification/components/LevelBadge';
+import { DailyMissionsService, type DailyMission } from '../../missions/services/DailyMissionsService';
+import { DailyMissionsCard } from '../../missions/components/DailyMissionsCard';
+import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration, type CelebrationUnit } from '../components/UnitCompleteCelebration';
+import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
+import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
+import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 
 import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
 import { isLearningContentMissing } from '../../content/services/ContentAvailability';
@@ -60,6 +67,23 @@ export default function JourneyHomeScreen() {
   // silenciosa: trocar a lista pelo carregamento a desmontava, e o aluno
   // voltava com a trilha no topo (visto no simulador em 2026-10-16).
   const hasLoadedRef = useRef(false);
+  const [missions, setMissions] = useState<DailyMission[] | null>(null);
+  const [celebration, setCelebration] = useState<CelebrationUnit | null>(null);
+  // Subida de nível e unidade concluída soam aqui, na volta da aula. Os sons
+  // carregam na montagem, como na lição; as preferências são lidas a cada
+  // evento, porque o aluno pode mudá-las em Ajustes com a trilha montada.
+  const soundsRef = useRef<ReturnType<typeof createLessonSoundPlayer> | null>(null);
+  useEffect(() => {
+    const sounds = createLessonSoundPlayer();
+    soundsRef.current = sounds;
+    return () => { soundsRef.current = null; sounds.release(); };
+  }, []);
+  const feedback = useMemo<LessonFeedback>(() => ({
+    emit(event: LessonFeedbackEvent) {
+      const sounds = soundsRef.current;
+      if (sounds) void readFeedbackPreferences().then(preferences => createLessonFeedback(sounds, preferences).emit(event));
+    },
+  }), []);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -89,6 +113,8 @@ export default function JourneyHomeScreen() {
         ),
       );
       setReminderVisible(hasCompletedLesson);
+      // Uma vez por unidade; a marca é gravada antes de a comemoração aparecer.
+      void takeUnitCelebration(completedCelebrationUnits(nextTrail.segments)).then(unit => { if (unit) setCelebration(unit); });
       hasLoadedRef.current = true;
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
@@ -103,7 +129,9 @@ export default function JourneyHomeScreen() {
       void TelemetryService.track('screen_view', { screen: 'journey_home' });
       void PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
       void loadSnapshot();
-      void GamificationService.getSnapshot().then(setGamification);
+      // As missões pagam bônus ao serem lidas: o XP é lido depois, para o nível já contar o bônus.
+      void DailyMissionsService.sync().then(result => setMissions(result.missions), () => undefined)
+        .then(() => GamificationService.getSnapshot()).then(setGamification);
     }, [loadSnapshot])
   );
 
@@ -193,6 +221,7 @@ export default function JourneyHomeScreen() {
         dueCount={dueReviewNode ? dueReviewCount : 0}
         onPress={() => { if (dueReviewNode) void openNode(dueReviewNode); }}
       />
+      <DailyMissionsCard missions={missions} onPress={() => router.push('/missions')} />
     </View>
   );
 
@@ -237,6 +266,9 @@ export default function JourneyHomeScreen() {
           heartsSnapshot={hearts ?? undefined}
           onHeartsPress={() => { if (hearts && hearts.status !== 'unlimited') setHeartsSheetVisible(true); }}
         />
+        <View style={styles.level}>
+          <LevelBadge xp={gamification ? gamification.totalXp : null} feedback={feedback} />
+        </View>
         {loading ? (
           <View style={styles.centered}>
             <ActivityIndicator
@@ -289,6 +321,7 @@ export default function JourneyHomeScreen() {
           </View>
         )}
       </SafeAreaView>
+      <UnitCompleteCelebration unit={celebration} feedback={feedback} onContinue={() => setCelebration(null)} />
       {hearts ? (
         <HeartsSheet
           visible={heartsSheetVisible && hearts.status !== 'unlimited'}
@@ -319,6 +352,7 @@ const styles = StyleSheet.create({
   loadingText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   content: { flex: 1, padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
   trailHeader: { gap: space.s3 },
+  level: { paddingHorizontal: space.s3, paddingTop: space.s1 },
   errorCard: {
     backgroundColor: 'rgba(255,59,48,0.10)',
     borderRadius: radius.rMd,

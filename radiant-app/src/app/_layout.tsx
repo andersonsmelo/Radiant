@@ -506,6 +506,7 @@ function RootLayout() {
         <Stack.Screen name="review" />
         <Stack.Screen name="subscription" />
         <Stack.Screen name="settings" />
+        <Stack.Screen name="missions" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
         <Stack.Screen name="licao-hibrida" />

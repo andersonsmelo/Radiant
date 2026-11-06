@@ -11,6 +11,8 @@ type StreakWeekProps = {
   streakDays: number | null;
   today: Date;
   loading?: boolean;
+  /** Proteções de sequência: guardadas, teto e a cada quantos dias se ganha uma. Ausente não mostra a linha. */
+  freezes?: { stored: number; max: number; everyDays: number } | null;
 };
 const DAY_NAMES = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 const DAY_INITIALS = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
@@ -24,7 +26,7 @@ function validDateKey(value: string | null): boolean {
 }
 
 /** O agregado e a única data do serviço são fatos independentes, inclusive após restauração. */
-export function StreakWeek({ lastActiveDate, streakDays, today, loading = false }: StreakWeekProps): React.ReactElement {
+export function StreakWeek({ lastActiveDate, streakDays, today, loading = false, freezes = null }: StreakWeekProps): React.ReactElement {
   const { fontScale } = useWindowDimensions();
   const largeText = isLargeTextScale(fontScale);
   const circleSize = Math.max(30, Math.ceil(12 * fontScale + 16));
@@ -72,6 +74,9 @@ export function StreakWeek({ lastActiveDate, streakDays, today, loading = false 
         </View>)}
       </View>
       <Text key={`legend-${fontScale}`} style={styles.detail}>Sem registro disponível não significa falta. A semana mostra apenas a última data registrada.</Text>
+      {freezes && Number.isInteger(freezes.stored) && freezes.stored >= 0 ? <Text key={`freezes-${fontScale}`} style={styles.detail}>
+        {`Proteções de sequência: ${freezes.stored} de ${freezes.max}. Cada uma cobre um dia sem estudo. Você ganha uma a cada ${freezes.everyDays} dias de sequência.`}
+      </Text> : null}
     </> : null}
   </View>;
 }

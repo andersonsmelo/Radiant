@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GAMIFICATION_STORAGE_KEY, XP_RULES, formatLocalDateKey } from '../../../constants/gamification';
 import type { GamificationStore, GamificationSnapshot, XpAward } from '../../../types/gamification';
 import type { QuizResult } from '../../../types/quiz';
+import { StreakFreezeService } from './StreakFreezeService';
 
 const DEFAULT_STORE: GamificationStore = {
     totalXp: 0,
@@ -35,7 +36,7 @@ class GamificationServiceImpl {
 
         const award = this.calculateXpAward(result);
         store.totalXp += award.totalXpAwarded;
-        this.updateStreak(store, result.answeredAt);
+        await this.updateStreak(store, result.answeredAt);
         store.updatedAt = new Date().toISOString();
 
         await this.saveStore(store);
@@ -126,25 +127,20 @@ class GamificationServiceImpl {
         return { baseXp, bonusXp, totalXpAwarded: baseXp + bonusXp, reason: 'quiz_complete' };
     }
 
-    private updateStreak(store: GamificationStore, answeredAt: Date) {
-        const todayKey = formatLocalDateKey(answeredAt);
-        if (!store.lastActiveDate) {
-            store.streakDays = 1;
-            store.lastActiveDate = todayKey;
-            return;
-        }
-        if (store.lastActiveDate === todayKey) return;
-
-        const lastDate = new Date(store.lastActiveDate);
-        const nextDay = new Date(lastDate);
-        nextDay.setDate(lastDate.getDate() + 1);
-
-        if (todayKey === formatLocalDateKey(nextDay)) {
-            store.streakDays += 1;
-        } else {
-            store.streakDays = 1;
-        }
-        store.lastActiveDate = todayKey;
+    /**
+     * O único lugar que calcula a sequência. A regra (dia seguinte soma, um dia
+     * perdido gasta uma proteção, dois recomeçam) mora em `StreakFreezeService`
+     * e compara chaves de calendário local. A conta antiga passava a chave por
+     * `new Date('AAAA-MM-DD')`, que é UTC: em fuso negativo, como o de Brasília,
+     * o "dia seguinte" saía igual ao último dia e a sequência nunca passava de 1.
+     */
+    private async updateStreak(store: GamificationStore, answeredAt: Date): Promise<void> {
+        const next = await StreakFreezeService.advance(
+            { streakDays: store.streakDays, lastActiveDate: store.lastActiveDate },
+            formatLocalDateKey(answeredAt),
+        );
+        store.streakDays = next.streakDays;
+        store.lastActiveDate = next.lastActiveDate;
     }
 }
 

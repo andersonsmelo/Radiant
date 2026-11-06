@@ -36,24 +36,53 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
-**Medido em 2026-11-05, às 20:30 (America/Bahia).** O dono delegou ao Claude as
-decisões de construção, melhoria e ampliação do app até o fim de 2026-11-06 e
-autorizou escrever o conteúdo a partir de pesquisa em fontes gratuitas
-([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)). A execução
-segue o [plano de trilha ampla e engajamento](plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md),
-na branch `claude/conteudo-reinicio-tecnologo`, que contém o Medalhão inteiro da
-PR #66 mais o conteúdo.
+**Medido em 2026-11-06, às 09:13 (America/Bahia),** na branch
+`claude/conteudo-reinicio-tecnologo`, que contém o Medalhão inteiro da PR #66 mais o
+conteúdo. Nada disto está na `main` nem na loja, e nenhuma build saiu. O dono delegou
+ao Claude as decisões de construção e autorizou o conteúdo por pesquisa em fontes
+gratuitas ([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md));
+a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md).
+**Quem continua começa pelo
+[prompt de continuidade](superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).**
 
-- **Feito:** ADR, plano e [guia de autoria](content/2026-11-05-guia-de-autoria-rtg-2026.md).
-- **Em andamento:** autoria das unidades M01 a M07 por subagentes, fora do
-  repositório. Nenhuma aula entrou na trilha ainda: o catálogo de produção segue
-  vazio e o aluno novo vê "Nova trilha em preparação".
-- **Não muda:** build, loja, texto de loja e merge na `main` são do dono. Nenhuma
-  pessoa da área revisou o conteúdo; a revisão é por IA independente.
+- **Núcleo completo na trilha:** 14 unidades (M01 a M14), 84 aulas, 420 interações e
+  168 itens de conferência, escritas como dado em `content-manifest/rtg-2026/aulas/`
+  e geradas por `scripts/content/build-rtg-batches.mjs`. Cada unidade tem parecer de
+  revisor independente em
+  [`evidence/2026-11-06-rtg-2026-revisao/`](evidence/2026-11-06-rtg-2026-revisao/README.md).
+  **A revisão é por IA; nenhuma pessoa da área leu o conteúdo.**
+- **Aula:** cena de diálogo com elenco (Pixel, Lia, Caio, Duda, paciente), pontos-chave,
+  pista, cinco interações (múltipla escolha, caso com decisão, ordenação e
+  associação), retorno animado com o Pixel, combo, aviso de vida, confete e três sons
+  sintetizados ([evidência](evidence/2026-11-06-trilha-ampla-experiencia.md)).
+- **Metas:** níveis por XP, três missões por dia, proteção de sequência, celebração de
+  unidade, e os itens de recuperação entram na fila de revisão depois de uma
+  conferência reprovada ([evidência](evidence/2026-11-06-trilha-ampla-metas.md)).
+  **Defeito antigo consertado:** a sequência usava a data em UTC e, no fuso do Brasil,
+  nunca passava de 1.
+- **Motor:** contrato editorial com a extensão `wide`
+  ([evidência](evidence/2026-11-06-trilha-ampla-motor.md),
+  [pipeline](CONTENT_PIPELINE.md)).
+- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu exit 0, com
+  **233 suítes e 3053 testes**, e o `loop validate` passou. É medição local,
+  com os arquivos da entrega na árvore; o CI ainda não rodou sobre esta branch.
+- **Visto no simulador `E262D4C1`** (Debug, 2026-11-06 às 03:56, commit `1e8725f`):
+  a trilha nova, a cena de diálogo, o conceito, a pergunta e o retorno de erro com
+  perda de vida ([capturas](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Não verificado:** fim da aula e resumo, confete, combo, sons, conferência, metas
+  e missões em tela, texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e
+  build de Release. Tamanho do bundle e tempo de abertura da Estude com 14 trilhas
+  não foram medidos.
+- **Falta:** os seis aprofundamentos (TC, RM, mamografia e densitometria, medicina
+  nuclear, radioterapia, intervencionista), a prova completa no simulador e a PR.
+  Imagem radiográfica real depende de autorização explícita do dono.
+- **Do dono:** merge, build, loja e texto de loja. O app e a loja não podem dizer
+  "revisado por especialista".
 
 ```bash
-ls content-manifest/rtg-2026/aulas 2>/dev/null | wc -l   # unidades já no repositório
-grep -c "rtg-2026" radiant-app/src/features/student-checkpoints/production-batches.ts
+ls content-manifest/rtg-2026/aulas | wc -l                     # 14 em 2026-11-06
+node scripts/content/rtg-lesson-lint.mjs content-manifest/rtg-2026/aulas/*.json
+node scripts/content/build-rtg-batches.mjs --check > /dev/null; echo $?   # 0
 ```
 
 ## A 1.4 publicada

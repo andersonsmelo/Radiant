@@ -1,0 +1,1131 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m08",
+    "code": "M08",
+    "title": "Tórax, abdome e cabeça",
+    "summary": "Liga estruturas do tórax, do abdome e do crânio a incidências introdutórias, a critérios de inspiração, rotação e cobertura e à adaptação segura, da solicitação à conferência da imagem."
+  },
+  "sources": [
+    {
+      "id": "radiopaedia-torax-pa",
+      "title": "Chest (PA view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/chest-pa-view-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "radiopaedia-torax-ap",
+      "title": "Chest (AP erect view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/chest-ap-erect-view-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "radiopaedia-abdome-ap",
+      "title": "Abdomen (AP supine view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/abdomen-ap-supine-view-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "radiopaedia-cranio-pa",
+      "title": "Skull (PA view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/skull-pa-view-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "radiopaedia-cranio-perfil",
+      "title": "Skull (lateral view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/skull-lateral-view-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "radiopaedia-nasio",
+      "title": "Nasion",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/nasion",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "openstax-ap2e-terminologia",
+      "title": "Anatomy and Physiology 2e, seção 1.6: Anatomical Terminology",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-cranio",
+      "title": "Anatomy and Physiology 2e, seção 7.2: The Skull",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-pulmoes",
+      "title": "Anatomy and Physiology 2e, seção 22.2: The Lungs",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-2-the-lungs",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-respiracao",
+      "title": "Anatomy and Physiology 2e, seção 22.3: The Process of Breathing",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos de fisiologia, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-figado",
+      "title": "Anatomy and Physiology 2e, seção 23.6: Accessory Organs in Digestion",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-rins",
+      "title": "Anatomy and Physiology 2e, seção 25.3: Gross Anatomy of the Kidney",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-3-gross-anatomy-of-the-kidney",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "radiologyinfo-torax",
+      "title": "Chest X-ray (Radiography)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/chestrad",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional de orientação a pacientes; consultada para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "rcr-criterios-torax-pa",
+      "title": "Adapted anatomical image criteria for PA chest radiography (modelo de auditoria)",
+      "publisher": "The Royal College of Radiologists",
+      "url": "https://www.rcr.ac.uk/career-development/audit-quality-improvement/auditlive-radiology-templates/adapted-anatomical-image-criteria-for-pa-chest-radiography/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional que adapta os critérios europeus (EUR 16260) e do ACR; consultada para a lista de critérios, sem reprodução de texto."
+    },
+    {
+      "id": "esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS (Insights into Imaging, 2019)",
+      "publisher": "European Society of Radiology e EFRS, via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto (CC BY 4.0); consultado para fatos de identificação, conferência do pedido e comunicação, sem reprodução de texto."
+    },
+    {
+      "id": "ce-eur-16260-1996",
+      "title": "European Guidelines on Quality Criteria for Diagnostic Radiographic Images (documento EUR 16260, 1996)",
+      "publisher": "Comissão Europeia, em cópia hospedada pela Sociedad Española de Radiología Médica",
+      "url": "https://static.seram.es/wp-content/uploads/2021/09/129_eur16260.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Publicação institucional da Comissão Europeia; consultada para os critérios de inspiração e de simetria do tórax em PA, sem reprodução de texto."
+    },
+    {
+      "id": "ms-protocolo-identificacao-2013",
+      "title": "Protocolo de Identificação do Paciente (Anexo 02, Programa Nacional de Segurança do Paciente)",
+      "publisher": "Ministério da Saúde, Anvisa e Fiocruz, em cópia do portal Proqualis",
+      "url": "https://proqualis.fiocruz.br/sites/proqualis.fiocruz.br/files/Protocolo%20de%20Identifica%C3%A7%C3%A3o%20do%20Paciente.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Protocolo público do Programa Nacional de Segurança do Paciente; consultado para fatos de identificação, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m08-01",
+      "code": "M08.01",
+      "title": "Tórax e respiração",
+      "objective": "Hoje você vai conseguir ligar estruturas do tórax e a fase da respiração aos critérios de uma imagem de tórax em PA.",
+      "competency": "Relacionar estruturas do tórax e critérios técnicos do exame em descrições por texto.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de radiografia do laboratório de simulação",
+        "lines": [
+          { "speaker": "duda", "text": "No tórax em PA a gente sempre pede 'encha o peito de ar e segure'. É só costume ou muda a imagem?" },
+          { "speaker": "caio", "text": "Muda, e muito. Com o pulmão cheio, o diafragma desce e sobra campo para ver. Pulmão murcho engana até olho treinado." },
+          { "speaker": "pixel", "text": "Então, antes do comando, vale saber: o que tem dentro do tórax e o que a respiração move?" }
+        ]
+      },
+      "concept": {
+        "title": "O que a inspiração abre na imagem",
+        "body": "Os pulmões ocupam os dois lados do tórax: o ápice fica em cima, e a base apoia no diafragma. Entre eles está o mediastino, onde fica o coração. Na inspiração, o diafragma contrai e desce, as costelas sobem e os pulmões se expandem. Na referência consultada, o tórax em PA é feito de pé, com o peito no receptor e o queixo erguido. Os ombros rodam para a frente, o que tira as escápulas dos campos pulmonares, e a respiração fica suspensa em inspiração. A imagem mostra dos ápices aos seios costofrênicos, os cantos inferiores e laterais dos pulmões. São descrições para estudo, não um protocolo de atendimento.",
+        "keyPoints": [
+          "Inspiração: o diafragma desce e os pulmões se expandem.",
+          "Ombros para a frente tiram as escápulas dos campos pulmonares.",
+          "A imagem vai dos ápices aos seios costofrênicos."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você vai preparar um tórax em PA no manequim. Nessa incidência, por onde o feixe entra e por onde sai do corpo?",
+          "options": [
+            { "label": "Entra pela frente e sai pelas costas", "correct": false, "feedback": "Entrar pela frente e sair pelas costas descreve a incidência AP. Retome a ordem das letras em PA." },
+            { "label": "Entra pelas costas e sai pela frente", "correct": true, "feedback": "Isso. Em PA, posteroanterior, o feixe entra pelas costas e sai pela frente, onde o peito encosta no receptor." },
+            { "label": "Entra por um lado e sai pelo outro", "correct": false, "feedback": "De um lado para o outro é a incidência em perfil. Confira de novo o que as duas letras indicam." },
+            { "label": "Entra por cima e sai pelos pés", "correct": false, "feedback": "De cima para baixo não é o trajeto de nenhuma das incidências de tórax desta aula. Retome o sentido de PA." }
+          ],
+          "help": "Leia as duas letras na ordem: a primeira diz por onde o feixe entra.",
+          "sourceIds": ["radiopaedia-torax-pa"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada estrutura do tórax ao lugar onde ela fica.",
+          "pairs": [
+            { "left": "Ápice do pulmão", "right": "Parte mais alta do pulmão" },
+            { "left": "Base do pulmão", "right": "Parte de baixo, apoiada no diafragma" },
+            { "left": "Mediastino", "right": "Região central do tórax, onde fica o coração" },
+            { "left": "Seio costofrênico", "right": "Canto inferior e lateral do campo pulmonar" }
+          ],
+          "feedbackCorrect": "Mapa montado. Ápice em cima, base no diafragma, mediastino no centro e seios costofrênicos nos cantos de baixo: é o que você procura na imagem.",
+          "feedbackIncorrect": "Algum par ficou trocado. Separe primeiro o que fica em cima, o que fica embaixo e o que fica no centro do tórax.",
+          "help": "Comece pelos extremos: o ponto mais alto do pulmão e a parte que apoia no diafragma.",
+          "sourceIds": ["openstax-ap2e-pulmoes", "openstax-ap2e-terminologia", "radiopaedia-torax-pa"]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o que acontece quando o paciente recebe o comando de respiração do tórax em PA.",
+          "items": [
+            "O paciente ouve o comando e inspira fundo",
+            "O diafragma contrai e desce",
+            "Os pulmões se expandem e ocupam mais espaço",
+            "A respiração fica suspensa durante a exposição"
+          ],
+          "feedbackCorrect": "Sequência certa: o comando vem primeiro, o diafragma desce, os pulmões se expandem e só então a respiração fica suspensa para a exposição.",
+          "feedbackIncorrect": "A ordem ainda não fecha. Comece pelo que o paciente ouve e termine no momento em que o ar fica preso.",
+          "help": "Pense em causa e efeito: o que precisa acontecer no tórax para o ar entrar?",
+          "sourceIds": ["openstax-ap2e-respiracao", "radiopaedia-torax-pa"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "No laboratório, a Profa. Lia descreve uma imagem de tórax em PA de um manequim articulado: os ápices e os seios costofrênicos aparecem, mas as duas escápulas cobrem a parte lateral dos campos pulmonares.",
+          "prompt": "Que passo do posicionamento descrito na referência essa imagem indica que faltou?",
+          "options": [
+            { "label": "Erguer o queixo para fora do campo", "correct": false, "feedback": "O queixo erguido evita sobreposição no alto da imagem, não nas laterais. Retome o que move as escápulas." },
+            { "label": "Suspender a respiração em inspiração", "correct": false, "feedback": "A inspiração muda a altura do diafragma, não a posição das escápulas. Confira de novo o papel dos ombros." },
+            { "label": "Encostar o peito no receptor de imagem", "correct": false, "feedback": "O peito no receptor define a incidência PA, e nada na descrição contraria isso. Retome o passo que afasta as escápulas." },
+            { "label": "Rodar os ombros para a frente", "correct": true, "feedback": "Isso. Na referência, os ombros rodados para a frente tiram as escápulas dos campos pulmonares. O passo seguinte é descrever o achado à supervisão." }
+          ],
+          "help": "Procure o passo do posicionamento que mexe com a estrutura citada na descrição.",
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma imagem de tórax em PA foi feita logo depois de o paciente simulado soltar todo o ar. Comparada à imagem em inspiração, o que a descrição dela deve mostrar?",
+          "options": [
+            { "label": "Diafragma mais alto e menos campo pulmonar visível", "correct": true, "feedback": "Isso. Na expiração o diafragma relaxa e sobe, o volume do tórax diminui e sobra menos campo pulmonar para ver." },
+            { "label": "Diafragma mais baixo e mais campo pulmonar visível", "correct": false, "feedback": "Esse é o efeito da inspiração, quando o diafragma contrai e desce. Retome o que acontece quando o ar sai." },
+            { "label": "Escápulas projetadas sobre os campos pulmonares", "correct": false, "feedback": "As escápulas dependem da posição dos ombros, não da fase da respiração. Confira de novo o que o diafragma faz." },
+            { "label": "Ápices cortados na parte de cima da imagem", "correct": false, "feedback": "Cortar os ápices é questão de campo e cobertura, não de respiração. Retome o movimento do diafragma na expiração." }
+          ],
+          "help": "Pense no que o diafragma faz quando relaxa e para onde vai o volume do tórax.",
+          "sourceIds": ["openstax-ap2e-respiracao", "radiopaedia-torax-pa"]
+        }
+      ],
+      "closing": {
+        "title": "Do comando à imagem",
+        "body": "Agora você localiza ápices, bases, mediastino e seios costofrênicos e explica por que o tórax em PA pede ombros para a frente e respiração suspensa em inspiração. Quando um critério falha, você descreve o que viu e leva à supervisão.",
+        "line": { "speaker": "caio", "text": "O comando de respiração faz parte do exame. Diga com calma e confira se a pessoa entendeu." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Durante a inspiração profunda pedida no tórax em PA, o que acontece com o diafragma?",
+          "options": [
+            { "label": "Relaxa e sobe em direção ao tórax", "correct": false, "feedback": "Relaxar e subir é o que o diafragma faz na expiração, quando o ar sai." },
+            { "label": "Fica parado, e só as costelas se movem", "correct": false, "feedback": "O diafragma participa da inspiração e se move junto com as costelas." },
+            { "label": "Contrai e desce em direção ao abdome", "correct": true, "feedback": "Isso. Na inspiração o diafragma contrai e desce, o tórax ganha volume e os pulmões se expandem." },
+            { "label": "Contrai e sobe em direção aos ápices", "correct": false, "feedback": "Ao contrair, o diafragma desce. Se subisse, o tórax perderia volume em vez de ganhar." }
+          ],
+          "sourceIds": ["openstax-ap2e-respiracao"]
+        },
+        {
+          "prompt": "Numa imagem de tórax em PA bem coberta, quais são os limites dos campos pulmonares que precisam aparecer?",
+          "options": [
+            { "label": "Dos ápices aos seios costofrênicos", "correct": true, "feedback": "Isso. A referência pede os campos pulmonares dos ápices, em cima, aos seios costofrênicos, embaixo e nas laterais." },
+            { "label": "Das clavículas ao mediastino", "correct": false, "feedback": "As clavículas ficam perto dos ápices, mas o mediastino é a região central, não um limite inferior." },
+            { "label": "Do queixo até as cristas ilíacas da bacia", "correct": false, "feedback": "Esse campo iria do rosto à bacia, muito além do que a imagem de tórax precisa mostrar." },
+            { "label": "Das escápulas ao meio do coração", "correct": false, "feedback": "As escápulas devem ficar fora dos campos, e o coração fica no centro, não no limite inferior dos pulmões." }
+          ],
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no tórax em PA, os ombros rodam para a frente para tirar dos campos pulmonares as…",
+          "item": {
+            "prompt": "Que estruturas saem dos campos pulmonares quando os ombros rodam para a frente no tórax em PA?",
+            "options": [
+              { "label": "As clavículas", "correct": false, "feedback": "As clavículas ficam no alto do tórax e não saem do campo com esse movimento." },
+              { "label": "As costelas", "correct": false, "feedback": "As costelas formam a parede do tórax e aparecem em qualquer posição dos ombros." },
+              { "label": "As vértebras", "correct": false, "feedback": "As vértebras ficam na linha média e não se movem com os ombros." },
+              { "label": "As escápulas", "correct": true, "feedback": "Isso. Com os ombros rodados para a frente, as escápulas saem dos campos pulmonares." }
+            ],
+            "sourceIds": ["radiopaedia-torax-pa"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Dona Marta, paciente simulada, pergunta por que precisa segurar o ar na hora da imagem do tórax. Que explicação combina com o que você estudou?",
+            "options": [
+              { "label": "Segurar o ar diminui a radiação que o exame precisa usar", "correct": false, "feedback": "Prender o ar não altera a radiação usada. O efeito é sobre o pulmão e o movimento. Retome o que a inspiração faz." },
+              { "label": "Com o ar preso, os pulmões ficam cheios e parados", "correct": true, "feedback": "Isso. Com o ar preso depois de inspirar, os pulmões ficam expandidos e sem movimento, o que evita uma imagem borrada." },
+              { "label": "Segurar o ar afasta o coração do receptor", "correct": false, "feedback": "A distância do coração ao receptor depende da incidência, não da respiração." },
+              { "label": "Com o ar preso, as escápulas saem do campo", "correct": false, "feedback": "As escápulas saem do campo quando os ombros rodam para a frente, com ou sem ar preso." }
+            ],
+            "sourceIds": ["radiologyinfo-torax", "openstax-ap2e-respiracao"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Silhueta do tórax de frente com ápices, bases, mediastino, diafragma e seios costofrênicos rotulados.",
+        "Par de esquemas lado a lado: diafragma baixo na inspiração e alto na expiração, com o campo pulmonar destacado."
+      ]
+    },
+    {
+      "id": "m08-02",
+      "code": "M08.02",
+      "title": "Rotação e cobertura do tórax",
+      "objective": "Hoje você vai conseguir comparar descrições de imagens de tórax em PA e dizer se o problema é rotação, inspiração ou cobertura.",
+      "competency": "Comparar descrições de imagens de tórax para identificar o problema técnico.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Estação de conferência de imagens do laboratório",
+        "lines": [
+          { "speaker": "lia", "text": "Tenho duas imagens de tórax do manequim. Numa, as clavículas parecem tortas em relação à coluna. Na outra, falta um canto do pulmão." },
+          { "speaker": "duda", "text": "Eu diria que as duas 'ficaram ruins'. Mas isso não ajuda ninguém a entender o que houve, né?" },
+          { "speaker": "pixel", "text": "Vamos dar nome a cada problema: o que se compara para falar de rotação, de inspiração e de cobertura?" }
+        ]
+      },
+      "concept": {
+        "title": "Três perguntas para a imagem de tórax",
+        "body": "Na referência consultada, a imagem de tórax em PA se confere por três perguntas. Rotação: as extremidades mediais das clavículas, junto ao esterno, ficam à mesma distância dos processos espinhosos, a linha da coluna, e as clavículas aparecem no mesmo nível. Inspiração: contam-se as costelas posteriores acima do diafragma, e as referências consultadas tomam dez como marca da inspiração plena. Cobertura: os campos pulmonares aparecem dos ápices aos seios costofrênicos, sem queixo nem braços sobrepostos. Pouca inspiração muda a aparência do coração e do mediastino. Identificar o problema técnico não é interpretar a imagem: você descreve o que viu e leva à supervisão.",
+        "keyPoints": [
+          "Rotação: clavículas à mesma distância da linha da coluna.",
+          "Inspiração: contar costelas posteriores acima do diafragma.",
+          "Cobertura: dos ápices aos seios costofrênicos."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, você ligou a respiração à imagem. O que a inspiração profunda faz com os campos pulmonares numa imagem de tórax?",
+          "options": [
+            { "label": "Deixa os campos menores, com o diafragma mais alto", "correct": false, "feedback": "Campos menores e diafragma alto descrevem a expiração. Retome o que acontece quando o ar entra." },
+            { "label": "Não muda os campos, só afasta as escápulas", "correct": false, "feedback": "As escápulas se afastam com a rotação dos ombros, e a inspiração muda, sim, o tamanho dos campos." },
+            { "label": "Deixa os campos maiores, com o diafragma mais baixo", "correct": true, "feedback": "Isso. Na inspiração o diafragma desce e os pulmões se expandem, por isso os campos aparecem maiores." },
+            { "label": "Desloca os campos pulmonares para um dos lados do tórax", "correct": false, "feedback": "A respiração não desloca os campos para um lado. Confira de novo o movimento do diafragma." }
+          ],
+          "help": "Lembre para onde vai o diafragma quando o paciente enche o peito de ar.",
+          "sourceIds": ["openstax-ap2e-respiracao"]
+        },
+        {
+          "id": "i2",
+          "type": "case-decision",
+          "role": "prediction",
+          "context": "A Profa. Lia vai mostrar uma imagem de tórax em PA de um manequim que foi posicionado com o tronco rodado: o lado direito do tronco do manequim ficou mais afastado do receptor que o lado esquerdo.",
+          "prompt": "Antes de ver a imagem, o que você espera encontrar nas clavículas?",
+          "options": [
+            { "label": "Distâncias diferentes até a linha da coluna", "correct": true, "feedback": "Isso. Com o tronco rodado, uma clavícula se afasta da linha dos processos espinhosos e a outra se aproxima. É o sinal de rotação da referência." },
+            { "label": "Distâncias iguais até a linha da coluna", "correct": false, "feedback": "Distâncias iguais são o sinal de um tronco sem rotação, o contrário do que foi montado. Retome a posição do manequim." },
+            { "label": "As duas clavículas projetadas acima dos ápices", "correct": false, "feedback": "A altura das clavículas em relação aos ápices depende dos ombros, não de rodar o tronco. Confira de novo o critério de rotação." },
+            { "label": "As duas clavículas fora da imagem", "correct": false, "feedback": "Rodar o tronco não tira as clavículas da imagem. O que muda é a simetria delas em relação à coluna." }
+          ],
+          "help": "Pense em duas marcas simétricas na frente do corpo e numa linha no centro das costas quando o tronco gira.",
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa", "ce-eur-16260-1996"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada descrição de imagem de tórax em PA ao problema técnico que ela indica.",
+          "pairs": [
+            { "left": "Clavículas a distâncias diferentes da coluna", "right": "Rotação do tronco" },
+            { "left": "Poucas costelas posteriores acima do diafragma", "right": "Inspiração insuficiente" },
+            { "left": "Um seio costofrênico fora da imagem", "right": "Cobertura incompleta na parte inferior" },
+            { "left": "Escápulas sobre os campos pulmonares", "right": "Ombros sem rotação para a frente" }
+          ],
+          "feedbackCorrect": "Cada descrição ganhou um nome: rotação, inspiração, cobertura e posição dos ombros. Com o nome certo, a supervisão entende o problema de imediato.",
+          "feedbackIncorrect": "Algum par ficou trocado. Pergunte a cada descrição: ela fala de simetria, de quantidade de pulmão visível ou de limite do campo?",
+          "help": "Separe as descrições em famílias: simetria, quantidade de ar no pulmão e limite do campo.",
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa", "ce-eur-16260-1996"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Duas imagens de tórax em PA do mesmo manequim estão lado a lado. Na imagem A, as clavículas ficam no mesmo nível e à mesma distância da linha da coluna, mas os ápices não aparecem. Na imagem B, os campos aparecem dos ápices aos seios costofrênicos, mas uma clavícula fica bem mais longe da linha da coluna que a outra.",
+          "prompt": "Como você descreve o problema técnico de cada imagem?",
+          "options": [
+            { "label": "A tem rotação, e B tem cobertura incompleta", "correct": false, "feedback": "As duas ficaram trocadas. Na imagem A as clavículas estão simétricas, e é na B que elas ficam desiguais. Confira de novo." },
+            { "label": "A tem cobertura incompleta, e B tem rotação", "correct": true, "feedback": "Isso. Na imagem A faltam os ápices, um problema de cobertura. Na B, a distância desigual das clavículas até a coluna indica rotação." },
+            { "label": "A e B têm inspiração insuficiente", "correct": false, "feedback": "Nenhuma das descrições fala das costelas acima do diafragma, que é como se confere a inspiração. Retome o que cada uma diz." },
+            { "label": "A tem rotação, e B está adequada", "correct": false, "feedback": "A imagem A não tem rotação, e a B tem um critério fora do esperado. Releia a posição das clavículas em cada uma." }
+          ],
+          "help": "Leia cada descrição duas vezes: uma procurando simetria, outra procurando os limites do campo.",
+          "sourceIds": ["radiopaedia-torax-pa"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Caio descreve uma imagem de tórax em PA do simulador: clavículas simétricas em relação à coluna, ápices e seios costofrênicos incluídos, escápulas fora dos campos. Ao contar, ele encontra só sete costelas posteriores acima do diafragma, e a sombra do coração parece mais larga que na imagem anterior do mesmo simulador.",
+          "prompt": "Qual é a descrição técnica mais adequada para levar à supervisão?",
+          "options": [
+            { "label": "Imagem rodada, porque o coração parece bem mais largo", "correct": false, "feedback": "A descrição diz que as clavículas estão simétricas, então não há sinal de rotação. Retome o que a contagem das costelas indica." },
+            { "label": "Cobertura incompleta, porque faltam costelas", "correct": false, "feedback": "Ápices e seios costofrênicos estão incluídos, então a cobertura está completa. Confira de novo o critério medido pelas costelas." },
+            { "label": "Imagem adequada, sem nada a descrever", "correct": false, "feedback": "Sete costelas posteriores ficam abaixo da marca da referência, então há algo a descrever. Retome o critério de inspiração." },
+            { "label": "Inspiração insuficiente, pela contagem das costelas", "correct": true, "feedback": "Isso. Menos costelas posteriores acima do diafragma indicam pouca inspiração, e a referência lembra que isso muda a aparência do coração. Você descreve o achado técnico, sem interpretar." }
+          ],
+          "help": "Passe pelas três perguntas da aula, uma de cada vez, e veja qual delas a descrição não cumpre.",
+          "sourceIds": ["radiopaedia-torax-pa", "ce-eur-16260-1996"]
+        }
+      ],
+      "closing": {
+        "title": "Dar nome ao problema",
+        "body": "Agora você separa rotação, inspiração e cobertura numa descrição de tórax em PA e diz qual critério falhou. Você descreve o problema técnico em palavras e leva à supervisão, sem interpretar a imagem nem decidir a repetição.",
+        "line": { "speaker": "lia", "text": "Uma descrição precisa vale mais que um 'ficou ruim'. Diga o critério, o lado do paciente e o que você viu." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa imagem de tórax em PA sem rotação, como ficam as extremidades mediais das clavículas em relação aos processos espinhosos?",
+          "options": [
+            { "label": "Sobrepostas a eles, na linha média", "correct": false, "feedback": "Sobrepostas à linha média, as clavículas esconderiam a referência usada para comparar os dois lados." },
+            { "label": "À mesma distância deles, dos dois lados", "correct": true, "feedback": "Isso. Sem rotação, as duas extremidades mediais ficam à mesma distância dos processos espinhosos." },
+            { "label": "Uma bem mais perto deles que a outra", "correct": false, "feedback": "Uma mais perto que a outra é justamente o sinal de tronco rodado." },
+            { "label": "Acima deles, fora dos campos pulmonares", "correct": false, "feedback": "A altura das clavículas fala da posição dos ombros, não da rotação do tronco." }
+          ],
+          "sourceIds": ["radiopaedia-torax-pa", "ce-eur-16260-1996"]
+        },
+        {
+          "prompt": "Uma descrição de tórax em PA diz: 'clavículas simétricas, dez costelas posteriores acima do diafragma, seio costofrênico do lado esquerdo do paciente fora da imagem'. Que critério falhou?",
+          "options": [
+            { "label": "Rotação", "correct": false, "feedback": "As clavículas estão simétricas na descrição, então a rotação foi cumprida." },
+            { "label": "Inspiração", "correct": false, "feedback": "Dez costelas posteriores acima do diafragma são a marca de inspiração plena da referência." },
+            { "label": "Posição das escápulas", "correct": false, "feedback": "A descrição não menciona as escápulas, então não há como apontar esse critério." },
+            { "label": "Cobertura", "correct": true, "feedback": "Isso. Um seio costofrênico fora da imagem é cobertura incompleta, e a descrição diz de que lado do paciente." }
+          ],
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa", "ce-eur-16260-1996"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: para falar de rotação no tórax em PA, você compara a distância de cada clavícula até…",
+          "item": {
+            "prompt": "Na conferência de rotação do tórax em PA, a distância das clavículas é comparada em relação a quê?",
+            "options": [
+              { "label": "Aos processos espinhosos, na linha da coluna", "correct": true, "feedback": "Isso. A referência compara a distância de cada clavícula até os processos espinhosos, a linha da coluna." },
+              { "label": "Aos seios costofrênicos, na base dos pulmões", "correct": false, "feedback": "Os seios costofrênicos servem para conferir a cobertura, não a rotação." },
+              { "label": "Às escápulas, na lateral do tórax", "correct": false, "feedback": "As escápulas mostram se os ombros rodaram para a frente, não se o tronco está rodado." },
+              { "label": "Ao diafragma, abaixo dos pulmões", "correct": false, "feedback": "O diafragma entra na conferência da inspiração, junto com a contagem das costelas." }
+            ],
+            "sourceIds": ["radiopaedia-torax-pa"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda descreve uma imagem de tórax em PA de um manequim: 'os dois braços aparecem por cima da parede lateral do tórax'. Que critério da referência essa descrição contraria?",
+            "options": [
+              { "label": "Rotação, conferida pelas clavículas", "correct": false, "feedback": "A descrição não fala das clavículas, que são a referência da rotação." },
+              { "label": "Inspiração, conferida pelas costelas", "correct": false, "feedback": "A descrição não fala das costelas acima do diafragma, que indicam a inspiração." },
+              { "label": "Cobertura, com os campos sem sobreposição", "correct": true, "feedback": "Isso. A referência pede os campos pulmonares sem braços sobrepostos à parede lateral do tórax." },
+              { "label": "Respiração suspensa na exposição", "correct": false, "feedback": "Respiração suspensa evita borrão de movimento, e a descrição fala de sobreposição." }
+            ],
+            "sourceIds": ["radiopaedia-torax-pa"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Dois esquemas de tórax de frente: um com clavículas simétricas em relação à linha dos processos espinhosos, outro com o tronco rodado.",
+        "Esquema de tórax com as costelas posteriores numeradas até o diafragma e os quatro limites de cobertura destacados."
+      ]
+    },
+    {
+      "id": "m08-03",
+      "code": "M08.03",
+      "title": "Abdome e sistemas",
+      "objective": "Hoje você vai conseguir localizar órgãos do abdome por quadrante e dizer o que o campo de um abdome em AP precisa incluir.",
+      "competency": "Localizar relações anatômicas do abdome e o campo examinado em descrições por texto.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de radiografia do laboratório de simulação",
+        "lines": [
+          { "speaker": "paciente", "name": "Seu Jorge", "text": "Vão fazer uma imagem da minha barriga inteira? Ela é grande, viu. Cabe tudo numa chapa só?" },
+          { "speaker": "caio", "text": "Boa pergunta, Seu Jorge. O abdome vai de baixo do diafragma até a bacia. A gente confere se o campo pega tudo isso." },
+          { "speaker": "pixel", "text": "E o que mora nesse espaço? Vamos localizar os órgãos antes de falar do campo." }
+        ]
+      },
+      "concept": {
+        "title": "Quadrantes, órgãos e campo",
+        "body": "Duas linhas que se cruzam no umbigo dividem o abdome em quatro quadrantes, nomeados pelo lado do paciente. O fígado fica abaixo do diafragma, no quadrante superior direito. O pâncreas fica atrás do estômago. Os rins ficam junto à parede posterior, um de cada lado da coluna, e o direito é pouco mais baixo por causa do fígado. Na referência, o abdome em AP é feito em decúbito dorsal, centrado na linha média, na altura das cristas ilíacas. O campo vai do diafragma aos ramos inferiores do púbis e alcança a parede lateral dos dois lados. Sem rotação, costelas e cristas ilíacas aparecem simétricas.",
+        "keyPoints": [
+          "Quadrante se nomeia pelo lado do paciente.",
+          "Fígado no quadrante superior direito, rins dos dois lados da coluna.",
+          "Campo: do diafragma ao púbis, com as paredes laterais."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "No tórax, você viu o diafragma descer na inspiração. Esse músculo separa quais duas cavidades do tronco?",
+          "options": [
+            { "label": "A cavidade craniana e a cavidade torácica", "correct": false, "feedback": "A cavidade craniana fica na cabeça, longe do diafragma. Retome onde esse músculo fica no tronco." },
+            { "label": "A cavidade abdominal e a cavidade pélvica", "correct": false, "feedback": "Entre abdome e pelve não há um músculo divisor como o diafragma. Confira de novo o que fica acima dele." },
+            { "label": "As duas cavidades pleurais, direita e esquerda", "correct": false, "feedback": "As cavidades pleurais ficam lado a lado, separadas pelo mediastino, não pelo diafragma." },
+            { "label": "A cavidade torácica e a abdominopélvica", "correct": true, "feedback": "Isso. O diafragma forma o assoalho da cavidade torácica e a separa da cavidade abdominopélvica." }
+          ],
+          "help": "Pense no que fica logo acima e logo abaixo desse músculo.",
+          "sourceIds": ["openstax-ap2e-terminologia"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada estrutura à localização descrita na referência.",
+          "pairs": [
+            { "left": "Fígado", "right": "Abaixo do diafragma, no quadrante superior direito" },
+            { "left": "Rins", "right": "Junto à parede posterior, um de cada lado da coluna" },
+            { "left": "Pâncreas", "right": "Atrás do estômago" },
+            { "left": "Diafragma", "right": "Acima do abdome, no limite com o tórax" }
+          ],
+          "feedbackCorrect": "Mapa montado. Fígado em cima e do lado direito do paciente, pâncreas atrás do estômago, rins junto à parede posterior e diafragma no limite de cima.",
+          "feedbackIncorrect": "Algum par ficou trocado. Comece pelo que fica no limite com o tórax e depois localize o órgão do quadrante superior direito.",
+          "help": "Uma das estruturas é par e aparece dos dois lados do corpo.",
+          "sourceIds": ["openstax-ap2e-figado", "openstax-ap2e-rins", "openstax-ap2e-terminologia"]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene, de cima para baixo, os marcos que o campo do abdome em AP percorre na referência.",
+          "items": [
+            "Diafragma",
+            "Fígado e rins",
+            "Cristas ilíacas",
+            "Ramos inferiores do púbis"
+          ],
+          "feedbackCorrect": "Sequência certa: do diafragma, passando por fígado e rins e pelas cristas ilíacas, até os ramos inferiores do púbis. É o percurso de conferência da cobertura.",
+          "feedbackIncorrect": "A ordem ainda não fecha. Comece pelo limite com o tórax e termine no osso mais baixo da bacia.",
+          "help": "A altura da centralização fica no meio do percurso, não nas pontas.",
+          "sourceIds": ["radiopaedia-abdome-ap", "openstax-ap2e-figado", "openstax-ap2e-rins"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "No laboratório, a Profa. Lia descreve uma imagem de abdome em AP de um manequim: as cristas ilíacas aparecem simétricas, as paredes laterais estão incluídas e o diafragma aparece no alto. Embaixo, o campo termina logo abaixo das cristas ilíacas, sem mostrar o púbis.",
+          "prompt": "Que critério da referência essa imagem deixou de cumprir?",
+          "options": [
+            { "label": "Cobertura inferior, incluindo o púbis", "correct": true, "feedback": "Isso. A referência pede o campo até os ramos inferiores do púbis, e ele parou logo abaixo das cristas ilíacas. O passo seguinte é descrever o achado à supervisão." },
+            { "label": "Cobertura superior, incluindo o diafragma", "correct": false, "feedback": "O diafragma aparece no alto da imagem, então esse limite foi cumprido. Confira de novo onde o campo termina embaixo." },
+            { "label": "Simetria das cristas ilíacas, sem rotação", "correct": false, "feedback": "A descrição diz que as cristas ilíacas estão simétricas, sem sinal de rotação. Retome os limites do campo." },
+            { "label": "Cobertura lateral, até a parede do abdome", "correct": false, "feedback": "As paredes laterais estão incluídas, segundo a descrição. Retome o limite que ficou de fora." }
+          ],
+          "help": "Percorra os quatro limites do campo: em cima, embaixo e os dois lados.",
+          "sourceIds": ["radiopaedia-abdome-ap"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa descrição de abdome em AP sem rotação, um rim aparece um pouco mais baixo que o outro. Pelo que você estudou, qual é o rim mais baixo e por quê?",
+          "options": [
+            { "label": "O esquerdo, por causa do estômago", "correct": false, "feedback": "O estômago não rebaixa o rim esquerdo na referência estudada. Retome qual órgão grande fica acima do rim mais baixo." },
+            { "label": "O esquerdo, por causa do coração", "correct": false, "feedback": "O coração fica no tórax, acima do diafragma, e não desloca os rins. Confira de novo o lado do fígado." },
+            { "label": "O direito, por causa do fígado", "correct": true, "feedback": "Isso. O rim direito fica um pouco mais baixo porque o fígado ocupa o espaço acima dele. É anatomia esperada, não sinal de rotação." },
+            { "label": "O direito, por causa do pâncreas", "correct": false, "feedback": "O pâncreas fica atrás do estômago e não é o órgão que rebaixa o rim. Retome o que ocupa o quadrante superior direito." }
+          ],
+          "help": "Procure o órgão grande que ocupa o quadrante superior de um dos lados do paciente.",
+          "sourceIds": ["openstax-ap2e-rins", "openstax-ap2e-figado"]
+        }
+      ],
+      "closing": {
+        "title": "Do órgão ao campo",
+        "body": "Agora você localiza fígado, pâncreas e rins pelos quadrantes, sempre pelo lado do paciente, e diz o que o campo do abdome em AP precisa incluir, do diafragma ao púbis. Se um limite ficar de fora, você descreve qual e leva à supervisão.",
+        "line": { "speaker": "caio", "text": "Abdome grande pede atenção dobrada no campo. Confira em cima, embaixo e dos dois lados." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Em que quadrante do abdome fica o fígado, segundo a referência?",
+          "options": [
+            { "label": "Superior direito", "correct": true, "feedback": "Isso. O fígado fica abaixo do diafragma, no quadrante superior direito do paciente." },
+            { "label": "Superior esquerdo", "correct": false, "feedback": "O quadrante superior esquerdo fica do outro lado do paciente, oposto ao fígado." },
+            { "label": "Inferior direito", "correct": false, "feedback": "O fígado fica logo abaixo do diafragma, portanto acima da linha do umbigo." },
+            { "label": "Inferior esquerdo", "correct": false, "feedback": "Esse quadrante fica abaixo do umbigo e do lado oposto ao do fígado." }
+          ],
+          "sourceIds": ["openstax-ap2e-figado"]
+        },
+        {
+          "prompt": "No abdome em AP descrito na referência, onde fica o ponto de centralização?",
+          "options": [
+            { "label": "Na linha média, na altura do diafragma", "correct": false, "feedback": "O diafragma é o limite superior do campo, não o ponto de centralização." },
+            { "label": "No lado direito do paciente, na altura do fígado", "correct": false, "feedback": "A centralização fica na linha média, não deslocada para o lado de um órgão." },
+            { "label": "Na linha média, na altura das cristas ilíacas", "correct": true, "feedback": "Isso. A referência centra o abdome em AP na linha média, na altura das cristas ilíacas." },
+            { "label": "Na linha média, na altura do púbis", "correct": false, "feedback": "O púbis marca o limite inferior do campo, abaixo do ponto de centralização." }
+          ],
+          "sourceIds": ["radiopaedia-abdome-ap"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: as linhas que formam os quatro quadrantes do abdome se cruzam no…",
+          "item": {
+            "prompt": "Em que ponto se cruzam as duas linhas que dividem o abdome em quatro quadrantes?",
+            "options": [
+              { "label": "No diafragma", "correct": false, "feedback": "O diafragma é o limite de cima do abdome, não o ponto de cruzamento das linhas." },
+              { "label": "No umbigo", "correct": true, "feedback": "Isso. Uma linha horizontal e uma vertical se cruzam no umbigo e formam os quatro quadrantes." },
+              { "label": "No púbis", "correct": false, "feedback": "O púbis fica no limite de baixo do abdome, longe do centro dos quadrantes." },
+              { "label": "No esterno", "correct": false, "feedback": "O esterno fica no tórax, acima do diafragma, fora do abdome." }
+            ],
+            "sourceIds": ["openstax-ap2e-terminologia"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu Jorge, paciente simulado, aponta para a própria barriga, acima do umbigo e do lado da mão esquerda dele. Que quadrante ele está mostrando?",
+            "options": [
+              { "label": "Superior direito", "correct": false, "feedback": "Superior está certo, mas o lado se nomeia pelo paciente, e ele mostrou o lado esquerdo dele." },
+              { "label": "Inferior esquerdo", "correct": false, "feedback": "O lado está certo, mas ele apontou acima do umbigo, não abaixo." },
+              { "label": "Inferior direito", "correct": false, "feedback": "Nem a altura nem o lado conferem: ele apontou acima do umbigo, do lado esquerdo dele." },
+              { "label": "Superior esquerdo", "correct": true, "feedback": "Isso. Acima do umbigo e do lado esquerdo do paciente é o quadrante superior esquerdo." }
+            ],
+            "sourceIds": ["openstax-ap2e-terminologia"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Abdome de frente com as duas linhas cruzando no umbigo, os quatro quadrantes nomeados pelo lado do paciente e fígado, pâncreas e rins posicionados.",
+        "Retângulo do campo do abdome em AP sobre a silhueta, com diafragma, cristas ilíacas, ramos inferiores do púbis e paredes laterais marcados."
+      ]
+    },
+    {
+      "id": "m08-04",
+      "code": "M08.04",
+      "title": "Crânio e face",
+      "objective": "Hoje você vai conseguir ligar marcos do crânio e da face às incidências PA e perfil e dizer como a cabeça fica orientada.",
+      "competency": "Relacionar marcos, projeções e orientação do crânio e da face em descrições por texto.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Laboratório de anatomia, com crânio didático",
+        "lines": [
+          { "speaker": "duda", "text": "Crânio em PA, crânio em perfil. No manequim parece fácil, mas eu nunca sei onde é o tal násio." },
+          { "speaker": "lia", "text": "Pegue o crânio didático. Ache primeiro os ossos e as aberturas. O ponto de centralização vem depois, quase sozinho." },
+          { "speaker": "pixel", "text": "Combinado: primeiro os marcos, depois o que cada incidência pede da posição da cabeça." }
+        ]
+      },
+      "concept": {
+        "title": "Marcos que orientam a cabeça",
+        "body": "O crânio adulto tem 22 ossos: 8 na caixa craniana e 14 na face. Só a mandíbula se move. De frente para trás, o contorno passa pelo frontal, pelos parietais e pelo occipital. O násio é a depressão na linha média, entre os olhos, onde o frontal encontra os ossos nasais. O meato acústico externo, a abertura do ouvido, fica no osso temporal. Na referência consultada, o crânio em PA apoia a testa e o nariz no receptor, e o feixe sai pelo násio. No perfil, o plano sagital mediano fica paralelo ao receptor, a centralização fica cerca de 4 cm acima do meato, e as articulações temporomandibulares se sobrepõem.",
+        "keyPoints": [
+          "Násio: linha média, entre os olhos.",
+          "PA: testa e nariz no receptor.",
+          "Perfil: plano sagital mediano paralelo ao receptor."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Que plano divide o corpo em metades direita e esquerda e serve de referência para alinhar a cabeça?",
+          "options": [
+            { "label": "Plano sagital mediano", "correct": true, "feedback": "Isso. O plano sagital mediano passa pela linha média e separa as metades direita e esquerda. É ele que você alinha na cabeça." },
+            { "label": "Plano coronal ou frontal", "correct": false, "feedback": "O plano coronal separa a parte da frente da parte de trás. Retome qual plano passa pela linha média." },
+            { "label": "Plano transversal ou axial", "correct": false, "feedback": "O plano transversal separa a parte de cima da parte de baixo. Confira de novo o que divide direita e esquerda." },
+            { "label": "Plano oblíquo do tronco", "correct": false, "feedback": "Um plano oblíquo corta o corpo em ângulo e não gera metades direita e esquerda iguais." }
+          ],
+          "help": "É o plano que passa pelo meio da testa e pelo nariz.",
+          "sourceIds": ["openstax-ap2e-terminologia"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada marco ao lugar onde ele fica na cabeça.",
+          "pairs": [
+            { "left": "Násio", "right": "Linha média, entre os olhos" },
+            { "left": "Meato acústico externo", "right": "Abertura do ouvido, no osso temporal" },
+            { "left": "Mandíbula", "right": "Osso da face que se move, o do queixo" },
+            { "left": "Ossos nasais", "right": "Par de ossos pequenos na ponte do nariz" }
+          ],
+          "feedbackCorrect": "Marcos no lugar. Násio na linha média, meato no osso temporal, mandíbula no queixo e ossos nasais na ponte do nariz.",
+          "feedbackIncorrect": "Algum par ficou trocado. Separe primeiro o que fica na linha média do rosto e o que fica na lateral da cabeça.",
+          "help": "Só um desses marcos é uma abertura, e só um é um osso que se move.",
+          "sourceIds": ["openstax-ap2e-cranio", "radiopaedia-nasio"]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Num crânio visto de perfil, ordene os ossos que formam o contorno, da frente para trás.",
+          "items": [
+            "Ossos nasais",
+            "Osso frontal",
+            "Ossos parietais",
+            "Osso occipital"
+          ],
+          "feedbackCorrect": "Sequência certa: ossos nasais, frontal, parietais e occipital. É o contorno que você percorre ao conferir a cobertura de um perfil.",
+          "feedbackIncorrect": "A ordem ainda não fecha. Comece pelo nariz, suba pela testa e termine na parte de trás da cabeça.",
+          "help": "Comece pelo rosto e termine na nuca.",
+          "sourceIds": ["openstax-ap2e-cranio"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "A Profa. Lia descreve uma imagem de crânio em perfil de um manequim: as duas articulações temporomandibulares aparecem separadas, uma à frente da outra, em vez de sobrepostas.",
+          "prompt": "O que essa descrição indica sobre a posição da cabeça?",
+          "options": [
+            { "label": "A testa e o nariz não tocaram o receptor", "correct": false, "feedback": "Testa e nariz no receptor são do crânio em PA, não do perfil. Retome o que o perfil pede do plano sagital mediano." },
+            { "label": "O campo deixou o osso occipital de fora", "correct": false, "feedback": "A descrição fala de duas articulações separadas, não de um osso fora do campo. Confira de novo o critério de alinhamento." },
+            { "label": "O plano sagital mediano não ficou paralelo", "correct": true, "feedback": "Isso. No perfil da referência, o plano sagital mediano fica paralelo ao receptor e as duas articulações se sobrepõem. Separadas, elas indicam cabeça rodada ou inclinada." },
+            { "label": "A mandíbula se moveu no momento da exposição", "correct": false, "feedback": "Movimento borra a imagem, mas não separa as duas articulações uma da outra. Retome a posição da cabeça." }
+          ],
+          "help": "Pense em duas estruturas iguais, uma de cada lado da cabeça, vistas exatamente de lado.",
+          "sourceIds": ["radiopaedia-cranio-perfil"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Você recebe a descrição de uma imagem de crânio: 'testa e nariz apoiados no receptor, feixe saindo pelo násio'. Que incidência é essa e por onde o feixe entrou?",
+          "options": [
+            { "label": "Perfil, com o feixe entrando por um dos lados", "correct": false, "feedback": "No perfil, quem fica junto ao receptor é o lado da cabeça, não a testa e o nariz. Retome a descrição." },
+            { "label": "PA, com o feixe entrando pela parte de trás", "correct": true, "feedback": "Isso. Com a testa e o nariz no receptor e o feixe saindo pelo násio, a incidência é PA: o feixe entra por trás e sai pela frente." },
+            { "label": "AP, com o feixe entrando pela testa", "correct": false, "feedback": "No AP o feixe entraria pela frente, e a descrição diz que ele sai pelo násio, na frente. Confira de novo o sentido." },
+            { "label": "PA, com o feixe entrando pelo násio", "correct": false, "feedback": "A incidência está certa, mas o násio é o ponto de saída do feixe na descrição, não o de entrada." }
+          ],
+          "help": "Veja que parte da cabeça toca o receptor e lembre de que lado do corpo o receptor fica em relação ao tubo.",
+          "sourceIds": ["radiopaedia-cranio-pa", "radiopaedia-nasio"]
+        }
+      ],
+      "closing": {
+        "title": "Do marco à posição da cabeça",
+        "body": "Agora você localiza násio, meato acústico externo, mandíbula e os ossos do contorno do crânio, e diz o que o PA e o perfil pedem da posição da cabeça. Com um critério fora do esperado, você descreve o que viu e leva à supervisão.",
+        "line": { "speaker": "lia", "text": "Mão no crânio didático antes de mão no equipamento. Quem acha o marco no modelo descreve melhor a imagem." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No crânio em PA descrito na referência, que partes da cabeça ficam apoiadas no receptor?",
+          "options": [
+            { "label": "A nuca e o alto da cabeça", "correct": false, "feedback": "Com a nuca no receptor, o rosto ficaria voltado para o tubo, o que não é a posição do PA." },
+            { "label": "Uma orelha e a têmpora do mesmo lado", "correct": false, "feedback": "Orelha e têmpora no receptor colocam a cabeça de lado, como no perfil." },
+            { "label": "O queixo e a ponta do nariz", "correct": false, "feedback": "Com o queixo apoiado, a testa se afasta do receptor, e a referência descreve a testa em contato com ele." },
+            { "label": "A testa e o nariz", "correct": true, "feedback": "Isso. No crânio em PA da referência, a testa e o nariz ficam em contato com o receptor." }
+          ],
+          "sourceIds": ["radiopaedia-cranio-pa"]
+        },
+        {
+          "prompt": "No crânio em perfil da referência, a centralização fica cerca de 4 cm acima de qual marco?",
+          "options": [
+            { "label": "Do násio", "correct": false, "feedback": "O násio é o ponto de saída do feixe no PA, na linha média do rosto." },
+            { "label": "Do meato acústico externo", "correct": true, "feedback": "Isso. No perfil da referência, a centralização fica cerca de 4 cm acima do meato acústico externo." },
+            { "label": "Do ângulo da mandíbula", "correct": false, "feedback": "O ângulo da mandíbula fica bem abaixo do ponto usado na referência para o perfil." },
+            { "label": "Do canto externo de um dos olhos", "correct": false, "feedback": "O canto do olho fica na frente do rosto, longe do centro de um crânio em perfil." }
+          ],
+          "sourceIds": ["radiopaedia-cranio-perfil"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no crânio em perfil, o plano sagital mediano fica … ao receptor.",
+          "item": {
+            "prompt": "Como o plano sagital mediano fica em relação ao receptor no crânio em perfil?",
+            "options": [
+              { "label": "Perpendicular ao receptor", "correct": false, "feedback": "Assim a cabeça ficaria de frente para o receptor, e não de lado." },
+              { "label": "Inclinado a 45 graus", "correct": false, "feedback": "Um plano inclinado deixaria a cabeça em posição oblíqua, não em perfil." },
+              { "label": "Paralelo ao receptor", "correct": true, "feedback": "Isso. No perfil, o plano sagital mediano fica paralelo ao receptor." },
+              { "label": "Apoiado sobre o receptor", "correct": false, "feedback": "Um plano imaginário no meio da cabeça não tem como apoiar no receptor." }
+            ],
+            "sourceIds": ["radiopaedia-cranio-perfil"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu Jorge, paciente simulado, pergunta em que osso fica 'o buraco do ouvido' que você usou como referência. O que você responde?",
+            "options": [
+              { "label": "No osso temporal", "correct": true, "feedback": "Isso. O meato acústico externo, a abertura do ouvido, fica no osso temporal, na lateral do crânio." },
+              { "label": "No osso frontal", "correct": false, "feedback": "O frontal é o osso da testa, na frente do crânio." },
+              { "label": "No osso occipital", "correct": false, "feedback": "O occipital forma a parte de trás do crânio, atrás do ouvido." },
+              { "label": "Na mandíbula", "correct": false, "feedback": "A mandíbula é o osso do queixo, abaixo do ouvido." }
+            ],
+            "sourceIds": ["openstax-ap2e-cranio"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Crânio em vista lateral com ossos nasais, frontal, parietal, occipital, temporal, meato acústico externo e mandíbula rotulados, e o ponto 4 cm acima do meato.",
+        "Dois esquemas vistos de cima: cabeça em PA (testa e nariz no receptor) e em perfil (plano sagital mediano paralelo ao receptor)."
+      ]
+    },
+    {
+      "id": "m08-05",
+      "code": "M08.05",
+      "title": "Variação de contexto e paciente",
+      "objective": "Hoje você vai conseguir escolher a comunicação e a adaptação técnica segura quando o paciente ou o contexto fogem do padrão.",
+      "competency": "Escolher comunicação e adaptação técnica segura diante de variações de contexto e de paciente.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Enfermaria simulada, com leito e equipamento móvel",
+        "lines": [
+          { "speaker": "paciente", "name": "Dona Marta", "text": "Moço, eu não consigo ficar de pé hoje. E fico nervosa quando mandam prender o ar." },
+          { "speaker": "caio", "text": "Tudo bem, Dona Marta. A gente faz a imagem com a senhora sentada no leito e combina a respiração antes, com calma." },
+          { "speaker": "pixel", "text": "Quando o padrão não cabe, o que muda na imagem e o que muda na conversa?" }
+        ]
+      },
+      "concept": {
+        "title": "Adaptar sem perder o critério",
+        "body": "Quando o paciente não consegue ficar de pé, a referência descreve o tórax em AP: sentado o mais ereto possível, com as costas no receptor, apoiado em travesseiros se preciso. Nessa incidência, o coração fica mais longe do receptor e a sombra do mediastino aparece ampliada. Por isso AP e PA não mostram o coração do mesmo tamanho. A conversa também se adapta: linguagem simples, checar se a pessoa entendeu, combinar o 'inspire e segure' e avisar quando pode respirar. No abdome de um paciente grande, podem ser necessárias duas imagens. Se a pessoa disser que pode estar grávida, você interrompe e avisa a equipe antes de qualquer exposição.",
+        "keyPoints": [
+          "Sem ficar de pé: tórax em AP, sentado o mais ereto possível.",
+          "No AP, a sombra do coração aparece ampliada.",
+          "Possível gravidez: parar e avisar a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da unidade de geometria: o que acontece com a imagem de um objeto quando ele fica mais longe do receptor, com o resto igual?",
+          "options": [
+            { "label": "Aparece reduzida", "correct": false, "feedback": "Reduzida seria o contrário do efeito geométrico. Retome o que acontece quando o objeto se afasta do receptor." },
+            { "label": "Aparece ampliada", "correct": true, "feedback": "Isso. Mais longe do receptor, o objeto aparece ampliado. É o que acontece com o coração no tórax em AP." },
+            { "label": "Aparece do mesmo tamanho", "correct": false, "feedback": "O tamanho na imagem muda com a distância ao receptor. Confira de novo a geometria do feixe." },
+            { "label": "Aparece invertida", "correct": false, "feedback": "A distância ao receptor muda o tamanho, não vira a imagem de cabeça para baixo." }
+          ],
+          "help": "O feixe se abre a partir do tubo. Pense numa sombra quando o objeto se afasta da parede.",
+          "sourceIds": ["radiopaedia-torax-ap"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação à adaptação descrita na referência.",
+          "pairs": [
+            { "left": "Paciente não consegue ficar de pé", "right": "Tórax em AP, sentado o mais ereto possível" },
+            { "left": "Paciente não se sustenta sentado", "right": "Apoio com travesseiros para manter a posição" },
+            { "left": "Abdome de paciente grande", "right": "Duas imagens para incluir todo o abdome" },
+            { "left": "Paciente nervoso com o comando", "right": "Combinar a respiração antes, em linguagem simples" }
+          ],
+          "feedbackCorrect": "Cada situação ganhou a adaptação descrita na referência. Em todas, quem define a conduta é a equipe, e você chega com a descrição e a proposta.",
+          "feedbackIncorrect": "Algum par ficou trocado. Separe o que é adaptação de posição, o que é de campo e o que é de conversa.",
+          "help": "Uma das situações se resolve só com conversa, sem mudar a posição nem o campo.",
+          "sourceIds": ["radiopaedia-torax-ap", "radiopaedia-abdome-ap", "esr-efrs-seguranca-2019"]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a conversa sobre o comando de respiração, na ordem ensinada nesta aula.",
+          "items": [
+            "Explicar o exame em linguagem simples",
+            "Checar se a pessoa entendeu o comando",
+            "Pedir que inspire e segure o ar",
+            "Aguardar a exposição com o ar preso",
+            "Avisar que pode voltar a respirar"
+          ],
+          "feedbackCorrect": "Sequência certa: explicar, checar, pedir o ar preso, aguardar a exposição e avisar que pode respirar. O aviso final é parte do cuidado.",
+          "feedbackIncorrect": "A ordem ainda não fecha. A explicação e a checagem vêm antes do comando, e o aviso para respirar vem por último.",
+          "help": "Ninguém segura o ar direito sem antes entender o que vai ser pedido.",
+          "sourceIds": ["radiopaedia-torax-ap", "esr-efrs-seguranca-2019"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Dona Marta, 34 anos na ficha fictícia, está sentada no leito para um tórax em AP. Enquanto Duda ajusta os travesseiros, ela comenta: 'Minha menstruação está atrasada, será que tem problema?'. O equipamento já está posicionado, e a fila do plantão simulado é grande.",
+          "prompt": "Qual é a ação segura agora?",
+          "options": [
+            { "label": "Seguir com o exame, já que o tórax fica longe da barriga", "correct": false, "feedback": "Essa é uma avaliação de risco que não cabe ao estudante, e seguir tira da equipe a chance de decidir. Retome a ação segura." },
+            { "label": "Dizer que não há risco e pedir que ela relaxe", "correct": false, "feedback": "Tranquilizar sem base é dar uma resposta clínica que não é sua. Confira de novo quem precisa saber dessa informação." },
+            { "label": "Cancelar o exame e mandar a paciente embora", "correct": false, "feedback": "Cancelar por conta própria também é decidir no lugar da equipe. Pare, descreva o que ouviu e peça apoio." },
+            { "label": "Parar e avisar a equipe antes de qualquer exposição", "correct": true, "feedback": "Isso. A possibilidade de gravidez é informação que a equipe precisa ter antes da exposição. Você para, relata o que a paciente disse e aguarda a orientação, conforme o protocolo do serviço." }
+          ],
+          "help": "Pergunte a si mesmo quem precisa saber dessa informação antes de o exame continuar.",
+          "sourceIds": ["radiologyinfo-torax"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Jorge, paciente simulado, usa aparelho auditivo e está em cadeira de rodas, sem conseguir ficar de pé. O pedido é um tórax. Caio pergunta como você prepararia a posição e a conversa, lembrando que a decisão final é da equipe.",
+          "prompt": "Que proposta combina com o que você estudou?",
+          "options": [
+            { "label": "Sentado o mais ereto possível, com o comando combinado antes", "correct": true, "feedback": "Isso. Sentado o mais ereto possível é a adaptação descrita para quem não fica de pé, e combinar o comando antes dá tempo de conferir se ele foi entendido. Você leva a proposta, e a equipe decide." },
+            { "label": "De pé, apoiado por dois colegas, com o comando dito em voz bem alta", "correct": false, "feedback": "Sustentar de pé quem não consegue ficar de pé cria risco de queda, e falar alto não garante que o comando foi entendido. Retome a adaptação descrita." },
+            { "label": "Sentado, sem comando de respiração, para não confundir o paciente", "correct": false, "feedback": "Sem o comando, a imagem perde a inspiração suspensa. A saída é adaptar a conversa, não abandonar o comando." },
+            { "label": "Deitado de bruços, com o comando dado por gestos durante a exposição", "correct": false, "feedback": "De bruços não é a adaptação descrita, e um comando dado só durante a exposição não deixa tempo para conferir. Retome a proposta." }
+          ],
+          "help": "Olhe para as duas adaptações do caso: a da posição e a da conversa.",
+          "sourceIds": ["radiopaedia-torax-ap", "esr-efrs-seguranca-2019"]
+        }
+      ],
+      "closing": {
+        "title": "Mudar o caminho, manter o cuidado",
+        "body": "Agora você reconhece quando o padrão não serve, sabe que o tórax em AP amplia a sombra do coração e adapta a conversa para que o comando de respiração funcione. Diante de possível gravidez ou de qualquer dúvida, você para e avisa a equipe.",
+        "line": { "speaker": "caio", "text": "Paciente diferente não é problema, é o trabalho. O que não muda é perguntar antes e avisar a equipe." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que a sombra do coração aparece ampliada no tórax em AP, comparado ao PA?",
+          "options": [
+            { "label": "Porque o paciente inspira menos sentado", "correct": false, "feedback": "A inspiração muda a imagem, mas a ampliação descrita vem da geometria da incidência." },
+            { "label": "Porque o feixe usa mais energia no exame em leito", "correct": false, "feedback": "A referência explica a ampliação pela distância ao receptor, não pela energia do feixe." },
+            { "label": "Porque o coração fica mais longe do receptor", "correct": true, "feedback": "Isso. No AP o coração fica mais longe do receptor, e a sombra do mediastino aparece ampliada." },
+            { "label": "Porque as escápulas cobrem o mediastino", "correct": false, "feedback": "A posição das escápulas não altera o tamanho da sombra do coração." }
+          ],
+          "sourceIds": ["radiopaedia-torax-ap"]
+        },
+        {
+          "prompt": "Dona Marta, paciente simulada, não entendeu o comando 'inspire e segure' na primeira explicação. O que você faz antes da exposição?",
+          "options": [
+            { "label": "Explica de novo, com palavras simples, e confere", "correct": true, "feedback": "Isso. Linguagem simples e checagem do entendimento vêm antes do comando, para que a inspiração suspensa funcione." },
+            { "label": "Repete o mesmo comando em voz mais alta", "correct": false, "feedback": "Repetir mais alto não muda o que não foi entendido. Falta trocar as palavras e conferir." },
+            { "label": "Dispensa o comando e segue com o exame", "correct": false, "feedback": "Sem o comando, a imagem perde a inspiração suspensa que o exame pede." },
+            { "label": "Pede ao acompanhante que segure o tórax da paciente", "correct": false, "feedback": "Segurar o tórax não faz a paciente entender o comando e coloca outra pessoa perto do feixe." }
+          ],
+          "sourceIds": ["esr-efrs-seguranca-2019", "radiopaedia-torax-ap"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quando o paciente não consegue ficar de pé, a referência descreve o tórax em AP com ele sentado o mais…",
+          "item": {
+            "prompt": "Como fica o paciente no tórax em AP descrito para quem não consegue ficar de pé?",
+            "options": [
+              { "label": "Deitado de lado, com os braços erguidos", "correct": false, "feedback": "Deitado de lado não é a posição descrita para o tórax em AP no leito." },
+              { "label": "Sentado o mais ereto possível", "correct": true, "feedback": "Isso. A referência descreve o paciente sentado o mais ereto possível, com as costas no receptor." },
+              { "label": "De pé, com o peito no receptor", "correct": false, "feedback": "De pé com o peito no receptor é o PA, justamente o que esse paciente não consegue fazer." },
+              { "label": "Deitado de bruços sobre o receptor", "correct": false, "feedback": "De bruços o peito ficaria no receptor, e a referência descreve as costas apoiadas nele." }
+            ],
+            "sourceIds": ["radiopaedia-torax-ap"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num abdome em AP de um simulador de porte grande, uma única imagem não inclui do diafragma ao púbis. Que adaptação a referência descreve?",
+            "options": [
+              { "label": "Aumentar a distância até o campo caber", "correct": false, "feedback": "A referência não descreve mudar a distância para esse caso. Ela fala em dividir o abdome em mais de uma imagem." },
+              { "label": "Aceitar a imagem sem a parte de baixo", "correct": false, "feedback": "Sem a parte de baixo, a cobertura fica incompleta, e isso precisa ser descrito, não aceito em silêncio." },
+              { "label": "Fazer duas imagens para cobrir tudo", "correct": true, "feedback": "Isso. A referência descreve duas imagens para incluir todo o abdome em pacientes maiores. A conduta é definida com a equipe." },
+              { "label": "Trocar o abdome por um tórax em AP", "correct": false, "feedback": "Trocar o exame é mudar o pedido, o que não cabe ao estudante nem resolve a cobertura." }
+            ],
+            "sourceIds": ["radiopaedia-abdome-ap"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Dois esquemas de perfil do tronco: PA com o coração perto do receptor e AP com o coração longe, mostrando a sombra maior no AP.",
+        "Linha do tempo da conversa: explicar, checar, pedir o ar preso, exposição, avisar que pode respirar."
+      ]
+    },
+    {
+      "id": "m08-06",
+      "code": "M08.06",
+      "title": "Da solicitação à conferência",
+      "objective": "Hoje você vai conseguir percorrer um caso novo da solicitação à conferência da imagem, checando identificação, região e adequação.",
+      "competency": "Integrar identificação, região examinada e adequação técnica num caso novo.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Recepção e sala de radiografia do laboratório",
+        "lines": [
+          { "speaker": "lia", "text": "Hoje o caso é inteiro. Chegou um pedido de tórax em PA para o Seu Jorge. Por onde você começa?" },
+          { "speaker": "duda", "text": "Eu já ia chamar 'Seu Jorge?' e levar para a sala. Mas tem dois Jorges na lista de espera." },
+          { "speaker": "pixel", "text": "Então a primeira conferência não é da imagem. É da pessoa e do pedido. Vamos montar o caminho todo." }
+        ]
+      },
+      "concept": {
+        "title": "Um caminho com quatro conferências",
+        "body": "Nesta aula, a sequência de estudo tem quatro conferências. Pessoa: o paciente diz o nome completo e a data de nascimento, e você compara com o pedido e a pulseira. Perguntas de sim ou não, como 'o senhor é o Jorge?', não servem. Pedido: exame, região e lado conferem com a pessoa presente. Preparo: posição, marcador de lado e comando combinados. Imagem: cobertura, rotação e inspiração, como nas aulas anteriores. Se algo não bate em qualquer etapa, você para, descreve a divergência e pede apoio à equipe, sem corrigir o registro por conta própria.",
+        "keyPoints": [
+          "Pessoa, pedido, preparo e imagem: quatro conferências.",
+          "Identificação ativa: o paciente diz nome e data de nascimento.",
+          "Divergência: parar, descrever e pedir apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da unidade de entrada na profissão: como se confirma a identidade de um paciente antes do exame?",
+          "options": [
+            { "label": "Chamando o primeiro nome na sala de espera", "correct": false, "feedback": "O primeiro nome pode ser de mais de uma pessoa na sala, e quem responde pode se enganar. Retome a identificação ativa." },
+            { "label": "Conferindo o número do leito ou da sala", "correct": false, "feedback": "O leito ou a sala dizem onde a pessoa está, não quem ela é. Confira de novo o que o próprio paciente deve informar." },
+            { "label": "Pedindo que diga nome completo e nascimento", "correct": true, "feedback": "Isso. O paciente diz o nome completo e a data de nascimento, dois identificadores que você compara com o pedido e a pulseira." },
+            { "label": "Perguntando 'o senhor é o Jorge?' e aguardando", "correct": false, "feedback": "Pergunta de sim ou não leva a pessoa a concordar por engano. Retome a forma ativa de confirmar." }
+          ],
+          "help": "Na identificação ativa, quem fornece a informação é o paciente, não você.",
+          "sourceIds": ["esr-efrs-seguranca-2019", "ms-protocolo-identificacao-2013"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as quatro conferências do caminho, na ordem ensinada nesta aula.",
+          "items": [
+            "Pessoa: identificação dita pelo paciente",
+            "Pedido: exame, região e lado",
+            "Preparo: posição, marcador e comando",
+            "Imagem: cobertura, rotação e inspiração"
+          ],
+          "feedbackCorrect": "Caminho montado: pessoa, pedido, preparo e imagem. Cada conferência protege a seguinte.",
+          "feedbackIncorrect": "A ordem ainda não fecha. Antes de olhar o pedido em detalhe, é preciso saber quem está na sua frente, e a imagem só vem no fim.",
+          "help": "A primeira conferência acontece antes de o paciente entrar na sala.",
+          "sourceIds": ["esr-efrs-seguranca-2019"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação à conferência que precisa pegá-la.",
+          "pairs": [
+            { "left": "Dois pacientes com o mesmo primeiro nome", "right": "Conferência da pessoa" },
+            { "left": "Pedido de tórax, e o paciente fala em joelho", "right": "Conferência do pedido" },
+            { "left": "Marcador de lado ausente na preparação", "right": "Conferência do preparo" },
+            { "left": "Seio costofrênico fora do campo", "right": "Conferência da imagem" }
+          ],
+          "feedbackCorrect": "Cada situação caiu na conferência certa. Saber em que etapa a divergência aparece ajuda a descrevê-la para a equipe.",
+          "feedbackIncorrect": "Algum par ficou trocado. Pergunte a cada situação: ela fala de quem é o paciente, do que foi pedido, da preparação ou da imagem pronta?",
+          "help": "Uma das situações só pode ser vista depois que a imagem existe.",
+          "sourceIds": ["esr-efrs-seguranca-2019", "radiopaedia-torax-pa"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Chega o pedido de abdome em AP para 'Marta Souza', nascida em 1961 na ficha fictícia. A paciente simulada que entra diz se chamar Marta Souza, mas informa outra data de nascimento. Ela está com pressa, e o colega da recepção sugere: 'Deve ser erro de digitação, arruma aí no sistema e segue'.",
+          "prompt": "Qual é a ação segura?",
+          "options": [
+            { "label": "Corrigir a data no sistema e seguir com o exame", "correct": false, "feedback": "Alterar o registro por conta própria apaga a divergência sem resolver quem é a paciente. Retome a ação segura." },
+            { "label": "Parar, descrever a divergência e pedir apoio", "correct": true, "feedback": "Isso. Com um identificador que não confere, o exame não começa. Você descreve o que encontrou, e a equipe esclarece a identidade e o registro." },
+            { "label": "Seguir com o exame, já que o nome confere", "correct": false, "feedback": "Um identificador só não basta: nome igual com nascimento diferente pode ser outra pessoa. Confira de novo o que a divergência pede." },
+            { "label": "Pedir que ela confirme a data que está na ficha", "correct": false, "feedback": "Ler a data da ficha para ela confirmar vira pergunta de sim ou não, que a referência desaconselha. Retome: pare e peça apoio." }
+          ],
+          "help": "Um dos dois identificadores não confere. Pense em quem pode esclarecer isso antes de o exame começar.",
+          "sourceIds": ["esr-efrs-seguranca-2019", "ms-protocolo-identificacao-2013"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Jorge, paciente simulado, tem a identidade e o pedido de tórax em PA conferidos. O preparo foi combinado, com marcador de lado. Na imagem do simulador, você descreve: clavículas à mesma distância da linha da coluna, dez costelas posteriores acima do diafragma, ápices incluídos e seio costofrênico do lado direito do paciente fora do campo.",
+          "prompt": "Como você fecha a conferência deste caso?",
+          "options": [
+            { "label": "Registra a imagem como adequada, pois não há rotação", "correct": false, "feedback": "Não há rotação, mas um seio costofrênico ficou fora do campo. Retome a pergunta de cobertura." },
+            { "label": "Repete a imagem por conta própria, com o campo maior", "correct": false, "feedback": "Repetir é decisão da supervisão, não de quem está em estágio. Confira de novo o que cabe a você fazer com o achado." },
+            { "label": "Descreve inspiração insuficiente e leva à supervisão", "correct": false, "feedback": "Dez costelas posteriores acima do diafragma são a marca de inspiração plena. Retome o critério que a descrição não cumpre." },
+            { "label": "Descreve cobertura incompleta e leva à supervisão", "correct": true, "feedback": "Isso. Rotação e inspiração conferem, mas falta um seio costofrênico. Você descreve a cobertura incompleta, com o lado do paciente, e a supervisão decide." }
+          ],
+          "help": "Passe a descrição pelas três perguntas da imagem de tórax e veja qual fica sem resposta completa.",
+          "sourceIds": ["radiopaedia-torax-pa", "rcr-criterios-torax-pa", "ce-eur-16260-1996", "esr-efrs-seguranca-2019"]
+        }
+      ],
+      "closing": {
+        "title": "O caso inteiro, do começo ao fim",
+        "body": "Agora você percorre um caso novo em quatro conferências: pessoa, pedido, preparo e imagem. Você usa os critérios de tórax, abdome e crânio para dizer o que a imagem cumpre e, diante de qualquer divergência, para, descreve e pede apoio.",
+        "line": { "speaker": "lia", "text": "Você fechou a unidade conferindo antes de agir. Leve esse hábito para as próximas." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na conferência do pedido ensinada nesta aula, o que precisa conferir com a pessoa presente?",
+          "options": [
+            { "label": "Cobertura, rotação e inspiração", "correct": false, "feedback": "Cobertura, rotação e inspiração pertencem à conferência da imagem, a última do caminho." },
+            { "label": "Exame, região e lado", "correct": true, "feedback": "Isso. Na conferência do pedido, exame, região e lado precisam conferir com a pessoa presente." },
+            { "label": "Nome da mãe e endereço", "correct": false, "feedback": "O nome da mãe pode identificar a pessoa, mas a conferência do pedido olha exame, região e lado." },
+            { "label": "Peso, altura e idade", "correct": false, "feedback": "Peso, altura e idade não dizem se o exame, a região e o lado estão certos." }
+          ],
+          "sourceIds": ["esr-efrs-seguranca-2019"]
+        },
+        {
+          "prompt": "Na conferência de uma imagem de abdome em AP do simulador, o diafragma não aparece. Qual é o próximo passo de quem está em estágio?",
+          "options": [
+            { "label": "Apagar a imagem e refazer sem avisar", "correct": false, "feedback": "Apagar e refazer sem avisar esconde o problema e decide a repetição por conta própria." },
+            { "label": "Liberar a imagem, já que o púbis aparece inteiro", "correct": false, "feedback": "O limite de baixo foi cumprido, mas o de cima faltou, e isso precisa ser dito a alguém." },
+            { "label": "Anotar no pedido que o exame foi normal", "correct": false, "feedback": "Dizer que um exame é normal é interpretar a imagem, o que não cabe ao estudante." },
+            { "label": "Descrever o limite que faltou à supervisão", "correct": true, "feedback": "Isso. Você descreve que o diafragma ficou fora do campo e leva à supervisão, que decide o que fazer." }
+          ],
+          "sourceIds": ["radiopaedia-abdome-ap", "esr-efrs-seguranca-2019"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se algo não bate em qualquer etapa, você para, descreve a divergência e…",
+          "item": {
+            "prompt": "Diante de uma divergência entre o pedido e o que você encontra, qual é o terceiro passo, depois de parar e descrever?",
+            "options": [
+              { "label": "Pedir apoio à equipe", "correct": true, "feedback": "Isso. Parar, descrever a divergência e pedir apoio à equipe: o terceiro passo é o apoio." },
+              { "label": "Corrigir o registro", "correct": false, "feedback": "Corrigir o registro por conta própria apaga a divergência sem esclarecer o que houve." },
+              { "label": "Seguir com o exame", "correct": false, "feedback": "Seguir com o exame leva a divergência adiante, até a imagem." },
+              { "label": "Dispensar o paciente", "correct": false, "feedback": "Dispensar o paciente é decidir sozinho algo que cabe à equipe." }
+            ],
+            "sourceIds": ["esr-efrs-seguranca-2019"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No laboratório, o pedido fictício diz 'crânio em perfil', e o colega já posicionou o manequim com a testa e o nariz no receptor. Em que conferência você pega essa diferença e o que faz?",
+            "options": [
+              { "label": "Na da imagem, depois da exposição, e refaz", "correct": false, "feedback": "Esperar a imagem para notar a diferença gasta uma exposição que não precisava acontecer." },
+              { "label": "Na da pessoa, e pede outro documento", "correct": false, "feedback": "A identidade não está em questão neste caso. A diferença está na posição montada." },
+              { "label": "Na do preparo, e para antes de expor", "correct": true, "feedback": "Isso. Testa e nariz no receptor é a posição do PA, não a do perfil. A diferença aparece no preparo, e você para e avisa antes de qualquer exposição." },
+              { "label": "Na do pedido, e muda o pedido para PA", "correct": false, "feedback": "Mudar o pedido para combinar com a posição é corrigir o registro por conta própria." }
+            ],
+            "sourceIds": ["radiopaedia-cranio-pa", "radiopaedia-cranio-perfil", "esr-efrs-seguranca-2019"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Trilho com quatro estações (pessoa, pedido, preparo, imagem), cada uma com o que se compara e uma saída lateral 'parar, descrever, pedir apoio'.",
+        "Cartão de pedido fictício ao lado de uma pulseira fictícia, com os dois identificadores destacados."
+      ]
+    }
+  ]
+}

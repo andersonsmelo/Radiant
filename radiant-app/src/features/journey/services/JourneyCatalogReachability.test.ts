@@ -54,7 +54,7 @@ it('o inventário executável publica a cobertura separando legado de fonte edit
     const { execFileSync } = jest.requireActual<typeof import('node:child_process')>('node:child_process');
     const { resolve } = jest.requireActual<typeof import('node:path')>('node:path');
     const root = resolve(__dirname, '../../../../..');
-    const report = JSON.parse(execFileSync(process.execPath, ['scripts/qa/trilha-structural-inventory.cjs', '--check'], { cwd: root, encoding: 'utf8' }));
+    const report = JSON.parse(execFileSync(process.execPath, ['scripts/qa/trilha-structural-inventory.cjs', '--check'], { cwd: root, encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 }));
     expect(report.schemaVersion).toBe(3);
     // As contagens saem das aulas-fonte: toda interação, todo item de conferência e de recuperação tem proveniência ligada.
     expect(report.coverage.summary).toMatchObject({

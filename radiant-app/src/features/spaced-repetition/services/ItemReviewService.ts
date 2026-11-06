@@ -10,20 +10,29 @@ export type ItemDefinition = { item: ItemIdentity; question: QuizQuestion };
 export type ReviewCatalogPort = { definitions(lessonId: string): ItemDefinition[] };
 
 // Resolução tardia: importar a agenda pura não inicializa catálogo, sync ou módulos nativos.
-const catalog: ReviewCatalogPort = {
+export const reviewCatalog: ReviewCatalogPort = {
     definitions(lessonId) {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { ProductionCurriculumCatalog } = require('../../student-checkpoints/ProductionCurriculumCatalog');
         const checkpoint = ProductionCurriculumCatalog.getCheckpointByNodeId(lessonId);
         const batch = ProductionCurriculumCatalog.getBatchByCheckpointNodeId(lessonId);
-        if (checkpoint && batch) return checkpoint.items.map((item: CheckpointItemCandidateV1) => ({
-            item: { lessonId, itemId: item.id,
-                activityId: batch.activities.find((activity: LearningActivityV2) => activity.competencyIds.includes(item.competencyIds[0]))?.id ?? batch.batchId,
-                competencyId: item.competencyIds[0], contentVersion: batch.contentVersion, evidenceKind: 'independent-recall' },
-            question: { id: item.id, type: 'multiple-choice' as const, prompt: item.prompt,
-                options: item.options.map(option => ({ label: option.label })),
-                correctAnswerIndex: item.options.findIndex(option => option.id === item.correctOptionId), explanation: item.feedback.correct },
-        }));
+        if (checkpoint && batch) {
+            const definition = (item: CheckpointItemCandidateV1, evidenceKind: ItemIdentity['evidenceKind']): ItemDefinition => ({
+                item: { lessonId, itemId: item.id,
+                    activityId: batch.activities.find((activity: LearningActivityV2) => activity.competencyIds.includes(item.competencyIds[0]))?.id ?? batch.batchId,
+                    competencyId: item.competencyIds[0], contentVersion: batch.contentVersion, evidenceKind },
+                question: { id: item.id, type: 'multiple-choice' as const, prompt: item.prompt,
+                    options: item.options.map(option => ({ label: option.label })),
+                    correctAnswerIndex: item.options.findIndex(option => option.id === item.correctOptionId), explanation: item.feedback.correct },
+            });
+            // Par de recuperação da conferência (só lotes do contrato amplo): entra na revisão
+            // quando `AssessmentAttemptRepository` semeia os cartões depois de uma reprovação.
+            const recovery = ProductionCurriculumCatalog.getRecoveryByCheckpointNodeId(lessonId);
+            return [
+                ...checkpoint.items.map((item: CheckpointItemCandidateV1) => definition(item, 'independent-recall')),
+                ...(recovery ? [definition(recovery.guided, 'guided-practice'), definition(recovery.transfer, 'applied-transfer')] : []),
+            ];
+        }
         const activity = ProductionCurriculumCatalog.getActivityById(lessonId) as LearningActivityV2 | null;
         if (activity) return activity.steps.flatMap(step => {
             if (step.kind !== 'interaction' || step.interaction.type !== 'multiple-choice') return [];
@@ -41,6 +50,13 @@ const catalog: ReviewCatalogPort = {
         }));
     },
 };
+
+const RECOVERY_KINDS: readonly ItemIdentity['evidenceKind'][] = ['guided-practice', 'applied-transfer'];
+
+/** Os dois itens de recuperação de um nó de conferência; vazio fora do contrato amplo. */
+export function recoveryItemsFor(nodeId: string): ItemIdentity[] {
+    return reviewCatalog.definitions(nodeId).map(definition => definition.item).filter(item => RECOVERY_KINDS.includes(item.evidenceKind));
+}
 
 export class ItemReviewCoordinator {
     constructor(private readonly repository: ItemReviewRepository, private readonly catalog: ReviewCatalogPort) {}
@@ -145,7 +161,7 @@ export class ItemReviewCoordinator {
         return { ...await this.repository.record(attempt, item.card.dueAt), correct, assisted: answerIndex === null };
     }
 }
-export const ItemReviewService = new ItemReviewCoordinator(itemReviewRepository, catalog);
+export const ItemReviewService = new ItemReviewCoordinator(itemReviewRepository, reviewCatalog);
 
 /** Identidade original da questão legada vem dos IDs das opções, preservados pelo adaptador. */
 export function canonicalStudyItemId(interaction: Extract<LearningActivityV2['steps'][number], { kind: 'interaction' }>['interaction']): string {

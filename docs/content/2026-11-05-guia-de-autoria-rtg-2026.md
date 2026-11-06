@@ -126,3 +126,81 @@ Saíram das sete revisões independentes e dos gates do app. Valem como regra.
 11. **Diga de quem é o lado.** "Lado esquerdo do paciente", nunca só "lado esquerdo".
 12. **Índices de exposição variam por fabricante.** Escreva "neste sistema o índice sobe com a exposição", nunca como regra geral.
 13. **Palavras reservadas do app.** O contrato de texto trata "jornada", "nó", "checkpoint", "configuração" e "elegível" como jargão de interface e reprova a unidade. Use "turno", "ajuste", "conferência" ou outra palavra.
+
+## 7. Brief do revisor independente
+
+O texto abaixo é o brief que cada revisor recebeu, em inglês, como foi usado. O
+revisor é sempre um agente diferente do autor e não vê a conversa dele.
+
+You are the independent reviewer of one unit of lessons (Brazilian Portuguese) for Radiant, a Duolingo-style study app for students of the Brazilian "Curso Superior de Tecnologia em Radiologia". Another agent wrote the unit; you did not see its work. Your review replaces a human editorial gate: be strict and concrete, and fix what you find in the unit file itself.
+
+Rules the unit must obey: this guide, sections 1 to 6 (read them first).
+
+### Review, in this order of priority
+
+1. **Facts.** Check every safety, normative and numeric claim against a free reputable source on the web (WebFetch/WebSearch); sample the rest. Recompute every number. A claim you cannot support is rewritten to what the source supports, or cut. Prefer primary or institutional sources. If a safety fact rests on a single wiki-style source, add a second source or soften it to "siga o protocolo do serviço e peça apoio à equipe". The Brazilian sanitary norm is Anvisa RDC 611/2022 (compiled copy on cbr.org.br if in.gov.br does not open); the protection norm in force is "Norma ANSN 3.01" (Resolução CNEN 344/2025).
+2. **Professional limits.** No item may reward diagnosis, choosing an exam or technique for a patient, clinical conduct, prescribing or administering anything, patient dose calculation, clearing an implant, correcting a record alone, or acting alone when in doubt.
+3. **Item quality.** Exactly one defensible correct answer; distractors plausible but wrong for a stated reason; no clue in wording, length or grammar; each wrong option's feedback explains that option's error; the two conferência items of a lesson test that lesson's competency with different answers and do not repeat a practice item; help never gives the answer away; the transfer item is really a new context; check the direction of every stated relation (increase/decrease).
+4. **Teaching.** The concept teaches what the items ask; nothing is asked before it is taught, except the i1 prerequisite. A didactic sequence used in an `ordering` item is taught in the concept and the prompt says "na ordem ensinada nesta aula".
+5. **Language.** Natural pt-BR, terminology used in Brazil, no guilt, no filler, no spaced dashes, dialogue lines that sound like people; "lado esquerdo do paciente", never just "lado esquerdo".
+
+Budget: tokens are scarce. At most 15 web fetches/searches. Do not rewrite what is fine.
+
+### When done
+
+- The unit must pass the repository linter (prints OK): `node scripts/content/rtg-lesson-lint.mjs <unit file>`
+- Write your parecer in Portuguese to the path the orchestrator gives you: title "Parecer de revisão — <UNIT>", today's date, "Revisor: Claude (Fable 5.1), agente independente do autor, sob a ADR-2026-11-05", a table of findings (aula/item, problema, correção aplicada, fonte consultada), the facts confirmed with their URLs, what you could NOT verify, and a final line "Resultado: aprovado com correções" or "Resultado: reprovado" with the reason. Be honest: this is an AI review, not a review by a radiology professional.
+
+### Constraints
+
+Write only the unit file and the parecer. Do not touch the git repository, do not run `loop`, git, tests, Metro or simulators, do not read PDFs or anything under `Conteúdo/` or `conteúdo/` in the repository, do not spawn agents.
+
+Final reply (max 8 lines): the result line; number of findings fixed; the three most important corrections; anything still unverified.
+
+## 8. Modelo de prompt do autor
+
+Troque o que está entre `<>`. Inclua no prompt os limites próprios da unidade (por
+exemplo, em contraste: o estudante nunca prescreve, escolhe nem administra).
+
+```text
+You are authoring one full unit of lessons (in Brazilian Portuguese) for Radiant, a
+Duolingo-style study app for students of the Brazilian "Curso Superior de Tecnologia em
+Radiologia".
+
+UNIT: <código> — "<título>" (id `<id>`, lessons `<id>-01` … `<id>-NN`).
+
+1. Read the authoring guide in full, including section 6, and follow it exactly:
+   docs/content/2026-11-05-guia-de-autoria-rtg-2026.md
+2. Read your unit's briefs in docs/plans/2026-11-02-planejamento-conteudo-radiant.md
+   (section 6 for core units, the table of section 7 for branches). One lesson per row or
+   position, same order. There are NO images: use only the four text-based interaction
+   types of the guide. You may add "diagramIdeas" per lesson.
+3. For style and depth, skim ONE lesson of a reviewed unit in
+   content-manifest/rtg-2026/aulas/ that is a prerequisite of yours.
+4. Write from what you know and verify on the web every safety, normative and numeric
+   claim. Budget: at most 20 web fetches/searches. Record each source actually used.
+   Do not read any PDF or anything under Conteúdo/ or conteúdo/ in the repository.
+5. Write the unit to <pasta de rascunhos>/<id>.json and run the linter until it prints
+   OK: node scripts/content/rtg-lesson-lint.mjs <file>
+
+Constraints: write ONLY that one output file. Do not edit the git repository, do not
+run loop, git, Metro, tests or simulators. Do not spawn other agents.
+
+Final reply (max 8 lines): output path; number of lessons; linter result; number of
+sources; any fact you were unsure about or cut; what a reviewer should check first.
+```
+
+Os pontos que o autor pede para conferir entram no prompt do revisor. Os de M08 a M14
+estão no [índice dos pareceres](../evidence/2026-11-06-rtg-2026-revisao/README.md).
+
+## 9. Como rodar em lote sem estourar o limite de uso
+
+- Um agente orquestrador lança autores e revisores, no máximo quatro por vez, e devolve
+  só uma tabela por unidade. O controlador não lê as unidades.
+- Antes de cada lote, o orquestrador mede o uso do plano e para de lançar em 70%.
+- Rascunhos e pareceres ficam fora do repositório até a aprovação. Só entram em
+  `content-manifest/rtg-2026/aulas/` e em `docs/evidence/2026-11-06-rtg-2026-revisao/`
+  pela receita de admissão do
+  [prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).
+- Agente interrompido por limite continua do ponto em que parou, pela mensagem ao
+  mesmo agente; não se recomeça.

@@ -1,0 +1,1081 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m10",
+    "code": "M10",
+    "title": "Anatomia seccional e introdução à TC",
+    "summary": "Ler o corpo em cortes e seguir a tomografia do localizador à série reconstruída: orientação, janelas, espessura e indicadores de dose como medida da saída do equipamento."
+  },
+  "sources": [
+    {
+      "id": "nibib-tc",
+      "title": "Computed Tomography (CT)",
+      "publisher": "National Institute of Biomedical Imaging and Bioengineering (NIBIB/NIH)",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/computed-tomography-ct",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "burbridge-mah-tc",
+      "title": "Undergraduate Diagnostic Imaging Fundamentals, 3.06: Computed Tomography (CT)",
+      "publisher": "Burbridge e Mah, University of Saskatchewan / LibreTexts",
+      "url": "https://med.libretexts.org/Bookshelves/Allied_Health/Undergraduate_Diagnostic_Imaging_Fundamentals_(Burbridge_and_Mah)/03%3A_Principles_of_Imaging_Techniques/3.06%3A_Computed_Tomography_(CT)",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto com licença CC BY-NC-SA 4.0; consultado para fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "aapm-lexico-tc",
+      "title": "AAPM CT Lexicon, version 2.0 (2022-03-08)",
+      "publisher": "American Association of Physicists in Medicine (AAPM)",
+      "url": "https://www.aapm.org/pubs/CTProtocols/documents/CTTerminologyLexicon.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Documento público da AAPM; consultado para as definições de localizador, modo axial e modo helicoidal, sem reprodução de texto."
+    },
+    {
+      "id": "aapm-relatorio-204",
+      "title": "Size-Specific Dose Estimates (SSDE) in Pediatric and Adult Body CT Examinations (AAPM Report No. 204, 2011)",
+      "publisher": "American Association of Physicists in Medicine (AAPM)",
+      "url": "https://www.aapm.org/pubs/reports/detail.asp?docid=143",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página pública do relatório da AAPM; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-hounsfield",
+      "title": "Hounsfield unit",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/hounsfield-unit",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de consulta com licença restrita; usado para conferir fatos, sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-janelas",
+      "title": "Windowing (CT)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/windowing-ct",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de consulta com licença restrita; usado para conferir fatos, sem reprodução de texto."
+    },
+    {
+      "id": "radiopaedia-ctdi",
+      "title": "CT dose index",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/ct-dose-index-1",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de consulta com licença restrita; usado para conferir fatos, ao lado do relatório da AAPM, sem reprodução de texto."
+    },
+    {
+      "id": "openstax-ap-19-1",
+      "title": "Anatomy and Physiology 2e, 19.1 Heart Anatomy",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto usado só como consulta de fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-25-3",
+      "title": "Anatomy and Physiology 2e, 25.3 Gross Anatomy of the Kidney",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-3-gross-anatomy-of-the-kidney",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto usado só como consulta de fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-23-6",
+      "title": "Anatomy and Physiology 2e, 23.6 Accessory Organs in Digestion: The Liver, Pancreas, and Gallbladder",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto usado só como consulta de fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-20-5",
+      "title": "Anatomy and Physiology 2e, 20.5 Circulatory Pathways",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto usado só como consulta de fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "monnin-2017-espessura",
+      "title": "Optimal slice thickness for object detection with longitudinal partial volume effects in computed tomography (J Appl Clin Med Phys, 2017)",
+      "publisher": "Journal of Applied Clinical Medical Physics / PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5689876",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto no PMC; consultado pelo resumo devolvido na busca, para a relação entre espessura, volume parcial e ruído, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m10-01",
+      "code": "M10.01",
+      "title": "Navegar por cortes",
+      "objective": "Hoje você vai conseguir dizer a altura de um corte axial na pilha e de que lado do paciente fica cada borda da tela.",
+      "competency": "Relacionar a sequência espacial dos cortes com a orientação exibida na tela.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Estação de treino do laboratório de imagem",
+        "lines": [
+          { "speaker": "duda", "text": "Abri a série de treino e tem mais de cem imagens parecidas. Rolo o mouse e tudo muda um pouco. Como eu sei onde estou no corpo?" },
+          { "speaker": "caio", "text": "Pensa numa pilha de fatias. Cada imagem tem um lugar na pilha, e a rolagem te leva de uma ponta à outra." },
+          { "speaker": "pixel", "text": "Então são duas perguntas: em que altura do corpo está este corte, e de que lado do paciente fica cada borda da tela?" }
+        ]
+      },
+      "concept": {
+        "title": "A pilha de cortes e as bordas da tela",
+        "body": "Uma série axial de tomografia é uma pilha de cortes, da cabeça aos pés. Rolar é subir ou descer na pilha: cada imagem tem número e posição. Para saber a altura, use estruturas de referência, nesta ordem: o coração entre os pulmões, o fígado logo abaixo do diafragma, os rins ao lado da coluna e a divisão da aorta, perto da quarta vértebra lombar. Para os lados, vale a convenção: o corte é visto dos pés para a cabeça, com a direita do paciente à esquerda da tela. Com o paciente de barriga para cima, a parte anterior fica no alto. Confira as letras R, L, A e P.",
+        "keyPoints": [
+          "Série axial: pilha de cortes da cabeça aos pés.",
+          "Estruturas de referência dizem a altura do corte.",
+          "Direita do paciente à esquerda da tela; confira as letras."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Em M02 você conheceu a convenção de exibição do corte axial de tomografia. Nessa convenção, de onde o observador olha o paciente deitado de barriga para cima?",
+          "options": [
+            { "label": "Da cabeça em direção aos pés", "correct": false, "feedback": "Olhando da cabeça, os lados ficariam do mesmo jeito que os seus. A convenção usual faz o contrário. Retome a imagem do observador ao pé da mesa." },
+            { "label": "Dos pés em direção à cabeça", "correct": true, "feedback": "Isso. O observador fica ao pé da mesa, e por isso a direita do paciente aparece à esquerda da tela." },
+            { "label": "De cima, de frente para o rosto", "correct": false, "feedback": "Essa é a vista de frente de um diagrama do corpo inteiro, não a de um corte transversal. No corte axial, o olhar segue o eixo do corpo." },
+            { "label": "Do lado direito do paciente", "correct": false, "feedback": "Olhar de lado mostraria frente e costas, como num corte sagital. O corte axial é visto ao longo do eixo do corpo." }
+          ],
+          "help": "Imagine em que ponto da sala você ficaria para que a direita do paciente caísse do seu lado esquerdo.",
+          "sourceIds": ["burbridge-mah-tc"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Você rola uma série axial de treino da cabeça em direção aos pés. Ordene as referências na ordem ensinada nesta aula, que é um esquema simplificado.",
+          "items": [
+            "Coração, entre os dois pulmões",
+            "Cúpula do fígado, logo abaixo do diafragma",
+            "Rins, um de cada lado da coluna",
+            "Divisão da aorta nas artérias ilíacas comuns"
+          ],
+          "feedbackCorrect": "Sequência certa: tórax, passagem pelo diafragma, abdome e, por fim, a divisão da aorta. Essas referências dizem a altura do corte sem depender do número da imagem.",
+          "feedbackIncorrect": "Confira de novo a altura de cada referência: o coração está no tórax, o fígado encosta no diafragma, os rins ficam mais abaixo e a aorta só se divide perto da quarta vértebra lombar.",
+          "help": "Comece pelo que está acima do diafragma e termine pelo que fica mais perto da pelve.",
+          "sourceIds": ["openstax-ap-19-1", "openstax-ap-23-6", "openstax-ap-25-3", "openstax-ap-20-5"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Num corte axial exibido na convenção usual, com o paciente de barriga para cima, ligue cada borda da tela ao que ela mostra.",
+          "pairs": [
+            { "left": "Borda esquerda da tela", "right": "Lado direito do paciente" },
+            { "left": "Borda direita da tela", "right": "Lado esquerdo do paciente" },
+            { "left": "Borda de cima da tela", "right": "Parte anterior do corpo" },
+            { "left": "Borda de baixo da tela", "right": "Parte posterior, apoiada na mesa" }
+          ],
+          "feedbackCorrect": "Você montou o mapa da tela: lados trocados em relação aos seus, frente em cima e costas embaixo. As letras R, L, A e P confirmam esse mapa em cada série.",
+          "feedbackIncorrect": "Retome a posição do observador: ao pé da mesa, olhando para a cabeça de um paciente deitado de costas. A partir daí, veja onde caem a direita dele e a parte da frente do corpo.",
+          "help": "Coloque-se ao pé da mesa, olhando para a cabeça do paciente deitado de costas. Onde fica o esterno? E a mão direita dele?",
+          "sourceIds": ["burbridge-mah-tc"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na série axial de treino, Duda para numa imagem em que aparecem os dois pulmões e, entre eles, o coração. Ela quer chegar aos rins e não sabe para que lado rolar. Nesta série, o número da imagem aumenta quando se avança da cabeça em direção aos pés.",
+          "prompt": "Para chegar aos rins, o que Duda faz com a série?",
+          "options": [
+            { "label": "Volta para imagens de número menor, em direção ao pescoço", "correct": false, "feedback": "Números menores, nesta série, levam para cima, rumo ao pescoço. Os rins ficam abaixo do diafragma. Confira de novo o sentido da pilha." },
+            { "label": "Fica na mesma imagem e muda só o brilho da tela", "correct": false, "feedback": "Ajustar o brilho muda a aparência do corte atual, não a altura dele no corpo. Para ver outra região é preciso andar na pilha." },
+            { "label": "Procura os rins na borda de cima do mesmo corte", "correct": false, "feedback": "Num corte na altura do coração os rins não aparecem, em borda nenhuma. Eles estão em cortes mais baixos, ao lado da coluna." },
+            { "label": "Avança para números maiores, passando pelo diafragma", "correct": true, "feedback": "Isso. Os rins ficam no abdome, abaixo do diafragma. Nesta série, avançar na numeração é descer em direção aos pés." }
+          ],
+          "help": "Primeiro decida se os rins estão acima ou abaixo do coração. Depois veja para que lado a numeração caminha.",
+          "sourceIds": ["openstax-ap-25-3", "openstax-ap-19-1"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num corte axial de treino, a letra R está na borda esquerda da tela e a letra A, na borda de cima. Uma estrutura aparece no canto inferior direito da tela. Como você descreve a posição dela no paciente?",
+          "options": [
+            { "label": "Anterior, do lado direito do paciente", "correct": false, "feedback": "Anterior seria perto da letra A, no alto. E a letra R está na outra borda. Confira de novo as duas letras antes de descrever." },
+            { "label": "Anterior, do lado esquerdo do paciente", "correct": false, "feedback": "O lado está certo, mas a estrutura aparece embaixo, longe da letra A. Retome qual borda mostra a parte de trás do corpo." },
+            { "label": "Posterior, do lado esquerdo do paciente", "correct": true, "feedback": "Isso. Oposta à letra A, a borda de baixo é posterior. Oposta à letra R, a borda direita da tela mostra o lado esquerdo do paciente." },
+            { "label": "Posterior, do lado direito do paciente", "correct": false, "feedback": "Posterior está certo, mas a letra R marca a borda esquerda da tela. A borda direita mostra o outro lado do paciente." }
+          ],
+          "help": "Use as letras, uma de cada vez: primeiro frente ou costas, depois direita ou esquerda do paciente.",
+          "sourceIds": ["burbridge-mah-tc"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer a altura de um corte axial pelas estruturas de referência, escolher para que lado rolar a série e descrever a posição de uma estrutura usando as letras da tela, sempre em relação ao paciente.",
+        "line": { "speaker": "lia", "text": "Antes de descrever qualquer coisa num corte, diga duas coisas: em que altura você está e onde ficam a direita e a frente do paciente." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma série axial avança da cabeça em direção aos pés. Você acabou de ver a divisão da aorta nas artérias ilíacas comuns e quer rever o fígado. Para onde você rola?",
+          "options": [
+            { "label": "De volta, em direção à cabeça", "correct": true, "feedback": "Certo. O fígado fica logo abaixo do diafragma, bem acima do ponto em que a aorta se divide." },
+            { "label": "Adiante, em direção aos pés", "correct": false, "feedback": "Adiante você chega à pelve. O fígado ficou para trás, mais perto do diafragma." },
+            { "label": "Para nenhum lado: ele está neste corte", "correct": false, "feedback": "Na altura em que a aorta se divide, perto da quarta vértebra lombar, a referência do fígado já passou. Ele fica junto ao diafragma." },
+            { "label": "Para outra série, pois ele não aparece em corte axial", "correct": false, "feedback": "O fígado aparece em cortes axiais do abdome superior. Basta voltar na mesma série até a altura do diafragma." }
+          ],
+          "sourceIds": ["openstax-ap-23-6", "openstax-ap-20-5"]
+        },
+        {
+          "prompt": "Num corte axial na convenção usual, sem nenhuma inversão, uma estrutura aparece junto à borda esquerda da tela. O que você afirma sobre ela?",
+          "options": [
+            { "label": "Está na parte anterior do corpo", "correct": false, "feedback": "Anterior e posterior se leem nas bordas de cima e de baixo. A borda esquerda da tela fala de lado, não de frente." },
+            { "label": "Está do lado esquerdo do paciente", "correct": false, "feedback": "Na convenção usual os lados aparecem trocados em relação aos seus. Retome a posição do observador ao pé da mesa." },
+            { "label": "Está do lado direito do paciente", "correct": true, "feedback": "Isso. Vista dos pés para a cabeça, a direita do paciente cai à esquerda da tela." },
+            { "label": "Está mais perto da cabeça que dos pés", "correct": false, "feedback": "A altura no corpo depende da posição do corte na pilha, não da borda da tela em que a estrutura aparece." }
+          ],
+          "sourceIds": ["burbridge-mah-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no corte axial visto dos pés para a cabeça, a direita do paciente aparece à … da tela.",
+          "item": {
+            "prompt": "Na convenção usual do corte axial, em que borda da tela aparece o lado direito do paciente?",
+            "options": [
+              { "label": "Na borda esquerda da tela", "correct": true, "feedback": "Certo. O observador ao pé da mesa vê a direita do paciente do seu lado esquerdo." },
+              { "label": "Na borda direita da tela", "correct": false, "feedback": "Seria assim se o observador olhasse da cabeça para os pés. A convenção usual é a oposta." },
+              { "label": "Na borda de cima da tela", "correct": false, "feedback": "A borda de cima mostra a parte anterior do corpo quando o paciente está de barriga para cima." },
+              { "label": "Na borda de baixo da tela", "correct": false, "feedback": "A borda de baixo mostra a parte posterior, apoiada na mesa. Os lados ficam nas bordas esquerda e direita." }
+            ],
+            "sourceIds": ["burbridge-mah-tc"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num prédio, as plantas dos andares estão empilhadas do último andar para o térreo. Você está na planta do quinto andar e quer a do segundo. O que isso tem em comum com rolar uma série axial?",
+            "options": [
+              { "label": "Nos dois casos, basta mudar o brilho da folha atual", "correct": false, "feedback": "Brilho muda como a folha aparece, não qual folha você vê. Para outro andar, ou outra altura do corpo, é preciso andar na pilha." },
+              { "label": "Nos dois casos, a ordem das folhas não importa", "correct": false, "feedback": "A ordem é justamente o que permite se localizar. Sem ela, você não saberia para que lado procurar." },
+              { "label": "Nos dois casos, cada folha mostra o prédio inteiro", "correct": false, "feedback": "Cada planta mostra um só andar, assim como cada corte mostra uma só altura do corpo. O conjunto é que forma o todo." },
+              { "label": "Nos dois casos, você anda na pilha no sentido certo", "correct": true, "feedback": "Isso. Cada folha tem um lugar na pilha. Saber a ordem diz para que lado andar, no prédio ou no corpo." }
+            ],
+            "sourceIds": ["burbridge-mah-tc"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Pilha de fatias ao lado de um corpo deitado, com quatro referências marcadas: coração, fígado, rins e divisão da aorta.",
+        "Corte axial esquemático com as letras R, L, A e P nas bordas e um observador desenhado ao pé da mesa."
+      ]
+    },
+    {
+      "id": "m10-02",
+      "code": "M10.02",
+      "title": "Tórax e abdome em secção",
+      "objective": "Hoje você vai conseguir localizar estruturas do tórax e do abdome num corte axial descrito e achá-las de novo em outro plano.",
+      "competency": "Localizar estruturas do tórax e do abdome em vistas correspondentes.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos, com atlas esquemático aberto",
+        "lines": [
+          { "speaker": "duda", "text": "No corte do tórax eu acho o coração. Mas quando o Caio abre o plano coronal, parece outro corpo." },
+          { "speaker": "caio", "text": "É o mesmo volume, visto por outro lado. O que estava atrás no axial continua atrás. Só muda o que cada borda da tela mostra." },
+          { "speaker": "lia", "text": "Antes de trocar de plano, diga onde a estrutura está no paciente: direita ou esquerda, anterior ou posterior, acima ou abaixo de quê?" }
+        ]
+      },
+      "concept": {
+        "title": "Vizinhos que não mudam de lugar",
+        "body": "No tórax, o coração fica no mediastino, entre os pulmões, atrás do esterno e à frente da coluna, com a ponta voltada para a esquerda do paciente. A aorta descendente segue junto à coluna, também do lado esquerdo do paciente. No abdome, o fígado ocupa a parte superior, à direita do paciente, logo abaixo do diafragma. Os rins ficam atrás, um de cada lado da coluna; o direito é um pouco mais baixo. A veia cava inferior sobe do lado direito do paciente, à direita da aorta. Essas relações são do corpo: valem no corte axial, no coronal e no sagital. Este é um esquema: a anatomia varia entre pessoas.",
+        "keyPoints": [
+          "Coração: entre os pulmões, atrás do esterno, ponta à esquerda do paciente.",
+          "Fígado à direita do paciente; rins atrás, ao lado da coluna; aorta do lado esquerdo do paciente, veia cava do direito.",
+          "A relação entre vizinhos é do corpo e vale em qualquer plano."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Num corte axial na convenção usual, o fígado, que fica do lado direito do paciente, aparece em que borda da tela?",
+          "options": [
+            { "label": "Na borda direita da tela", "correct": false, "feedback": "Na convenção usual os lados aparecem trocados em relação aos seus. O lado direito do paciente não cai à direita da tela." },
+            { "label": "Na borda de cima da tela", "correct": false, "feedback": "A borda de cima mostra a parte anterior do corpo. Direita e esquerda se leem nas bordas laterais." },
+            { "label": "Na borda esquerda da tela", "correct": true, "feedback": "Isso. A direita do paciente aparece à esquerda da tela, e é ali que o fígado é visto." },
+            { "label": "Na borda de baixo da tela", "correct": false, "feedback": "A borda de baixo mostra a parte posterior, apoiada na mesa. Retome em que bordas se leem os lados." }
+          ],
+          "help": "Lembre de onde o observador olha o corte axial e veja de que lado dele cai a direita do paciente.",
+          "sourceIds": ["burbridge-mah-tc", "openstax-ap-23-6"]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Antes de abrir o corte, faça a previsão. Num corte axial na altura do coração, com o paciente de barriga para cima, o que você espera ver logo à frente do coração, no alto da tela?",
+          "options": [
+            { "label": "O esterno", "correct": true, "feedback": "Isso. A face anterior do coração fica logo atrás do esterno e das cartilagens das costelas." },
+            { "label": "A coluna vertebral", "correct": false, "feedback": "A coluna fica atrás do coração, na parte de baixo da tela. À frente dele está outra estrutura óssea." },
+            { "label": "O fígado", "correct": false, "feedback": "O fígado fica abaixo do diafragma, em cortes mais baixos. Na altura do coração ele ainda não é a referência." },
+            { "label": "Os rins", "correct": false, "feedback": "Os rins ficam no abdome, atrás, ao lado da coluna. Não aparecem num corte na altura do coração." }
+          ],
+          "help": "O coração tem um osso à frente e outro atrás. Qual deles fica na parte anterior do tórax?",
+          "sourceIds": ["openstax-ap-19-1"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Num corte axial do abdome superior, na convenção usual, ligue cada estrutura ao lugar em que você espera encontrá-la na tela.",
+          "pairs": [
+            { "left": "Fígado", "right": "À esquerda da tela, do lado direito do paciente" },
+            { "left": "Rins", "right": "Embaixo, um de cada lado da coluna" },
+            { "left": "Aorta", "right": "Junto à coluna, do lado esquerdo do paciente" },
+            { "left": "Veia cava inferior", "right": "Junto à coluna, do lado direito do paciente" }
+          ],
+          "feedbackCorrect": "Mapa montado: fígado do lado direito do paciente, rins atrás, e os dois grandes vasos junto à coluna, com a aorta do lado esquerdo do paciente e a veia cava do direito.",
+          "feedbackIncorrect": "Retome as relações do conceito: primeiro decida o lado do paciente, depois traduza para a tela. A aorta fica do lado esquerdo do paciente e a veia cava inferior, do lado direito.",
+          "help": "Para cada estrutura, diga antes onde ela está no paciente. Só depois passe para a tela, lembrando que os lados aparecem trocados.",
+          "sourceIds": ["openstax-ap-23-6", "openstax-ap-25-3", "openstax-ap-20-5", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Duda abre uma série axial do abdome superior. O fígado aparece junto à borda da tela marcada com a letra L. Nada na ficha fictícia explica isso. Caio está na sala ao lado.",
+          "prompt": "O que Duda faz diante dessa imagem?",
+          "options": [
+            { "label": "Troca as letras da imagem para que o fígado fique do lado R", "correct": false, "feedback": "Alterar a marcação por conta própria apaga a pista e pode registrar um lado errado. Divergência de lado não se corrige sozinho." },
+            { "label": "Para, descreve o que viu e pede ao Caio que confira a série", "correct": true, "feedback": "Isso. Fígado do lado marcado como esquerdo pode ser erro de orientação ou variação do paciente. Quem decide é a equipe, com a série conferida." },
+            { "label": "Segue em frente, porque a letra não muda a anatomia mostrada", "correct": false, "feedback": "A letra é o que liga a imagem ao lado do paciente. Seguir sem conferir leva uma dúvida de lateralidade para as próximas etapas." },
+            { "label": "Anota na ficha que o paciente tem os órgãos invertidos", "correct": false, "feedback": "Isso seria concluir um achado, o que não cabe ao estudante. A imagem pode estar com a orientação errada. Descreva e peça apoio." }
+          ],
+          "help": "O que você espera ver do lado direito do paciente? Se a imagem diz outra coisa, de quem é a decisão?",
+          "sourceIds": ["openstax-ap-23-6", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num corte coronal de treino, as letras mostram a direita do paciente à esquerda da tela e a cabeça no alto. O corte passa pela parte de trás do abdome. Onde você espera ver os rins?",
+          "options": [
+            { "label": "Um acima do outro, os dois à direita da tela", "correct": false, "feedback": "Os rins são um par, um de cada lado da coluna. Não ficam os dois do mesmo lado do corpo." },
+            { "label": "No alto da tela, acima do diafragma", "correct": false, "feedback": "Acima do diafragma está o tórax. Os rins ficam no abdome, abaixo dele." },
+            { "label": "Só um deles, pois o plano coronal separa direita de esquerda", "correct": false, "feedback": "Quem separa direita de esquerda é o plano sagital. O coronal separa frente de costas e mostra os dois lados ao mesmo tempo." },
+            { "label": "Um de cada lado da coluna, abaixo do diafragma", "correct": true, "feedback": "Isso. A relação é do corpo: os rins ladeiam a coluna, na parte posterior do abdome, em qualquer plano que passe por eles." }
+          ],
+          "help": "Diga primeiro onde os rins estão no paciente. Depois pense em quais lados do corpo um corte coronal mostra.",
+          "sourceIds": ["openstax-ap-25-3", "burbridge-mah-tc"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue prever onde procurar coração, fígado, rins, aorta e veia cava inferior num corte axial descrito e reencontrar a mesma estrutura em outro plano, partindo sempre da posição dela no paciente.",
+        "line": { "speaker": "caio", "text": "Na sala é assim: primeiro eu digo onde a estrutura está no paciente. A tela vem depois." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num corte axial do tórax, na convenção usual, para que lado da tela se volta a ponta do coração?",
+          "options": [
+            { "label": "Para a esquerda da tela, lado direito do paciente", "correct": false, "feedback": "A ponta do coração se volta para a esquerda do paciente. Na tela, esse lado aparece na borda oposta." },
+            { "label": "Para a direita da tela, lado esquerdo do paciente", "correct": true, "feedback": "Certo. A ponta se volta para a esquerda do paciente, que na convenção usual aparece à direita da tela." },
+            { "label": "Para o alto da tela, em direção ao esterno", "correct": false, "feedback": "O esterno fica à frente do coração, mas a ponta se inclina para um dos lados do paciente. Retome qual." },
+            { "label": "Para baixo da tela, em direção à coluna", "correct": false, "feedback": "A coluna fica atrás do coração. A ponta não se volta para trás: ela se inclina para um dos lados do paciente." }
+          ],
+          "sourceIds": ["openstax-ap-19-1", "burbridge-mah-tc"]
+        },
+        {
+          "prompt": "Num corte axial do abdome, qual destas relações você espera encontrar junto à coluna?",
+          "options": [
+            { "label": "Aorta à direita da veia cava inferior, no paciente", "correct": false, "feedback": "É o inverso. Confira de novo: a aorta fica do lado esquerdo do paciente, e a veia cava inferior, à direita dela." },
+            { "label": "Aorta e veia cava inferior à frente do esterno", "correct": false, "feedback": "O esterno fica no tórax, na parte anterior. Os dois vasos seguem junto à coluna, na parte de trás do abdome." },
+            { "label": "Aorta dentro do fígado, e veia cava no rim esquerdo", "correct": false, "feedback": "Os dois vasos correm junto à coluna, fora desses órgãos. Retome a posição de cada um em relação à coluna." },
+            { "label": "Aorta à esquerda da veia cava inferior, no paciente", "correct": true, "feedback": "Isso. A aorta desce do lado esquerdo do paciente, com a veia cava inferior à direita dela." }
+          ],
+          "sourceIds": ["openstax-ap-20-5"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o fígado fica na parte superior do abdome, do lado … do paciente, logo abaixo do diafragma.",
+          "item": {
+            "prompt": "De que lado do paciente fica o fígado, na parte superior do abdome?",
+            "options": [
+              { "label": "Do lado esquerdo do paciente", "correct": false, "feedback": "Confira de novo o conceito: o fígado ocupa o outro lado da parte superior do abdome, logo abaixo do diafragma." },
+              { "label": "Do lado direito do paciente", "correct": true, "feedback": "Certo. O fígado ocupa a parte superior do abdome, à direita do paciente, encostado no diafragma." },
+              { "label": "Atrás da coluna vertebral", "correct": false, "feedback": "Atrás da coluna não há órgãos abdominais. O fígado fica à frente e de um dos lados, sob o diafragma." },
+              { "label": "Acima do diafragma, no tórax", "correct": false, "feedback": "Acima do diafragma ficam pulmões e coração. O fígado está logo abaixo dele, já no abdome." }
+            ],
+            "sourceIds": ["openstax-ap-23-6"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num corte sagital de treino que passa pelo meio do tórax, as letras A e P estão nas bordas laterais da tela. Entre quais estruturas você espera ver o coração?",
+            "options": [
+              { "label": "Entre o pulmão direito e o pulmão esquerdo", "correct": false, "feedback": "Essa é a relação que aparece no corte axial ou no coronal. Um corte sagital pelo meio mostra frente e costas, não os dois lados." },
+              { "label": "Entre o fígado e os rins", "correct": false, "feedback": "Fígado e rins ficam abaixo do diafragma. O coração está no tórax, acima dele." },
+              { "label": "Entre o esterno, à frente, e a coluna, atrás", "correct": true, "feedback": "Isso. No plano sagital aparecem frente e costas: o coração fica atrás do esterno e à frente da coluna." },
+              { "label": "Entre a aorta abdominal e a veia cava inferior", "correct": false, "feedback": "Esses vasos são vizinhos da coluna no abdome. O coração fica no tórax, entre duas estruturas ósseas." }
+            ],
+            "sourceIds": ["openstax-ap-19-1"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte axial esquemático do tórax na altura do coração, com esterno, coração, pulmões, aorta descendente e coluna rotulados.",
+        "Corte axial esquemático do abdome superior ao lado de um corte coronal do mesmo volume, com fígado, rins, aorta e veia cava inferior ligados por linhas de correspondência."
+      ]
+    },
+    {
+      "id": "m10-03",
+      "code": "M10.03",
+      "title": "Cadeia de aquisição da TC",
+      "objective": "Hoje você vai conseguir ordenar as etapas da tomografia, do localizador à reconstrução dos cortes.",
+      "competency": "Ordenar movimento, aquisição e reconstrução na cadeia da tomografia computadorizada.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando do tomógrafo de simulação",
+        "lines": [
+          { "speaker": "duda", "text": "Na radiografia é um disparo e pronto. Aqui a mesa anda, o anel faz barulho e aparecem centenas de imagens. Quem faz o quê?" },
+          { "speaker": "caio", "text": "Dentro do anel, o tubo e os detectores giram juntos. A mesa leva o paciente pela abertura. E o computador entra depois, com as medidas." },
+          { "speaker": "pixel", "text": "Então a imagem não sai pronta do detector. O que precisa acontecer entre a medida e o corte na tela?" }
+        ]
+      },
+      "concept": {
+        "title": "Do localizador ao corte reconstruído",
+        "body": "Na tomografia, o tubo de raios X e os detectores ficam frente a frente dentro do gantry e giram juntos ao redor do paciente. Com o paciente posicionado, adquire-se primeiro a radiografia de localização, também chamada de escanograma ou topograma: nela se marcam o início e o fim da varredura. No modo helicoidal, a mesa avança sem parar enquanto o conjunto gira. No modo axial, a mesa fica parada em cada aquisição e avança entre elas. Os detectores medem o que atravessou o corpo em muitos ângulos, e o computador reconstrói os cortes. Cada pixel do corte representa um pequeno volume de tecido, o voxel.",
+        "keyPoints": [
+          "Tubo e detectores giram juntos; a mesa desloca o paciente.",
+          "O localizador define onde a varredura começa e termina.",
+          "O corte é reconstruído pelo computador a partir das medidas."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Em M05 você viu que aquisição, processamento e exibição são etapas separadas. Mudar a janela na tela mexe em qual delas?",
+          "options": [
+            { "label": "Na aquisição, pois o detector mede de novo", "correct": false, "feedback": "A janela não refaz medida nenhuma. O que o detector registrou continua igual, com qualquer ajuste de tela." },
+            { "label": "No processamento, pois os dados são recalculados", "correct": false, "feedback": "A janela não recalcula os valores guardados. Ela muda só a forma como esses valores viram brilho." },
+            { "label": "Nas três, pois uma etapa sempre arrasta as outras", "correct": false, "feedback": "As etapas são separadas justamente para isso não acontecer. Um ajuste de tela não volta até o detector." },
+            { "label": "Só na exibição, sem alterar os valores guardados", "correct": true, "feedback": "Isso. A janela muda a aparência na tela, e os dados adquiridos ficam como estavam. Na tomografia vale a mesma separação." }
+          ],
+          "help": "Pergunte a cada etapa: ela muda o que foi medido, o que foi guardado ou só o que aparece?",
+          "sourceIds": ["burbridge-mah-tc", "radiopaedia-janelas"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as etapas de uma tomografia helicoidal, na ordem ensinada nesta aula.",
+          "items": [
+            "Posicionar o paciente na mesa, com os dados já conferidos",
+            "Adquirir a radiografia de localização",
+            "Marcar no localizador o início e o fim da varredura",
+            "Girar tubo e detectores enquanto a mesa avança",
+            "Reconstruir os cortes no computador"
+          ],
+          "feedbackCorrect": "Ordem certa: paciente e dados, localizador, faixa de varredura, aquisição helicoidal e reconstrução. O corte só existe depois que o computador trabalha sobre as medidas.",
+          "feedbackIncorrect": "Confira de novo o papel do localizador: ele vem antes da varredura, porque é nele que se marca onde ela começa e termina. A reconstrução fecha a cadeia.",
+          "help": "O que precisa existir para que alguém possa marcar o início e o fim da varredura?",
+          "sourceIds": ["aapm-lexico-tc", "nibib-tc", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte do tomógrafo ao papel que ela cumpre na aquisição.",
+          "pairs": [
+            { "left": "Gantry", "right": "Anel que abriga o tubo e os detectores" },
+            { "left": "Tubo de raios X", "right": "Emite o feixe enquanto gira ao redor do paciente" },
+            { "left": "Detectores", "right": "Medem, do lado oposto ao tubo, o que atravessou o corpo" },
+            { "left": "Mesa", "right": "Desloca o paciente pela abertura do anel" }
+          ],
+          "feedbackCorrect": "Cada parte no seu papel: o anel abriga, o tubo emite, os detectores medem e a mesa desloca. Falta só o computador, que reconstrói os cortes.",
+          "feedbackIncorrect": "Retome a cena: o que gira dentro do anel, o que fica do lado oposto ao tubo e o que leva o paciente pela abertura?",
+          "help": "Separe o que produz o feixe, o que mede o feixe e o que move o paciente.",
+          "sourceIds": ["nibib-tc", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Dona Marta já está na mesa para uma tomografia com contraste na veia. Enquanto Duda ajusta o apoio da cabeça, ela comenta que tem um problema nos rins e que ninguém perguntou sobre isso. A ficha fictícia não traz essa informação. Caio está na sala de comando.",
+          "prompt": "O que Duda faz agora?",
+          "options": [
+            { "label": "Para o preparo e leva a informação ao Caio antes de seguir", "correct": true, "feedback": "Isso. Função dos rins é informação que a equipe avalia antes do contraste. O papel do estudante é parar, relatar o que ouviu e aguardar." },
+            { "label": "Segue o exame, pois a ficha é o documento que vale", "correct": false, "feedback": "A ficha pode estar incompleta. Seguir com uma informação nova e não avaliada tira da equipe a chance de decidir." },
+            { "label": "Diz a Dona Marta que o exame será feito sem contraste", "correct": false, "feedback": "Trocar o exame é decisão da equipe responsável. Prometer isso à paciente antecipa uma conduta que não é do estudante." },
+            { "label": "Pergunta que remédios ela toma e decide se pode injetar", "correct": false, "feedback": "Avaliar e liberar o contraste não cabe ao estudante. Ouvir a paciente ajuda, mas a decisão é da equipe." }
+          ],
+          "help": "A informação é nova e não está na ficha. Quem precisa saber dela antes de qualquer injeção?",
+          "sourceIds": ["nibib-tc"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "A ficha técnica de um protocolo diz: 'a mesa permanece parada durante cada aquisição e avança entre uma aquisição e a seguinte'. Que modo de varredura ela descreve?",
+          "options": [
+            { "label": "O modo helicoidal de varredura", "correct": false, "feedback": "No helicoidal a mesa não para: ela avança durante todo o giro. A ficha descreve o oposto disso." },
+            { "label": "O modo axial de varredura", "correct": true, "feedback": "Isso. No modo axial a mesa fica parada durante a aquisição e só avança entre uma e outra." },
+            { "label": "A radiografia de localização", "correct": false, "feedback": "O localizador é uma única imagem de planejamento, usada para marcar a faixa. A ficha fala de várias aquisições em sequência." },
+            { "label": "A reconstrução dos cortes", "correct": false, "feedback": "A reconstrução é cálculo, sem movimento de mesa. A ficha descreve como a mesa se comporta durante a aquisição." }
+          ],
+          "help": "Compare a frase com os dois modos do conceito e olhe só para o que a mesa faz enquanto o tubo gira.",
+          "sourceIds": ["aapm-lexico-tc"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue ordenar a tomografia do posicionamento à reconstrução, dizer o papel do gantry, do tubo, dos detectores, da mesa e do computador e distinguir a varredura helicoidal da axial pelo movimento da mesa.",
+        "line": { "speaker": "pixel", "text": "Quando a série aparecer na tela, lembre: ela foi calculada. Antes do corte houve giro, medida e reconstrução." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Para que serve a radiografia de localização adquirida no começo da tomografia?",
+          "options": [
+            { "label": "Para substituir os cortes quando o paciente se move", "correct": false, "feedback": "O localizador é uma imagem de projeção, sem cortes. Ele não substitui a varredura." },
+            { "label": "Para medir a dose que o paciente recebeu no exame", "correct": false, "feedback": "O localizador não mede dose do paciente. Ele é uma imagem de planejamento, feita antes da varredura." },
+            { "label": "Para marcar onde a varredura começa e onde termina", "correct": true, "feedback": "Certo. É sobre o localizador que se define a faixa do corpo que a varredura vai cobrir." },
+            { "label": "Para escolher a janela de exibição de cada corte", "correct": false, "feedback": "A janela é um ajuste de exibição, feito depois, sobre os cortes reconstruídos. O localizador vem antes da varredura." }
+          ],
+          "sourceIds": ["aapm-lexico-tc"]
+        },
+        {
+          "prompt": "No modo helicoidal, o que a mesa faz enquanto o tubo e os detectores giram?",
+          "options": [
+            { "label": "Avança de forma contínua pela abertura do anel", "correct": true, "feedback": "Isso. No helicoidal, giro e avanço da mesa acontecem ao mesmo tempo, sem pausas." },
+            { "label": "Fica parada e só avança entre uma volta e outra", "correct": false, "feedback": "Esse é o comportamento do modo axial. No helicoidal a mesa não espera a volta terminar." },
+            { "label": "Gira junto com o tubo, em sentido contrário", "correct": false, "feedback": "A mesa não gira. Quem gira é o conjunto de tubo e detectores, dentro do gantry." },
+            { "label": "Sobe e desce para aproximar o paciente do tubo", "correct": false, "feedback": "A altura da mesa é ajustada no posicionamento. Durante a varredura helicoidal, o movimento é ao longo do corpo." }
+          ],
+          "sourceIds": ["aapm-lexico-tc", "burbridge-mah-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: os detectores medem, e quem transforma as medidas em cortes é o …",
+          "item": {
+            "prompt": "Na cadeia da tomografia, quem transforma as medidas dos detectores em cortes?",
+            "options": [
+              { "label": "A mesa, ao avançar pela abertura", "correct": false, "feedback": "A mesa desloca o paciente. Ela não calcula imagem nenhuma." },
+              { "label": "O tubo, ao girar ao redor do paciente", "correct": false, "feedback": "O tubo emite o feixe. As medidas são feitas pelos detectores e viram corte em outra etapa." },
+              { "label": "O computador, na reconstrução", "correct": true, "feedback": "Certo. O computador usa as medidas feitas em muitos ângulos para calcular cada corte." },
+              { "label": "O monitor, ao exibir a série", "correct": false, "feedback": "O monitor mostra cortes que já foram calculados. A transformação acontece antes da exibição." }
+            ],
+            "sourceIds": ["nibib-tc"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma impressora de etiquetas puxa a fita sem parar enquanto o cabeçote imprime. Outra imprime com a fita parada e só então a puxa. Qual delas lembra a varredura helicoidal, e por quê?",
+            "options": [
+              { "label": "A primeira: o avanço acontece durante o trabalho", "correct": true, "feedback": "Isso. No helicoidal, a mesa avança enquanto o tubo gira e os detectores medem, sem pausas." },
+              { "label": "A segunda: o avanço só acontece entre os trabalhos", "correct": false, "feedback": "Avançar só entre uma etapa e outra é a lógica do modo axial. No helicoidal não há essa pausa." },
+              { "label": "As duas: o modo de avanço não diferencia nada", "correct": false, "feedback": "O modo de avanço é justamente a diferença entre helicoidal e axial. Retome o que a mesa faz em cada um." },
+              { "label": "Nenhuma: na tomografia a mesa nunca se move", "correct": false, "feedback": "A mesa se move nos dois modos. O que muda é se ela avança durante a aquisição ou entre as aquisições." }
+            ],
+            "sourceIds": ["aapm-lexico-tc"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Esquema do gantry visto de frente: tubo de um lado, arco de detectores do lado oposto, seta de giro e paciente no centro.",
+        "Linha do tempo com cinco caixas: posicionamento, localizador, faixa de varredura, aquisição helicoidal e reconstrução; abaixo, comparação do movimento da mesa no modo helicoidal e no modo axial."
+      ]
+    },
+    {
+      "id": "m10-04",
+      "code": "M10.04",
+      "title": "Reconstrução e apresentação",
+      "objective": "Hoje você vai conseguir prever como espessura, plano e janela mudam o que a série mostra, sem mudar o que foi adquirido.",
+      "competency": "Comparar espessura de corte, planos de reconstrução e janelas em séries descritas.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Estação de visualização do laboratório",
+        "lines": [
+          { "speaker": "duda", "text": "Abri a mesma série do tórax duas vezes. Numa eu vejo os vasos do pulmão e o resto fica quase branco. Na outra, o pulmão fica todo preto. Fizeram dois exames?" },
+          { "speaker": "caio", "text": "Um exame só. São os mesmos números, mostrados com janelas diferentes. Cada janela escolhe uma faixa para virar tons de cinza." },
+          { "speaker": "pixel", "text": "Se os números são os mesmos, o que exatamente a janela escolhe? E o que acontece com o que fica fora da faixa?" }
+        ]
+      },
+      "concept": {
+        "title": "Números, janelas, espessura e planos",
+        "body": "Cada pixel do corte guarda um número em unidades Hounsfield (HU): a água vale 0 e o ar, -1000. O pulmão, cheio de ar, fica muito abaixo de zero; a gordura, perto de -100; os tecidos moles, poucas dezenas acima de zero; o osso compacto, centenas ou mais. A janela escolhe o que a tela mostra: o nível é o centro da faixa e a largura é o tamanho dela. Acima da faixa tudo fica branco; abaixo, preto. Cortes finos misturam menos tecidos no mesmo voxel, mas mostram mais ruído; os espessos fazem o inverso. Do mesmo volume saem planos coronais e sagitais, sem nova exposição.",
+        "keyPoints": [
+          "Água: 0 HU. Ar: -1000 HU.",
+          "Nível: centro da faixa. Largura: tamanho da faixa.",
+          "Corte fino: menos mistura, mais ruído. Novos planos saem do mesmo volume."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior você viu que cada pixel do corte representa um pequeno volume de tecido. Como se chama esse volume?",
+          "options": [
+            { "label": "Voxel", "correct": true, "feedback": "Isso. O voxel é o pixel com espessura: o pedaço de tecido que cada ponto do corte representa." },
+            { "label": "Gantry", "correct": false, "feedback": "Gantry é o anel que abriga o tubo e os detectores. O volume representado por cada pixel tem outro nome." },
+            { "label": "Matriz", "correct": false, "feedback": "Matriz é o conjunto de linhas e colunas de pixels do corte inteiro, não o volume de um ponto só." },
+            { "label": "Janela", "correct": false, "feedback": "Janela é o ajuste de exibição que escolhe a faixa de valores mostrada. Não é um volume de tecido." }
+          ],
+          "help": "É um pixel que ganhou a terceira dimensão: a espessura do corte.",
+          "sourceIds": ["burbridge-mah-tc"]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Faça a previsão. Uma janela tem nível 40 e largura 400. Que faixa de valores aparece em tons de cinza, entre o preto e o branco?",
+          "options": [
+            { "label": "De 40 a 400", "correct": false, "feedback": "Nível e largura não são as duas pontas da faixa. O nível é o centro, e a largura se divide em duas metades em volta dele." },
+            { "label": "De -400 a 400", "correct": false, "feedback": "Essa faixa teria largura 800 e centro em zero. Retome: a largura é o tamanho total, repartido em volta do nível." },
+            { "label": "De -160 a 240", "correct": true, "feedback": "Isso. Metade da largura para cada lado do nível: 40 menos 200 e 40 mais 200. Abaixo de -160 fica preto; acima de 240, branco." },
+            { "label": "De -360 a 440", "correct": false, "feedback": "Aqui a largura inteira foi somada e subtraída do nível. Use só a metade dela para cada lado." }
+          ],
+          "help": "O nível fica no meio da faixa. Quanto da largura cabe de cada lado dele?",
+          "sourceIds": ["radiopaedia-janelas", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada material ao lugar que ele ocupa na escala Hounsfield, no esquema desta aula.",
+          "pairs": [
+            { "left": "Ar", "right": "-1000, a ponta mais baixa do esquema" },
+            { "left": "Água", "right": "0, a referência da escala" },
+            { "left": "Gordura", "right": "Perto de -100, pouco abaixo da água" },
+            { "left": "Osso compacto", "right": "Centenas de unidades acima de zero, ou mais" }
+          ],
+          "feedbackCorrect": "Escala montada: ar na ponta baixa, gordura um pouco abaixo da água, água em zero e osso bem acima. É sobre essa escala que a janela trabalha.",
+          "feedbackIncorrect": "Retome as duas âncoras da escala, a água e o ar. Depois encaixe a gordura, que fica um pouco abaixo da água, e o osso, bem acima.",
+          "help": "Comece pelas duas âncoras definidas da escala. Quanto mais o material atenua o feixe, mais alto o número.",
+          "sourceIds": ["radiopaedia-hounsfield", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "No treino, a mesma aquisição do tórax foi reconstruída duas vezes: uma série com cortes de 1 mm e outra com cortes de 5 mm. Duda compara as duas na mesma janela. Numa delas, um pequeno detalhe se destaca melhor do entorno, mas o fundo está mais granulado.",
+          "prompt": "Em qual série o detalhe se destaca mais e o fundo é mais granulado, e por quê?",
+          "options": [
+            { "label": "A de 5 mm, porque cortes espessos têm mais ruído", "correct": false, "feedback": "É o inverso: o corte espesso junta mais sinal e mostra menos ruído. O que ele perde é detalhe, por misturar tecidos." },
+            { "label": "A de 5 mm, porque usa mais radiação que a de 1 mm", "correct": false, "feedback": "As duas séries vieram da mesma aquisição. Reconstruir com outra espessura não muda a exposição já feita." },
+            { "label": "A de 1 mm, porque a janela dela é mais estreita", "correct": false, "feedback": "As duas estão na mesma janela. A diferença descrita vem da espessura do corte, não do ajuste de tela." },
+            { "label": "A de 1 mm, porque mistura menos tecidos por voxel", "correct": true, "feedback": "Isso. O corte fino mistura menos tecidos no mesmo voxel e preserva melhor o detalhe pequeno, ao custo de mais ruído." }
+          ],
+          "help": "Pense no que cabe dentro de um voxel fino e de um voxel espesso, e em quanto sinal cada um reúne.",
+          "sourceIds": ["monnin-2017-espessura", "nibib-tc"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Numa série axial do tórax, na estação de treino, os pulmões aparecem inteiramente pretos e só se distinguem coração, vasos maiores e parede torácica. Lia pede para ver os vasos dentro dos pulmões. A série já está arquivada e o simulador não está mais na mesa.",
+          "prompt": "O que resolve o pedido da Lia?",
+          "options": [
+            { "label": "Agendar outra aquisição, agora com mais radiação", "correct": false, "feedback": "Os números do pulmão já estão na série. Repetir exporia de novo sem necessidade, quando o ajuste é só de exibição." },
+            { "label": "Abrir a mesma série com janela larga e nível baixo", "correct": true, "feedback": "Isso. Uma janela larga com nível bem negativo traz os valores do pulmão para os tons de cinza, sem nova aquisição." },
+            { "label": "Estreitar a janela e subir o nível até o osso clarear", "correct": false, "feedback": "Isso leva a faixa para valores mais altos, e o pulmão continua todo preto. Os valores dele são muito negativos." },
+            { "label": "Reconstruir a série com cortes bem mais espessos", "correct": false, "feedback": "Espessura muda detalhe e ruído, não a faixa de valores exibida. O pulmão continuaria fora da janela." }
+          ],
+          "help": "Os valores do pulmão ficam muito abaixo de zero. Onde a faixa da janela precisa estar para mostrá-los?",
+          "sourceIds": ["radiopaedia-janelas", "radiopaedia-hounsfield", "burbridge-mah-tc"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue calcular a faixa que uma janela mostra, situar ar, gordura, água e osso na escala Hounsfield, prever o efeito da espessura do corte no detalhe e no ruído e reconhecer que novos planos e novas janelas saem do mesmo volume.",
+        "line": { "speaker": "lia", "text": "Antes de pedir outra aquisição, pergunte: o que eu quero ver já está nos dados, só mal exibido?" }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma janela tem nível 50 e largura 350. Como aparece na tela um pixel com valor 300?",
+          "options": [
+            { "label": "Em cinza médio, por estar perto do nível", "correct": false, "feedback": "Cinza médio é o que acontece com valores próximos de 50. O valor 300 está bem longe do centro." },
+            { "label": "Em preto, por estar abaixo da faixa", "correct": false, "feedback": "A faixa vai de -125 a 225. O valor 300 não está abaixo dela. Confira de novo de que lado ele cai." },
+            { "label": "Em cinza escuro, por estar dentro da faixa", "correct": false, "feedback": "A faixa termina em 225, metade da largura acima do nível. O valor 300 já passou desse limite." },
+            { "label": "Em branco, por estar acima da faixa", "correct": true, "feedback": "Isso. A faixa vai de -125 a 225. Tudo acima do limite superior aparece branco." }
+          ],
+          "sourceIds": ["radiopaedia-janelas", "burbridge-mah-tc"]
+        },
+        {
+          "prompt": "Do volume de uma tomografia já adquirida, a equipe gera imagens no plano coronal. O que isso exige do paciente?",
+          "options": [
+            { "label": "Uma nova varredura, com ele deitado de lado na mesa", "correct": false, "feedback": "O plano coronal sai dos dados já adquiridos. Não é preciso reposicionar nem varrer de novo." },
+            { "label": "Nada: os novos planos saem dos dados já adquiridos", "correct": true, "feedback": "Certo. Reformatar em outro plano é cálculo sobre o mesmo volume, sem nova exposição." },
+            { "label": "Uma nova radiografia de localização, mais longa", "correct": false, "feedback": "O localizador serve para planejar a varredura. A reformatação acontece depois, sobre os cortes que já existem." },
+            { "label": "Uma segunda injeção de contraste na veia", "correct": false, "feedback": "Reformatar não envolve contraste nem aquisição. É uma operação do computador sobre o volume guardado." }
+          ],
+          "sourceIds": ["burbridge-mah-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na janela, o nível é o … da faixa de valores, e a largura é o tamanho dela.",
+          "item": {
+            "prompt": "O que o nível da janela indica sobre a faixa de valores exibida?",
+            "options": [
+              { "label": "O valor mais alto da faixa", "correct": false, "feedback": "O valor mais alto é o nível mais metade da largura. O nível sozinho fica em outro ponto da faixa." },
+              { "label": "O valor mais baixo da faixa", "correct": false, "feedback": "O valor mais baixo é o nível menos metade da largura. O nível não fica na ponta." },
+              { "label": "O tamanho total da faixa", "correct": false, "feedback": "O tamanho da faixa é a largura. O nível diz onde essa faixa está posicionada na escala." },
+              { "label": "O valor central da faixa", "correct": true, "feedback": "Certo. O nível é o centro. Metade da largura fica acima dele e metade abaixo." }
+            ],
+            "sourceIds": ["radiopaedia-janelas", "burbridge-mah-tc"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma foto é impressa em blocos de 1 cm e depois em blocos de 5 cm, cada bloco com a cor média do que cobre. Qual relação com a espessura do corte de tomografia está correta?",
+            "options": [
+              { "label": "Blocos grandes mostram bordas mais definidas", "correct": false, "feedback": "Bloco grande faz a média de mais coisas e apaga bordas finas. É o que acontece com o corte espesso." },
+              { "label": "O tamanho do bloco não altera o que se vê", "correct": false, "feedback": "Altera, e muito: quanto maior o bloco, mais coisas diferentes entram na mesma média." },
+              { "label": "Blocos grandes misturam mais coisas na mesma média", "correct": true, "feedback": "Isso. Como o corte espesso, o bloco grande junta tecidos diferentes num só valor e esconde detalhes pequenos." },
+              { "label": "Blocos pequenos misturam mais coisas na mesma média", "correct": false, "feedback": "É o contrário: o bloco pequeno cobre menos área e mistura menos, como o corte fino." }
+            ],
+            "sourceIds": ["monnin-2017-espessura"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Régua vertical da escala Hounsfield com ar, pulmão, gordura, água, tecidos moles e osso, e duas faixas coloridas: uma janela larga de nível baixo e uma janela estreita de nível próximo de zero.",
+        "Mesmo volume visto em três planos (axial, coronal e sagital) e, ao lado, um voxel fino e um voxel espesso atravessando a borda entre dois tecidos."
+      ]
+    },
+    {
+      "id": "m10-05",
+      "code": "M10.05",
+      "title": "Qualidade e indicadores de dose",
+      "objective": "Hoje você vai conseguir dizer o que CTDIvol e DLP indicam e separar esses números das palavras que descrevem a qualidade da imagem.",
+      "competency": "Distinguir indicadores de dose e qualidade da imagem, sem estimar risco individual.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando, ao fim de uma simulação",
+        "lines": [
+          { "speaker": "duda", "text": "Apareceu uma tela com CTDIvol e DLP. Isso é a dose que o simulador recebeu?" },
+          { "speaker": "caio", "text": "É o que o equipamento entregou naquele protocolo, medido num padrão. Serve para comparar protocolos e acompanhar o serviço." },
+          { "speaker": "lia", "text": "E repare: nenhum desses números diz se a imagem ficou boa. Para isso, que palavras você já conhece?" }
+        ]
+      },
+      "concept": {
+        "title": "O que os números dizem e o que não dizem",
+        "body": "O relatório de dose da tomografia traz dois indicadores. O CTDIvol, em mGy, descreve a saída do equipamento naquele protocolo, medida num simulador padrão: não considera o tamanho do paciente e não é a dose recebida por ele. O DLP, em mGy·cm, é o CTDIvol multiplicado pelo comprimento varrido. A qualidade da imagem se descreve com outras palavras: ruído, contraste e resolução. Com menos radiação chegando aos detectores, o ruído tende a subir; por isso otimizar é buscar a imagem suficiente para o exame, e não a mais bonita. Mudar a janela não altera nenhum indicador.",
+        "keyPoints": [
+          "CTDIvol: saída do equipamento, em mGy. Não é dose do paciente.",
+          "DLP: CTDIvol vezes o comprimento varrido, em mGy·cm.",
+          "Ruído, contraste e resolução descrevem qualidade; a janela não muda indicador."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Em M05 você viu que o brilho da tela não mede exposição. Na aula anterior, o que acontecia com os dados da série quando a janela era trocada?",
+          "options": [
+            { "label": "Eram adquiridos de novo, com outra técnica", "correct": false, "feedback": "Trocar a janela não aciona o tubo. A aquisição já terminou quando a série chega à tela." },
+            { "label": "Continuavam iguais; só a exibição mudava", "correct": true, "feedback": "Isso. A janela escolhe a faixa de valores mostrada, e os números guardados não mudam." },
+            { "label": "Perdiam os valores que ficavam fora da faixa", "correct": false, "feedback": "O que fica fora da faixa aparece preto ou branco, mas continua guardado. Basta mudar a janela para ver de novo." },
+            { "label": "Ficavam com menos ruído, por serem filtrados", "correct": false, "feedback": "A janela não filtra nada. O ruído dos dados é o mesmo, ainda que pareça mais ou menos evidente na tela." }
+          ],
+          "help": "Separe o que está guardado no arquivo do que aparece no monitor.",
+          "sourceIds": ["burbridge-mah-tc", "radiopaedia-janelas"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo que aparece ao fim do exame ao que ele descreve.",
+          "pairs": [
+            { "left": "CTDIvol", "right": "Saída do equipamento no protocolo, em mGy" },
+            { "left": "DLP", "right": "Saída multiplicada pelo comprimento varrido, em mGy·cm" },
+            { "left": "Ruído", "right": "Granulado aleatório que atrapalha ver diferenças sutis" },
+            { "left": "Janela", "right": "Faixa de valores exibida em tons de cinza" }
+          ],
+          "feedbackCorrect": "Dois termos falam do que o equipamento entregou, um fala da qualidade da imagem e um fala só da exibição. Manter essas três gavetas separadas evita conclusões erradas.",
+          "feedbackIncorrect": "Retome as três gavetas: indicadores de dose (CTDIvol e DLP), qualidade da imagem (ruído) e exibição (janela). Veja as unidades: só o DLP inclui comprimento.",
+          "help": "Olhe as unidades: uma delas traz centímetros. E pergunte de cada termo se ele fala do equipamento, da imagem ou da tela.",
+          "sourceIds": ["radiopaedia-ctdi", "aapm-relatorio-204", "radiopaedia-janelas", "monnin-2017-espessura"]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Dois protocolos de treino usam o mesmo CTDIvol. No primeiro, a varredura cobre só o tórax. No segundo, cobre tórax e abdome. O que você espera do DLP?",
+          "options": [
+            { "label": "Igual nos dois, pois o CTDIvol é o mesmo", "correct": false, "feedback": "O DLP não depende só do CTDIvol. Ele também leva em conta quanto do corpo foi varrido." },
+            { "label": "Menor no segundo, pois a saída se espalha", "correct": false, "feedback": "A saída por trecho é a mesma nos dois. Como o segundo cobre um comprimento maior, o produto não diminui." },
+            { "label": "Impossível prever sem saber a janela usada", "correct": false, "feedback": "A janela é ajuste de exibição e não entra em nenhum indicador. O que muda aqui é o comprimento varrido." },
+            { "label": "Maior no segundo, pois o comprimento é maior", "correct": true, "feedback": "Isso. Com o mesmo CTDIvol, mais comprimento varrido dá um DLP maior. Por isso a faixa de varredura importa." }
+          ],
+          "help": "Lembre do que o DLP é feito: dois fatores. Qual deles mudou de um protocolo para o outro?",
+          "sourceIds": ["radiopaedia-ctdi", "aapm-relatorio-204"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Ao fim de uma tomografia simulada, Seu Jorge vê a tela de comando por cima do ombro de Duda. Ele aponta para o número do DLP e pergunta: 'Isso aí é a radiação que eu tomei? Com esse valor eu posso ter câncer?'. Caio e Lia estão na sala ao lado.",
+          "prompt": "Como Duda responde, dentro do papel de estudante?",
+          "options": [
+            { "label": "Diz que o valor é baixo e que ele não corre risco nenhum", "correct": false, "feedback": "Garantir ausência de risco é uma estimativa individual que o estudante não pode fazer, e o número da tela nem é a dose dele." },
+            { "label": "Converte o DLP em dose e informa o risco em porcentagem", "correct": false, "feedback": "Calcular dose e risco de uma pessoa não cabe ao estudante. O indicador descreve a saída do equipamento, não o paciente." },
+            { "label": "Explica que é um indicador do equipamento e chama a equipe", "correct": true, "feedback": "Isso. O DLP descreve o que o aparelho entregou, não a dose de Seu Jorge. A dúvida sobre risco vai para a equipe responsável." },
+            { "label": "Esconde a tela e diz que essa informação é sigilosa", "correct": false, "feedback": "A pergunta é legítima e merece resposta de quem pode dá-la. Esconder a informação quebra a confiança e não encaminha a dúvida." }
+          ],
+          "help": "O que esse número descreve: a pessoa ou o equipamento? E quem pode conversar sobre risco com o paciente?",
+          "sourceIds": ["aapm-relatorio-204", "radiopaedia-ctdi"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Duas séries de treino do mesmo simulador ficaram com aparência parecida na tela. O relatório mostra CTDIvol bem maior na segunda. O que dá para afirmar só com essas informações?",
+          "options": [
+            { "label": "O equipamento entregou mais na segunda série", "correct": true, "feedback": "Isso. O CTDIvol descreve a saída do equipamento. Se a imagem já era suficiente na primeira, vale levar a comparação à equipe." },
+            { "label": "A segunda série tem, com certeza, melhor qualidade", "correct": false, "feedback": "Qualidade se descreve por ruído, contraste e resolução, não pelo indicador. E as duas pareceram semelhantes na tela." },
+            { "label": "A janela da segunda série estava mais larga", "correct": false, "feedback": "A janela não entra no CTDIvol. Ele é registrado na aquisição e não muda com ajustes de exibição." },
+            { "label": "O simulador da segunda série era bem maior", "correct": false, "feedback": "O CTDIvol não considera o tamanho de quem está na mesa. E o enunciado diz que o simulador era o mesmo." }
+          ],
+          "help": "Separe o que o indicador mede do que só a imagem pode mostrar.",
+          "sourceIds": ["aapm-relatorio-204", "radiopaedia-ctdi"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer que o CTDIvol e o DLP descrevem a saída do equipamento, que o DLP cresce com o comprimento varrido e que qualidade se descreve por ruído, contraste e resolução. Diante de pergunta sobre risco, você encaminha à equipe.",
+        "line": { "speaker": "lia", "text": "Número de tela não é dose de pessoa. Guarde essa frase para quando o paciente perguntar." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O que o CTDIvol registrado ao fim de uma tomografia descreve?",
+          "options": [
+            { "label": "A saída do equipamento naquele protocolo", "correct": true, "feedback": "Certo. É um índice padronizado da saída do equipamento, medido num simulador padrão." },
+            { "label": "A dose recebida por aquele paciente", "correct": false, "feedback": "O CTDIvol não considera o tamanho do paciente e não é a dose dele. Ele fala do equipamento." },
+            { "label": "O risco de câncer associado ao exame", "correct": false, "feedback": "Nenhum indicador de tela estima risco individual. O CTDIvol descreve a saída do equipamento." },
+            { "label": "A quantidade de ruído nos cortes", "correct": false, "feedback": "Ruído é característica da imagem. O CTDIvol é um indicador de dose, registrado na aquisição." }
+          ],
+          "sourceIds": ["aapm-relatorio-204"]
+        },
+        {
+          "prompt": "Uma série ficou com muito ruído. Um colega sugere estreitar a janela para 'melhorar a aquisição'. O que há de errado nessa ideia?",
+          "options": [
+            { "label": "Nada: janela estreita reduz o ruído dos dados", "correct": false, "feedback": "A janela não toca nos dados. O ruído guardado é o mesmo com qualquer ajuste de tela." },
+            { "label": "Nada: janela estreita reduz o CTDIvol registrado", "correct": false, "feedback": "O CTDIvol é registrado na aquisição. Nenhum ajuste de exibição altera esse indicador." },
+            { "label": "A janela deveria ser alargada para repetir a varredura", "correct": false, "feedback": "Nenhuma janela repete a varredura. Largura e nível são ajustes de exibição sobre os dados que já existem." },
+            { "label": "A janela muda só a exibição, não a aquisição feita", "correct": true, "feedback": "Isso. Janela é ajuste de tela. O ruído dos dados e os indicadores da aquisição continuam os mesmos." }
+          ],
+          "sourceIds": ["radiopaedia-janelas", "burbridge-mah-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o DLP é o CTDIvol multiplicado pelo … varrido.",
+          "item": {
+            "prompt": "O DLP combina o CTDIvol com que outra grandeza da varredura?",
+            "options": [
+              { "label": "O nível da janela usada", "correct": false, "feedback": "Janela é ajuste de exibição e não entra em indicador de dose. Olhe a unidade do DLP: ela traz centímetros." },
+              { "label": "O comprimento varrido", "correct": true, "feedback": "Certo. O DLP, em mGy·cm, é o CTDIvol multiplicado pelo comprimento da varredura." },
+              { "label": "O peso do paciente", "correct": false, "feedback": "Os indicadores de tela não consideram o tamanho do paciente. O DLP usa uma grandeza da própria varredura." },
+              { "label": "O número de imagens", "correct": false, "feedback": "O número de imagens depende de como a série foi reconstruída. O DLP usa o comprimento do corpo que foi varrido." }
+            ],
+            "sourceIds": ["radiopaedia-ctdi", "aapm-relatorio-204"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "O painel de um carro mostra o consumo médio de combustível do motor num trajeto. Em que isso se parece com o CTDIvol?",
+            "options": [
+              { "label": "Os dois medem o que cada passageiro sentiu na viagem", "correct": false, "feedback": "O painel fala do motor, não dos passageiros. Do mesmo modo, o CTDIvol não fala de cada paciente." },
+              { "label": "Os dois dizem se o passeio foi agradável", "correct": false, "feedback": "Agrado do passeio seria a qualidade, que se avalia de outro jeito. O painel só informa o que o motor gastou." },
+              { "label": "Os dois mudam quando se ajusta o brilho do painel", "correct": false, "feedback": "Brilho de painel é exibição. Nem o consumo do motor nem o CTDIvol mudam com ajuste de tela." },
+              { "label": "Os dois descrevem o que a máquina entregou", "correct": true, "feedback": "Isso. O painel descreve o motor, e o CTDIvol descreve a saída do tomógrafo. Nenhum dos dois mede a pessoa." }
+            ],
+            "sourceIds": ["aapm-relatorio-204"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Tela de relatório de dose esquemática com dois campos destacados, CTDIvol (mGy) e DLP (mGy·cm), e uma seta ligando o DLP ao comprimento varrido marcado no localizador.",
+        "Três gavetas rotuladas: indicadores de dose, qualidade da imagem e exibição, com os termos da aula distribuídos entre elas."
+      ]
+    },
+    {
+      "id": "m10-06",
+      "code": "M10.06",
+      "title": "Uma série tecnicamente coerente",
+      "objective": "Hoje você vai conseguir conferir uma série de tomografia de treino em quatro passos e reconhecer quando parar e pedir apoio.",
+      "competency": "Resolver caso introdutório de aquisição e conferência de uma série de tomografia.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando, simulação de abdome",
+        "lines": [
+          { "speaker": "caio", "text": "Série pronta. Antes de enviar, eu sempre passo os olhos em quatro coisas. Hoje quem confere é você." },
+          { "speaker": "duda", "text": "Pedido, faixa de varredura, série e registro. Se uma delas não fechar, eu paro e te chamo." },
+          { "speaker": "pixel", "text": "Coerente não quer dizer bonita. Quer dizer que cada parte combina com as outras e com o pedido." }
+        ]
+      },
+      "concept": {
+        "title": "Quatro passos de conferência",
+        "body": "Uma série tecnicamente coerente é aquela em que tudo combina. Nesta aula, a conferência segue quatro passos. Primeiro, a identificação e a região do pedido conferem com o que está no console. Segundo, a faixa marcada no localizador cobre a região pedida, sem sobras desnecessárias, porque o comprimento varrido entra no DLP. Terceiro, a série está completa, em sequência, e as letras de orientação combinam com a anatomia esperada. Quarto, as reconstruções previstas no protocolo e o relatório de dose foram gerados e arquivados. Se algum passo não fecha, o estudante para, descreve o que viu e pede apoio à equipe.",
+        "keyPoints": [
+          "Pedido, faixa, série e registro: quatro passos.",
+          "Coerente é combinar com o pedido, não parecer bonita.",
+          "Passo que não fecha: parar, descrever e pedir apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Uma varredura cobre mais comprimento do corpo que o necessário, com o mesmo CTDIvol. Que valor aumenta por causa disso?",
+          "options": [
+            { "label": "O nível da janela", "correct": false, "feedback": "Nível da janela é ajuste de exibição. Ele não é um indicador da aquisição e não depende do comprimento varrido." },
+            { "label": "O número Hounsfield da água", "correct": false, "feedback": "A água vale zero na escala por definição. Esse valor não muda com o comprimento da varredura." },
+            { "label": "O indicador DLP", "correct": true, "feedback": "Isso. O DLP é o CTDIvol multiplicado pelo comprimento varrido: mais comprimento, DLP maior." },
+            { "label": "A espessura do corte", "correct": false, "feedback": "A espessura é escolhida na reconstrução. Ela não cresce porque a varredura ficou mais longa." }
+          ],
+          "help": "Pense no que entra na conta de cada valor: qual deles é calculado com o comprimento da varredura?",
+          "sourceIds": ["radiopaedia-ctdi", "aapm-relatorio-204"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os passos da conferência de uma série de tomografia, na ordem ensinada nesta aula.",
+          "items": [
+            "Conferir identificação e região do pedido com o console",
+            "Conferir se a faixa do localizador cobre a região pedida",
+            "Conferir sequência dos cortes e letras de orientação",
+            "Conferir reconstruções previstas e relatório de dose"
+          ],
+          "feedbackCorrect": "Ordem certa: pedido, faixa, série e registro. Cada passo se apoia no anterior: não adianta conferir a série de um pedido que não bate.",
+          "feedbackIncorrect": "Retome os quatro passos do conceito: comece pelo que vem antes de qualquer imagem, o pedido, e termine pelo que fica arquivado.",
+          "help": "Siga a ordem em que as coisas passam a existir: pedido, planejamento, imagens e registro.",
+          "sourceIds": ["aapm-lexico-tc", "burbridge-mah-tc", "radiopaedia-ctdi"]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Simulação de tomografia do abdome. O pedido fictício diz 'abdome superior'. No localizador, Duda vê que a faixa marcada por um colega começa acima do diafragma e termina na altura dos joelhos do simulador. A varredura ainda não foi iniciada.",
+          "prompt": "O que Duda faz antes de qualquer aquisição?",
+          "options": [
+            { "label": "Inicia assim mesmo, porque cobrir a mais nunca prejudica", "correct": false, "feedback": "Cobrir a mais aumenta o comprimento varrido e o DLP sem motivo. E a faixa precisa combinar com o pedido." },
+            { "label": "Aponta a diferença ao Caio e pede a conferência da faixa", "correct": true, "feedback": "Isso. A faixa não combina com a região pedida. Descrever a diferença e conferir com a equipe vem antes de qualquer aquisição." },
+            { "label": "Encurta a faixa por conta própria e inicia a varredura", "correct": false, "feedback": "A suspeita está certa, mas ajustar e adquirir sozinho pula a conferência. A decisão sobre a faixa passa pela equipe." },
+            { "label": "Troca o pedido no console para 'corpo inteiro'", "correct": false, "feedback": "Alterar o pedido para caber na faixa inverte a lógica: é a faixa que segue o pedido. E registro não se muda por conta própria." }
+          ],
+          "help": "Compare a região pedida com o trecho marcado no localizador. Quem valida a diferença?",
+          "sourceIds": ["aapm-lexico-tc", "radiopaedia-ctdi"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na conferência da série do abdome, Duda percebe que a numeração salta: depois da imagem 40 vem a 61, e um trecho do abdome não aparece. Um colega sugere repetir logo a varredura inteira, 'para garantir', enquanto Caio atende o telefone.",
+          "prompt": "O que Duda faz diante da série com um trecho faltando?",
+          "options": [
+            { "label": "Não repete: descreve o salto ao Caio e aguarda a decisão", "correct": true, "feedback": "Isso. Repetir é nova exposição. Antes de qualquer repetição, a equipe verifica a causa do salto e decide o que fazer." },
+            { "label": "Repete a varredura inteira, pois série incompleta não vale", "correct": false, "feedback": "Repetir sem saber a causa expõe de novo, talvez sem necessidade. Quem decide se há repetição é a equipe, depois de verificar o que aconteceu." },
+            { "label": "Envia a série como está e avisa só se alguém reclamar", "correct": false, "feedback": "Enviar uma série com um trecho faltando, sem registro, passa o problema adiante. A lacuna precisa ser descrita agora." },
+            { "label": "Renumera as imagens para a sequência ficar contínua", "correct": false, "feedback": "Renumerar esconde a lacuna em vez de resolvê-la e altera o registro por conta própria. O trecho continuaria faltando." }
+          ],
+          "help": "Repetir uma varredura é expor de novo. O que precisa ser sabido antes de alguém tomar essa decisão?",
+          "sourceIds": ["nibib-tc", "burbridge-mah-tc"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Outra simulação, agora do tórax. O pedido e a faixa conferem, a série está completa e as letras combinam com a anatomia esperada. O protocolo do serviço fictício prevê cortes axiais finos e espessos, reformatação coronal e relatório de dose. No arquivo, Duda encontra os cortes axiais nas duas espessuras e o relatório de dose.",
+          "prompt": "O que falta para a série ficar coerente com o protocolo, e o que isso exige?",
+          "options": [
+            { "label": "Falta o relatório de dose, que exige nova varredura", "correct": false, "feedback": "O relatório de dose está no arquivo. E ele é gerado na aquisição: não se faz varredura para obtê-lo." },
+            { "label": "Falta o localizador, que exige reposicionar o simulador", "correct": false, "feedback": "O localizador foi usado para marcar a faixa, que já foi conferida. O item ausente é outro, e não pede nova aquisição." },
+            { "label": "Não falta nada: cortes axiais bastam em qualquer protocolo", "correct": false, "feedback": "Coerente é combinar com o protocolo do serviço, e ele prevê mais um item. Compare de novo a lista com o arquivo." },
+            { "label": "Falta a reformatação coronal, feita dos dados já adquiridos", "correct": true, "feedback": "Isso. O plano coronal previsto não está no arquivo. Ele sai do mesmo volume, sem nova exposição. Avise a equipe para gerar." }
+          ],
+          "help": "Compare, item por item, o que o protocolo prevê com o que está no arquivo. O que falta precisa de nova aquisição?",
+          "sourceIds": ["burbridge-mah-tc"]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue conferir uma série de treino em quatro passos, pedido, faixa, série e registro, dizer qual passo não fechou e separar o que se resolve com os dados já adquiridos do que precisa de decisão da equipe.",
+        "line": { "speaker": "caio", "text": "Série coerente é a que você consegue explicar passo a passo. Travou num passo? Para e me chama." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na conferência de uma série, o que mostra que a faixa de varredura está coerente com o pedido?",
+          "options": [
+            { "label": "As imagens estão nítidas em qualquer janela de exibição", "correct": false, "feedback": "Nitidez é qualidade da imagem. Ela não diz se a região certa foi coberta." },
+            { "label": "O trecho marcado no localizador cobre a região pedida", "correct": true, "feedback": "Certo. A faixa se confere no localizador: ela cobre a região do pedido, sem sobras desnecessárias." },
+            { "label": "O CTDIvol é igual ao registrado no exame anterior", "correct": false, "feedback": "O CTDIvol descreve a saída do equipamento. Ele não informa que região do corpo foi varrida." },
+            { "label": "A série reconstruída tem mais de cem imagens", "correct": false, "feedback": "O número de imagens depende da espessura e do comprimento. Sozinho, não diz se a região pedida foi coberta." }
+          ],
+          "sourceIds": ["aapm-lexico-tc"]
+        },
+        {
+          "prompt": "Num dos passos da conferência, algo não fecha e você não sabe a causa. Qual é a ação do estudante?",
+          "options": [
+            { "label": "Corrigir o registro e seguir com a série", "correct": false, "feedback": "Corrigir por conta própria pode apagar a pista e registrar um erro. Divergência se descreve, não se conserta sozinho." },
+            { "label": "Repetir a aquisição para ter uma série nova", "correct": false, "feedback": "Repetir é nova exposição, e a causa ainda nem é conhecida. Essa decisão é da equipe." },
+            { "label": "Parar, descrever o que viu e pedir apoio", "correct": true, "feedback": "Isso. Parar, descrever e pedir apoio à equipe é a ação certa diante de qualquer passo que não fecha." },
+            { "label": "Enviar a série e anotar a dúvida depois", "correct": false, "feedback": "Enviar primeiro leva a dúvida adiante sem que ninguém saiba dela. A descrição vem antes do envio." }
+          ],
+          "sourceIds": ["nibib-tc", "burbridge-mah-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a série é coerente quando cada parte combina com as outras e com o …",
+          "item": {
+            "prompt": "Segundo esta aula, com o que uma série tecnicamente coerente precisa combinar?",
+            "options": [
+              { "label": "Com o pedido e com o protocolo previsto", "correct": true, "feedback": "Certo. Coerência é combinar: identificação, região, faixa, orientação e registros de acordo com o pedido e o protocolo." },
+              { "label": "Com a série mais bonita já feita no serviço", "correct": false, "feedback": "Beleza não é critério. Uma série pode agradar aos olhos e não cobrir a região pedida." },
+              { "label": "Com o menor CTDIvol já registrado", "correct": false, "feedback": "O indicador descreve a saída do equipamento. Um valor baixo não garante que a série atende ao pedido." },
+              { "label": "Com a janela preferida de quem confere", "correct": false, "feedback": "Janela é ajuste de exibição e pode ser trocado depois. A coerência se mede contra o pedido e o protocolo." }
+            ],
+            "sourceIds": ["burbridge-mah-tc", "radiopaedia-ctdi"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma encomenda chega com a etiqueta certa, mas a nota lista quatro itens e a caixa traz três. Você não sabe por quê. O que isso tem em comum com a conferência de uma série?",
+            "options": [
+              { "label": "Nos dois casos, basta completar a lista por conta própria", "correct": false, "feedback": "Completar sozinho esconde a diferença. Na série, como na encomenda, o que não fecha precisa ser descrito a quem decide." },
+              { "label": "Nos dois casos, você descreve a diferença a quem decide", "correct": true, "feedback": "Isso. Comparar o previsto com o entregue e relatar a diferença é a lógica da conferência, na caixa e na série." },
+              { "label": "Nos dois casos, a etiqueta certa dispensa conferir o resto", "correct": false, "feedback": "Identificação certa é só o primeiro passo. A encomenda e a série ainda precisam bater com o que foi previsto." },
+              { "label": "Nos dois casos, o melhor é devolver tudo e refazer", "correct": false, "feedback": "Refazer tudo sem saber a causa é desperdício na encomenda e nova exposição na tomografia. Primeiro se descreve a diferença." }
+            ],
+            "sourceIds": ["burbridge-mah-tc"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Lista de conferência com quatro caixas em sequência: pedido, faixa no localizador, série e registro, com um desvio lateral rotulado 'parar, descrever, pedir apoio'.",
+        "Localizador esquemático com duas faixas marcadas: uma que cobre só o abdome superior e outra longa demais, para comparação."
+      ]
+    }
+  ]
+}

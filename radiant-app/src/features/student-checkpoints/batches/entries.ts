@@ -80,5 +80,82 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Musculoesquelético e posicionamento."
     }
+  },
+  "batch:rtg-2026:m08": {
+    "slug": "rtg-2026-m08",
+    "title": "Tórax, abdome e cabeça",
+    "description": "Liga estruturas do tórax, do abdome e do crânio a incidências introdutórias, a critérios de inspiração, rotação e cobertura e à adaptação segura, da solicitação à conferência da imagem.",
+    "unitTitle": "Tórax, abdome e cabeça",
+    "reward": {
+      "id": "node:reward:rtg-2026:m08",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Tórax, abdome e cabeça."
+    }
+  },
+  "batch:rtg-2026:m09": {
+    "slug": "rtg-2026-m09",
+    "title": "Preparo, contraste e cuidado ampliado",
+    "description": "Você aprende a ler o protocolo, conferir o preparo, levar à equipe a informação de risco e reconhecer uma intercorrência com contraste, sempre sem prescrever, escolher ou administrar.",
+    "unitTitle": "Preparo, contraste e cuidado ampliado",
+    "reward": {
+      "id": "node:reward:rtg-2026:m09",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Preparo, contraste e cuidado ampliado."
+    }
+  },
+  "batch:rtg-2026:m10": {
+    "slug": "rtg-2026-m10",
+    "title": "Anatomia seccional e introdução à TC",
+    "description": "Ler o corpo em cortes e seguir a tomografia do localizador à série reconstruída: orientação, janelas, espessura e indicadores de dose como medida da saída do equipamento.",
+    "unitTitle": "Anatomia seccional e introdução à TC",
+    "reward": {
+      "id": "node:reward:rtg-2026:m10",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Anatomia seccional e introdução à TC."
+    }
+  },
+  "batch:rtg-2026:m11": {
+    "slug": "rtg-2026-m11",
+    "title": "Fundamentos próprios da RM",
+    "description": "Desenvolve a segurança antes da sala de ressonância magnética e as ideias de campo, radiofrequência, sinal, relaxação, ponderação, bobinas e artefatos, sempre com parada e apoio da equipe.",
+    "unitTitle": "Fundamentos próprios da RM",
+    "reward": {
+      "id": "node:reward:rtg-2026:m11",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Fundamentos próprios da RM."
+    }
+  },
+  "batch:rtg-2026:m12": {
+    "slug": "rtg-2026-m12",
+    "title": "Mamografia e densitometria",
+    "description": "Do acolhimento à conferência técnica: anatomia da mama, cadeia do mamógrafo, cobertura na CC e na MLO, documentação, fundamentos da densitometria e quando parar e chamar a equipe, sem laudo nem diagnóstico.",
+    "unitTitle": "Mamografia e densitometria",
+    "reward": {
+      "id": "node:reward:rtg-2026:m12",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Mamografia e densitometria."
+    }
+  },
+  "batch:rtg-2026:m13": {
+    "slug": "rtg-2026-m13",
+    "title": "Panorama de MN, RT e intervencionista",
+    "description": "Visão geral de medicina nuclear, radioterapia e radiologia intervencionista: de onde vem a radiação, como o serviço se organiza, quem faz o quê, como a equipe se protege e quando chamar apoio.",
+    "unitTitle": "Panorama de MN, RT e intervencionista",
+    "reward": {
+      "id": "node:reward:rtg-2026:m13",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Panorama de MN, RT e intervencionista."
+    }
+  },
+  "batch:rtg-2026:m14": {
+    "slug": "rtg-2026-m14",
+    "title": "Qualidade, gestão e integração",
+    "description": "Você fecha o núcleo praticando o que sustenta um serviço confiável: testes e registros de qualidade, dados protegidos, fluxo justo, leitura crítica, destino dos resíduos e decisões em casos novos.",
+    "unitTitle": "Qualidade, gestão e integração",
+    "reward": {
+      "id": "node:reward:rtg-2026:m14",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Qualidade, gestão e integração."
+    }
   }
 };

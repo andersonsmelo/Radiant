@@ -123,21 +123,21 @@ sintetizados localmente com `ffmpeg` por `radiant-app/scripts/synth-sounds.mjs`
 **Produz:** I1 a I4. `node scripts/content/build-rtg-batches.mjs` gera os lotes;
 `--check` falha se o gerado estiver defasado em relação às aulas-fonte.
 
-- [ ] Verificador: portar o `lint.mjs` de autoria para `rtg-lesson-lint.mjs`, com
+- [x] Verificador: portar o `lint.mjs` de autoria para `rtg-lesson-lint.mjs`, com
       teste que reprova cada defeito nomeado (correta mais longa, posição acima de
       40%, retorno repetido, resposta constante, fonte ausente, travessão).
-- [ ] Contrato `wide` com testes vermelhos primeiro: aceita 5 interações de 3
+- [x] Contrato `wide` com testes vermelhos primeiro: aceita 5 interações de 3
       famílias; recusa 9 interações, `hotspot` sem ativo e fonte sem `use`.
-- [ ] Tipos de I2 e `MAX_STEPS = 12`, com o validador de atividade cobrindo `dialogue`.
-- [ ] Gerador: aula-fonte → candidato → lote promovido, com identidades
+- [x] Tipos de I2 e `MAX_STEPS = 12`, com o validador de atividade cobrindo `dialogue`.
+- [x] Gerador: aula-fonte → candidato → lote promovido, com identidades
       `<tipo>:rtg-2026:<unidade>:<nome>`, proveniência derivada de `sourceIds` e
       aprovações de I4. Os itens de `recovery` chegam ao aluno depois de uma
       conferência reprovada; se o runtime só repete a atividade, entram como itens
       extras da revisão.
-- [ ] Trilha: as 20 unidades na ordem do mapa, núcleo antes dos ramos; os testes de
+- [x] Trilha: as 20 unidades na ordem do mapa, núcleo antes dos ramos; os testes de
       vazio passam a afirmar as contagens reais; a cobertura estrutural entende as
       quatro famílias.
-- [ ] Conferência: `npx jest src/features/student-checkpoints src/features/journey
+- [x] Conferência: `npx jest src/features/student-checkpoints src/features/journey
       src/features/content`, `node --test scripts/content/*.test.mjs`,
       `node scripts/content/build-rtg-batches.mjs --check`.
 
@@ -146,12 +146,12 @@ sintetizados localmente com `ffmpeg` por `radiant-app/scripts/synth-sounds.mjs`
 **Artefatos:** `content-manifest/rtg-2026/aulas/<unidade>.json` (20) e um parecer
 por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
 
-- [ ] Autoria: um agente por unidade escreve as aulas pelo guia, confere cada fato
+- [x] Autoria: um agente por unidade escreve as aulas pelo guia, confere cada fato
       em fonte gratuita na web e passa no verificador. Ondas: M01–M07, M08–M14, ramos.
-- [ ] Revisão independente: outro agente, sem a conversa do autor, confere fatos nas
+- [x] Revisão independente: outro agente, sem a conversa do autor, confere fatos nas
       fontes citadas, limites profissionais, pistas involuntárias e tom, e registra
       o parecer com cada achado e a correção aplicada.
-- [ ] Teste do aluno antigo (foco 1): com progresso de aula retirada gravado, a
+- [x] Teste do aluno antigo (foco 1): com progresso de aula retirada gravado, a
       trilha nova aparece e o aviso de conteúdo atualizado continua.
 - [ ] Completude: contar aulas, interações e itens por unidade por dois caminhos (o
       gerador e uma leitura direta dos JSON) e conferir que batem com o mapa:
@@ -174,17 +174,17 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
 **Consome:** I2, I5, I6. **Produz:** `nextCombo(state, correct)` devolvendo
 `{ count: number; milestone: 3 | 5 | 10 | null }`.
 
-- [ ] Cena de diálogo no passo de abertura e de fecho: avatar, nome, fala, toque
+- [x] Cena de diálogo no passo de abertura e de fecho: avatar, nome, fala, toque
       para avançar, ordem e nome lidos pelo leitor de tela (foco 3).
-- [ ] Retorno da resposta: cartão que entra animado, Pixel reage ao acerto e ao
+- [x] Retorno da resposta: cartão que entra animado, Pixel reage ao acerto e ao
       erro com as poses e expressões existentes, tremor leve no erro, e a ajuda
       (`help`) fica disponível antes de responder.
-- [ ] Combo: 3, 5 e 10 acertos seguidos na aula mostram o selo e tocam `combo`;
+- [x] Combo: 3, 5 e 10 acertos seguidos na aula mostram o selo e tocam `combo`;
       `streak` e `heart_lost` voltam a ser emitidos.
-- [ ] Fim da aula: confete e som `fim` no resumo com estrela; nada de celebração
+- [x] Fim da aula: confete e som `fim` no resumo com estrela; nada de celebração
       com zero acerto.
-- [ ] Retomada (foco 2) e modo sem som e sem movimento (foco 5), com teste de fluxo.
-- [ ] Sons: `synth-sounds.mjs` gera os três arquivos; conferir as durações com
+- [x] Retomada (foco 2) e modo sem som e sem movimento (foco 5), com teste de fluxo.
+- [x] Sons: `synth-sounds.mjs` gera os três arquivos; conferir as durações com
       `afinfo` e registrar a licença autoral no README.
 
 ## Frente D — metas e progresso
@@ -201,12 +201,12 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
 **Produz:** `levelFromXp(xp)` devolvendo
 `{ level: number; title: string; xpIntoLevel: number; xpForNext: number }`.
 
-- [ ] Níveis por XP com título, mostrados no Perfil e no HUD, com som `nivel` ao subir.
-- [ ] Missões do dia (3 por dia, com dados que já existem: aulas, acertos seguidos,
+- [x] Níveis por XP com título, mostrados no Perfil e no HUD, com som `nivel` ao subir.
+- [x] Missões do dia (3 por dia, com dados que já existem: aulas, acertos seguidos,
       revisão) com rota própria e entrada na Estude.
-- [ ] Proteção de sequência: um dia perdido é coberto por uma proteção ganha a cada
+- [x] Proteção de sequência: um dia perdido é coberto por uma proteção ganha a cada
       7 dias de sequência; sem compra.
-- [ ] Celebração de unidade concluída na trilha, com som `unidade`.
+- [x] Celebração de unidade concluída na trilha, com som `unidade`.
 
 ## Frente E — verificação, documentação e entrega
 
@@ -218,6 +218,23 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
 - [ ] `docs/STATUS.md`, `docs/FILA.md`, mapa curricular e evidências atualizados; o
       que não foi verificado fica escrito como não verificado.
 - [ ] PR da branch para a `main`. Merge, build e loja são do dono.
+
+## Progresso em 2026-11-06, às 09:13
+
+- **Frentes A, C e D:** entregues, com as evidências em `docs/evidence/2026-11-06-trilha-ampla-*.md`.
+- **Frente B:** as 14 unidades do núcleo (84 aulas) estão escritas, revistas e na
+  trilha. Os seis aprofundamentos (48 aulas) não foram começados. A caixa de
+  completude segue aberta por isso. O teste do aluno antigo está em
+  `batches/RtgCatalog.test.ts`.
+- **Frente E:** o gate e o `loop validate` passaram; a prova no simulador cobriu só o
+  começo de uma aula; a PR não foi aberta.
+- **Diferenças em relação ao que este plano previa:** os itens de conferência não
+  levam o retorno por alternativa; a recuperação chega pela fila de revisão, sem a
+  frase-gancho; a retomada volta à primeira interação, pela regra de privacidade que
+  já existia; `IosHomologationService` não apaga as três chaves novas das metas.
+
+Quem continua segue o
+[prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).
 
 ## Ordem e paralelismo
 

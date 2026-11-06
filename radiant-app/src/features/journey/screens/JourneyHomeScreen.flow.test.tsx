@@ -132,6 +132,17 @@ jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: false, resolved: true }),
 }));
 
+let mockMissions: { id: string; done: boolean }[] = [];
+const mockSyncOrder: string[] = [];
+jest.mock('../../missions/services/DailyMissionsService', () => ({ DailyMissionsService: {
+  // Registra quando a leitura TERMINA: é depois dela que o bônus já entrou no XP.
+  sync: () => Promise.resolve().then(() => Promise.resolve()).then(() => { mockSyncOrder.push('missões'); return { bonusXp: 0, missions: mockMissions }; }),
+} }));
+// Sons da trilha (nível e unidade): o tocador de verdade abre expo-audio, que o Jest não tem.
+const mockFeedbackEmit = jest.fn();
+jest.mock('../../../ui/feedback/lessonSounds', () => ({ createLessonSoundPlayer: () => ({ play: () => undefined, release: () => undefined }) }));
+jest.mock('../../../ui/feedback/lessonFeedback', () => ({ createLessonFeedback: () => ({ emit: (event: string) => mockFeedbackEmit(event) }) }));
+jest.mock('../../../ui/feedback/feedbackPreferences', () => ({ readFeedbackPreferences: () => Promise.resolve({ sounds: true, haptics: true }) }));
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
     getSnapshot: jest.fn().mockResolvedValue({
@@ -1221,5 +1232,65 @@ describe('JourneyHomeScreen — cabeçalho da unidade, revisão e estrelas', () 
     } finally {
       errorSpy.mockRestore();
     }
+  });
+});
+
+describe('JourneyHomeScreen: metas e progresso (frente D)', () => {
+  const { JourneyCurriculumService } = jest.requireMock('../services/JourneyCurriculumService') as {
+    JourneyCurriculumService: { getCurriculumTrail: jest.Mock };
+  };
+  const { GamificationService } = jest.requireMock('../../gamification/services/GamificationService') as {
+    GamificationService: { getSnapshot: jest.Mock };
+  };
+  const AsyncStorage = require('@react-native-async-storage/async-storage');
+  const unidade = (aula: string, conferencia: string) => ({ recommendedNodeId: 'm01:aula', segments: [{
+    trackId: 'track:m01', trackTitle: 'Primeiro contato', order: 0, unlocked: true, completed: false,
+    units: [{ id: 'm01', title: 'Primeiro contato', nodes: [
+      { id: 'm01:aula', unitId: 'm01', type: 'lesson', title: 'Aula', status: aula },
+      { id: 'm01:conf', unitId: 'm01', type: 'checkpoint', title: 'Conferência', status: conferencia },
+      { id: 'm01:premio', unitId: 'm01', type: 'reward', title: 'Conquista', status: 'locked' },
+    ] }],
+  }] });
+
+  beforeEach(async () => {
+    jest.clearAllMocks();
+    await AsyncStorage.clear();
+    mockSyncOrder.length = 0;
+    mockMissions = [{ id: 'aula-1', done: true }, { id: 'seguidas-5', done: false }, { id: 'meta', done: false }];
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(createSnapshot('track-radiology-foundations', 'Aula', 'm01:aula', 'block-1') as never);
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(unidade('available', 'locked'));
+    GamificationService.getSnapshot.mockImplementation(() => { mockSyncOrder.push('xp'); return Promise.resolve({ totalXp: 55, streakDays: 2, lastActiveDate: null }); });
+  });
+  afterEach(() => { mockMissions = []; });
+
+  it('mostra o nível sob o HUD e a entrada das missões, lendo o XP depois de as missões pagarem o bônus', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    expect(await screen.findByLabelText('Nível 2, Pegando o ritmo. 35 de 40 XP para o próximo nível.', {}, { timeout: FIRST_RENDER_TIMEOUT_MS })).toBeTruthy();
+    expect(mockSyncOrder).toEqual(['missões', 'xp']);
+    fireEvent.press(await screen.findByLabelText('Missões de hoje. 1 de 3 concluídas. Ver.'));
+    expect(router.push).toHaveBeenCalledWith('/missions');
+    expect(mockFeedbackEmit).not.toHaveBeenCalled();
+  });
+
+  it('na volta da aula que fecha a unidade, sobe de nível e comemora a unidade uma única vez', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByLabelText(/^Nível 2/, {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    expect(screen.queryByText('Unidade concluída')).toBeNull();
+
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(unidade('completed', 'completed'));
+    GamificationService.getSnapshot.mockResolvedValue({ totalXp: 73, streakDays: 2, lastActiveDate: null });
+    voltarParaATela();
+
+    expect(await screen.findByRole('header', { name: 'Unidade concluída' })).toBeTruthy();
+    expect(screen.getByText(/Você fechou Primeiro contato\./)).toBeTruthy();
+    await screen.findByLabelText(/^Nível 3/);
+    await waitFor(() => expect(mockFeedbackEmit.mock.calls.map(call => call[0]).sort()).toEqual(['level_up', 'unit_complete']));
+
+    fireEvent.press(screen.getByLabelText('Continuar'));
+    expect(screen.queryByText('Unidade concluída')).toBeNull();
+    voltarParaATela();
+    await waitFor(() => expect(mockSyncOrder.filter(step => step === 'missões')).toHaveLength(3));
+    expect(screen.queryByText('Unidade concluída')).toBeNull();
+    expect(mockFeedbackEmit).toHaveBeenCalledTimes(2);
   });
 });

@@ -72,3 +72,13 @@ it('escala máxima troca sete colunas por duas linhas inteiras e renova texto ao
   }
   dimensions.mockRestore();
 });
+
+it('mostra as proteções de sequência em texto simples, e só quando foram lidas', () => {
+  const today = new Date(2026, 10, 6, 12);
+  const view = render(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={{ stored: 1, max: 2, everyDays: 7 }} />);
+  expect(screen.getByText('Proteções de sequência: 1 de 2. Cada uma cobre um dia sem estudo. Você ganha uma a cada 7 dias de sequência.')).toBeTruthy();
+  view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={null} />);
+  expect(screen.queryByText(/Proteções de sequência/)).toBeNull();
+  view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} loading freezes={{ stored: 1, max: 2, everyDays: 7 }} />);
+  expect(screen.queryByText(/Proteções de sequência/)).toBeNull();
+});

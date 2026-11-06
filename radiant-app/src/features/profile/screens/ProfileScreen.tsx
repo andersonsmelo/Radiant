@@ -3,6 +3,10 @@ import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-n
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { MAX_STREAK_FREEZES, STREAK_DAYS_PER_FREEZE, StreakFreezeService } from '../../gamification/services/StreakFreezeService';
+import { LevelBadge } from '../../gamification/components/LevelBadge';
+import { DailyMissionsService, type DailyMission } from '../../missions/services/DailyMissionsService';
+import { DailyMissionsCard } from '../../missions/components/DailyMissionsCard';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyCurriculumService, type CurriculumTrail } from '../../journey/services/JourneyCurriculumService';
 import { JourneyStarsService } from '../../journey/services/JourneyStarsService';
@@ -39,6 +43,8 @@ export default function ProfileScreen() {
   const [curriculum, setCurriculum] = useState<Reading<CurriculumTrail>>({ state: 'loading' });
   const [stars, setStars] = useState<Reading<Record<string, LessonStars>>>({ state: 'loading' });
   const [due, setDue] = useState<Reading<number>>({ state: 'loading' });
+  const [missions, setMissions] = useState<Reading<DailyMission[]>>({ state: 'loading' });
+  const [freezes, setFreezes] = useState<Reading<number>>({ state: 'loading' });
   const [today, setToday] = useState(() => new Date());
   const generation = useRef(0);
 
@@ -57,7 +63,11 @@ export default function ProfileScreen() {
         if (generation.current === ownGeneration) publish({ state: 'unavailable' });
       });
     };
-    read(() => GamificationService.getSnapshot(), setGamification);
+    // As missões pagam bônus ao serem lidas: o XP é lido depois delas, para o total já vir com o bônus.
+    const synced = Promise.resolve().then(() => DailyMissionsService.sync());
+    read(() => synced.then(result => result.missions), setMissions);
+    read(() => synced.then(() => undefined, () => undefined).then(() => GamificationService.getSnapshot()), setGamification);
+    read(() => StreakFreezeService.getFreezes(), setFreezes);
     read(() => DailyGoalService.getSnapshot(), setGoal);
     read(() => JourneyCurriculumService.getCurriculumTrail(), setCurriculum);
     read(() => JourneyStarsService.getRecordStarsByLessonId(), setStars);
@@ -73,10 +83,12 @@ export default function ProfileScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <ProfileIdentityHeader email={null} onOpenSettings={() => router.push('/settings')} />
+        <LevelBadge xp={validXp ? totalXp : null} />
         <MedalShelf unit={curriculum.state === 'ready' ? currentUnit(curriculum.data) : null}
           starsByLessonId={stars.state === 'ready' ? stars.data : null} loading={curriculum.state === 'loading'} starsLoading={stars.state === 'loading'} />
         <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot?.streakDays ?? null}
-          today={today} loading={gamification.state === 'loading'} />
+          today={today} loading={gamification.state === 'loading'} freezes={freezes.state === 'ready' ? { stored: freezes.data, max: MAX_STREAK_FREEZES, everyDays: STREAK_DAYS_PER_FREEZE } : null} />
+        <DailyMissionsCard missions={missions.state === 'ready' ? missions.data : null} onPress={() => router.push('/missions')} />
         <TodayGoals goal={goal.state === 'ready' ? goal.data : null} dueCount={due.state === 'ready' ? due.data : null}
           goalLoading={goal.state === 'loading'} dueLoading={due.state === 'loading'} />
         {gamification.state !== 'loading' ? <Text key={`total-${fontScale}`} style={styles.total}>

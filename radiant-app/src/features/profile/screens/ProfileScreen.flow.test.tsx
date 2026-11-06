@@ -36,6 +36,13 @@ jest.mock('../../daily-goal/services/DailyGoalService', () => ({ DailyGoalServic
 jest.mock('../../journey/services/JourneyCurriculumService', () => ({ JourneyCurriculumService: { getCurriculumTrail: jest.fn() } }));
 jest.mock('../../journey/services/JourneyStarsService', () => ({ JourneyStarsService: { getRecordStarsByLessonId: jest.fn() } }));
 jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({ SpacedRepetitionService: { getDueCount: jest.fn() } }));
+let mockMissions: { id: string; done: boolean }[] | Error = [];
+let mockFreezes = 0;
+jest.mock('../../missions/services/DailyMissionsService', () => ({ DailyMissionsService: {
+  sync: () => (mockMissions instanceof Error ? Promise.reject(mockMissions) : Promise.resolve({ bonusXp: 0, missions: mockMissions })),
+} }));
+jest.mock('../../gamification/services/StreakFreezeService', () => ({ MAX_STREAK_FREEZES: 2, STREAK_DAYS_PER_FREEZE: 7,
+  StreakFreezeService: { getFreezes: () => Promise.resolve(mockFreezes) } }));
 
 
 const gami = jest.mocked(GamificationService.getSnapshot);
@@ -204,4 +211,26 @@ it('estrelas ainda carregando não são anunciadas como falha nem como zero', as
   expect(screen.getByLabelText('Aula concluída. Concluída.')).toBeTruthy();
   await act(async () => recordRead.resolve({ a: 3 }));
   expect(screen.getByLabelText('Aula concluída. Concluída. 3 estrelas.')).toBeTruthy();
+});
+
+it('mostra o nível que sai do XP, as proteções ao lado da sequência e a entrada das missões do dia', async () => {
+  mockMissions = [{ id: 'aula-1', done: true }, { id: 'seguidas-5', done: false }, { id: 'meta', done: false }];
+  mockFreezes = 1;
+  render(<ProfileScreen />);
+  // 72 XP: nível 3 começa em 60 e custa 60.
+  expect(await screen.findByLabelText('Nível 3, Olhar atento. 12 de 60 XP para o próximo nível.')).toBeTruthy();
+  expect(await screen.findByText('Proteções de sequência: 1 de 2. Cada uma cobre um dia sem estudo. Você ganha uma a cada 7 dias de sequência.')).toBeTruthy();
+  fireEvent.press(await screen.findByLabelText('Missões de hoje. 1 de 3 concluídas. Ver.'));
+  expect(jest.requireMock('expo-router').router.push).toHaveBeenCalledWith('/missions');
+  mockMissions = [];
+  mockFreezes = 0;
+});
+
+it('missões que não leem não escondem o XP nem o nível, e a entrada some', async () => {
+  mockMissions = new Error('missions-unavailable');
+  render(<ProfileScreen />);
+  expect(await screen.findByText('72 XP no total')).toBeTruthy();
+  expect(screen.getByText('Nível 3')).toBeTruthy();
+  expect(screen.queryByText('Missões de hoje')).toBeNull();
+  mockMissions = [];
 });

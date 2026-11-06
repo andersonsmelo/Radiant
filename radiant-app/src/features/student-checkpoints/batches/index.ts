@@ -8,6 +8,13 @@ import { RTG_2026_M04 } from './rtg-2026-m04';
 import { RTG_2026_M05 } from './rtg-2026-m05';
 import { RTG_2026_M06 } from './rtg-2026-m06';
 import { RTG_2026_M07 } from './rtg-2026-m07';
+import { RTG_2026_M08 } from './rtg-2026-m08';
+import { RTG_2026_M09 } from './rtg-2026-m09';
+import { RTG_2026_M10 } from './rtg-2026-m10';
+import { RTG_2026_M11 } from './rtg-2026-m11';
+import { RTG_2026_M12 } from './rtg-2026-m12';
+import { RTG_2026_M13 } from './rtg-2026-m13';
+import { RTG_2026_M14 } from './rtg-2026-m14';
 
 /** Lotes da trilha rtg-2026 na ordem do percurso: núcleo de M01 a M14, depois os ramos. */
 export const RTG_2026_BATCHES: readonly ProductionBatchV1[] = [
@@ -18,4 +25,11 @@ export const RTG_2026_BATCHES: readonly ProductionBatchV1[] = [
   RTG_2026_M05,
   RTG_2026_M06,
   RTG_2026_M07,
+  RTG_2026_M08,
+  RTG_2026_M09,
+  RTG_2026_M10,
+  RTG_2026_M11,
+  RTG_2026_M12,
+  RTG_2026_M13,
+  RTG_2026_M14,
 ];

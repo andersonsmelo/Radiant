@@ -1,0 +1,2101 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m13",
+    "code": "M13",
+    "title": "Panorama de MN, RT e intervencionista",
+    "summary": "Visão geral de medicina nuclear, radioterapia e radiologia intervencionista: de onde vem a radiação, como o serviço se organiza, quem faz o quê, como a equipe se protege e quando chamar apoio."
+  },
+  "sources": [
+    {
+      "id": "nibib-medicina-nuclear",
+      "title": "Nuclear Medicine",
+      "publisher": "NIBIB/NIH",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/nuclear-medicine",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do NIH; consultada para a origem do sinal, radiofármacos, câmara gama e PET, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-medicina-nuclear",
+      "title": "General Nuclear Medicine",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/gennuclear",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para as etapas do exame, o papel da câmara gama e as orientações de saída, com redação própria."
+    },
+    {
+      "id": "cnen-norma-3-05",
+      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
+      "publisher": "CNEN",
+      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado para os arts. 2º, 12, 13, 14, 15, 19, 20, 32, 35, 43, 54 e 60, sem reprodução de texto."
+    },
+    {
+      "id": "cdc-contaminacao-exposicao",
+      "title": "Radiation Contamination Versus Exposure",
+      "publisher": "CDC",
+      "url": "https://www.cdc.gov/radiation-emergencies/infographic/contamination-versus-exposure.html",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do governo dos Estados Unidos; consultada para a distinção entre exposição e contaminação, com redação própria."
+    },
+    {
+      "id": "inca-radioterapia",
+      "title": "Radioterapia",
+      "publisher": "INCA, Ministério da Saúde",
+      "url": "https://www.gov.br/inca/pt-br/assuntos/cancer/tratamento/radioterapia",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para finalidade, tipos, equipe, marcações e rotina das aplicações, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-teleterapia",
+      "title": "External Beam Therapy (EBT)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/ebt",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para os papéis da equipe, a simulação e a conferência de posição antes da entrega, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-igrt",
+      "title": "Image-guided Radiation Therapy (IGRT)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/igrt",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para a comparação entre imagens do dia e imagens de referência, com redação própria."
+    },
+    {
+      "id": "nci-radioterapia-externa",
+      "title": "External Beam Radiation Therapy for Cancer",
+      "publisher": "National Cancer Institute (NIH)",
+      "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/external-beam",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do NIH; consultada para simulação, marcas na pele, imobilizadores e observação do paciente durante a aplicação, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-angiografia",
+      "title": "Catheter Angiography",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/angiocath",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para equipamentos da sala, fluoroscopia, contraste e papéis no procedimento, com redação própria."
+    },
+    {
+      "id": "anvisa-rdc-611-2022",
+      "title": "RDC nº 611, de 9 de março de 2022",
+      "publisher": "Anvisa (texto compilado, cópia hospedada pelo CBR)",
+      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado para os arts. 23, 43, 51, 65 e 66, sem reprodução de texto."
+    },
+    {
+      "id": "kjp-seguranca-radiacao",
+      "title": "Radiation safety for pain physicians: principles and recommendations",
+      "publisher": "The Korean Journal of Pain, 2022;35(2):129-139 (PubMed Central)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8977205",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto com licença CC BY-NC 4.0; consultado para fatos sobre espalhamento, barreiras e distância em fluoroscopia, com redação própria."
+    },
+    {
+      "id": "planalto-lei-7394",
+      "title": "Lei nº 7.394, de 29 de outubro de 1985",
+      "publisher": "Presidência da República (Planalto)",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7394.htm",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Lei federal; consultada para o art. 1º (técnicas abrangidas pela profissão), sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m13-01",
+      "code": "M13.01",
+      "title": "Medicina nuclear no percurso",
+      "objective": "Hoje você vai conseguir dizer de onde vem o sinal na medicina nuclear e ordenar as etapas do serviço.",
+      "competency": "Distinguir a origem do sinal e as etapas do serviço de medicina nuclear.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Recepção do serviço de medicina nuclear",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A câmara fica bem perto da paciente e não tem tubo de raios X. De onde sai a radiação que forma a imagem?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Boa pergunta. E repare que a ordem do dia aqui é outra: primeiro a injeção, depois uma espera, só então a imagem."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Guarde a dúvida da Duda para a aula inteira: nesta sala, quem emite e quem só detecta?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O sinal vem de dentro",
+        "body": "Na radiografia e na TC, o tubo emite e o detector registra o que atravessou o corpo. Na medicina nuclear a lógica se inverte: o paciente recebe um radiofármaco, molécula ligada a um átomo radioativo, em geral pela veia. O material se concentra na região estudada e emite radiação gama de dentro do corpo. A câmara gama só detecta essa energia e a converte em imagem; ela não emite radiação. Por isso o serviço tem etapas próprias: identificação, administração por profissional habilitado, espera para o material se acumular, aquisição das imagens e orientações de saída. Com o tempo, o material perde atividade e é eliminado; beber líquidos ajuda nessa eliminação.",
+        "keyPoints": [
+          "Raios X: a fonte é o tubo. Medicina nuclear: a fonte é o radiofármaco no paciente.",
+          "A câmara gama detecta; não emite.",
+          "Entre a administração e a imagem existe uma espera."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na cadeia da radiografia que você já estudou, de onde parte a radiação que forma a imagem?",
+          "options": [
+            {
+              "label": "Do detector, que emite e também registra",
+              "correct": false,
+              "feedback": "O detector só registra o que chega. Retome a cadeia: quem produz o feixe fica do outro lado do paciente."
+            },
+            {
+              "label": "Do tubo de raios X, fora do paciente",
+              "correct": true,
+              "feedback": "Isso. Na radiografia a fonte é o tubo, e o detector registra o que atravessou o corpo. Guarde essa referência para comparar."
+            },
+            {
+              "label": "Do corpo do paciente, que emite sozinho",
+              "correct": false,
+              "feedback": "Na radiografia o corpo só atenua o feixe que vem de fora. Confira de novo onde o feixe nasce."
+            },
+            {
+              "label": "Da mesa de exame, aquecida pelo gerador",
+              "correct": false,
+              "feedback": "A mesa apenas sustenta o paciente. Retome a cadeia a partir do componente que produz o feixe."
+            }
+          ],
+          "help": "Lembre a ordem da cadeia: algo produz o feixe antes de ele chegar ao paciente.",
+          "sourceIds": [
+            "radiologyinfo-angiografia",
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada elemento do exame de medicina nuclear ao papel que ele cumpre.",
+          "pairs": [
+            {
+              "left": "Radiofármaco",
+              "right": "Emite radiação gama de dentro do corpo"
+            },
+            {
+              "left": "Câmara gama",
+              "right": "Detecta a radiação e a converte em imagem"
+            },
+            {
+              "left": "Tempo de espera",
+              "right": "Deixa o material se acumular na região estudada"
+            },
+            {
+              "left": "Líquidos após o exame",
+              "right": "Ajudam o corpo a eliminar o material"
+            }
+          ],
+          "feedbackCorrect": "Cada elemento no seu papel: o radiofármaco emite, a câmara detecta, a espera dá tempo ao acúmulo e os líquidos ajudam a eliminar.",
+          "feedbackIncorrect": "Retome o conceito: nesta modalidade um elemento emite de dentro do corpo e outro apenas detecta. Comece por esses dois.",
+          "help": "Separe primeiro quem emite de quem detecta; os outros dois pares têm a ver com tempo.",
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as etapas do serviço de medicina nuclear, na ordem ensinada nesta aula.",
+          "items": [
+            "Conferir a identificação do paciente",
+            "Profissional habilitado administra o radiofármaco",
+            "Paciente aguarda o material se acumular",
+            "A câmara gama adquire as imagens",
+            "Paciente recebe as orientações de saída"
+          ],
+          "feedbackCorrect": "Ordem da aula: identificar, administrar, esperar, adquirir e orientar. A espera vem antes da imagem porque o material precisa se acumular.",
+          "feedbackIncorrect": "Confira de novo: nada é administrado antes da identificação, e a imagem só faz sentido depois da espera.",
+          "help": "Pergunte a cada etapa o que precisa ter acontecido antes dela.",
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Seu Jorge está deitado sob a câmara gama, quarenta minutos depois da injeção. O detector desce até ficar bem perto do peito dele. Ele pergunta ao Caio, com você ao lado: 'Essa máquina tão perto vai soltar muita radiação em mim?'",
+          "prompt": "Qual explicação está de acordo com o que a aula ensinou?",
+          "options": [
+            {
+              "label": "A câmara emite um feixe fraco, parecido com o da radiografia",
+              "correct": false,
+              "feedback": "Essa frase descreve um tubo de raios X. Retome: nesta sala, o aparelho emite ou apenas detecta?"
+            },
+            {
+              "label": "A câmara emite raios gama e depois recolhe o que volta",
+              "correct": false,
+              "feedback": "A câmara gama não emite nada. Confira de novo de onde sai a radiação que ela registra."
+            },
+            {
+              "label": "A câmara só capta o que vem do material que o senhor recebeu",
+              "correct": true,
+              "feedback": "Isso. A câmara gama detecta a energia do radiofármaco e a converte em imagem; ela não emite. Por isso pode chegar bem perto sem acrescentar radiação."
+            },
+            {
+              "label": "Neste exame não existe radiação nenhuma, pode ficar tranquilo",
+              "correct": false,
+              "feedback": "Existe radiação, e ela vem do material administrado. Tranquilizar com uma informação errada não ajuda o paciente."
+            }
+          ],
+          "help": "Pense em quem é a fonte nesta modalidade e em qual é o papel do aparelho.",
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear",
+            "nibib-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma colega de outro setor estranha: 'Injetaram o paciente e mandaram esperar duas horas. O aparelho quebrou?'. O que essa espera indica?",
+          "options": [
+            {
+              "label": "Faz parte do exame: o material precisa se acumular",
+              "correct": true,
+              "feedback": "Isso. Entre a administração e a imagem há um tempo de acúmulo, que varia conforme o exame e é definido pelo protocolo do serviço."
+            },
+            {
+              "label": "O tubo de raios X precisa aquecer antes de emitir",
+              "correct": false,
+              "feedback": "Não há tubo emitindo neste exame. Retome de onde vem o sinal na medicina nuclear."
+            },
+            {
+              "label": "A radiação da sala precisa se dissipar antes da imagem",
+              "correct": false,
+              "feedback": "A espera não tem a ver com a sala. Confira de novo o que acontece com o material dentro do corpo nesse intervalo."
+            },
+            {
+              "label": "O atraso indica falha, e o exame deve ser remarcado",
+              "correct": false,
+              "feedback": "Esperar não é sinal de defeito nesta modalidade. Retome a sequência de etapas da aula."
+            }
+          ],
+          "help": "Pense no que o material precisa fazer dentro do corpo antes de a imagem valer a pena.",
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Quem emite, quem detecta",
+        "body": "Agora você consegue dizer que, na medicina nuclear, o sinal sai do paciente e o aparelho só detecta. Também consegue ordenar o percurso: identificar, administrar, esperar, adquirir e orientar.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na dúvida sobre qualquer sala, pergunte primeiro: aqui, quem é a fonte?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda compara duas salas: na TC há um tubo girando; na medicina nuclear, nenhum tubo. Onde está a fonte de radiação durante a aquisição em medicina nuclear?",
+          "options": [
+            {
+              "label": "No paciente, que recebeu o radiofármaco",
+              "correct": true,
+              "feedback": "Isso. O material administrado emite de dentro do corpo, e o aparelho apenas detecta."
+            },
+            {
+              "label": "Dentro da câmara gama, atrás do detector",
+              "correct": false,
+              "feedback": "A câmara gama não tem fonte para formar a imagem: ela só detecta. Retome quem emite nesta modalidade."
+            },
+            {
+              "label": "Num tubo de raios X embutido na mesa",
+              "correct": false,
+              "feedback": "Não há tubo de raios X na formação dessa imagem. Confira de novo a origem do sinal."
+            },
+            {
+              "label": "Nas paredes blindadas da sala de exame",
+              "correct": false,
+              "feedback": "A blindagem contém a radiação, não a produz. Retome de onde o sinal parte."
+            }
+          ],
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        },
+        {
+          "prompt": "Um paciente já identificado acaba de receber o radiofármaco. Pela sequência ensinada na aula, qual é a etapa seguinte?",
+          "options": [
+            {
+              "label": "Receber as orientações de saída e ir embora",
+              "correct": false,
+              "feedback": "As orientações de saída fecham o percurso. Antes delas ainda faltam duas etapas."
+            },
+            {
+              "label": "Repetir a identificação e a administração",
+              "correct": false,
+              "feedback": "A administração não se repete por rotina. Retome o que vem depois dela na sequência."
+            },
+            {
+              "label": "Aguardar o material se acumular na região",
+              "correct": true,
+              "feedback": "Isso. Depois da administração vem a espera; só então a câmara adquire as imagens."
+            },
+            {
+              "label": "Passar pela câmara gama sem nenhuma espera",
+              "correct": false,
+              "feedback": "Na sequência da aula existe um intervalo antes da imagem. Confira de novo para que ele serve."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na medicina nuclear o aparelho não emite; quem emite é…",
+          "item": {
+            "prompt": "Durante a aquisição das imagens, o que a câmara gama faz?",
+            "options": [
+              {
+                "label": "Emite raios gama em direção ao paciente",
+                "correct": false,
+                "feedback": "Quem emite é o material dentro do corpo. A câmara fica do lado de quem recebe."
+              },
+              {
+                "label": "Aquece o radiofármaco para ele emitir",
+                "correct": false,
+                "feedback": "O material emite por conta própria, sem aquecimento. Retome o papel do aparelho."
+              },
+              {
+                "label": "Administra o material durante a imagem",
+                "correct": false,
+                "feedback": "A administração é uma etapa anterior, feita por profissional habilitado. A câmara só registra."
+              },
+              {
+                "label": "Detecta a radiação que sai do paciente",
+                "correct": true,
+                "feedback": "Isso. Ela registra a energia emitida pelo radiofármaco e a transforma em imagem."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-medicina-nuclear"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame de PET, o paciente também recebe um material radioativo antes de ir ao aparelho. O que esse exame tem em comum com o exame de câmara gama desta aula?",
+            "options": [
+              {
+                "label": "O aparelho também emite por um tubo de raios X",
+                "correct": false,
+                "feedback": "Nenhum dos dois forma essa imagem com feixe de tubo. Retome a origem do sinal."
+              },
+              {
+                "label": "O sinal também nasce dentro do paciente",
+                "correct": true,
+                "feedback": "Isso. No PET, como na câmara gama, o material administrado emite e os detectores registram."
+              },
+              {
+                "label": "A imagem também é feita antes da administração",
+                "correct": false,
+                "feedback": "Sem o material no corpo não há sinal para detectar. Confira a ordem das etapas."
+              },
+              {
+                "label": "O detector também funciona como fonte de radiação",
+                "correct": false,
+                "feedback": "Detector registra, não emite. Retome a diferença entre emitir e detectar."
+              }
+            ],
+            "sourceIds": [
+              "nibib-medicina-nuclear"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Dois esquemas lado a lado: tubo emitindo através do paciente até o detector, e paciente emitindo para a câmara gama",
+        "Linha do tempo das cinco etapas do serviço, com a espera em destaque"
+      ]
+    },
+    {
+      "id": "m13-02",
+      "code": "M13.02",
+      "title": "Proteção e rastreio em MN",
+      "objective": "Hoje você vai conseguir diferenciar exposição de contaminação e dizer quando parar e chamar o supervisor de proteção radiológica.",
+      "competency": "Reconhecer contaminação, registro e necessidade de apoio em medicina nuclear.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Corredor da medicina nuclear, fim do turno",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Antes de sair, passo o monitor nas mãos, no jaleco e na bancada. Todo dia. E anoto o resultado."
+          },
+          {
+            "speaker": "duda",
+            "text": "Mas você usou luva o tempo todo. E na sala de raios X ninguém faz isso. Por que aqui é diferente?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Antes de responder, separe duas coisas: a radiação que chega até você e o material que pode ficar onde não devia."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Exposição não é contaminação",
+        "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear o radiofármaco costuma ser uma solução injetável: uma gota fora do lugar já é contaminação. Por isso a norma ANSN 3.05 exige luvas descartáveis e jaleco de manga longa de quem manipula, sala de espera exclusiva para o paciente injetado e monitoração diária, e a cada suspeita, de corpo, roupas e superfícies, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o supervisor de proteção radiológica.",
+        "keyPoints": [
+          "Exposição: energia que chega. Contaminação: material fora do lugar.",
+          "Monitoração diária e a cada suspeita, sempre registrada.",
+          "Suspeitou? Não toque, avise e chame o supervisor de proteção radiológica."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, onde ficava a fonte de radiação depois da administração do radiofármaco?",
+          "options": [
+            {
+              "label": "Na câmara gama, que emite o sinal",
+              "correct": false,
+              "feedback": "A câmara só detecta. Retome a aula anterior: quem emite depois da administração?"
+            },
+            {
+              "label": "Na seringa vazia, já sem atividade",
+              "correct": false,
+              "feedback": "Depois da administração, o que importa para a imagem está em outro lugar. Confira de novo."
+            },
+            {
+              "label": "No monitor que mostra as imagens",
+              "correct": false,
+              "feedback": "O monitor apenas exibe. Retome de onde o sinal parte nesta modalidade."
+            },
+            {
+              "label": "No paciente, que passa a emitir",
+              "correct": true,
+              "feedback": "Isso. Por isso o paciente injetado tem sala de espera e sanitário exclusivos no serviço."
+            }
+          ],
+          "help": "Lembre o que mudou em relação à radiografia: o sinal passou a sair de onde?",
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada medida do serviço de medicina nuclear ao que ela faz.",
+          "pairs": [
+            {
+              "left": "Luvas e jaleco de manga longa",
+              "right": "Ficam entre o material e a pele ou a roupa"
+            },
+            {
+              "left": "Monitor de contaminação",
+              "right": "Verifica corpo, roupas e superfícies"
+            },
+            {
+              "left": "Registro da monitoração",
+              "right": "Guarda o que foi medido, para consulta depois"
+            },
+            {
+              "left": "Sala de espera exclusiva",
+              "right": "Separa o paciente injetado do público"
+            }
+          ],
+          "feedbackCorrect": "Barreira, verificação, registro e separação: quatro medidas diferentes para o mesmo cuidado.",
+          "feedbackIncorrect": "Retome o conceito: uma medida impede o contato, outra verifica, outra guarda a informação e outra separa pessoas.",
+          "help": "Pergunte a cada medida: você impede, verifica, guarda ou separa?",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Duda ficou cerca de dois minutos ao lado de um paciente injetado, na sala de espera exclusiva, sem tocar em nada nem em ninguém. Mais tarde, preocupada, pergunta se 'pegou contaminação' e se precisa lavar a roupa.",
+          "prompt": "Como a aula classifica o que aconteceu com Duda?",
+          "options": [
+            {
+              "label": "Exposição: a energia chegou, o material não",
+              "correct": true,
+              "feedback": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao supervisor de proteção radiológica."
+            },
+            {
+              "label": "Contaminação externa: a radiação gruda na roupa",
+              "correct": false,
+              "feedback": "Radiação não gruda: contaminação exige material radioativo sobre a pele ou a roupa. Confira de novo se houve contato."
+            },
+            {
+              "label": "Contaminação interna: ela respirou a radiação gama",
+              "correct": false,
+              "feedback": "Contaminação interna exige material dentro do corpo, engolido ou inalado. Estar perto não faz isso."
+            },
+            {
+              "label": "Nenhuma das duas: paciente injetado não emite nada",
+              "correct": false,
+              "feedback": "O paciente injetado emite, sim. Retome onde fica a fonte nesta modalidade."
+            }
+          ],
+          "help": "Verifique se, em algum momento, houve contato com o material.",
+          "sourceIds": [
+            "cdc-contaminacao-exposicao"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você acompanha o Caio pelo setor. Ao passar pela sala de administração, vazia naquele momento, você vê uma gota de líquido no chão, perto da bancada onde ficam as seringas blindadas. Uma funcionária da limpeza vem pelo corredor com o carrinho.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Enxuga com papel-toalha para ninguém escorregar ali",
+              "correct": false,
+              "feedback": "Enxugar pode espalhar o material e contaminar você. Retome: estudante não limpa; para e chama."
+            },
+            {
+              "label": "Não toca, avisa quem se aproxima e chama o supervisor",
+              "correct": true,
+              "feedback": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o supervisor de proteção radiológica, que monitora e decide."
+            },
+            {
+              "label": "Passa ao lado com cuidado e segue o roteiro do dia",
+              "correct": false,
+              "feedback": "Seguir em frente deixa o risco para a próxima pessoa. Confira de novo a quem a suspeita deve ser comunicada."
+            },
+            {
+              "label": "Pede à funcionária que lave o piso com bastante água",
+              "correct": false,
+              "feedback": "Lavar espalha o material e expõe a colega. A suspeita vai primeiro ao supervisor de proteção radiológica."
+            }
+          ],
+          "help": "Você não sabe o que é o líquido. Pense em quem tem instrumento e autoridade para verificar.",
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "cdc-contaminacao-exposicao"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "No quarto de um paciente internado para terapia com radiofármaco, a norma manda cobrir com plástico impermeável os objetos que podem ser contaminados. Que ideia da aula explica a medida?",
+          "options": [
+            {
+              "label": "O plástico bloqueia a radiação gama do paciente",
+              "correct": false,
+              "feedback": "Plástico fino não funciona como blindagem. Retome a diferença entre energia que chega e material que se deposita."
+            },
+            {
+              "label": "O plástico reduz a atividade do radiofármaco",
+              "correct": false,
+              "feedback": "Nada na superfície muda a atividade do material. Confira de novo o que a barreira evita."
+            },
+            {
+              "label": "Uma barreira impede o material de ficar no objeto",
+              "correct": true,
+              "feedback": "Isso. O plástico recebe o material no lugar do objeto e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente."
+            },
+            {
+              "label": "O plástico dispensa a monitoração do quarto",
+              "correct": false,
+              "feedback": "A monitoração continua obrigatória depois da saída do paciente. A barreira só facilita a remoção."
+            }
+          ],
+          "help": "Decida primeiro se a medida mira a energia que chega ou o material que se deposita.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Energia que chega, material que fica",
+        "body": "Agora você consegue separar exposição de contaminação, reconhecer as medidas do setor (barreira, monitoração e registro) e agir diante de uma suspeita: não tocar, avisar e chamar o supervisor de proteção radiológica.",
+        "line": {
+          "speaker": "lia",
+          "text": "Registrar não é burocracia: é o que permite a alguém refazer o caminho do material depois."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Caio terminou o turno sem nenhum incidente. Pela norma do setor, ele ainda precisa monitorar mãos, jaleco e bancada?",
+          "options": [
+            {
+              "label": "Não: a monitoração só vale quando há suspeita",
+              "correct": false,
+              "feedback": "A suspeita é um dos gatilhos, não o único. Retome a frequência que a aula ensinou."
+            },
+            {
+              "label": "Sim: é diária e registrada, mesmo sem incidente",
+              "correct": true,
+              "feedback": "Isso. A monitoração de corpo, roupas e superfícies é feita todo dia e também a cada suspeita, sempre com registro."
+            },
+            {
+              "label": "Não: o dosímetro mensal já cobre a contaminação",
+              "correct": false,
+              "feedback": "O dosímetro acompanha a dose do trabalhador; não procura material em superfícies. São medidas diferentes."
+            },
+            {
+              "label": "Sim, mas sem registro se o resultado for normal",
+              "correct": false,
+              "feedback": "O registro vale para todo resultado: é ele que permite rastrear depois. Confira de novo."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "prompt": "Ao passar perto da bancada, uma estagiária sente algo respingar na manga do jaleco. Ninguém viu. Qual é a conduta coerente com a aula?",
+          "options": [
+            {
+              "label": "Lavar a manga na pia mais próxima e seguir o estágio",
+              "correct": false,
+              "feedback": "Lavar por conta própria pode espalhar o material e apaga a evidência. A suspeita precisa ser comunicada."
+            },
+            {
+              "label": "Esperar o fim do turno para ver se o monitor acusa",
+              "correct": false,
+              "feedback": "Esperar deixa o material circular com ela pelo setor. A monitoração é feita a cada suspeita, não só no fim do dia."
+            },
+            {
+              "label": "Trocar de jaleco e não comentar, pois foi pouco",
+              "correct": false,
+              "feedback": "Quantidade pequena também é contaminação, e sem aviso não há registro nem verificação. Retome a conduta do estudante."
+            },
+            {
+              "label": "Parar e avisar o supervisor de proteção radiológica",
+              "correct": true,
+              "feedback": "Isso. É uma suspeita de contaminação: quem verifica e orienta é o supervisor, com o monitor adequado."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: contaminação não é a energia que chega; é o material radioativo que…",
+          "item": {
+            "prompt": "Qual destas situações é contaminação, e não apenas exposição?",
+            "options": [
+              {
+                "label": "Uma gota de radiofármaco sobre a luva",
+                "correct": true,
+                "feedback": "Isso. Há material radioativo sobre uma superfície onde ele não deveria estar."
+              },
+              {
+                "label": "Um minuto ao lado de um paciente injetado",
+                "correct": false,
+                "feedback": "Aqui a energia chega, mas não há material sobre a pessoa. É exposição."
+              },
+              {
+                "label": "Uma radiografia de tórax feita no leito",
+                "correct": false,
+                "feedback": "Na radiografia a pessoa é exposta ao feixe, sem material radioativo envolvido."
+              },
+              {
+                "label": "Uma passagem em frente à sala de exame",
+                "correct": false,
+                "feedback": "Passar perto não deposita material em ninguém. Retome o que define contaminação."
+              }
+            ],
+            "sourceIds": [
+              "cdc-contaminacao-exposicao"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma embalagem com fontes radioativas chega ao serviço. No recebimento, a norma manda inspecionar a integridade e monitorar a superfície externa, com registro. O que essa monitoração procura?",
+            "options": [
+              {
+                "label": "A dose que cada paciente vai receber no dia",
+                "correct": false,
+                "feedback": "A atividade para o paciente é aferida em outra etapa, por profissional habilitado. Aqui o alvo é a embalagem."
+              },
+              {
+                "label": "A validade do dosímetro de quem fez a entrega",
+                "correct": false,
+                "feedback": "O dosímetro do entregador não é o objeto dessa checagem. Retome o que pode estar na superfície."
+              },
+              {
+                "label": "Contaminação do lado de fora da embalagem",
+                "correct": true,
+                "feedback": "Isso. Material na superfície externa passaria para as mãos e bancadas de quem recebe. O resultado fica registrado."
+              },
+              {
+                "label": "O nome do médico que prescreveu os exames",
+                "correct": false,
+                "feedback": "A prescrição é conferida antes da administração, não no recebimento da embalagem."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Duas silhuetas: uma recebendo setas de energia (exposição) e outra com pontos de material na roupa e na pele (contaminação)",
+        "Planta simplificada do serviço com sala de espera exclusiva, sala de administração e ponto de monitoração na saída"
+      ]
+    },
+    {
+      "id": "m13-03",
+      "code": "M13.03",
+      "title": "Radioterapia no cuidado oncológico",
+      "objective": "Hoje você vai conseguir relacionar a finalidade da radioterapia, os papéis da equipe e a conferência feita antes de cada aplicação.",
+      "competency": "Relacionar finalidade, equipe e verificações da radioterapia no cuidado oncológico.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de espera da radioterapia",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Hoje é minha décima aplicação. Venho todo dia, de segunda a sexta. Essa máquina não tira nenhuma foto?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu também pensei que fosse um exame. Se não é para ver, para que serve a radiação aqui?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Guarde essa pergunta. E repare quantas pessoas conferem a mesma coisa antes de o aparelho ligar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Radiação para tratar",
+        "body": "Na radioterapia, a radiação ionizante não forma imagem: ela é o tratamento. O objetivo é destruir células do tumor ou impedir que se multipliquem, para curar, controlar a doença ou aliviar sintomas. Na radioterapia externa, o aparelho fica afastado do paciente e as aplicações costumam ser diárias, de segunda a sexta. Na braquiterapia, a fonte fica em contato com a região tratada. Na equipe, o radio-oncologista define e prescreve; a física médica calcula a dose e controla a qualidade dos aparelhos; o técnico ou tecnólogo posiciona o paciente e opera o aparelho; a enfermagem orienta os cuidados. Antes de cada aplicação, marcas na pele ajudam a conferir a posição planejada.",
+        "keyPoints": [
+          "Diagnóstico: radiação para ver. Radioterapia: radiação para tratar.",
+          "Quem prescreve, quem calcula e quem posiciona são pessoas diferentes.",
+          "Cada aplicação repete a conferência da posição."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Nos exames de imagem que você estudou até aqui, como a norma sanitária trata a dose de radiação no paciente?",
+          "options": [
+            {
+              "label": "A maior possível, para a imagem ficar mais nítida",
+              "correct": false,
+              "feedback": "Mais dose não é objetivo do exame. Retome o princípio de otimização que você estudou."
+            },
+            {
+              "label": "Uma dose fixa, igual para todos os pacientes",
+              "correct": false,
+              "feedback": "A exposição se ajusta ao exame e ao paciente. Confira de novo o que a otimização pede."
+            },
+            {
+              "label": "A mínima necessária para a qualidade da imagem",
+              "correct": true,
+              "feedback": "Isso. No diagnóstico, a radiação serve para ver, e a exposição é a menor que garante a imagem esperada. Compare com o que muda nesta aula."
+            },
+            {
+              "label": "Nenhuma: exame de imagem não entrega dose",
+              "correct": false,
+              "feedback": "Exames com raios X entregam dose, sim. Retome por que ela precisa ser otimizada."
+            }
+          ],
+          "help": "Lembre o princípio da otimização: a dose do exame serve a qual finalidade?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada membro da equipe de radioterapia ao papel descrito na aula.",
+          "pairs": [
+            {
+              "left": "Radio-oncologista",
+              "right": "Define o tratamento e prescreve a dose"
+            },
+            {
+              "left": "Física médica",
+              "right": "Calcula a dose e controla a qualidade dos aparelhos"
+            },
+            {
+              "left": "Técnico ou tecnólogo",
+              "right": "Posiciona o paciente e opera o aparelho"
+            },
+            {
+              "left": "Enfermagem",
+              "right": "Orienta os cuidados durante o tratamento"
+            }
+          ],
+          "feedbackCorrect": "Prescrever, calcular, posicionar e orientar: quatro papéis que se conferem entre si.",
+          "feedbackIncorrect": "Retome o conceito: quem decide o tratamento não é quem calcula, e quem calcula não é quem posiciona.",
+          "help": "Comece por quem prescreve; depois ache quem transforma a prescrição em cálculo.",
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-teleterapia"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "A ficha fictícia de Seu Jorge informa que a radioterapia foi indicada para reduzir um tumor que causa dor, sem expectativa de cura. Em qual finalidade descrita na aula esse tratamento se encaixa?",
+          "options": [
+            {
+              "label": "Formar imagens para acompanhar o tumor de perto",
+              "correct": false,
+              "feedback": "Na radioterapia a radiação não serve para formar imagem. Retome para que ela é usada."
+            },
+            {
+              "label": "Aliviar sintomas e melhorar a qualidade de vida",
+              "correct": true,
+              "feedback": "Isso. Quando a cura não é possível, a radioterapia ainda pode reduzir o tumor e aliviar dor e outros sintomas."
+            },
+            {
+              "label": "Curar, pois toda radioterapia tem intenção curativa",
+              "correct": false,
+              "feedback": "Nem toda indicação busca cura. Confira de novo as finalidades que a aula listou."
+            },
+            {
+              "label": "Medir a radiação que o próprio tumor emite",
+              "correct": false,
+              "feedback": "O tumor não emite radiação. Retome o que a radiação faz com as células dele."
+            }
+          ],
+          "help": "A ficha já diz o que se espera do tratamento. Procure a finalidade que combina com isso.",
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-teleterapia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você acompanha o posicionamento de Dona Marta para a aplicação do dia. De um lado do corpo, as marcas na pele estão quase apagadas. A técnica responsável foi chamada à sala de comando. Dona Marta diz: 'Pode alinhar pelo que der, é só hoje'.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Reforça as marcas com caneta para adiantar o serviço",
+              "correct": false,
+              "feedback": "Redesenhar a marca por conta própria pode fixar uma posição errada. Retome a quem cabe conferir a posição."
+            },
+            {
+              "label": "Alinha pela marca visível e deixa tudo pronto",
+              "correct": false,
+              "feedback": "Alinhar com referência incompleta põe a posição em dúvida. Confira de novo o que a aula diz sobre a conferência."
+            },
+            {
+              "label": "Pede a Dona Marta que mostre onde ficava a marca",
+              "correct": false,
+              "feedback": "A memória da paciente não substitui a referência do planejamento. A dúvida vai para a técnica responsável."
+            },
+            {
+              "label": "Para e avisa a técnica antes de qualquer ajuste",
+              "correct": true,
+              "feedback": "Isso. As marcas guiam a posição em toda aplicação. Se estão apagadas, quem confere e resolve é a equipe do tratamento."
+            }
+          ],
+          "help": "Pense para que servem as marcas e em quem responde pela posição antes do feixe.",
+          "sourceIds": [
+            "nci-radioterapia-externa",
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num serviço de braquiterapia, depois de posicionado o aplicador, o físico calcula a dose com base numa imagem e o médico confere antes de liberar o início. Que ideia da aula essa rotina repete?",
+          "options": [
+            {
+              "label": "Quem calcula e quem prescreve conferem antes da entrega",
+              "correct": true,
+              "feedback": "Isso. Também na braquiterapia a dose passa por mais de um profissional antes de ser entregue."
+            },
+            {
+              "label": "A radiação serve para formar a imagem do aplicador",
+              "correct": false,
+              "feedback": "A imagem ali é apoio ao cálculo; a radiação do tratamento tem outra função. Retome a finalidade da radioterapia."
+            },
+            {
+              "label": "O profissional que posiciona decide a dose sozinho",
+              "correct": false,
+              "feedback": "A dose não é decisão de uma pessoa só. Confira de novo a divisão de papéis."
+            },
+            {
+              "label": "A conferência só é necessária na primeira aplicação",
+              "correct": false,
+              "feedback": "A conferência se repete a cada aplicação. Retome o último ponto do conceito."
+            }
+          ],
+          "help": "Observe quantos profissionais aparecem na rotina e o que cada um faz com a dose.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Ver é uma coisa, tratar é outra",
+        "body": "Agora você consegue dizer para que serve a radiação na radioterapia, ligar cada profissional ao seu papel e reconhecer que a posição é conferida antes de cada aplicação.",
+        "line": {
+          "speaker": "lia",
+          "text": "Em radioterapia, ninguém confere sozinho. Quando algo não bate, a pergunta certa é: quem precisa saber disso agora?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda vê o aparelho de radioterapia ficar ligado por poucos minutos, e nenhuma imagem do tumor é produzida nesse tempo. O que explica isso?",
+          "options": [
+            {
+              "label": "O detector do aparelho estava com defeito no dia",
+              "correct": false,
+              "feedback": "Não há falha nenhuma. Retome para que serve a radiação nesta modalidade."
+            },
+            {
+              "label": "A imagem só fica pronta depois da última aplicação",
+              "correct": false,
+              "feedback": "A aplicação não gera imagem para depois. Confira de novo a finalidade do feixe."
+            },
+            {
+              "label": "O tumor absorve toda a radiação e apaga a imagem",
+              "correct": false,
+              "feedback": "O feixe da aplicação não foi feito para registrar imagem. Retome a diferença entre ver e tratar."
+            },
+            {
+              "label": "Ali a radiação é o tratamento, não um meio de ver",
+              "correct": true,
+              "feedback": "Isso. O feixe da aplicação existe para agir sobre as células do tumor, não para formar imagem."
+            }
+          ],
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "prompt": "Na simulação, surge uma dúvida sobre o cálculo da dose de um plano. Pela divisão de papéis ensinada na aula, de quem é esse cálculo?",
+          "options": [
+            {
+              "label": "Da física médica",
+              "correct": true,
+              "feedback": "Isso. A física médica calcula a dose para que seja igual à prescrita e controla a qualidade dos aparelhos."
+            },
+            {
+              "label": "Da enfermagem",
+              "correct": false,
+              "feedback": "A enfermagem orienta os cuidados do paciente. Retome quem transforma a prescrição em cálculo."
+            },
+            {
+              "label": "De quem posiciona",
+              "correct": false,
+              "feedback": "Quem posiciona opera o aparelho e observa o paciente, mas não calcula a dose. Confira de novo."
+            },
+            {
+              "label": "Do radio-oncologista",
+              "correct": false,
+              "feedback": "O radio-oncologista define o tratamento e prescreve a dose; o cálculo é outra etapa. Retome a divisão de papéis."
+            }
+          ],
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-teleterapia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no exame de imagem a radiação serve para ver; na radioterapia ela serve para…",
+          "item": {
+            "prompt": "Qual é o objetivo da radiação numa aplicação de radioterapia?",
+            "options": [
+              {
+                "label": "Formar uma imagem nítida do tumor para o laudo médico",
+                "correct": false,
+                "feedback": "Imagem para laudo é assunto do diagnóstico. Retome o que muda quando a radiação passa a tratar."
+              },
+              {
+                "label": "Destruir células do tumor ou impedir que se multipliquem",
+                "correct": true,
+                "feedback": "Isso. Esse efeito sobre as células é o que permite curar, controlar a doença ou aliviar sintomas."
+              },
+              {
+                "label": "Medir quanto radiofármaco se acumulou dentro do tumor",
+                "correct": false,
+                "feedback": "Isso descreve a medicina nuclear. Na radioterapia externa não há radiofármaco."
+              },
+              {
+                "label": "Aquecer a pele para preparar a região para a cirurgia",
+                "correct": false,
+                "feedback": "A radioterapia não age por aquecimento. Confira de novo o efeito sobre as células do tumor."
+              }
+            ],
+            "sourceIds": [
+              "inca-radioterapia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Dona Marta recebeu um cartão com aparelho, médico, dia e horário das aplicações. Depois de faltar a duas sessões, ela chega sem o cartão. Dentro do seu papel na simulação, o que cabe fazer?",
+            "options": [
+              {
+                "label": "Encaixá-la no primeiro aparelho que estiver livre",
+                "correct": false,
+                "feedback": "Aparelho e horário fazem parte do que foi planejado para ela. Retome a quem cabe conferir."
+              },
+              {
+                "label": "Dizer que duas faltas não mudam nada no tratamento",
+                "correct": false,
+                "feedback": "Faltar pode prejudicar o tratamento. Essa avaliação não é sua; leve a informação à equipe."
+              },
+              {
+                "label": "Avisar a equipe para conferir o agendamento dela",
+                "correct": true,
+                "feedback": "Isso. Faltas podem prejudicar o tratamento, e quem avalia e reorganiza é a equipe. Você descreve a situação e pede apoio."
+              },
+              {
+                "label": "Sugerir duas aplicações no mesmo dia para compensar",
+                "correct": false,
+                "feedback": "Mudar o esquema é decisão do radio-oncologista. Confira de novo qual é o seu papel."
+              }
+            ],
+            "sourceIds": [
+              "inca-radioterapia"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quadro comparando diagnóstico (radiação para ver) e radioterapia (radiação para tratar)",
+        "Fluxo da equipe: prescrição, cálculo, posicionamento e orientação, com setas de conferência entre eles"
+      ]
+    },
+    {
+      "id": "m13-04",
+      "code": "M13.04",
+      "title": "Simulação e posicionamento em RT",
+      "objective": "Hoje você vai conseguir diferenciar a imagem que confere a posição do feixe que entrega o tratamento.",
+      "competency": "Distinguir imagem de localização e entrega de tratamento na radioterapia externa.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala do tomógrafo de simulação",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Tomografia na radioterapia? Achei que aqui ninguém fazia exame."
+          },
+          {
+            "speaker": "caio",
+            "text": "Esta não é para laudo. É para todo mundo saber em que posição a Dona Marta vai ficar em cada aplicação."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então a pergunta do dia é: o que essa imagem responde, e o que ela não responde?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Imagem para localizar, feixe para tratar",
+        "body": "Antes da primeira aplicação vem a simulação: a equipe define a posição de tratamento, prepara imobilizadores, como a máscara, faz marcas na pele e adquire uma tomografia nessa posição. Essas imagens viram a referência do planejamento. Em cada dia de tratamento, o paciente é reposicionado com as mesmas marcas e imobilizadores, com apoio de lasers de alinhamento. Antes da dose, novas imagens são comparadas com a referência; se a posição difere, a equipe ajusta e confere de novo. Só então o feixe de tratamento é ligado, com o operador fora da sala. A imagem de localização responde a uma pergunta: está no lugar? Ela não diagnostica nem trata.",
+        "keyPoints": [
+          "Simulação: define e registra a posição.",
+          "Imagem de localização: compara o dia com a referência.",
+          "Entrega: só depois da conferência."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que a equipe de radioterapia repete antes de cada aplicação?",
+          "options": [
+            {
+              "label": "A conferência da posição planejada",
+              "correct": true,
+              "feedback": "Isso. Hoje você vai ver como essa conferência é feita, da simulação à imagem do dia."
+            },
+            {
+              "label": "A prescrição de uma dose nova a cada dia",
+              "correct": false,
+              "feedback": "A prescrição é definida pelo radio-oncologista no início. Retome o que se repete diariamente."
+            },
+            {
+              "label": "O cálculo completo do plano de tratamento",
+              "correct": false,
+              "feedback": "O cálculo é feito no planejamento, pela física médica. Confira de novo o que acontece em toda aplicação."
+            },
+            {
+              "label": "A escolha de um aparelho diferente",
+              "correct": false,
+              "feedback": "O aparelho faz parte do que foi planejado. Retome o último ponto da aula anterior."
+            }
+          ],
+          "help": "Pense no que precisa estar igual em todas as aplicações.",
+          "sourceIds": [
+            "radiologyinfo-teleterapia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o percurso do paciente na radioterapia externa, na ordem ensinada nesta aula.",
+          "items": [
+            "Simulação: posição, imobilizadores e marcas",
+            "Tomografia de planejamento na posição definida",
+            "Reposicionamento no dia, com marcas e lasers",
+            "Imagem de localização comparada à referência",
+            "Entrega do feixe de tratamento"
+          ],
+          "feedbackCorrect": "Ordem da aula: simular, planejar, reposicionar, conferir e só então tratar.",
+          "feedbackIncorrect": "Confira de novo: a referência nasce na simulação, e o feixe só vem depois da comparação do dia.",
+          "help": "Ache primeiro a etapa que cria a referência e a etapa que depende de todas as outras.",
+          "sourceIds": [
+            "radiologyinfo-teleterapia",
+            "radiologyinfo-igrt"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada recurso da radioterapia externa ao que ele garante.",
+          "pairs": [
+            {
+              "left": "Máscara ou molde",
+              "right": "Limita o movimento durante a aplicação"
+            },
+            {
+              "left": "Marcas na pele",
+              "right": "Guiam o alinhamento em cada dia"
+            },
+            {
+              "left": "Imagens da simulação",
+              "right": "Servem de referência para o planejamento"
+            },
+            {
+              "left": "Imagem do dia",
+              "right": "Mostra se a posição coincide com a referência"
+            }
+          ],
+          "feedbackCorrect": "Imobilizar, alinhar, servir de referência e conferir: cada recurso responde por uma parte da posição.",
+          "feedbackIncorrect": "Retome o conceito: dois recursos mantêm a posição e dois são imagens com funções diferentes.",
+          "help": "Separe o que segura o corpo, o que orienta o alinhamento e as duas imagens.",
+          "sourceIds": [
+            "radiologyinfo-teleterapia",
+            "nci-radioterapia-externa",
+            "radiologyinfo-igrt"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Seu Jorge já está deitado na mesa do aparelho, com os imobilizadores. O equipamento adquire uma imagem, e na tela a equipe a sobrepõe à da simulação. Ele pergunta: 'Já estão me tratando, ou é mais um exame para ver como o tumor está?'",
+          "prompt": "Qual resposta descreve corretamente esse momento?",
+          "options": [
+            {
+              "label": "É o tratamento: essa imagem já entrega a dose do dia",
+              "correct": false,
+              "feedback": "A dose do dia é entregue pelo feixe de tratamento, numa etapa posterior. Retome a ordem do percurso."
+            },
+            {
+              "label": "É uma imagem para conferir a posição antes de tratar",
+              "correct": true,
+              "feedback": "Isso. A imagem do dia é comparada com a referência; o feixe de tratamento só vem depois dessa conferência."
+            },
+            {
+              "label": "É um exame para avaliar se o tumor está diminuindo",
+              "correct": false,
+              "feedback": "Essa imagem não é para diagnóstico nem para avaliar resposta. Confira de novo a pergunta que ela responde."
+            },
+            {
+              "label": "É um teste do aparelho, sem relação com o senhor",
+              "correct": false,
+              "feedback": "A imagem tem tudo a ver com ele: mostra a posição dele naquele dia. Retome a função da comparação."
+            }
+          ],
+          "help": "Repare no que a equipe faz com a imagem na tela.",
+          "sourceIds": [
+            "radiologyinfo-igrt",
+            "radiologyinfo-teleterapia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Em outro serviço fictício, a comparação do dia mostra a paciente deslocada em relação à referência. A agenda está atrasada, e alguém na sala de comando sugere: 'Trata assim mesmo, é pouca diferença'.",
+          "prompt": "Pelo que a aula ensinou, o que a equipe faz antes da entrega?",
+          "options": [
+            {
+              "label": "Entrega a dose e anota o desvio no fim do dia",
+              "correct": false,
+              "feedback": "Anotar depois não devolve a posição. Retome o que vem antes do feixe quando há diferença."
+            },
+            {
+              "label": "Refaz todo o planejamento antes de continuar",
+              "correct": false,
+              "feedback": "Um desvio de posição no dia se resolve reposicionando. Refazer o plano é outra decisão, da equipe médica e da física."
+            },
+            {
+              "label": "Aumenta o tempo de feixe para compensar",
+              "correct": false,
+              "feedback": "Mais tempo de feixe muda a dose, não a posição. Confira de novo o que a imagem do dia veio conferir."
+            },
+            {
+              "label": "Ajusta a posição e confere com nova imagem",
+              "correct": true,
+              "feedback": "Isso. Quando a posição difere da referência, a equipe reposiciona e adquire nova imagem antes de entregar a dose."
+            }
+          ],
+          "help": "A imagem do dia fez uma pergunta e recebeu um 'não'. O que resolve esse 'não'?",
+          "sourceIds": [
+            "radiologyinfo-igrt"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Primeiro conferir, depois tratar",
+        "body": "Agora você consegue separar três momentos: a simulação, que cria a referência; a imagem de localização, que confere a posição do dia; e a entrega, que só acontece depois da conferência.",
+        "line": {
+          "speaker": "caio",
+          "text": "Aqui a pressa perde sempre para a conferência. Imagem que não bate é motivo para parar, não para torcer."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda vê na agenda uma tomografia marcada como 'simulação' na radioterapia. Para que a equipe usa essas imagens?",
+          "options": [
+            {
+              "label": "Para emitir o laudo diagnóstico do tumor",
+              "correct": false,
+              "feedback": "Essa tomografia não é feita para laudo. Retome a função da simulação."
+            },
+            {
+              "label": "Para entregar a primeira dose do tratamento",
+              "correct": false,
+              "feedback": "A simulação não trata. Confira de novo em que etapa o feixe de tratamento aparece."
+            },
+            {
+              "label": "Como referência da posição e do planejamento",
+              "correct": true,
+              "feedback": "Isso. A tomografia de simulação registra o paciente na posição de tratamento e serve de base ao planejamento."
+            },
+            {
+              "label": "Para medir a contaminação da pele do paciente",
+              "correct": false,
+              "feedback": "Contaminação é assunto da medicina nuclear. Aqui a imagem registra posição."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-teleterapia",
+            "radiologyinfo-igrt"
+          ]
+        },
+        {
+          "prompt": "No dia da aplicação, em que momento o feixe de tratamento pode ser ligado?",
+          "options": [
+            {
+              "label": "Assim que o paciente deita na mesa de tratamento",
+              "correct": false,
+              "feedback": "Deitar na mesa é só o começo do reposicionamento. Retome as etapas que vêm antes do feixe."
+            },
+            {
+              "label": "Depois que a imagem do dia confere com a referência",
+              "correct": true,
+              "feedback": "Isso. Primeiro se confere a posição; a entrega vem por último, com o operador fora da sala."
+            },
+            {
+              "label": "Antes do reposicionamento, para ganhar tempo",
+              "correct": false,
+              "feedback": "Sem reposicionar não há posição a conferir. Confira de novo a ordem do percurso."
+            },
+            {
+              "label": "Enquanto a equipe ainda ajusta os imobilizadores",
+              "correct": false,
+              "feedback": "Durante os ajustes a equipe está na sala e a posição ainda não foi conferida. Retome a ordem."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-teleterapia",
+            "radiologyinfo-igrt"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a imagem de localização não trata nem diagnostica; ela mostra se o paciente está…",
+          "item": {
+            "prompt": "O que a imagem de localização compara?",
+            "options": [
+              {
+                "label": "A dose de hoje com a dose da aplicação de ontem",
+                "correct": false,
+                "feedback": "A imagem de localização não mede dose. Retome a pergunta que ela responde."
+              },
+              {
+                "label": "O tumor de hoje com o do laudo anterior",
+                "correct": false,
+                "feedback": "Comparar o tumor ao longo do tempo é tarefa de diagnóstico. Aqui o que se compara é posição."
+              },
+              {
+                "label": "A posição do dia com a referência da simulação",
+                "correct": true,
+                "feedback": "Isso. Se as duas coincidem, a entrega pode seguir; se não, a equipe ajusta e confere de novo."
+              },
+              {
+                "label": "O aparelho de hoje com o da semana passada",
+                "correct": false,
+                "feedback": "O que se confere é o paciente, não o aparelho. Confira de novo."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-igrt"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num tratamento de cabeça, o paciente usa uma máscara presa à mesa. Num dos dias, a máscara parece folgada. O que essa observação põe em dúvida?",
+            "options": [
+              {
+                "label": "Se a posição do dia repete a da simulação",
+                "correct": true,
+                "feedback": "Isso. A máscara existe para repetir a posição. Folga é motivo para avisar a equipe antes da conferência por imagem."
+              },
+              {
+                "label": "Se o paciente ainda precisa do tratamento",
+                "correct": false,
+                "feedback": "A indicação do tratamento é do radio-oncologista e não depende do ajuste da máscara."
+              },
+              {
+                "label": "Se a dose prescrita deveria ser reduzida",
+                "correct": false,
+                "feedback": "A dose não muda por causa do imobilizador. Retome para que a máscara serve."
+              },
+              {
+                "label": "Se a tomografia de simulação usou contraste",
+                "correct": false,
+                "feedback": "O uso de contraste não tem relação com a folga. Confira de novo a função do imobilizador."
+              }
+            ],
+            "sourceIds": [
+              "nci-radioterapia-externa",
+              "radiologyinfo-teleterapia"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Linha do tempo com simulação, planejamento e o ciclo diário reposicionar, conferir e tratar",
+        "Duas imagens sobrepostas, a referência e a do dia, com um pequeno desvio em destaque"
+      ]
+    },
+    {
+      "id": "m13-05",
+      "code": "M13.05",
+      "title": "Sala intervencionista",
+      "objective": "Hoje você vai conseguir reconhecer os equipamentos da sala intervencionista, as barreiras da equipe e quando avisar.",
+      "competency": "Reconhecer equipamentos, barreiras e suporte técnico na sala intervencionista.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala intervencionista, antes do procedimento",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Aqui boa parte da equipe fica dentro da sala com o feixe ligado, ao lado do paciente. Não dá para esperar do lado de fora."
+          },
+          {
+            "speaker": "duda",
+            "text": "Então o avental não é enfeite. Mas o feixe aponta para o paciente, não para nós."
+          },
+          {
+            "speaker": "lia",
+            "text": "Certo. Então de onde vem a radiação que chega à equipe? Lembre o que você estudou sobre espalhamento."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Imagem ao vivo, equipe dentro da sala",
+        "body": "Na radiologia intervencionista, o médico conduz um cateter por dentro dos vasos, guiado por fluoroscopia: raios X convertidos em vídeo. A sala reúne mesa, tubo de raios X, detector, monitores, cateteres e contraste, que torna os vasos visíveis. O médico faz o ato invasivo; o técnico ou tecnólogo dirige o feixe e registra as imagens. Como a equipe fica na sala, recebe radiação espalhada pelo paciente, mais intensa do lado do tubo. As barreiras se somam, conforme o protocolo do serviço: avental plumbífero, protetor de tireoide, óculos plumbíferos, anteparo suspenso e distância. A sala é área controlada: só entra quem é necessário ao procedimento, e a equipe usa dosímetro.",
+        "keyPoints": [
+          "A maior fonte para a equipe é o espalhamento que sai do paciente.",
+          "Avental, protetor de tireoide, óculos, anteparo e distância se somam.",
+          "Área controlada: entra só quem é necessário."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você estudou que parte do feixe muda de direção ao interagir com o corpo. Para onde vai essa radiação espalhada?",
+          "options": [
+            {
+              "label": "Só para a frente, em direção ao detector",
+              "correct": false,
+              "feedback": "O espalhamento não segue só o caminho do feixe. Retome o que você viu sobre ele em atenuação e espalhamento."
+            },
+            {
+              "label": "Só de volta, para dentro do próprio tubo",
+              "correct": false,
+              "feedback": "A radiação espalhada não retorna apenas ao tubo. Confira de novo como ela se distribui."
+            },
+            {
+              "label": "Para lugar nenhum: ela é toda absorvida",
+              "correct": false,
+              "feedback": "Parte do feixe é absorvida, mas parte se espalha pela sala. Retome a aula de espalhamento."
+            },
+            {
+              "label": "Para todas as direções, inclusive a da equipe",
+              "correct": true,
+              "feedback": "Isso. O espalhamento sai do paciente em todas as direções. Na sala intervencionista, a equipe está bem ao lado."
+            }
+          ],
+          "help": "Lembre por que a equipe se protege mesmo fora do feixe primário.",
+          "sourceIds": [
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item da sala intervencionista ao papel que ele cumpre.",
+          "pairs": [
+            {
+              "left": "Tubo de raios X",
+              "right": "Emite o feixe que atravessa o paciente"
+            },
+            {
+              "left": "Detector",
+              "right": "Recebe o feixe e gera o vídeo da fluoroscopia"
+            },
+            {
+              "left": "Monitor",
+              "right": "Mostra as imagens que guiam o procedimento"
+            },
+            {
+              "left": "Contraste",
+              "right": "Torna os vasos visíveis na imagem"
+            }
+          ],
+          "feedbackCorrect": "Emitir, receber, mostrar e realçar: a cadeia da fluoroscopia dentro da sala.",
+          "feedbackIncorrect": "Retome a cadeia: um item emite, outro recebe, outro mostra e outro realça os vasos.",
+          "help": "Siga o caminho do feixe, do início até a tela.",
+          "sourceIds": [
+            "radiologyinfo-angiografia"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Na sala, o tubo fica de um lado do paciente e o detector, do outro. Segundo a aula, de que lado a radiação espalhada que chega à equipe é mais intensa?",
+          "options": [
+            {
+              "label": "Do lado do detector de imagem",
+              "correct": false,
+              "feedback": "Do lado do detector o espalhamento é menor. Confira de novo o que o conceito diz sobre o lado do tubo."
+            },
+            {
+              "label": "É igual dos dois lados da mesa",
+              "correct": false,
+              "feedback": "A distribuição não é uniforme. Retome a frase do conceito sobre a intensidade do espalhamento."
+            },
+            {
+              "label": "Do lado do tubo de raios X",
+              "correct": true,
+              "feedback": "Isso. O espalhamento é maior perto do tubo; quem trabalha desse lado recebe mais do que quem fica do lado oposto."
+            },
+            {
+              "label": "Atrás dos monitores da sala",
+              "correct": false,
+              "feedback": "Os monitores não definem onde o espalhamento é maior. Retome a posição do tubo."
+            }
+          ],
+          "help": "Pense em qual face do paciente recebe o feixe primeiro.",
+          "sourceIds": [
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você observa um procedimento de dentro da sala, de avental e protetor de tireoide, no ponto indicado pela Profa. Lia. Com a fluoroscopia em uso, a porta se abre e um colega de outro setor entra sem avental para entregar um material e para ao lado da mesa.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Avisa a equipe na hora sobre a entrada do colega",
+              "correct": true,
+              "feedback": "Isso. A equipe pode interromper a exposição e orientar o colega. A sala é área controlada, e eventos assim são comunicados sem demora."
+            },
+            {
+              "label": "Entrega o seu avental a ele e fica sem proteção",
+              "correct": false,
+              "feedback": "Ficar sem barreira cria um segundo problema. Retome a quem cabe interromper e orientar."
+            },
+            {
+              "label": "Espera o fim do procedimento para comentar o caso",
+              "correct": false,
+              "feedback": "Até lá o colega segue exposto ao espalhamento. Confira de novo quando um evento deve ser informado."
+            },
+            {
+              "label": "Sai da sala em silêncio para não atrapalhar ninguém",
+              "correct": false,
+              "feedback": "Sair não protege o colega, e a equipe continua sem saber. Retome o que fazer diante de um risco que você percebeu."
+            }
+          ],
+          "help": "Quem controla o feixe precisa de qual informação neste instante?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Um aparelho móvel de fluoroscopia, o arco em C, é levado ao centro cirúrgico para apoiar uma cirurgia ortopédica. Parte da equipe da cirurgia nunca trabalhou com ele e pergunta se as regras da sala intervencionista também valem ali.",
+          "prompt": "Qual raciocínio da aula vale também nesse cenário?",
+          "options": [
+            {
+              "label": "Aparelho móvel não espalha radiação pela sala",
+              "correct": false,
+              "feedback": "O espalhamento vem do paciente, não do tipo de aparelho. Retome de onde sai a radiação que chega à equipe."
+            },
+            {
+              "label": "O paciente espalha radiação: barreiras e distância valem",
+              "correct": true,
+              "feedback": "Isso. Onde há fluoroscopia com a equipe por perto, há espalhamento. As mesmas barreiras se aplicam, conforme o protocolo do serviço."
+            },
+            {
+              "label": "Fora da sala intervencionista, o avental é opcional",
+              "correct": false,
+              "feedback": "A proteção acompanha a exposição, não o nome da sala. Confira de novo as barreiras da aula."
+            },
+            {
+              "label": "Só quem opera o aparelho recebe radiação espalhada",
+              "correct": false,
+              "feedback": "O espalhamento alcança todos que estão por perto. Retome para onde ele se distribui."
+            }
+          ],
+          "help": "O que mudou foi a sala. Verifique se a origem da radiação que chega à equipe mudou.",
+          "sourceIds": [
+            "kjp-seguranca-radiacao",
+            "anvisa-rdc-611-2022"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Dentro da sala, com barreiras",
+        "body": "Agora você consegue nomear os equipamentos da sala intervencionista, explicar por que a equipe recebe radiação espalhada e listar as barreiras que se somam. E sabe que uma entrada indevida na sala se avisa na hora.",
+        "line": {
+          "speaker": "caio",
+          "text": "Antes de entrar, eu me pergunto: preciso estar aqui, estou protegido e sei onde ficar? Se faltar um, não entro."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Durante a fluoroscopia, o feixe aponta para o paciente. De onde vem a maior parte da radiação que atinge a equipe?",
+          "options": [
+            {
+              "label": "Do espalhamento que sai do paciente",
+              "correct": true,
+              "feedback": "Isso. A radiação espalhada pelo paciente e pela mesa é a principal fonte de exposição da equipe."
+            },
+            {
+              "label": "Do monitor que exibe as imagens",
+              "correct": false,
+              "feedback": "O monitor só exibe o vídeo. Retome o que acontece com o feixe ao interagir com o corpo."
+            },
+            {
+              "label": "Do contraste injetado pelo cateter",
+              "correct": false,
+              "feedback": "O contraste serve para realçar os vasos; não é ele que irradia a equipe. Confira de novo a origem da radiação na sala."
+            },
+            {
+              "label": "Do detector, que devolve o feixe",
+              "correct": false,
+              "feedback": "O detector recebe o feixe, não o devolve. Retome de onde parte o espalhamento."
+            }
+          ],
+          "sourceIds": [
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "prompt": "Qual conjunto reúne apenas barreiras de proteção radiológica da equipe citadas na aula?",
+          "options": [
+            {
+              "label": "Touca, máscara cirúrgica, propé e luva de látex",
+              "correct": false,
+              "feedback": "Esses itens servem a outro cuidado e não barram raios X. Retome as barreiras plumbíferas da aula."
+            },
+            {
+              "label": "Cateter, contraste, monitor e mesa de exame",
+              "correct": false,
+              "feedback": "Esses são itens do procedimento, não de proteção. Confira de novo a lista de barreiras."
+            },
+            {
+              "label": "Avental, protetor de tireoide, óculos e anteparo",
+              "correct": true,
+              "feedback": "Isso. São barreiras entre o espalhamento e o corpo, somadas à distância."
+            },
+            {
+              "label": "Dosímetro, crachá, prontuário e ficha de sala",
+              "correct": false,
+              "feedback": "O dosímetro mede a dose, mas não a reduz. Retome o que fica entre a radiação e o corpo."
+            }
+          ],
+          "sourceIds": [
+            "kjp-seguranca-radiacao",
+            "anvisa-rdc-611-2022"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na sala intervencionista o feixe vai para o paciente, mas a equipe recebe a radiação…",
+          "item": {
+            "prompt": "Por que a equipe usa avental plumbífero se o feixe não aponta para ela?",
+            "options": [
+              {
+                "label": "Porque o avental mantém o campo de trabalho limpo",
+                "correct": false,
+                "feedback": "O avental plumbífero é barreira contra radiação, não item de limpeza. Retome a origem da exposição da equipe."
+              },
+              {
+                "label": "Porque o detector emite radiação para trás",
+                "correct": false,
+                "feedback": "O detector não emite. Confira de novo o que acontece quando o feixe atinge o paciente."
+              },
+              {
+                "label": "Porque o contraste deixa a equipe radioativa",
+                "correct": false,
+                "feedback": "O contraste só realça os vasos na imagem. Retome de onde vem a radiação que chega à equipe."
+              },
+              {
+                "label": "Porque o paciente espalha radiação pela sala",
+                "correct": true,
+                "feedback": "Isso. O avental fica entre a radiação espalhada e o corpo de quem trabalha ao lado da mesa."
+              }
+            ],
+            "sourceIds": [
+              "kjp-seguranca-radiacao",
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num procedimento longo, uma colega dá dois passos para longe da mesa sempre que não precisa atuar. Que recurso de proteção da aula ela está usando?",
+            "options": [
+              {
+                "label": "O anteparo suspenso no teto",
+                "correct": false,
+                "feedback": "O anteparo é uma barreira física. Afastar-se da mesa é outro recurso. Confira de novo a lista."
+              },
+              {
+                "label": "A distância até o paciente",
+                "correct": true,
+                "feedback": "Isso. A radiação diminui rapidamente com a distância de onde sai o espalhamento. É uma proteção que não depende de equipamento."
+              },
+              {
+                "label": "O protetor de tireoide",
+                "correct": false,
+                "feedback": "O protetor continua no pescoço em qualquer posição. O que mudou foi onde ela está."
+              },
+              {
+                "label": "O dosímetro individual",
+                "correct": false,
+                "feedback": "O dosímetro mede, não protege. Retome o que muda quando ela se afasta."
+              }
+            ],
+            "sourceIds": [
+              "kjp-seguranca-radiacao"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Planta da sala com mesa, tubo, detector, monitores e anteparo suspenso, com setas de espalhamento saindo do paciente",
+        "Figura da equipe com avental, protetor de tireoide, óculos e dosímetro identificados"
+      ]
+    },
+    {
+      "id": "m13-06",
+      "code": "M13.06",
+      "title": "Escolher o percurso seguro",
+      "objective": "Hoje você vai conseguir comparar as três modalidades pela fonte, pela verificação principal e por quem chamar.",
+      "competency": "Distinguir papéis e verificações entre medicina nuclear, radioterapia e intervencionista.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudos, fim do rodízio",
+        "lines": [
+          {
+            "speaker": "pixel",
+            "text": "Três setores em uma semana. Se eu soltasse você num corredor sem placa, como saberia em qual deles está?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu começaria perguntando de onde vem a radiação naquela sala. Depois disso eu travo."
+          },
+          {
+            "speaker": "lia",
+            "text": "É um bom começo. Acrescente duas perguntas: o que se confere ali e quem você chama."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três perguntas para qualquer setor",
+        "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O profissional responsável pelo setor e o supervisor de proteção radiológica. A Lei 7.394/1985, que regula a profissão de técnico em radiologia, inclui as técnicas radioterápica e de medicina nuclear, mas, como estudante, você não administra radiofármaco, não planeja nem entrega dose e não faz ato invasivo.",
+        "keyPoints": [
+          "Onde está a fonte: no paciente, no aparelho ou no tubo?",
+          "O que se confere antes: registro, posição ou barreiras?",
+          "Na dúvida: parar, descrever e chamar o responsável."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula sobre proteção em medicina nuclear, o que separava contaminação de exposição?",
+          "options": [
+            {
+              "label": "Na contaminação a dose é sempre mais alta",
+              "correct": false,
+              "feedback": "A diferença não está no tamanho da dose. Retome o que precisa existir para haver contaminação."
+            },
+            {
+              "label": "Na contaminação há material fora do lugar",
+              "correct": true,
+              "feedback": "Isso. Exposição é energia que chega; contaminação é material radioativo na pele, na roupa, em superfícies ou dentro do corpo."
+            },
+            {
+              "label": "Na exposição a pessoa passa a emitir radiação",
+              "correct": false,
+              "feedback": "Quem é exposto não passa a emitir. Confira de novo a definição das duas situações."
+            },
+            {
+              "label": "Na exposição o material entra no organismo",
+              "correct": false,
+              "feedback": "Material dentro do corpo é contaminação interna. Retome qual das duas envolve material."
+            }
+          ],
+          "help": "Uma das duas envolve energia; a outra envolve algo que pode ser transportado.",
+          "sourceIds": [
+            "cdc-contaminacao-exposicao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada modalidade ao lugar onde está a fonte de radiação.",
+          "pairs": [
+            {
+              "left": "Medicina nuclear",
+              "right": "No paciente, depois do radiofármaco"
+            },
+            {
+              "left": "Radioterapia externa",
+              "right": "No aparelho, afastado do paciente"
+            },
+            {
+              "left": "Braquiterapia",
+              "right": "Em contato com a região tratada"
+            },
+            {
+              "left": "Radiologia intervencionista",
+              "right": "No tubo, com a equipe dentro da sala"
+            }
+          ],
+          "feedbackCorrect": "A primeira pergunta respondida para as quatro situações: paciente, aparelho, contato e tubo.",
+          "feedbackIncorrect": "Retome as aulas da unidade: em uma delas a fonte está no paciente; em outra, a equipe divide a sala com o tubo.",
+          "help": "Comece pela modalidade em que o paciente recebe um material antes da imagem.",
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "inca-radioterapia",
+            "radiologyinfo-angiografia",
+            "planalto-lei-7394"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Três fichas de verificação da simulação chegaram misturadas à mesa da Profa. Lia. Uma delas diz: 'Antes de liberar o feixe, comparar a imagem do dia com a referência e reposicionar se houver diferença'.",
+          "prompt": "A qual setor pertence essa verificação?",
+          "options": [
+            {
+              "label": "Medicina nuclear",
+              "correct": false,
+              "feedback": "Na medicina nuclear a conferência central envolve identificação, registro e contaminação. Retome onde existe uma referência de posição."
+            },
+            {
+              "label": "Radiologia intervencionista",
+              "correct": false,
+              "feedback": "Na sala intervencionista a imagem guia o procedimento ao vivo; não há referência de simulação. Confira de novo."
+            },
+            {
+              "label": "Radiografia no leito",
+              "correct": false,
+              "feedback": "Na radiografia não há feixe de tratamento a liberar. Retome qual modalidade entrega dose terapêutica por feixe."
+            },
+            {
+              "label": "Radioterapia externa",
+              "correct": true,
+              "feedback": "Isso. Comparar a imagem do dia com a referência da simulação é a conferência que antecede a entrega do tratamento."
+            }
+          ],
+          "help": "Duas expressões da ficha só fazem sentido em uma das modalidades. Ache essas expressões.",
+          "sourceIds": [
+            "radiologyinfo-igrt",
+            "radiologyinfo-teleterapia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No rodízio de medicina nuclear, uma técnica atarefada estende a você uma seringa dentro do protetor blindado e diz: 'Aplica no Seu Jorge para mim, ele já foi identificado, depois eu confiro'. Seu Jorge está sentado ao lado, com o acesso na veia.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Aplica devagar, já que a identificação foi conferida",
+              "correct": false,
+              "feedback": "Administrar não cabe ao estudante, e a conferência é de quem aplica, antes de aplicar. Retome os limites do seu papel."
+            },
+            {
+              "label": "Segura a seringa blindada até a técnica voltar",
+              "correct": false,
+              "feedback": "Segurar a seringa já é manipular material radioativo. Confira de novo o que o estudante não faz neste setor."
+            },
+            {
+              "label": "Não pega a seringa, diz que não pode e chama a supervisora",
+              "correct": true,
+              "feedback": "Isso. Manipular e administrar radiofármaco não cabe ao estudante, e quem administra confere antes identidade, material e atividade. Recusar e chamar apoio protege o paciente."
+            },
+            {
+              "label": "Pede a Seu Jorge que confirme a dose prescrita",
+              "correct": false,
+              "feedback": "O paciente não é quem confere a prescrição. Essa verificação é do profissional habilitado, antes da administração."
+            }
+          ],
+          "help": "Separe duas coisas: o que a tarefa exige de quem a executa e o que cabe a você na simulação.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num equipamento híbrido de PET com TC, a paciente recebe um radiofármaco e depois é examinada num aparelho que também tem tubo de raios X. Aplicando a primeira pergunta da aula, onde estão as fontes?",
+          "options": [
+            {
+              "label": "No paciente e também no tubo da TC",
+              "correct": true,
+              "feedback": "Isso. O equipamento híbrido junta dois dispositivos: um detecta o que o paciente emite, o outro emite pelo tubo."
+            },
+            {
+              "label": "Só no tubo: o radiofármaco não emite",
+              "correct": false,
+              "feedback": "O radiofármaco é justamente o que emite na parte de PET. Retome a origem do sinal na medicina nuclear."
+            },
+            {
+              "label": "Só no paciente: a TC não usa radiação",
+              "correct": false,
+              "feedback": "A TC forma imagem com raios X emitidos pelo tubo. Confira de novo a cadeia da TC."
+            },
+            {
+              "label": "Em nenhum lugar: o híbrido só detecta",
+              "correct": false,
+              "feedback": "Há duas fontes nesse exame. Retome a primeira pergunta para cada parte do equipamento."
+            }
+          ],
+          "help": "Faça a pergunta da fonte duas vezes, uma para cada parte do equipamento.",
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Três perguntas, um percurso seguro",
+        "body": "Agora você consegue chegar a qualquer uma das três modalidades e responder: onde está a fonte, o que se confere antes e quem chamar. E sabe dizer o que não cabe ao estudante em cada uma.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Você fechou o panorama das três modalidades. Leve as três perguntas para cada setor novo que conhecer."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Você entra numa sala em que a equipe, de avental plumbífero, fica ao lado da mesa enquanto o médico conduz um cateter olhando o monitor. Onde está a fonte de radiação?",
+          "options": [
+            {
+              "label": "No cateter, que leva material radioativo",
+              "correct": false,
+              "feedback": "O cateter não carrega fonte nesse procedimento. Retome qual equipamento emite na fluoroscopia."
+            },
+            {
+              "label": "No paciente, que recebeu um radiofármaco",
+              "correct": false,
+              "feedback": "Isso descreveria a medicina nuclear. Os sinais da cena, cateter e avental plumbífero, apontam para outra sala."
+            },
+            {
+              "label": "No monitor, que emite ao exibir o vídeo",
+              "correct": false,
+              "feedback": "O monitor só exibe as imagens. Confira de novo de onde parte o feixe."
+            },
+            {
+              "label": "No tubo de raios X, com espalhamento na sala",
+              "correct": true,
+              "feedback": "Isso. É a sala intervencionista: o tubo emite, o paciente espalha e a equipe se protege com barreiras."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-angiografia",
+            "kjp-seguranca-radiacao"
+          ]
+        },
+        {
+          "prompt": "Em qual destas situações a suspeita é de contaminação, e o apoio a chamar é o supervisor de proteção radiológica?",
+          "options": [
+            {
+              "label": "Máscara de radioterapia folgada no rosto da paciente",
+              "correct": false,
+              "feedback": "Aqui a dúvida é de posição, e quem resolve é a equipe do tratamento. Retome o que define contaminação."
+            },
+            {
+              "label": "Líquido no chão perto da bancada de radiofármacos",
+              "correct": true,
+              "feedback": "Isso. Material possivelmente radioativo fora do lugar: não tocar, avisar quem se aproxima e chamar o supervisor."
+            },
+            {
+              "label": "Paciente ansioso antes da tomografia de simulação",
+              "correct": false,
+              "feedback": "Ansiedade pede acolhimento e aviso à equipe, mas não envolve material fora do lugar."
+            },
+            {
+              "label": "Monitor da sala intervencionista sem imagem",
+              "correct": false,
+              "feedback": "Falha de monitor é assunto do suporte técnico da sala. Confira de novo onde pode haver material radioativo solto."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "cdc-contaminacao-exposicao"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: num setor novo, eu pergunto onde está a fonte, o que se confere e…",
+          "item": {
+            "prompt": "Na simulação, pedem a você uma tarefa num setor que você ainda não conhece, e você não sabe se ela cabe ao estudante. Qual é o primeiro passo?",
+            "options": [
+              {
+                "label": "Parar e perguntar ao responsável pelo setor",
+                "correct": true,
+                "feedback": "Isso. Perguntar antes de agir é a terceira pergunta da aula posta em prática."
+              },
+              {
+                "label": "Fazer devagar, observando a reação da equipe",
+                "correct": false,
+                "feedback": "Fazer devagar ainda é fazer sem saber se pode. Retome a terceira pergunta da aula."
+              },
+              {
+                "label": "Procurar um vídeo e seguir o passo a passo",
+                "correct": false,
+                "feedback": "Um vídeo não conhece o protocolo nem os limites do seu papel naquele serviço."
+              },
+              {
+                "label": "Pedir ao paciente que conte como costuma ser",
+                "correct": false,
+                "feedback": "O paciente não responde pelo protocolo do setor. Confira de novo quem você chama na dúvida."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022",
+              "cnen-norma-3-05"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No centro cirúrgico, um médico usa uma sonda portátil sensível à radiação para localizar uma estrutura num paciente que recebeu radiofármaco. Pela lógica da fonte, qual serviço responde pela proteção radiológica desse procedimento?",
+            "options": [
+              {
+                "label": "O serviço de radioterapia",
+                "correct": false,
+                "feedback": "Não há feixe de tratamento nesse procedimento. Retome onde está a fonte."
+              },
+              {
+                "label": "A radiologia intervencionista",
+                "correct": false,
+                "feedback": "Não há tubo de raios X em uso nessa cena. Confira de novo o que o paciente recebeu."
+              },
+              {
+                "label": "O serviço de medicina nuclear",
+                "correct": true,
+                "feedback": "Isso. A fonte é o radiofármaco no paciente, e a norma mantém esse procedimento sob responsabilidade do serviço de medicina nuclear, mesmo fora das instalações dele."
+              },
+              {
+                "label": "O setor de radiografia geral",
+                "correct": false,
+                "feedback": "A radiografia depende de um tubo, e aqui não há tubo em uso. Retome a primeira pergunta da aula."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Tabela de três colunas (medicina nuclear, radioterapia, intervencionista) e três linhas (fonte, verificação, quem chamar)"
+      ]
+    }
+  ]
+}
