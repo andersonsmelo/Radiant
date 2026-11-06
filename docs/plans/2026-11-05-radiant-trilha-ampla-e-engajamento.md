@@ -233,6 +233,8 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
   frase-gancho; a retomada volta à primeira interação, pela regra de privacidade que
   já existia; `IosHomologationService` não apaga as três chaves novas das metas.
 
+**Em 2026-11-06, à tarde:** os aprofundamentos `s-tc` e `s-rm` entraram, com parecer "aprovado com correções". Os outros quatro seguem pendentes, e a caixa de completude da frente B continua aberta.
+
 Quem continua segue o
 [prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).
 

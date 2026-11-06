@@ -126,6 +126,7 @@ Saíram das sete revisões independentes e dos gates do app. Valem como regra.
 11. **Diga de quem é o lado.** "Lado esquerdo do paciente", nunca só "lado esquerdo".
 12. **Índices de exposição variam por fabricante.** Escreva "neste sistema o índice sobe com a exposição", nunca como regra geral.
 13. **Palavras reservadas do app.** O contrato de texto trata "jornada", "nó", "checkpoint", "configuração" e "elegível" como jargão de interface e reprova a unidade. Use "turno", "ajuste", "conferência" ou outra palavra.
+14. **"Não verificado" não é destino de fato.** Fato que a revisão não confirmou em página lida sai da unidade ou vira o que a fonte sustenta. Listar no parecer e manter na aula não basta: em S-TC, o osso "perto de 800 HU" e o pulmão "perto de -600 HU" vinham de uma tabela lida desalinhada e foram contraditos por uma fonte já aberta. Inferência a partir de fonte também não é fonte, e parecer de outra unidade não conta como fonte.
 
 ## 7. Brief do revisor independente
 
@@ -149,7 +150,7 @@ Budget: tokens are scarce. At most 15 web fetches/searches. Do not rewrite what 
 ### When done
 
 - The unit must pass the repository linter (prints OK): `node scripts/content/rtg-lesson-lint.mjs <unit file>`
-- Write your parecer in Portuguese to the path the orchestrator gives you: title "Parecer de revisão — <UNIT>", today's date, "Revisor: Claude (Fable 5.1), agente independente do autor, sob a ADR-2026-11-05", a table of findings (aula/item, problema, correção aplicada, fonte consultada), the facts confirmed with their URLs, what you could NOT verify, and a final line "Resultado: aprovado com correções" or "Resultado: reprovado" with the reason. Be honest: this is an AI review, not a review by a radiology professional.
+- Write your parecer in Portuguese to the path the orchestrator gives you: title "Parecer de revisão — <UNIT>", today's date, "Revisor: Claude (<the agent's real model>), agente independente do autor, sob a ADR-2026-11-05", a table of findings (aula/item, problema, correção aplicada, fonte consultada), the facts confirmed with their URLs, what you could NOT verify (each entry says what became of it: removed, softened, or kept only because it is not a factual claim; nothing factual stays in the unit unverified), and a final line "Resultado: aprovado com correções" or "Resultado: reprovado" with the reason. Be honest: this is an AI review, not a review by a radiology professional.
 
 ### Constraints
 

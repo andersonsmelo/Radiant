@@ -220,7 +220,7 @@ Medido em 2026-11-06, às 09:13.
 - **Feito:** itens 1 de "O que falta" (núcleo: 14 unidades, 84 aulas) e as frentes A,
   C e D do plano. Gate local com 233 suítes e 3053 testes; `loop validate`
   aprovado.
-- **Não começado:** os seis aprofundamentos (item 2). Não existe rascunho de nenhum.
+- **Aprofundamentos (item 2), medido em 2026-11-06, à tarde:** `s-tc` e `s-rm` admitidos, com parecer (16 aulas). Faltam `s-md`, `s-mn`, `s-rt` e `s-ir`. Autor e revisor rodaram em Opus 5.5, e os pareceres dizem isso. Cada unidade gastou de 15% a 30% da janela de 5 horas, em um por vez.
 - **Parcial:** a prova no simulador (item 3) cobriu trilha, cena de diálogo, conceito,
   pergunta e retorno de erro. Falta todo o resto da lista do item 3, mais as metas.
 - **PR:** [#69](https://github.com/andersonsmelo/Radiant/pull/69) aberta em rascunho em 2026-11-06. No primeiro CI, `quality` passou e `content` reprovou num teste antigo (`concepts-reader.test.py` exigia conceitos, e o índice está vazio desde a retirada); o teste foi ajustado, e no commit `2bf480f` os dois jobs passaram. Confira com `gh pr checks 69` e só tire do rascunho com os aprofundamentos e a prova no simulador feitos.

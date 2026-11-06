@@ -157,5 +157,27 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Qualidade, gestão e integração."
     }
+  },
+  "batch:rtg-2026:s-tc": {
+    "slug": "rtg-2026-s-tc",
+    "title": "Aprofundamento em tomografia computadorizada",
+    "description": "Aprofunda a tomografia em simulação supervisionada: instrumentação, parâmetros, reconstrução, preparo, artefatos e comparação de séries descritas. Não comprova operação real.",
+    "unitTitle": "Aprofundamento em tomografia computadorizada",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-tc",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em tomografia computadorizada."
+    }
+  },
+  "batch:rtg-2026:s-rm": {
+    "slug": "rtg-2026-s-rm",
+    "title": "Aprofundamento em ressonância magnética",
+    "description": "Aprofunda física, equipamento, segurança, sequências, parâmetros, posição e artefatos da ressonância em simulação supervisionada. Não comprova operação real e não libera implante.",
+    "unitTitle": "Aprofundamento em ressonância magnética",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-rm",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em ressonância magnética."
+    }
   }
 };

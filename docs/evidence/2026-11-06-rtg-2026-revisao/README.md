@@ -72,3 +72,23 @@ Regra extra: o estudante nunca manuseia nem administra radiofármaco, nunca plan
 4. Itens de ordenação de m14-01, m14-03 e m14-04 são convenções da aula, declaradas "na ordem ensinada nesta aula".
 5. As ajudas de m14-06 são genéricas de propósito ("use as três perguntas").
 6. Os pré-requisitos só apontam para M01, M06 e aulas anteriores de M14, porque M08 a M13 não existiam: m14-06 deve revisitar competências de M02 a M13 em casos novos.
+
+## Pontos que os autores dos aprofundamentos pediram para conferir
+
+Valem como registro do que entrou no prompt de cada revisor. O destino de cada ponto está no parecer da unidade.
+
+### S-TC — Aprofundamento em tomografia computadorizada
+Regra extra: CTDIvol e DLP são indicadores da saída do equipamento; o estudante não decide contraste nem conduz reação.
+1. "CTDIvol não é dose do paciente" só com fonte de tipo wiki: pedir segunda fonte.
+2. s-tc-03: relações de corrente, sinal-ruído e indicador, e CTDIvol = CTDIw/pitch.
+3. "Kernel duro: mais ruído", pitch 1 e abaixo de 1, e trocar o kernel sem nova exposição, sem fonte direta.
+4. Aparência do artefato em anel e classe do artefato de metal.
+5. s-tc-05 (o estudante só relata; extravasamento) e s-tc-08 i5.
+
+### S-RM — Aprofundamento em ressonância magnética
+Regra extra: o app não libera implante. Qualquer dúvida é parar, manter a pessoa fora da sala e levar à equipe. O estudante não aciona quench nem conduz emergência.
+1. Quench em s-rm-02 i4 e s-rm-08: ventilação, oxigênio e botão com fonte única.
+2. Emergência em s-rm-08 i5 e "campo constante, silêncio não desliga".
+3. s-rm-05: sentidos de TR, TE, passos de fase, sinal e tempo.
+4. "50% a 75%" com um só site, e região e movimento em s-rm-06 i2, em parte inferidos.
+5. Vigência da IN 97/2021 e periódico de Grover 2015, citado de memória.
