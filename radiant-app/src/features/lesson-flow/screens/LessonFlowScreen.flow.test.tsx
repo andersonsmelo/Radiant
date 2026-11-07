@@ -1282,6 +1282,23 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
     expect(screen.getByRole('button', { name: label })).toBeEnabled();
   });
 
+  it('imagem fora do acervo local não cai em URL remota', async () => {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction') throw new Error('Fixture sem interação');
+    const remote = 'https://exemplo.invalid/radiografia.jpg';
+    const comparisonActivity: LearningActivityV2 = { ...promotedActivityFixture, steps: [
+      { kind: 'interaction', interaction: { ...original.interaction, type: 'comparison', payload: {
+        prompt: 'Compare as radiografias.',
+        options: [{ id: 'a', label: 'Radiografia A', imageRef: remote }, { id: 'b', label: 'Radiografia B', imageRef: remote }],
+        correctOptionId: 'b',
+      } } },
+    ] };
+    mockedLessonFlowService.getActivityById.mockReturnValue(comparisonActivity);
+    renderWithProviders(<LessonFlowScreen blockId={comparisonActivity.id} nodeId="node-comparison" />);
+    expect(await screen.findByText('Imagem indisponível para esta atividade.')).toBeTruthy();
+    expect(screen.queryByLabelText('Radiografia A')).toBeNull();
+  });
+
   it('registra a conclusão usando a atividade nativa e sua resposta confirmada', async () => {
     mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
 
@@ -2346,7 +2363,7 @@ describe('T04 — abertura, retorno e botão apto', () => {
       accessibility: { label: 'Imagem da atividade' }, feedback: { correct: 'Certo.', incorrect: message } };
     const choices = { prompt: 'Escolha a resposta.', options: [{ id: 'a', label: 'Opção A' }, { id: 'b', label: 'Opção B', explanation: message }], correctOptionId: 'a' };
     const payload = type === 'bench' ? { prompt: 'Ajuste o controle.', simulator: 'exposure', mode: 'challenge', controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 }], goal: { kind: 'reach', control: 'kv', atLeast: 100 }, phantomLabel: 'Fantoma simulado', hints: { tooLow: message, tooHigh: 'Desça.' } }
-      : type === 'hotspot' ? { prompt: 'Escolha a região.', imageRef: 'https://example.test/image.png', regions: [{ id: 'a', label: 'Região A', x: 0, y: 0, width: 0.4, height: 0.4 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.4, height: 0.4 }], correctRegionIds: ['a'] }
+      : type === 'hotspot' ? { prompt: 'Escolha a região.', imageRef: 'image:rtg-2026:m08:torax-pa-adulto-01', regions: [{ id: 'a', label: 'Região A', x: 0, y: 0, width: 0.4, height: 0.4 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.4, height: 0.4 }], correctRegionIds: ['a'] }
       : type === 'matching' ? { prompt: 'Associe os pares.', pairs: [{ id: 'a', left: 'A', right: 'Alfa' }, { id: 'b', left: 'B', right: 'Beta' }] }
       : type === 'ordering' ? { prompt: 'Ordene os itens.', items: [{ id: 'a', label: 'Primeiro' }, { id: 'b', label: 'Segundo' }], correctOrder: ['b', 'a'] } : choices;
     return { ...common, payload } as LearningInteractionV2;

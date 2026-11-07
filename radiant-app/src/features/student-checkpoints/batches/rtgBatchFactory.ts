@@ -8,7 +8,7 @@
  * `promoteProductionBatch` lança com a lista de violações.
  */
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from '../EditorialCurriculumCandidate';
-import { wideInteractionClaims, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
+import { wideInteractionClaims, type EditorialLicensedImageV1, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
 import {
     fingerprintProductionBatchMaterial, promoteProductionBatch, PRODUCTION_BATCH_APPROVAL_GATES,
     type ProductionBatchV1,
@@ -25,6 +25,7 @@ type RtgInteractionBase = {
 export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'multiple-choice'; options: RtgOption[] }
     | { type: 'case-decision'; context: string; options: RtgOption[] }
+    | { type: 'comparison'; options: (RtgOption & { imageId: string })[] }
     | { type: 'ordering'; items: string[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'matching'; pairs: { left: string; right: string }[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
@@ -59,7 +60,7 @@ export const RTG_REVIEW = {
 const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla' };
 // A conferência e a recuperação não têm retorno por alternativa no contrato do item.
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
-const FAMILY_LABEL = { 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação' } as const;
+const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -85,7 +86,7 @@ export function seededDisplayOrder<T>(values: readonly T[], seed: string): T[] {
     return order;
 }
 
-export function buildRtgBatch(doc: RtgUnitSource): RtgBatchBuild {
+export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLicensedImageV1[] = []): RtgBatchBuild {
     const unit = doc.unit.id;
     if (!(RTG_UNIT_ORDER as readonly string[]).includes(unit)) throw new Error(`rtg-batch-unknown-unit:${unit}`);
     const id = (kind: string, ...parts: string[]) => [kind, 'rtg-2026', unit, ...parts].join(':');
@@ -110,6 +111,13 @@ export function buildRtgBatch(doc: RtgUnitSource): RtgBatchBuild {
     const checkpointItems: CheckpointItemCandidateV1[] = [];
     const recovery: EditorialWideRecoveryV1[] = [];
     const competencyIds: string[] = [];
+    const usedImages: EditorialLicensedImageV1[] = [];
+    const licensedImage = (imageId: string) => {
+        const image = images.find(entry => entry.id === imageId);
+        if (!image) throw new Error(`rtg-unknown-image:${imageId}`);
+        if (!usedImages.includes(image)) usedImages.push(image);
+        return image;
+    };
 
     for (const lesson of doc.lessons) {
         const slug = `aula-${lesson.id.slice(-2)}`;
@@ -135,6 +143,14 @@ export function buildRtgBatch(doc: RtgUnitSource): RtgBatchBuild {
                 interaction = source.type === 'case-decision'
                     ? { ...base, type: 'case-decision', feedback, payload: { context: source.context, prompt: source.prompt, options, correctOptionId } }
                     : { ...base, type: 'multiple-choice', feedback, payload: { prompt: source.prompt, options, correctOptionId } };
+            } else if (source.type === 'comparison') {
+                const options = source.options.map((option, index) => ({
+                    id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback,
+                    imageRef: option.imageId, imageAlt: licensedImage(option.imageId).alt,
+                }));
+                const correct = source.options.findIndex(option => option.correct);
+                interaction = { ...base, type: 'comparison', feedback: { correct: source.options[correct]?.feedback ?? '', incorrect: TRY_AGAIN },
+                    payload: { prompt: source.prompt, options, correctOptionId: options[correct]?.id ?? '' } };
             } else if (source.type === 'ordering') {
                 const items = source.items.map((label, index) => ({ id: id('item', slug, source.id, String(index + 1)), label }));
                 interaction = { ...base, type: 'ordering', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
@@ -191,7 +207,7 @@ export function buildRtgBatch(doc: RtgUnitSource): RtgBatchBuild {
         reinforcement: { cycles: [{ cycle: 1, mode: 'guided-recovery' }, { cycle: 2, mode: 'different-context-retry' }] },
         approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
         claimProvenance: claims,
-        wide: { schemaVersion: 1, namespace: 'rtg-2026', recovery },
+        wide: { schemaVersion: 1, namespace: 'rtg-2026', recovery, ...(usedImages.length ? { images: usedImages.map(({ id: imageId, file, sourcePage, author, license, licenseUrl, retrievedAt, sha256Original, sha256Asset, modification, alt, width, height }) => ({ id: imageId, file, sourcePage, author, license, licenseUrl, retrievedAt, sha256Original, sha256Asset, modification, alt, width, height })) } : {}) },
     };
     const materialSha256 = fingerprintProductionBatchMaterial(candidate);
     const batch = promoteProductionBatch({

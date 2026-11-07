@@ -51,6 +51,7 @@ Tipos de interação:
 - `case-decision`: igual, mais `context` (o minicaso, 60 a 520 caracteres). Use para decisões em situação: o que fazer, o que conferir, quando parar.
 - `ordering`: `prompt`, `items` (4 ou 5 textos **já na ordem correta**), `feedbackCorrect`, `feedbackIncorrect`, `help`.
 - `matching`: `prompt`, `pairs[4]` (`left`, `right`), `feedbackCorrect`, `feedbackIncorrect`, `help`.
+- `comparison`: `prompt`, `options[2 a 4]` (`label` neutro, `imageId`, `correct`, `feedback`), `help`. Cada `imageId` existe em `content-manifest/rtg-2026/imagens.json`, com licença CC0 ou CC BY conferida. O item só afirma o que a descrição da imagem no acervo sustenta.
 
 `help` é uma pista que orienta o raciocínio sem entregar a resposta.
 

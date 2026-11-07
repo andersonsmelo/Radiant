@@ -28,7 +28,96 @@ function issuesAfter(mutate: (value: Mutable<EditorialWideCandidateV1>) => void)
 }
 const interactionsOf = (steps: readonly LearningStepV2[]) => steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
 
+const IMAGE_A = 'image:rtg-2026:m01:radiografia-a';
+const IMAGE_B = 'image:rtg-2026:m01:radiografia-b';
+const licensedImage = (id: string) => ({
+    id, file: `radiant-app/assets/content/rtg-2026/imagens/m01/${id.split(':').pop()}.jpg`,
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:Exemplo.jpg', author: 'Autoria de teste', license: 'CC0 1.0',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/', retrievedAt: '2026-11-07',
+    sha256Original: 'a'.repeat(64), sha256Asset: 'b'.repeat(64), modification: 'redução',
+    alt: 'Radiografia do tórax em tons de cinza.', width: 800, height: 1000,
+});
+/** A aula de teste com uma comparação entre duas imagens no lugar da segunda interação. */
+function comparisonSource(): RtgUnitSource {
+    const doc = JSON.parse(JSON.stringify(source));
+    const old = doc.lessons[0].interactions[1];
+    doc.lessons[0].interactions[1] = {
+        id: old.id, type: 'comparison', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+        prompt: 'Qual destas duas radiografias foi feita em perfil?',
+        options: [
+            { label: 'Radiografia A', imageId: IMAGE_A, correct: false, feedback: 'Esta é a incidência de frente, ensinada no conceito.' },
+            { label: 'Radiografia B', imageId: IMAGE_B, correct: true, feedback: 'Esta é a incidência em perfil, ensinada no conceito.' },
+        ],
+    };
+    return doc;
+}
+function comparisonCandidate(): EditorialWideCandidateV1 {
+    const built = buildRtgBatch(comparisonSource(), [licensedImage(IMAGE_A), licensedImage(IMAGE_B)]).batch;
+    return JSON.parse(JSON.stringify({
+        schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+        contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+        activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+        claimProvenance: built.claimProvenance, wide: built.wide,
+        approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+    }));
+}
+const comparisonIssuesAfter = (mutate: (value: Mutable<EditorialWideCandidateV1>) => void) => {
+    const value = comparisonCandidate();
+    mutate(value as Mutable<EditorialWideCandidateV1>);
+    return validateEditorialCurriculumCandidate(value);
+};
+const COMPARISON = 'interaction:rtg-2026:m01:aula-01:i2';
+
 describe('contrato amplo (wide)', () => {
+
+    describe('imagem licenciada na comparação', () => {
+        it('aceita CC0 e CC BY registradas, e a alternativa leva a imagem e o texto alternativo', () => {
+            const value = comparisonCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const comparison = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === COMPARISON);
+            if (comparison?.type !== 'comparison') throw new Error('sem comparação');
+            expect(comparison.payload.options.map(option => [option.imageRef, option.imageAlt])).toEqual([
+                [IMAGE_A, 'Radiografia do tórax em tons de cinza.'], [IMAGE_B, 'Radiografia do tórax em tons de cinza.'],
+            ]);
+            expect(comparison.payload.correctOptionId).toBe(comparison.payload.options[1].id);
+            expect(value.wide.images?.map(image => image.id)).toEqual([IMAGE_A, IMAGE_B]);
+            expect(comparisonIssuesAfter(candidate => { candidate.wide.images![0].license = 'CC BY 4.0'; })).toEqual([]);
+        });
+
+        it.each(['CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-ND 4.0', 'GFDL', ''])('recusa a licença "%s"', license => {
+            expect(comparisonIssuesAfter(candidate => { candidate.wide.images![0].license = license; }))
+                .toEqual([`invalid-licensed-image:${IMAGE_A}`]);
+        });
+
+        it.each(['author', 'sourcePage', 'licenseUrl', 'alt', 'sha256Asset', 'sha256Original', 'modification'] as const)('recusa imagem sem %s', field => {
+            expect(comparisonIssuesAfter(candidate => { candidate.wide.images![1][field] = ''; }))
+                .toEqual([`invalid-licensed-image:${IMAGE_B}`]);
+        });
+
+        it('recusa comparação com imagem fora do registro', () => {
+            expect(comparisonIssuesAfter(candidate => { candidate.wide.images = [candidate.wide.images![0]]; }))
+                .toEqual([`unregistered-licensed-image:${COMPARISON}`]);
+        });
+
+        it('recusa comparação sem imagem em alguma alternativa', () => {
+            expect(comparisonIssuesAfter(candidate => {
+                const step = candidate.activities[0].steps.find(entry => entry.kind === 'interaction' && entry.interaction.id === COMPARISON);
+                if (step?.kind !== 'interaction' || step.interaction.type !== 'comparison') throw new Error('sem comparação');
+                delete step.interaction.payload.options[0].imageRef;
+            })).toEqual([`unregistered-licensed-image:${COMPARISON}`, `unused-licensed-image:${IMAGE_A}`]);
+        });
+
+        it('recusa imagem registrada que nenhuma comparação usa', () => {
+            expect(comparisonIssuesAfter(candidate => { candidate.wide.images!.push({ ...candidate.wide.images![0], id: 'image:rtg-2026:m01:sobrando' }); }))
+                .toEqual(['unused-licensed-image:image:rtg-2026:m01:sobrando']);
+        });
+
+        it('o gerador recusa imagem desconhecida e deixa fora do lote a imagem de outra unidade', () => {
+            expect(() => buildRtgBatch(comparisonSource(), [licensedImage(IMAGE_A)])).toThrow(`rtg-unknown-image:${IMAGE_B}`);
+            const built = buildRtgBatch(comparisonSource(), [licensedImage(IMAGE_A), licensedImage(IMAGE_B), licensedImage('image:rtg-2026:m08:outra')]).batch;
+            expect(built.wide?.images?.map(image => image.id)).toEqual([IMAGE_A, IMAGE_B]);
+        });
+    });
     it('aceita aulas de cinco interações de três famílias, com fonte de consulta', () => {
         const value = candidate();
         expect(validateEditorialCurriculumCandidate(value)).toEqual([]);

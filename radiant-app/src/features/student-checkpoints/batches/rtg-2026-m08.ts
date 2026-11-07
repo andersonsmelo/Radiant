@@ -6,7 +6,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m08",
-  "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633",
+  "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100",
   "trackId": "track:rtg-2026:m08",
   "unitId": "unit:rtg-2026:m08",
   "contentVersion": "rtg-2026-m08-v1",
@@ -36,6 +36,42 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "source:rtg-2026:m08:radiopaedia-torax-perfil",
+      "title": "Chest (lateral view)",
+      "publisher": "Radiopaedia.org",
+      "url": "https://radiopaedia.org/articles/chest-lateral-view-1",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Licença restritiva (CC BY-NC-SA 3.0, segundo a página de licenciamento do site); consultado para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "source:rtg-2026:m08:esr-casebook-101-cap8",
+      "title": "Dr. Pepe's Diploma Casebook, Case 101: A painless approach to interpretation (Chapter 8)",
+      "publisher": "European Society of Radiology",
+      "url": "https://blog.myesr.org/dr-pepes-diploma-casebook-case-101-a-painless-approach-to-interpretation-chapter-8/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para fatos, sem reprodução de texto ou imagens."
+    },
+    {
+      "id": "source:rtg-2026:m08:commons-torax-pa-01",
+      "title": "Normal posteroanterior (PA) chest radiograph (X-ray)",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Imagem de Mikael Häggström em CC0 1.0, usada como ilustração; o item só afirma a projeção que a descrição do acervo declara."
+    },
+    {
+      "id": "source:rtg-2026:m08:commons-torax-perfil-01",
+      "title": "Normal lateral chest radiograph (X-ray)",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Normal_lateral_chest_radiograph_(X-ray).jpg",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Imagem de Mikael Häggström em CC0 1.0, usada como ilustração; o item só afirma a projeção que a descrição do acervo declara."
     },
     {
       "id": "source:rtg-2026:m08:radiopaedia-abdome-ap",
@@ -92,13 +128,13 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
     },
     {
-      "id": "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-      "title": "Anatomy and Physiology 2e, seção 22.2: The Lungs",
+      "id": "source:rtg-2026:m08:openstax-ap2e-coracao",
+      "title": "Heart Anatomy (Anatomy and Physiology 2e, 19.1)",
       "publisher": "OpenStax (Rice University)",
-      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-2-the-lungs",
-      "accessedAt": "2026-11-06",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy",
+      "accessedAt": "2026-11-07",
       "use": "factual-reference",
-      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos anatômicos, sem reprodução de texto ou figuras."
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado apenas para conferir fatos de anatomia, sem reprodução de texto ou figuras."
     },
     {
       "id": "source:rtg-2026:m08:openstax-ap2e-respiracao",
@@ -183,8 +219,10 @@ export const RTG_2026_M08: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m08-v1",
         "sourceIds": [
           "source:rtg-2026:m08:radiopaedia-torax-pa",
-          "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-          "source:rtg-2026:m08:openstax-ap2e-terminologia",
+          "source:rtg-2026:m08:commons-torax-pa-01",
+          "source:rtg-2026:m08:commons-torax-perfil-01",
+          "source:rtg-2026:m08:radiopaedia-torax-perfil",
+          "source:rtg-2026:m08:esr-casebook-101-cap8",
           "source:rtg-2026:m08:openstax-ap2e-respiracao",
           "source:rtg-2026:m08:rcr-criterios-torax-pa"
         ]
@@ -196,7 +234,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Tórax e respiração",
-            "body": "Hoje você vai conseguir ligar estruturas do tórax e a fase da respiração aos critérios de uma imagem de tórax em PA.",
+            "body": "Hoje você vai conseguir distinguir o tórax em PA do perfil e ligar estruturas e fase da respiração aos critérios do PA.",
             "dialogue": {
               "setting": "Sala de radiografia do laboratório de simulação",
               "lines": [
@@ -222,11 +260,11 @@ export const RTG_2026_M08: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O que a inspiração abre na imagem",
-            "body": "Os pulmões ocupam os dois lados do tórax: o ápice fica em cima, e a base apoia no diafragma. Entre eles está o mediastino, onde fica o coração. Na inspiração, o diafragma contrai e desce, as costelas sobem e os pulmões se expandem. Na referência consultada, o tórax em PA é feito de pé, com o peito no receptor e o queixo erguido. Os ombros rodam para a frente, o que tira as escápulas dos campos pulmonares, e a respiração fica suspensa em inspiração. A imagem mostra dos ápices aos seios costofrênicos, os cantos inferiores e laterais dos pulmões. São descrições para estudo, não um protocolo de atendimento.",
+            "body": "O mediastino, entre os pulmões, abriga o coração. Na inspiração, o diafragma contrai e desce, e os pulmões se expandem. Na referência, o tórax em PA é feito de pé, com peito no receptor e queixo erguido. Os ombros rodam para a frente, tirando as escápulas dos campos pulmonares, e a respiração fica suspensa em inspiração. A imagem vai dos ápices, no alto, aos seios costofrênicos, os cantos inferiores e laterais. No perfil, o paciente fica de lado, de braços erguidos, e o feixe cruza de lado a lado. Nessa incidência, a coluna torácica aparece. São descrições para estudo, não um protocolo de atendimento.",
             "keyPoints": [
               "Inspiração: o diafragma desce e os pulmões se expandem.",
               "Ombros para a frente tiram as escápulas dos campos pulmonares.",
-              "A imagem vai dos ápices aos seios costofrênicos."
+              "PA: dos ápices aos seios costofrênicos. Perfil: feixe de lado a lado."
             ]
           }
         },
@@ -288,38 +326,33 @@ export const RTG_2026_M08: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada estrutura do tórax ao lugar onde ela fica."
+              "label": "Comparação: Você recebeu duas radiografias de tórax. Qual delas é a incidência em perfil?"
             },
-            "help": "Comece pelos extremos: o ponto mais alto do pulmão e a parte que apoia no diafragma.",
-            "type": "matching",
+            "help": "Lembre o trajeto do feixe e a posição do paciente em cada incidência. Depois compare como o tórax aparece nas duas imagens.",
+            "type": "comparison",
             "feedback": {
-              "correct": "Mapa montado. Ápice em cima, base no diafragma, mediastino no centro e seios costofrênicos nos cantos de baixo: é o que você procura na imagem.",
-              "incorrect": "Algum par ficou trocado. Separe primeiro o que fica em cima, o que fica embaixo e o que fica no centro do tórax."
+              "correct": "Isso. O acervo descreve esta imagem como tórax em perfil. Nessa incidência, o feixe cruza de um lado ao outro do tórax, os braços ficam erguidos e a coluna torácica aparece.",
+              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Ligue cada estrutura do tórax ao lugar onde ela fica.",
-              "pairs": [
+              "prompt": "Você recebeu duas radiografias de tórax. Qual delas é a incidência em perfil?",
+              "options": [
                 {
-                  "id": "pair:rtg-2026:m08:aula-01:i2:1",
-                  "left": "Ápice do pulmão",
-                  "right": "Parte mais alta do pulmão"
+                  "id": "option:rtg-2026:m08:aula-01:i2:a",
+                  "label": "Radiografia A",
+                  "explanation": "O acervo descreve esta imagem como posteroanterior: o paciente fica de frente para o receptor, e o feixe entra pelas costas. Retome o que muda quando o feixe cruza de um lado ao outro.",
+                  "imageRef": "image:rtg-2026:m08:torax-pa-adulto-01",
+                  "imageAlt": "Radiografia do tórax em tons de cinza, em formato vertical. Nos cantos superiores há as marcações de texto Dx, à esquerda de quem olha, e Sin, à direita."
                 },
                 {
-                  "id": "pair:rtg-2026:m08:aula-01:i2:2",
-                  "left": "Base do pulmão",
-                  "right": "Parte de baixo, apoiada no diafragma"
-                },
-                {
-                  "id": "pair:rtg-2026:m08:aula-01:i2:3",
-                  "left": "Mediastino",
-                  "right": "Região central do tórax, onde fica o coração"
-                },
-                {
-                  "id": "pair:rtg-2026:m08:aula-01:i2:4",
-                  "left": "Seio costofrênico",
-                  "right": "Canto inferior e lateral do campo pulmonar"
+                  "id": "option:rtg-2026:m08:aula-01:i2:b",
+                  "label": "Radiografia B",
+                  "explanation": "Isso. O acervo descreve esta imagem como tórax em perfil. Nessa incidência, o feixe cruza de um lado ao outro do tórax, os braços ficam erguidos e a coluna torácica aparece.",
+                  "imageRef": "image:rtg-2026:m08:torax-perfil-adulto-01",
+                  "imageAlt": "Radiografia do tórax em tons de cinza, em formato vertical. Não há marcações de texto visíveis."
                 }
-              ]
+              ],
+              "correctOptionId": "option:rtg-2026:m08:aula-01:i2:b"
             }
           }
         },
@@ -472,7 +505,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Do comando à imagem",
-            "body": "Agora você localiza ápices, bases, mediastino e seios costofrênicos e explica por que o tórax em PA pede ombros para a frente e respiração suspensa em inspiração. Quando um critério falha, você descreve o que viu e leva à supervisão.",
+            "body": "Agora você distingue o tórax em PA do perfil num par de imagens, situa ápices e seios costofrênicos e explica por que o PA pede ombros para a frente e respiração suspensa em inspiração. Quando um critério falha, você descreve o que viu e leva à supervisão.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2122,7 +2155,8 @@ export const RTG_2026_M08: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m08:radiopaedia-torax-pa",
-          "source:rtg-2026:m08:rcr-criterios-torax-pa"
+          "source:rtg-2026:m08:rcr-criterios-torax-pa",
+          "source:rtg-2026:m08:openstax-ap2e-coracao"
         ]
       },
       {
@@ -2530,59 +2564,29 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-pa",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8"
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m08:aula-01:i2:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
-      ]
+      "claimId": "option:rtg-2026:m08:aula-01:i2:a",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "pair:rtg-2026:m08:aula-01:i2:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
-      ]
-    },
-    {
-      "claimId": "pair:rtg-2026:m08:aula-01:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
-      ]
-    },
-    {
-      "claimId": "pair:rtg-2026:m08:aula-01:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m08:aula-01:i2:answer",
+      "claimId": "option:rtg-2026:m08:aula-01:i2:b",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-pa",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8"
       ]
     },
     {
@@ -2590,9 +2594,11 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-pa",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8"
       ]
     },
     {
@@ -2600,9 +2606,11 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
-        "source:rtg-2026:m08:radiopaedia-torax-pa"
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-pa",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8"
       ]
     },
     {
@@ -2791,8 +2799,10 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8",
         "source:rtg-2026:m08:openstax-ap2e-respiracao",
         "source:rtg-2026:m08:rcr-criterios-torax-pa"
       ]
@@ -2803,8 +2813,10 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8",
         "source:rtg-2026:m08:openstax-ap2e-respiracao",
         "source:rtg-2026:m08:rcr-criterios-torax-pa"
       ]
@@ -2815,8 +2827,10 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:openstax-ap2e-pulmoes",
-        "source:rtg-2026:m08:openstax-ap2e-terminologia",
+        "source:rtg-2026:m08:commons-torax-pa-01",
+        "source:rtg-2026:m08:commons-torax-perfil-01",
+        "source:rtg-2026:m08:radiopaedia-torax-perfil",
+        "source:rtg-2026:m08:esr-casebook-101-cap8",
         "source:rtg-2026:m08:openstax-ap2e-respiracao",
         "source:rtg-2026:m08:rcr-criterios-torax-pa"
       ]
@@ -2877,7 +2891,8 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:rcr-criterios-torax-pa"
+        "source:rtg-2026:m08:rcr-criterios-torax-pa",
+        "source:rtg-2026:m08:openstax-ap2e-coracao"
       ]
     },
     {
@@ -2886,7 +2901,8 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:rcr-criterios-torax-pa"
+        "source:rtg-2026:m08:rcr-criterios-torax-pa",
+        "source:rtg-2026:m08:openstax-ap2e-coracao"
       ]
     },
     {
@@ -2913,7 +2929,8 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:rcr-criterios-torax-pa"
+        "source:rtg-2026:m08:rcr-criterios-torax-pa",
+        "source:rtg-2026:m08:openstax-ap2e-coracao"
       ]
     },
     {
@@ -2922,7 +2939,8 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:radiopaedia-torax-pa",
-        "source:rtg-2026:m08:rcr-criterios-torax-pa"
+        "source:rtg-2026:m08:rcr-criterios-torax-pa",
+        "source:rtg-2026:m08:openstax-ap2e-coracao"
       ]
     },
     {
@@ -6173,6 +6191,38 @@ export const RTG_2026_M08: ProductionBatchV1 = {
           ]
         }
       }
+    ],
+    "images": [
+      {
+        "id": "image:rtg-2026:m08:torax-pa-adulto-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m08/torax-pa-adulto-01.jpg",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg",
+        "author": "Mikael Häggström",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "retrievedAt": "2026-11-07",
+        "sha256Original": "4cbbcf805291db949e4ff085ca3c7258b2823de21b2857ae684e6c91ff9a38a4",
+        "sha256Asset": "4e6e2de058c5adb212e0427b1350d768eab04e02b564eeffdd3b86adb1737952",
+        "modification": "redução",
+        "alt": "Radiografia do tórax em tons de cinza, em formato vertical. Nos cantos superiores há as marcações de texto Dx, à esquerda de quem olha, e Sin, à direita.",
+        "width": 1049,
+        "height": 1200
+      },
+      {
+        "id": "image:rtg-2026:m08:torax-perfil-adulto-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m08/torax-perfil-adulto-01.jpg",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Normal_lateral_chest_radiograph_(X-ray).jpg",
+        "author": "Mikael Häggström",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "retrievedAt": "2026-11-07",
+        "sha256Original": "d22911286846412a02aa484ffb8140e46cd3f5a2aab4687b63645075fa4e793b",
+        "sha256Asset": "734608cdfe8ce0f89d18392a838bbd7e76c340dbe3eddd5e8af2280915707c4a",
+        "modification": "redução",
+        "alt": "Radiografia do tórax em tons de cinza, em formato vertical. Não há marcações de texto visíveis.",
+        "width": 865,
+        "height": 1200
+      }
     ]
   },
   "schemaRefs": {
@@ -6189,7 +6239,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     },
     {
       "schemaVersion": 1,
@@ -6198,7 +6248,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     },
     {
       "schemaVersion": 1,
@@ -6207,7 +6257,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     },
     {
       "schemaVersion": 1,
@@ -6216,7 +6266,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     },
     {
       "schemaVersion": 1,
@@ -6225,7 +6275,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     },
     {
       "schemaVersion": 1,
@@ -6234,7 +6284,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4929f739835c6b94c30498ba5ff73c713d67caee10b74b707c5c175883c72633"
+      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

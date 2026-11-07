@@ -76,6 +76,12 @@ beforeEach(async () => {
 });
 afterEach(() => { jest.useRealTimers(); });
 
+it('Ajustes leva aos créditos das imagens', async () => {
+  render(<SettingsScreen />);
+  fireEvent.press(await screen.findByRole('button', { name: 'Créditos das imagens' }));
+  expect(routes.router.push).toHaveBeenCalledWith('/creditos-imagens');
+});
+
 it('abre Ajustes em grupos, com uma rolagem e retorno real ao Perfil', async () => {
   const view = await ready();
   expect(screen.getByRole('header', { name: 'Ajustes' })).toBeTruthy();

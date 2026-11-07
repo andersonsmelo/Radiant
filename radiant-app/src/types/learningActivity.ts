@@ -103,6 +103,8 @@ export type ChoiceOption = {
     id: string;
     label: string;
     imageRef?: string;
+    /** O que a imagem mostra, para quem não a vê. Sem entregar a resposta. */
+    imageAlt?: string;
     /** Por que esta opção está certa ou errada. Aparece no retorno quando o aluno a marca. */
     explanation?: string;
 };

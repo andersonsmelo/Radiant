@@ -3,16 +3,16 @@
 // docs/content/2026-11-05-guia-de-autoria-rtg-2026.md.
 // Uso: node scripts/content/rtg-lesson-lint.mjs <arquivo.json>...
 // Sai com 1 se houver erro. Sem dependências. Confere forma, não verdade.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching'];
+const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison'];
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
 
-export function lintUnit(doc) {
+export function lintUnit(doc, { images = [] } = {}) {
   if (doc === null || typeof doc !== 'object' || Array.isArray(doc)) return ['raiz: o arquivo deve conter um objeto JSON'];
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
@@ -68,6 +68,22 @@ export function lintUnit(doc) {
     return correct[0].label;
   };
 
+  const imageIds = new Set(images.map((image) => image.id));
+  const comparison = (where, item) => {
+    text(`${where}.prompt`, item.prompt, { min: 20, max: 420 });
+    const options = Array.isArray(item.options) ? item.options : [];
+    if (options.length < 2 || options.length > 4) return err(where, 'comparação: de 2 a 4 imagens');
+    if (options.filter((o) => o.correct === true).length !== 1) return err(where, 'exatamente 1 alternativa correta');
+    options.forEach((o, i) => {
+      text(`${where}.options[${i}].label`, o.label, { max: 110 }); text(`${where}.options[${i}].feedback`, o.feedback, { min: 25, max: 260 });
+      if (!imageIds.has(o.imageId)) err(`${where}.options[${i}]`, `imagem fora do registro: ${o.imageId}`);
+    });
+    if (new Set(options.map((o) => o.imageId)).size !== options.length) err(where, 'imagem repetida na comparação');
+    if (new Set(options.map((o) => norm(o.label))).size !== options.length) err(where, 'alternativas repetidas');
+    if (new Set(options.map((o) => norm(o.feedback))).size !== options.length) err(where, 'retornos repetidos: cada alternativa explica o próprio erro');
+    refs(where, item.sourceIds);
+  };
+
   const lessons = Array.isArray(doc.lessons) ? doc.lessons : [];
   if (lessons.length < 6) err('lessons', `a unidade tem ${lessons.length} aulas; o mínimo é 6`);
   const seenIds = new Set();
@@ -104,7 +120,9 @@ export function lintUnit(doc) {
       if (!/^i\d$/.test(it.id ?? '') || interactionIds.has(it.id)) err(iw, 'id i1..i5, único na aula'); interactionIds.add(it.id);
       if (!['prerequisite', 'prediction', 'practice', 'transfer', 'safety'].includes(it.role)) err(iw, 'role inválido');
       text(`${iw}.help`, it.help, { min: 15, max: 200 });
-      if (CHOICE.includes(it.type)) {
+      if (it.type === 'comparison') {
+        comparison(iw, it);
+      } else if (CHOICE.includes(it.type)) {
         choice(iw, it);
         if (it.type === 'case-decision') text(`${iw}.context`, it.context, { min: 60, max: 520 });
       } else {
@@ -151,9 +169,11 @@ export function lintUnit(doc) {
 
 if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
   let failed = false;
+  const registry = fileURLToPath(new URL('../../content-manifest/rtg-2026/imagens.json', import.meta.url));
+  const registeredImages = existsSync(registry) ? JSON.parse(readFileSync(registry, 'utf8')) : [];
   for (const file of process.argv.slice(2)) {
     let errors;
-    try { errors = lintUnit(JSON.parse(readFileSync(file, 'utf8'))); } catch (e) { errors = [`JSON inválido: ${e.message}`]; }
+    try { errors = lintUnit(JSON.parse(readFileSync(file, 'utf8')), { images: registeredImages }); } catch (e) { errors = [`JSON inválido: ${e.message}`]; }
     console.log(`${errors.length ? 'REPROVADO' : 'OK'} ${file}${errors.length ? ` (${errors.length} erros)` : ''}`);
     errors.slice(0, 60).forEach((e) => console.log(`  - ${e}`));
     failed ||= errors.length > 0;

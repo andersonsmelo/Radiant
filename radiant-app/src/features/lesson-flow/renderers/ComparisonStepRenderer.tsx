@@ -31,7 +31,7 @@ export function ComparisonStepRenderer({ payload, selectedOptionId, onSelect, re
                             onPress={() => { if (!submitted) onSelect(option.id); }}
                             disabled={submitted}
                             accessibilityRole="button"
-                            accessibilityLabel={option.label}
+                            accessibilityLabel={option.imageAlt ? `${option.label}. ${option.imageAlt}` : option.label}
                             accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona esta comparação. Você confirma em ${confirmationLabel}.`}
                             accessibilityState={{ selected, ...(submitted ? { disabled: true } : {}) }}
                             style={[styles.option, selected && styles.selected]}

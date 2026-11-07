@@ -123,3 +123,9 @@ Regra extra: a unidade não ensina execução independente de ato invasivo. O es
 3. s-ir-04 i3 (distância) e de quem é a exposição.
 4. s-ir-02 i5 diante do art. 7 IV da IN 91, que pode valer só para equipamento vendido depois da norma.
 5. Lista britânica, papéis lidos em fonte dos EUA e subtração digital apoiada em fonte de tipo wiki. O revisor cortou a subtração por falta de leitura, e ela voltou por um segundo autor e um segundo revisor, com a seção própria no parecer.
+
+### Imagens em M08
+Regra extra: só orientação, sem achado, sem marco na imagem e sem critério técnico que a página do acervo não sustenta. O parecer está no fim de [m08.md](m08.md).
+1. Licença, autor e identificação visível de cada arquivo, reabrindo a página do Commons.
+2. "A coluna torácica aparece com clareza" e "uma clavícula de cada lado da coluna".
+3. O corte da frase que dizia que o texto é descrição para estudo, não protocolo de atendimento.

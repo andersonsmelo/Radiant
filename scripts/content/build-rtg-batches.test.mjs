@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import appContract from './load-app-contract.cjs';
-import { renderRtgBatches, readRtgSources, staleRtgFiles } from './build-rtg-batches.mjs';
+import { renderRtgBatches, readRtgImages, readRtgSources, staleRtgFiles } from './build-rtg-batches.mjs';
 
 const script = fileURLToPath(new URL('./build-rtg-batches.mjs', import.meta.url));
 const fixtureText = await readFile(new URL('./fixtures/rtg-unit-fixture.json', import.meta.url), 'utf8');
@@ -30,7 +31,7 @@ async function workspace(t) {
 test('gera um lote por unidade, o índice e as apresentações, de forma reprodutível', () => {
   const first = renderRtgBatches([{ file: 'm01.json', doc: fixture() }]);
   const second = renderRtgBatches([{ file: 'm01.json', doc: fixture() }]);
-  assert.deepEqual([...first.files.keys()], ['rtg-2026-m01.ts', 'index.ts', 'entries.ts']);
+  assert.deepEqual([...first.files.keys()], ['rtg-2026-m01.ts', 'index.ts', 'entries.ts', 'rtgImages.ts']);
   assert.deepEqual([...first.files], [...second.files]);
   assert.deepEqual(first.units.map(({ unit, batchId, lessons, checkpointItems }) => ({ unit, batchId, lessons, checkpointItems })),
     [{ unit: 'm01', batchId: 'batch:rtg-2026:m01', lessons: 6, checkpointItems: 12 }]);
@@ -46,7 +47,7 @@ test('gera um lote por unidade, o índice e as apresentações, de forma reprodu
 test('sem aula-fonte gera índice e apresentações vazios, e ainda assim válidos', () => {
   const { files, units } = renderRtgBatches([]);
   assert.deepEqual(units, []);
-  assert.deepEqual([...files.keys()], ['index.ts', 'entries.ts']);
+  assert.deepEqual([...files.keys()], ['index.ts', 'entries.ts', 'rtgImages.ts']);
   assert.match(files.get('index.ts'), /RTG_2026_BATCHES: readonly ProductionBatchV1\[\] = \[\];/);
   assert.match(files.get('entries.ts'), /= \{\};/);
 });
@@ -96,7 +97,7 @@ test('--check passa logo após gerar e falha quando a aula-fonte muda, um arquiv
   await writeFile(path.join(source, 'm01.json'), fixtureText);
   const written = run(`--source=${source}`, `--out=${out}`);
   assert.equal(written.status, 0, written.stderr);
-  assert.deepEqual((await readdir(out)).sort(), ['entries.ts', 'index.ts', 'rtg-2026-m01.ts']);
+  assert.deepEqual((await readdir(out)).sort(), ['entries.ts', 'index.ts', 'rtg-2026-m01.ts', 'rtgImages.ts']);
   assert.equal(run('--check', `--source=${source}`, `--out=${out}`).status, 0);
 
   const edited = fixture();
@@ -113,12 +114,47 @@ test('--check passa logo após gerar e falha quando a aula-fonte muda, um arquiv
   assert.match(run('--check', `--source=${source}`, `--out=${out}`).stderr, /rtg-2026-m02\.ts \(sem aula-fonte\)/);
   // Gerar de novo remove o lote órfão; o índice volta a bater.
   assert.equal(run(`--source=${source}`, `--out=${out}`).status, 0);
-  assert.deepEqual((await readdir(out)).sort(), ['entries.ts', 'index.ts', 'rtg-2026-m01.ts']);
+  assert.deepEqual((await readdir(out)).sort(), ['entries.ts', 'index.ts', 'rtg-2026-m01.ts', 'rtgImages.ts']);
   await rm(path.join(out, 'index.ts'));
   assert.match(run('--check', `--source=${source}`, `--out=${out}`).stderr, /index\.ts \(ausente\)/);
 });
 
 test('os lotes versionados no app estão em dia com as aulas-fonte do repositório', async () => {
-  const { files } = renderRtgBatches(await readRtgSources());
+  const { files } = renderRtgBatches(await readRtgSources(), await readRtgImages());
   assert.deepEqual(await staleRtgFiles(files), []);
+});
+
+const imageEntry = over => ({ id: 'image:rtg-2026:m01:a', file: 'radiant-app/assets/content/rtg-2026/imagens/m01/a.jpg',
+  sourcePage: 'https://commons.wikimedia.org/wiki/File:A.jpg', author: 'Autoria de teste', license: 'CC0 1.0',
+  licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/', retrievedAt: '2026-11-07', sha256Original: 'a'.repeat(64),
+  sha256Asset: 'b'.repeat(64), modification: 'redução', alt: 'Radiografia em tons de cinza.', width: 800, height: 1000, ...over });
+
+test('gera o resolvedor local com require e os dados de crédito de cada imagem', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc: fixture() }], [imageEntry()]);
+  const text = files.get('rtgImages.ts');
+  assert.match(text, /"source": require\('\.\.\/\.\.\/\.\.\/\.\.\/assets\/content\/rtg-2026\/imagens\/m01\/a\.jpg'\)/);
+  assert.match(text, /"author": "Autoria de teste"/);
+  assert.match(text, /"license": "CC0 1\.0"/);
+  assert.match(text, /export function resolveRtgImage/);
+  assert.doesNotMatch(text, /uri/, 'o resolvedor nunca cai numa URL remota');
+});
+
+test('sem imagens, o resolvedor continua existindo e vazio', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc: fixture() }]);
+  assert.match(files.get('rtgImages.ts'), /RTG_IMAGES: readonly RtgImageCredit\[\] = \[\]/);
+});
+
+test('recusa imagem cujo arquivo não bate com o hash registrado, e arquivo ausente', async t => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'rtg-images-'));
+  t.after(() => rm(dir, { recursive: true, force: true }));
+  await mkdir(path.join(dir, 'radiant-app/assets/content/rtg-2026/imagens/m01'), { recursive: true });
+  const registry = path.join(dir, 'imagens.json');
+  await writeFile(registry, JSON.stringify([imageEntry()]));
+  await assert.rejects(readRtgImages(registry, dir), /rtg-image-missing:image:rtg-2026:m01:a/);
+  await writeFile(path.join(dir, 'radiant-app/assets/content/rtg-2026/imagens/m01/a.jpg'), 'bytes');
+  await assert.rejects(readRtgImages(registry, dir), /rtg-image-sha:image:rtg-2026:m01:a/);
+  const sha256Asset = createHash('sha256').update('bytes').digest('hex');
+  await writeFile(registry, JSON.stringify([imageEntry({ sha256Asset })]));
+  assert.equal((await readRtgImages(registry, dir)).length, 1);
+  assert.deepEqual(await readRtgImages(path.join(dir, 'nao-existe.json'), dir), []);
 });

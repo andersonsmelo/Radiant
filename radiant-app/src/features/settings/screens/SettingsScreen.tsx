@@ -156,6 +156,10 @@ export default function SettingsScreen() {
           {goalSaveError ? <Text key={`goal-error-${fontScale}`} style={styles.message} accessibilityRole="alert">Não foi possível salvar a meta. Tente novamente.</Text> : null}
         </GroupedList>
         <ICloudBackupCard state={backup} available={backupAvailable} onToggle={toggleBackup} busy={backupBusy} />
+        <Pressable accessibilityRole="button" accessibilityLabel="Créditos das imagens" onPress={() => router.push('/creditos-imagens')} style={styles.row}>
+          <View style={styles.copy}><Text key={`credits-${fontScale}`} style={styles.label}>Créditos das imagens</Text></View>
+          <IconSymbol name="chevron.right" size={20} color={galaxyColors.textSecondary} />
+        </Pressable>
         <LegalLinksCard footer={<Pressable accessibilityRole="button" accessibilityLabel="Rever a apresentação" onPress={() => setShowWelcomeReplay(true)} style={styles.row}>
           <Text key={`replay-${fontScale}`} style={[styles.label, styles.copy]}>Rever a apresentação</Text>
           <IconSymbol name="chevron.right" size={20} color={galaxyColors.textSecondary} />

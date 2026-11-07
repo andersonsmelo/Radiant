@@ -13,6 +13,17 @@ const payload = {
 };
 
 describe('ComparisonStepRenderer', () => {
+    it('a alternativa com imagem anuncia o rótulo e o texto alternativo', () => {
+        const { getByLabelText } = render(<ComparisonStepRenderer selectedOptionId={undefined} onSelect={jest.fn()}
+            resolveImageSource={() => ({ source: 1, width: 800, height: 1000 })}
+            payload={{ ...payload, options: [
+                { id: 'a', label: 'Radiografia A', imageRef: 'image:a', imageAlt: 'Tórax em tons de cinza.' },
+                { id: 'b', label: 'Radiografia B', imageRef: 'image:b', imageAlt: 'Tórax visto pelo outro ângulo.' },
+            ] }} />);
+        expect(getByLabelText('Radiografia A. Tórax em tons de cinza.')).toBeTruthy();
+        expect(getByLabelText('Radiografia B. Tórax visto pelo outro ângulo.')).toBeTruthy();
+    });
+
     it('não depende de cor: mostra texto e estado acessível da seleção', () => {
         const { getByLabelText, getByText } = render(
             <ComparisonStepRenderer payload={payload} selectedOptionId="b" onSelect={jest.fn()} />,

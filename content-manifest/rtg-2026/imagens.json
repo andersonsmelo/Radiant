@@ -1,0 +1,44 @@
+[
+  {
+    "id": "image:rtg-2026:m08:torax-pa-adulto-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m08/torax-pa-adulto-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-07",
+    "sha256Original": "4cbbcf805291db949e4ff085ca3c7258b2823de21b2857ae684e6c91ff9a38a4",
+    "sha256Asset": "4e6e2de058c5adb212e0427b1350d768eab04e02b564eeffdd3b86adb1737952",
+    "modification": "redução",
+    "alt": "Radiografia do tórax em tons de cinza, em formato vertical. Nos cantos superiores há as marcações de texto Dx, à esquerda de quem olha, e Sin, à direita.",
+    "width": 1049,
+    "height": 1200,
+    "projection": "posteroanterior (PA)",
+    "region": "tórax",
+    "descriptionFromSource": "Posteroanterior chest radiograph (\"X-ray\") taken of a 21 year old woman who presented with pain on the left side of her thorax after colliding with another player during a soccer game. It shows a normal chest without any signs of injury. Dx and Sin stand for \"right\" and \"left\" respectively.",
+    "usedIn": [
+      "m08-01"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m08:torax-perfil-adulto-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m08/torax-perfil-adulto-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Normal_lateral_chest_radiograph_(X-ray).jpg",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-07",
+    "sha256Original": "d22911286846412a02aa484ffb8140e46cd3f5a2aab4687b63645075fa4e793b",
+    "sha256Asset": "734608cdfe8ce0f89d18392a838bbd7e76c340dbe3eddd5e8af2280915707c4a",
+    "modification": "redução",
+    "alt": "Radiografia do tórax em tons de cinza, em formato vertical. Não há marcações de texto visíveis.",
+    "width": 865,
+    "height": 1200,
+    "projection": "lateral (perfil)",
+    "region": "tórax",
+    "descriptionFromSource": "Lateral chest radiograph (\"X-ray\") taken of a 21 year old woman who presented with pain on the left side of her thorax after colliding with another player during a soccer game. It shows a normal chest without any signs of injury.",
+    "usedIn": [
+      "m08-01"
+    ]
+  }
+]

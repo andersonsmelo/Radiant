@@ -24,14 +24,33 @@ export type EditorialWideRecoveryV1 = Readonly<{
     transfer: CheckpointItemCandidateV1;
 }>;
 
+/** Imagem de acervo aberto. O crédito do autor e a licença viajam com o lote. */
+export type EditorialLicensedImageV1 = Readonly<{
+    id: string;
+    file: string;
+    sourcePage: string;
+    author: string;
+    license: string;
+    licenseUrl: string;
+    retrievedAt: string;
+    sha256Original: string;
+    sha256Asset: string;
+    modification: string;
+    alt: string;
+    width: number;
+    height: number;
+}>;
+
 export type EditorialWideContractV1 = Readonly<{
     schemaVersion: 1;
     namespace: 'rtg-2026';
     /** Um par de itens por competência, para depois de uma conferência reprovada. */
     recovery: readonly EditorialWideRecoveryV1[];
+    /** Só as imagens que alguma comparação desta unidade usa. */
+    images?: readonly EditorialLicensedImageV1[];
 }>;
 
-export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching'] as const;
+export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -40,14 +59,18 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     'case-decision': ['context', 'prompt', 'options', 'correctOptionId'],
     ordering: ['prompt', 'items', 'correctOrder'],
     matching: ['prompt', 'pairs'],
+    comparison: ['prompt', 'options', 'correctOptionId'],
 };
+// Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
+const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
+const SHA256 = /^[0-9a-f]{64}$/;
 const filled = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 const https = (value: string) => { try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; } catch { return false; } };
 const date = (value: unknown) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));
 
 export function wideResponseIds(interaction: LearningInteractionV2): string[] {
     switch (interaction.type) {
-        case 'multiple-choice': case 'case-decision': return interaction.payload.options.map(option => option.id);
+        case 'multiple-choice': case 'case-decision': case 'comparison': return interaction.payload.options.map(option => option.id);
         case 'ordering': return interaction.payload.items.map(item => item.id);
         case 'matching': return interaction.payload.pairs.map(pair => pair.id);
         default: return [];
@@ -61,7 +84,7 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
         claimId, claimKind, provenanceKind: distractor ? 'authorial-distractor' : 'source-backed', sourceIds: distractor ? [] : sourceIds,
     });
     add(`${interaction.id}:prompt`, 'prompt');
-    if (interaction.type === 'multiple-choice' || interaction.type === 'case-decision') {
+    if (interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison') {
         const { options, correctOptionId } = interaction.payload;
         options.forEach(option => add(option.id, option.id === correctOptionId ? 'correct-answer' : 'distractor', option.id !== correctOptionId));
     } else {
@@ -100,6 +123,17 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
     const sources = (ids: readonly string[]) => Array.isArray(ids) && ids.length > 0 && new Set(ids).size === ids.length && ids.every(id => sourceIds.has(id));
     const competencies = new Set(candidate.competencyIds);
     const competency = (ids: readonly string[]) => Array.isArray(ids) && ids.length === 1 && competencies.has(ids[0]);
+    const images = wide.images ?? [];
+    const registeredImages = new Set(images.map(image => image.id));
+    const usedImages = new Set<string>();
+    for (const image of images) {
+        identity(image.id);
+        if (!ALLOWED_IMAGE_LICENSE.test(image.license) || !filled(image.file) || !filled(image.author) || !filled(image.alt)
+            || !filled(image.modification) || !filled(image.sourcePage) || !https(image.sourcePage)
+            || !filled(image.licenseUrl) || !https(image.licenseUrl) || !date(image.retrievedAt)
+            || !SHA256.test(image.sha256Original) || !SHA256.test(image.sha256Asset)
+            || !(image.width > 0) || !(image.height > 0)) add('invalid-licensed-image', image.id);
+    }
     for (const source of candidate.sources) {
         if (Object.keys(source).some(key => !SOURCE_KEYS.includes(key))
             || !filled(source.title) || !filled(source.publisher) || !filled(source.licenseNote)
@@ -119,15 +153,20 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
             if (!competency(interaction.competencyIds) || interaction.competencyIds[0] !== activity.competencyIds[0]
                 || !AUTHORED_EVIDENCE_KINDS.some(kind => kind === interaction.evidenceKind)) add('invalid-activity-contract', activity.id);
             if (interaction.completionRule !== 'confirmed') add('unconfirmed-wide-interaction', interaction.id);
+            if (interaction.type === 'comparison') {
+                interaction.payload.options.forEach(option => { if (option.imageRef) usedImages.add(option.imageRef); });
+                if (interaction.payload.options.some(option => !option.imageRef || !registeredImages.has(option.imageRef))) add('unregistered-licensed-image', interaction.id);
+            }
             const labels: unknown[] = interaction.type === 'ordering' ? interaction.payload.items.map(item => item.label)
                 : interaction.type === 'matching' ? interaction.payload.pairs.flatMap(pair => [pair.left, pair.right])
-                    : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' ? interaction.payload.options.map(option => option.label) : [];
+                    : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison' ? interaction.payload.options.map(option => option.label) : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')
                 && interaction.payload.options.some(option => option.imageRef !== undefined);
             if (Object.keys(interaction.payload).some(key => !allowed.includes(key)) || choiceImages
                 || labels.some(label => !filled(label))) add('unsupported-wide-payload', interaction.id);
         }
     }
+    for (const id of registeredImages) if (!usedImages.has(id)) add('unused-licensed-image', id);
     for (const item of candidate.checkpoint.items) { identity(item.id); item.options.forEach(option => identity(option.id)); }
     for (const id of candidate.competencyIds) {
         const entries = wide.recovery.filter(entry => entry.competencyId === id);

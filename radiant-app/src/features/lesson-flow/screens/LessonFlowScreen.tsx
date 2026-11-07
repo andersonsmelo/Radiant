@@ -10,6 +10,7 @@ import { LessonFlowService } from '../services/LessonFlowService';
 import { adaptLegacyBlock } from '../services/LegacyLessonAdapter';
 import { useLearningActivity } from '../hooks/useLearningActivity';
 import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
+import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors, hudLabelTones } from '../../../ui/theme';
@@ -813,6 +814,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 <Animated.View style={answerShake.style}>
                                     <ActivityInteractionRenderer
                                         interaction={currentInteraction}
+                                        resolveImageSource={resolveRtgImage}
                                         value={player.value}
                                         confirmationLabel={confirmationLabel}
                                         submitted={player.showingFeedback}

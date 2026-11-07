@@ -502,6 +502,7 @@ function RootLayout() {
         <Stack.Screen name="learn" />
         <Stack.Screen name="checkpoint" />
         <Stack.Screen name="reward" />
+        <Stack.Screen name="creditos-imagens" />
         <Stack.Screen name="quiz" />
         <Stack.Screen name="review" />
         <Stack.Screen name="subscription" />

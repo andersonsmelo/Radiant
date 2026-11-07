@@ -112,3 +112,26 @@ test('a linha de comando sai com 0 na unidade válida e com 1 no JSON quebrado',
   assert.equal(broken.status, 1);
   assert.match(broken.stdout, /REPROVADO .*\n {2}- JSON inválido/);
 });
+
+const IMAGES = [{ id: 'image:rtg-2026:m01:a' }, { id: 'image:rtg-2026:m01:b' }];
+function comparison(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'comparison', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Qual destas duas radiografias foi feita em perfil?',
+    options: [
+      { label: 'Radiografia A', imageId: 'image:rtg-2026:m01:a', correct: false, feedback: 'Esta é a incidência de frente, ensinada no conceito.' },
+      { label: 'Radiografia B', imageId: 'image:rtg-2026:m01:b', correct: true, feedback: 'Esta é a incidência em perfil, ensinada no conceito.' },
+    ],
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc, { images: IMAGES });
+}
+test('aceita comparação com duas imagens registradas', () => assert.deepEqual(comparison(), []));
+test('reprova comparação com imagem fora do registro', () => expectOnly(comparison(item => { item.options[0].imageId = 'image:rtg-2026:m01:c'; }), /imagem fora do registro/));
+test('reprova comparação sem imagem na alternativa', () => expectOnly(comparison(item => { delete item.options[0].imageId; }), /imagem fora do registro/));
+test('reprova comparação sem exatamente uma correta', () => expectOnly(comparison(item => { item.options[0].correct = true; }), /exatamente 1 alternativa correta/));
+test('reprova comparação com uma imagem só', () => expectOnly(comparison(item => { item.options.pop(); }), /de 2 a 4 imagens/));
+test('reprova a mesma imagem duas vezes na comparação', () => expectOnly(comparison(item => { item.options[1].imageId = item.options[0].imageId; }), /imagem repetida/));
+test('reprova retorno repetido na comparação', () => expectOnly(comparison(item => { item.options[1].feedback = item.options[0].feedback; }), /retornos repetidos/));
