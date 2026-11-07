@@ -99,3 +99,19 @@ Regra extra: sem categoria BI-RADS, sem ler T-score ou Z-score como resultado de
 2. s-md-04 i2 e i4: contas com 0,5 e 1,5 cm e o critério de 1 cm.
 3. s-md-07: o que torna válida a comparação em densitometria.
 4. Dose da tomossíntese com uma só fonte, itens de implante, gestação e escalonamento à equipe, e privacidade apoiada no art. 53 da RDC 611.
+
+### S-MN — Aprofundamento em medicina nuclear
+Regra extra: o estudante não prepara, fraciona nem administra radiofármaco, não escolhe atividade nem a calcula para paciente, não decide liberação e não descontamina sozinho. Contaminação e suspeita de troca vão à equipe e ao serviço de proteção radiológica.
+1. Vigência da ANSN 3.05 e atualidade do texto citado.
+2. s-mn-04 i2 e i4: a ordem do derramamento é convenção da aula e vinha de um único hospital estrangeiro.
+3. s-mn-06: periodicidades dos anexos da norma e a cena "antes do primeiro paciente".
+4. s-mn-07 i4 (marca-passo) e a frase sobre metal, apoiadas em artigo antigo.
+5. s-mn-03 i5: monitor para roupa.
+
+### S-RT — Aprofundamento em radioterapia
+Regra extra: o estudante não prescreve nem altera dose, fracionamento, campo ou técnica, não planeja, não aprova plano nem imagem, não inicia nem pula fração e não julga sintoma. Divergência vai à equipe. A unidade não comprova planejamento clínico, entrega de tratamento nem formação de dosimetrista.
+1. Vigência da ANSN 6.10 e o que dizem os arts. 24, 25, 26, 35, 36, 42 e 62, porque o rascunho leu só trechos.
+2. "Teste que falhou: pare e avise" e o que sustenta essa frase.
+3. Sequências didáticas de s-rt-04 e s-rt-08, s-rt-08 i4 e s-rt-03 i4.
+4. Dosimetrista em s-rt-06 diante de onde a norma brasileira põe o planejamento.
+5. Papéis da equipe e ritmo da física lidos em fonte dos EUA, fantoma só para IMRT e os cinco Rs como vocabulário.

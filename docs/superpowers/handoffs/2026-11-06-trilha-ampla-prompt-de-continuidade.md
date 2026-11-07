@@ -220,7 +220,7 @@ Medido em 2026-11-06, às 09:13.
 - **Feito:** itens 1 de "O que falta" (núcleo: 14 unidades, 84 aulas) e as frentes A,
   C e D do plano. Gate local com 233 suítes e 3053 testes; `loop validate`
   aprovado.
-- **Aprofundamentos (item 2), medido em 2026-11-06, à tarde:** `s-tc`, `s-rm` e `s-md` admitidos, com parecer (24 aulas). Faltam `s-mn`, `s-rt` e `s-ir`. Autor e revisor rodaram em Opus 5.5, e os pareceres dizem isso. Cada unidade gastou de 15% a 30% da janela de 5 horas, em um por vez.
+- **Aprofundamentos (item 2), medido em 2026-11-07:** `s-tc`, `s-rm`, `s-md`, `s-mn` e `s-rt` admitidos, com parecer (40 aulas). Falta `s-ir`. A trilha tem 19 unidades e 124 aulas. Autor e revisor rodaram em Opus 5.5, e os pareceres dizem isso. Cada unidade gastou de 15% a 30% da janela de 5 horas, em um por vez.
 - **Parcial:** a prova no simulador (item 3) cobriu trilha, cena de diálogo, conceito,
   pergunta e retorno de erro. Falta todo o resto da lista do item 3, mais as metas.
 - **PR:** [#69](https://github.com/andersonsmelo/Radiant/pull/69) aberta em rascunho em 2026-11-06. No primeiro CI, `quality` passou e `content` reprovou num teste antigo (`concepts-reader.test.py` exigia conceitos, e o índice está vazio desde a retirada); o teste foi ajustado, e no commit `2bf480f` os dois jobs passaram. Confira com `gh pr checks 69` e só tire do rascunho com os aprofundamentos e a prova no simulador feitos.
@@ -230,6 +230,9 @@ Medido em 2026-11-06, às 09:13.
   `@radiant:unit_celebrations_v1`; a frase-gancho da recuperação não aparece na
   revisão; o bônus de missão só é pago quando Estude, Perfil ou `/missions` são
   abertos no mesmo dia; a Estude mantém um tocador com nove sons, custo não medido.
+- **Reinício do Mac apaga os rascunhos:** em 2026-11-07, o scratchpad em `/private/tmp`
+  amanheceu vazio. Rascunho e parecer só existem ali até a admissão, então admita logo
+  depois da aprovação. O autor grava o rascunho inteiro assim que o tiver.
 - **Pastas temporárias:** os rascunhos e pareceres desta conversa estavam em
   `/private/tmp/claude-501/…/scratchpad/rtg/`. Tudo o que importa já está no
   repositório; a pasta pode ter sumido.

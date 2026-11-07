@@ -1,0 +1,2698 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "s-rt",
+    "code": "S-RT",
+    "title": "Aprofundamento em Radioterapia",
+    "summary": "Paciente, equipe, física, equipamentos, posição, simulação, vocabulário de planejamento e controles, para reconhecer divergências e levá-las à equipe numa simulação supervisionada."
+  },
+  "sources": [
+    {
+      "id": "cnen-ansn-6-10",
+      "title": "Norma ANSN 6.10: requisitos de segurança e proteção radiológica para serviços de radioterapia (Resolução CNEN 277/21)",
+      "publisher": "CNEN",
+      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-6/ansn-6-10-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-radioterapia.pdf",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado para fatos (arts. 24 a 27, 35, 36, 41, 42, 61 e 62 e deveres do titular), sem reprodução de texto."
+    },
+    {
+      "id": "inca-radioterapia",
+      "title": "Radioterapia",
+      "publisher": "INCA, Ministério da Saúde",
+      "url": "https://www.gov.br/inca/pt-br/assuntos/cancer/tratamento/radioterapia",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para finalidade, modalidades, equipe, cartão, marcações e rotina, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-intro-onco",
+      "title": "Introduction to Cancer Therapy (Radiation Oncology)",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/intro_onco",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para funções da equipe e simulação, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-linac",
+      "title": "Linear Accelerator",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/linac",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para produção do feixe, componentes, blindagem e verificações, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-ebt",
+      "title": "External Beam Therapy",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/ebt",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para simulação, marcas, planejamento e rotina do dia, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-igrt",
+      "title": "Image-Guided Radiation Therapy (IGRT)",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/igrt",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para imagem do dia, comparação com a referência e movimento do tumor, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-imrt",
+      "title": "Intensity-Modulated Radiation Therapy (IMRT)",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/imrt",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para IMRT, VMAT, funções e verificação com fantoma, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-brachy",
+      "title": "Brachytherapy",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/brachy",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para alta e baixa taxa de dose, pós-carregamento e irídio-192, com redação própria."
+    },
+    {
+      "id": "burnet-2004-volumes",
+      "title": "Defining the tumour and target volumes for radiotherapy (Burnet e colaboradores, Cancer Imaging, 2004)",
+      "publisher": "PubMed Central, NIH",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1434601/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para as definições de GTV, CTV, PTV e órgãos de risco, com redação própria."
+    },
+    {
+      "id": "boustani-2019-radiobiologia",
+      "title": "The 6th R of Radiobiology: Reactivation of Anti-Tumor Immune Response (Boustani e colaboradores, Cancers, 2019)",
+      "publisher": "PubMed Central, NIH",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6627091/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado na introdução para os cinco Rs, lesão no DNA e radicais da água, com redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "s-rt-01",
+      "code": "S-RT.01",
+      "title": "Paciente e equipe",
+      "objective": "Hoje você vai conseguir dizer quem faz o quê no setor e a quem levar o que o paciente conta.",
+      "competency": "Relacionar funções da equipe de radioterapia e encaminhar à equipe o relato do paciente.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Recepção do setor de radioterapia",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "É minha primeira sessão. Minha filha pode entrar comigo na sala?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Profa. Lia, eu travei. Não sei o que posso responder e o que é da equipe."
+          },
+          {
+            "speaker": "lia",
+            "text": "Comece por aqui: quem faz o quê neste setor, e o que muda quando a pergunta vem da paciente?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada função, uma parte do cuidado",
+        "body": "Na radioterapia, o radio-oncologista consulta e define o tipo e o tempo do tratamento. A física médica calcula a dose e controla a qualidade dos aparelhos. Técnicos e tecnólogos posicionam o paciente e operam o aparelho. A enfermagem orienta os cuidados. A norma ANSN 6.10 não permite acompanhante na sala de tratamento e exige observar e falar com o paciente a partir do comando. Você, estudante, não avalia nem minimiza o que o paciente conta. Sintoma relatado, dúvida sobre resultado ou vontade de faltar: escute, pare e leve à equipe.",
+        "keyPoints": [
+          "Definir, calcular e posicionar são funções diferentes.",
+          "O paciente fica só na sala, visto e ouvido pelo comando.",
+          "O relato do paciente vai para a equipe, com as palavras dele."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Recuperando a unidade M13: qual é o papel da radiação na radioterapia?",
+          "options": [
+            {
+              "label": "Formar a imagem que vai para o laudo",
+              "correct": false,
+              "feedback": "Isso descreve a radiação no exame diagnóstico. Retome a diferença entre radiação para ver e radiação para tratar."
+            },
+            {
+              "label": "Marcar a pele para guiar o alinhamento",
+              "correct": false,
+              "feedback": "As marcas na pele são feitas com tinta ou tatuagem, sem feixe de tratamento. Confira de novo a finalidade do feixe."
+            },
+            {
+              "label": "Agir sobre as células do próprio tumor",
+              "correct": true,
+              "feedback": "Isso. Aqui a radiação ionizante é o tratamento: destrói células do tumor ou impede que se multipliquem."
+            },
+            {
+              "label": "Medir quanto o tumor mudou de tamanho",
+              "correct": false,
+              "feedback": "Medir mudança no tumor não é função do feixe de tratamento. Retome o que a radiação faz com as células."
+            }
+          ],
+          "help": "Pense na diferença entre radiação para ver e radiação para tratar.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada função da equipe ao que ela faz neste setor.",
+          "pairs": [
+            {
+              "left": "Radio-oncologista",
+              "right": "Consulta e define o tipo e o tempo do tratamento"
+            },
+            {
+              "left": "Física médica",
+              "right": "Calcula a dose e controla a qualidade dos aparelhos"
+            },
+            {
+              "left": "Técnico ou tecnólogo",
+              "right": "Posiciona o paciente e opera o aparelho"
+            },
+            {
+              "left": "Enfermagem",
+              "right": "Orienta sobre cuidados, como os com a pele"
+            }
+          ],
+          "feedbackCorrect": "Definir, calcular, posicionar e orientar: saber isso diz a quem levar cada pergunta.",
+          "feedbackIncorrect": "Retome o conceito e procure o verbo de cada função. Atenção a quem calcula e a quem opera.",
+          "help": "Busque o verbo que descreve cada função antes de ligar os pares.",
+          "sourceIds": [
+            "inca-radioterapia",
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na porta da sala, Dona Marta pergunta: 'Minha filha pode ficar aqui dentro comigo? Tenho medo de ficar sozinha.' O técnico está terminando de preparar a mesa, e você acompanha a cena como estudante.",
+          "prompt": "O que você faz diante do pedido dela?",
+          "options": [
+            {
+              "label": "Diz que a filha pode entrar até o feixe ser ligado",
+              "correct": false,
+              "feedback": "A norma não abre essa exceção: acompanhante não fica na sala de tratamento. Retome o que a ANSN 6.10 determina."
+            },
+            {
+              "label": "Explica que acompanhante não entra e chama o técnico",
+              "correct": true,
+              "feedback": "Isso. A regra existe, e o medo dela merece atenção de quem conduz a sessão: o técnico explica como ela é vista e ouvida."
+            },
+            {
+              "label": "Diz que o medo passa e que é só deitar e ficar quieta",
+              "correct": false,
+              "feedback": "Minimizar o medo deixa a paciente sem resposta. Confira de novo a quem levar o que ela contou."
+            },
+            {
+              "label": "Leva a filha ao comando para acompanhar pelo monitor",
+              "correct": false,
+              "feedback": "Levar alguém ao comando é decisão que não cabe ao estudante. Retome quem conduz a sessão e chame essa pessoa."
+            }
+          ],
+          "help": "Separe o que é regra do setor do que é acolher o medo, e pense em quem conduz a sessão.",
+          "sourceIds": [
+            "cnen-ansn-6-10",
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Seu Jorge já está na mesa. Enquanto o técnico confere a ficha, ele cochicha para você: 'Desde ontem estou com uma tontura diferente, mas não conta para ninguém, senão param o tratamento.'",
+          "prompt": "Qual é a sua ação agora?",
+          "options": [
+            {
+              "label": "Guarda o segredo, porque ele pediu e a sessão é curta",
+              "correct": false,
+              "feedback": "Guardar o relato deixa a equipe sem uma informação sobre o paciente. Retome: sintoma relatado vai para a equipe."
+            },
+            {
+              "label": "Diz que tontura é comum e tenta tranquilizá-lo",
+              "correct": false,
+              "feedback": "Isso é avaliar um sintoma, o que não cabe ao estudante. Retome a ação certa diante de um relato."
+            },
+            {
+              "label": "Anota e combina de contar à equipe no fim do turno",
+              "correct": false,
+              "feedback": "Deixar para o fim do turno leva a informação para depois da aplicação. Confira de novo quando a equipe precisa saber."
+            },
+            {
+              "label": "Avisa o técnico agora, com as palavras que ele usou",
+              "correct": true,
+              "feedback": "Isso. Você não julga o sintoma: para, leva o relato como foi dito, e a equipe decide o que fazer."
+            }
+          ],
+          "help": "Pergunte a si mesmo quem precisa dessa informação e em que momento.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "No corredor, outra paciente pergunta a você: 'Depois de tudo isso, eu vou ficar curada, não vou?' Qual resposta respeita o seu papel?",
+          "options": [
+            {
+              "label": "Acolhe e leva a pergunta ao radio-oncologista",
+              "correct": true,
+              "feedback": "Isso. Você escuta sem prometer, e a conversa sobre resultado fica com quem acompanha o tratamento dela."
+            },
+            {
+              "label": "Garante que sim, para dar ânimo à paciente",
+              "correct": false,
+              "feedback": "Uma promessa sobre resultado não cabe ao estudante e pode não se cumprir. Retome a quem levar essa pergunta."
+            },
+            {
+              "label": "Explica o que costuma acontecer em casos assim",
+              "correct": false,
+              "feedback": "Falar de resultado esperado já é prognóstico, e isso não é seu papel. Confira de novo o que fazer com a pergunta."
+            },
+            {
+              "label": "Diz que não pode falar e segue pelo corredor",
+              "correct": false,
+              "feedback": "Seguir andando deixa a paciente sem acolhimento. Retome: escutar e levar a pergunta à equipe."
+            }
+          ],
+          "help": "Separe o que é escutar do que é prometer.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você já sabe a quem levar",
+        "body": "Agora você consegue dizer o que cada função faz e levar à equipe o que o paciente conta, sem avaliar, minimizar ou prometer.",
+        "line": {
+          "speaker": "lia",
+          "text": "Escutar bem também é trabalho. O que você ouviu só ajuda quando chega a quem pode agir."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma colega quer saber quem responde pelo controle da qualidade dos aparelhos. O que você responde?",
+          "options": [
+            {
+              "label": "A enfermagem, que orienta os cuidados",
+              "correct": false,
+              "feedback": "A enfermagem orienta o paciente sobre cuidados. Retome qual função controla os aparelhos."
+            },
+            {
+              "label": "A física médica, que também calcula a dose",
+              "correct": true,
+              "feedback": "Isso. Calcular a dose e controlar a qualidade dos aparelhos são tarefas da física médica."
+            },
+            {
+              "label": "O radio-oncologista, que define o tratamento",
+              "correct": false,
+              "feedback": "O radio-oncologista define tipo e tempo do tratamento. Confira de novo quem cuida dos aparelhos."
+            },
+            {
+              "label": "O técnico, que posiciona o paciente na mesa",
+              "correct": false,
+              "feedback": "O técnico posiciona e opera, mas a resposta pela qualidade dos aparelhos é de outra função. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "prompt": "Durante a aplicação, a paciente fica sozinha na sala. O que a norma ANSN 6.10 exige para a equipe acompanhá-la?",
+          "options": [
+            {
+              "label": "Um acompanhante treinado dentro da sala",
+              "correct": false,
+              "feedback": "A norma não permite acompanhante na sala de tratamento. Retome de onde a equipe acompanha a paciente."
+            },
+            {
+              "label": "Um técnico ao lado da mesa durante o feixe",
+              "correct": false,
+              "feedback": "O técnico liga o aparelho de fora da sala. Confira de novo como ele vê e ouve a paciente."
+            },
+            {
+              "label": "Observar e falar com ela pelo comando",
+              "correct": true,
+              "feedback": "Isso. A norma exige dispositivos para observar a paciente e falar com ela a partir da sala de comando."
+            },
+            {
+              "label": "Uma visita da enfermagem a cada fração",
+              "correct": false,
+              "feedback": "Visitas não acompanham o que acontece durante o feixe. Retome o que a sala precisa ter."
+            }
+          ],
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o sintoma que o paciente me conta eu não avalio, eu levo à...",
+          "item": {
+            "prompt": "Na mesa, Dona Marta conta que tem uma dor nova. O que você faz com essa informação?",
+            "options": [
+              {
+                "label": "Leva à equipe agora, com as palavras dela",
+                "correct": true,
+                "feedback": "Isso. Relato de sintoma chega à equipe na hora e do jeito que foi dito."
+              },
+              {
+                "label": "Avalia se a dor é grave antes de avisar",
+                "correct": false,
+                "feedback": "Avaliar sintoma não cabe ao estudante. Retome a frase: você leva, não julga."
+              },
+              {
+                "label": "Sugere que ela comente na próxima semana",
+                "correct": false,
+                "feedback": "Adiar deixa a equipe sem a informação na hora da aplicação. Confira de novo quando avisar."
+              },
+              {
+                "label": "Diz que a dor não tem relação com o feixe",
+                "correct": false,
+                "feedback": "Essa afirmação é um julgamento clínico que você não pode fazer. Retome o que fazer com o relato."
+              }
+            ],
+            "sourceIds": [
+              "inca-radioterapia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um paciente diz que pensa em faltar às aplicações da semana que vem por causa do trabalho. O que você faz?",
+            "options": [
+              {
+                "label": "Diz que pode faltar, porque basta reagendar",
+                "correct": false,
+                "feedback": "Faltar pode prejudicar o tratamento, e liberar a falta não cabe a você. Retome a quem levar o que ele disse."
+              },
+              {
+                "label": "Anota a falta na ficha para poupar a equipe",
+                "correct": false,
+                "feedback": "Registrar por conta própria não resolve e mexe num documento que não é seu. Confira de novo quem precisa ouvir."
+              },
+              {
+                "label": "Escuta e leva o que ele disse à equipe",
+                "correct": true,
+                "feedback": "Isso. Faltar pode prejudicar o tratamento, e é a equipe quem conversa com ele sobre isso."
+              },
+              {
+                "label": "Avisa que ele será desligado se faltar",
+                "correct": false,
+                "feedback": "Uma ameaça não acolhe nem é regra que a aula ensinou. Retome o que fazer quando o paciente conta algo."
+              }
+            ],
+            "sourceIds": [
+              "inca-radioterapia"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quatro colunas: definir, calcular, posicionar e orientar, com a função de cada uma",
+        "Sala de tratamento e sala de comando ligadas por observação e fala"
+      ]
+    },
+    {
+      "id": "s-rt-02",
+      "code": "S-RT.02",
+      "title": "Física, radiobiologia e proteção",
+      "objective": "Hoje você vai conseguir ordenar a produção do feixe, nomear os cinco Rs e reconhecer as barreiras da sala.",
+      "competency": "Reconhecer produção do feixe, vocabulário de radiobiologia e dispositivos de proteção da sala de radioterapia.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Corredor em frente à sala do acelerador",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Essa parede é bem grossa. Por quê?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Aqui o feixe é de alta energia. E a porta faz parte da segurança, ela não é só uma porta."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir o caminho: de onde sai esse feixe, o que ele faz na célula e o que protege quem está do lado de fora?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Do guia de onda à porta da sala",
+        "body": "No acelerador linear, micro-ondas aceleram elétrons num guia de onda. Ao atingir um alvo de metal pesado, eles geram raios X de alta energia, e o feixe sai conformado. A radiação lesa o DNA, inclusive por radicais reativos formados a partir da água. Os cinco Rs nomeiam fatores biológicos da resposta ao tratamento fracionado. A proteção soma barreiras: paredes de chumbo e concreto, comando fora da sala, intertravamento na porta e botões de emergência. Acionado um dispositivo, a irradiação para na hora e só recomeça pelo painel. Com fonte selada, ela se recolhe ao cabeçote, inclusive em falta de energia.",
+        "keyPoints": [
+          "Reparo: consertar a lesão. Redistribuição: passar a uma fase mais sensível do ciclo.",
+          "Repopulação: proliferar entre frações. Reoxigenação: mais oxigênio, mais sensibilidade. Radiossensibilidade: a resposta varia.",
+          "Porta aberta ou botão acionado: a irradiação para."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Recuperando a unidade M13: na radioterapia externa, onde está a fonte da radiação?",
+          "options": [
+            {
+              "label": "No paciente, que recebeu um radiofármaco",
+              "correct": false,
+              "feedback": "Essa é a lógica da medicina nuclear. Retome como o aparelho e o paciente ficam na radioterapia externa."
+            },
+            {
+              "label": "No aparelho, afastado do paciente",
+              "correct": true,
+              "feedback": "Isso. Na radioterapia externa o aparelho fica afastado, e hoje você vê como ele produz o feixe."
+            },
+            {
+              "label": "Nas marcas feitas na pele do paciente",
+              "correct": false,
+              "feedback": "As marcas só orientam o alinhamento e não emitem radiação. Confira de novo de onde sai o feixe."
+            },
+            {
+              "label": "Nos aplicadores em contato com o tumor",
+              "correct": false,
+              "feedback": "Aplicadores em contato com a região são da braquiterapia. Retome como é a modalidade externa."
+            }
+          ],
+          "help": "Pense no nome da modalidade: externa em relação a quem?",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a produção do feixe de raios X no acelerador linear, na ordem ensinada nesta aula.",
+          "items": [
+            "Micro-ondas no guia de onda",
+            "Elétrons acelerados",
+            "Elétrons atingem o alvo de metal pesado",
+            "Formação de raios X de alta energia",
+            "Feixe conformado ao sair do aparelho"
+          ],
+          "feedbackCorrect": "Essa é a cadeia: a energia acelera os elétrons, o alvo gera os raios X e o feixe sai conformado.",
+          "feedbackIncorrect": "Confira de novo: os raios X só existem depois que os elétrons batem no alvo, e dar forma ao feixe vem por último.",
+          "help": "Ache o momento em que o elétron deixa de ser o protagonista.",
+          "sourceIds": [
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada um destes Rs da radiobiologia ao que ele nomeia.",
+          "pairs": [
+            {
+              "left": "Reparo",
+              "right": "Capacidade de consertar a lesão no DNA"
+            },
+            {
+              "left": "Redistribuição",
+              "right": "Células passam a uma fase mais sensível do ciclo"
+            },
+            {
+              "left": "Repopulação",
+              "right": "Proliferação celular entre as frações"
+            },
+            {
+              "left": "Reoxigenação",
+              "right": "Mais sensibilidade em tecido bem oxigenado"
+            }
+          ],
+          "feedbackCorrect": "Esse é o vocabulário. Ele nomeia fatores biológicos, sem indicar dose para ninguém.",
+          "feedbackIncorrect": "Retome os pontos-chave: cada R diz, no próprio nome, de que trata. Comece pelo que você tem certeza.",
+          "help": "Olhe a raiz de cada palavra: ela já aponta o fenômeno.",
+          "sourceIds": [
+            "boustani-2019-radiobiologia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Duda esqueceu o caderno na sala de tratamento. O técnico já fechou a porta, e a aplicação está para começar. Ela pergunta: 'Dá para abrir rapidinho? Se abrir, a máquina para sozinha mesmo.'",
+          "prompt": "O que você responde a ela?",
+          "options": [
+            {
+              "label": "Abra, porque o intertravamento cuida de tudo",
+              "correct": false,
+              "feedback": "O intertravamento interrompe a irradiação numa porta aberta, mas não é passagem de rotina. Retome de quem é o controle da sala."
+            },
+            {
+              "label": "Entre logo, antes de o técnico perceber",
+              "correct": false,
+              "feedback": "Entrar sem o técnico saber é justamente o que tira a segurança. Confira de novo a quem contar sobre o caderno."
+            },
+            {
+              "label": "Deixe fechada e avise o técnico do caderno",
+              "correct": true,
+              "feedback": "Isso. Quem conduz a sessão decide quando a porta abre. O caderno espera, e a interrupção não vira atalho."
+            },
+            {
+              "label": "Espere o feixe ligar e então abra a porta",
+              "correct": false,
+              "feedback": "Abrir durante o feixe interrompe a irradiação do paciente, e o reinício só ocorre pelo painel. Retome o papel da porta."
+            }
+          ],
+          "help": "Pense em para que serve o intertravamento e em quem conduz a sessão.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa visita, você vê uma sala de teleterapia com fonte selada. O prédio fica sem energia durante uma aplicação. O que a norma exige da fonte?",
+          "options": [
+            {
+              "label": "Permanecer exposta até a fração terminar",
+              "correct": false,
+              "feedback": "A fonte não pode ficar exposta numa falta de energia. Retome o que a norma pede ao cabeçote."
+            },
+            {
+              "label": "Ser retirada da sala pela equipe de plantão",
+              "correct": false,
+              "feedback": "Ninguém leva a fonte embora nessa hora. Confira de novo para onde ela vai sozinha."
+            },
+            {
+              "label": "Ser coberta por um anteparo móvel na sala",
+              "correct": false,
+              "feedback": "A proteção prevista não é um anteparo móvel. Retome onde a fonte fica blindada."
+            },
+            {
+              "label": "Ser recolhida por completo ao cabeçote",
+              "correct": true,
+              "feedback": "Isso. A norma exige o recolhimento ao cabeçote blindado, como também na porta aberta e no botão de emergência."
+            }
+          ],
+          "help": "Pense no que a blindagem do aparelho faz quando não há feixe.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Feixe, célula e barreiras",
+        "body": "Agora você consegue ordenar a produção do feixe, nomear os cinco Rs como vocabulário e dizer o que acontece quando um dispositivo de segurança é acionado.",
+        "line": {
+          "speaker": "caio",
+          "text": "A porta para o feixe, sim. Mas o que mantém a sala segura é quem respeita a porta."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um colega pergunta para que servem os cinco Rs nesta aula. O que você responde?",
+          "options": [
+            {
+              "label": "Nomeiam fatores biológicos da resposta",
+              "correct": true,
+              "feedback": "Isso. São vocabulário sobre a resposta ao tratamento fracionado, sem indicar dose para ninguém."
+            },
+            {
+              "label": "Indicam a dose a prescrever para cada paciente",
+              "correct": false,
+              "feedback": "Eles não servem para você definir dose, e prescrever é do radio-oncologista. Retome o que os Rs nomeiam."
+            },
+            {
+              "label": "Listam as etapas de operação do acelerador",
+              "correct": false,
+              "feedback": "Os Rs falam de células, não de painel. Confira de novo o que cada um nomeia."
+            },
+            {
+              "label": "Classificam as barreiras da sala de tratamento",
+              "correct": false,
+              "feedback": "Barreiras são paredes, porta e botões. Retome o tema dos cinco Rs, que é biológico."
+            }
+          ],
+          "sourceIds": [
+            "boustani-2019-radiobiologia"
+          ]
+        },
+        {
+          "prompt": "Um botão de emergência é acionado dentro da sala. O que a norma prevê para a irradiação?",
+          "options": [
+            {
+              "label": "Continua até o fim da fração programada",
+              "correct": false,
+              "feedback": "Um dispositivo de segurança acionado não espera a fração. Retome o que a norma manda."
+            },
+            {
+              "label": "Diminui a taxa e dispara um alarme no comando",
+              "correct": false,
+              "feedback": "A norma não fala em diminuir: a irradiação é interrompida. Confira de novo."
+            },
+            {
+              "label": "Para e recomeça sozinha depois de um minuto",
+              "correct": false,
+              "feedback": "Parar está certo, mas o reinício não é automático. Retome de onde ele pode ocorrer."
+            },
+            {
+              "label": "Para na hora e só recomeça pelo painel",
+              "correct": true,
+              "feedback": "Isso. A irradiação é interrompida de imediato, e o reinício só pode partir do painel de controle."
+            }
+          ],
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quando a porta da sala se abre durante a irradiação, o intertravamento faz a irradiação...",
+          "item": {
+            "prompt": "O que o intertravamento da porta faz com a irradiação quando a porta se abre?",
+            "options": [
+              {
+                "label": "Mantém o feixe e acende um aviso no painel",
+                "correct": false,
+                "feedback": "Só avisar não protegeria quem entra. Retome a palavra que completa a frase."
+              },
+              {
+                "label": "Interrompe a irradiação naquele momento",
+                "correct": true,
+                "feedback": "Isso. Porta aberta interrompe a irradiação, e o reinício depende do painel."
+              },
+              {
+                "label": "Reduz a dose programada para a próxima fração",
+                "correct": false,
+                "feedback": "A porta não muda o que foi programado para outro dia. Confira de novo o efeito dela."
+              },
+              {
+                "label": "Fecha a porta de novo depois de alguns segundos",
+                "correct": false,
+                "feedback": "O intertravamento age sobre a irradiação, não sobre a porta. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "cnen-ansn-6-10"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega de outro curso pergunta se a radiação só atinge o DNA de um único jeito. O que a aula sustenta?",
+            "options": [
+              {
+                "label": "Também por radicais formados da água",
+                "correct": true,
+                "feedback": "Isso. Além de lesar o DNA, a radiação forma radicais reativos a partir da água, e eles também causam lesões."
+              },
+              {
+                "label": "A radiação não alcança o DNA, só a membrana",
+                "correct": false,
+                "feedback": "A aula diz o contrário: o DNA é lesado. Retome o que acontece na célula."
+              },
+              {
+                "label": "A lesão só aparece em células em repouso",
+                "correct": false,
+                "feedback": "A aula não faz essa restrição, e o ciclo celular aparece em outro R. Confira de novo."
+              },
+              {
+                "label": "O DNA só é lesado quando há contraste",
+                "correct": false,
+                "feedback": "Contraste não tem relação com o que a aula ensinou sobre o DNA. Retome o papel da água."
+              }
+            ],
+            "sourceIds": [
+              "boustani-2019-radiobiologia"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Cadeia do acelerador: micro-ondas, elétrons, alvo, raios X, feixe conformado",
+        "Planta da sala com paredes, porta, botões de emergência e comando, sem medidas"
+      ]
+    },
+    {
+      "id": "s-rt-03",
+      "code": "S-RT.03",
+      "title": "Equipamentos e modalidades",
+      "objective": "Hoje você vai conseguir nomear as partes do acelerador e distinguir teleterapia de braquiterapia.",
+      "competency": "Reconhecer componentes do acelerador linear e diferenciar as modalidades de radioterapia.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Visita guiada às salas de tratamento",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Nesta sala tem um braço enorme que gira. Na outra, uma caixa ligada a cateteres. Os dois são radioterapia."
+          },
+          {
+            "speaker": "duda",
+            "text": "E como eu digo para alguém qual é qual sem me enrolar?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Boa. Onde a fonte fica em relação ao paciente em cada sala?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Longe do paciente ou junto do tumor",
+        "body": "Na teleterapia, o aparelho fica afastado do paciente. No acelerador linear, o gantry gira em torno dele, o colimador multilâminas, no cabeçote, dá forma ao feixe, e a mesa se move, com lasers ajudando no alinhamento. Há também teleterapia com fonte selada em cabeçote blindado. Na braquiterapia, a fonte fica dentro ou junto do tumor. Em alta taxa de dose, um aparelho de pós-carregamento remoto guarda a fonte de irídio-192 e a envia a cateteres já colocados; o paciente fica só na sala, visto e ouvido pela equipe. Ao fim de um implante temporário, a fonte sai, e o paciente não transmite radiação.",
+        "keyPoints": [
+          "Gantry gira, multilâminas dão forma, mesa e lasers alinham.",
+          "Teleterapia: a distância. Braquiterapia: dentro ou junto do tumor.",
+          "O cartão traz aparelho, dia e hora. Se a agenda disser outra coisa, chame a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: o que gera os raios X dentro do acelerador linear?",
+          "options": [
+            {
+              "label": "A rotação do gantry em volta do paciente",
+              "correct": false,
+              "feedback": "A rotação muda de onde o feixe vem, sem gerar os raios X. Retome a cadeia da aula anterior."
+            },
+            {
+              "label": "O colimador, quando as lâminas se abrem",
+              "correct": false,
+              "feedback": "O colimador dá forma a um feixe que já existe. Confira de novo onde os raios X nascem."
+            },
+            {
+              "label": "Os lasers de alinhamento da sala",
+              "correct": false,
+              "feedback": "Os lasers só ajudam a alinhar o paciente. Retome o que acontece no guia de onda."
+            },
+            {
+              "label": "Elétrons acelerados atingindo um alvo",
+              "correct": true,
+              "feedback": "Isso. Elétrons acelerados atingem um alvo de metal pesado, e daí saem os raios X de alta energia."
+            }
+          ],
+          "help": "Volte ao momento em que o elétron encontra algo pesado.",
+          "sourceIds": [
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte da sala do acelerador ao que ela faz.",
+          "pairs": [
+            {
+              "left": "Gantry",
+              "right": "Gira em volta do paciente, mudando a direção do feixe"
+            },
+            {
+              "left": "Colimador multilâminas",
+              "right": "Dá ao feixe a forma prevista"
+            },
+            {
+              "left": "Mesa de tratamento",
+              "right": "Desloca-se para cima, para baixo e para os lados"
+            },
+            {
+              "left": "Lasers",
+              "right": "Ajudam a conferir o alinhamento do paciente"
+            }
+          ],
+          "feedbackCorrect": "Cada parte tem um verbo: girar, dar forma, deslocar e alinhar.",
+          "feedbackIncorrect": "Retome o conceito: duas partes mexem com o feixe, e duas com a posição do paciente.",
+          "help": "Separe o que age sobre o feixe do que age sobre a posição do paciente.",
+          "sourceIds": [
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Uma colega diz: 'Depois da braquiterapia com implante temporário, a paciente continua emitindo radiação em casa.' O que a aula sustenta?",
+          "options": [
+            {
+              "label": "Ela precisa ficar isolada por meses em casa",
+              "correct": false,
+              "feedback": "Não há isolamento depois do implante temporário, porque a fonte já saiu. Retome o que acontece no fim."
+            },
+            {
+              "label": "A fonte sai, e ela não transmite radiação",
+              "correct": true,
+              "feedback": "Isso. Ao fim do implante temporário, a fonte é retirada, e a paciente não transmite radiação a outras pessoas."
+            },
+            {
+              "label": "Só a equipe pode ter contato com ela depois",
+              "correct": false,
+              "feedback": "Essa restrição não existe depois que a fonte é retirada. Confira de novo o fim da aplicação."
+            },
+            {
+              "label": "A fonte fica com ela até perder a atividade",
+              "correct": false,
+              "feedback": "A palavra temporário já diz outra coisa: a fonte não fica. Retome o conceito."
+            }
+          ],
+          "help": "Pense no que a palavra temporário diz sobre a fonte.",
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-brachy"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Seu Jorge mostra o cartão do tratamento, que indica o aparelho 2. A agenda de hoje o coloca no aparelho 1, e ele já está se levantando para ir à sala. O cartão informa local, aparelho, médico, dia e hora de cada paciente.",
+          "prompt": "O que você faz diante dessa diferença entre cartão e agenda?",
+          "options": [
+            {
+              "label": "Pede que ele aguarde e avisa o técnico da diferença",
+              "correct": true,
+              "feedback": "Isso. Os dois registros não concordam, e não é você quem escolhe entre eles: pare e leve à equipe."
+            },
+            {
+              "label": "Leva ao aparelho 1, porque a agenda é a mais recente",
+              "correct": false,
+              "feedback": "Você não sabe qual é a mais recente, e escolher um dos dados não cabe a você. Retome o que fazer numa divergência."
+            },
+            {
+              "label": "Leva ao aparelho 2, porque o cartão fica com o paciente",
+              "correct": false,
+              "feedback": "Ficar com o paciente não torna o cartão a referência certa. Confira de novo quem resolve a diferença."
+            },
+            {
+              "label": "Reescreve o cartão para ficar igual à agenda do dia",
+              "correct": false,
+              "feedback": "Alterar o cartão esconde a divergência da equipe. Retome: você mostra os dois dados, sem mexer em nenhum."
+            }
+          ],
+          "help": "Pergunte a si mesmo se você tem como saber qual dos dois está certo.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Numa visita a outro serviço, você entra numa sala sem gantry. Há um aparelho ligado por tubos a cateteres, e a colega do serviço conta que ele guarda uma fonte de irídio-192.",
+          "prompt": "Que equipamento é esse, pelo que você aprendeu?",
+          "options": [
+            {
+              "label": "Um acelerador linear de baixa energia",
+              "correct": false,
+              "feedback": "O acelerador produz o feixe com elétrons e não guarda fonte de irídio. Retome o que há em cada modalidade."
+            },
+            {
+              "label": "Um simulador de tomografia da radioterapia",
+              "correct": false,
+              "feedback": "O tomógrafo de simulação adquire imagens e não envia fonte a cateteres. Confira de novo a função do aparelho."
+            },
+            {
+              "label": "Um pós-carregador remoto de braquiterapia",
+              "correct": true,
+              "feedback": "Isso. Esse aparelho guarda a fonte e a envia a cateteres já colocados no paciente."
+            },
+            {
+              "label": "Um cabeçote blindado de teleterapia",
+              "correct": false,
+              "feedback": "O cabeçote de teleterapia fica afastado do paciente, sem cateteres. Retome o conceito."
+            }
+          ],
+          "help": "Os cateteres dizem onde a fonte vai ficar em relação ao tumor.",
+          "sourceIds": [
+            "radiologyinfo-brachy"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Duas salas, uma pergunta",
+        "body": "Agora você consegue nomear as partes do acelerador, dizer onde a fonte fica em cada modalidade e reconhecer que cartão e agenda diferentes são assunto da equipe.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Na dúvida sobre a sala, volte à pergunta: onde está a fonte em relação ao paciente?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Você explica a sala a um colega. Que parte, no cabeçote, dá ao feixe a forma prevista?",
+          "options": [
+            {
+              "label": "O gantry em rotação",
+              "correct": false,
+              "feedback": "O gantry muda a direção de onde o feixe vem. Retome o que fica no cabeçote."
+            },
+            {
+              "label": "A mesa de tratamento da sala",
+              "correct": false,
+              "feedback": "A mesa move o paciente, não o feixe. Confira de novo qual parte dá forma."
+            },
+            {
+              "label": "O colimador multilâminas",
+              "correct": true,
+              "feedback": "Isso. As lâminas do colimador, no cabeçote, dão forma ao feixe."
+            },
+            {
+              "label": "O laser de alinhamento",
+              "correct": false,
+              "feedback": "O laser ajuda a posicionar, sem tocar no feixe de tratamento. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "prompt": "Qual frase separa corretamente teleterapia e braquiterapia?",
+          "options": [
+            {
+              "label": "Uma trata a distância; a outra, junto do tumor",
+              "correct": true,
+              "feedback": "Isso. Na teleterapia o aparelho fica afastado; na braquiterapia a fonte fica dentro ou junto do tumor."
+            },
+            {
+              "label": "Uma usa raios X; a outra só usa elétrons",
+              "correct": false,
+              "feedback": "Elétrons e raios X vêm do acelerador, e a braquiterapia usa fonte radioativa. Retome o conceito."
+            },
+            {
+              "label": "Uma tem equipe; a outra, só o radio-oncologista",
+              "correct": false,
+              "feedback": "As duas envolvem equipe, com física e técnicos. Confira de novo o que separa as modalidades."
+            },
+            {
+              "label": "Uma usa a sala de comando; a outra, não tem comando",
+              "correct": false,
+              "feedback": "Nas duas a equipe acompanha de fora. Retome onde a fonte fica."
+            }
+          ],
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-brachy"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na braquiterapia de alta taxa de dose, a fonte fica guardada no...",
+          "item": {
+            "prompt": "Onde fica guardada a fonte de irídio-192 na braquiterapia de alta taxa de dose?",
+            "options": [
+              {
+                "label": "No cabeçote do acelerador linear",
+                "correct": false,
+                "feedback": "O acelerador não guarda fonte de irídio. Retome o aparelho da braquiterapia."
+              },
+              {
+                "label": "No aparelho de pós-carregamento remoto",
+                "correct": true,
+                "feedback": "Isso. Esse aparelho guarda a fonte e a envia aos cateteres na hora da aplicação."
+              },
+              {
+                "label": "Nos cateteres, antes de o paciente chegar",
+                "correct": false,
+                "feedback": "Os cateteres são colocados no paciente e só depois recebem a fonte. Confira de novo."
+              },
+              {
+                "label": "Na mesa, junto com os lasers da sala",
+                "correct": false,
+                "feedback": "A mesa e os lasers servem à posição do paciente. Retome a frase."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-brachy"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um paciente da braquiterapia de alta taxa de dose diz que tem medo de ficar sozinho na sala. O que está correto dizer a ele?",
+            "options": [
+              {
+                "label": "Um técnico fica ao lado dele durante a aplicação",
+                "correct": false,
+                "feedback": "O paciente fica só na sala durante a aplicação. Retome como a equipe o acompanha."
+              },
+              {
+                "label": "A aplicação é tão rápida que nem dá para sentir medo",
+                "correct": false,
+                "feedback": "Isso minimiza o medo dele e não responde à pergunta. Confira de novo o que a aula ensinou."
+              },
+              {
+                "label": "A família pode entrar, porque não há feixe externo",
+                "correct": false,
+                "feedback": "A norma não permite acompanhante nas salas de tratamento. Retome como é feito o acompanhamento."
+              },
+              {
+                "label": "A equipe o vê e o ouve, e ele pode falar com ela",
+                "correct": true,
+                "feedback": "Isso. Ele fica só na sala, mas a equipe vê, ouve e conversa com ele por microfone."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-brachy",
+              "inca-radioterapia",
+              "cnen-ansn-6-10"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Acelerador em vista lateral: gantry, cabeçote com multilâminas, mesa e lasers",
+        "Dois esquemas lado a lado: aparelho afastado do paciente e fonte chegando por cateter"
+      ]
+    },
+    {
+      "id": "s-rt-04",
+      "code": "S-RT.04",
+      "title": "Posição e imobilização",
+      "objective": "Hoje você vai conseguir dizer como a posição se repete e o que fazer quando algo não bate na mesa.",
+      "competency": "Reconhecer recursos de repetição da posição e levar à equipe divergências de marca, acessório ou posição.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de tratamento, antes da entrada do paciente",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Aqui a meta é ficar igual todos os dias. Igual de verdade, não mais ou menos parecido."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Essa máscara é apertada mesmo? Parece que encaixa em cada pedacinho do rosto."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se um dia não encaixar? Eu ajusto, ou como é?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Repetir a mesma posição",
+        "body": "A radioterapia repete a mesma posição a cada aplicação. Na simulação, a equipe a registra: máscara ou molde limitam o movimento, pequenas tatuagens ou tinta marcam a pele e fotos ficam de referência. A tatuagem é permanente. A tinta desbota, e o paciente a preserva até o fim do tratamento. No dia, na ordem desta aula, o técnico confere quem é o paciente, coloca os mesmos imobilizadores, alinha marcas e lasers e confirma que ele consegue ficar imóvel. Marca apagada, máscara que não encaixa, acessório diferente da ficha ou posição que o paciente não sustenta: você não adapta nem refaz. Pare e leve à equipe.",
+        "keyPoints": [
+          "Imobilizadores, marcas, lasers e fotos servem à repetição.",
+          "Tatuagem é permanente; tinta desbota e precisa ser preservada.",
+          "O que não bate na mesa vai para a equipe, sem ajuste seu."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Recuperando a unidade M13: para que servem a máscara ou o molde durante a aplicação?",
+          "options": [
+            {
+              "label": "Limitar o movimento do paciente",
+              "correct": true,
+              "feedback": "Isso. Hoje você vê como esses recursos entram na repetição da posição, dia após dia."
+            },
+            {
+              "label": "Blindar o rosto contra o feixe",
+              "correct": false,
+              "feedback": "Eles não são blindagem. Retome o que acontece se o paciente se mexe."
+            },
+            {
+              "label": "Adquirir a imagem de referência",
+              "correct": false,
+              "feedback": "A imagem vem do tomógrafo ou do aparelho, não da máscara. Confira de novo a função dela."
+            },
+            {
+              "label": "Mostrar ao físico a dose do dia",
+              "correct": false,
+              "feedback": "A máscara não mede nem mostra dose. Retome para que ela existe."
+            }
+          ],
+          "help": "Pense no que muda se o paciente sai do lugar.",
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "radiologyinfo-imrt"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o que você observa o técnico fazer na mesa, na ordem ensinada nesta aula.",
+          "items": [
+            "Conferir quem é o paciente",
+            "Colocar os mesmos imobilizadores da simulação",
+            "Alinhar as marcas da pele com os lasers",
+            "Confirmar que o paciente consegue ficar imóvel"
+          ],
+          "feedbackCorrect": "Quem é, com o quê, onde e se ele sustenta: essa é a sequência ensinada.",
+          "feedbackIncorrect": "Retome o conceito: primeiro vem a pessoa, depois os recursos, depois o alinhamento e, por fim, a confirmação com o paciente.",
+          "help": "Pergunte o que não faria sentido alinhar sem ter feito antes.",
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada recurso ao que a aula diz sobre ele.",
+          "pairs": [
+            {
+              "left": "Máscara ou molde",
+              "right": "Limita o movimento do corpo"
+            },
+            {
+              "left": "Tatuagem pequena",
+              "right": "Marca permanente na pele"
+            },
+            {
+              "left": "Marca de tinta",
+              "right": "Desbota e deve ser preservada até o fim"
+            },
+            {
+              "left": "Foto da posição",
+              "right": "Fica como referência para a equipe"
+            }
+          ],
+          "feedbackCorrect": "Cada recurso sustenta a repetição de um jeito próprio, e todos foram registrados na simulação.",
+          "feedbackIncorrect": "Retome o conceito: duas marcas na pele têm durações diferentes, e os outros dois recursos seguram ou registram a posição.",
+          "help": "Comece pelas duas marcas: qual dura para sempre?",
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na mesa, a marca de tinta no tórax de Dona Marta está quase apagada. Duda cochicha: 'Eu lembro onde era. Dá para reforçar com a caneta antes de o técnico voltar.'",
+          "prompt": "O que você faz diante da sugestão de Duda?",
+          "options": [
+            {
+              "label": "Reforça a marca com cuidado, seguindo o traço",
+              "correct": false,
+              "feedback": "Refazer marca muda a referência sem a equipe saber. Retome: você não refaz, leva à equipe."
+            },
+            {
+              "label": "Pede que Duda reforce, já que ela se lembra",
+              "correct": false,
+              "feedback": "Passar a tarefa a outra estudante mantém o mesmo problema. Confira de novo quem resolve isso."
+            },
+            {
+              "label": "Deixa como está e conta ao técnico o que viu",
+              "correct": true,
+              "feedback": "Isso. A marca fica como está, e o técnico sabe antes de seguir. A decisão sobre refazer é da equipe."
+            },
+            {
+              "label": "Deixa como está e não comenta, para não atrasar",
+              "correct": false,
+              "feedback": "Calar deixa a equipe sem saber de uma diferença na referência. Retome o que fazer com o que você viu."
+            }
+          ],
+          "help": "Pergunte quem pode dizer onde a marca deve estar, com que registro.",
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "A ficha de Seu Jorge registra um apoio sob os joelhos, e esse apoio não está na sala. Ele diz, já deitado: 'Sem problema, ontem também não usaram, eu acho.'",
+          "prompt": "Qual é a sua ação diante do que falta na sala?",
+          "options": [
+            {
+              "label": "Pega um apoio parecido em outra sala",
+              "correct": false,
+              "feedback": "Um substituto parecido é um ajuste seu sobre o que foi registrado. Retome o que fazer quando algo não bate."
+            },
+            {
+              "label": "Aceita o que ele disse sobre ontem",
+              "correct": false,
+              "feedback": "O paciente não pode ser a referência para esse dado, e ele mesmo diz 'eu acho'. Confira de novo quem resolve."
+            },
+            {
+              "label": "Risca o apoio da ficha para ela bater",
+              "correct": false,
+              "feedback": "Alterar a ficha apaga a divergência, e o registro não é seu para corrigir. Retome a ação certa."
+            },
+            {
+              "label": "Avisa o técnico da falta do apoio",
+              "correct": true,
+              "feedback": "Isso. Ficha e sala não concordam, e quem resolve é a equipe. Você descreve a diferença e aguarda."
+            }
+          ],
+          "help": "Compare o que está registrado com o que está na sala e pense em quem resolve.",
+          "sourceIds": [
+            "radiologyinfo-ebt"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Igual todos os dias",
+        "body": "Agora você consegue dizer o que cada recurso faz para repetir a posição e levar à equipe qualquer diferença de marca, acessório ou posição, sem adaptar nada.",
+        "line": {
+          "speaker": "caio",
+          "text": "Ser bom de sala aqui é perceber o que não está igual e falar antes do feixe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um paciente pergunta se pode lavar bem a região para tirar a tinta, porque ela suja a roupa. O que está de acordo com a orientação?",
+          "options": [
+            {
+              "label": "Retirar a tinta, porque ela é refeita a cada dia",
+              "correct": false,
+              "feedback": "A marcação não deve ser retirada antes do fim do tratamento. Retome o que a aula diz sobre a tinta."
+            },
+            {
+              "label": "Trocar a tinta por uma tatuagem ainda nesta semana",
+              "correct": false,
+              "feedback": "Decidir sobre marcas não cabe ao estudante nem ao paciente sozinho. Confira de novo a orientação."
+            },
+            {
+              "label": "Passar um creme para a tinta durar até a consulta",
+              "correct": false,
+              "feedback": "A aula não ensinou nada parecido, e orientar produto na pele não é seu papel. Retome a orientação."
+            },
+            {
+              "label": "Preservar a marcação e levar a dúvida à equipe",
+              "correct": true,
+              "feedback": "Isso. A marcação fica até o fim do tratamento, e a orientação sobre pele e roupa vem da equipe."
+            }
+          ],
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "prompt": "Com o braço na posição registrada, Seu Jorge diz que sente dor no ombro esquerdo dele e não vai aguentar parado. O que você faz?",
+          "options": [
+            {
+              "label": "Baixa o braço dele até a dor passar",
+              "correct": false,
+              "feedback": "Mudar a posição por conta própria altera o que foi registrado. Retome: o relato vai para a equipe."
+            },
+            {
+              "label": "Avisa o técnico sem mexer na posição",
+              "correct": true,
+              "feedback": "Isso. Sintoma e posição que ele não sustenta são assuntos da equipe, e você leva os dois na hora."
+            },
+            {
+              "label": "Pede que ele aguente, porque é rápido",
+              "correct": false,
+              "feedback": "Pedir que ele aguente minimiza o que ele contou. Confira de novo o que fazer com o relato."
+            },
+            {
+              "label": "Coloca um apoio a mais sob o ombro esquerdo dele",
+              "correct": false,
+              "feedback": "Um acessório novo muda a posição registrada sem a equipe saber. Retome o que é seu papel na mesa."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "inca-radioterapia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se a máscara não encaixa como na simulação, eu não adapto, eu...",
+          "item": {
+            "prompt": "A máscara de Seu Jorge não fecha como de costume. Qual é a sua ação?",
+            "options": [
+              {
+                "label": "Aperta as travas até ela fechar",
+                "correct": false,
+                "feedback": "Forçar a máscara é adaptar por conta própria. Retome a frase."
+              },
+              {
+                "label": "Afrouxa um pouco e segue em frente",
+                "correct": false,
+                "feedback": "Afrouxar também muda o que foi registrado. Confira de novo o que fazer."
+              },
+              {
+                "label": "Para e chama o técnico para ver",
+                "correct": true,
+                "feedback": "Isso. O que não encaixa como na simulação vai para a equipe antes de qualquer outro passo."
+              },
+              {
+                "label": "Pede que ele fique bem parado",
+                "correct": false,
+                "feedback": "Pedir que ele fique parado não resolve a diferença e não avisa ninguém. Retome a frase."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-ebt"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na sala de simulação, uma colega pergunta por que tiraram fotos de Dona Marta na posição de tratamento. O que você responde?",
+            "options": [
+              {
+                "label": "As fotos ficam como referência da posição",
+                "correct": true,
+                "feedback": "Isso. Elas ajudam a equipe a repetir a mesma posição nas próximas aplicações."
+              },
+              {
+                "label": "As fotos servem para o laudo da tomografia",
+                "correct": false,
+                "feedback": "Foto de posição não é feita para laudo. Retome o que ela registra."
+              },
+              {
+                "label": "As fotos mostram quanto o tumor diminuiu",
+                "correct": false,
+                "feedback": "Uma foto externa não mostra isso. Confira de novo a finalidade delas."
+              },
+              {
+                "label": "As fotos substituem a tatuagem e a tinta",
+                "correct": false,
+                "feedback": "Os recursos se somam, sem que um substitua o outro. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-ebt"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Paciente na mesa com máscara, marcas e linhas de laser, sem referência a dose",
+        "Lista em quatro passos do preparo na mesa, com um desvio saindo para a equipe"
+      ]
+    },
+    {
+      "id": "s-rt-05",
+      "code": "S-RT.05",
+      "title": "Simulação, localização e verificação",
+      "objective": "Hoje você vai conseguir ordenar a conferência do dia e dizer quem compara as imagens.",
+      "competency": "Situar a imagem do dia em relação à referência da simulação, sem aprovar imagem nem mover a mesa.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando do acelerador",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Olha: duas imagens em cima uma da outra na tela. Parecem bem iguais. Dá para ligar, né?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma lá. Olhar é ótimo, mas quem responde por essa comparação não é quem está no estágio."
+          },
+          {
+            "speaker": "lia",
+            "text": "Então me digam: de onde vem cada imagem, e quem olha para elas?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Da referência à imagem do dia",
+        "body": "A tomografia de simulação é feita para planejar, na posição de tratamento. Ela vira a referência. Sementes marcadoras ajudam a localizar o alvo. No dia, na ordem desta aula: o técnico reposiciona com os mesmos recursos; os técnicos adquirem a imagem; a equipe compara com a referência (um guia dos EUA cita médico e técnicos; o serviço define quem responde); se preciso, reposicionam e repetem; o técnico sai e liga o feixe pelo comando. Tumores como os de pulmão, fígado, pâncreas e próstata podem se mover, e às vezes o paciente prende a respiração na imagem. Você observa e fala o que viu: não aprova imagem nem move a mesa.",
+        "keyPoints": [
+          "Simulação cria a referência. A imagem do dia confere a posição.",
+          "A equipe compara, como o serviço define. O estudante observa e relata.",
+          "Viu diferença? Diga o que viu, sem concluir."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: para que ficam as fotos tiradas na simulação?",
+          "options": [
+            {
+              "label": "Para acompanhar o tamanho do tumor",
+              "correct": false,
+              "feedback": "Uma foto externa não acompanha o tumor. Retome o que ela registra."
+            },
+            {
+              "label": "Para a identificação do paciente no laudo final",
+              "correct": false,
+              "feedback": "Não há laudo aqui. Confira de novo a função dessas fotos."
+            },
+            {
+              "label": "Para servir de referência da posição",
+              "correct": true,
+              "feedback": "Isso. Hoje você vê a outra referência da simulação: a tomografia."
+            },
+            {
+              "label": "Para o paciente levar para casa",
+              "correct": false,
+              "feedback": "Elas não são lembrança do paciente. Retome para que a equipe as usa."
+            }
+          ],
+          "help": "Pense no que a equipe precisa repetir em toda aplicação.",
+          "sourceIds": [
+            "radiologyinfo-ebt"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a conferência no dia da aplicação, na ordem ensinada nesta aula.",
+          "items": [
+            "Reposicionar com os mesmos imobilizadores, marcas e lasers",
+            "Adquirir a imagem do dia",
+            "Comparar com a imagem de referência da simulação",
+            "Reposicionar e repetir a imagem, se preciso",
+            "Técnico sai e liga o feixe pelo comando"
+          ],
+          "feedbackCorrect": "Essa é a sequência da aula. O feixe vem depois de todas as conferências, com o técnico fora da sala.",
+          "feedbackIncorrect": "Retome o conceito: sem imagem do dia não há comparação, e o feixe é o último passo de todos.",
+          "help": "Ache o que depende de todos os outros passos e o que não depende de nenhum.",
+          "sourceIds": [
+            "radiologyinfo-igrt",
+            "radiologyinfo-ebt"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele faz nesta etapa do tratamento.",
+          "pairs": [
+            {
+              "left": "Tomografia de simulação",
+              "right": "Cria a referência para planejar, na posição de tratamento"
+            },
+            {
+              "left": "Imagem do dia",
+              "right": "Permite conferir a posição antes do feixe"
+            },
+            {
+              "left": "Semente marcadora",
+              "right": "Ajuda a localizar o alvo nas imagens"
+            },
+            {
+              "left": "Prender a respiração",
+              "right": "Pode ser pedido enquanto se adquire a imagem"
+            }
+          ],
+          "feedbackCorrect": "Referência, conferência, localização e um pedido durante a imagem: cada termo tem seu papel.",
+          "feedbackIncorrect": "Retome o conceito. Duas são imagens em momentos diferentes, e as outras duas acompanham a localização e a aquisição.",
+          "help": "Comece separando o que acontece antes do início do tratamento do que acontece a cada dia.",
+          "sourceIds": [
+            "radiologyinfo-igrt",
+            "radiologyinfo-ebt",
+            "radiologyinfo-intro-onco"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No comando, a imagem do dia de Dona Marta aparece sobre a de referência. Para você, um contorno parece deslocado. O técnico está olhando outra tela e diz: 'Vou ligar em um minuto.'",
+          "prompt": "O que você faz antes de o técnico ligar o feixe?",
+          "options": [
+            {
+              "label": "Diz agora o que viu e pede que ele confira",
+              "correct": true,
+              "feedback": "Isso. Você não conclui nada sobre a imagem: descreve o que viu, e a comparação fica com quem responde por ela."
+            },
+            {
+              "label": "Move a mesa alguns milímetros pelo painel",
+              "correct": false,
+              "feedback": "Mover a mesa é agir sobre a posição sem autorização. Retome o que o estudante faz diante de uma diferença."
+            },
+            {
+              "label": "Fica quieto, já que imagem não é sua função",
+              "correct": false,
+              "feedback": "Não aprovar imagem não quer dizer calar. Confira de novo: falar o que viu é o seu papel."
+            },
+            {
+              "label": "Diz ao técnico que a posição está aprovada",
+              "correct": false,
+              "feedback": "Aprovar imagem não cabe ao estudante, e aqui você até viu uma dúvida. Retome quem compara as imagens."
+            }
+          ],
+          "help": "Separe duas coisas: comparar para decidir e dizer o que você notou.",
+          "sourceIds": [
+            "radiologyinfo-igrt"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma colega do setor de tomografia pergunta se a tomografia de simulação é igual a um exame de rotina. O que você responde?",
+          "options": [
+            {
+              "label": "É igual, só muda o nome no pedido do exame",
+              "correct": false,
+              "feedback": "A finalidade e a posição mudam. Retome para que a imagem de simulação é feita."
+            },
+            {
+              "label": "É um exame para o radiologista medir o tumor",
+              "correct": false,
+              "feedback": "Essa tomografia não é feita para acompanhar o tumor. Confira de novo a finalidade dela."
+            },
+            {
+              "label": "É feita sem paciente, só com um objeto de teste",
+              "correct": false,
+              "feedback": "Na simulação o paciente está lá, na posição de tratamento. Retome o conceito."
+            },
+            {
+              "label": "É feita para planejar, na posição de tratamento",
+              "correct": true,
+              "feedback": "Isso. A diferença está na finalidade e na posição: ela vira a referência do planejamento."
+            }
+          ],
+          "help": "Pense no que acontece com essa imagem depois de adquirida.",
+          "sourceIds": [
+            "radiologyinfo-intro-onco",
+            "radiologyinfo-igrt"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Observar também é participar",
+        "body": "Agora você consegue situar a simulação e a imagem do dia, ordenar a conferência e dizer o que viu sem aprovar imagem nem mexer na mesa.",
+        "line": {
+          "speaker": "lia",
+          "text": "Uma boa observação pode ser só isto: 'Notei este contorno, pode conferir?'"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Segundo o guia citado nesta aula, quem compara a imagem do dia com a referência da simulação?",
+          "options": [
+            {
+              "label": "O médico e os técnicos, em equipe",
+              "correct": true,
+              "feedback": "Isso. O guia cita médico e técnicos, e no estágio o protocolo do serviço define quem responde."
+            },
+            {
+              "label": "A enfermagem, antes da sessão",
+              "correct": false,
+              "feedback": "A enfermagem orienta cuidados e não compara imagens. Retome o conceito."
+            },
+            {
+              "label": "O estudante, para treinar a leitura",
+              "correct": false,
+              "feedback": "Observar é seu papel, comparar para decidir não. Confira de novo quem faz isso."
+            },
+            {
+              "label": "O físico, em auditoria externa",
+              "correct": false,
+              "feedback": "Auditoria é outra coisa e não acontece a cada aplicação. Retome quem está na sala de comando."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-igrt"
+          ]
+        },
+        {
+          "prompt": "Por que a conferência por imagem pesa tanto em tumores como os de pulmão, fígado, pâncreas e próstata?",
+          "options": [
+            {
+              "label": "Porque neles a dose é sempre a mais alta",
+              "correct": false,
+              "feedback": "A aula não diz isso, e o motivo tem a ver com lugar, não com dose. Retome o conceito."
+            },
+            {
+              "label": "Porque só nesses órgãos se usa a máscara termoplástica",
+              "correct": false,
+              "feedback": "A máscara não define essa lista. Confira de novo o que esses tumores podem fazer."
+            },
+            {
+              "label": "Porque esses tumores podem mudar de lugar",
+              "correct": true,
+              "feedback": "Isso. Esses alvos podem se mover, e a imagem ajuda a acompanhar onde eles estão."
+            },
+            {
+              "label": "Porque neles não existe simulação prévia",
+              "correct": false,
+              "feedback": "A simulação existe também nesses casos. Retome o que a imagem do dia confere."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-igrt"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se eu noto uma diferença na imagem do dia, eu digo o que vi e...",
+          "item": {
+            "prompt": "Você nota uma diferença entre a imagem do dia e a de referência. O que completa a sua ação?",
+            "options": [
+              {
+                "label": "Espero o fim da sessão para comentar",
+                "correct": false,
+                "feedback": "Depois da aplicação, sua observação chega tarde. Retome a frase."
+              },
+              {
+                "label": "Corrijo a posição pelo painel de controle",
+                "correct": false,
+                "feedback": "Corrigir a posição não cabe a você. Confira de novo o que completa a frase."
+              },
+              {
+                "label": "Peço que o técnico confira a imagem",
+                "correct": true,
+                "feedback": "Isso. Você não conclui: diz o que viu, e a comparação fica com quem responde por ela."
+              },
+              {
+                "label": "Anoto na ficha que a imagem está errada",
+                "correct": false,
+                "feedback": "Escrever uma conclusão na ficha não é seu papel. Retome o que fazer com o que você notou."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-igrt"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Durante a imagem do dia, o técnico pede pelo microfone que o paciente prenda a respiração. Duda pergunta o motivo. O que a aula sustenta?",
+            "options": [
+              {
+                "label": "Esse pedido pode fazer parte da aquisição",
+                "correct": true,
+                "feedback": "Isso. Segurar a respiração pode ser pedido enquanto as imagens são adquiridas, e quem conduz é o técnico."
+              },
+              {
+                "label": "Prender o ar diminui a dose total prescrita",
+                "correct": false,
+                "feedback": "A aula não diz isso, e a dose prescrita não muda por esse pedido. Retome em que momento o pedido aparece."
+              },
+              {
+                "label": "Serve para saber se o paciente está ouvindo",
+                "correct": false,
+                "feedback": "Comunicação é uma coisa, e esse pedido tem outra finalidade. Confira de novo."
+              },
+              {
+                "label": "É o sinal de que a aplicação terminou",
+                "correct": false,
+                "feedback": "O pedido acontece durante a imagem, antes do feixe. Retome a ordem da conferência."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-igrt"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Linha do tempo: simulação como referência e várias imagens do dia apontando para ela",
+        "Comando com duas telas e uma fala do estudante: notei isto, pode conferir?"
+      ]
+    },
+    {
+      "id": "s-rt-06",
+      "code": "S-RT.06",
+      "title": "Introdução ao planejamento e à dosimetria",
+      "objective": "Hoje você vai conseguir usar o vocabulário do planejamento e dizer para que cada etapa existe, sem calcular nada.",
+      "competency": "Reconhecer termos e finalidades do planejamento e levar à equipe qualquer divergência de plano, sem calcular.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de física médica, numa visita guiada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "GTV, CTV, PTV... parece sopa de letrinhas. Eu preciso saber fazer isso?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Fazer, não. Mas você vai ouvir isso o dia inteiro, e vale saber do que estão falando."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então a pergunta de hoje é outra: para que serve cada nome?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Nomes e finalidades, sem conta",
+        "body": "Sobre a tomografia de simulação, tumor e estruturas normais são contornados. No Brasil, a norma ANSN 6.10 pede que o plano, em sistema computadorizado, seja feito pelo especialista em física médica ou sob sua supervisão, com segunda assinatura, a dupla conferência. Guias estrangeiros citam o dosimetrista e, em IMRT, a verificação do plano pela física no aparelho, com fantoma. Só então começam as aplicações. GTV é o que se vê, palpa ou mostra na imagem. CTV soma margem para doença microscópica. PTV soma margem para incertezas. Órgão de risco é tecido normal cuja sensibilidade pesa no plano. A dose aparece em gray (Gy), dividida em frações. Sem conta para paciente.",
+        "keyPoints": [
+          "Do GTV ao PTV, cada volume acrescenta uma margem com um motivo.",
+          "O plano passa por conferência antes da primeira aplicação.",
+          "Número diferente entre registros: mostre à equipe, sem escolher."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Recuperando a primeira aula desta unidade: qual função define o tipo e o tempo do tratamento?",
+          "options": [
+            {
+              "label": "O técnico que opera o aparelho",
+              "correct": false,
+              "feedback": "O técnico posiciona e opera conforme o plano. Retome quem define o tratamento."
+            },
+            {
+              "label": "O estudante, com a supervisão",
+              "correct": false,
+              "feedback": "Essa decisão nunca é do estudante. Confira de novo a função."
+            },
+            {
+              "label": "A enfermagem, após a consulta",
+              "correct": false,
+              "feedback": "A enfermagem orienta os cuidados. Retome qual função consulta e define."
+            },
+            {
+              "label": "O radio-oncologista do serviço",
+              "correct": true,
+              "feedback": "Isso. Hoje você vê como essa decisão vira um plano, com a física médica."
+            }
+          ],
+          "help": "Volte ao verbo definir, na primeira aula.",
+          "sourceIds": [
+            "inca-radioterapia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele nomeia no planejamento.",
+          "pairs": [
+            {
+              "left": "GTV",
+              "right": "O que se vê, palpa ou mostra na imagem"
+            },
+            {
+              "left": "CTV",
+              "right": "Soma margem para doença microscópica"
+            },
+            {
+              "left": "PTV",
+              "right": "Soma margem para incertezas de planejamento e entrega"
+            },
+            {
+              "left": "Órgão de risco",
+              "right": "Tecido normal cuja sensibilidade pesa no plano"
+            }
+          ],
+          "feedbackCorrect": "Esse é o vocabulário: volumes que crescem por motivos diferentes e tecidos que pesam no plano.",
+          "feedbackIncorrect": "Retome o conceito: os volumes vão do que é visível ao que considera incertezas, e o órgão de risco não é alvo.",
+          "help": "Arrume os três volumes do menor para o maior antes de ligar.",
+          "sourceIds": [
+            "burnet-2004-volumes"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o caminho até a primeira aplicação, na ordem ensinada nesta aula.",
+          "items": [
+            "Tomografia de simulação na posição de tratamento",
+            "Contorno do tumor e das estruturas normais",
+            "Elaboração do plano em sistema computadorizado",
+            "Dupla conferência do plano",
+            "Início das aplicações"
+          ],
+          "feedbackCorrect": "Essa é a sequência da aula: imagem, contorno, plano, conferência e, por último, tratamento.",
+          "feedbackIncorrect": "Retome o conceito: não dá para contornar sem imagem, e nada começa antes da conferência do plano.",
+          "help": "Pergunte o que cada etapa precisa ter em mãos para acontecer.",
+          "sourceIds": [
+            "radiologyinfo-ebt",
+            "radiologyinfo-linac",
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No estágio, você vê que a folha impressa de Dona Marta traz um número de frações, e a tela do comando, outro. O técnico está ao telefone, e ela já chegou à recepção.",
+          "prompt": "O que você faz com os dois números que encontrou?",
+          "options": [
+            {
+              "label": "Segue o número da tela, que é o mais recente",
+              "correct": false,
+              "feedback": "Você não tem como saber qual é o certo, e escolher um não é seu papel. Retome o que fazer com dois números."
+            },
+            {
+              "label": "Mostra ao técnico os dois, sem escolher nenhum",
+              "correct": true,
+              "feedback": "Isso. Divergência de plano vai para a equipe assim como está. Técnico, física e radio-oncologista resolvem."
+            },
+            {
+              "label": "Corrige a folha a caneta para ela bater com a tela",
+              "correct": false,
+              "feedback": "Corrigir o registro apaga a pista da divergência. Confira de novo: o estudante mostra, não corrige."
+            },
+            {
+              "label": "Faz a conta da dose total para ver qual faz sentido",
+              "correct": false,
+              "feedback": "Cálculo de dose para paciente não cabe ao estudante. Retome a ação diante de um plano que não bate."
+            }
+          ],
+          "help": "Pergunte quem pode dizer qual registro vale.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Na sala de espera, um paciente pergunta: 'Por que o meu vizinho tem mais sessões do que eu? Minha dose está certa?' O que você faz?",
+          "options": [
+            {
+              "label": "Explica que a dose depende da idade dele",
+              "correct": false,
+              "feedback": "A aula não ensinou isso, e explicar dose de um paciente não é seu papel. Retome a quem levar a pergunta."
+            },
+            {
+              "label": "Compara a ficha dele com a do vizinho",
+              "correct": false,
+              "feedback": "Comparar fichas expõe outro paciente e não responde à pergunta. Confira de novo o que fazer."
+            },
+            {
+              "label": "Acolhe e leva a pergunta dele à equipe",
+              "correct": true,
+              "feedback": "Isso. Dúvida sobre o próprio tratamento merece resposta de quem o definiu, e você a encaminha."
+            },
+            {
+              "label": "Calcula a dose para mostrar que está certa",
+              "correct": false,
+              "feedback": "Cálculo para paciente não cabe a você em nenhuma hipótese. Retome o seu papel."
+            }
+          ],
+          "help": "Pense em quem definiu esse tratamento e no que você pode dizer sem falar da ficha de ninguém.",
+          "sourceIds": [
+            "inca-radioterapia",
+            "radiologyinfo-imrt"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você entende a conversa",
+        "body": "Agora você consegue acompanhar os nomes do planejamento, dizer para que serve cada etapa e mostrar à equipe qualquer número que não bate, sem calcular nem escolher.",
+        "line": {
+          "speaker": "caio",
+          "text": "Entender a conversa já ajuda muito. Fazer a conta é para quem tem essa responsabilidade."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa revisão, um colega confunde as margens. Qual termo traz a margem para as incertezas do planejamento e da entrega?",
+          "options": [
+            {
+              "label": "O volume GTV",
+              "correct": false,
+              "feedback": "O GTV é o que se vê, palpa ou mostra na imagem, sem margem. Retome a sequência dos volumes."
+            },
+            {
+              "label": "O volume PTV",
+              "correct": true,
+              "feedback": "Isso. O PTV é a margem geométrica em torno do CTV para as incertezas de planejamento e entrega."
+            },
+            {
+              "label": "O volume CTV",
+              "correct": false,
+              "feedback": "O CTV acrescenta margem para doença microscópica, outro motivo. Confira de novo o conceito."
+            },
+            {
+              "label": "O órgão de risco",
+              "correct": false,
+              "feedback": "Órgão de risco é tecido normal, não uma margem do alvo. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "burnet-2004-volumes"
+          ]
+        },
+        {
+          "prompt": "Num caso de IMRT, você vê a física médica ligar o feixe com um fantoma sobre a mesa, sem paciente. Qual é a finalidade?",
+          "options": [
+            {
+              "label": "Treinar o técnico na operação da mesa",
+              "correct": false,
+              "feedback": "Treinamento não é o motivo dessa medida. Retome a etapa do plano em que ela aparece."
+            },
+            {
+              "label": "Testar a máscara antes da simulação",
+              "correct": false,
+              "feedback": "Máscara é assunto da simulação com o paciente. Confira de novo o que o fantoma faz."
+            },
+            {
+              "label": "Adquirir a imagem de referência do dia",
+              "correct": false,
+              "feedback": "A imagem do dia é feita com o paciente na mesa. Retome a finalidade do fantoma."
+            },
+            {
+              "label": "Conferir no aparelho a dose do plano",
+              "correct": true,
+              "feedback": "Isso. O fantoma simula o corpo e mede o que o aparelho entrega, confirmando o plano antes do tratamento."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-imrt"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: GTV é o que se vê; CTV soma margem para doença microscópica; PTV soma margem para...",
+          "item": {
+            "prompt": "Qual palavra completa a frase sobre o PTV?",
+            "options": [
+              {
+                "label": "Dose prescrita",
+                "correct": false,
+                "feedback": "Os volumes são regiões, e dose é outro assunto. Retome a frase."
+              },
+              {
+                "label": "Incertezas",
+                "correct": true,
+                "feedback": "Isso. A margem do PTV existe por causa das incertezas de planejamento e de entrega."
+              },
+              {
+                "label": "Frações diárias",
+                "correct": false,
+                "feedback": "Fração é parte do tratamento, não uma margem. Confira de novo a frase."
+              },
+              {
+                "label": "Novas imagens",
+                "correct": false,
+                "feedback": "Imagens ajudam a definir volumes, mas não são o motivo dessa margem. Retome."
+              }
+            ],
+            "sourceIds": [
+              "burnet-2004-volumes"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega pede ajuda: 'Faz para mim a conta da dose total da Dona Marta, é só multiplicar.' O que você faz?",
+            "options": [
+              {
+                "label": "Faz a conta, porque é só uma multiplicação",
+                "correct": false,
+                "feedback": "Mesmo parecendo simples, cálculo de dose para paciente não é do estudante. Retome o limite desta aula."
+              },
+              {
+                "label": "Faz a conta, mas confere com a do colega",
+                "correct": false,
+                "feedback": "Dois estudantes não formam uma conferência da equipe. Confira de novo a quem isso cabe."
+              },
+              {
+                "label": "Pede o plano dela para olhar como é feito",
+                "correct": false,
+                "feedback": "Abrir o plano de uma paciente por curiosidade não é sua tarefa. Retome o que fazer com o pedido."
+              },
+              {
+                "label": "Não faz, e leva a dúvida à física médica",
+                "correct": true,
+                "feedback": "Isso. Se há uma dúvida sobre dose, ela é da física médica. Aqui você usa os nomes, sem fazer conta."
+              }
+            ],
+            "sourceIds": [
+              "inca-radioterapia",
+              "cnen-ansn-6-10"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Círculos concêntricos GTV, CTV e PTV, com o motivo de cada margem e um órgão de risco ao lado, sem números",
+        "Fluxo da simulação à primeira aplicação com a etapa de conferência destacada"
+      ]
+    },
+    {
+      "id": "s-rt-07",
+      "code": "S-RT.07",
+      "title": "Técnicas, controles e desvios",
+      "objective": "Hoje você vai conseguir reconhecer técnicas e controles e dizer o que fazer quando um teste falha.",
+      "competency": "Reconhecer nomes de técnicas, ritmo dos controles de qualidade e a ação diante de teste falho ou desvio.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala do acelerador, antes do primeiro paciente",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Antes do primeiro paciente, o aparelho faz prova. Se não passar, a fila espera."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se a fila estiver enorme? Ninguém dá um jeitinho?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta para hoje. Quem decide o que acontece quando um controle não passa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Controles têm ritmo, e falha tem caminho",
+        "body": "Você vai ouvir: conformada tridimensional, IMRT e VMAT. Na IMRT, a intensidade do feixe é modulada. Na VMAT, forma de IMRT, as lâminas mudam com o gantry em rotação. Indicar a técnica é do radio-oncologista. Na norma ANSN 6.10: testes diários de segurança em toda fonte, dose absorvida na água mensal em teleterapia, monitoração do cabeçote de fonte selada ao menos anual, auditoria externa ao menos a cada dois anos. Teste fora do aceito: pare e avise. Defeito no sistema de segurança deve impedir acionar a fonte até o conserto. Incidente com tratamento diferente do planejado: investigar, relatar à ANSN em até 30 dias e informar o paciente por escrito.",
+        "keyPoints": [
+          "Nomes de técnicas são vocabulário: indicar não é papel do estudante.",
+          "Diário, mensal, anual e auditoria: controles em camadas.",
+          "Teste fora do aceito: pare e avise técnico e física."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: o que acontece com o plano antes de começarem as aplicações?",
+          "options": [
+            {
+              "label": "Passa por uma dupla conferência",
+              "correct": true,
+              "feedback": "Isso. Hoje você vê que os aparelhos, além dos planos, também são conferidos com regularidade."
+            },
+            {
+              "label": "É reescrito pelo técnico a cada dia",
+              "correct": false,
+              "feedback": "O técnico segue o plano, sem reescrevê-lo. Retome a etapa antes da primeira aplicação."
+            },
+            {
+              "label": "É enviado ao paciente para aprovação",
+              "correct": false,
+              "feedback": "A aula não trata disso, e o plano é da equipe. Confira de novo a etapa de conferência."
+            },
+            {
+              "label": "É substituído pela imagem de referência",
+              "correct": false,
+              "feedback": "Imagem e plano são coisas diferentes, e uma não substitui a outra. Retome a sequência."
+            }
+          ],
+          "help": "Volte ao penúltimo passo do caminho até a primeira aplicação.",
+          "sourceIds": [
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada controle ao ritmo ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Teste de segurança de toda fonte",
+              "right": "Diário"
+            },
+            {
+              "left": "Dose absorvida na água em teleterapia",
+              "right": "Mensal"
+            },
+            {
+              "left": "Monitoração do cabeçote de fonte selada",
+              "right": "Ao menos uma vez por ano"
+            },
+            {
+              "left": "Auditoria externa e independente",
+              "right": "Ao menos a cada dois anos"
+            }
+          ],
+          "feedbackCorrect": "Essas são as camadas: o que se confere todo dia, o que tem ciclo mais longo e o olhar de fora.",
+          "feedbackIncorrect": "Retome o conceito: o que protege toda sessão é diário, e o olhar de fora é o de ciclo mais longo.",
+          "help": "Comece pelo controle mais frequente e pelo menos frequente.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Você observa uma aplicação que a ficha descreve como VMAT. O que combina com o que a aula ensinou?",
+          "options": [
+            {
+              "label": "A mesa roda em volta do aparelho parado",
+              "correct": false,
+              "feedback": "Quem gira em volta do paciente é o gantry, não a mesa. Retome o conceito."
+            },
+            {
+              "label": "O colimador fica de fora nessa técnica",
+              "correct": false,
+              "feedback": "As lâminas continuam fazendo parte da técnica. Confira de novo o que a VMAT faz."
+            },
+            {
+              "label": "O gantry gira enquanto as lâminas mudam",
+              "correct": true,
+              "feedback": "Isso. Na VMAT, a modulação acontece com o gantry em rotação. Você reconhece, sem indicar nem mudar nada."
+            },
+            {
+              "label": "As lâminas ficam fixas em toda a rotação",
+              "correct": false,
+              "feedback": "Na VMAT as lâminas mudam durante a rotação. Retome o que a aula diz sobre ela."
+            }
+          ],
+          "help": "Retome no conceito o que muda da IMRT para a VMAT.",
+          "sourceIds": [
+            "radiologyinfo-imrt"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Antes do primeiro paciente, você ajuda a ler em voz alta o resultado do teste diário. O valor está fora do que o formulário do serviço aceita. Alguém diz: 'Ontem estava bom, vamos começar, a fila está grande.'",
+          "prompt": "O que você faz com esse resultado?",
+          "options": [
+            {
+              "label": "Repete o teste até dar um valor aceitável",
+              "correct": false,
+              "feedback": "Repetir em busca de outro número esconde o que apareceu. Retome o caminho de um teste que falha."
+            },
+            {
+              "label": "Escreve o valor de ontem para não atrasar",
+              "correct": false,
+              "feedback": "Escrever outro valor falsifica o registro. Confira de novo: o resultado é dito como apareceu."
+            },
+            {
+              "label": "Chama o primeiro paciente, já que ontem passou",
+              "correct": false,
+              "feedback": "O resultado de ontem não responde pelo aparelho hoje. Retome o que um teste que falhou pede."
+            },
+            {
+              "label": "Diz o resultado ao técnico e à física e aguarda",
+              "correct": true,
+              "feedback": "Isso. Teste que falhou significa parar e avisar. O que fazer com o aparelho é decisão de quem responde por ele."
+            }
+          ],
+          "help": "Pense no que o teste de hoje diz, e quem responde por isso.",
+          "sourceIds": [
+            "cnen-ansn-6-10",
+            "radiologyinfo-linac"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "No fim do turno, ao guardar fichas, você nota que a ficha de Seu Jorge registra um acessório que você não lembra de ter visto na mesa hoje. Ele já foi embora, e a próxima sessão é amanhã.",
+          "prompt": "O que você faz com o que notou na ficha?",
+          "options": [
+            {
+              "label": "Escreve na ficha que o acessório foi usado",
+              "correct": false,
+              "feedback": "Escrever o que você não viu cria um registro falso. Retome o que fazer quando a dúvida aparece depois."
+            },
+            {
+              "label": "Conta hoje ao técnico, sem mexer na ficha",
+              "correct": true,
+              "feedback": "Isso. Sem julgar se houve desvio, você leva o que notou. Se houver, a investigação é da equipe."
+            },
+            {
+              "label": "Risca o acessório da ficha para ela bater",
+              "correct": false,
+              "feedback": "Riscar apaga a pista, e o registro não é seu para corrigir. Confira de novo a ação certa."
+            },
+            {
+              "label": "Espera amanhã para ver se ele aparece",
+              "correct": false,
+              "feedback": "Esperar atrasa uma informação que a equipe pode precisar hoje. Retome quando contar o que notou."
+            }
+          ],
+          "help": "Separe o que você sabe do que você só não lembra de ter visto.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "A fila espera",
+        "body": "Agora você consegue reconhecer os nomes das técnicas, situar o ritmo dos controles e levar à equipe um teste falho ou um possível desvio, sem repetir nem reescrever nada.",
+        "line": {
+          "speaker": "lia",
+          "text": "Falha dita na hora faz parte de um serviço seguro. Ninguém perde por ter avisado."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma colega pergunta se vocês, como estudantes, podem sugerir VMAT para um paciente em atendimento. O que você responde?",
+          "options": [
+            {
+              "label": "Cabe ao estudante, se o físico autorizar",
+              "correct": false,
+              "feedback": "Autorização não muda o limite: o estudante não indica técnica. Retome de quem é essa função."
+            },
+            {
+              "label": "Cabe ao técnico que opera o aparelho",
+              "correct": false,
+              "feedback": "O técnico opera o que foi planejado e não indica técnica. Confira de novo."
+            },
+            {
+              "label": "Cabe a quem vai posicionar o paciente",
+              "correct": false,
+              "feedback": "Posicionar é outra função, sem relação com indicar técnica. Retome o conceito."
+            },
+            {
+              "label": "Cabe ao radio-oncologista, que indica",
+              "correct": true,
+              "feedback": "Isso. Indicar a técnica é do radio-oncologista, e o estudante só usa o nome como vocabulário."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-imrt"
+          ]
+        },
+        {
+          "prompt": "Um incidente fez um tratamento sair diferente do planejado. O que a norma ANSN 6.10 exige do serviço depois disso?",
+          "options": [
+            {
+              "label": "Investigar e relatar à ANSN em até 30 dias",
+              "correct": true,
+              "feedback": "Isso. Há investigação e relatório à ANSN em até 30 dias da identificação, com informação escrita ao paciente e ao médico solicitante."
+            },
+            {
+              "label": "Apagar o registro e repetir a fração",
+              "correct": false,
+              "feedback": "Apagar registro é o oposto do que a norma pede. Retome o caminho de um desvio."
+            },
+            {
+              "label": "Comunicar só na próxima auditoria externa",
+              "correct": false,
+              "feedback": "A norma pede investigação imediata e tem um prazo próprio. Confira de novo."
+            },
+            {
+              "label": "Não contar nada ao paciente, para poupá-lo",
+              "correct": false,
+              "feedback": "A norma exige informar o paciente por escrito. Retome o que ela manda."
+            }
+          ],
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: teste de controle que falhou significa parar e...",
+          "item": {
+            "prompt": "O teste diário de segurança falhou. Qual é a sua parte nisso?",
+            "options": [
+              {
+                "label": "Refazer até o número ficar aceitável",
+                "correct": false,
+                "feedback": "Refazer em busca de um número não informa ninguém. Retome a frase."
+              },
+              {
+                "label": "Avisar o técnico e a física médica",
+                "correct": true,
+                "feedback": "Isso. Parar e avisar: quem responde pelo aparelho decide o próximo passo."
+              },
+              {
+                "label": "Anotar para contar no fim do plantão",
+                "correct": false,
+                "feedback": "No fim do plantão, as aplicações já podem ter ocorrido. Confira de novo."
+              },
+              {
+                "label": "Liberar a sala depois de um intervalo",
+                "correct": false,
+                "feedback": "Liberar a sala não é decisão sua. Retome a frase."
+              }
+            ],
+            "sourceIds": [
+              "cnen-ansn-6-10"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Durante um teste sem paciente, o técnico mostra que o botão de emergência de uma das paredes não interrompeu o aparelho. Um colega diz: 'Tem outros botões, dá para usar a sala.' O que a aula sustenta?",
+            "options": [
+              {
+                "label": "Os outros botões bastam até a manutenção",
+                "correct": false,
+                "feedback": "A norma quer sistemas em que um defeito impeça acionar a fonte até o conserto. Retome a regra."
+              },
+              {
+                "label": "A anotação basta até a auditoria externa",
+                "correct": false,
+                "feedback": "A auditoria é periódica, e o defeito é de agora. Confira de novo o que a norma diz."
+              },
+              {
+                "label": "Defeito de segurança impede uso até o conserto",
+                "correct": true,
+                "feedback": "Isso. A norma pede sistemas de segurança em que um defeito impeça acionar a fonte até o conserto. Cabe à equipe conduzir."
+              },
+              {
+                "label": "A porta fechada compensa o botão com defeito",
+                "correct": false,
+                "feedback": "A porta é outra barreira e não substitui o botão. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "cnen-ansn-6-10"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quatro faixas de tempo: diário, mensal, anual e dois anos, com um controle em cada uma",
+        "Caminho do teste que falhou: parar, avisar, aguardar a decisão da equipe"
+      ]
+    },
+    {
+      "id": "s-rt-08",
+      "code": "S-RT.08",
+      "title": "Verificação e comunicação",
+      "objective": "Hoje você vai conseguir reconhecer uma divergência entre registros e comunicá-la à equipe na ordem da aula.",
+      "competency": "Reconhecer divergência de identidade, plano, posição, acessório ou relato e escalar à equipe, sem corrigir nem julgar.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Sala de comando, último dia do módulo",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje juntamos tudo. Você vai ver casos em que algo não bate, e a sua parte é sempre a mesma."
+          },
+          {
+            "speaker": "duda",
+            "text": "Parar e avisar eu já entendi. Mas o que eu digo? Às vezes travo na hora de falar com o técnico."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então vamos treinar a frase, além da decisão: o que você viu, onde, e o que precisa da equipe."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cinco pontos e uma fala em ordem",
+        "body": "Nesta aula, cinco pontos são conferidos antes de cada aplicação: identidade, plano, posição, acessórios e relato do paciente. A norma ANSN 6.10 exige a fotografia do paciente nos documentos do tratamento e no painel de controle. Se algo não bate, comunique na ordem ensinada aqui: pare; chame quem conduz a sessão; diga o fato que viu, sem interpretar; diga onde o dado apareceu; espere a resposta da equipe. Técnico, física médica e radio-oncologista resolvem. Você não corrige registro nem escolhe entre dois dados. Os profissionais expostos informam ao supervisor de proteção radiológica os eventos que possam influir na exposição ou no risco de acidente.",
+        "keyPoints": [
+          "Identidade, plano, posição, acessórios e relato: os cinco pontos.",
+          "Fale o fato e onde ele apareceu, sem concluir.",
+          "Quem resolve é a equipe. Você mostra, sem corrigir."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: o que um teste de controle que falhou pede de você?",
+          "options": [
+            {
+              "label": "Repetir até o resultado melhorar",
+              "correct": false,
+              "feedback": "Repetir atrás de outro número esconde o que apareceu. Retome a regra da aula anterior."
+            },
+            {
+              "label": "Escrever o valor do dia anterior",
+              "correct": false,
+              "feedback": "Copiar outro valor falsifica o registro. Confira de novo o que fazer."
+            },
+            {
+              "label": "Parar e avisar quem responde",
+              "correct": true,
+              "feedback": "Isso. Hoje você leva essa mesma atitude para os registros e o paciente, e treina como falar."
+            },
+            {
+              "label": "Esperar a próxima auditoria externa",
+              "correct": false,
+              "feedback": "A auditoria é periódica e não substitui o aviso de agora. Retome a regra."
+            }
+          ],
+          "help": "Volte ao caminho de um teste que falha, na aula anterior.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação ao ponto de conferência que ela atinge.",
+          "pairs": [
+            {
+              "left": "Foto do painel não parece a do paciente",
+              "right": "Identidade"
+            },
+            {
+              "left": "Ficha e tela trazem números de frações diferentes",
+              "right": "Plano"
+            },
+            {
+              "left": "Marcas da pele não coincidem com os lasers",
+              "right": "Posição"
+            },
+            {
+              "left": "Apoio da ficha não está sobre a mesa",
+              "right": "Acessórios"
+            }
+          ],
+          "feedbackCorrect": "Nomear o ponto ajuda você a dizer o fato com clareza, e em todos eles a ação é a mesma: levar à equipe.",
+          "feedbackIncorrect": "Retome os cinco pontos do conceito: pergunte, em cada situação, o que exatamente não concorda.",
+          "help": "Em cada situação, pergunte: o que não está igual, a pessoa, o número, o lugar ou o objeto?",
+          "sourceIds": [
+            "cnen-ansn-6-10",
+            "radiologyinfo-ebt"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a comunicação de uma divergência, na ordem ensinada nesta aula.",
+          "items": [
+            "Parar o que está fazendo",
+            "Chamar quem conduz a sessão",
+            "Dizer o fato que viu, sem interpretar",
+            "Dizer onde o dado apareceu",
+            "Esperar a resposta da equipe"
+          ],
+          "feedbackCorrect": "Essa é a fala treinada na aula: pausa, chamada, fato, lugar e espera.",
+          "feedbackIncorrect": "Retome o conceito: primeiro você para e chama, a resposta da equipe é o último passo, e o fato vem antes do lugar onde apareceu.",
+          "help": "Comece e termine pelos dois passos em que você não fala.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na agenda de hoje há dois pacientes de nome parecido. Seu Jorge já está na mesa. A foto no painel mostra outro rosto, e o nome na tela é quase igual ao dele. O técnico está se preparando para ligar o feixe.",
+          "prompt": "O que você faz antes de o feixe ser ligado?",
+          "options": [
+            {
+              "label": "Pergunta o nome a ele e, se confirmar, segue",
+              "correct": false,
+              "feedback": "Um nome parecido é justamente a dificuldade aqui, e seguir não é sua decisão. Retome o que fazer com a foto."
+            },
+            {
+              "label": "Considera normal, pois a foto pode estar antiga",
+              "correct": false,
+              "feedback": "Explicar a diferença é julgar o que você não pode avaliar. Confira de novo a ação certa."
+            },
+            {
+              "label": "Troca para o cadastro do outro paciente no painel",
+              "correct": false,
+              "feedback": "Mexer no cadastro é corrigir sozinho, sem saber qual é o certo. Retome: você mostra, a equipe resolve."
+            },
+            {
+              "label": "Avisa o técnico agora sobre a foto diferente",
+              "correct": true,
+              "feedback": "Isso. Antes do feixe, a divergência de identidade é dita com clareza, e a sessão não segue até a equipe resolver."
+            }
+          ],
+          "help": "Pense no ponto de conferência atingido e no momento em que o técnico precisa saber.",
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "A aplicação está em curso. Pelo sistema de comunicação, Dona Marta diz: 'Não estou me sentindo bem.' O técnico está olhando outro monitor e parece não ter ouvido.",
+          "prompt": "O que você faz ao ouvir a fala de Dona Marta?",
+          "options": [
+            {
+              "label": "Responde que falta pouco e pede calma a ela",
+              "correct": false,
+              "feedback": "Pedir calma sem avisar deixa a equipe de fora de um sintoma. Retome a quem levar o que ela disse."
+            },
+            {
+              "label": "Avisa já o técnico, com as palavras dela",
+              "correct": true,
+              "feedback": "Isso. Você não avalia o que ela sente: diz na hora o que ouviu, e o técnico conduz o que vem a seguir."
+            },
+            {
+              "label": "Espera o feixe acabar para contar ao técnico",
+              "correct": false,
+              "feedback": "Esperar atrasa uma informação de que a equipe precisa agora. Confira de novo quando falar."
+            },
+            {
+              "label": "Responde a ela que isso é comum e passa logo",
+              "correct": false,
+              "feedback": "Dizer que é comum é julgar um sintoma, e a aula não sustenta essa frase. Retome o seu papel."
+            }
+          ],
+          "help": "Pergunte quem está em condições de agir agora, e o que falta para essa pessoa saber.",
+          "sourceIds": [
+            "cnen-ansn-6-10",
+            "inca-radioterapia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe o que dizer",
+        "body": "Agora você consegue reconhecer uma divergência nos cinco pontos e comunicá-la à equipe na ordem treinada. Esta unidade não forma para planejar, entregar tratamento nem atuar como dosimetrista: forma para perceber e avisar.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quem para e avisa cuida do paciente. Essa é a sua parte na segurança desta sala."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Antes do feixe, você nota que a data de nascimento na ficha difere da que está no documento do paciente. O que você faz?",
+          "options": [
+            {
+              "label": "Corrige a ficha com a data do documento",
+              "correct": false,
+              "feedback": "Corrigir o registro sozinho não é seu papel, mesmo com o documento à mão. Retome o que fazer com os dois dados."
+            },
+            {
+              "label": "Pergunta a ele qual é a certa e anota",
+              "correct": false,
+              "feedback": "Anotar a resposta ainda é corrigir o registro por conta própria. Confira de novo a sua parte."
+            },
+            {
+              "label": "Para e mostra ao técnico os dois dados",
+              "correct": true,
+              "feedback": "Isso. Identidade que não concorda vai para a equipe, com os dois dados como estão."
+            },
+            {
+              "label": "Segue, pois o nome e a foto estão iguais",
+              "correct": false,
+              "feedback": "Dois pontos iguais não apagam o que não bate. Retome a ordem da comunicação."
+            }
+          ],
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        },
+        {
+          "prompt": "Ao relatar uma divergência ao técnico, qual fala descreve o fato sem interpretar?",
+          "options": [
+            {
+              "label": "Acho que o sistema trocou os pacientes",
+              "correct": false,
+              "feedback": "Essa fala já traz uma explicação que você não tem como confirmar. Retome: diga o que viu."
+            },
+            {
+              "label": "A foto do painel não parece a do paciente",
+              "correct": true,
+              "feedback": "Isso. A fala diz o que você viu e onde apareceu, e deixa a conclusão com a equipe."
+            },
+            {
+              "label": "A posição dele está errada, tem de mudar",
+              "correct": false,
+              "feedback": "Essa fala conclui e ainda indica uma ação. Confira de novo a diferença entre fato e opinião."
+            },
+            {
+              "label": "Deve ser só um errinho bobo do cadastro",
+              "correct": false,
+              "feedback": "Essa fala diminui o problema sem base. Retome o que uma boa comunicação traz."
+            }
+          ],
+          "sourceIds": [
+            "cnen-ansn-6-10"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se algo não bate, eu paro e chamo...",
+          "item": {
+            "prompt": "Dentro da ordem ensinada, quem você chama logo depois de parar?",
+            "options": [
+              {
+                "label": "Quem conduz a sessão",
+                "correct": true,
+                "feedback": "Isso. Quem conduz a sessão recebe a informação e aciona o restante da equipe, se preciso."
+              },
+              {
+                "label": "Outro colega de turma",
+                "correct": false,
+                "feedback": "Um colega pode ajudar a pensar, mas não resolve a divergência. Retome a frase."
+              },
+              {
+                "label": "O paciente na mesa",
+                "correct": false,
+                "feedback": "O paciente não é quem resolve os registros. Confira de novo a frase."
+              },
+              {
+                "label": "A recepção do setor",
+                "correct": false,
+                "feedback": "A recepção não conduz a aplicação. Retome a ordem da aula."
+              }
+            ],
+            "sourceIds": [
+              "cnen-ansn-6-10"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega pede que você assine que viu uma conferência que você não acompanhou: 'É só para a ficha ficar completa.' O que você faz?",
+            "options": [
+              {
+                "label": "Assina, porque confia no que o colega fez",
+                "correct": false,
+                "feedback": "Assinar o que não viu cria um registro falso, mesmo com confiança no colega. Retome o seu papel."
+              },
+              {
+                "label": "Assina a lápis, para apagar se for preciso",
+                "correct": false,
+                "feedback": "Registro provisório continua dizendo algo que você não viu. Confira de novo o que fazer."
+              },
+              {
+                "label": "Pede para ele assinar no seu lugar",
+                "correct": false,
+                "feedback": "Trocar quem assina não muda o fato de ninguém ter visto. Retome a quem levar o pedido."
+              },
+              {
+                "label": "Não assina e leva o pedido ao técnico",
+                "correct": true,
+                "feedback": "Isso. Você não registra o que não viu, e o pedido fica às claras para quem responde pelo turno."
+              }
+            ],
+            "sourceIds": [
+              "cnen-ansn-6-10"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Lista com os cinco pontos de conferência, cada um com um exemplo de divergência",
+        "Cartão de fala em cinco passos: parar, chamar, fato, lugar, esperar"
+      ]
+    }
+  ]
+}

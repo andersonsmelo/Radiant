@@ -190,5 +190,27 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Aprofundamento em mamografia e densitometria."
     }
+  },
+  "batch:rtg-2026:s-mn": {
+    "slug": "rtg-2026-s-mn",
+    "title": "Aprofundamento em Medicina Nuclear",
+    "description": "Física, percurso do radiofármaco, detecção, proteção, preparo, qualidade, híbridos e rastreabilidade, em simulação supervisionada. Não habilita a manipular nem administrar radiofármacos.",
+    "unitTitle": "Aprofundamento em Medicina Nuclear",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-mn",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em Medicina Nuclear."
+    }
+  },
+  "batch:rtg-2026:s-rt": {
+    "slug": "rtg-2026-s-rt",
+    "title": "Aprofundamento em Radioterapia",
+    "description": "Paciente, equipe, física, equipamentos, posição, simulação, vocabulário de planejamento e controles, para reconhecer divergências e levá-las à equipe numa simulação supervisionada.",
+    "unitTitle": "Aprofundamento em Radioterapia",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-rt",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em Radioterapia."
+    }
   }
 };
