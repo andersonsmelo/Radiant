@@ -212,5 +212,16 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Aprofundamento em Radioterapia."
     }
+  },
+  "batch:rtg-2026:s-ir": {
+    "slug": "rtg-2026-s-ir",
+    "title": "Aprofundamento em Radiologia Intervencionista",
+    "description": "Aprofunda a intervencionista em simulação supervisionada: vasos, imagem, sala, proteção, preparo, registro e qualidade. Não ensina execução de ato invasivo.",
+    "unitTitle": "Aprofundamento em Radiologia Intervencionista",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-ir",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Aprofundamento em Radiologia Intervencionista."
+    }
   }
 };

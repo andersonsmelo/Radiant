@@ -115,3 +115,11 @@ Regra extra: o estudante não prescreve nem altera dose, fracionamento, campo ou
 3. Sequências didáticas de s-rt-04 e s-rt-08, s-rt-08 i4 e s-rt-03 i4.
 4. Dosimetrista em s-rt-06 diante de onde a norma brasileira põe o planejamento.
 5. Papéis da equipe e ritmo da física lidos em fonte dos EUA, fantoma só para IMRT e os cinco Rs como vocabulário.
+
+### S-IR — Aprofundamento em radiologia intervencionista
+Regra extra: a unidade não ensina execução independente de ato invasivo. O estudante não punciona, não opera campo estéril, não escolhe nem administra contraste, não aciona fluoroscopia por decisão própria e não conduz reação. Indicadores de dose são vocabulário.
+1. s-ir-04 i4 e a recuperação guiada: o que sustenta o conteúdo de campo estéril.
+2. s-ir-07: indicadores sem julgamento e i5 (alarme) diante do art. 2 II da IN 91.
+3. s-ir-04 i3 (distância) e de quem é a exposição.
+4. s-ir-02 i5 diante do art. 7 IV da IN 91, que pode valer só para equipamento vendido depois da norma.
+5. Lista britânica, papéis lidos em fonte dos EUA e subtração digital apoiada em fonte de tipo wiki. O revisor cortou a subtração por falta de leitura, e ela voltou por um segundo autor e um segundo revisor, com a seção própria no parecer.
