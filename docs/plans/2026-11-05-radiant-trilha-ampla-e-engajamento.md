@@ -153,7 +153,7 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
       o parecer com cada achado e a correção aplicada.
 - [x] Teste do aluno antigo (foco 1): com progresso de aula retirada gravado, a
       trilha nova aparece e o aviso de conteúdo atualizado continua.
-- [ ] Completude: contar aulas, interações e itens por unidade por dois caminhos (o
+- [x] Completude: contar aulas, interações e itens por unidade por dois caminhos (o
       gerador e uma leitura direta dos JSON) e conferir que batem com o mapa:
       84 aulas no núcleo e 48 nos ramos.
 
@@ -210,12 +210,12 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
 
 ## Frente E — verificação, documentação e entrega
 
-- [ ] `EXPO_NO_DOTENV=1 npm run quality` no Node 20 e `loop validate`, com a máquina
+- [x] `EXPO_NO_DOTENV=1 npm run quality` no Node 20 e `loop validate`, com a máquina
       abaixo de carga 5.
-- [ ] Simulador `E262D4C1`: Metro com `EXPO_NO_TYPESCRIPT_SETUP=1`, fora de run
+- [x] Simulador `E262D4C1`: Metro com `EXPO_NO_TYPESCRIPT_SETUP=1`, fora de run
       aberto; jogar uma aula inteira de M01, errar de propósito, concluir, ver o
       resumo e a trilha; capturas em `docs/evidence/`. Som conferido pelo log.
-- [ ] `docs/STATUS.md`, `docs/FILA.md`, mapa curricular e evidências atualizados; o
+- [x] `docs/STATUS.md`, `docs/FILA.md`, mapa curricular e evidências atualizados; o
       que não foi verificado fica escrito como não verificado.
 - [ ] PR da branch para a `main`. Merge, build e loja são do dono.
 
@@ -233,7 +233,7 @@ por unidade em `docs/evidence/2026-11-06-rtg-2026-revisao/<unidade>.md`.
   frase-gancho; a retomada volta à primeira interação, pela regra de privacidade que
   já existia; `IosHomologationService` não apaga as três chaves novas das metas.
 
-**Em 2026-11-07:** os seis aprofundamentos (`s-tc`, `s-rm`, `s-md`, `s-mn`, `s-rt` e `s-ir`) entraram, com parecer "aprovado com correções". Falta provar no simulador, e por isso a caixa de completude da frente B continua aberta.
+**Em 2026-11-07:** os seis aprofundamentos (`s-tc`, `s-rm`, `s-md`, `s-mn`, `s-rt` e `s-ir`) entraram, com parecer "aprovado com correções". A contagem por dois caminhos bate: 132 aulas, 660 interações e 264 itens. A prova no simulador cobriu só a unidade M01, com oito achados não corrigidos, e o piloto de imagens ficou em duas radiografias, abaixo da meta de 6 a 10.
 
 Quem continua segue o
 [prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).

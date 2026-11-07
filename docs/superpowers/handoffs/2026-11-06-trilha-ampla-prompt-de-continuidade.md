@@ -215,16 +215,22 @@ locais. Faça **depois** dos aprofundamentos e da prova no simulador, nesta orde
 
 ## Estado no fechamento desta conversa
 
-Medido em 2026-11-06, às 09:13.
+Medido em 2026-11-07, às 16:45.
 
-- **Feito:** itens 1 de "O que falta" (núcleo: 14 unidades, 84 aulas) e as frentes A,
-  C e D do plano. Gate local com 233 suítes e 3053 testes; `loop validate`
+- **Feito:** itens 1, 2 e 3 de "O que falta" (20 unidades, 132 aulas) e as frentes A,
+  C e D do plano. Gate local com 234 suítes e 3074 testes; `loop validate`
   aprovado.
 - **Aprofundamentos (item 2), medido em 2026-11-07:** os seis admitidos (`s-tc`, `s-rm`, `s-md`, `s-mn`, `s-rt` e `s-ir`), com parecer (48 aulas). A trilha tem 20 unidades e 132 aulas. Autor e revisor rodaram em Opus 5.5, e os pareceres dizem isso. Cada unidade gastou de 15% a 30% da janela de 5 horas, em um por vez.
 - **Prova no simulador (item 3), medida em 2026-11-07:** feita na unidade M01, com oito
   achados não corrigidos, em
   [`docs/evidence/2026-11-06-trilha-ampla-simulador/`](../../evidence/2026-11-06-trilha-ampla-simulador/README.md).
   As outras 19 unidades não foram abertas no simulador.
+- **Imagens (item 6), medido em 2026-11-07:** piloto em M08.01 com duas radiografias CC0,
+  abaixo da meta de 6 a 10, com parecer e créditos. Dezenas de arquivos foram recusados, e
+  a lista ficou fora do repositório. Só a família `comparison` foi aberta: `hotspot` segue
+  recusado porque nenhuma página aceita descreve marcos da imagem. O item não serve a
+  leitor de tela. **Próximo passo:** o dono decide os oito achados da prova, se amplia as
+  imagens por outro acervo ou por imagem marcada, e quando a PR sai do rascunho.
 - **PR:** [#69](https://github.com/andersonsmelo/Radiant/pull/69) aberta em rascunho em 2026-11-06. No primeiro CI, `quality` passou e `content` reprovou num teste antigo (`concepts-reader.test.py` exigia conceitos, e o índice está vazio desde a retirada); o teste foi ajustado, e no commit `2bf480f` os dois jobs passaram. Confira com `gh pr checks 69` e só tire do rascunho com os aprofundamentos e a prova no simulador feitos.
 - **Documentação (item 4):** arquitetura, fluxo do aluno, roadmap e lições do `AGENTS.md` atualizados em 2026-11-06; o [relatório](2026-11-06-trilha-ampla-relatorio.md) resume tudo.
 - **Pendências pequenas de engenharia:** `IosHomologationService` não apaga as chaves
@@ -235,6 +241,9 @@ Medido em 2026-11-06, às 09:13.
 - **Reinício do Mac apaga os rascunhos:** em 2026-11-07, o scratchpad em `/private/tmp`
   amanheceu vazio. Rascunho e parecer só existem ali até a admissão, então admita logo
   depois da aprovação. O autor grava o rascunho inteiro assim que o tiver.
+- **Roteiro do Maestro:** para jogar uma unidade, gere o roteiro a partir das aulas e
+  leia o rótulo pela árvore, em vez de capturas: elas custaram 280 mil tokens de contexto
+  numa só aula. A ordem inicial da ordenação está no lote gerado.
 - **Pastas temporárias:** os rascunhos e pareceres desta conversa estavam em
   `/private/tmp/claude-501/…/scratchpad/rtg/`. Tudo o que importa já está no
   repositório; a pasta pode ter sumido.

@@ -36,7 +36,7 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
-**Medido em 2026-11-06, às 09:13 (America/Bahia),** na branch
+**Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch
 `claude/conteudo-reinicio-tecnologo`, que contém o Medalhão inteiro da PR #66 mais o
 conteúdo. Nada disto está na `main` nem na loja, e nenhuma build saiu. O dono delegou
 ao Claude as decisões de construção e autorizou o conteúdo por pesquisa em fontes
@@ -45,8 +45,10 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
 **Quem continua começa pelo
 [prompt de continuidade](superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).**
 
-- **Núcleo completo na trilha:** 14 unidades (M01 a M14), 84 aulas, 420 interações e
-  168 itens de conferência, escritas como dado em `content-manifest/rtg-2026/aulas/`
+- **Trilha completa no conteúdo:** 20 unidades, 132 aulas, 660 interações e 264 itens
+  de conferência: 84 aulas no núcleo (M01 a M14) e 48 nos seis ramos (TC, RM,
+  mamografia e densitometria, medicina nuclear, radioterapia e intervencionista). A
+  contagem bate lida dos JSON e dos lotes gerados. Tudo escrito como dado em `content-manifest/rtg-2026/aulas/`
   e geradas por `scripts/content/build-rtg-batches.mjs`. Cada unidade tem parecer de
   revisor independente em
   [`evidence/2026-11-06-rtg-2026-revisao/`](evidence/2026-11-06-rtg-2026-revisao/README.md).
@@ -63,22 +65,29 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
 - **Motor:** contrato editorial com a extensão `wide`
   ([evidência](evidence/2026-11-06-trilha-ampla-motor.md),
   [pipeline](CONTENT_PIPELINE.md)).
-- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu exit 0, com
-  **233 suítes e 3053 testes**, e o `loop validate` passou. É medição local,
+- **Imagens, piloto em M08.01:** duas radiografias CC0 do Wikimedia Commons, numa
+  comparação entre PA e perfil, com a tela "Créditos das imagens" nos Ajustes. A meta
+  era de 6 a 10, e só duas passaram nas regras. Não serve a leitor de tela, e o toque em
+  região segue recusado pelo contrato, porque nenhuma página descreve marcos da imagem
+  ([parecer](evidence/2026-11-06-rtg-2026-revisao/m08.md)).
+- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu exit 0 em 2026-11-07, com
+  **234 suítes e 3074 testes**, e o `loop validate` passou. É medição local,
   com os arquivos da entrega na árvore. **CI na PR em rascunho [#69](https://github.com/andersonsmelo/Radiant/pull/69), em 2026-11-06 às 09:20:** `quality` passou; `content` reprovou em `concepts-reader.test.py`, que exigia ao menos um conceito e o índice está vazio desde a retirada de 2026-11-02. A falha era anterior a esta entrega e nunca tinha aparecido, porque a branch não tinha PR. O teste passou a seguir o índice, e **no commit `2bf480f` os dois jobs passaram** (medido às 09:45). Remede com `gh pr checks 69`. O que foi feito está no [relatório de 2026-11-06](superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
-- **Visto no simulador `E262D4C1`** (Debug, 2026-11-06 às 03:56, commit `1e8725f`):
-  a trilha nova, a cena de diálogo, o conceito, a pergunta e o retorno de erro com
-  perda de vida ([capturas](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
-- **Não verificado:** fim da aula e resumo, confete, combo, sons, conferência, metas
-  e missões em tela, texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e
-  build de Release. Tamanho do bundle e tempo de abertura da Estude com 14 trilhas
+- **Visto no simulador `E262D4C1`** (Debug, 2026-11-07, commit `f85a68f` para M01 e
+  árvore do `f151b06` para as imagens): a unidade M01 inteira, com resumo, confete,
+  combo, conferência reprovada e aprovada, celebração de unidade, nível e missões, mais a
+  comparação com imagem e os créditos. Os sons foram medidos pelo log
+  ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
+  de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
+- **Achados da prova, nenhum corrigido:** a avaliação não tem som nenhum; o coração cai
+  em silêncio ao passar de questão; o tempo do próximo coração saltou de 6 para 36
+  minutos, com causa não encontrada; o último passo da aula repete o cartão "Resposta
+  correta"; o último par da associação não tem escolha.
+- **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,
+  texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e build de Release. Os
+  sons não foram ouvidos. Tamanho do bundle e tempo de abertura da Estude com 20 trilhas
   não foram medidos.
-- **Falta:** os seis aprofundamentos (TC, RM, mamografia e densitometria, medicina
-  nuclear, radioterapia, intervencionista) e a prova completa no simulador. A PR #69 está aberta em rascunho.
-  **Imagem radiográfica:** em 2026-11-06 o dono autorizou baixar radiografias de
-  acervos abertos com licença CC0 ou CC BY
-  ([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md#complemento-de-2026-11-06--imagens-de-acervos-abertos));
-  nenhuma foi baixada, e o procedimento está no prompt de continuidade.
+- **Falta:** decidir os achados e a ampliação das imagens; PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) segue em rascunho.
 - **Do dono:** merge, build, loja e texto de loja. O app e a loja não podem dizer
   "revisado por especialista".
 

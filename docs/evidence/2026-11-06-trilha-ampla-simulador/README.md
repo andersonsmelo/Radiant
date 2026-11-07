@@ -87,3 +87,18 @@ O card de missões na trilha depois de concluídas, a retomada no meio da aula, 
 ampliado, o VoiceOver, o Android, o aparelho físico e a build de Release. Só a unidade
 M01 foi jogada: as outras 19 unidades passaram pelo verificador e pelos testes, mas não
 foram abertas no simulador. Os sons não foram ouvidos.
+
+### Piloto de imagens em M08.01, 2026-11-07
+
+No mesmo simulador, com a árvore que virou o commit `f151b06`, aberto direto pela rota
+`/learn`, sem liberar a unidade M08.
+
+| Captura | O que mostra |
+| --- | --- |
+| [comparação](comparacao-m08.jpg) | A radiografia em PA, carregada do pacote do app, com o rótulo neutro. A segunda imagem fica abaixo da dobra, então comparar exige rolar. |
+| [retorno](comparacao-m08-retorno.jpg) | A resposta certa com o retorno, que cita o que o acervo descreve. |
+| [créditos](creditos-imagens.jpg) | Autoria e licença de cada imagem, aberta a partir dos Ajustes. |
+
+Não verificado: o restante de M08.01 com a troca do item, o toque em "Ver a página de
+origem" e o leitor de tela. O item não pode ser respondido de forma justa com leitor de
+tela, conforme o parecer.

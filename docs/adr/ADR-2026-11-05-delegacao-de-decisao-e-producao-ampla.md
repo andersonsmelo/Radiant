@@ -83,7 +83,10 @@ essa autorização. O alcance, lido do que foi perguntado:
   origem e do hash, e uma tela de créditos no app antes de qualquer release com
   imagem CC BY.
 
-Nenhuma imagem foi baixada nesta data. O procedimento está no
+Nenhuma imagem foi baixada nesta data. **Em 2026-11-07,** o piloto usou duas imagens CC0,
+abaixo da meta de 6 a 10, e a vigência desta delegação já tinha terminado: o trabalho
+seguiu pela lista que o dono deixou no prompt de continuidade, e a ampliação fica com
+ele. O procedimento está no
 [prompt de continuidade](../superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md#imagens-radiográficas--autorizado-em-2026-11-06).
 
 ## O que não muda

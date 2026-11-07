@@ -34,15 +34,16 @@ atuais saem, com a fonte. A execução é o item 67
 ([ADR](adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md),
 [spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)).
 
-**Atualizada em 2026-11-06, às 09:13 (item 68):** o dono delegou ao Claude as
+**Atualizada em 2026-11-07, às 16:45 (item 68):** o dono delegou ao Claude as
 decisões de construção e ampliação e autorizou o conteúdo por pesquisa em fontes
 gratuitas ([ADR](adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)). O
 item 68 é a execução do
 [plano de trilha ampla e engajamento](plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md).
-**Estado:** núcleo entregue na branch (14 unidades, 84 aulas, motor, experiência da
-aula e metas); abertos os seis aprofundamentos e a prova completa no simulador; a PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) está em rascunho.
-**Bloqueio:** nenhum. **Dono:** agente; a partir de 2026-11-06 às 13:40 o trabalho
-continua em outro modelo, pelo
+**Estado:** trilha inteira na branch (20 unidades, 132 aulas, motor, experiência da
+aula e metas), prova da unidade M01 no simulador com oito achados não corrigidos, e
+piloto de imagens com duas radiografias CC0, abaixo da meta de 6 a 10; a PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) está em rascunho.
+**Bloqueio:** decisões do dono: quais achados corrigir, como ampliar as imagens e quando
+tirar a PR do rascunho. **Dono:** o dono decide; o agente continua pelo
 [prompt de continuidade](superpowers/handoffs/2026-11-06-trilha-ampla-prompt-de-continuidade.md).
 Build, loja e merge continuam com Anderson. As esperas do
 [prompt do lote piloto](superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md)
