@@ -79,10 +79,12 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   comparação com imagem e os créditos. Os sons foram medidos pelo log
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
   de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
-- **Achados da prova, nenhum corrigido:** a avaliação não tem som nenhum; o coração cai
-  em silêncio ao passar de questão; o tempo do próximo coração saltou de 6 para 36
-  minutos, com causa não encontrada; o último passo da aula repete o cartão "Resposta
-  correta"; o último par da associação não tem escolha.
+- **Achados da prova:** os dois da avaliação foram corrigidos em código em 2026-11-07,
+  sem nova prova no simulador: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
+  e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
+  vida (a regra da FILA, 26). Continuam abertos: o tempo do próximo coração saltou de 6
+  para 36 minutos, com causa não encontrada; o último passo da aula repete o cartão
+  "Resposta correta"; o último par da associação não tem escolha.
 - **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,
   texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e build de Release. Os
   sons não foram ouvidos. Tamanho do bundle e tempo de abertura da Estude com 20 trilhas

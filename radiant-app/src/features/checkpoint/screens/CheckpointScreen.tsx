@@ -33,6 +33,10 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { HeartLossNotice, TOP_NOTICE_MS } from '../../hearts/components/HeartLossNotice';
+import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
+import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
+import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { assessmentAttemptSuffix } from '../../spaced-repetition/attemptIds';
 
@@ -111,6 +115,8 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  const [heartLossVisible, setHeartLossVisible] = useState(false);
+  const heartLossTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const processingAnswer = useRef(false);
   const reinforcementBlocked = useRef(false);
   const pendingSubmission = useRef<UnitCheckpointEvaluationInput | null>(null);
@@ -120,6 +126,24 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
   }, []);
+
+  // Som e vibração: a mesma camada da aula. Na prova de 2026-11-07 a avaliação
+  // era muda. Som é enfeite: falha aqui nunca para a avaliação.
+  const feedbackRef = useRef<LessonFeedback | null>(null);
+  useEffect(() => {
+    const sounds = createLessonSoundPlayer();
+    let alive = true;
+    void readFeedbackPreferences().then((preferences) => {
+      if (alive) feedbackRef.current = createLessonFeedback(sounds, preferences);
+    }, () => undefined);
+    return () => {
+      alive = false;
+      feedbackRef.current = null;
+      sounds.release();
+      if (heartLossTimer.current) clearTimeout(heartLossTimer.current);
+    };
+  }, []);
+  const emit = useCallback((event: LessonFeedbackEvent) => feedbackRef.current?.emit(event), []);
 
   // Relê as vidas a cada foco, não só na montagem: quem sai pela folha para
   // assinar volta a esta mesma tela, e sem a releitura continuaria bloqueado
@@ -420,6 +444,12 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         const heartLoss = heartLossAnnouncement(hearts, nextHearts);
         if (heartLoss) {
           AccessibilityInfo.announceForAccessibility(heartLoss);
+          // O som da vida só toca junto do aviso visível (FILA, 26). Aqui não há
+          // som de erro antes dele, então não precisa do atraso da aula.
+          if (heartLossTimer.current) clearTimeout(heartLossTimer.current);
+          setHeartLossVisible(true);
+          emit('heart_lost');
+          heartLossTimer.current = setTimeout(() => setHeartLossVisible(false), TOP_NOTICE_MS);
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
@@ -472,6 +502,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
       setSubmitting(true);
       const evaluation = await assessmentAttemptRepository.submit(pendingSubmission.current, productionBatch.activities);
+      emit(evaluation.attempt.passed ? 'lesson_complete' : 'incorrect');
       await applyEvaluation(evaluation);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
@@ -482,6 +513,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     }
   }, [
     applyEvaluation,
+    emit,
     checkpointAnswers,
     checkpointItemIndex,
     checkpointNode,
@@ -602,9 +634,12 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               </>
             ) : productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation ? (
               <>
-                <Text style={styles.checkpointCounter}>
-                  Questão {checkpointItemIndex + 1} de {productionItems.length}
-                </Text>
+                <View style={styles.counterRow}>
+                  <Text style={styles.checkpointCounter}>
+                    Questão {checkpointItemIndex + 1} de {productionItems.length}
+                  </Text>
+                  {heartLossVisible ? <HeartLossNotice testID="checkpoint-heart-loss" /> : null}
+                </View>
                 <Text style={styles.actionTitle} accessibilityRole="header">
                   {currentProductionItem.prompt}
                 </Text>
@@ -614,7 +649,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                     return (
                       <Pressable
                         key={option.id}
-                        onPress={() => { if (!pendingSubmission.current) setSelectedOptionId(option.id); }}
+                        onPress={() => {
+                          if (pendingSubmission.current) return;
+                          setSelectedOptionId(option.id);
+                          emit('option_tap');
+                        }}
                         accessibilityRole="radio"
                         accessibilityLabel={option.label}
                         accessibilityState={{ selected }}
@@ -710,6 +749,8 @@ const styles = StyleSheet.create({
   actionCard: { gap: space.s3 },
   actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
   actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  // Com texto ampliado, o aviso de vida quebra para a linha de baixo.
+  counterRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: space.s2 },
   checkpointCounter: { ...typography.caption, color: galaxyColors.textSecondary },
   optionList: { gap: space.s2 },
   optionButton: { minHeight: 52, borderRadius: radius.rMd, borderWidth: 1, borderColor: galaxyColors.border,

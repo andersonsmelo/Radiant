@@ -13,7 +13,7 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
-import { galaxyColors, hudLabelTones } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -32,7 +32,6 @@ import { DialogueScene, dialogueLineLabel } from '../components/DialogueScene';
 import { KeyPointsList } from '../components/KeyPointsList';
 import { LessonHelpButton } from '../components/LessonHelpButton';
 import { useShakeError } from '../../../ui/motion';
-import { HeartIcon } from '../../../ui/components/HudIcons';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
 // nenhum aluno os alcançava. `/learn` é o caminho vivo, e é aqui que eles
@@ -68,6 +67,7 @@ import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { HeartLossNotice, TOP_NOTICE_MS } from '../../hearts/components/HeartLossNotice';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { studyAttemptId } from '../../spaced-repetition/attemptIds';
@@ -84,23 +84,6 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
  * com 2 ms de diferença e soavam como um só. Ele toca junto do aviso visível.
  */
 const HEART_LOSS_DELAY_MS = 320;
-/** Quanto o aviso de vida perdida e o selo de sequência ficam no topo da aula. */
-const TOP_NOTICE_MS = 2400;
-
-/**
- * Aviso de vida perdida no topo da aula (FILA 26): o coração esvazia com
- * `useHeartLossAnimation` e o texto diz o que aconteceu. Com "Reduzir
- * movimento" o coração aparece vazio, parado, e o texto é o mesmo.
- */
-function HeartLossNotice() {
-    return (
-        <View testID="lesson-heart-loss" style={styles.heartLoss}
-            accessible accessibilityRole="text" accessibilityLabel="Você perdeu uma vida">
-            <HeartIcon size={20} filled={false} losing />
-            <Text style={styles.heartLossText}>Menos 1 vida</Text>
-        </View>
-    );
-}
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -757,7 +740,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 Passo {stepIndex + 1} de {totalSteps}
                             </Text>
                             {comboMilestone ? <ComboBadge milestone={comboMilestone} /> : null}
-                            {heartLossVisible ? <HeartLossNotice /> : null}
+                            {heartLossVisible ? <HeartLossNotice testID="lesson-heart-loss" /> : null}
                         </View>
                     </View>
 
@@ -980,8 +963,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
         gap: space.s2, minHeight: 28,
     },
-    heartLoss: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
-    heartLossText: { ...typography.caption, lineHeight: undefined, color: hudLabelTones.hearts },
     sceneBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
     primaryAction: {
         width: '100%',

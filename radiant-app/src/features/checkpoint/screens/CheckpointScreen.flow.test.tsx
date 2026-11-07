@@ -170,6 +170,14 @@ jest.mock('../../paywall/components/PaywallOfferCard', () => {
   };
 });
 
+// O tocador de verdade abre expo-audio, que o Jest não tem; aqui só se mede o
+// que a avaliação pede. Vibração desligada para não depender do expo-haptics.
+const mockSoundPlayer = { play: jest.fn(), release: jest.fn() };
+jest.mock('../../../ui/feedback/lessonSounds', () => ({ createLessonSoundPlayer: () => mockSoundPlayer }));
+jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
+  readFeedbackPreferences: () => Promise.resolve({ sounds: true, haptics: false }),
+}));
+
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
 const mockedLessonOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
@@ -738,6 +746,70 @@ describe('CheckpointScreen flow', () => {
 
       expect(heartsRepository().spend).toHaveBeenCalledTimes(1);
       expect(anunciosDeVida()).toEqual(['Você perdeu uma vida; restam 4.']);
+    });
+  });
+
+  // Prova no simulador de 2026-11-07: a avaliação era muda, e o coração caía
+  // sem aviso para quem enxerga. O som da vida segue a regra da aula (FILA,
+  // 26): só toca junto do aviso em primeiro plano. A avaliação continua sem
+  // dizer qual opção era a certa.
+  describe('sons e aviso de vida perdida', () => {
+    const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id as string);
+
+    beforeEach(() => {
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+    });
+
+    it('escolher uma opção soa o toque', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      const item = productionStageItems[0];
+      fireEvent.press(await screen.findByLabelText(item.options[0].label));
+
+      expect(tocados()).toEqual(['toque']);
+    });
+
+    it('errar mostra o aviso da vida junto da questão seguinte e soa a vida', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      const item = productionStageItems[0];
+      fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id !== item.correctOptionId)!.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+
+      expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+      expect(await screen.findByTestId('checkpoint-heart-loss')).toBeTruthy();
+      expect(screen.getByText('Menos 1 vida')).toBeTruthy();
+      expect(tocados()).toEqual(['toque', 'vida']);
+    });
+
+    it('acertar não mostra o aviso nem soa a vida', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      const item = productionStageItems[0];
+      fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id === item.correctOptionId)!.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+
+      expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+      expect(screen.queryByTestId('checkpoint-heart-loss')).toBeNull();
+      expect(tocados()).toEqual(['toque']);
+    });
+
+    it('aprovar soa o fim', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      await waitFor(() => expect(tocados()).toContain('fim'));
+      expect(tocados()).not.toContain('erro');
+    });
+
+    it('reprovar soa o erro', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(false);
+
+      expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+      expect(tocados()).toContain('erro');
+      expect(tocados()).not.toContain('fim');
     });
   });
 

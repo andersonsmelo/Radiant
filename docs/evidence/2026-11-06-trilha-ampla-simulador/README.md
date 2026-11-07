@@ -59,13 +59,20 @@ tocou, não que é audível nem agradável: essa parte é do dono.
 Três durações saem 25 ms menores que o arquivo. A identificação desses três é por
 proximidade, porque nenhum outro som tem duração parecida.
 
-### Achados, nenhum corrigido nesta prova
+### Achados
+
+Os achados 1 e 2 foram corrigidos em código em 2026-11-07, depois da prova, e não
+foram vistos de novo no simulador. Os outros seguem abertos.
 
 1. **A avaliação não tem som nenhum.** Selecionar, perder coração, reprovar e aprovar
    ficam mudos. O log não registra nada, e `CheckpointScreen.tsx` não emite retorno.
+   **Corrigido em código:** a avaliação usa a camada de som da aula. Selecionar soa o
+   toque, aprovar soa o fim e reprovar soa o erro, conforme as preferências do aluno.
 2. **O coração cai em silêncio na avaliação.** Ele cai ao tocar em "Próxima questão",
    sem dizer qual questão errou. O leitor de tela recebe o anúncio; quem enxerga só vê
-   o número mudar.
+   o número mudar. **Corrigido em código:** o aviso "Menos 1 vida", o mesmo da aula,
+   aparece ao lado de "Questão N de M" por 2,4 s, e o som da vida toca junto dele. A
+   avaliação continua sem dizer qual opção era a certa, como pede a FILA, 35.
 3. **O tempo do próximo coração saltou.** O rótulo da trilha dizia "próxima em 6
    minutos" às 16:02 e "próxima em 36 minutos" às 16:03. Às 16:09, ainda dizia 36 e
    mostrava 3 corações, embora o primeiro coração tenha caído por volta de 15:37 e o
