@@ -61,8 +61,9 @@ proximidade, porque nenhum outro som tem duração parecida.
 
 ### Achados
 
-Os achados 1 e 2 foram corrigidos em código em 2026-11-07, depois da prova, e não
-foram vistos de novo no simulador. Os outros seguem abertos.
+Os achados 1 e 2 foram corrigidos em código em 2026-11-07 (`476803d`) e vistos no
+simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. Os outros
+seguem abertos.
 
 1. **A avaliação não tem som nenhum.** Selecionar, perder coração, reprovar e aprovar
    ficam mudos. O log não registra nada, e `CheckpointScreen.tsx` não emite retorno.
@@ -109,3 +110,32 @@ No mesmo simulador, com a árvore que virou o commit `f151b06`, aberto direto pe
 Não verificado: o restante de M08.01 com a troca do item, o toque em "Ver a página de
 origem" e o leitor de tela. O item não pode ser respondido de forma justa com leitor de
 tela, conforme o parecer.
+
+## Prova da correção de som e aviso de vida na avaliação — 2026-11-08
+
+Medido em 2026-11-08, das 18:23 às 19:01 (America/Bahia), no mesmo simulador, em build
+Debug com o Metro, no commit `476803d`. As avaliações 1 e 2 de M02 foram jogadas por
+roteiros do Maestro; as aulas antes delas também. Os sons foram medidos pelo log do
+processo, como na prova anterior, e não foram ouvidos.
+
+| Ação na avaliação | Som no log | Tela |
+| --- | --- | --- |
+| Tocar numa opção | `toque`, 0,040 s (18:24:17 e outros) | — |
+| Errar a questão 1 e tocar em "Próxima questão" | `vida`, 0,188 s (18:24:24 e 19:00:32) | [aviso](avaliacao-aviso-vida.jpg): "Menos 1 vida" ao lado de "Questão 2 de 2", e o coração do topo vai de 5 para 4 |
+| Acertar a questão 2 | nenhum além do toque | o aviso não aparece |
+| Enviar com 1 de 2 | `erro`, 0,136 s (18:31:34) | "Reforço necessário antes de tentar novamente" |
+| Refazer o reforço e enviar com 2 de 2 | `fim`, 0,993 s (18:49:56) | [aprovada](avaliacao-aprovada-m02.jpg): "Avaliação concluída", +18 XP |
+
+O aviso ficou na tela por cerca de 2,5 s, medido em quadros do vídeo a cada 0,5 s. O
+quadro da captura é de um vídeo da tela, porque o Maestro só lê a tela depois que ela
+para, e então o aviso já tinha saído.
+
+- **Leitor de tela:** o aviso se apresenta como "Você perdeu uma vida" e esconde o texto
+  "Menos 1 vida" de dentro dele, igual na aula. O anúncio ao leitor de tela não foi
+  verificado com o VoiceOver ligado.
+- **Achado 3, mais um dado:** a vida caiu às 18:24:24, e às 18:33 e às 18:36 o rótulo do
+  topo dizia "4 de 5 vidas; próxima em 32 minutos". Com intervalo de 30 minutos, deveria
+  dizer cerca de 21 e depois 18. O número passou do intervalo e não mudou em três
+  minutos. A causa continua não encontrada.
+- **Não verificado:** os sons de ouvido, a vibração, a avaliação com o som desligado nos
+  Ajustes, Android, aparelho físico e build de Release.

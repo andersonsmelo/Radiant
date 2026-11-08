@@ -79,8 +79,8 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   comparação com imagem e os créditos. Os sons foram medidos pelo log
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
   de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
-- **Achados da prova:** os dois da avaliação foram corrigidos em código em 2026-11-07,
-  sem nova prova no simulador: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
+- **Achados da prova:** os dois da avaliação foram corrigidos em 2026-11-07 e vistos no
+  simulador em 2026-11-08, com os sons medidos pelo log e não ouvidos: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
   e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
   vida (a regra da FILA, 26). Continuam abertos: o tempo do próximo coração saltou de 6
   para 36 minutos, com causa não encontrada; o último passo da aula repete o cartão

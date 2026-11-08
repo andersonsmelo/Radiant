@@ -223,7 +223,7 @@ Medido em 2026-11-07, às 16:45.
 - **Aprofundamentos (item 2), medido em 2026-11-07:** os seis admitidos (`s-tc`, `s-rm`, `s-md`, `s-mn`, `s-rt` e `s-ir`), com parecer (48 aulas). A trilha tem 20 unidades e 132 aulas. Autor e revisor rodaram em Opus 5.5, e os pareceres dizem isso. Cada unidade gastou de 15% a 30% da janela de 5 horas, em um por vez.
 - **Prova no simulador (item 3), medida em 2026-11-07:** feita na unidade M01, com oito
   achados; os dois da avaliação (som e aviso de vida) foram corrigidos em código no
-  mesmo dia, sem nova prova no simulador, e seis seguem abertos, em
+  mesmo dia e vistos no simulador em 2026-11-08, e seis seguem abertos, em
   [`docs/evidence/2026-11-06-trilha-ampla-simulador/`](../../evidence/2026-11-06-trilha-ampla-simulador/README.md).
   As outras 19 unidades não foram abertas no simulador.
 - **Imagens (item 6), medido em 2026-11-07:** piloto em M08.01 com duas radiografias CC0,
