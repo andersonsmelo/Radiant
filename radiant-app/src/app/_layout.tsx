@@ -537,7 +537,7 @@ function CheckpointResumeScreen({
   onHome: () => void;
 }) {
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.appRoot}>
       {/*
         Rolável de propósito, e o contêiner de conteúdo cresce em vez de travar
         em `flex: 1`. Medido no simulador em 2026-08-10: a partir de
@@ -551,7 +551,7 @@ function CheckpointResumeScreen({
       */}
       <ScrollView
         testID="checkpoint-resume-scroll"
-        style={styles.screen}
+        style={styles.appRoot}
         contentContainerStyle={[layout.container, styles.resumeScrollContent]}
       >
         <SurfaceCard contentStyle={styles.cardContent} variant="galaxy" style={styles.card}>
@@ -585,7 +585,7 @@ function CheckpointResumeScreen({
 
 function StartupScreen({ title, body, tone, onRetry, showDetailedProgress = false }: StartupScreenProps) {
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.appRoot}>
       <View style={[layout.container, layout.center, styles.content]}>
         <SurfaceCard contentStyle={styles.cardContent} variant="galaxy" style={styles.card}>
           {tone === 'loading' ? <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} /> : null}
@@ -623,7 +623,7 @@ function StartupScreen({ title, body, tone, onRetry, showDetailedProgress = fals
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  appRoot: {
     flex: 1,
     backgroundColor: galaxyColors.background,
   },

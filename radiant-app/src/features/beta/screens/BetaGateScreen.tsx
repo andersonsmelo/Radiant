@@ -80,7 +80,7 @@ export default function BetaGateScreen({ onUnlock }: Props) {
     };
 
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={styles.root}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.keyboardView}
@@ -150,7 +150,7 @@ export default function BetaGateScreen({ onUnlock }: Props) {
 }
 
 const styles = StyleSheet.create({
-    screen: {
+    root: {
         ...layout.screen,
         backgroundColor: COLORS.background,
     },

@@ -201,7 +201,7 @@ export default function TelemetryDebugScreen() {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.root}>
             <ScrollView contentContainerStyle={styles.scroll}>
                 <Text style={styles.title}>Telemetry Debug</Text>
 
@@ -469,7 +469,7 @@ export default function TelemetryDebugScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    root: {
         ...layout.screen,
         backgroundColor: COLORS.background,
     },

@@ -221,11 +221,6 @@
       "dash": 0,
       "jargon": 0
     },
-    "src/features/progress/screens/ProgressScreen.tsx": {
-      "eyebrow": 10,
-      "dash": 0,
-      "jargon": 0
-    },
     "src/features/quiz/components/QuizFeedback.tsx": {
       "eyebrow": 1,
       "dash": 0,

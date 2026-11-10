@@ -29,7 +29,7 @@ export function GalaxyStatRow({ icon, label, value }: GalaxyStatRowProps) {
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: space.s2 },
   icon: { width: 28, alignItems: 'center', justifyContent: 'center' },
-  textBlock: { flexDirection: 'row', alignItems: 'baseline', flexWrap: 'wrap', gap: 6, flex: 1 },
+  textBlock: { flexDirection: 'row', alignItems: 'baseline', flexWrap: 'wrap', gap: space.s0, flex: 1 },
   label: { fontSize: 11, fontWeight: '600', color: galaxyColors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
   value: { fontSize: 14, fontWeight: '700', color: galaxyColors.textPrimary },
 });

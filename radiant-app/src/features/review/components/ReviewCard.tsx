@@ -5,7 +5,7 @@ import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { useCardEnter } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
+import { layout, radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
 import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 const galaxy = semanticColors.galaxy;
@@ -44,7 +44,7 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
     void Promise.resolve(onAnswer(index)).finally(() => { locked.current = false; });
   };
   return (
-    <Animated.View style={[styles.container, enterAnim.animatedStyle]}>
+    <Animated.View style={[layout.container, enterAnim.animatedStyle]}>
       <SurfaceCard variant="galaxyElevated" style={styles.card} contentStyle={styles.cardContent}>
         <View style={styles.header}>
           <Text style={styles.eyebrow}>Revisão</Text>
@@ -98,11 +98,6 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    maxWidth: 720,
-    alignSelf: 'center',
-  },
   card: {
     minHeight: 360,
   },

@@ -719,7 +719,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         <View style={styles.root}>
             <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
             <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-                <View style={styles.container}>
+                <View style={styles.page}>
                     {/*
                       Uma linha só: fechar, progresso e vidas. O cabeçalho
                       anterior declarava o mesmo progresso duas vezes — barra e
@@ -902,7 +902,7 @@ const styles = StyleSheet.create({
         padding: space.s4,
         gap: space.s3,
     },
-    container: {
+    page: {
         flex: 1,
     },
     header: {

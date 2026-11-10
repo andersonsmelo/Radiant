@@ -32,7 +32,7 @@ export function MultipleChoiceStepRenderer({
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const ExposureImage = exposureImage ? (require('../../bench/ExposureImage') as typeof import('../../bench/ExposureImage')).ExposureImage : null;
     return (
-        <View style={styles.container}>
+        <View style={styles.stack}>
             <Text style={styles.prompt}>{payload.prompt}</Text>
             {ExposureImage && exposureImage ? (
                 <View style={styles.image}>
@@ -75,7 +75,7 @@ export function MultipleChoiceStepRenderer({
 }
 
 const styles = StyleSheet.create({
-    container: {
+    stack: {
         gap: space.s4,
     },
     image: { alignItems: 'center', gap: space.s1 },
