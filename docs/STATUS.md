@@ -79,14 +79,23 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   comparação com imagem e os créditos. Os sons foram medidos pelo log
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
   de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
-- **Achados da prova, medido em 2026-11-10:** cinco dos oito estão corrigidos e foram
-  vistos no simulador: som e aviso de vida na avaliação, o tempo da próxima vida, o
-  fechamento que repetia o retorno e a medalha que empurrava as opções. Seguem abertos o
-  último par da associação, a frase repetida no retorno de acerto e a ponta do balão na
-  conquista ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
-- **Auditoria de 2026-11-10:** 11 dos 20 achados corrigidos, cada um com teste, menos o
-  SQL da API, que foi rodado contra um Postgres 16 local. Os nove abertos são menores
+- **Achados da prova, medido em 2026-11-10:** sete dos oito estão corrigidos. Cinco
+  foram vistos no simulador: som e aviso de vida na avaliação, o tempo da próxima vida,
+  o fechamento que repetia o retorno e a medalha que empurrava as opções. Dois foram
+  verificados só por teste, **não no simulador** (commit `361dfd7`): o último par da
+  associação, que agora se completa sozinho, e "Resposta certa", que no acerto não
+  aparece mais. Segue sem confirmar a ponta do balão na conquista, vista só numa captura
+  reduzida ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Auditoria de 2026-11-10:** 16 dos 20 achados corrigidos e o 19 e o 20 em parte,
+  cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
+  local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota
+  `licao-hibrida` usa `hybrid-l1`), e `paywall/` está ligado à telemetria, aos scripts de
+  war room e à tela de depuração. Ficam a remoção do paywall, a tabela `user_profiles` e
+  `hooks/` e `constants/theme.ts`, que estão fora do `writePolicy`
   ([auditoria](evidence/2026-11-10-auditoria.md)).
+- **Prazo de QA visual de 2026-11-30:** resolvido na PR #69 (commit `6b13074`). A
+  simulação para 2026-12-01 dá 0 regressões. A `main` continua com os registros até o
+  merge.
 - **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,
   texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e build de Release. Os
   sons não foram ouvidos. Tamanho do bundle e tempo de abertura da Estude com 20 trilhas
@@ -789,7 +798,10 @@ PC01 a PC06 está no histórico.
   renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha
   Medalhão (FILA 67). Cada registro sai quando o plano refaz o arquivo dele, e
   o que sobrar é revisto nessa data. Depois dela, `npm run quality` reprova em
-  qualquer branch que ainda tenha esses arquivos. **Remede com:**
+  qualquer branch que ainda tenha esses arquivos. **Resolvido na PR #69** em
+  2026-11-10 (commit `6b13074`): 18 registros saíram com o código corrigido, e o da
+  R4 dos personagens foi renovado até 2027-05-31. **A `main` ainda vence em
+  2026-11-30 se a PR não entrar antes.** **Remede com:**
   `grep -c '"expiresOn": "2026-11-30"' radiant-app/scripts/visual-qa-policy.json`.
 
 Além desses, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android

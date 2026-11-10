@@ -25,9 +25,17 @@ voltar, de centenas a alguns milhares de usuários.
 | 9. Fila de sincronização perdia itens | Itens que entram durante o envio ficam. | `a8edfa0` |
 | 10. Sem login, a fila marcava como enviado | Os repositórios falham, e o item fica para nova tentativa. | `a8edfa0` |
 | 11. Duas renovações de login deslogavam | No app, uma renovação por vez. No servidor, o token é conferido e revogado num `update ... returning` só. | `a8edfa0`, `664d585` |
+| 12. Violações do banco viravam 500 | Unicidade (o mesmo e-mail cadastrado por dois pedidos ao mesmo tempo) dá 409; chave estrangeira (aula que o servidor não conhece) dá 422. | `c6a5c23` |
+| 13. Sincronização aceitava números absurdos | Acertos até o total, fator de 1 a 10, intervalo até 36.500 dias. O app manda no máximo 2,5 e 365. | `c6a5c23` |
+| 16. Aula malformada derrubava o gerador sem dizer o arquivo | Reprova como `rtg-lint:<arquivo>` com "forma inesperada". | `26e9f60` |
+| 17. CI do app não rodava com mudança só no conteúdo | O filtro inclui `scripts/content/**` e `content-manifest/rtg-2026/**`. | `26e9f60` |
+| 18. `safety` ⇔ `criticalSafety` não era checado | O verificador exige os dois juntos; as 92 interações de segurança já cumpriam. | `26e9f60` |
+| 19. Sobras do modelo do Expo | Cinco componentes sem import e o `expo-blur` saíram. | `992b1b8` |
+| 20. Código morto | A checagem `!user.id` que nunca roda, a opção `keyFromRequest` sem chamador e as exceções do contrato de estilo para arquivos apagados saíram. | `992b1b8` |
 
 Cada correção teve um teste que falhou antes e passou depois, menos o SQL dos achados
-5 e 11, que só existe contra um banco.
+5 e 11, que só existe contra um banco, o filtro do CI (17), que só se vê numa PR, e as
+remoções (19 e 20), conferidas pela suíte inteira verde depois de apagar.
 
 ## O SQL contra um Postgres de verdade
 
@@ -46,22 +54,29 @@ correções (commit `d47ec93`):
 O script não entrou no repositório porque depende do Docker. **Não verificado:** o
 limite atrás do nginx real, testado só simulando o cabeçalho `X-Forwarded-For`.
 
+## O que a auditoria errou
+
+Conferido em 2026-11-10, ao corrigir, buscando cada nome na árvore inteira:
+
+- **15.** `curriculum-v3` não está fora de rota. O `LessonCatalogService` chama
+  `CurriculumMigrationService.bootstrap()`, a rota `licao-hibrida` usa `hybrid-l1`, que
+  importa `l1-body-reference` e `l2-slicing-space`, e o console de desenvolvimento lê as
+  métricas da lição híbrida. Só o `ProgressScreen` era órfão, e saiu em `6b13074`.
+- **14.** `paywall/` não é uma pasta solta. `PaywallService`, `PaywallPlan` e
+  `PaywallOfferCard` não têm chamador, mas o `UpgradeInterestService` é lido pela tela
+  de telemetria e pelo `AppStoreOpsService`, e os eventos `paywall_*`, a bandeira
+  `ENABLE_PAYWALL`, os scripts de war room e o inventário do armazenamento dependem do
+  módulo.
+
 ## Abertos
 
-Detalhe e correção sugerida na [FILA](../FILA.md), item "o que sobrou da auditoria de
-2026-11-10".
+Detalhe na [FILA](../FILA.md), item "o que sobrou da auditoria de 2026-11-10".
 
-- **12.** Violações do banco viram 500: cadastro duplicado e aula ainda não cadastrada
-  no servidor.
-- **13.** A sincronização aceita números absurdos (5 acertos em 3 questões).
-- **14.** Código de assinatura antigo sem uso (`paywall/`, cerca de 308 linhas).
-- **15.** Telas fora de qualquer rota (`curriculum-v3`, `ProgressScreen`, cerca de 2.700
-  linhas).
-- **16.** Aula malformada derruba o gerador sem dizer qual arquivo.
-- **17.** O CI do app não roda quando só o pipeline de conteúdo muda.
-- **18.** A regra `safety` ⇔ `criticalSafety` do guia de autoria não é checada.
-- **19.** Sobras do modelo do Expo e o `expo-blur`, sem uso.
-- **20.** Código morto na API e exceções velhas no contrato de estilo.
+- **14.** Remover o paywall antigo junto com o que depende dele.
+- **19, resto.** `radiant-app/hooks/` e `constants/theme.ts` só serviam aos componentes
+  apagados, mas estão fora do `writePolicy`.
+- **20, resto.** A tabela `user_profiles`, que nada lê: mudança de banco, decisão do
+  dono.
 
 **Fora do escopo que o Loop deixa alterar:** `radiant-api/.env.example` ainda diz
 `EXPOSE_PASSWORD_RESET_TOKEN=true`. Não tem mais efeito em produção, mas engana quem lê.
