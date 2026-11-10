@@ -139,6 +139,16 @@ test('gera o resolvedor local com require e os dados de crédito de cada imagem'
   assert.doesNotMatch(text, /uri/, 'o resolvedor nunca cai numa URL remota');
 });
 
+// Auditoria de 2026-11-10: o contrato só checava as imagens que algum lote usa.
+// Uma imagem do cadastro sem uso, com licença proibida ou endereço que não é
+// https, ia para o app e para a tela de créditos.
+test('recusa imagem do cadastro com licença proibida ou endereço inválido, mesmo sem uso', () => {
+  const build = image => () => renderRtgBatches([{ file: 'm01.json', doc: fixture() }], [image]);
+  assert.throws(build(imageEntry({ license: 'CC BY-NC-SA 4.0' })), /rtg-image-invalid:image:rtg-2026:m01:a/);
+  assert.throws(build(imageEntry({ sourcePage: 'javascript:alert(1)' })), /rtg-image-invalid:image:rtg-2026:m01:a/);
+  assert.doesNotThrow(build(imageEntry()));
+});
+
 test('sem imagens, o resolvedor continua existindo e vazio', () => {
   const { files } = renderRtgBatches([{ file: 'm01.json', doc: fixture() }]);
   assert.match(files.get('rtgImages.ts'), /RTG_IMAGES: readonly RtgImageCredit\[\] = \[\]/);

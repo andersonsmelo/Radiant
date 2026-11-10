@@ -68,6 +68,15 @@ const filled = (value: unknown): value is string => typeof value === 'string' &&
 const https = (value: string) => { try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; } catch { return false; } };
 const date = (value: unknown) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));
 
+/** Licença permitida e crédito completo. O gerador aplica a todo o cadastro, usado ou não. */
+export function isValidLicensedImage(image: EditorialLicensedImageV1): boolean {
+    return ALLOWED_IMAGE_LICENSE.test(image.license) && filled(image.file) && filled(image.author) && filled(image.alt)
+        && filled(image.modification) && filled(image.sourcePage) && https(image.sourcePage)
+        && filled(image.licenseUrl) && https(image.licenseUrl) && date(image.retrievedAt)
+        && SHA256.test(image.sha256Original) && SHA256.test(image.sha256Asset)
+        && image.width > 0 && image.height > 0;
+}
+
 export function wideResponseIds(interaction: LearningInteractionV2): string[] {
     switch (interaction.type) {
         case 'multiple-choice': case 'case-decision': case 'comparison': return interaction.payload.options.map(option => option.id);
@@ -128,11 +137,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
     const usedImages = new Set<string>();
     for (const image of images) {
         identity(image.id);
-        if (!ALLOWED_IMAGE_LICENSE.test(image.license) || !filled(image.file) || !filled(image.author) || !filled(image.alt)
-            || !filled(image.modification) || !filled(image.sourcePage) || !https(image.sourcePage)
-            || !filled(image.licenseUrl) || !https(image.licenseUrl) || !date(image.retrievedAt)
-            || !SHA256.test(image.sha256Original) || !SHA256.test(image.sha256Asset)
-            || !(image.width > 0) || !(image.height > 0)) add('invalid-licensed-image', image.id);
+        if (!isValidLicensedImage(image)) add('invalid-licensed-image', image.id);
     }
     for (const source of candidate.sources) {
         if (Object.keys(source).some(key => !SOURCE_KEYS.includes(key))

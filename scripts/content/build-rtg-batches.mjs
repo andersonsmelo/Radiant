@@ -22,6 +22,7 @@ const HEADER = '// Gerado por scripts/content/build-rtg-batches.mjs a partir de 
 const GENERATED = /^(rtg-2026-.+|index|entries)\.ts$/;
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const { createProductionCurriculumCatalog } = appContract.loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
+const { isValidLicensedImage } = appContract.loadAppContract('features/student-checkpoints/EditorialWideContract.ts');
 const constantName = unit => `RTG_2026_${unit.toUpperCase().replace(/-/g, '_')}`;
 
 /**
@@ -31,6 +32,8 @@ const constantName = unit => `RTG_2026_${unit.toUpperCase().replace(/-/g, '_')}`
  */
 export function renderRtgBatches(inputs, images = []) {
   const order = Array.from(factory.RTG_UNIT_ORDER);
+  // Todo o cadastro vai para o app e para os créditos: o contrato só vê as imagens usadas.
+  for (const image of images) if (!isValidLicensedImage(image)) throw new Error(`rtg-image-invalid:${image.id}`);
   const seen = new Set();
   for (const { file, doc } of inputs) {
     const unit = doc?.unit?.id;
