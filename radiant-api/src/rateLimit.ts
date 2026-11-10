@@ -45,11 +45,17 @@ export function registerBasicRateLimit(app: FastifyInstance, options: RateLimitO
             return;
         }
 
+        // Pela rota, não pelo caminho: caminhos aleatórios (/a1, /a2…) caem
+        // todos em "sem-rota" em vez de abrir um contador novo cada um.
         const key = options.keyFromRequest
             ? options.keyFromRequest(request)
-            : `${request.ip}:${request.method}:${path}`;
+            : `${request.ip}:${request.method}:${request.routeOptions.url ?? 'sem-rota'}`;
 
         const now = Date.now();
+        // Contadores vencidos saem quando a lista cresce; antes ela só crescia.
+        if (states.size > 10_000) {
+            for (const [stateKey, state] of states) if (now >= state.resetAt) states.delete(stateKey);
+        }
         const current = states.get(key);
 
         if (!current || now >= current.resetAt) {

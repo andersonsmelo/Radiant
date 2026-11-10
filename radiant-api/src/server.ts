@@ -445,7 +445,11 @@ function buildAuthService(app: FastifyInstance, database: SqlClient): AuthServic
                 throw app.httpErrors.unauthorized('Missing bearer token');
             }
 
-            const session = await verifyAccessToken(token);
+            // Token vencido ou inválido é falta de sessão (401), não erro do
+            // servidor: o app só renova o login ao receber 401.
+            const session = await verifyAccessToken(token).catch(() => {
+                throw app.httpErrors.unauthorized('Invalid token');
+            });
 
             if (!session.userId) {
                 throw app.httpErrors.unauthorized('Invalid token');
@@ -495,6 +499,10 @@ function buildSyncService(database: SqlClient, auth: AuthService): SyncService {
                     last_score = excluded.last_score,
                     last_answered_at = excluded.last_answered_at,
                     updated_at = now()
+                -- Só resposta mais nova: o envio atrasado de outro aparelho não
+                -- volta a nota, e o reenvio da mesma resposta não conta tentativa.
+                where lesson_progress.last_answered_at is null
+                   or excluded.last_answered_at > lesson_progress.last_answered_at
             `;
         },
 
@@ -530,6 +538,10 @@ function buildSyncService(database: SqlClient, auth: AuthService): SyncService {
                     next_review_at = excluded.next_review_at,
                     last_reviewed_at = excluded.last_reviewed_at,
                     updated_at = now()
+                -- Só revisão igual ou mais nova: o aparelho que ficou offline não
+                -- volta o cartão a um estado antigo.
+                where review_cards.last_reviewed_at is null
+                   or excluded.last_reviewed_at >= review_cards.last_reviewed_at
             `;
         },
     };
@@ -537,7 +549,9 @@ function buildSyncService(database: SqlClient, auth: AuthService): SyncService {
 
 export async function buildApp() {
     initializeSentry();
-    const app = Fastify({ logger: { level: config.logLevel } });
+    // Atrás do nginx no mesmo servidor: sem confiar nesse salto, todo pedido
+    // parece vir de 127.0.0.1, e o limite trataria todos como um cliente só.
+    const app = Fastify({ logger: { level: config.logLevel }, trustProxy: 1 });
 
     await app.register(cors, {
         origin: true,
