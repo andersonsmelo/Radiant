@@ -620,3 +620,26 @@ describe('HUD — texto grande', () => {
     }
   });
 });
+
+// Achado 3 da prova de 2026-11-07: nenhuma tela passa `nowMs`, e a hora lida
+// na montagem ficava parada (o React Compiler a guardava). Em 2026-11-08 o
+// rótulo dizia "próxima em 32 minutos" e não mudou em três minutos.
+describe('HUD — o tempo da próxima vida anda sozinho', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(Date.parse('2026-09-14T12:00:00.000Z'));
+  });
+  afterEach(() => jest.useRealTimers());
+
+  it('sem nowMs, o rótulo diminui conforme o relógio passa', () => {
+    const screen = render(
+      <HUD totalXp={10} streakDays={1} hearts={4}
+        heartsSnapshot={{ count: 4, status: 'recovering', nextRefillAt: '2026-09-14T12:09:00.000Z', unlimitedUntil: null }} />,
+    );
+    expect(screen.getByLabelText('4 de 5 vidas; próxima em 9 minutos')).toBeTruthy();
+
+    act(() => { jest.advanceTimersByTime(5 * 60_000); });
+
+    expect(screen.getByLabelText('4 de 5 vidas; próxima em 4 minutos')).toBeTruthy();
+  });
+});

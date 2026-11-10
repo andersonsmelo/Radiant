@@ -62,8 +62,8 @@ proximidade, porque nenhum outro som tem duração parecida.
 ### Achados
 
 Os achados 1 e 2 foram corrigidos em código em 2026-11-07 (`476803d`) e vistos no
-simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. Os achados 4
-e 7 foram corrigidos e vistos no simulador em 2026-11-10. Os outros seguem abertos.
+simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. Os achados 3,
+4 e 7 foram corrigidos e vistos no simulador em 2026-11-10. Os outros seguem abertos.
 
 1. **A avaliação não tem som nenhum.** Selecionar, perder coração, reprovar e aprovar
    ficam mudos. O log não registra nada, e `CheckpointScreen.tsx` não emite retorno.
@@ -79,6 +79,15 @@ e 7 foram corrigidos e vistos no simulador em 2026-11-10. Os outros seguem abert
    mostrava 3 corações, embora o primeiro coração tenha caído por volta de 15:37 e o
    intervalo seja de 30 minutos. Causa não encontrada. Um relógio preso não explica,
    porque `Date.now()` roda a cada renderização.
+   **Causa e correção, 2026-11-10:** a hipótese acima estava errada. Nenhuma tela passa
+   a hora ao `HUD`, que usava `Date.now()` como valor padrão, e o React Compiler guarda
+   esse valor na primeira renderização (conferido compilando o `HUD.tsx`). O tempo era
+   contado desde quando a tela apareceu, e nada redesenhava o rótulo. A folha de vidas
+   tinha o mesmo defeito. Agora os dois releem a hora a cada 30 s enquanto uma vida está
+   a caminho (`src/ui/useNow.ts`). No simulador, depois de perder uma vida às 10:37, o
+   rótulo da trilha disse "próxima em 30 minutos" às 10:37:51 e "27 minutos" às 10:41:12.
+   Quando a contagem chega a zero, o rótulo fica em 1 minuto até a tela reler as vidas;
+   isso não foi mudado.
 4. **O último passo da aula repete o retorno.** Depois da fala final, aparece de novo o
    cartão "Resposta correta" da questão anterior, em cinza sobre verde.
    **Corrigido:** o fechamento repetia o retorno da última questão em toda aula que não
@@ -148,6 +157,6 @@ para, e então o aviso já tinha saído.
 - **Achado 3, mais um dado:** a vida caiu às 18:24:24, e às 18:33 e às 18:36 o rótulo do
   topo dizia "4 de 5 vidas; próxima em 32 minutos". Com intervalo de 30 minutos, deveria
   dizer cerca de 21 e depois 18. O número passou do intervalo e não mudou em três
-  minutos. A causa continua não encontrada.
+  minutos. A causa foi achada e corrigida em 2026-11-10: veja o achado 3.
 - **Não verificado:** os sons de ouvido, a vibração, a avaliação com o som desligado nos
   Ajustes, Android, aparelho físico e build de Release.

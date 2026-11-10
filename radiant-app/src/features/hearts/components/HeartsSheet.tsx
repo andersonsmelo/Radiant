@@ -7,6 +7,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import type { HeartsSnapshot } from '../hearts.types';
+import { useNow } from '../../../ui/useNow';
 
 type HeartsSheetProps = {
   visible: boolean;
@@ -37,8 +38,9 @@ export function HeartsSheet({
   onClose,
   onReview,
   onSubscribe,
-  nowMs = Date.now(),
+  nowMs,
 }: HeartsSheetProps) {
+  const now = useNow(visible && nowMs === undefined && snapshot.nextRefillAt !== null);
   if (snapshot.status === 'unlimited') return null;
 
   return (
@@ -65,7 +67,7 @@ export function HeartsSheet({
               Você pode esperar, revisar algo que já estudou ou conhecer as vidas ilimitadas.
             </Text>
 
-            <Text style={styles.waitText}>{waitCopy(snapshot, nowMs)}</Text>
+            <Text style={styles.waitText}>{waitCopy(snapshot, nowMs ?? now)}</Text>
 
             {dueReviewCount > 0 ? (
               <AppButton label="Revisar agora" variant="galaxy" onPress={onReview} />

@@ -84,8 +84,9 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
   vida (a regra da FILA, 26). Em 2026-11-10, a medalha da avaliação deixou de empurrar
   as opções para baixo da dobra: ela sai enquanto o aluno responde; e o fechamento da aula
-  deixou de repetir o cartão "Resposta correta" da última questão. Continuam abertos: o tempo do próximo coração saltou de 6
-  para 36 minutos, com causa não encontrada; o último par da associação não tem escolha.
+  deixou de repetir o cartão "Resposta correta" da última questão; e o tempo do próximo
+  coração voltou a andar (o React Compiler guardava a hora da primeira renderização).
+  Continua aberto: o último par da associação não tem escolha.
 - **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,
   texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e build de Release. Os
   sons não foram ouvidos. Tamanho do bundle e tempo de abertura da Estude com 20 trilhas

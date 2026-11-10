@@ -10,6 +10,7 @@ import { galaxyColors, hudLabelTones } from '../theme';
 import { fontFamily, layout, space } from '../styles';
 import { duration } from '../motion';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+import { useNow } from '../useNow';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { CHROME_MAX_FONT_SCALE } from '../accessibility/useLargeTextLayout';
 
@@ -211,10 +212,11 @@ export function HUD({
   compact = false,
   heartsSnapshot,
   onHeartsPress,
-  nowMs = Date.now(),
+  nowMs,
 }: HUDProps) {
+  const now = useNow(nowMs === undefined && Boolean(heartsSnapshot?.nextRefillAt));
   const visibleHearts = heartsSnapshot?.count ?? hearts;
-  const minutes = remainingMinutes(heartsSnapshot?.nextRefillAt ?? null, nowMs);
+  const minutes = remainingMinutes(heartsSnapshot?.nextRefillAt ?? null, nowMs ?? now);
   // Decide pelo status, nunca pelo número: o assinante que zerou chega com
   // `count: 0` e `status: 'unlimited'`.
   const unlimited = heartsSnapshot?.status === 'unlimited';

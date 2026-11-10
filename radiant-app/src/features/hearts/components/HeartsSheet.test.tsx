@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { act, fireEvent, render } from '@testing-library/react-native';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeartIcon } from '../../../ui/components/HudIcons';
@@ -99,5 +99,23 @@ describe('HeartsSheet', () => {
       while (ancestor && ancestor !== scroll) ancestor = ancestor.parent;
       expect(ancestor).toBe(scroll);
     }
+  });
+});
+
+// Achado 3 da prova de 2026-11-07: a folha também lia a hora uma vez só.
+describe('HeartsSheet — o tempo da próxima vida anda sozinho', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(nowMs);
+  });
+  afterEach(() => jest.useRealTimers());
+
+  it('sem nowMs, a espera diminui conforme o relógio passa', () => {
+    const screen = render(sheet({ nowMs: undefined }));
+    expect(screen.getByText('A próxima volta em 30 min.')).toBeTruthy();
+
+    act(() => { jest.advanceTimersByTime(10 * 60_000); });
+
+    expect(screen.getByText('A próxima volta em 20 min.')).toBeTruthy();
   });
 });
