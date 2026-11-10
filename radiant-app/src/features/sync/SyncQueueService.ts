@@ -144,8 +144,13 @@ class SyncQueueServiceImpl {
             }
         }
 
-        await this.saveQueue(remaining);
-        void TelemetryService.track('sync_flush_completed', { pending: remaining.length });
+        // O envio levou tempo: itens que entraram nesse meio-tempo ficam, e
+        // substituem a sobra antiga do mesmo recurso.
+        const sent = new Set(queue.map((item) => item.id));
+        const added = (await this.getQueue()).filter((item) => !sent.has(item.id));
+        const kept = remaining.filter((item) => !added.some((newer) => this.isSameResource(newer, item)));
+        await this.saveQueue([...kept, ...added]);
+        void TelemetryService.track('sync_flush_completed', { pending: kept.length + added.length });
     }
 
     async getPendingCount(): Promise<number> {
