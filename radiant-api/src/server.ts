@@ -265,30 +265,27 @@ function buildAuthService(app: FastifyInstance, database: SqlClient): AuthServic
 
         async refresh(refreshToken) {
             const refreshTokenHash = hashRefreshToken(refreshToken);
-            const rows = await database<{ user_id: string; email: string }[]>`
-                select art.user_id, au.email
-                from auth_refresh_tokens art
-                inner join app_users au on au.id = art.user_id
-                where art.token_hash = ${refreshTokenHash}
-                  and art.revoked_at is null
-                  and art.expires_at > now()
-                limit 1
-            `;
-
-            const row = rows[0];
-            if (!row) {
-                return 'invalid';
-            }
-
             const response = await database.begin(async (tx) => {
-                await tx.unsafe(
+                // Confere e revoga num passo só: com consulta e revogação separadas,
+                // dois pedidos com o mesmo token passavam juntos, e um token roubado
+                // podia ser usado ao lado do dono (auditoria de 2026-11-10).
+                const revoked = await tx.unsafe<{ user_id: string; email: string }[]>(
                     `
-                        update auth_refresh_tokens
+                        update auth_refresh_tokens art
                         set revoked_at = now()
-                        where token_hash = $1
+                        from app_users au
+                        where au.id = art.user_id
+                          and art.token_hash = $1
+                          and art.revoked_at is null
+                          and art.expires_at > now()
+                        returning art.user_id, au.email
                     `,
                     [refreshTokenHash]
                 );
+                const row = revoked[0];
+                if (!row) {
+                    return 'invalid' as const;
+                }
 
                 const access = await signAccessToken({ sub: row.user_id, email: row.email });
                 const nextRefreshToken = generateRefreshToken();
