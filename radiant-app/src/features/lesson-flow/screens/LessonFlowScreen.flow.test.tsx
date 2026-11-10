@@ -2410,6 +2410,30 @@ describe('T04 — abertura, retorno e botão apto', () => {
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
     expect(await screen.findByText('Síntese')).toBeTruthy();
   });
+  // Achado 4 da prova de 2026-11-07: na aula comum com várias questões, cada
+  // uma já mostra o próprio retorno, e o fechamento repetia o da última.
+  it('aula com duas questões: o fechamento não repete o retorno da última', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    const first = item('multiple-choice');
+    const second = { ...first, id: 't04:multiple-choice:2' } as LearningInteractionV2;
+    mockedLessonFlowService.getActivityById.mockReturnValue({
+      ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction: first }, { kind: 'interaction', interaction: second }, closing],
+    } as LearningActivityV2);
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    for (let question = 0; question < 2; question++) {
+      await screen.findByText('Escolha a resposta.');
+      fireEvent.press(screen.getByRole('button', { name: 'Opção A' }));
+      await esperarBotaoApto('Conferir resposta');
+      fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+      expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+      await esperarBotaoApto('Continuar');
+      fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    }
+
+    expect(await screen.findByText('Síntese')).toBeTruthy();
+    expect(screen.queryByText('Resposta correta')).toBeNull();
+    expect(screen.queryByText('Certo.')).toBeNull();
+  });
   it('abertura usa o tema explícito sem nó e preserva o texto independente', async () => {
     mockedLessonFlowService.getBlockById.mockReturnValue(null);
     mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' } as LearningActivityV2);

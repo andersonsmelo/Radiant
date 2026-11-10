@@ -62,8 +62,8 @@ proximidade, porque nenhum outro som tem duração parecida.
 ### Achados
 
 Os achados 1 e 2 foram corrigidos em código em 2026-11-07 (`476803d`) e vistos no
-simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. O achado 7
-foi corrigido e visto no simulador em 2026-11-10. Os outros seguem abertos.
+simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. Os achados 4
+e 7 foram corrigidos e vistos no simulador em 2026-11-10. Os outros seguem abertos.
 
 1. **A avaliação não tem som nenhum.** Selecionar, perder coração, reprovar e aprovar
    ficam mudos. O log não registra nada, e `CheckpointScreen.tsx` não emite retorno.
@@ -81,6 +81,11 @@ foi corrigido e visto no simulador em 2026-11-10. Os outros seguem abertos.
    porque `Date.now()` roda a cada renderização.
 4. **O último passo da aula repete o retorno.** Depois da fala final, aparece de novo o
    cartão "Resposta correta" da questão anterior, em cinza sobre verde.
+   **Corrigido:** o fechamento repetia o retorno da última questão em toda aula que não
+   fosse híbrida, e trocava o próprio título e texto por ele. Agora só repete quando é o
+   único retorno da aula: uma questão só, que não seja de caso. Na aula 3 de M02, em 2026-11-10,
+   o passo 8 de 8 mostrou o próprio título e texto, sem o cartão
+   ([captura](aula-fechamento-sem-repeticao.jpg)).
 5. **Na associação, o último par não tem escolha.** Sobra uma só opção, e cada par já
    sai verde na hora. O traço longo do texto do par também aparece na tela.
 6. **O retorno de acerto repete a mesma frase** em "Sua resposta" e "Resposta certa".

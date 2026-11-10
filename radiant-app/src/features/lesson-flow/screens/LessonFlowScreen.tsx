@@ -843,9 +843,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             ) : null}
 
                             {/*
-                              Na lição híbrida, o retorno de cada item já apareceu
-                              junto da resposta: o fechamento mostra o próprio
-                              título e texto, e não repete o da última interação.
+                              Quando cada item já mostrou o próprio retorno (lição
+                              híbrida ou aula com várias interações), o fechamento
+                              mostra o próprio título e texto, e não repete o da
+                              última interação (achado 4 da prova de 2026-11-07).
                             */}
                             {currentStep.kind === 'presentation' && currentStep.role === 'closing' && stepDialogue ? (
                                 <DialogueScene dialogue={stepDialogue} visibleCount={revealedLines} />
@@ -857,8 +858,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         body: currentStep.payload.body ?? '',
                                         tone: currentStep.payload.tone ?? 'neutral',
                                     }}
-                                    answeredCorrectly={hybrid ? undefined : player.lastFeedback?.correct}
-                                    explanation={hybrid ? undefined : player.lastFeedback?.message}
+                                    answeredCorrectly={perItemFeedback ? undefined : player.lastFeedback?.correct}
+                                    explanation={perItemFeedback ? undefined : player.lastFeedback?.message}
                                 />
                             ) : null}
                         </View>
