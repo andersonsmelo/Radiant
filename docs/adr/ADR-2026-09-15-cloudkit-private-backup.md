@@ -101,3 +101,14 @@ A próxima IA executora deve:
 - iCloud Documents.
 
 Esses itens exigem decisão separada se entrarem no produto.
+
+## Revisão de 2026-11-10: o `lastRefillAt` mais recente fica
+
+Uma auditoria por IA apontou que adotar o `lastRefillAt` mais recente de outro aparelho
+pode atrasar a próxima vida, e muito se o relógio desse aparelho estiver adiantado. O
+dono decidiu manter a regra do item 5 do contrato funcional como está. Só afeta quem
+ligar o backup, que vem desligado, e usar a mesma conta em dois aparelhos.
+
+Na mesma auditoria, a mescla passou a gravar pela fila do `HeartsRepository`
+(`absorbBackupRefill`, commit `e96359e`): antes, ela lia e gravava por fora, e uma
+assinatura gravada no meio da restauração perdia as vidas ilimitadas.
