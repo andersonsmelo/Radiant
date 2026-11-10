@@ -544,6 +544,11 @@ function buildSyncService(database: SqlClient, auth: AuthService): SyncService {
     };
 }
 
+const DB_CONSTRAINT_STATUS: Record<string, { status: number; message: string }> = {
+    '23505': { status: 409, message: 'Already exists' },
+    '23503': { status: 422, message: 'Unknown reference' },
+};
+
 export async function buildApp() {
     initializeSentry();
     // Atrás do nginx no mesmo servidor: sem confiar nesse salto, todo pedido
@@ -554,6 +559,13 @@ export async function buildApp() {
         origin: true,
     });
     await app.register(sensible);
+    // Restrição do banco é erro do pedido, não do servidor: e-mail cadastrado
+    // ao mesmo tempo por dois pedidos, ou aula que o servidor ainda não conhece.
+    app.setErrorHandler((error, _request, reply) => {
+        const mapped = DB_CONSTRAINT_STATUS[(error as { code?: unknown }).code as string];
+        if (mapped) return reply.status(mapped.status).send({ message: mapped.message });
+        throw error;
+    });
     registerBasicRateLimit(app, {
         windowMs: config.rateLimitWindowMs,
         max: config.rateLimitMax,

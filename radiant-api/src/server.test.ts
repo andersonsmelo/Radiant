@@ -55,3 +55,19 @@ test('o limite conta cada cliente atrás do nginx, e rotas inexistentes num grup
     await pedir('/a2', '203.0.113.3');
     assert.equal((await pedir('/a3', '203.0.113.3')).statusCode, 429);
 });
+
+// Achado 12: violação de unicidade ou de chave estrangeira é erro do pedido, não do servidor.
+test('erros de restrição do banco viram 409 e 422, não 500', async (t) => {
+    const app = await buildApp();
+    t.after(() => app.close());
+    const pgError = (code: string) => Object.assign(new Error(`violação ${code}`), { code });
+    app.get('/teste/unico', async () => { throw pgError('23505'); });
+    app.get('/teste/chave', async () => { throw pgError('23503'); });
+    app.get('/teste/outro', async () => { throw new Error('falha qualquer'); });
+
+    const pedir = (url: string) => app.inject({ method: 'GET', url, remoteAddress: '192.0.2.10' });
+    assert.equal((await pedir('/teste/unico')).statusCode, 409);
+    assert.equal((await pedir('/teste/chave')).statusCode, 422);
+    const outro = await app.inject({ method: 'GET', url: '/teste/outro', remoteAddress: '192.0.2.11' });
+    assert.equal(outro.statusCode, 500);
+});

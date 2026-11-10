@@ -212,3 +212,20 @@ test('PUT /v1/sync/review-cards rejects invalid payloads', async (t) => {
     });
     assert.equal(upsertReviewCardCalls, 0);
 });
+
+// Auditoria de 2026-11-10, achado 13: números impossíveis não entram no banco.
+test('o esquema recusa números impossíveis e aceita os limites', async () => {
+    const { lessonProgressSchema, reviewCardSchema } = await import('../schemas/sync.js');
+    const progress = { lessonId: 'lesson-1', totalQuestions: 3, correctAnswers: 3, answeredAtIso: '2026-04-01T12:00:00.000Z' };
+    assert.equal(lessonProgressSchema.safeParse(progress).success, true);
+    assert.equal(lessonProgressSchema.safeParse({ ...progress, correctAnswers: 5 }).success, false, '5 acertos em 3 questões');
+
+    const card = {
+        lessonId: 'lesson-1', easeFactor: 2.5, intervalDays: 36_500, repetitions: 3,
+        nextReviewAtIso: '2026-04-02T12:00:00.000Z', lastReviewedAtIso: '2026-04-01T12:00:00.000Z', createdAtIso: '2026-03-01T12:00:00.000Z',
+    };
+    assert.equal(reviewCardSchema.safeParse(card).success, true);
+    for (const [campo, valor] of [['easeFactor', 0.5], ['easeFactor', 100], ['intervalDays', 36_501]] as const) {
+        assert.equal(reviewCardSchema.safeParse({ ...card, [campo]: valor }).success, false, `${campo} = ${valor}`);
+    }
+});
