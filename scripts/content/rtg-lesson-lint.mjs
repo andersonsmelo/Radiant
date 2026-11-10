@@ -56,6 +56,8 @@ export function lintUnit(doc, { images = [] } = {}) {
     text(`${where}.prompt`, item.prompt, { min: 20, max: 420 });
     const options = Array.isArray(item.options) ? item.options : [];
     if (options.length !== 4) return err(where, 'exatamente 4 alternativas');
+    // O gerador usa `o.correct` como verdadeiro ou falso: o texto "false" viraria gabarito.
+    if (options.some((o) => typeof o?.correct !== 'boolean')) return err(where, 'correct deve ser true ou false em cada alternativa');
     const correct = options.filter((o) => o.correct === true);
     if (correct.length !== 1) return err(where, 'exatamente 1 alternativa correta');
     options.forEach((o, i) => { text(`${where}.options[${i}].label`, o.label, { max: 110 }); text(`${where}.options[${i}].feedback`, o.feedback, { min: 25, max: 260 }); });
@@ -73,6 +75,7 @@ export function lintUnit(doc, { images = [] } = {}) {
     text(`${where}.prompt`, item.prompt, { min: 20, max: 420 });
     const options = Array.isArray(item.options) ? item.options : [];
     if (options.length < 2 || options.length > 4) return err(where, 'comparação: de 2 a 4 imagens');
+    if (options.some((o) => typeof o?.correct !== 'boolean')) return err(where, 'correct deve ser true ou false em cada alternativa');
     if (options.filter((o) => o.correct === true).length !== 1) return err(where, 'exatamente 1 alternativa correta');
     options.forEach((o, i) => {
       text(`${where}.options[${i}].label`, o.label, { max: 110 }); text(`${where}.options[${i}].feedback`, o.feedback, { min: 25, max: 260 });

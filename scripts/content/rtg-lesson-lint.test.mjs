@@ -36,6 +36,21 @@ test('a unidade de teste passa no verificador e tem a forma do guia', () => {
   }
 });
 
+// Auditoria de 2026-11-10: `"correct": "false"` (texto) passava, porque só
+// `=== true` era contado, e o gerador trata o texto como verdadeiro: o distrator
+// virava o gabarito no app.
+test('reprova correct que não seja true ou false, numa questão e numa conferência', () => {
+  const errors = defect(doc => {
+    const item = doc.lessons[0].interactions[0];
+    const distractor = item.options.find(option => option.correct !== true);
+    distractor.correct = 'false';
+    const check = doc.lessons[0].checkpoint[0];
+    delete check.options.find(option => option.correct !== true).correct;
+  });
+  expectOnly(errors, /^lessons\[0\]\(m01-01\)\.(interactions|checkpoint)\[0\]: correct deve ser true ou false em cada alternativa$/);
+  assert.equal(errors.length, 2);
+});
+
 test('reprova a correta mais longa que 1,2 vez o maior distrator', () => {
   const errors = defect(doc => {
     const item = doc.lessons[0].interactions[0];
