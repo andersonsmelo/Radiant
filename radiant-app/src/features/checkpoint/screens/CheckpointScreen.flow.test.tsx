@@ -372,16 +372,17 @@ describe('CheckpointScreen flow', () => {
     it('disponível em outra trilha usa snapshot do nó, prata e regra real sem Pixel', async () => {
       mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(productionAvailableSnapshot);
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
-      fireEvent.press(await screen.findByText('Começar avaliação'));
-      expect(mockedJourneyProgressService.getSnapshotForNode).toHaveBeenCalledWith(productionNodeId);
-      expect(mockedJourneyProgressService.bootstrap).not.toHaveBeenCalled();
-      expect(screen.getByText('Avaliação da unidade 1')).toBeTruthy();
-      expect(screen.getByText('Avaliação 1 de 5')).toBeTruthy();
-      expect(screen.getByText('Questão 1 de 2')).toBeTruthy();
+      // A medalha fica na abertura; durante as questões ela sai (achado 7).
+      expect(await screen.findByText('Avaliação da unidade 1')).toBeTruthy();
       expect(screen.getByLabelText('Avaliação da unidade 1. Disponível.')).toBeTruthy();
       const medal = screen.UNSAFE_getByType(JourneyMedal);
       // Cor efetiva dos desenhos SVG, não cópia das props do componente.
       expect(medal.findAllByType(Circle).some((circle: { props: { fill?: string } }) => circle.props.fill === medalColors.silver.face)).toBe(true);
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+      expect(mockedJourneyProgressService.getSnapshotForNode).toHaveBeenCalledWith(productionNodeId);
+      expect(mockedJourneyProgressService.bootstrap).not.toHaveBeenCalled();
+      expect(screen.getByText('Avaliação 1 de 5')).toBeTruthy();
+      expect(screen.getByText('Questão 1 de 2')).toBeTruthy();
       expect(screen.UNSAFE_queryByType(PixelHeroSplit)).toBeNull();
       expect(screen.UNSAFE_queryByType(PixelIllustration)).toBeNull();
       expect(screen.queryByLabelText(/Pixel/u)).toBeNull();
@@ -801,6 +802,19 @@ describe('CheckpointScreen flow', () => {
 
       await waitFor(() => expect(tocados()).toContain('fim'));
       expect(tocados()).not.toContain('erro');
+    });
+
+    // Achado 7 da prova de 2026-11-07: a medalha e a abertura ocupavam metade
+    // da tela e empurravam as opções para baixo da dobra.
+    it('enquanto responde, a medalha e a abertura saem e o topo diz qual avaliação é', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      expect(await screen.findByLabelText('Avaliação da unidade 1. Disponível.')).toBeTruthy();
+      fireEvent.press(await screen.findByText('Começar avaliação'));
+
+      expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+      expect(screen.queryByLabelText('Avaliação da unidade 1. Disponível.')).toBeNull();
+      expect(screen.queryByText('Avaliação da unidade 1')).toBeNull();
+      expect(screen.getByText(productionAvailableSnapshot.track.units[0].nodes[0].title)).toBeTruthy();
     });
 
     it('reprovar soa o erro', async () => {

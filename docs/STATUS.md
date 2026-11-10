@@ -82,7 +82,8 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
 - **Achados da prova:** os dois da avaliação foram corrigidos em 2026-11-07 e vistos no
   simulador em 2026-11-08, com os sons medidos pelo log e não ouvidos: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
   e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
-  vida (a regra da FILA, 26). Continuam abertos: o tempo do próximo coração saltou de 6
+  vida (a regra da FILA, 26). Em 2026-11-10, a medalha da avaliação deixou de empurrar
+  as opções para baixo da dobra: ela sai enquanto o aluno responde. Continuam abertos: o tempo do próximo coração saltou de 6
   para 36 minutos, com causa não encontrada; o último passo da aula repete o cartão
   "Resposta correta"; o último par da associação não tem escolha.
 - **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,

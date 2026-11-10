@@ -62,8 +62,8 @@ proximidade, porque nenhum outro som tem duração parecida.
 ### Achados
 
 Os achados 1 e 2 foram corrigidos em código em 2026-11-07 (`476803d`) e vistos no
-simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. Os outros
-seguem abertos.
+simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. O achado 7
+foi corrigido e visto no simulador em 2026-11-10. Os outros seguem abertos.
 
 1. **A avaliação não tem som nenhum.** Selecionar, perder coração, reprovar e aprovar
    ficam mudos. O log não registra nada, e `CheckpointScreen.tsx` não emite retorno.
@@ -86,6 +86,13 @@ seguem abertos.
 6. **O retorno de acerto repete a mesma frase** em "Sua resposta" e "Resposta certa".
 7. **Na avaliação, a medalha ocupa metade da tela** e as opções ficam abaixo da dobra
    na primeira questão, o que exige rolar. A medalha diz "1" mesmo em "Avaliação 6 de 6".
+   **Corrigido:** enquanto o aluno responde, a medalha e o texto de abertura saem, e o
+   topo diz qual avaliação é ("Avaliação 2 de 6"). Na avaliação 2 de M02, em 2026-11-10,
+   a questão, as quatro opções e o botão couberam numa tela só
+   ([captura](avaliacao-questao-sem-medalha.jpg)). O "1" ficou: é o número da unidade
+   dentro do nível, o mesmo da trilha e do título "Avaliação da unidade 1", e não o da
+   avaliação. A medalha continua na abertura e no resultado. Não verificado com texto
+   ampliado.
 8. **Na conquista, a ponta do balão de fala cobre a primeira letra** de "antes". Visto
    numa captura reduzida, então vale conferir.
 

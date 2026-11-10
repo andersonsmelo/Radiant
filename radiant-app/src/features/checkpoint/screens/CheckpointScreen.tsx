@@ -589,6 +589,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
   if (!checkpointNode || !activeUnit || !checkpointValid) return null;
 
+  // Achado 7 da prova de 2026-11-07: com a medalha e a abertura, as opções da
+  // primeira questão ficavam abaixo da dobra. Enquanto o aluno responde, o topo
+  // diz só qual avaliação é.
+  const answering = Boolean(productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation);
+
   return (
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
@@ -600,10 +605,10 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
             <Pressable onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Voltar" style={styles.iconButton}>
               <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
-            <Text style={styles.headerLabel}>Avaliação</Text>
+            <Text style={styles.headerLabel}>{answering ? checkpointNode.title : 'Avaliação'}</Text>
             <View style={styles.iconSpacer} />
           </View>
-          <View style={styles.hero}>
+          {answering ? null : <View style={styles.hero}>
             <JourneyMedal node={checkpointNode} theme={resolveNodeTheme(checkpointNode, activeUnit)}
               state={checkpointLocked ? 'locked' : 'next'} pulsing={false} size={56} unitNumber={unitNumber}
               accessibilityLabel={`Avaliação da unidade ${unitNumber}. ${checkpointLocked ? 'Bloqueada' : 'Disponível'}.`} />
@@ -612,7 +617,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
             <Text style={styles.body}>{checkpointLocked
               ? `Abre depois das ${requiredLessons.length} aulas. Faltam ${missingLessonCount}.`
               : checkpointIntroCopy(productionItems.length, productionRequiredCorrect)}</Text>
-          </View>
+          </View>}
           {checkpointLocked ? <AppButton onPress={() => router.dismissTo('/(tabs)')}>Voltar para a trilha</AppButton> : <>
             {error ? <View style={styles.errorCard}>
               <Text style={styles.errorText}>{error}</Text>
