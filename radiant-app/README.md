@@ -60,7 +60,6 @@ src/config.ts            # configuração central e flags do app
 - `telemetry`
 - `heuristics`
 - `onboarding`
-- `paywall`
 - `push`
 - `beta`
 - `progress`
@@ -291,20 +290,14 @@ Estado atual:
 - `RatingPromptService` decide elegibilidade e registra
   `rating_prompt_eligible`, `rating_prompt_shown`, `rating_prompt_deferred` e
   `rating_prompt_blocked`;
-- `PaywallService` só libera oferta depois de valor percebido, mínimo de
-  sessões, dias desde instalação e ausência de erro de sync;
-- o paywall contextual já está integrado em `reward`, `quiz` e `checkpoint`;
-- quando o review prompt aparece, o paywall não é exibido na mesma sessão de
-  sucesso;
-- `UpgradeInterestService` captura interesse de upgrade de forma local-first;
-- `TelemetryDebugScreen` mostra o card `App Store Ops`, interesses de upgrade e
-  permite compartilhar um war room snapshot textual.
+- o paywall antigo (`PaywallService`, `UpgradeInterestService`) saiu em
+  2026-11-10: nada o chamava, e a assinatura vive em `features/subscription`;
+- `TelemetryDebugScreen` mostra o card `App Store Ops` e permite compartilhar um
+  war room snapshot textual.
 
 Arquivos principais:
 
 - `src/services/RatingPromptService.ts`
-- `src/features/paywall/PaywallService.ts`
-- `src/features/paywall/UpgradeInterestService.ts`
 - `src/features/telemetry/services/AppStoreOpsService.ts`
 - `src/features/telemetry/screens/TelemetryDebugScreen.tsx`
 
@@ -409,7 +402,6 @@ Variáveis esperadas:
 - `EXPO_PUBLIC_ENABLE_REMOTE_SYNC`
 - `EXPO_PUBLIC_ENABLE_REMOTE_CONTENT_CATALOG`
 - `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`
-- `EXPO_PUBLIC_ENABLE_PAYWALL`
 - `EXPO_PUBLIC_SENTRY_DSN`
 - `EXPO_PUBLIC_ENABLE_LEARNING_ROAD`
 - `EXPO_PUBLIC_ENABLE_REVIEW` — kill switch do pedido de avaliação; padrão `true`, desligar com `false` num build ou OTA

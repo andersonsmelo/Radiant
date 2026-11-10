@@ -145,31 +145,6 @@ jest.mock('../../lesson-flow/services/LessonOutcomeService', () => ({
   },
 }));
 
-jest.mock('../../paywall/PaywallService', () => ({
-  PaywallService: {
-    maybePresentOffer: jest.fn().mockResolvedValue(null),
-    recordOutcome: jest.fn().mockResolvedValue(undefined),
-  },
-}));
-
-jest.mock('../../paywall/UpgradeInterestService', () => ({
-  UpgradeInterestService: {
-    captureInterest: jest.fn().mockResolvedValue({
-      id: 'interest-checkpoint-1',
-      email: 'user@example.com',
-    }),
-  },
-}));
-
-jest.mock('../../paywall/components/PaywallOfferCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PaywallOfferCard: () => <View />,
-  };
-});
-
 // O tocador de verdade abre expo-audio, que o Jest não tem; aqui só se mede o
 // que a avaliação pede. Vibração desligada para não depender do expo-haptics.
 const mockSoundPlayer = { play: jest.fn(), release: jest.fn() };

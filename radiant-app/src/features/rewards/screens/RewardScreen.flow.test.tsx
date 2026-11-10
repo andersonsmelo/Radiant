@@ -6,7 +6,6 @@ import RewardScreen, { canCollectReward } from './RewardScreen';
 import type { JourneyNode } from '../../../types/journey';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
-import { PaywallService } from '../../paywall/PaywallService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { RatingPromptService } from '../../../services/RatingPromptService';
@@ -101,31 +100,6 @@ jest.mock('../../../services/RatingPromptService', () => ({
     maybePromptForReview: jest.fn().mockResolvedValue(false),
   },
 }));
-
-jest.mock('../../paywall/PaywallService', () => ({
-  PaywallService: {
-    maybePresentOffer: jest.fn().mockResolvedValue(null),
-    recordOutcome: jest.fn().mockResolvedValue(undefined),
-  },
-}));
-
-jest.mock('../../paywall/UpgradeInterestService', () => ({
-  UpgradeInterestService: {
-    captureInterest: jest.fn().mockResolvedValue({
-      id: 'interest-1',
-      email: 'user@example.com',
-    }),
-  },
-}));
-
-jest.mock('../../paywall/components/PaywallOfferCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PaywallOfferCard: () => <View />,
-  };
-});
 
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 
@@ -629,7 +603,6 @@ describe('RewardScreen flow', () => {
     });
 
     expect(await screen.findByText('Conquista registrada')).toBeTruthy();
-    expect(PaywallService.maybePresentOffer).not.toHaveBeenCalled();
   });
 
   it('conta só os marcos primários da unidade — review completo não entra no total nem no concluído', async () => {

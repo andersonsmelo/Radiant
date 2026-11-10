@@ -1,6 +1,5 @@
 import { AuthService } from '../../auth/AuthService';
 import { AppConfig } from '../../../config';
-import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
 import { TelemetryService } from '../TelemetryService';
 import type { TelemetryEventName } from '../telemetry.types';
 
@@ -10,9 +9,6 @@ const APP_STORE_EVENT_NAMES: TelemetryEventName[] = [
     'rating_prompt_shown',
     'rating_prompt_deferred',
     'rating_prompt_blocked',
-    'paywall_view',
-    'paywall_cta_tap',
-    'paywall_outcome',
 ];
 
 export interface AppStoreOpsSummary {
@@ -21,14 +17,7 @@ export interface AppStoreOpsSummary {
     firstValueMomentReached: boolean;
     reviewPromptShownCount: number;
     reviewPromptBlockedCount: number;
-    paywallViewCount: number;
-    paywallCtaTapCount: number;
-    paywallDismissedCount: number;
-    paywallBlockedCount: number;
-    upgradeInterestCount: number;
-    latestUpgradeInterestEmail: string | null;
-    paywallTapRate: number;
-    suggestedDecision: 'escalar' | 'iterar' | 'conter' | 'reverter';
+    suggestedDecision: 'iterar' | 'conter';
     recentEvents: {
         name: TelemetryEventName;
         ts: number;
@@ -42,20 +31,15 @@ class AppStoreOpsServiceImpl {
     async getSummary(): Promise<AppStoreOpsSummary> {
         await AuthService.bootstrap();
 
-        const [installDate, session, firstValueMomentReached, events, interests] = await Promise.all([
+        const [installDate, session, firstValueMomentReached, events] = await Promise.all([
             TelemetryService.getInstallDate(),
             Promise.resolve(AuthService.getSession()),
             TelemetryService.hasEvent('first_value_moment_reached'),
             TelemetryService.getEvents({ names: APP_STORE_EVENT_NAMES, limit: 20 }),
-            UpgradeInterestService.listInterests(),
         ]);
 
         const reviewPromptShownCount = this.count(events, 'rating_prompt_shown');
         const reviewPromptBlockedCount = this.count(events, 'rating_prompt_blocked');
-        const paywallViewCount = this.count(events, 'paywall_view');
-        const paywallCtaTapCount = this.count(events, 'paywall_cta_tap');
-        const paywallDismissedCount = this.countOutcome(events, 'dismissed');
-        const paywallBlockedCount = this.countOutcome(events, 'blocked');
 
         return {
             installDate,
@@ -63,23 +47,9 @@ class AppStoreOpsServiceImpl {
             firstValueMomentReached,
             reviewPromptShownCount,
             reviewPromptBlockedCount,
-            paywallViewCount,
-            paywallCtaTapCount,
-            paywallDismissedCount,
-            paywallBlockedCount,
-            upgradeInterestCount: interests.length,
-            latestUpgradeInterestEmail: interests[0]?.email ?? null,
-            paywallTapRate: paywallViewCount > 0 ? Number((paywallCtaTapCount / paywallViewCount).toFixed(2)) : 0,
-            suggestedDecision: this.resolveSuggestedDecision({
-                firstValueMomentReached,
-                reviewPromptShownCount,
-                reviewPromptBlockedCount,
-                paywallViewCount,
-                paywallBlockedCount,
-                paywallTapRate: paywallViewCount > 0
-                    ? Number((paywallCtaTapCount / paywallViewCount).toFixed(2))
-                    : 0,
-            }),
+            // Sem o paywall (removido em 2026-11-10), "escalar" e "reverter" dependiam
+            // só de eventos que nada emite: resta conter até o primeiro valor percebido.
+            suggestedDecision: firstValueMomentReached ? 'iterar' : 'conter',
             recentEvents: events.slice(-5).reverse().map((event) => ({
                 name: event.name,
                 ts: event.ts,
@@ -119,15 +89,6 @@ class AppStoreOpsServiceImpl {
             `- review_prompt_shown: ${summary.reviewPromptShownCount}`,
             `- review_prompt_blocked: ${summary.reviewPromptBlockedCount}`,
             '',
-            '## Monetization',
-            `- paywall_view: ${summary.paywallViewCount}`,
-            `- paywall_cta_tap: ${summary.paywallCtaTapCount}`,
-            `- paywall_dismissed: ${summary.paywallDismissedCount}`,
-            `- paywall_blocked: ${summary.paywallBlockedCount}`,
-            `- paywall_tap_rate: ${summary.paywallTapRate}`,
-            `- upgrade_interest_count: ${summary.upgradeInterestCount}`,
-            `- latest_upgrade_interest_email: ${summary.latestUpgradeInterestEmail ?? 'n/a'}`,
-            '',
             '## Recent events',
             recentEvents,
         ].join('\n');
@@ -135,42 +96,6 @@ class AppStoreOpsServiceImpl {
 
     private count(events: { name: TelemetryEventName }[], target: TelemetryEventName): number {
         return events.filter((event) => event.name === target).length;
-    }
-
-    private countOutcome(
-        events: { name: TelemetryEventName; props?: Record<string, unknown> }[],
-        outcome: string
-    ): number {
-        return events.filter(
-            (event) => event.name === 'paywall_outcome' && event.props?.outcome === outcome
-        ).length;
-    }
-
-    private resolveSuggestedDecision(input: {
-        firstValueMomentReached: boolean;
-        reviewPromptShownCount: number;
-        reviewPromptBlockedCount: number;
-        paywallViewCount: number;
-        paywallBlockedCount: number;
-        paywallTapRate: number;
-    }): 'escalar' | 'iterar' | 'conter' | 'reverter' {
-        if (!input.firstValueMomentReached && input.paywallViewCount > 0) {
-            return 'reverter';
-        }
-
-        if (!input.firstValueMomentReached) {
-            return 'conter';
-        }
-
-        if (input.paywallBlockedCount > input.paywallViewCount && input.reviewPromptBlockedCount > input.reviewPromptShownCount) {
-            return 'conter';
-        }
-
-        if (input.paywallViewCount > 0 && input.paywallTapRate >= 0.3 && input.reviewPromptShownCount > 0) {
-            return 'escalar';
-        }
-
-        return 'iterar';
     }
 }
 

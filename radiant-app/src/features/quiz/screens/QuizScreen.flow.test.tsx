@@ -159,31 +159,6 @@ jest.mock('../../../services/RatingPromptService', () => ({
   },
 }));
 
-jest.mock('../../paywall/PaywallService', () => ({
-  PaywallService: {
-    maybePresentOffer: jest.fn().mockResolvedValue(null),
-    recordOutcome: jest.fn().mockResolvedValue(undefined),
-  },
-}));
-
-jest.mock('../../paywall/UpgradeInterestService', () => ({
-  UpgradeInterestService: {
-    captureInterest: jest.fn().mockResolvedValue({
-      id: 'interest-quiz-1',
-      email: 'user@example.com',
-    }),
-  },
-}));
-
-jest.mock('../../paywall/components/PaywallOfferCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PaywallOfferCard: () => <View />,
-  };
-});
-
 jest.mock('../../onboarding/OnboardingService', () => ({
   OnboardingService: {
     init: jest.fn().mockResolvedValue(undefined),

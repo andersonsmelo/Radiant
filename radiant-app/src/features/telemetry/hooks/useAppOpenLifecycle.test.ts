@@ -40,8 +40,8 @@ describe('useAppOpenLifecycle', () => {
 
     it('marca o dia aberto, que é onde a coorte de instalação nasce', () => {
         // `markDayOpen()` é o único ponto que inicializa `cohort.installDate`.
-        // Sem ele o `PaywallService` para em `missing_install_date` e D1/D7
-        // nunca são medidos — por isso ele viaja junto do evento, não depois.
+        // Sem ele D1/D7 nunca são medidos e o war room fica sem data de
+        // instalação — por isso ele viaja junto do evento, não depois.
         renderHook(() => useAppOpenLifecycle());
 
         expect(TelemetryService.markDayOpen).toHaveBeenCalledTimes(1);

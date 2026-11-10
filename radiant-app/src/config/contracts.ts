@@ -7,7 +7,6 @@ export interface RuntimeRemoteConfig {
     enableTelemetryDebugScreen: boolean;
     enableProductAnalytics: boolean;
     enableCrashReporting: boolean;
-    enablePaywall: boolean;
     enableRevenueCat: boolean;
 }
 

@@ -140,23 +140,6 @@ jest.mock('../../gamification/services/GamificationService', () => ({
   },
 }));
 
-jest.mock('../../paywall/PaywallService', () => ({
-  PaywallService: {
-    maybePresentOffer: jest.fn().mockResolvedValue(null),
-    recordOutcome: jest.fn().mockResolvedValue(undefined),
-  },
-}));
-
-jest.mock('../../paywall/UpgradeInterestService', () => ({
-  UpgradeInterestService: {
-    captureInterest: jest.fn().mockResolvedValue({ id: 'interest-1', email: null }),
-  },
-}));
-
-jest.mock('../../paywall/components/PaywallOfferCard', () => ({
-  PaywallOfferCard: () => null,
-}));
-
 jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
   SpacedRepetitionService: {
     getTrackedLessonIds: jest.fn(),

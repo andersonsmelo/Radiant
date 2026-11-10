@@ -14,7 +14,6 @@ export const STORAGE_KEYS = {
     V3_LEARNING_EVIDENCE: '@radiant:v3:learning_evidence_v1',
     V3_COMPETENCY_MASTERY: '@radiant:v3:competency_mastery_v1',
     AUTH_MIGRATION_STATE: '@radiant:auth_migration_v1',
-    UPGRADE_INTEREST: '@radiant:upgrade_interest_v1',
     LEARNING_ATTEMPTS: '@radiant:learning_attempts_v1',
     LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
     ITEM_REVIEW: '@radiant:item_review_v1',

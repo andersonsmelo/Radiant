@@ -167,16 +167,6 @@
       "dash": 2,
       "jargon": 0
     },
-    "src/features/paywall/components/PaywallOfferCard.tsx": {
-      "eyebrow": 1,
-      "dash": 0,
-      "jargon": 0
-    },
-    "src/features/paywall/PaywallPlan.ts": {
-      "eyebrow": 0,
-      "dash": 2,
-      "jargon": 0
-    },
     "src/features/pixel-mood/pixelPhrases.ts": {
       "eyebrow": 0,
       "dash": 1,

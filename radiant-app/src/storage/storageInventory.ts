@@ -87,8 +87,6 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant/first_run_v1', 'controle'),
     exact('@radiant/onboarding', 'controle'),
     exact('@radiant:rating_prompt_v1', 'controle'),
-    exact('@radiant:paywall_v1', 'controle'),
-    exact('@radiant:upgrade_interest_v1', 'controle'),
     exact('@radiant:unit_celebrations_v1', 'controle'),
     exact('@radiant/beta_access', 'controle'),
     exact('@radiant/beta_feedback', 'controle'),
