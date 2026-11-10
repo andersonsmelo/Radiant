@@ -10,7 +10,7 @@ type AnswerFeedbackCardProps = {
     correct: boolean;
     /** O retorno autoral do item, que vem de `feedbackFor`. */
     message: string;
-    /** Só na múltipla escolha: o que o aluno marcou e o gabarito. */
+    /** Só na múltipla escolha: o que o aluno marcou e o gabarito, este só no erro. */
     chosenLabel?: string;
     correctLabel?: string;
     onLayout?: (event: LayoutChangeEvent) => void;
@@ -36,7 +36,7 @@ export function AnswerFeedbackCard({ correct, message, chosenLabel, correctLabel
                 </Text>
             </View>
             {chosenLabel !== undefined ? <Text style={styles.text}>{`Sua resposta: ${chosenLabel}`}</Text> : null}
-            {correctLabel !== undefined ? <Text style={styles.text}>{`Resposta certa: ${correctLabel}`}</Text> : null}
+            {!correct && correctLabel !== undefined ? <Text style={styles.text}>{`Resposta certa: ${correctLabel}`}</Text> : null}
             <Text style={styles.text}>{message}</Text>
         </Animated.View>
     );

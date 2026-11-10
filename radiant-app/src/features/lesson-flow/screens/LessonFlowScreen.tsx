@@ -456,7 +456,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
             const answer = currentInteraction.type === 'multiple-choice'
                 ? currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label : undefined;
-            const recap = hybrid && choice && answer ? `Sua resposta: ${choice}. Resposta certa: ${answer}. ` : '';
+            const recap = hybrid && choice && answer
+                ? `Sua resposta: ${choice}. ${correct ? '' : `Resposta certa: ${answer}. `}` : '';
             AccessibilityInfo.announceForAccessibility(
                 `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${comboCopy}${recap}${message}${heartLossCopy}`,
             );

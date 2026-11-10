@@ -1710,6 +1710,10 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(screen.getByText('Resposta certa: Consolidação alveolar')).toBeTruthy();
     fireEvent.press(screen.getByText('Continuar'));
     await answer('Resposta dois');
+    // No acerto, o anúncio não repete a resposta como gabarito (achado 6 da prova).
+    const anuncio = announceForAccessibility.mock.calls.map(([texto]) => texto).find((texto) => texto.includes('Sua resposta: Resposta dois.'));
+    expect(anuncio).toBeDefined();
+    expect(anuncio).not.toContain('Resposta certa');
     fireEvent.press(screen.getByText('Continuar'));
     expect(screen.getByText('Vamos tentar novamente')).toBeTruthy();
     await answer('Pneumotórax');
@@ -2386,8 +2390,8 @@ describe('T04 — abertura, retorno e botão apto', () => {
     if (type === 'multiple-choice' || type === 'comparison') fireEvent.press(screen.getByRole('button', { name: correct ? 'Opção A' : 'Opção B' }));
     if (type === 'hotspot') fireEvent.press(screen.getByRole('button', { name: correct ? 'Selecionar Região A na lista' : 'Selecionar Região B na lista' }));
     if (type === 'matching') {
+      // Com dois pares, o segundo se completa sozinho.
       fireEvent.press(screen.getByRole('button', { name: correct ? 'Associar A a Alfa' : 'Associar A a Beta' }));
-      fireEvent.press(screen.getByRole('button', { name: correct ? 'Associar B a Beta' : 'Associar B a Alfa' }));
     }
     if (type === 'ordering') {
       if (correct) fireEvent.press(screen.getByRole('button', { name: 'Descer Primeiro' }));
@@ -2782,6 +2786,8 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
       expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
       await responder('Certa 2');
       expect(screen.getByText('Resposta correta')).toBeTruthy();
+      // No acerto, o gabarito repetiria a resposta do aluno: fica só "Sua resposta" (achado 6).
+      expect(screen.queryByText(/^Resposta certa:/u)).toBeNull();
       fireEvent.press(screen.getByText('Continuar'));
       await screen.findByText('Pergunta 3?');
       await responderEAvancar('Certa 3', 'Pergunta 4?');

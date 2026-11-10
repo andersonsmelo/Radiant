@@ -38,6 +38,18 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
     const currentIndex = selectedRightIds.length;
     const currentLeft = payload.pairs[currentIndex];
     const usedIds = new Set(selectedRightIds);
+    const total = payload.pairs.length;
+    // Com uma opção sobrando, o último par já está decidido: entra junto com a escolha.
+    const choose = (rightId: string) => {
+        const next = [...selectedRightIds, rightId];
+        const remaining = payload.pairs.filter((pair) => !next.includes(pair.id));
+        onChange(encodeInteractionIdSequence(remaining.length === 1 ? [...next, remaining[0].id] : next));
+    };
+    // E o desfazer tira os dois, para não parar num passo de uma opção só.
+    const undo = () => {
+        const back = selectedRightIds.length === total && total > 1 ? 2 : 1;
+        onChange(encodeInteractionIdSequence(selectedRightIds.slice(0, -back)));
+    };
 
     return (
         <View style={styles.activity}>
@@ -51,7 +63,7 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
                         const right = payload.pairs.find((pair) => pair.id === rightId);
                         return (
                             <Text key={`${left.id}:${rightId}`} style={styles.completedPair}>
-                                {left.left} — {right?.right}
+                                {left.left}: {right?.right}
                             </Text>
                         );
                     })}
@@ -64,7 +76,7 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
                     {matchingDisplayOrder(payload.pairs).filter((pair) => !usedIds.has(pair.id)).map((right) => (
                         <Pressable
                             key={right.id}
-                            onPress={() => onChange(encodeInteractionIdSequence([...selectedRightIds, right.id]))}
+                            onPress={() => choose(right.id)}
                             accessibilityRole="button"
                             accessibilityLabel={`Associar ${currentLeft.left} a ${right.right}`}
                             accessibilityHint="Forma este par sem arrastar. Você confirma a atividade em Continuar."
@@ -80,7 +92,7 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
 
             {selectedRightIds.length > 0 ? (
                 <Pressable
-                    onPress={() => onChange(encodeInteractionIdSequence(selectedRightIds.slice(0, -1)))}
+                    onPress={undo}
                     accessibilityRole="button"
                     accessibilityLabel="Desfazer última associação"
                     style={styles.undoButton}
@@ -101,7 +113,7 @@ const styles = StyleSheet.create({
     sectionTitle: { ...typography.bodyStrong, color: galaxy.textPrimary },
     completedPair: {
         ...typography.bodyRegular,
-        color: galaxy.statusSuccess,
+        color: galaxy.textPrimary,
         paddingVertical: space.s1,
     },
     currentPair: { gap: space.s2 },
@@ -116,7 +128,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     optionLabel: { ...typography.bodyRegular, color: galaxy.textPrimary },
-    completeMessage: { ...typography.bodyStrong, color: galaxy.statusSuccess },
+    completeMessage: { ...typography.bodyStrong, color: galaxy.textPrimary },
     undoButton: {
         minHeight: 44,
         alignSelf: 'flex-start',

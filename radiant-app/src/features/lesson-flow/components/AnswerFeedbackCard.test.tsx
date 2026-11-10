@@ -60,6 +60,13 @@ describe('AnswerFeedbackCard', () => {
         expect(screen.getByText('Vamos reforçar')).toBeTruthy();
     });
 
+    it('no acerto, mostra a resposta do aluno uma vez só, sem repetir como gabarito', () => {
+        render(<AnswerFeedbackCard correct message="Isso." chosenLabel="Elétron" correctLabel="Elétron" />);
+
+        expect(screen.getByText('Sua resposta: Elétron')).toBeTruthy();
+        expect(screen.queryByText(/^Resposta certa:/u)).toBeNull();
+    });
+
     it('fora da múltipla escolha, não inventa linhas de resposta', () => {
         render(<AnswerFeedbackCard correct={false} message="Aumente a tensão." />);
 
