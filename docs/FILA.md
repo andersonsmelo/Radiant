@@ -1229,23 +1229,19 @@ aparelho.
 
 ### AGENTE — o que sobrou da auditoria de 2026-11-10
 
-- **Estado:** aberto. Na branch `claude/conteudo-reinicio-tecnologo`, 16 achados
-  corrigidos (1 a 13, e 16 a 18: 12 e 13 em `c6a5c23`, 16 a 18 em `26e9f60`) e o 19 e o
-  20 em parte (`992b1b8`). O 15 estava errado: `curriculum-v3` está em uso, e só o
-  `ProgressScreen` era órfão (apagado em `6b13074`). Sobra, do mais pesado ao mais leve
+- **Estado:** aberto. Na branch `claude/conteudo-reinicio-tecnologo`, 17 achados
+  corrigidos (1 a 14, e 16 a 18: 12 e 13 em `c6a5c23`, 14 em `41c58d0`, 16 a 18 em
+  `26e9f60`) e o 19 e o 20 em parte (`992b1b8`). O 15 estava errado: `curriculum-v3`
+  está em uso, e só o `ProgressScreen` era órfão (apagado em `6b13074`). Sobra, do mais pesado ao mais leve
   ([auditoria](evidence/2026-11-10-auditoria.md)):
-  1. **14.** Remover o paywall antigo. Não é só apagar a pasta: `PaywallService`,
-     `PaywallPlan` e `PaywallOfferCard` não têm chamador, mas o `UpgradeInterestService`
-     é lido pela tela de telemetria e pelo `AppStoreOpsService`, e os eventos
-     `paywall_*`, a bandeira `ENABLE_PAYWALL`, os scripts de war room e quatro testes de
-     fluxo dependem do módulo. O `storageInventory.ts` lista `@radiant:paywall_v1`, e
-     o guarda reprova se a chave sumir do código sem sair da lista.
-  2. **20, resto.** A tabela `user_profiles`, que nada lê. Apagar tabela é mudança de
+  1. **20, resto.** A tabela `user_profiles`, que nada lê. Apagar tabela é mudança de
      banco: decisão do dono.
-  3. **19, resto.** `radiant-app/hooks/` e `radiant-app/constants/theme.ts` só eram
+  2. **19, resto.** `radiant-app/hooks/` e `radiant-app/constants/theme.ts` só eram
      usados pelos componentes do modelo apagados, mas estão fora do `writePolicy`.
-- **Bloqueio:** nenhum para o 14. Apagar `hooks/` e `constants/` e mudar
-  `radiant-api/.env.example` exige ampliar o `writePolicy`, decisão do dono.
+  3. **14, resto.** `radiant-app/.env.example` ainda lista `EXPO_PUBLIC_ENABLE_PAYWALL`,
+     que nada lê; também fora do `writePolicy`.
+- **Bloqueio:** apagar `hooks/` e `constants/` e mudar os dois `.env.example` exige
+  ampliar o `writePolicy`, decisão do dono.
 - **Dono:** agente. **Do dono:** nada envia e-mail; com o token de redefinição
   escondido em produção, a redefinição de senha não se completa quando a API voltar.
 - **Remede:** `npm test` em `radiant-api/` e `npm test` em `radiant-app/`.

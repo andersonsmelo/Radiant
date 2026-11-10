@@ -86,12 +86,12 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   associação, que agora se completa sozinho, e "Resposta certa", que no acerto não
   aparece mais. Segue sem confirmar a ponta do balão na conquista, vista só numa captura
   reduzida ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
-- **Auditoria de 2026-11-10:** 16 dos 20 achados corrigidos e o 19 e o 20 em parte,
+- **Auditoria de 2026-11-10:** 17 dos 20 achados corrigidos e o 19 e o 20 em parte,
   cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
   local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota
-  `licao-hibrida` usa `hybrid-l1`), e `paywall/` está ligado à telemetria, aos scripts de
-  war room e à tela de depuração. Ficam a remoção do paywall, a tabela `user_profiles` e
-  `hooks/` e `constants/theme.ts`, que estão fora do `writePolicy`
+  `licao-hibrida` usa `hybrid-l1`), e `paywall/` estava ligado à telemetria, aos scripts
+  de war room e à tela de depuração; saiu inteiro com eles em `41c58d0`. Ficam a tabela
+  `user_profiles` e `hooks/` e `constants/theme.ts`, que estão fora do `writePolicy`
   ([auditoria](evidence/2026-11-10-auditoria.md)).
 - **Prazo de QA visual de 2026-11-30:** resolvido na PR #69 (commit `6b13074`). A
   simulação para 2026-12-01 dá 0 regressões. A `main` continua com os registros até o

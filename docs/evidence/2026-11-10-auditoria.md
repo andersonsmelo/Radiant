@@ -27,6 +27,7 @@ voltar, de centenas a alguns milhares de usuários.
 | 11. Duas renovações de login deslogavam | No app, uma renovação por vez. No servidor, o token é conferido e revogado num `update ... returning` só. | `a8edfa0`, `664d585` |
 | 12. Violações do banco viravam 500 | Unicidade (o mesmo e-mail cadastrado por dois pedidos ao mesmo tempo) dá 409; chave estrangeira (aula que o servidor não conhece) dá 422. | `c6a5c23` |
 | 13. Sincronização aceitava números absurdos | Acertos até o total, fator de 1 a 10, intervalo até 36.500 dias. O app manda no máximo 2,5 e 365. | `c6a5c23` |
+| 14. Paywall antigo sem chamador | Saíram `PaywallService`, `PaywallPlan`, `PaywallOfferCard`, `UpgradeInterestService`, os eventos `paywall_*`, a bandeira `ENABLE_PAYWALL`, as duas chaves do inventário e as métricas de monetização do war room e da tela de depuração. | `41c58d0` |
 | 16. Aula malformada derrubava o gerador sem dizer o arquivo | Reprova como `rtg-lint:<arquivo>` com "forma inesperada". | `26e9f60` |
 | 17. CI do app não rodava com mudança só no conteúdo | O filtro inclui `scripts/content/**` e `content-manifest/rtg-2026/**`. | `26e9f60` |
 | 18. `safety` ⇔ `criticalSafety` não era checado | O verificador exige os dois juntos; as 92 interações de segurança já cumpriam. | `26e9f60` |
@@ -62,17 +63,18 @@ Conferido em 2026-11-10, ao corrigir, buscando cada nome na árvore inteira:
   `CurriculumMigrationService.bootstrap()`, a rota `licao-hibrida` usa `hybrid-l1`, que
   importa `l1-body-reference` e `l2-slicing-space`, e o console de desenvolvimento lê as
   métricas da lição híbrida. Só o `ProgressScreen` era órfão, e saiu em `6b13074`.
-- **14.** `paywall/` não é uma pasta solta. `PaywallService`, `PaywallPlan` e
+- **14.** `paywall/` não era uma pasta solta. `PaywallService`, `PaywallPlan` e
   `PaywallOfferCard` não têm chamador, mas o `UpgradeInterestService` é lido pela tela
   de telemetria e pelo `AppStoreOpsService`, e os eventos `paywall_*`, a bandeira
-  `ENABLE_PAYWALL`, os scripts de war room e o inventário do armazenamento dependem do
-  módulo.
+  `ENABLE_PAYWALL`, os scripts de war room e o inventário do armazenamento dependiam do
+  módulo. Saiu tudo junto em `41c58d0`.
 
 ## Abertos
 
 Detalhe na [FILA](../FILA.md), item "o que sobrou da auditoria de 2026-11-10".
 
-- **14.** Remover o paywall antigo junto com o que depende dele.
+- **14, resto.** `radiant-app/.env.example` ainda lista `EXPO_PUBLIC_ENABLE_PAYWALL`,
+  fora do `writePolicy`.
 - **19, resto.** `radiant-app/hooks/` e `constants/theme.ts` só serviam aos componentes
   apagados, mas estão fora do `writePolicy`.
 - **20, resto.** A tabela `user_profiles`, que nada lê: mudança de banco, decisão do
