@@ -122,6 +122,8 @@ export function lintUnit(doc, { images = [] } = {}) {
       if (!TYPES.includes(it.type)) return err(iw, `tipo inválido: ${it.type}`);
       if (!/^i\d$/.test(it.id ?? '') || interactionIds.has(it.id)) err(iw, 'id i1..i5, único na aula'); interactionIds.add(it.id);
       if (!['prerequisite', 'prediction', 'practice', 'transfer', 'safety'].includes(it.role)) err(iw, 'role inválido');
+      // O app só trata como segurança o que tem `criticalSafety`; o papel e a marca andam juntos.
+      if ((it.role === 'safety') !== (it.criticalSafety === true)) err(iw, 'role safety e criticalSafety: true andam juntos');
       text(`${iw}.help`, it.help, { min: 15, max: 200 });
       if (it.type === 'comparison') {
         comparison(iw, it);

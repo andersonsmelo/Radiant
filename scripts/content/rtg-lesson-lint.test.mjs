@@ -150,3 +150,14 @@ test('reprova comparação sem exatamente uma correta', () => expectOnly(compari
 test('reprova comparação com uma imagem só', () => expectOnly(comparison(item => { item.options.pop(); }), /de 2 a 4 imagens/));
 test('reprova a mesma imagem duas vezes na comparação', () => expectOnly(comparison(item => { item.options[1].imageId = item.options[0].imageId; }), /imagem repetida/));
 test('reprova retorno repetido na comparação', () => expectOnly(comparison(item => { item.options[1].feedback = item.options[0].feedback; }), /retornos repetidos/));
+
+// Auditoria de 2026-11-10, achado 18: o guia diz que `role: "safety"` e
+// `criticalSafety: true` andam juntos, e o app só trata como segurança o segundo.
+test('role safety e criticalSafety true andam juntos', () => {
+  const findSafety = doc => doc.lessons.flatMap(lesson => lesson.interactions).find(item => item.role === 'safety');
+  expectOnly(defect(doc => { delete findSafety(doc).criticalSafety; }), /safety/);
+  expectOnly(defect(doc => {
+    const other = doc.lessons.flatMap(lesson => lesson.interactions).find(item => item.role === 'practice');
+    other.criticalSafety = true;
+  }), /safety/);
+});

@@ -84,6 +84,14 @@ test('reprova fonte ausente, arquivo com nome de outra unidade, unidade fora do 
   assert.throws(() => renderRtgBatches([{ file: 'm01.json', doc: fixture() }, { file: 'm01.json', doc: fixture() }]), /^Error: rtg-duplicate-unit:m01$/);
 });
 
+// Auditoria de 2026-11-10, achado 16: o verificador quebrava com TypeError e o
+// gerador não dizia qual das aulas-fonte tinha a forma errada.
+test('aula com forma inesperada reprova dizendo o arquivo', () => {
+  const doc = fixture();
+  doc.lessons[1] = null;
+  assert.throws(() => renderRtgBatches([{ file: 'm01.json', doc }]), /^Error: rtg-lint:m01\.json\n {2}- forma inesperada: /);
+});
+
 test('o contrato do lote reprova o que o verificador de forma não vê', () => {
   // Fonte declarada com esquema que não é https: o verificador exige o prefixo, o contrato exige URL válida.
   const doc = fixture();

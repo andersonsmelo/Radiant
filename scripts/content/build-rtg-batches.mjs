@@ -37,7 +37,9 @@ export function renderRtgBatches(inputs, images = []) {
   const seen = new Set();
   for (const { file, doc } of inputs) {
     const unit = doc?.unit?.id;
-    const errors = lintUnit(doc, { images });
+    let errors;
+    try { errors = lintUnit(doc, { images }); }
+    catch (error) { errors = [`forma inesperada: ${error.message}`]; }
     if (errors.length) throw new Error(`rtg-lint:${file}\n${errors.map(error => `  - ${error}`).join('\n')}`);
     if (!order.includes(unit)) throw new Error(`rtg-unknown-unit:${file}:${unit}`);
     if (file !== `${unit}.json`) throw new Error(`rtg-file-name:${file}: o arquivo de ${unit} deve se chamar ${unit}.json`);

@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'radiant-app/**'
+      - 'scripts/content/**'
+      - 'content-manifest/rtg-2026/**'
       - '.github/workflows/radiant-app-quality.yml'
   push:
     branches:
@@ -11,6 +13,8 @@ on:
       - master
     paths:
       - 'radiant-app/**'
+      - 'scripts/content/**'
+      - 'content-manifest/rtg-2026/**'
       - '.github/workflows/radiant-app-quality.yml'
 
 jobs:
