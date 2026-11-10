@@ -1,4 +1,4 @@
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 interface RateLimitState {
     count: number;
@@ -9,7 +9,6 @@ interface RateLimitOptions {
     windowMs: number;
     max: number;
     skipPaths?: string[];
-    keyFromRequest?: (request: FastifyRequest) => string;
 }
 
 function clampWindowMs(value: number): number {
@@ -47,9 +46,7 @@ export function registerBasicRateLimit(app: FastifyInstance, options: RateLimitO
 
         // Pela rota, não pelo caminho: caminhos aleatórios (/a1, /a2…) caem
         // todos em "sem-rota" em vez de abrir um contador novo cada um.
-        const key = options.keyFromRequest
-            ? options.keyFromRequest(request)
-            : `${request.ip}:${request.method}:${request.routeOptions.url ?? 'sem-rota'}`;
+        const key = `${request.ip}:${request.method}:${request.routeOptions.url ?? 'sem-rota'}`;
 
         const now = Date.now();
         // Contadores vencidos saem quando a lista cresce; antes ela só crescia.

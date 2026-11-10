@@ -16,8 +16,6 @@ export const domainPolicy = {
   clinical: [
     { sources: ['src/data/lessons.ts', 'src/data/ai-lessons.ts'], fields: ['questions.*'] },
     { sources: ['src/data/journey/defaultBlocks.ts'], fields: ['payload.prompt', 'payload.explanation', 'payload.options.*', 'teach/reinforce.payload.body'] },
-    { sources: ['src/features/bench/lessons/exposicao.ts', 'src/features/bench/lessons/colimacao.ts'], fields: ['prompt', 'body', 'explanation', 'options.*'] },
-    { sources: ['src/features/curriculum-v3/l1-body-reference/l1BodyReferenceContent.ts', 'src/features/curriculum-v3/l2-slicing-space/l2SlicingSpaceContent.ts'], fields: ['challenges.*', 'relationships.*', 'modelLayers.*', 'sources.*'] },
   ],
   legal: { source: 'src/features/subscription/screens/SubscriptionScreen.tsx', fields: ['CANCEL_COPY', 'Text[style=styles.legal].children'] },
   metadata: { source: 'src/features/student-checkpoints/EditorialCurriculumCandidate.ts', fields: ['sources.*', 'LICENSE.label'] },
@@ -106,8 +104,6 @@ export function scanCopySources(input) {
       if (fields.some((field) => ['prompt', 'explanation', 'options'].includes(field))) return 'clinical-authorship';
       if (fields.includes('body') && ancestors.some((entry) => ts.isObjectLiteralExpression(entry) && entry.properties.some((property) => ts.isPropertyAssignment(property) && propertyName(property.name) === 'type' && ts.isStringLiteral(property.initializer) && ['teach', 'reinforce'].includes(property.initializer.text)))) return 'clinical-authorship';
     }
-    if (['src/features/bench/lessons/exposicao.ts', 'src/features/bench/lessons/colimacao.ts'].includes(file) && fields.some((field) => ['prompt', 'body', 'explanation', 'options'].includes(field))) return 'clinical-authorship';
-    if (domainPolicy.clinical[3].sources.includes(file) && fields.some((field) => ['challenges', 'relationships', 'modelLayers', 'sources'].includes(field))) return 'clinical-authorship';
     return undefined;
   }
   function text(node, value, structural = false) {

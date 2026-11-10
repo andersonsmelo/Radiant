@@ -36,30 +36,6 @@
           "payload.options.*",
           "teach/reinforce.payload.body"
         ]
-      },
-      {
-        "sources": [
-          "src/features/bench/lessons/exposicao.ts",
-          "src/features/bench/lessons/colimacao.ts"
-        ],
-        "fields": [
-          "prompt",
-          "body",
-          "explanation",
-          "options.*"
-        ]
-      },
-      {
-        "sources": [
-          "src/features/curriculum-v3/l1-body-reference/l1BodyReferenceContent.ts",
-          "src/features/curriculum-v3/l2-slicing-space/l2SlicingSpaceContent.ts"
-        ],
-        "fields": [
-          "challenges.*",
-          "relationships.*",
-          "modelLayers.*",
-          "sources.*"
-        ]
       }
     ],
     "legal": {

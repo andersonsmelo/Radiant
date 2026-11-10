@@ -91,10 +91,9 @@ test('clinical exclusions are source and field specific; navigation labels stay 
   const result = scanCopySources({
     'src/data/lessons.ts': 'export const lesson = { title: "jornada", questions: [{ prompt: "CHECKPOINT —", options: [{label: "JORNADA"}], explanation: "jornada" }] };',
     'src/data/journey/defaultBlocks.ts': 'export const block = { payload: { eyebrow: "Unidade 1", body: "Você fechou um nó" } };',
-    'src/features/bench/lessons/exposicao.ts': 'export const activity = { title: "jornada", prompt: "CHECKPOINT —", controls: [{label: "Configurações"}] };',
     'src/Fixture.tsx': 'const title = "checkpoint"; <Card title={title} body="jornada" />;',
   });
-  assert.deepEqual(classes(result), ['eyebrow', 'jargon', 'jargon', 'jargon', 'jargon', 'jargon', 'jargon']);
+  assert.deepEqual(classes(result), ['eyebrow', 'jargon', 'jargon', 'jargon', 'jargon']);
   assert.ok(result.excluded.some((entry) => entry.reason === 'clinical-authorship'));
 });
 
