@@ -4435,3 +4435,14 @@ Sem alteração do binário distribuído ou banco remoto, limpeza/migração de 
 build, instalação, EAS/OTA, merge ou loja. O bootstrap normal do cliente foi executado
 na prova PC06-E; não foi medida igualdade byte a byte do armazenamento real.
 As evidências nativas antigas não aprovam o currículo futuro.
+
+## Saiu do STATUS em 2026-11-10 — achados da prova da trilha ampla
+
+- **Achados da prova:** os dois da avaliação foram corrigidos em 2026-11-07 e vistos no
+  simulador em 2026-11-08, com os sons medidos pelo log e não ouvidos: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
+  e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
+  vida (a regra da FILA, 26). Em 2026-11-10, a medalha da avaliação deixou de empurrar
+  as opções para baixo da dobra: ela sai enquanto o aluno responde; e o fechamento da aula
+  deixou de repetir o cartão "Resposta correta" da última questão; e o tempo do próximo
+  coração voltou a andar (o React Compiler guardava a hora da primeira renderização).
+  Continua aberto: o último par da associação não tem escolha.

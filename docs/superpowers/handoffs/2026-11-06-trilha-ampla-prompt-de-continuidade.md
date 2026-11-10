@@ -228,6 +228,10 @@ Medido em 2026-11-07, às 16:45.
   2026-11-10; três seguem abertos, em
   [`docs/evidence/2026-11-06-trilha-ampla-simulador/`](../../evidence/2026-11-06-trilha-ampla-simulador/README.md).
   As outras 19 unidades não foram abertas no simulador.
+- **Auditoria e correções, 2026-11-10:** uma auditoria por IA achou 20 problemas; 11
+  foram corrigidos, cada um com teste, e o SQL da API rodou contra um Postgres 16 local
+  ([auditoria](../../evidence/2026-11-10-auditoria.md)). Os nove abertos são menores e
+  estão na FILA. A API segue fora do ar, e nada disto está na `main`.
 - **Imagens (item 6), medido em 2026-11-07:** piloto em M08.01 com duas radiografias CC0,
   abaixo da meta de 6 a 10, com parecer e créditos. Dezenas de arquivos foram recusados, e
   a lista ficou fora do repositório. Só a família `comparison` foi aberta: `hotspot` segue

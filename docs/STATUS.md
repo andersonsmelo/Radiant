@@ -24,7 +24,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | **App Store** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
-| **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). | 2026-10-14 |
+| **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). O código da API na PR #69 recebeu correções de segurança e de sincronização em 2026-11-10, sem deploy ([auditoria](evidence/2026-11-10-auditoria.md)). | 2026-10-14 |
 
 ```bash
 curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([(r['version'],r['currentVersionReleaseDate']) for r in json.load(sys.stdin)['results']])"
@@ -79,19 +79,19 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   comparação com imagem e os créditos. Os sons foram medidos pelo log
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
   de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
-- **Achados da prova:** os dois da avaliação foram corrigidos em 2026-11-07 e vistos no
-  simulador em 2026-11-08, com os sons medidos pelo log e não ouvidos: ela soa o toque, o fim ao aprovar e o erro ao reprovar,
-  e a vida perdida mostra o aviso "Menos 1 vida" junto da questão seguinte, com o som da
-  vida (a regra da FILA, 26). Em 2026-11-10, a medalha da avaliação deixou de empurrar
-  as opções para baixo da dobra: ela sai enquanto o aluno responde; e o fechamento da aula
-  deixou de repetir o cartão "Resposta correta" da última questão; e o tempo do próximo
-  coração voltou a andar (o React Compiler guardava a hora da primeira renderização).
-  Continua aberto: o último par da associação não tem escolha.
+- **Achados da prova, medido em 2026-11-10:** cinco dos oito estão corrigidos e foram
+  vistos no simulador: som e aviso de vida na avaliação, o tempo da próxima vida, o
+  fechamento que repetia o retorno e a medalha que empurrava as opções. Seguem abertos o
+  último par da associação, a frase repetida no retorno de acerto e a ponta do balão na
+  conquista ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Auditoria de 2026-11-10:** 11 dos 20 achados corrigidos, cada um com teste, menos o
+  SQL da API, que foi rodado contra um Postgres 16 local. Os nove abertos são menores
+  ([auditoria](evidence/2026-11-10-auditoria.md)).
 - **Não verificado:** as outras 19 unidades no simulador, retomada no meio da aula,
   texto ampliado, VoiceOver, TalkBack, Android, aparelho físico e build de Release. Os
   sons não foram ouvidos. Tamanho do bundle e tempo de abertura da Estude com 20 trilhas
   não foram medidos.
-- **Falta:** decidir os achados e a ampliação das imagens; PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) segue em rascunho.
+- **Falta:** decidir os achados abertos e a ampliação das imagens; PR [#69](https://github.com/andersonsmelo/Radiant/pull/69) segue em rascunho.
 - **Do dono:** merge, build, loja e texto de loja. O app e a loja não podem dizer
   "revisado por especialista".
 

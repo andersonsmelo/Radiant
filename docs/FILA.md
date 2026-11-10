@@ -1227,6 +1227,33 @@ aparelho.
 
 ---
 
+### AGENTE — o que sobrou da auditoria de 2026-11-10
+
+- **Estado:** aberto. 11 dos 20 achados corrigidos na branch
+  `claude/conteudo-reinicio-tecnologo`; estes nove seguem, do mais pesado ao mais leve.
+  Cada um tem caso concreto e correção sugerida na
+  [auditoria](evidence/2026-11-10-auditoria.md).
+  1. **12.** Violações do banco viram 500 (`radiant-api/src/server.ts`): tratar
+     `23505` no cadastro e `23503` na sincronização com 4xx.
+  2. **13.** Limites no esquema da sincronização (`radiant-api/src/schemas/sync.ts`):
+     acertos até o total, fator de 1 a 10, dias até 36.500.
+  3. **16.** O gerador de aulas diz qual arquivo quebrou
+     (`scripts/content/build-rtg-batches.mjs`).
+  4. **17.** O CI do app também roda quando mudam `scripts/content/**` e
+     `content-manifest/rtg-2026/**`.
+  5. **18.** O verificador exige `role: "safety"` ⇔ `criticalSafety: true`.
+  6. **14, 15, 19, 20.** Código sem uso: `paywall/`, `curriculum-v3` e
+     `ProgressScreen`, sobras do modelo do Expo, `expo-blur`, código morto da API e
+     exceções velhas do contrato de estilo. Cerca de 3.500 linhas. Antes de apagar,
+     procure cada nome na árvore inteira, testes e configuração incluídos.
+- **Bloqueio:** nenhum para 12, 13, 16, 17 e 18. Mudar `radiant-api/.env.example`
+  exige ampliar o `writePolicy`, decisão do dono.
+- **Dono:** agente. **Do dono:** nada envia e-mail; com o token de redefinição
+  escondido em produção, a redefinição de senha não se completa quando a API voltar.
+- **Remede:** `npm test` em `radiant-api/` e `npm test` em `radiant-app/`.
+
+---
+
 ## DONO — nada que o agente faça encurta
 
 ### 5. F2 — os opt-ins do closed test. **É o caminho crítico inteiro.**
