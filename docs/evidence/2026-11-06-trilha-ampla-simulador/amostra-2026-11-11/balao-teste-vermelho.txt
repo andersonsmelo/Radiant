@@ -1,0 +1,21 @@
+## Vermelho 1 — defeito do achado 8 (rabicho 10 px dentro da caixa), 2026-11-11
+    ✕ sai pela borda do balão (left), e não cobre o texto (528 ms)
+    ✕ sai pela borda do balão (right), e não cobre o texto (4 ms)
+    ✓ cabe no recorte do invólucro animado (left) (2 ms)
+    ✓ cabe no recorte do invólucro animado (right) (3 ms)
+    Expected: 0
+    Received: 19
+    Expected: 0
+    Received: 19
+Tests:       2 failed, 2 passed, 4 total
+
+## Vermelho 2 — correção ingênua (rabicho para fora, sem espaço no invólucro: a ponta seria cortada)
+    ✓ sai pela borda do balão (left), e não cobre o texto (59 ms)
+    ✓ sai pela borda do balão (right), e não cobre o texto (4 ms)
+    ✕ cabe no recorte do invólucro animado (left) (3 ms)
+    ✕ cabe no recorte do invólucro animado (right) (2 ms)
+    Expected: >= 0
+    Received:    -12.727922061357857
+    Expected: >= 0
+    Received:    -12.727922061357857
+Tests:       2 failed, 2 passed, 4 total

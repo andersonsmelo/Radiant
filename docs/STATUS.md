@@ -79,13 +79,16 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   comparação com imagem e os créditos. Os sons foram medidos pelo log
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)). Cinco das seis aulas
   de M01 foram jogadas por roteiro do Maestro, sem leitura de cada tela.
-- **Achados da prova, medido em 2026-11-10:** sete dos oito estão corrigidos. Cinco
-  foram vistos no simulador: som e aviso de vida na avaliação, o tempo da próxima vida,
-  o fechamento que repetia o retorno e a medalha que empurrava as opções. Dois foram
-  verificados só por teste, **não no simulador** (commit `361dfd7`): o último par da
-  associação, que agora se completa sozinho, e "Resposta certa", que no acerto não
-  aparece mais. Segue sem confirmar a ponta do balão na conquista, vista só numa captura
-  reduzida ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Achados da prova, medido em 2026-11-11:** os oito estão corrigidos e foram vistos no
+  simulador. O último par da associação e "Resposta certa" (commit `361dfd7`) foram
+  conferidos na tela em 2026-11-10. A ponta do balão da conquista cobria o "p" de
+  "passo": confirmada e corrigida em 2026-11-11 em `SpeechBubble.tsx`, com teste visto
+  falhando antes ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Amostra no simulador, medido em 2026-11-11:** a primeira aula e a primeira
+  avaliação de cada uma das 20 unidades, 40 roteiros do Maestro com o gabarito do lote,
+  passaram todos. Nenhuma falha foi do app. As outras 112 aulas e 112 avaliações **não
+  foram abertas na tela**: só passaram pelo verificador, pelo contrato e pelo gerador
+  ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
 - **Auditoria de 2026-11-10:** 17 dos 20 achados corrigidos e o 19 e o 20 em parte,
   cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
   local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota

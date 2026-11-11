@@ -109,6 +109,14 @@ simulador em 2026-11-08, na seção "Prova da correção" no fim deste arquivo. 
    ampliado.
 8. **Na conquista, a ponta do balão de fala cobre a primeira letra** de "antes". Visto
    numa captura reduzida, então vale conferir.
+   **Confirmado e corrigido em 2026-11-11:** na conquista da M01, a ponta ficava 10 px
+   dentro da caixa e escondia o "p" de "passo" ([antes](conquista-balao-antes.jpg)).
+   Agora o centro dela fica na borda e ela aponta para o Pixel; o balão recua 13 px do
+   lado da ponta para o recorte da animação não cortá-la
+   ([depois](conquista-balao-depois.jpg)). O teste novo foi visto falhando com o defeito
+   e com a correção ingênua que cortaria a ponta
+   ([execuções](amostra-2026-11-11/balao-teste-vermelho.txt)). O balão só aparece na
+   conquista. Não verificado com texto ampliado.
 
 ### Não verificado
 
@@ -160,3 +168,33 @@ para, e então o aviso já tinha saído.
   minutos. A causa foi achada e corrigida em 2026-11-10: veja o achado 3.
 - **Não verificado:** os sons de ouvido, a vibração, a avaliação com o som desligado nos
   Ajustes, Android, aparelho físico e build de Release.
+
+## Amostra das 20 unidades no simulador — 2026-11-10 e 11
+
+Debug com o Metro, a partir do commit `4794e6d`, no simulador "Radiant E2E 17 Pro"
+(iOS 26.5). Para cada uma das 20 unidades, um roteiro do Maestro jogou a primeira aula e
+outro a primeira avaliação, respondendo com o gabarito do lote que o app carrega. São 40
+roteiros. Eles cobrem os cinco tipos de interação e a comparação com imagens da M08.
+Também foram jogadas as aulas 3 a 6 e as avaliações 3 a 6 da M01. Os roteiros, o
+gerador e o resultado de cada rodada estão em [amostra-2026-11-11](amostra-2026-11-11/).
+
+- **Resultado:** os 40 passaram. Cada aula levou cerca de 3 min 40 s e cada avaliação
+  cerca de 1 min 40 s, com a máquina sem carga.
+- **Falhas da primeira rodada, nenhuma do app:**
+  - 28 foram do ambiente: o simulador desligou às 21h01 por causa externa, com a carga da
+    máquina em 17 a 20;
+  - uma foi do dev client, que ficou no lançador depois do reinício;
+  - duas foram dos roteiros. Na avaliação 1 da M02, a resposta certa da questão 2 também é
+    alternativa da questão 1, e o roteiro achou que já tinha avançado. Na aula 1 da M05, o
+    roteiro tocou o "Continuar" do resumo enquanto ele entrava na tela. Os dois foram
+    corrigidos no gerador, e as 31 falhas passaram na repetição;
+  - a aula 5 da M01 falhou uma vez porque o toque na última alternativa caiu no rodapé
+    fixo, e passou na repetição.
+- **Tela de fim da avaliação 6 da M01:** mostrou "Voltar para a trilha", e não "Receber
+  conquista". Está certo: a conquista da M01 já tinha sido recebida em 2026-11-07, e o
+  progresso salvo marca os 13 marcos da unidade como concluídos.
+- **Achado 8:** confirmado e corrigido (veja a lista de achados acima).
+- **Não verificado:** as outras 112 aulas e 112 avaliações não foram abertas na tela. Elas
+  passaram só pelo verificador de forma, pelo contrato do lote e pelo `--check` do
+  gerador. Também não foram verificados o texto ampliado, o VoiceOver, o Android, o
+  aparelho físico e a build de Release. A conferência do conteúdo foi só por IA.
