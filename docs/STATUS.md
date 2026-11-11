@@ -22,6 +22,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | Frente | Estado | Medido em |
 | --- | --- | --- |
 | **App Store** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
+| **App Store, próxima** | **`1.5.0 (14)` enviada à revisão em 2026-11-11, às 11h46 (America/Bahia), com o ok do dono: "Aguardando revisão"**, envio `cf9045f1`, liberação automática depois da aprovação, para todos os usuários de uma vez. Build compilada do `6c11140`; a PR #69 entrou na `main` em `20dd593` antes do envio. O agente montou a versão no App Store Connect a pedido do dono e conferiu tudo pela API interna: build 14, novidades da versão aprovadas pelo dono e notas da revisão reescritas para a 1.5.0. **A descrição da página continua a da 1.4.0** e cita "Fundamentos", "Tórax e Abdome" e estudantes de medicina. **Não verificado:** o app no aparelho pelo TestFlight; o conteúdo foi revisado só por IA. | 2026-11-11 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
 | **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). O código da API na PR #69 recebeu correções de segurança e de sincronização em 2026-11-10, sem deploy ([auditoria](evidence/2026-11-10-auditoria.md)). | 2026-10-14 |
@@ -100,8 +101,9 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   como terminado às 10h53 (America/Bahia). Saiu de uma worktree limpa em `../Radiant-release`: na
   worktree da trilha, o EAS recusou subir porque `Conteúdo` no disco e `conteúdo` no
   git divergem nos `excerpts.json` e `pages.json` locais. **Não verificado:** o
-  processamento da Apple, a instalação pelo TestFlight e o app no aparelho. Nada foi
-  enviado à revisão.
+  processamento da Apple, a instalação pelo TestFlight e o app no aparelho. A Apple
+  processou a build ("VALID"), e ela foi enviada à revisão em 2026-11-11 (veja a tabela de
+  produção).
 - **Auditoria de 2026-11-10:** 17 dos 20 achados corrigidos e o 19 e o 20 em parte,
   cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
   local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota
