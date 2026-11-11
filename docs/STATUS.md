@@ -89,6 +89,11 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   passaram todos. Nenhuma falha foi do app. As outras 112 aulas e 112 avaliações **não
   foram abertas na tela**: só passaram pelo verificador, pelo contrato e pelo gerador
   ([prova](evidence/2026-11-06-trilha-ampla-simulador/README.md)).
+- **Versão 1.5.0 na branch, desde 2026-11-11, com o ok do dono:** `app.json`,
+  `package.json` e as duas raízes do `package-lock.json`, como exige
+  `appVersion.contract.test.ts`. O número de build continua no EAS
+  (`appVersionSource: remote`), e o runtime segue a impressão digital, não a
+  versão. **Nenhuma build saiu com ela ainda**, e a loja continua na `1.4.0`.
 - **Auditoria de 2026-11-10:** 17 dos 20 achados corrigidos e o 19 e o 20 em parte,
   cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
   local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota
