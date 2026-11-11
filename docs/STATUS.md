@@ -93,7 +93,15 @@ a execução segue o [plano](plans/2026-11-05-radiant-trilha-ampla-e-engajamento
   `package.json` e as duas raízes do `package-lock.json`, como exige
   `appVersion.contract.test.ts`. O número de build continua no EAS
   (`appVersionSource: remote`), e o runtime segue a impressão digital, não a
-  versão. **Nenhuma build saiu com ela ainda**, e a loja continua na `1.4.0`.
+  versão. A loja continua na `1.4.0`.
+- **Build `1.5.0 (14)` enviada ao TestFlight em 2026-11-11, com o ok do dono:** EAS
+  `c6997237`, perfil `production`, compilada do `6c11140` (ponta da branch da PR #69,
+  **antes do merge**, com o CI verde nas 3 verificações). O envio EAS `0a097030` constava
+  como terminado às 10h53 (America/Bahia). Saiu de uma worktree limpa em `../Radiant-release`: na
+  worktree da trilha, o EAS recusou subir porque `Conteúdo` no disco e `conteúdo` no
+  git divergem nos `excerpts.json` e `pages.json` locais. **Não verificado:** o
+  processamento da Apple, a instalação pelo TestFlight e o app no aparelho. Nada foi
+  enviado à revisão.
 - **Auditoria de 2026-11-10:** 17 dos 20 achados corrigidos e o 19 e o 20 em parte,
   cada correção com teste, menos o SQL da API, que foi rodado contra um Postgres 16
   local. A auditoria errou em dois: `curriculum-v3` está em uso (o catálogo chama a migração dele e a rota
