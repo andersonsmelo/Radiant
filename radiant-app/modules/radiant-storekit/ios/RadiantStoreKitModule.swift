@@ -75,7 +75,13 @@ public final class RadiantStoreKitModule: Module {
       do {
         let produtos = try await Product.products(for: ids)
         return produtos.map { produto in
-          ["id": produto.id, "displayName": produto.displayName, "displayPrice": produto.displayPrice]
+          [
+            "id": produto.id,
+            "displayName": produto.displayName,
+            "displayPrice": produto.displayPrice,
+            "price": NSDecimalNumber(decimal: produto.price).doubleValue,
+            "currencyCode": produto.priceFormatStyle.currencyCode,
+          ]
         }
       } catch {
         throw Self.traduzir(error)

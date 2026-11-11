@@ -1,0 +1,1223 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-28 America/Bahia",
+  "base": "1b987c1981667328b66beb958ac6a42eb3535d75",
+  "sourceManifest": [
+    {
+      "path": "radiant-app/src/features/push/components/PushOptInCard.tsx",
+      "sha256": "98733fbee3c028c40b61c6b8605469e880e97f37a264fa7cf6084ff443a9fd7f",
+      "bytes": 3507
+    },
+    {
+      "path": "radiant-app/src/features/push/components/PushOptInCard.test.tsx",
+      "sha256": "a399cd83a5a93abc13dc6c21fb06f7c6dea7e09fecc31ab7fa83663b45508804",
+      "bytes": 5479
+    }
+  ],
+  "nativeRed": {
+    "at": 1793237084.240814,
+    "status": "RED_CAPTURED_PAUSED",
+    "target": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "client": "com.ascendcreative.radiant 1.4.0(3)",
+    "consumer": "HomeScreen legacy local profile EXPO_PUBLIC_ENABLE_LEARNING_ROAD=false",
+    "review": "REAL empty queue, ios-red-review-real.png/.ui.json; no Review result fabricated",
+    "naturalEligibility": "Real daily goal already complete; no study or consent mutation required",
+    "normal": "ios-red-home-scroll-1.png/.ui.json copy/title complete",
+    "live": "large->AX5 system confirmed; first/second captures retain old glyph sizing. Tap legitimate Ver detalhes triggers same-mount rendering and visible fragment title/horizontally clipped body: ios-red-home-ax5-live-after-details.png/.ui.json. Card bottom partly below viewport in this image; no whole-card live scroll after same mount was captured.",
+    "initialMaximum": "Separate terminate/relaunch at AX5 captured initial-loaded and scroll3/6/7. Initial glyphs wrap and body legible through scroll; cannot substitute these for live cut.",
+    "returnNormal": "Font large restored; final-normal-return screenshot retained (position near bottom; not complete-card normal proof). App then terminated to pause before product writes.",
+    "consent": "No Ativar lembretes or Agora nao tap; no permission grant/request by automation",
+    "processes": {
+      "metroDefault46224": "terminated",
+      "metroLocal52187": "left running port8081; process-only flagfalse, Node20.20.2 EXPO_NO_DOTENV=1",
+      "ios": "booted, Radiant terminated, font large",
+      "android": "not launched"
+    },
+    "sourceHashes": {
+      "radiant-app/expo-env.d.ts": "6fc02634da46d3edc5a88eec9173ba6bf709726be3cba83c73ebd8e859d5c147",
+      "radiant-app/src/features/push/components/PushOptInCard.tsx": "79eb0ef6cdeeffd34942e799cbc209602be179b81b7cb45b75c1d70c42f4457d",
+      "radiant-app/src/features/push/components/PushOptInCard.test.tsx": "e534a3d0c442b4ad768b99b1d79b1173eee0b5d93d057995f47aadd0360059e1"
+    },
+    "limits": [
+      "No Review result retest due genuine empty queue",
+      "No Android pass",
+      "No whole-screen/global layout approval",
+      "No source/docs/store/fixture/reset/clock/build/install writes"
+    ],
+    "artifacts": {
+      "ios-red-home-ax5-initial-scroll-3.ui.json": {
+        "bytes": 2082,
+        "sha256": "23d73e4a1a9ebfcc3aeac4b909f0c4c0facc516522fcbe385f896390832c3d46"
+      },
+      "ios-red-ready-default.ui.json": {
+        "bytes": 927,
+        "sha256": "87c0a5277d5e2cc490a4060693e16fa0a62c70dc791c47ed43a0e8138d8f8f2c"
+      },
+      "ios-red-home-ax5-live-first.ui.json": {
+        "bytes": 3201,
+        "sha256": "a09bf28991ceac9218f0229bdfcdda75eec1c704bed0b8803cc1c398dbf5b4c5"
+      },
+      "ios-red-home-ax5-live-after-details.ui.json": {
+        "bytes": 3622,
+        "sha256": "c8c0a825f38ee4093302bce99144c463e9ebf1de9676a196112897bf6b60df1e"
+      },
+      "ios-red-home-final-normal-return.ui.json": {
+        "bytes": 1712,
+        "sha256": "2f4a0387df70b07fe75ae44a9257d0dbb246772a4a1d19d96a9de7614dc216a9"
+      },
+      "ios-red-ready-default-2.ui.json": {
+        "bytes": 1949,
+        "sha256": "9f51c4f87830be757c762314c309b55a9aaf0c8057a0d230faf65bf85308c07c"
+      },
+      "ios-red-home-ax5-live-after-details.png": {
+        "bytes": 326501,
+        "sha256": "46dfd722e3eef005cd4764765ab48e17dad94167e78c485af6e76568ab475f7c"
+      },
+      "ios-red-home-ax5-initial-loaded.png": {
+        "bytes": 613917,
+        "sha256": "607530c8d5b27863137663111b15cff1345e1e42c0e794e75c52010a3f52c193"
+      },
+      "ios-red-home-ax5-initial-scroll-3.png": {
+        "bytes": 445020,
+        "sha256": "3f131b1345458f06716ef09a372f1544e075a035c4b440ab3cb798ee728badf9"
+      },
+      "ios-red-home-ready.ui.json": {
+        "bytes": 927,
+        "sha256": "f65fec82354c542d502ad853b4e23dd5a027ea401aeeacf0317e5ad5387ba4f7"
+      },
+      "ios-red-home-loaded.png": {
+        "bytes": 866310,
+        "sha256": "d33531c9e9cfeaef570e68f7335510af7ce8740eccc6172c9e3b635a14dd28d6"
+      },
+      "ios-red-review-real.ui.json": {
+        "bytes": 1773,
+        "sha256": "4f0ffea46ab723725498d14ccbe737c5e45390e7b4d75904b693cd5dbf2ff260"
+      },
+      "ios-red-home-ax5-live-first.png": {
+        "bytes": 274268,
+        "sha256": "b259d95c8570cc2307817c4a2dea9d29c8d087813aa49476daa597d1aa0f9909"
+      },
+      "ios-red-review-real.png": {
+        "bytes": 141527,
+        "sha256": "33f7536e6a99f65826cd6d06e3412b8b6d3e454934a3574a5285c84bde2e6221"
+      },
+      "ios-red-home-ax5-live-second.ui.json": {
+        "bytes": 3201,
+        "sha256": "ee443ea28ebc9b2f09ceaf68d9056814cf6420a5fc4977418b6666abdf58b5c9"
+      },
+      "ios-red-home-scroll-1.ui.json": {
+        "bytes": 3201,
+        "sha256": "7d0151c2129f178e02f1a750a262acb90f5c194e88a14f2ede8b6a4770c8eb87"
+      },
+      "ios-red-home-ax5-initial-scroll-7.png": {
+        "bytes": 265239,
+        "sha256": "a2297c8f16b5e4ca3007b7f32a7e4314953bd5ef340563ed9eac7a20f0710b73"
+      },
+      "ios-red-home-ax5-initial-ready.ui.json": {
+        "bytes": 928,
+        "sha256": "eaf903e99e9c8e13f330e83a5bb189434f87dd5ca48e7e5eee4725006bb712b3"
+      },
+      "ios-red-home-ax5-initial-scroll-6.png": {
+        "bytes": 282786,
+        "sha256": "2313f0f6f8bd2ab3159feda207d6c58360c8cb6023bc4f6aff9677c3b3c2c92e"
+      },
+      "ios-red-home-loaded.ui.json": {
+        "bytes": 3268,
+        "sha256": "44b6d2b267402669a609ea4c3037cd18cde92120da08dbc99b3b639dd8f1f969"
+      },
+      "ios-red-home-ready.png": {
+        "bytes": 71226,
+        "sha256": "e8c6ff0816b8afaeed4e47a5d2b56075eea1eb6fbf6859fa33f0b8d05bf31fe1"
+      },
+      "ios-red-ready-default-2.png": {
+        "bytes": 323065,
+        "sha256": "abed97d933a393324491f0793cbf3ff3220c4bc6f330469ce0b777abb7686204"
+      },
+      "ios-red-ready-default.png": {
+        "bytes": 70684,
+        "sha256": "1185535a14b345b697b104efadace4c55493b6c0e4bf79890d1ff8b7741f2531"
+      },
+      "ios-red-home-ax5-initial-scroll-7.ui.json": {
+        "bytes": 1712,
+        "sha256": "eb56245f3f4f08cad25d5bf27be79922e16ab15e87bcafaa2bc6ad13c0635b96"
+      },
+      "ios-red-home-ax5-live-second.png": {
+        "bytes": 274268,
+        "sha256": "b259d95c8570cc2307817c4a2dea9d29c8d087813aa49476daa597d1aa0f9909"
+      },
+      "ios-red-home-ax5-initial-ready.png": {
+        "bytes": 70032,
+        "sha256": "7dcae92a1ad351c5d1f666d59216f58bedb6b669b139845dc11b2c267dab9a26"
+      },
+      "ios-red-home-live-normal-return.png": {
+        "bytes": 273619,
+        "sha256": "345afd0f77ca83b91dca057b38f136f3bae774a5959d121573ff1cbff3fd7fec"
+      },
+      "ios-red-home-scroll-1.png": {
+        "bytes": 274268,
+        "sha256": "b259d95c8570cc2307817c4a2dea9d29c8d087813aa49476daa597d1aa0f9909"
+      },
+      "ios-red-home-final-normal-return.png": {
+        "bytes": 264826,
+        "sha256": "dba9292229cc33e97d6a27a1abf3ef791199c7f118739d3c90d376ee425ec815"
+      },
+      "ios-red-home-live-normal-return.ui.json": {
+        "bytes": 3202,
+        "sha256": "013070f4f94519abd78566ec02530d559002936d15eb709292618002dbcb11bd"
+      },
+      "ios-red-home-ax5-initial-loaded.ui.json": {
+        "bytes": 1933,
+        "sha256": "8202cc4b15be151905476010583679f6f6987dd1d818c50386dbbfa0372549a6"
+      },
+      "ios-red-home-ax5-initial-scroll-6.ui.json": {
+        "bytes": 1599,
+        "sha256": "b076df001d1e586b0c7c9928594c749ea93c9a63ec278c99f9a09d01bb2f6786"
+      }
+    }
+  },
+  "nativeGreen": {
+    "at": 1793238311.530905,
+    "client": "1.4.0(3) existing clients no build/install",
+    "sourceFreeze": "snapshot-r1 manifest1a95c48caf535dfb1fa93d83ec40d63e59b0bec7cc961cb9c40d6d95acdf6e2a",
+    "sourceBefore": {
+      "at": 1793237853.210559,
+      "files": {
+        "radiant-app/src/features/push/components/PushOptInCard.tsx": "98733fbee3c028c40b61c6b8605469e880e97f37a264fa7cf6084ff443a9fd7f",
+        "radiant-app/src/features/push/components/PushOptInCard.test.tsx": "a399cd83a5a93abc13dc6c21fb06f7c6dea7e09fecc31ab7fa83663b45508804",
+        "radiant-app/expo-env.d.ts": "6fc02634da46d3edc5a88eec9173ba6bf709726be3cba83c73ebd8e859d5c147",
+        ".loop/project.yaml": "b51c87a77898139fd42c832c494e60c9ebe9279ee4edf9973a0bf7cfe52e5e3c"
+      }
+    },
+    "sourceAfter": {
+      "at": 1793238311.507782,
+      "files": {
+        "radiant-app/src/features/push/components/PushOptInCard.tsx": "98733fbee3c028c40b61c6b8605469e880e97f37a264fa7cf6084ff443a9fd7f",
+        "radiant-app/src/features/push/components/PushOptInCard.test.tsx": "a399cd83a5a93abc13dc6c21fb06f7c6dea7e09fecc31ab7fa83663b45508804",
+        "radiant-app/expo-env.d.ts": "6fc02634da46d3edc5a88eec9173ba6bf709726be3cba83c73ebd8e859d5c147",
+        ".loop/project.yaml": "b51c87a77898139fd42c832c494e60c9ebe9279ee4edf9973a0bf7cfe52e5e3c"
+      }
+    },
+    "profile": "EXPO_NO_DOTENV=1 EXPO_PUBLIC_ENABLE_LEARNING_ROAD=false process env on Metro52187 Node20.20.2",
+    "consumer": "HomeScreen legacy real daily goal already complete, opt-in undecided; Review real empty",
+    "ios": {
+      "udid": "E262D4C1-99BE-496B-8567-0291C14E6533",
+      "large": "ios-green-home-normal.png",
+      "liveSequence": [
+        "large->AX5",
+        "first/second stable snapshots before action",
+        "Ver detalhes same legitimate trigger as RED",
+        "overlapping title/body/bottom scroll",
+        "large same mount complete card normal-return"
+      ],
+      "initialAX5": "separate terminate/relaunch at AX5; loaded/title-current/body/bottom; not same-mount live proof",
+      "notWholeScreen": "Some unchanged Home/health/button hosts retain old live glyph sizing. Scope only PushOptIn title/body/secondary."
+    },
+    "android": {
+      "serial": "emulator-5554",
+      "avd": "radiant-entrada-api34",
+      "normal": "1.0 complete card",
+      "maximum": "2.0 initial after force-stop/relaunch; complete card and XML",
+      "live": "not attempted in bounded green; initial coverage only, known linking issue not diagnosed"
+    },
+    "consentActions": [],
+    "forbiddenActionsPerformed": [],
+    "limits": [
+      "No new Review result: real queue empty",
+      "No Android before-base capture",
+      "No audible speech/physical device/FPS/production/second-day proof",
+      "No global whole-screen font approval",
+      "Title wraps within a word at iOS AX5; glyphs intact via scroll",
+      "Capture named title-complete cuts upper Quer at viewport; live-first/second show Quer fully and complementary after-details capture shows rest",
+      "Failed UI swipes due missing/stale runtime snapshot preserved raw; following fresh captures used as proof",
+      "Transient black/downloading captures excluded readiness"
+    ],
+    "events": [
+      {
+        "at": 1793237863.349499,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ready.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237871.9462788,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-loaded.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237888.0200908,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237888.720872,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "ui",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "content_size",
+          "accessibility-extra-extra-extra-large"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237890.959373,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-first.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237901.186891,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-second.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237911.306905,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-after-details-top.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237924.216568,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-body.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237948.8944662,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-bottom.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237986.890124,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-title-complete.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237987.569885,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "ui",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "content_size",
+          "large"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793237989.672076,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal-return.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238002.4624581,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "ui",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "content_size",
+          "accessibility-extra-extra-extra-large"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238044.31802,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-initial-loaded.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238064.989453,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-initial-title.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238092.99412,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "-s",
+          "emulator-5554",
+          "shell",
+          "settings",
+          "get",
+          "system",
+          "font_scale"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238121.6926131,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-initial-title-current.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238136.716727,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-initial-body.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238157.158112,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "io",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "screenshot",
+          "/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/.superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-initial-bottom.png"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238157.8697238,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "ui",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "content_size",
+          "large"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238172.5673,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "ui",
+          "E262D4C1-99BE-496B-8567-0291C14E6533",
+          "content_size"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238177.663148,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "-s",
+          "emulator-5554",
+          "shell",
+          "settings",
+          "put",
+          "system",
+          "font_scale",
+          "2.0"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238202.4126039,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "-s",
+          "emulator-5554",
+          "shell",
+          "settings",
+          "get",
+          "system",
+          "font_scale"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238278.2982872,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "-s",
+          "emulator-5554",
+          "shell",
+          "settings",
+          "put",
+          "system",
+          "font_scale",
+          "1.0"
+        ],
+        "exit": 0
+      },
+      {
+        "at": 1793238278.343727,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "-s",
+          "emulator-5554",
+          "shell",
+          "settings",
+          "get",
+          "system",
+          "font_scale"
+        ],
+        "exit": 0
+      }
+    ],
+    "candidates": {
+      "ios-after-normal": {
+        "path": "ios-green-home-normal.png",
+        "bytes": 260155,
+        "sha256": "615c07f3461e3f05df0627e48995bb64df03eaf511b4a40252aefc849e6850e9"
+      },
+      "ios-after-maximum-top": {
+        "path": "ios-green-home-ax5-live-first.png",
+        "bytes": 248432,
+        "sha256": "a39745568bbbf306a5ce3dfa5a82818e49c855a166fa90930ee065ecb0bba2f9"
+      },
+      "ios-after-maximum-body": {
+        "path": "ios-green-home-ax5-live-after-details-top.png",
+        "bytes": 263654,
+        "sha256": "07edfcc57a693cb0c70016c23423c213b206fb665fa742567be12e2bf8a35cdc"
+      },
+      "ios-after-maximum-bottom": {
+        "path": "ios-green-home-ax5-live-body.png",
+        "bytes": 284875,
+        "sha256": "7a15a9d47d823edabac75794e1733ae52bdc588862f9b5dae1e950dd2d537b80"
+      },
+      "ios-after-live": {
+        "path": "ios-green-home-ax5-live-title-complete.png",
+        "bytes": 269827,
+        "sha256": "cc09edef636186002f627b0d6137067c64420dd2b13f7a1526661b3180e9ed5c"
+      },
+      "ios-return-normal": {
+        "path": "ios-green-home-normal-return.png",
+        "bytes": 241064,
+        "sha256": "f9b9bad32619a534ba88eb4437b9f2539b1babbb47e89aea4297fc2d57057635"
+      },
+      "android-after-normal": {
+        "path": "android-green-home-normal.png",
+        "bytes": 142729,
+        "sha256": "80b40cc2d9c53815d140818f1b995b1bdf643116982b931957675a482be9b707"
+      },
+      "android-after-maximum": {
+        "path": "android-green-home-initial-max-whole-card.png",
+        "bytes": 163747,
+        "sha256": "77233400800f0ad01dca8e807acb1a53d825572981fea9ed46d8081e48f3e60f"
+      }
+    }
+  },
+  "cleanup": {
+    "at": 1793238278.21365,
+    "androidRestoredSettings": {
+      "font_scale": "1.0",
+      "window_animation_scale": "0",
+      "transition_animation_scale": "0",
+      "animator_duration_scale": "0"
+    },
+    "androidPidof": "",
+    "androidReverseAfter": "",
+    "metroStoppedPid": 52187,
+    "avdOwnedLaunchPid": 96500,
+    "iosFont": "large confirmed before shutdown",
+    "iosTarget": "E262D4C1-99BE-496B-8567-0291C14E6533",
+    "androidBefore": {
+      "at": 1793238092.932686,
+      "serial": "emulator-5554",
+      "boot": "1",
+      "avd": "radiant-entrada-api34\r\nOK",
+      "settings": {
+        "font_scale": "1.0",
+        "window_animation_scale": "0",
+        "transition_animation_scale": "0",
+        "animator_duration_scale": "0"
+      },
+      "client": [
+        "versionCode=3 minSdk=24 targetSdk=36",
+        "versionName=1.4.0"
+      ]
+    },
+    "verification": [
+      {
+        "at": 1793238383.6311932,
+        "cmd": [
+          "lsof",
+          "-nP",
+          "-iTCP:8081",
+          "-sTCP:LISTEN"
+        ],
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "at": 1793238383.633866,
+        "cmd": [
+          "ps",
+          "-p",
+          "46224,52187,96500,96502,10539",
+          "-o",
+          "pid,ppid,comm"
+        ],
+        "exit": 1,
+        "stdout": "  PID  PPID COMM\n",
+        "stderr": ""
+      },
+      {
+        "at": 1793238383.754058,
+        "cmd": [
+          "xcrun",
+          "simctl",
+          "list",
+          "devices",
+          "booted",
+          "--json"
+        ],
+        "exit": 0,
+        "stdout": "{\n  \"devices\" : {\n    \"com.apple.CoreSimulator.SimRuntime.iOS-26-5\" : [\n\n    ]\n  }\n}\n",
+        "stderr": ""
+      },
+      {
+        "at": 1793238383.763995,
+        "cmd": [
+          "/Users/anderson/Library/Android/sdk/platform-tools/adb",
+          "devices",
+          "-l"
+        ],
+        "exit": 0,
+        "stdout": "List of devices attached\n\n",
+        "stderr": ""
+      }
+    ],
+    "atVerified": 1793238383.764153,
+    "port8081Clear": true,
+    "ownedProcessesGone": true,
+    "iosBootedDevices": {
+      "com.apple.CoreSimulator.SimRuntime.iOS-26-5": []
+    },
+    "adbEmpty": true,
+    "status": "CLEAN"
+  },
+  "captures": [
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-before-normal.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-red-home-scroll-1.png",
+      "sha256": "b259d95c8570cc2307817c4a2dea9d29c8d087813aa49476daa597d1aa0f9909",
+      "bytes": 274268,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-red-home-scroll-1.ui.json",
+      "uiSha256": "7d0151c2129f178e02f1a750a262acb90f5c194e88a14f2ede8b6a4770c8eb87",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "1qpdblb",
+            "seq": 7,
+            "count": 132,
+            "targets": [
+              "e126|tap|button|Estude, tab, 1 of 2||",
+              "e127|tap|button|Perfil, tab, 2 of 2||",
+              "e94|tap|button|Ver detalhes||app-button-face",
+              "e104|tap|button|Ativar lembretes||app-button-face"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e65|text|text|MASTERED||",
+              "e66|text|text|MASTERED||",
+              "e67|text|text|ACCURACY||",
+              "e68|text|text|ACCURACY||",
+              "e69|text|text|SESSIONS||",
+              "e70|text|text|SESSIONS||",
+              "e71|text|text|—||",
+              "e72|text|text|—||",
+              "e73|text|text|—||",
+              "e74|text|text|—||",
+              "e75|text|text|1||",
+              "e76|text|text|1||",
+              "e77|text|text|cases||",
+              "e78|text|text|cases||",
+              "e79|text|text|avg score||",
+              "e80|text|text|avg score||",
+              "e81|text|text|day streak||",
+              "e82|text|text|day streak||",
+              "e84|text|text|Ritmo||",
+              "e85|text|text|Ritmo||",
+              "e87|text|text|Consistente||",
+              "e88|text|text|Consistente||",
+              "e89|text|text|58||",
+              "e90|text|text|58||",
+              "e91|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e92|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e97|text|text|🎯 Meta do dia concluída||",
+              "e98|text|text|🎯 Meta do dia concluída||",
+              "e100|text|text|Quer um lembrete suave?||",
+              "e101|text|text|Quer um lembrete suave?||",
+              "e102|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e103|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e110|text|text|Revisões pendentes||",
+              "e111|text|text|Revisões pendentes||",
+              "e112|text|text|0||",
+              "e113|text|text|0||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e94\"},{\"action\":\"tap\",\"elementRef\":\"e104\"}]}'",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e126",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-before-maximum.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-red-home-ax5-live-after-details.png",
+      "sha256": "46dfd722e3eef005cd4764765ab48e17dad94167e78c485af6e76568ab475f7c",
+      "bytes": 326501,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-red-home-ax5-live-after-details.ui.json",
+      "uiSha256": "c8c0a825f38ee4093302bce99144c463e9ebf1de9676a196112897bf6b60df1e",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "1yn2u19",
+            "seq": 11,
+            "count": 149,
+            "targets": [
+              "e143|tap|button|Estude, tab, 1 of 2||",
+              "e144|tap|button|Perfil, tab, 2 of 2||",
+              "e94|tap|button|Ocultar detalhes||app-button-face",
+              "e121|tap|button|Ativar lembretes||app-button-face"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e65|text|text|MASTERED||",
+              "e66|text|text|MASTERED||",
+              "e67|text|text|ACCURACY||",
+              "e68|text|text|ACCURACY||",
+              "e69|text|text|SESSIONS||",
+              "e70|text|text|SESSIONS||",
+              "e71|text|text|—||",
+              "e72|text|text|—||",
+              "e73|text|text|—||",
+              "e74|text|text|—||",
+              "e75|text|text|1||",
+              "e76|text|text|1||",
+              "e77|text|text|cases||",
+              "e78|text|text|cases||",
+              "e79|text|text|avg score||",
+              "e80|text|text|avg score||",
+              "e81|text|text|day streak||",
+              "e82|text|text|day streak||",
+              "e84|text|text|Ritmo||",
+              "e85|text|text|Ritmo||",
+              "e87|text|text|Consistente||",
+              "e88|text|text|Consistente||",
+              "e89|text|text|58||",
+              "e90|text|text|58||",
+              "e91|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e92|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e96|text|text|Consistência||",
+              "e97|text|text|Consistência||",
+              "e98|text|text|28/35||",
+              "e99|text|text|28/35||",
+              "e100|text|text|Revisão||",
+              "e101|text|text|Revisão||",
+              "e102|text|text|10/35||",
+              "e103|text|text|10/35||",
+              "e104|text|text|Equilíbrio||",
+              "e105|text|text|Equilíbrio||",
+              "e106|text|text|20/20||",
+              "e107|text|text|20/20||",
+              "e108|text|text|Meta||",
+              "e109|text|text|Meta||",
+              "e110|text|text|0/10||",
+              "e111|text|text|0/10||",
+              "e114|text|text|🎯 Meta do dia concluída||",
+              "e115|text|text|🎯 Meta do dia concluída||",
+              "e117|text|text|Quer um lembrete suave?||",
+              "e118|text|text|Quer um lembrete suave?||",
+              "e119|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e120|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e94\"},{\"action\":\"tap\",\"elementRef\":\"e121\"}]}'",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e143",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-after-normal.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal.png",
+      "sha256": "615c07f3461e3f05df0627e48995bb64df03eaf511b4a40252aefc849e6850e9",
+      "bytes": 260155,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal.ui.json",
+      "uiSha256": "9dadb502dcb1099850e21042d688d1497c8fd7db863b2ae4474f03bc44129693",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "0nyas6v",
+            "seq": 4,
+            "count": 132,
+            "targets": [
+              "e126|tap|button|Estude, tab, 1 of 2||",
+              "e127|tap|button|Perfil, tab, 2 of 2||",
+              "e94|tap|button|Ver detalhes||app-button-face",
+              "e104|tap|button|Ativar lembretes||app-button-face",
+              "e107|tap|button|Agora não||"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e77|text|text|cases||",
+              "e78|text|text|cases||",
+              "e79|text|text|avg score||",
+              "e80|text|text|avg score||",
+              "e81|text|text|day streak||",
+              "e82|text|text|day streak||",
+              "e84|text|text|Ritmo||",
+              "e85|text|text|Ritmo||",
+              "e87|text|text|Consistente||",
+              "e88|text|text|Consistente||",
+              "e89|text|text|58||",
+              "e90|text|text|58||",
+              "e91|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e92|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e97|text|text|🎯 Meta do dia concluída||",
+              "e98|text|text|🎯 Meta do dia concluída||",
+              "e100|text|text|Quer um lembrete suave?||",
+              "e101|text|text|Quer um lembrete suave?||",
+              "e102|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e103|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e110|text|text|Revisões pendentes||",
+              "e111|text|text|Revisões pendentes||",
+              "e112|text|text|0||",
+              "e113|text|text|0||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e94\"},{\"action\":\"tap\",\"elementRef\":\"e104\"}]}'",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e126",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-after-maximum-top.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-first.png",
+      "sha256": "a39745568bbbf306a5ce3dfa5a82818e49c855a166fa90930ee065ecb0bba2f9",
+      "bytes": 248432,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-first.ui.json",
+      "uiSha256": "e433f1bb7220ddec0ddacfe3ed06cd57807bc55f8103bf1f7877bd3b16c94ce3",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "0t6355g",
+            "seq": 5,
+            "count": 132,
+            "targets": [
+              "e126|tap|button|Estude, tab, 1 of 2||",
+              "e127|tap|button|Perfil, tab, 2 of 2||",
+              "e94|tap|button|Ver detalhes||app-button-face"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e77|text|text|cases||",
+              "e78|text|text|cases||",
+              "e79|text|text|avg score||",
+              "e80|text|text|avg score||",
+              "e81|text|text|day streak||",
+              "e82|text|text|day streak||",
+              "e84|text|text|Ritmo||",
+              "e85|text|text|Ritmo||",
+              "e87|text|text|Consistente||",
+              "e88|text|text|Consistente||",
+              "e89|text|text|58||",
+              "e90|text|text|58||",
+              "e91|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e92|text|text|Bom ritmo. Uma revisão rápida mantém a consistência.||",
+              "e97|text|text|🎯 Meta do dia concluída||",
+              "e98|text|text|🎯 Meta do dia concluída||",
+              "e100|text|text|Quer um lembrete suave?||",
+              "e101|text|text|Quer um lembrete suave?||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e126",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-after-maximum-bottom.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-body.png",
+      "sha256": "7a15a9d47d823edabac75794e1733ae52bdc588862f9b5dae1e950dd2d537b80",
+      "bytes": 284875,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-body.ui.json",
+      "uiSha256": "1688f0c01e0dd76cbd08f5edb9763e0a779588ec5ff9b4f891e46bc33326b7df",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "0scq1ka",
+            "seq": 9,
+            "count": 149,
+            "targets": [
+              "e143|tap|button|Estude, tab, 1 of 2||",
+              "e144|tap|button|Perfil, tab, 2 of 2||",
+              "e121|tap|button|Ativar lembretes||app-button-face",
+              "e124|tap|button|Agora não||"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e119|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e120|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e127|text|text|Revisões pendentes||",
+              "e128|text|text|Revisões pendentes||",
+              "e129|text|text|0||",
+              "e130|text|text|0||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e121\"},{\"action\":\"tap\",\"elementRef\":\"e124\"}]}'",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e143",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-after-live.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-after-details-top.png",
+      "sha256": "07edfcc57a693cb0c70016c23423c213b206fb665fa742567be12e2bf8a35cdc",
+      "bytes": 263654,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-ax5-live-after-details-top.ui.json",
+      "uiSha256": "3c7dc610d4910b90d6194ec6c1b099993083c6f4d3f7265c02387586a31d25be",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "0i3c8mz",
+            "seq": 8,
+            "count": 149,
+            "targets": [
+              "e143|tap|button|Estude, tab, 1 of 2||",
+              "e144|tap|button|Perfil, tab, 2 of 2||"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e117|text|text|Quer um lembrete suave?||",
+              "e118|text|text|Quer um lembrete suave?||",
+              "e119|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e120|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e143",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/ios-return-normal.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal-return.png",
+      "sha256": "f9b9bad32619a534ba88eb4437b9f2539b1babbb47e89aea4297fc2d57057635",
+      "bytes": 241064,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/ios-green-home-normal-return.ui.json",
+      "uiSha256": "e1be282443e25878e48354f7c7bd640c5ef75060a42b5c58b938980c8ace0aa4",
+      "ui": {
+        "schema": "xcodebuildmcp.output.capture-result",
+        "schemaVersion": "2",
+        "didError": false,
+        "error": null,
+        "data": {
+          "summary": {
+            "status": "SUCCEEDED"
+          },
+          "artifacts": {
+            "simulatorId": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          },
+          "capture": {
+            "type": "runtime-snapshot",
+            "rs": "1",
+            "screenHash": "1kql3q8",
+            "seq": 13,
+            "count": 149,
+            "targets": [
+              "e143|tap|button|Estude, tab, 1 of 2||",
+              "e144|tap|button|Perfil, tab, 2 of 2||",
+              "e121|tap|button|Ativar lembretes||app-button-face",
+              "e124|tap|button|Agora não||",
+              "e134|tap|button|Continuar aprendendo||app-button-face"
+            ],
+            "scroll": [
+              "e23|swipe|scroll-view|||"
+            ],
+            "text": [
+              "e104|text|text|Equilíbrio||",
+              "e105|text|text|Equilíbrio||",
+              "e106|text|text|20/20||",
+              "e107|text|text|20/20||",
+              "e108|text|text|Meta||",
+              "e109|text|text|Meta||",
+              "e110|text|text|0/10||",
+              "e111|text|text|0/10||",
+              "e114|text|text|🎯 Meta do dia concluída||",
+              "e115|text|text|🎯 Meta do dia concluída||",
+              "e117|text|text|Quer um lembrete suave?||",
+              "e118|text|text|Quer um lembrete suave?||",
+              "e119|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e120|text|text|Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.||",
+              "e127|text|text|Revisões pendentes||",
+              "e128|text|text|Revisões pendentes||",
+              "e129|text|text|0||",
+              "e130|text|text|0||"
+            ],
+            "udid": "E262D4C1-99BE-496B-8567-0291C14E6533"
+          }
+        },
+        "nextSteps": [
+          "Refresh after layout changes: xcodebuildmcp ui-automation snapshot-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533",
+          "Wait for UI to settle: xcodebuildmcp ui-automation wait-for-ui --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --predicate settled",
+          "Batch same-screen taps: xcodebuildmcp ui-automation batch --json '{\"simulatorId\":\"E262D4C1-99BE-496B-8567-0291C14E6533\",\"steps\":[{\"action\":\"tap\",\"elementRef\":\"e121\"},{\"action\":\"tap\",\"elementRef\":\"e124\"}]}'",
+          "Tap an elementRef: xcodebuildmcp ui-automation tap --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --element-ref e143",
+          "Scroll visible content: xcodebuildmcp ui-automation swipe --simulator-id E262D4C1-99BE-496B-8567-0291C14E6533 --within-element-ref e23 --direction up --distance 0.5"
+        ]
+      },
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/android-after-normal.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/android-green-home-normal.png",
+      "sha256": "80b40cc2d9c53815d140818f1b995b1bdf643116982b931957675a482be9b707",
+      "bytes": 142729,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/android-green-home-normal.ui.xml",
+      "uiSha256": "be2645bdbbba65e0dc83afe79527df9557b6ce35ed7823fec29d48ea8ad929c5",
+      "ui": "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><hierarchy rotation=\"0\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"com.ascendcreative.radiant:id/action_bar_root\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"android:id/content\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"androidx.compose.ui.platform.ComposeView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" /></node></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" /></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.ScrollView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.ScrollView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"true\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,136][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,136][1080,2340]\"><node index=\"33\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,136][1036,530]\" /><node index=\"34\" text=\"Ritmo\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,136][224,21]\" /><node index=\"35\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[768,136][990,15]\" /><node index=\"36\" text=\"Consistente\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[790,136][968,9]\" /><node index=\"37\" text=\"53\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,136][991,230]\" /><node index=\"38\" text=\"Bom ritmo. Uma revisão rápida mantém a consistência.\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,241][991,351]\" /><node index=\"39\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,384][989,483]\" /><node index=\"40\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Ver detalhes\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[94,387][987,541]\"><node index=\"0\" text=\"Ver detalhes\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[424,436][657,492]\" /></node><node index=\"41\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,563][1036,693]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,563][1036,693]\" /><node index=\"1\" text=\"&#127919; Meta do dia concluída\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[288,598][792,657]\" /></node><node index=\"42\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,814][1036,1627]\" /><node index=\"43\" text=\"Quer um lembrete suave?\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[174,882][906,970]\" /><node index=\"44\" text=\"Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1003][967,1160]\" /><node index=\"45\" text=\"\" resource-id=\"app-button-relief\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1227][967,1395]\" /><node index=\"46\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Ativar lembretes\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1227][967,1381]\"><node index=\"0\" text=\"Ativar lembretes\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[350,1270][730,1337]\" /></node><node index=\"47\" text=\"\" resource-id=\"app-button-lip\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1241][967,1395]\" /><node index=\"48\" text=\"\" resource-id=\"\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Agora não\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[417,1439][663,1558]\"><node index=\"0\" text=\"Agora não\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[450,1472][630,1525]\" /></node><node index=\"49\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,1660][1036,2258]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,1660][1036,2258]\" /><node index=\"1\" text=\"Revisões pendentes\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[339,1706][740,1765]\" /><node index=\"2\" text=\"0\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[489,1787][590,2021]\" /><node index=\"3\" text=\"\" resource-id=\"app-button-relief\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2044][989,2212]\"><node index=\"0\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Iniciar revisão\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"false\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2044][989,2198]\"><node index=\"0\" text=\"Iniciar revisão\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[379,2087][700,2154]\" /></node><node index=\"1\" text=\"\" resource-id=\"app-button-lip\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2058][989,2212]\" /></node></node><node index=\"50\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Continuar aprendendo\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,2291][1036,2340]\"><node index=\"0\" text=\"Continuar aprendendo\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[281,2334][798,2340]\" /></node></node></node></node></node></node></node></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,2104][1080,2302]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,2107][1080,2302]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"Estude\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"true\" bounds=\"[0,2140][540,2270]\"><node index=\"0\" text=\"Estude\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[222,2230][317,2270]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.SvgView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[231,2154][308,2231]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.GroupView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2167][302,2213]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2167][302,2200]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2184][302,2205]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[250,2192][289,2213]\" /></node></node></node><node index=\"2\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"Perfil\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[540,2140][1080,2270]\"><node index=\"1\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.SvgView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[771,2154][848,2231]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.GroupView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2166][834,2220]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[795,2166][823,2194]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2196][834,2220]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2196][834,2216]\" /></node></node><node index=\"2\" text=\"Perfil\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[773,2230][847,2270]\" /></node></node></node></node></node></node></node></node></node></node></node></node></node></node></hierarchy>",
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    },
+    {
+      "path": "docs/evidence/assets/2026-10-28-medalhao-pushoptin-p2/android-after-maximum.png",
+      "source": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/android-green-home-initial-max-whole-card.png",
+      "sha256": "77233400800f0ad01dca8e807acb1a53d825572981fea9ed46d8081e48f3e60f",
+      "bytes": 163747,
+      "uiSource": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/android-green-home-initial-max-whole-card.ui.xml",
+      "uiSha256": "078dd045e7a2fbf05eafbb3903af3318c90f7a8938d66a2132ea307297635772",
+      "ui": "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><hierarchy rotation=\"0\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"com.ascendcreative.radiant:id/action_bar_root\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"android:id/content\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"androidx.compose.ui.platform.ComposeView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" /></node></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" /></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.ScrollView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.ScrollView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"true\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,136][1080,2340]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,136][1080,2340]\"><node index=\"41\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,136][1036,98]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,136][1036,98]\" /><node index=\"1\" text=\"&#127919; Meta do dia concluída\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[103,136][976,62]\" /></node><node index=\"42\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,219][1036,1559]\" /><node index=\"43\" text=\"Quer um lembrete suave?\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,287][967,535]\" /><node index=\"44\" text=\"Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,568][967,1040]\" /><node index=\"45\" text=\"\" resource-id=\"app-button-relief\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1107][967,1283]\" /><node index=\"46\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Ativar lembretes\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1107][967,1269]\"><node index=\"0\" text=\"Ativar lembretes\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[208,1129][871,1247]\" /></node><node index=\"47\" text=\"\" resource-id=\"app-button-lip\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[113,1121][967,1283]\" /><node index=\"48\" text=\"\" resource-id=\"\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Agora não\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[342,1327][739,1490]\"><node index=\"0\" text=\"Agora não\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[375,1360][706,1457]\" /></node><node index=\"49\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,1592][1036,2258]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,1592][1036,2258]\" /><node index=\"1\" text=\"Revisões pendentes\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[194,1638][886,1741]\" /><node index=\"2\" text=\"0\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[486,1763][594,2013]\" /><node index=\"3\" text=\"\" resource-id=\"app-button-relief\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2036][989,2212]\"><node index=\"0\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Iniciar revisão\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"false\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2036][989,2198]\"><node index=\"0\" text=\"Iniciar revisão\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[260,2058][819,2176]\" /></node><node index=\"1\" text=\"\" resource-id=\"app-button-lip\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[91,2050][989,2212]\" /></node></node><node index=\"50\" text=\"\" resource-id=\"app-button-face\" class=\"android.widget.Button\" package=\"com.ascendcreative.radiant\" content-desc=\"Continuar aprendendo\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[44,2291][1036,2340]\"><node index=\"0\" text=\"Continuar aprendendo\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[110,2313][970,2340]\" /></node></node></node></node></node></node></node></node><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,2104][1080,2302]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,2107][1080,2302]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"Estude\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"true\" bounds=\"[0,2140][540,2270]\"><node index=\"0\" text=\"Estude\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[177,2230][363,2270]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.SvgView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[231,2154][308,2231]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.GroupView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2167][302,2213]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2167][302,2200]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[236,2184][302,2205]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[250,2192][289,2213]\" /></node></node></node><node index=\"2\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.ascendcreative.radiant\" content-desc=\"Perfil\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[540,2140][1080,2270]\"><node index=\"0\" text=\"Perfil\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[737,2230][883,2270]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.SvgView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[771,2154][848,2231]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.GroupView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2166][834,2220]\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[795,2166][823,2194]\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2196][834,2220]\" /><node index=\"2\" text=\"\" resource-id=\"\" class=\"com.horcrux.svg.PathView\" package=\"com.ascendcreative.radiant\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[784,2196][834,2216]\" /></node></node></node></node></node></node></node></node></node></node></node></node></node></node></node></node></hierarchy>",
+      "claim": "Home legacy local kill-switch profile; compare overlapping frames, not whole-screen/font approval"
+    }
+  ],
+  "notCreated": [
+    "android-before-maximum.png"
+  ],
+  "review": {
+    "spec": "BOUNDED",
+    "quality": "APPROVED_CORE_BOUNDED",
+    "componentP2": "corrected in measured local Home scenario",
+    "report": "docs/evidence/2026-10-28-medalhao-pushoptin-p2-review.md",
+    "reviewedPayloadBeforeVerdictAnnotationSHA256": "7fe71f30ca8f09b763e3f9e46bf25b3e41f36245fcccff74ffe943edea4f5803",
+    "annotation": "Verdict appended after independent review; captures/UI/provenance/cleanup unchanged"
+  },
+  "limits": [
+    "No new Review result: real queue empty",
+    "No Android before-base capture",
+    "No audible speech/physical device/FPS/production/second-day proof",
+    "No global whole-screen font approval",
+    "Title wraps within a word at iOS AX5; glyphs intact via scroll",
+    "Capture named title-complete cuts upper Quer at viewport; live-first/second show Quer fully and complementary after-details capture shows rest",
+    "Failed UI swipes due missing/stale runtime snapshot preserved raw; following fresh captures used as proof",
+    "Transient black/downloading captures excluded readiness"
+  ],
+  "nativeGreenReport": {
+    "path": ".superpowers/sdd/2026-10-25-medalhao-execucao-subagentes/p2-pushoptin-2026-10-28/native-green-report.md",
+    "sha256": "e12c0754dc09a08ef214c3318081f6620b800d6426e62a9b9ad74989e115f2cf"
+  },
+  "resumptionVerifiedOn": "2026-10-29 America/Bahia; run editing/0cycles,2sourcehashes unchanged,8081clear"
+}

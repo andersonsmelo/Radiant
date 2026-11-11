@@ -1,6 +1,6 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
 import { validateLearningActivity } from '../../../types/learningActivity';
-import { DEFAULT_LESSON_BLOCKS } from '../../../data/journey/defaultBlocks';
+import { DEFAULT_LESSON_BLOCKS } from '../../../test/fixtures/syntheticLessons';
 import {
     LEGACY_COMPETENCY_PREFIX,
     LEGACY_CONTENT_VERSION,

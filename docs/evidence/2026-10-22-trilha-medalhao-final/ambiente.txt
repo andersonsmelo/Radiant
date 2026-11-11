@@ -1,0 +1,103 @@
+2026-10-22T14:30:52.338075-03:00
+Base HEAD83de747c197cf1eb608dc58394620a5e5d7e2172; código em correção não commitado até revisão/gate finais.
+Run final run-1792689790967-56ecd445,53arquivos.
+Node app20.20.2; Loop24.14.1. Dev clients Debug existentes1.4.0(3), com Skia; sem build, EAS ou merge.
+E262D4C1: iOS26.5, Radiant E2E17Pro. AVD radiant-entrada-api34: Android14/API34/arm64,2GB2cores; dados de revisão devida preservados.
+G6 mede dados/primeiroquadro; FPS contínuo será estimado por HWUI gfxinfo com filtros completos.
+Logs vermelhos e verdes serão copiados do scratch SDD após fechar fonte.
+
+Fonte congelada para coleta nativa; SHA256 de cada arquivo de app declarado:
+68cd999a0a16ab21187ccd2971c2803cf223f49f4a0685f55a6a40c7c4ba4664  radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml
+614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f  radiant-app/.rnstorybook/storybook.requires.ts
+5d03fef9bd706b4d09efac9cbf6b6a944bc13ff58bba763fcaa0509094a32aab  radiant-app/scripts/maestro-contract.test.mjs
+d07c2a39a8e454db152b0363f8fb20fd05f8d00ce1c180cc8bab84018c018ea1  radiant-app/src/features/journey/components/JourneyMedal.test.tsx
+4db7e8d3b71ef4acc71d611e227ef0473b77b1d94ed6dad8564b966bb8674710  radiant-app/src/features/journey/components/JourneyMedal.tsx
+58d027fc332be02ef2e0cc52570a13791b90e6f30ca4ebbc29b09188c62be576  radiant-app/src/features/journey/components/JourneyStageHeader.test.tsx
+d488f24dba18bf1670d8d04f3c949531437c030f773cc9e23216143212a24cbd  radiant-app/src/features/journey/components/JourneyStageHeader.tsx
+2e2f499db3a73a09555eb6efa09d48528f64f5bd583437678286894661638ad6  radiant-app/src/features/journey/components/JourneyTrail.stories.tsx
+6e5c35344c56deb29d8be5a5b734404e6538e6abfad215ca95059068687cd70f  radiant-app/src/features/journey/components/JourneyTrail.test.tsx
+83ce80558f89761571b3e3b46075e7974cceff4ed988be8206961f36383b3fbd  radiant-app/src/features/journey/components/JourneyTrail.tsx
+e00e91230543745b698a92c60988986048c156c7e0907b9699ab6b9922e93668  radiant-app/src/features/journey/components/nodeCopy.test.ts
+292c9be9067969f72e5f06630dc431cf5890bfa655ac2b694619b2d419a7ce5e  radiant-app/src/features/journey/components/nodeCopy.ts
+115256e5a4caa1ed852e7fed4b33f43f9fae2c3fe74ebba87991251abaff6d60  radiant-app/src/features/journey/components/trailLayout.test.ts
+9cea229e291d44d6a3e516f3939339671559520ee31902906e5691eb428c965d  radiant-app/src/features/journey/components/trailLayout.ts
+a293149b4b043876277681d2337c15264dd29e4e19180e21dda4a9111909e643  radiant-app/src/ui/__tests__/motion.test.ts
+35b4af57442a632030bd47c20431a4cc2a5fb8f55c862ba1882bd700c03a4aca  radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx
+c79a75a9c606f37d8c5e5f6fa964b5721263959928b64852bd963f22f1c4e119  radiant-app/src/ui/illustrations/ThemeIllustration.tsx
+d9a3faf5bab64fab7d58bbe6c1455d8136d30f50a9063e82518ad2497ad15681  radiant-app/src/ui/motion.ts
+
+
+FINAL SOURCE FREEZE (substitui proveniência preliminar acima)
+{
+  "measuredAt": "2026-10-22T19:32:01.260040-03:00",
+  "run": "run-1792707600146-770f7ccb",
+  "baseline": "10754e8",
+  "state": "editing",
+  "sourceHashes": {
+    "radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml": "68cd999a0a16ab21187ccd2971c2803cf223f49f4a0685f55a6a40c7c4ba4664",
+    "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f",
+    "radiant-app/scripts/maestro-contract.test.mjs": "5d03fef9bd706b4d09efac9cbf6b6a944bc13ff58bba763fcaa0509094a32aab",
+    "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "d07c2a39a8e454db152b0363f8fb20fd05f8d00ce1c180cc8bab84018c018ea1",
+    "radiant-app/src/features/journey/components/JourneyMedal.tsx": "4db7e8d3b71ef4acc71d611e227ef0473b77b1d94ed6dad8564b966bb8674710",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.test.tsx": "58d027fc332be02ef2e0cc52570a13791b90e6f30ca4ebbc29b09188c62be576",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.tsx": "d488f24dba18bf1670d8d04f3c949531437c030f773cc9e23216143212a24cbd",
+    "radiant-app/src/features/journey/components/JourneyTrail.stories.tsx": "2e2f499db3a73a09555eb6efa09d48528f64f5bd583437678286894661638ad6",
+    "radiant-app/src/features/journey/components/JourneyTrail.test.tsx": "bd87eb8df01e50b08db81012ba3cf3e9c4759cb0142ebb0c798de14415d05637",
+    "radiant-app/src/features/journey/components/JourneyTrail.tsx": "2aefb36b6359b108942a0c23ace2401c89d503916c88e4b4fdd0f7016014bb08",
+    "radiant-app/src/features/journey/components/nodeCopy.test.ts": "e00e91230543745b698a92c60988986048c156c7e0907b9699ab6b9922e93668",
+    "radiant-app/src/features/journey/components/nodeCopy.ts": "292c9be9067969f72e5f06630dc431cf5890bfa655ac2b694619b2d419a7ce5e",
+    "radiant-app/src/features/journey/components/trailLayout.test.ts": "115256e5a4caa1ed852e7fed4b33f43f9fae2c3fe74ebba87991251abaff6d60",
+    "radiant-app/src/features/journey/components/trailLayout.ts": "d2daa1ec5f8f1412a31b703a9e5ef932e97c220e3bac09afb64636e4968a8f79",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx": "7b52844ffefb9e4d32dfafc1c3377af7eda14927ae57989a77248edf3f93bf1a",
+    "radiant-app/src/features/push/components/ReminderRow.test.tsx": "acc61743e37a208c1e507d19a80da3b6bc23917a391ce96a99e4ec7ac516c923",
+    "radiant-app/src/features/push/components/ReminderRow.tsx": "4026816522da5deccf5da827b2b50577c7829075a23f9cce5ee757f19a1d87d7",
+    "radiant-app/src/ui/__tests__/motion.test.ts": "a293149b4b043876277681d2337c15264dd29e4e19180e21dda4a9111909e643",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx": "35b4af57442a632030bd47c20431a4cc2a5fb8f55c862ba1882bd700c03a4aca",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.tsx": "c79a75a9c606f37d8c5e5f6fa964b5721263959928b64852bd963f22f1c4e119",
+    "radiant-app/src/ui/motion.ts": "d9a3faf5bab64fab7d58bbe6c1455d8136d30f50a9063e82518ad2497ad15681"
+  }
+}
+
+
+PAUSA FINAL — 2026-10-23; metadados atuais substituem a intenção/medição preliminar acima.
+Writer57: run-1792746135751-b2cdee88; baseline082d86d. Produto congelado; só roteiro/contrato e docs mudaram nesta janela.
+iOS normal+AX5 preservados no vídeo concatenado sem recomprimir; metadados/limites em playback-native.json.
+Apps/simuladores/AVD/Metro encerrados; iOSlarge; Androideffective1.0. Sem benchmark40.
+{
+  "sourceHashes": {
+    "radiant-app/.maestro/radiant-1-4-segundo-dia.yaml": "5eb056aeae81a9a21ea6f532379fdf0b855a3320a1f59e07a55f0743b51e1ed1",
+    "radiant-app/.maestro/radiant-1-4-vidas-esgotadas.yaml": "68cd999a0a16ab21187ccd2971c2803cf223f49f4a0685f55a6a40c7c4ba4664",
+    "radiant-app/.rnstorybook/storybook.requires.ts": "614f999a5bf57eed5e2f649a5599fab3845cc41fb2d913f8ed2aff64668b1d9f",
+    "radiant-app/scripts/maestro-contract.test.mjs": "5cc7519b5297cdddc5d10c56cc4a91c4cfa6438818ad079345b2701fb5fd9672",
+    "radiant-app/src/features/journey/components/JourneyMedal.test.tsx": "d07c2a39a8e454db152b0363f8fb20fd05f8d00ce1c180cc8bab84018c018ea1",
+    "radiant-app/src/features/journey/components/JourneyMedal.tsx": "4db7e8d3b71ef4acc71d611e227ef0473b77b1d94ed6dad8564b966bb8674710",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.test.tsx": "58d027fc332be02ef2e0cc52570a13791b90e6f30ca4ebbc29b09188c62be576",
+    "radiant-app/src/features/journey/components/JourneyStageHeader.tsx": "d488f24dba18bf1670d8d04f3c949531437c030f773cc9e23216143212a24cbd",
+    "radiant-app/src/features/journey/components/JourneyTrail.stories.tsx": "2e2f499db3a73a09555eb6efa09d48528f64f5bd583437678286894661638ad6",
+    "radiant-app/src/features/journey/components/JourneyTrail.test.tsx": "bd87eb8df01e50b08db81012ba3cf3e9c4759cb0142ebb0c798de14415d05637",
+    "radiant-app/src/features/journey/components/JourneyTrail.tsx": "2aefb36b6359b108942a0c23ace2401c89d503916c88e4b4fdd0f7016014bb08",
+    "radiant-app/src/features/journey/components/nodeCopy.test.ts": "e00e91230543745b698a92c60988986048c156c7e0907b9699ab6b9922e93668",
+    "radiant-app/src/features/journey/components/nodeCopy.ts": "292c9be9067969f72e5f06630dc431cf5890bfa655ac2b694619b2d419a7ce5e",
+    "radiant-app/src/features/journey/components/trailLayout.test.ts": "115256e5a4caa1ed852e7fed4b33f43f9fae2c3fe74ebba87991251abaff6d60",
+    "radiant-app/src/features/journey/components/trailLayout.ts": "d2daa1ec5f8f1412a31b703a9e5ef932e97c220e3bac09afb64636e4968a8f79",
+    "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx": "7b52844ffefb9e4d32dfafc1c3377af7eda14927ae57989a77248edf3f93bf1a",
+    "radiant-app/src/features/push/components/ReminderRow.test.tsx": "acc61743e37a208c1e507d19a80da3b6bc23917a391ce96a99e4ec7ac516c923",
+    "radiant-app/src/features/push/components/ReminderRow.tsx": "4026816522da5deccf5da827b2b50577c7829075a23f9cce5ee757f19a1d87d7",
+    "radiant-app/src/ui/__tests__/motion.test.ts": "a293149b4b043876277681d2337c15264dd29e4e19180e21dda4a9111909e643",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.test.tsx": "35b4af57442a632030bd47c20431a4cc2a5fb8f55c862ba1882bd700c03a4aca",
+    "radiant-app/src/ui/illustrations/ThemeIllustration.tsx": "c79a75a9c606f37d8c5e5f6fa964b5721263959928b64852bd963f22f1c4e119",
+    "radiant-app/src/ui/motion.ts": "d9a3faf5bab64fab7d58bbe6c1455d8136d30f50a9063e82518ad2497ad15681"
+  },
+  "iosSegments": [
+    {
+      "path": "radiant-app/.maestro/artifacts/final-ios-normal-preservado.mp4",
+      "duration": 11.681667,
+      "sha256": "de444afa41e4ad574e421589ba153892c04b8476063b07093e092c050e391d0d"
+    },
+    {
+      "path": "radiant-app/.maestro/artifacts/final-ios-max-preservado.mp4",
+      "duration": 11.983333,
+      "sha256": "a50ea983a1069ace624c88947cd266f504cba07f3434e76a3cc6b7ad671c5bd8"
+    }
+  ]
+}

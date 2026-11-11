@@ -1,5 +1,15 @@
 # Contexto e continuidade para outra IA
 
+> **Continuidade de conteúdo em 05/11/2026:** use o
+> [prompt do lote do piloto](../superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md)
+> e o estado vivo em [STATUS](../STATUS.md). As cinco aulas do piloto estão escritas,
+> sem promoção; as quatro novas ainda sem revisão independente. VoiceOver físico não foi executado; offline fica
+> no primeiro lote promovido, por decisão de
+> Anderson. O texto histórico abaixo não redefine decisões nem autoriza release.
+
+> Continuidade em 02/11/2026: a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) supera qualquer instrução abaixo de restaurar amostras, V3 ou aguardar G7 para a retirada local. Todas as aulas saem; motores/biblioteca/UI/dados pessoais ficam. Público: graduação tecnológica, depois especializações. Seguir o [plano único](../plans/2026-11-02-planejamento-conteudo-radiant.md).
+
+
 > **Histórico, não usar.** Substituído em 2026-10-18 pelo
 > [prompt de continuidade (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
 > Desde essa data o Claude planeja e executa, e Codex e Argon estão em pausa

@@ -14,7 +14,6 @@ export const STORAGE_KEYS = {
     V3_LEARNING_EVIDENCE: '@radiant:v3:learning_evidence_v1',
     V3_COMPETENCY_MASTERY: '@radiant:v3:competency_mastery_v1',
     AUTH_MIGRATION_STATE: '@radiant:auth_migration_v1',
-    UPGRADE_INTEREST: '@radiant:upgrade_interest_v1',
     LEARNING_ATTEMPTS: '@radiant:learning_attempts_v1',
     LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
     ITEM_REVIEW: '@radiant:item_review_v1',
@@ -35,6 +34,9 @@ export const STORAGE_KEYS = {
     V14_MIGRATION_STATE: '@radiant:migration_v14_state',
     FEEDBACK_PREFERENCES: '@radiant:feedback_preferences_v1',
     HYBRID_LESSON_METRICS: '@radiant:v3:hybrid_lesson_metrics_v1',
+    STREAK_FREEZE: '@radiant:streak_freeze_v1',
+    DAILY_MISSIONS: '@radiant:daily_missions_v1',
+    UNIT_CELEBRATIONS: '@radiant:unit_celebrations_v1',
 } as const;
 
 export const STUDENT_CHECKPOINT_STORAGE_KEYS = {

@@ -24,8 +24,6 @@ import { HealthScoreService } from '../../health/HealthScoreService';
 import type { HealthScore } from '../../health/health.types';
 import { BetaService } from '../../beta/BetaService';
 import { PushService } from '../../push/services/PushService';
-import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
-import type { UpgradeInterestEntry } from '../../paywall/UpgradeInterestService';
 import { AppStoreOpsService } from '../services/AppStoreOpsService';
 import type { AppStoreOpsSummary } from '../services/AppStoreOpsService';
 
@@ -57,7 +55,6 @@ export default function TelemetryDebugScreen() {
     const [exportData, setExportData] = useState<string>('');
     const [copied, setCopied] = useState(false);
     const [pushDebug, setPushDebug] = useState<any>(null);
-    const [upgradeInterests, setUpgradeInterests] = useState<UpgradeInterestEntry[]>([]);
     const [appStoreOps, setAppStoreOps] = useState<AppStoreOpsSummary | null>(null);
 
     // Beta Feedback State
@@ -88,7 +85,6 @@ export default function TelemetryDebugScreen() {
         const score = await HealthScoreService.getScore();
 
         const pDebug = await PushService.getDebugState();
-        const interests = await UpgradeInterestService.listInterests();
         const opsSummary = await AppStoreOpsService.getSummary();
 
         const json = await TelemetryService.exportEvents();
@@ -100,7 +96,6 @@ export default function TelemetryDebugScreen() {
         setAlerts(uniqueAlerts);
         setHealthScore(score);
         setPushDebug(pDebug);
-        setUpgradeInterests(interests);
         setAppStoreOps(opsSummary);
         setExportData(json);
     };
@@ -120,7 +115,6 @@ export default function TelemetryDebugScreen() {
         await TelemetryService.clear();
         await HeuristicsService.clear();
         await HealthScoreService.clear();
-        await UpgradeInterestService.reset();
         loadData();
     };
 
@@ -137,39 +131,6 @@ export default function TelemetryDebugScreen() {
         setShowFeedback(false);
         setFeedbackText('');
         Alert.alert('Feedback enviado', 'Obrigado pelo feedback!');
-    };
-
-    const handleShareUpgradeInterests = async () => {
-        if (upgradeInterests.length === 0) {
-            Alert.alert('Sem interesses', 'Nenhum interesse de upgrade foi capturado ainda.');
-            return;
-        }
-
-        const summary = upgradeInterests
-            .map((entry) => {
-                const date = new Date(entry.ts).toLocaleString();
-                return [
-                    `${date} • ${entry.offerTitle}`,
-                    `email: ${entry.email ?? 'anonimo'}`,
-                    `trigger: ${entry.trigger}`,
-                    `surface: ${entry.entrySurface}`,
-                    `lesson: ${entry.lessonId ?? 'n/a'}`,
-                ].join('\n');
-            })
-            .join('\n\n');
-
-        try {
-            await Share.share({
-                message: `Radiant upgrade interest\n\n${summary}`,
-            });
-        } catch (error) {
-            console.error('[TelemetryDebugScreen] Failed to share upgrade interests:', error);
-        }
-    };
-
-    const handleClearUpgradeInterests = async () => {
-        await UpgradeInterestService.reset();
-        setUpgradeInterests([]);
     };
 
     const handleShareAppStoreOpsReport = async () => {
@@ -201,7 +162,7 @@ export default function TelemetryDebugScreen() {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.root}>
             <ScrollView contentContainerStyle={styles.scroll}>
                 <Text style={styles.title}>Telemetry Debug</Text>
 
@@ -226,12 +187,6 @@ export default function TelemetryDebugScreen() {
                             {renderMetricRow('Value reached', appStoreOps.firstValueMomentReached ? 'yes' : 'no')}
                             {renderMetricRow('Review shown', appStoreOps.reviewPromptShownCount)}
                             {renderMetricRow('Review blocked', appStoreOps.reviewPromptBlockedCount)}
-                            {renderMetricRow('Paywall views', appStoreOps.paywallViewCount)}
-                            {renderMetricRow('Paywall CTA taps', appStoreOps.paywallCtaTapCount)}
-                            {renderMetricRow('Paywall dismiss', appStoreOps.paywallDismissedCount)}
-                            {renderMetricRow('Paywall blocked', appStoreOps.paywallBlockedCount)}
-                            {renderMetricRow('Tap rate', appStoreOps.paywallTapRate)}
-                            {renderMetricRow('Upgrade interests', appStoreOps.upgradeInterestCount)}
 
                             <View style={styles.divider} />
                             <Text style={styles.subHeader}>Recent App Store Events</Text>
@@ -255,45 +210,6 @@ export default function TelemetryDebugScreen() {
                     ) : (
                         <Text style={styles.placeholder}>Loading App Store operational summary...</Text>
                     )}
-                </Card>
-
-                <Card style={{ ...styles.card, borderColor: COLORS.warning, borderWidth: 1 }}>
-                    <Text style={styles.cardTitle}>Upgrade Interest</Text>
-                    {renderMetricRow('Capturas locais', upgradeInterests.length)}
-                    {renderMetricRow(
-                        'Ultimo email',
-                        upgradeInterests[0]?.email ?? 'nenhum'
-                    )}
-
-                    <View style={styles.divider} />
-
-                    {upgradeInterests.length > 0 ? (
-                        upgradeInterests.slice(0, 5).map((entry) => (
-                            <View key={entry.id} style={styles.interestEntry}>
-                                <Text style={styles.interestTitle}>{entry.offerTitle}</Text>
-                                <Text style={styles.interestMeta}>
-                                    {new Date(entry.ts).toLocaleString()} • {entry.entrySurface}
-                                </Text>
-                                <Text style={styles.interestMeta}>
-                                    {entry.email ?? 'anonimo'} • {entry.trigger}
-                                </Text>
-                            </View>
-                        ))
-                    ) : (
-                        <Text style={styles.placeholder}>Nenhum interesse de upgrade capturado ainda.</Text>
-                    )}
-
-                    <View style={{ height: space.s3 }} />
-                    <PrimaryButton onPress={handleShareUpgradeInterests} style={styles.feedbackBtn}>
-                        Compartilhar interesses
-                    </PrimaryButton>
-                    <PrimaryButton
-                        onPress={handleClearUpgradeInterests}
-                        style={styles.btnClear}
-                        textStyle={{ color: COLORS.warning }}
-                    >
-                        Limpar interesses
-                    </PrimaryButton>
                 </Card>
 
                 <Card style={{ ...styles.card, borderColor: '#0A84FF', borderWidth: 1 }}>
@@ -469,7 +385,7 @@ export default function TelemetryDebugScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    root: {
         ...layout.screen,
         backgroundColor: COLORS.background,
     },

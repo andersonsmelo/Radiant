@@ -157,7 +157,10 @@ export function SpeechBubble({
           contentAnimatedStyle,
         ]}
       >
-        <View style={[styles.bubble, align === 'right' && styles.bubbleRight]}>
+        <View
+          testID={testID ? `${testID}-box` : undefined}
+          style={[styles.bubble, align === 'right' ? styles.bubbleRight : styles.bubbleLeft]}
+        >
           <Text testID={testID} style={[styles.text, textStyle]}>{text}</Text>
         </View>
         <View
@@ -171,6 +174,10 @@ export function SpeechBubble({
 
 const TAIL_SIZE = 18;
 const TAIL_INSET = 8;
+// O rabicho é um quadrado girado 45°: além do centro, avança meia diagonal. O balão
+// recua isso do lado dele, para a ponta sair da caixa sem o `overflow: hidden` do
+// invólucro animado cortá-la.
+const TAIL_REACH = Math.ceil((TAIL_SIZE * Math.SQRT2) / 2);
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -193,8 +200,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: galaxyColors.borderActive,
   },
+  bubbleLeft: {
+    marginLeft: TAIL_REACH,
+  },
   bubbleRight: {
     alignSelf: 'flex-end',
+    marginRight: TAIL_REACH,
   },
   text: {
     ...typography.body,
@@ -215,9 +226,10 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   tailLeft: {
-    left: 10,
+    // Centro na borda do balão: metade fora, apontando para o Pixel.
+    left: TAIL_REACH - TAIL_SIZE / 2,
   },
   tailRight: {
-    right: 10,
+    right: TAIL_REACH - TAIL_SIZE / 2,
   },
 });

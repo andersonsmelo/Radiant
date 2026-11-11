@@ -1,6 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
 
 const payload = {
@@ -48,5 +50,24 @@ describe('HotspotStepRenderer', () => {
         expect(StyleSheet.flatten(target.props.style).minWidth).toBeGreaterThanOrEqual(44);
         expect(StyleSheet.flatten(target.props.style).minHeight).toBeGreaterThanOrEqual(44);
         expect(StyleSheet.flatten(textAlternative.props.style).minHeight).toBeGreaterThanOrEqual(44);
+    });
+
+    it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
+        const { getByLabelText, getByText } = render(
+            <HotspotStepRenderer
+                payload={payload}
+                accessibilityLabel="Geometria simplificada do feixe de raios X"
+                selectedRegionId="source"
+                onSelect={jest.fn()}
+            />,
+        );
+
+        const badge = StyleSheet.flatten(getByText('✓').props.style);
+        expect(badge.backgroundColor).toBe(galaxyColors.background);
+        expect(badge.color).toBe(semanticColors.galaxy.textPrimary);
+        const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
+        expect(region.alignItems).toBe('flex-start');
+        expect(region.justifyContent).toBe('flex-start');
+        expect(region.minWidth).toBeGreaterThanOrEqual(44);
     });
 });

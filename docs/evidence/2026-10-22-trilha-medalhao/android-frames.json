@@ -1,0 +1,92 @@
+{
+  "sourceSha": "76158274b0f253e56467a3a61a6370ff2b9f6f97",
+  "instrument": "Android HWUI gfxinfo framestats; unique IntendedVsync+FrameCompleted; durations require Flags=0 and 0<IntendedVsync<FrameCompleted<9223372036854775807",
+  "averageFpsFormula": "Total frames rendered / (Uptime_ms/1000 - Stats since_ns/1e9), final dump after reset",
+  "scenario": {
+    "listItems": 60,
+    "nodes": 57,
+    "bands": 3,
+    "nodeStatuses": {
+      "completed": 1,
+      "due-review": 1,
+      "available": 1,
+      "locked": 54
+    },
+    "rounds": 3,
+    "swipesPerDirection": 26,
+    "swipeMs": 350,
+    "pixels": {
+      "x": 540,
+      "fromY": 1700,
+      "toY": 600
+    },
+    "nativeBuild": "existing Debug dev-client",
+    "motion": "normal; no reduce-motion argument"
+  },
+  "limits": [
+    "No JS FPS or physical device/Release claim",
+    "Only 3 unlocked nodes: does not prove scenario with 40 unlocked animated medals",
+    "Sample after every 2 swipes; discarded non-positive/sentinel transient rows (27/25/26 unique keys). Valid captured rows are 1 below totalFramesRendered per run; cause of that difference not established. Worst refers only to valid captured rows.",
+    "Not proof of paused playback offscreen; static review found missing viewability control",
+    "Mac console indicators onConsole/loginDone true, lock key absent; no unlock claim beyond recorded indicators"
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "deviceWallSecondsSinceReset": 21.09503,
+      "totalFramesRendered": 1264,
+      "averageRenderedFpsEstimate": 59.919,
+      "uniqueFrameRows": 1263,
+      "flagZeroFrames": 1263,
+      "frameDurationMs": {
+        "mean": 23.208,
+        "p50": 22.383,
+        "p90": 26.73,
+        "p99": 32.146,
+        "worst": 67.185,
+        "over32ms": 14
+      },
+      "jankyFramesReported": 2,
+      "uniqueFrameRowsBeforeValidityFilter": 1290,
+      "discardedNonPositiveOrSentinelRows": 27
+    },
+    {
+      "run": 2,
+      "deviceWallSecondsSinceReset": 20.87615,
+      "totalFramesRendered": 1251,
+      "averageRenderedFpsEstimate": 59.925,
+      "uniqueFrameRows": 1250,
+      "flagZeroFrames": 1250,
+      "frameDurationMs": {
+        "mean": 21.042,
+        "p50": 21.664,
+        "p90": 25.408,
+        "p99": 30.383,
+        "worst": 37.799,
+        "over32ms": 6
+      },
+      "jankyFramesReported": 1,
+      "uniqueFrameRowsBeforeValidityFilter": 1275,
+      "discardedNonPositiveOrSentinelRows": 25
+    },
+    {
+      "run": 3,
+      "deviceWallSecondsSinceReset": 20.892027,
+      "totalFramesRendered": 1251,
+      "averageRenderedFpsEstimate": 59.879,
+      "uniqueFrameRows": 1250,
+      "flagZeroFrames": 1250,
+      "frameDurationMs": {
+        "mean": 22.226,
+        "p50": 22.145,
+        "p90": 25.253,
+        "p99": 33.438,
+        "worst": 43.992,
+        "over32ms": 17
+      },
+      "jankyFramesReported": 4,
+      "uniqueFrameRowsBeforeValidityFilter": 1276,
+      "discardedNonPositiveOrSentinelRows": 26
+    }
+  ]
+}

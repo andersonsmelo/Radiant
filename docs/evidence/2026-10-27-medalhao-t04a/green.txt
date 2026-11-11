@@ -1,0 +1,329 @@
+T04a green evidence — 2026-10-27
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+PATH prefix: /Users/anderson/.nvm/versions/node/v20.20.2/bin
+NODE measured before commands: v20.20.2
+COMMAND: EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/test/mocks/reactNativeSkia.test.tsx src/ui/illustrations/ThemeIllustration.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx src/features/bench/ExposureImage.test.tsx src/features/bench/CollimationImage.test.tsx
+EXIT: 0
+PHASE: All runtime mutations restored. Product bytes match final snapshot below in audit.md.
+
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (14.05 s)
+  ● Console
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+    console.error
+      An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx
+PASS src/features/bench/ExposureImage.test.tsx
+PASS src/ui/illustrations/ThemeIllustration.test.tsx
+PASS src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+PASS src/features/bench/CollimationImage.test.tsx
+PASS src/test/mocks/reactNativeSkia.test.tsx
+
+Test Suites: 7 passed, 7 total
+Tests:       184 passed, 184 total
+Snapshots:   0 total
+Time:        15.374 s
+Ran all test suites matching /src\/test\/mocks\/reactNativeSkia.test.tsx|src\/ui\/illustrations\/ThemeIllustration.test.tsx|src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx|src\/features\/lesson-flow\/renderers\/ActivityRendererRegistry.test.tsx|src\/features\/lesson-flow\/renderers\/BenchStepRenderer.test.tsx|src\/features\/bench\/ExposureImage.test.tsx|src\/features\/bench\/CollimationImage.test.tsx/i.
+
+
+COMMAND: npx --no-install tsc --noEmit
+NODE: v20.20.2
+EXIT: 0
+
+
+COMMAND: npx --no-install eslint jest.config.cjs src/test/mocks/reactNativeSkia.tsx src/test/mocks/reactNativeSkia.test.tsx src/ui/illustrations/ThemeIllustration.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx src/features/lesson-flow/renderers/BenchStepRenderer.test.tsx src/features/bench/ExposureImage.test.tsx src/features/bench/CollimationImage.test.tsx
+NODE: v20.20.2
+EXIT: 0
+
+
+BASELINE WARNING PROVENANCE (same two messages and production stack locations):
+BASE_TASK ab20c6a69cb374ee73cc46c30826ce6e346aabac
+CWD: /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app
+NODE: v20.20.2
+EXPO_NO_DOTENV=1 npx --no-install jest --runInBand --no-cache src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+EXIT: 0
+
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      540 |             ) ?? null;
+      541 |
+    > 542 |         setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+          |         ^
+      543 |     }, [outcome, journeySnapshot]);
+      544 |
+      545 |     const lessonPassed = outcome
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setUnitProgress (src/features/lesson-flow/screens/LessonFlowScreen.tsx:542:9)
+      at Object.react-stack-bottom-frame (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:14062:20)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at commitHookEffectListMount (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8376:29)
+      at commitHookPassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8463:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9782:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9897:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9785:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9775:11)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9756:11)
+      at commitPassiveMountOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9794:11)
+      at flushPendingEffects (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11528:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2082:11)
+      at Immediate.performWorkUntilDeadline [as _onImmediate] (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+
+  console.error
+    An update to LessonFlowAttempt inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      500 |                 }
+      501 |
+    > 502 |                 setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+          |                 ^
+      503 |             } catch (cause) {
+      504 |                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+      505 |
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setSummary (src/features/lesson-flow/screens/LessonFlowScreen.tsx:502:17)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (14.479 s)
+  LessonFlowScreen — escolha da alternativa
+    ✓ bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso (62 ms)
+    ✓ permite trocar a alternativa selecionada antes de confirmar (58 ms)
+    ✓ confirma a escolha corrente ao continuar e revela o reforço (63 ms)
+  LessonFlowScreen — economia de vidas
+    ✓ não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada (60 ms)
+    ✓ protege uma confirmação dupla contra cobrança duplicada (68 ms)
+    ✓ pausa no próximo passo ao chegar a zero e preserva a retomada (115 ms)
+    ✓ assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio (66 ms)
+    ✓ assinante vê ∞ no topo da lição, sem as vidas (57 ms)
+    ✓ quem não assina vê as vidas no topo da lição, sem ∞ (56 ms)
+    ✓ salva o passo atual antes de fechar (57 ms)
+    anúncio da perda de vida ao leitor de tela
+      ✓ anuncia a vida perdida e quantas restam junto da resposta incorreta (111 ms)
+      ✓ na última vida, anuncia que ela acabou em vez de "restam 0" (112 ms)
+      ✓ assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas (115 ms)
+      ✓ sem queda real do contador, não anuncia débito (117 ms)
+    folha de vidas e a loja
+      ✓ com loja no binário, a folha oferece a assinatura e leva à tela dela (122 ms)
+      ✓ sem loja no binário, a folha não oferece a assinatura (115 ms)
+      ✓ voltando da compra, a lição relê as vidas e mostra ∞ (174 ms)
+  LessonFlowScreen — apresentação do passo legado
+    ✓ não promete uma interação que não existe no passo legado (56 ms)
+  LessonFlowScreen — registro da conclusão
+    ✓ registra a conclusão com a escolha confirmada antes de marcar o nó (71 ms)
+    ✓ registra escolha confirmada incorreta como incorreta (114 ms)
+    ✓ usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco (90 ms)
+  LessonFlowScreen — retomada sem persistir respostas
+    ✓ recua para a interação não confirmada quando o cursor salvo já passou por ela (59 ms)
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ✓ pausa no índice 1 e reabre o passo privado esperado 1 pela ação real (280 ms)
+    ✓ pausa no índice 2 e reabre o passo privado esperado 2 pela ação real (291 ms)
+    ✓ pausa no índice 3 e reabre o passo privado esperado 2 pela ação real (296 ms)
+  LessonFlowScreen — atividade curricular v2 promovida
+    ✓ renderiza o material promovido sem depender de bloco legado (60 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: false) (64 ms)
+    ✓ preserva o CTA da comparação V2 (último passo: true) (63 ms)
+    ✓ registra a conclusão usando a atividade nativa e sua resposta confirmada (67 ms)
+  LessonFlowScreen — conclusão da lição
+    ✓ mostra a conclusão em vez de devolver o aluno em silêncio para a aba (112 ms)
+    ✓ anuncia Estude na conclusão de /learn e o Continuar executa esse retorno (109 ms)
+    ✓ mostra as estrelas desta tentativa, com o recorde à parte (110 ms)
+    ✓ chega ao Continuar mesmo quando a leitura do histórico falha (108 ms)
+  LessonFlowScreen — sons e vibração
+    ✓ tocar numa alternativa toca o som de toque e vibra a seleção (55 ms)
+    ✓ continuar com erro toca só o erro, mesmo quando a vida cai (60 ms)
+    ✓ continuar com acerto toca o acerto e vibra o sucesso (61 ms)
+    ✓ o assinante erra e também ouve só o erro (60 ms)
+    ✓ a lição aprovada termina com o som de fim e a comemoração (112 ms)
+    ✓ com os interruptores desligados, nada toca e nada vibra, nem a comemoração (110 ms)
+    ✓ libera os sons ao sair da lição (53 ms)
+  LessonFlowScreen — revisão da trilha não custa vida
+    ✓ errar na revisão não gasta vida nem anuncia perda (60 ms)
+    ✓ sem vidas, a revisão continua e não pausa (61 ms)
+    ✓ a revisão termina como revisão, sem pedir avaliação de aula (112 ms)
+    ✓ a lição continua custando vida no erro (58 ms)
+  FILA 58 — integração do motor híbrido
+    ✓ M4 primeiro contato não custa; só erro no retorno custa uma vida (184 ms)
+    ✓ M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção (181 ms)
+    ✓ M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha (177 ms)
+    ✓ M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno (186 ms)
+    ✓ M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido (180 ms)
+    ✓ M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão (64 ms)
+    ✓ C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess (70 ms)
+    ✓ M2 mantém título e corpo do feedback sem teto de fonte (61 ms)
+    ✓ M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa (78 ms)
+  LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor
+    ✓ escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo (58 ms)
+    ✓ bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha (152 ms)
+    ✓ bancada certa: o bloco mostra feedback.correct, sem dica (58 ms)
+    ✓ bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha (55 ms)
+    ✓ bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo (87 ms)
+    ✓ bancada de corrigir: o botão também espera o alvo (59 ms)
+    ✓ bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção (55 ms)
+    ✓ bancada: depois de conferir, o botão volta a "Continuar" (60 ms)
+  LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item
+    ✓ errar a primeira resposta de um item e acertar na volta não dá três estrelas (335 ms)
+  LessonFlowScreen — sem nó, a tela não grava progresso da trilha
+    ✓ abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada (61 ms)
+    ✓ fechar a aula sem nó sai para a trilha sem gravar o passo (7 ms)
+    ✓ pausar sem vidas, sem nó, abre a folha sem gravar o passo (58 ms)
+    ✓ sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar (9 ms)
+  LessonFlowScreen — as aulas-bancada correm como lição híbrida
+    ✓ a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida (13 ms)
+    ✓ o fechamento mostra o próprio título e texto, e não o retorno da última interação (10 ms)
+  T04 — abertura, retorno e botão apto
+    ✓ multiple-choice correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (10 ms)
+    ✓ multiple-choice correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (10 ms)
+    ✓ comparison correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (10 ms)
+    ✓ comparison correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (10 ms)
+    ✓ hotspot correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (8 ms)
+    ✓ hotspot correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (6 ms)
+    ✓ matching correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (7 ms)
+    ✓ matching correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (6 ms)
+    ✓ ordering correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (8 ms)
+    ✓ ordering correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (11 ms)
+    ✓ bench correto=false mostra o retorno e o anuncia uma vez sem região viva duplicada (11 ms)
+    ✓ bench correto=true mostra o retorno e o anuncia uma vez sem região viva duplicada (15 ms)
+    ✓ abertura usa o tema explícito sem nó e preserva o texto independente (5 ms)
+    ✓ abertura resolve tema do nó, depois da unidade real, sem ler progresso (107 ms)
+    ✓ explore explica a espera e anuncia aptidão só uma vez por visita (47 ms)
+    ✓ correct explica a espera e anuncia aptidão só uma vez por visita (18 ms)
+  T04 fix1 — contagem com texto ampliado
+    ✓ deixa a contagem crescer pelas métricas nativas, sem comprimir a linha (5 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       85 passed, 85 total
+Snapshots:   0 total
+Time:        14.719 s
+Ran all test suites matching /src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx/i.
+
+RESTORATION:
+{
+  "radiant-app/jest.config.cjs": {
+    "sha256_final_before": "d1822879b1bcfdec08d80056aaedd4002ac37c6fd3a376cd2ee75dd7847d9599",
+    "sha256_restored": "d1822879b1bcfdec08d80056aaedd4002ac37c6fd3a376cd2ee75dd7847d9599"
+  },
+  "radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx": {
+    "sha256_final_before": "3d4d76247ef3f7d7c7dcd744ac4c7af5eddabe18c23eea34fd6995846fffda99",
+    "sha256_restored": "3d4d76247ef3f7d7c7dcd744ac4c7af5eddabe18c23eea34fd6995846fffda99"
+  },
+  "radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx": {
+    "sha256_final_before": "8448ff3ced217ab7e686f222445882242f864d35c9338e6d065300c39b5e588a",
+    "sha256_restored": "8448ff3ced217ab7e686f222445882242f864d35c9338e6d065300c39b5e588a"
+  }
+}

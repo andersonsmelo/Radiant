@@ -203,6 +203,29 @@ restauração invalidam apenas o checkpoint e voltam à Home; progresso pedagóg
 confirmado nunca é apagado. Contrato completo:
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md).
 
+## Trilha ampla rtg-2026 — caminho do aluno na branch, 2026-11-06
+
+Vale só para a branch `claude/conteudo-reinicio-tecnologo`. O aluno da loja continua
+no fluxo descrito acima.
+
+1. **Estude** mostra a unidade atual, o progresso ("0 de 13") e o próximo passo. Sob o
+   cabeçalho ficam o nível e as missões do dia.
+2. **Aula:** cena de diálogo com o elenco, uma fala por toque; o objetivo; o conceito
+   com pontos-chave; cinco interações. Antes de responder, o aluno pode abrir a pista.
+   Depois de conferir, o Pixel mostra a resposta dada, a certa e por que aquela
+   alternativa não serve. O erro custa uma vida, com aviso. Três, cinco e dez acertos
+   seguidos mostram o selo de combo.
+3. **Resumo:** estrelas e XP; com ao menos uma estrela há confete e som.
+4. **Conferência:** dois itens novos, sem pista. Reprovado, o aluno refaz a aula, e
+   os dois itens de recuperação daquela aula entram na revisão.
+5. **Unidade concluída:** celebração uma vez por unidade, e a próxima unidade abre.
+6. **Sequência:** a cada sete dias seguidos o aluno ganha uma proteção (até duas),
+   que cobre um dia perdido.
+
+Visto no simulador só até o retorno de erro do passo 2
+([capturas](evidence/2026-11-06-trilha-ampla-simulador/README.md)); o resto está
+coberto por teste, não por tela.
+
 ## O que estes diagramas NÃO dizem
 
 - **Não detalham todo o ciclo StoreKit/iCloud.** A assinatura opcional oferece

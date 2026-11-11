@@ -1,0 +1,2719 @@
+FAIL radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx (6.563 s)
+  ● WelcomeFlowScreen — primeira bancada › ao ajustar para 65 kV, muda a faixa e os números usados no shader
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0.9329473428479946
+    Received: 0.9329473428479947
+
+      72 |             expect(after).toMatchObject(expected);
+      73 |             expect(after.soft).not.toBe(before.soft);
+    > 74 |             expect(after.bone).toBe(before.bone);
+         |                                ^
+      75 |             expect(after.noise).toBe(before.noise);
+      76 |             expect(after.soft).toBeGreaterThan(after.background);
+      77 |             expect(after.soft).toBeLessThan(after.bone);
+
+      at toBe (src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx:74:32)
+
+PASS radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+
+Test Suites: 1 failed, 2 passed, 3 total
+Tests:       1 failed, 19 passed, 20 total
+Snapshots:   0 total
+Time:        10.437 s, estimated 43 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowScreen.flow.test.tsx|radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowReentry.test.tsx|radiant-app\/src\/features\/first-run\/components\/WelcomeSlide.test.tsx/i.
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.05075
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.9575
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 17.874875
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 6.165875
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.69875
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 1.171333
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 7.675083
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.101792
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 0.913125
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.494
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 10.173584
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.740833
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 301.48075
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.63475
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.205792
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 1.141333
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.213792
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.253709
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.227917
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.170875
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+not ok 21 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 5.033833
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/maestro-contract.test.mjs:735:1'
+  failureType: 'testCodeFailure'
+  error: 'student-checkpoint-active-resume.yaml: resume the single welcome bench'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/maestro-contract.test.mjs:777:12)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 22 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.830959
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 23 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.214042
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+not ok 24 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 15.998917
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/maestro-contract.test.mjs:864:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    first-run.yaml use scrollUntilVisible but are missing from MAESTRO_FLOWS_WITH_SCROLL — the scroll guards only read the flows listed there
+    + actual - expected
+    
+    + [
+    +   'first-run.yaml'
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0: 'first-run.yaml'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/scripts/maestro-contract.test.mjs:882:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 25 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.625833
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 26 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.172959
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 27 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.642375
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 28 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 0.921791
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 29 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.656542
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 30 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 6.034125
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 31 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.854667
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 32 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.612416
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 33 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.620833
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 34 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.183833
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 35 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 29.884417
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 36 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 17.355667
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 37 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 12.031833
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 35
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 667.013
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx (5.003 s)
+PASS radiant-app/src/features/first-run/startup-gate.flow.test.tsx
+  ● Console
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] Falha ao reler a assinatura: Error: loja fora
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:285:51)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      235 |           // de bootstrap.
+      236 |           subscriptionService.refresh(Date.now()).catch((error) => {
+    > 237 |             console.error('[RootLayout] Falha ao reler a assinatura:', error);
+          |                     ^
+      238 |           }),
+      239 |           // O restore NÃO entra solto no paralelo, e a razão é de corretude,
+      240 |           // não de velocidade. `LocalProgressAdapter.applyJourney` só mescla
+
+      at error (src/app/_layout.tsx:237:21)
+          at async Promise.all (index 4)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":false,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+          at Generator.throw (<anonymous>)
+
+    console.error
+      [abertura] Falha ao restaurar o backup: Error: nuvem fora
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:286:59)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      105 |             ultimoErro: null,
+      106 |         });
+    > 107 |         console.error('[abertura] Falha ao restaurar o backup:', cause);
+          |                 ^
+      108 |     }
+      109 | }
+      110 |
+
+      at error (src/features/progress-sync/startupRestore.ts:107:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":false}
+
+      at log (src/app/_layout.tsx:67:11)
+          at Generator.throw (<anonymous>)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] App bootstrap failed: Error: falha de rede
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:697:30)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      305 |       } catch (error) {
+      306 |         if (migrationProgressTimer) clearTimeout(migrationProgressTimer);
+    > 307 |         console.error('[RootLayout] App bootstrap failed:', error);
+          |                 ^
+      308 |         if (!active) {
+      309 |           return;
+      310 |         }
+
+      at error (src/app/_layout.tsx:307:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] App bootstrap failed: Error: falha ao ler o estado do primeiro uso
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:772:30)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      305 |       } catch (error) {
+      306 |         if (migrationProgressTimer) clearTimeout(migrationProgressTimer);
+    > 307 |         console.error('[RootLayout] App bootstrap failed:', error);
+          |                 ^
+      308 |         if (!active) {
+      309 |           return;
+      310 |         }
+
+      at error (src/app/_layout.tsx:307:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+PASS radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx
+PASS radiant-app/src/features/bench/BenchControlRow.test.tsx
+PASS radiant-app/src/features/bench/ExposureImage.test.tsx
+PASS radiant-app/src/features/first-run/FirstRunService.test.ts
+  ● Console
+
+    console.error
+      [FirstRunService] Falha ao gravar o estado: Error: disco cheio
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/FirstRunService.test.ts:181:53)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      118 |             await AsyncStorage.setItem(STORE_KEY, JSON.stringify(this.state));
+      119 |         } catch (error) {
+    > 120 |             console.error('[FirstRunService] Falha ao gravar o estado:', error);
+          |                     ^
+      121 |         }
+      122 |
+      123 |         // dismissIntro() grava this.state direto em disco. Sem init() antes,
+
+      at FirstRunServiceImpl.error (src/features/first-run/FirstRunService.ts:120:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.error
+      [FirstRunService] Falha ao ler o estado: Error: storage indisponível
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/FirstRunService.test.ts:194:49)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      56 |             // Falha de leitura não pode travar a abertura do app. Tratar como
+      57 |             // não vista é o lado seguro: no pior caso a pessoa vê de novo.
+    > 58 |             console.error('[FirstRunService] Falha ao ler o estado:', error);
+         |                     ^
+      59 |             this.state = { ...DEFAULT_STATE };
+      60 |         }
+      61 |
+
+      at FirstRunServiceImpl.error (src/features/first-run/FirstRunService.ts:58:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+PASS radiant-app/src/features/student-checkpoints/ActiveCheckpointRuntime.test.ts
+PASS radiant-app/src/features/bench/exposureModel.test.ts
+PASS radiant-app/src/features/student-checkpoints/screen-integrations.test.ts
+
+Test Suites: 10 passed, 10 total
+Tests:       129 passed, 129 total
+Snapshots:   0 total
+Time:        12.984 s, estimated 14 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run|radiant-app\/src\/features\/bench\/ExposureImage.test.tsx|radiant-app\/src\/features\/bench\/BenchControlRow.test.tsx|radiant-app\/src\/features\/bench\/exposureModel.test.ts|radiant-app\/src\/features\/student-checkpoints\/screen-integrations.test.ts|radiant-app\/src\/features\/student-checkpoints\/ActiveCheckpointRuntime.test.ts/i.
+TAP version 13
+# Copy AST: 325 sources, 1595 sinks, 135 findings; 919 unresolved static paths require the recorded domain audit.
+# Subtest: detects JSX Text jargon
+ok 1 - detects JSX Text jargon
+  ---
+  duration_ms: 8.645166
+  ...
+# Subtest: detects prop dash
+ok 2 - detects prop dash
+  ---
+  duration_ms: 1.768667
+  ...
+# Subtest: detects structural eyebrow deduplicates uppercase
+ok 3 - detects structural eyebrow deduplicates uppercase
+  ---
+  duration_ms: 0.873834
+  ...
+# Subtest: detects lowercase structural eyebrow
+ok 4 - detects lowercase structural eyebrow
+  ---
+  duration_ms: 0.589667
+  ...
+# Subtest: detects uppercase literal
+ok 5 - detects uppercase literal
+  ---
+  duration_ms: 0.577
+  ...
+# Subtest: detects unicode jargon boundaries
+ok 6 - detects unicode jargon boundaries
+  ---
+  duration_ms: 0.489416
+  ...
+# Subtest: detects singular settings jargon
+ok 7 - detects singular settings jargon
+  ---
+  duration_ms: 0.385792
+  ...
+# Subtest: detects en dash with spaces
+ok 8 - detects en dash with spaces
+  ---
+  duration_ms: 1.097917
+  ...
+# Subtest: detects template static span
+ok 9 - detects template static span
+  ---
+  duration_ms: 2.860833
+  ...
+# Subtest: detects template interpolation
+ok 10 - detects template interpolation
+  ---
+  duration_ms: 0.70225
+  ...
+# Subtest: detects local alias
+ok 11 - detects local alias
+  ---
+  duration_ms: 1.01825
+  ...
+# Subtest: detects object property
+ok 12 - detects object property
+  ---
+  duration_ms: 1.152125
+  ...
+# Subtest: detects array element
+ok 13 - detects array element
+  ---
+  duration_ms: 1.543541
+  ...
+# Subtest: detects map array copy
+ok 14 - detects map array copy
+  ---
+  duration_ms: 0.828959
+  ...
+# Subtest: detects copy function return
+ok 15 - detects copy function return
+  ---
+  duration_ms: 0.540334
+  ...
+# Subtest: detects copy function argument
+ok 16 - detects copy function argument
+  ---
+  duration_ms: 0.495792
+  ...
+# Subtest: detects ternary ignores discriminant
+ok 17 - detects ternary ignores discriminant
+  ---
+  duration_ms: 0.527416
+  ...
+# Subtest: detects Alert title and message
+ok 18 - detects Alert title and message
+  ---
+  duration_ms: 13.327583
+  ...
+# Subtest: detects hint is copy
+ok 19 - detects hint is copy
+  ---
+  duration_ms: 0.562583
+  ...
+# Subtest: detects shared uppercase style
+ok 20 - detects shared uppercase style
+  ---
+  duration_ms: 0.62475
+  ...
+# Subtest: detects uppercase call on text
+ok 21 - detects uppercase call on text
+  ---
+  duration_ms: 0.327917
+  ...
+# Subtest: detects nested copy objects
+ok 22 - detects nested copy objects
+  ---
+  duration_ms: 0.309084
+  ...
+# Subtest: detects Pixel phrases array
+ok 23 - detects Pixel phrases array
+  ---
+  duration_ms: 0.508542
+  ...
+# Subtest: resolves imported aliases and reports the origin once per class
+ok 24 - resolves imported aliases and reports the origin once per class
+  ---
+  duration_ms: 1.745625
+  ...
+# Subtest: resolves an imported uppercase text style
+ok 25 - resolves an imported uppercase text style
+  ---
+  duration_ms: 0.66025
+  ...
+# Subtest: allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+ok 26 - allows comments, identifiers, internal strings, conditions, unicode neighbors and legitimate dashes
+  ---
+  duration_ms: 0.834583
+  ...
+# Subtest: reports unresolved text sinks instead of silently treating them as clean
+ok 27 - reports unresolved text sinks instead of silently treating them as clean
+  ---
+  duration_ms: 0.252375
+  ...
+# Subtest: excludes tests and stories but scans an external imported Alert source
+ok 28 - excludes tests and stories but scans an external imported Alert source
+  ---
+  duration_ms: 0.487416
+  ...
+# Subtest: clinical exclusions are source and field specific; navigation labels stay measured
+ok 29 - clinical exclusions are source and field specific; navigation labels stay measured
+  ---
+  duration_ms: 0.873458
+  ...
+# Subtest: legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+ok 30 - legal exclusion protects only legal prose and CANCEL_COPY, preserving nearby UI and hints
+  ---
+  duration_ms: 0.7045
+  ...
+# Subtest: baseline rejects increases and files without a ceiling, and warns on decreases
+ok 31 - baseline rejects increases and files without a ceiling, and warns on decreases
+  ---
+  duration_ms: 0.293209
+  ...
+# Subtest: baseline rejects obsolete paths and unknown classes
+ok 32 - baseline rejects obsolete paths and unknown classes
+  ---
+  duration_ms: 0.07475
+  ...
+# Subtest: a style named eyebrow is not itself text copy
+ok 33 - a style named eyebrow is not itself text copy
+  ---
+  duration_ms: 0.417125
+  ...
+# Subtest: a static array index resolves only the selected element
+ok 34 - a static array index resolves only the selected element
+  ---
+  duration_ms: 0.299167
+  ...
+# Subtest: editorial source and license metadata are not student interface copy
+ok 35 - editorial source and license metadata are not student interface copy
+  ---
+  duration_ms: 0.286292
+  ...
+# Subtest: HTTP request bodies and serialized internal messages are not UI copy
+ok 36 - HTTP request bodies and serialized internal messages are not UI copy
+  ---
+  duration_ms: 1.310459
+  ...
+# Subtest: follows copy through useMemo and string formatting without scanning condition literals
+ok 37 - follows copy through useMemo and string formatting without scanning condition literals
+  ---
+  duration_ms: 0.442875
+  ...
+# Subtest: resolves copy from array find and map return values
+ok 38 - resolves copy from array find and map return values
+  ---
+  duration_ms: 0.3865
+  ...
+# Subtest: follows text component wrappers, fragments and renamed Text imports
+ok 39 - follows text component wrappers, fragments and renamed Text imports
+  ---
+  duration_ms: 0.411042
+  ...
+# Subtest: resolves root and src path aliases
+ok 40 - resolves root and src path aliases
+  ---
+  duration_ms: 0.551667
+  ...
+# Subtest: resolves shorthand properties and joined arrays without losing string origins
+ok 41 - resolves shorthand properties and joined arrays without losing string origins
+  ---
+  duration_ms: 0.511791
+  ...
+# Subtest: resolves default imported text
+ok 42 - resolves default imported text
+  ---
+  duration_ms: 0.563667
+  ...
+# Subtest: resolves copy returned by render children and array spreads
+ok 43 - resolves copy returned by render children and array spreads
+  ---
+  duration_ms: 0.36425
+  ...
+# Subtest: fixes R1 destructured function return
+ok 44 - fixes R1 destructured function return
+  ---
+  duration_ms: 4.39375
+  ...
+# Subtest: fixes R1 renamed local binding
+ok 45 - fixes R1 renamed local binding
+  ---
+  duration_ms: 0.839792
+  ...
+# Subtest: fixes R2 returned array parameter environment
+ok 46 - fixes R2 returned array parameter environment
+  ---
+  duration_ms: 0.545125
+  ...
+# Subtest: fixes R2 returned shorthand parameter environment
+ok 47 - fixes R2 returned shorthand parameter environment
+  ---
+  duration_ms: 1.141
+  ...
+# Subtest: fixes R2 returned property parameter environment
+ok 48 - fixes R2 returned property parameter environment
+  ---
+  duration_ms: 0.967417
+  ...
+# Subtest: fixes R3 uppercase template number
+ok 49 - fixes R3 uppercase template number
+  ---
+  duration_ms: 2.774792
+  ...
+# Subtest: fixes R4 visible join separator
+ok 50 - fixes R4 visible join separator
+  ---
+  duration_ms: 0.299125
+  ...
+# Subtest: fixes R6 React Native Alert import alias
+ok 51 - fixes R6 React Native Alert import alias
+  ---
+  duration_ms: 0.5295
+  ...
+# Subtest: fixes R7 serialized visible string
+ok 52 - fixes R7 serialized visible string
+  ---
+  duration_ms: 0.315416
+  ...
+# Subtest: R3 mixed-case template static span is allowed
+ok 53 - R3 mixed-case template static span is allowed
+  ---
+  duration_ms: 0.201
+  ...
+# Subtest: R4 empty and singleton joins do not render their separator
+ok 54 - R4 empty and singleton joins do not render their separator
+  ---
+  duration_ms: 0.250125
+  ...
+# Subtest: R5 array length is numeric and never exposes its internal strings
+ok 55 - R5 array length is numeric and never exposes its internal strings
+  ---
+  duration_ms: 0.360375
+  ...
+# Subtest: R6 unrelated alert method is not the React Native sink
+ok 56 - R6 unrelated alert method is not the React Native sink
+  ---
+  duration_ms: 0.382208
+  ...
+# Subtest: R7 real HTTP serialized body remains transport while adjacent serialization is visible
+ok 57 - R7 real HTTP serialized body remains transport while adjacent serialization is visible
+  ---
+  duration_ms: 0.304459
+  ...
+# Subtest: R2-A namespace import resolves copy at its exported origin
+ok 58 - R2-A namespace import resolves copy at its exported origin
+  ---
+  duration_ms: 0.617166
+  ...
+# Subtest: R2-B empty spread before singleton does not render join separator
+ok 59 - R2-B empty spread before singleton does not render join separator
+  ---
+  duration_ms: 0.325666
+  ...
+# Subtest: R2-B spread of two strings renders its join separator
+ok 60 - R2-B spread of two strings renders its join separator
+  ---
+  duration_ms: 0.358
+  ...
+# Subtest: R2-C shadowing parameter does not inherit the Native Alert import
+ok 61 - R2-C shadowing parameter does not inherit the Native Alert import
+  ---
+  duration_ms: 0.439792
+  ...
+# Subtest: R3-A join retains static origins from conditional array spreads
+ok 62 - R3-A join retains static origins from conditional array spreads
+  ---
+  duration_ms: 0.293833
+  ...
+# Subtest: R3-A alternative singleton arrays do not manufacture a join separator
+ok 63 - R3-A alternative singleton arrays do not manufacture a join separator
+  ---
+  duration_ms: 0.281
+  ...
+# Subtest: R3-A two-item alternatives retain origins and their guaranteed separator
+ok 64 - R3-A two-item alternatives retain origins and their guaranteed separator
+  ---
+  duration_ms: 0.390084
+  ...
+# Subtest: UI copy stays within the measured file/class baseline
+ok 65 - UI copy stays within the measured file/class baseline
+  ---
+  duration_ms: 496.63175
+  ...
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 66 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.672292
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 67 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 8.520709
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 68 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 21.398167
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 69 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 7.456125
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 70 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.679292
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 71 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.728333
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 72 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 9.203542
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 73 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.16975
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 74 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 2.549125
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 75 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.552458
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 76 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 13.173625
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 77 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 8.708708
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 78 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 254.350833
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 79 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.410209
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 80 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.228708
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 81 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.457917
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 82 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.169167
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 83 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.27775
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 84 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.667875
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 85 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.429875
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 86 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 3.569125
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 87 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.517667
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 88 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.167667
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 89 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 46.999375
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 90 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 5.182583
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 91 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 3.735541
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 92 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.686792
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 93 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.079791
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 94 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.743667
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 95 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 7.517375
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 96 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 3.577416
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 97 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 3.078333
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 98 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 5.020292
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 99 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.225958
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 100 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 33.946792
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 101 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 18.350041
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 102 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 16.158209
+  ...
+# Subtest: scanSource records a stable signature and source line for token violations
+ok 103 - scanSource records a stable signature and source line for token violations
+  ---
+  duration_ms: 1.380334
+  ...
+# Subtest: assessIssues distinguishes the exact baseline from a regression
+ok 104 - assessIssues distinguishes the exact baseline from a regression
+  ---
+  duration_ms: 0.359917
+  ...
+# Subtest: assessIssues accepts active path-scoped exceptions and rejects expired ones
+ok 105 - assessIssues accepts active path-scoped exceptions and rejects expired ones
+  ---
+  duration_ms: 0.535584
+  ...
+1..105
+# tests 105
+# suites 0
+# pass 105
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 729.498542
+
+Oops! Something went wrong! :(
+
+ESLint: 9.39.2
+
+ESLint couldn't find an eslint.config.(js|mjs|cjs) file.
+
+From ESLint v9.0.0, the default configuration file is now eslint.config.js.
+If you are using a .eslintrc.* file, please follow the migration guide
+to update your configuration file to the new format:
+
+https://eslint.org/docs/latest/use/configure/migration-guide
+
+If you still have problems after following the migration guide, please stop by
+https://eslint.org/chat/help to chat with the team.
+
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx
+PASS radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx
+
+Test Suites: 3 passed, 3 total
+Tests:       22 passed, 22 total
+Snapshots:   0 total
+Time:        6.62 s, estimated 9 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowScreen.flow.test.tsx|radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowReentry.test.tsx|radiant-app\/src\/features\/first-run\/components\/WelcomeSlide.test.tsx/i.
+T03 focal actual source visual QA: {"excepted":[],"baselined":[],"regressions":[]}
+
+FINAL SUMMARY (see task-4-implementation-report.md for commands): focal129/10 PASS; contracts105/105 PASS; final UI22/3 PASS; focal ESLint cwd radiant-app exit0; focal source visual QA0issues; git diff --check exit0.
+
+NATIVE FIX1 GREEN — three UI suites after adding local measured provider; same CPU-limited Node20 command.
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx
+PASS radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx
+
+Test Suites: 3 passed, 3 total
+Tests:       23 passed, 23 total
+Snapshots:   0 total
+Time:        7.783 s, estimated 10 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowScreen.flow.test.tsx|radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowReentry.test.tsx|radiant-app\/src\/features\/first-run\/components\/WelcomeSlide.test.tsx/i.
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.726792
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 11.139583
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 19.354459
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 6.707792
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 0.786083
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.955583
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 8.890375
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.61075
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.019583
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 4.569208
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 12.771542
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 6.028667
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 489.314875
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.793916
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.606584
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.855666
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.265791
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.381208
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.421458
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.420167
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 21 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 5.519875
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 22 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 4.71425
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 23 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 2.092625
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 24 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 46.956166
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 25 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 5.116042
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 26 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.14075
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 27 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.748375
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 28 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.24475
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 29 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 1.0595
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 30 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 6.974833
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 31 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 3.020584
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 32 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 3.265166
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 33 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.577333
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 34 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 3.116625
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 35 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 36.025583
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 36 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 16.24
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 37 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 13.041917
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 37
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 916.424834
+
+NATIVE FIX1 AST GREEN: all Maestro contracts, including new commented fake destination fixture.
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.918041
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 11.200334
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 18.588375
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 5.719
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 1.147916
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.61125
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 8.193417
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 1.144541
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 1.355709
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 3.512958
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 10.746917
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 4.937459
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 249.432375
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.301791
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.259792
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.423416
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.189167
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.267042
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.316041
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.67075
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.181042
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 4.937
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.507541
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.257083
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 32.539791
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 2.686541
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 2.000958
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.75525
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 1.103375
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.641458
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 6.019167
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 32 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 3.718541
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 33 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.893875
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 34 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.203166
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 35 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 2.756583
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 36 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 33.454459
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 37 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 13.935583
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 38 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 13.117959
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 607.308708
+FIX1 focal actual source visual QA: {"excepted":[],"baselined":[],"regressions":[]}
+
+FIX1 FINAL SUMMARY: UI23/3 PASS; Maestro38/38 PASS; focal lint3paths exit0; focal source QA0issues; git diff --check exit0. Native confirmation remains controller-owned, pending after reload.
+
+FIX2 GREEN — actual first-run UI/runtime + BenchControlRow, Node20.20.2 taskpolicy -b.
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx (7.903 s)
+PASS radiant-app/src/features/first-run/components/WelcomeSlide.test.tsx
+PASS radiant-app/src/features/bench/BenchControlRow.test.tsx
+PASS radiant-app/src/features/first-run/startup-gate.flow.test.tsx
+  ● Console
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] Falha ao reler a assinatura: Error: loja fora
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:285:51)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      235 |           // de bootstrap.
+      236 |           subscriptionService.refresh(Date.now()).catch((error) => {
+    > 237 |             console.error('[RootLayout] Falha ao reler a assinatura:', error);
+          |                     ^
+      238 |           }),
+      239 |           // O restore NÃO entra solto no paralelo, e a razão é de corretude,
+      240 |           // não de velocidade. `LocalProgressAdapter.applyJourney` só mescla
+
+      at error (src/app/_layout.tsx:237:21)
+          at async Promise.all (index 4)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":false,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+          at Generator.throw (<anonymous>)
+
+    console.error
+      [abertura] Falha ao restaurar o backup: Error: nuvem fora
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:286:59)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      105 |             ultimoErro: null,
+      106 |         });
+    > 107 |         console.error('[abertura] Falha ao restaurar o backup:', cause);
+          |                 ^
+      108 |     }
+      109 | }
+      110 |
+
+      at error (src/features/progress-sync/startupRestore.ts:107:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":false}
+
+      at log (src/app/_layout.tsx:67:11)
+          at Generator.throw (<anonymous>)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] App bootstrap failed: Error: falha de rede
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:697:30)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      305 |       } catch (error) {
+      306 |         if (migrationProgressTimer) clearTimeout(migrationProgressTimer);
+    > 307 |         console.error('[RootLayout] App bootstrap failed:', error);
+          |                 ^
+      308 |         if (!active) {
+      309 |           return;
+      310 |         }
+
+      at error (src/app/_layout.tsx:307:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.error
+      [RootLayout] App bootstrap failed: Error: falha ao ler o estado do primeiro uso
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/startup-gate.flow.test.tsx:772:30)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      305 |       } catch (error) {
+      306 |         if (migrationProgressTimer) clearTimeout(migrationProgressTimer);
+    > 307 |         console.error('[RootLayout] App bootstrap failed:', error);
+          |                 ^
+      308 |         if (!active) {
+      309 |           return;
+      310 |         }
+
+      at error (src/app/_layout.tsx:307:17)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"hidratacao","ok":true}
+
+      at log (src/app/_layout.tsx:67:11)
+
+    console.log
+      [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":null}
+
+      at log (src/app/_layout.tsx:67:11)
+
+PASS radiant-app/src/features/first-run/FirstRunService.test.ts
+  ● Console
+
+    console.error
+      [FirstRunService] Falha ao gravar o estado: Error: disco cheio
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/FirstRunService.test.ts:181:53)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+      118 |             await AsyncStorage.setItem(STORE_KEY, JSON.stringify(this.state));
+      119 |         } catch (error) {
+    > 120 |             console.error('[FirstRunService] Falha ao gravar o estado:', error);
+          |                     ^
+      121 |         }
+      122 |
+      123 |         // dismissIntro() grava this.state direto em disco. Sem init() antes,
+
+      at FirstRunServiceImpl.error (src/features/first-run/FirstRunService.ts:120:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.error
+      [FirstRunService] Falha ao ler o estado: Error: storage indisponível
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/src/features/first-run/FirstRunService.test.ts:194:49)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-2026-10-20/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+      56 |             // Falha de leitura não pode travar a abertura do app. Tratar como
+      57 |             // não vista é o lado seguro: no pior caso a pessoa vê de novo.
+    > 58 |             console.error('[FirstRunService] Falha ao ler o estado:', error);
+         |                     ^
+      59 |             this.state = { ...DEFAULT_STATE };
+      60 |         }
+      61 |
+
+      at FirstRunServiceImpl.error (src/features/first-run/FirstRunService.ts:58:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+
+Test Suites: 6 passed, 6 total
+Tests:       78 passed, 78 total
+Snapshots:   0 total
+Time:        16.65 s, estimated 38 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run|radiant-app\/src\/features\/bench\/BenchControlRow.test.tsx/i.
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 10.491541
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 14.149083
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 29.213875
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 9.395083
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 1.9725
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 2.207458
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 16.242708
+  ...
+# Subtest: centers the due review node before the second-day tap
+ok 8 - centers the due review node before the second-day tap
+  ---
+  duration_ms: 2.303458
+  ...
+# Subtest: exposes the scheduled review before the final second-day assertion
+ok 9 - exposes the scheduled review before the final second-day assertion
+  ---
+  duration_ms: 2.236416
+  ...
+# Subtest: centers every completed lesson replay above the HUD in the lives flow
+ok 10 - centers every completed lesson replay above the HUD in the lives flow
+  ---
+  duration_ms: 5.300833
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 11 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 18.989792
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 12 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 10.777208
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 13 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 530.261375
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 14 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 2.985541
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 15 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.512042
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 16 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 1.038417
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 17 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.440167
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 18 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.666584
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 19 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.593083
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 20 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.392792
+  ...
+# Subtest: reads the welcome destination from actual syntax, ignoring commented fake payload
+ok 21 - reads the welcome destination from actual syntax, ignoring commented fake payload
+  ---
+  duration_ms: 0.396125
+  ...
+# Subtest: ties the single welcome bench and resume flows to rendered copy and a real kV change
+ok 22 - ties the single welcome bench and resume flows to rendered copy and a real kV change
+  ---
+  duration_ms: 9.985083
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 23 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 4.498417
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 24 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 3.477292
+  ...
+# Subtest: lists exactly the flows that scroll until an element is visible
+ok 25 - lists exactly the flows that scroll until an element is visible
+  ---
+  duration_ms: 73.31925
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 26 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 3.819167
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 27 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 4.162875
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 28 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 1.772708
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 29 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.495958
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 30 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 1.656208
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 31 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 10.975875
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 32 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 6.278083
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 33 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 5.175917
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 34 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 7.531333
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+ok 35 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 5.477625
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 36 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 55.95075
+  ...
+# Subtest: launches every flow with the launch argument that turns off decorative motion
+ok 37 - launches every flow with the launch argument that turns off decorative motion
+  ---
+  duration_ms: 30.801042
+  ...
+# Subtest: never lets a deep link start the app the launch argument did not start
+ok 38 - never lets a deep link start the app the launch argument did not start
+  ---
+  duration_ms: 20.447041
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1122.311458
+FIX2 focal actual source visual QA: {"excepted":[],"baselined":[],"regressions":[]}
+
+FIX2 FINAL SUMMARY: first-run+BenchControlRow78/78,6suites PASS; Maestro38/38 PASS; focal lint6paths exit0; sourceQA3components0issues; diffcheck0. P2-01 native/scoped-review pending.
+src/features/first-run/screens/WelcomeFlowReentry.test.tsx(67,47): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowReentry.test.tsx(69,43): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowReentry.test.tsx(70,33): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx(148,35): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx(149,35): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx(150,35): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx(184,33): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx(185,35): error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+FIX3 GREEN typecheck — Node20.20.2 tsc --noEmit, only eight callback type annotations; real RED preserved task-4-typecheck-failure.txt. The preceding diagnostic repeats RED because first edit command used wrong cwd and wrote nothing.
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowScreen.flow.test.tsx (7.001 s)
+PASS radiant-app/src/features/first-run/screens/WelcomeFlowReentry.test.tsx
+
+Test Suites: 2 passed, 2 total
+Tests:       24 passed, 24 total
+Snapshots:   0 total
+Time:        9.191 s
+Ran all test suites matching /radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowReentry.test.tsx|radiant-app\/src\/features\/first-run\/screens\/WelcomeFlowScreen.flow.test.tsx/i.
+
+FIX3 FINAL SUMMARY: Node20.20.2 tsc --noEmit exit0; focal two suites24/24 PASS; only eight type annotations; runtime3hashes unchanged; writer left to controller for final configured validation.

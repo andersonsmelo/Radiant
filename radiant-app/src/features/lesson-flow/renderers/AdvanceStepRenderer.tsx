@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { AdvancePayload } from '../../../types/lessonFlow';
 import { galaxyColors } from '../../../ui/theme';
-import { space, typography } from '../../../ui/styles';
+import { layout, typography } from '../../../ui/styles';
 
 export function AdvanceStepRenderer({ payload }: { payload: AdvancePayload }) {
     return (
-        <View style={styles.container}>
+        <View style={layout.stackSm}>
             <Text style={styles.title}>{payload.title}</Text>
             {payload.body ? <Text style={styles.body}>{payload.body}</Text> : null}
         </View>
@@ -14,9 +14,6 @@ export function AdvanceStepRenderer({ payload }: { payload: AdvancePayload }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        gap: space.s2,
-    },
     title: {
         ...typography.h2,
         color: galaxyColors.textPrimary,

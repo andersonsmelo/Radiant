@@ -110,6 +110,26 @@ describe('SyncQueueService', () => {
     expect(await SyncQueueService.getPendingCount()).toBe(0);
   });
 
+  // Auditoria de 2026-11-10: o envio copiava a fila e, no fim, gravava o que
+  // sobrou da cópia; uma aula concluída durante o envio sumia.
+  it('mantém o item que entrou na fila durante o envio', async () => {
+    await SyncQueueService.enqueueLessonProgressFromQuizResult({
+      lessonId: 'lesson-1', totalQuestions: 10, correctAnswers: 8, answeredAt: new Date('2026-03-29T10:00:00.000Z'),
+    });
+    syncQuizResult.mockImplementationOnce(async () => {
+      await SyncQueueService.enqueueReviewCard({
+        lessonId: 'lesson-2', easeFactor: 2.3, interval: 4, repetitions: 3,
+        nextReviewAt: new Date('2026-03-30T10:00:00.000Z'), lastReviewedAt: new Date('2026-03-29T10:00:00.000Z'),
+        createdAt: new Date('2026-03-20T10:00:00.000Z'),
+      });
+    });
+
+    await SyncQueueService.flush();
+
+    const items = await SyncQueueService.getItems();
+    expect(items.map(item => [item.entity, item.payload.lessonId])).toEqual([['review_cards', 'lesson-2']]);
+  });
+
   it('skips flush when there is no authenticated session and preserves the queue', async () => {
     hasAuthenticatedSession.mockReturnValue(false);
 

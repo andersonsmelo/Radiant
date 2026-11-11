@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Tomografia: IL.ct da prancheta docs/design/2026-10-21-trilha-medalhao.html.
+     Arte em 80x80 centrada em 0,0, posta no quadro de 120 com escala 1,4.
+     Pose principal (quadro 72 do Lottie). Classe no-sil: luz, some na silhueta. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g transform="translate(60 60) scale(1.4)">
+    <circle cy="-2" r="33" fill="#B9C4DC"/>
+    <circle cy="-6" r="33" fill="#F4F6FB"/>
+    <path d="M-33,-6 A33,33 0 0,1 33,-6 A33,30 0 0,0 -33,-6 Z" fill="#FFFFFF"/>
+    <circle cy="-6" r="24" fill="none" stroke="#3FA9F5" stroke-width="5"/>
+    <circle cy="-6" r="24" fill="none" stroke="#1E78D6" stroke-width="5" stroke-dasharray="0 75 75 0"/>
+    <circle cy="-6" r="16.5" fill="#0D1C45"/>
+    <path d="M-16.5,-6 A16.5,16.5 0 0,1 16.5,-6 A16.5,12 0 0,0 -16.5,-6 Z" fill="#2B417A"/>
+    <g class="no-sil"><circle cx="0" cy="-17" r="3" fill="#5CF0FF"/><circle cx="0" cy="5" r="1.8" fill="#5CF0FF" opacity=".6"/></g>
+    <rect class="no-sil" x="-11" y="-36" width="22" height="4.4" rx="2.2" fill="#5CF0FF"/>
+    <rect x="-40" y="5" width="80" height="8" rx="4" fill="#DCE3F0"/>
+    <rect x="-40" y="9" width="80" height="4" rx="2" fill="#AEB9D0"/>
+    <rect x="-6" y="13" width="12" height="15" rx="2" fill="#8E9AB6"/>
+  </g>
+</svg>

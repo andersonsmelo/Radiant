@@ -4,7 +4,8 @@ import type { KeyValueStorage } from './storage';
 import { UnitCheckpointService, type UnitCheckpointEvaluation, type UnitCheckpointEvaluationInput } from './UnitCheckpointService';
 import { stableStringify, validateCommitIntent } from './schemas';
 import { ItemReviewRepository, itemReviewStorage } from '../spaced-repetition/repositories/ItemReviewRepository';
-import type { ItemAttempt } from '../../types/itemReview';
+import { recoveryItemsFor } from '../spaced-repetition/services/ItemReviewService';
+import type { ItemAttempt, ItemIdentity } from '../../types/itemReview';
 
 type AttemptRecord = {
     evaluation: UnitCheckpointEvaluation;
@@ -26,7 +27,26 @@ const queues = new WeakMap<KeyValueStorage, Promise<unknown>>();
 export class AssessmentAttemptRepository {
     private readonly journal: ItemReviewRepository;
 
-    constructor(private readonly storage: KeyValueStorage) { this.journal = new ItemReviewRepository(storage); }
+    constructor(
+        private readonly storage: KeyValueStorage,
+        private readonly recoveryItems: (nodeId: string) => ItemIdentity[] = recoveryItemsFor,
+    ) { this.journal = new ItemReviewRepository(storage); }
+
+    /**
+     * Conferência reprovada põe o par de recuperação da aula na fila de revisão:
+     * o guiado vence na hora e a transferência no dia seguinte (regra de
+     * `seedLegacyGroups`). Roda antes do journal porque a semente pula a lição
+     * que já tem cartão. É apoio, não portão: falha aqui não derruba a tentativa.
+     */
+    private async seedRecovery(attempt: UnitCheckpointEvaluation['attempt']): Promise<void> {
+        try {
+            const items = this.recoveryItems(attempt.journeyNodeId).filter(item => item.contentVersion === attempt.contentVersion);
+            const at = new Date(attempt.committedAt).toISOString();
+            if (items.length) await this.journal.seedLegacyGroups([{ items, dueAt: at }], at);
+        } catch (error) {
+            console.warn('[AssessmentAttemptRepository] Recuperação não semeada:', error);
+        }
+    }
 
     private serialize<T>(operation: () => Promise<T>): Promise<T> {
         const result = (queues.get(this.storage) ?? Promise.resolve()).then(operation);
@@ -68,6 +88,7 @@ export class AssessmentAttemptRepository {
         for (const record of store.attempts.filter(entry => entry.journalStatus === 'pending'
             && entry.evaluation.attempt.journeyNodeId === nodeId)) {
             const { attempt } = record.evaluation;
+            if (!attempt.passed) await this.seedRecovery(attempt);
             const entries: ItemAttempt[] = attempt.itemOutcomes.map(item => ({
                 attemptId: attempt.attemptId,
                 item: { lessonId: attempt.journeyNodeId, itemId: item.itemId, activityId: item.activityId,

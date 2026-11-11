@@ -19,8 +19,8 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
                 {
                     id: 'track-radiology-foundations',
                     slug: 'radiology-foundations',
-                    title: 'Fundamentos de Radiologia',
-                    description: 'Base inicial para raciocinio radiologico e introducao a TC.',
+                    title: 'Synthetic shapes',
+                    description: 'Abstract test data, never published.',
                     lessonIds: ['lesson-1'],
                 },
             ],
@@ -28,13 +28,13 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
                 {
                     id: 'lesson-1',
                     slug: 'fundamentos-de-radiologia',
-                    title: 'Fundamentos de Radiologia',
+                    title: 'Synthetic shapes',
                     difficulty: 'beginner',
                     trackId: 'track-radiology-foundations',
                     order: 1,
                     payload: {
                         id: 'lesson-1',
-                        title: 'Fundamentos de Radiologia',
+                        title: 'Synthetic shapes',
                         difficulty: 'beginner',
                         journey: {
                             intro: {
@@ -78,8 +78,8 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
             {
                 id: 'track-radiology-foundations',
                 slug: 'radiology-foundations',
-                title: 'Fundamentos de Radiologia',
-                description: 'Base inicial para raciocinio radiologico e introducao a TC.',
+                title: 'Synthetic shapes',
+                description: 'Abstract test data, never published.',
                 lessonIds: ['lesson-1'],
             },
         ],
@@ -87,13 +87,13 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
             {
                 id: 'lesson-1',
                 slug: 'fundamentos-de-radiologia',
-                title: 'Fundamentos de Radiologia',
+                title: 'Synthetic shapes',
                 difficulty: 'beginner',
                 trackId: 'track-radiology-foundations',
                 order: 1,
                 payload: {
                     id: 'lesson-1',
-                    title: 'Fundamentos de Radiologia',
+                    title: 'Synthetic shapes',
                     difficulty: 'beginner',
                     journey: {
                         intro: {

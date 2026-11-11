@@ -1,8 +1,12 @@
 import React from 'react';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import type { LessonBlock } from '../../../types/lessonFlow';
-import type { LearningActivityV2 } from '../../../types/learningActivity';
+import { Confetti } from '../../../components/ui/Confetti';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import type { LearningInteractionV2, LearningActivityV2 } from '../../../types/learningActivity';
 import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
@@ -17,6 +21,9 @@ import LearnRoute from '../../../app/learn';
 import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
 import { semanticColors } from '../../../ui/semantic-colors';
+import { EXPOSICAO } from '../../../test/fixtures/syntheticLessons';
+
+jest.mock('../../bench/lessons/BenchLessonCatalog', () => ({ isBenchLessonId: (id: string) => id.startsWith('bancada:'), BenchLessonCatalog: { getActivityById: () => null } }));
 
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
@@ -57,18 +64,31 @@ jest.mock('expo-router', () => ({
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+// O serviço real de conclusão (ver a suíte da primeira resposta) importa módulos
+// que leem o AsyncStorage na carga; o dublê oficial evita o módulo nativo.
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
+
+// A bancada desenha com Skia, que o Jest não rasteriza: o dublê deixa a tela da
+// lição montar a bancada. O que se mede aqui é o texto do retorno, não a imagem.
+
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+
+// O tremor da área de resposta no erro: um mock só, para o teste contar as chamadas.
+const mockAnswerShake = jest.fn();
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
+  useMedalPulse: () => ({}),
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  // `scale` faz parte do contrato real do hook, e `SummaryStar` o usa no
-  // caminho em que a marca NÃO melhorou: em vez de animar, fixa a escala em 1
-  // direto, para não sugerir um ganho que não houve. Sem ele no mock, a
-  // conclusão só montava quando as estrelas melhoravam.
+  // A cunhagem e as estrelas do resumo usam os hooks reais importados acima.
   useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({ animatedStyle: {}, onPressIn: jest.fn(), onPressOut: jest.fn() }),
-  useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
+  useShakeError: () => ({ style: {}, animateIn: mockAnswerShake }),
 }));
+
+// O coração que esvazia no aviso de vida perdida é vetor animado, como os do HUD.
+jest.mock('../../../ui/components/HudIcons', () => ({ HeartIcon: () => null }));
 
 jest.mock('../../../components/ui/AppButton', () => {
   const React = require('react');
@@ -91,7 +111,7 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));
 
-// `QuizTopBar` renderiza as vidas por `HeartsDisplay`, e os ícones do HUD são
+// `QuizTopBar` renderiza as vidas pela pílula compartilhada `HeartsCountPill`, e os ícones do HUD são
 // vetor animado em `react-native-svg` — que não monta sob este renderer.
 jest.mock('../../../ui/components/HUD', () => {
   const React = require('react');
@@ -99,7 +119,7 @@ jest.mock('../../../ui/components/HUD', () => {
 
   return {
     HUD: () => null,
-    HeartsDisplay: () => <View testID="hearts-display" />,
+    HeartsCountPill: () => <View testID="hearts-display" />,
   };
 });
 
@@ -107,6 +127,7 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     setCurrentNode: jest.fn().mockResolvedValue(undefined),
     bootstrap: jest.fn(),
+    getSnapshotForNode: jest.fn().mockResolvedValue({ track: { units: [] } }),
     setResumableNode: jest.fn().mockResolvedValue(undefined),
     // Devolve um snapshot porque a tela USA o retorno para localizar a unidade
     // ativa. Ler o snapshot à parte correria em paralelo com esta escrita e
@@ -137,11 +158,12 @@ jest.mock('../../journey/services/JourneyCurriculumService', () => ({
 jest.mock('../../journey/components/JourneyTrail', () => {
   const React = require('react');
   const { View } = require('react-native');
-  return { JourneyTrail: ({ header }: { header: React.ReactNode }) => <View>{header}</View> };
+  return { JourneyTrail: ({ header, recommendedAction }: { header: React.ReactNode; recommendedAction?: React.ReactNode }) => <View>{header}{recommendedAction}</View> };
 });
 
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
+    recordQuizCompletion: jest.fn(),
     getSnapshot: jest.fn().mockResolvedValue({
       totalXp: 40,
       streakDays: 2,
@@ -166,12 +188,15 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const { Text } = require('react-native');
   const { Pressable } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
       visible ? (
         <>
           <Text>Sua lição está pausada</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Text>{`A revisar: ${dueReviewCount}`}</Text>
           <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+          {dueReviewCount > 0 ? <Pressable accessibilityRole="button" onPress={onReview}><Text>Revisar pela folha</Text></Pressable> : null}
+          <Pressable accessibilityRole="button" onPress={onClose}><Text>Fechar folha</Text></Pressable>
         </>
       ) : null,
   };
@@ -194,7 +219,7 @@ jest.mock('../../quiz/services/LessonRatingService', () => ({
   },
 }));
 
-jest.mock('../../../components/ui/Confetti', () => ({ Confetti: () => null }));
+
 
 jest.mock('../../../ui/feedback/haptics', () => ({
   hapticCelebrate: jest.fn(),
@@ -219,7 +244,7 @@ jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
 // O tipo do nó decide se errar custa vida (ADR de 2026-10-16: revisão não
 // custa). Padrão `lesson`; a suíte da revisão troca para `review`.
 jest.mock('../../journey/services/JourneyDefinitionService', () => ({
-  JourneyDefinitionService: { getNodeType: jest.fn(() => 'lesson') },
+  JourneyDefinitionService: { getNodeType: jest.fn(() => 'lesson'), getTrackDefinition: jest.fn(() => ({ units: [] })) },
 }));
 
 jest.mock('../services/LessonFlowService', () => ({
@@ -459,6 +484,36 @@ beforeAll(async () => {
 }, 30_000);
 
 describe('LessonFlowScreen — escolha da alternativa', () => {
+  it.each([true, false])('Q6 final feedback precedes completion; correct=%s', async correct => {
+    const hearts = require('../../hearts/HeartsRepository').heartsRepository;
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: Date.now() + 60000, unlimitedUntil: null });
+    const interaction: LearningInteractionV2 = { id: 'case-final', type: 'case-decision',
+      competencyIds: ['competency:fixture'], evidenceKind: 'applied-transfer', criticalSafety: false, completionRule: 'answered',
+      accessibility: { label: 'Apoio no treino' }, feedback: { correct: 'Apoio confirmado no treino.', incorrect: 'Apoio ainda não confirmado no treino.' },
+      payload: { phase: 'support', context: 'A ficha do treino pede confirmar com o instrutor.', prompt: 'Qual apoio escolher no treino?',
+        options: [{ id: 'a', label: 'Confirmar com o instrutor' }, { id: 'b', label: 'Pressionar ao acaso', explanation: 'A tentativa ao acaso não confirma a ficha do treino.' }], correctOptionId: 'a' } };
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ id: 'activity:fixture:case-final', competencyIds: ['competency:fixture'],
+      provenance: { contentVersion: 'fixture-v1', sourceIds: ['source:fixture'] }, steps: [
+        { kind: 'presentation', id: 'case-hook', role: 'hook', payload: { title: 'Treino fictício' } },
+        { kind: 'presentation', id: 'case-concept', role: 'concept', payload: { title: 'Regra do treino' } },
+        { kind: 'interaction', interaction },
+      ] });
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+    renderWithProviders(<LessonFlowScreen blockId="activity:fixture:case-final" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Qual apoio escolher no treino?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText(correct ? 'Confirmar com o instrutor' : 'Pressionar ao acaso'));
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(correct ? 'Apoio confirmado no treino.' : 'A tentativa ao acaso não confirma a ficha do treino.')).toBeTruthy();
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1);
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    await waitFor(() => expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1));
+    expect(mockedOutcome.recordActivityCompletion.mock.calls[0][0].firstConfirmedAnswers).toEqual({ 'case-final': correct });
+    expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1);
+  });
   beforeEach(() => {
     jest.clearAllMocks();
     const { LessonFlowService } = jest.requireMock('../services/LessonFlowService') as {
@@ -719,6 +774,169 @@ describe('LessonFlowScreen — economia de vidas', () => {
       fireEvent.press(screen.getByText('Conferir resposta'));
       expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     }
+
+    it('T12 a folha aberta some ao voltar ilimitado sem fechar antes', async () => {
+      await pausarSemVidas();
+      heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+      // A releitura é uma Promise: drene-a antes da asserção negativa.
+      // Serializar o Fiber ainda aberto dentro de waitFor custa a janela em CPU limitada.
+      await act(async () => {});
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    });
+
+    it('T12 P2 a consulta de revisões não sobrescreve currentNode nem cursor mais recentes no serviço real', async () => {
+      // JourneyProgressService executa código real, inclusive ensureProgress e
+      // persistProgress. Só as portas usam dados sintéticos em memória; o getter
+      // tem escrita e é deliberadamente pausado após capturar o store antigo.
+      const fs = require('node:fs') as typeof import('node:fs');
+      const vm = require('node:vm') as typeof import('node:vm');
+      const ts = require('typescript') as typeof import('typescript');
+      const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
+      const track = { id: 't12-track', title: 'T12', initialUnitId: 't12-unit', units: [{
+        id: 't12-unit', title: 'T12', nodes: [
+          { id: 'node-1', type: 'lesson', unitId: 't12-unit', title: 'Aula', blockId: 'block-1', lessonId: 'lesson-1' },
+          { id: 'review-1', type: 'review', unitId: 't12-unit', title: 'Revisão', blockId: 'block-1', lessonId: 'lesson-1' },
+        ],
+      }] };
+      let store = { schemaVersion: 'journey-progress.v2', activeTrackId: track.id, tracks: { [track.id]: {
+        schemaVersion: 'journey-progress.v2', activeTrackId: track.id, currentUnitId: 't12-unit',
+        currentNodeId: null as string | null, completedNodeIds: [] as string[], pendingReviewNodeIds: [] as string[],
+        lastUpdatedAt: '2026-10-30T00:00:00.000Z', resumableNodeId: 'node-1', resumableStepIndex: 2,
+        pendingSyncEvents: [],
+      } } };
+      let pauseLookup = false;
+      let releaseLookup = () => {};
+      let captured!: () => void;
+      const lookupCaptured = new Promise<void>(resolve => { captured = resolve; });
+      const pendingLookups: Promise<JourneySnapshot>[] = [];
+      const ports: Record<string, unknown> = {
+        '../../../constants/storageKeys': { STORAGE_KEYS: { JOURNEY_PROGRESS: 'synthetic-t12-journey' } },
+        '../../../storage': {
+          readJsonStorage: async () => clone(store),
+          writeJsonStorage: async (_key: string, next: typeof store) => { store = clone(next); },
+          removeStorageKey: async () => {},
+        },
+        '../../../storage/schemaVersionGuard': jest.requireActual('../../../storage/schemaVersionGuard'),
+        '../../../types/journey': jest.requireActual('../../../types/journey'),
+        '../../spaced-repetition/services/SpacedRepetitionService': { SpacedRepetitionService: {
+          getDueLessons: async () => {
+            if (pauseLookup) {
+              pauseLookup = false;
+              captured();
+              return new Promise<string[]>(resolve => { releaseLookup = () => resolve(['lesson-1']); });
+            }
+            return ['lesson-1'];
+          },
+          getReviewSchedule: async () => [{ lessonId: 'lesson-1', dueAtMs: 0 }],
+        } },
+        './JourneyRecommendationService': jest.requireActual('../../journey/services/JourneyRecommendationService'),
+        './JourneyDefinitionService': { JourneyDefinitionService: { getTrackDefinition: () => track, getDefaultTrackId: () => track.id } },
+        '../../content/services/LessonCatalogService': { LessonCatalogService: { listTracks: () => [{ id: track.id }] } },
+        '../../progress-sync/ProgressSyncService': { progressSyncService: {} },
+        './JourneyTrackUnlockService': { resolveActiveTrackId: () => track.id },
+        './trackCompletion': jest.requireActual('../../journey/services/trackCompletion'),
+      };
+      const source = fs.readFileSync(require.resolve('../../journey/services/JourneyProgressService'), 'utf8');
+      const compiled = ts.transpileModule(source, { compilerOptions: {
+        module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022,
+      } }).outputText;
+      const moduleObject = { exports: {} as { JourneyProgressService: typeof JourneyProgressService } };
+      vm.runInNewContext(compiled, {
+        exports: moduleObject.exports, module: moduleObject,
+        require: (path: string) => {
+          if (!(path in ports)) throw new Error(`Unexpected service dependency: ${path}`);
+          return ports[path];
+        }, console, Date, Set, Map, Promise,
+      });
+      const realProgress = moduleObject.exports.JourneyProgressService;
+      const previousLookup = mockedJourneyProgress.getSnapshotForNode.getMockImplementation();
+      mockedJourneyProgress.getSnapshotForNode.mockImplementation(node => {
+        pauseLookup = true;
+        const pending = realProgress.getSnapshotForNode(node);
+        pendingLookups.push(pending);
+        return pending;
+      });
+      try {
+        renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+        expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+        if (pendingLookups.length > 0) await lookupCaptured;
+        await realProgress.setCurrentNode('node-1');
+        await realProgress.setResumableNode('node-1', 7);
+        expect(store.tracks[track.id].currentNodeId).toBe('node-1');
+        expect(store.tracks[track.id].resumableStepIndex).toBe(7);
+        await act(async () => { releaseLookup(); await Promise.all(pendingLookups); });
+        expect({ currentNode: store.tracks[track.id].currentNodeId, cursor: store.tracks[track.id].resumableStepIndex })
+          .toEqual({ currentNode: 'node-1', cursor: 7 });
+      } finally {
+        releaseLookup();
+        await Promise.all(pendingLookups);
+        mockedJourneyProgress.getSnapshotForNode.mockImplementation(previousLookup!);
+      }
+    });
+
+    it('T12 consulta revisões reais do nó, fecha a folha e preserva retomada ao revisar', async () => {
+      mockedJourneyProgress.setResumableNode.mockResolvedValueOnce({ track: { units: [] }, dueReviewCount: 2 } as unknown as JourneySnapshot);
+      await pausarSemVidas();
+      expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+      expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1');
+      expect(await screen.findByText('A revisar: 2')).toBeTruthy();
+      fireEvent.press(screen.getByText('Revisar pela folha'));
+      expect(mockedRouter.replace).toHaveBeenCalledWith('/review');
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+      expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+    });
+
+    it('T12 getter falível de revisões não é chamado nem bloqueia vidas e aula', async () => {
+      const previousLookup = mockedJourneyProgress.getSnapshotForNode.getMockImplementation();
+      mockedJourneyProgress.getSnapshotForNode.mockRejectedValue(new Error('review-snapshot-unavailable'));
+      try {
+        await pausarSemVidas();
+        expect(screen.getByText('A revisar: 0')).toBeTruthy();
+        expect(screen.queryByText('Revisar pela folha')).toBeNull();
+        expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+        expect(heartsRepository.getSnapshot).toHaveBeenCalled();
+        expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+      } finally { mockedJourneyProgress.getSnapshotForNode.mockImplementation(previousLookup!); }
+    });
+
+    it('T12 resultado tardio do nó anterior não ressuscita revisão na nova aula', async () => {
+      let resolvePrevious!: (snapshot: JourneySnapshot) => void;
+      mockedJourneyProgress.setResumableNode.mockReturnValueOnce(new Promise(resolve => { resolvePrevious = resolve; }));
+      mockedJourneyProgress.setResumableNode.mockResolvedValueOnce({ track: { units: [] }, dueReviewCount: 0 } as unknown as JourneySnapshot);
+      heartsRepository.spend.mockResolvedValue(vazia);
+      const view = renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-old" />);
+      await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-old'));
+      view.rerender(<SafeAreaProvider><LessonFlowScreen blockId="block-1" nodeId="node-new" /></SafeAreaProvider>);
+      await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-new'));
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+      await act(async () => { resolvePrevious({ track: { units: [] }, dueReviewCount: 3 } as unknown as JourneySnapshot); });
+      expect(screen.getByText('A revisar: 0')).toBeTruthy();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
+
+    it('T12 fechar a folha mantém o cursor e volta para a trilha sem concluir', async () => {
+      await pausarSemVidas();
+      fireEvent.press(screen.getByText('Fechar folha'));
+      await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
+      expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', expect.any(Number));
+      expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith(undefined);
+      expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+    });
+
+    it('T12 sem nó não consulta revisão nem promete destino', async () => {
+      heartsRepository.spend.mockResolvedValue(vazia);
+      renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="" />);
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+      expect(mockedJourneyProgress.getSnapshotForNode).not.toHaveBeenCalled();
+      expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
 
     it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {
       mockedSubscription.storeAvailable.mockReturnValue(true);
@@ -1064,6 +1282,23 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
     expect(screen.getByRole('button', { name: label })).toBeEnabled();
   });
 
+  it('imagem fora do acervo local não cai em URL remota', async () => {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction') throw new Error('Fixture sem interação');
+    const remote = 'https://exemplo.invalid/radiografia.jpg';
+    const comparisonActivity: LearningActivityV2 = { ...promotedActivityFixture, steps: [
+      { kind: 'interaction', interaction: { ...original.interaction, type: 'comparison', payload: {
+        prompt: 'Compare as radiografias.',
+        options: [{ id: 'a', label: 'Radiografia A', imageRef: remote }, { id: 'b', label: 'Radiografia B', imageRef: remote }],
+        correctOptionId: 'b',
+      } } },
+    ] };
+    mockedLessonFlowService.getActivityById.mockReturnValue(comparisonActivity);
+    renderWithProviders(<LessonFlowScreen blockId={comparisonActivity.id} nodeId="node-comparison" />);
+    expect(await screen.findByText('Imagem indisponível para esta atividade.')).toBeTruthy();
+    expect(screen.queryByLabelText('Radiografia A')).toBeNull();
+  });
+
   it('registra a conclusão usando a atividade nativa e sua resposta confirmada', async () => {
     mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
 
@@ -1114,6 +1349,49 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     fireEvent.press(screen.getByText('Conferir resposta'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
   }
+
+  it('avaliar e continuar conservam a conclusão e o prêmio já registrados', async () => {
+    mockedOutcome.recordCompletion.mockResolvedValue({ ...outcomeFixture,
+      award: { baseXp: 20, bonusXp: 0, totalXpAwarded: 20, reason: 'quiz_complete' },
+    });
+    await completeLesson();
+    expect(await screen.findByText('+20 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    fireEvent.press(screen.getByLabelText('Avaliar a aula com 4 de 5'));
+    expect(LessonRatingService.rate).toHaveBeenCalledWith('lesson-1', 4);
+    expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
+    expect(screen.getByText('+20 XP')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
+  });
+
+  it.each([
+    ['lesson', 'ressonancia', 'protecao', 'ressonancia'],
+    ['review', 'ressonancia', 'protecao', 'ressonancia'],
+    ['lesson', undefined, 'protecao', 'protecao'],
+    ['review', undefined, 'protecao', 'protecao'],
+  ] as const)('resultado %s mantém o título real e tema (%s/%s)', async (kind, nodeTheme, unitTheme, expectedTheme) => {
+    const definition = jest.requireMock('../../journey/services/JourneyDefinitionService').JourneyDefinitionService;
+    const catalogSpy = jest.spyOn(LessonCatalogService, 'listTracks').mockReturnValue([{ id: 'summary-track' }] as ReturnType<typeof LessonCatalogService.listTracks>);
+    definition.getNodeType.mockReturnValue(kind);
+    definition.getTrackDefinition.mockReturnValue({ units: [{ theme: unitTheme, nodes: [{ id: 'node-1', title: 'Formação da imagem', theme: nodeTheme }] }] });
+    try {
+      await completeLesson();
+      await screen.findByText('1 de 1 corretas');
+      expect(screen.getByRole('header', { name: 'Formação da imagem' })).toBeTruthy();
+      expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe(expectedTheme);
+      // 1 de 1 são três estrelas: a conclusão comemora (plano de 2026-11-05, frente C).
+      expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+      if (kind === 'review') expect(screen.queryAllByLabelText(/Pixel/u)).toHaveLength(0);
+    } finally {
+      catalogSpy.mockRestore();
+      definition.getNodeType.mockReturnValue('lesson');
+      definition.getTrackDefinition.mockReturnValue({ units: [] });
+    }
+  });
 
   it('mostra a conclusão em vez de devolver o aluno em silêncio para a aba', async () => {
     // Antes desta passagem a tela chamava router.replace('/(tabs)') aqui: o
@@ -1221,11 +1499,11 @@ describe('LessonFlowScreen — sons e vibração', () => {
     expect(haptics.hapticSelection).toHaveBeenCalledTimes(1);
   });
 
-  it('continuar com erro toca só o erro, mesmo quando a vida cai', async () => {
-    // Decisão do dono, 2026-09-28, depois de ouvir no iPhone: o som do coração
-    // saía 2 ms depois do erro (medido no log do simulador) e os dois viravam
-    // um só. Sem animação em primeiro plano que o justifique, o coração cai só
-    // no HUD e no anúncio ao leitor de tela. O som volta com o item 26.
+  it('a vida perdida soa depois do erro, junto do aviso visível no topo da aula', async () => {
+    // Decisão do dono, 2026-09-28: o som do coração saía 2 ms depois do erro e
+    // os dois viravam um só, sem nada em primeiro plano que o justificasse.
+    // Desde o plano de 2026-11-05 (FILA 26) ele volta, mas só junto do aviso
+    // de vida perdida no topo, e depois do som do erro.
     await abrir();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByText('Conferir resposta'));
@@ -1233,9 +1511,16 @@ describe('LessonFlowScreen — sons e vibração', () => {
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
     expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining('Você perdeu uma vida; restam 4.'));
+    // No instante do erro, só o erro: o coração ainda não soou nem apareceu.
     expect(tocados()).toEqual(['toque', 'erro']);
-    expect(haptics.hapticError).toHaveBeenCalledTimes(1);
     expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('lesson-heart-loss')).toBeNull();
+
+    expect(await screen.findByTestId('lesson-heart-loss')).toBeTruthy();
+    expect(screen.getByText('Menos 1 vida')).toBeTruthy();
+    expect(tocados()).toEqual(['toque', 'erro', 'vida']);
+    expect(haptics.hapticError).toHaveBeenCalledTimes(1);
+    expect(haptics.hapticLifeLost).toHaveBeenCalledTimes(1);
   });
 
   it('continuar com acerto toca o acerto e vibra o sucesso', async () => {
@@ -1257,9 +1542,11 @@ describe('LessonFlowScreen — sons e vibração', () => {
     fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
-    await act(async () => {});
+    // Espera além do atraso do som da vida: para o assinante ele nunca vem.
+    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
     expect(tocados()).toEqual(['toque', 'erro']);
     expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('lesson-heart-loss')).toBeNull();
   });
 
   it('a lição aprovada termina com o som de fim e a comemoração', async () => {
@@ -1376,7 +1663,6 @@ describe('LessonFlowScreen — revisão da trilha não custa vida', () => {
   });
 });
 
-
 describe('FILA 58 — integração do motor híbrido', () => {
   const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService');
   const { heartsRepository } = require('../../hearts/HeartsRepository');
@@ -1424,6 +1710,10 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(screen.getByText('Resposta certa: Consolidação alveolar')).toBeTruthy();
     fireEvent.press(screen.getByText('Continuar'));
     await answer('Resposta dois');
+    // No acerto, o anúncio não repete a resposta como gabarito (achado 6 da prova).
+    const anuncio = announceForAccessibility.mock.calls.map(([texto]) => texto).find((texto) => texto.includes('Sua resposta: Resposta dois.'));
+    expect(anuncio).toBeDefined();
+    expect(anuncio).not.toContain('Resposta certa');
     fireEvent.press(screen.getByText('Continuar'));
     expect(screen.getByText('Vamos tentar novamente')).toBeTruthy();
     await answer('Pneumotórax');
@@ -1552,10 +1842,10 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(certo.borderWidth).toBeGreaterThan(0);
   });
 
-  it('M2 limita a escala do título do feedback e mantém o corpo sem teto', async () => {
+  it('M2 mantém título e corpo do feedback sem teto de fonte', async () => {
     await open();
     await answer('Pneumotórax');
-    expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBe(2);
+    expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBeUndefined();
     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
     expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
   });
@@ -1585,4 +1875,1011 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
   });
 
+});
+
+describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', () => {
+  const closing = promotedActivityFixture.steps[2];
+  // `sessionMode` liga o retorno por item (o bloco `lesson-item-feedback`).
+  // Sem passos legados, o player lê só a atividade v2.
+  const hybridShell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
+
+  function choiceActivity(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    return {
+      ...promotedActivityFixture,
+      steps: [
+        { kind: 'interaction', interaction: { ...original.interaction, payload: {
+          ...original.interaction.payload,
+          options: [
+            { id: 'proton', label: 'Próton', explanation: 'O próton tem carga positiva, não negativa.' },
+            { id: 'eletron', label: 'Elétron' },
+          ],
+        } } },
+        closing,
+      ],
+    };
+  }
+
+  function benchActivity(atLeast: number): LearningActivityV2 {
+    return {
+      ...promotedActivityFixture,
+      steps: [
+        {
+          kind: 'interaction',
+          interaction: {
+            id: 'activity-bench',
+            type: 'bench',
+            competencyIds: ['competency:bancada'],
+            evidenceKind: 'guided-practice',
+            completionRule: 'answered',
+            criticalSafety: false,
+            feedback: { correct: 'Contraste certo.', incorrect: 'Reveja o kV.' },
+            accessibility: { label: 'Bancada de exposição' },
+            payload: {
+              prompt: 'Suba o kV até o alvo.',
+              simulator: 'exposure',
+              mode: 'challenge',
+              controls: [
+                { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 },
+                { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 },
+              ],
+              goal: { kind: 'reach', control: 'kv', atLeast },
+              phantomLabel: 'Fantoma simulado',
+              hints: { tooLow: 'Suba o kV.', tooHigh: 'Desça o kV.' },
+            },
+          },
+        },
+        closing,
+      ],
+    };
+  }
+
+  // O valor inicial da bancada só sobe ao player por um efeito depois da
+  // montagem, e até lá o botão está desabilitado. `fireEvent.press` descarta em
+  // silêncio o toque num Pressable desabilitado, e o `accessibilityState` do nó
+  // ainda pode dizer `disabled: false` nessa janela. Medido com
+  // `taskpolicy -b`: o toque logo depois do `findByText` caía antes do efeito e
+  // o teste reprovava 2 de 2. Espera-se a porta que o `fireEvent` consulta.
+  async function esperarBotaoApto(name: string) {
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true);
+    });
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(hybridShell);
+  });
+
+  it('escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(choiceActivity());
+    renderWithProviders(<LessonFlowScreen blockId="activity:escolha" nodeId="node:escolha" />);
+    await screen.findByText('Qual partícula tem carga negativa?');
+
+    fireEvent.press(screen.getByLabelText('Próton'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('O próton tem carga positiva, não negativa.')).toBeTruthy();
+    expect(within(bloco).queryByText('Compare as cargas.')).toBeNull();
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
+      expect.stringContaining('O próton tem carga positiva, não negativa.'),
+    ));
+  });
+
+  it('bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Conferir resposta');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('Vamos reforçar')).toBeTruthy();
+    expect(within(bloco).getByText('Suba o kV.')).toBeTruthy();
+    expect(within(bloco).queryByText(/Sua resposta|Resposta certa/)).toBeNull();
+    expect(within(bloco).queryByText('Reveja o kV.')).toBeNull();
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
+      expect.stringContaining('Suba o kV.'),
+    ));
+  });
+
+  it('bancada certa: o bloco mostra feedback.correct, sem dica', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(60));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Conferir resposta');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('Resposta correta')).toBeTruthy();
+    expect(within(bloco).getByText('Contraste certo.')).toBeTruthy();
+    expect(within(bloco).queryByText('Suba o kV.')).toBeNull();
+  });
+
+  // O botão da bancada é o "Conferir" da prancheta: o valor inicial já sobe ao
+  // player, então um toque sem mexer no controle contaria como primeira resposta
+  // errada e custaria a estrela daquele item.
+  function benchActivityMode(mode: 'explore' | 'challenge' | 'correct', atLeast: number): LearningActivityV2 {
+    const base = benchActivity(atLeast);
+    const [first, ...rest] = base.steps;
+    if (first.kind !== 'interaction' || first.interaction.type !== 'bench') {
+      throw new Error('benchActivity deve começar por uma bancada.');
+    }
+    return {
+      ...base,
+      steps: [
+        { ...first, interaction: { ...first.interaction, payload: { ...first.interaction.payload, mode } } },
+        ...rest,
+      ],
+    };
+  }
+
+  function estadoDoBotao(name: string) {
+    return screen.getByRole('button', { name }).props.accessibilityState;
+  }
+
+  it('bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    expect(await screen.findByRole('button', { name: 'Conferir resposta' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Continuar' })).toBeNull();
+  });
+
+  it('bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('explore', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    // O valor inicial (70 kV) sobe ao player por um efeito. Esperar o botão
+    // existir não basta: o desabilitado tem de continuar assim depois dele.
+    await waitFor(() => expect(screen.getByLabelText('Tensão')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    // 70 -> 90 ainda não chega ao alvo de 100 kV.
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await waitFor(() => expect(screen.getByText('90 kV')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await esperarBotaoApto('Conferir resposta');
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBeFalsy();
+  });
+
+  it('bancada de corrigir: o botão também espera o alvo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('correct', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    await waitFor(() => expect(screen.getByLabelText('Tensão')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    // Depois de mexer o passo está completo, e o botão ainda espera o alvo.
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await waitFor(() => expect(screen.getByText('80 kV')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+  });
+
+  it('bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('challenge', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    await esperarBotaoApto('Conferir resposta');
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBeFalsy();
+  });
+
+  it('bancada: depois de conferir, o botão volta a "Continuar"', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('challenge', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Conferir resposta');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+    await screen.findByTestId('lesson-item-feedback');
+    expect(screen.getByRole('button', { name: 'Continuar' })).toBeTruthy();
+  });
+});
+
+describe('LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item', () => {
+  // Defeito medido no simulador em 2026-10-24, na aula `bancada:exposicao`: o
+  // aluno errou a primeira resposta de dois itens, acertou na volta e a
+  // conclusão mostrou "Três estrelas. Nada passou despercebido." e "4 de 4
+  // corretas". A régua (spec §5, ADR de 2026-10-18) pontua a PRIMEIRA resposta.
+  // O serviço fica mockado neste arquivo; aqui `recordActivityCompletion`
+  // delega ao real, para o placar que a tela mostra sair de
+  // `activityToQuizResult` e não de um fixture que repete o que se quer provar.
+  function duasEscolhas(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    const item = (id: string, prompt: string, certa: string, errada: string): LearningActivityV2['steps'][number] => ({
+      kind: 'interaction',
+      interaction: { ...original.interaction, id, type: 'multiple-choice' as const, accessibility: { label: prompt }, payload: {
+        prompt,
+        options: [{ id: 'errada', label: errada }, { id: 'certa', label: certa }],
+        correctOptionId: 'certa',
+      } },
+    });
+    // O id da aula de exemplo é o que liga o modo híbrido, como no deep link
+    // `radiantapp://learn?blockId=bancada:exposicao`, que não traz bloco nem nó.
+    return {
+      ...promotedActivityFixture,
+      id: EXPOSICAO.id,
+      steps: [
+        item('item-um', 'Primeiro item?', 'Certa um', 'Errada um'),
+        item('item-dois', 'Segundo item?', 'Certa dois', 'Errada dois'),
+      ],
+    };
+  }
+
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  let warnSpy: jest.SpyInstance;
+  let errorSpy: jest.SpyInstance;
+
+  async function responder(label: string) {
+    fireEvent.press(screen.getByLabelText(label));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    const { LessonOutcomeService: real } = jest.requireActual('../services/LessonOutcomeService');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(duasEscolhas());
+    mockedOutcome.recordActivityCompletion.mockImplementation((input) => real.recordActivityCompletion(input));
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+    // Sem a trilha montada, o serviço real avisa que não achou o nó e segue; o
+    // aviso é ruído, o placar sai igual.
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    warnSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
+
+  it('errar a primeira resposta de um item e acertar na volta não dá três estrelas', async () => {
+    const { GamificationService } = require('../../gamification/services/GamificationService') as typeof import('../../gamification/services/GamificationService');
+    const { DailyGoalService } = require('../../daily-goal/services/DailyGoalService') as typeof import('../../daily-goal/services/DailyGoalService');
+    const reward = jest.spyOn(GamificationService, 'recordQuizCompletion');
+    const dailyXp = jest.spyOn(DailyGoalService, 'recordXp');
+    try {
+    renderWithProviders(<LessonFlowScreen blockId={EXPOSICAO.id} nodeId="" />);
+    await screen.findByText('Primeiro item?');
+
+    await responder('Errada um');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Segundo item?');
+    await responder('Certa dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    // O item errado volta ao fim, e o aluno acerta.
+    await screen.findByText('Primeiro item?');
+    await responder('Certa um');
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+
+    // 1 de 2 pela primeira resposta: a régua dá 1 estrela, e não as 3 de "2 de 2".
+    expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
+    expect(screen.queryByText('2 de 2 corretas')).toBeNull();
+    expect(screen.getByText('Sem XP nesta tentativa')).toBeTruthy();
+    expect(reward).not.toHaveBeenCalled();
+    expect(dailyXp).not.toHaveBeenCalled();
+    expect(screen.getByLabelText('1 de 3 estrelas')).toBeTruthy();
+    expect(screen.queryByText(/Nada passou despercebido|Perfeito|Marca cheia/u)).toBeNull();
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: { 'item-um': true, 'item-dois': true },
+      firstConfirmedAnswers: { 'item-um': false, 'item-dois': true },
+    }));
+    } finally {
+      reward.mockRestore();
+      dailyXp.mockRestore();
+    }
+  });
+});
+
+describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha', () => {
+  // `learn.tsx` passa `nodeId=''` quando o deep link não traz o nó, como em
+  // `radiantapp://learn?blockId=bancada:exposicao`. Gravar o nó vazio como atual
+  // ou como retomada sobrescreveria o ponto real em que o aluno parou na trilha.
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(promotedActivityFixture);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  function expectNoJourneyWrites() {
+    expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.markNodeCompleted).not.toHaveBeenCalled();
+  }
+
+  it('abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' });
+    renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByLabelText('Elétron'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    // A aula chega à conclusão: a guarda não impede o aluno de terminar.
+    expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Estrutura e carga' })).toBeTruthy();
+    expect(screen.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expectNoJourneyWrites();
+  });
+
+  it('fechar a aula sem nó sai para a trilha sem gravar o passo', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+
+    await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
+    expectNoJourneyWrites();
+  });
+
+  it('pausar sem vidas, sem nó, abre a folha sem gravar o passo', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(null);
+    heartsRepository.spend.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expectNoJourneyWrites();
+  });
+
+  it('sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar', async () => {
+    const mode = require('../../student-checkpoints/mode');
+    const runtime = require('../../student-checkpoints/ActiveCheckpointRuntime');
+    const modeSpy = jest.spyOn(mode, 'resolveStudentCheckpointRuntimeMode').mockReturnValue('active');
+    const start = jest.spyOn(runtime.ActiveCheckpointRuntime.prototype, 'start').mockResolvedValue({ status: 'off', handle: null });
+    try {
+      renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+      expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      expect(await screen.findByLabelText('Elétron')).toBeTruthy();
+
+      expect(start).not.toHaveBeenCalled();
+    } finally {
+      start.mockRestore();
+      modeSpy.mockRestore();
+    }
+  });
+});
+
+describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', () => {
+  // As aulas de exemplo não têm bloco legado, e é o `sessionMode` do bloco que
+  // liga o retorno por item, o primeiro contato sem custo e a volta do item
+  // errado (spec, seção 5). Sem ele, a dica da bancada nunca aparecia.
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  const steps = EXPOSICAO.steps;
+  const challenge = steps[2];
+  const reading = steps[3];
+  const closing = steps[5];
+  if (challenge.kind !== 'interaction' || challenge.interaction.type !== 'bench'
+    || reading.kind !== 'interaction' || reading.interaction.type !== 'multiple-choice' || closing.kind !== 'presentation') {
+    throw new Error('A aula de exposição mudou de roteiro: abertura, explorar, desafio, leitura, corrigir, fechamento.');
+  }
+  const benchPayload = challenge.interaction.payload;
+  const readingPayload = reading.interaction.payload;
+  const rightLabel = readingPayload.options.find(option => option.id === readingPayload.correctOptionId)?.label ?? '';
+
+  // O mesmo motivo de `esperarBotaoApto` acima: o valor inicial da bancada sobe
+  // ao player por um efeito depois da montagem.
+  async function esperarConferirApto() {
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.onStartShouldSetResponder?.()).toBe(true);
+    });
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+  });
+
+  it('a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida', async () => {
+    // O desafio, e não o explorar: no explorar o botão espera o alvo, então o
+    // aluno não erra ali. No desafio o erro é permitido e indica o lado.
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...EXPOSICAO, steps: [challenge, closing] });
+    renderWithProviders(<LessonFlowScreen blockId="bancada:exposicao" nodeId="" />);
+    expect(await screen.findByText(benchPayload.prompt)).toBeTruthy();
+    await esperarConferirApto();
+
+    // O kV parte de 110, acima dos 70 da referência: errar pelo lado alto.
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText(benchPayload.hints.tooHigh)).toBeTruthy();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+  });
+
+  it('o fechamento mostra o próprio título e texto, e não o retorno da última interação', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...EXPOSICAO, steps: [reading, closing] });
+    renderWithProviders(<LessonFlowScreen blockId="bancada:exposicao" nodeId="" />);
+    expect(await screen.findByText(readingPayload.prompt)).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText(rightLabel));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText(closing.payload.title)).toBeTruthy();
+    expect(screen.getByText(closing.payload.body ?? '')).toBeTruthy();
+    expect(screen.queryByText('Resposta correta')).toBeNull();
+    expect(screen.queryByText(reading.interaction.feedback.correct)).toBeNull();
+  });
+});
+
+describe('T04 — abertura, retorno e botão apto', () => {
+  const closing = promotedActivityFixture.steps[2];
+  const shell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
+  const message = 'Retorno da atividade.';
+  function item(type: 'multiple-choice' | 'comparison' | 'hotspot' | 'matching' | 'ordering' | 'bench'): LearningInteractionV2 {
+    const common = { id: `t04:${type}`, type, competencyIds: ['competency:test'], evidenceKind: 'guided-practice', completionRule: 'answered', criticalSafety: false,
+      accessibility: { label: 'Imagem da atividade' }, feedback: { correct: 'Certo.', incorrect: message } };
+    const choices = { prompt: 'Escolha a resposta.', options: [{ id: 'a', label: 'Opção A' }, { id: 'b', label: 'Opção B', explanation: message }], correctOptionId: 'a' };
+    const payload = type === 'bench' ? { prompt: 'Ajuste o controle.', simulator: 'exposure', mode: 'challenge', controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 }], goal: { kind: 'reach', control: 'kv', atLeast: 100 }, phantomLabel: 'Fantoma simulado', hints: { tooLow: message, tooHigh: 'Desça.' } }
+      : type === 'hotspot' ? { prompt: 'Escolha a região.', imageRef: 'image:rtg-2026:m08:torax-pa-adulto-01', regions: [{ id: 'a', label: 'Região A', x: 0, y: 0, width: 0.4, height: 0.4 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.4, height: 0.4 }], correctRegionIds: ['a'] }
+      : type === 'matching' ? { prompt: 'Associe os pares.', pairs: [{ id: 'a', left: 'A', right: 'Alfa' }, { id: 'b', left: 'B', right: 'Beta' }] }
+      : type === 'ordering' ? { prompt: 'Ordene os itens.', items: [{ id: 'a', label: 'Primeiro' }, { id: 'b', label: 'Segundo' }], correctOrder: ['b', 'a'] } : choices;
+    return { ...common, payload } as LearningInteractionV2;
+  }
+  function lesson(interaction: LearningInteractionV2): LearningActivityV2 {
+    return { ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction }, closing] };
+  }
+  async function esperarBotaoApto(name: string) {
+    await waitFor(() => expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true));
+  }
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(shell);
+  });
+  const registered = ['multiple-choice', 'comparison', 'hotspot', 'matching', 'ordering', 'bench'] as const;
+  it.each(registered.flatMap(type => [false, true].map(correct => ({ type, correct }))))('$type correto=$correct mostra o retorno e o anuncia uma vez sem região viva duplicada', async ({ type, correct }) => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(lesson(item(type)));
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText(type === 'bench' ? 'Ajuste o controle.' : type === 'hotspot' ? 'Escolha a região.' : type === 'matching' ? 'Associe os pares.' : type === 'ordering' ? 'Ordene os itens.' : 'Escolha a resposta.');
+    if (type === 'multiple-choice' || type === 'comparison') fireEvent.press(screen.getByRole('button', { name: correct ? 'Opção A' : 'Opção B' }));
+    if (type === 'hotspot') fireEvent.press(screen.getByRole('button', { name: correct ? 'Selecionar Região A na lista' : 'Selecionar Região B na lista' }));
+    if (type === 'matching') {
+      // Com dois pares, o segundo se completa sozinho.
+      fireEvent.press(screen.getByRole('button', { name: correct ? 'Associar A a Alfa' : 'Associar A a Beta' }));
+    }
+    if (type === 'ordering') {
+      if (correct) fireEvent.press(screen.getByRole('button', { name: 'Descer Primeiro' }));
+      fireEvent.press(screen.getByRole('button', { name: 'Selecionar esta ordem' }));
+    }
+    if (type === 'bench' && correct) {
+      for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    }
+    const confirm = type === 'bench' || type === 'multiple-choice' ? 'Conferir resposta' : 'Continuar';
+    await esperarBotaoApto(confirm);
+    fireEvent.press(screen.getByRole('button', { name: confirm }));
+    const feedback = await screen.findByTestId('lesson-item-feedback');
+    expect(within(feedback).getByRole('header', { name: correct ? 'Resposta correta' : 'Vamos reforçar' })).toBeTruthy();
+    const expectedMessage = correct ? 'Certo.' : message;
+    expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
+    expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
+    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(expectedMessage))).toHaveLength(1);
+    // A pergunta continua na tela; o segundo toque, não a seleção, avança.
+    await esperarBotaoApto('Continuar');
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(await screen.findByText('Síntese')).toBeTruthy();
+  });
+  // Achado 4 da prova de 2026-11-07: na aula comum com várias questões, cada
+  // uma já mostra o próprio retorno, e o fechamento repetia o da última.
+  it('aula com duas questões: o fechamento não repete o retorno da última', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    const first = item('multiple-choice');
+    const second = { ...first, id: 't04:multiple-choice:2' } as LearningInteractionV2;
+    mockedLessonFlowService.getActivityById.mockReturnValue({
+      ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction: first }, { kind: 'interaction', interaction: second }, closing],
+    } as LearningActivityV2);
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    for (let question = 0; question < 2; question++) {
+      await screen.findByText('Escolha a resposta.');
+      fireEvent.press(screen.getByRole('button', { name: 'Opção A' }));
+      await esperarBotaoApto('Conferir resposta');
+      fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+      expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+      await esperarBotaoApto('Continuar');
+      fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    }
+
+    expect(await screen.findByText('Síntese')).toBeTruthy();
+    expect(screen.queryByText('Resposta correta')).toBeNull();
+    expect(screen.queryByText('Certo.')).toBeNull();
+  });
+  it('abertura usa o tema explícito sem nó e preserva o texto independente', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' } as LearningActivityV2);
+    const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText('Estrutura e carga');
+    expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('tubo');
+    expect(screen.getByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    expect(mockedJourneyProgress.bootstrap).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalled();
+  });
+  it('abertura resolve tema do nó, depois da unidade real, sem ler progresso', async () => {
+    const definition = require('../../journey/services/JourneyDefinitionService').JourneyDefinitionService as { getTrackDefinition: jest.Mock };
+    const catalogSpy = jest.spyOn(LessonCatalogService, 'listTracks').mockReturnValue([{ id: 't04-track' }] as ReturnType<typeof LessonCatalogService.listTracks>);
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, theme: 'tubo' } as LearningActivityV2);
+    definition.getTrackDefinition.mockReturnValue({ units: [{ theme: 'protecao', nodes: [{ id: 'node:theme', type: 'lesson', theme: 'ressonancia' }] }] });
+    try {
+      const view = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+      await screen.findByText('Estrutura e carga');
+      expect(view.UNSAFE_getByType(JourneyMedal).props.theme).toBe('ressonancia');
+      view.unmount();
+      definition.getTrackDefinition.mockReturnValue({ units: [{ theme: 'protecao', nodes: [{ id: 'node:theme', type: 'lesson' }] }] });
+      const second = renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="node:theme" />);
+      await screen.findByText('Estrutura e carga');
+      expect(second.UNSAFE_getByType(JourneyMedal).props.theme).toBe('protecao');
+      expect(mockedJourneyProgress.bootstrap).not.toHaveBeenCalled();
+    } finally { catalogSpy.mockRestore(); definition.getTrackDefinition.mockReturnValue({ units: [] }); }
+  });
+  it.each(['explore', 'correct'] as const)('%s explica a espera e anuncia aptidão só uma vez por visita', async mode => {
+    const interaction = item('bench');
+    if (interaction.type !== 'bench') throw new Error('bancada esperada');
+    interaction.payload.mode = mode;
+    mockedLessonFlowService.getActivityById.mockReturnValue(lesson(interaction));
+    renderWithProviders(<LessonFlowScreen blockId="t04" nodeId="" />);
+    await screen.findByText('Ajuste o controle.');
+    expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBe('Alcance o alvo indicado na atividade para conferir a resposta.');
+    for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await esperarBotaoApto('Conferir resposta');
+    const ready = 'Alvo alcançado. Você já pode conferir a resposta.';
+    await waitFor(() => expect(announceForAccessibility.mock.calls.filter(([text]) => text === ready)).toHaveLength(1));
+    fireEvent.press(screen.getByRole('button', { name: 'Diminuir Tensão' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    voltarParaATela();
+    await esperarBotaoApto('Conferir resposta');
+    expect(announceForAccessibility.mock.calls.filter(([text]) => text === ready)).toHaveLength(1);
+    expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.accessibilityHint).toBeUndefined();
+  });
+});
+
+describe('T04 fix1 — contagem com texto ampliado', () => {
+  it('deixa a contagem crescer pelas métricas nativas, sem comprimir a linha', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(promotedActivityFixture);
+    renderWithProviders(<LessonFlowScreen blockId="t04:step-count" nodeId="" />);
+    const count = await screen.findByText('Passo 1 de 3');
+    // O Jest não mede glifos: verificamos o estilo entregue ao Text real.
+    // lineHeight 16 herdado do micro recortou os glifos na evidência iOS AX5.
+    const style = StyleSheet.flatten(count.props.style);
+    expect(style.lineHeight).toBeUndefined();
+    expect(style.flexShrink).toBe(0);
+    expect(style.fontSize).toBeGreaterThan(0);
+    expect(style.fontFamily).toBe('Sora-SemiBold');
+    expect(style.height).toBeUndefined();
+    expect(style.maxHeight).toBeUndefined();
+    expect(style.overflow).not.toBe('hidden');
+    expect(count.props.allowFontScaling).not.toBe(false);
+    expect(count.props.maxFontSizeMultiplier).toBeUndefined();
+    expect(count.props.numberOfLines).toBeUndefined();
+  });
+});
+
+// Plano de 2026-11-05, frente C: aula ampla (até 8 interações) com cena de
+// diálogo, retorno animado, sequência de acertos, pista e comemoração.
+describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', () => {
+  const haptics = jest.requireMock('../../../ui/feedback/haptics') as Record<string, jest.Mock>;
+  const preferences = jest.requireMock('../../../ui/feedback/feedbackPreferences') as { readFeedbackPreferences: jest.Mock };
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id);
+  const falas = () => screen.getAllByTestId('dialogue-line').map((fala) => fala.props.accessibilityLabel);
+  const IDS = ['q1', 'q2', 'q3', 'q4', 'q5'];
+
+  function aulaAmpla(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    const item = (n: number, help?: string): LearningActivityV2['steps'][number] => ({
+      kind: 'interaction',
+      interaction: {
+        ...original.interaction, id: `q${n}`, type: 'multiple-choice' as const, help,
+        accessibility: { label: `Pergunta ${n}?` },
+        feedback: { correct: `Retorno certo ${n}.`, incorrect: `Retorno de reforço ${n}.` },
+        payload: {
+          prompt: `Pergunta ${n}?`,
+          options: [{ id: 'errada', label: `Errada ${n}` }, { id: 'certa', label: `Certa ${n}` }],
+          correctOptionId: 'certa',
+        },
+      },
+    });
+    return {
+      ...promotedActivityFixture,
+      id: 'activity:rtg-2026:m01:01',
+      steps: [
+        { kind: 'presentation', id: 'abertura', role: 'hook', payload: {
+          title: 'Pedido conferido', body: 'Conferir o pedido evita repetir o exame.',
+          dialogue: { setting: 'Sala de exames, início do plantão.', lines: [
+            { speaker: 'lia', text: 'Antes de posicionar, confira o pedido.' },
+            { speaker: 'paciente', name: 'Seu Antônio', text: 'Vai demorar muito?' },
+            { speaker: 'pixel', text: 'Repare em como ela responde.' },
+          ] },
+        } },
+        { kind: 'presentation', id: 'conceito', role: 'concept', payload: {
+          title: 'O pedido orienta o exame', body: 'Ele diz o que examinar e por quê.',
+          keyPoints: ['Leia o pedido inteiro.', 'Confirme a identidade.'],
+        } },
+        item(1), item(2, 'Pense em quem assina o pedido.'), item(3), item(4), item(5),
+        { kind: 'presentation', id: 'fecho', role: 'closing', payload: {
+          title: 'Síntese', body: 'Você conferiu o pedido antes de posicionar.',
+          dialogue: { lines: [
+            { speaker: 'caio', text: 'Pedido conferido, exame certo.' },
+            { speaker: 'duda', text: 'Anotei para o próximo plantão.' },
+          ] },
+        } },
+      ],
+    };
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: true, haptics: true });
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(aulaAmpla());
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: 5 } });
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  async function abrir(props: { resumeCheckpointId?: string; resumeCursorId?: string } = {}) {
+    const view = renderWithProviders(<LessonFlowScreen blockId="activity:rtg-2026:m01:01" nodeId="node-1" {...props} />);
+    await screen.findByText(/^Passo \d+ de 8$/u);
+    await act(async () => {});
+    return view;
+  }
+  /** Revela as falas que faltam e passa pelo conceito, até a primeira pergunta. */
+  async function atePrimeiraPergunta() {
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('O pedido orienta o exame');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 1?');
+  }
+  async function responder(label: string) {
+    fireEvent.press(screen.getByLabelText(label));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+  async function responderEAvancar(label: string, proximo: string | RegExp) {
+    await responder(label);
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText(proximo);
+  }
+  async function concluirPeloFecho() {
+    // Duas falas no fecho: a primeira já está na tela.
+    expect(screen.queryByText('Concluir e voltar')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+  }
+
+  it('(d) a cena de abertura revela uma fala por toque, na ordem, com o nome de quem fala, e o botão continua ao alcance', async () => {
+    await abrir();
+
+    expect(screen.getByText('Sala de exames, início do plantão.')).toBeTruthy();
+    expect(falas()).toEqual(['Profa. Lia: Antes de posicionar, confira o pedido.']);
+    expect(screen.getByText('Fala 1 de 3')).toBeTruthy();
+    // O corpo espera as falas: elas vêm antes dele.
+    expect(screen.queryByText('Conferir o pedido evita repetir o exame.')).toBeNull();
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(falas()).toEqual(['Profa. Lia: Antes de posicionar, confira o pedido.', 'Seu Antônio: Vai demorar muito?']);
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Seu Antônio: Vai demorar muito?');
+    // Ainda é o primeiro passo: o toque revelou a fala, não avançou a aula.
+    expect(screen.getByText('Passo 1 de 8')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityState?.disabled).not.toBe(true);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(falas()).toEqual([
+      'Profa. Lia: Antes de posicionar, confira o pedido.',
+      'Seu Antônio: Vai demorar muito?',
+      'Pixel: Repare em como ela responde.',
+    ]);
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Pixel: Repare em como ela responde.');
+    expect(screen.getByText('Conferir o pedido evita repetir o exame.')).toBeTruthy();
+    expect(screen.getByText('Passo 1 de 8')).toBeTruthy();
+
+    // Com todas as falas na tela, o mesmo botão avança o passo.
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(await screen.findByText('Passo 2 de 8')).toBeTruthy();
+    expect(screen.getByText('Leia o pedido inteiro.')).toBeTruthy();
+    expect(screen.getByText('Confirme a identidade.')).toBeTruthy();
+  });
+
+  it('(a) a aula com cinco interações vai até o fim: retorno por item, selo de 3 e de 5 seguidas, fecho em diálogo e comemoração', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+
+    await responder('Certa 1');
+    // Cada item mostra o próprio retorno antes de seguir, com o Pixel reagindo.
+    expect(screen.getByText('Resposta correta')).toBeTruthy();
+    expect(screen.getByText('Retorno certo 1.')).toBeTruthy();
+    expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 2?');
+    await responderEAvancar('Certa 2', 'Pergunta 3?');
+
+    await responder('Certa 3');
+    expect(screen.getByText('3 seguidas')).toBeTruthy();
+    expect(announceForAccessibility).toHaveBeenLastCalledWith(expect.stringContaining('3 respostas certas seguidas.'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 4?');
+    await responder('Certa 4');
+    // A 4ª seguida não repete o selo da 3ª.
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 5?');
+    await responder('Certa 5');
+    expect(screen.getByText('5 seguidas')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await screen.findByTestId('dialogue-scene');
+    expect(falas()).toEqual(['Caio: Pedido conferido, exame certo.']);
+    await concluirPeloFecho();
+
+    expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+    // No marco, o som da sequência entra no lugar do acerto: um som por momento.
+    await waitFor(() => expect(tocados()).toEqual([
+      'toque', 'acerto', 'toque', 'acerto', 'toque', 'sequencia', 'toque', 'acerto', 'toque', 'combo', 'fim',
+    ]));
+    expect(haptics.hapticStreak).toHaveBeenCalledTimes(2);
+    expect(mockAnswerShake).not.toHaveBeenCalled();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+      firstConfirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+    }));
+  });
+
+  it('um erro treme a área de resposta, zera a sequência e o selo só volta com três novas seguidas', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+    await responderEAvancar('Certa 2', 'Pergunta 3?');
+    expect(mockAnswerShake).not.toHaveBeenCalled();
+    await responder('Errada 3');
+    expect(mockAnswerShake).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Vamos reforçar')).toBeTruthy();
+    expect(screen.getByLabelText('Pixel pensando com você')).toBeTruthy();
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 4?');
+    await responderEAvancar('Certa 4', 'Pergunta 5?');
+    await responder('Certa 5');
+    // Duas seguidas depois do erro: sem selo, e sem som de sequência.
+    expect(screen.queryByTestId('combo-badge')).toBeNull();
+    expect(tocados()).not.toContain('sequencia');
+    expect(tocados()).not.toContain('combo');
+  });
+
+  it('(b) interromper depois da terceira interação e retomar volta à primeira pergunta, sem XP nem vida em dobro (foco 2)', async () => {
+    const primeira = await abrir();
+    await atePrimeiraPergunta();
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+    await responder('Errada 2');
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Pergunta 3?');
+    await responderEAvancar('Certa 3', 'Pergunta 4?');
+
+    // Fecha no meio: a tela grava o passo em que o aluno parou (o sexto, índice 5).
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+    await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenLastCalledWith('node-1', 5));
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    primeira.unmount();
+
+    // As respostas não entram no checkpoint (privacidade), então a sessão é
+    // refeita a partir da primeira interação: nem a cena de abertura de novo,
+    // nem a quarta pergunta com três respostas que ninguém guardou.
+    await abrir({ resumeCheckpointId: 'checkpoint-ampla', resumeCursorId: 'step-6' });
+    expect(screen.getByText('Passo 3 de 8')).toBeTruthy();
+    expect(screen.getByText('Pergunta 1?')).toBeTruthy();
+    expect(screen.queryByTestId('dialogue-scene')).toBeNull();
+    expect(screen.queryByText('Pergunta 4?')).toBeNull();
+
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+    expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+
+    // Uma conclusão só, com as respostas da sessão retomada; a vida gasta antes
+    // da interrupção não é cobrada de novo.
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: Object.fromEntries(IDS.map((id) => [id, true])),
+    }));
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    expect(mockedJourneyProgress.markNodeCompleted).toHaveBeenCalledTimes(1);
+  });
+
+  it('(c) sem som, sem vibração e com "Reduzir movimento", cada estado continua escrito na tela (foco 5)', async () => {
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: false, haptics: false });
+    // Troca e devolve a função inteira: `mockRestore` num dublê do preset do
+    // React Native o deixaria sem implementação para os testes seguintes.
+    const originalReduceMotion = AccessibilityInfo.isReduceMotionEnabled;
+    AccessibilityInfo.isReduceMotionEnabled = jest.fn().mockResolvedValue(true);
+    try {
+      await abrir();
+      // Cena: cenário, nome e fala em texto.
+      expect(screen.getByText('Sala de exames, início do plantão.')).toBeTruthy();
+      expect(screen.getByText('Profa. Lia')).toBeTruthy();
+      expect(screen.getByText('Antes de posicionar, confira o pedido.')).toBeTruthy();
+      await atePrimeiraPergunta();
+
+      // Erro: título, as duas respostas, o retorno e a vida perdida, tudo em texto.
+      await responder('Errada 1');
+      expect(screen.getByText('Vamos reforçar')).toBeTruthy();
+      expect(screen.getByText('Sua resposta: Errada 1')).toBeTruthy();
+      expect(screen.getByText('Resposta certa: Certa 1')).toBeTruthy();
+      expect(screen.getByText('Retorno de reforço 1.')).toBeTruthy();
+      expect(await screen.findByText('Menos 1 vida')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 2?');
+
+      // Pista e acerto.
+      fireEvent.press(screen.getByRole('button', { name: 'Ver pista' }));
+      expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
+      await responder('Certa 2');
+      expect(screen.getByText('Resposta correta')).toBeTruthy();
+      // No acerto, o gabarito repetiria a resposta do aluno: fica só "Sua resposta" (achado 6).
+      expect(screen.queryByText(/^Resposta certa:/u)).toBeNull();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 3?');
+      await responderEAvancar('Certa 3', 'Pergunta 4?');
+      // Sequência: o selo é texto.
+      await responder('Certa 4');
+      expect(screen.getByText('3 seguidas')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pergunta 5?');
+      await responder('Certa 5');
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Pedido conferido, exame certo.');
+      await concluirPeloFecho();
+      expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+      expect(screen.getByText('A lição foi concluída')).toBeTruthy();
+
+      await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
+      expect(mockSoundPlayer.play).not.toHaveBeenCalled();
+      for (const haptic of Object.values(haptics)) expect(haptic).not.toHaveBeenCalled();
+    } finally {
+      AccessibilityInfo.isReduceMotionEnabled = originalReduceMotion;
+    }
+  });
+
+  it('a pista aparece só no item que a tem, antes da resposta, e some da oferta depois de responder', async () => {
+    await abrir();
+    await atePrimeiraPergunta();
+    expect(screen.queryByRole('button', { name: 'Ver pista' })).toBeNull();
+    await responderEAvancar('Certa 1', 'Pergunta 2?');
+
+    expect(screen.getByRole('button', { name: 'Ver pista' })).toBeTruthy();
+    expect(screen.queryByText('Pista: Pense em quem assina o pedido.')).toBeNull();
+    await responder('Certa 2');
+    expect(screen.queryByRole('button', { name: 'Ver pista' })).toBeNull();
+  });
+
+  it('usar a pista não muda estrelas nem acertos; o uso segue para a evidência do item, como o serviço já previa', async () => {
+    const { LessonOutcomeService: real } = jest.requireActual('../services/LessonOutcomeService');
+    mockedOutcome.recordActivityCompletion.mockImplementation((input) => real.recordActivityCompletion(input));
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      await abrir();
+      await atePrimeiraPergunta();
+      await responderEAvancar('Certa 1', 'Pergunta 2?');
+      fireEvent.press(screen.getByRole('button', { name: 'Ver pista' }));
+      expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
+      for (const n of [2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+      await responder('Certa 5');
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByTestId('dialogue-scene');
+      await concluirPeloFecho();
+
+      // O placar sai do serviço real: a pista não tira acerto nem estrela.
+      expect(await screen.findByText('5 de 5 corretas')).toBeTruthy();
+      expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+      expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+        hintUsedByInteraction: { q2: true },
+      }));
+    } finally {
+      warnSpy.mockRestore();
+      errorSpy.mockRestore();
+    }
+  });
+
+  it.each([1, 3])('com %i de 5 corretas há estrela, e a conclusão toca o fim e solta o confete', async (corretas) => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: corretas } });
+    await abrir({ resumeCursorId: 'step-3' });
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+
+    expect(await screen.findByText(`${corretas} de 5 corretas`)).toBeTruthy();
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(1);
+    await waitFor(() => expect(tocados().filter((id) => id === 'fim')).toHaveLength(1));
+    expect(haptics.hapticCelebrate).toHaveBeenCalledTimes(1);
+  });
+
+  it('com zero acerto, a conclusão não comemora: sem confete, sem som de fim, sem vibração de festa', async () => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 5, correctAnswers: 0 } });
+    await abrir({ resumeCursorId: 'step-3' });
+    for (const n of [1, 2, 3, 4]) await responderEAvancar(`Certa ${n}`, `Pergunta ${n + 1}?`);
+    await responder('Certa 5');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByTestId('dialogue-scene');
+    await concluirPeloFecho();
+
+    expect(await screen.findByText('0 de 5 corretas')).toBeTruthy();
+    await act(async () => {});
+    expect(screen.UNSAFE_queryAllByType(Confetti)).toHaveLength(0);
+    expect(tocados()).not.toContain('fim');
+    expect(haptics.hapticCelebrate).not.toHaveBeenCalled();
+  });
 });

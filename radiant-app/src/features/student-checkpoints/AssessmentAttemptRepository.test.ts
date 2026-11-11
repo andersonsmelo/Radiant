@@ -1,8 +1,11 @@
 import { AssessmentAttemptRepository } from './AssessmentAttemptRepository';
 import { MemoryKeyValueStorage } from './storage';
-import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as batch } from './production-batches';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as batch } from '../../test/fixtures/syntheticEditorialBatch';
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { ItemReviewRepository } from '../spaced-repetition/repositories/ItemReviewRepository';
+import { ItemReviewCoordinator, reviewCatalog } from '../spaced-repetition/services/ItemReviewService';
+import { ProductionCurriculumCatalog } from './ProductionCurriculumCatalog';
+import type { ItemIdentity } from '../../types/itemReview';
 
 const activities = batch.activities.filter(activity => activity.competencyIds.includes(batch.activities[0].competencyIds[0]));
 function submission(id: string) {
@@ -187,5 +190,71 @@ describe('histórico persistente da avaliação V2', () => {
         failedWrite.mockRestore();
         expect((await repository.getState('node:assessment')).remainingActivityIds).toContain(activity.id);
         expect((await repository.getState('node:assessment')).blocked).toBe(true);
+    });
+
+    describe('recuperação depois da conferência reprovada', () => {
+        const recoveryItems = (nodeId: string): ItemIdentity[] => (['guided-practice', 'applied-transfer'] as const).map(evidenceKind => ({
+            lessonId: nodeId, itemId: `recovery:${evidenceKind}`, activityId: activities[0].id,
+            competencyId: activities[0].competencyIds[0], contentVersion: batch.contentVersion, evidenceKind }));
+
+        it('semeia os dois itens de recuperação como cartões sem tentativa: o guiado vence na hora e a transferência no dia seguinte', async () => {
+            const storage = new MemoryKeyValueStorage();
+            const input = submission('attempt:recovery:1');
+            await new AssessmentAttemptRepository(storage, recoveryItems).submit(input, batch.activities);
+            const journal = new ItemReviewRepository(storage);
+            const cards = (await journal.getCards()).filter(card => card.item.itemId.startsWith('recovery:'));
+            expect(cards.map(card => [card.item.evidenceKind, card.dueAt, card.lastAttemptId])).toEqual([
+                ['guided-practice', '2026-10-12T12:00:01.000Z', null],
+                ['applied-transfer', '2026-10-13T12:00:01.000Z', null],
+            ]);
+            // A semente não é evidência: o journal só tem a tentativa da conferência.
+            expect((await journal.getAttempts()).map(attempt => attempt.item.itemId)).toEqual(['item:one']);
+            // Reenvio idempotente e nova leitura não duplicam nem reagendam.
+            await new AssessmentAttemptRepository(storage, recoveryItems).submit(input, batch.activities);
+            await new AssessmentAttemptRepository(storage, recoveryItems).getState(input.journeyNodeId);
+            expect((await journal.getCards()).filter(card => card.item.itemId.startsWith('recovery:'))).toEqual(cards);
+        });
+
+        it('conferência aprovada não semeia recuperação, e falha ao ler a recuperação não derruba a tentativa', async () => {
+            const storage = new MemoryKeyValueStorage();
+            const passed = submission('attempt:recovery:2');
+            passed.itemOutcomes[0] = { ...passed.itemOutcomes[0], outcome: 'correct' as never };
+            const evaluation = await new AssessmentAttemptRepository(storage, recoveryItems).submit(passed, batch.activities);
+            expect(evaluation.attempt.passed).toBe(true);
+            expect((await new ItemReviewRepository(storage).getCards()).map(card => card.item.itemId)).toEqual(['item:one']);
+
+            const broken = new MemoryKeyValueStorage();
+            const failed = await new AssessmentAttemptRepository(broken, () => { throw new Error('catalog-unavailable'); })
+                .submit(submission('attempt:recovery:3'), batch.activities);
+            expect(failed.attempt.passed).toBe(false);
+            expect(await new ItemReviewRepository(broken).getAttempts()).toHaveLength(1);
+        });
+
+        it('na trilha rtg-2026 a fila de revisão entrega a pergunta guiada daquela aula logo depois da reprovação', async () => {
+            const nodeId = 'node:checkpoint:rtg-2026:m01:aula-01';
+            const real = ProductionCurriculumCatalog.getBatchByCheckpointNodeId(nodeId)!;
+            const checkpoint = ProductionCurriculumCatalog.getCheckpointByNodeId(nodeId)!;
+            const recovery = ProductionCurriculumCatalog.getRecoveryByCheckpointNodeId(nodeId)!;
+            const activity = real.activities.find(entry => entry.competencyIds.includes(recovery.competencyId))!;
+            const storage = new MemoryKeyValueStorage();
+            const evaluation = await new AssessmentAttemptRepository(storage).submit({
+                ...submission('attempt:recovery:4'), unitId: real.unitId, journeyNodeId: nodeId, activityId: real.batchId,
+                contentVersion: real.contentVersion, itemOutcomes: checkpoint.items.map(item => ({
+                    itemId: item.id, activityId: activity.id, competencyIds: [...item.competencyIds], evidenceKind: 'independent-recall' as const,
+                    outcome: 'incorrect' as const, isCriticalError: false, hintUsed: false, durationBucket: 'unknown' as const })),
+            }, real.activities);
+            expect(evaluation.attempt.passed).toBe(false);
+
+            const reviews = new ItemReviewCoordinator(new ItemReviewRepository(storage), reviewCatalog);
+            const sameDay = await reviews.loadQueue([], new Date('2026-10-12T12:00:05.000Z'));
+            expect(sameDay.map(entry => entry.question.prompt)).toContain(recovery.guided.prompt);
+            expect(sameDay.map(entry => entry.question.prompt)).not.toContain(recovery.transfer.prompt);
+            const nextDay = await reviews.loadQueue([], new Date('2026-10-13T12:00:05.000Z'));
+            const transfer = nextDay.find(entry => entry.question.prompt === recovery.transfer.prompt)!;
+            expect(transfer.card?.item).toMatchObject({ lessonId: nodeId, itemId: recovery.transfer.id, competencyId: recovery.competencyId,
+                activityId: activity.id, evidenceKind: 'applied-transfer', contentVersion: real.contentVersion });
+            expect(transfer.question.options[transfer.question.correctAnswerIndex].label)
+                .toBe(recovery.transfer.options.find(option => option.id === recovery.transfer.correctOptionId)!.label);
+        });
     });
 });

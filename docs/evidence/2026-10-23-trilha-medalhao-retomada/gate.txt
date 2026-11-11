@@ -1,0 +1,67 @@
+Gate do app: EXPO_NO_DOTENV=1 CI=1 npm run quality (radiant-app), Node 20.20.2, árvore do run-1792757625819-e00263ec.
+
+## Rodada 1 — FAIL (exit 1)
+# 2026-10-23T10:22:22-0300 node v20.20.2 HEAD 8ad10e8 + diff do run-1792757625819-e00263ec
+Test Suites: 1 failed, 189 passed, 190 total
+Tests:       1 failed, 2162 passed, 2163 total
+  ● JourneyHomeScreen — o momento do Pixel › não toca de novo quando a aba ganha foco com o mesmo recomendado
+
+    expect(received).toBeNull()
+
+
+      933 |     await screen.findByRole('button', { name: 'Aula l2. Próximo passo.' });
+      934 |     medirMomento('l2');
+    > 935 |     await waitFor(() => expect(momento()).toBeNull(), { timeout: TRAIL_MOMENT_MS + 1000 });
+          |                  ^
+      936 |
+      937 |     voltarParaATela();
+      938 |     await act(async () => {});
+
+      at Object.<anonymous> (src/features/journey/screens/JourneyHomeScreen.flow.test.tsx:935:18)
+
+## Fragilidade de tempo anterior ao conserto (CPU limitada)
+# 2026-10-23T10:33:09-0300 fragilidade de tempo, CPU limitada (taskpolicy -b), node v20.20.2
+## com o conserto
+    ✓ não toca na primeira abertura, mesmo com aulas já concluídas (543 ms)
+    ✕ toca na volta de uma aula concluída, e acaba sozinho (12405 ms)
+    ✕ percorre L1 → revisão futura → L2 sem encurtar a volta real para15pt (11310 ms)
+    ✕ não toca de novo quando a aba ganha foco com o mesmo recomendado (9154 ms)
+    ✓ não toca quando o recomendado muda sem a aula anterior ter sido concluída (250 ms)
+Tests:       3 failed, 37 skipped, 2 passed, 42 total
+## motion.ts do HEAD (sem conserto)
+    ✓ não toca na primeira abertura, mesmo com aulas já concluídas (745 ms)
+    ✕ toca na volta de uma aula concluída, e acaba sozinho (12567 ms)
+    ✕ percorre L1 → revisão futura → L2 sem encurtar a volta real para15pt (12345 ms)
+    ✕ não toca de novo quando a aba ganha foco com o mesmo recomendado (9227 ms)
+    ✓ não toca quando o recomendado muda sem a aula anterior ter sido concluída (254 ms)
+Tests:       3 failed, 37 skipped, 2 passed, 42 total
+
+## Rodada 2 — PASS (exit 0)
+(eval):1: command not found: sysctl
+Test Suites: 190 passed, 190 total
+Tests:       2163 passed, 2163 total
+
+PASS src/features/journey/services/resolveNodeTheme.test.ts
+PASS src/features/journey/components/JourneyUnitNavigation.test.tsx
+PASS src/ui/copy/pt-BR.test.ts
+
+Test Suites: 190 passed, 190 total
+Tests:       2163 passed, 2163 total
+Snapshots:   1 passed, 1 total
+Time:        57.422 s, estimated 74 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+
+👁  Starting Radiant Visual QA...
+
+------------------------------------------------
+Scanned 443 files.
+Found 60 issues: 0 regressions, 57 baselined, 3 scoped exceptions.
+
+✅ Visual QA passed without unapproved regressions.
+EXIT=0

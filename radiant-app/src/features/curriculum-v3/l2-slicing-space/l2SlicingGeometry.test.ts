@@ -9,7 +9,6 @@ import {
   scenarioDetail,
   shouldRevealImmediately,
 } from './l2SlicingGeometry';
-import { L2_SLICING_SPACE } from './l2SlicingSpaceContent';
 
 /**
  * Extrai os pontos de um `d` de SVG.
@@ -66,11 +65,6 @@ describe('geometria do modelo 2.5D da L2', () => {
     expect(coronalBottom - coronalTop).toBeGreaterThan((transverseBottom - transverseTop) * 2);
   });
 
-  it('dá entrada própria a cada cenário declarado pelo conteúdo', () => {
-    const declared = [...new Set(L2_SLICING_SPACE.challenges.map((entry) => entry.visualScenarioId))];
-
-    expect(declared.filter((id) => !knownScenarioIds().includes(id))).toEqual([]);
-  });
 
   it('não repete legenda nem marcadores entre cenários de uma mesma família', () => {
     const initial = scenarioDetail('abdomen-transverse');

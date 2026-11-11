@@ -1,0 +1,2661 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "s-md",
+    "code": "S-MD",
+    "title": "Aprofundamento em mamografia e densitometria",
+    "summary": "Aprofunda anatomia, física, posicionamento, critérios, tecnologias e densitometria em simulação supervisionada. Treina cobertura e documentação, sem laudo, e não comprova operação real."
+  },
+  "sources": [
+    {
+      "id": "inca-atualizacao-mamografia-2023",
+      "title": "Atualização em mamografia para técnicos e tecnólogos em radiologia, 3ª edição revista e atualizada (2023)",
+      "publisher": "Instituto Nacional de Câncer (INCA), Ministério da Saúde",
+      "url": "https://ninho.inca.gov.br/jspui/bitstream/123456789/15417/1/3a%20edicao_Atualizacao%20em%20mamografia.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Publicação institucional sob CC BY-NC-SA 4.0; lidas as páginas de anatomia, equipamento, acolhimento, técnica, proteção e qualidade, só para fatos, sem reprodução de texto nem de figuras."
+    },
+    {
+      "id": "anvisa-in-92-2021",
+      "title": "Instrução Normativa nº 92, de 27 de maio de 2021 (republicada em 6 de julho de 2022)",
+      "publisher": "Anvisa",
+      "url": "https://ses.sp.bvs.br/wp-content/uploads/2022/07/U_IN-MS-ANVISA-92-REP_270521.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal, lido na íntegra em cópia da BVS da SES-SP, inclusive os Anexos I e II; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "anvisa-rdc-611-2022",
+      "title": "RDC nº 611, de 9 de março de 2022",
+      "publisher": "Anvisa",
+      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal, em cópia compilada no site do CBR; lidos os trechos sobre avisos da sala, aviso de gravidez e presença de acompanhante (arts. 53 e 56), sem reprodução de texto."
+    },
+    {
+      "id": "cbr-parecer-compressao-2022",
+      "title": "Parecer sobre sistema de compressão dos mamógrafos: testes de controle de qualidade e compressão clínica (4 de outubro de 2022)",
+      "publisher": "Colégio Brasileiro de Radiologia, Comissão Nacional de Mamografia",
+      "url": "https://cbr.org.br/wp-content/uploads/2022/11/Parecer-sobre-compressao-das-mamas-durante-a-mamografia.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Parecer institucional lido na íntegra; consultado para efeitos da compressão, sentido do teste de força e compressão firme e tolerável, sem reprodução de texto."
+    },
+    {
+      "id": "iscd-official-positions-adult",
+      "title": "ISCD Official Positions: Adult",
+      "publisher": "International Society for Clinical Densitometry (ISCD)",
+      "url": "https://iscd.org/learn/official-positions/adult-positions/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Posições oficiais da sociedade; consultadas para regiões de medida, precisão, simulador, calibração cruzada e relatório, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-dxa",
+      "title": "Bone Density Scan (DEXA or DXA)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/dexa",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação ao paciente; consultada para preparo, posicionamento e limitações, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-mammography",
+      "title": "Mammography",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/mammo",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação ao paciente; consultada para preparo, tomossíntese e detecção auxiliada por computador, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "s-md-01",
+      "code": "S-MD.01",
+      "title": "Anatomia e acolhimento",
+      "objective": "Hoje você vai conseguir localizar os limites da mama e conduzir o início do exame com respeito, acordo e pausa combinada.",
+      "competency": "Relacionar anatomia e acolhimento, parando e avisando a equipe diante de implante, possível gravidez ou dor.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Contorno do tórax com os quatro limites da mama marcados, sem imagem de pessoa real."
+      ],
+      "scene": {
+        "setting": "Sala de mamografia do serviço-escola",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu sei apontar a mama na imagem. Na hora de tocar numa pessoa, travei até com o manequim."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Célia",
+            "text": "Da última vez ninguém me disse nada. Apertaram e pronto. Fiquei com medo de voltar."
+          },
+          {
+            "speaker": "lia",
+            "text": "O que você diria antes de encostar nela? E o que faz se ela pedir para parar?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quem está ali é uma pessoa, não uma mama",
+        "body": "A mama fica sobre o peitoral maior e ocupa mais área do que parece: do bordo do esterno à linha axilar anterior, do segundo ao sexto arco costal. Gordura posterior na imagem indica mama mobilizada sem perder glândula. Por isso posicionar pede toque, e o toque pede acordo. A ordem ensinada: confirmar o nome, perguntar sobre gravidez e implante, explicar a compressão, combinar o aviso de dor, pedir licença para tocar. Sem falsa intimidade; na sala, um paciente de cada vez. Se a pessoa pedir para parar, você para. Implante, possível gravidez ou dor que não cede: pare, avise a equipe e siga o protocolo.",
+        "keyPoints": [
+          "Limites: esterno, linha axilar anterior, segundo e sexto arcos costais.",
+          "Explicar, combinar a dor e pedir licença antes de tocar.",
+          "Pedido de parar se respeita; dúvida vai para a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você já viu como começa o acolhimento na mamografia. O que precisa acontecer antes de tocar na pessoa?",
+          "options": [
+            {
+              "label": "Iniciar a compressão bem devagar",
+              "correct": false,
+              "feedback": "Comprimir devagar ajuda, mas já é tocar. Retome o que vem antes do primeiro contato."
+            },
+            {
+              "label": "Explicar o exame e pedir licença",
+              "correct": true,
+              "feedback": "Isso mesmo. A pessoa entende o que vai acontecer e pode concordar antes do primeiro contato."
+            },
+            {
+              "label": "Ajustar a altura do aparelho nela",
+              "correct": false,
+              "feedback": "Ajustar o aparelho faz parte da técnica, não substitui a conversa. Retome a sequência do acolhimento."
+            },
+            {
+              "label": "Conferir a imagem do exame anterior",
+              "correct": false,
+              "feedback": "Exame anterior pode ajudar a equipe, mas não abre caminho para o toque. Quem precisa concordar é a pessoa."
+            }
+          ],
+          "help": "Pense no que a pessoa precisa saber para poder dizer sim.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "cbr-parecer-compressao-2022"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada limite da mama à sua referência no tórax.",
+          "pairs": [
+            {
+              "left": "Limite medial",
+              "right": "Bordo do esterno"
+            },
+            {
+              "left": "Limite lateral",
+              "right": "Linha axilar anterior"
+            },
+            {
+              "left": "Limite superior",
+              "right": "Segundo arco costal, perto da clavícula"
+            },
+            {
+              "left": "Limite inferior",
+              "right": "Sexto arco costal"
+            }
+          ],
+          "feedbackCorrect": "A mama ocupa mais área do que a superfície sugere. Saber disso explica por que puxar e suspender fazem parte do posicionamento.",
+          "feedbackIncorrect": "Algum limite ficou trocado. Retome o conceito: medial é o lado do esterno, lateral é o da axila.",
+          "help": "Medial aponta para o centro do corpo. Lateral aponta para o braço.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, organize o início do atendimento na simulação.",
+          "items": [
+            "Confirmar o nome completo da pessoa",
+            "Perguntar sobre possível gravidez e implante",
+            "Explicar a compressão e quanto ela dura",
+            "Combinar como a pessoa avisa que está doendo",
+            "Pedir licença para tocar"
+          ],
+          "feedbackCorrect": "Primeiro de quem se trata e se há algo que muda o exame. Depois vem o que vai acontecer. O toque fica por último.",
+          "feedbackIncorrect": "O toque veio cedo demais ou a identificação veio tarde. Retome a sequência do conceito.",
+          "help": "Se algo impede seguir, é melhor saber antes de explicar a compressão.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você já está ajustando a altura do aparelho quando Dona Célia comenta: 'Esqueci de dizer, tenho implante nas duas mamas.' O pedido não trazia essa informação.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Comprimir como de costume e seguir com o exame",
+              "correct": false,
+              "feedback": "Assim você decide a técnica sozinho. Implante muda o exame, e o caminho está no protocolo do serviço."
+            },
+            {
+              "label": "Deslocar o implante sozinho antes de comprimir",
+              "correct": false,
+              "feedback": "Existe manobra para isso, mas não é decisão sua na simulação. Pare e leve a informação à equipe."
+            },
+            {
+              "label": "Parar, avisar a equipe e seguir o protocolo",
+              "correct": true,
+              "feedback": "Você interrompe, leva a informação e deixa a técnica com quem responde por ela. Depois, registra o que a pessoa relatou."
+            },
+            {
+              "label": "Dizer a ela que não poderá fazer o exame",
+              "correct": false,
+              "feedback": "Pessoas com implante fazem mamografia, com rotina própria. Dizer que não pode é decidir no lugar da equipe."
+            }
+          ],
+          "help": "O que essa informação pode mudar no exame, e quem responde por essa mudança?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "cbr-parecer-compressao-2022"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Renato veio para uma mamografia e está visivelmente constrangido. No meio da compressão ele diz: 'Pare, por favor, não estou aguentando.' A exposição ainda não começou.",
+          "prompt": "Qual é a sua conduta na simulação?",
+          "options": [
+            {
+              "label": "Parar, ouvir o que ele diz e chamar a equipe",
+              "correct": true,
+              "feedback": "O pedido de parar vale sempre. Depois de ouvir, a equipe vê como seguir e o que foi limitado fica registrado."
+            },
+            {
+              "label": "Manter a pressão, pois falta só a exposição",
+              "correct": false,
+              "feedback": "Seguir contra o pedido quebra o acordo com a pessoa. Compressão precisa ser tolerável."
+            },
+            {
+              "label": "Dizer que homem nem precisaria desse exame",
+              "correct": false,
+              "feedback": "Mama masculina também é examinada. A frase constrange e não responde ao pedido dele."
+            },
+            {
+              "label": "Aumentar a força para acabar mais depressa",
+              "correct": false,
+              "feedback": "Mais força traz mais dor, o contrário do que ele pediu. Retome o que foi combinado sobre o aviso de dor."
+            }
+          ],
+          "help": "O que foi combinado antes de começar? Ele acabou de usar esse combinado.",
+          "sourceIds": [
+            "cbr-parecer-compressao-2022",
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você localiza os limites da mama, conduz o início do atendimento numa ordem clara e sabe que pedido de parar se respeita. Implante, possível gravidez ou dor que não cede vão para a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Quem se sente ouvido relaxa. E quem relaxa fica mais fácil de posicionar, sem você apertar mais."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A descrição de uma imagem de simulação diz que a camada de gordura posterior foi incluída. O que isso indica na técnica?",
+          "options": [
+            {
+              "label": "Que a pessoa tem mais gordura do que glândula",
+              "correct": false,
+              "feedback": "A presença da camada não mede composição. Ela fala de como a mama foi trazida para a imagem."
+            },
+            {
+              "label": "Que o controle de exposição foi bem ajustado",
+              "correct": false,
+              "feedback": "Exposição é outro assunto. Pergunte-se até onde o tecido entrou na imagem."
+            },
+            {
+              "label": "Que não há nenhum achado nessa região",
+              "correct": false,
+              "feedback": "Isso seria interpretar a imagem, e essa leitura é do médico. O critério aqui é técnico."
+            },
+            {
+              "label": "Que a mama foi mobilizada sem perder glândula",
+              "correct": true,
+              "feedback": "A gordura posterior é referência: se ela aparece, a mama foi bem trazida e a glândula não ficou de fora."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "prompt": "Qual fala explica a compressão com respeito e sem prometer o que você não pode garantir?",
+          "options": [
+            {
+              "label": "'Incomoda, dura alguns segundos. Me avise se doer.'",
+              "correct": true,
+              "feedback": "A fala é honesta sobre o incômodo, diz quanto dura e deixa combinado como a pessoa pode avisar."
+            },
+            {
+              "label": "'Fica tranquila, meu bem, isso aqui não dói nada.'",
+              "correct": false,
+              "feedback": "'Meu bem' simula intimidade, e a promessa de que não dói pode não se cumprir. Prefira a informação clara."
+            },
+            {
+              "label": "'Tem que apertar bastante, então só aguente firme.'",
+              "correct": false,
+              "feedback": "A fala tira da pessoa a chance de avisar. A compressão precisa ser firme, mas tolerável."
+            },
+            {
+              "label": "'Todo mundo aguenta, não vai ser diferente agora.'",
+              "correct": false,
+              "feedback": "Comparar com os outros desconsidera o que esta pessoa sente. Retome o combinado sobre a dor."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "cbr-parecer-compressao-2022"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: diante de possível gravidez, eu paro, aviso a equipe e sigo…",
+          "item": {
+            "prompt": "Antes de começar, a pessoa diz: 'Minha menstruação está atrasada.' Como termina a sua conduta?",
+            "options": [
+              {
+                "label": "A rotina comum, sem mencionar o atraso",
+                "correct": false,
+                "feedback": "Calar a informação tira da equipe a chance de decidir. Possível gravidez precisa ser avisada antes do exame."
+              },
+              {
+                "label": "A minha avaliação sobre o risco do exame",
+                "correct": false,
+                "feedback": "Avaliar esse risco não é tarefa sua na simulação. Você leva a informação a quem responde por ela."
+              },
+              {
+                "label": "O protocolo do serviço, com a equipe",
+                "correct": true,
+                "feedback": "A pergunta sobre gravidez existe para isso. Você para antes de expor e a equipe conduz pelo protocolo."
+              },
+              {
+                "label": "O pedido médico, já que ele não cita nada",
+                "correct": false,
+                "feedback": "O pedido pode não trazer o que a pessoa acabou de contar. O relato dela precisa chegar à equipe."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023",
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Enquanto você prepara Dona Célia, outra pessoa da fila pede para esperar dentro da sala, 'para adiantar'. O que você faz na simulação?",
+            "options": [
+              {
+                "label": "Deixa entrar, se Dona Célia não reclamar",
+                "correct": false,
+                "feedback": "Silêncio não é acordo, e a regra da sala não depende disso. Retome quantas pessoas ficam ali."
+              },
+              {
+                "label": "Pede que aguarde fora: uma pessoa por vez",
+                "correct": true,
+                "feedback": "A norma admite um paciente de cada vez na sala, e isso também preserva quem está em atendimento."
+              },
+              {
+                "label": "Deixa entrar, desde que fique de costas",
+                "correct": false,
+                "feedback": "Ficar de costas não muda a regra da sala: um paciente de cada vez. Retome o conceito."
+              },
+              {
+                "label": "Interrompe o exame e atende primeiro a outra",
+                "correct": false,
+                "feedback": "Isso deixa de lado quem já está em atendimento. A outra pessoa aguarda do lado de fora."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-02",
+      "code": "S-MD.02",
+      "title": "Equipamento, física e proteção",
+      "objective": "Hoje você vai conseguir prever como espessura, compressão e energia mudam dose e nitidez, e dizer quando o equipamento não pode ser usado.",
+      "competency": "Relacionar compressão, espessura, energia e dose como conceitos e reconhecer condições que inabilitam o equipamento.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Setas de causa e efeito: compressão, espessura, exposição, dose e borrão, sem valores numéricos."
+      ],
+      "scene": {
+        "setting": "Laboratório de física do serviço-escola",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Se eu baixar a energia para ganhar contraste, a dose cai junto, não é? Menos energia, menos radiação."
+          },
+          {
+            "speaker": "caio",
+            "text": "Essa conta engana muita gente. E olha a bandeja antes de pensar em energia: tem dia que a primeira tarefa é ela."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir o feixe? O que acontece com o que chega ao detector quando a energia muda?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Relações, não receitas",
+        "body": "Efeito anódico: mais fótons do lado do cátodo, junto ao tórax. O filtro retira fótons de baixa energia; a bandeja uniformiza a espessura. Menos espessura, menos exposição e dose; compressão insuficiente alonga a exposição e traz borrão. Baixar o kV para ganhar contraste exige mais mAs e dose. Dose glandular média é indicador de qualidade, testado em PMMA, não conta para uma pessoa. Os 150 a 200 N são, para o CBR, força máxima do modo automático, em teste, não alvo clínico. Bandeja danificada ou controle automático parado inabilitam o uso: pare e avise. Na exposição, todos atrás do vidro plumbífero. Avaliação diária da imagem: equipe própria, treinada e habilitada.",
+        "keyPoints": [
+          "Menos espessura, menos exposição e menos dose.",
+          "Menos kV para ganhar contraste pede mais mAs e mais dose.",
+          "Dose glandular média é indicador do sistema, não cálculo para a pessoa."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você já viu o papel da compressão na mamografia. Quando ela reduz a espessura da mama, o que acontece com a dose?",
+          "options": [
+            {
+              "label": "Sobe, porque a mama fica mais densa",
+              "correct": false,
+              "feedback": "A relação é a contrária. Menos tecido a atravessar pede menos exposição."
+            },
+            {
+              "label": "Fica igual, porque quem define é o kV",
+              "correct": false,
+              "feedback": "A técnica importa, mas a espessura também pesa na exposição necessária. Retome o papel da compressão."
+            },
+            {
+              "label": "Depende só do tamanho da bandeja",
+              "correct": false,
+              "feedback": "A bandeja é o meio, não a causa. O que importa é quanto tecido o feixe atravessa."
+            },
+            {
+              "label": "Tende a cair, com menos exposição",
+              "correct": true,
+              "feedback": "Menos espessura pede menos exposição e, com isso, menos dose absorvida na glândula."
+            }
+          ],
+          "help": "Pense em quanto tecido o feixe precisa atravessar para chegar ao detector.",
+          "sourceIds": [
+            "cbr-parecer-compressao-2022",
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Num esquema didático, o kV é reduzido para melhorar o contraste, e a quantidade de fótons no detector precisa continuar a mesma. O que você prevê?",
+          "options": [
+            {
+              "label": "O mAs sobe e a dose também sobe",
+              "correct": true,
+              "feedback": "Com menos energia, a mama atenua mais. Para manter os fótons no detector, é preciso mais mAs, e a dose acompanha."
+            },
+            {
+              "label": "O mAs cai e a dose também cai",
+              "correct": false,
+              "feedback": "Esse é o erro comum: parece que menos energia é menos radiação. Com mais atenuação, a exposição precisa subir."
+            },
+            {
+              "label": "O mAs não muda e a dose só cai",
+              "correct": false,
+              "feedback": "Se nada compensar, chegam menos fótons ao detector. A condição do enunciado pede compensação."
+            },
+            {
+              "label": "O mAs cai e a dose acaba subindo",
+              "correct": false,
+              "feedback": "A dose só subiria com mais exposição, e aqui você baixou o mAs. Reveja a direção da compensação."
+            }
+          ],
+          "help": "Fóton de menor energia atravessa a mama com mais ou menos facilidade?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item da cadeia técnica ao efeito que ele tem no exame.",
+          "pairs": [
+            {
+              "left": "Compressão insuficiente",
+              "right": "Exposição mais longa e borrão por movimento"
+            },
+            {
+              "left": "Filtro metálico",
+              "right": "Retira fótons de baixa energia que só somariam dose"
+            },
+            {
+              "left": "Bandeja de compressão",
+              "right": "Deixa uniforme a espessura da parte radiografada"
+            },
+            {
+              "left": "Efeito anódico",
+              "right": "Mais fótons do lado do cátodo, junto à parede do tórax"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada peça ao que ela muda no exame. É esse raciocínio que explica o protocolo, sem precisar decorar valor.",
+          "feedbackIncorrect": "Algum par não fecha. Retome o conceito seguindo o caminho do feixe, do tubo até a mama.",
+          "help": "Comece pelo item cujo efeito você consegue explicar com mais segurança.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "anvisa-in-92-2021",
+            "cbr-parecer-compressao-2022"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na conferência antes do primeiro atendimento da simulação, você nota uma rachadura fina na bandeja de compressão. Há gente esperando, e um colega diz que a rachadura nem aparece na imagem.",
+          "prompt": "O que você faz nessa conferência?",
+          "options": [
+            {
+              "label": "Usar a bandeja com cuidado até o intervalo",
+              "correct": false,
+              "feedback": "Bandeja danificada inabilita o uso, e o cuidado não muda isso. A rotina é parar e avisar."
+            },
+            {
+              "label": "Não usar a bandeja e avisar o responsável",
+              "correct": true,
+              "feedback": "A norma lista bandeja danificada entre as condições que inabilitam o uso. Você para e comunica."
+            },
+            {
+              "label": "Fazer uma imagem de teste e decidir por ela",
+              "correct": false,
+              "feedback": "A imagem não prova que a bandeja é segura. Esse defeito não se contorna com teste seu."
+            },
+            {
+              "label": "Reduzir a força para poupar a bandeja",
+              "correct": false,
+              "feedback": "Comprimir menos prejudica o exame e não resolve o defeito. Retome o que inabilita o equipamento."
+            }
+          ],
+          "help": "A questão é a imagem ou a condição do equipamento?",
+          "sourceIds": [
+            "anvisa-in-92-2021",
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Duda encontra a planilha do físico, com valores de dose glandular média em várias espessuras de PMMA, e propõe: 'Vamos usar a linha de 4 cm para dizer à Dona Marta quanto de dose ela recebeu hoje.'",
+          "prompt": "Como você responde na simulação?",
+          "options": [
+            {
+              "label": "Concordo, se a mama dela medir 4 cm comprimida",
+              "correct": false,
+              "feedback": "A planilha fala de blocos simuladores e do sistema, não da pessoa. Dose para paciente não se calcula aqui."
+            },
+            {
+              "label": "Só se somarmos as quatro incidências dela",
+              "correct": false,
+              "feedback": "Somar não transforma indicador em dose da pessoa. O erro está em usar a tabela para isso."
+            },
+            {
+              "label": "A planilha avalia o sistema, não a Dona Marta",
+              "correct": true,
+              "feedback": "O valor é indicador de qualidade, testado por espessura. A pergunta de Dona Marta segue para a equipe."
+            },
+            {
+              "label": "Só depois de aplicar a tolerância da tabela",
+              "correct": false,
+              "feedback": "Tolerância serve para julgar o desempenho do equipamento. Não vira cálculo para uma pessoa."
+            }
+          ],
+          "help": "De onde vieram os números dessa planilha?",
+          "sourceIds": [
+            "anvisa-in-92-2021",
+            "cbr-parecer-compressao-2022"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você prevê a direção das relações entre compressão, espessura, energia, dose e borrão, reconhece o que inabilita o equipamento e sabe que parâmetro é do protocolo aprovado. Esta aula não comprova operação real.",
+        "line": {
+          "speaker": "lia",
+          "text": "Aqui você aprendeu a explicar relações. Operar é outra etapa, com supervisão e no serviço."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um colega afirma: 'Toda mama tem de ser comprimida entre 150 N e 200 N, é a norma.' Pelo parecer do CBR visto nesta aula, o que é esse intervalo?",
+          "options": [
+            {
+              "label": "O alvo obrigatório de força para cada pessoa",
+              "correct": false,
+              "feedback": "O parecer diz que faltam diretrizes com valores ideais. A compressão clínica deve ser firme e tolerável."
+            },
+            {
+              "label": "A força máxima do modo automático, em teste",
+              "correct": true,
+              "feedback": "Para o CBR, é o máximo do sistema automático, conferido em teste. Na clínica, a força varia com a mama e a tolerância."
+            },
+            {
+              "label": "O ponto em que a compressão começa a doer",
+              "correct": false,
+              "feedback": "Dor varia de pessoa para pessoa e não é medida por esse número. Ele vem de um teste do aparelho."
+            },
+            {
+              "label": "O ajuste que cada tecnólogo define no turno",
+              "correct": false,
+              "feedback": "Esse intervalo vem de um teste previsto em norma, não de escolha pessoal."
+            }
+          ],
+          "sourceIds": [
+            "cbr-parecer-compressao-2022",
+            "anvisa-in-92-2021"
+          ]
+        },
+        {
+          "prompt": "Durante a exposição numa simulação, onde ficam você e a colega que observa o atendimento?",
+          "options": [
+            {
+              "label": "Ao lado da pessoa, para ela não ficar sozinha",
+              "correct": false,
+              "feedback": "A intenção é boa, mas o lugar não protege você. O contato segue pelo visor e pela voz."
+            },
+            {
+              "label": "Na porta da sala, para controlar quem entra",
+              "correct": false,
+              "feedback": "Controlar o acesso importa, mas a porta não é o seu lugar na exposição. Retome o painel."
+            },
+            {
+              "label": "Atrás do vidro plumbífero do painel",
+              "correct": true,
+              "feedback": "O painel é protegido por vidro plumbífero, e quem opera ou observa fica atrás dele durante a exposição."
+            },
+            {
+              "label": "Só com avental, em qualquer ponto da sala",
+              "correct": false,
+              "feedback": "Avental não substitui a proteção do painel. Retome onde operador e observador devem ficar."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: compressão insuficiente alonga a exposição e pode trazer…",
+          "item": {
+            "prompt": "Numa descrição de simulação, a compressão ficou frouxa. O que tende a aparecer junto com a exposição mais longa?",
+            "options": [
+              {
+                "label": "Borrão causado por movimento",
+                "correct": true,
+                "feedback": "Sem imobilizar bem e com exposição mais longa, o movimento pesa, e as bordas perdem nitidez."
+              },
+              {
+                "label": "Mais nitidez nas bordas finas",
+                "correct": false,
+                "feedback": "A relação é a inversa: quem segura a nitidez é a mama firme e imobilizada."
+              },
+              {
+                "label": "Menos dose absorvida na glândula",
+                "correct": false,
+                "feedback": "Exposição mais longa não reduz a dose. Compressão insuficiente tende a aumentá-la."
+              },
+              {
+                "label": "Menos radiação espalhada no feixe",
+                "correct": false,
+                "feedback": "Mais espessura não diminui a radiação espalhada. Quem reduz o espalhamento é a boa compressão."
+              }
+            ],
+            "sourceIds": [
+              "cbr-parecer-compressao-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Ao fim de um turno de estágio, você lê que o teste de qualidade da imagem é diário. Quem a norma admite para fazê-lo dentro do serviço?",
+            "options": [
+              {
+                "label": "Qualquer pessoa da equipe que tenha um tempo",
+                "correct": false,
+                "feedback": "A norma pede mais do que disponibilidade. Confira a condição de treino e de habilitação."
+              },
+              {
+                "label": "Somente a empresa fabricante do mamógrafo",
+                "correct": false,
+                "feedback": "A avaliação diária pode ser feita por gente do próprio serviço, sob uma condição."
+              },
+              {
+                "label": "O estudante, já que está aprendendo",
+                "correct": false,
+                "feedback": "Estudar não é estar habilitado. Na simulação, você acompanha com supervisão."
+              },
+              {
+                "label": "Profissional do serviço, treinado e habilitado",
+                "correct": true,
+                "feedback": "A norma permite a equipe própria quando ela é treinada e legalmente habilitada para isso."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-in-92-2021"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-03",
+      "code": "S-MD.03",
+      "title": "Posicionamento mamográfico",
+      "objective": "Hoje você vai conseguir ordenar os passos da MLO em simulação e explicar o que a postura muda na imagem.",
+      "competency": "Sequenciar a MLO e relacionar postura e mãos ao efeito técnico, encaminhando o que não for possível.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Sequência de cinco quadros da MLO em manequim, com setas para o giro do tubo e o movimento das mãos."
+      ],
+      "scene": {
+        "setting": "Sala de mamografia, com manequim de treino",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Já vi MLO tremida com compressão ótima. O problema estava nos pés da pessoa examinada."
+          },
+          {
+            "speaker": "duda",
+            "text": "Nos pés? Mas a mama nem encosta no chão."
+          },
+          {
+            "speaker": "lia",
+            "text": "Antes de responder, faça a sequência no manequim. Por onde você começa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Da postura ao sulco inframamário",
+        "body": "Na CC, o feixe vai da cabeça aos pés e cobre lateral e medial, sem a porção axilar: sulco inframamário elevado, mamilo de perfil, você na face medial. Na MLO, a ordem ensinada é: girar o tubo até o suporte ficar paralelo ao peitoral maior; pôr o canto do bucky no terço posterior da axila; elevar o braço, sem passar do ombro, e relaxá-lo; suspender e puxar a mama com a mão espalmada; abrir o sulco e comprimir aos poucos. O ângulo muda com o corpo. Ponta de dedo cria pregas. Pés afastados, joelho fletido, quadril torto ou calcanhar erguido tremem a imagem. Não deu: pare, registre e avise.",
+        "keyPoints": [
+          "O suporte fica paralelo ao peitoral maior da pessoa.",
+          "Mão espalmada: ponta de dedo cria pregas.",
+          "Pés, joelhos e quadril também mudam a imagem."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você já conferiu critérios de cobertura. Em qual incidência o peitoral deve descer até a altura do mamilo?",
+          "options": [
+            {
+              "label": "Na médio-lateral oblíqua (MLO)",
+              "correct": true,
+              "feedback": "Isso. O giro do tubo na MLO acompanha o peitoral, e por isso ele é critério dessa incidência."
+            },
+            {
+              "label": "Na craniocaudal (CC), sempre",
+              "correct": false,
+              "feedback": "Na CC o peitoral aparece só em parte das imagens. A exigência da altura do mamilo é de outra incidência."
+            },
+            {
+              "label": "Nas duas, com a mesma medida",
+              "correct": false,
+              "feedback": "As duas têm critérios próprios. Retome o que cada incidência precisa mostrar."
+            },
+            {
+              "label": "Em nenhuma delas: não é critério",
+              "correct": false,
+              "feedback": "É critério, sim. Retome a lista de uma das incidências básicas."
+            }
+          ],
+          "help": "Compare o que cada incidência básica precisa mostrar.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, organize a MLO no manequim.",
+          "items": [
+            "Girar o tubo até o suporte ficar paralelo ao peitoral maior",
+            "Pôr o canto do bucky no terço posterior da axila",
+            "Elevar o braço, sem passar do ombro, e relaxá-lo",
+            "Suspender e puxar a mama com a mão espalmada",
+            "Abrir o sulco inframamário e comprimir aos poucos"
+          ],
+          "feedbackCorrect": "Primeiro o aparelho acompanha o corpo, depois o corpo se acomoda e a mama é trazida. A compressão fecha a sequência.",
+          "feedbackIncorrect": "Algo saiu de lugar: a compressão vem por último e o giro do tubo, primeiro. Retome o conceito.",
+          "help": "Sem o aparelho no ângulo certo, nenhum passo seguinte se sustenta.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item ao que a aula ensina sobre ele.",
+          "pairs": [
+            {
+              "left": "Tracionar com a ponta dos dedos",
+              "right": "Pregas indesejadas na imagem"
+            },
+            {
+              "left": "Calcanhar erguido durante a exposição",
+              "right": "Falta de estabilidade e imagem tremida"
+            },
+            {
+              "left": "Canto do bucky na MLO",
+              "right": "Terço posterior da axila"
+            },
+            {
+              "left": "Braço na MLO",
+              "right": "Elevado, sem passar da altura do ombro"
+            }
+          ],
+          "feedbackCorrect": "Cada detalhe da sala tem um efeito ou uma referência. Saber qual ajuda a procurar a causa antes de culpar o aparelho.",
+          "feedbackIncorrect": "Algum par não fecha. Retome o conceito: o que as mãos e os pés provocam, e onde ficam o bucky e o braço.",
+          "help": "Separe o que é efeito na imagem do que é referência de posição no corpo.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Dona Dalva conta que não consegue levantar o braço direito dela desde uma cirurgia no ombro. Você tenta acomodar o braço para a MLO do lado direito da paciente, e ela faz cara de dor.",
+          "prompt": "Qual é o próximo passo?",
+          "options": [
+            {
+              "label": "Insistir com delicadeza até o braço alcançar",
+              "correct": false,
+              "feedback": "Forçar um braço limitado machuca e não é seu para decidir. Dor é sinal para parar."
+            },
+            {
+              "label": "Trocar para outra incidência por conta própria",
+              "correct": false,
+              "feedback": "Trocar a incidência existe na rotina, mas a decisão é da equipe e do protocolo, não sua."
+            },
+            {
+              "label": "Deixar a MLO de fora e não falar sobre isso",
+              "correct": false,
+              "feedback": "O que limitou o exame precisa ficar registrado e chegar à equipe. Omitir tira informação de quem lê."
+            },
+            {
+              "label": "Parar, registrar a limitação e avisar a equipe",
+              "correct": true,
+              "feedback": "A limitação entra na ficha e a equipe decide como seguir. Você não força e não muda o exame sozinho."
+            }
+          ],
+          "help": "O que a dor dela diz sobre continuar agora?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma MLO de simulação foi descrita como tremida, mesmo com a mama firme. Antes de suspeitar do equipamento, o que você olha na pessoa?",
+          "options": [
+            {
+              "label": "Se os cabelos estão presos",
+              "correct": false,
+              "feedback": "Cabelo pode entrar no feixe, mas isso não treme a imagem. Procure o que mexe o corpo."
+            },
+            {
+              "label": "Pés, joelhos e quadril dela",
+              "correct": true,
+              "feedback": "Pés longe do aparelho, joelho fletido ou calcanhar erguido tiram a estabilidade, e o corpo se move na exposição."
+            },
+            {
+              "label": "Se o mamilo está de perfil",
+              "correct": false,
+              "feedback": "Esse é um critério da imagem, mas não faz o corpo tremer. Procure o que sustenta a pessoa."
+            },
+            {
+              "label": "A cor do avental usado",
+              "correct": false,
+              "feedback": "Avental não muda a estabilidade. Retome o que deixa uma pessoa firme em pé."
+            }
+          ],
+          "help": "Pense no que, na pessoa, pode se mexer durante a exposição.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você ordena a MLO no manequim, explica por que mão espalmada e pés firmes contam e reconhece quando parar. O que não der para fazer vira registro e conversa com a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Da próxima vez que uma imagem tremer, olhe para o chão antes de olhar para o aparelho."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Você vai conferir uma CC de simulação. Qual porção a CC não se propõe a incluir?",
+          "options": [
+            {
+              "label": "A porção medial da mama",
+              "correct": false,
+              "feedback": "A medial precisa aparecer na CC. Retome a lista do que essa incidência cobre."
+            },
+            {
+              "label": "A porção lateral da mama",
+              "correct": false,
+              "feedback": "A lateral também precisa aparecer. Retome o que fica de fora dela."
+            },
+            {
+              "label": "A porção axilar da mama",
+              "correct": true,
+              "feedback": "A CC cobre a glândula, lateral e medial, menos a porção axilar. A região junto à axila aparece melhor na MLO."
+            },
+            {
+              "label": "A gordura posterior da mama",
+              "correct": false,
+              "feedback": "A camada adiposa posterior é critério da CC. Sem ela, algo pode ter ficado de fora."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "prompt": "Um colega pergunta o que orienta a rotação do tubo na MLO de cada pessoa. O que você responde?",
+          "options": [
+            {
+              "label": "Um ângulo fixo, igual para todo mundo",
+              "correct": false,
+              "feedback": "O ângulo muda de um corpo para outro. Retome a referência anatômica."
+            },
+            {
+              "label": "O suporte paralelo ao peitoral maior",
+              "correct": true,
+              "feedback": "O suporte acompanha a inclinação do peitoral maior de cada pessoa, e é isso que define o ângulo."
+            },
+            {
+              "label": "O ângulo que deu certo no último exame",
+              "correct": false,
+              "feedback": "A pessoa anterior tem outro corpo. A referência é o músculo de quem está ali."
+            },
+            {
+              "label": "O tamanho da bandeja de compressão",
+              "correct": false,
+              "feedback": "A bandeja não define a rotação. Procure a referência anatômica."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: suspender e puxar a mama se faz com a mão…",
+          "item": {
+            "prompt": "Para trazer a mama sem deixar pregas na imagem, como vai a sua mão?",
+            "options": [
+              {
+                "label": "Fechada, segurando firme o tecido",
+                "correct": false,
+                "feedback": "A aula pede a mão aberta, espalmada, e não fechada no tecido. Retome o conceito."
+              },
+              {
+                "label": "Com a ponta dos dedos, para ter precisão",
+                "correct": false,
+                "feedback": "Ponta de dedo é o que cria pregas. Retome o conceito."
+              },
+              {
+                "label": "Afastada: quem traz a mama é a bandeja",
+                "correct": false,
+                "feedback": "A bandeja só comprime o que você trouxe antes. Suspender e puxar vem primeiro."
+              },
+              {
+                "label": "Espalmada, apoiando toda a superfície",
+                "correct": true,
+                "feedback": "A mão espalmada traz a mama sem criar pregas, e o apoio fica distribuído."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa CC de simulação, você quer enxergar o rosto da pessoa para notar um sinal de dor. De que lado da mama examinada você fica?",
+            "options": [
+              {
+                "label": "Na face medial da mama examinada",
+                "correct": true,
+                "feedback": "Daí você mantém o contato visual, sem atrapalhar o posicionamento."
+              },
+              {
+                "label": "Atrás da pessoa, junto das costas",
+                "correct": false,
+                "feedback": "Atrás dela não dá para ver o rosto. Procure o lado que mantém o olhar."
+              },
+              {
+                "label": "Sempre no lado esquerdo do aparelho",
+                "correct": false,
+                "feedback": "A posição se define pela mama examinada, não por um lado fixo do aparelho."
+              },
+              {
+                "label": "No painel, com a bandeja já descida",
+                "correct": false,
+                "feedback": "O painel é para a exposição. Durante o posicionamento, você fica junto da pessoa."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-04",
+      "code": "S-MD.04",
+      "title": "Critérios técnicos",
+      "objective": "Hoje você vai conseguir conferir uma CC e uma MLO descritas contra os critérios e dizer qual deles falhou.",
+      "competency": "Aplicar critérios de cobertura e qualidade de CC e MLO, comparando a profundidade, sem interpretar achados.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Esquema da medida do mamilo à parte posterior na CC e na MLO, com a regra de diferença."
+      ],
+      "scene": {
+        "setting": "Estação de conferência do serviço-escola",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Essa CC não tem peitoral nenhum. Então está reprovada, certo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Se fosse assim, eu reprovava mais da metade das minhas CC. Tem outra forma de saber."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que uma segunda imagem pode contar sobre a profundidade que entrou na primeira?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Conferir é comparar com uma lista",
+        "body": "Na CC: lateral e medial sem cortar glândula, camada adiposa posterior e simetria. O peitoral aparece em só 30% a 40% dessas imagens. Sem ele, compare a distância do mamilo à parte posterior: MLO menos CC deve dar no máximo 1 cm. Na MLO: peitoral maior até a altura do mamilo ou abaixo, prega inframamária, mamilo de perfil, sem borrão, angulação simétrica e pequeno peitoral fora. Se faltar tecido na MLO, o mais provável é que seja do quadrante inferior medial. Dobras, queixo, cabelo ou mão sobre a imagem também contam. Critério falhou: descreva e leve à equipe. O que a imagem mostra é do médico.",
+        "keyPoints": [
+          "CC sem peitoral não reprova sozinha: compare a profundidade.",
+          "MLO menos CC: no máximo 1 cm.",
+          "Você nomeia o critério; a equipe decide o que fazer."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, por que a mama é trazida com a mão espalmada, e não com a ponta dos dedos?",
+          "options": [
+            {
+              "label": "Porque assim a exposição fica mais curta",
+              "correct": false,
+              "feedback": "A mão não altera o tempo de exposição. O efeito está na pele e no que aparece na imagem."
+            },
+            {
+              "label": "Porque a norma proíbe tocar com os dedos",
+              "correct": false,
+              "feedback": "A aula não citou essa proibição. O motivo é técnico: o que a ponta do dedo faz com a pele."
+            },
+            {
+              "label": "Porque evita pregas indesejadas na imagem",
+              "correct": true,
+              "feedback": "Ponta de dedo cria pregas, e elas entram na conferência de hoje como problema técnico."
+            },
+            {
+              "label": "Porque aumenta a força aplicada na mama",
+              "correct": false,
+              "feedback": "A força vem da bandeja. Retome o que a mão muda na superfície da pele."
+            }
+          ],
+          "help": "Pense no que a pele faz quando é puxada por poucos pontos.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Numa simulação, com valores fictícios, a CC não mostra peitoral. Do mamilo à parte posterior, a medida é 9,5 cm na MLO e 9,0 cm na CC. O que a comparação indica?",
+          "options": [
+            {
+              "label": "Diferença de 1,5 cm, fora do critério",
+              "correct": false,
+              "feedback": "Refaça a conta: 9,5 menos 9,0. Você pode ter somado alguma parte a mais."
+            },
+            {
+              "label": "Diferença de 0,5 cm, dentro do critério",
+              "correct": true,
+              "feedback": "São 0,5 cm, abaixo do limite de 1 cm. A ausência do peitoral, sozinha, não reprova essa CC."
+            },
+            {
+              "label": "Diferença de 0,5 cm, fora do critério",
+              "correct": false,
+              "feedback": "A conta está certa, a leitura não: o limite é de 1 cm, e 0,5 cm fica abaixo dele."
+            },
+            {
+              "label": "Sem peitoral, as medidas não se comparam",
+              "correct": false,
+              "feedback": "É justamente sem o peitoral que essa comparação ajuda. Retome o conceito."
+            }
+          ],
+          "help": "Faça a subtração na ordem do conceito e compare com o limite.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada descrição ao critério técnico que ela aponta.",
+          "pairs": [
+            {
+              "left": "MLO sem a prega inframamária",
+              "right": "Faltou a parte inferior na cobertura da MLO"
+            },
+            {
+              "left": "CC sem a camada adiposa posterior",
+              "right": "A parte posterior pode ter ficado de fora"
+            },
+            {
+              "left": "Duas MLO com ângulos diferentes",
+              "right": "Simetria da angulação não cumprida"
+            },
+            {
+              "left": "Queixo projetado sobre a mama",
+              "right": "Outra região do corpo sobre a imagem"
+            }
+          ],
+          "feedbackCorrect": "Você nomeou o critério sem falar de achado. É essa descrição que a equipe precisa para decidir.",
+          "feedbackIncorrect": "Algum par ligou a descrição ao critério errado. Retome as listas de CC e de MLO no conceito.",
+          "help": "Pergunte o que está faltando ou sobrando em cada imagem.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, a CC de Dona Marta não tem peitoral e não mostra a gordura posterior. A distância do mamilo à parte posterior é 10,0 cm na MLO e 8,5 cm na CC. Ela ainda está na sala, e um colega sugere fazer a CC de novo logo, para não perder tempo.",
+          "prompt": "Qual é a sua conduta?",
+          "options": [
+            {
+              "label": "Descrever o critério e levar à equipe",
+              "correct": true,
+              "feedback": "A diferença é de 1,5 cm, acima do limite. Repetir é nova exposição: você descreve e a equipe decide."
+            },
+            {
+              "label": "Repetir a CC e só depois avisar a equipe",
+              "correct": false,
+              "feedback": "Repetir é nova exposição para a pessoa. Essa decisão vem antes, com a equipe."
+            },
+            {
+              "label": "Apagar a CC para não confundir o laudo",
+              "correct": false,
+              "feedback": "Apagar esconde o que aconteceu e prejudica o registro. O caminho é descrever o critério que falhou."
+            },
+            {
+              "label": "Aceitar, porque peitoral é raro na CC",
+              "correct": false,
+              "feedback": "A falta do peitoral é comum, mas a gordura posterior e a medida também falharam aqui. Confira a conta."
+            }
+          ],
+          "help": "Faça a conta primeiro. Depois pense no que uma nova CC significa para a pessoa.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Um colega de outro serviço escreve: 'CC sem peitoral é sempre um erro de posicionamento.' Como você responde, com o que aprendeu hoje?",
+          "options": [
+            {
+              "label": "Concordo: toda CC precisa mostrar peitoral",
+              "correct": false,
+              "feedback": "O peitoral aparece só em parte das CC, por diferenças anatômicas. Essa exigência não se sustenta."
+            },
+            {
+              "label": "Concordo, salvo em mama de maior volume",
+              "correct": false,
+              "feedback": "A aula não trouxe essa exceção. A resposta vem de outra comparação."
+            },
+            {
+              "label": "Discordo: sem peitoral, a CC é sempre aceita",
+              "correct": false,
+              "feedback": "Sem peitoral, a conferência continua. Falta dizer como ela é feita."
+            },
+            {
+              "label": "Discordo: compara-se a profundidade com a MLO",
+              "correct": true,
+              "feedback": "A ausência do peitoral é comum. A adequação se confere pela distância na MLO e na CC."
+            }
+          ],
+          "help": "Retome o que entra no lugar do peitoral na conferência da CC.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você confere CC e MLO contra uma lista, compara a profundidade entre as duas e nomeia o critério que falhou. Repetir e interpretar não são decisões suas: você descreve e leva à equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Uma boa descrição técnica poupa uma exposição desnecessária. É uma contribuição concreta."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa MLO descrita na simulação, o pequeno peitoral aparece incluído na imagem. Como você classifica isso na conferência?",
+          "options": [
+            {
+              "label": "Critério de posicionamento não cumprido",
+              "correct": true,
+              "feedback": "O pequeno peitoral não deve aparecer na MLO. Você nomeia o critério e leva à equipe."
+            },
+            {
+              "label": "Um achado para o médico explicar à pessoa",
+              "correct": false,
+              "feedback": "É um músculo que entrou na imagem por posicionamento, não um achado. O critério é técnico."
+            },
+            {
+              "label": "Sinal de cobertura ainda melhor que o normal",
+              "correct": false,
+              "feedback": "Mais estrutura na imagem não é ganho aqui. A lista da MLO pede esse músculo de fora."
+            },
+            {
+              "label": "Defeito do detector, para a manutenção ver",
+              "correct": false,
+              "feedback": "O detector registrou o que foi posicionado. Procure a causa antes da exposição."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "prompt": "Ao conferir uma MLO, você quer saber onde é mais provável que falte tecido, se faltar. Qual região você olha com mais atenção?",
+          "options": [
+            {
+              "label": "O quadrante superior lateral",
+              "correct": false,
+              "feedback": "A referência da aula aponta outro quadrante como o mais provável. Retome o conceito."
+            },
+            {
+              "label": "A região retroareolar da mama",
+              "correct": false,
+              "feedback": "Essa região fica logo atrás do mamilo. A referência da aula aponta um quadrante."
+            },
+            {
+              "label": "O prolongamento para a axila",
+              "correct": false,
+              "feedback": "A MLO é a incidência que melhor mostra essa região. Procure outra parte da mama."
+            },
+            {
+              "label": "O quadrante inferior medial",
+              "correct": true,
+              "feedback": "Se algum tecido fica de fora na MLO, o mais provável é que seja desse quadrante."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na CC sem peitoral, MLO menos CC deve dar no máximo…",
+          "item": {
+            "prompt": "Qual é o limite da diferença entre as distâncias na MLO e na CC, ensinado nesta aula?",
+            "options": [
+              {
+                "label": "0,1 cm",
+                "correct": false,
+                "feedback": "Esse limite seria apertado demais. Retome o valor que aparece no conceito."
+              },
+              {
+                "label": "1 cm",
+                "correct": true,
+                "feedback": "Até 1 cm de diferença, a comparação indica que a profundidade na CC é adequada."
+              },
+              {
+                "label": "3 cm",
+                "correct": false,
+                "feedback": "Essa folga deixaria muito tecido passar sem aviso. Retome o valor do conceito."
+              },
+              {
+                "label": "5 cm",
+                "correct": false,
+                "feedback": "Com essa folga, a comparação não serviria para quase nada. Retome o valor do conceito."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Revendo imagens de simulação no laboratório, você encontra uma dobra de pele sobre a região da axila numa MLO. O que você faz com essa observação?",
+            "options": [
+              {
+                "label": "Ignora, porque a dobra fica longe do centro",
+                "correct": false,
+                "feedback": "A imagem não deve ter dobra de pele, em nenhum ponto. Registre a observação."
+              },
+              {
+                "label": "Chama de lesão de pele na ficha do exercício",
+                "correct": false,
+                "feedback": "Dizer que é lesão é interpretar. O que você vê é uma dobra, e ela é técnica."
+              },
+              {
+                "label": "Descreve como dobra de pele e leva à equipe",
+                "correct": true,
+                "feedback": "A dobra é uma falha de posicionamento, e a descrição objetiva é o que a equipe precisa."
+              },
+              {
+                "label": "Corta a região na tela para deixar mais limpo",
+                "correct": false,
+                "feedback": "Recortar esconde o problema, não o resolve. A conferência serve para mostrar o que aconteceu."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-05",
+      "code": "S-MD.05",
+      "title": "Tecnologias e complementos",
+      "objective": "Hoje você vai conseguir distinguir sistemas, tomossíntese e complementos e dizer quem indica cada um.",
+      "competency": "Reconhecer sistemas de imagem e complementos da mamografia sem indicar exame, incidência ou manobra.",
+      "minutes": 5,
+      "diagramIdeas": [
+        "Quadro com sistemas e complementos em colunas: o que faz, usa radiação ionizante ou não, quem indica."
+      ],
+      "scene": {
+        "setting": "Corredor do setor de imagem",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Minha vizinha fez uma tal de tomossíntese. É melhor? Não dá para pular o aperto com ela?"
+          },
+          {
+            "speaker": "duda",
+            "text": "E quando chamam a pessoa de volta para mais uma imagem? Sou eu quem pede?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Duas boas perguntas. O que muda em cada tecnologia, e quem responde por escolher?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Conhecer é diferente de indicar",
+        "body": "O receptor pode ser tela-filme, placa lida num digitalizador (CR) ou detector direto (DR). Na tomossíntese, o tubo faz um arco sobre a mama comprimida e as projeções viram cortes finos. Ela complementa a mamografia e pode usar mais dose que a 2D, conforme o sistema, sem passar dos valores de referência. O CAD destaca áreas para o radiologista rever. Ultrassonografia e ressonância magnética não usam radiação ionizante. Incidência complementar estuda região específica, como CC exagerada lateral ou medial e axilar; manobra varia a técnica, como a compressão seletiva, que espalha uma área pequena. Ampliação geométrica é nova exposição; a digital, no monitor, não. Indicar complemento é do radiologista.",
+        "keyPoints": [
+          "Tomossíntese mantém a compressão e complementa a mamografia.",
+          "Ampliação geométrica expõe de novo; a digital não.",
+          "Quem indica complemento é o radiologista."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, você conferiu uma MLO sem a prega inframamária. O que acontece depois da sua conferência?",
+          "options": [
+            {
+              "label": "Você repete a incidência e anota depois",
+              "correct": false,
+              "feedback": "Repetir é nova exposição e não é decisão sua. Retome a ordem: descrever e levar."
+            },
+            {
+              "label": "Você descreve e a equipe decide o que fazer",
+              "correct": true,
+              "feedback": "Esse padrão continua hoje: você conhece o recurso e a decisão de usá-lo fica com quem responde por ela."
+            },
+            {
+              "label": "Você pede logo uma incidência complementar",
+              "correct": false,
+              "feedback": "Pedir complemento é indicar. Retome quem responde por isso."
+            },
+            {
+              "label": "Você dispensa a pessoa sem mais conversa",
+              "correct": false,
+              "feedback": "A imagem precisa ser vista antes de a pessoa sair. Retome o papel da equipe."
+            }
+          ],
+          "help": "Foi um problema técnico, e a conduta é a mesma da aula anterior.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada recurso, que você só executa com a equipe, ao que ele mostra ou faz.",
+          "pairs": [
+            {
+              "left": "CC exagerada lateralmente",
+              "right": "Mais exposição dos quadrantes laterais"
+            },
+            {
+              "left": "CC exagerada medialmente",
+              "right": "Quadrantes mediais, com o sulco entre as mamas"
+            },
+            {
+              "left": "Incidência axilar",
+              "right": "Imagem dirigida à região da axila"
+            },
+            {
+              "left": "Compressão seletiva",
+              "right": "Espalha o tecido de uma área pequena"
+            }
+          ],
+          "feedbackCorrect": "Você reconheceu o que cada recurso faz. A escolha de quando usar continua sendo do radiologista.",
+          "feedbackIncorrect": "Algum recurso ficou com a função de outro. Os próprios nomes ajudam: lateral, medial, axilar e seletiva.",
+          "help": "Leia o nome de cada recurso com calma: quase todos dizem a região.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Numa simulação, duas formas de ampliar são comparadas: uma com o dispositivo no mamógrafo e outra no monitor. Qual delas expõe a pessoa de novo?",
+          "options": [
+            {
+              "label": "A ampliação feita no monitor",
+              "correct": false,
+              "feedback": "No monitor, o trabalho é sobre a imagem que já existe. Não há novo feixe."
+            },
+            {
+              "label": "As duas, na mesma proporção",
+              "correct": false,
+              "feedback": "Elas diferem exatamente nisso. Pergunte onde cada uma acontece."
+            },
+            {
+              "label": "Nenhuma delas expõe de novo",
+              "correct": false,
+              "feedback": "Usar o dispositivo no mamógrafo exige nova aquisição. Retome o conceito."
+            },
+            {
+              "label": "A ampliação com o dispositivo",
+              "correct": true,
+              "feedback": "A ampliação geométrica é uma nova aquisição. Por isso ela também passa pela indicação médica."
+            }
+          ],
+          "help": "Qual das duas precisa do feixe ligado de novo?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, ao terminar as quatro incidências, você nota na tela uma área que chama sua atenção. Duda cochicha: 'Faz uma compressão seletiva ali, já adianta. Ou anota uma categoria na ficha.' A pessoa espera na sala.",
+          "prompt": "O que você faz com o que notou?",
+          "options": [
+            {
+              "label": "Faz a compressão seletiva para adiantar",
+              "correct": false,
+              "feedback": "É uma nova exposição indicada por você. Essa indicação é do radiologista."
+            },
+            {
+              "label": "Anota uma categoria BI-RADS na ficha",
+              "correct": false,
+              "feedback": "Categoria é classificação do laudo. Na sua ficha entra o que é técnico e o que a pessoa relatou."
+            },
+            {
+              "label": "Mostra as imagens ao médico responsável",
+              "correct": true,
+              "feedback": "A imagem é mostrada ao médico antes de liberar a pessoa, e é dele a indicação de qualquer complemento."
+            },
+            {
+              "label": "Sugere à pessoa um ultrassom por precaução",
+              "correct": false,
+              "feedback": "Sugerir exame é conduta médica e ainda assusta a pessoa. Leve o que notou à equipe."
+            }
+          ],
+          "help": "Quem pode indicar e quem pode classificar? Onde você entra nessa cadeia?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Dona Marta pergunta se, com tomossíntese, dá para fazer o exame sem o aperto. Que informação técnica você pode dar, sem indicar exame?",
+          "options": [
+            {
+              "label": "Nela, a mama também fica comprimida",
+              "correct": true,
+              "feedback": "O tubo faz um arco sobre a mama comprimida. Saber se ela fará esse exame é assunto do médico."
+            },
+            {
+              "label": "Não há compressão, porque ela usa cortes",
+              "correct": false,
+              "feedback": "Os cortes vêm da reconstrução, depois da aquisição. A mama continua comprimida."
+            },
+            {
+              "label": "Só comprime se a mama for muito densa",
+              "correct": false,
+              "feedback": "Essa condição não foi ensinada e não é o que a fonte descreve. A compressão faz parte do método."
+            },
+            {
+              "label": "Ela substitui de vez a mamografia comum",
+              "correct": false,
+              "feedback": "A tomossíntese é complementar, não substituta, e essa frase ainda soa como indicação."
+            }
+          ],
+          "help": "Lembre como a aquisição acontece, do tubo até a mama.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "radiologyinfo-mammography"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você distingue sistemas, tomossíntese e complementos e sabe quais expõem de novo. Sabe também onde termina o seu papel: reconhecer e executar com a equipe. Indicar e classificar são do radiologista.",
+        "line": {
+          "speaker": "caio",
+          "text": "Conhecer os nomes ajuda você a preparar a sala. O pedido vem de quem responde por ele."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um serviço mantém o mesmo mamógrafo, troca o filme por placa em chassi e lê essa placa numa unidade digitalizadora. Que sistema é esse?",
+          "options": [
+            {
+              "label": "Sistema DR, com detector fixo e imagem direta",
+              "correct": false,
+              "feedback": "No DR não há chassi nem leitura de placa. Confira o que o enunciado descreve."
+            },
+            {
+              "label": "Tela-filme, com a revelação química de sempre",
+              "correct": false,
+              "feedback": "O enunciado diz que o filme saiu. Não há revelação nesse fluxo."
+            },
+            {
+              "label": "Tomossíntese, com tubo em arco sobre a mama",
+              "correct": false,
+              "feedback": "Tomossíntese é outra forma de adquirir, com o tubo em movimento. Aqui mudou o receptor."
+            },
+            {
+              "label": "Sistema CR, com placa lida no digitalizador",
+              "correct": true,
+              "feedback": "No CR, o chassi com a placa entra no bucky e a leitura ocorre depois, sem trocar o mamógrafo."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "prompt": "Na sala de laudos, uma colega pergunta para que serve o programa de detecção auxiliada por computador, o CAD. O que você responde?",
+          "options": [
+            {
+              "label": "Emite o laudo em lugar do radiologista",
+              "correct": false,
+              "feedback": "O programa não emite laudo. Retome quem revê o que ele aponta."
+            },
+            {
+              "label": "Ajusta a força de compressão da bandeja",
+              "correct": false,
+              "feedback": "A compressão é outro sistema. O programa trabalha sobre a imagem pronta."
+            },
+            {
+              "label": "Destaca áreas para o radiologista rever",
+              "correct": true,
+              "feedback": "Ele procura padrões e marca áreas, para que o radiologista as examine com mais atenção."
+            },
+            {
+              "label": "Reduz a dose da incidência seguinte",
+              "correct": false,
+              "feedback": "O programa analisa a imagem já feita e não comanda a exposição. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-mammography"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: indicar incidência complementar é responsabilidade do…",
+          "item": {
+            "prompt": "Quem responde pela indicação de incidências complementares e manobras?",
+            "options": [
+              {
+                "label": "O médico radiologista",
+                "correct": true,
+                "feedback": "Essa indicação é do radiologista. O técnico e o tecnólogo experientes podem auxiliar, sem tomar a decisão."
+              },
+              {
+                "label": "O estudante na simulação",
+                "correct": false,
+                "feedback": "Na simulação, você aprende a reconhecer. Indicar não faz parte do seu papel."
+              },
+              {
+                "label": "A pessoa examinada",
+                "correct": false,
+                "feedback": "A pessoa precisa concordar e ser ouvida, mas a indicação técnica não cabe a ela."
+              },
+              {
+                "label": "O físico do serviço",
+                "correct": false,
+                "feedback": "O físico cuida do desempenho dos equipamentos. A indicação clínica é de outro profissional."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega diz que ultrassonografia e ressonância magnética da mama também expõem a pessoa a raios X. Como você corrige?",
+            "options": [
+              {
+                "label": "Só a ressonância magnética usa raios X",
+                "correct": false,
+                "feedback": "A ressonância usa radiofrequência, sem radiação ionizante. Retome o conceito."
+              },
+              {
+                "label": "Nenhuma das duas usa radiação ionizante",
+                "correct": true,
+                "feedback": "Ultrassom usa ondas mecânicas, e a ressonância, radiofrequência. Indicá-las continua sendo do médico."
+              },
+              {
+                "label": "Só a ultrassonografia usa raios X",
+                "correct": false,
+                "feedback": "A ultrassonografia usa ondas sonoras, sem radiação ionizante. Retome o conceito."
+              },
+              {
+                "label": "As duas usam, em dose bem mais baixa",
+                "correct": false,
+                "feedback": "Não se trata de dose menor: esses métodos não usam radiação ionizante."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-06",
+      "code": "S-MD.06",
+      "title": "Fundamentos e instrumentação da densitometria",
+      "objective": "Hoje você vai conseguir explicar como regiões, simulador e precisão sustentam uma medida confiável na densitometria.",
+      "competency": "Relacionar regiões medidas, controle com simulador e precisão do serviço, sem interpretar resultado de uma pessoa.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Gráfico de controle fictício com limite de ação do serviço, sem unidade nem valor de pessoa."
+      ],
+      "scene": {
+        "setting": "Sala de densitometria do serviço-escola",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Segunda de manhã, antes de todo mundo: o simulador vai para a mesa. É como conferir a balança antes de pesar alguém."
+          },
+          {
+            "speaker": "duda",
+            "text": "E a precisão? O folheto do fabricante traz um número ótimo. Não dá para usar esse?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta. Quem posiciona no folheto? E quem posiciona aqui?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Uma medida se sustenta no que vem antes",
+        "body": "O aparelho central mede coluna e quadril; o periférico, punho, calcanhar ou dedo. Em adultos, a referência pede L1 a L4 em projeção posteroanterior e o quadril. O antebraço, no rádio 33% do lado não dominante da pessoa, entra quando a equipe o indica. Qualidade: ao menos uma vez por semana, escanear o simulador, registrar no gráfico, comparar com o limite do serviço e, fora dele, avisar a equipe para acionar a manutenção. Confira o simulador após todo reparo. Cada serviço mede a própria precisão, com consentimento: 15 pessoas 3 vezes ou 30 pessoas 2 vezes, reposicionando. Escores ficam no laudo.",
+        "keyPoints": [
+          "Coluna de L1 a L4 e quadril são as regiões de referência em adultos.",
+          "Simulador ao menos uma vez por semana e após todo reparo.",
+          "A precisão é a do serviço, nunca a do folheto."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Você já viu o exame da coluna na densitometria. Para que as pernas da pessoa sobem num bloco?",
+          "options": [
+            {
+              "label": "Para aplainar a pelve e a parte baixa da coluna",
+              "correct": true,
+              "feedback": "O bloco acomoda as pernas e aplaina a região medida. Hoje você vê o que sustenta a medida além da posição."
+            },
+            {
+              "label": "Para a pessoa ficar mais confortável, só isso",
+              "correct": false,
+              "feedback": "Conforto ajuda, mas o bloco tem função técnica. Retome o que ele faz na pelve."
+            },
+            {
+              "label": "Para girar o quadril da pessoa para dentro",
+              "correct": false,
+              "feedback": "Girar o quadril é do exame do fêmur, com o pé no suporte. Retome a coluna."
+            },
+            {
+              "label": "Para aproximar as vértebras do detector",
+              "correct": false,
+              "feedback": "A função ensinada é outra. Retome o que muda na pelve e na lombar."
+            }
+          ],
+          "help": "Pense na curva da parte baixa das costas quando alguém deita com as pernas retas.",
+          "sourceIds": [
+            "radiologyinfo-dxa"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item à referência ensinada nesta aula.",
+          "pairs": [
+            {
+              "left": "Região da coluna no adulto",
+              "right": "L1 a L4, em projeção posteroanterior"
+            },
+            {
+              "left": "Região do antebraço, se indicada",
+              "right": "Rádio 33% do lado não dominante da pessoa"
+            },
+            {
+              "left": "Simulador do aparelho",
+              "right": "Ao menos uma vez por semana"
+            },
+            {
+              "left": "Repetições para medir a precisão",
+              "right": "15 pessoas 3 vezes ou 30 pessoas 2 vezes"
+            }
+          ],
+          "feedbackCorrect": "Regiões, rotina e método estão ligados. Saber essas referências ajuda você a acompanhar o protocolo do serviço.",
+          "feedbackIncorrect": "Algum par trocou região com rotina. Retome o conceito: duas linhas falam de onde medir e duas de como conferir.",
+          "help": "Separe primeiro as regiões do corpo. Depois veja o que resta para a rotina.",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, organize a rotina com o simulador.",
+          "items": [
+            "Escanear o simulador",
+            "Registrar o valor no gráfico de controle",
+            "Comparar com o limite definido pelo serviço",
+            "Fora do limite: avisar a equipe para acionar a manutenção"
+          ],
+          "feedbackCorrect": "A medida só vira informação quando entra no gráfico e encontra um limite definido de antemão.",
+          "feedbackIncorrect": "Alguma etapa veio antes de ter o que usar. Retome: medir, registrar, comparar e agir.",
+          "help": "Para comparar, você precisa de um valor registrado.",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O serviço-escola vai medir a precisão da equipe. Um colega sugere aproveitar quem veio fazer o exame e repetir a aquisição, reposicionando, sem comentar nada, 'porque é rapidinho e a dose é baixa'.",
+          "prompt": "O que você responde na simulação?",
+          "options": [
+            {
+              "label": "Tudo bem, pois a dose é mesmo muito baixa",
+              "correct": false,
+              "feedback": "Dose baixa não elimina o direito de saber e de aceitar. A repetição tem outro objetivo, e a pessoa precisa saber."
+            },
+            {
+              "label": "Só com consentimento de quem participar",
+              "correct": true,
+              "feedback": "A avaliação de precisão pede o consentimento de quem participa, e a organização é da equipe, pelo protocolo."
+            },
+            {
+              "label": "Tudo bem, desde que seja o mesmo aparelho",
+              "correct": false,
+              "feedback": "Usar o mesmo aparelho é parte do método, mas não responde à questão da pessoa saber e aceitar."
+            },
+            {
+              "label": "Só repito se ninguém mais estiver na sala",
+              "correct": false,
+              "feedback": "Sem testemunhas, o problema continua: a pessoa não foi informada. Retome o que a referência pede."
+            }
+          ],
+          "help": "A pessoa veio para o exame dela. Essa repetição é para quem?",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma clínica nova compra um densitômetro, e o manual traz um valor excelente de precisão. Para o acompanhamento das pessoas, qual valor vale?",
+          "options": [
+            {
+              "label": "O valor do manual, por ser do fabricante",
+              "correct": false,
+              "feedback": "A referência diz para não usar a precisão do fabricante. Ela não mede o trabalho da equipe."
+            },
+            {
+              "label": "O valor que uma clínica vizinha publicou",
+              "correct": false,
+              "feedback": "Outra equipe e outro aparelho geram outra precisão. Procure quem precisa medir."
+            },
+            {
+              "label": "A média entre o manual e a clínica vizinha",
+              "correct": false,
+              "feedback": "Fazer média de dois valores alheios não traz a medida desta equipe. Retome a referência."
+            },
+            {
+              "label": "O valor que a própria clínica medir",
+              "correct": true,
+              "feedback": "Cada serviço determina a própria precisão, porque ela precisa refletir o aparelho e a equipe dali."
+            }
+          ],
+          "help": "De quem é o trabalho que esse número precisa representar?",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você explica por que coluna e quadril são as regiões de referência, como o simulador protege a medida e por que a precisão é do serviço. A leitura de escores e a classificação ficam no laudo médico.",
+        "line": {
+          "speaker": "lia",
+          "text": "Antes de discutir um número, vale perguntar se o aparelho e a equipe o sustentam."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na agenda de hoje há densitometria de adulto no aparelho central. Quais regiões a referência da aula pede medir?",
+          "options": [
+            {
+              "label": "Só o antebraço não dominante da pessoa",
+              "correct": false,
+              "feedback": "O antebraço entra em situações específicas, indicadas pela equipe. Não é a rotina."
+            },
+            {
+              "label": "Só a coluna, para reduzir o tempo de mesa",
+              "correct": false,
+              "feedback": "A referência pede as duas regiões, não só uma. O tempo não muda isso."
+            },
+            {
+              "label": "A coluna lombar e o quadril",
+              "correct": true,
+              "feedback": "A referência pede coluna em projeção posteroanterior e quadril em todas as pessoas adultas."
+            },
+            {
+              "label": "O dedo e o calcanhar, por serem acessíveis",
+              "correct": false,
+              "feedback": "Dedo e calcanhar são regiões do aparelho periférico. A pergunta é sobre o aparelho central."
+            }
+          ],
+          "sourceIds": [
+            "iscd-official-positions-adult",
+            "radiologyinfo-dxa"
+          ]
+        },
+        {
+          "prompt": "O densitômetro volta da manutenção hoje de manhã. O que precisa ser conferido antes de seguir a rotina?",
+          "options": [
+            {
+              "label": "A densidade média do simulador",
+              "correct": true,
+              "feedback": "Depois de qualquer reparo, a densidade média do simulador é verificada. Assim, o serviço sabe se o aparelho mudou."
+            },
+            {
+              "label": "O escore de uma pessoa da agenda",
+              "correct": false,
+              "feedback": "Escore não diz se o aparelho está estável e não é assunto seu. Confira com o simulador."
+            },
+            {
+              "label": "A opinião do técnico da manutenção",
+              "correct": false,
+              "feedback": "Quem fez o reparo informa o que foi feito, mas isso não substitui a medida no simulador."
+            },
+            {
+              "label": "O folheto de precisão do fabricante",
+              "correct": false,
+              "feedback": "O folheto não muda com o reparo do seu aparelho. Confira com uma medida real."
+            }
+          ],
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o simulador é escaneado ao menos uma vez por…",
+          "item": {
+            "prompt": "Com que frequência mínima a referência da aula pede o exame do simulador?",
+            "options": [
+              {
+                "label": "Uma vez por ano",
+                "correct": false,
+                "feedback": "Um desvio passaria muito tempo sem aviso. Retome o conceito."
+              },
+              {
+                "label": "Uma vez por trimestre",
+                "correct": false,
+                "feedback": "Ainda é pouco para notar um desvio a tempo. Retome o conceito."
+              },
+              {
+                "label": "Só quando houver reparo",
+                "correct": false,
+                "feedback": "Depois do reparo também se confere, mas a rotina não depende dele."
+              },
+              {
+                "label": "Uma vez por semana",
+                "correct": true,
+                "feedback": "Esse é o mínimo da referência, além da verificação depois de cada reparo."
+              }
+            ],
+            "sourceIds": [
+              "iscd-official-positions-adult"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa simulação, a equipe indica medir o antebraço porque uma região de rotina não pôde ser medida. Qual região o protocolo costuma usar?",
+            "options": [
+              {
+                "label": "O rádio distal do lado dominante da pessoa",
+                "correct": false,
+                "feedback": "A referência usa o outro lado e outra região. Retome o conceito."
+              },
+              {
+                "label": "O braço inteiro, dos dois lados da pessoa",
+                "correct": false,
+                "feedback": "A medida é de uma região definida, não do braço inteiro. Retome o conceito."
+              },
+              {
+                "label": "O rádio 33% do lado não dominante da pessoa",
+                "correct": true,
+                "feedback": "A referência adota essa região. A indicação da medida fica com a equipe."
+              },
+              {
+                "label": "A mão, no lado que for mais confortável",
+                "correct": false,
+                "feedback": "Conforto importa, mas a região não é escolhida assim. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "iscd-official-positions-adult"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-07",
+      "code": "S-MD.07",
+      "title": "Posição e qualidade na densitometria",
+      "objective": "Hoje você vai conseguir preparar e posicionar em simulação e dizer o que impede comparar dois exames de densitometria.",
+      "competency": "Conferir preparo, posição e condições de comparação na densitometria, encaminhando dúvidas sem interpretar o resultado.",
+      "minutes": 6,
+      "diagramIdeas": [
+        "Dois esquemas de mesa: pernas no bloco para a coluna e pé no suporte para o fêmur, em manequim."
+      ],
+      "scene": {
+        "setting": "Sala de densitometria, recepção da pessoa",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Neide",
+            "text": "Trouxe meu exame de 2 anos atrás, de outra clínica. Hoje dá para saber se eu perdi osso, não é?"
+          },
+          {
+            "speaker": "duda",
+            "text": "É só pôr os dois números lado a lado, não? Parece simples."
+          },
+          {
+            "speaker": "caio",
+            "text": "Antes dos números, me diga: que aparelho fez o primeiro? E o que ela tomou ou fez nos últimos dias?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Medir igual para poder comparar",
+        "body": "Preparo: retirar metal, joias e óculos; perguntar sobre possível gravidez, cálcio em 24 horas e exame recente com contraste, bário ou radioisótopo, que pode pedir espera. Dúvida: equipe. A ordem ensinada para a coluna: preparar, deitar, pernas no bloco, pedir imobilidade, registrar limites. No fêmur, o pé vai ao suporte que gira o quadril para dentro. Comparar exige o mesmo aparelho ou calibração cruzada; sem ela, não há comparação numérica, só nova linha de base. O relatório diz qual estudo e região compara e não traz mudança abaixo da menor mudança significativa do serviço. Exame de fora: anote fabricante e modelo. Deformidade, cirurgia na coluna ou fratura: registre.",
+        "keyPoints": [
+          "Metal, cálcio, contraste e possível gravidez entram no preparo.",
+          "Pernas no bloco para a coluna; pé no suporte para o fêmur.",
+          "Sem calibração cruzada, não há comparação numérica."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que o serviço escaneia ao menos uma vez por semana para conferir o aparelho?",
+          "options": [
+            {
+              "label": "Uma pessoa voluntária da própria equipe",
+              "correct": false,
+              "feedback": "Expor alguém para conferir o aparelho não é a rotina ensinada. Retome o que vai à mesa."
+            },
+            {
+              "label": "O folheto de calibração do fabricante",
+              "correct": false,
+              "feedback": "Folheto não vai à mesa e não mede o seu aparelho. Retome a rotina."
+            },
+            {
+              "label": "Um simulador, com valor acompanhado",
+              "correct": true,
+              "feedback": "O simulador mostra se o aparelho continua estável, e isso ajuda a sustentar a comparação de exames."
+            },
+            {
+              "label": "A coluna de um exame já feito antes",
+              "correct": false,
+              "feedback": "Reprocessar um exame não testa o aparelho hoje. Retome a rotina da aula."
+            }
+          ],
+          "help": "É um objeto que não muda de uma semana para outra.",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item do preparo à conduta que você adota na simulação.",
+          "pairs": [
+            {
+              "left": "Colar e óculos",
+              "right": "Retirar antes de posicionar"
+            },
+            {
+              "left": "Suplemento de cálcio",
+              "right": "Perguntar: ao menos 24 horas sem tomar"
+            },
+            {
+              "left": "Exame recente com contraste ou bário",
+              "right": "Avisar a equipe, pois pode pedir espera"
+            },
+            {
+              "left": "Possibilidade de gravidez",
+              "right": "Parar e avisar antes de qualquer exposição"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada item à conduta certa. Parte se resolve na hora; o resto segue para a equipe.",
+          "feedbackIncorrect": "Algum item ficou com a conduta de outro. Retome o preparo no conceito.",
+          "help": "Separe o que você resolve na hora do que precisa de outra pessoa decidir.",
+          "sourceIds": [
+            "radiologyinfo-dxa",
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, organize o exame da coluna na simulação.",
+          "items": [
+            "Fazer o preparo e ouvir o relato da pessoa",
+            "Deitar a pessoa na mesa",
+            "Apoiar as pernas no bloco",
+            "Pedir que fique imóvel durante a aquisição",
+            "Registrar o que limitou o exame"
+          ],
+          "feedbackCorrect": "Preparo primeiro, porque o metal precisa sair antes da aquisição. Registro por último, com o que de fato aconteceu.",
+          "feedbackIncorrect": "Alguma etapa ficou fora de lugar. Retome a sequência do conceito, do preparo ao registro.",
+          "help": "Só dá para registrar o que limitou depois que a aquisição aconteceu.",
+          "sourceIds": [
+            "radiologyinfo-dxa"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Dona Neide mostra na simulação o papel do exame de outra clínica, aponta um número e pergunta: 'Comparando com o de hoje, eu perdi osso? É osteoporose?' Na tela, o valor de hoje está à vista.",
+          "prompt": "Como você responde a Dona Neide?",
+          "options": [
+            {
+              "label": "O médico compara e dá o resultado; registro o exame",
+              "correct": true,
+              "feedback": "Você não lê escore nem classifica. Registra o exame anterior, com aparelho se houver, e leva a pergunta à equipe."
+            },
+            {
+              "label": "Compara os dois números e responde à pergunta",
+              "correct": false,
+              "feedback": "Comparar valores de aparelhos diferentes pode nem ser válido, e responder seria interpretar. Isso é laudo."
+            },
+            {
+              "label": "Diz que o número está bom, para tranquilizá-la",
+              "correct": false,
+              "feedback": "Tranquilizar com uma leitura que você não pode fazer também é dar resultado. Retome o seu papel."
+            },
+            {
+              "label": "Explica o que o escore significa para o caso dela",
+              "correct": false,
+              "feedback": "Explicar o escore no caso dela é interpretar para uma pessoa. Essa conversa é do médico."
+            }
+          ],
+          "help": "Nessa pergunta, o que é técnica e o que é resultado?",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Um serviço troca o densitômetro por outro de fabricante diferente. Por uma falha de planejamento, não houve calibração cruzada. Um colega quer mostrar no relatório de acompanhamento a diferença em relação ao aparelho antigo.",
+          "prompt": "O que você leva à equipe?",
+          "options": [
+            {
+              "label": "A diferença vale, se a pessoa for a mesma",
+              "correct": false,
+              "feedback": "A mesma pessoa em aparelhos não calibrados entre si não garante comparação. Retome a condição."
+            },
+            {
+              "label": "Sem calibração cruzada, não há comparação",
+              "correct": true,
+              "feedback": "Não se relata mudança entre aparelhos sem calibração cruzada. O novo aparelho começa outra linha de base."
+            },
+            {
+              "label": "A diferença vale, se o simulador estiver bom",
+              "correct": false,
+              "feedback": "O simulador confere um aparelho. Aqui a questão é ligar os dois."
+            },
+            {
+              "label": "Basta somar a precisão dos dois aparelhos",
+              "correct": false,
+              "feedback": "Essa soma não foi ensinada e não substitui a calibração cruzada entre os aparelhos."
+            }
+          ],
+          "help": "O que precisa existir entre os dois aparelhos para os valores conversarem?",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você prepara e posiciona em simulação, sabe por que mudar de aparelho sem calibração cruzada impede a comparação e registra o que limitou. Comparar resultados e classificar são do médico.",
+        "line": {
+          "speaker": "caio",
+          "text": "Número sem história engana. O seu registro é a história desse número."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa simulação de exame do fêmur, onde vai o pé da pessoa e o que isso faz com o quadril?",
+          "options": [
+            {
+              "label": "No bloco de espuma, que aplaina o quadril",
+              "correct": false,
+              "feedback": "O bloco é da coluna, para as pernas. No fêmur, o acessório é outro."
+            },
+            {
+              "label": "No suporte, que gira o quadril para dentro",
+              "correct": true,
+              "feedback": "O suporte mantém o pé e gira o quadril para dentro, como a aula ensina."
+            },
+            {
+              "label": "Livre na mesa, para manter o quadril relaxado",
+              "correct": false,
+              "feedback": "Sem o suporte, falta a rotação para dentro que a aula ensina. Retome o conceito."
+            },
+            {
+              "label": "No suporte, que gira o quadril para fora",
+              "correct": false,
+              "feedback": "Você acertou o acessório e errou o sentido. Confira a direção no conceito."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-dxa"
+          ]
+        },
+        {
+          "prompt": "Segundo a referência da aula, o que um relatório de acompanhamento de densitometria não deve trazer?",
+          "options": [
+            {
+              "label": "O fabricante e o modelo do aparelho usado",
+              "correct": false,
+              "feedback": "Em estudo de fora, esses dados devem constar, porque ajudam a saber se a comparação vale."
+            },
+            {
+              "label": "Qual estudo anterior e região são comparados",
+              "correct": false,
+              "feedback": "Essa informação é exigida. Sem ela, o leitor não sabe o que se comparou."
+            },
+            {
+              "label": "A menor mudança significativa do serviço",
+              "correct": false,
+              "feedback": "Esse valor deve constar, pois é ele que dá sentido à comparação."
+            },
+            {
+              "label": "Mudança abaixo da menor mudança significativa",
+              "correct": true,
+              "feedback": "Mudança que não ultrapassa o valor do serviço não deve ser relatada como mudança."
+            }
+          ],
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: para o exame da coluna, as pernas da pessoa ficam no…",
+          "item": {
+            "prompt": "Na simulação do exame de coluna, o que aplaina a pelve e a lombar?",
+            "options": [
+              {
+                "label": "Prender a respiração por um tempo",
+                "correct": false,
+                "feedback": "Prender a respiração ajuda a evitar movimento. Não muda a curva da lombar."
+              },
+              {
+                "label": "Girar os pés da pessoa para dentro",
+                "correct": false,
+                "feedback": "Isso é do exame do fêmur. Retome o que se usa na coluna."
+              },
+              {
+                "label": "Apoiar as pernas no bloco acolchoado",
+                "correct": true,
+                "feedback": "As pernas elevadas no bloco aplainam a pelve e a parte baixa da coluna."
+              },
+              {
+                "label": "Deitar a pessoa virada para um lado",
+                "correct": false,
+                "feedback": "Essa posição não foi ensinada aqui. Retome o que as pernas fazem no exame da coluna."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dxa"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Antes do exame, Seu Alberto comenta que operou a coluna anos atrás. O pedido não cita isso. O que você faz na simulação?",
+            "options": [
+              {
+                "label": "Registra o relato e avisa a equipe",
+                "correct": true,
+                "feedback": "Cirurgia na coluna pode limitar o exame. O relato precisa chegar à equipe antes de seguir."
+              },
+              {
+                "label": "Troca a região por conta própria",
+                "correct": false,
+                "feedback": "Trocar a região é decisão da equipe. Sua parte é levar a informação."
+              },
+              {
+                "label": "Segue e deixa o laudo descobrir",
+                "correct": false,
+                "feedback": "Sem o relato, quem lê perde uma informação importante. Registre e avise."
+              },
+              {
+                "label": "Cancela o exame e avisa depois",
+                "correct": false,
+                "feedback": "Cancelar não cabe a você. A equipe decide, a partir do que você comunica."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dxa",
+              "iscd-official-positions-adult"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-md-08",
+      "code": "S-MD.08",
+      "title": "Caso integrado",
+      "objective": "Hoje você vai conseguir avaliar cobertura técnica e documentação de um caso simulado e levar as dúvidas à equipe.",
+      "competency": "Avaliar cobertura e documentação de mamografia e densitometria simuladas, sem classificar achado nem indicar exame.",
+      "minutes": 7,
+      "diagramIdeas": [
+        "Fluxo de cinco passos do caso, com a saída para a equipe em cada um."
+      ],
+      "scene": {
+        "setting": "Simulação final no serviço-escola",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje a ficha é de Dona Ivone, fictícia, com pedido de mamografia e densitometria. Você conduz o raciocínio."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Dona Ivone",
+            "text": "Vim fazer os dois de uma vez. Ao final, já dá para me dizer se está tudo bem?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Dessa pergunta, o que é seu para responder? E o que você consegue conferir, passo a passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Técnica e registro, do começo ao fim",
+        "body": "A ordem ensinada tem cinco passos. Identificar e acolher. Perguntar sobre gravidez, implante e metal. Conferir a cobertura: critérios de CC e MLO e, na densitometria, região e lado. Documentar: desvio da rotina, o que a pessoa relatou, resíduo na pele, cicatriz no esquema da mama, exame anterior com fabricante e modelo. Levar as dúvidas à equipe. Na mamografia digital, o profissional insere instituição, pessoa, incidência, lado e as próprias iniciais; kV e mAs vêm do aparelho. Região sem validade técnica não entra no relatório, e o motivo é dito. Você avalia técnica e registro; não classifica achado nem indica exame. Esta unidade não comprova operação real.",
+        "keyPoints": [
+          "Identificar, perguntar, conferir, documentar, levar à equipe.",
+          "Você descreve o que é técnico e o que limitou o exame.",
+          "Resultado e classificação são do médico."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, por que importa registrar o fabricante e o modelo de um exame de densitometria feito em outro serviço?",
+          "options": [
+            {
+              "label": "Para cobrar o exame da clínica anterior",
+              "correct": false,
+              "feedback": "Cobrança não é o assunto aqui. Pense no que esses dados dizem sobre a medida."
+            },
+            {
+              "label": "Para escolher o aparelho mais moderno",
+              "correct": false,
+              "feedback": "A pergunta não é sobre preferência. É sobre o que dá para fazer com os dois valores."
+            },
+            {
+              "label": "Para você já calcular a perda de massa óssea",
+              "correct": false,
+              "feedback": "Esse cálculo seria interpretação, e não é seu. O dado serve a quem avalia a comparação."
+            },
+            {
+              "label": "Para a equipe saber se a comparação vale",
+              "correct": true,
+              "feedback": "Sem saber qual aparelho fez o exame, não dá para saber se os dois valores podem ser comparados."
+            }
+          ],
+          "help": "O que precisa existir entre dois aparelhos para os valores conversarem?",
+          "sourceIds": [
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, organize o caso de Dona Ivone.",
+          "items": [
+            "Identificar a pessoa e acolher",
+            "Perguntar sobre gravidez, implante e metal",
+            "Conferir cobertura e região nas imagens",
+            "Documentar o que limitou o exame",
+            "Levar as dúvidas à equipe"
+          ],
+          "feedbackCorrect": "Você foi de quem é a pessoa até quem decide o próximo passo, sem pular o registro.",
+          "feedbackIncorrect": "Alguma etapa veio fora de lugar. Retome os cinco passos do conceito.",
+          "help": "Só dá para conferir depois de fazer, e só dá para encaminhar depois de saber o que levar.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação ao registro que ela pede.",
+          "pairs": [
+            {
+              "left": "Resíduo de desodorante na pele",
+              "right": "Observação na ficha da mamografia"
+            },
+            {
+              "left": "Cicatriz na mama",
+              "right": "Desenho do local no esquema da mama"
+            },
+            {
+              "left": "Mudança na rotina do exame",
+              "right": "Anotar a modificação e o motivo"
+            },
+            {
+              "left": "Densitometria anterior em outra clínica",
+              "right": "Fabricante e modelo do aparelho anterior"
+            }
+          ],
+          "feedbackCorrect": "Cada situação foi para o lugar certo. Assim, quem lê sabe o que aconteceu sem precisar adivinhar.",
+          "feedbackIncorrect": "Algum registro não ajuda quem vai ler aquela situação. Retome o que precisa ficar documentado.",
+          "help": "Pergunte o que quem lê precisaria saber sobre cada situação.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "No fim do caso, a descrição das imagens de Dona Ivone cumpre os critérios de CC e MLO, mas traz uma área que você não sabe explicar. Ela pergunta: 'Está tudo bem? Meus ossos estão fracos?' Um colega sugere anotar uma categoria na ficha, para adiantar.",
+          "prompt": "O que você faz diante da pergunta?",
+          "options": [
+            {
+              "label": "Diz que está tudo bem, porque cumpriu os critérios",
+              "correct": false,
+              "feedback": "Critério cumprido fala da técnica, não do resultado. Dizer que está tudo bem é dar resultado."
+            },
+            {
+              "label": "Anota a categoria na ficha, como foi sugerido",
+              "correct": false,
+              "feedback": "Categoria pertence ao laudo. Sua ficha descreve o técnico e o que a pessoa relatou."
+            },
+            {
+              "label": "Explica que o médico avalia e leva o que notou",
+              "correct": true,
+              "feedback": "Você diz quem dá o resultado e descreve à equipe o que notou, sem opinar sobre o que significa."
+            },
+            {
+              "label": "Sugere a ela um exame complementar da região",
+              "correct": false,
+              "feedback": "Sugerir exame é indicar, e não cabe a você. O que notou vai para a equipe."
+            }
+          ],
+          "help": "Separe três coisas: o que é técnico, o que você notou e o que é resultado.",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "iscd-official-positions-adult"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Em outro dia da simulação, Seu Rui faz os dois exames. Na MLO do lado direito do paciente, a prega inframamária ficou fora. Na densitometria, um cinto com fivela de metal ficou sobre a região do quadril. Ele já se vestiu e aguarda na recepção.",
+          "prompt": "O que você leva à equipe?",
+          "options": [
+            {
+              "label": "Os dois desvios, com o lado e o que foi feito",
+              "correct": true,
+              "feedback": "Você descreve cada desvio com os dados que permitem decidir. A equipe vê se e como repetir."
+            },
+            {
+              "label": "Só a MLO, porque a densitometria é outra sala",
+              "correct": false,
+              "feedback": "O metal devia ter saído no preparo da densitometria. Os dois desvios precisam ser informados."
+            },
+            {
+              "label": "Nada: chamo Seu Rui e repito os dois sozinho",
+              "correct": false,
+              "feedback": "Repetir é nova exposição e não é decisão sua. Primeiro, a equipe precisa saber."
+            },
+            {
+              "label": "Só uma nota de que o exame precisa ser refeito",
+              "correct": false,
+              "feedback": "Essa nota já decide pela equipe e não diz o que aconteceu. Descreva os desvios."
+            }
+          ],
+          "help": "O que alguém precisaria saber para decidir sem ter estado na sala?",
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023",
+            "radiologyinfo-dxa"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você avalia cobertura e documentação em um caso inteiro e leva as dúvidas à equipe, sem classificar achado nem indicar exame. Esta unidade treina raciocínio em simulação e não comprova operação real.",
+        "line": {
+          "speaker": "lia",
+          "text": "A prática real vem com supervisão. O que você leva daqui é a forma de pensar o caso."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A descrição diz: CC com lateral, medial e gordura posterior; MLO com prega inframamária, e o peitoral termina acima da altura do mamilo. O que você aponta?",
+          "options": [
+            {
+              "label": "Critério do peitoral não cumprido na MLO",
+              "correct": true,
+              "feedback": "Na MLO, o peitoral precisa chegar à altura do mamilo ou abaixo dela. Você nomeia e leva à equipe."
+            },
+            {
+              "label": "Falta de gordura posterior na CC",
+              "correct": false,
+              "feedback": "A descrição diz que a gordura posterior está presente. Confira a linha da MLO."
+            },
+            {
+              "label": "Critério cumprido nas duas incidências",
+              "correct": false,
+              "feedback": "Um dos critérios falhou. Confira até onde o peitoral desceu."
+            },
+            {
+              "label": "Um achado que o laudo terá de classificar",
+              "correct": false,
+              "feedback": "O ponto é de posicionamento, não de achado. Classificar não é o que se pede aqui."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        },
+        {
+          "prompt": "A identificação de uma mamografia digital simulada traz instituição, nome da pessoa, incidência e lado. Quais dados inseridos pelo profissional ainda faltam?",
+          "options": [
+            {
+              "label": "O kV e o mAs usados no exame",
+              "correct": false,
+              "feedback": "Esses valores costumam vir do próprio equipamento. Procure o que depende de quem fez o exame."
+            },
+            {
+              "label": "As iniciais de quem fez o exame",
+              "correct": true,
+              "feedback": "As iniciais completam o que o profissional insere, e assim se sabe quem realizou o exame."
+            },
+            {
+              "label": "A categoria sugerida para o laudo",
+              "correct": false,
+              "feedback": "Categoria não é dado de identificação nem tarefa sua. Retome a lista do conceito."
+            },
+            {
+              "label": "A combinação alvo-filtro usada",
+              "correct": false,
+              "feedback": "Esse dado costuma vir do equipamento. Procure o que depende de quem fez o exame."
+            }
+          ],
+          "sourceIds": [
+            "inca-atualizacao-mamografia-2023"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: diante de uma dúvida no caso, eu descrevo o que vi e…",
+          "item": {
+            "prompt": "Numa simulação, você não sabe explicar o que observou. Qual é o passo final?",
+            "options": [
+              {
+                "label": "Decido o próximo exame",
+                "correct": false,
+                "feedback": "Indicar exame não é o seu papel. Retome o quinto passo do caso."
+              },
+              {
+                "label": "Levo a dúvida à equipe",
+                "correct": true,
+                "feedback": "Descrever e levar à equipe é o que fecha o caso, sem opinar sobre o que significa."
+              },
+              {
+                "label": "Conto a dúvida à pessoa",
+                "correct": false,
+                "feedback": "Dividir uma dúvida técnica com a pessoa pode assustá-la, sem resolver. Vá a quem decide."
+              },
+              {
+                "label": "Deixo sem registrar nada",
+                "correct": false,
+                "feedback": "O que não se registra se perde. Retome o quarto e o quinto passos."
+              }
+            ],
+            "sourceIds": [
+              "inca-atualizacao-mamografia-2023"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em uma densitometria simulada, uma das regiões adquiridas ficou sem validade técnica por causa de artefato. O que a referência da aula pede quanto ao relatório?",
+            "options": [
+              {
+                "label": "Relatar o valor da região, mesmo com o artefato",
+                "correct": false,
+                "feedback": "Resultado de região sem validade técnica não deve ser incluído. Retome o conceito."
+              },
+              {
+                "label": "Omitir o artefato e manter o valor da região",
+                "correct": false,
+                "feedback": "Esconder o artefato não torna o valor válido. Retome o conceito."
+              },
+              {
+                "label": "Calcular o valor pela média das outras regiões",
+                "correct": false,
+                "feedback": "Estimar um valor assim não foi ensinado e não substitui a medida. Retome o conceito."
+              },
+              {
+                "label": "Não relatar essa região e dizer por quê",
+                "correct": true,
+                "feedback": "A região inválida fica de fora e o motivo é informado. O que você viu chega à equipe."
+              }
+            ],
+            "sourceIds": [
+              "iscd-official-positions-adult"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

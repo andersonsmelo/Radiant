@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { readCurriculumState, validateRetiredContent } from './curriculum-state.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateLibraryCatalog } from './catalog-library-sources.mjs';
@@ -30,6 +31,24 @@ function pushMissingFile(errors, absolutePath, label) {
 }
 
 export function validateFoundation() {
+  if (readCurriculumState(repoRoot)) {
+    const retirement = validateRetiredContent(repoRoot);
+    const library = validateLibraryCatalog(readJson('fontes/library-catalog.json'));
+    const media = validateMediaManifestStructure(readJson('mídia/manifest.json'));
+    const errors = [...library.errors, ...media.errors.map(error => `${error.path} ${error.rule}`)];
+    for (const name of ['extraction-record', 'classification-record', 'concept', 'format-bundle', 'library-source', 'competency', 'media-manifest']) {
+      const schema = readJson(`governança/esquemas/${name}.schema.json`);
+      if (!schema.title || !Array.isArray(schema.required) || !schema.required.length) errors.push(`invalid-schema:${name}`);
+    }
+    const galaxies = readJson('taxonomia/galaxias.json');
+    const planets = readJson('taxonomia/planetas.json');
+    const stars = readJson('taxonomia/estrelas.json');
+    const galaxyIds = new Set(galaxies.map(item => item.id));
+    const planetById = new Map(planets.map(item => [item.id, item]));
+    for (const planet of planets) if (!galaxyIds.has(planet.galaxyId)) errors.push(`unknown-galaxy:${planet.id}`);
+    for (const star of stars) if (!galaxyIds.has(star.galaxyId) || planetById.get(star.parentPlanetId)?.galaxyId !== star.galaxyId) errors.push(`invalid-star-parent:${star.id}`);
+    return { ok: errors.length === 0, errors, summary: { ...retirement, sourceCount: readJson('fontes/index.json').sources.length, media: media.summary } };
+  }
   const errors = [];
   const sourceIndex = readJson('fontes/index.json');
   const extractionIndex = readJson('extrações/index.json');

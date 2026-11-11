@@ -1,10 +1,13 @@
 import { createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 
-export type LessonSoundId = 'toque' | 'acerto' | 'erro' | 'vida' | 'sequencia' | 'fim';
+export type LessonSoundId = 'toque' | 'acerto' | 'erro' | 'vida' | 'sequencia' | 'fim' | 'combo' | 'nivel' | 'unidade';
 
-export const LESSON_SOUND_IDS: readonly LessonSoundId[] = ['toque', 'acerto', 'erro', 'vida', 'sequencia', 'fim'];
+export const LESSON_SOUND_IDS: readonly LessonSoundId[] = ['toque', 'acerto', 'erro', 'vida', 'sequencia', 'fim', 'combo', 'nivel', 'unidade'];
 
-/** Os seis sons escolhidos pelo dono; origem e licença em assets/sounds/README.md. */
+/**
+ * Seis sons escolhidos pelo dono e três autorais, sintetizados por
+ * `scripts/synth-sounds.mjs`; origem e licença em assets/sounds/README.md.
+ */
 const SOURCES: Readonly<Record<LessonSoundId, number>> = {
   toque: require('../../../assets/sounds/toque.m4a'),
   acerto: require('../../../assets/sounds/acerto.m4a'),
@@ -12,6 +15,9 @@ const SOURCES: Readonly<Record<LessonSoundId, number>> = {
   vida: require('../../../assets/sounds/vida.m4a'),
   sequencia: require('../../../assets/sounds/sequencia.m4a'),
   fim: require('../../../assets/sounds/fim.m4a'),
+  combo: require('../../../assets/sounds/combo.m4a'),
+  nivel: require('../../../assets/sounds/nivel.m4a'),
+  unidade: require('../../../assets/sounds/unidade.m4a'),
 };
 
 type Player = Readonly<{ play(): void; seekTo(seconds: number): Promise<void>; remove(): void }>;
@@ -19,7 +25,7 @@ type Player = Readonly<{ play(): void; seekTo(seconds: number): Promise<void>; r
 export type LessonSoundPlayer = Readonly<{ play(id: LessonSoundId): void; release(): void }>;
 
 /**
- * Carrega os seis sons na abertura da lição (spec §5.2), para que tocar
+ * Carrega os sons na abertura da lição (spec §5.2), para que tocar
  * depois não espere carregamento. Som é enfeite: nenhuma falha aqui pode
  * interromper a lição.
  */

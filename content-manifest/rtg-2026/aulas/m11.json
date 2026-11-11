@@ -1,0 +1,2086 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m11",
+    "code": "M11",
+    "title": "Fundamentos próprios da RM",
+    "summary": "Desenvolve a segurança antes da sala de ressonância magnética e as ideias de campo, radiofrequência, sinal, relaxação, ponderação, bobinas e artefatos, sempre com parada e apoio da equipe."
+  },
+  "sources": [
+    {
+      "id": "fda-rm-beneficios-riscos",
+      "title": "MRI (Magnetic Resonance Imaging): Benefits and Risks",
+      "publisher": "U.S. Food and Drug Administration (FDA)",
+      "url": "https://www.fda.gov/radiation-emitting-products/mri-magnetic-resonance-imaging/benefits-and-risks",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional da FDA; consultada para riscos do campo, da radiofrequência e dos gradientes e para os rótulos de segurança, sem reprodução de texto."
+    },
+    {
+      "id": "nibib-rm",
+      "title": "Magnetic Resonance Imaging (MRI)",
+      "publisher": "National Institute of Biomedical Imaging and Bioengineering (NIBIB/NIH)",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/magnetic-resonance-imaging-mri",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional do NIBIB/NIH; consultada para o funcionamento básico, o efeito do contraste e os avisos de segurança, sem reprodução de texto."
+    },
+    {
+      "id": "maglab-rm-visita",
+      "title": "MRI: A Guided Tour",
+      "publisher": "National High Magnetic Field Laboratory (MagLab)",
+      "url": "https://nationalmaglab.org/magnet-academy/read-science-stories/science-simplified/mri-a-guided-tour/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa do MagLab; consultada para os componentes, o ímã supercondutor e os números do campo, sem reprodução de texto."
+    },
+    {
+      "id": "anvisa-in-97-2021",
+      "title": "Instrução Normativa IN nº 97, de 27 de maio de 2021",
+      "publisher": "Anvisa",
+      "url": "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000097&seqAto=000&valorAno=2021&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado no sistema de legislação da Anvisa para zonas, sinalização, detecção de metais, comunicação e proteção auditiva, sem reprodução de texto."
+    },
+    {
+      "id": "shah-aran-2023-seguranca-rm",
+      "title": "A Review of Magnetic Resonance (MR) Safety: The Essentials to Patient Safety",
+      "publisher": "Cureus (Shah A, Aran S; 2023;15(10):e47345)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10657250/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto com licença Creative Commons Atribuição; consultado para zonas, etapas da triagem e rótulos, com redação própria e sem reprodução de texto."
+    },
+    {
+      "id": "krupa-2015-artefatos-rm",
+      "title": "Artifacts in Magnetic Resonance Imaging",
+      "publisher": "Polish Journal of Radiology (Krupa K, Bekiesińska-Figatowska M; 2015;80:93-106)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4340093/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto, com uso não comercial permitido mediante citação; consultado para as marcas de movimento, metal e dobra, sem reprodução de texto nem de figura."
+    },
+    {
+      "id": "baker-2024-queimaduras-rf",
+      "title": "Systematic review of MRI safety literature in relation to radiofrequency thermal injury prevention",
+      "publisher": "Journal of Medical Radiation Sciences (Baker C e colaboradores; 2024;71(3):445-460)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11569411/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto com licença CC BY-NC-ND 4.0; consultado para as medidas de prevenção de queimadura por radiofrequência, sem reprodução de texto."
+    },
+    {
+      "id": "statpearls-fisica-rm",
+      "title": "Magnetic Resonance Imaging Physics",
+      "publisher": "StatPearls Publishing (NCBI Bookshelf, NBK564320)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK564320/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Capítulo de acesso aberto; consultado apenas pelo trecho indexado na busca, para os valores típicos de TR e TE, porque a página pediu verificação de navegador. Sem reprodução de texto."
+    },
+    {
+      "id": "mriquestions-bobinas-recepcao",
+      "title": "Receive-only MR coils",
+      "publisher": "Questions and Answers in MRI (A. D. Elster)",
+      "url": "https://mriquestions.com/receive-only-coils.html",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Site educativo usado só como consulta, pelo trecho indexado na busca, para a queda do sinal da bobina com a distância; sem reprodução de texto nem de questões."
+    },
+    {
+      "id": "cwru-rm-basico",
+      "title": "MRI Basics",
+      "publisher": "Case Western Reserve University School of Medicine",
+      "url": "https://case.edu/med/neurology/NR/MRI%20Basics.htm",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional de ensino; consultada para definições de TR e TE, valores de exemplo e aparência de líquido e gordura, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m11-01",
+      "code": "M11.01",
+      "title": "Segurança antes de entrar",
+      "objective": "Hoje você vai conseguir reconhecer a informação que para o percurso antes da sala de ressonância e levá-la à equipe.",
+      "competency": "Identificar informação que impede prosseguir sem avaliação.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Recepção do setor de ressonância (simulação)",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Eu já tirei o relógio. Preciso mesmo responder esse questionário todo de novo?"
+          },
+          {
+            "speaker": "duda",
+            "text": "É só uma ressonância, sem radiação ionizante. O que pode dar errado antes de entrar?"
+          },
+          {
+            "speaker": "caio",
+            "text": "O ímã fica ligado dia e noite, com ou sem exame. Por isso o cuidado começa aqui fora, não lá dentro."
+          },
+          {
+            "speaker": "lia",
+            "text": "Hoje a pergunta é uma só: que informação faz você parar e chamar a equipe?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O risco começa antes da porta",
+        "body": "O ímã da ressonância gera campo forte o tempo todo, mesmo sem exame. Esse campo atrai objetos ferromagnéticos, que podem virar projéteis, e pode deslocar implantes e desregular dispositivos eletrônicos; no exame, implantes podem aquecer. Por isso o setor tem zonas: I, de acesso livre; II, de acolhimento, questionário e preparo; III, de circulação restrita; IV, a sala do equipamento. A triagem vale para paciente, acompanhante e profissional. Implante, dispositivo, possível fragmento metálico, gestação, tatuagem ou adesivo de medicamento param o percurso até a equipe avaliar. Rótulos ajudam a equipe: 'MR Safe' (seguro), 'MR Conditional' (seguro só nas condições descritas) e 'MR Unsafe' (inseguro). Sem identificação, trata-se como inseguro.",
+        "keyPoints": [
+          "O campo do ímã está presente mesmo sem exame em andamento.",
+          "Percurso: questionário, conferência pela equipe, preparo, detector de metais, sala.",
+          "Informação nova de triagem interrompe o percurso; quem avalia é a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de eletricidade e magnetismo, você viu o que fazer ao notar um objeto metálico no bolso diante da porta da ressonância. Qual era a ação?",
+          "options": [
+            {
+              "label": "Entrar depressa e ficar longe do equipamento",
+              "correct": false,
+              "feedback": "Distância dentro da sala não protege: o campo vai além do equipamento. Retome o que você fez antes da porta."
+            },
+            {
+              "label": "Segurar o objeto com firmeza durante a visita",
+              "correct": false,
+              "feedback": "A mão não é barreira para a força do campo sobre um objeto de ferro. Confira de novo onde a ação acontece."
+            },
+            {
+              "label": "Parar antes da porta, avisar e aguardar a equipe",
+              "correct": true,
+              "feedback": "Parar fora da sala mantém o objeto longe do campo, e avisar deixa a conferência com quem responde pela triagem."
+            },
+            {
+              "label": "Deixar o objeto no chão do corredor e entrar",
+              "correct": false,
+              "feedback": "Largar o objeto e seguir pula a conferência de quem responde pela triagem, que pode achar outros itens. Retome a ordem."
+            }
+          ],
+          "help": "Pense em onde o campo do ímã atua e em quem confere os objetos.",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada zona do setor de ressonância ao que a caracteriza, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Zona I",
+              "right": "Acesso livre ao público, como a recepção geral"
+            },
+            {
+              "left": "Zona II",
+              "right": "Acolhimento, questionário de triagem e preparo"
+            },
+            {
+              "left": "Zona III",
+              "right": "Circulação restrita, vizinha à sala do equipamento"
+            },
+            {
+              "left": "Zona IV",
+              "right": "Sala onde fica o equipamento de ressonância"
+            }
+          ],
+          "feedbackCorrect": "A restrição cresce a cada zona. A triagem acontece na zona II para que nada incompatível chegue às zonas III e IV.",
+          "feedbackIncorrect": "Alguma zona trocou de lugar. Retome a sequência: do acesso livre até a sala do equipamento, a restrição só aumenta.",
+          "help": "Caminhe mentalmente do corredor público até o ímã: o que muda a cada passo?",
+          "sourceIds": [
+            "anvisa-in-97-2021",
+            "shah-aran-2023-seguranca-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque o percurso de entrada na ordem ensinada nesta aula, da chegada até a sala do equipamento.",
+          "items": [
+            "Acolhimento e questionário de triagem na zona II",
+            "Respostas conferidas pela equipe responsável",
+            "Troca de roupa e retirada de objetos",
+            "Passagem pelo detector de metais",
+            "Entrada na zona IV acompanhada pela equipe"
+          ],
+          "feedbackCorrect": "A informação vem primeiro, e o detector de metais é a última barreira antes da sala, nunca a única.",
+          "feedbackIncorrect": "Alguma etapa passou à frente da conferência. Retome: primeiro a informação, depois o preparo, por fim o detector e a entrada.",
+          "help": "Pense no que cada etapa precisa já ter em mãos para acontecer.",
+          "sourceIds": [
+            "shah-aran-2023-seguranca-rm",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você acompanha a triagem de Dona Marta na zona II. No questionário ela marcou 'não' para implantes. Enquanto guarda os brincos, comenta que operou um aneurisma na cabeça há muitos anos e que 'puseram um grampinho'. A tecnóloga responsável está na sala de comando, a poucos passos.",
+          "prompt": "O que você faz com essa informação?",
+          "options": [
+            {
+              "label": "Interrompe o preparo e relata a fala à tecnóloga responsável",
+              "correct": true,
+              "feedback": "A fala contradiz o questionário e indica um possível implante. Parar e relatar entrega a avaliação a quem pode identificar o dispositivo."
+            },
+            {
+              "label": "Segue o preparo, porque o questionário já foi assinado",
+              "correct": false,
+              "feedback": "A assinatura não apaga a informação nova. Implante não identificado é tratado como inseguro até a equipe avaliar. Retome a fala dela."
+            },
+            {
+              "label": "Pergunta o modelo do grampo e decide se é compatível",
+              "correct": false,
+              "feedback": "Julgar compatibilidade de implante não cabe ao estudante, e memória de paciente não identifica dispositivo. Confira de novo a quem cabe avaliar."
+            },
+            {
+              "label": "Anota no verso da ficha e continua para não atrasar a fila",
+              "correct": false,
+              "feedback": "Anotar sem avisar deixa a informação parada no papel enquanto a paciente avança rumo ao ímã. O percurso para até a equipe saber."
+            }
+          ],
+          "help": "Compare o que ela marcou no papel com o que acabou de contar.",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Jorge já está deitado na mesa, na zona IV, e o exame vai começar. Um maqueiro novo no hospital chega à porta da sala empurrando um cilindro de oxigênio comum, a pedido da enfermaria, e pergunta a você, que está no corredor da zona III, se pode entrar para deixá-lo ao lado do paciente.",
+          "prompt": "Qual é a sua ação nesse momento?",
+          "options": [
+            {
+              "label": "Abre a porta e pede que ele deixe o cilindro só na entrada",
+              "correct": false,
+              "feedback": "A entrada da sala já está dentro do campo, e um cilindro comum pode ser arrancado da mão e lançado contra o ímã. Retome onde fica a barreira."
+            },
+            {
+              "label": "Leva você mesmo o cilindro, com cuidado e bem devagar",
+              "correct": false,
+              "feedback": "Cuidado não reduz a força do campo sobre o aço do cilindro, que pode virar projétil com paciente na mesa. Confira de novo quem controla o acesso."
+            },
+            {
+              "label": "Diz que não sabe e volta ao que estava fazendo",
+              "correct": false,
+              "feedback": "Sair de cena deixa o maqueiro sozinho diante da porta, e ele pode entrar. O risco pede que alguém o detenha e chame a equipe."
+            },
+            {
+              "label": "Pede que ele pare fora da sala e chama a equipe responsável",
+              "correct": true,
+              "feedback": "Manter o cilindro fora da zona IV evita o efeito projétil. Chamar a equipe põe a decisão com quem controla o acesso e conhece o material permitido."
+            }
+          ],
+          "help": "A triagem vale só para o paciente? Pense no que o campo faz com aço.",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "anvisa-in-97-2021"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você situa as quatro zonas, segue o percurso de triagem e reconhece a informação que para tudo: implante, dispositivo, objeto metálico ou relato que contradiz a ficha. Diante dela, você para, descreve e chama a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na dúvida, a porta fica fechada. Exame atrasado se remarca; projétil não se desfaz."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na zona II, a acompanhante de uma criança diz que vai ficar na sala durante o exame e menciona que usa uma bomba de insulina presa à cintura. O que essa informação exige?",
+          "options": [
+            {
+              "label": "Nada, porque a triagem se aplica só a quem faz o exame",
+              "correct": false,
+              "feedback": "A triagem vale para toda pessoa que entra, não só para o paciente. Retome quem o campo alcança dentro da sala."
+            },
+            {
+              "label": "Parar e levar o relato à equipe antes de qualquer entrada",
+              "correct": true,
+              "feedback": "Dispositivo eletrônico pode falhar ou ser atraído no campo. A acompanhante também passa pela avaliação da equipe antes de entrar."
+            },
+            {
+              "label": "Pedir que ela fique no canto da sala, longe do equipamento",
+              "correct": false,
+              "feedback": "O campo se estende pela sala e pode afetar o dispositivo mesmo a distância. Confira de novo onde a avaliação acontece."
+            },
+            {
+              "label": "Orientar que ela desligue a bomba e entre sem demora",
+              "correct": false,
+              "feedback": "Mandar desligar um dispositivo de tratamento é conduta que não cabe ao estudante, e desligado ele segue sendo metal no campo."
+            }
+          ],
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "nibib-rm",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "prompt": "Um paciente traz o cartão de um implante com a indicação 'MR Conditional'. Como essa indicação deve ser lida na triagem?",
+          "options": [
+            {
+              "label": "Como liberação: o implante é seguro em qualquer equipamento",
+              "correct": false,
+              "feedback": "Seguro em qualquer ambiente é o sentido de 'MR Safe'. 'Conditional' é outra categoria: retome o que a palavra condiciona."
+            },
+            {
+              "label": "Como proibição: o implante é inseguro em todo ambiente de RM",
+              "correct": false,
+              "feedback": "Inseguro em todo ambiente é o sentido de 'MR Unsafe'. Aqui há condições a verificar: confira de novo quem as verifica."
+            },
+            {
+              "label": "Como dado sem uso: o cartão não interessa à equipe",
+              "correct": false,
+              "feedback": "O cartão identifica o dispositivo e é justamente o que a equipe precisa para avaliar. Descartá-lo esconde a informação."
+            },
+            {
+              "label": "Como condição: o implante só é seguro no cenário descrito",
+              "correct": true,
+              "feedback": "'Conditional' vale apenas dentro das condições descritas para o dispositivo. Conferi-las com o equipamento é tarefa da equipe responsável."
+            }
+          ],
+          "sourceIds": [
+            "fda-rm-beneficios-riscos"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se a informação nova contradiz a ficha de triagem, o percurso…",
+          "item": {
+            "prompt": "Na zona II, um paciente que marcou 'não' para objetos metálicos lembra, já de avental, que trabalhou anos como serralheiro e que uma vez 'entrou uma limalha no olho'. O que acontece com o percurso?",
+            "options": [
+              {
+                "label": "Para ali, e o relato segue para a equipe responsável",
+                "correct": true,
+                "feedback": "Possível fragmento metálico é informação que para o percurso. A equipe decide como investigar antes de qualquer entrada."
+              },
+              {
+                "label": "Continua, porque a ficha assinada é o registro que vale",
+                "correct": false,
+                "feedback": "A ficha registra o que foi dito antes. A informação nova pesa mais que a assinatura: retome o que ela muda."
+              },
+              {
+                "label": "Continua, com o paciente avisado para fechar bem os olhos",
+                "correct": false,
+                "feedback": "Fechar os olhos não impede o campo de agir sobre um fragmento de metal. Confira de novo o que para o percurso."
+              },
+              {
+                "label": "Para só se o detector de metais apitar na passagem",
+                "correct": false,
+                "feedback": "O detector é a última barreira, não a única, e não substitui o relato. A informação vem antes dele."
+              }
+            ],
+            "sourceIds": [
+              "shah-aran-2023-seguranca-rm",
+              "fda-rm-beneficios-riscos"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Fim de expediente: não há exame em andamento e a sala de ressonância está vazia. Um profissional da limpeza, novo no setor, vai entrar na zona IV com a enceradeira. O que a situação pede?",
+            "options": [
+              {
+                "label": "Nada, porque sem exame o ímã não atrai objetos",
+                "correct": false,
+                "feedback": "O campo do ímã continua presente sem exame em andamento. Retome o que muda, e o que não muda, quando o exame termina."
+              },
+              {
+                "label": "Que ele entre rápido, antes de o campo voltar a subir",
+                "correct": false,
+                "feedback": "O campo não sobe nem desce entre exames: ele está presente o tempo todo. Confira de novo a ideia de ímã sempre ligado."
+              },
+              {
+                "label": "Que ele pare fora da sala e a equipe seja chamada",
+                "correct": true,
+                "feedback": "A enceradeira tem partes de ferro, e o campo está presente mesmo com a sala vazia. A equipe controla quem e o que entra na zona IV."
+              },
+              {
+                "label": "Que a enceradeira fique desligada da tomada lá dentro",
+                "correct": false,
+                "feedback": "O risco não vem da tomada, e sim do metal diante do campo do ímã. Desligar o aparelho não muda a atração."
+              }
+            ],
+            "sourceIds": [
+              "fda-rm-beneficios-riscos",
+              "anvisa-in-97-2021"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Planta esquemática do setor com as zonas I a IV em faixas, a porta sinalizada da sala e o detector de metais antes da zona III.",
+        "Cartão com os três rótulos de segurança (MR Safe, MR Conditional, MR Unsafe) e o que cada um pede da equipe."
+      ]
+    },
+    {
+      "id": "m11-02",
+      "code": "M11.02",
+      "title": "Campo, RF e componentes",
+      "objective": "Hoje você vai conseguir dizer o que o ímã principal, os gradientes e a bobina de RF fazem, sem recorrer a imagens falsas.",
+      "competency": "Relacionar funções sem metáforas fisicamente falsas.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando da ressonância (simulação)",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Então o ímã puxa a água do corpo e a máquina fotografa, certo? E esse barulho é o ímã girando?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Nem uma coisa nem outra. Nada gira aí dentro, e a água do paciente não sai do lugar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Três conjuntos de bobinas, três tarefas. Qual deles faz o barulho?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três campos, três tarefas",
+        "body": "O ímã principal é supercondutor: bobinas resfriadas por hélio líquido, a cerca de −269 °C, mantêm um campo forte e constante. Nele, os núcleos de hidrogênio agem como ímãs minúsculos, e um pequeno excesso fica orientado a favor do campo: a 1,5 T, cerca de 9 em cada 2 milhões. Esse excesso forma a magnetização que o exame mede; 'os prótons se alinham' é só um resumo disso. A bobina de RF emite pulsos de radiofrequência que perturbam a magnetização e capta o sinal de volta. As bobinas de gradiente, bem mais fracas, variam o campo conforme a posição para localizar o sinal; ligadas e desligadas depressa, fazem o ruído.",
+        "keyPoints": [
+          "Ímã principal: campo forte, constante e sempre presente.",
+          "Bobina de RF: emite o pulso e capta o sinal; a RF entrega energia e pode aquecer.",
+          "Gradientes: localizam o sinal e produzem o ruído do exame."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de eletricidade e magnetismo, você ligou grandezas a unidades. O aviso na porta da ressonância fala em tesla. O que essa unidade mede?",
+          "options": [
+            {
+              "label": "A tensão entre os eletrodos do tubo",
+              "correct": false,
+              "feedback": "Tensão se mede em volt. Retome qual grandeza aparecia ao lado do tesla."
+            },
+            {
+              "label": "A intensidade do campo magnético",
+              "correct": true,
+              "feedback": "Tesla mede campo magnético. O ímã da ressonância tem campo dezenas de milhares de vezes mais forte que o da Terra."
+            },
+            {
+              "label": "A carga que passa pelo circuito",
+              "correct": false,
+              "feedback": "Carga se mede em coulomb. Confira de novo o par que você montou naquela aula."
+            },
+            {
+              "label": "A corrente que circula na bobina",
+              "correct": false,
+              "feedback": "Corrente se mede em ampere. A unidade do aviso na porta pertence a outra grandeza."
+            }
+          ],
+          "help": "Lembre do par que você montou: cada unidade tinha a sua grandeza.",
+          "sourceIds": [
+            "maglab-rm-visita"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada componente do equipamento à sua função, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Ímã principal",
+              "right": "Mantém o campo forte e constante"
+            },
+            {
+              "left": "Bobinas de gradiente",
+              "right": "Variam o campo conforme a posição e localizam o sinal"
+            },
+            {
+              "left": "Bobina de RF",
+              "right": "Emite pulsos de radiofrequência e capta o sinal"
+            },
+            {
+              "left": "Hélio líquido",
+              "right": "Mantém frias as bobinas supercondutoras do ímã"
+            }
+          ],
+          "feedbackCorrect": "Cada conjunto tem uma tarefa: o ímã cria a magnetização, a RF a perturba e a escuta, os gradientes dizem de onde vem o sinal.",
+          "feedbackIncorrect": "Duas funções trocaram de dono. Retome: quem mantém o campo constante, quem o varia conforme a posição e quem emite e capta?",
+          "help": "Separe o que é constante, o que varia e o que emite.",
+          "sourceIds": [
+            "maglab-rm-visita",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Duda escreveu quatro frases no caderno. Qual delas descreve corretamente a origem da magnetização medida no exame?",
+          "options": [
+            {
+              "label": "O ímã arrasta a água do corpo para o centro do tubo",
+              "correct": false,
+              "feedback": "A água não se desloca: o campo orienta núcleos de hidrogênio, sem tirar nada do lugar. Retome o que o campo faz."
+            },
+            {
+              "label": "Todos os núcleos de hidrogênio apontam para o mesmo lado",
+              "correct": false,
+              "feedback": "É a simplificação que a aula corrigiu: quase metade fica contra o campo. Confira de novo o tamanho do excesso."
+            },
+            {
+              "label": "A radiofrequência cria núcleos novos, que emitem o sinal",
+              "correct": false,
+              "feedback": "A RF não cria núcleos: ela perturba a magnetização que já existe por causa do campo. Retome a ordem dos papéis."
+            },
+            {
+              "label": "Um pequeno excesso de núcleos fica a favor do campo",
+              "correct": true,
+              "feedback": "A 1,5 T, cerca de 9 em cada 2 milhões formam o excesso. Pequeno, mas somado em todo o tecido gera a magnetização medida."
+            }
+          ],
+          "help": "O campo move matéria ou orienta núcleos? E orienta todos?",
+          "sourceIds": [
+            "maglab-rm-visita"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, Seu Jorge está na mesa e a tecnóloga foi buscar a bobina. Ele pergunta a você por que precisa dos protetores de ouvido 'se é só um ímã parado', diz que eles incomodam e que prefere fazer o exame sem eles. O exame ainda não começou.",
+          "prompt": "O que você faz diante do pedido dele?",
+          "options": [
+            {
+              "label": "Concorda e guarda os protetores, já que ele é adulto",
+              "correct": false,
+              "feedback": "O ruído dos gradientes pode chegar a níveis que ferem a audição. Retirar a proteção não é decisão para tomar a sós. Retome a quem levar o pedido."
+            },
+            {
+              "label": "Diz que o barulho é o ímã girando e que logo passa",
+              "correct": false,
+              "feedback": "Nada gira no equipamento: o ruído vem dos gradientes ligando e desligando. Além de falsa, a resposta deixa o pedido sem solução."
+            },
+            {
+              "label": "Explica a origem do ruído e leva o pedido à tecnóloga",
+              "correct": true,
+              "feedback": "Os gradientes ligam e desligam depressa, e o ruído pode ferir a audição. Explicar sem jargão e avisar a equipe mantém a proteção e trata o incômodo."
+            },
+            {
+              "label": "Insiste para ele usar e não comenta nada com a equipe",
+              "correct": false,
+              "feedback": "Insistir sem ouvir nem avisar deixa o incômodo sem solução e a equipe sem a informação. Confira de novo quem ajusta a proteção."
+            }
+          ],
+          "help": "De onde vem o ruído do exame, e quem responde pela proteção do paciente?",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "nibib-rm",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Um colega de outra turma pergunta por que a ressonância pode aquecer um pouco o corpo em exames longos. Qual resposta é fisicamente correta?",
+          "options": [
+            {
+              "label": "A radiofrequência dos pulsos entrega energia aos tecidos",
+              "correct": true,
+              "feedback": "Os pulsos de RF entregam energia ao corpo, e parte vira calor. O risco cresce em exames longos e explica os cuidados com aquecimento."
+            },
+            {
+              "label": "O ímã principal esquenta o sangue ao atrair o ferro dele",
+              "correct": false,
+              "feedback": "O campo constante não aquece o corpo nem arrasta o sangue. Retome qual componente emite energia durante o exame."
+            },
+            {
+              "label": "O hélio líquido aquece o tubo onde o paciente fica deitado",
+              "correct": false,
+              "feedback": "O hélio faz o contrário: mantém frias as bobinas do ímã, isolado do paciente. Confira de novo de onde vem a energia."
+            },
+            {
+              "label": "O atrito das bobinas de gradiente esquenta o ar da sala",
+              "correct": false,
+              "feedback": "Os gradientes respondem pelo ruído, não pelo aquecimento do corpo. A energia entregue ao tecido vem de outro componente."
+            }
+          ],
+          "help": "Reveja as tarefas dos componentes. Qual deles emite algo em direção ao corpo durante o exame?",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você atribui a cada componente a sua tarefa: o ímã mantém o campo, a RF perturba e escuta a magnetização, os gradientes localizam o sinal e fazem o ruído. E explica o exame sem dizer que algo gira ou que a água sai do lugar.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Falta saber o que a bobina escuta depois do pulso. É a próxima aula."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na tela de treino aparece o aviso 'falha na recepção do sinal'. Entre os componentes estudados, a qual deles o aviso se refere?",
+          "options": [
+            {
+              "label": "À bobina de RF, que capta o sinal da magnetização",
+              "correct": true,
+              "feedback": "A bobina de RF emite os pulsos e também recebe o sinal de volta. Um aviso de recepção aponta para ela."
+            },
+            {
+              "label": "Ao ímã principal, que capta o sinal no campo constante",
+              "correct": false,
+              "feedback": "O ímã principal mantém o campo, mas não escuta sinal nenhum. Retome qual componente emite e também capta."
+            },
+            {
+              "label": "Às bobinas de gradiente, que captam o som do exame",
+              "correct": false,
+              "feedback": "Os gradientes produzem o ruído e localizam o sinal, mas não o recebem. Confira de novo as três tarefas."
+            },
+            {
+              "label": "Ao hélio líquido, que conduz o sinal até o computador",
+              "correct": false,
+              "feedback": "O hélio só resfria as bobinas do ímã e não transporta sinal. A recepção é tarefa de outro componente."
+            }
+          ],
+          "sourceIds": [
+            "maglab-rm-visita"
+          ]
+        },
+        {
+          "prompt": "Um paciente pergunta por que o exame faz tanto barulho. Qual explicação é correta e sem metáfora falsa?",
+          "options": [
+            {
+              "label": "O ímã principal gira em alta velocidade dentro do tubo",
+              "correct": false,
+              "feedback": "Nada gira dentro do equipamento, e o ímã principal fica constante. Retome qual conjunto de bobinas é ligado e desligado."
+            },
+            {
+              "label": "O hélio líquido ferve com força a cada pulso de RF",
+              "correct": false,
+              "feedback": "O hélio fica isolado, resfriando o ímã, e não responde pelo som do exame. Confira de novo a origem do ruído."
+            },
+            {
+              "label": "Bobinas de gradiente são ligadas e desligadas depressa",
+              "correct": true,
+              "feedback": "A troca rápida nos gradientes é a origem do ruído, que pode ser intenso. Por isso a proteção auditiva faz parte do exame."
+            },
+            {
+              "label": "Os núcleos de hidrogênio estalam ao voltar para o lugar",
+              "correct": false,
+              "feedback": "Os núcleos não fazem som nem saem do lugar. O sinal deles é elétrico, captado pela bobina, e o ruído tem outra origem."
+            }
+          ],
+          "sourceIds": [
+            "maglab-rm-visita",
+            "fda-rm-beneficios-riscos"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o campo constante vem do ímã principal; o campo ligado e desligado depressa vem…",
+          "item": {
+            "prompt": "Num esquema do equipamento, um conjunto de bobinas tem a legenda 'liga e desliga depressa, varia o campo conforme a posição'. Que conjunto é esse?",
+            "options": [
+              {
+                "label": "O ímã principal supercondutor",
+                "correct": false,
+                "feedback": "O ímã principal mantém o campo constante: não liga e desliga durante o exame. Retome a legenda."
+              },
+              {
+                "label": "As bobinas de gradiente",
+                "correct": true,
+                "feedback": "Variar o campo conforme a posição e trocar depressa de estado são as duas marcas dos gradientes."
+              },
+              {
+                "label": "O reservatório de hélio líquido",
+                "correct": false,
+                "feedback": "O hélio não é bobina nem cria campo: só mantém o ímã frio. Confira de novo o que a legenda descreve."
+              },
+              {
+                "label": "A bobina de radiofrequência",
+                "correct": false,
+                "feedback": "A bobina de RF emite pulsos e capta sinal, mas não varia o campo conforme a posição. Retome a segunda parte da legenda."
+              }
+            ],
+            "sourceIds": [
+              "maglab-rm-visita"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num texto de divulgação, você lê: 'na ressonância, todos os átomos do corpo se alinham com o ímã'. Que correção torna a frase fisicamente honesta?",
+            "options": [
+              {
+                "label": "Trocar 'se alinham' por 'são puxados para dentro do ímã'",
+                "correct": false,
+                "feedback": "Os núcleos não são arrastados: o campo orienta, sem deslocar matéria. Retome o que a aula disse sobre o excesso."
+              },
+              {
+                "label": "Trocar 'todos os átomos' por 'todos os elétrons'",
+                "correct": false,
+                "feedback": "O exame trabalha com núcleos de hidrogênio, e o problema da frase está no 'todos'. Confira de novo a proporção."
+              },
+              {
+                "label": "Trocar 'com o ímã' por 'com as ondas de rádio'",
+                "correct": false,
+                "feedback": "A orientação vem do campo constante do ímã; a RF só perturba depois. A correção necessária está na quantidade."
+              },
+              {
+                "label": "Trocar 'todos os átomos' por 'um pequeno excesso de núcleos'",
+                "correct": true,
+                "feedback": "O campo deixa só um pequeno excesso de núcleos de hidrogênio a seu favor. É esse excesso que forma a magnetização medida."
+              }
+            ],
+            "sourceIds": [
+              "maglab-rm-visita"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte esquemático do equipamento com três camadas rotuladas (ímã principal, gradientes, bobina de RF) e a tarefa de cada uma.",
+        "Dois milhões de núcleos representados por blocos, com os 9 excedentes a favor do campo destacados, para 1,5 T."
+      ]
+    },
+    {
+      "id": "m11-03",
+      "code": "M11.03",
+      "title": "Sinal e relaxação",
+      "objective": "Hoje você vai conseguir ler uma evolução esquemática do sinal e dizer o que T1 e T2 descrevem em cada tecido.",
+      "competency": "Interpretar uma evolução esquemática revisada.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "pixel",
+            "text": "O pulso de RF acabou. A bobina agora só escuta. O que ela ouve, e por quanto tempo?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Li que os prótons 'voltam a ficar em pé' e soltam energia. É isso que vira imagem?"
+          },
+          {
+            "speaker": "lia",
+            "text": "É uma imagem útil, com limite. Olhe para a magnetização do tecido inteiro, não para um próton só."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Dois relógios depois do pulso",
+        "body": "O pulso de RF inclina a magnetização para fora da direção do campo. A parte inclinada, chamada transversal, gira e induz tensão na bobina: esse é o sinal. Depois do pulso, dois processos correm juntos. A magnetização transversal se desfaz, porque os núcleos deixam de girar em conjunto, e o sinal some: o tempo característico é T2. A magnetização ao longo do campo, chamada longitudinal, se recupera, trocando energia com o entorno: o tempo característico é T1. Nos tecidos, T2 é menor que T1, e cada tecido tem seu par de valores. As curvas suaves dos esquemas são um modelo: descrevem a média de muitos núcleos.",
+        "keyPoints": [
+          "Sinal: magnetização transversal girando induz tensão na bobina.",
+          "T2: ritmo em que o sinal se desfaz. T1: ritmo em que a magnetização longitudinal se recupera.",
+          "T1 curto recupera depressa; T2 longo mantém o sinal por mais tempo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "No kit didático da aula de eletricidade e magnetismo, quando o medidor ligado à bobina marcava tensão?",
+          "options": [
+            {
+              "label": "Enquanto o campo que atravessa a bobina variava",
+              "correct": true,
+              "feedback": "Só campo que varia induz tensão. É o mesmo princípio pelo qual a magnetização girando gera sinal na bobina da ressonância."
+            },
+            {
+              "label": "Sempre que havia um ímã forte parado dentro dela",
+              "correct": false,
+              "feedback": "Campo forte e parado não induz tensão. Retome o que precisava acontecer com o campo no kit."
+            },
+            {
+              "label": "Somente quando uma pilha era ligada ao circuito",
+              "correct": false,
+              "feedback": "A indução dispensa pilha: a tensão nasce da variação do campo. Confira de novo os dois momentos do kit."
+            },
+            {
+              "label": "Apenas quando a bobina estava longe do ímã",
+              "correct": false,
+              "feedback": "Longe do ímã o campo na bobina é fraco e, parado, não induz nada. O que conta é a mudança ao longo do tempo."
+            }
+          ],
+          "help": "Compare ímã parado e ímã em movimento: em qual caso algo mudava dentro da bobina?",
+          "sourceIds": [
+            "maglab-rm-visita"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque na ordem ensinada nesta aula o que acontece com a magnetização de um tecido num ciclo de medida.",
+          "items": [
+            "Magnetização em repouso, ao longo do campo do ímã",
+            "Pulso de RF inclina a magnetização",
+            "Magnetização transversal gira e induz sinal na bobina",
+            "Sinal se desfaz, no ritmo de T2",
+            "Magnetização longitudinal termina de se recuperar, no ritmo de T1"
+          ],
+          "feedbackCorrect": "O sinal só existe enquanto há magnetização transversal girando. Como T2 é menor que T1, ele se desfaz antes de a recuperação terminar.",
+          "feedbackIncorrect": "Alguma etapa veio antes da sua causa. Retome: sem pulso não há magnetização transversal, e sem ela não há sinal para se desfazer.",
+          "help": "Pergunte de cada etapa: o que precisa ter acontecido antes dela?",
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Tabela esquemática, com valores ilustrativos que valem só para este esquema. Recuperação da magnetização longitudinal: aos 500 ms, tecido A em 80% e tecido B em 40%; aos 2000 ms, A em 100% e B em 85%. O que a tabela mostra?",
+          "options": [
+            {
+              "label": "O tecido B tem T1 mais curto, pois termina abaixo de A",
+              "correct": false,
+              "feedback": "Estar abaixo no mesmo instante indica recuperação mais lenta, e não mais rápida. Retome o que T1 curto significa."
+            },
+            {
+              "label": "Os dois tecidos têm o mesmo T1, pois ambos se recuperam",
+              "correct": false,
+              "feedback": "Ambos se recuperam, mas em ritmos diferentes: compare os valores aos 500 ms. Confira de novo a tabela."
+            },
+            {
+              "label": "O tecido A tem T1 mais curto, pois se recupera antes",
+              "correct": true,
+              "feedback": "Aos 500 ms, A já recuperou o dobro de B. Recuperar mais depressa é ter T1 mais curto."
+            },
+            {
+              "label": "O tecido A perde o sinal antes, pois tem T2 mais curto",
+              "correct": false,
+              "feedback": "A tabela trata da recuperação longitudinal, que é assunto de T1. Ela não informa nada sobre T2: retome o que foi medido."
+            }
+          ],
+          "help": "Compare os dois tecidos no mesmo instante. Quem está mais adiantado na recuperação?",
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele descreve, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Magnetização transversal",
+              "right": "Parte inclinada, que gira e induz o sinal"
+            },
+            {
+              "left": "Magnetização longitudinal",
+              "right": "Parte ao longo do campo, que se recupera após o pulso"
+            },
+            {
+              "left": "T1",
+              "right": "Tempo característico da recuperação longitudinal"
+            },
+            {
+              "left": "T2",
+              "right": "Tempo característico do sumiço do sinal"
+            }
+          ],
+          "feedbackCorrect": "Transversal é o que a bobina escuta; longitudinal é o que se recupera. T2 acompanha o primeiro processo, T1 o segundo.",
+          "feedbackIncorrect": "T1 e T2 trocaram de processo. Retome: qual dos dois relógios acompanha o sinal sumindo e qual acompanha a recuperação?",
+          "help": "Primeiro separe as duas magnetizações; depois dê a cada uma o seu relógio.",
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "nibib-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Outro esquema, com valores ilustrativos que valem só para ele, mostra o sinal de dois tecidos depois do pulso. Aos 80 ms, o tecido C mantém 70% do sinal inicial e o tecido D mantém 20%. O que se conclui?",
+          "options": [
+            {
+              "label": "O tecido D tem T2 mais longo, pois gastou mais sinal",
+              "correct": false,
+              "feedback": "Perder mais sinal no mesmo tempo indica decaimento mais rápido. Retome o que T2 longo faz com o sinal."
+            },
+            {
+              "label": "O tecido C tem T2 mais longo, pois mantém o sinal",
+              "correct": true,
+              "feedback": "No mesmo instante, C conserva mais sinal que D. Manter a magnetização transversal por mais tempo é ter T2 mais longo."
+            },
+            {
+              "label": "O tecido C tem T1 mais curto, pois está mais adiantado",
+              "correct": false,
+              "feedback": "O esquema mostra sinal se desfazendo, que é assunto de T2. Sobre T1 ele não diz nada: confira de novo o que foi medido."
+            },
+            {
+              "label": "Os tecidos têm o mesmo T2, pois ambos perdem sinal",
+              "correct": false,
+              "feedback": "Ambos perdem sinal, mas em ritmos bem diferentes: 70% contra 20% no mesmo instante. Retome a comparação."
+            }
+          ],
+          "help": "O que está sendo medido aqui: algo voltando ou algo sumindo? E em que ritmo, em cada tecido?",
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você descreve de onde vem o sinal, separa a perda da magnetização transversal (T2) da recuperação longitudinal (T1) e lê num esquema qual tecido é mais rápido em cada processo, sabendo que as curvas são um modelo.",
+        "line": {
+          "speaker": "lia",
+          "text": "Guarde os dois relógios. Na próxima aula, o equipamento escolhe quando olhar para cada um."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa curva esquemática de recuperação longitudinal, o tecido E alcança 90% aos 600 ms, e o tecido F só alcança 90% aos 2400 ms. Os valores valem só para este esquema. Qual leitura é correta?",
+          "options": [
+            {
+              "label": "O tecido F tem T2 mais curto que o tecido E",
+              "correct": false,
+              "feedback": "A curva é de recuperação longitudinal e não informa T2. Retome qual relógio acompanha a recuperação."
+            },
+            {
+              "label": "O tecido E tem T1 mais longo que o tecido F",
+              "correct": false,
+              "feedback": "Chegar antes ao mesmo nível é recuperar mais depressa. Confira de novo o que isso diz sobre o T1 de E."
+            },
+            {
+              "label": "Os tecidos E e F têm o mesmo valor de T1",
+              "correct": false,
+              "feedback": "Com o mesmo T1, os dois alcançariam 90% no mesmo instante. O esquema mostra tempos bem diferentes."
+            },
+            {
+              "label": "O tecido E tem T1 mais curto que o tecido F",
+              "correct": true,
+              "feedback": "E alcança o mesmo nível em um quarto do tempo. Recuperação mais rápida corresponde a T1 mais curto."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        },
+        {
+          "prompt": "Logo depois do pulso de RF, a bobina capta um sinal que vai sumindo. O que precisa existir no tecido para haver esse sinal?",
+          "options": [
+            {
+              "label": "Magnetização longitudinal totalmente recuperada",
+              "correct": false,
+              "feedback": "A parte ao longo do campo não gira e, sozinha, não induz tensão na bobina. Retome qual parte a bobina escuta."
+            },
+            {
+              "label": "Magnetização transversal girando em conjunto",
+              "correct": true,
+              "feedback": "É a magnetização transversal, girando, que induz tensão na bobina. Quando os núcleos deixam de girar em conjunto, o sinal some."
+            },
+            {
+              "label": "Núcleos de hidrogênio em deslocamento pelo tecido",
+              "correct": false,
+              "feedback": "O sinal não vem de matéria que se desloca, e sim de magnetização que gira. Confira de novo a origem da tensão induzida."
+            },
+            {
+              "label": "Hélio líquido em contato com a região examinada",
+              "correct": false,
+              "feedback": "O hélio fica isolado no ímã e não participa do sinal. O que a bobina capta nasce no próprio tecido."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "maglab-rm-visita"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem se recupera mais depressa depois do pulso tem o T1 mais…",
+          "item": {
+            "prompt": "Num esquema ilustrativo, aos 400 ms o tecido G recuperou 75% da magnetização longitudinal e o tecido H recuperou 30%. Qual deles tem o T1 mais curto?",
+            "options": [
+              {
+                "label": "O tecido H, porque ainda tem mais a recuperar",
+                "correct": false,
+                "feedback": "Ter mais a recuperar no mesmo instante é estar atrasado, sinal de T1 mais longo. Retome a comparação."
+              },
+              {
+                "label": "Nenhum deles, porque o esquema só informa T2",
+                "correct": false,
+                "feedback": "Recuperação longitudinal é exatamente o que T1 descreve. Confira de novo o que o esquema mediu."
+              },
+              {
+                "label": "O tecido G, porque se recuperou mais depressa",
+                "correct": true,
+                "feedback": "No mesmo instante, G está bem mais adiantado. Recuperar depressa é a marca do T1 curto."
+              },
+              {
+                "label": "Os dois por igual, porque partiram do mesmo pulso",
+                "correct": false,
+                "feedback": "O pulso é o mesmo, mas cada tecido responde no seu ritmo: 75% contra 30%. Retome os valores."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-fisica-rm"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um material de estudo informa que o agente de contraste à base de gadolínio acelera o realinhamento da magnetização nos tecidos onde chega. Em termos desta aula, o que ele altera ali?",
+            "options": [
+              {
+                "label": "Encurta o tempo T1 do tecido onde está presente",
+                "correct": true,
+                "feedback": "Realinhar mais depressa é recuperar a magnetização longitudinal em menos tempo: T1 mais curto naquele tecido."
+              },
+              {
+                "label": "Aumenta o número de núcleos de hidrogênio do tecido",
+                "correct": false,
+                "feedback": "O contraste não cria núcleos: muda o ritmo com que a magnetização se recupera. Retome qual relógio mede esse ritmo."
+              },
+              {
+                "label": "Reforça o campo constante do ímã naquela região",
+                "correct": false,
+                "feedback": "O campo do ímã principal não é alterado pelo contraste. Confira de novo o que 'acelerar o realinhamento' descreve."
+              },
+              {
+                "label": "Desliga os gradientes enquanto circula no sangue",
+                "correct": false,
+                "feedback": "Os gradientes são bobinas do equipamento e não dependem do contraste. A mudança acontece na recuperação do tecido."
+              }
+            ],
+            "sourceIds": [
+              "nibib-rm"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Duas curvas no mesmo gráfico: sinal transversal caindo (T2) e magnetização longitudinal subindo (T1), com a escala de tempo mostrando que a primeira termina antes.",
+        "Curvas de recuperação de dois tecidos com T1 diferentes e uma linha vertical num instante fixo para comparar os níveis."
+      ]
+    },
+    {
+      "id": "m11-04",
+      "code": "M11.04",
+      "title": "Sequências e ponderação",
+      "objective": "Hoje você vai conseguir relacionar TR e TE ao contraste da imagem e conferir se uma série combina com o protocolo.",
+      "competency": "Comparar contraste de imagem e parâmetros introdutórios.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Sala de comando (simulação)",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Mesma fatia, duas séries. Numa o líquor está escuro, na outra está claro. O paciente não mudou."
+          },
+          {
+            "speaker": "duda",
+            "text": "Então mudou o quê? O ímã é o mesmo, a bobina é a mesma."
+          },
+          {
+            "speaker": "lia",
+            "text": "Mudou o momento em que o equipamento olha. Procure dois tempos na tela: TR e TE."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quando olhar muda o que se vê",
+        "body": "TR, tempo de repetição, é o intervalo entre dois pulsos de excitação. TE, tempo de eco, é o intervalo entre o pulso e a leitura do sinal. Com TR curto, tecidos de T1 curto se recuperam mais entre os pulsos e dão mais sinal: ponderação em T1, com líquido escuro e gordura clara. Com TR longo e TE longo, sobra sinal onde T2 é longo: ponderação em T2, com líquido claro. Num exemplo didático de spin-eco a 1,5 T: 500 ms e 20 ms para T1; 2000 ms e 80 ms para T2. Toda imagem mistura contribuições; ponderar é fazer uma predominar. Os valores reais vêm do protocolo do serviço.",
+        "keyPoints": [
+          "Sequência: receita de pulsos e leituras, definida por tempos como TR e TE.",
+          "Ponderação em T1: TR e TE curtos. Ponderação em T2: TR e TE longos.",
+          "Líquido tem T1 e T2 longos: escuro em T1, claro em T2."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior você separou dois processos depois do pulso. Qual deles o tempo T1 descreve?",
+          "options": [
+            {
+              "label": "A perda do sinal captado pela bobina",
+              "correct": false,
+              "feedback": "O sumiço do sinal é o processo acompanhado por T2. Retome qual relógio acompanha a recuperação."
+            },
+            {
+              "label": "A duração de cada pulso de radiofrequência",
+              "correct": false,
+              "feedback": "A duração do pulso é ajuste do equipamento, não propriedade do tecido. Confira de novo os dois relógios do tecido."
+            },
+            {
+              "label": "A troca rápida de corrente nos gradientes",
+              "correct": false,
+              "feedback": "A troca nos gradientes explica o ruído e a localização, não a relaxação. T1 pertence ao tecido."
+            },
+            {
+              "label": "A recuperação da magnetização longitudinal",
+              "correct": true,
+              "feedback": "T1 é o tempo característico da recuperação ao longo do campo. É essa diferença entre tecidos que o TR curto vai explorar."
+            }
+          ],
+          "help": "Dos dois relógios do tecido, um acompanha algo sumindo e o outro acompanha algo voltando.",
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Antes de aplicar a regra: dois tecidos recebem pulsos repetidos com intervalo curto. O tecido A tem T1 curto e o tecido B tem T1 longo. Qual deles chega ao pulso seguinte com mais magnetização recuperada?",
+          "options": [
+            {
+              "label": "O tecido B, porque T1 longo guarda mais magnetização",
+              "correct": false,
+              "feedback": "T1 longo significa recuperação lenta: no intervalo curto, B recupera pouco. Retome o que T1 descreve."
+            },
+            {
+              "label": "O tecido A, porque se recupera mais no mesmo intervalo",
+              "correct": true,
+              "feedback": "Com T1 curto, A se recupera mais entre os pulsos e dá mais sinal. É assim que o TR curto separa tecidos pelo T1."
+            },
+            {
+              "label": "Os dois por igual, porque o intervalo é o mesmo",
+              "correct": false,
+              "feedback": "O intervalo é igual, mas o ritmo de cada tecido não é. Confira de novo o que diferencia A de B."
+            },
+            {
+              "label": "Nenhum dos dois, porque intervalo curto apaga o sinal",
+              "correct": false,
+              "feedback": "Intervalo curto reduz a recuperação, mas não a zera: quem tem T1 curto ainda se recupera bastante. Retome a comparação."
+            }
+          ],
+          "help": "O tempo de espera é o mesmo para os dois. O que muda é o ritmo de cada tecido.",
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele significa, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "TR",
+              "right": "Intervalo entre dois pulsos de excitação"
+            },
+            {
+              "left": "TE",
+              "right": "Intervalo entre o pulso e a leitura do sinal"
+            },
+            {
+              "left": "Ponderação em T1",
+              "right": "TR e TE curtos; líquido escuro"
+            },
+            {
+              "left": "Ponderação em T2",
+              "right": "TR e TE longos; líquido claro"
+            }
+          ],
+          "feedbackCorrect": "TR regula quanto cada tecido se recupera; TE regula quanto sinal sobra na leitura. A dupla define o que predomina.",
+          "feedbackIncorrect": "Algum par se inverteu. Retome: tempos curtos destacam diferenças de T1; tempos longos destacam diferenças de T2.",
+          "help": "Comece pelas duas siglas de tempo; as ponderações saem delas.",
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "cwru-rm-basico"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na simulação, o protocolo impresso do serviço pede, para a série 3, ponderação em T2. Na tela de comando, a série 3 preparada mostra TR de 500 ms e TE de 20 ms, os valores do exemplo didático de T1. A tecnóloga responsável está ao telefone na mesma sala. O exame ainda não foi iniciado.",
+          "prompt": "O que você faz ao notar a diferença?",
+          "options": [
+            {
+              "label": "Não inicia, descreve a diferença à tecnóloga e aguarda",
+              "correct": true,
+              "feedback": "Os tempos da tela combinam com T1, não com o T2 do protocolo. Descrever o que viu deixa a correção com quem responde pela série."
+            },
+            {
+              "label": "Troca os valores para 2000 ms e 80 ms e inicia a série",
+              "correct": false,
+              "feedback": "Alterar parâmetros por conta própria é improvisar sobre o protocolo, mesmo com números do exemplo. Retome a quem cabe o ajuste."
+            },
+            {
+              "label": "Inicia assim mesmo, pois a imagem pode ser refeita depois",
+              "correct": false,
+              "feedback": "Série fora do protocolo gasta tempo do paciente dentro do equipamento e pode não servir. Confira de novo o que a tela mostra."
+            },
+            {
+              "label": "Risca o protocolo impresso para combinar com a tela",
+              "correct": false,
+              "feedback": "Mudar o registro para caber no que está na tela esconde a divergência. O protocolo não se corrige por conta própria."
+            }
+          ],
+          "help": "Compare os tempos da tela com os do exemplo da aula. Quem resolve uma divergência de protocolo?",
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Duas séries da mesma fatia de joelho, descritas em texto. Série X: líquido da articulação claro. Série Y: líquido da articulação escuro e gordura clara. Qual leitura combina com o que a aula ensinou?",
+          "options": [
+            {
+              "label": "X é ponderada em T1 e Y é ponderada em T2",
+              "correct": false,
+              "feedback": "Está invertido: líquido claro aparece quando os tempos são longos. Retome qual ponderação escurece o líquido."
+            },
+            {
+              "label": "As duas são ponderadas em T1, com ajustes de brilho",
+              "correct": false,
+              "feedback": "Brilho de tela não inverte o líquido entre claro e escuro. Confira de novo o que muda entre as ponderações."
+            },
+            {
+              "label": "X é ponderada em T2 e Y é ponderada em T1",
+              "correct": true,
+              "feedback": "Líquido claro indica predominância de T2; líquido escuro com gordura clara indica T1. É leitura de aparência, não de achado."
+            },
+            {
+              "label": "As duas são ponderadas em T2, em momentos diferentes",
+              "correct": false,
+              "feedback": "Na ponderação em T2 o líquido fica claro, o que não ocorre na série Y. Retome a aparência do líquido em cada caso."
+            }
+          ],
+          "help": "Use o líquido como referência e compare as duas descrições.",
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "maglab-rm-visita",
+            "cwru-rm-basico"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você diz o que TR e TE medem, explica por que tempos curtos destacam T1 e tempos longos destacam T2, reconhece a ponderação pela aparência do líquido e, diante de parâmetros que não combinam com o protocolo, para e pergunta.",
+        "line": {
+          "speaker": "caio",
+          "text": "Protocolo é combinado do serviço. Se a tela diz outra coisa, a conversa vem antes do botão."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa tela de treino, uma série de spin-eco a 1,5 T mostra TR de 2000 ms e TE de 80 ms. Pelo exemplo didático da aula, que aparência se espera para o líquido?",
+          "options": [
+            {
+              "label": "Escuro, pois tempos longos destacam diferenças de T1",
+              "correct": false,
+              "feedback": "Tempos longos destacam T2, não T1. Retome qual dupla de tempos escurece o líquido."
+            },
+            {
+              "label": "Ausente, pois o líquido não tem núcleos de hidrogênio",
+              "correct": false,
+              "feedback": "Líquido é rico em água e, portanto, em hidrogênio. Confira de novo o que tempos longos fazem com tecidos de T2 longo."
+            },
+            {
+              "label": "Claro, pois tempos longos destacam diferenças de T2",
+              "correct": true,
+              "feedback": "TR e TE longos formam a ponderação em T2. Como o líquido tem T2 longo, ainda guarda sinal na leitura e aparece claro."
+            },
+            {
+              "label": "Igual aos demais tecidos, pois o TE longo apaga o contraste",
+              "correct": false,
+              "feedback": "O TE longo faz o contrário: separa quem ainda tem sinal de quem já perdeu. Retome o papel do TE."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-fisica-rm",
+            "cwru-rm-basico"
+          ]
+        },
+        {
+          "prompt": "Um colega quer 'ver melhor as diferenças de T1 entre os tecidos'. Que mudança no intervalo entre os pulsos de excitação vai nessa direção, segundo a aula?",
+          "options": [
+            {
+              "label": "Encurtar o TR, para a recuperação diferir mais",
+              "correct": true,
+              "feedback": "Com TR curto, tecidos de T1 curto se recuperam mais que os de T1 longo, e a diferença aparece no sinal. Na prática, o ajuste segue o protocolo."
+            },
+            {
+              "label": "Alongar o TR, para todos se recuperarem por completo",
+              "correct": false,
+              "feedback": "Com recuperação completa em todos, a diferença de T1 some do sinal. Retome o que o TR curto faz."
+            },
+            {
+              "label": "Alongar o TE, para o sinal de todos se desfazer",
+              "correct": false,
+              "feedback": "O TE não é o intervalo entre pulsos, e alongá-lo destaca T2. Confira de novo qual tempo o enunciado descreve."
+            },
+            {
+              "label": "Zerar o TR, para o pulso e a leitura coincidirem",
+              "correct": false,
+              "feedback": "Sem intervalo não há recuperação nenhuma entre pulsos, nem sinal útil. A direção certa é reduzir, não anular."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: tempos curtos destacam T1; tempos longos destacam…",
+          "item": {
+            "prompt": "Numa tabela didática, a série P usa TR de 500 ms e TE de 20 ms, e a série Q usa TR de 2000 ms e TE de 80 ms. Qual é a ponderação de cada uma, pelo exemplo da aula?",
+            "options": [
+              {
+                "label": "P em T2 e Q em T1",
+                "correct": false,
+                "feedback": "Está invertido: a série de tempos curtos é a de T1. Retome a dupla de cada ponderação."
+              },
+              {
+                "label": "As duas em T1",
+                "correct": false,
+                "feedback": "A série Q tem tempos longos, que destacam T2. Confira de novo os valores de Q."
+              },
+              {
+                "label": "As duas em T2",
+                "correct": false,
+                "feedback": "A série P tem tempos curtos, que destacam T1. Retome os valores de P."
+              },
+              {
+                "label": "P em T1 e Q em T2",
+                "correct": true,
+                "feedback": "Tempos curtos, ponderação em T1; tempos longos, ponderação em T2. A tabela repete o exemplo didático da aula."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-fisica-rm",
+              "cwru-rm-basico"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num relatório de estágio, Duda escreveu: 'a série ponderada em T1 mostra só o T1 dos tecidos'. Que ajuste deixa a frase fiel ao que a aula ensinou?",
+            "options": [
+              {
+                "label": "Trocar 'só o T1' por 'só o T2', que é o correto",
+                "correct": false,
+                "feedback": "A troca cria outro erro: a série em T1 não mostra só T2. Retome o que 'ponderar' quer dizer."
+              },
+              {
+                "label": "Trocar 'só o T1' por 'principalmente diferenças de T1'",
+                "correct": true,
+                "feedback": "Toda imagem mistura contribuições. Ponderar é fazer uma delas predominar, não eliminar as outras."
+              },
+              {
+                "label": "Trocar 'dos tecidos' por 'do equipamento usado'",
+                "correct": false,
+                "feedback": "T1 é propriedade do tecido, não do equipamento. Confira de novo onde está o exagero da frase."
+              },
+              {
+                "label": "Manter a frase, que já descreve bem a ponderação",
+                "correct": false,
+                "feedback": "O 'só' exagera: nenhuma série isola um único processo. Retome a última ideia do conceito."
+              }
+            ],
+            "sourceIds": [
+              "statpearls-fisica-rm"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Linha do tempo de uma sequência com dois pulsos de excitação, marcando TR entre eles e TE entre o pulso e a leitura.",
+        "Quadro de TR (curto ou longo) por TE (curto ou longo) com a ponderação resultante e a aparência do líquido em cada quadrante."
+      ]
+    },
+    {
+      "id": "m11-05",
+      "code": "M11.05",
+      "title": "Bobina, posição e artefatos",
+      "objective": "Hoje você vai conseguir relacionar bobina, posicionamento e movimento com a qualidade da imagem e reconhecer três artefatos.",
+      "competency": "Reconhecer relações com aquisição e qualidade.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Sala de exame, com o ímã ao fundo (simulação)",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Joelho direito do Seu Jorge. Qual bobina você pega: a grande, embutida no equipamento, ou a de joelho?"
+          },
+          {
+            "speaker": "duda",
+            "text": "A de joelho, que fica junto da região. Mas por que a distância importa tanto?"
+          },
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Posso cruzar as mãos em cima da barriga? Fico mais confortável assim."
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta para a aula: posição também é qualidade e também é segurança."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Perto, parado e sem laços",
+        "body": "A bobina de recepção capta melhor o sinal de perto: quanto mais ajustada à região, mais sinal e menos granulado. Por isso há bobinas de joelho, de cabeça, de coluna. Três artefatos ajudam a ler a aquisição. Movimento produz fantasmas e borramento; conforto, orientação e apoio reduzem. Metal produz área sem sinal e distorção ao redor. Dobra aparece quando há anatomia fora do campo de visão: ela surge do lado oposto da imagem. Posicionar também protege: pele encostada em pele, ou cabo em laço sobre o corpo, forma caminho para a RF aquecer. Almofadas isolantes afastam pele, cabos e parede do tubo.",
+        "keyPoints": [
+          "Bobina próxima e ajustada à região: mais sinal.",
+          "Movimento, metal e dobra deixam marcas diferentes na imagem.",
+          "Sem pele com pele, sem laço de cabo, com almofadas: menos risco de queimadura."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula sobre os componentes, qual era a tarefa da bobina de RF depois de emitir o pulso?",
+          "options": [
+            {
+              "label": "Manter constante o campo do ímã principal",
+              "correct": false,
+              "feedback": "Campo constante é tarefa do ímã principal. Retome o que a bobina de RF faz além de emitir."
+            },
+            {
+              "label": "Variar o campo conforme a posição no corpo",
+              "correct": false,
+              "feedback": "Variar o campo com a posição é tarefa dos gradientes. Confira de novo as três tarefas."
+            },
+            {
+              "label": "Captar o sinal que vem da magnetização",
+              "correct": true,
+              "feedback": "A bobina de RF também escuta. Hoje você vê por que a bobina que escuta deve ficar perto da região examinada."
+            },
+            {
+              "label": "Resfriar as bobinas com hélio líquido",
+              "correct": false,
+              "feedback": "O resfriamento é do sistema do ímã, não da bobina de RF. Retome quem emite e o que faz em seguida."
+            }
+          ],
+          "help": "Lembre das três tarefas: manter, variar e emitir. O que vem depois de emitir?",
+          "sourceIds": [
+            "maglab-rm-visita"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada situação de aquisição à marca que ela deixa na imagem, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Paciente se mexe durante a série",
+              "right": "Fantasmas e borramento"
+            },
+            {
+              "left": "Objeto metálico na região",
+              "right": "Área sem sinal, com distorção ao redor"
+            },
+            {
+              "left": "Anatomia fora do campo de visão",
+              "right": "Parte do corpo aparece do lado oposto"
+            },
+            {
+              "left": "Bobina longe da região",
+              "right": "Pouco sinal e imagem granulada"
+            }
+          ],
+          "feedbackCorrect": "Cada marca aponta para uma causa na aquisição. Reconhecer a marca é o primeiro passo para descrever o problema à equipe.",
+          "feedbackIncorrect": "Duas marcas trocaram de causa. Retome: o que borra, o que apaga e distorce, o que dobra e o que enfraquece o sinal?",
+          "help": "Pense no que cada situação faz: desloca, perturba o campo, sobra para fora ou afasta.",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "mriquestions-bobinas-recepcao"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Na simulação, a primeira série do joelho de Seu Jorge saiu com fantasmas e borramento. Ele conta que não conseguiu manter a perna quieta. Segundo a aula, que medida ataca a causa dessa marca?",
+          "options": [
+            {
+              "label": "Rever conforto e apoio com a equipe e orientar a ficar parado",
+              "correct": true,
+              "feedback": "Fantasmas e borramento vêm do movimento. Conforto, apoio e orientação clara reduzem o movimento antes de repetir a série."
+            },
+            {
+              "label": "Trocar a bobina de joelho pela bobina embutida no equipamento",
+              "correct": false,
+              "feedback": "Afastar a bobina reduz o sinal e não segura a perna. Retome qual é a causa da marca descrita."
+            },
+            {
+              "label": "Aumentar o campo de visão para caber mais anatomia na imagem",
+              "correct": false,
+              "feedback": "Aumentar o campo de visão trata a dobra, não o movimento. Confira de novo a marca da primeira série."
+            },
+            {
+              "label": "Procurar metal na roupa, pois a marca indica objeto de ferro",
+              "correct": false,
+              "feedback": "Metal deixa área sem sinal e distorção, não fantasmas. Aqui o próprio paciente contou a causa: retome o relato."
+            }
+          ],
+          "help": "Qual é a causa relatada pelo próprio paciente, e o que a reduz?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Dona Marta está posicionada para um exame de abdome. Antes de a mesa entrar, você nota três coisas: as mãos dela estão cruzadas sobre a barriga, o cabo da bobina faz uma volta encostada no braço e o cotovelo toca a parede do tubo. O tecnólogo responsável está de costas, ajustando a proteção auditiva dela.",
+          "prompt": "O que você faz antes de a mesa entrar?",
+          "options": [
+            {
+              "label": "Deixa como está, pois ela disse que assim fica confortável",
+              "correct": false,
+              "feedback": "Conforto importa, mas pele com pele e cabo em laço formam caminho para a RF aquecer. Retome o que a aula disse sobre laços."
+            },
+            {
+              "label": "Puxa você mesmo o cabo e afasta os braços dela sem avisar",
+              "correct": false,
+              "feedback": "Mexer no posicionamento por conta própria e em silêncio tira do responsável a conferência final. Confira de novo a quem descrever."
+            },
+            {
+              "label": "Espera a primeira série para ver se ela sente algum calor",
+              "correct": false,
+              "feedback": "Esperar o calor é esperar a lesão começar: queimadura por RF se previne antes do exame. O momento de agir é agora."
+            },
+            {
+              "label": "Avisa o tecnólogo e descreve os três pontos que observou",
+              "correct": true,
+              "feedback": "Mãos cruzadas, cabo em volta e contato com o tubo são os três riscos de aquecimento da aula. Descrevê-los permite reposicionar e isolar com almofadas."
+            }
+          ],
+          "help": "Olhe para os pontos de contato: pele, cabo e parede do tubo. A quem cabe reposicionar?",
+          "sourceIds": [
+            "baker-2024-queimaduras-rf",
+            "fda-rm-beneficios-riscos"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na simulação, um paciente que respondeu 'não' para metal no corpo faz exame da coluna lombar. A primeira série mostra, perto do quadril, uma área sem sinal com distorção ao redor, que ninguém esperava. O paciente está tranquilo na mesa, e a tecnóloga responsável está na sala de comando, ao seu lado.",
+          "prompt": "Como você age diante dessa imagem?",
+          "options": [
+            {
+              "label": "Repete a série com outro campo de visão para tirar a marca",
+              "correct": false,
+              "feedback": "Campo de visão maior trata dobra, e esta marca é outra. Repetir sem entender a causa mantém o paciente no equipamento com um risco em aberto."
+            },
+            {
+              "label": "Aponta a marca à tecnóloga antes de qualquer nova série",
+              "correct": true,
+              "feedback": "Área sem sinal com distorção sugere metal não declarado. Mostrar à responsável antes de prosseguir permite que a equipe pare e investigue."
+            },
+            {
+              "label": "Anota 'artefato' no rascunho e segue para a próxima série",
+              "correct": false,
+              "feedback": "Anotar e seguir trata como detalhe uma marca que pode indicar objeto metálico no campo. Confira de novo o que essa marca sugere."
+            },
+            {
+              "label": "Entra na sala e pergunta ao paciente se ele mentiu na ficha",
+              "correct": false,
+              "feedback": "Entrar sem combinar com a equipe e acusar o paciente não esclarece nada com segurança. A marca se leva primeiro a quem responde pelo exame."
+            }
+          ],
+          "help": "Que causa essa marca costuma ter, e o que ela significaria dentro de um ímã?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "baker-2024-queimaduras-rf"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você explica por que a bobina fica perto da região, reconhece as marcas de movimento, metal e dobra, e confere o posicionamento para evitar laços e contatos que aquecem. Diante de marca ou posição inesperada, descreve à equipe antes de seguir.",
+        "line": {
+          "speaker": "lia",
+          "text": "Imagem ruim conta uma história da aquisição. Seu papel é ler a história e contá-la a quem decide."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma série de punho mostra a ponta dos dedos sobreposta ao lado oposto da imagem, por cima do antebraço. Que marca é essa, pelo que a aula ensinou?",
+          "options": [
+            {
+              "label": "Fantasma de movimento, por tremor da mão",
+              "correct": false,
+              "feedback": "Movimento espalha fantasmas e borra a imagem, mas não leva anatomia de fora para o lado oposto. Retome a descrição."
+            },
+            {
+              "label": "Dobra, por anatomia fora do campo de visão",
+              "correct": true,
+              "feedback": "Anatomia que sobra para fora do campo de visão reaparece do lado oposto. Ampliar o campo de visão, pelo protocolo, elimina a marca."
+            },
+            {
+              "label": "Distorção por metal, de um anel esquecido",
+              "correct": false,
+              "feedback": "Metal apaga o sinal e distorce ao redor, sem deslocar anatomia inteira. Confira de novo o que apareceu na imagem."
+            },
+            {
+              "label": "Falta de sinal, por bobina longe do punho",
+              "correct": false,
+              "feedback": "Bobina distante deixa a imagem fraca e granulada por inteiro. Aqui uma parte do corpo aparece no lugar errado."
+            }
+          ],
+          "sourceIds": [
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "prompt": "Antes de um exame de ombro, o cabo da bobina está enrolado em uma volta sobre o peito do paciente simulado. Por que isso pede correção antes de começar?",
+          "options": [
+            {
+              "label": "Porque o cabo em volta gera dobra no campo de visão",
+              "correct": false,
+              "feedback": "Dobra vem de anatomia fora do campo de visão, não do cabo. Retome o que a RF faz com laços condutores."
+            },
+            {
+              "label": "Porque o peso do cabo provoca fantasmas de movimento",
+              "correct": false,
+              "feedback": "Fantasmas vêm de movimento do paciente, e o cabo não é a causa ensinada. Confira de novo o risco dos laços."
+            },
+            {
+              "label": "Porque o laço de cabo sobre a pele pode aquecer com a RF",
+              "correct": true,
+              "feedback": "Cabo em laço encostado no corpo forma caminho para a RF aquecer e pode queimar. A correção é da equipe, com cabo reto e almofada."
+            },
+            {
+              "label": "Porque o cabo enrolado enfraquece o campo do ímã principal",
+              "correct": false,
+              "feedback": "O campo do ímã principal não depende do cabo da bobina. O problema está no aquecimento, que tem outra origem."
+            }
+          ],
+          "sourceIds": [
+            "baker-2024-queimaduras-rf",
+            "fda-rm-beneficios-riscos"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a bobina de recepção capta mais sinal quando fica mais…",
+          "item": {
+            "prompt": "Para um exame de tornozelo, há duas opções no esquema: a bobina embutida no equipamento, distante da região, ou a bobina de tornozelo, ajustada a ela. O que se espera da segunda?",
+            "options": [
+              {
+                "label": "Mais sinal, por ficar próxima da região examinada",
+                "correct": true,
+                "feedback": "A recepção é melhor de perto. Bobina ajustada à região entrega mais sinal e imagem menos granulada."
+              },
+              {
+                "label": "Menos sinal, por cobrir uma área menor do corpo",
+                "correct": false,
+                "feedback": "Cobrir menos não reduz o sinal da região: ficar perto aumenta. Retome a relação entre distância e recepção."
+              },
+              {
+                "label": "O mesmo sinal, pois o que conta é só o ímã principal",
+                "correct": false,
+                "feedback": "O ímã cria a magnetização, mas quem escuta é a bobina, e a distância dela pesa. Confira de novo a ideia central."
+              },
+              {
+                "label": "Mais ruído sonoro, por ficar perto dos gradientes",
+                "correct": false,
+                "feedback": "O ruído do exame vem dos gradientes e não depende da bobina escolhida. Retome o que a proximidade muda."
+              }
+            ],
+            "sourceIds": [
+              "mriquestions-bobinas-recepcao"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame de crânio simulado, a série sai com área sem sinal e distorção perto da boca. A ficha registra aparelho ortodôntico fixo, já avaliado pela equipe antes do exame. Como ler essa marca?",
+            "options": [
+              {
+                "label": "Como dobra, pela boca fora do campo de visão",
+                "correct": false,
+                "feedback": "Na dobra, a anatomia reaparece do lado oposto, sem apagar sinal. Retome a descrição da marca."
+              },
+              {
+                "label": "Como movimento, pela respiração do paciente",
+                "correct": false,
+                "feedback": "Movimento borra e cria fantasmas, sem área apagada com distorção. Confira de novo o que a ficha registra."
+              },
+              {
+                "label": "Como falha de bobina, por estar longe da boca",
+                "correct": false,
+                "feedback": "Bobina distante enfraquece a imagem inteira, sem distorção localizada. A ficha traz uma causa mais direta."
+              },
+              {
+                "label": "Como artefato de metal, coerente com a ficha",
+                "correct": true,
+                "feedback": "Metal perturba o campo ao redor, apaga sinal e distorce. Aqui a marca combina com um item conhecido e já avaliado pela equipe."
+              }
+            ],
+            "sourceIds": [
+              "krupa-2015-artefatos-rm"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Três miniaturas esquemáticas lado a lado: fantasmas de movimento, área sem sinal por metal e dobra de anatomia fora do campo de visão.",
+        "Paciente em vista superior com pontos de atenção marcados (mãos cruzadas, cabo em laço, contato com a parede do tubo) e a versão corrigida com almofadas."
+      ]
+    },
+    {
+      "id": "m11-06",
+      "code": "M11.06",
+      "title": "Conferir sem improvisar",
+      "objective": "Hoje você vai conseguir percorrer um exame simulado conferindo segurança e adequação técnica, e parar quando algo não fecha.",
+      "competency": "Integrar segurança e adequação técnica em caso novo.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Setor de ressonância, início do plantão (simulação)",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje você acompanha um exame do começo ao fim. Não vai decidir nada sozinho: vai conferir."
+          },
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "É a coluna, de novo. Da outra vez correu tudo bem, pode ir direto."
+          },
+          {
+            "speaker": "caio",
+            "text": "Cada exame é uma triagem nova. O que mudou desde a outra vez, só ele sabe contar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Conferência em cinco passos",
+        "body": "Conferir é comparar o que está diante de você com o que foi combinado, e parar quando não fecha. Nesta aula, a ordem é: identidade e pedido; triagem de segurança respondida hoje e vista pela equipe; preparo, sem objetos e com roupa adequada; posicionamento, com bobina próxima, almofadas, proteção auditiva e campainha na mão; série conforme o protocolo. Em cada passo há três saídas: confere, não confere ou não sei. As duas últimas têm a mesma resposta: parar, descrever o que viu e pedir apoio. Você nunca libera implante, altera parâmetro ou corrige registro por conta própria.",
+        "keyPoints": [
+          "Triagem é de hoje: exame anterior não vale como liberação.",
+          "'Não confere' e 'não sei' pedem a mesma ação: parar, descrever, pedir apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na primeira aula desta unidade, como se trata um dispositivo que o paciente relata, mas que ninguém conseguiu identificar?",
+          "options": [
+            {
+              "label": "Como seguro, se o paciente já fez exame antes",
+              "correct": false,
+              "feedback": "Exame anterior não identifica o dispositivo nem as condições de hoje. Retome a regra para o que não tem identificação."
+            },
+            {
+              "label": "Como inseguro, até a equipe identificar e avaliar",
+              "correct": true,
+              "feedback": "Sem identificação, o dispositivo é tratado como inseguro. A avaliação é da equipe responsável, com a documentação em mãos."
+            },
+            {
+              "label": "Como condicional, bastando reduzir o tempo do exame",
+              "correct": false,
+              "feedback": "'Conditional' exige condições descritas para o dispositivo, não um ajuste improvisado. Confira de novo o que falta aqui."
+            },
+            {
+              "label": "Como irrelevante, se o detector de metais não apitar",
+              "correct": false,
+              "feedback": "O detector é a última barreira e não substitui a identificação do dispositivo. Retome quem avalia."
+            }
+          ],
+          "help": "O que falta para a equipe poder avaliar esse dispositivo?",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque os passos da conferência na ordem ensinada nesta aula.",
+          "items": [
+            "Identidade do paciente e pedido do exame",
+            "Triagem de segurança respondida hoje e vista pela equipe",
+            "Preparo: sem objetos e com roupa adequada",
+            "Posicionamento: bobina, almofadas, proteção auditiva e campainha",
+            "Série conferida com o protocolo do serviço"
+          ],
+          "feedbackCorrect": "A ordem vai da pessoa ao equipamento: primeiro quem é e o que pode entrar, depois como fica na mesa, por fim o que será adquirido.",
+          "feedbackIncorrect": "Algum passo técnico passou à frente da segurança. Retome: identidade e triagem vêm antes de qualquer preparo ou série.",
+          "help": "Comece por quem é o paciente e termine no que o equipamento vai adquirir.",
+          "sourceIds": [
+            "shah-aran-2023-seguranca-rm",
+            "baker-2024-queimaduras-rf",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Seu Jorge vem para ressonância da coluna lombar. A identidade confere com o pedido. Na triagem de hoje ele marcou 'não' em tudo, e a tecnóloga já viu a ficha. Na mesa, você nota que a bobina de coluna está no lugar, mas o braço dele encosta direto na parede do tubo, e a campainha ficou pendurada no suporte, longe da mão.",
+          "prompt": "O que você descreve à tecnóloga antes de a mesa entrar?",
+          "options": [
+            {
+              "label": "Que a identidade precisa ser conferida mais uma vez",
+              "correct": false,
+              "feedback": "A identidade já conferiu com o pedido. Repetir esse passo não trata o que está diferente na mesa. Retome o passo do posicionamento."
+            },
+            {
+              "label": "Que a série deve ser trocada por uma mais rápida",
+              "correct": false,
+              "feedback": "Escolher ou trocar série não cabe ao estudante, e o problema observado não é de protocolo. Confira de novo o que falta na mesa."
+            },
+            {
+              "label": "Que faltam almofadas e a campainha está fora do alcance",
+              "correct": true,
+              "feedback": "Braço encostado no tubo é risco de aquecimento, e sem campainha ele não consegue avisar. São dois itens do passo de posicionamento."
+            },
+            {
+              "label": "Que está tudo certo, pois a bobina de coluna está no lugar",
+              "correct": false,
+              "feedback": "A bobina é só um dos itens do posicionamento. Retome a lista: o que protege a pele e o que garante a comunicação?"
+            }
+          ],
+          "help": "Percorra os itens do passo de posicionamento, um a um, olhando para a mesa.",
+          "sourceIds": [
+            "baker-2024-queimaduras-rf",
+            "nibib-rm",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na mesma simulação, com tudo pronto, Seu Jorge comenta, já deitado: 'Mês passado colocaram um aparelhinho no meu peito para vigiar o coração, bem pequeno, nem dá para ver'. A ficha de hoje marca 'não' para dispositivos. A mesa ainda não entrou, e a tecnóloga está na porta.",
+          "prompt": "Qual é a sua ação imediata?",
+          "options": [
+            {
+              "label": "Pede para não avançar a mesa e relata a fala à tecnóloga",
+              "correct": true,
+              "feedback": "Dispositivo cardíaco não identificado interrompe tudo. Avisar na hora mantém o paciente fora do tubo enquanto a equipe identifica e avalia."
+            },
+            {
+              "label": "Deixa seguir, pois a ficha de hoje já foi vista pela equipe",
+              "correct": false,
+              "feedback": "A ficha registra o que ele disse antes; a fala nova a contradiz. Retome a regra para dispositivo sem identificação."
+            },
+            {
+              "label": "Pergunta a marca do aparelho e confere você mesmo na internet",
+              "correct": false,
+              "feedback": "Buscar e julgar compatibilidade é liberar implante por conta própria, o que não cabe ao estudante. Confira de novo quem avalia."
+            },
+            {
+              "label": "Acrescenta 'sim' na ficha e deixa o exame começar logo",
+              "correct": false,
+              "feedback": "Corrigir o registro sozinho e seguir esconde a divergência e mantém o risco. O percurso para até a equipe saber e avaliar."
+            }
+          ],
+          "help": "Compare a fala de agora com a ficha de hoje. Onde o paciente está neste momento?",
+          "sourceIds": [
+            "fda-rm-beneficios-riscos",
+            "nibib-rm",
+            "anvisa-in-97-2021"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Outro dia, outra paciente: Dona Marta fará ressonância do joelho esquerdo. Triagem de hoje sem pendências, vista pela equipe. Na mesa, a bobina de joelho está montada no joelho direito dela. Na tela, a série preparada traz 'joelho E'. O tecnólogo responsável organiza as almofadas ao lado da mesa.",
+          "prompt": "O que você faz ao perceber isso?",
+          "options": [
+            {
+              "label": "Troca você mesmo a bobina de joelho, sem interromper ninguém",
+              "correct": false,
+              "feedback": "Reposicionar por conta própria tira do responsável a conferência do lado. Retome a quem a divergência deve ser descrita."
+            },
+            {
+              "label": "Muda a série na tela para 'joelho D', combinando com a bobina",
+              "correct": false,
+              "feedback": "Alterar a série para caber no erro de montagem leva ao exame do lado errado. Confira de novo o que o pedido diz."
+            },
+            {
+              "label": "Aguarda a primeira imagem para ver qual joelho aparece",
+              "correct": false,
+              "feedback": "Esperar a imagem gasta tempo da paciente no equipamento com um erro já visível. A divergência está diante de você agora."
+            },
+            {
+              "label": "Diz ao tecnólogo que bobina e pedido indicam lados diferentes",
+              "correct": true,
+              "feedback": "O pedido e a tela indicam o joelho esquerdo da paciente, e a bobina está no direito. Descrever a divergência permite corrigir antes de adquirir."
+            }
+          ],
+          "help": "Compare três coisas: o pedido, a tela e onde a bobina está montada.",
+          "sourceIds": [
+            "shah-aran-2023-seguranca-rm",
+            "anvisa-in-97-2021"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você percorre identidade, triagem, preparo, posicionamento e série, comparando cada passo com o combinado. Quando algo não confere ou você não sabe, para, descreve o que viu e pede apoio, sem liberar, ajustar ou corrigir por conta própria.",
+        "line": {
+          "speaker": "lia",
+          "text": "Conferir bem não é saber tudo. É notar o que não fecha e dizer em voz alta, a tempo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num exame simulado de crânio, identidade e triagem conferem. Ao ajustar a posição, a paciente pergunta se o adesivo de medicamento que usa no ombro 'atrapalha'. A ficha não menciona adesivo. O que você faz?",
+          "options": [
+            {
+              "label": "Para o preparo e leva a informação à equipe responsável",
+              "correct": true,
+              "feedback": "Adesivo de medicamento é informação de triagem que a ficha não trazia. A conduta segue o protocolo do serviço, e quem avalia é a equipe."
+            },
+            {
+              "label": "Retira o adesivo dela e segue com o posicionamento",
+              "correct": false,
+              "feedback": "Retirar medicamento em uso é conduta que não cabe ao estudante. Retome a quem a informação nova deve chegar."
+            },
+            {
+              "label": "Diz que não atrapalha, pois o exame é de crânio",
+              "correct": false,
+              "feedback": "Responder sem avaliação é liberar por conta própria. Confira de novo o que a unidade chama de informação que para o percurso."
+            },
+            {
+              "label": "Cobre o adesivo com uma almofada e inicia a série",
+              "correct": false,
+              "feedback": "Improvisar uma barreira não substitui a avaliação da equipe. O percurso para até ela decidir."
+            }
+          ],
+          "sourceIds": [
+            "baker-2024-queimaduras-rf",
+            "fda-rm-beneficios-riscos"
+          ]
+        },
+        {
+          "prompt": "Na tela de treino, a série preparada para a coluna mostra TR de 2000 ms e TE de 80 ms. O protocolo impresso pede ponderação em T1 para essa série. O que a conferência indica?",
+          "options": [
+            {
+              "label": "Confere: tempos longos correspondem à ponderação em T1",
+              "correct": false,
+              "feedback": "Tempos longos destacam T2, não T1. Retome o exemplo didático das duas ponderações."
+            },
+            {
+              "label": "Confere: o TE de 80 ms é curto, como a ponderação em T1 pede",
+              "correct": false,
+              "feedback": "No exemplo da aula, o TE curto era de 20 ms; 80 ms é o TE longo. Confira de novo os dois pares de valores."
+            },
+            {
+              "label": "Não dá para saber: TR e TE não indicam a ponderação",
+              "correct": false,
+              "feedback": "TR e TE são justamente os tempos que definem o que predomina na imagem. Retome o papel de cada um."
+            },
+            {
+              "label": "Não confere: tempos longos combinam com T2, não com T1",
+              "correct": true,
+              "feedback": "Tempos longos combinam com T2, e o protocolo pede T1. O passo seguinte é o de todo 'não confere': parar, descrever e pedir apoio."
+            }
+          ],
+          "sourceIds": [
+            "statpearls-fisica-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quando um passo 'não confere' ou a resposta é 'não sei', a ação é parar, descrever e…",
+          "item": {
+            "prompt": "Na conferência de um exame simulado, você não sabe dizer se o protetor auricular oferecido à paciente é o modelo usado no setor. O que essa dúvida pede?",
+            "options": [
+              {
+                "label": "Seguir, pois dúvida pequena não justifica atrasar o exame",
+                "correct": false,
+                "feedback": "'Não sei' tem a mesma resposta de 'não confere'. Retome as três saídas de cada passo."
+              },
+              {
+                "label": "Trocar por outro protetor que você encontrou na gaveta",
+                "correct": false,
+                "feedback": "Substituir material por conta própria é improvisar. Confira de novo o que fazer quando a resposta é 'não sei'."
+              },
+              {
+                "label": "Parar, descrever a dúvida e pedir apoio à equipe",
+                "correct": true,
+                "feedback": "A proteção auditiva faz parte do posicionamento. Diante do 'não sei', descrever a dúvida deixa a conferência com quem conhece o material."
+              },
+              {
+                "label": "Perguntar à paciente se o protetor parece adequado",
+                "correct": false,
+                "feedback": "A paciente não tem como avaliar o material do setor. A dúvida se leva a quem responde pelo exame."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-in-97-2021",
+              "fda-rm-beneficios-riscos"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Você acompanha, em simulação, a chegada de um técnico de manutenção à porta da zona IV. Ele traz uma caixa de ferramentas e diz que 'já está acostumado com ímã'. Não há paciente na sala. O que a conferência pede?",
+            "options": [
+              {
+                "label": "Liberar a entrada, pois não há paciente na sala",
+                "correct": false,
+                "feedback": "O campo está presente com ou sem paciente, e ferramenta comum pode virar projétil. Retome para quem vale a triagem."
+              },
+              {
+                "label": "Parar a entrada e chamar a equipe responsável",
+                "correct": true,
+                "feedback": "A triagem vale para toda pessoa e todo objeto. A equipe confere se as ferramentas são próprias para o ambiente antes de qualquer entrada."
+              },
+              {
+                "label": "Pedir que ele deixe só as ferramentas pesadas fora",
+                "correct": false,
+                "feedback": "Separar ferramentas pelo peso é avaliar compatibilidade por conta própria. Confira de novo a quem cabe essa conferência."
+              },
+              {
+                "label": "Confiar na experiência dele e acompanhar de longe",
+                "correct": false,
+                "feedback": "Experiência relatada não substitui a conferência de acesso feita pela equipe. O costume não muda a força do campo."
+              }
+            ],
+            "sourceIds": [
+              "fda-rm-beneficios-riscos",
+              "anvisa-in-97-2021"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Lista de conferência em cinco cartões (identidade, triagem, preparo, posicionamento, série), cada um com três saídas: confere, não confere, não sei.",
+        "Fluxo simples em que 'não confere' e 'não sei' convergem para a mesma caixa: parar, descrever, pedir apoio."
+      ]
+    }
+  ]
+}

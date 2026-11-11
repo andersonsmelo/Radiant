@@ -192,7 +192,7 @@ export default function HomeScreen() {
     });
 
     return (
-        <SafeAreaView style={styles.screen} edges={['top']}>
+        <SafeAreaView style={styles.root} edges={['top']}>
             {loading ? (
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator size="large" color={light.actionPrimary} />
@@ -247,7 +247,7 @@ export default function HomeScreen() {
                         style={styles.heroCard}
                     >
                         <View style={styles.heroContent}>
-                            <View style={{ flex: 1, gap: 10 }}>
+                            <View style={{ flex: 1, gap: space.s1 }}>
                                 <Text style={styles.heroMicro}>MISSÃO DE HOJE</Text>
                                 {/* TODO: Conectar à lição do dia resolvida pelo catálogo. */}
                                 <Text style={styles.heroTitle}>
@@ -576,7 +576,7 @@ function renderHealthRow(label: string, value: number, max: number) {
 
 const styles = StyleSheet.create({
     // Screen
-    screen: {
+    root: {
         flex: 1,
         backgroundColor: light.surface,
     },
@@ -603,7 +603,7 @@ const styles = StyleSheet.create({
     avatarCircle: {
         width: 40,
         height: 40,
-        borderRadius: 14,
+        borderRadius: 12,
         borderWidth: 1,
         borderColor: light.border,
         backgroundColor: light.surfaceElevated,
@@ -655,7 +655,7 @@ const styles = StyleSheet.create({
     },
     heroTags: {
         flexDirection: 'row',
-        gap: 6,
+        gap: space.s0,
         flexWrap: 'wrap',
     },
     heroTag: {
@@ -688,7 +688,7 @@ const styles = StyleSheet.create({
         padding: 16,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 14,
+        gap: space.s2,
     },
     progressRingLabel: {
         fontSize: 14,
@@ -826,7 +826,7 @@ const styles = StyleSheet.create({
     healthBadge: {
         paddingHorizontal: space.s1,
         paddingVertical: 2,
-        borderRadius: 6,
+        borderRadius: 4,
     },
     healthBadgeText: {
         fontSize: 12,

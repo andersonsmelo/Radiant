@@ -79,6 +79,20 @@ export class HeartsRepository {
         );
     }
 
+    /**
+     * Mescla do backup do iCloud (ADR de 2026-09-15): adota o `lastRefillAt` mais
+     * recente, na mesma fila das outras escritas. Fora dela, uma assinatura gravada
+     * no meio era apagada (auditoria de 2026-11-10). Sem vidas guardadas, não cria.
+     */
+    absorbBackupRefill(lastRefillAt: string): Promise<void> {
+        return this.exclusively(async () => {
+            const state = parseState(await this.storage.getItem(STORAGE_KEYS.HEARTS));
+            if (!state) return;
+            if (state.lastRefillAt !== null && Date.parse(lastRefillAt) <= Date.parse(state.lastRefillAt)) return;
+            await this.write({ ...state, lastRefillAt });
+        });
+    }
+
     private transform(
         operation: (state: HeartsState) => HeartsState,
         nowMs: number,

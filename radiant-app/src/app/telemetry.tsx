@@ -11,7 +11,7 @@ import { layout, space, typography } from '../ui/styles';
 export default function TelemetryRoute() {
     if (!AppConfig.ENABLE_TELEMETRY_DEBUG_SCREEN) {
         return (
-            <SafeAreaView style={styles.screen}>
+            <SafeAreaView style={styles.root}>
                 <View style={[layout.container, layout.center, styles.content]}>
                     <Card style={styles.card}>
                         <Text style={styles.title}>Diagnóstico restrito</Text>
@@ -31,7 +31,7 @@ export default function TelemetryRoute() {
 }
 
 const styles = StyleSheet.create({
-    screen: {
+    root: {
         flex: 1,
         backgroundColor: '#000000',
     },

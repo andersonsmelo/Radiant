@@ -61,9 +61,6 @@ export async function registerAuthRoutes(app: FastifyInstance, deps: AuthRouteDe
 
     app.get('/v1/auth/me', async (request, reply) => {
         const user = await deps.auth.requireSession(request);
-        if (!user.id) {
-            return reply.status(401).send({ message: 'Invalid token' });
-        }
 
         return {
             user,

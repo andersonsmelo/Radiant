@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-native';
 import { BodyReferenceLessonPreview } from './BodyReferenceLessonPreview';
 
 const meta = {
-  title: 'Curriculum V3/L1 O corpo como referência',
+  title: 'Curriculum V3/Retired body reference preview',
   component: BodyReferenceLessonPreview,
 } satisfies Meta<typeof BodyReferenceLessonPreview>;
 

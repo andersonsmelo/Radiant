@@ -1,0 +1,53 @@
+Segundo dia INTEGRAL, Android, relógio real. Medido em 2026-10-23 08:12–08:15 -03 (Mac e AVD: Fri Oct 23 08:12:16 -03 2026).
+AVD radiant-entrada-api34 (Android 14/API34/arm64), dev client Debug existente, Metro 8081 servido da worktree trilha-2026-10-20 em 8ad10e8 (Node 20.20.2, EXPO_NO_DOTENV=1, EXPO_NO_TYPESCRIPT_SETUP=1, CI=1).
+YAML radiant-app/.maestro/radiant-1-4-segundo-dia.yaml sha256 5eb056aeae81a9a21ea6f532379fdf0b855a3320a1f59e07a55f0743b51e1ed1 (o corrigido da pausa).
+Pré-condição lida na UI antes do flow, sem tocar: recomendação 'Revisar Fundamentos de Radiologia' com 'Fazer revisão' (vencida naturalmente). Nenhum relógio, store ou snapshot editado.
+Comando: maestro --device emulator-5554 test .maestro/radiant-1-4-segundo-dia.yaml
+Resultado: exit=0; 36 passos COMPLETED, 0 FAILED. Estado final: XP 26→44; revisão seguinte 'Disponível em 24/10/2026 às 08:14'.
+
+Running on radiant-entrada-api34
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling DOWN until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling UP until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$"... COMPLETED
+Assert that "Passo 1 de 4" is visible... COMPLETED
+Assert that "Retome rapidamente o conceito central antes de seguir adiante." is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "Revisão concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, wait to settle 500 ms, with centering enabled... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$" is visible... COMPLETED

@@ -1,0 +1,48 @@
+Detecção do quadro antecipado DEPOIS do conserto em motion.ts (2026-10-23, 09:18–10:20 -03). Mesmo instrumento e detector de android-momento-deteccao.txt.
+
+## Sem instrumentação — Metro da worktree da frente com o conserto
+== fix1; sha256 682ea8c541ad78b0…; toque no vídeo ≈ 2.038s
+   janela +0,4 a +4 s do toque: 198 quadros, maior lacuna 0.021 s
+   2.056 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.769 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.269 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== fix2; sha256 1c91cb5fc1f2ca4f…; toque no vídeo ≈ 2.034s
+   janela +0,4 a +4 s do toque: 196 quadros, maior lacuna 0.020 s
+   2.037 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.677 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.177 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== fix3; sha256 ca9df205d1c776f1…; toque no vídeo ≈ 2.066s
+   janela +0,4 a +4 s do toque: 180 quadros, maior lacuna 0.024 s
+   2.139 --- ---- cta=(31, 34, 44) head=(30, 33, 42)
+   4.168 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.674 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== fix4; sha256 7f8c54d7d258e8c4…; toque no vídeo ≈ 2.061s
+   janela +0,4 a +4 s do toque: 180 quadros, maior lacuna 0.054 s
+   2.129 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.456 CTA HEAD cta=(60, 105, 228) head=(96, 106, 122)
+   3.477 --- ---- cta=(19, 21, 27) head=(19, 21, 27)
+   4.082 --- HEAD cta=(19, 21, 27) head=(93, 102, 116)
+   4.568 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+
+Resultado: quadro antecipado em 1 de 4 (fix4, 3,456 s, ~0,02 s). O conserto NÃO elimina o sintoma nativo.
+
+## Com instrumentação (cópia descartável, conserto + logs) — nenhum quadro antecipado
+Pesada (instrumentacao-momento.patch, parte v2):
+   ifix1: transições ---/----@2.041 ---/HEAD@3.754 CTA/HEAD@4.246 
+   ifix2: transições ---/----@2.041 ---/HEAD@3.845 CTA/HEAD@4.347 
+   ifix3: transições ---/----@2.127 ---/HEAD@4.297 CTA/HEAD@4.783 
+   ifix4: transições ---/----@2.043 ---/HEAD@3.989 CTA/HEAD@4.503 
+Leve (só ramos do efeito e montagem da linha recomendada; parte leve):
+   leve1: transições ---/----@2.049 ---/HEAD@3.522 CTA/HEAD@4.030 
+   leve2: transições ---/----@2.049 ---/HEAD@3.984 CTA/HEAD@4.482 
+   leve3: transições ---/----@2.037 ---/HEAD@3.547 CTA/HEAD@4.051 
+   leve4: transições ---/----@2.125 ---/HEAD@3.855 CTA/HEAD@4.347 
+   leve5: transições ---/----@2.139 ---/HEAD@3.676 CTA/HEAD@4.186 
+   leve6: transições ---/----@2.044 ---/HEAD@3.831 CTA/HEAD@4.341 
+   Sequência idêntica nas 6: linha recomendada L1 remonta 2x; L2 monta; espera (wantsMotion, ready=false); L2 remonta; partida; sem cleanup antes do fim; ready não oscila.
+
+## Leitura
+- Com instrumentação, 0 de 10 (e 0 de 1 antes do conserto): os logs alteram o tempo e escondem o defeito.
+- Nas três gravações com o quadro (run2, run4, fix4), ele cai 0,63–0,71 s antes da chegada da cabeça, isto é, na partida da animação, quando o 'held' sai.
+- Fato medido (ifix1): todas as linhas desmontam e remontam durante a espera (+0,30 s). TrailNodeRow tem key=rowSignature(item) (JourneyTrail.tsx:558), e a assinatura inclui rowBottom, que muda com a altura do encaixe (46,18 em L1, 45,82 em L2). Causa provável da remontagem, não isolada; ligação com o quadro antecipado não demonstrada.
+- Causa restante NÃO estabelecida. Próximo instrumento sugerido: rastreamento nativo sem log JS (Perfetto/systrace com FrameTimeline), para casar o commit do Fabric com o quadro.

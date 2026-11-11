@@ -2,7 +2,7 @@ export const AI_TRACK_ID = "track-ai-fundamentos";
 export const AI_TRACK_SLUG = "ai-fundamentos-de-radiologia";
 export const AI_TRACK_TITLE = "Fundamentos de Radiologia (IA)";
 export const AI_TRACK_DESCRIPTION =
-  "16 conceitos essenciais de radiologia gerados pelo Radiant AI, ordenados por sequência de aprendizagem.";
+  "Conteúdo editorial ordenado por sequência de aprendizagem.";
 
 export function slugFromBundleId(bundleId) {
   return bundleId.split(":")[3] ?? "";
@@ -87,7 +87,14 @@ export function mapQuizBundle(bundle) {
   };
 }
 
-export function buildRuntimeCatalog(catalogPayload) {
+export function buildRuntimeCatalog(catalogPayload, { retired = false } = {}) {
+  if (retired) {
+    const tracks = catalogPayload?.tracks;
+    if (!tracks || Object.values(tracks).some(entries => !Array.isArray(entries) || entries.length)) {
+      throw Error('retired-content-not-empty:catalog');
+    }
+    return { version: catalogPayload.version, track: null, lessonSummaries: [], lessons: [], state: 'retired' };
+  }
   const quizBundles = catalogPayload?.tracks?.quizzes;
 
   if (!Array.isArray(quizBundles) || quizBundles.length === 0) {

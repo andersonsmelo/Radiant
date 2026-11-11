@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { HeartsDisplay } from '../../../ui/components/HUD';
+import { HeartsCountPill } from '../../../ui/components/HUD';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space } from '../../../ui/styles';
 
@@ -52,7 +52,7 @@ export function QuizTopBar({
           ∞
         </Text>
       ) : (
-        <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
+        <HeartsCountPill hearts={hearts} maxHearts={maxHearts} />
       )}
     </View>
   );

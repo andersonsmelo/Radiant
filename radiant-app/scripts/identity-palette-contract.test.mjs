@@ -4,9 +4,13 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-// Guarda anti-regressão de identidade (ADR-2026-07-27-identidade-visual-galaxy-dark).
+// Guarda anti-regressão de identidade
+// (ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco, que substituiu a
+// ADR-2026-07-27-identidade-visual-galaxy-dark quanto ao mundo visual e manteve
+// a regra de UMA identidade única no app).
 //
-// A identidade oficial do produto é galaxy dark. As telas e features renderizam
+// A identidade oficial do produto é o mundo Medalhão, sobre grafite escuro, e
+// os tokens dele continuam no contexto galaxy. As telas e features renderizam
 // sobre fundo escuro, então nenhuma delas pode consumir a paleta CLARA primitiva
 // `colors` de `src/ui/theme.ts` — foi exatamente essa importação, dentro de uma
 // tela escura, que produziu os dois P0 de design (card branco no fundo escuro).

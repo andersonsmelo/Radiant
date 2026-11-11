@@ -3,18 +3,16 @@ import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { AccessibilityInfo, ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { AppButton } from '../../../components/ui/AppButton';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { Confetti } from '../../../components/ui/Confetti';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
 import { XpIcon } from '../../../ui/components/HudIcons';
-import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
-import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+import { JourneyMedal } from '../../journey/components/JourneyMedal';
+import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
-import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
+import type { JourneyNode, JourneySnapshot, JourneyUnit } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
 import type { GamificationSnapshot } from '../../../types/gamification';
@@ -35,6 +33,10 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { HeartLossNotice, TOP_NOTICE_MS } from '../../hearts/components/HeartLossNotice';
+import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
+import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
+import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { assessmentAttemptSuffix } from '../../spaced-repetition/attemptIds';
 
@@ -66,12 +68,12 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   const nextNode = snapshot?.nextRecommendedNode;
 
   if (!nextNode) {
-    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
+    return { label: 'Voltar para a trilha', action: () => router.dismissTo('/(tabs)') };
   }
 
   const href = getJourneyNodeHref(nextNode);
   if (!canOpenJourneyNode(nextNode) || !href) {
-    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
+    return { label: 'Voltar para a trilha', action: () => router.dismissTo('/(tabs)') };
   }
 
   if (nextNode.type === 'review') {
@@ -87,10 +89,10 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   }
 
   if (nextNode.type === 'checkpoint') {
-    return { label: 'Abrir checkpoint', action: () => router.replace(href) };
+    return { label: 'Abrir avaliação', action: () => router.replace(href) };
   }
 
-  return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
+  return { label: 'Voltar para a trilha', action: () => router.dismissTo('/(tabs)') };
 }
 
 export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCursorId }: CheckpointScreenProps) {
@@ -98,6 +100,9 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [completionContext, setCompletionContext] = useState<{
+    node: JourneyNode; unit: JourneyUnit; unitNumber: number;
+  } | null>(null);
   const [checkpointStarted, setCheckpointStarted] = useState(false);
   const [checkpointItemIndex, setCheckpointItemIndex] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
@@ -110,6 +115,8 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  const [heartLossVisible, setHeartLossVisible] = useState(false);
+  const heartLossTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const processingAnswer = useRef(false);
   const reinforcementBlocked = useRef(false);
   const pendingSubmission = useRef<UnitCheckpointEvaluationInput | null>(null);
@@ -119,6 +126,24 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
   }, []);
+
+  // Som e vibração: a mesma camada da aula. Na prova de 2026-11-07 a avaliação
+  // era muda. Som é enfeite: falha aqui nunca para a avaliação.
+  const feedbackRef = useRef<LessonFeedback | null>(null);
+  useEffect(() => {
+    const sounds = createLessonSoundPlayer();
+    let alive = true;
+    void readFeedbackPreferences().then((preferences) => {
+      if (alive) feedbackRef.current = createLessonFeedback(sounds, preferences);
+    }, () => undefined);
+    return () => {
+      alive = false;
+      feedbackRef.current = null;
+      sounds.release();
+      if (heartLossTimer.current) clearTimeout(heartLossTimer.current);
+    };
+  }, []);
+  const emit = useCallback((event: LessonFeedbackEvent) => feedbackRef.current?.emit(event), []);
 
   // Relê as vidas a cada foco, não só na montagem: quem sai pela folha para
   // assinar volta a esta mesma tela, e sem a releitura continuaria bloqueado
@@ -131,15 +156,17 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     try {
       setLoading(true);
       setError(null);
-      const nextSnapshot = await JourneyProgressService.bootstrap();
+      const nextSnapshot = nodeId
+        ? await JourneyProgressService.getSnapshotForNode(nodeId)
+        : await JourneyProgressService.bootstrap();
       setSnapshot(nextSnapshot);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to load journey snapshot:', cause);
-      setError('Nao foi possivel carregar o checkpoint.');
+      setError('Não foi possível carregar a avaliação.');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [nodeId]);
 
   useEffect(() => {
     void loadSnapshot();
@@ -150,26 +177,32 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       return null;
     }
 
+    // Depois do envio, a identidade fica presa ao nó concluído. O snapshot
+    // novo pode oferecer outra avaliação antes de finish resolver; isso não é
+    // uma navegação para ela. O status ainda vem do snapshot quando presente.
+    if (completionContext) {
+      return snapshot.track.units.flatMap(unit => unit.nodes)
+        .find(node => node.id === completionContext.node.id) ?? completionContext.node;
+    }
+
     if (nodeId) {
       const targetNode = snapshot.track.units
         .flatMap((unit) => unit.nodes)
         .find((node) => node.id === nodeId && node.type === 'checkpoint');
 
-      if (targetNode) {
-        return targetNode;
-      }
+      return targetNode ?? null;
     }
 
     return findFallbackCheckpoint(snapshot);
-  }, [nodeId, snapshot]);
+  }, [completionContext, nodeId, snapshot]);
 
   const activeUnit = useMemo(() => {
     if (!snapshot || !checkpointNode) {
       return null;
     }
 
-    return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? null;
-  }, [checkpointNode, snapshot]);
+    return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? completionContext?.unit ?? null;
+  }, [checkpointNode, completionContext, snapshot]);
 
   const productionBatch = useMemo(
     () => checkpointNode ? ProductionCurriculumCatalog.getBatchByCheckpointNodeId(checkpointNode.id) : null,
@@ -190,8 +223,36 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     [checkpointNode],
   );
   const productionItems = useMemo(() => productionCheckpoint?.items ?? [], [productionCheckpoint]);
+  const checkpointLocked = checkpointNode?.status === 'locked';
+  const checkpointValid = Boolean(checkpointNode && activeUnit && productionBatch && productionCheckpoint && productionItems.length);
+  const unitNumber = completionContext?.unitNumber
+    ?? (snapshot && activeUnit ? snapshot.track.units.findIndex(unit => unit.id === activeUnit.id) + 1 : 0);
+
+  // Segue as mesmas dependências do catálogo, sem contar aula futura,
+  // revisão ou avaliação como se fossem aulas necessárias para este nó.
+  const requiredLessons = useMemo(() => {
+    const nodes = new Map(snapshot?.track.units.flatMap(unit => unit.nodes).map(node => [node.id, node]) ?? []);
+    const visited = new Set<string>();
+    const lessons: JourneyNode[] = [];
+    const visit = (id: string) => {
+      if (visited.has(id)) return;
+      visited.add(id);
+      const node = nodes.get(id);
+      if (!node) return;
+      if (node.type === 'lesson') lessons.push(node);
+      node.unlockRule?.requiresNodeIds?.forEach(visit);
+    };
+    checkpointNode?.unlockRule?.requiresNodeIds?.forEach(visit);
+    return lessons;
+  }, [checkpointNode, snapshot]);
+  const missingLessonCount = requiredLessons.filter(node => !snapshot?.progress.completedNodeIds.includes(node.id)).length;
+
+  useEffect(() => {
+    if (!loading && !submitting && !error && !completed && !checkpointValid) router.dismissTo('/(tabs)');
+  }, [checkpointValid, completed, error, loading, submitting]);
+
   useFocusEffect(useCallback(() => {
-    if (!checkpointNode) return;
+    if (!checkpointNode || !checkpointValid || checkpointLocked || completionContext) return;
     let cancelled = false;
     setHistoryLoaded(false);
     void assessmentAttemptRepository.getState(checkpointNode.id).then(async state => {
@@ -217,7 +278,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- O contador permite repetir a leitura no mesmo foco após falha.
-  }, [checkpointNode, historyReload, snapshot?.progress?.completedNodeIds]));
+  }, [checkpointNode, checkpointValid, checkpointLocked, completionContext, historyReload, snapshot?.progress?.completedNodeIds]));
   const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
   const productionRequiredCorrect = requiredCorrectItems(
     productionItems.length,
@@ -254,11 +315,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     checkpointDefinitionId: checkpointNode?.id,
     journeyNodeId: checkpointNode?.id,
     unitId: activeUnit?.id,
-    enabled: Boolean(checkpointNode && activeUnit),
+    enabled: checkpointValid && !checkpointLocked,
   });
   const handleRestoreFallback = useCallback(() => {
     Alert.alert(
-      'Vamos continuar pela jornada',
+      'Vamos continuar pela trilha',
       'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
     );
     router.dismissTo('/(tabs)');
@@ -281,32 +342,17 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     checkpointDefinitionId: checkpointNode?.id,
     journeyNodeId: checkpointNode?.id,
     unitId: activeUnit?.id,
-    enabled: Boolean(checkpointNode && activeUnit),
+    enabled: checkpointValid && !checkpointLocked,
     resumeCheckpointId,
     onRestoreFallback: handleRestoreFallback,
   });
 
   useEffect(() => {
-    if (!resumeSummaryConfirmed) return;
+    if (!resumeSummaryConfirmed || completionContext || !checkpointNode || !activeUnit) return;
+    setCompletionContext({ node: checkpointNode, unit: activeUnit, unitNumber });
     setCompleted(true);
     void activeCheckpoint.finish();
-  }, [activeCheckpoint, resumeSummaryConfirmed]);
-
-  const completedPrimaryNodes = useMemo(() => {
-    if (!activeUnit) {
-      return 0;
-    }
-
-    return activeUnit.nodes.filter((node) => node.type !== 'review' && node.status === 'completed').length;
-  }, [activeUnit]);
-
-  const totalPrimaryNodes = useMemo(() => {
-    if (!activeUnit) {
-      return 0;
-    }
-
-    return activeUnit.nodes.filter((node) => node.type !== 'review').length;
-  }, [activeUnit]);
+  }, [activeCheckpoint, activeUnit, checkpointNode, completionContext, resumeSummaryConfirmed, unitNumber]);
 
   const dueReviewCount = useMemo(() => {
     if (!activeUnit) {
@@ -319,11 +365,14 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const nextAction = useMemo(() => resolveNextAction(snapshot), [snapshot]);
 
   const handleComplete = useCallback(async () => {
-    if (!checkpointNode) {
+    if (!checkpointNode || !activeUnit || checkpointLocked || !checkpointValid) {
       return;
     }
 
     try {
+      // Congela ANTES de qualquer await/setSnapshot: inclusive enquanto o
+      // runtime original termina, o próximo fallback não recebe o contexto.
+      setCompletionContext({ node: checkpointNode, unit: activeUnit, unitNumber });
       setSubmitting(true);
       const nextSnapshot = await JourneyProgressService.markNodeCompleted(checkpointNode.id);
       setSnapshot(nextSnapshot);
@@ -335,7 +384,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       // conquista é o snapshot que voltou, não o fato de a chamada ter
       // retornado.
       if (!nextSnapshot.progress.completedNodeIds.includes(checkpointNode.id)) {
-        setError('Nao foi possivel concluir o checkpoint agora.');
+        setError('Não foi possível concluir a avaliação agora.');
         return;
       }
 
@@ -343,14 +392,14 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       setCompleted(true);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to complete checkpoint:', cause);
-      setError('Nao foi possivel concluir o checkpoint agora.');
+      setError('Não foi possível concluir a avaliação agora.');
     } finally {
       setSubmitting(false);
     }
-  }, [activeCheckpoint, checkpointNode]);
+  }, [activeCheckpoint, activeUnit, checkpointNode, checkpointLocked, checkpointValid, unitNumber]);
 
   const applyEvaluation = useCallback(async (evaluation: UnitCheckpointEvaluation) => {
-    if (!checkpointNode) return;
+    if (!checkpointNode || checkpointLocked || !checkpointValid) return;
     await activeCheckpoint.commit((checkpointId) => ({ ...evaluation.intent, checkpointId }));
     await checkpointChargeLedger.clear(checkpointNode.id);
     setCheckpointEvaluation(evaluation);
@@ -371,10 +420,10 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       });
       await handleComplete();
     }
-  }, [activeCheckpoint, checkpointNode, handleComplete]);
+  }, [activeCheckpoint, checkpointNode, checkpointLocked, checkpointValid, handleComplete]);
 
   const handleProductionAnswer = useCallback(async () => {
-    if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode || processingAnswer.current) {
+    if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode || checkpointLocked || !checkpointValid || processingAnswer.current) {
       return;
     }
 
@@ -395,6 +444,12 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         const heartLoss = heartLossAnnouncement(hearts, nextHearts);
         if (heartLoss) {
           AccessibilityInfo.announceForAccessibility(heartLoss);
+          // O som da vida só toca junto do aviso visível (FILA, 26). Aqui não há
+          // som de erro antes dele, então não precisa do atraso da aula.
+          if (heartLossTimer.current) clearTimeout(heartLossTimer.current);
+          setHeartLossVisible(true);
+          emit('heart_lost');
+          heartLossTimer.current = setTimeout(() => setHeartLossVisible(false), TOP_NOTICE_MS);
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
@@ -447,19 +502,23 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
       setSubmitting(true);
       const evaluation = await assessmentAttemptRepository.submit(pendingSubmission.current, productionBatch.activities);
+      emit(evaluation.attempt.passed ? 'lesson_complete' : 'incorrect');
       await applyEvaluation(evaluation);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
-      setError('Nao foi possivel registrar o checkpoint agora. Suas respostas não foram presumidas como concluídas.');
+      setError('Não foi possível registrar a avaliação agora. Suas respostas não foram presumidas como concluídas.');
     } finally {
       setSubmitting(false);
       processingAnswer.current = false;
     }
   }, [
     applyEvaluation,
+    emit,
     checkpointAnswers,
     checkpointItemIndex,
     checkpointNode,
+    checkpointLocked,
+    checkpointValid,
     currentProductionItem,
     hearts,
     productionBatch,
@@ -468,183 +527,102 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     selectedOptionId,
   ]);
 
-  if (loading) {
+  if (loading || (!checkpointValid && !completed && !error)) {
     return (
       <View style={styles.root}>
-        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        <SafeAreaView style={styles.safe}>
-          <View style={styles.centered}>
-            <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+        <SafeAreaView style={styles.centered}>
+          <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // Uma falha de I/O não significa identificador inválido: permite repetir a
+  // leitura sem abandonar o aluno nem substituí-lo por outro checkpoint.
+  if (!checkpointValid && !completed && error) {
+    return (
+      <View style={styles.root}>
+        <SafeAreaView style={styles.centered}>
+          <View style={styles.content}>
+            <Text style={styles.errorText}>{error}</Text>
+            <AppButton onPress={() => void loadSnapshot()}>Tentar novamente</AppButton>
+            <AppButton onPress={() => router.dismissTo('/(tabs)')}>Voltar para a trilha</AppButton>
           </View>
         </SafeAreaView>
       </View>
     );
   }
 
-  // A celebração vem ANTES do estado vazio de propósito. Sem nodeId explícito,
-  // `checkpointNode` vem de findFallbackCheckpoint, que só procura nós
-  // disponíveis ou ativos — ao concluir, o nó vira 'completed' e some da busca.
-  // Na ordem anterior, quem terminava o checkpoint caía em "Checkpoint
-  // indisponível" e a celebração era inalcançável nesse caminho.
+  // Antes do vazio: concluir remove do fallback o nó disponível. A medalha e
+  // o contexto guardam o nó realmente concluído, sem reexecutar os efeitos.
   if (completed) {
+    const presentation = completionContext ?? (checkpointNode ? { node: checkpointNode, unitNumber } : null);
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        {/* Radial glow backdrop */}
-        <View style={styles.celebrationGlow} />
         <Confetti count={30} run={completed} />
-        <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-          <ScrollView
-            contentContainerStyle={styles.celebrationContent}
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-          >
-            {/* Pixel mascot */}
-            <View style={styles.celebrationPixelContainer}>
-              <PixelIllustration state="celebrate" size="lg" />
-            </View>
-
-            {/* Achievement card */}
-            <View style={styles.celebrationCard}>
-              {/* Gold badge */}
-              <LinearGradient
-                colors={['#F5A623', '#FF8A4C']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.celebrationBadge}
-              >
-                <DecorativeIcon name="star" size={28} color="#FFFFFF" />
-              </LinearGradient>
-
-              <Text style={styles.celebrationEyebrow}>CONQUISTA DESBLOQUEADA</Text>
-              <Text style={styles.celebrationTitle}>
-                {checkpointNode?.title ?? 'Checkpoint concluído'}
-              </Text>
-              <Text style={styles.celebrationDescription}>
-                {checkpointNode?.description ?? 'Você completou esta etapa da trilha com sucesso.'}
-              </Text>
-
-              {xpAwarded != null && xpAwarded > 0 && (
-                <Text style={styles.celebrationXpGain}>{`+${xpAwarded} XP`}</Text>
-              )}
-
-              {/* XP box — total real acumulado */}
-              {gamification?.totalXp != null && (
-                <View style={styles.celebrationXpBox}>
-                  <XpIcon size={22} value={gamification.totalXp} />
-                  <Text style={styles.celebrationXpText}>XP total: {gamification.totalXp}</Text>
-                </View>
-              )}
-            </View>
-
-            {/* CTAs */}
-            <View style={styles.celebrationCtas}>
-              <AppButton label={nextAction.label} onPress={nextAction.action} />
-            </View>
+        <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+          <ScrollView contentContainerStyle={styles.celebrationContent} showsVerticalScrollIndicator={false}>
+            {presentation ? <JourneyMedal
+              node={presentation.node}
+              theme={resolveNodeTheme(presentation.node)}
+              state="done"
+              pulsing={false}
+              size={56}
+              unitNumber={presentation.unitNumber}
+              accessibilityLabel="Avaliação concluída. Medalha de prata."
+            /> : null}
+            <Text style={styles.title} accessibilityRole="header">Avaliação concluída</Text>
+            <Text style={styles.context}>{presentation?.node.title}</Text>
+            <Text style={styles.body}>Seu progresso está salvo.</Text>
+            {xpAwarded != null && xpAwarded > 0 ? <Text style={styles.xpGain}>{`+${xpAwarded} XP`}</Text> : null}
+            {gamification?.totalXp != null ? <View style={styles.xpBox}>
+              <XpIcon size={22} value={gamification.totalXp} />
+              <Text style={styles.body}>XP total: {gamification.totalXp}</Text>
+            </View> : null}
+            <AppButton label={nextAction.label} onPress={nextAction.action} style={styles.fullWidthButton} />
           </ScrollView>
         </SafeAreaView>
       </View>
     );
   }
 
-  if (!checkpointNode || !activeUnit || !productionBatch) {
-    return (
-      <View style={styles.root}>
-        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        <SafeAreaView style={styles.safe}>
-          <View style={[layout.container, styles.emptyState]}>
-            <View style={styles.emptyCard}>
-              <Text style={styles.emptyTitle}>Checkpoint indisponível</Text>
-              <Text style={styles.emptyBody}>
-                Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
-              </Text>
-              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
-                Voltar para jornada
-              </AppButton>
-            </View>
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
+  if (!checkpointNode || !activeUnit || !checkpointValid) return null;
+
+  // Achado 7 da prova de 2026-11-07: com a medalha e a abertura, as opções da
+  // primeira questão ficavam abaixo da dobra. Enquanto o aluno responde, o topo
+  // diz só qual avaliação é.
+  const answering = Boolean(productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation);
 
   return (
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <SafeAreaView style={styles.safe} edges={['top']}>
-        <HUD
-          totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
-            hearts={hearts.count}
-            maxHearts={5}
-            heartsSnapshot={hearts}
-        />
+        <HUD totalXp={gamification?.totalXp ?? 0} streakDays={gamification?.streakDays ?? 0}
+          hearts={hearts.count} maxHearts={5} heartsSnapshot={hearts} />
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.headerRow}>
-            <Pressable
-              onPress={() => router.back()}
-              accessibilityRole="button"
-              accessibilityLabel="Voltar"
-              style={styles.iconButton}
-            >
+            <Pressable onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Voltar" style={styles.iconButton}>
               <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
-            <Text style={styles.headerLabel}>Checkpoint</Text>
+            <Text style={styles.headerLabel}>{answering ? checkpointNode.title : 'Avaliação'}</Text>
             <View style={styles.iconSpacer} />
           </View>
-
-          <View style={styles.heroCard}>
-            <PixelHeroSplit
-              eyebrow="Jornada de Radiologia"
-              message={completed
-                ? 'Checkpoint concluído! A próxima etapa já está liberada.'
-                : 'Vamos conferir o que você aprendeu antes de seguir para a próxima etapa.'}
-              ringValue={completedPrimaryNodes}
-              ringTotal={Math.max(totalPrimaryNodes, 1)}
-              ringLabel="Blocos concluídos"
-              state={completed ? 'celebrate' : 'guide'}
-              tier={completed ? 'advanced' : 'intermediate'}
-              accessibilityLabel="Pixel apresentando o checkpoint"
-            />
-            <View style={styles.heroFooter}>
-              <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
-              <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
-            </View>
-          </View>
-
-          <View style={styles.sectionCard}>
-            <Text style={styles.sectionTitle} accessibilityRole="header">{checkpointNode.title}</Text>
-            <Text style={styles.sectionBody}>
-              {checkpointNode.description ?? 'Feche este marco para liberar o próximo trecho da trilha.'}
-            </Text>
-            <View style={styles.statsList}>
-              <GalaxyStatRow
-                icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Progresso"
-                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} etapas concluídas`}
-              />
-              <GalaxyStatRow
-                icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Revisão"
-                value={dueReviewCount > 0
-                  ? `${dueReviewCount} ${dueReviewCount === 1 ? 'revisão pendente' : 'revisões pendentes'} nesta unidade`
-                  : 'Nenhuma revisão pendente'}
-              />
-              <GalaxyStatRow
-                icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="O que vem depois"
-                value={completed ? 'Próxima etapa já liberada' : 'Concluir este checkpoint libera a próxima lição'}
-              />
-            </View>
-          </View>
-
-          {error ? (
-            <View style={styles.errorCard}>
+          {answering ? null : <View style={styles.hero}>
+            <JourneyMedal node={checkpointNode} theme={resolveNodeTheme(checkpointNode, activeUnit)}
+              state={checkpointLocked ? 'locked' : 'next'} pulsing={false} size={56} unitNumber={unitNumber}
+              accessibilityLabel={`Avaliação da unidade ${unitNumber}. ${checkpointLocked ? 'Bloqueada' : 'Disponível'}.`} />
+            <Text style={styles.title} accessibilityRole="header">Avaliação da unidade {unitNumber}</Text>
+            <Text style={styles.context}>{checkpointNode.title}</Text>
+            <Text style={styles.body}>{checkpointLocked
+              ? `Abre depois das ${requiredLessons.length} aulas. Faltam ${missingLessonCount}.`
+              : checkpointIntroCopy(productionItems.length, productionRequiredCorrect)}</Text>
+          </View>}
+          {checkpointLocked ? <AppButton onPress={() => router.dismissTo('/(tabs)')}>Voltar para a trilha</AppButton> : <>
+            {error ? <View style={styles.errorCard}>
               <Text style={styles.errorText}>{error}</Text>
               {!historyLoaded ? <AppButton onPress={() => setHistoryReload(value => value + 1)}>Tentar carregar histórico</AppButton> : null}
-            </View>
-          ) : null}
-
+            </View> : null}
           <View style={styles.actionCard}>
             {checkpointEvaluation?.attempt.passed ? (
               <>
@@ -661,9 +639,12 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               </>
             ) : productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation ? (
               <>
-                <Text style={styles.checkpointCounter}>
-                  Questão {checkpointItemIndex + 1} de {productionItems.length}
-                </Text>
+                <View style={styles.counterRow}>
+                  <Text style={styles.checkpointCounter}>
+                    Questão {checkpointItemIndex + 1} de {productionItems.length}
+                  </Text>
+                  {heartLossVisible ? <HeartLossNotice testID="checkpoint-heart-loss" /> : null}
+                </View>
                 <Text style={styles.actionTitle} accessibilityRole="header">
                   {currentProductionItem.prompt}
                 </Text>
@@ -673,7 +654,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                     return (
                       <Pressable
                         key={option.id}
-                        onPress={() => { if (!pendingSubmission.current) setSelectedOptionId(option.id); }}
+                        onPress={() => {
+                          if (pendingSubmission.current) return;
+                          setSelectedOptionId(option.id);
+                          emit('option_tap');
+                        }}
                         accessibilityRole="radio"
                         accessibilityLabel={option.label}
                         accessibilityState={{ selected }}
@@ -691,7 +676,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   disabled={!selectedOptionId || submitting}
                   style={styles.fullWidthButton}
                 >
-                  {checkpointItemIndex === productionItems.length - 1 ? 'Enviar checkpoint' : 'Próxima questão'}
+                  {checkpointItemIndex === productionItems.length - 1 ? 'Enviar avaliação' : 'Próxima questão'}
                 </AppButton>
               </>
             ) : productionBatch && checkpointEvaluation && !checkpointEvaluation.attempt.passed ? (
@@ -721,25 +706,12 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   Revisar competência frágil
                 </AppButton>
               </>
-            ) : (
-              <>
-                <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para fechar esta etapa?'}</Text>
-                <Text style={styles.actionBody}>
-                  {completed
-                    ? 'Seu progresso está salvo e o próximo passo já está preparado.'
-                    : checkpointIntroCopy(productionItems.length, productionRequiredCorrect)}
-                </Text>
-              </>
-            )}
-            {completed ? (
-              <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
-                {nextAction.label}
-              </AppButton>
-            ) : productionBatch && !checkpointStarted && !checkpointEvaluation && historyLoaded ? (
+            ) : null}
+            {productionBatch && !checkpointStarted && !checkpointEvaluation && historyLoaded ? (
               <AppButton
                 disabled={!historyLoaded}
                 onPress={() => {
-                  if (!historyLoaded || checkpointEvaluation) return;
+                  if (!historyLoaded || checkpointEvaluation || checkpointLocked || !checkpointValid) return;
                   if (hearts.status === 'empty') {
                     setHeartsSheetVisible(true);
                     return;
@@ -749,203 +721,53 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 }}
                 style={styles.fullWidthButton}
               >
-                Iniciar checkpoint
+                Começar avaliação
               </AppButton>
             ) : null}
           </View>
+          </>}
         </ScrollView>
       </SafeAreaView>
-      <HeartsSheet
-        visible={heartsSheetVisible}
-        snapshot={hearts}
-        dueReviewCount={dueReviewCount}
-        storeAvailable={subscriptionService.storeAvailable()}
-        onClose={() => setHeartsSheetVisible(false)}
-        onReview={() => router.replace('/review')}
-        onSubscribe={() => {
-          setHeartsSheetVisible(false);
-          router.push('/subscription');
-        }}
-      />
+      <HeartsSheet visible={heartsSheetVisible && hearts.status !== 'unlimited'} snapshot={hearts} dueReviewCount={dueReviewCount}
+        storeAvailable={subscriptionService.storeAvailable()} onClose={() => setHeartsSheetVisible(false)}
+        onReview={() => { setHeartsSheetVisible(false); router.replace('/review'); }}
+        onSubscribe={() => { setHeartsSheetVisible(false); router.push('/subscription'); }} />
     </View>
   );
 }
 
-const ICON_BUTTON_SIZE = 36;
-
+const ICON_BUTTON_SIZE = 48;
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: galaxyColors.background },
   safe: { flex: 1 },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
+  content: { padding: space.s3, gap: space.s4, paddingBottom: space.s6 },
   headerRow: { ...layout.rowBetween, width: '100%' },
-  iconButton: {
-    width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE, borderRadius: radius.rXl,
-    alignItems: 'center', justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.07)', borderWidth: 1, borderColor: galaxyColors.border,
-  },
+  iconButton: { width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE, borderRadius: radius.rMd,
+    alignItems: 'center', justifyContent: 'center', backgroundColor: galaxyColors.surface },
   iconSpacer: { width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE },
-  headerLabel: { fontSize: 13, fontWeight: '800', color: 'rgba(255,255,255,0.35)', letterSpacing: 3, textTransform: 'uppercase' },
-  heroCard: {
-    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
-    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s3, overflow: 'hidden',
-  },
-  heroFooter: {
-    backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: radius.rMd,
-    paddingHorizontal: space.s3, paddingVertical: space.s2, gap: space.s0,
-  },
-  heroFooterLabel: {
-    fontSize: 11, fontWeight: '600', color: galaxyColors.textSecondary,
-    textTransform: 'uppercase', letterSpacing: 0.8,
-  },
-  heroFooterValue: { ...typography.h3, color: galaxyColors.textPrimary },
-  sectionCard: {
-    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
-    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s2,
-  },
-  sectionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  sectionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  statsList: { gap: space.s2, marginTop: space.s1 },
-  actionCard: {
-    backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: radius.rLg,
-    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s2,
-  },
+  headerLabel: { ...typography.caption, color: galaxyColors.textSecondary },
+  hero: { alignItems: 'center', gap: space.s3, paddingVertical: space.s3 },
+  title: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
+  context: { ...typography.bodyStrong, color: galaxyColors.textSecondary, textAlign: 'center' },
+  body: { ...typography.bodyRegular, color: galaxyColors.textSecondary, textAlign: 'center' },
+  actionCard: { gap: space.s3 },
   actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
   actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  checkpointCounter: {
-    ...typography.caption,
-    color: galaxyColors.ctaGradientEnd,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
+  // Com texto ampliado, o aviso de vida quebra para a linha de baixo.
+  counterRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: space.s2 },
+  checkpointCounter: { ...typography.caption, color: galaxyColors.textSecondary },
   optionList: { gap: space.s2 },
-  optionButton: {
-    minHeight: 52,
-    borderRadius: radius.rMd,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    backgroundColor: galaxyColors.surfaceMuted,
-    paddingHorizontal: space.s3,
-    paddingVertical: space.s2,
-    justifyContent: 'center',
-  },
-  optionButtonSelected: {
-    borderColor: galaxyColors.ctaGradientEnd,
-    backgroundColor: 'rgba(48,96,255,0.16)',
-  },
+  optionButton: { minHeight: 52, borderRadius: radius.rMd, borderWidth: 1, borderColor: galaxyColors.border,
+    backgroundColor: galaxyColors.surfaceMuted, paddingHorizontal: space.s3, paddingVertical: space.s2, justifyContent: 'center' },
+  optionButtonSelected: { borderColor: galaxyColors.ctaGradientEnd, backgroundColor: galaxyColors.surface },
   optionText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   optionTextSelected: { color: galaxyColors.textPrimary },
-  reinforcementLabel: { ...typography.caption, color: galaxyColors.xpColor },
+  reinforcementLabel: { ...typography.caption, color: galaxyColors.textSecondary },
   fullWidthButton: { width: '100%' },
-  errorCard: {
-    backgroundColor: 'rgba(255,59,48,0.10)', borderRadius: radius.rMd,
-    borderWidth: 1, borderColor: 'rgba(255,59,48,0.25)', padding: space.s3,
-  },
+  errorCard: { backgroundColor: galaxyColors.surfaceMuted, borderRadius: radius.rMd, padding: space.s3, gap: space.s2 },
   errorText: { ...typography.bodyRegular, color: galaxyColors.critical },
-  messageCard: {
-    backgroundColor: galaxyColors.surfaceMuted, borderRadius: radius.rMd,
-    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3,
-  },
-  messageText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  emptyState: { flex: 1, justifyContent: 'center', padding: space.s3 },
-  emptyCard: {
-    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
-    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s3,
-  },
-  emptyTitle: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
-  emptyBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary, textAlign: 'center' },
-  celebrationGlow: {
-    position: 'absolute',
-    top: -100,
-    alignSelf: 'center',
-    width: 500,
-    height: 300,
-    borderRadius: 250,
-    backgroundColor: 'rgba(48,96,255,0.16)',
-  },
-  celebrationContent: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 40,
-    alignItems: 'center',
-    gap: 20,
-  },
-  celebrationPixelContainer: {
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  celebrationCard: {
-    backgroundColor: galaxyColors.galaxySurface2,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: galaxyColors.borderActive,
-    padding: 20,
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    shadowColor: galaxyColors.galaxyGlow,
-    shadowOpacity: 0.35,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 0 },
-    gap: 6,
-  },
-  celebrationBadge: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 6,
-  },
-  celebrationEyebrow: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: galaxyColors.xpColor,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-  },
-  celebrationTitle: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: galaxyColors.textPrimary,
-    letterSpacing: -0.5,
-    lineHeight: 28,
-    textAlign: 'center',
-  },
-  celebrationDescription: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: galaxyColors.textSecondary,
-    lineHeight: 18,
-    textAlign: 'center',
-  },
-  celebrationXpBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
-    backgroundColor: 'rgba(245,166,35,0.12)',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(245,166,35,0.30)',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    alignSelf: 'stretch',
-    marginTop: 8,
-  },
-  celebrationXpText: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: galaxyColors.xpColor,
-  },
-  celebrationXpGain: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: galaxyColors.xpColor,
-    marginTop: 8,
-  },
-  celebrationCtas: {
-    alignSelf: 'stretch',
-    gap: 12,
-  },
+  celebrationContent: { padding: space.s5, alignItems: 'center', gap: space.s4 },
+  xpGain: { ...typography.h3, color: galaxyColors.textPrimary },
+  xpBox: { ...layout.row, gap: space.s2, alignItems: 'center' },
 });

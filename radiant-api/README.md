@@ -38,9 +38,9 @@ Cobrir o mínimo necessário para o app mobile:
 - sync de `lesson_progress`;
 - sync de `review_cards`.
 
-Além da autenticação, a API já contém schema e seed inicial de conteúdo para suportar as foreign keys de sincronização e publicar o catálogo remoto consumido pelo app.
+A API preserva o schema e os contratos de sincronização/catálogo. Os seeds de aulas foram retirados em 02/11/2026; nenhum banco foi alterado. O app em estado `retired` não consome catálogo remoto.
 
-## Status operacional atual (2026-08-09)
+## Referência operacional medida em 2026-08-09 (histórica)
 
 A implementação local existe e passa pelos validadores do projeto, mas a API
 pública conhecida continua **inativa (HTTP 502)**. O app distribuído não declara
@@ -54,7 +54,7 @@ Disponibilidade pública só pode ser promovida depois de deploy e smoke remotos
 novos.
 
 O estado e os bloqueios vigentes estão no
-[`status canônico`](../docs/archive/EXECUTION_STATUS_2026-08-10.md).
+[`docs/STATUS.md`](../docs/STATUS.md), único estado vivo do projeto.
 
 ### Evidência histórica de 2026-04-01
 
@@ -125,24 +125,20 @@ Observação operacional: `db:migrate` depende do cliente PostgreSQL (`psql`) di
 
 Arquivos SQL atuais:
 
-- `sql/001_initial_schema.sql`
-- `sql/002_seed_content.sql`
-- `sql/003_seed_editorial_catalog.sql`
+- `sql/001_initial_schema.sql`: schema preservado;
+- `sql/003_password_reset.sql`: migração de recuperação preservada.
 
-O seed inicial replica no banco o catálogo publicado pelo app, incluindo `tracks`, payload completo das lições e copy opcional de `journey`, para que a sincronização de `lesson_progress` e `review_cards` funcione sem violar foreign keys em `content_lessons`.
+Em02/11/2026, `002_seed_content.sql` e `003_seed_editorial_catalog.sql` foram
+retirados do repositório com o conteúdo antigo. Nenhum comando SQL foi executado
+em banco local ou remoto. Excluir seeds do checkout não remove linhas já existentes
+num servidor. O app com estado explícito `retired` recusa catálogo remoto/cache.
 
-O catálogo editorial promovido agora também gera um seed remoto idempotente em `sql/003_seed_editorial_catalog.sql`, criado a partir de `conteúdo/governança/catalog-payload.json` por:
-
-```bash
-cd "$(git rev-parse --show-toplevel)"
-node scripts/content/sync-catalog-to-api.mjs
-```
-
-Na prática:
-
-- `002_seed_content.sql` preserva a seed histórica mínima;
-- `003_seed_editorial_catalog.sql` despublica essa seed histórica no manifesto remoto e publica a track AI promovida;
-- o endpoint `/v1/content/catalog` passa a refletir o catálogo editorial promovido quando `db:migrate` é reaplicado.
+`scripts/content/sync-catalog-to-api.mjs` recusa regenerar seeds enquanto o
+currículo estiver retirado. Não reaplicar receitas antigas para ressuscitar aulas.
+O novo catálogo, suas relações/IDs e uma eventual migração dependerão de contrato
+próprio; não há autorização de deploy ou mudança de banco nesta etapa.
+[Decisão](../docs/adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) e
+[planejamento único](../docs/plans/2026-11-02-planejamento-conteudo-radiant.md).
 
 ## Deploy no VPS
 

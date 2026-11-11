@@ -2,9 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
-
-const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+import { appRoot, resolveColor, resolveNode, resolveProperty, sourceOf, ts } from './ast-helpers.mjs';
 
 // Contraste de texto é invisível em revisão de tela: um cinza claro "elegante"
 // parece intencional e reprova WCAG. A auditoria de 2026-07-27 encontrou
@@ -324,6 +322,40 @@ test('a barra de abas usa token do tema e distingue de fato o estado ativo', asy
   );
 });
 
+test('o ícone da aba rende 3:1 sobre a barra, ativo e inativo', async () => {
+  const theme = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
+
+  const galaxySource = theme.slice(theme.indexOf('export const galaxyColors'));
+  const readGalaxyToken = (token) => {
+    const match = galaxySource.match(new RegExp(`\\n\\s*${token}:\\s*'([^']+)'`, 'u'));
+    assert.ok(match, `galaxyColors.${token} não encontrado`);
+    return match[1];
+  };
+  const unit = theme.match(
+    /unit:\s*\{\s*face:\s*'(#[0-9a-fA-F]{6})',\s*lip:\s*'(#[0-9a-fA-F]{6})',\s*inner:\s*'(#[0-9a-fA-F]{6})'/u,
+  );
+  assert.ok(unit, 'medalColors.unit não encontrado');
+
+  const barra = parseColor(readGalaxyToken('tabBarSurface'), parseHex(readGalaxyToken('background')));
+
+  // O ícone ativo tem três tons. O lábio é relevo, mais escuro de propósito, e
+  // não carrega a forma: a face e o miolo juntos desenham o capelo e a pessoa.
+  // Cada tom que carrega a forma precisa de 3:1 sobre a barra; o lábio fica de
+  // fora porque a forma continua legível sem ele.
+  const tons = [
+    ['face da unidade (ativo)', unit[1]],
+    ['miolo da unidade (ativo)', unit[3]],
+    ['tabBarInactive (inativo)', readGalaxyToken('tabBarInactive')],
+  ];
+  for (const [nome, cor] of tons) {
+    const ratio = contrastRatio(parseHex(cor), barra);
+    assert.ok(
+      ratio >= MIN_NON_TEXT,
+      `${nome} (${cor}) rende ${ratio.toFixed(2)}:1 sobre a barra, exigido ${MIN_NON_TEXT}:1`,
+    );
+  }
+});
+
 test('as duas moedas da gamificação não compartilham a mesma cor', async () => {
   const theme = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
 
@@ -407,6 +439,134 @@ test('keeps the system status bar legible against the surface the app actually p
       `StatusBar #${index + 1} declares "${style}" over ${background}: light content reads at ` +
         `${lightContentRatio.toFixed(2)}:1 and dark content at ${darkContentRatio.toFixed(2)}:1, ` +
         `so the app must ask for "${required}" content`
+    );
+  }
+});
+
+// ── Paleta Medalhão (plano 1, tarefa 1) ───────────────────────────────────
+// A trilha ganha relevo: cada peça tem uma face e um lábio mais escuro por
+// baixo. Os pares abaixo são medidos na composição que o aluno vê (texto sobre
+// o preenchimento, preenchimento sobre a superfície), nunca token isolado.
+
+// Lê `bloco.grupo` de theme.ts pela AST e devolve cada chave com a cor que o
+// código exporta. Uma busca por texto casava com uma paleta antiga deixada num
+// comentário de bloco e validava o valor comentado (achado do Codex na PR #66).
+function readNestedTheme(block, group) {
+  const node = resolveProperty(resolveNode(ts.factory.createIdentifier(block), sourceOf('src/ui/theme.ts')), group);
+  assert.ok(node.object, `${block}.${group} precisa ser um objeto literal em theme.ts`);
+  const values = {};
+  for (const entry of node.object.properties) {
+    if (!ts.isPropertyAssignment(entry)) continue;
+    const key = entry.name.getText(node.source);
+    const resolved = resolveNode(entry.initializer, node.source);
+    assert.ok(typeof resolved.value === 'string', `${block}.${group}.${key} não resolve para uma cor literal`);
+    values[key] = resolved.value;
+  }
+  return values;
+}
+
+test('medalhão: o texto sobre a ação primária passa AA', () => {
+  const read = (token) => resolveColor('src/ui/semantic-colors.ts', 'semanticColors', 'galaxy', token);
+  const textOnAccent = read('textOnAccent');
+  const actionPrimary = read('actionPrimary');
+  const ratio = contrastRatio(parseHex(textOnAccent), parseHex(actionPrimary));
+
+  // `#2F6BFF` rendia 4,50:1 com branco, exatamente no limite; `#2559E6` rende 5,75:1.
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `texto sobre a ação primária (${textOnAccent} sobre ${actionPrimary}): ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
+test('medalhão: cada lábio é mais escuro que a face e a silhueta se distingue do bloqueado', async () => {
+  const MIN_SILHOUETTE = 1.3;
+  // Piso de validade do lábio. "Mais escuro" sozinho aprova um lábio quase
+  // igual à face, e o relevo some na tela. O lábio mais fraco do Medalhão (o do
+  // bloqueado) rendia 1,33:1 em 2026-10-21; o piso de 1,2:1 deixa folga e barra
+  // o quase igual.
+  const MIN_LIP = 1.2;
+
+  for (const group of ['gold', 'unit', 'locked']) {
+    const { face, lip } = await readNestedTheme('medalColors', group);
+    assert.ok(face && lip, `medalColors.${group} precisa de face e lip em hex`);
+    assert.ok(
+      relativeLuminance(parseHex(lip)) < relativeLuminance(parseHex(face)),
+      `medalColors.${group}: o lábio (${lip}) precisa ser mais escuro que a face (${face})`,
+    );
+    const lipRatio = contrastRatio(parseHex(lip), parseHex(face));
+    assert.ok(
+      lipRatio >= MIN_LIP,
+      `medalColors.${group}: o lábio (${lip}) sobre a face (${face}): ${lipRatio.toFixed(2)}:1, exigido ${MIN_LIP}:1`,
+    );
+  }
+
+  // Diferença não basta: uma silhueta de outra cor mas indistinguível da face
+  // passa em "difere" e some na tela. A validade é a razão mínima de contraste.
+  const { face, silhouette } = await readNestedTheme('medalColors', 'locked');
+  assert.ok(silhouette, 'medalColors.locked precisa de silhouette');
+  const ratio = contrastRatio(parseHex(silhouette), parseHex(face));
+  assert.ok(
+    ratio >= MIN_SILHOUETTE,
+    `silhueta (${silhouette}) sobre a face do bloqueado (${face}): ${ratio.toFixed(2)}:1, exigido ${MIN_SILHOUETTE}:1`,
+  );
+});
+
+test('medalhão: o texto do retorno passa AA no preenchimento e na superfície', async () => {
+  for (const group of ['success', 'error']) {
+    const { fill, surface, onFill } = await readNestedTheme('feedbackColors', group);
+    assert.ok(fill && surface && onFill, `feedbackColors.${group} precisa de fill, surface e onFill em hex`);
+
+    const onFillRatio = contrastRatio(parseHex(onFill), parseHex(fill));
+    assert.ok(
+      onFillRatio >= MIN_NORMAL_TEXT,
+      `feedbackColors.${group}: texto ${onFill} sobre o preenchimento ${fill}: ${onFillRatio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+
+    // O título do retorno é pintado na cor do preenchimento sobre a superfície.
+    const titleRatio = contrastRatio(parseHex(fill), parseHex(surface));
+    assert.ok(
+      titleRatio >= MIN_NORMAL_TEXT,
+      `feedbackColors.${group}: título ${fill} sobre a superfície ${surface}: ${titleRatio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+  }
+});
+
+test('medalhão: o fundo é o grafite', () => {
+  assert.equal(resolveColor('src/ui/theme.ts', 'galaxyColors', 'background'), '#13151c');
+});
+
+// As guardas do Medalhão leem o código por AST (`ast-helpers.mjs`): uma busca
+// por texto casaria com a menção do token num comentário e passaria com o valor
+// errado no código.
+
+test('o rótulo do ghost passa AA sobre o grafite e sobre a superfície', () => {
+  // R20: `labelGhost` pintava `#2155FF`, 3,31:1 no grafite e 3,02:1 na
+  // superfície. O ghost aparece nas duas, e é texto de 16 px.
+  const label = resolveColor('src/components/ui/AppButton.tsx', 'styles', 'labelGhost', 'color');
+  const background = parseHex(resolveColor('src/ui/theme.ts', 'galaxyColors', 'background'));
+  const surface = parseHex(resolveColor('src/ui/theme.ts', 'galaxyColors', 'surface'));
+
+  for (const [contextName, context] of [['grafite', background], ['superfície', surface]]) {
+    const ratio = contrastRatio(parseHex(label), context);
+    assert.ok(
+      ratio >= MIN_NORMAL_TEXT,
+      `rótulo do ghost (${label}) sobre ${contextName}: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+  }
+});
+
+test('os números do HUD passam AA sobre a pílula', () => {
+  // R13: XP, sequência e vidas nos tons da prancheta. A pílula `#232733` é o
+  // fundo mais claro em que o número aparece (o resumo de vidas também fica
+  // nele, quando o botão está pressionado).
+  const pill = parseHex(resolveColor('src/ui/theme.ts', 'galaxyColors', 'hudPill'));
+
+  for (const tone of ['xp', 'streak', 'hearts']) {
+    const color = resolveColor('src/ui/theme.ts', 'hudLabelTones', tone);
+    const ratio = contrastRatio(parseHex(color), pill);
+    assert.ok(
+      ratio >= MIN_NORMAL_TEXT,
+      `hudLabelTones.${tone} (${color}) sobre a pílula: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
     );
   }
 });

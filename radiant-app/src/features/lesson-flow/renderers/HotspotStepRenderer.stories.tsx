@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import { fn } from 'storybook/test';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
 
-const xrayPanel = Image.resolveAssetSource(require('../assets/lesson-xray-panel.png')).uri;
+// Sem imagem: a antiga era um mockup com texto em inglês e saiu do app em
+// `b06c7eb`. A moldura fica vazia, com as regiões por cima, até existir uma
+// imagem didática revisada. O endereço não resolve de propósito.
+const SEM_IMAGEM = 'storybook://sem-imagem';
 
 const meta = {
     title: 'Aprendizagem/Hotspot',
@@ -12,7 +15,7 @@ const meta = {
     args: {
         payload: {
             prompt: 'Selecione a região indicada para inspeção.',
-            imageRef: xrayPanel,
+            imageRef: SEM_IMAGEM,
             regions: [
                 { id: 'superior', label: 'Região superior', x: 0.2, y: 0.08, width: 0.3, height: 0.26 },
                 { id: 'inferior', label: 'Região inferior', x: 0.48, y: 0.58, width: 0.32, height: 0.28 },

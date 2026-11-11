@@ -1,5 +1,8 @@
 # Radiant — Roadmap de Lançamento iOS e Android (2026-07-27)
 
+> Conteúdo, 02/11/2026: a [ADR do reinício](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) sucede a ordem anterior T19–T21/Onda J para a retirada local integral, incluindo bancada e protótipos. G4 continua aprovado; T14/G2 antigos não se aplicam às amostras retiradas. Sem reset pessoal ou release. O [plano único](2026-11-02-planejamento-conteudo-radiant.md) conduz a pesquisa e a proposta para graduação tecnológica seguida de especializações; etapas antigas abaixo são proveniência, não currículo vigente.
+
+
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
 > [status canônico](../STATUS.md). As Tasks 11–16 do
@@ -32,11 +35,75 @@ está no [levantamento](../trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 Desde 18/10, o Claude planeja e executa
 ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)).
 
+**Medalhão — planejamento de 2026-10-25:** o
+[plano integrador das pendências](2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza o restante do layout, a aula-bancada e o inventário/recomeço. O dono
+moveu a conferência de segundo dia para o fechamento, sem bloquear o avanço
+das telas. Nenhuma tarefa de implementação ou gate de loja foi concluído por
+essa entrega documental; o estado vivo segue no STATUS.
+O [roteiro de execução por subagentes](2026-10-25-medalhao-execucao-subagentes.md)
+detalha a operação após a revisão do plano pelo dono em 25/10, sem iniciar
+as tarefas de implementação nesta entrega.
+Em autorização posterior de 25/10, a execução começou: T00 reconciliado e
+revisado; T01 implementada/revisada e validada pelos 15 validadores do Loop.
+T02 HUD implementada/revisada em26/10, Loop15/15 e prova visual finito5
+na trilha/aula em iOS/Android; T03 boas-vindas implementada/revisada em
+26/10, Loop15/15 e prova de texto ampliado. T04 implementada/revisada em 27/10, com prova nativa de texto ampliado e
+Loop final 15/15 aprovado. Commit `e522984` publicado; CI App Quality242 e
+Content Scripts147 aprovados no mesmo SHA, conferidos em 27/10. T04a
+implementada e revisada em 27/10 (Spec PASS/Qualidade APPROVED), com import
+estático e dublê Skia observável: 7 suítes/184 testes e sete mutações detectadas.
+Validação final T04a **15/15**, em ciclo único, com quality/app-test completos. [Evidência](../evidence/2026-10-27-medalhao-t04a.md).
+T05 resultado implementado e revisado em 27/10, com contexto real nos dois
+consumidores, neutralidade de zero estrela e economia preservada. Correção
+de texto ampliado aprovada no iOS R5; Android aula/revisão fonte2 legíveis.
+Loop final15/15 em 27/10, após corrigir mock consumidor aprovado em R7;
+primeira validação do writer substituto/segunda do objetivo.
+[Evidência T05](../evidence/2026-10-27-medalhao-t05.md).
+T05 publicada em `d033433`, CI245/150SUCCESS confirmado em 27/10.
+T06 encerrada em 28/10: Loop15/15, commit `c694f95`, CI246/151 SUCCESS e
+writer/cérebro CLOSED confirmados. T07 encerrada no núcleo em 28/10:
+Loop15/15, commit `85ebf01` publicado, CI247/152 SUCCESS no mesmo SHA e
+writer/cérebro CLOSED. T08 implementada/revisada/validada no núcleo em 28/10: R2 código PASS após correção de P2, R3 nativo BOUNDED e Loop final15/15 em um ciclo;61 focais/45 sob CPU limitada; fechamento original reprovado por arquivo gerado fora do escopo; regularização autorizada fechada com sucesso, commit1b987c1 publicado/CI249154SUCCESS; P2 PushOptIn antecipado e corrigido localmente (R1 código PASS/R2 nativo BOUNDED,29/10; Loop final15/15 em um ciclo); Review atual/Android ao vivo/T17 sem aceite; T09 núcleo implementado/revisado em29/10 (60focais/163consumidores/105contratos, código R1 PASS/nativo R2 BOUNDED; Loop15/15 após fix1/dois ciclos; G5 preservado); T10 núcleo implementado/revisado em29/10 (R2 FIX1 PASS após2P2;374focais/consumidores+CPU40/105contratos;R3nativoBOUNDED, gesto iOS pendente e P3legal→T17; Loop final15/15 em um ciclo; commit6266495/CI252157SUCCESS; writer/cérebro CLOSED); P2 compartilhado
+para T17 e aceite global bloqueado. Limites no STATUS.
+T11/Task13 validada estaticamente em29/10: R3 SpecPASS/APPROVED,48 fluxo final,17 mutações e Loop15/15 no segundo ciclo após correção dos raios. [G6 local confirmado em30/10](../evidence/2026-10-30-medalhao-t11-g6.md): Debug novo de9a62bca no E262, bridge numérico/BRL e equivalente R$12,49 na tela; StoreKit Testing sem compra real/aparelho ou aceite global.
+T12/Task14 núcleo implementado/revisado em30/10: R1 P2 de persistência concorrente corrigido sem mudar serviço, R2 SpecPASS/APPROVED;229focais/7suítes normais eCPU,5mutaçõesfix1,Maestro40/40. [Evidência T12](../evidence/2026-10-30-medalhao-t12.md). Normal/AX5 NOT_VERIFIED por GUI Simulator.app ausente; capAppButton herdado, E2E integralT18 e aceite global pendentes. Próximo cartão [T13](../superpowers/handoffs/2026-10-30-medalhao-t13-prompt-de-continuidade.md) dependeG1/G3; nenhuma aplicação silenciosa.
+Em30/10, T13 recebeu [pacote concreto de decisão G1/G3](2026-10-30-medalhao-t13-pacote-de-decisao.md)
+e comparativo isolado; nenhuma alternativa aplicada ou aceite consumido.
+Após apresentação, Anderson escolheu A+Q1 em30/10: [ADR A/Q1](../adr/ADR-2026-10-30-t13-texto-maximo-e-risco-residual-do-quadro.md).
+ImplementaçãoA entregue/revisada estaticamente (RF PASS/APPROVED,336/7focais,
+tipos/lint e43contratos); nativo0/7NOT_VERIFIED por ambiente e aceite integral separados,
+risco residual do quadro aceito somente no recorte, observaçãoT18 mantida.
+Recorte estático fechado/publicado em `19fbde5`: finalLoop15/15 em um ciclo,
+MEMORY_WRITTEN/RUN_CLOSED e cérebroCLOSED confirmados; CI Quality41127437509
+/Content41127437415 SUCCESS no mesmo SHA,207suítes/2.833testes PASS.
+[Evidência A e recibos](../evidence/2026-10-30-medalhao-t13-a.md). Aceite nativo
+integral permanece pendente; sem novo pedido G1/Q1 e sem avanço para T14.
+**Task17/T15, 01/11/2026:** [inventário T15-v1](../superpowers/plans/2026-10-25-retirada-e-recomeco-inventario.md)
+produzido, com revisão independente PASS/APPROVED, caminhos individuais, consumidores e proposta
+separada de política/validadores. Dados antigos e motores reutilizáveis/biblioteca
+foram separados; **G4 aprovado em 01/11/2026** por Anderson (“siga conforme recomendação”),
+vinculado a `b20943a` e ao hash do inventário na [ADR G4](../adr/ADR-2026-11-01-t15-inventario-aprovado-g4.md).
+T19–T21 ainda dependem do contrato G7 substituto; 15 validadores/política intactos,
+sem remoção, migração ou início de T14/T19–T22 por este registro.
+O [STATUS](../STATUS.md) mantém o estado
+vivo e a [evidência](../evidence/2026-10-25-medalhao-t01.md) os limites da prova.
+
 **FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como
 candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
 [especificação](../trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md) e a
 [evidência](../evidence/2026-10-18-motor-hibrido.md) definem escopo e prova; o
 estado vivo continua no STATUS. Não é entrega de loja.
+
+**Atualização de 2026-11-06 — trilha ampla (FILA 68).** Fora das ondas A a H, por
+delegação do dono em 2026-11-05
+([ADR](../adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md)): a branch
+`claude/conteudo-reinicio-tecnologo` tem o núcleo da trilha rtg-2026 (14 unidades, 84
+aulas, revisão por IA), a aula com diálogo e as metas, na PR em rascunho #69, com o CI
+verde no commit `2bf480f`. Nada disso está na `main` nem na loja. Faltam os seis
+aprofundamentos, a prova completa no simulador e as imagens. Plano:
+[trilha ampla e engajamento](2026-11-05-radiant-trilha-ampla-e-engajamento.md);
+relatório: [2026-11-06](../superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
 
 ## 3. Estratégia
 
@@ -617,7 +684,7 @@ código.
   registrados no [Trello](https://trello.com/c/f9OYyCX5). Esta auditoria não é
   aprovação clínica nem reabertura automática do lote v2 promovido. O estado
   do envio e a dependência de F1/F4 estão em [STATUS](../STATUS.md).
-  **Inventário e atlas preparados em 2026-08-27:** [Canvas e notas de revisão](../content/mapa-aulas/README.md)
+  **Inventário e atlas preparados em 2026-08-27:** [Canvas e notas de revisão](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/content/mapa-aulas/README.md)
   distinguem catálogo legado/promovido, revisões, pipeline editorial e currículo
   planejado. Contagens e fontes estão no pacote. Após autorização, o Canvas e
   as notas foram instalados em pasta separada do cérebro e conferidos no
@@ -627,7 +694,7 @@ código.
 
   **Reorientado pelo dono em 2026-08-27:** o currículo anterior não será
   corrigido lição a lição como base do produto. A direção aceita é o
-  [Currículo V3](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md),
+  [Currículo V3](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md),
   com fundamentos de anatomia, fisiologia e física, seguidos de Radiografia,
   Mamografia, Tomografia, Ressonância, Medicina Nuclear, Radioterapia e outras
   especializações. O [ADR](../adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md)
@@ -1339,80 +1406,77 @@ alcança não celebra; a que celebra o aluno não alcança. A convergência deci
 existir para o aluno, e por isso é a parte mais valiosa de I2, à frente do rearranjo da
 barra.
 
-### Onda J — Currículo V3 e aposentadoria segura do legado (nova em 2026-08-27)
+### Onda J — currículo anterior retirado; planejamento substituto em 02/11/2026
 
-Esta onda substitui a direção editorial da antiga Unidade 1, mas não apaga a
-engenharia já entregue em G/H/I. Ela não autoriza build nem submissão. A spec
-canônica é
-[`2026-08-27-radiant-curriculum-v3-design.md`](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md).
+A sequência curricular V3 e seus exemplos foram abrangidos pela retirada integral.
+J0/J1 são planejamento histórico; J2 permanece como fundação técnica. Não retomar
+J3/J4 para promover L1/L2 antigas. J5/J6 não autorizam reset pessoal nem release.
+A [ADR de 02/11](../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md) registra
+as decisões; o texto anterior foi preservado no histórico do STATUS.
 
-- **J0 [CONCLUÍDA — DESIGN]** Proposta do produto, sequência contínua, contrato
-  de lição e contratos de domínio, gamificação e acessibilidade aprovados no
-  design; Arco 1 aprovado. Auditoria independente reprovou a primeira versão e
-  aprovou a correção sem reprovação conceitual. Gates de publicação permanecem
-  abertos.
-- **J1 [CONCLUÍDA — PLANEJAMENTO]** Plano da fundação V3, IDs estáveis,
-  storage isolado, migração fail-closed e fotografia somente de leitura do
-  histórico anterior registrado em
-  [`2026-08-27-curriculum-v3-foundation.md`](../superpowers/plans/2026-08-27-curriculum-v3-foundation.md).
-  Nenhuma exclusão física foi autorizada.
-- **J2 [CONCLUÍDA — FUNDAÇÃO TÉCNICA LOCAL, 2026-08-27]** IDs/ordem dos arcos,
-  storage V3 isolado, fotografia parcial imutável e preparação explícita com
-  retomada implementados. Startup mantém currículo legado e não prepara V3;
-  catálogo e telas não foram trocados. Cinco suítes focadas/74 testes aprovados,
-  typecheck aprovado e lint sem erros (28 avisos preexistentes). Revisão de
-  código independente sem achados críticos/importantes, incluindo checagem de
-  falhas após persistência. Commit `320e10d`; 14 validadores aprovados no run
-  `run-1787851096220-d09a361b`, encerrado. Sem push, build ou submissão.
-- **J3 [P0 — EM ANDAMENTO]** Produzir o Arco 1 — L1, L2, prática intercalada,
-  L3, checkpoint em dois blocos e revisões — com fontes, taxonomia de erros,
-  direitos e alternativas acessíveis. **L1 — O corpo como referência entregue
-  localmente em 2026-08-27:** conteúdo original e fontes rastreáveis, mapa SVG
-  2.5D funcional, controles alternativos, feedback por erro, remediação e
-  recuperação independente. A auditoria independente aprovou a revisão estática
-  v4 após três ciclos de correção; testes focados, lint e typecheck foram
-  executados. Isso não ativa V3 nem substitui revisão científica especializada,
-  VoiceOver/runtime ou validação em aparelho.
-  **L2 — Cortando o espaço entregue localmente em 2026-08-28, auditoria aberta:**
-  separa plano geométrico, região espacial, espessura nominal e imagem
-  resultante; mapa 2.5D em SVG autoral com geometrias candidatas selecionáveis e
-  controle textual equivalente; `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com
-  remediação sem XP e recuperação em região nova. **Seis pareceres
-  independentes, seis reprovações** (v1 a v6; o último em 2026-09-22 sobre
-  `949a5f0`, [registro](../content/2026-09-22-l2-parecer-v6.md)). Os críticos
-  de v3, v4 e v5 estão resolvidos no código; o v6 reprovou por um crítico novo
-  (Q1) que a correção anterior criou, pela terceira passagem seguida. A L2 não
-  conta como sinalizada. **Em 2026-09-23 a v7 foi pausada** pela
-  [ADR da lição híbrida](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md):
-  a próxima tarefa do arco passa a ser o **piloto da lição híbrida na L1**
-  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
-  [plano](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md);
-  **implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`**, sem
-  build de distribuição e com a aprovação dos modelos pendente com o dono), e a
-  L2 é refeita com modelos de exercício se o formato passar no teste com
-  pessoas. A ordem anterior (v7, depois a P1 conforme o
-  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md)) fica registrada
-  na [`FILA.md`](../FILA.md).
-  Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
-  e a suíte verde **não** detecta o Q1.
-  **Em 2026-09-28, a amostra do piloto foi corrigida:** a variante fica na
-  mesma postura, só com vistas reais, e o h08 passou ao ventral visto por
-  trás. Mudaram 8 dos 20 itens, e a aprovação espera o dono confirmá-los
-  (FILA, 7b)
-  ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
-  [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
-- **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
-  controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
-  variantes visual e textual.
-- **J5 [P0]** Cortar as superfícies para o V3, preservar o histórico anterior e
-  validar o fluxo completo no iPhone 16. Antes do corte, inventariar consumidores
-  e stores fora da fotografia parcial (SM2, checkpoints, XP, preferências),
-  pausar escritores legados e definir a captura final: uma fotografia antecipada
-  imutável não equivale ao histórico completo no instante do corte. Só depois
-  deste gate um novo binário pode virar candidato à App Review.
-- **J6 [P1 — DESTRUTIVA, NÃO AUTORIZADA]** Remover arquivos e adaptadores
-  legados depois de provar que nenhum consumidor de runtime ou instalação
-  existente depende deles.
+- **C1 [CONCLUÍDA — ESTÁTICA LOCAL,02/11/2026]** Retirar aulas, exemplos e protótipos; provar zero
+  conteúdo ativo, impedir ressurreição remota e preservar motores/biblioteca.
+- **C2 [CONCLUÍDA — PROPOSTA ENTREGUE,02/11/2026]** Ementas de graduação tecnológica/especializações,
+  fontes gratuitas e direitos, sequência lógica, questões, interação e incentivos.
+  Uma entrada: [planejamento de conteúdo](2026-11-02-planejamento-conteudo-radiant.md).
+- **C3 [PC03-A APROVADO,02/11; PC03-B ACEITO POR IA,03/11/2026]**
+  Anderson aprovou as seis decisões da seção 0 do plano e indicou Claude para
+  revisão técnica/editorial por IA. Claude revisou mapa, cinco briefs, M01.01
+  e quatro PNGs; três ajustes menores corrigidos e conferidos, sem novos achados.
+  [Parecer PC03-B](../evidence/2026-11-03-pc03b-revisao-claude.md). Anderson aprovou
+  crédito/licença delimitados dos diagramas e uso didático da bancada em 03/11;
+  validação com alunos precede produção ampla.
+- **C4 [PC04 CONCLUÍDO; PC05 CONFERÊNCIA INICIAL EXECUTADA,03/11/2026]** Extensão editorial
+  opt-in Q1–Q5, IDs e transição especificados; [evidência PC05](../evidence/2026-11-03-pc05-contrato-editorial.md).
+  PC04: cinco briefs, M01.01 completa e quatro diagramas autorais em rascunho;
+  [pacote de revisão e Google Docs canônico](../evidence/2026-11-03-pc04-pacote-piloto.md).
+  PC03-B aceito por IA; direitos dos diagramas e uso didático da bancada
+  aprovados por Anderson no recorte registrado. Conferência final dos payloads
+  reais teve primeira execução em 03/11: M01.01 serializada, quatro práticas,
+  uma variante e recuperação; cinco famílias aceitas na extensão e quatro
+  competências ainda sem checkpoint, mantendo o lote não promovível.
+  [Payloads e conferência](../evidence/2026-11-03-pc05-payloads.md).
+  Retornos/recuperação auxiliares, cena abstrata e ativos offline exigem
+  integração explícita. Protótipo PC06 mantém os demais
+  gates. Novo currículo não está ativo e não há autorização de release.
+  **PC06-A iniciado e implementado localmente em 03/11:** prévia M01.01 com
+  ajuda, retorno por alternativa e recuperação por injeção, sem registro no
+  catálogo. [Teste e limites](../evidence/2026-11-03-pc06a-previa-editorial.md).
+  Próximo PC06-B: cena abstrata nova e ativos locais; transição, Q6 e provas
+  nativas permanecem na etapa PC06, que não está concluída.
+  **PC06-B implementado localmente em 03/11:** cena abstrata de campo e
+  quatro diagramas por módulos estáticos, com bytes/dimensões/imports
+  conferidos no repositório e renderers proporcionais.
+  [Evidência e limites](../evidence/2026-11-03-pc06b-cena-e-ativos-locais.md).
+  **PC06-C implementado localmente em 03/11:** aviso comum, revisão elegível,
+  retomada protegida e histórico preservado; [evidência](../evidence/2026-11-03-pc06c-transicao-conteudo-retirado.md).
+  9 suítes/297 testes focados e quatro suítes/71 testes de guardas passaram.
+  **PC06-D implementado localmente em 03/11:** renderer textual Q6 registrado,
+  com capítulos explícitos e feedback antes da conclusão; oito suítes/318 testes
+  focados passaram. [Evidência e limites](../evidence/2026-11-03-pc06d-renderer-case-decision.md).
+  PC06-D fechado com memória validada e gate final 15/15.
+  **PC06-E integrado localmente em 04/11:** rota opt-in e exclusão de material
+  pelo resolvedor de release; ordenação bloqueada após confirmar e foco/texto
+  grande tratados. Menu normal/AX5 e aviso retirado observados no E262.
+  Segunda passagem: interação por toque medida no E262 e quatro defeitos de
+  renderer corrigidos; VoiceOver/TalkBack permanecem pendentes. Prova offline adiada
+  para o primeiro lote promovido (Anderson, 04/11), sem build/instalação.
+  [Evidência PC06-E](../evidence/2026-11-04-pc06e-integracao-e-provas.md).
+  **05/11:** aviso de retirada remede título/corpo ao mudar a escala com a tela
+  aberta; mantém botão e guarda de foco. Quatro suítes/30 testes e medição nativa
+  no E262; [evidência](../evidence/2026-11-05-pc06e-aviso-texto-ampliado.md).
+  **Passagem de 05/11:** iPhone físico inventariado, cliente informado pelo dono,
+  versão/build e menu não confirmados; VoiceOver NÃO EXECUTADO. Metro próprio
+  encerrado. Medido às 11:41: o Radiant 1.4.0 (11) do iPhone não carrega o Metro
+  nem tem a rota da prévia; prova física bloqueada até autorização de build e
+  instalação de cliente de desenvolvimento
+  ([evidência](../evidence/2026-11-05-pc06e-iphone-cliente-sem-metro.md),
+  [handoff atual](../superpowers/handoffs/2026-11-05-conteudo-lote-piloto-prompt-de-continuidade.md)).
+  **PC04, 05/11:** quatro aulas e checkpoints escritos como rascunho de IA, sem
+  revisão; promoção segue recusada
+  ([evidência](../evidence/2026-11-05-pc04-quatro-aulas.md)).
+  PC06 permanece aberto; Q6 continua recusado pelo contrato editorial.
+  Entregas publicadas na branch em 05/11, sem PR; promoção e release pendentes.
 
 ### Onda K — Radiant 1.4: fluxo do usuário e robustez
 

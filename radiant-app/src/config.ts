@@ -22,7 +22,6 @@ export const AppConfig = {
     ),
     SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? '',
     ENABLE_CRASH_REPORTING: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CRASH_REPORTING, false),
-    ENABLE_PAYWALL: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PAYWALL, false),
 
     // release controls
     SHOW_DEV_TOOLS: __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DEV_TOOLS, false),

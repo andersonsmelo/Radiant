@@ -13,8 +13,6 @@ const requiredMarkers = [
   '# Radiant App Store War Room Snapshot',
   'Decision suggested:',
   'review_prompt_shown:',
-  'paywall_view:',
-  'upgrade_interest_count:',
 ];
 const placeholderMarkers = ['{{', 'EXPORT_FROM_TELEMETRY_DEBUG', 'PASTE_EXPORTED_LINES_HERE'];
 

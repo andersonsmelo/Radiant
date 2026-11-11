@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import appContract from './load-app-contract.cjs';
 const shared = appContract.loadAppContract('features/student-checkpoints/ProductionBatch.ts');
+const { pilotResponseIds } = appContract.loadAppContract('features/student-checkpoints/EditorialPilotContract.ts');
 
 function canonicalize(value) {
   if (Array.isArray(value)) return value.map(canonicalize);
@@ -29,6 +30,7 @@ export function productionBatchMaterial(batch) {
     checkpoint: batch?.checkpoint,
     reinforcement: batch?.reinforcement,
     claimProvenance: batch?.claimProvenance,
+    ...(batch?.pilot !== undefined ? { pilot: batch.pilot } : {}),
   };
 }
 
@@ -51,6 +53,8 @@ async function readCatalog(catalogPath) {
   }
 }
 
+
+
 function assertCatalogIdentities(batches) {
   const ids = new Set(batches.map(batch => batch.trackId));
   for (const batch of batches) {
@@ -58,7 +62,9 @@ function assertCatalogIdentities(batches) {
     const identities = [batch.batchId, batch.unitId, batch.checkpoint.id,
       ...batch.competencyIds.map(id => `${batch.checkpoint.id}:${id.split(':').at(-1)}`),
       ...batch.activities.flatMap(activity => [activity.id, ...activity.steps.flatMap(step => step.kind === 'interaction'
-        ? [step.interaction.id, ...step.interaction.payload.options.map(option => option.id)] : [step.id])]),
+        ? [step.interaction.id, ...pilotResponseIds(step.interaction)] : [step.id])]),
+      ...(batch.pilot?.assets.map(asset => asset.id) ?? []),
+      ...(batch.pilot?.evidence.map(evidence => evidence.variantId) ?? []),
       ...batch.checkpoint.items.flatMap(item => [item.id, ...item.options.map(option => option.id)]),
     ];
     for (const id of identities) {

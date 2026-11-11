@@ -4,14 +4,13 @@ import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useRe
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
-import { L2_SLICING_SPACE } from './l2SlicingSpaceContent';
 import { createSlicingSpaceLessonSession, type SlicingSpaceAnswerResult } from './SlicingSpaceLessonSession';
 import { SlicingSpaceModel } from './SlicingSpaceModel';
 import type { L2Inclination, L2MedianRelation, L2ReferenceOrientation, L2Region, L2Thickness } from './l2SlicingGeometry';
-import type { L2Challenge, L2ModelLayerId } from './l2SlicingSpace.types';
+import type { L2SlicingSpaceLesson, L2Challenge, L2ModelLayerId } from './l2SlicingSpace.types';
 
-const challengeById = (id: string): L2Challenge => {
-  const challenge = L2_SLICING_SPACE.challenges.find((entry) => entry.id === id);
+const challengeById = (lesson: L2SlicingSpaceLesson, id: string): L2Challenge => {
+  const challenge = lesson.challenges.find((entry) => entry.id === id);
   if (!challenge) throw new Error(`Unknown L2 preview challenge: ${id}`);
   return challenge;
 };
@@ -19,7 +18,7 @@ const challengeById = (id: string): L2Challenge => {
 const activityLabel = (challenge: L2Challenge): string => {
   if (challenge.evidenceKind === 'assisted_practice') return 'Prática assistida · não demonstra domínio';
   if (challenge.evidenceKind === 'later_independent_retrieval') return 'Recuperação independente · novo cenário';
-  return challenge.id === 'l2-initial-median' ? 'Diagnóstico inicial · sem XP' : 'Decisão independente · sem XP';
+  return 'Decisão independente · sem XP';
 };
 
 /**
@@ -37,9 +36,14 @@ export const reviewSentence = (
   ? `Este objetivo permanece em ${result.reviewTargetId}, com um item novo; XP e repetição imediata não comprovam domínio.`
   : `Este objetivo volta na revisão agendada, em ${result.reviewTargetId}; XP e repetição imediata não comprovam domínio.`);
 
-export function SlicingSpaceLessonPreview() {
-  const [session] = useState(createSlicingSpaceLessonSession);
-  const [challengeId, setChallengeId] = useState(L2_SLICING_SPACE.sequence[0]);
+export function SlicingSpaceLessonPreview({ lesson }: Readonly<{ lesson?: L2SlicingSpaceLesson }> = {}) {
+  if (!lesson || lesson.challenges.length === 0) return <Text>Conteúdo em preparação</Text>;
+  return <SlicingSpacePreview lesson={lesson} />;
+}
+
+function SlicingSpacePreview({ lesson }: Readonly<{ lesson: L2SlicingSpaceLesson }>) {
+  const [session] = useState(() => createSlicingSpaceLessonSession(lesson));
+  const [challengeId, setChallengeId] = useState(lesson.sequence[0]);
   const [orientation, setOrientation] = useState<L2ReferenceOrientation>('coronal');
   const [medianRelation, setMedianRelation] = useState<L2MedianRelation>('median');
   const [inclination, setInclination] = useState<L2Inclination>('aligned');
@@ -49,10 +53,10 @@ export function SlicingSpaceLessonPreview() {
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [result, setResult] = useState<SlicingSpaceAnswerResult | null>(null);
   const { reducedMotionEnabled: reduceMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
-  const challenge = challengeById(challengeId);
+  const challenge = challengeById(lesson, challengeId);
 
   const showChallenge = (nextChallengeId: string) => {
-    challengeById(nextChallengeId);
+    challengeById(lesson, nextChallengeId);
     setChallengeId(nextChallengeId);
     setOrientation('coronal');
     setMedianRelation('median');
@@ -82,10 +86,9 @@ export function SlicingSpaceLessonPreview() {
     ? 'Praticar com apoio'
     : result?.nextChallengeId ? result.nextActionLabel ?? 'Continuar' : null;
 
-  return <ScrollView contentContainerStyle={styles.content} accessibilityLabel="Prévia isolada da lição Cortando o espaço">
-    <Text style={styles.eyebrow}>L2 · ORIENTAÇÃO ESPACIAL · RASCUNHO LOCAL</Text>
-    <Text style={styles.title}>{L2_SLICING_SPACE.title}</Text>
-    <Text style={styles.intro}>A referência geométrica ajuda a situar dados de uma região. Plano, região, espessura e imagem não são sinônimos.</Text>
+  return <ScrollView contentContainerStyle={styles.content} accessibilityLabel="Prévia isolada de conteúdo injetado">
+    <Text style={styles.eyebrow}>PRÉVIA ISOLADA</Text>
+    <Text style={styles.title}>{lesson.title}</Text>
     <SlicingSpaceModel {...{ orientation, medianRelation, inclination, region, thickness, selectedLayer, reduceMotion, motionResolved }} scenarioId={challenge.visualScenarioId} answerOptions={challenge.answerOptions} onCandidateSelect={setSelectedAnswerId} onOrientationChange={setOrientation} onMedianRelationChange={setMedianRelation} onInclinationChange={setInclination} onRegionChange={setRegion} onThicknessChange={setThickness} onLayerSelect={setSelectedLayer} />
     <View style={styles.activity}>
       <Text style={styles.activityLabel}>{activityLabel(challenge)}</Text>
@@ -102,7 +105,7 @@ export function SlicingSpaceLessonPreview() {
       {!result ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: !selectedAnswerId }} disabled={!selectedAnswerId} onPress={confirm} style={[styles.confirm, !selectedAnswerId && styles.confirmDisabled]}><Text style={styles.confirmText}>Confirmar decisão</Text></Pressable> : null}
       {result ? <View style={styles.feedback} accessibilityLiveRegion="polite"><Text style={styles.feedbackTitle}>{result.correct ? 'Leitura registrada' : 'Vamos ajustar o modelo'}</Text><Text style={styles.feedbackText}>{result.feedback}</Text>{result.evidenceKind === 'assisted_practice' && result.correct ? <Text style={styles.feedbackText}>A prática assistida foi registrada; ela não demonstra domínio.</Text> : null}{result.evidenceKind === 'later_independent_retrieval' && result.demonstratesMastery ? <Text style={styles.feedbackTitle}>Recuperação independente registrada.</Text> : null}<Text style={styles.feedbackText}>{reviewSentence(result)}</Text>{feedbackActionLabel ? <Pressable accessibilityRole="button" onPress={feedbackAction} style={styles.next}><Text style={styles.confirmText}>{feedbackActionLabel}</Text></Pressable> : null}</View> : null}
     </View>
-    <View style={styles.summary}><Text style={styles.summaryTitle}>Síntese para retomar depois</Text>{L2_SLICING_SPACE.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}</View>
+    <View style={styles.summary}><Text style={styles.summaryTitle}>Síntese para retomar depois</Text>{lesson.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}</View>
   </ScrollView>;
 }
 

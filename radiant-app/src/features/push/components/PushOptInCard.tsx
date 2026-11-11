@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Card } from '../../../components/ui/Card';
 import { PrimaryButton } from '../../../components/ui/PrimaryButton';
 import { PushService } from '../services/PushService';
@@ -22,6 +22,7 @@ interface Props {
 
 export const PushOptInCard = ({ onDismiss }: Props) => {
     const [loading, setLoading] = useState(false);
+    const { fontScale } = useWindowDimensions();
 
     const handleEnable = async () => {
         setLoading(true);
@@ -47,10 +48,11 @@ export const PushOptInCard = ({ onDismiss }: Props) => {
         onDismiss();
     };
 
+    // Remount only native text after a scale change; keep an in-flight opt-in intact.
     return (
         <Card style={styles.card}>
-            <Text style={styles.title}>Quer um lembrete suave?</Text>
-            <Text style={styles.body}>
+            <Text key={`title-${fontScale}`} style={styles.title}>Quer um lembrete suave?</Text>
+            <Text key={`body-${fontScale}`} style={styles.body}>
                 Podemos te avisar em dias em que você decidir estudar. Sem pressão. Sem cobrança.
             </Text>
 
@@ -62,8 +64,8 @@ export const PushOptInCard = ({ onDismiss }: Props) => {
                 {loading ? 'Ativando...' : 'Ativar lembretes'}
             </PrimaryButton>
 
-            <TouchableOpacity onPress={handleDismiss} style={styles.secondaryBtn}>
-                <Text style={styles.secondaryText}>Agora não</Text>
+            <TouchableOpacity onPress={handleDismiss} style={styles.secondaryBtn} accessibilityRole="button">
+                <Text key={`secondary-${fontScale}`} style={styles.secondaryText}>Agora não</Text>
             </TouchableOpacity>
         </Card>
     );
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     },
     title: {
         ...typography.h3,
+        lineHeight: undefined,
         color: COLORS.text,
         marginBottom: space.s2,
         textAlign: 'center',
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: space.s5,
         fontSize: 14,
-        lineHeight: 20,
+        lineHeight: undefined,
     },
     primaryBtn: {
         width: '100%',

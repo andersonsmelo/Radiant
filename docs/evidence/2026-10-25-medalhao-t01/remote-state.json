@@ -1,0 +1,45 @@
+{
+  "repo": "andersonsmelo/Radiant",
+  "branch": "claude/trilha-medalhao-design",
+  "headSha": "e3dca6e1579e7e637cd039b92db482d9a46014c6",
+  "baseSha": "bcf1a9074a7f213d64f10085242e549ecae0e187",
+  "pr66": {
+    "state": "open",
+    "mergeable": true,
+    "draft": false
+  },
+  "checksAtFirstRead": [
+    {
+      "name": "Radiant App Quality",
+      "id": 40212275739,
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "name": "Content Scripts",
+      "id": 40212275878,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "note": "MCP GitHub refreshed pelo controlador em 2026-10-25: ambos workflows verdes no HEAD e3dca6e; PRs66/67 abertas e merge\u00e1veis, sem autoriza\u00e7\u00e3o merge.",
+  "checksRefreshed": [
+    {
+      "name": "Radiant App Quality",
+      "id": 40212275739,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Content Scripts",
+      "id": 40212275878,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "pr67": {
+    "state": "open",
+    "mergeable": true,
+    "headSha": "35560aa2bdd2d16e570cdb5b658a7413874552f3"
+  }
+}

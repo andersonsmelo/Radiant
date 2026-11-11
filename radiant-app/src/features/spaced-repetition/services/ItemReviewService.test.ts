@@ -2,7 +2,9 @@ import { ItemReviewCoordinator, canonicalStudyItemId, type ItemDefinition, type 
 import { ItemReviewRepository } from '../repositories/ItemReviewRepository';
 import { itemAttemptEvidence, itemReviewTiming } from '../../../types/itemReview';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
-import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE } from '../../student-checkpoints/EditorialCurriculumCandidate';
+import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE } from '../../../test/fixtures/syntheticEditorialBatch';
+
+jest.mock('../../student-checkpoints/production-catalog-entries', () => ({ PRODUCTION_CATALOG_ENTRIES: require('../../../test/fixtures/syntheticEditorialBatch').PRODUCTION_CATALOG_ENTRIES }));
 
 function setup(count = 2) {
     const data = new Map<string, string>();
@@ -19,6 +21,17 @@ const now = new Date('2026-10-17T12:00:00.000Z');
 const legacy = [{ lessonId: 'lesson:1', nextReviewAt: new Date('2026-10-16T12:00:00.000Z') }];
 
 describe('revisão por item', () => {
+    it('excludes retired lessons from counts and leaves their cards byte-for-byte intact', async () => {
+        const { repository, data, coordinator: original } = setup(1);
+        await original.loadQueue(legacy, now);
+        const before = JSON.stringify([...data]);
+        const retired = new ItemReviewCoordinator(repository, { definitions: () => [] });
+        expect(await retired.loadQueue(legacy, now)).toEqual([]);
+        expect(await retired.dueCount([{ lessonId: 'retired-unmanaged', dueAtMs: 0 }], now)).toBe(0);
+        expect(JSON.stringify([...data])).toBe(before);
+        const unreadable = new ItemReviewCoordinator({ inspect: async () => ({ readable: false }) } as never, { definitions: () => [] });
+        expect(await unreadable.dueCount([{ lessonId: 'retired-unmanaged', dueAtMs: 0 }], now)).toBe(0);
+    });
     it('corrige pelo catálogo atual, ignora gabarito adulterado na UI e não converte migração em intervalo confirmado', async () => {
         const { coordinator, repository } = setup(1);
         const [item] = await coordinator.loadQueue(legacy, now);

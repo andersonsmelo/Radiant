@@ -1,0 +1,2707 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "s-mn",
+    "code": "S-MN",
+    "title": "Aprofundamento em Medicina Nuclear",
+    "summary": "Física, percurso do radiofármaco, detecção, proteção, preparo, qualidade, híbridos e rastreabilidade, em simulação supervisionada. Não habilita a manipular nem administrar radiofármacos."
+  },
+  "sources": [
+    {
+      "id": "cnen-norma-3-05",
+      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
+      "publisher": "CNEN/ANSN",
+      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-medicina-nuclear",
+      "title": "General Nuclear Medicine",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/gennuclear",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Material protegido; consultado para fatos, com redação própria."
+    },
+    {
+      "id": "radiologyinfo-pet-ct",
+      "title": "Positron Emission Tomography - Computed Tomography (PET/CT)",
+      "publisher": "RadiologyInfo.org (ACR e RSNA)",
+      "url": "https://www.radiologyinfo.org/en/info/pet",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Material protegido; consultado para fatos, com redação própria."
+    },
+    {
+      "id": "nibib-medicina-nuclear",
+      "title": "Nuclear Medicine",
+      "publisher": "NIBIB/NIH",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/nuclear-medicine",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para fatos, com redação própria."
+    },
+    {
+      "id": "wna-radioisotopos",
+      "title": "Radioisotopes in Medicine",
+      "publisher": "World Nuclear Association",
+      "url": "https://world-nuclear.org/information-library/non-power-nuclear-applications/radioisotopes-research/radioisotopes-in-medicine",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Biblioteca informativa; consultada para fatos, com redação própria."
+    },
+    {
+      "id": "who-radiacao-ionizante",
+      "title": "Ionizing radiation and health effects",
+      "publisher": "Organização Mundial da Saúde",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/ionizing-radiation-and-health-effects",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Nota descritiva institucional; consultada para fatos, com redação própria."
+    },
+    {
+      "id": "hps-acao-indireta",
+      "title": "Ask the Experts: indirect ionization and its effects on the DNA (George Chabot, 2019)",
+      "publisher": "Health Physics Society",
+      "url": "https://hps.org/publicinformation/ate/q13187/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Resposta de sociedade científica; consultada para fatos, com redação própria."
+    },
+    {
+      "id": "cdc-contaminacao-exposicao",
+      "title": "Radiation Contamination Versus Exposure",
+      "publisher": "CDC",
+      "url": "https://www.cdc.gov/radiation-emergencies/infographic/contamination-versus-exposure.html",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para fatos, com redação própria."
+    },
+    {
+      "id": "vumc-emergencias-mn",
+      "title": "Nuclear Medicine: Radioactive Material Emergency Procedures (Vanderbilt Clarksville Hospital)",
+      "publisher": "Vanderbilt University Medical Center",
+      "url": "https://www.vumc.org/safety/sites/default/files/public_files/rad/vch/nuclear-medicine-emergency-procedures-vch.pdf",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Procedimento de hospital dos EUA, usado só como exemplo da lógica geral; no Brasil vale o plano de proteção do serviço."
+    },
+    {
+      "id": "iaea-srs-40",
+      "title": "Applying Radiation Safety Standards in Nuclear Medicine (Safety Reports Series No. 40)",
+      "publisher": "IAEA",
+      "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub1207_web.pdf",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Publicação que a própria IAEA marca como substituída pela SSG-46; usada só para princípios gerais de derramamento e monitoração de roupas. Consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "peterson-detectores-spect",
+      "title": "SPECT detectors: the Anger Camera and beyond (Peterson e Furenlid, Phys Med Biol, 2011)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3178269/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em acervo aberto; consultado para fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "willowson-spect-ct",
+      "title": "Evolving SPECT-CT technology (Willowson e Bailey, Br J Radiol, 2024)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13274653/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em acervo aberto; consultado para fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "pettinato-artefatos-pet-ct",
+      "title": "Artefacts of PET/CT images (Pettinato e colaboradores, Biomed Imaging Interv J, 2006)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3097808/",
+      "accessedAt": "2026-11-07",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em acervo aberto; consultado para fatos, sem aproveitar frase nem figura."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "s-mn-01",
+      "code": "S-MN.01",
+      "title": "Átomo instável, meia-vida e dano",
+      "objective": "Hoje você vai conseguir explicar a meia-vida como física e diferenciar a ação direta da indireta da radiação na célula.",
+      "competency": "Relacionar decaimento, unidades e dano biológico, sem cálculo para paciente.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de estudo do serviço de medicina nuclear",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Na visão geral eu entendi que a fonte é o paciente. Mas o que faz esse átomo emitir, e por que a emissão vai caindo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Aqui cada material tem seu relógio. Tem um que conta em horas, outro em minutos, e isso muda a rotina inteira."
+          },
+          {
+            "speaker": "lia",
+            "text": "Antes do relógio, uma pergunta: quando a radiação entra numa célula, o que ela encontra pela frente?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Instável, decai, ioniza",
+        "body": "Radionuclídeo é um átomo instável: ele se desfaz espontaneamente e libera o excesso de energia como radiação ionizante. Meia-vida é o tempo para a atividade cair à metade pelo decaimento. O tecnécio-99m tem 6 horas; o flúor-18, 110 minutos. Atividade se mede em becquerel, um decaimento por segundo; dose absorvida, em gray; dose efetiva, em sievert. Na célula, a ação é direta quando a ionização ocorre no DNA ou muito perto dele, e indireta quando a radiação age sobre a água e forma radicais livres. Efeitos agudos só surgem acima de um limiar; os de longo prazo não são certos, mas ficam mais prováveis com a dose.",
+        "keyPoints": [
+          "A cada meia-vida, a atividade cai à metade.",
+          "Direta: no DNA ou perto dele. Indireta: pela água e pelos radicais livres.",
+          "Efeito agudo tem limiar; no de longo prazo, a dose muda a probabilidade."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da visão geral de medicina nuclear: durante a aquisição, de onde sai a radiação que a câmara gama registra?",
+          "options": [
+            {
+              "label": "De um tubo de raios X dentro da câmara",
+              "correct": false,
+              "feedback": "Esse é o caminho da radiografia. Retome: nesta modalidade o aparelho só detecta."
+            },
+            {
+              "label": "Das paredes blindadas da sala de exame",
+              "correct": false,
+              "feedback": "A blindagem contém radiação, não produz o sinal. Confira de novo onde está o material radioativo."
+            },
+            {
+              "label": "Do material administrado ao paciente",
+              "correct": true,
+              "feedback": "Isso. O radiofármaco emite de dentro do corpo. Agora vamos entender por que esse átomo emite."
+            },
+            {
+              "label": "Do cristal, que emite e depois recolhe",
+              "correct": false,
+              "feedback": "A câmara não emite o sinal da imagem. Retome a diferença entre quem emite e quem detecta."
+            }
+          ],
+          "help": "Pense em quem é a fonte nesta modalidade, comparando com a radiografia.",
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear",
+            "nibib-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "Num frasco didático, fora de qualquer atendimento, há um radionuclídeo fictício com meia-vida de 2 horas e 80 unidades de atividade. Quanto resta depois de 6 horas, só pelo decaimento?",
+          "options": [
+            {
+              "label": "5 unidades",
+              "correct": false,
+              "feedback": "Cinco unidades equivalem a quatro meias-vidas, ou 8 horas. Refaça a contagem para 6 horas."
+            },
+            {
+              "label": "10 unidades",
+              "correct": true,
+              "feedback": "Isso. Em 6 horas cabem três meias-vidas de 2 horas: 80, 40, 20 e 10. Vale só para este esquema didático."
+            },
+            {
+              "label": "20 unidades",
+              "correct": false,
+              "feedback": "Vinte unidades equivalem a duas meias-vidas, ou 4 horas. Ainda falta uma etapa até 6 horas."
+            },
+            {
+              "label": "40 unidades",
+              "correct": false,
+              "feedback": "Quarenta unidades equivalem a uma meia-vida, ou 2 horas. Confira quantas cabem em 6 horas."
+            }
+          ],
+          "help": "Conte quantas meias-vidas cabem no intervalo e divida por dois uma vez de cada vez.",
+          "sourceIds": [
+            "who-radiacao-ionizante"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao que ele informa.",
+          "pairs": [
+            {
+              "left": "Becquerel",
+              "right": "Atividade: um decaimento por segundo"
+            },
+            {
+              "left": "Gray",
+              "right": "Dose absorvida"
+            },
+            {
+              "left": "Sievert",
+              "right": "Dose efetiva, que estima o potencial de dano"
+            },
+            {
+              "left": "Meia-vida",
+              "right": "Tempo para a atividade cair à metade"
+            }
+          ],
+          "feedbackCorrect": "Cada termo no seu lugar: becquerel fala do material que decai; gray e sievert falam da dose; meia-vida fala de tempo.",
+          "feedbackIncorrect": "Retome o conceito: comece separando o que descreve o material, o que descreve a dose e o que descreve o tempo.",
+          "help": "Só um dos termos é medida de tempo. Dois deles falam de dose.",
+          "sourceIds": [
+            "who-radiacao-ionizante"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na revisão, Duda compara dois esquemas. No primeiro, um elétron posto em movimento ioniza um átomo na própria fita de DNA. No segundo, a radiação age sobre a água da célula, forma um radical livre, e é ele que rompe uma ligação da fita.",
+          "prompt": "Como classificar os dois esquemas, conforme a aula?",
+          "options": [
+            {
+              "label": "Os dois são diretos, porque o DNA foi atingido",
+              "correct": false,
+              "feedback": "O resultado é parecido, mas o caminho muda. Confira de novo quem atua no segundo esquema."
+            },
+            {
+              "label": "Os dois são indiretos, porque há elétrons em ação",
+              "correct": false,
+              "feedback": "A classificação não depende disso. Retome o papel da água no segundo esquema."
+            },
+            {
+              "label": "O primeiro é indireto e o segundo é direto",
+              "correct": false,
+              "feedback": "A classificação ficou invertida. Retome: qual esquema precisa da água para causar o dano?"
+            },
+            {
+              "label": "O primeiro é direto e o segundo é indireto",
+              "correct": true,
+              "feedback": "Isso. Ionização na fita é ação direta; dano causado pelo radical livre formado na água é ação indireta."
+            }
+          ],
+          "help": "Pergunte em cada esquema: a ionização aconteceu no DNA ou numa espécie química intermediária?",
+          "sourceIds": [
+            "hps-acao-indireta"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma colega do setor de radiografia afirma: 'Todo efeito da radiação tem limiar. Abaixo dele, o risco é zero'. O que a aula permite responder?",
+          "options": [
+            {
+              "label": "Isso vale para os agudos; nos de longo prazo, a dose muda a chance",
+              "correct": true,
+              "feedback": "Isso. Efeitos agudos aparecem acima de um limiar. Os de longo prazo não são certos, e a probabilidade cresce com a dose."
+            },
+            {
+              "label": "Isso vale para os de longo prazo; os agudos surgem em qualquer dose",
+              "correct": false,
+              "feedback": "A relação ficou trocada. Retome qual tipo de efeito tem limiar."
+            },
+            {
+              "label": "Isso vale para todos os efeitos, sejam agudos ou de longo prazo",
+              "correct": false,
+              "feedback": "Essa frase ignora os efeitos de longo prazo. Confira de novo o que muda com a dose neles."
+            },
+            {
+              "label": "Isso não vale para nenhum, porque nenhum efeito depende da dose",
+              "correct": false,
+              "feedback": "A dose importa nos dois casos, de formas diferentes. Retome o último trecho do conceito."
+            }
+          ],
+          "help": "Separe os dois tipos de efeito antes de responder.",
+          "sourceIds": [
+            "who-radiacao-ionizante"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Relógio e célula",
+        "body": "Agora você consegue explicar a meia-vida num esquema de física, ler as unidades básicas e dizer como a radiação danifica a célula de forma direta ou indireta.",
+        "line": {
+          "speaker": "lia",
+          "text": "Meia-vida aqui é física de estudo. A atividade de cada paciente é assunto da prescrição do médico nuclear."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num esquema didático, uma amostra fictícia de laboratório tem meia-vida de 30 minutos. Depois de 1 hora, que fração da atividade inicial resta, só pelo decaimento?",
+          "options": [
+            {
+              "label": "Metade da atividade",
+              "correct": false,
+              "feedback": "Metade é o que resta depois de uma meia-vida, ou 30 minutos. Em 1 hora cabem mais."
+            },
+            {
+              "label": "Um quarto da atividade",
+              "correct": true,
+              "feedback": "Isso. Em 1 hora cabem duas meias-vidas: metade da metade é um quarto."
+            },
+            {
+              "label": "Um oitavo da atividade",
+              "correct": false,
+              "feedback": "Um oitavo pede três meias-vidas, ou 90 minutos. Refaça a contagem para 1 hora."
+            },
+            {
+              "label": "Nenhuma atividade",
+              "correct": false,
+              "feedback": "A atividade cai à metade a cada período, sem chegar a zero nessa conta. Retome a definição."
+            }
+          ],
+          "sourceIds": [
+            "who-radiacao-ionizante"
+          ]
+        },
+        {
+          "prompt": "Por que a água da célula entra na explicação do dano causado pela radiação?",
+          "options": [
+            {
+              "label": "Ela blinda o DNA e anula a ionização",
+              "correct": false,
+              "feedback": "A água não protege dessa forma: ela participa do dano. Retome o caminho indireto."
+            },
+            {
+              "label": "Ela acumula o radionuclídeo no núcleo",
+              "correct": false,
+              "feedback": "Acúmulo é outro assunto. Confira de novo o que a radiação produz ao agir sobre a água."
+            },
+            {
+              "label": "A radiação forma nela radicais muito reativos",
+              "correct": true,
+              "feedback": "Isso. Os radicais livres formados na água podem romper ligações da fita de DNA: é a ação indireta."
+            },
+            {
+              "label": "Ela emite os raios gama que chegam à câmara",
+              "correct": false,
+              "feedback": "Quem emite é o radiofármaco, não a água. Retome o que acontece dentro da célula."
+            }
+          ],
+          "sourceIds": [
+            "hps-acao-indireta"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a cada meia-vida, a atividade do material cai…",
+          "item": {
+            "prompt": "Uma amostra didática começa com 100 unidades de atividade. Quanto resta depois de exatamente uma meia-vida?",
+            "options": [
+              {
+                "label": "25 unidades",
+                "correct": false,
+                "feedback": "Vinte e cinco é o que resta depois de duas meias-vidas. Aqui é só uma."
+              },
+              {
+                "label": "75 unidades",
+                "correct": false,
+                "feedback": "Meia-vida não tira um quarto: ela reduz à metade. Retome a definição."
+              },
+              {
+                "label": "90 unidades",
+                "correct": false,
+                "feedback": "A queda em uma meia-vida é maior do que essa. Confira de novo o nome do conceito."
+              },
+              {
+                "label": "50 unidades",
+                "correct": true,
+                "feedback": "Isso. Uma meia-vida reduz a atividade à metade: de 100 para 50."
+              }
+            ],
+            "sourceIds": [
+              "who-radiacao-ionizante"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um texto de física informa que o iodo-131 tem meia-vida de 8 dias. Numa amostra de laboratório, fora de qualquer atendimento, que fração da atividade resta depois de 24 dias?",
+            "options": [
+              {
+                "label": "Um oitavo",
+                "correct": true,
+                "feedback": "Isso. Em 24 dias cabem três meias-vidas de 8 dias: metade, um quarto, um oitavo."
+              },
+              {
+                "label": "Um terço",
+                "correct": false,
+                "feedback": "A queda não é dividida pelo número de períodos. Retome: cada período corta pela metade."
+              },
+              {
+                "label": "Um quarto",
+                "correct": false,
+                "feedback": "Um quarto é o que resta após 16 dias. Falta mais um período até 24."
+              },
+              {
+                "label": "Metade",
+                "correct": false,
+                "feedback": "Metade é o que resta após 8 dias. Conte quantos períodos cabem em 24 dias."
+              }
+            ],
+            "sourceIds": [
+              "who-radiacao-ionizante"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Curva de decaimento com marcas a cada meia-vida, sem unidade clínica",
+        "Célula com dois caminhos até o DNA: ionização na fita e radical livre formado na água"
+      ]
+    },
+    {
+      "id": "s-mn-02",
+      "code": "S-MN.02",
+      "title": "O percurso do radiofármaco",
+      "objective": "Hoje você vai conseguir ordenar o percurso do radiofármaco, da origem à administração, e dizer quem faz cada passo.",
+      "competency": "Ordenar o percurso do radiofármaco sem assumir tarefa de pessoal autorizado.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Corredor entre a recepção e o laboratório",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Chegou o embalado da manhã. Antes de abrir qualquer coisa, tem inspeção e tem anotação."
+          },
+          {
+            "speaker": "duda",
+            "text": "Posso levar até o laboratório? Só para ajudar, o pessoal está correndo hoje."
+          },
+          {
+            "speaker": "lia",
+            "text": "Vontade de ajudar é boa. Mas, nesse percurso, quem está autorizado a tocar em quê?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Da origem ao paciente",
+        "body": "Radiofármaco é uma molécula carreadora ligada a um átomo radioativo. O tecnécio-99m vem de um gerador: o molibdênio-99, com meia-vida de 66 horas, decai nele, e uma solução salina o lava para fora, a eluição. O flúor-18 vem do cíclotron e entra no FDG; como decai depressa, o FDG precisa estar a cerca de duas horas de um cíclotron. No serviço, a ordem ensinada aqui é: inspecionar e registrar o embalado, manipular no laboratório, aferir no medidor de atividade, conferir controle de qualidade, prescrição e identificação, administrar e aguardar. Tudo é de pessoal treinado e autorizado. Estudante observa; viu algo errado, não toca e avisa.",
+        "keyPoints": [
+          "Gerador e eluição para o tecnécio-99m; cíclotron para o flúor-18.",
+          "A atividade é aferida antes da administração.",
+          "Estudante observa e avisa: não manipula nem administra."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: o tecnécio-99m tem meia-vida de 6 horas e o flúor-18, de 110 minutos. Qual dos dois perde metade da atividade em menos tempo?",
+          "options": [
+            {
+              "label": "O tecnécio-99m, com 6 horas",
+              "correct": false,
+              "feedback": "Seis horas é um intervalo mais longo que 110 minutos. Converta para a mesma unidade e compare."
+            },
+            {
+              "label": "Os dois levam o mesmo tempo",
+              "correct": false,
+              "feedback": "Cada radionuclídeo tem meia-vida própria. Retome os dois valores do enunciado."
+            },
+            {
+              "label": "Nenhum decai antes do exame",
+              "correct": false,
+              "feedback": "O decaimento não espera o exame: ele acontece o tempo todo. Retome a definição de meia-vida."
+            },
+            {
+              "label": "O flúor-18, com 110 minutos",
+              "correct": true,
+              "feedback": "Isso. São menos de duas horas contra seis. Essa pressa explica boa parte do percurso de hoje."
+            }
+          ],
+          "help": "Coloque os dois tempos na mesma unidade antes de comparar.",
+          "sourceIds": [
+            "wna-radioisotopos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo ao papel que ele tem na origem do radiofármaco.",
+          "pairs": [
+            {
+              "left": "Gerador",
+              "right": "Molibdênio-99 decai em tecnécio-99m"
+            },
+            {
+              "left": "Eluição",
+              "right": "Solução salina lava o tecnécio-99m para fora"
+            },
+            {
+              "left": "Cíclotron",
+              "right": "Produz o flúor-18"
+            },
+            {
+              "left": "FDG",
+              "right": "Principal radiofármaco do PET, com flúor-18"
+            }
+          ],
+          "feedbackCorrect": "É isso: dentro do gerador o molibdênio-99 decai, a eluição retira o tecnécio-99m, e o cíclotron produz o flúor-18 usado no FDG.",
+          "feedbackIncorrect": "Retome o conceito: dois termos pertencem à rota do tecnécio-99m e dois à rota do flúor-18. Separe as rotas primeiro.",
+          "help": "Pense em duas rotas: uma começa com molibdênio e a outra, com flúor.",
+          "sourceIds": [
+            "wna-radioisotopos"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o percurso no serviço, feito por pessoal autorizado, na ordem ensinada nesta aula.",
+          "items": [
+            "Inspecionar e registrar o embalado recebido",
+            "Manipular o radiofármaco no laboratório",
+            "Aferir a atividade no medidor de atividade",
+            "Conferir controle de qualidade, prescrição e identificação",
+            "Administrar e aguardar a captação"
+          ],
+          "feedbackCorrect": "Ordem da aula: chega, é manipulado, é aferido, é conferido e só então é administrado. A conferência fica na porta da administração.",
+          "feedbackIncorrect": "Confira de novo: nada é manipulado antes da inspeção, e nada é administrado antes de aferir e conferir.",
+          "help": "Pergunte a cada etapa o que precisa ter acontecido antes dela.",
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante a simulação, um embalado chega com a caixa amassada e uma mancha úmida num canto. Caio está ao telefone, do outro lado do corredor. Duda fica curiosa e diz: 'Vamos abrir para ver se o frasco está inteiro?'",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Abre sobre a bancada, com luvas, para olhar o frasco",
+              "correct": false,
+              "feedback": "Abrir é manipular, e essa tarefa é de pessoal treinado e autorizado. Retome qual é o seu papel no percurso."
+            },
+            {
+              "label": "Não toca, mantém distância e avisa Caio e o supervisor",
+              "correct": true,
+              "feedback": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o supervisor de proteção precisa saber."
+            },
+            {
+              "label": "Enxuga a mancha com papel absorvente e anota o horário",
+              "correct": false,
+              "feedback": "Limpar pede treino e técnica, e não é tarefa do estudante. Confira de novo o que fazer ao ver algo errado."
+            },
+            {
+              "label": "Leva a caixa para um canto, onde não atrapalhe ninguém",
+              "correct": false,
+              "feedback": "Mover o embalado também é tarefa de pessoal autorizado. Retome: ver algo errado pede não tocar e avisar."
+            }
+          ],
+          "help": "Pense em quem tem autorização para cada ação nesse percurso.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Uma clínica fictícia planeja oferecer PET com FDG numa cidade muito distante de qualquer cíclotron. Pelo que esta aula ensinou, qual é a dificuldade do plano?",
+          "options": [
+            {
+              "label": "O gerador de molibdênio-99 não cabe na sala",
+              "correct": false,
+              "feedback": "O gerador pertence à rota do tecnécio-99m, não à do FDG. Retome de onde vem o flúor-18."
+            },
+            {
+              "label": "O FDG só funciona com solução salina fresca",
+              "correct": false,
+              "feedback": "A solução salina faz a eluição do tecnécio-99m. Confira de novo a rota do flúor-18."
+            },
+            {
+              "label": "O flúor-18 decai depressa durante a viagem",
+              "correct": true,
+              "feedback": "Isso. Com 110 minutos de meia-vida, o FDG precisa estar a cerca de duas horas de um cíclotron."
+            },
+            {
+              "label": "A câmara gama não aceita flúor em nenhum caso",
+              "correct": false,
+              "feedback": "A dificuldade apontada na aula é o tempo de transporte, e não o aparelho. Retome a meia-vida do flúor-18."
+            }
+          ],
+          "help": "Pense no relógio do material durante o transporte.",
+          "sourceIds": [
+            "wna-radioisotopos"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Cada passo tem dono",
+        "body": "Agora você consegue contar de onde vêm o tecnécio-99m e o flúor-18, ordenar o percurso no serviço e dizer que o seu papel é observar e avisar.",
+        "line": {
+          "speaker": "caio",
+          "text": "Ver o percurso inteiro é o que faz você notar quando um passo não aconteceu."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Antes da administração, o profissional autorizado confere um conjunto de itens. Qual conjunto está de acordo com a aula?",
+          "options": [
+            {
+              "label": "Controle de qualidade, prescrição e identificação",
+              "correct": true,
+              "feedback": "Isso. Esses três itens são conferidos por quem administra, antes de administrar."
+            },
+            {
+              "label": "Peso do frasco, marca da seringa e cor da etiqueta",
+              "correct": false,
+              "feedback": "Esses dados não formam a conferência ensinada. Retome o que vem logo antes da administração."
+            },
+            {
+              "label": "Colimador, janela de energia e radiação de fundo",
+              "correct": false,
+              "feedback": "Esses itens são do equipamento de imagem. Confira de novo o que se confere sobre o material e o paciente."
+            },
+            {
+              "label": "Sala de espera, acompanhante e horário marcado",
+              "correct": false,
+              "feedback": "Isso organiza o atendimento, mas não prova que o material certo vai à pessoa certa. Retome a última etapa antes de administrar."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "prompt": "Em que instrumento a atividade do radiofármaco é aferida antes de ser administrada ao paciente?",
+          "options": [
+            {
+              "label": "No monitor de contaminação de superfície",
+              "correct": false,
+              "feedback": "Esse monitor procura material fora do lugar. Retome qual instrumento aparece no percurso."
+            },
+            {
+              "label": "No monitor individual usado no tórax",
+              "correct": false,
+              "feedback": "O monitor individual acompanha a dose de quem trabalha. Confira de novo o passo da aferição."
+            },
+            {
+              "label": "Na câmara gama, durante a aquisição",
+              "correct": false,
+              "feedback": "A aquisição vem depois da administração. A aferição acontece antes dela."
+            },
+            {
+              "label": "No medidor de atividade do serviço",
+              "correct": true,
+              "feedback": "Isso. A atividade é aferida previamente no medidor de atividade, considerando a geometria adequada."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o tecnécio-99m sai do gerador por eluição, usando…",
+          "item": {
+            "prompt": "Como o tecnécio-99m é retirado do gerador, quando o serviço precisa dele?",
+            "options": [
+              {
+                "label": "Uma solução salina o lava para fora",
+                "correct": true,
+                "feedback": "Isso. A eluição usa solução salina para retirar o tecnécio-99m formado no gerador."
+              },
+              {
+                "label": "Um cíclotron o separa do molibdênio",
+                "correct": false,
+                "feedback": "O cíclotron é a rota do flúor-18. Retome o que acontece dentro do gerador."
+              },
+              {
+                "label": "O frasco é aquecido até ele evaporar",
+                "correct": false,
+                "feedback": "A aula não fala em aquecimento. Confira de novo o significado de eluição."
+              },
+              {
+                "label": "O molibdênio é filtrado pelo colimador",
+                "correct": false,
+                "feedback": "O colimador fica na câmara, não no gerador. Retome a rota do tecnécio-99m."
+              }
+            ],
+            "sourceIds": [
+              "wna-radioisotopos"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num turno cheio, um colega de estágio sugere: 'Eu fraciono essa dose para adiantar, é só seguir o que vi ontem'. O que a aula sustenta?",
+            "options": [
+              {
+                "label": "Pode, desde que outro colega observe",
+                "correct": false,
+                "feedback": "Observar não dá autorização. Retome quem pode manipular as fontes no serviço."
+              },
+              {
+                "label": "Só pessoal treinado e autorizado manipula",
+                "correct": true,
+                "feedback": "Isso. O serviço precisa garantir que só pessoal treinado e autorizado manipule fontes. Avise a equipe sobre a proposta."
+              },
+              {
+                "label": "Pode, se o turno estiver mesmo atrasado",
+                "correct": false,
+                "feedback": "A pressa não muda quem está autorizado. Confira de novo o papel do estudante."
+              },
+              {
+                "label": "Pode, se ele usar luvas e jaleco longo",
+                "correct": false,
+                "feedback": "Barreira não substitui autorização. Retome o que a aula diz sobre cada passo do percurso."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Duas rotas de origem, gerador e cíclotron, que chegam ao mesmo percurso no serviço",
+        "Linha do percurso com um cadeado em cada etapa reservada a pessoal autorizado"
+      ]
+    },
+    {
+      "id": "s-mn-03",
+      "code": "S-MN.03",
+      "title": "Do fóton ao sinal",
+      "objective": "Hoje você vai conseguir ordenar a cadeia de detecção da câmara gama e distinguir os instrumentos de medição do serviço.",
+      "competency": "Ordenar a cadeia de detecção e associar cada instrumento à sua pergunta.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames, com a câmara gama em manutenção programada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Sem a tampa dá para ver as camadas da cabeça do detector. Por que tanta coisa, se é só registrar o que chega?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Porque o fóton não vira imagem direto. E tem aparelho na sala que nem faz imagem: cada um responde a uma pergunta."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir um fóton: o que ele atravessa primeiro, e o que acontece com ele em cada camada?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Uma cadeia de detecção",
+        "body": "Na câmara gama, o colimador, em geral de furos paralelos, só deixa passar fótons em certos ângulos, o que limita a sensibilidade. O cristal cintilador transforma a energia do fóton em luz. As fotomultiplicadoras convertem essa luz em sinal elétrico. O sistema calcula a posição pelos sinais delas e a energia pela soma; a janela de energia descarta fótons que perderam energia no espalhamento. O serviço também tem outros instrumentos: o medidor de atividade afere o material, o monitor de taxa de dose mede a radiação nas áreas e o monitor de contaminação procura material fora do lugar.",
+        "keyPoints": [
+          "Colimador, cristal, fotomultiplicadoras, cálculo de posição e energia.",
+          "A janela de energia descarta o fóton espalhado.",
+          "Cada instrumento responde a uma pergunta diferente."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Das aulas anteriores: o que sai do paciente e chega até a câmara gama num exame com tecnécio-99m?",
+          "options": [
+            {
+              "label": "Raios X vindos de um tubo sob a mesa",
+              "correct": false,
+              "feedback": "Não há tubo formando essa imagem. Retome quem é a fonte em medicina nuclear."
+            },
+            {
+              "label": "Luz produzida dentro do corpo",
+              "correct": false,
+              "feedback": "A luz aparece depois, dentro do cristal. Confira de novo o que sai do corpo."
+            },
+            {
+              "label": "Fótons gama emitidos pelo material",
+              "correct": true,
+              "feedback": "Isso. O tecnécio-99m emite fótons gama que saem do corpo. Hoje seguimos esse fóton dentro da câmara."
+            },
+            {
+              "label": "Gotas do radiofármaco que evaporam",
+              "correct": false,
+              "feedback": "O material fica no corpo; o que chega ao detector é radiação. Retome o que o átomo instável libera."
+            }
+          ],
+          "help": "Lembre o que o átomo instável libera quando decai.",
+          "sourceIds": [
+            "wna-radioisotopos",
+            "peterson-detectores-spect"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o caminho do sinal na câmara gama, na ordem ensinada nesta aula.",
+          "items": [
+            "O fóton gama sai do paciente",
+            "O colimador só deixa passar certos ângulos",
+            "O cristal converte a energia do fóton em luz",
+            "As fotomultiplicadoras geram o sinal elétrico",
+            "O sistema calcula posição e energia"
+          ],
+          "feedbackCorrect": "Esse é o caminho: primeiro o fóton é selecionado pelo ângulo, depois vira luz, a luz vira sinal elétrico e o sinal vira posição e energia.",
+          "feedbackIncorrect": "Confira de novo: o cristal só recebe o que passou pelo colimador, e não há cálculo antes de existir sinal elétrico.",
+          "help": "Pergunte em que forma a informação está em cada etapa: fóton, luz ou sinal elétrico.",
+          "sourceIds": [
+            "peterson-detectores-spect"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada item à pergunta ou tarefa que ele atende.",
+          "pairs": [
+            {
+              "left": "Colimador",
+              "right": "Limita o ângulo de entrada dos fótons"
+            },
+            {
+              "left": "Janela de energia",
+              "right": "Descarta fótons que perderam energia no espalhamento"
+            },
+            {
+              "left": "Medidor de atividade",
+              "right": "Afere a atividade antes da administração"
+            },
+            {
+              "left": "Monitor de contaminação",
+              "right": "Procura material radioativo fora do lugar"
+            }
+          ],
+          "feedbackCorrect": "Certo: dois itens fazem parte da formação da imagem e dois são instrumentos que apoiam a rotina e a proteção.",
+          "feedbackIncorrect": "Retome o conceito: separe o que age dentro da câmara do que é instrumento à parte. Depois ligue pela função.",
+          "help": "Dois itens ficam ligados à câmara; os outros dois são usados fora da aquisição.",
+          "sourceIds": [
+            "peterson-detectores-spect",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, um monitor de contaminação de superfície exibe uma leitura mais alta do que a registrada mais cedo no mesmo ponto limpo, e o painel pisca. Não há ninguém do plantão por perto. O colega ao lado diz: 'Deve ser defeito, desliga e liga de novo.'",
+          "prompt": "O que você faz diante dessa leitura?",
+          "options": [
+            {
+              "label": "Reinicia o monitor e usa a nova leitura, se baixar",
+              "correct": false,
+              "feedback": "Reiniciar pode esconder um problema real, de contaminação ou de aparelho. Retome quem avalia essa dúvida."
+            },
+            {
+              "label": "Anota a leitura mais baixa, para não alarmar o setor",
+              "correct": false,
+              "feedback": "Escolher o valor mais conveniente apaga a informação que a equipe precisa. Confira de novo o que descrever."
+            },
+            {
+              "label": "Limpa o ponto com papel e mede até a leitura cair",
+              "correct": false,
+              "feedback": "Limpar pede treino e técnica, e não é tarefa do estudante. Retome a conduta diante da dúvida."
+            },
+            {
+              "label": "Não usa o monitor, descreve o que viu e chama a equipe",
+              "correct": true,
+              "feedback": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao supervisor de proteção, que define o que testar."
+            }
+          ],
+          "help": "Há duas explicações possíveis, e nenhuma delas cabe a você decidir sozinho.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "No fim do turno, surge a dúvida: 'será que este jaleco ficou com material radioativo?'. Que instrumento do serviço responde a essa dúvida?",
+          "options": [
+            {
+              "label": "O monitor de contaminação de superfície",
+              "correct": true,
+              "feedback": "Isso. Roupas passíveis de contaminação entram na monitoração de contaminação, feita com esse tipo de monitor."
+            },
+            {
+              "label": "O medidor de atividade do laboratório",
+              "correct": false,
+              "feedback": "Esse instrumento afere o material a ser administrado. Retome a pergunta que cada um responde."
+            },
+            {
+              "label": "A câmara gama, numa aquisição rápida",
+              "correct": false,
+              "feedback": "A câmara forma imagem do paciente; ela não é o instrumento para roupas. Confira de novo a lista da aula."
+            },
+            {
+              "label": "O colimador, retirado da câmara gama",
+              "correct": false,
+              "feedback": "O colimador só seleciona ângulos e não mede nada sozinho. Retome a cadeia de detecção."
+            }
+          ],
+          "help": "Compare a dúvida sobre o jaleco com a pergunta que cada instrumento responde.",
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "iaea-srs-40"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Seguindo o fóton",
+        "body": "Agora você consegue seguir o fóton pela câmara gama até virar posição e energia, e dizer qual instrumento responde a qual pergunta na rotina do serviço.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Antes de olhar para um aparelho, pergunte: que dúvida ele resolve?"
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um fóton sofreu espalhamento no corpo e chega à câmara com energia menor que a esperada. O que a janela de energia faz com ele?",
+          "options": [
+            {
+              "label": "Devolve a energia que faltava",
+              "correct": false,
+              "feedback": "A janela não altera o fóton: ela seleciona. Retome o que acontece com quem fica fora da faixa."
+            },
+            {
+              "label": "Muda o ângulo para ele entrar",
+              "correct": false,
+              "feedback": "Ângulo é assunto do colimador. Confira de novo o que a janela avalia."
+            },
+            {
+              "label": "Descarta esse evento da imagem",
+              "correct": true,
+              "feedback": "Isso. A janela de energia retira os fótons que perderam energia no espalhamento."
+            },
+            {
+              "label": "Soma o evento a outro fóton",
+              "correct": false,
+              "feedback": "A soma citada na aula é a dos sinais das fotomultiplicadoras. Retome a função da janela."
+            }
+          ],
+          "sourceIds": [
+            "peterson-detectores-spect"
+          ]
+        },
+        {
+          "prompt": "Duda pergunta por que nem todos os fótons chegam ao cristal, se o paciente emite em todas as direções. Qual é a explicação?",
+          "options": [
+            {
+              "label": "O colimador barra quem vem fora do ângulo",
+              "correct": true,
+              "feedback": "Isso. O colimador restringe os ângulos de entrada; essa é a troca que ele impõe à sensibilidade."
+            },
+            {
+              "label": "As fotomultiplicadoras absorvem os fótons",
+              "correct": false,
+              "feedback": "Elas ficam depois do cristal e trabalham com luz. Retome o que vem antes do cristal."
+            },
+            {
+              "label": "A janela de energia age antes do colimador",
+              "correct": false,
+              "feedback": "A janela usa o sinal já formado, depois do cristal. Confira de novo a ordem da cadeia."
+            },
+            {
+              "label": "O cristal devolve os fótons para o paciente",
+              "correct": false,
+              "feedback": "O cristal transforma a energia absorvida em luz. Retome o que limita a entrada."
+            }
+          ],
+          "sourceIds": [
+            "peterson-detectores-spect"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na câmara gama, o cristal transforma a energia do fóton em…",
+          "item": {
+            "prompt": "Em que componente da câmara gama a energia do fóton vira luz?",
+            "options": [
+              {
+                "label": "No colimador de furos",
+                "correct": false,
+                "feedback": "O colimador só seleciona ângulos. Retome o que vem logo depois dele."
+              },
+              {
+                "label": "Na janela de energia",
+                "correct": false,
+                "feedback": "A janela trabalha com o sinal já calculado. Confira de novo onde a luz nasce."
+              },
+              {
+                "label": "No cristal cintilador",
+                "correct": true,
+                "feedback": "Isso. O cristal cintilador converte a energia absorvida em luz."
+              },
+              {
+                "label": "Na mesa do paciente",
+                "correct": false,
+                "feedback": "A mesa só sustenta o paciente. Retome a cadeia dentro da cabeça do detector."
+              }
+            ],
+            "sourceIds": [
+              "peterson-detectores-spect"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No levantamento periódico, o supervisor quer saber quanta radiação há num ponto da sala onde há fontes guardadas. Que instrumento responde a essa pergunta?",
+            "options": [
+              {
+                "label": "O medidor de atividade",
+                "correct": false,
+                "feedback": "Ele afere o material colocado nele, não o ponto da sala. Retome a função de cada instrumento."
+              },
+              {
+                "label": "O monitor de taxa de dose",
+                "correct": true,
+                "feedback": "Isso. O levantamento radiométrico usa esse tipo de monitor para medir a radiação nas áreas."
+              },
+              {
+                "label": "O cristal da câmara gama",
+                "correct": false,
+                "feedback": "O cristal faz parte da formação da imagem. Confira de novo os instrumentos de proteção."
+              },
+              {
+                "label": "O colimador da câmara",
+                "correct": false,
+                "feedback": "O colimador não mede radiação numa sala. Retome a última frase do conceito."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Corte da cabeça do detector com o fóton atravessando colimador, cristal e fotomultiplicadoras",
+        "Quadro com três instrumentos e a pergunta que cada um responde"
+      ]
+    },
+    {
+      "id": "s-mn-04",
+      "code": "S-MN.04",
+      "title": "Proteção, contaminação e rejeitos",
+      "objective": "Hoje você vai conseguir agir diante de suspeita de contaminação e dizer como os rejeitos são separados e identificados.",
+      "competency": "Parar, proteger, avisar e reconhecer a rotina de monitoração e os requisitos de rejeito sem agir sozinho.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de administração, ao fim da rotina simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Sobrou uma gota no chão, perto do carrinho. Se eu passar um papel, ninguém precisa parar o turno, né?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma, Duda. Gota fora do lugar não se resolve na pressa."
+          },
+          {
+            "speaker": "lia",
+            "text": "O que você faria primeiro, e quem mais está nessa sala agora?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Parar, afastar, chamar",
+        "body": "Quem manipula ou administra usa luvas descartáveis, jaleco de manga longa e monitores de tórax e extremidade. Corpo, roupas e superfícies são monitorados diariamente e a cada suspeita. Na suspeita de derramamento, a ordem ensinada aqui é: parar, avisar quem está perto, afastar quem não está envolvido e limitar a circulação, chamar a equipe e o supervisor de proteção. No serviço vale o plano dele; chamar não espera. Quem limpa e mede é pessoal treinado. Rejeito é segregado por meia-vida e características físicas, químicas e biológicas, identificado com conteúdo, radionuclídeo e datas de armazenamento e de liberação prevista, e guardado em local sinalizado e controlado. O estudante não decide descarte.",
+        "keyPoints": [
+          "Parar, avisar, afastar, chamar a equipe e o supervisor.",
+          "Monitoração diária e a cada suspeita.",
+          "Rejeito segue segregação, identificação e o plano do serviço."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da visão geral: uma gota de radiofármaco caiu na manga de um jaleco. Essa situação é um caso de quê?",
+          "options": [
+            {
+              "label": "Só exposição, como em toda radiografia",
+              "correct": false,
+              "feedback": "Numa radiografia não sobra material na pessoa. Retome o que caracteriza a gota na manga."
+            },
+            {
+              "label": "Contaminação: material onde não deveria",
+              "correct": true,
+              "feedback": "Isso. Material radioativo em contato com a roupa é contaminação."
+            },
+            {
+              "label": "Nem exposição nem contaminação",
+              "correct": false,
+              "feedback": "Há material radioativo na roupa, e isso tem nome. Confira de novo a diferença ensinada."
+            },
+            {
+              "label": "Radiação de fundo normal da sala",
+              "correct": false,
+              "feedback": "Fundo é o que existe sem esse evento. Retome o que muda quando o material sai do lugar."
+            }
+          ],
+          "help": "Pergunte se existe material radioativo na roupa ou apenas energia passando por ela.",
+          "sourceIds": [
+            "cdc-contaminacao-exposicao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a sua conduta de estudante diante de suspeita de derramamento, na ordem ensinada nesta aula.",
+          "items": [
+            "Parar o que está fazendo",
+            "Avisar quem está por perto",
+            "Afastar quem não está envolvido e limitar a circulação",
+            "Chamar a equipe e o supervisor de proteção"
+          ],
+          "feedbackCorrect": "Essa é a ordem da aula: parar, avisar, afastar e chamar, sem demora. A limpeza fica com pessoal treinado, e no serviço vale o plano dele.",
+          "feedbackIncorrect": "Retome o conceito: primeiro você para. Depois vêm as pessoas ao redor, e a chamada fecha a sequência, sem demora.",
+          "help": "Pense em quem pode pisar ali enquanto a ajuda não chega.",
+          "sourceIds": [
+            "vumc-emergencias-mn",
+            "iaea-srs-40",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada critério de segregação de rejeitos aos grupos que a norma prevê.",
+          "pairs": [
+            {
+              "left": "Meia-vida física",
+              "right": "Curta ou longa"
+            },
+            {
+              "left": "Características físicas",
+              "right": "Sólido, líquido, perfurocortante, rouparia"
+            },
+            {
+              "left": "Características químicas",
+              "right": "Orgânico ou inorgânico"
+            },
+            {
+              "left": "Características biológicas",
+              "right": "Putrescível ou patogênico"
+            }
+          ],
+          "feedbackCorrect": "Certo. Separar assim ajuda o serviço a controlar o armazenamento e o tempo de decaimento de cada grupo.",
+          "feedbackIncorrect": "Retome os quatro critérios: tempo, forma do material, química e risco biológico. Ligue cada um à palavra que combina.",
+          "help": "Pense no que cada critério observa no material.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, você vê uma pequena poça transparente sob o carrinho da sala de administração, ao lado de uma seringa caída. Um colega vem andando em direção ao carrinho, e Dona Marta, a paciente simulada, está sentada a dois passos. Caio está em outra sala.",
+          "prompt": "O que você faz primeiro?",
+          "options": [
+            {
+              "label": "Cobre a poça com papel e passa o pano com luvas",
+              "correct": false,
+              "feedback": "Limpar pede treino e técnica, e não é tarefa do estudante. Retome a sequência da aula."
+            },
+            {
+              "label": "Busca o monitor e mede sozinho antes de avisar",
+              "correct": false,
+              "feedback": "Medir sem avisar deixa as pessoas no caminho. Retome quem precisa saber primeiro."
+            },
+            {
+              "label": "Para, avisa, afasta as pessoas e chama a equipe",
+              "correct": true,
+              "feedback": "Isso. As pessoas ficam longe do local, e a equipe e o supervisor de proteção assumem medição e limpeza."
+            },
+            {
+              "label": "Recolhe a seringa e relata tudo ao fim do turno",
+              "correct": false,
+              "feedback": "Tocar na seringa é manipular, e esperar deixa o risco aberto. Confira de novo o que vem primeiro."
+            }
+          ],
+          "help": "Olhe quem está perto antes de olhar para a poça.",
+          "sourceIds": [
+            "vumc-emergencias-mn",
+            "iaea-srs-40",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "No fim do turno simulado, você encontra uma seringa num saco de lixo comum, no corredor de saída. Ninguém sabe dizer se ela foi usada, nem com qual material. O colega sugere ajeitar a situação para não dar problema a ninguém.",
+          "prompt": "O que você faz diante dessa seringa?",
+          "options": [
+            {
+              "label": "Não mexe, afasta colegas e avisa o supervisor",
+              "correct": true,
+              "feedback": "Isso. A origem e o destino desse material são decisão da equipe e do supervisor de proteção, não sua."
+            },
+            {
+              "label": "Passa a seringa para a caixa de rejeito, de pinça",
+              "correct": false,
+              "feedback": "Parece cuidado, mas é decidir o destino de um rejeito sozinho. Retome de quem é essa decisão."
+            },
+            {
+              "label": "Fecha o saco e leva para a coleta comum do setor",
+              "correct": false,
+              "feedback": "Isso faz um possível rejeito sair do controle do serviço. Confira de novo o que a norma exige."
+            },
+            {
+              "label": "Deixa como está, pois seringa sem marca não é rejeito",
+              "correct": false,
+              "feedback": "Sem saber o que é, não dá para descartar a hipótese. Retome a conduta diante de dúvida."
+            }
+          ],
+          "help": "Pense em quem controla o que entra e o que sai como rejeito no serviço.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Primeiro as pessoas",
+        "body": "Agora você consegue agir na suspeita de contaminação sem tentar resolver sozinho, e reconhecer como o rejeito é separado, identificado e guardado.",
+        "line": {
+          "speaker": "caio",
+          "text": "Avisar cedo nunca atrapalha o plantão. Gota escondida, sim."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um colega pergunta quando corpo, roupas e superfícies passíveis de contaminação são monitorados. O que a aula ensinou?",
+          "options": [
+            {
+              "label": "Só depois de derramamento confirmado",
+              "correct": false,
+              "feedback": "Esperar confirmação deixaria de fora a rotina e a suspeita. Retome a frequência ensinada."
+            },
+            {
+              "label": "Só ao fim do ano, para o relatório",
+              "correct": false,
+              "feedback": "Relatório anual é outra coisa. Confira de novo a rotina de monitoração."
+            },
+            {
+              "label": "Só na troca mensal do monitor individual",
+              "correct": false,
+              "feedback": "A troca mensal é do monitor individual. Retome a monitoração de corpo e superfícies."
+            },
+            {
+              "label": "Diariamente e a cada suspeita",
+              "correct": true,
+              "feedback": "Isso. A monitoração é diária e também acontece sempre que há suspeita, com registro."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "prompt": "A etiqueta de um recipiente de rejeito traz o conteúdo e o radionuclídeo. Qual outra informação ensinada nesta aula deveria aparecer nela?",
+          "options": [
+            {
+              "label": "Data de armazenamento e liberação prevista",
+              "correct": true,
+              "feedback": "Isso. As datas permitem controlar o tempo guardado até a liberação prevista."
+            },
+            {
+              "label": "Telefone do fornecedor do molibdênio-99",
+              "correct": false,
+              "feedback": "Esse dado não está entre os que identificam o recipiente. Retome o final do conceito."
+            },
+            {
+              "label": "Marca das luvas usadas no procedimento",
+              "correct": false,
+              "feedback": "Luvas podem ser o conteúdo, mas a marca não importa. Confira de novo o que a identificação traz."
+            },
+            {
+              "label": "Nome do estudante que observou o descarte",
+              "correct": false,
+              "feedback": "Esse dado não identifica o rejeito. Retome o que muda com o tempo nesse material."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: uma gota fora do lugar é limpa por…",
+          "item": {
+            "prompt": "Numa simulação, há uma gota no chão da sala de administração. Quem cuida da limpeza?",
+            "options": [
+              {
+                "label": "Quem viu primeiro, para ganhar tempo",
+                "correct": false,
+                "feedback": "Ver primeiro não dá treinamento. Retome o papel de quem vê a gota."
+              },
+              {
+                "label": "A equipe de limpeza geral do prédio",
+                "correct": false,
+                "feedback": "Esse material pede pessoal treinado em proteção radiológica. Confira de novo o conceito."
+              },
+              {
+                "label": "O estudante, com luvas descartáveis",
+                "correct": false,
+                "feedback": "Luva não troca treinamento nem autorização. Retome o que o estudante faz."
+              },
+              {
+                "label": "Pessoal treinado, com o supervisor",
+                "correct": true,
+                "feedback": "Isso. A limpeza e a medição são de pessoal treinado, conforme o plano do serviço."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05",
+              "vumc-emergencias-mn",
+              "iaea-srs-40"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega diz: 'Essa luva tocou tecnécio-99m, mas a meia-vida é curta. Posso jogar no lixo comum porque já vai ter sumido'. O que a aula sustenta?",
+            "options": [
+              {
+                "label": "Pode, se ele esperar seis horas antes",
+                "correct": false,
+                "feedback": "Uma meia-vida não define dispensa, e a decisão não é dele. Retome quem define o tempo de guarda."
+              },
+              {
+                "label": "Pode, porque meia-vida curta dispensa controle",
+                "correct": false,
+                "feedback": "Meia-vida curta é critério de segregação, não dispensa de controle. Confira de novo a aula."
+              },
+              {
+                "label": "O descarte segue o plano; avise a equipe",
+                "correct": true,
+                "feedback": "Isso. Segregação, tempo de armazenamento e dispensa seguem o procedimento do serviço, não a decisão individual."
+              },
+              {
+                "label": "Pode, se ele anotar na própria ficha",
+                "correct": false,
+                "feedback": "Anotar não torna o descarte correto. Retome onde fica registrado o rejeito e quem responde por ele."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Sala com a poça ao centro e setas de afastamento das pessoas, antes da chegada da equipe",
+        "Etiqueta fictícia de recipiente de rejeito com os campos ensinados"
+      ]
+    },
+    {
+      "id": "s-mn-05",
+      "code": "S-MN.05",
+      "title": "Preparo, orientação e posição",
+      "objective": "Hoje você vai conseguir coletar informações de preparo, passá-las à equipe e orientar o paciente sobre o que esperar na posição.",
+      "competency": "Coletar e repassar informações de preparo sem julgar a conduta.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Recepção e sala de preparo do serviço",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Moça, meu médico falou de jejum, mas eu tomei um remedinho com um gole de suco. E vou pegar meu neto depois. Tem problema?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu não sei responder isso. Mas sinto que preciso dizer alguma coisa para ela."
+          },
+          {
+            "speaker": "lia",
+            "text": "O que você consegue fazer bem agora, sem responder pelo médico nuclear?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Ouvir, anotar, passar adiante",
+        "body": "O serviço instrui paciente, acompanhante e lactante por escrito e verbalmente. Você ajuda na coleta: gravidez ou suspeita, amamentação, medicamentos, vitaminas e fitoterápicos, alergias e doenças recentes. A ordem ensinada aqui é: perguntar, anotar sem interpretar, passar à equipe e aguardar a orientação. Quem decide é a equipe; gravidez passa pelo médico nuclear. No PET de corpo inteiro, em geral há jejum de algumas horas, só com água, nada açucarado ou calórico, porque comer pode mudar a distribuição do material; quem tem diabetes recebe instrução especial. Joias e adornos saem, pois podem interferir; a pessoa fica parada; a câmara pode chegar bem perto. Medo de lugar fechado vai ao tecnólogo.",
+        "keyPoints": [
+          "Perguntar, anotar, passar à equipe, aguardar.",
+          "Gravidez, amamentação e jejum: você não julga.",
+          "Joias saem, a pessoa fica parada, e o medo é comunicado."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da visão geral: depois de receber o radiofármaco, onde o paciente aguarda até a hora das imagens?",
+          "options": [
+            {
+              "label": "Na recepção, junto de quem vai ser atendido",
+              "correct": false,
+              "feedback": "Depois da administração o paciente já é uma fonte. Retome o espaço próprio para quem foi injetado."
+            },
+            {
+              "label": "Na sala de espera exclusiva para injetados",
+              "correct": true,
+              "feedback": "Isso. O serviço precisa ter sala de espera exclusiva e fisicamente delimitada para quem foi injetado."
+            },
+            {
+              "label": "No laboratório, ao lado das fontes em uso",
+              "correct": false,
+              "feedback": "O laboratório é para manipular e armazenar fontes. Confira de novo onde o paciente fica."
+            },
+            {
+              "label": "Em qualquer corredor, sem espaço definido",
+              "correct": false,
+              "feedback": "A norma prevê espaço próprio para essa espera. Retome o que vem depois da administração."
+            }
+          ],
+          "help": "Lembre que, depois da administração, a pessoa passa a emitir radiação.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada orientação de preparo ao motivo ou destino ensinado.",
+          "pairs": [
+            {
+              "left": "Jejum antes do PET de corpo inteiro",
+              "right": "Comer pode mudar a distribuição do material"
+            },
+            {
+              "left": "Beber só água no preparo",
+              "right": "Evita bebida açucarada ou calórica"
+            },
+            {
+              "left": "Paciente com diabetes",
+              "right": "Recebe instruções especiais do serviço"
+            },
+            {
+              "left": "Joias e adornos",
+              "right": "Podem interferir e são retirados"
+            }
+          ],
+          "feedbackCorrect": "Certo. Cada orientação tem um motivo, e isso ajuda você a explicar sem improvisar o que a equipe definiu.",
+          "feedbackIncorrect": "Retome o conceito: dois pares falam de comida e bebida, um fala de uma condição de saúde e outro, de objetos no corpo.",
+          "help": "Procure primeiro o par que fala de objetos no corpo.",
+          "sourceIds": [
+            "radiologyinfo-pet-ct",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a coleta de uma informação de preparo, na ordem ensinada nesta aula.",
+          "items": [
+            "Perguntar sobre gravidez, amamentação, remédios e alergias",
+            "Anotar o que a pessoa disse, sem interpretar",
+            "Passar a informação à equipe responsável",
+            "Aguardar a orientação da equipe antes de seguir"
+          ],
+          "feedbackCorrect": "Essa é a sequência: o relato chega à equipe com as palavras da pessoa, e a decisão fica com quem responde por ela.",
+          "feedbackIncorrect": "Confira de novo: a equipe só decide bem com o que foi anotado, e nada segue antes da orientação dela.",
+          "help": "Pense em quem precisa da informação antes de qualquer próximo passo.",
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Dona Marta, de 41 anos, vai fazer uma cintilografia. Enquanto você confere a ficha com ela, ela comenta baixinho: 'Minha menstruação está atrasada, mas deve ser nervoso, nem falei nada para ninguém.' A administração está marcada para daqui a dez minutos.",
+          "prompt": "O que você faz com esse relato?",
+          "options": [
+            {
+              "label": "Tranquiliza, pois a dose é pequena, e deixa seguir",
+              "correct": false,
+              "feedback": "Avaliar o risco não é sua parte, e a equipe ficaria sem saber. Retome para quem vai essa informação."
+            },
+            {
+              "label": "Pede que ela remarque quando tiver certeza do atraso",
+              "correct": false,
+              "feedback": "Remarcar é decisão da equipe, não sua. Confira de novo o que fazer com o relato."
+            },
+            {
+              "label": "Pergunta a data e decide se o atraso parece relevante",
+              "correct": false,
+              "feedback": "Julgar a chance de gravidez não é papel do estudante. Retome a ordem ensinada."
+            },
+            {
+              "label": "Anota o relato, avisa a equipe e aguarda a orientação",
+              "correct": true,
+              "feedback": "Isso. Suspeita de gravidez vai à equipe antes de seguir: justificar o procedimento cabe ao médico nuclear, com o consentimento da paciente."
+            }
+          ],
+          "help": "Pense em quem precisa saber disso antes da administração.",
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Na saída, um paciente pergunta se pode pegar o filho de 2 anos no colo hoje, depois do exame. Qual é a sua resposta adequada?",
+          "options": [
+            {
+              "label": "Pode sim, o material já terá saído do corpo",
+              "correct": false,
+              "feedback": "A eliminação leva horas ou dias, e essa resposta é da equipe. Retome o que fazer com a pergunta."
+            },
+            {
+              "label": "Leva a pergunta à equipe, que dá a instrução",
+              "correct": true,
+              "feedback": "Isso. O serviço instrui por escrito e verbalmente, com atenção especial a crianças e grávidas."
+            },
+            {
+              "label": "Não pode, e ele deve evitar a criança por um mês",
+              "correct": false,
+              "feedback": "Você inventaria um prazo e uma regra que a aula não deu. Confira de novo quem orienta."
+            },
+            {
+              "label": "Indica que ele procure a resposta depois na internet",
+              "correct": false,
+              "feedback": "A orientação é dever do serviço, não do paciente. Retome de onde vem a instrução."
+            }
+          ],
+          "help": "Pergunte a si mesmo quem tem o dever de instruir sobre os cuidados com familiares.",
+          "sourceIds": [
+            "cnen-norma-3-05",
+            "radiologyinfo-medicina-nuclear"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você leva a informação",
+        "body": "Agora você consegue coletar o que importa, passar à equipe sem julgar e explicar o que a pessoa vai sentir e fazer durante a aquisição.",
+        "line": {
+          "speaker": "lia",
+          "text": "Ninguém espera que você saiba a resposta. Espera que a informação não se perca no caminho."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Seu Jorge, com PET marcado para as 9h, conta às 8h que tomou café com açúcar logo cedo. O que você faz?",
+          "options": [
+            {
+              "label": "Diz que pouco açúcar não muda nada",
+              "correct": false,
+              "feedback": "Essa avaliação não é sua, e a bebida calórica pode importar. Retome a ordem da coleta."
+            },
+            {
+              "label": "Cancela o exame e remarca para amanhã",
+              "correct": false,
+              "feedback": "Cancelar é decisão da equipe. Confira de novo o que vem depois de anotar."
+            },
+            {
+              "label": "Anota o relato e avisa a equipe antes",
+              "correct": true,
+              "feedback": "Isso. Comer ou beber algo calórico pode mudar a distribuição do material, e a equipe decide o que fazer."
+            },
+            {
+              "label": "Pede uma hora de espera e não comenta",
+              "correct": false,
+              "feedback": "Esconder o relato deixa a equipe sem a informação. Retome o papel do estudante."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-pet-ct"
+          ]
+        },
+        {
+          "prompt": "Durante a aquisição, a câmara desce e fica bem perto do rosto de um paciente, que diz estar com falta de ar de tanto medo. Como você age, na simulação?",
+          "options": [
+            {
+              "label": "Pede que aguente, porque já vai acabar",
+              "correct": false,
+              "feedback": "Minimizar o medo deixa o tecnólogo sem saber. Retome para quem vai essa informação."
+            },
+            {
+              "label": "Afasta a câmara com as próprias mãos",
+              "correct": false,
+              "feedback": "Operar o equipamento não é sua tarefa. Confira de novo quem conduz a aquisição."
+            },
+            {
+              "label": "Diz que ele se levante e saia andando",
+              "correct": false,
+              "feedback": "Interromper por conta própria não é seu papel. Retome quem precisa saber do que ele sente."
+            },
+            {
+              "label": "Avisa o tecnólogo agora e fica por perto",
+              "correct": true,
+              "feedback": "Isso. Quem conduz o exame precisa saber de medo de lugar fechado, para acolher e ajustar com a equipe."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-medicina-nuclear"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: amamentação e gravidez, o estudante coleta e…",
+          "item": {
+            "prompt": "Uma paciente diz, ao preencher a ficha, que amamenta o filho de três meses. Qual é a sua parte nisso?",
+            "options": [
+              {
+                "label": "Passar à equipe, que instrui a lactante",
+                "correct": true,
+                "feedback": "Isso. O serviço precisa instruir a lactante por escrito e verbalmente, antes, durante e depois do procedimento."
+              },
+              {
+                "label": "Dizer por quantos dias suspender o leite",
+                "correct": false,
+                "feedback": "Esse prazo não é informação sua para dar. Retome quem orienta a lactante."
+              },
+              {
+                "label": "Orientar a retirar o leite e guardar agora",
+                "correct": false,
+                "feedback": "Essa conversa é com a equipe médica. Confira de novo qual é a sua parte."
+              },
+              {
+                "label": "Não anotar, pois amamentar não muda nada",
+                "correct": false,
+                "feedback": "Amamentação é informação que a equipe precisa saber. Retome a lista de coleta."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05",
+              "radiologyinfo-medicina-nuclear"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu Jorge chega para a cintilografia de relógio e corrente de prata. Antes de entrar na sala, o que você explica a ele, na simulação?",
+            "options": [
+              {
+                "label": "Que metal só atrapalha na ressonância",
+                "correct": false,
+                "feedback": "A aula ensinou o contrário para este exame. Retome o que acontece com joias e adornos."
+              },
+              {
+                "label": "Que pode manter tudo, se ficar parado",
+                "correct": false,
+                "feedback": "Ficar parado é importante, mas não resolve os adornos. Confira de novo a orientação."
+              },
+              {
+                "label": "Que adornos saem, pois podem interferir",
+                "correct": true,
+                "feedback": "Isso. Joias e acessórios costumam ser retirados, porque podem interferir no exame. Siga o protocolo do serviço."
+              },
+              {
+                "label": "Que o exame deve ser adiado para outro dia",
+                "correct": false,
+                "feedback": "Retirar um adorno não pede adiar nada. Retome a parte da posição."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-medicina-nuclear"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Fluxo com quatro quadros: perguntar, anotar, passar à equipe, aguardar",
+        "Cartão fictício de preparo com os campos que o estudante ajuda a coletar"
+      ]
+    },
+    {
+      "id": "s-mn-06",
+      "code": "S-MN.06",
+      "title": "Cintilografia, SPECT e qualidade",
+      "objective": "Hoje você vai conseguir dizer para que serve cada teste de qualidade, com que frequência ele aparece e o que fazer quando um resultado sai da tolerância.",
+      "competency": "Associar testes de qualidade à finalidade e à frequência, e parar e avisar diante de falha.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de exames, antes do primeiro paciente",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Neste serviço, o teste do dia vem antes da agenda. A primeira coisa aqui é testar a câmara."
+          },
+          {
+            "speaker": "duda",
+            "text": "Mas ontem o teste passou. O que pode ter mudado de ontem para hoje?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa dúvida. Cada teste responde a uma pergunta. E se a resposta vier ruim, o que você faz com ela?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada teste, uma pergunta",
+        "body": "No SPECT, diferente da planar, as cabeças giram, coletam projeções em vários ângulos e o computador reconstrói em 3D. A norma prevê testes com perguntas próprias. Uniformidade em baixa densidade de contagem: a câmara responde igual em todo o campo? Janela de energia: está centrada para cada radionuclídeo em uso? Radiação de fundo: como está a contagem da sala? Esses são diários ou no dia de uso. Centro de rotação, mensal: o giro do SPECT está alinhado? O medidor de atividade tem testes diários, como repetibilidade. Resultado fora da tolerância: não ajuste, não ignore. Pare, registre e avise a equipe e o supervisor, que define o que refazer após conserto.",
+        "keyPoints": [
+          "SPECT: projeções em vários ângulos, reconstruídas em 3D.",
+          "Cada teste responde a uma pergunta e tem uma frequência.",
+          "Fora da tolerância: pare, registre, avise."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula de detecção: qual é a função da janela de energia na câmara gama?",
+          "options": [
+            {
+              "label": "Regular o brilho da imagem na tela",
+              "correct": false,
+              "feedback": "O nome engana: não é um ajuste de tela. Retome a cadeia de detecção."
+            },
+            {
+              "label": "Limitar o ângulo de entrada dos fótons",
+              "correct": false,
+              "feedback": "Ângulo é trabalho do colimador. Confira de novo o que a janela seleciona."
+            },
+            {
+              "label": "Girar as cabeças ao redor do paciente",
+              "correct": false,
+              "feedback": "Girar é movimento do equipamento no SPECT. Retome a função da janela."
+            },
+            {
+              "label": "Descartar fótons que perderam energia",
+              "correct": true,
+              "feedback": "Isso. Ela seleciona a faixa certa e retira os fótons espalhados. Hoje você vê como ela é testada."
+            }
+          ],
+          "help": "Lembre o que acontece com um fóton que sofreu espalhamento.",
+          "sourceIds": [
+            "peterson-detectores-spect"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "multiple-choice",
+          "role": "prediction",
+          "prompt": "O que o SPECT faz que a cintilografia planar, parada num só ângulo, não faz?",
+          "options": [
+            {
+              "label": "Reconstrói em 3D a partir de vários ângulos",
+              "correct": true,
+              "feedback": "Isso. As cabeças giram, coletam projeções e o computador reconstrói a distribuição em três dimensões."
+            },
+            {
+              "label": "Emite um feixe que atravessa o paciente",
+              "correct": false,
+              "feedback": "A câmara continua só detectando, mesmo girando. Retome quem emite."
+            },
+            {
+              "label": "Dispensa o radiofármaco, usando só o giro",
+              "correct": false,
+              "feedback": "Sem material no corpo não há sinal para detectar. Confira de novo a origem da imagem."
+            },
+            {
+              "label": "Elimina o colimador e toda a cadeia de sinal",
+              "correct": false,
+              "feedback": "A cadeia é a mesma; o que muda é a coleta em vários ângulos. Retome o conceito."
+            }
+          ],
+          "help": "Compare o que a cabeça do detector faz nos dois casos.",
+          "sourceIds": [
+            "peterson-detectores-spect",
+            "nibib-medicina-nuclear"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada teste de qualidade à pergunta que ele responde.",
+          "pairs": [
+            {
+              "left": "Uniformidade",
+              "right": "A resposta é igual em todo o campo de visão?"
+            },
+            {
+              "left": "Janela de energia",
+              "right": "Está centrada para o radionuclídeo em uso?"
+            },
+            {
+              "left": "Radiação de fundo",
+              "right": "Como está a contagem da sala?"
+            },
+            {
+              "left": "Centro de rotação",
+              "right": "O giro do SPECT está alinhado?"
+            }
+          ],
+          "feedbackCorrect": "Certo. Saber a pergunta de cada teste ajuda a entender o que um resultado ruim está dizendo.",
+          "feedbackIncorrect": "Retome o conceito: leia o nome do teste e procure a pergunta que usa a mesma ideia: campo, energia, sala ou giro.",
+          "help": "Um dos testes só faz sentido para quem gira. Comece por ele.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Antes do primeiro paciente da simulação, a tela do teste de uniformidade aparece com resultado fora da tolerância registrada na ficha. Caio foi atender um chamado, e a recepção já avisou que a agenda está atrasada. Um colega comenta que ontem o teste passou.",
+          "prompt": "O que você faz com esse resultado?",
+          "options": [
+            {
+              "label": "Repete o teste até passar e anota só o último",
+              "correct": false,
+              "feedback": "Guardar só o melhor apaga o que a equipe precisa ver. Retome a conduta diante de uma falha."
+            },
+            {
+              "label": "Ajusta o valor de referência para aceitar o dia",
+              "correct": false,
+              "feedback": "Mudar a referência esconde a falha e não é sua decisão. Confira de novo o que fazer."
+            },
+            {
+              "label": "Para, registra o que viu e avisa a equipe agora",
+              "correct": true,
+              "feedback": "Isso. O resultado fica como apareceu, e a equipe e o supervisor de proteção decidem os próximos passos."
+            },
+            {
+              "label": "Libera a agenda, pois o resultado de ontem vale",
+              "correct": false,
+              "feedback": "O teste é do dia em que a câmara é usada. Retome a frequência da uniformidade."
+            }
+          ],
+          "help": "Pense em quem precisa saber do resultado antes da agenda começar.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "No laboratório simulado, a ficha do medidor de atividade traz a tolerância de mais ou menos 5% para repetibilidade. A leitura de hoje, com a fonte de referência, ficou fora dessa faixa. Você está acompanhando a colega responsável, que saiu da sala por alguns minutos.",
+          "prompt": "Qual é a sua conduta?",
+          "options": [
+            {
+              "label": "Corrige a conta de cabeça e segue usando o aparelho",
+              "correct": false,
+              "feedback": "Compensar sozinho esconde o problema. Retome o que fazer com resultado fora da tolerância."
+            },
+            {
+              "label": "Anota o valor mais próximo da faixa, para não travar",
+              "correct": false,
+              "feedback": "Isso muda o registro, e o registro deve mostrar o que aconteceu. Confira de novo a conduta."
+            },
+            {
+              "label": "Usa outro medidor e não comenta com ninguém",
+              "correct": false,
+              "feedback": "O problema continuaria ali para o próximo uso. Retome quem precisa saber."
+            },
+            {
+              "label": "Não usa o medidor e relata à colega e ao supervisor",
+              "correct": true,
+              "feedback": "Isso. A regra é a mesma em todo equipamento: fora da tolerância, pare, registre o que viu e avise."
+            }
+          ],
+          "help": "Compare com o que você faria com a câmara gama.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Teste é para ser ouvido",
+        "body": "Agora você consegue dizer o que cada teste pergunta, com que frequência ele aparece e o que fazer quando a resposta vem ruim: parar, registrar e avisar.",
+        "line": {
+          "speaker": "caio",
+          "text": "Teste fora da faixa é o equipamento avisando. A gente ouve e passa adiante."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Com que frequência a norma prevê o teste de uniformidade para baixa densidade de contagem na câmara cintilográfica?",
+          "options": [
+            {
+              "label": "Diariamente ou no dia em que a câmara for usada",
+              "correct": true,
+              "feedback": "Isso. Esse teste, como o de janela de energia e o de fundo, acompanha o dia de uso."
+            },
+            {
+              "label": "A cada semestre, junto do relatório do físico",
+              "correct": false,
+              "feedback": "Semestrais existem, mas não são estes. Retome a lista de testes do dia."
+            },
+            {
+              "label": "Só quando um paciente reclamar da demora",
+              "correct": false,
+              "feedback": "Teste de qualidade não depende de reclamação. Confira de novo a frequência."
+            },
+            {
+              "label": "Apenas na instalação, na fase de aceitação",
+              "correct": false,
+              "feedback": "A aceitação é só o começo. Retome o que se repete no dia a dia."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "prompt": "Depois de um conserto na câmara, quem determina quais testes pertinentes devem ser feitos antes de voltar à rotina?",
+          "options": [
+            {
+              "label": "O estudante que acompanhou o técnico",
+              "correct": false,
+              "feedback": "Essa decisão não é do estudante. Retome o final do conceito."
+            },
+            {
+              "label": "A recepção, conforme o tamanho da agenda",
+              "correct": false,
+              "feedback": "A agenda não define testes. Confira de novo quem responde pela proteção."
+            },
+            {
+              "label": "O supervisor de proteção radiológica",
+              "correct": true,
+              "feedback": "Isso. Após reparo ou suspeita de funcionamento irregular, é ele quem determina os testes pertinentes."
+            },
+            {
+              "label": "O fabricante, sem comunicar o serviço",
+              "correct": false,
+              "feedback": "O fabricante orienta, mas a norma aponta alguém do serviço. Retome quem responde pela proteção ali."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: resultado fora da tolerância a gente não ajusta; a gente para, registra e…",
+          "item": {
+            "prompt": "Na simulação, o teste de janela de energia do dia sai fora da faixa. O que você faz?",
+            "options": [
+              {
+                "label": "Avisa a equipe e o supervisor de proteção",
+                "correct": true,
+                "feedback": "Isso. Depois de parar e registrar o que viu, a informação vai para quem decide."
+              },
+              {
+                "label": "Muda a faixa na tela para o teste passar",
+                "correct": false,
+                "feedback": "Alterar a faixa esconde a falha. Retome a frase-gancho."
+              },
+              {
+                "label": "Ignora, pois outro teste do dia já passou",
+                "correct": false,
+                "feedback": "Cada teste responde a uma pergunta diferente. Confira de novo a regra."
+              },
+              {
+                "label": "Espera o fim da agenda para comentar",
+                "correct": false,
+                "feedback": "A informação precisa chegar antes dos exames. Retome o que vem depois de parar."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Hoje o serviço vai usar um radionuclídeo diferente do habitual. O que o teste de janela de energia precisa verificar nesse caso?",
+            "options": [
+              {
+                "label": "Se o paciente está em jejum há mais tempo",
+                "correct": false,
+                "feedback": "Jejum é preparo do paciente, não teste do aparelho. Retome a pergunta desse teste."
+              },
+              {
+                "label": "Se o colimador em uso está sem danos",
+                "correct": false,
+                "feedback": "Defeito de colimador tem teste próprio. Confira de novo o que a palavra energia indica."
+              },
+              {
+                "label": "Se a sala ficou com menos radiação de fundo",
+                "correct": false,
+                "feedback": "Fundo é outro teste, com outra pergunta. Retome a função da janela."
+              },
+              {
+                "label": "Se a janela está centrada para esse material",
+                "correct": true,
+                "feedback": "Isso. A norma pede verificar a janela para todos os radionuclídeos usados na rotina."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Comparação entre planar, com uma cabeça parada, e SPECT, com cabeças girando",
+        "Calendário de testes: diário, mensal e semestral, com a pergunta de cada um"
+      ]
+    },
+    {
+      "id": "s-mn-07",
+      "code": "S-MN.07",
+      "title": "PET-CT e SPECT-CT",
+      "objective": "Hoje você vai conseguir explicar o que a TC faz nos exames híbridos e reconhecer o que pode desalinhar as duas séries.",
+      "competency": "Explicar o papel da TC no híbrido e avisar a equipe sobre o que pode prejudicá-lo.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de PET-CT, durante a preparação",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Se o PET já mostra o sinal, por que fazer uma TC junto? Não é mais radiação sem necessidade?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Sem ela, essa imagem fica sem chão. E olha a sala de repouso: quem está ali há meia hora quase não fala nem se mexe."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Duas perguntas para hoje: o que a TC faz aqui, e o que acontece se as duas séries não coincidirem?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Duas séries, um alinhamento",
+        "body": "No PET, cada pósitron encontra um elétron; os dois se aniquilam e geram dois fótons gama em direções opostas, registrados pelos detectores. Nos híbridos, a TC faz dois trabalhos: correção de atenuação e localização anatômica. As duas séries precisam coincidir: o co-registro é testado a cada trimestre. A respiração pode desalinhá-las; metal, como implante, marca-passo ou cateter de quimioterapia, pode gerar artefato na correção. No PET com FDG, em geral há repouso de 30 a 60 minutos, evitando movimento e fala; a TC leva menos de 2 minutos e o PET, de 20 a 30. Braços elevados reduzem o truncamento, quando o corpo sai do campo menor da TC.",
+        "keyPoints": [
+          "A TC corrige a atenuação e situa o sinal na anatomia.",
+          "Respiração e metal podem atrapalhar o híbrido.",
+          "Viu desalinhamento ou soube de metal? Avise a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula anterior: o que as cabeças do SPECT coletam enquanto giram ao redor do paciente?",
+          "options": [
+            {
+              "label": "Projeções em vários ângulos",
+              "correct": true,
+              "feedback": "Isso. Depois o computador as reconstrói em 3D. Hoje uma TC entra nessa mesma sessão."
+            },
+            {
+              "label": "Imagens de TC do paciente",
+              "correct": false,
+              "feedback": "A TC é outra modalidade; o detector do SPECT registra o que o material emite. Retome o que o giro permite obter."
+            },
+            {
+              "label": "Raios X vindos do próprio cristal",
+              "correct": false,
+              "feedback": "O cristal não emite raios X. Confira de novo o que chega a ele."
+            },
+            {
+              "label": "Doses novas de radiofármaco",
+              "correct": false,
+              "feedback": "A câmara não administra nada. Retome o papel do giro no SPECT."
+            }
+          ],
+          "help": "Lembre o que falta para o computador reconstruir um volume.",
+          "sourceIds": [
+            "peterson-detectores-spect"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o que acontece até o PET registrar um evento, na ordem ensinada nesta aula.",
+          "items": [
+            "O radionuclídeo emite um pósitron",
+            "O pósitron encontra um elétron",
+            "Os dois se aniquilam",
+            "Saem dois fótons gama em direções opostas",
+            "Os detectores registram os dois fótons"
+          ],
+          "feedbackCorrect": "Esse é o caminho: do pósitron à aniquilação, e dela aos dois fótons que os detectores registram.",
+          "feedbackIncorrect": "Confira de novo: sem o encontro com o elétron não há aniquilação, e sem ela não há o par de fótons.",
+          "help": "O que o PET detecta não é o pósitron em si.",
+          "sourceIds": [
+            "nibib-medicina-nuclear",
+            "wna-radioisotopos"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada termo do exame híbrido ao que ele significa.",
+          "pairs": [
+            {
+              "left": "Correção de atenuação",
+              "right": "A TC serve de base para ajustar o sinal de PET ou SPECT"
+            },
+            {
+              "left": "Localização anatômica",
+              "right": "Situa o sinal nas estruturas vistas na TC"
+            },
+            {
+              "left": "Co-registro",
+              "right": "Coincidência das imagens das duas modalidades"
+            },
+            {
+              "left": "Truncamento",
+              "right": "Parte do corpo fica fora do campo menor da TC"
+            }
+          ],
+          "feedbackCorrect": "Certo. Dois termos são funções da TC; os outros dois falam de como as séries se encaixam ou não.",
+          "feedbackIncorrect": "Retome o conceito: separe o que a TC faz do que pode dar errado no encaixe entre as séries.",
+          "help": "Um dos termos só aparece quando o corpo não cabe no campo.",
+          "sourceIds": [
+            "pettinato-artefatos-pet-ct",
+            "willowson-spect-ct",
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Seu Jorge já está deitado para o PET-CT simulado. Enquanto você ajusta o lençol, ele comenta: 'Ah, e tenho marca-passo faz dois anos. Acho que esqueci de falar.' A ficha não menciona nada disso, e Caio está na sala de comando.",
+          "prompt": "O que você faz com essa informação?",
+          "options": [
+            {
+              "label": "Segue, pois metal só importa na ressonância",
+              "correct": false,
+              "feedback": "Aqui o metal também pode importar: ele pode afetar a TC e a correção de atenuação. Retome o conceito."
+            },
+            {
+              "label": "Anota para a equipe ler depois da aquisição",
+              "correct": false,
+              "feedback": "Depois da aquisição, a informação já não ajuda no preparo. Retome quando a equipe precisa saber."
+            },
+            {
+              "label": "Avisa Caio agora, antes de começar a aquisição",
+              "correct": true,
+              "feedback": "Isso. Marca-passo é informação que a equipe precisa ter antes, e a conduta é dela."
+            },
+            {
+              "label": "Pergunta o modelo e decide se o metal é pequeno demais",
+              "correct": false,
+              "feedback": "Avaliar o tamanho do metal não é decisão sua. Confira de novo para quem vai essa informação."
+            }
+          ],
+          "help": "Pergunte quem precisa dessa informação e até quando ela ainda pode ajudar.",
+          "sourceIds": [
+            "pettinato-artefatos-pet-ct",
+            "radiologyinfo-pet-ct"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na tela de um SPECT-CT simulado, você percebe que a série de SPECT parece deslocada em relação à TC. O paciente fictício já se levantou da mesa e está indo para o vestiário. Você não tem como saber a causa.",
+          "prompt": "Qual é a sua conduta?",
+          "options": [
+            {
+              "label": "Arrasta a série na tela até as duas coincidirem",
+              "correct": false,
+              "feedback": "Mover a série esconde o que aconteceu e não é tarefa sua. Retome o que fazer com a dúvida."
+            },
+            {
+              "label": "Descreve o que viu e avisa a equipe sem demora",
+              "correct": true,
+              "feedback": "Isso. A equipe avalia a causa e decide o próximo passo, inclusive enquanto o paciente ainda está por perto."
+            },
+            {
+              "label": "Diz ao paciente que o exame deu erro e deve repetir",
+              "correct": false,
+              "feedback": "Comunicar resultado ou repetição não é sua parte. Confira de novo quem decide."
+            },
+            {
+              "label": "Apaga a série e prepara uma nova aquisição sozinho",
+              "correct": false,
+              "feedback": "Apagar destrói a evidência, e repetir exame é decisão da equipe. Retome a conduta."
+            }
+          ],
+          "help": "Lembre que você não precisa saber a causa para agir bem.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Duas séries, uma história",
+        "body": "Agora você consegue explicar por que a TC acompanha o PET ou o SPECT, o que pode desalinhar as séries e o que levar à equipe sem tentar resolver na tela.",
+        "line": {
+          "speaker": "pixel",
+          "text": "A TC do híbrido, aqui, trabalha para a outra série: corrige e localiza."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que a respiração do paciente preocupa quem acompanha um exame de PET-CT?",
+          "options": [
+            {
+              "label": "Faz o radiofármaco sair pelos pulmões",
+              "correct": false,
+              "feedback": "A respiração não retira o material do corpo dessa forma. Retome o que ela muda entre as duas séries."
+            },
+            {
+              "label": "Faz o tubo da TC parar de girar na hora",
+              "correct": false,
+              "feedback": "A respiração não age sobre o tubo. Confira de novo o que pode desalinhar."
+            },
+            {
+              "label": "Reduz a energia dos fótons pela metade",
+              "correct": false,
+              "feedback": "A energia não muda com a respiração. Retome o que ela muda entre as duas séries."
+            },
+            {
+              "label": "Pode desalinhar as duas séries do exame",
+              "correct": true,
+              "feedback": "Isso. O movimento respiratório pode causar desalinhamento entre as fatias de TC e de PET."
+            }
+          ],
+          "sourceIds": [
+            "pettinato-artefatos-pet-ct"
+          ]
+        },
+        {
+          "prompt": "O campo da TC é menor que o do PET. Por que, em geral, o paciente fica de braços elevados no PET-CT?",
+          "options": [
+            {
+              "label": "Para encurtar a espera pela captação",
+              "correct": false,
+              "feedback": "A posição dos braços não muda esse tempo. Retome o que o campo menor da TC provoca."
+            },
+            {
+              "label": "Para reduzir o truncamento da imagem",
+              "correct": true,
+              "feedback": "Isso. Com os braços elevados, menos partes do corpo ficam fora do campo menor da TC. O protocolo do serviço define a posição."
+            },
+            {
+              "label": "Para baixar a radiação de fundo da sala",
+              "correct": false,
+              "feedback": "O fundo da sala não depende dos braços do paciente. Confira de novo o que o campo limita."
+            },
+            {
+              "label": "Para o material sair mais cedo do corpo",
+              "correct": false,
+              "feedback": "A posição não acelera a eliminação. Retome o que pode ficar fora do campo."
+            }
+          ],
+          "sourceIds": [
+            "pettinato-artefatos-pet-ct"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na aniquilação, os dois fótons saem em direções…",
+          "item": {
+            "prompt": "Como saem os dois fótons gama depois da aniquilação entre o pósitron e o elétron?",
+            "options": [
+              {
+                "label": "Na mesma direção, um atrás do outro",
+                "correct": false,
+                "feedback": "Eles não seguem juntos. Retome a frase-gancho."
+              },
+              {
+                "label": "Em direções opostas, ao mesmo tempo",
+                "correct": true,
+                "feedback": "Isso. O par sai em direções opostas, e os detectores do PET registram esses fótons."
+              },
+              {
+                "label": "Em ângulo reto, um para cada lado",
+                "correct": false,
+                "feedback": "A aula descreve outra geometria. Confira de novo o conceito."
+              },
+              {
+                "label": "Em qualquer direção, sem relação",
+                "correct": false,
+                "feedback": "Existe uma relação entre os dois. Retome a etapa da aniquilação."
+              }
+            ],
+            "sourceIds": [
+              "nibib-medicina-nuclear"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega pergunta para que serve a TC no SPECT-CT, já que a cintilografia sozinha também produz imagens. O que você responde?",
+            "options": [
+              {
+                "label": "Serve para administrar o material",
+                "correct": false,
+                "feedback": "A TC não administra nada. Retome os dois trabalhos dela no híbrido."
+              },
+              {
+                "label": "Serve para girar as cabeças do detector",
+                "correct": false,
+                "feedback": "O giro é do próprio equipamento de SPECT. Confira de novo o que a TC acrescenta."
+              },
+              {
+                "label": "Corrige atenuação e localiza o sinal",
+                "correct": true,
+                "feedback": "Isso. A TC fornece a base para corrigir a atenuação e situa o sinal na anatomia."
+              },
+              {
+                "label": "Substitui o SPECT por inteiro",
+                "correct": false,
+                "feedback": "As duas séries trabalham juntas. Retome por que elas precisam coincidir."
+              }
+            ],
+            "sourceIds": [
+              "willowson-spect-ct"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Aniquilação no centro de um anel de detectores, com dois fótons em direções opostas",
+        "Duas camadas, TC e PET, alinhadas e desalinhadas, sem achado clínico representado"
+      ]
+    },
+    {
+      "id": "s-mn-08",
+      "code": "S-MN.08",
+      "title": "Rastreabilidade: achar a falha",
+      "objective": "Hoje você vai conseguir comparar fichas fictícias, localizar em que etapa o processo falhou e levar o achado à equipe.",
+      "competency": "Localizar falha de processo em fichas fictícias e levá-la à equipe sem corrigir.",
+      "minutes": 7,
+      "scene": {
+        "setting": "Mesa de registros do serviço simulado",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje vocês não vão atender ninguém. Vão ler duas fichas fictícias e me dizer em que ponto o percurso quebrou."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se eu achar um campo em branco? Eu não posso só completar com o que seria o certo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Um registro diz o que aconteceu, e não o que deveria ter acontecido. Guarde essa diferença."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada etapa deixa rastro",
+        "body": "Cada etapa deixa um registro. A ordem ensinada aqui é: inspeção do embalado; testes de qualidade do dia, com data, resultado e responsável; controle de qualidade do radiofármaco, antes da administração; atividade prescrita e administrada, com identificação do paciente; rejeito, com datas e visto. Para achar a falha, procure a primeira etapa sem registro, fora de ordem ou com valor divergente. Em suspeita de paciente errado, órgão errado ou atividade diferente da prescrita, você não corrige nada: descreve e avisa a equipe e o supervisor de proteção. Titular, responsável técnico e supervisor investigam, registram e informam paciente e médico.",
+        "keyPoints": [
+          "Registro conta o que aconteceu, não o que deveria acontecer.",
+          "Procure a primeira etapa sem registro, fora de ordem ou divergente.",
+          "O estudante aponta; quem responde investiga e registra."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Da aula do percurso: qual conferência o profissional autorizado faz imediatamente antes de administrar o radiofármaco?",
+          "options": [
+            {
+              "label": "Colimador, cristal e fotomultiplicadoras",
+              "correct": false,
+              "feedback": "Esses são componentes da câmara. Retome a etapa que vem logo antes de administrar."
+            },
+            {
+              "label": "Horário da recepção e tipo de acompanhante",
+              "correct": false,
+              "feedback": "Esses dados não garantem material certo na pessoa certa. Confira de novo o percurso."
+            },
+            {
+              "label": "Controle de qualidade, prescrição e identidade",
+              "correct": true,
+              "feedback": "Isso. É a conferência que une material, prescrição e pessoa. Hoje você a procura nas fichas."
+            },
+            {
+              "label": "Local de rejeito, datas e visto do supervisor",
+              "correct": false,
+              "feedback": "Isso é registro de rejeito, no fim do percurso. Retome o que vem antes da administração."
+            }
+          ],
+          "help": "Pense no que precisa estar certo sobre o material e sobre a pessoa.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os registros do fluxo, na ordem ensinada nesta aula.",
+          "items": [
+            "Inspeção do embalado",
+            "Testes de qualidade do dia",
+            "Controle de qualidade do radiofármaco",
+            "Atividade prescrita e administrada, com identificação",
+            "Rejeito, com datas e visto"
+          ],
+          "feedbackCorrect": "Essa é a ordem da aula: do material que chega ao rejeito que fica guardado. Ler nessa ordem ajuda a achar a primeira quebra.",
+          "feedbackIncorrect": "Retome o conceito: comece pelo que chega ao serviço e termine pelo que sobra. O paciente aparece depois das conferências.",
+          "help": "Pergunte o que precisa estar registrado antes de haver administração.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Compare os achados das fichas fictícias e ligue cada um à etapa em que o registro falhou.",
+          "pairs": [
+            {
+              "left": "Caixa amassada, sem nenhuma anotação",
+              "right": "Inspeção do embalado"
+            },
+            {
+              "left": "Uniformidade de hoje sem data nem responsável",
+              "right": "Testes de qualidade do dia"
+            },
+            {
+              "left": "Atividade administrada em branco",
+              "right": "Registro da administração"
+            },
+            {
+              "left": "Recipiente sem data de armazenamento",
+              "right": "Registro do rejeito"
+            }
+          ],
+          "feedbackCorrect": "Certo. Dar nome à etapa torna o relato útil: a equipe sabe exatamente onde olhar.",
+          "feedbackIncorrect": "Retome o conceito: leia o achado e pergunte em que momento do percurso aquele dado deveria ter sido anotado.",
+          "help": "Procure a palavra do achado que aponta para o momento do percurso.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Numa ficha fictícia, a seringa aparece registrada no nome de Dona Marta, mas a paciente que acabou de sair da sala de administração usa pulseira com outro nome. Na mesma folha há um campo em branco que permitiria acertar o nome. Duda olha para você.",
+          "prompt": "O que vocês fazem agora?",
+          "options": [
+            {
+              "label": "Trocam o nome na ficha para combinar com a pulseira",
+              "correct": false,
+              "feedback": "Corrigir sozinho apaga o rastro de um possível evento grave. Retome o que o estudante faz."
+            },
+            {
+              "label": "Param, descrevem e chamam a equipe e o supervisor",
+              "correct": true,
+              "feedback": "Isso. Suspeita de paciente errado é investigada por quem responde pelo serviço, e o registro fica como está."
+            },
+            {
+              "label": "Procuram a paciente e pedem que ela volte para ver",
+              "correct": false,
+              "feedback": "Abordar a paciente assim, sozinhos, atropela a equipe. Confira de novo quem conduz."
+            },
+            {
+              "label": "Esperam o fim do turno, pois pode ser só um engano",
+              "correct": false,
+              "feedback": "Paciente errado é uma falha que precisa de resposta imediata. Retome a conduta da aula."
+            }
+          ],
+          "help": "Pense no que acontece com a investigação se o papel mudar antes de ela começar.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Duas fichas fictícias estão lado a lado. Ficha A: controle de qualidade do radiofármaco registrado às 7h50 e administração às 8h20. Ficha B: administração às 8h10 e controle de qualidade do radiofármaco registrado às 9h. As duas têm identificação e atividade preenchidas.",
+          "prompt": "Em qual ficha está a falha de processo, e o que você faz?",
+          "options": [
+            {
+              "label": "Ficha A: 30 minutos é intervalo longo; refaça as horas",
+              "correct": false,
+              "feedback": "O problema não é a distância entre os horários, e refazer horas é alterar registro. Retome a ordem ensinada."
+            },
+            {
+              "label": "Nas duas: o horário não pode ser anotado; apague",
+              "correct": false,
+              "feedback": "O horário é parte do rastro, e apagar nunca é a saída. Confira de novo o que comparar."
+            },
+            {
+              "label": "Em nenhuma: basta haver os dois registros na folha",
+              "correct": false,
+              "feedback": "Ter os dois registros não basta: a ordem importa aqui. Retome o que vem antes da administração."
+            },
+            {
+              "label": "Ficha B: controle depois da administração; leve à equipe",
+              "correct": true,
+              "feedback": "Isso. O controle precisa estar feito e registrado antes de administrar. Você aponta o achado, sem mexer no papel."
+            }
+          ],
+          "help": "Leia os horários das duas fichas e compare com a ordem ensinada.",
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Quem aponta também cuida",
+        "body": "Agora você consegue ler uma ficha pela ordem do percurso, localizar a primeira falha e levar o achado à equipe sem alterar nada do que está escrito.",
+        "line": {
+          "speaker": "lia",
+          "text": "Achar a quebra é trabalho de quem presta atenção. Consertar o papel, não."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa ficha fictícia, há prescrição e identificação, mas a atividade administrada está em branco, e o exame já terminou. Qual é a sua conduta?",
+          "options": [
+            {
+              "label": "Aponta o campo em branco à equipe e não preenche",
+              "correct": true,
+              "feedback": "Isso. A lacuna é informação para a equipe, e quem responde pelo registro decide o que fazer com ela."
+            },
+            {
+              "label": "Copia o valor prescrito no campo para fechar a ficha",
+              "correct": false,
+              "feedback": "Prescrito e administrado são dados distintos, e copiar inventa um registro. Retome o que o registro conta."
+            },
+            {
+              "label": "Estima o valor e anota a lápis até alguém conferir",
+              "correct": false,
+              "feedback": "Estimar também é preencher por conta própria. Confira de novo a sua parte."
+            },
+            {
+              "label": "Deixa como está, pois ficha não é tarefa de estudante",
+              "correct": false,
+              "feedback": "Você não preenche, mas também não ignora. Retome quem precisa saber da lacuna."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        },
+        {
+          "prompt": "Quando ocorre uma exposição médica diferente da pretendida, quem responde pela investigação, segundo a aula?",
+          "options": [
+            {
+              "label": "A transportadora que entregou o material",
+              "correct": false,
+              "feedback": "A transportadora só cuida do embalado. Retome quem responde dentro do serviço."
+            },
+            {
+              "label": "O estudante que encontrou a divergência",
+              "correct": false,
+              "feedback": "Seu papel é apontar. Confira de novo quem investiga."
+            },
+            {
+              "label": "Titular, responsável técnico e supervisor",
+              "correct": true,
+              "feedback": "Isso. Eles investigam, registram, previnem nova ocorrência e informam o paciente e o médico."
+            },
+            {
+              "label": "A recepção, ao confirmar a agenda do dia",
+              "correct": false,
+              "feedback": "A recepção não investiga evento. Retome o final do conceito."
+            }
+          ],
+          "sourceIds": [
+            "cnen-norma-3-05"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quando falta um registro, o estudante não preenche; ele…",
+          "item": {
+            "prompt": "Numa ficha fictícia, a monitoração de superfícies de hoje não consta. O que você faz?",
+            "options": [
+              {
+                "label": "Anota 'sem contaminação' para deixar em dia",
+                "correct": false,
+                "feedback": "Isso inventa um resultado. Retome a frase-gancho."
+              },
+              {
+                "label": "Copia o resultado de ontem para o dia de hoje",
+                "correct": false,
+                "feedback": "O resultado de ontem não fala de hoje. Confira de novo o que a ficha precisa mostrar."
+              },
+              {
+                "label": "Faz a medição sozinho e preenche o campo",
+                "correct": false,
+                "feedback": "Medir e registrar é tarefa de quem foi designado. Retome o seu papel."
+              },
+              {
+                "label": "Aponta a falta à equipe e não preenche nada",
+                "correct": true,
+                "feedback": "Isso. A lacuna é um achado: você a descreve e leva a quem responde pela monitoração."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No registro fictício de rejeitos, dois recipientes têm a mesma data, mas um deles não traz o radionuclídeo. O que a comparação mostra, e o que você faz?",
+            "options": [
+              {
+                "label": "Nada grave: a data igual já permite deduzir",
+                "correct": false,
+                "feedback": "Data igual não informa o radionuclídeo. Retome o que o registro de rejeito traz."
+              },
+              {
+                "label": "Falta um dado do rejeito; aponta à equipe",
+                "correct": true,
+                "feedback": "Isso. O radionuclídeo faz parte do registro, e a lacuna vai a quem responde por ele, sem você completar."
+              },
+              {
+                "label": "Falta um dado; copia do recipiente ao lado",
+                "correct": false,
+                "feedback": "Você não sabe se os dois têm o mesmo conteúdo. Confira de novo a sua parte."
+              },
+              {
+                "label": "Sobra um recipiente; leva para descarte",
+                "correct": false,
+                "feedback": "Descarte não é decisão sua, e nada sobrou. Retome o que o achado realmente mostra."
+              }
+            ],
+            "sourceIds": [
+              "cnen-norma-3-05"
+            ]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Trilha com cinco registros e um marcador na primeira etapa com falha",
+        "Duas fichas fictícias lado a lado, com os horários em destaque para comparação"
+      ]
+    }
+  ]
+}

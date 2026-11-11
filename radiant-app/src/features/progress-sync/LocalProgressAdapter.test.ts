@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { JOURNEY_PROGRESS_SCHEMA_VERSION } from '../../types/journey';
+import { HeartsRepository } from '../hearts/HeartsRepository';
 import { LocalProgressAdapter } from './LocalProgressAdapter';
 import type { ProgressBackup } from './progressSync.types';
 
@@ -126,6 +127,45 @@ describe('LocalProgressAdapter', () => {
         expect(hearts).toEqual({ count: 3, lastRefillAt: '2026-09-14T11:30:00.000Z', unlimitedUntil: null });
 
         expect(gami.absorbBackup).toHaveBeenCalledWith({ totalXp: 300, streakDays: 9 });
+    });
+
+    // Auditoria de 2026-11-10: a mescla lia e gravava as vidas fora da fila do
+    // HeartsRepository. Uma assinatura gravada no meio (`setUnlimited` roda junto
+    // da restauração na abertura) era apagada pela gravação velha.
+    it('não apaga as vidas ilimitadas gravadas enquanto a mescla lia as vidas', async () => {
+        await semear();
+        let liberar!: () => void;
+        const portao = new Promise<void>(resolve => { liberar = resolve; });
+        let avisarLeitura!: () => void;
+        const leituraPresa = new Promise<void>(resolve => { avisarLeitura = resolve; });
+        let primeira = true;
+        const storage = {
+            getItem: async (key: string) => {
+                const value = await AsyncStorage.getItem(key);
+                if (key === STORAGE_KEYS.HEARTS && primeira) {
+                    primeira = false;
+                    avisarLeitura();
+                    await portao;
+                }
+                return value;
+            },
+            setItem: (key: string, value: string) => AsyncStorage.setItem(key, value),
+        };
+        const adapter = new LocalProgressAdapter({ storage, gamification: gamificacao(0, 0) });
+        const aplicando = adapter.apply({
+            schemaVersion: 1, savedAt: AGORA_ISO, completedNodesByTrack: {}, reviewSchedule: {},
+            totalXp: 0, streakDays: 0, lastRefillAt: '2026-09-14T11:30:00.000Z',
+        });
+        await leituraPresa;
+        const assinando = new HeartsRepository(storage).setUnlimited('2026-10-14T12:00:00.000Z', Date.parse(AGORA_ISO));
+        // Sem a fila, a assinatura grava enquanto a mescla está presa; com a fila,
+        // ela espera, e o prazo solta a mescla mesmo assim.
+        await Promise.race([assinando, new Promise(resolve => setTimeout(resolve, 50))]);
+        liberar();
+        await Promise.all([aplicando, assinando]);
+
+        const hearts = JSON.parse((await AsyncStorage.getItem(STORAGE_KEYS.HEARTS))!);
+        expect(hearts.unlimitedUntil).toBe('2026-10-14T12:00:00.000Z');
     });
 
     it('não retrocede o lastRefillAt local quando o da mescla é mais antigo', async () => {

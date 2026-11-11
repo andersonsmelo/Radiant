@@ -1,8 +1,21 @@
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { JourneyDefinitionService } from './JourneyDefinitionService';
+
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
-import { LessonCatalogService } from '../../content/services/LessonCatalogService';
-import { JourneyDefinitionService } from './JourneyDefinitionService';
+
+// Contagem independente: lê as aulas-fonte direto do repositório, sem passar pelo gerador.
+type SourceUnit = { unit: { id: string }; sources: unknown[]; lessons: { id: string; interactions: unknown[]; checkpoint: unknown[] }[] };
+function readSourceUnits(): SourceUnit[] {
+    const fs = jest.requireActual<typeof import('fs')>('fs');
+    const path = jest.requireActual<typeof import('path')>('path');
+    const dir = path.resolve(__dirname, '../../../../../content-manifest/rtg-2026/aulas');
+    return (fs.existsSync(dir) ? fs.readdirSync(dir) : []).filter(name => name.endsWith('.json'))
+        .map(name => JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8')) as SourceUnit);
+}
+const sourceUnits = readSourceUnits();
+const sum = (pick: (unit: SourceUnit) => number) => sourceUnits.reduce((total, unit) => total + pick(unit), 0);
 
 /**
  * Invariante que autorizou a absorção da Galáxia por Estude, e que continua
@@ -38,6 +51,10 @@ describe('cobertura do currículo pela trilha contínua', () => {
     const unreachable = catalogIds.filter((id) => !trailIds.has(id));
 
     expect(unreachable).toEqual([]);
-    expect(catalogIds.length).toBeGreaterThan(0);
+    expect(require('../../../data/curriculum-state.json').state).toBe('retired');
+    // O catálogo é a trilha rtg-2026 inteira e nada além dela: uma aula por aula-fonte, uma trilha por unidade.
+    expect(catalogIds).toEqual(sourceUnits.flatMap(unit => unit.lessons.map(lesson => `activity:rtg-2026:${unit.unit.id}:aula-${lesson.id.slice(-2)}`)).sort());
+    expect(trailIds.size).toBe(sum(unit => unit.lessons.length));
+    expect(tracks.map(track => track.id).sort()).toEqual(sourceUnits.map(unit => `track:rtg-2026:${unit.unit.id}`).sort());
   });
 });

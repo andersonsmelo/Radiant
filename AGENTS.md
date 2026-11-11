@@ -495,6 +495,47 @@ defeito que se queria pegar.
   e `10.0.2.2`, deixou a tela branca em 2026-10-19, sem pedido de bundle no
   Metro.
 
+### Quatro lições de 2026-11-05 (conteúdo do piloto)
+
+- **Render de vídeo alheio derruba o gate sem nada mudar no código.** Com `ffmpeg` em uso,
+  o `app-quality` levou 215 s e estourou o prazo de 180 s; com a máquina livre, 98 s. A carga
+  de 1 minuto engana, porque cai entre um arquivo e outro da fila. Antes de validar, leia
+  também a CPU somada do `ffmpeg` e espere ficar abaixo de ~60%.
+- **"Cliente de desenvolvimento" se mede, não se herda de relato.** O Radiant 1.4.0 (11) do
+  iPhone ignorou a URL do cliente, fez zero pedidos ao Metro e respondeu "Unmatched Route".
+  `builtByDeveloper: true` só descreve a assinatura. Aparelho `unavailable` costuma ser cabo:
+  peça isso antes dos passos de rede. Para ver o resultado sem instalar nada, use
+  `xcrun devicectl device capture screenshot`. Isso não prova fala do VoiceOver.
+- **Contrato verde não prova que a questão avalia.** Um checkpoint de dois itens passava com
+  os dois gabaritos de mesmo texto, então marcar sempre a mesma resposta fazia 2/2. Só a
+  revisão achou; agora `checkpoint-constant-answer` barra o texto igual, não o sentido igual.
+- **Google Docs por aqui:** o `gws` local não tem cliente OAuth, e `gws auth login` falha.
+  O conector do Drive cria documentos, mas não os edita, e o modo automático só libera a
+  criação com pedido explícito do dono. Texto que ainda vai mudar fica no repositório até
+  estabilizar: recriar o documento custa um arquivo novo a cada versão.
+
+### Seis lições de 2026-11-05 e 06 (trilha ampla, cerca de quarenta subagentes)
+
+- **A janela de uso de 5 horas é o limite real, e nada acorda uma sessão cortada.** Dez
+  subagentes juntos a esgotaram em 30 minutos, três vezes. Meça o uso antes de cada
+  lote, lance o caminho crítico primeiro e deixe um `sleep` em segundo plano até o
+  horário do reset, que reinvoca a sessão. Agente interrompido continua por mensagem.
+- **Cada aviso de subagente acorda o controlador, que relê o contexto inteiro.** Com
+  mais de três ou quatro trabalhadores, use um orquestrador de contexto pequeno que
+  devolva uma tabela só, com prazo e teto de uso escritos no brief.
+- **O verificador que o autor vê precisa ser tão rígido quanto os gates do app.** Três
+  regras só apareceram depois da revisão: a conferência usa as quatro posições de
+  resposta, texto todo em maiúsculas conta como ênfase e há palavras reservadas. Passe
+  uma unidade pelo gerador e pelo gate antes de produzir em volume.
+- **O run do Loop pede a lista exata de arquivos.** Escreva o plano com o nome de cada
+  arquivo novo antes de abrir, monte a lista por script e diga ao subagente que só cria
+  os arquivos da lista dele.
+- **Teste que roda um script e lê a saída tem teto de 1 MiB.** O inventário da trilha
+  passou disso com 14 unidades e o `execFileSync` devolveu `ENOBUFS`. Passe `maxBuffer`.
+- **Branch sem PR não tem CI.** Um teste quebrado pela retirada de 2026-11-02 só
+  apareceu quando a PR #69 abriu. Abra a PR em rascunho cedo. E data de sequência se
+  testa fora de UTC: o defeito do fuso só falhava na máquina, não no CI.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

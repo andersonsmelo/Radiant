@@ -1,8 +1,10 @@
+import { CaseDecisionStepRenderer } from './CaseDecisionStepRenderer';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { InteractionType, LearningInteractionV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { BenchStepRenderer } from './BenchStepRenderer';
 import { ComparisonStepRenderer } from './ComparisonStepRenderer';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
 import { MatchingStepRenderer } from './MatchingStepRenderer';
@@ -26,6 +28,7 @@ import { OrderingStepRenderer } from './OrderingStepRenderer';
  */
 
 export type InteractionRendererProps = {
+    resolveImageSource?: import('./InteractionImageSource').InteractionImageResolver;
     interaction: LearningInteractionV2;
     value: string | undefined;
     onChange: (value: string) => void;
@@ -49,6 +52,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
                 // A tela do player apresenta o feedback, preservando a explicação autoral.
                 explanation: interaction.feedback.correct,
             }}
+            exposureImage={interaction.payload.exposureImage}
             selectedOptionId={value}
             onSelect={onChange}
             confirmationLabel={confirmationLabel}
@@ -57,7 +61,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
     );
 }
 
-function HotspotInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+function HotspotInteraction({ interaction, value, onChange, resolveImageSource, submitted, confirmationLabel }: InteractionRendererProps) {
     if (interaction.type !== 'hotspot') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
@@ -66,19 +70,21 @@ function HotspotInteraction({ interaction, value, onChange }: InteractionRendere
         <HotspotStepRenderer
             payload={interaction.payload}
             accessibilityLabel={interaction.accessibility.label}
+            resolveImageSource={resolveImageSource} submitted={submitted} confirmationLabel={confirmationLabel}
             selectedRegionId={value}
             onSelect={onChange}
         />
     );
 }
 
-function ComparisonInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+function ComparisonInteraction({ interaction, value, onChange, resolveImageSource, submitted, confirmationLabel }: InteractionRendererProps) {
     if (interaction.type !== 'comparison') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
 
     return (
         <ComparisonStepRenderer
+            resolveImageSource={resolveImageSource} submitted={submitted} confirmationLabel={confirmationLabel}
             payload={interaction.payload}
             selectedOptionId={value}
             onSelect={onChange}
@@ -94,12 +100,20 @@ function MatchingInteraction({ interaction, value, onChange }: InteractionRender
     return <MatchingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
 }
 
-function OrderingInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+function OrderingInteraction({ interaction, value, onChange, submitted, confirmationLabel }: InteractionRendererProps) {
     if (interaction.type !== 'ordering') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
 
-    return <OrderingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
+    return <OrderingStepRenderer payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} confirmationLabel={confirmationLabel} />;
+}
+
+function BenchInteraction(props: InteractionRendererProps) {
+    if (props.interaction.type !== 'bench') {
+        return <UnsupportedInteraction interaction={props.interaction} />;
+    }
+
+    return <BenchStepRenderer {...props} />;
 }
 
 /**
@@ -122,12 +136,22 @@ function UnsupportedInteraction({ interaction }: { interaction: LearningInteract
     );
 }
 
+function CaseDecisionInteraction({ interaction, value, onChange, submitted, confirmationLabel = 'Conferir resposta' }: InteractionRendererProps) {
+    if (interaction.type !== 'case-decision' || interaction.payload.options.some(option => option.imageRef !== undefined)) {
+        return <UnsupportedInteraction interaction={interaction} />;
+    }
+    return <CaseDecisionStepRenderer payload={interaction.payload} selectedOptionId={value}
+        onSelect={onChange} submitted={submitted} confirmationLabel={confirmationLabel} />;
+}
+
 const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
+    'case-decision': CaseDecisionInteraction,
     'multiple-choice': MultipleChoiceInteraction,
     hotspot: HotspotInteraction,
     comparison: ComparisonInteraction,
     matching: MatchingInteraction,
     ordering: OrderingInteraction,
+    bench: BenchInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

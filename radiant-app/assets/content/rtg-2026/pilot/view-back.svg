@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+<title id="title">De costas — estudo de orientação</title>
+<desc id="desc">Pessoa vista de costas. Regiões A e B indicadas, respectivamente, à esquerda e à direita da tela.</desc>
+<metadata>Radiant; produção assistida por IA; 2026-11-03. Arte original com revisão editorial por Claude. Crédito e CC BY 4.0 aprovados por Anderson em 2026-11-03, nos direitos que possam ser concedidos; sem declaração de autoria humana ou exclusividade sobre saída de IA. Não é imagem de paciente nem modelo anatômico de precisão.</metadata>
+<rect width="800" height="1000" fill="#ffffff"/>
+<g fill="#243041" font-family="Arial, sans-serif" text-anchor="middle">
+<text x="400" y="65" font-size="34" font-weight="700">De costas</text>
+<rect x="95" y="95" width="610" height="790" rx="16" fill="#f4f6f8"/>
+<g fill="#cbd5e1" stroke="#243041" stroke-width="7" stroke-linejoin="round">
+<circle cx="400" cy="176" r="63"/>
+<path d="M374 235 L374 264 L330 280 L300 408 L265 494 Q255 519 274 527 Q292 535 304 509 L350 401 L347 493 L345 546 L314 778 Q311 805 333 807 Q355 809 363 785 L400 620 L437 785 Q445 809 467 807 Q489 805 486 778 L455 546 L453 493 L450 401 L496 509 Q508 535 526 527 Q545 519 535 494 L500 408 L470 280 L426 264 L426 235"/>
+<path d="M345 546 H455" fill="none"/>
+</g>
+<g fill="#243041"><path d="M400 142 V216" fill="none" stroke="#64748b" stroke-width="4"/></g>
+<g font-size="32" font-weight="700"><text x="190" y="552">A</text><text x="592" y="552">B</text></g>
+<text x="400" y="930" font-size="24">Diagrama esquemático para revisão</text>
+<text x="400" y="963" font-size="20">Sem escala anatômica • sem dados de paciente</text>
+</g>
+</svg>

@@ -2,6 +2,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -12,13 +13,13 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SOURCE_SLUG = "fundamentos-de-radiologia-everton-costa-pinto"
-CONCEPTS_PATH = REPO_ROOT / "conteúdo" / "conceitos" / SOURCE_SLUG / "concepts.json"
+SOURCE_SLUG = "synthetic-shapes"
+CONCEPTS = [{"id": f"concept:{i}", "slug": f"shape-{i}", "title": f"Forma {i}", "definition": f"Descrição sintética {i}.", "galaxyId": "galaxy-shapes", "planetId": "planet-solids", "starId": "star-cubes", "taxonomyVersion": "synthetic-1", "reviewStatus": "needs-review" if i < 7 else "approved", "sourceExcerptIds": [f"excerpt:{i}"], "dominantSignals": {"galaxy": ["forma"], "planet": ["sólido"], "star": ["cubo"]}} for i in range(16)]
 
 
 class GenerateFormatsTests(unittest.TestCase):
     def test_format_bundles_are_deterministic(self):
-        concepts = json.loads(CONCEPTS_PATH.read_text(encoding="utf-8"))["concepts"]
+        concepts = CONCEPTS
         first = concepts[0]
         second = concepts[1]
 
@@ -109,7 +110,10 @@ class GenerateFormatsTests(unittest.TestCase):
         self.assertEqual(reward["payload"]["nextStep"], reward["payload"]["blocks"][2]["text"])
 
     def test_generate_formats_writes_pilot_bundles(self):
-        with tempfile.TemporaryDirectory() as temp_dir:
+        with tempfile.TemporaryDirectory() as temp_dir, \
+            patch.object(MODULE, "load_source_entry", return_value={"id": "source:synthetic", "slug": SOURCE_SLUG}), \
+            patch.object(MODULE, "load_concepts", return_value={"concepts": CONCEPTS}), \
+            patch.object(MODULE, "load_excerpts", return_value={f"excerpt:{i}": {"pageStart": i + 1, "pageEnd": i + 1} for i in range(16)}):
             result = MODULE.generate_format_layer(
                 SOURCE_SLUG,
                 REPO_ROOT,

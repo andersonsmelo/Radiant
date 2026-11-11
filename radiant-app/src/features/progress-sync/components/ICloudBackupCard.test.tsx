@@ -26,7 +26,7 @@ describe('ICloudBackupCard', () => {
     it('erro: informa sem bloquear e mantém o interruptor', () => {
         render(<ICloudBackupCard state={{ decided: true, enabled: true, lastBackupAt: null, lastError: 'cloud-unavailable' }} onToggle={jest.fn()} />);
 
-        expect(screen.getByText(/ainda não está disponível nesta versão/u)).toBeTruthy();
+        expect(screen.getByText(/Não foi possível acessar o iCloud agora/u)).toBeTruthy();
         expect(screen.getByText(/continua salvo neste aparelho/u)).toBeTruthy();
         expect(screen.getByLabelText('Backup no iCloud').props.disabled).not.toBe(true);
     });
@@ -59,4 +59,18 @@ it('avisa que o backup é de uma versão mais nova sem sugerir nova tentativa', 
     expect(screen.getByText(/versão mais nova do Radiant/i)).toBeTruthy();
     expect(screen.getByText(/guardado e intacto/i)).toBeTruthy();
     expect(screen.queryByText(/tento de novo na próxima lição/i)).toBeNull();
+});
+
+it('capacidade ausente desabilita a linha Em breve sem oferecer gravação, mesmo com estado antigo ligado', () => {
+    const toggle = jest.fn();
+    render(<ICloudBackupCard available={false} state={{ enabled: true, decided: true, lastBackupAt: null, lastError: null }} onToggle={toggle} />);
+    expect(screen.getByText('Em breve')).toBeTruthy();
+    expect(screen.queryByRole('switch')).toBeNull();
+    expect(screen.getByLabelText('Backup no iCloud. Em breve').props.accessibilityState.disabled).toBe(true);
+    expect(toggle).not.toHaveBeenCalled();
+});
+it('busy protege controle funcional sem trocar falha transitória por Em breve', () => {
+    render(<ICloudBackupCard available state={{ enabled: true, decided: true, lastBackupAt: null, lastError: 'cloud-unavailable' }} onToggle={jest.fn()} busy />);
+    expect(screen.queryByText('Em breve')).toBeNull();
+    expect(screen.getByRole('switch').props.disabled).toBe(true);
 });

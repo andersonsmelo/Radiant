@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { GamificationService } from './GamificationService';
 import { GAMIFICATION_STORAGE_KEY } from '../../../constants/gamification';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import type { QuizResult } from '../../../types/quiz';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
@@ -80,5 +82,35 @@ describe('GamificationService — vidas aposentadas', () => {
             maxHearts: 5,
             heartsLastRefillAt: '2026-09-14T10:00:00.000Z',
         });
+    });
+});
+
+// A sequência é calculada num lugar só: `recordQuizCompletion`. As datas são
+// construídas no calendário local (ano, mês, dia), como o relógio do aparelho.
+describe('GamificationService: sequência com proteção', () => {
+    const estudo = (year: number, month: number, day: number): QuizResult =>
+        ({ totalQuestions: 5, correctAnswers: 5, answeredAt: new Date(year, month - 1, day, 21, 30) }) as QuizResult;
+
+    beforeEach(async () => {
+        await AsyncStorage.clear();
+        await GamificationService.reset();
+    });
+
+    it('dias seguidos somam na sequência, em qualquer fuso (à noite, no horário de Brasília)', async () => {
+        await GamificationService.recordQuizCompletion(estudo(2026, 11, 4));
+        const { snapshot } = await GamificationService.recordQuizCompletion(estudo(2026, 11, 5));
+        expect(snapshot).toMatchObject({ streakDays: 2, lastActiveDate: '2026-11-05' });
+    });
+
+    it('um dia perdido gasta a proteção ganha no sétimo dia; o segundo dia perdido recomeça a sequência', async () => {
+        for (let day = 1; day <= 7; day += 1) await GamificationService.recordQuizCompletion(estudo(2026, 11, day));
+        expect(JSON.parse((await AsyncStorage.getItem(STORAGE_KEYS.STREAK_FREEZE))!).freezes).toBe(1);
+
+        const coberto = await GamificationService.recordQuizCompletion(estudo(2026, 11, 9));
+        expect(coberto.snapshot.streakDays).toBe(8);
+        expect(JSON.parse((await AsyncStorage.getItem(STORAGE_KEYS.STREAK_FREEZE))!).freezes).toBe(0);
+
+        const semProtecao = await GamificationService.recordQuizCompletion(estudo(2026, 11, 11));
+        expect(semProtecao.snapshot.streakDays).toBe(1);
     });
 });

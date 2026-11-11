@@ -1,5 +1,5 @@
 import { createProductionCurriculumCatalog, type ProductionCatalogEntry } from './createProductionCurriculumCatalog';
-import { PRODUCTION_CATALOG_ENTRIES } from './production-catalog-entries';
+import { PRODUCTION_CATALOG_ENTRIES } from '../../test/fixtures/syntheticEditorialBatch';
 import { auditJourneyCatalog } from '../journey/services/JourneyCatalogAudit';
 
 const first = PRODUCTION_CATALOG_ENTRIES[0];

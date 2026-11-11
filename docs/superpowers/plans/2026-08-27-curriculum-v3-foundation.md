@@ -1,5 +1,8 @@
 # Currículo V3 — plano de implementação da fundação e migração
 
+> Referência histórica da fundação técnica. A sequência e os payloads curriculares V3 foram retirados pela [ADR de 02/11](../../adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md). Preservar contratos e motores; não restaurar L1/L2 a partir deste plano. [Planejamento vigente](../../plans/2026-11-02-planejamento-conteudo-radiant.md).
+
+
 > **Execução obrigatória:** aplicar este plano com `superpowers:executing-plans`,
 > `superpowers:test-driven-development`, `loop-development` e
 > `superpowers:verification-before-completion`. Cada alteração de produção nasce
@@ -30,7 +33,7 @@ não como fila pendente.
   permanecem gates J5.
 
 Autoridade do estado: [STATUS.md](../../STATUS.md). Próxima execução:
-[produção do Arco 1](../../runbooks/curriculum-v3-arco-1.md).
+[produção do Arco 1](https://github.com/andersonsmelo/Radiant/blob/34147e114de338a73a02ec68e8079c6bf3296c1d/docs/runbooks/curriculum-v3-arco-1.md).
 
 ## Objetivo
 

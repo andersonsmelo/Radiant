@@ -11,6 +11,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { buildRuntimeCatalog } from "./catalog-runtime.mjs";
+import { readCurriculumState } from "./curriculum-state.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
@@ -139,6 +140,7 @@ ${renderLessonsUpsert(runtimeCatalog.track.id, runtimeCatalog.lessons, runtimeCa
 }
 
 export function run() {
+  if (readCurriculumState(ROOT)) throw Error('curriculum-retired: API seed generation is disabled');
   const payload = JSON.parse(readFileSync(CATALOG_PAYLOAD_PATH, "utf8"));
   const runtimeCatalog = buildRuntimeCatalog(payload);
   const sql = renderApiCatalogSql(runtimeCatalog);

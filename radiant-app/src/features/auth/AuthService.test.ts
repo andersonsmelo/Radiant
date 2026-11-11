@@ -179,4 +179,29 @@ describe('AuthService', () => {
       provider: 'email',
     });
   });
+
+  // Auditoria de 2026-11-10: o servidor revoga o token de renovação ao usá-lo.
+  // Duas renovações juntas mandavam o mesmo token; a segunda recebia 401 e
+  // deslogava o aluno.
+  it('duas renovações ao mesmo tempo fazem um pedido só e não deslogam', async () => {
+    mockedApiRequest.mockResolvedValueOnce({
+      accessToken: 'access-token', refreshToken: 'refresh-1', user: { id: 'user-1', email: 'user@example.com' },
+    });
+    await AuthService.login('user@example.com', 'secret');
+    mockedApiRequest.mockClear();
+    let responder!: (value: unknown) => void;
+    mockedApiRequest.mockImplementationOnce(() => new Promise(resolve => { responder = resolve; }) as never);
+    const { ApiError } = jest.requireMock('../../lib/api') as { ApiError: new (message: string, status: number) => Error };
+    mockedApiRequest.mockRejectedValueOnce(new ApiError('token revogado', 401));
+
+    const primeira = AuthService.refreshSession();
+    const segunda = AuthService.refreshSession();
+    responder({ accessToken: 'access-2', refreshToken: 'refresh-2', user: { id: 'user-1', email: 'user@example.com' } });
+    const [a, b] = await Promise.all([primeira, segunda]);
+
+    expect(mockedApiRequest).toHaveBeenCalledTimes(1);
+    expect(a?.refreshToken).toBe('refresh-2');
+    expect(b?.refreshToken).toBe('refresh-2');
+    expect(AuthService.hasAuthenticatedSession()).toBe(true);
+  });
 });

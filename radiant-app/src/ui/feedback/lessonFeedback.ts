@@ -2,16 +2,21 @@ import type { FeedbackPreferences } from './feedbackPreferences';
 import { hapticCelebrate, hapticError, hapticLifeLost, hapticSelection, hapticStreak, hapticSuccess } from './haptics';
 import type { LessonSoundId, LessonSoundPlayer } from './lessonSounds';
 
-export type LessonFeedbackEvent = 'option_tap' | 'correct' | 'incorrect' | 'streak' | 'heart_lost' | 'lesson_complete';
+export type LessonFeedbackEvent =
+  | 'option_tap' | 'correct' | 'incorrect' | 'streak' | 'heart_lost' | 'lesson_complete'
+  // Trilha ampla (plano de 2026-11-05, I6): 5 e 10 seguidas, subida de nível e unidade concluída.
+  | 'combo' | 'level_up' | 'unit_complete';
 
 export type LessonFeedback = Readonly<{ emit(event: LessonFeedbackEvent): void }>;
 
 const SOUND: Readonly<Record<LessonFeedbackEvent, LessonSoundId>> = {
   option_tap: 'toque', correct: 'acerto', incorrect: 'erro', streak: 'sequencia', heart_lost: 'vida', lesson_complete: 'fim',
+  combo: 'combo', level_up: 'nivel', unit_complete: 'unidade',
 };
 
 const HAPTIC: Readonly<Record<LessonFeedbackEvent, () => void>> = {
   option_tap: hapticSelection, correct: hapticSuccess, incorrect: hapticError, streak: hapticStreak, heart_lost: hapticLifeLost, lesson_complete: hapticCelebrate,
+  combo: hapticStreak, level_up: hapticCelebrate, unit_complete: hapticCelebrate,
 };
 
 /** A lição fala em eventos; esta camada decide o que toca e o que vibra (spec §5.2). */

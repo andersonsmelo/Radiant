@@ -1,0 +1,141 @@
+{
+  "at": "2026-10-28T07:42:11.623557-03:00",
+  "files": [
+    {
+      "path": "radiant-app/src/features/rewards/screens/RewardScreen.tsx",
+      "sha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "actual": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+      "match": true
+    },
+    {
+      "path": "radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx",
+      "sha256": "5194883d9e612bbdbe680eff037bf0075da990524da0dbe8949595220d55910d",
+      "actual": "5194883d9e612bbdbe680eff037bf0075da990524da0dbe8949595220d55910d",
+      "match": true
+    },
+    {
+      "path": "radiant-app/.maestro/reward-locked.yaml",
+      "sha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+      "actual": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+      "match": true
+    },
+    {
+      "path": "radiant-app/.maestro/reward-unlock.yaml",
+      "sha256": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+      "actual": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+      "match": true
+    },
+    {
+      "path": "radiant-app/scripts/maestro-contract.test.mjs",
+      "sha256": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+      "actual": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+      "match": true
+    },
+    {
+      "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+      "sha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+      "actual": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+      "match": true
+    }
+  ],
+  "head": {
+    "exit": 0,
+    "stdout": "d033433f268422020551ef3e4e20d2e121ec8ceb\n",
+    "stderr": ""
+  },
+  "status": {
+    "exit": 0,
+    "stdout": " M docs/FILA.md\n M docs/STATUS.md\n M docs/archive/STATUS_historico.md\n M docs/evidence/2026-10-27-medalhao-t05.md\n M docs/plans/2026-07-27-radiant-launch-roadmap.md\n M docs/plans/2026-10-25-medalhao-execucao-subagentes.md\n M docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md\n M docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md\n M radiant-app/.maestro/reward-locked.yaml\n M radiant-app/.maestro/reward-unlock.yaml\n M radiant-app/scripts/maestro-contract.test.mjs\n M radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx\n M radiant-app/src/features/rewards/screens/RewardScreen.tsx\n?? docs/evidence/2026-10-27-medalhao-t06.md\n?? docs/evidence/2026-10-27-medalhao-t06/\n",
+    "stderr": ""
+  },
+  "load": {
+    "exit": 0,
+    "stdout": "{ 5.16 3.83 3.19 }\n",
+    "stderr": ""
+  },
+  "devices": {
+    "exit": 0,
+    "stdout": "== Devices ==\n-- iOS 26.5 --\n",
+    "stderr": ""
+  },
+  "adb": {
+    "exit": 0,
+    "stdout": "List of devices attached\n\n",
+    "stderr": ""
+  },
+  "port": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "after": {
+    "at": "2026-10-28T07:56:47.031926-03:00",
+    "files": [
+      {
+        "path": "radiant-app/src/features/rewards/screens/RewardScreen.tsx",
+        "sha256": "2fc7517cc11e5fe0f494321cbfcfbbe2b8d8cc8a2d51dd22cf800c7e226d2038",
+        "match": true
+      },
+      {
+        "path": "radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx",
+        "sha256": "5194883d9e612bbdbe680eff037bf0075da990524da0dbe8949595220d55910d",
+        "match": true
+      },
+      {
+        "path": "radiant-app/.maestro/reward-locked.yaml",
+        "sha256": "5adc42a3333fa67930fd61ce5e4c31d78c02797ffe658516a3d81e4eebd84d53",
+        "match": true
+      },
+      {
+        "path": "radiant-app/.maestro/reward-unlock.yaml",
+        "sha256": "b4b9f90df9f8845b610b6c331df37ee755715ea21ce1fdade29770ee3096d0f7",
+        "match": true
+      },
+      {
+        "path": "radiant-app/scripts/maestro-contract.test.mjs",
+        "sha256": "f93b517123dd7993ae97648fffab1685c5f37cc79038a2f5a5a83b62f72f5759",
+        "match": true
+      },
+      {
+        "path": "radiant-app/src/features/journey/services/JourneyNodeCompletionGuard.test.tsx",
+        "sha256": "05f519f87294488f882538e72076d5ab609e348369c7e1bb4dd6e1546b314a28",
+        "match": true
+      }
+    ],
+    "head": {
+      "exit": 0,
+      "stdout": "d033433f268422020551ef3e4e20d2e121ec8ceb\n",
+      "stderr": ""
+    },
+    "status": {
+      "exit": 0,
+      "stdout": " M docs/FILA.md\n M docs/STATUS.md\n M docs/archive/STATUS_historico.md\n M docs/evidence/2026-10-27-medalhao-t05.md\n M docs/plans/2026-07-27-radiant-launch-roadmap.md\n M docs/plans/2026-10-25-medalhao-execucao-subagentes.md\n M docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md\n M docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md\n M radiant-app/.maestro/reward-locked.yaml\n M radiant-app/.maestro/reward-unlock.yaml\n M radiant-app/scripts/maestro-contract.test.mjs\n M radiant-app/src/features/rewards/screens/RewardScreen.flow.test.tsx\n M radiant-app/src/features/rewards/screens/RewardScreen.tsx\n?? docs/evidence/2026-10-27-medalhao-t06.md\n?? docs/evidence/2026-10-27-medalhao-t06/\n",
+      "stderr": ""
+    },
+    "devices": {
+      "exit": 0,
+      "stdout": "== Devices ==\n-- iOS 26.5 --\n",
+      "stderr": ""
+    },
+    "adb": {
+      "exit": 0,
+      "stdout": "List of devices attached\n\n",
+      "stderr": ""
+    },
+    "port": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "app": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "emulator": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

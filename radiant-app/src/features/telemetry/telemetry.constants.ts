@@ -27,7 +27,6 @@ export const TelemetryEvents = {
     RATING_PROMPT_SHOWN: 'rating_prompt_shown',
     RATING_PROMPT_DEFERRED: 'rating_prompt_deferred',
     RATING_PROMPT_BLOCKED: 'rating_prompt_blocked',
-    PAYWALL_OUTCOME: 'paywall_outcome',
     SESSION_QUALITY: 'session_quality',
     SYNC_FLUSH_SUCCEEDED: 'sync_flush_succeeded',
     SYNC_FLUSH_FAILED: 'sync_flush_failed',

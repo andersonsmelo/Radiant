@@ -3,24 +3,22 @@ import { StyleSheet, Text, View } from 'react-native';
 import type { ContextPayload } from '../../../types/lessonFlow';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { space, typography } from '../../../ui/styles';
+import { layout, typography } from '../../../ui/styles';
 
 const galaxy = semanticColors.galaxy;
 
 export function ContextStepRenderer({ payload }: { payload: ContextPayload }) {
     return (
-        <View style={styles.container}>
+        <View style={layout.stackSm}>
             {payload.eyebrow ? <Text style={styles.eyebrow}>{payload.eyebrow}</Text> : null}
             <Text style={styles.title}>{payload.title}</Text>
-            <Text style={styles.body}>{payload.body}</Text>
+            {/* Na abertura em diálogo o corpo vem depois das falas, fora daqui. */}
+            {payload.body ? <Text style={styles.body}>{payload.body}</Text> : null}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        gap: space.s2,
-    },
     eyebrow: {
         ...typography.caption,
         color: galaxy.statusInformation,

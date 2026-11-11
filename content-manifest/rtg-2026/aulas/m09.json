@@ -1,0 +1,1072 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m09",
+    "code": "M09",
+    "title": "Preparo, contraste e cuidado ampliado",
+    "summary": "Você aprende a ler o protocolo, conferir o preparo, levar à equipe a informação de risco e reconhecer uma intercorrência com contraste, sempre sem prescrever, escolher ou administrar."
+  },
+  "sources": [
+    {
+      "id": "radiologyinfo-contraste",
+      "title": "Contrast Materials",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/safety-contrast",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação ao paciente; consultada para tipos, vias, finalidade, sensações esperadas, sinais de reação e o que informar antes do exame, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-tc",
+      "title": "Body CT (Computed Tomography)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/bodyct",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação ao paciente; consultada para itens de preparo (jejum quando orientado, joias, medicamentos, alergias, possível gravidez), sem reprodução de texto."
+    },
+    {
+      "id": "acr-manual-contraste-2026",
+      "title": "ACR Manual on Contrast Media (2026)",
+      "publisher": "American College of Radiology, Committee on Drugs and Contrast Media",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Contrast-Manual",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Manual com direitos reservados ao ACR; consultado para fatos (seleção de pacientes, jejum, injeção segura, extravasamento, reações agudas e Tabela 1), sem reprodução de texto."
+    },
+    {
+      "id": "esur-extravasamento-2022",
+      "title": "Intravenous contrast medium extravasation: systematic review and updated ESUR Contrast Media Safety Committee Guidelines",
+      "publisher": "European Radiology (ESUR Contrast Media Safety Committee)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9038843",
+      "accessedAt": "2026-11-06",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: Roditi, Khan e colaboradores, ESUR Contrast Media Safety Committee (2022). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
+    },
+    {
+      "id": "cfm-parecer-17-2019",
+      "title": "Parecer CFM nº 17/2019 (Processo-Consulta CFM nº 19/2018): indicação e prescrição de exames com uso de contraste",
+      "publisher": "Conselho Federal de Medicina (cópia no site do Colégio Brasileiro de Radiologia)",
+      "url": "https://cbr.org.br/wp-content/uploads/2023/08/Parecer-CFM-de-2019-no-17_Uso-de-contraste.pdf",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Parecer de conselho profissional; consultado para a responsabilidade por indicação, dose, via e prescrição e para a supervisão médica da administração, sem reprodução de texto."
+    },
+    {
+      "id": "anvisa-rdc-36-2013",
+      "title": "RDC nº 36, de 25 de julho de 2013",
+      "publisher": "Anvisa (Biblioteca Virtual em Saúde do Ministério da Saúde)",
+      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2013/rdc0036_25_07_2013.html",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal; consultado para o Núcleo de Segurança do Paciente e a notificação de eventos adversos (arts. 3º, 7º, 9º e 10), sem reprodução de texto."
+    },
+    {
+      "id": "ms-protocolo-identificacao-2013",
+      "title": "Protocolo de Identificação do Paciente",
+      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
+      "url": "https://portaldeboaspraticas.iff.fiocruz.br/biblioteca/anexo-02-protocolo-de-identificacao-do-paciente/",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Protocolo do Programa Nacional de Segurança do Paciente; consultado para o mínimo de dois identificadores conferidos antes do cuidado, sem reprodução de texto."
+    },
+    {
+      "id": "lei-13146-2015",
+      "title": "Lei nº 13.146, de 6 de julho de 2015 (Lei Brasileira de Inclusão da Pessoa com Deficiência)",
+      "publisher": "Presidência da República (Planalto)",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Lei federal; consultada para os arts. 3º (barreiras e comunicação), 12 (consentimento), 24 e 25 (acesso e acessibilidade em saúde), sem reprodução de texto."
+    },
+    {
+      "id": "decreto-5626-2005",
+      "title": "Decreto nº 5.626, de 22 de dezembro de 2005",
+      "publisher": "Presidência da República (Planalto)",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/decreto/d5626.htm",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Decreto federal; consultado para o art. 25, IX (atendimento por profissionais capacitados em Libras ou em sua tradução e interpretação), sem reprodução de texto."
+    },
+    {
+      "id": "lei-10436-2002",
+      "title": "Lei nº 10.436, de 24 de abril de 2002",
+      "publisher": "Presidência da República (Planalto)",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10436.htm",
+      "accessedAt": "2026-11-06",
+      "use": "factual-reference",
+      "licenseNote": "Lei federal; consultada para o reconhecimento da Libras (art. 1º) e o atendimento adequado em serviços de saúde (art. 3º), sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m09-01",
+      "code": "M09.01",
+      "title": "Ler o protocolo e conferir preparo",
+      "objective": "Hoje você vai conseguir comparar o preparo do paciente com o protocolo do serviço e pedir conferência quando faltar informação.",
+      "competency": "Identificar informação faltante no preparo e solicitar conferência à equipe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de preparo da tomografia, serviço-escola",
+        "lines": [
+          { "speaker": "duda", "text": "A ficha diz tomografia de abdome com contraste. No campo do jejum não tem nada escrito. Será que não precisa?" },
+          { "speaker": "caio", "text": "Campo vazio não é resposta. Aqui o preparo sai do protocolo do serviço, não da memória de ninguém." },
+          { "speaker": "pixel", "text": "Então, antes de posicionar, o que a gente compara com o quê?" }
+        ]
+      },
+      "concept": {
+        "title": "Protocolo, preparo e campo vazio",
+        "body": "O protocolo do serviço é o documento validado que diz, para cada exame, se há contraste, por qual via e qual preparo vale: jejum quando indicado, objetos a retirar, informações a colher. As orientações mudam de um lugar para outro. Há serviços que pedem algumas horas de jejum, e o manual do ACR não exige jejum para o contraste de rotina na veia. Por isso você não confia no costume: lê o protocolo, pergunta o que a pessoa fez e compara. Se um campo está vazio ou a resposta não combina, você descreve o que encontrou e pede conferência. Liberar ou suspender o exame não é decisão sua.",
+        "keyPoints": [
+          "O preparo que vale é o do protocolo validado do serviço.",
+          "Campo vazio é informação que falta, não um “não”.",
+          "Diferença encontrada: descrever e pedir conferência, sem liberar nem suspender."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de conferir o preparo de Seu Jorge, você confirma quem ele é. Como essa conferência foi ensinada na primeira unidade?",
+          "options": [
+            { "label": "Chamar pelo nome e esperar que ele confirme.", "correct": false, "feedback": "Chamar pelo nome induz o “sim”. Retome: quem diz os dados é a pessoa, e você compara." },
+            { "label": "Conferir a sala e o horário marcados para ele.", "correct": false, "feedback": "Sala e horário não identificam ninguém. Confira de novo quais dados pertencem só a ele." },
+            { "label": "Pedir que diga dois dados e comparar com o registro.", "correct": true, "feedback": "Ele diz, você compara: pelo menos dois identificadores antes de qualquer cuidado." },
+            { "label": "Olhar se o rosto parece com o de uma foto antiga dele.", "correct": false, "feedback": "Semelhança de rosto não é conferência. Retome os dois identificadores comparados com o registro." }
+          ],
+          "help": "Pense em quem fala os dados e em quantos dados você compara.",
+          "sourceIds": ["ms-protocolo-identificacao-2013"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada linha do protocolo fictício de uma tomografia com contraste ao que você confere com a pessoa.",
+          "pairs": [
+            { "left": "Jejum, quando indicado", "right": "Perguntar a hora da última refeição e anotar" },
+            { "left": "Objetos de metal na região", "right": "Ver se joias e acessórios foram retirados" },
+            { "left": "Medicamentos em uso", "right": "Anotar o que ela relata, sem orientar suspensão" },
+            { "left": "Uso de contraste previsto", "right": "Ver se o questionário de triagem foi respondido" }
+          ],
+          "feedbackCorrect": "Você ligou cada linha do protocolo a uma conferência: perguntar, olhar e anotar, sem decidir nada sobre o exame.",
+          "feedbackIncorrect": "Confira de novo: para cada linha, pergunte o que dá para ver ou perguntar à pessoa antes de posicionar.",
+          "help": "Cada linha pede uma pergunta ou um olhar. Nenhuma pede uma decisão sua.",
+          "sourceIds": ["radiologyinfo-tc", "radiologyinfo-contraste"]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na ficha fictícia de Dona Marta está marcado “contraste: sim”. O campo da via de administração está em branco e o questionário de triagem não está na pasta. A sala já está livre, e a Duda sugere começar pelo posicionamento.",
+          "prompt": "O que você faz com o que encontrou na ficha?",
+          "options": [
+            { "label": "Aponta os dois itens que faltam e pede conferência.", "correct": true, "feedback": "Você descreveu o que falta e levou a quem pode completar, antes de seguir com o exame." },
+            { "label": "Preenche a via com a que costuma ser usada no serviço.", "correct": false, "feedback": "Preencher pelo costume inventa um dado que é da prescrição. Retome: campo vazio pede conferência." },
+            { "label": "Posiciona a paciente e resolve a ficha depois.", "correct": false, "feedback": "Adiantar o posicionamento empurra a falta para depois. Confira de novo o que precisa estar completo antes." },
+            { "label": "Pergunta à paciente qual via ela prefere.", "correct": false, "feedback": "A via não é escolha da paciente nem sua: ela vem da prescrição. Retome a quem cabe completar a ficha." }
+          ],
+          "help": "A ficha está completa para começar? Pense em quem pode completá-la com segurança.",
+          "sourceIds": ["cfm-parecer-17-2019", "acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O protocolo fictício do serviço-escola pede jejum antes desta tomografia com contraste. Na conferência, Seu Jorge conta que tomou café com leite e comeu pão há meia hora, porque ninguém o avisou. Um colega, com pressa, diz: “isso não dá nada, segue”.",
+          "prompt": "Qual é a sua ação agora?",
+          "options": [
+            { "label": "Seguir, já que o colega tem mais experiência.", "correct": false, "feedback": "A experiência do colega não substitui o protocolo. Retome: o que ele relatou não combina com o preparo pedido." },
+            { "label": "Remarcar o exame dele para outro dia.", "correct": false, "feedback": "Remarcar é suspender o exame por conta própria. Confira de novo de quem é essa decisão." },
+            { "label": "Anotar “em jejum” para não atrasar a fila.", "correct": false, "feedback": "Anotar o que não aconteceu apaga a informação de que a equipe precisa. Retome: o registro diz o que a pessoa relatou." },
+            { "label": "Relatar a refeição à equipe e aguardar.", "correct": true, "feedback": "Você registrou o que ele contou e levou a diferença a quem decide se o exame segue, espera ou muda." }
+          ],
+          "help": "O relato dele e o protocolo dizem coisas diferentes. A quem cabe pesar essa diferença?",
+          "sourceIds": ["radiologyinfo-tc", "acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "No serviço-escola, o pedido de Dona Marta diz “ressonância com contraste”, mas a agenda do equipamento mostra “sem contraste”. Ela já está de avental. O que você faz?",
+          "options": [
+            { "label": "Segue a agenda, que é a mais recente.", "correct": false, "feedback": "Escolher a agenda é decidir sobre o contraste. Retome: os dois documentos discordam, e isso pede conferência." },
+            { "label": "Para e leva a diferença à equipe.", "correct": true, "feedback": "Você não escolheu um dos documentos: descreveu a divergência e pediu conferência antes de seguir." },
+            { "label": "Segue o pedido, que veio do médico.", "correct": false, "feedback": "Seguir o pedido ignora a agenda sem saber qual está certa. Confira de novo quem pode esclarecer." },
+            { "label": "Pergunta a ela qual dos dois prefere.", "correct": false, "feedback": "A paciente não define se há contraste. Retome a quem cabe essa prescrição." }
+          ],
+          "help": "Dois registros discordam. O que você faria diante de um campo vazio?",
+          "sourceIds": ["cfm-parecer-17-2019"]
+        }
+      ],
+      "closing": {
+        "title": "Ler, perguntar, comparar",
+        "body": "Agora você consegue ler o protocolo do serviço, perguntar à pessoa o que ela fez e comparar os dois. Quando falta um dado ou algo não combina, você descreve e pede conferência. Na próxima aula, você vê para que serve o contraste.",
+        "line": { "speaker": "caio", "text": "Ficha completa não atrasa exame. O que atrasa é descobrir o buraco com o paciente na mesa." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na ficha de preparo de Seu Jorge, o campo “alergias” está em branco. Ele já está na sala. O que esse campo vazio diz a você?",
+          "options": [
+            { "label": "Que ele não tem alergia a nenhum medicamento.", "correct": false, "feedback": "Vazio não é “não”. Ninguém registrou a resposta, então ela ainda não existe." },
+            { "label": "Que a informação falta e pede conferência.", "correct": true, "feedback": "Campo vazio é dado que falta: você aponta e pede que seja conferido antes de seguir." },
+            { "label": "Que a pergunta não vale para este exame.", "correct": false, "feedback": "O protocolo traz o campo porque ele importa. Retome o que fazer com um campo sem resposta." },
+            { "label": "Que a recepção já conferiu e liberou.", "correct": false, "feedback": "Nada na ficha mostra essa conferência. Confira de novo o que um campo em branco permite concluir." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste"]
+        },
+        {
+          "prompt": "A Duda lembra que, em outro hospital, este exame era feito sem jejum. Onde ela confere o preparo que vale no serviço-escola?",
+          "options": [
+            { "label": "Na lembrança do que viu no outro hospital.", "correct": false, "feedback": "O outro hospital tem o protocolo dele. Retome: as orientações mudam de um serviço para outro." },
+            { "label": "No que o paciente fez no exame anterior.", "correct": false, "feedback": "O exame anterior pode ter sido outro, em outro lugar. Confira de novo onde o preparo está escrito." },
+            { "label": "No costume da equipe do plantão da noite.", "correct": false, "feedback": "Costume não é documento validado. Retome a fonte que a aula apontou." },
+            { "label": "No protocolo validado deste serviço.", "correct": true, "feedback": "O preparo que vale está no protocolo do próprio serviço, e é com ele que você compara." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-tc"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o protocolo pede…, a pessoa fez…, então eu…",
+          "item": {
+            "prompt": "O protocolo fictício pede jejum. Seu Jorge diz que não comeu nada desde ontem à noite. O que você faz com essa resposta?",
+            "options": [
+              { "label": "Anota o relato e segue para o próximo item.", "correct": true, "feedback": "O relato combina com o protocolo: você registra e continua a conferência." },
+              { "label": "Chama a equipe para avaliar o jejum dele.", "correct": false, "feedback": "Aqui não há diferença a avaliar: o relato combina com o que o protocolo pede. Retome a comparação." },
+              { "label": "Pede que ele coma algo antes do exame.", "correct": false, "feedback": "Orientar que coma contraria o preparo pedido. Confira de novo o que o protocolo diz." },
+              { "label": "Deixa o campo em branco, pois está tudo certo.", "correct": false, "feedback": "Sem registro, a próxima pessoa não sabe que você conferiu. Retome: o que foi perguntado fica anotado." }
+            ],
+            "sourceIds": ["radiologyinfo-tc"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame contrastado do intestino, o protocolo fictício pede dieta especial na véspera. Seu Jorge diz que não recebeu essa orientação e comeu normalmente. O que cabe a você?",
+            "options": [
+              { "label": "Fazer o exame e avisar o médico depois.", "correct": false, "feedback": "Seguir leva ao exame um preparo que não aconteceu. Retome: a diferença se resolve antes." },
+              { "label": "Orientar a dieta e remarcar para amanhã.", "correct": false, "feedback": "Remarcar e orientar a dieta são decisões da equipe. Confira de novo o seu papel diante da diferença." },
+              { "label": "Registrar o relato e pedir conferência.", "correct": true, "feedback": "Você anotou o que ele contou e levou a quem decide o que fazer com um preparo incompleto." },
+              { "label": "Dizer que a dieta não faz tanta diferença.", "correct": false, "feedback": "Minimizar o preparo é opinar sobre o exame. Retome o que o protocolo pede e o que ele relatou." }
+            ],
+            "sourceIds": ["radiologyinfo-contraste"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Ficha de protocolo com três colunas: o que o protocolo pede, o que a pessoa relatou, combina ou não.",
+        "Fluxo curto: ler, perguntar, comparar; da comparação saem duas setas, “combina: registrar” e “falta ou diverge: pedir conferência”."
+      ]
+    },
+    {
+      "id": "m09-02",
+      "code": "M09.02",
+      "title": "Para que serve contraste",
+      "objective": "Hoje você vai conseguir dizer para que serve o contraste e separar o que cabe ao médico, à equipe e a você.",
+      "competency": "Distinguir a finalidade do contraste e as responsabilidades de cada um, sem prescrever.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando da tomografia, serviço-escola",
+        "lines": [
+          { "speaker": "paciente", "name": "Dona Marta", "text": "Moço, esse contraste é para quê? Sem ele o aparelho não enxerga?" },
+          { "speaker": "duda", "text": "Eu sei que realça alguma coisa. Mas quem decide se ela toma, e por onde, eu nunca soube direito." },
+          { "speaker": "caio", "text": "Duas perguntas boas. Uma é sobre a imagem, a outra é sobre quem responde por cada parte." },
+          { "speaker": "pixel", "text": "Vamos por partes: o que o contraste muda, e de quem é cada decisão?" }
+        ]
+      },
+      "concept": {
+        "title": "O que o contraste faz e quem decide",
+        "body": "Meio de contraste é uma substância que muda, por um tempo, o modo como uma estrutura aparece no exame. Iodo e bário atenuam mais os raios X: o bário destaca o tubo digestivo, e o iodo, vasos e órgãos. O gadolínio é usado na ressonância magnética, e as microbolhas, na ultrassonografia. Contraste não emite radiação nem é corante permanente. Pode ser dado por via oral, retal ou pela veia. Pelo parecer 17/2019 do CFM, indicar, definir dose e via e prescrever cabem ao médico do serviço de radiologia, e a administração ocorre sob supervisão médica. Nesta trilha, você não prescreve, não escolhe nem administra.",
+        "keyPoints": [
+          "Contraste destaca uma estrutura por um tempo; não emite radiação.",
+          "Indicação, dose, via e prescrição: médico do serviço de radiologia.",
+          "Você não prescreve, não escolhe e não administra."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade sobre radiação, você viu que um material que atenua mais deixa menos raios X chegarem ao detector. O que acontece quando um vaso se enche de um líquido que atenua mais que o sangue?",
+          "options": [
+            { "label": "O vaso some da imagem, encoberto pelo líquido.", "correct": false, "feedback": "Atenuar mais não apaga a estrutura. Retome: a diferença de atenuação é o que cria contraste na imagem." },
+            { "label": "O vaso passa a se destacar do que está em volta.", "correct": true, "feedback": "Mais diferença de atenuação entre o vaso e os vizinhos, mais ele se destaca. É essa a ideia do contraste." },
+            { "label": "A imagem inteira fica mais nítida, toda por igual.", "correct": false, "feedback": "O efeito não é geral: muda onde o líquido está. Confira de novo o que acontece com a diferença entre vizinhos." },
+            { "label": "O detector passa a receber mais radiação ali.", "correct": false, "feedback": "É o inverso: onde a atenuação é maior, chega menos radiação. Retome a relação vista na unidade de radiação." }
+          ],
+          "help": "Compare o vaso com os tecidos ao lado: a diferença entre eles aumentou ou diminuiu?",
+          "sourceIds": ["radiologyinfo-contraste"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada meio de contraste ao uso descrito na aula.",
+          "pairs": [
+            { "left": "Sulfato de bário", "right": "Tubo digestivo, por via oral ou retal" },
+            { "left": "Contraste iodado", "right": "Radiografia e tomografia, em geral pela veia" },
+            { "left": "Contraste com gadolínio", "right": "Ressonância magnética, pela veia" },
+            { "left": "Microbolhas", "right": "Ultrassonografia, pela veia" }
+          ],
+          "feedbackCorrect": "Você ligou cada contraste ao exame em que ele aparece. Saber isso ajuda a ler o protocolo, não a escolher o contraste.",
+          "feedbackIncorrect": "Confira de novo: dois deles agem sobre os raios X, um pertence à ressonância e um à ultrassonografia.",
+          "help": "Comece pelos que atenuam raios X e veja qual deles fica no tubo digestivo.",
+          "sourceIds": ["radiologyinfo-contraste", "cfm-parecer-17-2019"]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "O pedido de Seu Jorge diz “tomografia com contraste”. Segundo o parecer do CFM citado na aula, quem define se o contraste será usado e o prescreve?",
+          "options": [
+            { "label": "O tecnólogo que opera o equipamento.", "correct": false, "feedback": "Operar o equipamento é tarefa técnica. Retome: indicação e prescrição são decisões médicas." },
+            { "label": "A recepção, ao agendar o horário do exame.", "correct": false, "feedback": "A agenda registra o que foi definido, não define. Confira de novo de quem é a prescrição." },
+            { "label": "O médico que pediu o exame, sozinho.", "correct": false, "feedback": "O solicitante informa os dados clínicos e pode expor suas razões, mas o parecer põe a decisão final no serviço de radiologia." },
+            { "label": "O médico do serviço de radiologia.", "correct": true, "feedback": "Pelo parecer 17/2019 do CFM, indicação, dose, via e prescrição cabem ao médico do serviço de radiologia." }
+          ],
+          "help": "Separe quem pede o exame, quem agenda, quem opera e quem responde pela prescrição.",
+          "sourceIds": ["cfm-parecer-17-2019"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O Caio foi chamado à outra sala. Um colega do plantão, para ganhar tempo, pede a você: “vai aspirando o contraste na seringa e deixando conectado no acesso da paciente, que eu já volto para injetar”. A prescrição está na pasta.",
+          "prompt": "O que você responde e faz?",
+          "options": [
+            { "label": "Diz que isso não cabe a você e avisa o Caio.", "correct": true, "feedback": "Preparar e conectar já é administrar. Você nomeou o limite e levou o pedido a quem supervisiona." },
+            { "label": "Aspira a dose, mas não conecta no acesso dela.", "correct": false, "feedback": "Aspirar a dose já é preparar o medicamento. Retome: nesta trilha você não prepara nem administra contraste." },
+            { "label": "Conecta a seringa e espera ele voltar.", "correct": false, "feedback": "Conectar ao acesso é parte da administração. Confira de novo onde termina o seu papel." },
+            { "label": "Faz o que foi pedido, pois há prescrição.", "correct": false, "feedback": "A prescrição vale para quem é habilitado e designado, sob supervisão. Ela não transfere a tarefa a um estudante." }
+          ],
+          "help": "Pergunte-se: preparar e conectar fazem parte de administrar?",
+          "sourceIds": ["cfm-parecer-17-2019"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Na sala de espera, Dona Marta pergunta: “esse contraste é radioativo? Vai ficar no meu corpo para sempre?”. Qual resposta informa o que a aula ensinou, sem sair do seu papel?",
+          "options": [
+            { "label": "“Pode ficar tranquila, não existe risco nenhum.”", "correct": false, "feedback": "Prometer risco zero é uma garantia que você não pode dar. Retome o que a aula afirma sobre o contraste." },
+            { "label": "“É radioativo, mas bem fraquinho, some rápido.”", "correct": false, "feedback": "O contraste não emite radiação. Confira de novo o que ele faz na imagem." },
+            { "label": "“Ele não emite radiação nem é corante permanente.”", "correct": true, "feedback": "Você informou o que o contraste é e o que não é. Dúvidas sobre o caso dela seguem para a equipe." },
+            { "label": "“Isso a senhora pergunta ao médico, eu não sei dizer.”", "correct": false, "feedback": "Encaminhar tudo deixa sem resposta o que você pode explicar. Retome o que a aula ensinou sobre o contraste." }
+          ],
+          "help": "Separe o que é fato geral sobre o contraste do que é avaliação do caso dela.",
+          "sourceIds": ["radiologyinfo-contraste"]
+        }
+      ],
+      "closing": {
+        "title": "Finalidade e limite",
+        "body": "Agora você consegue explicar para que serve o contraste e dizer de quem é cada decisão: o médico do serviço indica e prescreve, a equipe habilitada administra sob supervisão, e você confere, comunica e observa.",
+        "line": { "speaker": "lia", "text": "Saber para que serve não dá o direito de escolher. Dá condição de perceber quando algo não combina." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Antes de um exame do esôfago, Seu Jorge recebe um copo com bário para engolir. Para que serve esse líquido no exame?",
+          "options": [
+            { "label": "Para destacar o tubo digestivo na imagem.", "correct": true, "feedback": "O bário atenua mais os raios X e faz o tubo digestivo se destacar." },
+            { "label": "Para proteger o estômago da radiação.", "correct": false, "feedback": "O bário não é barreira de proteção. Retome o que o contraste muda na imagem." },
+            { "label": "Para substituir o jejum pedido no preparo.", "correct": false, "feedback": "Contraste e preparo são coisas diferentes. Confira de novo a finalidade do contraste." },
+            { "label": "Para acalmar o paciente antes do exame.", "correct": false, "feedback": "O bário não tem efeito calmante. Retome: ele muda o modo como uma estrutura aparece." }
+          ],
+          "sourceIds": ["radiologyinfo-contraste"]
+        },
+        {
+          "prompt": "No estágio simulado, uma colega pergunta a você qual volume de contraste deve ir na seringa para o próximo paciente. O que cabe a você responder?",
+          "options": [
+            { "label": "O volume que viu ser usado no paciente anterior.", "correct": false, "feedback": "Repetir o volume de outro paciente é definir dose. Retome de quem é essa decisão." },
+            { "label": "Um volume menor, para ficar do lado seguro.", "correct": false, "feedback": "Reduzir por conta própria também é definir dose. Confira de novo a quem cabe a prescrição." },
+            { "label": "Que a dose está na prescrição médica.", "correct": true, "feedback": "Dose e via vêm da prescrição médica. Você apontou onde a resposta está, sem inventá-la." },
+            { "label": "O volume indicado no rótulo do frasco.", "correct": false, "feedback": "O rótulo descreve o produto, não a dose daquele paciente. Retome onde a dose é definida." }
+          ],
+          "sourceIds": ["cfm-parecer-17-2019"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o contraste serve para…, e quem o prescreve é…",
+          "item": {
+            "prompt": "Seu Jorge vai fazer uma tomografia com contraste iodado pela veia. O que esse contraste faz no exame?",
+            "options": [
+              { "label": "Diminui a dose de radiação do exame.", "correct": false, "feedback": "O contraste não reduz a radiação. Retome: ele muda como uma estrutura aparece." },
+              { "label": "Deixa o exame mais rápido para o paciente.", "correct": false, "feedback": "O tempo do exame não é a finalidade do contraste. Confira de novo o que ele altera." },
+              { "label": "Trata a doença enquanto a imagem é feita.", "correct": false, "feedback": "Contraste não é tratamento. Retome a primeira frase do conceito." },
+              { "label": "Destaca vasos e órgãos por algum tempo.", "correct": true, "feedback": "O iodo atenua mais os raios X, e as estruturas que o recebem se destacam por um tempo." }
+            ],
+            "sourceIds": ["radiologyinfo-contraste"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa ressonância magnética simulada, o protocolo prevê gadolínio pela veia. A acompanhante pergunta a você se pode ser “meia dose, por garantia”. O que você responde?",
+            "options": [
+              { "label": "Que meia dose costuma bastar para a imagem.", "correct": false, "feedback": "Opinar sobre a dose é entrar na prescrição. Retome de quem é essa decisão." },
+              { "label": "Que a dose é definida pelo médico do serviço.", "correct": true, "feedback": "Você não opinou sobre a dose: disse de quem é a decisão e pode levar a dúvida à equipe." },
+              { "label": "Que vai pedir ao colega para injetar menos.", "correct": false, "feedback": "Combinar outra dose com o colega muda a prescrição sem o médico. Confira de novo a quem levar a dúvida." },
+              { "label": "Que na ressonância a dose não tem importância.", "correct": false, "feedback": "Dose importa em qualquer modalidade, e não é assunto seu definir. Retome o parecer citado na aula." }
+            ],
+            "sourceIds": ["cfm-parecer-17-2019", "radiologyinfo-contraste"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quadro de quatro linhas: bário, iodo, gadolínio e microbolhas, cada um com a modalidade e a via usual.",
+        "Três raias de responsabilidade: médico do serviço (indica e prescreve), equipe habilitada (administra sob supervisão), estudante (confere, comunica, observa)."
+      ]
+    },
+    {
+      "id": "m09-03",
+      "code": "M09.03",
+      "title": "Triagem e comunicação de riscos",
+      "objective": "Hoje você vai conseguir reconhecer, na triagem, a informação que precisa chegar à equipe antes do contraste.",
+      "competency": "Reconhecer e registrar informação de triagem que exige avaliação da equipe.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de triagem do serviço-escola",
+        "lines": [
+          { "speaker": "paciente", "name": "Seu Jorge", "text": "Olha, eu tenho alergia a camarão. E da outra vez que fiz exame com contraste, me deu uma coceira danada." },
+          { "speaker": "duda", "text": "Camarão tem iodo, não tem? Então acho que ele não pode fazer." },
+          { "speaker": "lia", "text": "Duda, você acabou de tomar uma decisão. Era essa a sua tarefa na triagem?" },
+          { "speaker": "pixel", "text": "O que a triagem pede de você: decidir ou fazer a informação chegar inteira?" }
+        ]
+      },
+      "concept": {
+        "title": "Informação de risco não é veredito",
+        "body": "Antes do contraste, o serviço aplica um questionário de triagem. Vão à equipe, entre outros dados: reação anterior a contraste, alergias, asma, doença dos rins, diabetes e remédios em uso, doença do coração, problema de tireoide, possível gravidez e amamentação. Pelo manual do ACR, a reação anterior ao mesmo tipo de contraste é o fator que mais pesa, e alergia a frutos do mar não pesa mais que outras alergias. Não cabe a você concluir que um dado proíbe ou libera o exame: quem avalia é a equipe. Você pergunta como está no questionário, anota com as palavras da pessoa, inclusive o “não sei”, e avisa antes de seguir.",
+        "keyPoints": [
+          "Reação anterior, alergias, asma, rins, diabetes, coração, tireoide, gravidez: tudo vai para a equipe.",
+          "Você não filtra nem conclui: registra e avisa.",
+          "“Não sei” é resposta e fica anotada assim."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na primeira unidade, uma paciente dizia, antes da radiografia, que a menstruação estava atrasada. O que essa informação pedia de você?",
+          "options": [
+            { "label": "Pausa e conferência com a equipe.", "correct": true, "feedback": "Possível gravidez pede pausa e conferência. A triagem do contraste segue a mesma lógica." },
+            { "label": "Cancelamento imediato do exame.", "correct": false, "feedback": "Pausar não é cancelar. Retome: quem decide o que fazer com a informação é a equipe." },
+            { "label": "Um avental a mais e seguir o exame.", "correct": false, "feedback": "Acrescentar proteção e seguir é decidir sozinho. Confira de novo o que a informação pede." },
+            { "label": "Silêncio, para não assustar a paciente.", "correct": false, "feedback": "Guardar a informação tira da equipe a chance de avaliar. Retome o gesto treinado na primeira unidade." }
+          ],
+          "help": "Lembre a diferença entre pausar e cancelar.",
+          "sourceIds": ["radiologyinfo-contraste", "radiologyinfo-tc"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada fala do paciente ao campo do questionário de triagem em que ela é anotada.",
+          "pairs": [
+            { "left": "“Da última vez me deu coceira no corpo todo.”", "right": "Reação anterior a contraste" },
+            { "left": "“Faço hemodiálise três vezes por semana.”", "right": "Doença dos rins" },
+            { "left": "“Uso bombinha quando o peito chia.”", "right": "Asma" },
+            { "left": "“Minha menstruação está atrasada.”", "right": "Possível gravidez" }
+          ],
+          "feedbackCorrect": "Você reconheceu, na fala simples de cada pessoa, o campo que a equipe precisa ver preenchido.",
+          "feedbackIncorrect": "Confira de novo: escute o que a fala descreve (exame anterior, rim, respiração ou gestação) e procure o campo.",
+          "help": "A pessoa não usa o nome do campo. Pergunte-se do que ela está falando.",
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste"]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Seu Jorge informa alergia a camarão. A Duda comenta em voz alta que, por causa do iodo, ele não vai poder receber contraste iodado. Ele se assusta e pergunta se veio à toa. O questionário ainda está com você.",
+          "prompt": "O que você faz com essa informação?",
+          "options": [
+            { "label": "Avisa que o exame dele está cancelado.", "correct": false, "feedback": "Cancelar é decidir pelo médico. Pelo manual do ACR, essa alergia nem pesa mais que outras. Retome o seu papel." },
+            { "label": "Deixa de anotar, pois camarão não conta.", "correct": false, "feedback": "Descartar também é decidir. Mesmo que pese pouco, a alergia é anotada, e quem a avalia é a equipe." },
+            { "label": "Anota a alergia e leva à equipe, sem concluir.", "correct": true, "feedback": "Você registrou o que ele disse e deixou a avaliação com a equipe, sem proibir nem liberar." },
+            { "label": "Garante a ele que não há risco nenhum com o contraste.", "correct": false, "feedback": "Garantir risco zero é uma conclusão que não cabe a você. Confira de novo o que fazer com o dado." }
+          ],
+          "help": "Repare que proibir e descartar são, as duas, decisões.",
+          "sourceIds": ["acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O questionário de Dona Marta, respondido na recepção, marca “sem reação anterior a contraste”. Já na sala, ela comenta que, num exame em outro hospital, sentiu falta de ar depois da injeção. O acesso está pronto e a equipe está com a agenda atrasada.",
+          "prompt": "Diante do que ela contou, qual é a sua ação?",
+          "options": [
+            { "label": "Seguir, pois o questionário já foi assinado.", "correct": false, "feedback": "A fala dela contradiz o papel assinado. Retome: informação nova de risco não espera o fim do exame." },
+            { "label": "Parar, relatar a fala dela e aguardar a equipe.", "correct": true, "feedback": "Reação anterior é o dado que mais pesa na avaliação. Você interrompeu e fez a informação chegar a quem decide." },
+            { "label": "Corrigir o questionário e seguir o exame.", "correct": false, "feedback": "Corrigir o papel sem avisar deixa a equipe sem saber. Confira de novo: o dado precisa ser avaliado, não só anotado." },
+            { "label": "Perguntar se ela prefere desistir do exame de hoje.", "correct": false, "feedback": "Propor a desistência transfere a ela uma avaliação que é da equipe. Retome o que fazer com a informação nova." }
+          ],
+          "help": "O que ela contou muda o que a equipe sabe. Quem precisa ouvir isso antes da injeção?",
+          "sourceIds": ["acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa ressonância com gadolínio simulada, Seu Jorge comenta: “meu rim funciona pouco, faço acompanhamento”. A Duda diz que isso só importa na tomografia. O que você faz?",
+          "options": [
+            { "label": "Concorda com a Duda e segue o preparo.", "correct": false, "feedback": "Doença dos rins também entra na avaliação do gadolínio. Retome: você não filtra o que a pessoa conta." },
+            { "label": "Diz a ele que hoje o exame não será possível.", "correct": false, "feedback": "Suspender o exame é decisão da equipe. Confira de novo o seu papel na triagem." },
+            { "label": "Anota e comenta com a equipe depois do exame.", "correct": false, "feedback": "Depois do exame a informação já não serve à avaliação. Retome o momento em que ela precisa chegar." },
+            { "label": "Anota e avisa a equipe antes de seguir.", "correct": true, "feedback": "Você registrou e avisou no momento certo. A avaliação do rim diante do gadolínio é da equipe." }
+          ],
+          "help": "A triagem vale para um tipo de contraste só?",
+          "sourceIds": ["radiologyinfo-contraste", "acr-manual-contraste-2026"]
+        }
+      ],
+      "closing": {
+        "title": "A informação chega inteira",
+        "body": "Agora você consegue reconhecer, na fala da pessoa, o dado que a equipe precisa avaliar antes do contraste, registrar sem filtrar e avisar no momento certo, sem proibir, liberar, alarmar ou tranquilizar por conta própria.",
+        "line": { "speaker": "lia", "text": "Triagem bem feita é aquela em que a equipe decide sabendo o mesmo que você ouviu." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Depois de contar que tem asma, Dona Marta pergunta: “isso que eu falei é perigoso?”. Qual resposta cabe a você na triagem?",
+          "options": [
+            { "label": "“Não é nada, a senhora pode ficar tranquila.”", "correct": false, "feedback": "Tranquilizar assim é concluir pela equipe. Retome: a avaliação ainda não foi feita." },
+            { "label": "“É sério, a senhora devia ter avisado isso bem antes.”", "correct": false, "feedback": "Essa fala alarma e culpa, sem avaliação nenhuma. Confira de novo o que você pode afirmar." },
+            { "label": "“Depois do exame alguém vê isso com a senhora.”", "correct": false, "feedback": "Adiar tira o sentido da triagem, que acontece antes do contraste. Retome o momento da avaliação." },
+            { "label": "“Vou passar à equipe, que avalia antes de seguir.”", "correct": true, "feedback": "Você disse o que vai acontecer com a informação, sem alarmar nem prometer." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026"]
+        },
+        {
+          "prompt": "À pergunta sobre doença nos rins, Seu Jorge responde: “não sei, nunca fiz exame disso”. Como essa resposta entra no registro?",
+          "options": [
+            { "label": "Como “não sabe informar”, com aviso à equipe.", "correct": true, "feedback": "O registro guarda o que ele disse, e a equipe decide como lidar com a incerteza." },
+            { "label": "Como “não”, porque ele não confirmou a doença.", "correct": false, "feedback": "“Não sei” não é “não”. Retome: você anota com as palavras da pessoa." },
+            { "label": "Como “sim”, para ficar do lado mais seguro.", "correct": false, "feedback": "Marcar “sim” inventa um dado. Confira de novo o que ele realmente respondeu." },
+            { "label": "Em branco, até que ele traga um exame.", "correct": false, "feedback": "Campo em branco esconde que a pergunta foi feita. Retome como a aula trata o “não sei”." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na triagem eu pergunto, anoto como a pessoa disse e…",
+          "item": {
+            "prompt": "Dona Marta conta que toma remédio para diabetes todos os dias. O que você faz com esse dado na triagem?",
+            "options": [
+              { "label": "Orienta que ela pare o remédio hoje.", "correct": false, "feedback": "Suspender remédio é conduta médica. Retome: você registra e avisa." },
+              { "label": "Ignora, pois o exame não é de sangue.", "correct": false, "feedback": "Descartar o dado é filtrar pela equipe. Confira de novo a lista do conceito." },
+              { "label": "Anota o remédio e avisa a equipe.", "correct": true, "feedback": "Diabetes e remédios em uso estão entre os dados que a equipe avalia antes do contraste." },
+              { "label": "Pede que ela volte com a receita outro dia.", "correct": false, "feedback": "Mandar voltar é suspender o exame por conta própria. Retome a quem cabe essa decisão." }
+            ],
+            "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na triagem de um exame com bário por via oral, Seu Jorge conta que está há dias sem evacuar e com a barriga muito inchada. O questionário não tem essa pergunta. O que você faz?",
+            "options": [
+              { "label": "Anota o que ele contou e avisa a equipe.", "correct": true, "feedback": "Mesmo fora dos campos, o relato pode importar para a avaliação. Você não filtrou: registrou e avisou." },
+              { "label": "Não anota, pois o questionário não pergunta.", "correct": false, "feedback": "O formulário não esgota o que importa. Retome: quem decide se o dado pesa é a equipe." },
+              { "label": "Explica que o bário vai soltar o intestino.", "correct": false, "feedback": "Essa explicação é uma conclusão clínica sua. Confira de novo o seu papel diante do relato." },
+              { "label": "Sugere que ele tome um laxante antes.", "correct": false, "feedback": "Sugerir medicamento é conduta que não cabe a você. Retome o que fazer com a informação." }
+            ],
+            "sourceIds": ["radiologyinfo-contraste"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Funil invertido: muitas falas do paciente entram, todas saem para a equipe; um carimbo “sem filtro” no caminho do estudante.",
+        "Cartões de fala simples ligados aos campos do questionário (reação anterior, rins, asma, gravidez)."
+      ]
+    },
+    {
+      "id": "m09-04",
+      "code": "M09.04",
+      "title": "Antes, durante e depois",
+      "objective": "Hoje você vai conseguir ordenar os cuidados de antes, durante e depois do contraste num protocolo validado.",
+      "competency": "Ordenar os cuidados de antes, durante e depois segundo um protocolo validado.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de tomografia, serviço-escola",
+        "lines": [
+          { "speaker": "caio", "text": "Contraste na veia tem três tempos: antes, durante e depois. Quem pula o antes passa o durante apagando incêndio." },
+          { "speaker": "duda", "text": "E o depois? Acabou a imagem, o paciente não vai embora?" },
+          { "speaker": "caio", "text": "Ainda não. O protocolo daqui pede um tempo de observação antes da saída." },
+          { "speaker": "pixel", "text": "Se você fosse escrever os três tempos numa lista, o que entraria em cada um?" }
+        ]
+      },
+      "concept": {
+        "title": "Três tempos do protocolo",
+        "body": "No protocolo do serviço-escola, a ordem ensinada nesta aula é esta. Antes: confirmar a identidade, conferir se a triagem foi avaliada pela equipe, explicar as sensações esperadas (com o iodo na veia, calor e gosto metálico por alguns minutos) e pedir que a pessoa avise dor ou inchaço no braço. Durante: quem administra injeta, e você observa a pessoa e o local do acesso. Depois: ela fica em observação pelo tempo do protocolo, porque, segundo o manual do ACR, quase todas as reações com risco de vida surgem nos primeiros 20 minutos. Por fim, orientações de saída e registro.",
+        "keyPoints": [
+          "Antes: identidade, triagem avaliada, explicação e combinado de avisar.",
+          "Durante: observar a pessoa e o local do acesso.",
+          "Depois: observação pelo tempo do protocolo, orientações e registro."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de triagem, você anotou as respostas do paciente. O que precisa ter acontecido com elas antes de o contraste ser administrado?",
+          "options": [
+            { "label": "Ter sido guardadas na pasta do exame.", "correct": false, "feedback": "Guardar não é avaliar. Retome: a triagem existe para alguém decidir com ela." },
+            { "label": "Ter sido lidas em voz alta para o paciente ouvir.", "correct": false, "feedback": "Reler ajuda a conferir, mas não avalia o risco. Confira de novo quem pesa as respostas." },
+            { "label": "Ter sido resumidas por você num parecer.", "correct": false, "feedback": "Parecer sobre risco não é tarefa sua. Retome a quem as respostas se destinam." },
+            { "label": "Ter sido avaliadas pela equipe responsável.", "correct": true, "feedback": "As respostas chegam à equipe e são avaliadas antes da administração. É o primeiro ponto do “antes”." }
+          ],
+          "help": "Para quem a triagem é feita?",
+          "sourceIds": ["acr-manual-contraste-2026", "cfm-parecer-17-2019"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque os cuidados na ordem ensinada nesta aula, do primeiro ao último.",
+          "items": [
+            "Confirmar a identidade com dois identificadores",
+            "Conferir se a triagem foi avaliada pela equipe",
+            "Explicar as sensações esperadas e o que avisar",
+            "Observar a pessoa e o acesso durante a injeção",
+            "Manter em observação, orientar a saída e registrar"
+          ],
+          "feedbackCorrect": "Você montou os três tempos: identidade, triagem e explicação antes; observação durante; observação, orientação e registro depois.",
+          "feedbackIncorrect": "Confira de novo: separe o que acontece antes da injeção, o que acontece durante e o que fica para depois.",
+          "help": "Separe os cuidados em antes, durante e depois. No “antes”, o que precisa estar certo para o resto valer?",
+          "sourceIds": ["ms-protocolo-identificacao-2013", "acr-manual-contraste-2026", "radiologyinfo-contraste"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada momento do atendimento ao cuidado que o protocolo desta aula põe nele.",
+          "pairs": [
+            { "left": "Antes da injeção", "right": "Pedir que avise dor ou inchaço no braço" },
+            { "left": "Durante a injeção", "right": "Observar a pessoa e o local do acesso" },
+            { "left": "Logo após a imagem", "right": "Manter em observação pelo tempo do protocolo" },
+            { "left": "Na saída", "right": "Reforçar as orientações e anotar o atendimento" }
+          ],
+          "feedbackCorrect": "Cada momento ficou com o seu cuidado: combinar antes, observar durante, aguardar depois, orientar e registrar na saída.",
+          "feedbackIncorrect": "Confira de novo: o combinado de avisar vem antes, e a observação continua depois que a imagem termina.",
+          "help": "Um combinado só funciona se for feito antes de ser necessário.",
+          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022", "radiologyinfo-contraste"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "A tomografia com contraste de Seu Jorge terminou. Ele diz que está ótimo e que o ônibus sai em dez minutos. O protocolo do serviço-escola pede um tempo de observação antes da saída, e o acesso ainda está no braço. O Caio está na sala ao lado.",
+          "prompt": "O que você faz diante do pedido dele?",
+          "options": [
+            { "label": "Explica a observação e avisa o Caio do pedido.", "correct": true, "feedback": "Quase todas as reações com risco de vida surgem nos primeiros 20 minutos. Você manteve o protocolo e levou o pedido a quem pode decidir." },
+            { "label": "Libera a saída, já que ele se sente bem.", "correct": false, "feedback": "Sentir-se bem agora não cobre os minutos seguintes. Retome por que o protocolo pede observação." },
+            { "label": "Retira o acesso do braço para ele não perder o ônibus.", "correct": false, "feedback": "Retirar o acesso é tarefa de profissional habilitado e encerra a observação. Confira de novo o seu papel." },
+            { "label": "Pede que ele espere, sem explicar o motivo.", "correct": false, "feedback": "Sem explicação, ele tende a sair. Retome: explicar faz parte do cuidado, e a decisão sobre a saída é da equipe." }
+          ],
+          "help": "O protocolo pede um tempo. Quem pode decidir algo diferente dele?",
+          "sourceIds": ["acr-manual-contraste-2026", "cfm-parecer-17-2019"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa ressonância com gadolínio simulada, a Duda diz que “triagem e explicação são coisas da tomografia”. Qual cuidado do “antes” continua valendo aqui?",
+          "options": [
+            { "label": "Nenhum: na ressonância o contraste é outro produto.", "correct": false, "feedback": "Outro contraste, mesmos tempos. Retome: o “antes” não depende da modalidade." },
+            { "label": "Só a confirmação do horário marcado.", "correct": false, "feedback": "Horário não é cuidado do “antes”. Confira de novo a lista ensinada na aula." },
+            { "label": "Conferir a triagem avaliada e explicar o exame.", "correct": true, "feedback": "Identidade, triagem avaliada e explicação vêm antes de qualquer contraste na veia, também na ressonância." },
+            { "label": "Apenas observar o braço depois da injeção.", "correct": false, "feedback": "Observar pertence ao “durante” e ao “depois”. Retome o que precisa acontecer antes." }
+          ],
+          "help": "Os três tempos mudam quando muda o equipamento?",
+          "sourceIds": ["radiologyinfo-contraste", "acr-manual-contraste-2026"]
+        }
+      ],
+      "closing": {
+        "title": "Antes, durante, depois",
+        "body": "Agora você consegue ordenar os cuidados de um exame com contraste: o que se confere e se combina antes, o que se observa durante e por que a pessoa não sai logo depois. Na próxima aula, você treina o que fazer quando algo foge do esperado.",
+        "line": { "speaker": "caio", "text": "O combinado de avisar leva dez segundos. É o melhor seguro que a sala tem." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Durante a injeção, Dona Marta diz que sente calor pelo corpo e um gosto metálico na boca, como foi explicado antes. O que você faz?",
+          "options": [
+            { "label": "Pede que ela fique quieta até a imagem toda acabar.", "correct": false, "feedback": "Calar a paciente fecha o canal de aviso combinado. Retome: durante a injeção você observa e ouve." },
+            { "label": "Solta o acesso do braço dela na mesma hora.", "correct": false, "feedback": "Mexer no acesso não cabe a você. Confira de novo o seu papel no “durante”." },
+            { "label": "Conta ao Caio o que ela disse e segue observando.", "correct": true, "feedback": "Você repassou o relato a quem administra e manteve a observação. São sensações esperadas, e quem confirma isso é a equipe." },
+            { "label": "Sai da sala para buscar um copo de água.", "correct": false, "feedback": "Sair interrompe a observação no momento em que ela mais importa. Retome o cuidado do “durante”." }
+          ],
+          "sourceIds": ["radiologyinfo-contraste", "acr-manual-contraste-2026"]
+        },
+        {
+          "prompt": "Em que momento do atendimento a pessoa é orientada a avisar se sentir dor ou inchaço no braço do acesso?",
+          "options": [
+            { "label": "Depois que a imagem estiver pronta.", "correct": false, "feedback": "Depois da imagem, o aviso já teria sido necessário. Retome quando um combinado precisa ser feito." },
+            { "label": "Antes de a injeção começar.", "correct": true, "feedback": "O combinado vem antes, para que ela saiba o que avisar enquanto o contraste entra." },
+            { "label": "Só se ela perguntar sobre o braço.", "correct": false, "feedback": "A orientação não depende da pergunta dela. Confira de novo a lista do “antes”." },
+            { "label": "Na saída, com as outras orientações.", "correct": false, "feedback": "Na saída entram as orientações para casa. Retome o momento em que dor no braço pode aparecer." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes eu confirmo e combino, durante eu…, depois eu…",
+          "item": {
+            "prompt": "O contraste começou a ser injetado em Seu Jorge por quem administra. Qual é a sua tarefa nesse momento?",
+            "options": [
+              { "label": "Preencher o registro do atendimento.", "correct": false, "feedback": "O registro fecha o atendimento. Retome o que acontece enquanto o contraste entra." },
+              { "label": "Observar o paciente e o local do acesso.", "correct": true, "feedback": "Durante a injeção, você olha a pessoa e o braço e ouve o que ela diz." },
+              { "label": "Conferir de novo a identidade dele.", "correct": false, "feedback": "A identidade foi confirmada antes. Confira de novo o cuidado do “durante”." },
+              { "label": "Dar a ele as orientações para depois do exame.", "correct": false, "feedback": "As orientações de saída vêm depois. Retome a ordem dos três tempos." }
+            ],
+            "sourceIds": ["acr-manual-contraste-2026"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame com bário por via oral, Dona Marta terminou as imagens e quer saber o que fazer em casa. O protocolo fictício traz uma folha de orientações de saída. O que cabe a você?",
+            "options": [
+              { "label": "Dizer que não há nada a orientar nesse exame.", "correct": false, "feedback": "O “depois” existe também no contraste oral. Retome: orientação de saída faz parte do protocolo." },
+              { "label": "Criar orientações suas, pelo que acha melhor.", "correct": false, "feedback": "Orientação inventada não é a do protocolo. Confira de novo de onde ela vem." },
+              { "label": "Pedir que ela procure na internet em casa.", "correct": false, "feedback": "Mandar pesquisar deixa a paciente sem a orientação validada. Retome o que o protocolo oferece." },
+              { "label": "Entregar a folha e conferir se ela entendeu.", "correct": true, "feedback": "Você usou a orientação validada do serviço e verificou o entendimento antes da saída." }
+            ],
+            "sourceIds": ["radiologyinfo-contraste"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Linha do tempo em três blocos (antes, durante, depois) com os cuidados de cada um e um relógio marcando a observação.",
+        "Braço com acesso venoso e dois balões: “avise se doer ou inchar” antes, “estou olhando” durante."
+      ]
+    },
+    {
+      "id": "m09-05",
+      "code": "M09.05",
+      "title": "Reconhecer intercorrência e acionar ajuda",
+      "objective": "Hoje você vai conseguir reconhecer um sinal de intercorrência após o contraste, interromper e acionar a equipe com um relato claro.",
+      "competency": "Reconhecer possível intercorrência, interromper e comunicar, sem conduta médica independente.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de observação, serviço-escola",
+        "lines": [
+          { "speaker": "paciente", "name": "Dona Marta", "text": "Moça, começou a coçar aqui no pescoço. E parece que a minha voz está esquisita." },
+          { "speaker": "duda", "text": "Deve ser nervoso… ou será que eu dou uma água para ela?" },
+          { "speaker": "lia", "text": "Duda, o que você está vendo e ouvindo agora? Diga em voz alta, sem dar nome." },
+          { "speaker": "pixel", "text": "Apareceu um sinal novo depois do contraste. Qual é o primeiro verbo?" }
+        ]
+      },
+      "concept": {
+        "title": "Parar, chamar, ficar, relatar",
+        "body": "Depois do contraste, alguns sinais pedem ação imediata: placas ou coceira na pele, inchaço no rosto, espirros e nariz entupido, rouquidão, aperto na garganta, chiado, falta de ar, tontura, suor frio, vômito que não passa, dor ou inchaço no local do acesso. Não dá para saber de início se um sinal vai progredir, então todo sinal é avisado. Você não classifica nem medica. Na ordem ensinada nesta aula: parar e avisar quem injeta, chamar a equipe pelo canal do serviço, ficar com a pessoa e relatar o que viu e quando começou. Depois, o ocorrido é registrado e segue para o Núcleo de Segurança do Paciente.",
+        "keyPoints": [
+          "Sinal novo após o contraste, mesmo leve, é avisado na hora.",
+          "Parar, chamar, ficar e relatar: nessa ordem.",
+          "Você descreve o que vê; não dá nome ao quadro nem medica."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, os cuidados foram divididos em três tempos. Qual era a sua tarefa enquanto o contraste entrava pela veia?",
+          "options": [
+            { "label": "Preencher o registro para adiantar a saída.", "correct": false, "feedback": "O registro vem depois. Retome o que você faz no “durante”." },
+            { "label": "Conferir a prescrição com o médico do serviço.", "correct": false, "feedback": "A prescrição é conferida antes. Confira de novo a tarefa do “durante”." },
+            { "label": "Observar a pessoa e o local do acesso.", "correct": true, "feedback": "É essa observação que permite perceber cedo o sinal de que trata a aula de hoje." },
+            { "label": "Ajustar o fluxo do injetor pelo monitor.", "correct": false, "feedback": "Operar a injeção cabe a quem administra. Retome o seu papel durante a injeção." }
+          ],
+          "help": "Pense no que os seus olhos faziam naquele momento.",
+          "sourceIds": ["acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Dona Marta apresenta placas vermelhas no pescoço logo depois do contraste. Ordene as suas ações na ordem ensinada nesta aula.",
+          "items": [
+            "Parar o que está fazendo e avisar quem injeta",
+            "Chamar a equipe pelo canal do serviço",
+            "Ficar ao lado dela, observando e conversando",
+            "Relatar o que viu e quando começou",
+            "Registrar o ocorrido conforme o fluxo do serviço"
+          ],
+          "feedbackCorrect": "Parar, chamar, ficar, relatar e, por fim, registrar. A ajuda chega mais cedo porque você não esperou para ter certeza.",
+          "feedbackIncorrect": "Confira de novo: o que interrompe vem primeiro, o pedido de ajuda vem logo em seguida, e o registro fica para o fim.",
+          "help": "O registro pode esperar a equipe chegar? E o pedido de ajuda?",
+          "sourceIds": ["acr-manual-contraste-2026", "anvisa-rdc-36-2013"]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada fala do paciente ao que você observa e relata à equipe, sem dar nome ao quadro.",
+          "pairs": [
+            { "left": "“Meu braço está doendo e inchando aqui.”", "right": "Dor e inchaço no local do acesso" },
+            { "left": "“Está coçando tudo, olha essas bolinhas.”", "right": "Placas na pele, com coceira" },
+            { "left": "“Minha garganta está apertando.”", "right": "Aperto na garganta e voz rouca" },
+            { "left": "“Estou ficando tonto, está escurecendo.”", "right": "Tontura, suor frio e sensação de desmaio" }
+          ],
+          "feedbackCorrect": "Você traduziu cada fala em algo observável. É esse o relato de que a equipe precisa para agir.",
+          "feedbackIncorrect": "Confira de novo: procure, para cada fala, a descrição que repete o que se vê ou se ouve, sem interpretar.",
+          "help": "Relate como se a equipe estivesse ao telefone: o que você vê, onde, desde quando.",
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste", "esur-extravasamento-2022"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "O contraste está sendo injetado em Seu Jorge. Ele diz que o braço está doendo, e você vê um inchaço surgindo perto do acesso. O Caio, que administra, está de costas, olhando o monitor. Faltam poucos segundos para a aquisição.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            { "label": "Espera a aquisição, para não perder o exame.", "correct": false, "feedback": "Cada segundo pode pôr mais contraste fora da veia. Retome: dor ou inchaço no local interrompe a injeção." },
+            { "label": "Avisa o Caio na hora, para interromper a injeção.", "correct": true, "feedback": "Dor ou inchaço no local é motivo para interromper. Você avisou quem administra, sem mexer no acesso." },
+            { "label": "Massageia o braço dele para o líquido se espalhar.", "correct": false, "feedback": "Massagear é uma conduta sua sobre a lesão, e a aula não a prevê. Confira de novo o primeiro verbo." },
+            { "label": "Retira o acesso do braço dele você mesmo.", "correct": false, "feedback": "Mexer no acesso não cabe a você: o que fazer com ele é decisão da equipe. Retome a quem avisar primeiro." }
+          ],
+          "help": "Quem controla a injeção ainda não viu o que você viu.",
+          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022"]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na sala de espera, durante o tempo de observação, Dona Marta fica rouca e diz que a garganta está arranhando. Não há ninguém da equipe por perto. A filha dela abre a bolsa e oferece um comprimido antialérgico que trouxe de casa.",
+          "prompt": "Qual é a sua ação diante da rouquidão e da oferta da filha?",
+          "options": [
+            { "label": "Aciona a equipe na hora e fica com ela.", "correct": true, "feedback": "Você chamou ajuda pelo canal do serviço e não a deixou sozinha. Medicação é decisão da equipe que chega." },
+            { "label": "Aceita o comprimido, que mal não deve fazer.", "correct": false, "feedback": "Dar ou aprovar um remédio é conduta médica. Retome: você chama, fica e relata." },
+            { "label": "Leva as duas até a rua, para tomar ar.", "correct": false, "feedback": "Sair afasta a paciente de onde a ajuda está. Confira de novo onde ela deve permanecer." },
+            { "label": "Anota o horário e avisa no fim do turno.", "correct": false, "feedback": "Anotar e esperar deixa um sinal progredir sem avaliação. Retome: todo sinal é avisado na hora." }
+          ],
+          "help": "Rouquidão depois do contraste está na lista da aula? O que a lista pede?",
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste", "cfm-parecer-17-2019"]
+        }
+      ],
+      "closing": {
+        "title": "Agir cedo, sem agir sozinho",
+        "body": "Agora você consegue reconhecer um sinal que foge do esperado depois do contraste, interromper, chamar a equipe, ficar com a pessoa e relatar o que viu e quando começou, sem dar nome ao quadro e sem medicar.",
+        "line": { "speaker": "lia", "text": "Ninguém cobra de você o diagnóstico. Cobra-se que a equipe saiba cedo, e saiba direito." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Minutos depois da injeção, Seu Jorge espirra várias vezes e diz que o nariz entupiu de repente. Ele acha que não é nada. O que você faz?",
+          "options": [
+            { "label": "Espera para ver se surge algo mais sério.", "correct": false, "feedback": "Esperar é apostar que o sinal não progride. Retome: mesmo o sinal leve é avisado." },
+            { "label": "Avisa a equipe e continua observando.", "correct": true, "feedback": "Espirros e nariz entupido depois do contraste estão na lista. Você avisou cedo e seguiu olhando." },
+            { "label": "Diz a ele que é só o ar-condicionado.", "correct": false, "feedback": "Explicar o sinal é interpretar. Confira de novo o que você faz com um sinal novo." },
+            { "label": "Entrega um lenço e encerra a observação.", "correct": false, "feedback": "Encerrar a observação tira a pessoa do lugar onde seria atendida. Retome o tempo do protocolo." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026"]
+        },
+        {
+          "prompt": "Você acionou a equipe por causa de Dona Marta. Ao telefone, qual relato ajuda mais quem vai atender?",
+          "options": [
+            { "label": "“Acho que é um choque alérgico grave.”", "correct": false, "feedback": "Isso é um diagnóstico, não uma descrição. Retome: você diz o que vê e ouve." },
+            { "label": "“Corre aqui na sala de observação, deu um problema.”", "correct": false, "feedback": "O chamado é urgente, mas não diz o quê nem desde quando. Confira de novo o que o relato precisa ter." },
+            { "label": "“O contraste desse lote deve estar ruim.”", "correct": false, "feedback": "Culpar o lote é uma hipótese, e não ajuda o atendimento agora. Retome o que descrever." },
+            { "label": "“Placas no pescoço e chiado, há dois minutos.”", "correct": true, "feedback": "O que você viu, onde e desde quando: é esse o relato que a equipe usa para agir." }
+          ],
+          "sourceIds": ["acr-manual-contraste-2026"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: vi um sinal novo depois do contraste, então eu paro, chamo e…",
+          "item": {
+            "prompt": "Você já avisou quem injetava e chamou a equipe por causa de Seu Jorge. O que você faz enquanto a ajuda não chega?",
+            "options": [
+              { "label": "Vai até o corredor esperar a equipe.", "correct": false, "feedback": "No corredor você deixa de ver o que muda nele. Retome o terceiro verbo." },
+              { "label": "Começa a preencher o registro escrito do evento.", "correct": false, "feedback": "O registro vem depois do atendimento. Confira de novo a ordem ensinada." },
+              { "label": "Procura um remédio no carrinho da sala.", "correct": false, "feedback": "Medicar não cabe a você. Retome: parar, chamar, ficar, relatar." },
+              { "label": "Fica ao lado dele, observando e falando.", "correct": true, "feedback": "Ficar permite notar mudanças e contar à equipe, na chegada, o que aconteceu nesse intervalo." }
+            ],
+            "sourceIds": ["acr-manual-contraste-2026"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "A equipe atendeu Dona Marta e ela está bem. Em outro serviço, um colega diz que “não precisa escrever nada, já passou”. O que a aula ensinou sobre o que vem depois do atendimento?",
+            "options": [
+              { "label": "O caso é comentado só entre quem estava lá.", "correct": false, "feedback": "Comentário informal não deixa rastro para o serviço aprender. Retome o destino do registro." },
+              { "label": "O paciente decide se o caso deve ficar anotado no prontuário.", "correct": false, "feedback": "O registro do evento não depende de pedido do paciente. Confira de novo o fluxo ensinado." },
+              { "label": "O ocorrido é registrado e segue o fluxo do serviço.", "correct": true, "feedback": "O registro leva o evento ao Núcleo de Segurança do Paciente, que monitora e notifica eventos adversos." },
+              { "label": "Só eventos com internação são registrados.", "correct": false, "feedback": "A aula não põe essa condição. Retome: o ocorrido é registrado e segue o fluxo do serviço." }
+            ],
+            "sourceIds": ["anvisa-rdc-36-2013", "esur-extravasamento-2022"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Quatro passos em sequência (parar, chamar, ficar, relatar) com um quinto, registrar, separado por uma linha pontilhada.",
+        "Silhueta com três zonas de sinais: pele, respiração e voz, local do acesso, cada uma com exemplos na fala do paciente."
+      ]
+    },
+    {
+      "id": "m09-06",
+      "code": "M09.06",
+      "title": "Um atendimento com barreiras",
+      "objective": "Hoje você vai conseguir conduzir a conferência de um exame com contraste quando há uma barreira de comunicação ou de acesso.",
+      "competency": "Integrar acessibilidade, identificação e escalonamento num atendimento com barreiras.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Recepção da tomografia, serviço-escola",
+        "lines": [
+          { "speaker": "duda", "text": "A Dona Marta é surda e veio com a filha de catorze anos. Eu faço as perguntas da triagem para a menina, né?" },
+          { "speaker": "caio", "text": "A menina ajuda. Mas quem responde pela história de saúde da Dona Marta?" },
+          { "speaker": "paciente", "name": "Dona Marta", "text": "Escrevi aqui no papel: eu quero entender o que vão fazer comigo." },
+          { "speaker": "pixel", "text": "O que muda quando há uma barreira: as conferências ou o caminho até elas?" }
+        ]
+      },
+      "concept": {
+        "title": "A barreira muda o caminho, não a conferência",
+        "body": "A Lei Brasileira de Inclusão chama de barreira o que limita a participação da pessoa: no espaço, na comunicação, na atitude. Ela garante acesso aos serviços de saúde e às informações pela forma de comunicação que a pessoa usa, como Libras, Braille ou texto ampliado, e exige consentimento livre e esclarecido. Na prática, você fala com a pessoa, não só com quem a acompanha, e busca o recurso certo: intérprete, leitura em voz alta, escrita. Identidade, triagem, explicação e o combinado de avisar continuam obrigatórios. Se a barreira impede uma dessas conferências, você para e pede apoio. Sem triagem compreendida, o exame com contraste não segue.",
+        "keyPoints": [
+          "Fale com a pessoa e use a forma de comunicação dela.",
+          "Identidade, triagem, explicação e combinado de avisar não são dispensados.",
+          "Conferência impossível por causa da barreira: parar e pedir apoio."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Seu Jorge chega com a pulseira de identificação no punho. Como nas unidades anteriores, o que você compara para confirmar quem ele é?",
+          "options": [
+            { "label": "O número da sala com o da agenda do dia.", "correct": false, "feedback": "Sala e agenda não identificam a pessoa. Retome os dados que pertencem só a ele." },
+            { "label": "Dois identificadores dele com o registro.", "correct": true, "feedback": "Pelo menos dois identificadores, comparados com o registro, antes de qualquer cuidado." },
+            { "label": "O nome que a acompanhante disse na recepção.", "correct": false, "feedback": "O relato de terceiros ajuda, mas não substitui a conferência com o registro. Confira de novo." },
+            { "label": "A cor da pulseira com a cor da ficha.", "correct": false, "feedback": "Cor não identifica ninguém. Retome os dois identificadores." }
+          ],
+          "help": "Quantos dados, e comparados com o quê?",
+          "sourceIds": ["ms-protocolo-identificacao-2013"]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada situação ao recurso que mantém a pessoa informada e participante.",
+          "pairs": [
+            { "left": "Pessoa surda que usa Libras", "right": "Intérprete ou profissional capacitado em Libras" },
+            { "left": "Pessoa com baixa visão", "right": "Texto ampliado ou leitura em voz alta do termo" },
+            { "left": "Pessoa em cadeira de rodas", "right": "Caminho livre e apoio da equipe na transferência" },
+            { "left": "Pessoa que lê com dificuldade", "right": "Explicação em fala simples, conferindo o entendimento" }
+          ],
+          "feedbackCorrect": "Você escolheu, para cada barreira, o recurso que leva a informação até a pessoa sem tirar dela a decisão.",
+          "feedbackIncorrect": "Confira de novo: pergunte qual é a barreira (ouvir, ver, deslocar-se ou ler) e que recurso a contorna.",
+          "help": "Identifique primeiro onde a comunicação ou o acesso trava.",
+          "sourceIds": ["lei-13146-2015", "decreto-5626-2005", "lei-10436-2002"]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Dona Marta é surda e usa Libras. A filha adolescente responde sozinha ao questionário de triagem do contraste: “ela não tem nada, pode marcar tudo não”. Dona Marta acompanha com os olhos, sem saber o que está sendo perguntado.",
+          "prompt": "O que você faz com as respostas da filha?",
+          "options": [
+            { "label": "Aceita as respostas, pois a filha a conhece bem.", "correct": false, "feedback": "A filha pode não saber de tudo, e a mãe não foi ouvida. Retome: a triagem é respondida pela pessoa." },
+            { "label": "Marca “não” em tudo, para não atrasar.", "correct": false, "feedback": "Marcar sem perguntar inventa respostas. Confira de novo o que a triagem exige." },
+            { "label": "Fala mais alto e bem devagar, olhando para a paciente.", "correct": false, "feedback": "Volume não resolve: ela usa Libras. Retome a forma de comunicação que a pessoa usa." },
+            { "label": "Dirige as perguntas a ela e pede apoio em Libras.", "correct": true, "feedback": "Você devolveu a triagem à paciente e buscou o recurso de comunicação, antes de seguir." }
+          ],
+          "help": "Quem conhece a história de saúde dela? E como a pergunta chega até essa pessoa?",
+          "sourceIds": ["lei-13146-2015", "decreto-5626-2005", "acr-manual-contraste-2026"]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Seu Jorge tem dificuldade para falar depois de um derrame e tem contraste na veia prescrito. Pelo manual do ACR, o extravasamento é mais comum em quem não consegue se comunicar bem. A equipe se prepara para iniciar, e ninguém combinou com ele como avisar dor no braço.",
+          "prompt": "O que você faz antes da injeção?",
+          "options": [
+            { "label": "Segue, pois o injetor tem alarme de pressão.", "correct": false, "feedback": "O alarme não substitui o aviso da pessoa. Retome: o combinado de avisar faz parte do “antes”." },
+            { "label": "Pede à esposa que fale por ele, da sala de espera.", "correct": false, "feedback": "Da sala de espera ela não vê o braço dele. Confira de novo como o aviso precisa funcionar." },
+            { "label": "Avisa a equipe e combina um sinal com ele.", "correct": true, "feedback": "Você apontou a falta do combinado e ajudou a equipe a criar um aviso que ele consegue dar. Erguer a outra mão é um exemplo desta aula, não uma regra." },
+            { "label": "Dispensa a explicação, já que ele não fala.", "correct": false, "feedback": "Dificuldade de falar não é dificuldade de entender. Retome: a explicação continua obrigatória." }
+          ],
+          "help": "O aviso de dor depende da fala? De que outro jeito ele pode ser dado?",
+          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022", "lei-13146-2015"]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Seu Jorge tem baixa visão. Ao conferir a pasta, você nota que ele assinou o termo de consentimento do contraste, mas comenta que não conseguiu ler nada do que estava escrito. O que você faz?",
+          "options": [
+            { "label": "Avisa a equipe, para que o termo seja lido com ele.", "correct": true, "feedback": "Assinatura sem entendimento não é consentimento esclarecido. Você levou a falha a quem pode refazer a explicação." },
+            { "label": "Segue, pois a assinatura já está no papel.", "correct": false, "feedback": "O papel assinado não garante que ele entendeu. Retome o que a lei exige do consentimento." },
+            { "label": "Resume o termo de cabeça e segue o exame.", "correct": false, "feedback": "Um resumo seu pode deixar de fora o que importa. Confira de novo a quem cabe refazer a explicação." },
+            { "label": "Pede que a acompanhante leia e assine no lugar dele.", "correct": false, "feedback": "Trocar a assinatura tira dele a decisão. Retome: a informação precisa chegar à pessoa." }
+          ],
+          "help": "O que torna um consentimento “esclarecido”?",
+          "sourceIds": ["lei-13146-2015"]
+        }
+      ],
+      "closing": {
+        "title": "Mesmas conferências, outro caminho",
+        "body": "Agora você consegue manter identidade, triagem, explicação e combinado de avisar quando há uma barreira, buscando o recurso de comunicação certo e pedindo apoio quando a conferência não se completa. Com isso, você fecha a unidade de preparo e contraste.",
+        "line": { "speaker": "lia", "text": "Acessibilidade não é gentileza a mais. É a condição para a conferência valer." }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma paciente surda escreve a data de nascimento num papel, e a data difere da que está na pulseira. O contraste já está prescrito. O que você faz?",
+          "options": [
+            { "label": "Para e leva a diferença à equipe.", "correct": true, "feedback": "Identificador que não confere interrompe o percurso, com ou sem barreira de comunicação." },
+            { "label": "Segue a pulseira, que é o registro oficial.", "correct": false, "feedback": "Escolher a pulseira é resolver a divergência sozinho. Retome o que uma diferença pede." },
+            { "label": "Corrige a pulseira com a data do papel.", "correct": false, "feedback": "Corrigir o registro por conta própria apaga a pista do erro. Confira de novo a quem levar a diferença." },
+            { "label": "Pergunta à acompanhante qual data vale.", "correct": false, "feedback": "A acompanhante pode ajudar a equipe, mas não encerra a divergência. Retome a ação diante de dado que não confere." }
+          ],
+          "sourceIds": ["ms-protocolo-identificacao-2013", "lei-13146-2015"]
+        },
+        {
+          "prompt": "Dona Marta tem baixa visão e não consegue ler a folha de orientações para depois do exame. O que garante que a informação chegue a ela?",
+          "options": [
+            { "label": "Entregar a folha, como para todo paciente.", "correct": false, "feedback": "A folha sozinha não chega a quem não consegue lê-la. Retome a forma de comunicação que ela usa." },
+            { "label": "Dizer que alguém em casa pode ler para ela depois.", "correct": false, "feedback": "Isso transfere a informação a terceiros e pode nunca acontecer. Confira de novo o que cabe ao serviço." },
+            { "label": "Ler a folha com ela e conferir o que entendeu.", "correct": true, "feedback": "Você levou a orientação pela via que ela usa e verificou o entendimento antes da saída." },
+            { "label": "Pular as orientações, só desta vez.", "correct": false, "feedback": "As orientações de saída não são dispensadas. Retome: a barreira muda o caminho, não a conferência." }
+          ],
+          "sourceIds": ["lei-13146-2015"]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a barreira muda o caminho, mas eu ainda preciso confirmar…",
+          "item": {
+            "prompt": "Seu Jorge usa cadeira de rodas e veio com o filho. Para a triagem do contraste, a quem você dirige as perguntas?",
+            "options": [
+              { "label": "Ao filho, que responde mais depressa.", "correct": false, "feedback": "Rapidez não é o critério. Retome: a pessoa responde pela própria história de saúde." },
+              { "label": "A Seu Jorge, que é o paciente.", "correct": true, "feedback": "A barreira dele é de deslocamento, não de comunicação. Você fala com a pessoa." },
+              { "label": "À recepção, que já tem o cadastro.", "correct": false, "feedback": "O cadastro não traz as respostas da triagem. Confira de novo quem as fornece." },
+              { "label": "A ninguém: usa as respostas do último exame.", "correct": false, "feedback": "Respostas antigas podem ter mudado. Retome: quem responde é a pessoa, agora." }
+            ],
+            "sourceIds": ["lei-13146-2015"]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame com contraste, um paciente estrangeiro não fala português e veio sozinho. Você não consegue fazer as perguntas da triagem, e a agenda está cheia. O que você faz?",
+            "options": [
+              { "label": "Marca as respostas pelo que parece mais provável.", "correct": false, "feedback": "Resposta presumida não é triagem. Retome o que fazer quando a conferência não se completa." },
+              { "label": "Faz o exame sem contraste, por segurança.", "correct": false, "feedback": "Mudar o exame é decisão médica. Confira de novo o seu papel." },
+              { "label": "Usa gestos e segue, mesmo sem ter certeza.", "correct": false, "feedback": "Seguir sem certeza de que ele entendeu deixa a triagem incompleta. Retome a regra do conceito." },
+              { "label": "Para e pede apoio à equipe para a comunicação.", "correct": true, "feedback": "Sem triagem compreendida, o exame com contraste não segue. Você parou e buscou o recurso." }
+            ],
+            "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022"]
+          }
+        }
+      },
+      "diagramIdeas": [
+        "Dois caminhos até o mesmo ponto de conferência: um reto, outro com desvio por um recurso (intérprete, leitura em voz alta, escrita).",
+        "Lista fixa de quatro conferências (identidade, triagem, explicação, combinado de avisar) com um cadeado: nenhuma é dispensada."
+      ]
+    }
+  ]
+}

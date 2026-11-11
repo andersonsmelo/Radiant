@@ -1,5 +1,8 @@
 # Product
 
+> Content direction, 2026-11-02: radiology technology undergraduates first, then specializations. Use the [single content plan](plans/2026-11-02-planejamento-conteudo-radiant.md). The Medalhão visual identity and reusable engines remain; previous lesson content is retired locally, without changing the distributed app.
+
+
 ## Register
 
 product
@@ -10,14 +13,14 @@ adaptive
 
 ## Users
 
-Estudantes de Radiologia, técnicos e tecnólogos da área são o público primário.
+Estudantes da graduação tecnológica em Radiologia são o público primário.
 Estudam no celular, em blocos de poucos minutos encaixados entre aula, plantão e
 deslocamento — raramente sentados diante de um computador com uma hora livre. O
 trabalho que querem concluir não é "ler sobre radiologia", é **sustentar o hábito
 de raciocinar sobre imagem** até que ele vire reflexo profissional.
 
-Residentes, profissionais em atualização e instituições de ensino permanecem
-registrados como público de fase futura. Eles não orientam decisão de tela hoje:
+Tecnólogos em especializações, profissionais em atualização e instituições de ensino
+permanecem registrados como públicos seguintes. Eles não orientam decisão de tela hoje:
 quando uma escolha de design servir a um e prejudicar o outro, o estudante ganha.
 
 ## Product Purpose

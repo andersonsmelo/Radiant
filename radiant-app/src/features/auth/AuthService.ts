@@ -13,6 +13,7 @@ const AUTH_SESSION_STORAGE_KEY = '@radiant:auth_session_v1';
 class AuthServiceImpl {
     private session: AuthSession | null = null;
     private initialized = false;
+    private refreshing: Promise<AuthSession | null> | null = null;
 
     private parseSession(raw: string | null): AuthSession | null {
         if (!raw) {
@@ -252,7 +253,18 @@ class AuthServiceImpl {
         }
     }
 
-    async refreshSession(): Promise<AuthSession | null> {
+    /**
+     * Uma renovação por vez: o servidor revoga o token ao usá-lo, e a segunda
+     * chamada com o mesmo token recebia 401 e deslogava (auditoria de 2026-11-10).
+     */
+    refreshSession(): Promise<AuthSession | null> {
+        this.refreshing ??= this.refreshOnce().finally(() => {
+            this.refreshing = null;
+        });
+        return this.refreshing;
+    }
+
+    private async refreshOnce(): Promise<AuthSession | null> {
         if (!this.session?.refreshToken) {
             return null;
         }
@@ -303,6 +315,7 @@ class AuthServiceImpl {
     async resetForTests(): Promise<void> {
         this.session = null;
         this.initialized = false;
+        this.refreshing = null;
         try {
             await AsyncStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
         } catch {
