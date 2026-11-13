@@ -50,10 +50,17 @@ export type RtgUnitSource = {
 };
 export type RtgBatchBuild = { batch: ProductionBatchV1; presentation: ProductionCatalogEntry['presentation'] };
 
-/** Ordem da trilha: núcleo de M01 a M14, depois os ramos, que só abrem após M14. */
+/**
+ * Ordem da trilha: núcleo de M01 a M14, depois os ramos, que só abrem após M14.
+ * As unidades da 1.6 (m15, m16, s-od, s-us) entram no fim: cada unidade é uma
+ * trilha e a trilha N só abre com a N−1 concluída, então inserir no meio fecharia
+ * trilhas já concluídas por alunos da 1.5.0. Decisão e proposta de motor em
+ * docs/plans/2026-11-13-rtg-2026-expansao-pela-ementa.md, seção 3.
+ */
 export const RTG_UNIT_ORDER = [
     'm01', 'm02', 'm03', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12', 'm13', 'm14',
     's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir',
+    'm15', 'm16', 's-od', 's-us',
 ] as const;
 
 /** Aceite por IA sob delegação (ADR-2026-11-05, decisão 1). Não é revisão por profissional da área. */
