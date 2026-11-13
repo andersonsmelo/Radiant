@@ -107,6 +107,12 @@ Quando documentos divergirem, use esta ordem:
   com MCPs, skills, plugins e fluxos. Cada uma traz grau de evidência e o que a
   sessão conferiu.
 
+### 1.6 — liga semanal (frente F4, 2026-11-13)
+
+- decisão: [ADR da liga semanal no Game Center](adr/ADR-2026-11-13-liga-semanal-no-game-center.md);
+- passos do dono no App Store Connect, privacidade e teste em sandbox: [runbook](runbooks/2026-11-13-liga-game-center.md);
+- evidência, vermelhos e o que foi visto na tela: [`evidence/2026-11-13-f4-liga-semanal.md`](evidence/2026-11-13-f4-liga-semanal.md).
+
 ### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
 
 - decisão: [ADR 2026-09-14](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md);
