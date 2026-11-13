@@ -224,6 +224,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Aprofundamento em Radiologia Intervencionista."
     }
   },
+  "batch:rtg-2026:s-od": {
+    "slug": "rtg-2026-s-od",
+    "title": "Radiologia odontológica",
+    "description": "Dentes e arcadas, equipamentos, radiografia intraoral, panorâmica, tomografia de feixe cônico e proteção, sempre dentro do que cabe a quem está em treinamento.",
+    "unitTitle": "Radiologia odontológica",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-od",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Radiologia odontológica."
+    }
+  },
   "batch:rtg-2026:s-us": {
     "slug": "rtg-2026-s-us",
     "title": "Ultrassonografia para o tecnólogo",

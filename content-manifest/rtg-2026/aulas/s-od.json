@@ -1,0 +1,2395 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "s-od",
+    "code": "S-OD",
+    "title": "Radiologia odontológica",
+    "summary": "Dentes e arcadas, equipamentos, radiografia intraoral, panorâmica, tomografia de feixe cônico e proteção, sempre dentro do que cabe a quem está em treinamento."
+  },
+  "sources": [
+    {
+      "id": "anvisa-rdc-611-2022",
+      "title": "RDC nº 611, de 9 de março de 2022",
+      "publisher": "Anvisa",
+      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Ato normativo federal, cópia compilada no site do CBR; consultado para fatos (arts. 43, 56, 78 e 79), sem reprodução de texto."
+    },
+    {
+      "id": "cbr-ins-anvisa-2021",
+      "title": "RDC 611 e instruções normativas de radiologia diagnóstica ou intervencionista",
+      "publisher": "Colégio Brasileiro de Radiologia",
+      "url": "https://cbr.org.br/en/comissao-de-protecao-radiologica/legislacao-e-recomendacoes-cpr-cbr/anvisa-cpr-cbr/",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Página de listagem consultada para o número e o assunto das INs 94/2021 (sistemas extraorais) e 95/2021 (sistemas intraorais); o texto das INs não foi lido."
+    },
+    {
+      "id": "fda-ada-2012",
+      "title": "Dental Radiographic Examinations: Recommendations for Patient Selection and Limiting Radiation Exposure",
+      "publisher": "FDA e ADA",
+      "url": "https://www.fda.gov/media/84818/download",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Documento de 2012 consultado para fatos, sem reprodução de texto. As orientações sobre avental e protetor de tireoide foram atualizadas depois, ver a página da ADA."
+    },
+    {
+      "id": "ada-raios-x-2024",
+      "title": "X-rays/Radiographs",
+      "publisher": "American Dental Association",
+      "url": "https://www.ada.org/resources/research/science-and-research-institute/oral-health-topics/x-rays-radiographs",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "rondon-2014",
+      "title": "Common positioning errors in panoramic radiography: A review",
+      "publisher": "Imaging Science in Dentistry (Rondon, Pereira, do Nascimento)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3972400",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto sob CC BY-NC 3.0; consultado para fatos, sem reprodução de texto nem de figuras."
+    },
+    {
+      "id": "vanacker-2019",
+      "title": "A reject analysis of cone-beam CTs in under-aged patients",
+      "publisher": "Dentomaxillofacial Radiology (Van Acker et al.)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6476357",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para o uso do menor campo de visão compatível com a aplicação clínica, aplicando critérios do SEDENTEXCT."
+    },
+    {
+      "id": "hpa-crce-010-2010",
+      "title": "Guidance on the Safe Use of Dental Cone Beam CT (Computed Tomography) Equipment, HPA-CRCE-010",
+      "publisher": "Health Protection Agency (Reino Unido)",
+      "url": "https://www.scottishdental.nhs.scot/wp-content/uploads/2014/10/HPA-CRCE-010_for_website.pdf",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Documento de 2010 consultado para a comparação de doses e o papel do campo de visão, sem reprodução de texto."
+    },
+    {
+      "id": "teachme-dentition",
+      "title": "The Dentition",
+      "publisher": "TeachMeAnatomy",
+      "url": "https://teachmeanatomy.info/head/other/child-adult-dentition",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa consultada para coroa, raiz, ápice, grupos dentários e arcadas, sem reprodução de texto."
+    },
+    {
+      "id": "cleveland-dental-xrays",
+      "title": "Dental X-Rays",
+      "publisher": "Cleveland Clinic",
+      "url": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays",
+      "accessedAt": "2026-11-13",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional consultada para o que mostram as radiografias interproximal, periapical, oclusal e panorâmica, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "s-od-01",
+      "code": "S-OD.01",
+      "title": "Dentes e arcadas na imagem",
+      "objective": "Hoje você vai conseguir nomear os grupos de dentes e as estruturas de suporte numa descrição de imagem.",
+      "competency": "Nomear grupos dentários e estruturas de suporte numa descrição.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Pedi para ver uma radiografia de dentes e só enxerguei manchas claras e escuras. Por onde começo?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Pelo vocabulário. Sem os nomes, não dá para descrever nada."
+          },
+          {
+            "speaker": "caio",
+            "text": "E descrever é o que a gente faz. Dizer o que está ali, sem inventar história."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Nomes que organizam a descrição",
+        "body": "Cada dente tem uma coroa e uma raiz. A ponta da raiz é o ápice, e ao redor da raiz fica o osso que sustenta o dente. A arcada de cima pertence à maxila; a de baixo, à mandíbula. Na frente ficam os incisivos; nos cantos da boca, os caninos. Atrás dos caninos vêm os pré-molares e, no fundo da boca, os molares. Na imagem, descrevemos o que aparece: qual grupo, qual arcada, qual lado do paciente. Dizer o que isso significa para a saúde da pessoa não é papel de quem opera o equipamento.",
+        "keyPoints": [
+          "Ápice é a ponta da raiz; o osso ao redor sustenta o dente.",
+          "Da frente para o fundo: incisivos, caninos, pré-molares e molares.",
+          "Descreva a imagem com o lado do paciente, sem interpretar."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de colimação (M06.04), você viu o que a colimação faz. Qual alternativa descreve esse ajuste?",
+          "options": [
+            {
+              "label": "Restringir o feixe à área de interesse.",
+              "correct": true,
+              "feedback": "Isso: a colimação limita o feixe à região que interessa, e a dose acompanha."
+            },
+            {
+              "label": "Aumentar o feixe para pegar a face toda.",
+              "correct": false,
+              "feedback": "Isso faz o contrário da colimação. Retome o que o ajuste faz com a área irradiada."
+            },
+            {
+              "label": "Trocar o receptor por outro mais lento.",
+              "correct": false,
+              "feedback": "O receptor é outra peça do sistema. A colimação trabalha no feixe."
+            },
+            {
+              "label": "Pedir ao paciente que fique parado.",
+              "correct": false,
+              "feedback": "Ficar parado ajuda a nitidez, mas não é colimação. Pense no tamanho do feixe."
+            }
+          ],
+          "help": "Colimar é limitar. Limitar o quê?",
+          "sourceIds": [
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada estrutura à descrição.",
+          "pairs": [
+            {
+              "left": "Ápice",
+              "right": "Ponta da raiz do dente"
+            },
+            {
+              "left": "Raiz",
+              "right": "Parte do dente que fica dentro do osso"
+            },
+            {
+              "left": "Mandíbula",
+              "right": "Osso da arcada de baixo"
+            },
+            {
+              "left": "Maxila",
+              "right": "Osso da arcada de cima"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada nome ao lugar certo, de raiz a arcada.",
+          "feedbackIncorrect": "Confira de novo: pense de baixo para cima, da ponta da raiz até os ossos das duas arcadas.",
+          "help": "Duas das estruturas são ossos; qual fica em cima?",
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "A ponta da raiz se chama {{1}}, e o osso da arcada de baixo é a {{2}}.",
+          "answers": [
+            "ápice",
+            "mandíbula"
+          ],
+          "distractors": [
+            "polpa",
+            "maxila",
+            "coroa",
+            "ligamento"
+          ],
+          "feedbackCorrect": "Ápice é a ponta da raiz, e a mandíbula é o osso de baixo.",
+          "feedbackIncorrect": "Releia o conceito: uma palavra nomeia a ponta da raiz e a outra, o osso da arcada inferior. A maxila é a de cima.",
+          "help": "Onde termina a raiz? E qual osso fica embaixo?",
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Uma descrição fictícia cita os dentes que ficam atrás dos caninos, do lado direito do paciente. Quais grupos estão incluídos?",
+          "options": [
+            {
+              "label": "Só os incisivos.",
+              "correct": false,
+              "feedback": "Os incisivos ficam na frente, antes dos caninos. Retome a ordem dos grupos."
+            },
+            {
+              "label": "Pré-molares e molares.",
+              "correct": true,
+              "feedback": "Isso: atrás dos caninos vêm os pré-molares e, no fundo, os molares."
+            },
+            {
+              "label": "Incisivos e pré-molares.",
+              "correct": false,
+              "feedback": "Os pré-molares estão atrás dos caninos, mas os incisivos ficam na frente. Confira de novo."
+            },
+            {
+              "label": "Apenas os ápices dos dentes.",
+              "correct": false,
+              "feedback": "Ápice é parte do dente, não um grupo de dentes. Procure os grupos."
+            }
+          ],
+          "help": "Pense na ordem dos grupos, da frente para o fundo da boca.",
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na simulação, Lia mostra uma imagem fictícia e pede que você a descreva em voz alta, para treinar o vocabulário.",
+          "prompt": "Em uma imagem fictícia, há uma área escura junto ao ápice de um molar inferior do lado esquerdo do paciente. Qual fala só descreve?",
+          "options": [
+            {
+              "label": "O molar inferior do lado esquerdo do paciente tem infecção.",
+              "correct": false,
+              "feedback": "Isso é um diagnóstico, e não cabe a você. Descreva o que vê."
+            },
+            {
+              "label": "Esse dente precisa de tratamento de canal agora.",
+              "correct": false,
+              "feedback": "Indicar tratamento não é papel de quem opera. Retome: descrever local e aspecto."
+            },
+            {
+              "label": "Esse dente deve ser retirado hoje.",
+              "correct": false,
+              "feedback": "Decidir conduta não é seu papel. Confira de novo o que uma descrição inclui."
+            },
+            {
+              "label": "Área escura junto ao ápice do molar, lado esquerdo do paciente.",
+              "correct": true,
+              "feedback": "Você descreveu local e aspecto, sem concluir nada."
+            }
+          ],
+          "help": "Descrever é dizer onde e como aparece, não por quê.",
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Descrever com nomes certos",
+        "body": "Agora você nomeia ápice, raiz, mandíbula e maxila, ordena os grupos de dentes da frente para o fundo e descreve sem interpretar. Interpretar a imagem fica com quem tem essa responsabilidade.",
+        "line": {
+          "speaker": "lia",
+          "text": "Nome certo, lado do paciente e nenhuma conclusão. Já é uma boa descrição."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Em uma descrição, qual é o nome da ponta da raiz de um dente?",
+          "options": [
+            {
+              "label": "Ápice",
+              "correct": true,
+              "feedback": "Isso: ápice é a ponta da raiz."
+            },
+            {
+              "label": "Coroa",
+              "correct": false,
+              "feedback": "A coroa é a parte oposta à raiz. Confira onde está a ponta da raiz."
+            },
+            {
+              "label": "Maxila",
+              "correct": false,
+              "feedback": "Maxila é um osso, não parte do dente. Procure uma parte da raiz."
+            },
+            {
+              "label": "Incisivo",
+              "correct": false,
+              "feedback": "Incisivo é um grupo de dentes, não uma parte do dente. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        },
+        {
+          "prompt": "Quais dois grupos de dentes ficam atrás dos caninos, na arcada?",
+          "options": [
+            {
+              "label": "Incisivos e molares",
+              "correct": false,
+              "feedback": "Os molares ficam no fundo, mas os incisivos estão na frente dos caninos."
+            },
+            {
+              "label": "Incisivos e ápices",
+              "correct": false,
+              "feedback": "Ápice não é grupo de dentes, e os incisivos ficam na frente."
+            },
+            {
+              "label": "Pré-molares e molares",
+              "correct": true,
+              "feedback": "Isso: pré-molares e molares ficam atrás dos caninos."
+            },
+            {
+              "label": "Mandíbula e maxila",
+              "correct": false,
+              "feedback": "São os ossos das arcadas, não grupos de dentes."
+            }
+          ],
+          "sourceIds": [
+            "teachme-dentition"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: a arcada de baixo pertence à…",
+          "item": {
+            "prompt": "Os dentes ficam na arcada superior ou inferior. Qual osso forma a arcada de cima?",
+            "options": [
+              {
+                "label": "A mandíbula",
+                "correct": false,
+                "feedback": "A mandíbula forma a arcada de baixo. Retome a posição."
+              },
+              {
+                "label": "A maxila",
+                "correct": true,
+                "feedback": "Isso: a maxila forma a arcada de cima."
+              },
+              {
+                "label": "O ápice",
+                "correct": false,
+                "feedback": "Ápice é a ponta da raiz de um dente. Não é osso da arcada."
+              },
+              {
+                "label": "A polpa",
+                "correct": false,
+                "feedback": "Polpa fica dentro do dente, e não é um osso."
+              }
+            ],
+            "sourceIds": [
+              "teachme-dentition"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa descrição fictícia, qual frase nomeia um local sem interpretar?",
+            "options": [
+              {
+                "label": "O osso do lado direito do paciente está doente.",
+                "correct": false,
+                "feedback": "Dizer que algo está doente é interpretar. Descreva o local."
+              },
+              {
+                "label": "A raiz do molar precisa ser tratada.",
+                "correct": false,
+                "feedback": "Indicar tratamento não é papel de quem opera."
+              },
+              {
+                "label": "O molar do lado direito do paciente vai cair.",
+                "correct": false,
+                "feedback": "Isso é um prognóstico, e não cabe a você."
+              },
+              {
+                "label": "Osso ao redor da raiz, lado direito do paciente.",
+                "correct": true,
+                "feedback": "Você nomeou o local sem concluir nada."
+              }
+            ],
+            "sourceIds": [
+              "teachme-dentition"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-02",
+      "code": "S-OD.02",
+      "title": "Equipamentos odontológicos",
+      "objective": "Hoje você vai conseguir distinguir o aparelho intraoral, o panorâmico e o de feixe cônico pelo que cada um produz.",
+      "competency": "Distinguir aparelho intraoral, panorâmico e tomógrafo de feixe cônico pelo que cada um produz.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Tem três aparelhos aqui e todos são de odontologia. Por que não usam sempre o mesmo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Porque cada um entrega uma imagem diferente. Cuidado: quem indica o exame é o serviço, não a gente."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então vamos separar o que cada aparelho produz."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três aparelhos, três imagens",
+        "body": "O aparelho intraoral usa um receptor dentro da boca e mostra poucos dentes com detalhe. O panorâmico é extraoral: gira ao redor da cabeça e registra dentes e maxilares numa imagem plana. A tomografia de feixe cônico produz uma imagem tridimensional da mandíbula e das estruturas da face, usada em cirurgia oral, ortodontia e endodontia. A Anvisa trata sistemas intraorais e extraorais em instruções normativas separadas, as INs 95 e 94 de 2021. Qual aparelho usar para cada paciente é decisão do serviço, e não do aluno.",
+        "keyPoints": [
+          "Intraoral: poucos dentes, com detalhe.",
+          "Panorâmico: dentes e maxilares numa imagem plana.",
+          "Feixe cônico: imagem em três dimensões."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de geometria (M06.01), você viu as peças do sistema. Qual peça recebe a radiação que atravessa o paciente e forma a imagem?",
+          "options": [
+            {
+              "label": "O receptor de imagem.",
+              "correct": true,
+              "feedback": "Isso: o receptor registra a radiação que atravessou o paciente."
+            },
+            {
+              "label": "O colimador.",
+              "correct": false,
+              "feedback": "O colimador limita o feixe antes do paciente. O receptor fica do outro lado."
+            },
+            {
+              "label": "O cabeçote do aparelho.",
+              "correct": false,
+              "feedback": "O cabeçote produz e emite o feixe. Ele não registra a imagem."
+            },
+            {
+              "label": "O avental de proteção.",
+              "correct": false,
+              "feedback": "O avental é proteção, não registro da imagem. Retome as peças do sistema."
+            }
+          ],
+          "help": "Pense no que fica do lado oposto ao feixe.",
+          "sourceIds": [
+            "fda-ada-2012"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada característica no aparelho a que ela se refere.",
+          "categories": [
+            "Intraoral",
+            "Panorâmico",
+            "Feixe cônico"
+          ],
+          "items": [
+            {
+              "label": "Receptor dentro da boca",
+              "category": "Intraoral"
+            },
+            {
+              "label": "Mostra poucos dentes com detalhe",
+              "category": "Intraoral"
+            },
+            {
+              "label": "Imagem plana de dentes e maxilares juntos",
+              "category": "Panorâmico"
+            },
+            {
+              "label": "Gira ao redor da cabeça, fora da boca",
+              "category": "Panorâmico"
+            },
+            {
+              "label": "Imagem tridimensional da face",
+              "category": "Feixe cônico"
+            },
+            {
+              "label": "Entrega um volume, e não uma imagem plana",
+              "category": "Feixe cônico"
+            }
+          ],
+          "feedbackCorrect": "Cada característica ficou com o aparelho que a produz.",
+          "feedbackIncorrect": "Pergunte de cada item: a imagem é pequena e detalhada, plana e ampla, ou em três dimensões?",
+          "help": "Qual aparelho entrega um volume, e não uma imagem plana?",
+          "sourceIds": [
+            "ada-raios-x-2024",
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Um pedido fictício precisa de uma imagem tridimensional da mandíbula e da face. Qual aparelho produz esse tipo de imagem?",
+          "options": [
+            {
+              "label": "O aparelho intraoral.",
+              "correct": false,
+              "feedback": "O intraoral mostra poucos dentes em imagem plana. Confira de novo o que cada um produz."
+            },
+            {
+              "label": "O panorâmico.",
+              "correct": false,
+              "feedback": "O panorâmico faz uma imagem plana, ampla. Procure o aparelho que entrega volume."
+            },
+            {
+              "label": "A tomografia de feixe cônico.",
+              "correct": true,
+              "feedback": "Isso: é o aparelho que produz imagem em três dimensões."
+            },
+            {
+              "label": "Nenhum aparelho odontológico.",
+              "correct": false,
+              "feedback": "A tomografia de feixe cônico existe justamente para isso. Retome o conceito."
+            }
+          ],
+          "help": "Procure a palavra tridimensional.",
+          "sourceIds": [
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Seu Jorge, paciente simulado, vê os três aparelhos e se pergunta sobre a diferença entre eles.",
+          "prompt": "Na simulação, Seu Jorge pergunta: \"Por que não fazem logo a tomografia em tudo?\" Qual resposta é a mais adequada para você dar?",
+          "options": [
+            {
+              "label": "Dizer que a tomografia sempre é a melhor opção.",
+              "correct": false,
+              "feedback": "Isso não é verdade, e a escolha não é sua. Retome o que cada aparelho produz."
+            },
+            {
+              "label": "Explicar o que cada um faz e quem indica.",
+              "correct": true,
+              "feedback": "Você informou sem decidir: a indicação é do dentista e do serviço."
+            },
+            {
+              "label": "Prometer que ele fará a tomografia amanhã.",
+              "correct": false,
+              "feedback": "Você não escolhe o exame. Quem indica é o dentista, no serviço."
+            },
+            {
+              "label": "Responder que não sabe e mudar de assunto.",
+              "correct": false,
+              "feedback": "Evitar a pergunta não ajuda. Você pode explicar o que cada aparelho produz."
+            }
+          ],
+          "help": "Você explica o aparelho; quem indica o exame é outra pessoa.",
+          "sourceIds": [
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Qual afirmação sobre o aparelho panorâmico está correta?",
+          "options": [
+            {
+              "label": "É intraoral e usa receptor dentro da boca do paciente.",
+              "correct": false,
+              "feedback": "Quem usa receptor dentro da boca é o intraoral. Retome a diferença."
+            },
+            {
+              "label": "Produz uma imagem tridimensional da face.",
+              "correct": false,
+              "feedback": "Essa é a tomografia de feixe cônico. Confira de novo."
+            },
+            {
+              "label": "Mostra um dente só, com mais detalhe e em volume.",
+              "correct": false,
+              "feedback": "Volume é da tomografia de feixe cônico, e poucos dentes com detalhe é do intraoral. O panorâmico é amplo e plano."
+            },
+            {
+              "label": "É extraoral e registra as arcadas numa imagem plana.",
+              "correct": true,
+              "feedback": "Isso: o panorâmico fica fora da boca e mostra as duas arcadas numa imagem plana."
+            }
+          ],
+          "help": "Ele gira ao redor da cabeça.",
+          "sourceIds": [
+            "cleveland-dental-xrays"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que cada aparelho produz",
+        "body": "Você agora separa o intraoral, o panorâmico e o de feixe cônico pelo que cada um entrega, e sabe que a escolha do aparelho cabe ao serviço.",
+        "line": {
+          "speaker": "caio",
+          "text": "Quem sabe o que cada aparelho entrega explica melhor ao paciente. E deixa a indicação com quem de direito."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual aparelho registra dentes e maxilares numa imagem plana, girando ao redor da cabeça?",
+          "options": [
+            {
+              "label": "O intraoral",
+              "correct": false,
+              "feedback": "O intraoral usa receptor na boca e mostra poucos dentes."
+            },
+            {
+              "label": "O panorâmico",
+              "correct": true,
+              "feedback": "Isso: ele é extraoral e registra as duas arcadas."
+            },
+            {
+              "label": "O de feixe cônico",
+              "correct": false,
+              "feedback": "Esse faz imagem em três dimensões."
+            },
+            {
+              "label": "Nenhum dos três",
+              "correct": false,
+              "feedback": "O panorâmico faz exatamente isso. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "prompt": "Pedem uma imagem em três dimensões das estruturas da face. Que aparelho a produz?",
+          "options": [
+            {
+              "label": "O aparelho intraoral",
+              "correct": false,
+              "feedback": "O intraoral entrega uma imagem plana de poucos dentes."
+            },
+            {
+              "label": "O aparelho panorâmico",
+              "correct": false,
+              "feedback": "O panorâmico é plano, ainda que amplo."
+            },
+            {
+              "label": "O avental de chumbo para o paciente",
+              "correct": false,
+              "feedback": "Avental é proteção, não aparelho de imagem."
+            },
+            {
+              "label": "A tomografia de feixe cônico",
+              "correct": true,
+              "feedback": "Isso: o feixe cônico entrega o volume."
+            }
+          ],
+          "sourceIds": [
+            "ada-raios-x-2024"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: o intraoral mostra poucos dentes, com…",
+          "item": {
+            "prompt": "Qual aparelho usa o receptor dentro da boca?",
+            "options": [
+              {
+                "label": "O intraoral",
+                "correct": true,
+                "feedback": "Isso: o nome já diz, o receptor fica dentro da boca."
+              },
+              {
+                "label": "O panorâmico",
+                "correct": false,
+                "feedback": "Ele é extraoral, fica fora da boca."
+              },
+              {
+                "label": "O de feixe cônico",
+                "correct": false,
+                "feedback": "Esse também é externo e entrega volume."
+              },
+              {
+                "label": "Todos os três",
+                "correct": false,
+                "feedback": "Só um deles usa receptor dentro da boca."
+              }
+            ],
+            "sourceIds": [
+              "cleveland-dental-xrays"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma dúvida de paciente sobre qual exame fazer chega até você. O que você faz?",
+            "options": [
+              {
+                "label": "Escolho o aparelho que acho mais adequado.",
+                "correct": false,
+                "feedback": "A escolha não é sua. Quem indica é o dentista."
+              },
+              {
+                "label": "Troco o aparelho do pedido por outro que prefiro.",
+                "correct": false,
+                "feedback": "Trocar o pedido por conta própria sai do seu papel."
+              },
+              {
+                "label": "Explico o que cada aparelho faz e levo a dúvida ao dentista.",
+                "correct": true,
+                "feedback": "Você orientou sem decidir, e levou a escolha a quem cabe."
+              },
+              {
+                "label": "Digo que qualquer aparelho serve para qualquer caso.",
+                "correct": false,
+                "feedback": "Cada aparelho entrega uma imagem diferente. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "ada-raios-x-2024"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-03",
+      "code": "S-OD.03",
+      "title": "Radiografia intraoral",
+      "objective": "Hoje você vai conseguir diferenciar a radiografia periapical, a interproximal e a oclusal pela finalidade e pela região.",
+      "competency": "Diferenciar periapical, interproximal e oclusal pela finalidade e pela região.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O pedido diz \"interproximal\". É a mesma coisa que periapical?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Mesmo aparelho, tipos diferentes. O que cada um mostra?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos separar pela finalidade e pela região."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três tipos, três finalidades",
+        "body": "Na odontologia, a radiografia interproximal mostra as faces entre dentes vizinhos, os lados que se tocam. Costuma ser feita nos dentes de trás. A periapical mostra o dente com a ponta da raiz e o osso ao redor. A oclusal cobre uma área da arcada e pode ser usada, por exemplo, para localizar a posição de um dente. Qual tipo fazer em cada paciente é decisão do dentista e do serviço. Você não troca um tipo por outro.",
+        "keyPoints": [
+          "Interproximal: faces entre dentes vizinhos.",
+          "Periapical: raiz e osso ao redor.",
+          "Oclusal: localizar a posição de um dente."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de proteção (M04.05), você viu a ideia de manter a exposição tão baixa quanto razoável. Qual atitude combina com ela?",
+          "options": [
+            {
+              "label": "Fazer só as imagens que o pedido traz.",
+              "correct": true,
+              "feedback": "Isso: nada de imagens extras por iniciativa própria."
+            },
+            {
+              "label": "Tirar uma imagem a mais, para garantir.",
+              "correct": false,
+              "feedback": "Imagem extra aumenta a exposição sem pedido. Retome a ideia da aula."
+            },
+            {
+              "label": "Repetir a imagem até ela ficar bonita.",
+              "correct": false,
+              "feedback": "Repetir por conta própria aumenta a dose. Confira o protocolo do serviço."
+            },
+            {
+              "label": "Aumentar o feixe para não faltar nada.",
+              "correct": false,
+              "feedback": "Feixe maior expõe mais tecido do que o necessário. Pense em limitar."
+            }
+          ],
+          "help": "A ideia é reduzir o que não é necessário.",
+          "sourceIds": [
+            "ada-raios-x-2024",
+            "fda-ada-2012"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada tipo de radiografia à finalidade.",
+          "pairs": [
+            {
+              "left": "Interproximal",
+              "right": "Mostrar as faces entre dentes vizinhos"
+            },
+            {
+              "left": "Periapical",
+              "right": "Mostrar a ponta da raiz e o osso ao redor"
+            },
+            {
+              "left": "Oclusal",
+              "right": "Localizar a posição de um dente"
+            },
+            {
+              "left": "Panorâmica",
+              "right": "Mostrar dentes e maxilares numa imagem plana"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada tipo à finalidade que ele atende.",
+          "feedbackIncorrect": "Releia as três finalidades do conceito. A panorâmica entrou na aula anterior, com o que ela costuma mostrar.",
+          "help": "Uma delas fala de faces que se tocam.",
+          "sourceIds": [
+            "fda-ada-2012",
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "O pedido fictício pede uma imagem das faces entre dois dentes de trás vizinhos. Qual tipo atende a essa finalidade?",
+          "options": [
+            {
+              "label": "A periapical.",
+              "correct": false,
+              "feedback": "A periapical mostra a ponta da raiz e o osso. Retome a finalidade da interproximal."
+            },
+            {
+              "label": "A oclusal.",
+              "correct": false,
+              "feedback": "A oclusal localiza a posição de um dente. Não é o foco aqui."
+            },
+            {
+              "label": "A interproximal.",
+              "correct": true,
+              "feedback": "Isso: ela mostra as faces entre dentes vizinhos."
+            },
+            {
+              "label": "Nenhuma delas.",
+              "correct": false,
+              "feedback": "Uma das três atende a essa finalidade. Releia o conceito."
+            }
+          ],
+          "help": "Procure a palavra entre.",
+          "sourceIds": [
+            "fda-ada-2012",
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "A radiografia {{1}} mostra as faces entre dentes vizinhos, e a {{2}} mostra a ponta da raiz e o osso ao redor.",
+          "answers": [
+            "interproximal",
+            "periapical"
+          ],
+          "distractors": [
+            "panorâmica",
+            "tomográfica",
+            "oclusal"
+          ],
+          "feedbackCorrect": "Interproximal para as faces entre dentes, periapical para raiz e osso.",
+          "feedbackIncorrect": "Releia o conceito: uma palavra fala de lados que se tocam e a outra, de ponta de raiz.",
+          "help": "Uma começa com inter; a outra, com peri.",
+          "sourceIds": [
+            "fda-ada-2012",
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na simulação, Dona Marta, paciente fictícia, chega com um pedido de radiografia interproximal. Ao se sentar, diz que a raiz de um dente incomoda.",
+          "prompt": "O pedido fictício diz interproximal, mas a paciente aponta para uma raiz que incomoda. O que você faz?",
+          "options": [
+            {
+              "label": "Troco por periapical, porque ela apontou a raiz.",
+              "correct": false,
+              "feedback": "Trocar o tipo é escolher o exame. Isso não é seu papel."
+            },
+            {
+              "label": "Faço o que o pedido diz e levo a queixa ao dentista.",
+              "correct": true,
+              "feedback": "Isso: você segue o pedido e leva a queixa a quem cabe decidir."
+            },
+            {
+              "label": "Faço as duas, só por garantia.",
+              "correct": false,
+              "feedback": "Imagem extra sem pedido aumenta a exposição. Retome o limite do seu papel."
+            },
+            {
+              "label": "Dispenso a queixa e sigo adiante.",
+              "correct": false,
+              "feedback": "A queixa é uma informação que a equipe precisa receber. Leve-a ao dentista."
+            }
+          ],
+          "help": "Você não escolhe o exame, mas pode informar.",
+          "sourceIds": [
+            "fda-ada-2012",
+            "ada-raios-x-2024"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Cada tipo com sua finalidade",
+        "body": "Agora você diferencia interproximal, periapical e oclusal pela finalidade, e sabe que o tipo de radiografia é decidido pelo dentista, e não por você.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quando o pedido diz o tipo, você sabe o que esperar da imagem. Quem muda o tipo é outra pessoa."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual tipo de radiografia mostra o dente com a ponta da raiz e o osso ao redor?",
+          "options": [
+            {
+              "label": "Interproximal",
+              "correct": false,
+              "feedback": "Essa mostra as faces entre dentes vizinhos."
+            },
+            {
+              "label": "Oclusal",
+              "correct": false,
+              "feedback": "Essa serve, por exemplo, para localizar a posição de um dente."
+            },
+            {
+              "label": "Periapical",
+              "correct": true,
+              "feedback": "Isso: ela inclui a ponta da raiz e o osso."
+            },
+            {
+              "label": "Nenhuma delas serve",
+              "correct": false,
+              "feedback": "Uma delas atende a essa finalidade. Releia o conceito."
+            }
+          ],
+          "sourceIds": [
+            "fda-ada-2012",
+            "cleveland-dental-xrays"
+          ]
+        },
+        {
+          "prompt": "Qual tipo mostra as faces entre dentes vizinhos, como as dos dentes de trás?",
+          "options": [
+            {
+              "label": "Interproximal",
+              "correct": true,
+              "feedback": "Isso: ela mostra os lados que se tocam."
+            },
+            {
+              "label": "Periapical",
+              "correct": false,
+              "feedback": "Essa mostra a ponta da raiz."
+            },
+            {
+              "label": "Oclusal",
+              "correct": false,
+              "feedback": "Essa localiza a posição de um dente."
+            },
+            {
+              "label": "Panorâmica ampla",
+              "correct": false,
+              "feedback": "Essa é ampla, de dentes e maxilares juntos."
+            }
+          ],
+          "sourceIds": [
+            "fda-ada-2012",
+            "cleveland-dental-xrays"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: interproximal quer dizer entre…",
+          "item": {
+            "prompt": "Qual finalidade combina com a radiografia oclusal?",
+            "options": [
+              {
+                "label": "Ver as faces entre dentes vizinhos",
+                "correct": false,
+                "feedback": "Essa é a finalidade da interproximal."
+              },
+              {
+                "label": "Localizar a posição de um dente",
+                "correct": true,
+                "feedback": "Isso: é um dos usos da oclusal."
+              },
+              {
+                "label": "Ver só a ponta da raiz",
+                "correct": false,
+                "feedback": "Essa é a finalidade da periapical."
+              },
+              {
+                "label": "Substituir a panorâmica sempre",
+                "correct": false,
+                "feedback": "Uma não substitui a outra sempre. Cada uma tem finalidade."
+              }
+            ],
+            "sourceIds": [
+              "fda-ada-2012",
+              "cleveland-dental-xrays"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega pede que você troque o tipo de radiografia do pedido porque achou melhor. O que você faz?",
+            "options": [
+              {
+                "label": "Troco, porque ela tem mais tempo de sala.",
+                "correct": false,
+                "feedback": "Tempo de sala não substitui a indicação. Retome seu papel."
+              },
+              {
+                "label": "Faço as duas, para agradar a colega.",
+                "correct": false,
+                "feedback": "Imagem extra sem pedido aumenta a exposição."
+              },
+              {
+                "label": "Ignoro a sugestão e não falo nada.",
+                "correct": false,
+                "feedback": "Você pode levar a sugestão a quem indica o exame."
+              },
+              {
+                "label": "Sigo o pedido e levo a sugestão ao dentista.",
+                "correct": true,
+                "feedback": "Isso: a troca depende de quem indica o exame."
+              }
+            ],
+            "sourceIds": [
+              "fda-ada-2012",
+              "ada-raios-x-2024"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-04",
+      "code": "S-OD.04",
+      "title": "Panorâmica: posição e erros",
+      "objective": "Hoje você vai conseguir relacionar um erro de posição da cabeça ao efeito que ele causa na imagem panorâmica.",
+      "competency": "Relacionar erro de posição da cabeça ao efeito na imagem.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A panorâmica saiu com uma sombra por cima dos dentes de cima. O aparelho está com defeito?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Quase nunca. Posição do paciente explica muita coisa."
+          },
+          {
+            "speaker": "lia",
+            "text": "Qual erro de posição produz essa sombra? É isso que vamos aprender."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Posição e efeito na imagem",
+        "body": "Na panorâmica, a posição da cabeça muda a imagem. Queixo elevado: o palato projeta uma sombra sobre as raízes dos dentes de cima. Língua longe do palato: aparece uma faixa escura junto às pontas dessas raízes. Cabeça virada para um lado: os dois lados saem diferentes. Movimento durante a exposição: áreas borradas e degraus na borda inferior da mandíbula. Cabeça à frente da região de foco: dentes da frente borrados e estreitos. Se a imagem sair assim, você descreve e leva à equipe; repetir é decisão do serviço.",
+        "keyPoints": [
+          "Queixo elevado: sombra do palato sobre as raízes de cima.",
+          "Língua longe do palato: faixa escura nas pontas das raízes.",
+          "Se a imagem sair com erro, descreva e leve à equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de movimento e nitidez (M06.05), você viu o que o movimento causa. O que acontece com a imagem se o paciente se mexe durante a exposição?",
+          "options": [
+            {
+              "label": "A imagem fica mais clara, sem borrar.",
+              "correct": false,
+              "feedback": "Mexer não clareia a imagem. Retome o efeito do movimento."
+            },
+            {
+              "label": "A imagem fica mais nítida.",
+              "correct": false,
+              "feedback": "Nitidez cai quando há movimento, e não aumenta."
+            },
+            {
+              "label": "Nada muda na imagem.",
+              "correct": false,
+              "feedback": "Movimento durante a exposição altera a imagem. Retome a aula."
+            },
+            {
+              "label": "A imagem sai borrada.",
+              "correct": true,
+              "feedback": "Isso: o movimento borra a imagem."
+            }
+          ],
+          "help": "Pense em uma foto tirada com a mão trêmula.",
+          "sourceIds": [
+            "rondon-2014"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada erro de posição ao efeito na imagem.",
+          "pairs": [
+            {
+              "left": "Queixo elevado",
+              "right": "Sombra do palato sobre as raízes de cima"
+            },
+            {
+              "left": "Língua longe do palato",
+              "right": "Faixa escura nas pontas das raízes de cima"
+            },
+            {
+              "left": "Cabeça virada para um lado",
+              "right": "Os dois lados saem diferentes"
+            },
+            {
+              "left": "Movimento na exposição",
+              "right": "Áreas borradas e degraus na borda da mandíbula"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada erro de posição ao efeito que ele deixa.",
+          "feedbackIncorrect": "Confira de novo: cada erro deixa uma marca própria, uma na sombra, uma na faixa escura, uma na simetria e uma na nitidez.",
+          "help": "O palato fica em cima: que erro projeta a sombra dele?",
+          "sourceIds": [
+            "rondon-2014"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, a panorâmica de um paciente fictício chega à tela. Sobre as raízes dos dentes de cima há uma faixa clara, como uma sombra.",
+          "prompt": "A imagem fictícia mostra a sombra do palato sobre as raízes dos dentes de cima. O que você faz?",
+          "options": [
+            {
+              "label": "Descrevo o que vejo e aviso a equipe.",
+              "correct": true,
+              "feedback": "Isso: você descreveu o achado e levou à equipe, que decide o que vem depois."
+            },
+            {
+              "label": "Refaço a imagem sozinho, na hora.",
+              "correct": false,
+              "feedback": "Repetir é decisão do serviço, e expõe o paciente outra vez. Avise a equipe."
+            },
+            {
+              "label": "Apago a imagem e sigo adiante.",
+              "correct": false,
+              "feedback": "Apagar esconde o problema. Descreva e leve à equipe."
+            },
+            {
+              "label": "Escrevo o laudo dizendo o que há nas raízes.",
+              "correct": false,
+              "feedback": "Laudo não cabe a você, e a sombra pode estar escondendo a região."
+            }
+          ],
+          "help": "Descrever e avisar não é o mesmo que decidir.",
+          "sourceIds": [
+            "rondon-2014",
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Na imagem fictícia, os dentes da frente aparecem borrados e estreitos. Qual erro de posição é mais provável?",
+          "options": [
+            {
+              "label": "A cabeça ficou atrás da região de foco.",
+              "correct": false,
+              "feedback": "Atrás, os dentes da frente saem alargados, não estreitos. Confira a direção."
+            },
+            {
+              "label": "A língua ficou longe do palato.",
+              "correct": false,
+              "feedback": "Isso deixa uma faixa escura nas pontas das raízes, não estreitamento."
+            },
+            {
+              "label": "A cabeça ficou à frente da região de foco.",
+              "correct": true,
+              "feedback": "Isso: nessa posição, os dentes da frente saem borrados e estreitos."
+            },
+            {
+              "label": "O queixo ficou elevado.",
+              "correct": false,
+              "feedback": "O queixo elevado deixa a sombra do palato, não estreitamento."
+            }
+          ],
+          "help": "Estreito e borrado: a cabeça estava à frente ou atrás da região de foco?",
+          "sourceIds": [
+            "rondon-2014"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre erros na panorâmica fictícia.",
+          "statements": [
+            {
+              "text": "A sombra do palato sobre as raízes de cima pode vir do queixo elevado.",
+              "correct": true,
+              "feedback": "Certo: com o queixo elevado, o palato aparece sobre as raízes de cima."
+            },
+            {
+              "text": "Uma faixa escura nas pontas das raízes de cima pode vir da língua longe do palato.",
+              "correct": true,
+              "feedback": "Certo: o ar entre língua e palato deixa a faixa escura."
+            },
+            {
+              "text": "Com a cabeça atrás da região de foco, os dentes da frente saem estreitos.",
+              "correct": false,
+              "feedback": "Errado: atrás, os dentes da frente saem alargados. Estreitos é o efeito da cabeça à frente."
+            },
+            {
+              "text": "Se a imagem sair com erro, você a repete por conta própria.",
+              "correct": false,
+              "feedback": "Errado: repetir é decisão do serviço, que vai avaliar com a equipe."
+            }
+          ],
+          "feedbackCorrect": "Você separou os efeitos certos e lembrou que repetir não é decisão sua.",
+          "feedbackIncorrect": "Releia o conceito: cada erro tem um efeito próprio, e a decisão de repetir é do serviço.",
+          "help": "Qual erro deixa o dente estreito, e qual deixa largo?",
+          "sourceIds": [
+            "rondon-2014",
+            "anvisa-rdc-611-2022"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Da posição ao efeito",
+        "body": "Agora você relaciona queixo elevado, língua longe do palato, cabeça virada e movimento aos efeitos na imagem, e leva o achado à equipe em vez de decidir sozinho.",
+        "line": {
+          "speaker": "pixel",
+          "text": "Posição e efeito andam juntos. E decidir repetir fica com a equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma panorâmica fictícia mostra sombra do palato sobre as raízes de cima. Qual erro de posição é típico disso?",
+          "options": [
+            {
+              "label": "Cabeça virada para um lado",
+              "correct": false,
+              "feedback": "Isso deixa os dois lados diferentes, não a sombra em cima."
+            },
+            {
+              "label": "Movimento na exposição",
+              "correct": false,
+              "feedback": "Isso borra a imagem e deixa degraus, não a sombra do palato."
+            },
+            {
+              "label": "Língua apoiada no palato",
+              "correct": false,
+              "feedback": "Língua apoiada é o certo; ela evita a faixa escura."
+            },
+            {
+              "label": "Queixo elevado",
+              "correct": true,
+              "feedback": "Isso: o palato aparece sobre as raízes de cima."
+            }
+          ],
+          "sourceIds": [
+            "rondon-2014"
+          ]
+        },
+        {
+          "prompt": "Uma panorâmica fictícia sai com áreas borradas e degraus na borda da mandíbula. O que você faz?",
+          "options": [
+            {
+              "label": "Repito a imagem na hora, para resolver.",
+              "correct": false,
+              "feedback": "Repetir é decisão do serviço, e expõe o paciente outra vez."
+            },
+            {
+              "label": "Descrevo e aviso a equipe, sem repetir.",
+              "correct": true,
+              "feedback": "Isso: você descreveu e a decisão de repetir ficou com o serviço."
+            },
+            {
+              "label": "Guardo a imagem como está, sem avisar.",
+              "correct": false,
+              "feedback": "Guardar sem avisar deixa o problema sem tratamento."
+            },
+            {
+              "label": "Corrijo a imagem no programa da sala.",
+              "correct": false,
+              "feedback": "Corrigir por conta própria não é seu papel."
+            }
+          ],
+          "sourceIds": [
+            "rondon-2014",
+            "anvisa-rdc-611-2022"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: queixo elevado, sombra do…",
+          "item": {
+            "prompt": "Qual erro deixa uma faixa escura junto às pontas das raízes dos dentes de cima?",
+            "options": [
+              {
+                "label": "O queixo abaixado",
+                "correct": false,
+                "feedback": "Esse erro dá outros efeitos, e não essa faixa escura."
+              },
+              {
+                "label": "O avental mal colocado",
+                "correct": false,
+                "feedback": "O avental não muda a faixa escura nas raízes."
+              },
+              {
+                "label": "A língua longe do palato",
+                "correct": true,
+                "feedback": "Isso: o ar entre língua e palato deixa a faixa."
+              },
+              {
+                "label": "O paciente de olhos abertos",
+                "correct": false,
+                "feedback": "Olhos abertos não têm relação com essa faixa."
+              }
+            ],
+            "sourceIds": [
+              "rondon-2014"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa panorâmica fictícia, os dois lados do paciente saem diferentes. Qual erro de posição combina?",
+            "options": [
+              {
+                "label": "A cabeça virada para um lado",
+                "correct": true,
+                "feedback": "Isso: virar a cabeça deixa os dois lados diferentes."
+              },
+              {
+                "label": "O queixo elevado",
+                "correct": false,
+                "feedback": "Esse erro deixa a sombra do palato, não assimetria."
+              },
+              {
+                "label": "A língua apoiada no palato",
+                "correct": false,
+                "feedback": "Isso é o certo; não causa assimetria."
+              },
+              {
+                "label": "O paciente imóvel",
+                "correct": false,
+                "feedback": "Imobilidade é o certo; não causa assimetria."
+              }
+            ],
+            "sourceIds": [
+              "rondon-2014"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-05",
+      "code": "S-OD.05",
+      "title": "Tomografia de feixe cônico",
+      "objective": "Hoje você vai conseguir explicar o que muda do campo de visão para a dose e para a imagem.",
+      "competency": "Explicar o que muda do campo de visão para a dose e para a imagem.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O pedido tem um campo de visão grande para um dente só. Isso não é exagero?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta, mas quem ajusta o protocolo é o serviço. O que você precisa saber é o que o campo muda."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Então vamos ver o que ele muda na dose e na imagem."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Campo de visão: quanto cabe no volume",
+        "body": "O campo de visão é o tamanho do volume que a tomografia de feixe cônico registra. A dose desse exame pode ser de algumas vezes a dezenas de vezes a de uma panorâmica comum, e a ADA aponta a tomografia como grande contribuinte de radiação diagnóstica na odontologia. Por isso, usa-se o menor campo compatível com a aplicação clínica. Campos grandes tendem a ficar para áreas além dos dentes e do osso que os sustenta. As faixas de dose de campos pequenos e grandes se sobrepõem: dependem do aparelho. Quem define o campo é o serviço, e não o aluno.",
+        "keyPoints": [
+          "Menor campo compatível com a aplicação clínica.",
+          "Dose da tomografia de feixe cônico pode ser bem maior que a da panorâmica.",
+          "Quem define o campo é o serviço."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de tomografia (M10), você viu o que diferencia a tomografia da radiografia plana. Qual alternativa descreve isso?",
+          "options": [
+            {
+              "label": "A imagem sai sempre em duas dimensões.",
+              "correct": false,
+              "feedback": "Duas dimensões é a radiografia plana. A tomografia entrega volume."
+            },
+            {
+              "label": "A imagem é tridimensional.",
+              "correct": true,
+              "feedback": "Isso: a tomografia entrega um volume, e não uma imagem plana."
+            },
+            {
+              "label": "Não usa radiação ionizante.",
+              "correct": false,
+              "feedback": "Usa, sim. Retome a base da tomografia."
+            },
+            {
+              "label": "Funciona sem paciente na sala.",
+              "correct": false,
+              "feedback": "O paciente precisa estar na sala para a imagem existir. Confira de novo."
+            }
+          ],
+          "help": "Plana de um lado, volume do outro.",
+          "sourceIds": [
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "Na tomografia de feixe cônico, usa-se o {{1}} campo compatível com a aplicação clínica, para {{2}} a dose.",
+          "answers": [
+            "menor",
+            "reduzir"
+          ],
+          "distractors": [
+            "maior",
+            "aumentar",
+            "igualar"
+          ],
+          "feedbackCorrect": "O menor campo compatível com a aplicação reduz a dose.",
+          "feedbackIncorrect": "Releia o conceito: o campo é o menor possível para a aplicação, e o objetivo é a dose baixa.",
+          "help": "Quanto menos volume registrado, menos exposição desnecessária.",
+          "sourceIds": [
+            "vanacker-2019",
+            "hpa-crce-010-2010"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as afirmações certas sobre o campo de visão.",
+          "options": [
+            {
+              "label": "Campo grande costuma ficar para áreas além dos dentes.",
+              "correct": true,
+              "feedback": "Certo: campos grandes tendem a ficar para áreas além da região dos dentes."
+            },
+            {
+              "label": "Quem opera aumenta o campo sempre que tem dúvida, por garantia.",
+              "correct": false,
+              "feedback": "Aumentar o campo por dúvida expõe mais tecido. Dúvida vai à equipe."
+            },
+            {
+              "label": "Usa-se o menor campo compatível com a aplicação.",
+              "correct": true,
+              "feedback": "Certo: menor campo, menos exposição desnecessária."
+            },
+            {
+              "label": "A dose da tomografia pode ser bem maior que a da panorâmica comum.",
+              "correct": true,
+              "feedback": "Certo: pode ser bem maior, e por isso o campo importa."
+            },
+            {
+              "label": "Campo pequeno dá dose menor em qualquer aparelho, sempre.",
+              "correct": false,
+              "feedback": "As faixas de dose se sobrepõem entre campos. Depende do aparelho."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que está certo e deixou de fora o que não é.",
+          "feedbackIncorrect": "Releia o conceito: o menor campo compatível, doses que se sobrepõem e a dose de tomografia maior que a de panorâmica.",
+          "help": "Qual afirmação promete algo \"em qualquer aparelho\"?",
+          "sourceIds": [
+            "vanacker-2019",
+            "hpa-crce-010-2010",
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, o pedido fictício de tomografia de feixe cônico indica um campo grande para avaliar um único dente.",
+          "prompt": "Na simulação, o pedido traz campo grande para um dente só. Você acha o campo exagerado. O que você faz?",
+          "options": [
+            {
+              "label": "Reduzo o campo por conta própria, na hora.",
+              "correct": false,
+              "feedback": "Alterar o protocolo sem orientação não é seu papel."
+            },
+            {
+              "label": "Aumento o campo, só para garantir a imagem.",
+              "correct": false,
+              "feedback": "Isso expõe mais tecido do que o pedido. Leve a dúvida à supervisora."
+            },
+            {
+              "label": "Executo e depois comento a dúvida com ela.",
+              "correct": false,
+              "feedback": "A dúvida vem antes da exposição, pois depois não há como desfazer."
+            },
+            {
+              "label": "Descrevo a dúvida à supervisora e aguardo.",
+              "correct": true,
+              "feedback": "Isso: você levou a dúvida a quem define o protocolo."
+            }
+          ],
+          "help": "Dúvida sobre o protocolo vai antes da exposição.",
+          "sourceIds": [
+            "vanacker-2019",
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Dona Marta pergunta se a tomografia dá a mesma dose que a panorâmica. Qual resposta é adequada?",
+          "options": [
+            {
+              "label": "Dizer que pode ser bem maior e que o serviço decide.",
+              "correct": true,
+              "feedback": "Isso: informação correta, sem prometer nada além do protocolo."
+            },
+            {
+              "label": "Dizer que é exatamente igual à da panorâmica.",
+              "correct": false,
+              "feedback": "A dose pode ser bem maior. Retome a diferença."
+            },
+            {
+              "label": "Dizer que a tomografia nunca faz mal a ninguém.",
+              "correct": false,
+              "feedback": "Nenhuma exposição é isenta de risco. Retome o conceito."
+            },
+            {
+              "label": "Dizer que ela mesma escolhe o campo da tomografia.",
+              "correct": false,
+              "feedback": "Quem define o campo é o serviço, não a paciente."
+            }
+          ],
+          "help": "Seja honesto e informe sem decidir pelo serviço.",
+          "sourceIds": [
+            "hpa-crce-010-2010",
+            "ada-raios-x-2024"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que o campo muda",
+        "body": "Agora você explica que o campo é o tamanho do volume, que o menor compatível reduz a exposição, e que quem define o protocolo é o serviço.",
+        "line": {
+          "speaker": "lia",
+          "text": "Campo de visão é conversa com quem define o protocolo, e não ajuste por conta própria."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual regra orienta a escolha do campo na tomografia de feixe cônico?",
+          "options": [
+            {
+              "label": "O menor campo compatível com a aplicação",
+              "correct": true,
+              "feedback": "Isso: menor campo, menos exposição desnecessária."
+            },
+            {
+              "label": "O maior campo disponível, para garantir",
+              "correct": false,
+              "feedback": "Isso expõe mais tecido do que o necessário."
+            },
+            {
+              "label": "O campo que o paciente pedir na hora",
+              "correct": false,
+              "feedback": "Quem define o campo é o serviço."
+            },
+            {
+              "label": "Sempre o mesmo campo, em qualquer pedido",
+              "correct": false,
+              "feedback": "O campo acompanha a aplicação clínica."
+            }
+          ],
+          "sourceIds": [
+            "vanacker-2019"
+          ]
+        },
+        {
+          "prompt": "Qual afirmação sobre a dose da tomografia de feixe cônico está correta?",
+          "options": [
+            {
+              "label": "É sempre menor que a de uma panorâmica comum.",
+              "correct": false,
+              "feedback": "A dose pode ser bem maior, e não menor."
+            },
+            {
+              "label": "É igual à de uma intraoral, em todo caso.",
+              "correct": false,
+              "feedback": "Não há essa igualdade. A dose depende do aparelho e do protocolo."
+            },
+            {
+              "label": "Não existe, porque é uma imagem em 3D.",
+              "correct": false,
+              "feedback": "Há dose, sim. Ela é ionizante."
+            },
+            {
+              "label": "Pode ser bem maior que a da panorâmica.",
+              "correct": true,
+              "feedback": "Isso: pode ser bem maior que a de uma radiografia convencional."
+            }
+          ],
+          "sourceIds": [
+            "hpa-crce-010-2010",
+            "ada-raios-x-2024"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: menor campo compatível, menos…",
+          "item": {
+            "prompt": "Quem define o campo de visão na simulação?",
+            "options": [
+              {
+                "label": "O aluno, por experiência",
+                "correct": false,
+                "feedback": "O aluno em treinamento não define o campo."
+              },
+              {
+                "label": "O serviço, pelo protocolo",
+                "correct": true,
+                "feedback": "Isso: o aluno não define o campo."
+              },
+              {
+                "label": "O paciente, por preferência",
+                "correct": false,
+                "feedback": "O paciente não define o protocolo."
+              },
+              {
+                "label": "O fabricante, sempre",
+                "correct": false,
+                "feedback": "O fabricante dá instruções, mas o protocolo é do serviço."
+              }
+            ],
+            "sourceIds": [
+              "vanacker-2019",
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "O que fazer ao ver um campo que parece grande demais para o pedido?",
+            "options": [
+              {
+                "label": "Reduzir o campo sozinho, na hora",
+                "correct": false,
+                "feedback": "Mudar o protocolo sozinho não é seu papel."
+              },
+              {
+                "label": "Expor e depois comentar a dúvida",
+                "correct": false,
+                "feedback": "Depois da exposição, não há como desfazer."
+              },
+              {
+                "label": "Descrever a dúvida e aguardar",
+                "correct": true,
+                "feedback": "Isso: a dúvida vai à equipe antes da exposição."
+              },
+              {
+                "label": "Aumentar o campo para garantir tudo",
+                "correct": false,
+                "feedback": "Isso aumenta a exposição desnecessária."
+              }
+            ],
+            "sourceIds": [
+              "vanacker-2019"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-06",
+      "code": "S-OD.06",
+      "title": "Proteção na odontologia",
+      "objective": "Hoje você vai conseguir aplicar justificação, colimação e barreiras, e seguir o protocolo do serviço nas proteções do paciente.",
+      "competency": "Aplicar justificação, colimação e barreiras, e seguir o protocolo do serviço para proteções do paciente.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Li que um órgão recomenda avental e colar, e que outro já não recomenda. Em quem eu acredito?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Ambos existem. Na sala, vale o protocolo do serviço. Quando houver dúvida, você me chama."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos ver o que a norma pede e onde cada coisa se aplica."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Justificar, limitar, proteger",
+        "body": "A RDC 611/2022 pede justificação, otimização e limitação de dose em todo procedimento. Exposição que não pode ser justificada é proibida, inclusive expor alguém só para treinar. Sobre avental e protetor de tireoide, as orientações mudaram e variam: siga o protocolo do serviço e, na dúvida, chame a equipe. Acompanhante só entra quando é imprescindível, e gestantes e menores de 18 anos não podem fazer esse papel. Nesta aula, a conferência segue esta ordem: pedido registrado, proteção do paciente, colimação ao tamanho do receptor, ida ao ponto de disparo definido pelo serviço e disparo com a supervisora presente.",
+        "keyPoints": [
+          "Exposição sem justificativa é proibida, inclusive só para treino.",
+          "Proteções do paciente: siga o protocolo do serviço.",
+          "Gestantes e menores de 18 anos não são acompanhantes."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de justificação (M04.05), você viu uma condição para qualquer exposição. Qual é ela?",
+          "options": [
+            {
+              "label": "Ter paciente disponível.",
+              "correct": false,
+              "feedback": "Paciente disponível não é justificativa. Retome a condição."
+            },
+            {
+              "label": "Ter o aparelho ligado.",
+              "correct": false,
+              "feedback": "Aparelho ligado não justifica nada. A justificativa vem antes."
+            },
+            {
+              "label": "Ter justificativa.",
+              "correct": true,
+              "feedback": "Isso: sem justificativa, a exposição não deve acontecer."
+            },
+            {
+              "label": "Ter o pedido de um colega de turma.",
+              "correct": false,
+              "feedback": "O pedido de um colega de turma não justifica exposição. Confira a condição."
+            }
+          ],
+          "help": "Pense no que precisa existir antes de expor alguém.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque a conferência na ordem ensinada nesta aula.",
+          "items": [
+            "Confirmar que o pedido do exame está registrado",
+            "Conferir a proteção do paciente conforme o protocolo do serviço",
+            "Conferir a colimação ao tamanho do receptor",
+            "Ir ao ponto de disparo definido pelo serviço",
+            "Disparar só com a supervisora presente"
+          ],
+          "feedbackCorrect": "Você seguiu a conferência: pedido, proteção, colimação, posição e disparo. Vale para esta aula; cada serviço define a sua.",
+          "feedbackIncorrect": "Reconstrua a sequência: cada cartão depende do anterior. O disparo vem por último, com supervisão.",
+          "help": "O disparo é o último passo.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "fda-ada-2012"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na simulação, Dona Marta, paciente fictícia, compara este serviço com outro que frequentou antes.",
+          "prompt": "Dona Marta pergunta: \"No outro consultório usavam um protetor no pescoço. Aqui não vão usar?\" Qual resposta é a mais adequada?",
+          "options": [
+            {
+              "label": "Dizer que o protetor é sempre obrigatório, em todo lugar.",
+              "correct": false,
+              "feedback": "Você afirmaria uma regra por conta própria. Retome a aula: o que vale aqui é o protocolo do serviço."
+            },
+            {
+              "label": "Dizer que o serviço segue protocolo e chamar a supervisora.",
+              "correct": true,
+              "feedback": "Isso: as orientações variam, e você segue o protocolo do serviço."
+            },
+            {
+              "label": "Dizer que o protetor nunca é necessário, em lugar algum.",
+              "correct": false,
+              "feedback": "Também seria uma regra dita por você. A resposta aponta para o protocolo do serviço."
+            },
+            {
+              "label": "Pedir que ela decida se usa.",
+              "correct": false,
+              "feedback": "A decisão não é da paciente nem sua. Siga o protocolo do serviço."
+            }
+          ],
+          "help": "A resposta aponta para o protocolo.",
+          "sourceIds": [
+            "ada-raios-x-2024",
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, uma criança fictícia precisa de ajuda para ficar imóvel. A mãe, que diz estar grávida, quer segurá-la.",
+          "prompt": "Na simulação, a mãe de uma criança, grávida, se oferece para segurar o filho durante a radiografia. O que você faz?",
+          "options": [
+            {
+              "label": "Deixo, porque ela mesma se ofereceu a ajudar.",
+              "correct": false,
+              "feedback": "A oferta não muda a norma: gestantes não podem exercer essa atividade."
+            },
+            {
+              "label": "Deixo, desde que ela use avental de proteção.",
+              "correct": false,
+              "feedback": "O avental não anula a regra. Gestantes não podem exercer o papel."
+            },
+            {
+              "label": "Peço que a criança segure sozinha o receptor.",
+              "correct": false,
+              "feedback": "Isso não resolve a contenção. Chame a equipe."
+            },
+            {
+              "label": "Não deixo que ela contenha a criança e chamo a equipe.",
+              "correct": true,
+              "feedback": "Isso: gestantes não podem exercer esse papel, e a equipe resolve como seguir."
+            }
+          ],
+          "help": "A norma tem uma regra sobre quem pode fazer esse papel.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Marque todas as medidas que reduzem a exposição desnecessária.",
+          "options": [
+            {
+              "label": "Colimar o feixe ao tamanho do receptor, quando possível.",
+              "correct": true,
+              "feedback": "Certo: feixe limitado, menos tecido exposto."
+            },
+            {
+              "label": "Expor um colega voluntário para treinar a técnica.",
+              "correct": false,
+              "feedback": "Exposição só para treino não pode ser justificada. É proibida."
+            },
+            {
+              "label": "Fazer só as imagens do pedido, sem extras.",
+              "correct": true,
+              "feedback": "Certo: imagem extra sem pedido é exposição sem necessidade."
+            },
+            {
+              "label": "Repetir a imagem por conta própria, para garantir.",
+              "correct": false,
+              "feedback": "Repetir por conta própria expõe de novo sem justificativa. A decisão é do serviço."
+            },
+            {
+              "label": "Seguir o protocolo do serviço para as proteções do paciente.",
+              "correct": true,
+              "feedback": "Certo: as orientações variam e o protocolo define."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que reduz a exposição e deixou de fora o que a aumenta.",
+          "feedbackIncorrect": "Releia o conceito: reduzir é limitar o feixe, fazer só o pedido e seguir o protocolo. Treino com pessoa e repetição solitária aumentam a exposição.",
+          "help": "Qual medida limita o feixe ao receptor?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "fda-ada-2012"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Proteção com protocolo",
+        "body": "Agora você confere o pedido, a proteção e a colimação antes de disparar, segue o protocolo do serviço nas proteções do paciente, e chama a equipe quando há dúvida.",
+        "line": {
+          "speaker": "caio",
+          "text": "Orientação muda, protocolo fica. E na dúvida eu prefiro perguntar a adivinhar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Segundo a norma, o que acontece com uma exposição que não pode ser justificada?",
+          "options": [
+            {
+              "label": "Ela é permitida, se for rápida.",
+              "correct": false,
+              "feedback": "Rapidez não substitui a justificativa."
+            },
+            {
+              "label": "Ela é proibida.",
+              "correct": true,
+              "feedback": "Isso: exposição sem justificativa é proibida."
+            },
+            {
+              "label": "Ela é permitida, se o paciente topar.",
+              "correct": false,
+              "feedback": "A concordância do paciente não justifica a exposição."
+            },
+            {
+              "label": "Ela é permitida, para treino de alunos.",
+              "correct": false,
+              "feedback": "Exposição só para treino é justamente proibida."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "prompt": "Um paciente fictício pergunta se vai usar protetor de tireoide. Qual resposta combina com esta aula?",
+          "options": [
+            {
+              "label": "Sempre usamos, porque é regra geral para todos os serviços.",
+              "correct": false,
+              "feedback": "Você estaria afirmando uma regra por conta própria. O que vale é o protocolo do serviço."
+            },
+            {
+              "label": "Nunca usamos, porque é regra geral para todos os serviços.",
+              "correct": false,
+              "feedback": "Também seria uma regra dita por você, e não o protocolo do serviço."
+            },
+            {
+              "label": "Seguimos o protocolo do serviço e, na dúvida, chamo a supervisora.",
+              "correct": true,
+              "feedback": "Isso: as orientações variam, e o protocolo manda."
+            },
+            {
+              "label": "Você decide na hora, como preferir, sem seguir protocolo.",
+              "correct": false,
+              "feedback": "A decisão segue o protocolo, não a preferência."
+            }
+          ],
+          "sourceIds": [
+            "ada-raios-x-2024",
+            "anvisa-rdc-611-2022"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: gestantes e menores de 18 anos não podem…",
+          "item": {
+            "prompt": "Segundo a aula, quem não pode ser acompanhante para conter um paciente?",
+            "options": [
+              {
+                "label": "O pai adulto, que se ofereceu",
+                "correct": false,
+                "feedback": "Um adulto voluntário pode acompanhar quando for imprescindível. Procure quem a norma exclui."
+              },
+              {
+                "label": "Uma gestante, mesmo se oferecendo",
+                "correct": true,
+                "feedback": "Isso: gestantes e menores de 18 anos não podem exercer esse papel."
+              },
+              {
+                "label": "A avó adulta, por vontade própria",
+                "correct": false,
+                "feedback": "Ser avó não impede. Retome as duas exclusões da norma."
+              },
+              {
+                "label": "Um tio adulto, fora do trabalho",
+                "correct": false,
+                "feedback": "Um adulto voluntário pode acompanhar. A norma exclui gestantes e menores de 18 anos."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega de turma propõe se expor um pouco, só para ajustar o feixe. O que você faz?",
+            "options": [
+              {
+                "label": "Aceito, porque é rápido.",
+                "correct": false,
+                "feedback": "Rapidez não justifica a exposição."
+              },
+              {
+                "label": "Aceito, se ele usar avental.",
+                "correct": false,
+                "feedback": "O avental não torna a exposição justificada."
+              },
+              {
+                "label": "Aceito, se for só uma vez.",
+                "correct": false,
+                "feedback": "Uma vez só ainda é exposição sem justificativa."
+              },
+              {
+                "label": "Recuso e aviso a supervisora.",
+                "correct": true,
+                "feedback": "Isso: exposição só para treino não pode ser justificada."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "s-od-07",
+      "code": "S-OD.07",
+      "title": "Caso integrador",
+      "objective": "Hoje você vai conseguir conferir identificação, posição e proteção num atendimento simulado e acionar a equipe quando preciso.",
+      "competency": "Conferir identificação, posição e proteção num atendimento simulado e acionar a equipe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiologia odontológica simulada",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje é um atendimento simulado completo. Dona Marta, paciente fictícia, tem um pedido de periapical."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se aparecer algo estranho no meio?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Aí você descreve, para, e me chama. Vamos começar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Fazer sob supervisão, levar o resto à equipe",
+        "body": "A RDC 611/2022 diz que só opera o equipamento quem é legalmente habilitado ou está em treinamento sob supervisão direta de um profissional habilitado. Na simulação, você está nesse segundo caso. Você confere os dados do paciente com o registro, a colimação e a posição segundo o protocolo. Tudo que exige decisão vai à equipe: trocar o tipo de exame, mudar o campo, repetir uma imagem, dispensar uma proteção. E exposição só para treino não pode ser justificada.",
+        "keyPoints": [
+          "Em treinamento, você atua sob supervisão direta.",
+          "Dado que não confere, imagem com erro e dúvida: leve à equipe.",
+          "Nenhuma exposição só para treino."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior você viu o que a norma diz sobre exposição sem justificativa. Qual é a regra?",
+          "options": [
+            {
+              "label": "Ela é proibida.",
+              "correct": true,
+              "feedback": "Isso: exposição que não pode ser justificada é proibida."
+            },
+            {
+              "label": "Ela é permitida, se o paciente aceitar.",
+              "correct": false,
+              "feedback": "A aceitação não justifica. Retome a regra."
+            },
+            {
+              "label": "Ela é permitida em treino de aluno.",
+              "correct": false,
+              "feedback": "Treino de aluno é um dos exemplos de exposição proibida."
+            },
+            {
+              "label": "Ela é permitida, se for rápida.",
+              "correct": false,
+              "feedback": "Rapidez não substitui a justificativa."
+            }
+          ],
+          "help": "Pense na palavra proibida.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "case-decision",
+          "role": "practice",
+          "context": "Na simulação, a ficha fictícia traz um sobrenome e Dona Marta diz outro, com a data de nascimento igual.",
+          "prompt": "Dona Marta diz um sobrenome diferente do que está na ficha fictícia. O que você faz?",
+          "options": [
+            {
+              "label": "Sigo, porque o nome conferiu.",
+              "correct": false,
+              "feedback": "Um dado conferido não compensa o outro. Pare e chame a equipe."
+            },
+            {
+              "label": "Corrijo a ficha com o sobrenome que ela disse.",
+              "correct": false,
+              "feedback": "Corrigir o registro sozinho não é seu papel."
+            },
+            {
+              "label": "Paro e chamo a equipe, sem corrigir a ficha.",
+              "correct": true,
+              "feedback": "Isso: dado que não confere interrompe o atendimento."
+            },
+            {
+              "label": "Pergunto de novo, até ela concordar.",
+              "correct": false,
+              "feedback": "Insistir até concordar induz a resposta. Chame a equipe."
+            }
+          ],
+          "help": "Divergência é motivo para parar.",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada situação do atendimento simulado.",
+          "categories": [
+            "Faço, sob supervisão",
+            "Levo à equipe"
+          ],
+          "items": [
+            {
+              "label": "Conferir nome e data com a ficha fictícia",
+              "category": "Faço, sob supervisão"
+            },
+            {
+              "label": "Ajustar o feixe ao tamanho do receptor",
+              "category": "Faço, sob supervisão"
+            },
+            {
+              "label": "Paciente quer saber se pode dispensar a proteção",
+              "category": "Levo à equipe"
+            },
+            {
+              "label": "Imagem com sombra do palato sobre as raízes",
+              "category": "Levo à equipe"
+            },
+            {
+              "label": "Pedido de um tipo e queixa de outra região",
+              "category": "Levo à equipe"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que faz sob supervisão do que depende da equipe.",
+          "feedbackIncorrect": "Pergunte de cada situação: ela só executa o protocolo ou exige decidir algo?",
+          "help": "Quem decide sobre proteção, repetição e troca de exame?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "ada-raios-x-2024"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Na simulação, antes de chamar a paciente fictícia, um colega propõe ensaiar a técnica nele mesmo.",
+          "prompt": "Um colega sugere: \"Deixa eu ser o paciente, só para ver se a sua posição está certa.\" O que você faz?",
+          "options": [
+            {
+              "label": "Aceito, porque é rápido.",
+              "correct": false,
+              "feedback": "Rapidez não justifica a exposição."
+            },
+            {
+              "label": "Recuso e aviso a supervisora.",
+              "correct": true,
+              "feedback": "Isso: exposição só para treino não pode ser justificada."
+            },
+            {
+              "label": "Aceito, com avental.",
+              "correct": false,
+              "feedback": "O avental não torna a exposição justificada."
+            },
+            {
+              "label": "Aceito, se a supervisora estiver longe.",
+              "correct": false,
+              "feedback": "Esconder da supervisora agrava o problema."
+            }
+          ],
+          "help": "Qual regra proíbe exposição para treino?",
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "O pedido de tomografia de feixe cônico traz campo grande e a paciente fictícia pergunta se pode ser menor. O que você faz?",
+          "options": [
+            {
+              "label": "Reduzo o campo, porque ela pediu isso a mim.",
+              "correct": false,
+              "feedback": "Mudar o protocolo a pedido da paciente não é seu papel."
+            },
+            {
+              "label": "Digo que o tamanho do campo não faz diferença nenhuma.",
+              "correct": false,
+              "feedback": "Importa: o menor campo compatível reduz a exposição."
+            },
+            {
+              "label": "Aumento o campo, só para garantir a imagem.",
+              "correct": false,
+              "feedback": "Isso aumenta a exposição. A dúvida vai à supervisora."
+            },
+            {
+              "label": "Explico que o serviço define e consulto a supervisora.",
+              "correct": true,
+              "feedback": "Isso: o campo é definido pelo serviço, e a pergunta chegou a quem decide."
+            }
+          ],
+          "help": "Campo é protocolo do serviço.",
+          "sourceIds": [
+            "vanacker-2019",
+            "hpa-crce-010-2010"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Atendimento completo",
+        "body": "Agora você integra identificação, posição e proteção, atua sob supervisão e leva à equipe tudo que exige decisão: divergência, repetição, troca de exame, campo e proteção.",
+        "line": {
+          "speaker": "lia",
+          "text": "Fazer bem o que é seu e perguntar o que não é: é isso que protege o paciente e você."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Segundo a norma, em que condição alguém em formação opera o equipamento?",
+          "options": [
+            {
+              "label": "Sozinho, se já tiver bastante prática",
+              "correct": false,
+              "feedback": "Prática não substitui supervisão direta."
+            },
+            {
+              "label": "Com um colega de turma ao lado, ajudando",
+              "correct": false,
+              "feedback": "O colega de turma não é profissional habilitado."
+            },
+            {
+              "label": "Sozinho, em horário sem movimento no serviço",
+              "correct": false,
+              "feedback": "O horário não muda a exigência de supervisão."
+            },
+            {
+              "label": "Sob supervisão direta de profissional habilitado",
+              "correct": true,
+              "feedback": "Isso: a norma exige supervisão direta."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022"
+          ]
+        },
+        {
+          "prompt": "A imagem fictícia sai com erro de posição. Quem decide se ela será repetida?",
+          "options": [
+            {
+              "label": "A equipe do serviço",
+              "correct": true,
+              "feedback": "Isso: repetir é decisão do serviço."
+            },
+            {
+              "label": "Você, na hora",
+              "correct": false,
+              "feedback": "Repetir não é decisão sua."
+            },
+            {
+              "label": "O paciente, se pedir",
+              "correct": false,
+              "feedback": "O paciente não decide a repetição."
+            },
+            {
+              "label": "O próximo aluno do turno",
+              "correct": false,
+              "feedback": "O próximo aluno não decide isso."
+            }
+          ],
+          "sourceIds": [
+            "anvisa-rdc-611-2022",
+            "rondon-2014"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete: o que exige decisão eu levo à…",
+          "item": {
+            "prompt": "O dado da ficha não confere com o que o paciente fictício diz. O que fazer?",
+            "options": [
+              {
+                "label": "Seguir com o dado da ficha",
+                "correct": false,
+                "feedback": "Escolher um dos dados não resolve a divergência."
+              },
+              {
+                "label": "Seguir com o que o paciente disse",
+                "correct": false,
+                "feedback": "Também não resolve a divergência."
+              },
+              {
+                "label": "Parar e chamar a equipe",
+                "correct": true,
+                "feedback": "Isso: divergência interrompe o atendimento."
+              },
+              {
+                "label": "Mudar o dado da ficha",
+                "correct": false,
+                "feedback": "Corrigir o registro sozinho não é seu papel."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um paciente fictício pergunta se pode dispensar a proteção. O que você faz?",
+            "options": [
+              {
+                "label": "Digo que pode dispensar a proteção",
+                "correct": false,
+                "feedback": "Você não decide isso sozinho."
+              },
+              {
+                "label": "Levo a pergunta à equipe, que segue o protocolo.",
+                "correct": true,
+                "feedback": "Isso: a proteção segue o protocolo do serviço."
+              },
+              {
+                "label": "Digo que a proteção é sempre obrigatória",
+                "correct": false,
+                "feedback": "Isso seria uma regra dita por você. A proteção segue o protocolo do serviço."
+              },
+              {
+                "label": "Digo que a escolha é só dele",
+                "correct": false,
+                "feedback": "A escolha segue o protocolo do serviço."
+              }
+            ],
+            "sourceIds": [
+              "anvisa-rdc-611-2022",
+              "ada-raios-x-2024"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
