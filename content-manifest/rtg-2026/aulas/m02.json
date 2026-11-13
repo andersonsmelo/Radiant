@@ -189,31 +189,33 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "prediction",
-          "prompt": "Duda fica de frente para você e levanta a mão direita. Antes de conferir, preveja: de que lado do seu campo de visão essa mão aparece?",
-          "options": [
+          "prompt": "Duda fica de frente para você e levanta a mão direita. Antes de conferir, julgue cada afirmação sobre a vista.",
+          "statements": [
             {
-              "label": "À sua direita.",
-              "correct": false,
-              "feedback": "Isso aconteceria se vocês olhassem na mesma direção. De frente, os lados se cruzam. Confira de novo a vista."
-            },
-            {
-              "label": "Bem no centro, acima da cabeça dela.",
-              "correct": false,
-              "feedback": "Levantar a mão não a leva para o centro: ela continua do lado direito do corpo de Duda. Retome a vista de frente."
-            },
-            {
-              "label": "Depende de você ser destro ou canhoto.",
-              "correct": false,
-              "feedback": "A mão com que você escreve não entra na conta. Vale o lado do corpo de Duda e a vista em que ela está."
-            },
-            {
-              "label": "À sua esquerda.",
+              "text": "De frente, a mão direita de Duda aparece à sua esquerda.",
               "correct": true,
-              "feedback": "De frente, a direita dela fica do seu lado esquerdo. A mão é dela; o campo de visão é seu."
+              "feedback": "Certo: de frente, os lados se cruzam, e a direita do corpo dela aparece à esquerda de quem olha."
+            },
+            {
+              "text": "De frente, a mão direita dela aparece à sua direita, como no seu próprio corpo.",
+              "correct": false,
+              "feedback": "Errado: isso só acontece se vocês olham na mesma direção, como numa vista de costas. De frente, os lados se cruzam."
+            },
+            {
+              "text": "De costas, os lados dela coincidem com os seus.",
+              "correct": true,
+              "feedback": "Certo: de costas, corpo e observador olham na mesma direção, e os lados coincidem."
+            },
+            {
+              "text": "O lado em que a mão aparece depende de você ser destro ou canhoto.",
+              "correct": false,
+              "feedback": "Errado: a mão com que você escreve não entra na conta. Vale o lado do corpo de Duda e a vista em que ela está."
             }
           ],
+          "feedbackCorrect": "Você aplicou a vista: de frente, os lados se cruzam com os seus; de costas, coincidem. A mão é dela, e o campo de visão é seu.",
+          "feedbackIncorrect": "Retome a vista: de frente, a direita do corpo aparece à esquerda de quem olha; de costas, os lados coincidem. Quem escreve com qual mão não entra.",
           "help": "Imagine apertar a mão direita de alguém que está de frente para você. Para que lado você estende o braço?",
           "sourceIds": [
             "openstax-ap-1-6",
@@ -222,29 +224,21 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada termo ao que ele descreve.",
-          "pairs": [
-            {
-              "left": "Posição anatômica",
-              "right": "Em pé, olhando para a frente, palmas para a frente"
-            },
-            {
-              "left": "Vista de frente",
-              "right": "A direita do corpo aparece à esquerda da tela"
-            },
-            {
-              "left": "Vista de costas",
-              "right": "A direita do corpo aparece à direita da tela"
-            },
-            {
-              "left": "Direita do paciente",
-              "right": "Lado do corpo dele, em qualquer vista"
-            }
+          "prompt": "Complete a frase sobre os lados do corpo, usando o banco de palavras.",
+          "text": "Direita e esquerda são os lados do corpo {{1}}, e não os de quem {{2}}.",
+          "answers": [
+            "descrito",
+            "observa"
           ],
-          "feedbackCorrect": "Você separou três coisas: a postura de referência, o lado do corpo e o lugar em que ele aparece em cada vista.",
-          "feedbackIncorrect": "Confira de novo as duas vistas: de frente, os lados se cruzam com os seus; de costas, coincidem. O lado do corpo não muda.",
+          "distractors": [
+            "deitado",
+            "desenha",
+            "dorme"
+          ],
+          "feedbackCorrect": "Direita e esquerda pertencem ao corpo descrito, e a vista decide onde cada lado aparece na tela. O lado do corpo não muda.",
+          "feedbackIncorrect": "Releia: o lado é o do corpo descrito, em qualquer postura. Quem observa muda de lugar, mas o corpo não muda de lado.",
           "help": "Comece pelo par que não depende da tela e deixe as duas vistas para o fim.",
           "sourceIds": [
             "openstax-ap-1-6",
@@ -509,29 +503,33 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Ligue cada elemento ao que ele informa.",
-          "pairs": [
+          "prompt": "Classifique cada letra de marcador no lado do corpo que ela indica.",
+          "categories": [
+            "Lado direito",
+            "Lado esquerdo"
+          ],
+          "items": [
             {
-              "left": "Letra R",
-              "right": "Lado direito do corpo"
+              "label": "Letra R",
+              "category": "Lado direito"
             },
             {
-              "left": "Letra L",
-              "right": "Lado esquerdo do corpo"
+              "label": "Letra L",
+              "category": "Lado esquerdo"
             },
             {
-              "left": "Marcador radiopaco",
-              "right": "Peça colocada no campo antes da exposição"
+              "label": "Letra D",
+              "category": "Lado direito"
             },
             {
-              "left": "Marcador digital",
-              "right": "Anotação acrescentada depois da exposição"
+              "label": "Letra E",
+              "category": "Lado esquerdo"
             }
           ],
-          "feedbackCorrect": "R e L falam do corpo, como D e E nos serviços que usam as letras em português. Radiopaco e digital dizem quando o marcador entrou na imagem: antes ou depois da exposição.",
-          "feedbackIncorrect": "Retome em duas etapas: primeiro o que cada letra indica, depois o momento em que cada tipo de marcador é aplicado.",
+          "feedbackCorrect": "R e D indicam o lado direito do corpo, e L e E indicam o esquerdo. As letras falam do corpo, e não do lado da tela.",
+          "feedbackIncorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo.",
           "help": "Duas linhas falam de lado do corpo, e duas falam de quando o marcador aparece.",
           "sourceIds": [
             "chung-2020-marcadores",
@@ -608,31 +606,33 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "transfer",
-          "prompt": "Em outra simulação, o diagrama mostra Seu Jorge deitado de barriga para cima, como você o veria dos pés da mesa, olhando em direção à cabeça dele. O marcador L aparece à direita da tela. O marcador está coerente com o lado que indica?",
-          "options": [
+          "prompt": "Seu Jorge está deitado de barriga para cima, visto dos pés, e o L aparece à direita da tela. Julgue cada afirmação sobre o marcador.",
+          "statements": [
             {
-              "label": "Não: o L deveria ficar à esquerda da tela.",
+              "text": "Para conferir o L, vale o lado da tela e não o lado do corpo do paciente.",
               "correct": false,
-              "feedback": "Essa resposta usa o lado da tela. Retome a posição de observação e localize a esquerda do corpo."
+              "feedback": "Errado: o marcador fala do corpo. Use a vista e o lado do corpo, não o lado da tela."
             },
             {
-              "label": "Não: deitado, o marcador perde o sentido.",
-              "correct": false,
-              "feedback": "O marcador continua indicando um lado do corpo em qualquer postura. Confira de novo a vista."
-            },
-            {
-              "label": "Sim: o lado esquerdo dele fica ali.",
+              "text": "Vista dos pés, a esquerda dele aparece à direita da tela, então o L está coerente.",
               "correct": true,
-              "feedback": "Visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
+              "feedback": "Certo: visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
             },
             {
-              "label": "Sim: qualquer borda serve para o L.",
+              "text": "O marcador radiopaco é anotado na imagem depois da exposição.",
               "correct": false,
-              "feedback": "A conclusão coincide, mas o motivo não: a posição importa e precisa cair no lado esquerdo do corpo."
+              "feedback": "Errado: o radiopaco é uma peça posta no campo antes da exposição; a anotação digital é que vem depois, na imagem."
+            },
+            {
+              "text": "Deitado, o paciente deixa de ter lado, e o marcador perde o sentido.",
+              "correct": false,
+              "feedback": "Errado: o marcador continua indicando um lado do corpo em qualquer postura. Confira a vista."
             }
           ],
+          "feedbackCorrect": "Você conferiu o marcador pelo lado do corpo e pela posição de observação, e não pelo lado da tela.",
+          "feedbackIncorrect": "Retome: o marcador indica o lado do corpo em qualquer postura. Visto dos pés, de barriga para cima, os lados se cruzam com os seus.",
           "help": "Antes de olhar a letra, diga onde fica a esquerda do corpo nesta posição de observação.",
           "sourceIds": [
             "chung-2020-marcadores",
@@ -847,31 +847,33 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "prediction",
-          "prompt": "Antes de conferir no modelo, preveja: um plano vertical passa exatamente no meio do corpo, da frente para trás. O que fica separado?",
-          "options": [
+          "prompt": "Antes de conferir no modelo, julgue cada afirmação sobre os planos que atravessam o corpo.",
+          "statements": [
             {
-              "label": "A parte da frente e a parte de trás.",
-              "correct": false,
-              "feedback": "Para separar frente e trás, o plano vertical teria de correr de um lado ao outro. Esse é o coronal."
-            },
-            {
-              "label": "A parte de cima e a parte de baixo.",
-              "correct": false,
-              "feedback": "Cima e baixo são separados por um plano horizontal, o transversal. O plano descrito é vertical."
-            },
-            {
-              "label": "A metade direita e a metade esquerda.",
+              "text": "O plano mediano é o sagital que passa exatamente no meio do corpo.",
               "correct": true,
-              "feedback": "Esse é o plano mediano, um plano sagital que passa bem no meio e separa direita e esquerda."
+              "feedback": "Certo: o mediano é um plano sagital vertical, que passa bem no meio e separa direita e esquerda."
             },
             {
-              "label": "A pele de um lado e os ossos do outro.",
+              "text": "O plano coronal, ou frontal, separa a parte superior da inferior.",
               "correct": false,
-              "feedback": "Um plano atravessa todas as camadas no caminho. Retome: o que fica de cada lado dele?"
+              "feedback": "Errado: o coronal é vertical e separa anterior de posterior. Cima e baixo são separados pelo transversal."
+            },
+            {
+              "text": "O plano transversal é horizontal e separa cima de baixo.",
+              "correct": true,
+              "feedback": "Certo: o transversal, ou axial, é horizontal e separa a parte superior da inferior."
+            },
+            {
+              "text": "Um plano sagital é vertical e separa o lado direito do esquerdo.",
+              "correct": true,
+              "feedback": "Certo: o sagital é vertical e divide o corpo em lado direito e lado esquerdo."
             }
           ],
+          "feedbackCorrect": "Você separou os planos: sagital e mediano dividem direita e esquerda, coronal divide frente e trás, e transversal divide cima e baixo.",
+          "feedbackIncorrect": "Retome a pergunta da Profa. Lia: este plano separa o quê do quê? Os dois planos verticais, sagital e coronal, são os mais fáceis de trocar.",
           "help": "Imagine uma folha de papel em pé, entrando pelo nariz e saindo pela nuca.",
           "sourceIds": [
             "openstax-ap-1-6",
@@ -880,29 +882,42 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Ligue cada plano ao que ele separa.",
-          "pairs": [
+          "prompt": "Classifique cada plano pelo par de partes do corpo que ele separa.",
+          "categories": [
+            "Direita e esquerda",
+            "Anterior e posterior",
+            "Superior e inferior"
+          ],
+          "items": [
             {
-              "left": "Plano sagital",
-              "right": "Lado direito e lado esquerdo"
+              "label": "Plano sagital",
+              "category": "Direita e esquerda"
             },
             {
-              "left": "Plano coronal (frontal)",
-              "right": "Parte anterior e parte posterior"
+              "label": "Plano coronal",
+              "category": "Anterior e posterior"
             },
             {
-              "left": "Plano transversal (axial)",
-              "right": "Parte superior e parte inferior"
+              "label": "Plano transversal",
+              "category": "Superior e inferior"
             },
             {
-              "left": "Plano mediano",
-              "right": "Metades direita e esquerda, bem no meio"
+              "label": "Plano mediano",
+              "category": "Direita e esquerda"
+            },
+            {
+              "label": "Plano frontal",
+              "category": "Anterior e posterior"
+            },
+            {
+              "label": "Plano axial",
+              "category": "Superior e inferior"
             }
           ],
-          "feedbackCorrect": "Cada plano tem a sua separação. O mediano é o sagital que passa exatamente no meio.",
-          "feedbackIncorrect": "Retome a pergunta da Profa. Lia: este plano separa o quê do quê? Os dois planos verticais são os mais fáceis de trocar.",
+          "feedbackCorrect": "Cada plano tem a sua separação: sagital e mediano, direita e esquerda; coronal e frontal, anterior e posterior; transversal e axial, superior e inferior.",
+          "feedbackIncorrect": "Confira de novo: em cada plano, pergunte o que fica de cada lado dele. Os dois planos verticais são os mais fáceis de trocar.",
           "help": "Dois planos são verticais e um é horizontal. Comece pelo horizontal.",
           "sourceIds": [
             "openstax-ap-1-6",
@@ -1170,29 +1185,21 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada órgão ao sistema a que ele pertence.",
-          "pairs": [
-            {
-              "left": "Coração",
-              "right": "Sistema cardiovascular"
-            },
-            {
-              "left": "Pulmões",
-              "right": "Sistema respiratório"
-            },
-            {
-              "left": "Rins",
-              "right": "Sistema urinário"
-            },
-            {
-              "left": "Estômago",
-              "right": "Sistema digestório"
-            }
+          "prompt": "Complete a frase ligando cada órgão ao sistema a que ele pertence, usando o banco de palavras.",
+          "text": "O coração pertence ao sistema {{1}}, e os rins, ao sistema {{2}}.",
+          "answers": [
+            "cardiovascular",
+            "urinário"
           ],
-          "feedbackCorrect": "Cada órgão trabalha com outros num sistema. Muitos órgãos também contribuem para mais de um sistema.",
-          "feedbackIncorrect": "Retome a pergunta “com quem trabalha?”: pense na função principal de cada órgão.",
+          "distractors": [
+            "respiratório",
+            "digestório",
+            "nervoso"
+          ],
+          "feedbackCorrect": "Cada órgão trabalha com outros em um sistema: o coração no cardiovascular e os rins no urinário.",
+          "feedbackIncorrect": "Retome a pergunta “com quem trabalha?”: pense na função principal de cada órgão e no grupo de órgãos que atua junto.",
           "help": "Pergunte a que função cada órgão serve: circulação, respiração, urina ou digestão?",
           "sourceIds": [
             "openstax-ap-1-2"
@@ -1220,31 +1227,33 @@
         },
         {
           "id": "i4",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "practice",
-          "prompt": "Qual frase descreve corretamente a relação entre o coração e os pulmões?",
-          "options": [
+          "prompt": "Julgue cada afirmação sobre a posição do coração em relação às estruturas vizinhas.",
+          "statements": [
             {
-              "label": "O coração fica medial aos pulmões.",
+              "text": "O coração fica lateral aos pulmões, mais afastado da linha média.",
+              "correct": false,
+              "feedback": "Errado: lateral quer dizer mais afastado da linha média, e o coração está no meio do tórax."
+            },
+            {
+              "text": "O coração fica medial aos pulmões, mais próximo da linha média.",
               "correct": true,
-              "feedback": "O coração fica entre os dois pulmões, mais perto da linha média: por isso, medial a eles."
+              "feedback": "Certo: o coração fica entre os dois pulmões, mais perto da linha média, por isso é medial a eles."
             },
             {
-              "label": "O coração fica lateral aos pulmões.",
-              "correct": false,
-              "feedback": "Lateral quer dizer mais afastado da linha média. Confira de novo quem está no meio do tórax."
+              "text": "Os pulmões ficam laterais ao coração, na cavidade torácica.",
+              "correct": true,
+              "feedback": "Certo: os pulmões ficam mais afastados da linha média que o coração, dos dois lados dele."
             },
             {
-              "label": "O coração fica inferior ao diafragma.",
+              "text": "O coração fica inferior ao diafragma, na cavidade abdominopélvica.",
               "correct": false,
-              "feedback": "O diafragma é o piso da cavidade torácica, e o coração fica acima dele. Retome a divisa das cavidades."
-            },
-            {
-              "label": "O coração fica inferior aos pulmões.",
-              "correct": false,
-              "feedback": "Coração e pulmões ficam lado a lado, na mesma cavidade. Entre eles, o que muda é a distância até a linha média."
+              "feedback": "Errado: o diafragma é o piso da cavidade torácica, e o coração fica acima dele."
             }
           ],
+          "feedbackCorrect": "Você usou os pares de termos: medial é o mais próximo da linha média, e lateral, o mais afastado. O coração fica entre os pulmões.",
+          "feedbackIncorrect": "Retome: medial é perto da linha média e lateral é longe dela. Coração e pulmões ficam na cavidade torácica, acima do diafragma.",
           "help": "Medial e lateral se medem pela distância até a linha média do corpo.",
           "sourceIds": [
             "openstax-ap-1-6",
@@ -1511,29 +1520,21 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada palavra de um pedido fictício ao segmento do corpo que ela indica.",
-          "pairs": [
-            {
-              "left": "Braço",
-              "right": "Entre o ombro e o cotovelo"
-            },
-            {
-              "left": "Antebraço",
-              "right": "Entre o cotovelo e o punho"
-            },
-            {
-              "left": "Coxa",
-              "right": "Entre o quadril e o joelho"
-            },
-            {
-              "left": "Perna",
-              "right": "Entre o joelho e o tornozelo"
-            }
+          "prompt": "Complete a frase com os pontos que limitam cada segmento nomeado no pedido, usando o banco de palavras.",
+          "text": "O braço fica entre o ombro e o {{1}}, e a perna, entre o joelho e o {{2}}.",
+          "answers": [
+            "cotovelo",
+            "tornozelo"
           ],
-          "feedbackCorrect": "Na anatomia, braço e perna são só um segmento cada, e não o membro inteiro.",
-          "feedbackIncorrect": "Confira de novo os dois pares mais trocados: braço não é antebraço, e perna não é coxa.",
+          "distractors": [
+            "punho",
+            "quadril",
+            "antebraço"
+          ],
+          "feedbackCorrect": "Na anatomia, braço e perna são só um segmento cada: o braço vai do ombro ao cotovelo, e a perna, do joelho ao tornozelo.",
+          "feedbackIncorrect": "Confira de novo os dois nomes mais trocados: braço não é antebraço, e perna não é coxa. Cada segmento tem os seus limites.",
           "help": "Cada membro tem um segmento acima e outro abaixo da articulação do meio: cotovelo ou joelho.",
           "sourceIds": [
             "openstax-ap-1-6"
@@ -1575,31 +1576,33 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "transfer",
-          "prompt": "Um roteiro fictício cita o “quadrante superior direito do abdome”. O paciente simulado está em pé, de frente para você. Onde essa região aparece no seu campo de visão?",
-          "options": [
+          "prompt": "Um roteiro cita o quadrante superior direito do abdome, e o paciente simulado está em pé, de frente para você. Julgue cada afirmação.",
+          "statements": [
             {
-              "label": "Acima do umbigo, à sua direita.",
+              "text": "De frente, o lado direito do paciente aparece à sua direita.",
               "correct": false,
-              "feedback": "A altura está certa, mas o lado é o do paciente. De frente, os lados se cruzam com os seus."
+              "feedback": "Errado: de frente, os lados se cruzam, e a direita do paciente aparece à sua esquerda."
             },
             {
-              "label": "Acima do umbigo, à sua esquerda.",
+              "text": "O quadrante superior direito fica acima da linha do umbigo.",
               "correct": true,
-              "feedback": "Superior é acima da linha do umbigo, e a direita do paciente, de frente, fica à sua esquerda."
+              "feedback": "Certo: o abdome é dividido por duas linhas que se cruzam no umbigo, e superior é a parte acima."
             },
             {
-              "label": "Abaixo do umbigo, à sua esquerda.",
-              "correct": false,
-              "feedback": "O lado está certo, mas superior indica a parte acima da linha que passa pelo umbigo."
+              "text": "De frente, o superior direito fica acima do umbigo, à sua esquerda.",
+              "correct": true,
+              "feedback": "Certo: acima do umbigo pelo quadrante superior, e à sua esquerda porque o lado direito do paciente, de frente, cruza com o seu."
             },
             {
-              "label": "Abaixo do umbigo, à sua direita.",
-              "correct": false,
-              "feedback": "Esse é o lugar do quadrante inferior esquerdo. Retome as duas pistas: altura e lado do paciente."
+              "text": "O lado do quadrante é o do paciente, não o de quem olha.",
+              "correct": true,
+              "feedback": "Certo: o lado é sempre o do paciente, e é por isso que a vista precisa ser conferida."
             }
           ],
+          "feedbackCorrect": "Você combinou as duas pistas: superior é acima da linha do umbigo, e o lado é o do paciente, que de frente aparece à sua esquerda.",
+          "feedbackIncorrect": "Retome as duas pistas, altura e lado: o lado do quadrante é o do paciente, e de frente os lados se cruzam com os seus.",
           "help": "Resolva em duas etapas: primeiro acima ou abaixo do umbigo, depois o lado do paciente.",
           "sourceIds": [
             "openstax-ap-1-6"
@@ -1829,29 +1832,33 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Ligue cada letra de orientação ao que ela indica numa imagem.",
-          "pairs": [
+          "prompt": "Classifique cada letra de orientação no tipo de informação que ela dá numa imagem.",
+          "categories": [
+            "Lados do paciente",
+            "Frente e trás"
+          ],
+          "items": [
             {
-              "left": "R",
-              "right": "Lado direito do paciente"
+              "label": "Letra R",
+              "category": "Lados do paciente"
             },
             {
-              "left": "L",
-              "right": "Lado esquerdo do paciente"
+              "label": "Letra A",
+              "category": "Frente e trás"
             },
             {
-              "left": "A",
-              "right": "Parte anterior, a da frente"
+              "label": "Letra L",
+              "category": "Lados do paciente"
             },
             {
-              "left": "P",
-              "right": "Parte posterior, a de trás"
+              "label": "Letra P",
+              "category": "Frente e trás"
             }
           ],
-          "feedbackCorrect": "R e L falam dos lados do paciente. A e P, da frente e de trás.",
-          "feedbackIncorrect": "Confira de novo: duas letras indicam lados do paciente, e duas indicam frente e trás.",
+          "feedbackCorrect": "R e L falam dos lados do paciente, e A e P falam de frente e de trás.",
+          "feedbackIncorrect": "Confira de novo: duas letras indicam lados do paciente, e duas indicam a parte da frente ou a de trás.",
           "help": "Duas letras vêm de right e left. As outras duas, de anterior e posterior.",
           "sourceIds": [
             "burbridge-mah-tc",
@@ -1895,31 +1902,20 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "cloze",
           "role": "transfer",
-          "prompt": "Um corte axial de tomografia do treino traz a letra L na borda direita da tela. Uma estrutura aparece junto à borda esquerda da tela. De que lado do paciente ela está?",
-          "options": [
-            {
-              "label": "Do lado direito do paciente.",
-              "correct": true,
-              "feedback": "O L marca a borda do lado esquerdo do paciente. A borda oposta, à esquerda da tela, é o lado direito dele."
-            },
-            {
-              "label": "Do lado esquerdo do paciente.",
-              "correct": false,
-              "feedback": "Essa resposta usa o lado da tela. Confira de novo o que o L diz sobre a borda direita."
-            },
-            {
-              "label": "Na parte anterior do paciente.",
-              "correct": false,
-              "feedback": "Anterior e posterior são indicados por A e P. O L fala de direita e esquerda."
-            },
-            {
-              "label": "Não dá para saber pelo marcador.",
-              "correct": false,
-              "feedback": "Dá, sim: se o L está numa borda, a borda oposta é o lado direito do paciente."
-            }
+          "prompt": "Complete a frase que dá o lado do paciente a partir do marcador L e da borda da tela, usando o banco de palavras.",
+          "text": "O L está na borda direita da tela, então a estrutura na borda esquerda fica no lado {{1}} do paciente.",
+          "answers": [
+            "direito"
           ],
+          "distractors": [
+            "esquerdo",
+            "anterior",
+            "posterior"
+          ],
+          "feedbackCorrect": "O L marca a borda do lado esquerdo do paciente, então a borda oposta é o lado direito dele.",
+          "feedbackIncorrect": "Confira de novo o que o L diz: ele marca o lado esquerdo do paciente. A estrutura na borda oposta está do outro lado do corpo.",
           "help": "Um marcador numa borda também informa o que há na borda oposta.",
           "sourceIds": [
             "burbridge-mah-tc"

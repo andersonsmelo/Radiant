@@ -154,7 +154,7 @@ describe('ActivityRendererRegistry', () => {
         expect(getByText(/jogo-que-nao-existe/)).toBeTruthy();
     });
 
-    it('declara os sete tipos com renderer, incluindo Q6', () => {
+    it('declara os onze tipos com renderer, incluindo Q6 e as quatro famílias da 1.6', () => {
         expect(isInteractionTypeRegistered('case-decision')).toBe(true);
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
         expect(isInteractionTypeRegistered('hotspot')).toBe(true);
@@ -165,7 +165,7 @@ describe('ActivityRendererRegistry', () => {
         expect(isInteractionTypeRegistered('parameter-lab')).toBe(false);
         expect(REGISTERED_INTERACTION_TYPES).toContain('multiple-choice');
         expect(REGISTERED_INTERACTION_TYPES).toContain('bench');
-        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(7);
+        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(11);
     });
 
     it('renderiza a bancada pelo registro: enunciado, fantoma e o JSON inicial no onChange', () => {

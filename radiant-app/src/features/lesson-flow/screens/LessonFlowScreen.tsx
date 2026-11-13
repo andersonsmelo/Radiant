@@ -12,7 +12,7 @@ import { useLearningActivity } from '../hooks/useLearningActivity';
 import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
 import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
-import type { LearningActivityV2 } from '../../../types/learningActivity';
+import type { LearningActivityV2, LearningInteractionV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
@@ -84,6 +84,9 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
  * com 2 ms de diferença e soavam como um só. Ele toca junto do aviso visível.
  */
 const HEART_LOSS_DELAY_MS = 320;
+
+/** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
+const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -363,7 +366,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         ? 'Continuar'
         : player.showingFeedback
         ? isLastStep ? 'Concluir e voltar' : 'Continuar'
-        : currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench' || currentInteraction?.type === 'case-decision'
+        : currentInteraction && CHECKED_FAMILIES.has(currentInteraction.type)
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 

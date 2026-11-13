@@ -2883,3 +2883,85 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
     expect(haptics.hapticCelebrate).not.toHaveBeenCalled();
   });
 });
+
+/**
+ * Famílias da 1.6 (ADR-2026-11-13). Os efeitos da aula têm um chamador cada na
+ * tela: `heartsRepository.spend` (vida, na confirmação errada), `nextCombo`
+ * (sequência, uma vez por confirmação) e `LessonOutcomeService.recordActivityCompletion`
+ * (XP, estrelas, evidência e fila de revisão, uma vez na conclusão). Nenhum
+ * deles conhece a família: decidem por `isCorrectInteractionValue`. Estes
+ * testes provam que a família nova não cobra a vida em dobro nem conclui duas
+ * vezes, inclusive depois da retomada.
+ */
+describe('LessonFlowScreen — famílias da 1.6', () => {
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const common = { competencyIds: ['competency:f2'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
+    criticalSafety: false, accessibility: { label: 'Família nova' } };
+  const activity: LearningActivityV2 = {
+    id: 'activity:f2:fixture', competencyIds: ['competency:f2'], provenance: { contentVersion: 'f2-v1', sourceIds: ['source:f2'] },
+    steps: [
+      { kind: 'presentation', id: 'f2-hook', role: 'hook', payload: { title: 'Proteção na sala' } },
+      { kind: 'presentation', id: 'f2-concept', role: 'concept', payload: { title: 'Três medidas' } },
+      { kind: 'interaction', interaction: { ...common, id: 'f2-tf', type: 'true-false',
+        feedback: { correct: 'Você julgou as duas como a fonte.', incorrect: 'Compare cada afirmação com o conceito.' },
+        payload: { prompt: 'Julgue as afirmações sobre proteção.', statements: [
+          { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Certo: longe da fonte, menos dose.' },
+          { id: 's2', text: 'O dosímetro reduz a dose.', isTrue: false, explanation: 'Errado: o dosímetro só mede a dose.' },
+        ] } } },
+      { kind: 'interaction', interaction: { ...common, id: 'f2-cloze', type: 'cloze',
+        feedback: { correct: 'Isso: o avental cobre o tronco.', incorrect: 'Releia: o avental cobre o tronco.' },
+        payload: { prompt: 'Complete a frase de proteção.', segments: ['O ', ' protege o tronco.'],
+          blanks: [{ id: 'b1', correctTokenId: 't2' }], tokens: [{ id: 't1', label: 'relógio' }, { id: 't2', label: 'avental' }, { id: 't3', label: 'crachá' }] } } },
+      { kind: 'presentation', id: 'f2-closing', role: 'closing', payload: { title: 'Fechamento da proteção' } },
+    ],
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-14T12:30:00.000Z', unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activity);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+  });
+
+  async function playToEnd() {
+    expect(await screen.findByText('Julgue as afirmações sobre proteção.')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Certo: A distância reduz a dose.'));
+    fireEvent.press(screen.getByLabelText('Certo: O dosímetro reduz a dose.'));
+    expect(hearts.spend).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect((await screen.findAllByText('Errado: o dosímetro só mede a dose.')).length).toBeGreaterThan(0);
+    await waitFor(() => expect(hearts.spend).toHaveBeenCalledTimes(1));
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(await screen.findByText('Complete a frase de proteção.')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Usar avental na lacuna 1'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText('Isso: o avental cobre o tronco.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(await screen.findByText('Fechamento da proteção')).toBeTruthy();
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    await waitFor(() => expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1));
+    expect(mockedOutcome.recordActivityCompletion.mock.calls[0][0].firstConfirmedAnswers).toEqual({ 'f2-tf': false, 'f2-cloze': true });
+    expect(hearts.spend).toHaveBeenCalledTimes(1);
+  }
+
+  it('erro cobra uma vida só, acerto não cobra, e a conclusão registra XP uma vez', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:f2:fixture" nodeId="" resumeCursorId="step-3" />);
+    await playToEnd();
+    // Anúncio único: o resultado final usa o retorno de erro autoral; a explicação da afirmação já foi anunciada ao julgá-la.
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringMatching(/^Resposta incorreta\. Compare cada afirmação com o conceito\./));
+    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes('o dosímetro só mede a dose'))).toHaveLength(1);
+  });
+
+  it('retomada no meio volta à primeira interação, sem resposta antiga e sem cobrança ao abrir', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:f2:fixture" nodeId="" resumeCursorId="step-4" />);
+    expect(await screen.findByText('Julgue as afirmações sobre proteção.')).toBeTruthy();
+    expect(screen.queryByText('Complete a frase de proteção.')).toBeNull();
+    expect(screen.getByText('Afirmação 1 de 2')).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
+    await playToEnd();
+  });
+});

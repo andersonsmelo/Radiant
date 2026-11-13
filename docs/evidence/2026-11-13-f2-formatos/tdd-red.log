@@ -1,0 +1,254 @@
+# RED 1 — camada pura, antes da implementação (2026-11-13T22:36:16Z, node v20.20.2)
+    Expected: "Dois é errada: o dosímetro não protege."
+    Received: "Reveja o conceito."
+    Expected: "Faltou marcar: Distância. Marcou a mais: Relógio. O relógio não protege de nada."
+    Received: "Reveja o conceito."
+    Expected: true
+    Received: false
+    Expected: true
+    Received: false
+    Expected: true
+    Received: false
+    Expected: true
+    Received: false
+Tests:       6 failed, 63 passed, 69 total
+
+# RED 2 — contrato amplo e gerador, antes da implementação (2026-11-13T22:38:02Z, node v22.22.3)
+    ✕ as quatro famílias entram no contrato, e o lote gerado com elas é válido (1 ms)
+    ✕ o gerador embaralha o banco do cloze e intercala os grupos da categorização, sem perder a validade (1 ms)
+    ✕ proveniência por afirmação: distrator do banco e alternativa errada são autorais, o resto cita a fonte
+    ✕ cloze: recusa resposta nas primeiras posições do banco, resposta mais longa e banco sem dois distratores
+    ✕ true-false: recusa veredito constante e afirmação certa sempre mais longa (1 ms)
+    ✕ categorize: recusa itens agrupados por grupo, item que entrega o grupo no rótulo e grupo vazio
+    ✕ multi-select: recusa uma só certa ou todas certas, certas no topo da lista e certa sempre mais longa
+    ✕ nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto
+  ● contrato amplo: famílias da 1.6 › as quatro famílias entram no contrato, e o lote gerado com elas é válido
+  ● contrato amplo: famílias da 1.6 › o gerador embaralha o banco do cloze e intercala os grupos da categorização, sem perder a validade
+  ● contrato amplo: famílias da 1.6 › proveniência por afirmação: distrator do banco e alternativa errada são autorais, o resto cita a fonte
+  ● contrato amplo: famílias da 1.6 › cloze: recusa resposta nas primeiras posições do banco, resposta mais longa e banco sem dois distratores
+  ● contrato amplo: famílias da 1.6 › true-false: recusa veredito constante e afirmação certa sempre mais longa
+  ● contrato amplo: famílias da 1.6 › categorize: recusa itens agrupados por grupo, item que entrega o grupo no rótulo e grupo vazio
+  ● contrato amplo: famílias da 1.6 › multi-select: recusa uma só certa ou todas certas, certas no topo da lista e certa sempre mais longa
+  ● contrato amplo: famílias da 1.6 › nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto
+Tests:       8 failed, 26 passed, 34 total
+
+# RED 2b — gerador e admissão prontos, regras das famílias ainda ausentes (2026-11-13T22:38:37Z, node v20.20.2)
+    ✕ as quatro famílias entram no contrato, e o lote gerado com elas é válido (12 ms)
+    ✕ o gerador embaralha o banco do cloze e intercala os grupos da categorização, sem perder a validade (12 ms)
+    ✕ proveniência por afirmação: distrator do banco e alternativa errada são autorais, o resto cita a fonte (12 ms)
+    ✕ cloze: recusa resposta nas primeiras posições do banco, resposta mais longa e banco sem dois distratores (14 ms)
+    ✕ true-false: recusa veredito constante e afirmação certa sempre mais longa (14 ms)
+    ✕ categorize: recusa itens agrupados por grupo, item que entrega o grupo no rótulo e grupo vazio (12 ms)
+    ✕ multi-select: recusa uma só certa ou todas certas, certas no topo da lista e certa sempre mais longa (13 ms)
+    ✕ nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto (14 ms)
+Tests:       8 failed, 26 passed, 34 total
+
+# RED 2c — fixture válida, regras das famílias ainda ausentes (2026-11-13T22:38:53Z, node v20.20.2)
+    ✕ cloze: recusa resposta nas primeiras posições do banco, resposta mais longa e banco sem dois distratores (24 ms)
+    ✕ true-false: recusa veredito constante e afirmação certa sempre mais longa (18 ms)
+    ✕ categorize: recusa itens agrupados por grupo, item que entrega o grupo no rótulo e grupo vazio (21 ms)
+    ✕ multi-select: recusa uma só certa ou todas certas, certas no topo da lista e certa sempre mais longa (17 ms)
+    ✕ nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto (21 ms)
+    - Expected  - 3
+    + Received  + 1
+    -   "wide-answer-position-bias:interaction:rtg-2026:m01:aula-01:i2",
+    - Expected  - 3
+    + Received  + 1
+    -   "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i3",
+    - Expected  - 3
+    + Received  + 1
+    -   "wide-answer-position-bias:interaction:rtg-2026:m01:aula-01:i4",
+    - Expected  - 1
+    + Received  + 1
+    -   "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i5",
+    +   "missing-claim-provenance:option:rtg-2026:m01:aula-01:i5:d",
+    - Expected  - 3
+    + Received  + 1
+    -   "wide-feedback-not-distinct:interaction:rtg-2026:m01:aula-01:i2",
+Tests:       5 failed, 29 passed, 34 total
+
+# RED 2d — uma regra por teste, regras ainda ausentes (2026-11-13T22:39:11Z, node v20.20.2)
+    ✕ cloze: wide-answer-position-bias (23 ms)
+    ✕ cloze: wide-longest-is-correct (17 ms)
+    ✕ cloze: invalid-wide-shape (20 ms)
+    ✕ true-false: wide-constant-answer (22 ms)
+    ✕ true-false: wide-longest-is-correct (22 ms)
+    ✕ categorize: wide-answer-position-bias (21 ms)
+    ✕ categorize: wide-label-gives-answer (29 ms)
+    ✕ categorize: invalid-wide-shape (22 ms)
+    ✕ multi-select: wide-constant-answer (23 ms)
+    ✕ multi-select: wide-answer-position-bias (31 ms)
+    ✕ multi-select: wide-longest-is-correct (22 ms)
+    ✕ nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto (31 ms)
+    -   "wide-answer-position-bias:interaction:rtg-2026:m01:aula-01:i2",
+    -   "wide-longest-is-correct:interaction:rtg-2026:m01:aula-01:i2",
+    -   "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i3",
+    -   "wide-longest-is-correct:interaction:rtg-2026:m01:aula-01:i3",
+    -   "wide-answer-position-bias:interaction:rtg-2026:m01:aula-01:i4",
+    -   "wide-label-gives-answer:interaction:rtg-2026:m01:aula-01:i4",
+    -   "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i5",
+    -   "wide-answer-position-bias:interaction:rtg-2026:m01:aula-01:i5",
+    -   "wide-longest-is-correct:interaction:rtg-2026:m01:aula-01:i5",
+    -   "wide-feedback-not-distinct:interaction:rtg-2026:m01:aula-01:i2",
+Tests:       12 failed, 29 passed, 41 total
+
+# RED 3 — verificador da aula-fonte, antes da implementação (2026-11-13T22:40:21Z, node v20.20.2)
+not ok 21 - famílias da 1.6: a aula com cloze, true-false, categorize e multi-select passa
+not ok 22 - famílias da 1.6: reprova cloze sem marcador de lacuna para cada resposta
+not ok 23 - famílias da 1.6: reprova cloze com três lacunas
+not ok 24 - famílias da 1.6: reprova cloze com um distrator só
+not ok 25 - famílias da 1.6: reprova cloze com palavra repetida no banco
+not ok 26 - famílias da 1.6: reprova cloze com resposta mais longa
+not ok 27 - famílias da 1.6: reprova true-false com veredito constante
+not ok 28 - famílias da 1.6: reprova true-false com afirmação certa mais longa
+not ok 29 - famílias da 1.6: reprova true-false com veredito em texto
+not ok 30 - famílias da 1.6: reprova true-false com duas afirmações
+not ok 31 - famílias da 1.6: reprova categorize com item de grupo desconhecido
+not ok 32 - famílias da 1.6: reprova categorize com grupo vazio
+not ok 33 - famílias da 1.6: reprova categorize com item que entrega o grupo
+not ok 34 - famílias da 1.6: reprova categorize com três itens
+not ok 35 - famílias da 1.6: reprova multi-select com uma correta só
+not ok 36 - famílias da 1.6: reprova multi-select com corretas no topo
+not ok 37 - famílias da 1.6: reprova multi-select com correta mais longa
+not ok 38 - famílias da 1.6: reprova retorno de erro igual ao de acerto
+# pass 20
+# fail 18
+
+# RED 3b — famílias admitidas, regras ainda ausentes (2026-11-13T22:40:32Z, node v20.20.2)
+not ok 22 - famílias da 1.6: reprova cloze sem marcador de lacuna para cada resposta
+  error: 'o defeito passou sem erro'
+not ok 23 - famílias da 1.6: reprova cloze com três lacunas
+  error: 'o defeito passou sem erro'
+not ok 24 - famílias da 1.6: reprova cloze com um distrator só
+  error: 'o defeito passou sem erro'
+not ok 25 - famílias da 1.6: reprova cloze com palavra repetida no banco
+  error: 'o defeito passou sem erro'
+not ok 26 - famílias da 1.6: reprova cloze com resposta mais longa
+  error: 'o defeito passou sem erro'
+not ok 27 - famílias da 1.6: reprova true-false com veredito constante
+  error: 'o defeito passou sem erro'
+not ok 28 - famílias da 1.6: reprova true-false com afirmação certa mais longa
+  error: 'o defeito passou sem erro'
+not ok 29 - famílias da 1.6: reprova true-false com veredito em texto
+  error: 'o defeito passou sem erro'
+not ok 30 - famílias da 1.6: reprova true-false com duas afirmações
+  error: 'o defeito passou sem erro'
+not ok 31 - famílias da 1.6: reprova categorize com item de grupo desconhecido
+  error: 'o defeito passou sem erro'
+not ok 32 - famílias da 1.6: reprova categorize com grupo vazio
+  error: 'o defeito passou sem erro'
+not ok 33 - famílias da 1.6: reprova categorize com item que entrega o grupo
+  error: 'o defeito passou sem erro'
+not ok 34 - famílias da 1.6: reprova categorize com três itens
+  error: 'o defeito passou sem erro'
+not ok 35 - famílias da 1.6: reprova multi-select com uma correta só
+  error: 'o defeito passou sem erro'
+not ok 36 - famílias da 1.6: reprova multi-select com corretas no topo
+  error: 'o defeito passou sem erro'
+not ok 37 - famílias da 1.6: reprova multi-select com correta mais longa
+  error: 'o defeito passou sem erro'
+not ok 38 - famílias da 1.6: reprova retorno de erro igual ao de acerto
+  error: 'o defeito passou sem erro'
+# pass 21
+# fail 17
+
+# RED 4 — componentes ainda fora do registro (2026-11-13T22:46:44Z, node v20.20.2)
+    ✕ as quatro famílias estão registradas (1 ms)
+    ✓ as durações das microinterações ficam nas faixas pedidas (6 ms)
+    ✕ cloze: o banco preenche as lacunas em ordem, a lacuna devolve a palavra, e o alvo tem 44 pt (5 ms)
+    ✕ cloze: depois de conferir, a lacuna errada mostra a palavra certa em texto (1 ms)
+    ✕ true-false: uma afirmação por vez, com retorno imediato e sem voltar atrás (7 ms)
+    ✕ categorize: toca no item, depois no grupo; o item colocado volta com um toque
+    ✕ categorize: depois de conferir, o item no grupo errado diz qual é o certo
+    ✕ multi-select: caixas de marcar com estado, e o retorno diz o que faltou e o que sobrou (1 ms)
+    ✕ depois de conferir, nenhum controle muda a resposta (1 ms)
+    Expected: true
+    Received: false
+    Unable to find an element with accessibility label: Usar avental na lacuna 1
+    Unable to find an element with text: ✗ Lacuna 1: luva (certa: avental)
+      71 |         expect(screen.getByText('✓ Lacuna 2: tronco')).toBeTruthy();
+    Unable to find an element with accessibility label: Certo: A distância reduz a dose.
+    Unable to find an element with accessibility label: Item: Laudar
+    Unable to find an element with accessibility label: Posicionar, em Clínica, errado; o grupo certo é Técnica
+    Unable to find an element with accessibility label: Distância
+    Unable to find an element with accessibility label: Pressa
+Tests:       8 failed, 1 passed, 9 total
+
+# RED 5 — tocador ainda sem 'Conferir resposta' nas famílias novas (2026-11-13T22:48:05Z, node v20.20.2)
+    ✕ erro cobra uma vida só, acerto não cobra, e a conclusão registra XP uma vez (20 ms)
+    ✕ retomada no meio volta à primeira interação, sem resposta antiga e sem cobrança ao abrir (15 ms)
+    Unable to find an element with text: Conferir resposta
+                              [0m✓ [0m
+    Unable to find an element with text: Conferir resposta
+                              [0m✓ [0m
+Tests:       2 failed, 111 skipped, 113 total
+
+# RED 6 — defeito injetado: o catálogo de revisão continua oferecendo a interação convertida (2026-11-13T22:49:45Z, node v20.20.2)
+    ✕ o cartão convertido sai da fila, os outros ficam com a data, e fila e contagem concordam (4 ms)
+    - Expected  - 0
+    + Received  + 1
+    +   "interaction:rtg-2026:m01:aula-01:i3",
+Tests:       1 failed, 1 skipped, 2 total
+
+# RED 7 — meta de M01 a M03 contra os lotes ainda não regenerados (2026-11-13T22:49:57Z, node v20.20.2)
+    ✕ activity:rtg-2026:m01:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha (1 ms)
+    ✕ activity:rtg-2026:m01:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha (1 ms)
+    ✕ activity:rtg-2026:m02:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+Tests:       18 failed, 6 skipped, 1 passed, 25 total
+
+# RED 8 — achados da revisão independente, antes da correção (2026-11-13T22:56:37Z, node v20.20.2)
+    Expected: "Reveja o conceito."
+    Received: "Dois é errada: o dosímetro não protege."
+    Expected: "authorial-distractor"
+    Received: "source-backed"
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.clozeBankOrder) is not a function
+Tests:       12 failed, 117 passed, 129 total
+not ok 39 - famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false
+  error: 'o defeito passou sem erro'
+# fail 1
+
+# RED 8b — funções extraídas verbatim, sem correção (2026-11-13T22:57:01Z, node v20.20.2)
+    ✕ categorize: recusa o ciclo ABAB, que entrega o resto da resposta pela posição (44 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 1 (1 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 2 (40 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 3 (2 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 1 (6 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 2 (44 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 1 (34 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 4 (3 ms)
+    ✓ cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz (2 ms)
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+Tests:       5 failed, 41 skipped, 4 passed, 50 total
+
+# RED 8c — mutação: rotação do banco do cloze removida (2026-11-13T22:57:23Z)
+    ✕ cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz (2 ms)
+Tests:       1 failed, 49 skipped, 50 total

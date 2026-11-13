@@ -72,7 +72,12 @@ export type InteractionType =
     | 'parameter-lab'
     | 'bench'
     | 'risk-hunt'
-    | 'case-decision';
+    | 'case-decision'
+    // Famílias da 1.6 (ADR-2026-11-13): sem arrastar, respondidas por toque.
+    | 'cloze'
+    | 'true-false'
+    | 'categorize'
+    | 'multi-select';
 
 export type InteractionFeedback = {
     correct: string;
@@ -219,6 +224,38 @@ export type CaseDecisionPayload = {
     correctOptionId: string;
 };
 
+/**
+ * Completar a frase com palavras de um banco. `segments` tem uma entrada a mais
+ * que `blanks`: a lacuna `n` fica entre `segments[n]` e `segments[n + 1]`. A
+ * ordem de `tokens` é a de exibição, já embaralhada pelo gerador.
+ */
+export type ClozePayload = {
+    prompt: string;
+    segments: string[];
+    blanks: { id: string; correctTokenId: string }[];
+    tokens: { id: string; label: string }[];
+};
+
+/** Afirmações julgadas uma por vez; cada uma traz a própria explicação. */
+export type TrueFalsePayload = {
+    prompt: string;
+    statements: { id: string; text: string; isTrue: boolean; explanation: string }[];
+};
+
+/** Itens distribuídos em dois ou três grupos, tocando no item e depois no grupo. */
+export type CategorizePayload = {
+    prompt: string;
+    categories: { id: string; label: string }[];
+    items: { id: string; label: string; categoryId: string }[];
+};
+
+/** Marcar todas as corretas; o retorno diz quais faltaram e quais sobraram. */
+export type MultiSelectPayload = {
+    prompt: string;
+    options: ChoiceOption[];
+    correctOptionIds: string[];
+};
+
 type InteractionBase = {
     id: string;
     /** Ao menos uma. É o que liga a evidência produzida ao domínio medido. */
@@ -242,7 +279,11 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'parameter-lab'; payload: ParameterLabPayload })
     | (InteractionBase & { type: 'bench'; payload: BenchPayload })
     | (InteractionBase & { type: 'risk-hunt'; payload: RiskHuntPayload })
-    | (InteractionBase & { type: 'case-decision'; payload: CaseDecisionPayload });
+    | (InteractionBase & { type: 'case-decision'; payload: CaseDecisionPayload })
+    | (InteractionBase & { type: 'cloze'; payload: ClozePayload })
+    | (InteractionBase & { type: 'true-false'; payload: TrueFalsePayload })
+    | (InteractionBase & { type: 'categorize'; payload: CategorizePayload })
+    | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload });
 
 /** Elenco das cenas de diálogo da trilha rtg-2026. */
 export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
@@ -507,6 +548,52 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
                 || new Set(order).size !== order.length
                 || itemIds.some((id, index) => id !== orderIds[index])) {
                 push(issues, path, 'invalid-correct-order');
+            }
+            break;
+        }
+        case 'cloze': {
+            const { segments, blanks, tokens } = interaction.payload;
+            const tokenIds = new Set((tokens ?? []).map(token => token?.id));
+            const answers = (blanks ?? []).map(blank => blank?.correctTokenId);
+            if (!Array.isArray(blanks) || blanks.length < 1 || blanks.length > 2 || !Array.isArray(segments)
+                || segments.length !== blanks.length + 1 || !Array.isArray(tokens) || tokenIds.size !== tokens.length
+                || tokens.some(token => !isFilled(token?.id) || !isFilled(token?.label))
+                || answers.some(id => !tokenIds.has(id)) || new Set(answers).size !== answers.length
+                || tokens.length < blanks.length + 2) {
+                push(issues, path, 'invalid-cloze');
+            }
+            break;
+        }
+        case 'true-false': {
+            const statements = interaction.payload.statements;
+            if (!Array.isArray(statements) || statements.length < 2
+                || statements.some(statement => !isFilled(statement?.id) || !isFilled(statement?.text)
+                    || typeof statement.isTrue !== 'boolean' || !isFilled(statement.explanation))
+                || new Set(statements.map(statement => statement.id)).size !== statements.length) {
+                push(issues, path, 'invalid-statements');
+            }
+            break;
+        }
+        case 'categorize': {
+            const { categories, items } = interaction.payload;
+            const categoryIds = new Set((categories ?? []).map(category => category?.id));
+            if (!Array.isArray(categories) || categories.length < 2 || categoryIds.size !== categories.length
+                || !Array.isArray(items) || items.length < 2
+                || new Set(items.map(item => item?.id)).size !== items.length
+                || items.some(item => !isFilled(item?.label) || !categoryIds.has(item.categoryId))
+                || categories.some(category => !isFilled(category?.label) || !items.some(item => item.categoryId === category.id))) {
+                push(issues, path, 'invalid-categories');
+            }
+            break;
+        }
+        case 'multi-select': {
+            const { options, correctOptionIds } = interaction.payload;
+            const optionIds = new Set((options ?? []).map(option => option?.id));
+            if (!Array.isArray(options) || options.length < 3 || optionIds.size !== options.length
+                || !Array.isArray(correctOptionIds) || correctOptionIds.length < 1 || correctOptionIds.length >= options.length
+                || new Set(correctOptionIds).size !== correctOptionIds.length
+                || correctOptionIds.some(id => !optionIds.has(id))) {
+                push(issues, path, 'invalid-correct-options');
             }
             break;
         }

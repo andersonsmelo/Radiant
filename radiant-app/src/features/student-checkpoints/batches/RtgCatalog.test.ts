@@ -152,3 +152,18 @@ describe('conferência reprovada numa unidade ampla', () => {
         expect(await repository.getState(nodeId)).toMatchObject({ blocked: false, remainingActivityIds: [] });
     });
 });
+
+// Meta da 1.6 para M01 a M03 (ADR-2026-11-13): ao menos duas famílias novas por
+// aula, nenhuma família três vezes seguidas, e a primeira interação continua
+// múltipla escolha, que é o que a fila de revisão sabe mostrar.
+describe('M01 a M03 com as famílias da 1.6', () => {
+    const NEW = new Set(['cloze', 'true-false', 'categorize', 'multi-select']);
+    const lessons = RTG_2026_BATCHES.filter(batch => /^batch:rtg-2026:(m01|m02|m03)$/.test(batch.batchId)).flatMap(batch => batch.activities);
+    it('as três unidades têm 18 aulas', () => expect(lessons).toHaveLength(18));
+    it.each(lessons.map(lesson => [lesson.id, lesson] as const))('%s: duas famílias novas, sem trinca, i1 múltipla escolha', (_id, lesson) => {
+        const types = lesson.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction.type] : []);
+        expect(new Set(types.filter(type => NEW.has(type))).size).toBeGreaterThanOrEqual(2);
+        expect(types.some((type, index) => index > 1 && type === types[index - 1] && type === types[index - 2])).toBe(false);
+        expect(types[0]).toBe('multiple-choice');
+    });
+});

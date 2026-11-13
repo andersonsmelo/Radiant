@@ -284,29 +284,33 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Ligue cada prefixo do SI ao que ele faz com a unidade.",
-          "pairs": [
+          "prompt": "Classifique cada prefixo do SI conforme o efeito sobre a unidade.",
+          "categories": [
+            "Aumenta a unidade",
+            "Reduz a unidade"
+          ],
+          "items": [
             {
-              "left": "quilo (k)",
-              "right": "multiplica por mil"
+              "label": "quilo (k)",
+              "category": "Aumenta a unidade"
             },
             {
-              "left": "mega (M)",
-              "right": "multiplica por um milhão"
+              "label": "mega (M)",
+              "category": "Aumenta a unidade"
             },
             {
-              "left": "mili (m)",
-              "right": "divide por mil"
+              "label": "mili (m)",
+              "category": "Reduz a unidade"
             },
             {
-              "left": "micro (µ)",
-              "right": "divide por um milhão"
+              "label": "micro (µ)",
+              "category": "Reduz a unidade"
             }
           ],
-          "feedbackCorrect": "Quilo e mega aumentam a unidade, mili e micro reduzem. De micro a mili, de mili à unidade, dela a quilo e de quilo a mega, cada passo vale mil.",
-          "feedbackIncorrect": "Algum par trocou de lado. Retome: letra maiúscula M é mega, que multiplica; m minúsculo é mili, que divide.",
+          "feedbackCorrect": "Quilo e mega aumentam a unidade; mili e micro a reduzem. De micro a mili, de mili à unidade, dela a quilo e de quilo a mega, cada passo vale mil.",
+          "feedbackIncorrect": "Algum prefixo foi para o grupo errado. Retome: M maiúsculo é mega e multiplica; m minúsculo é mili e divide.",
           "help": "Separe primeiro os que aumentam a unidade dos que a reduzem.",
           "sourceIds": [
             "bipm-si-prefixos",
@@ -369,31 +373,33 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "transfer",
-          "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Um colega diz que os valores são iguais. O que você responde?",
-          "options": [
+          "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Julgue cada afirmação sobre elas.",
+          "statements": [
             {
-              "label": "São iguais, porque o número é o mesmo nas duas",
+              "text": "Volt e ampere medem a mesma grandeza.",
               "correct": false,
-              "feedback": "Olhar só o número ignora a unidade. Retome: volt e ampere medem grandezas diferentes."
+              "feedback": "Errado: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
             },
             {
-              "label": "O de kV é maior, porque quilo vale mais que mili",
+              "text": "Os dois valores são iguais, porque o número é o mesmo.",
               "correct": false,
-              "feedback": "O prefixo só permite comparar valores da mesma grandeza. Aqui uma ficha mede tensão e a outra, corrente."
+              "feedback": "Errado: olhar só o número ignora a unidade. Sem a mesma grandeza, igualdade não faz sentido."
             },
             {
-              "label": "O de mA é maior, porque corrente conta mais que tensão",
-              "correct": false,
-              "feedback": "Não existe hierarquia entre grandezas. Confira de novo o que cada unidade mede antes de comparar."
-            },
-            {
-              "label": "Não dá para comparar: são grandezas diferentes",
+              "text": "Só se compara valor com valor da mesma grandeza.",
               "correct": true,
-              "feedback": "Volt mede tensão e ampere mede corrente. Maior ou menor só faz sentido dentro da mesma grandeza."
+              "feedback": "Certo: maior ou menor só tem sentido dentro da mesma grandeza, na mesma unidade."
+            },
+            {
+              "text": "O de kV é maior, porque quilo vale mais que mili.",
+              "correct": false,
+              "feedback": "Errado: o prefixo só ordena valores da mesma grandeza; aqui uma ficha é tensão e a outra, corrente."
             }
           ],
+          "feedbackCorrect": "Tensão e corrente não se comparam: sem a mesma grandeza, o número sozinho não diz qual valor é maior.",
+          "feedbackIncorrect": "Alguma afirmação tratou o número como se bastasse. Olhe a unidade depois do prefixo antes de comparar.",
           "help": "Olhe a letra que vem depois do prefixo em cada valor.",
           "sourceIds": [
             "openstax-up1-unidades",
@@ -638,29 +644,20 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada descrição de gráfico à relação que ela mostra.",
-          "pairs": [
-            {
-              "left": "Reta que passa pela origem",
-              "right": "Proporção direta"
-            },
-            {
-              "left": "Reta horizontal",
-              "right": "Grandeza que não muda"
-            },
-            {
-              "left": "Dobra o x e o y cai à metade",
-              "right": "Proporção inversa"
-            },
-            {
-              "left": "Dobra o x e o y cai a um quarto",
-              "right": "Inverso do quadrado"
-            }
+          "prompt": "Complete a frase sobre leitura de gráficos com as palavras do banco.",
+          "text": "Reta que passa pela origem indica proporção {{1}}; se dobrar x reduz y à metade, a proporção é {{2}}.",
+          "answers": [
+            "direta",
+            "inversa"
           ],
-          "feedbackCorrect": "Você leu o comportamento antes do nome. A pergunta que separa as curvas é sempre a mesma: quando x dobra, o que y faz?",
-          "feedbackIncorrect": "Dois pares se misturaram. Para cada descrição, teste a pergunta: se x dobra, y dobra, não muda, cai à metade ou cai a um quarto?",
+          "distractors": [
+            "constante",
+            "horizontal"
+          ],
+          "feedbackCorrect": "Reta pela origem é proporção direta; quando dobrar uma grandeza reduz a outra à metade, a proporção é inversa. Pergunte sempre o que y faz quando x dobra.",
+          "feedbackIncorrect": "As lacunas ficaram trocadas. Teste: se x dobra e y dobra, a proporção é direta; se x dobra e y cai à metade, a proporção é inversa.",
           "help": "Teste cada desenho com a mesma pergunta: o que acontece com y quando x dobra?",
           "sourceIds": [
             "openstax-cp-graficos",
@@ -688,32 +685,33 @@
         },
         {
           "id": "i5",
-          "type": "case-decision",
+          "type": "true-false",
           "role": "transfer",
-          "context": "No laboratório didático, um sensor de luz fica diante de uma lâmpada pequena. A 1 m, o visor marca 80 unidades. A turma afasta o sensor para 2 m, sem mudar a lâmpada nem a sala. Vale o modelo de fonte pequena que espalha a luz por igual, sem absorção.",
-          "prompt": "Que leitura esse modelo prevê a 2 m, e por quê?",
-          "options": [
+          "prompt": "Um sensor marca 80 unidades a 1 m de uma lâmpada pequena e vai para 2 m. Julgue cada afirmação pelo modelo de fonte pequena.",
+          "statements": [
             {
-              "label": "40 unidades, porque dobrar a distância divide a leitura por dois",
-              "correct": false,
-              "feedback": "Metade seria proporção inversa simples. A luz se espalha por uma área, e a área cresce com o quadrado da distância. Retome o modelo."
-            },
-            {
-              "label": "20 unidades, porque dobrar a distância divide a leitura por quatro",
+              "text": "A 2 m, o modelo prevê 20 unidades no visor.",
               "correct": true,
-              "feedback": "No modelo, a mesma luz cobre uma área quatro vezes maior a 2 m, e o sensor recebe um quarto. Vale só enquanto a fonte puder ser tratada como pequena."
+              "feedback": "Certo: dobrar a distância deixa um quarto da leitura, e 80 dividido por quatro dá 20."
             },
             {
-              "label": "80 unidades, porque a lâmpada continua emitindo a mesma luz",
+              "text": "A 2 m, o visor marcaria 40 unidades, a metade de 80.",
               "correct": false,
-              "feedback": "A lâmpada emite o mesmo, mas a luz chega mais espalhada ao sensor. Confira de novo o que a distância faz com a intensidade."
+              "feedback": "Errado: metade seria proporção inversa simples. A área cresce com o quadrado da distância."
             },
             {
-              "label": "160 unidades, porque de longe o sensor capta uma área bem maior de luz",
+              "text": "De longe o sensor capta mais luz, e a leitura sobe.",
               "correct": false,
-              "feedback": "O sensor tem o mesmo tamanho nas duas posições; quem cresce é a área por onde a luz se espalha. A leitura cai, não sobe."
+              "feedback": "Errado: o sensor tem o mesmo tamanho; a luz se espalha por mais área e a leitura cai."
+            },
+            {
+              "text": "A mesma luz cobre uma área quatro vezes maior a 2 m.",
+              "correct": true,
+              "feedback": "Certo: a área cresce com o quadrado da distância, por isso o sensor recebe um quarto."
             }
           ],
+          "feedbackCorrect": "No modelo, a luz cobre quatro vezes mais área a 2 m, e o sensor recebe um quarto. Vale só para fonte pequena, sem absorção.",
+          "feedbackIncorrect": "Alguma afirmação tratou a leitura como se acompanhasse a distância de forma simples. Retome: a luz se espalha por uma área que cresce com o quadrado.",
           "help": "Por que área a mesma luz se espalha quando a distância dobra?",
           "sourceIds": [
             "openstax-up1-intensidade"
@@ -923,29 +921,21 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada termo do esquema do átomo à sua descrição.",
-          "pairs": [
-            {
-              "left": "Próton",
-              "right": "Carga positiva, fica no núcleo"
-            },
-            {
-              "left": "Nêutron",
-              "right": "Sem carga, fica no núcleo"
-            },
-            {
-              "left": "Elétron",
-              "right": "Carga negativa, ao redor do núcleo"
-            },
-            {
-              "left": "Número atômico (Z)",
-              "right": "Quantidade de prótons do átomo"
-            }
+          "prompt": "Complete a frase sobre o átomo com as palavras do banco.",
+          "text": "O núcleo tem {{1}} e nêutrons; os {{2}} ficam ao redor, em níveis de energia.",
+          "answers": [
+            "prótons",
+            "elétrons"
           ],
-          "feedbackCorrect": "Núcleo com prótons e nêutrons, elétrons ao redor, e Z contando os prótons. Esse mapa serve para qualquer esquema de átomo.",
-          "feedbackIncorrect": "Algum termo foi para o lugar errado. Retome: no núcleo ficam as partículas positivas e as sem carga; as negativas ficam ao redor.",
+          "distractors": [
+            "fótons",
+            "átomos",
+            "ionização"
+          ],
+          "feedbackCorrect": "No núcleo ficam prótons e nêutrons, e os elétrons ocupam níveis ao redor. O número atômico Z conta os prótons do átomo.",
+          "feedbackIncorrect": "Uma palavra foi para a lacuna errada. Retome: carga positiva no núcleo é próton; carga negativa ao redor do núcleo é elétron.",
           "help": "Comece pelo lugar: o que fica no núcleo e o que fica ao redor?",
           "sourceIds": [
             "openstax-up3-nucleos",
@@ -973,31 +963,33 @@
         },
         {
           "id": "i4",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "practice",
-          "prompt": "No esquema do hidrogênio (modelo de Bohr), o elétron está no nível fundamental, em -13,6 eV, e o nível seguinte fica em -3,4 eV. O átomo absorve um fóton de 10,2 eV. O que o esquema mostra em seguida?",
-          "options": [
+          "prompt": "No hidrogênio de Bohr, o elétron está em -13,6 eV e o átomo absorve um fóton de 10,2 eV. Julgue cada afirmação.",
+          "statements": [
             {
-              "label": "O elétron sai do átomo, que fica ionizado",
+              "text": "O elétron sai do átomo, que fica ionizado.",
               "correct": false,
-              "feedback": "Para sair do nível fundamental o elétron precisaria de 13,6 eV. Com 10,2 eV ele não chega lá: confira a diferença entre os níveis."
+              "feedback": "Errado: sair do nível fundamental exigiria 13,6 eV. Com 10,2 eV há excitação e o elétron continua ligado."
             },
             {
-              "label": "O elétron sobe para o nível seguinte e fica no átomo",
+              "text": "O elétron sobe para o nível seguinte, em -3,4 eV.",
               "correct": true,
-              "feedback": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV. O elétron sobe um nível e continua ligado: é excitação."
+              "feedback": "Certo: -3,4 eV é o nível seguinte, e a absorção leva o elétron até ele."
             },
             {
-              "label": "O elétron permanece no nível fundamental, sem mudança",
-              "correct": false,
-              "feedback": "O fóton tem justamente a energia que separa os dois níveis, então a absorção acontece. Retome a conta da diferença."
+              "text": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV.",
+              "correct": true,
+              "feedback": "Certo: o fóton tem justamente a energia que separa os dois níveis, então é absorvido."
             },
             {
-              "label": "O núcleo perde um próton e o átomo muda de elemento",
+              "text": "O núcleo perde um próton e o átomo muda de elemento.",
               "correct": false,
-              "feedback": "Esse esquema trata só dos níveis do elétron; o núcleo não participa. Retome onde a energia do fóton é absorvida."
+              "feedback": "Errado: o esquema trata só dos níveis do elétron; o núcleo não participa dessa absorção."
             }
           ],
+          "feedbackCorrect": "A diferença entre os níveis é 10,2 eV, então o elétron sobe um nível e fica no átomo. É excitação, não ionização.",
+          "feedbackIncorrect": "Alguma afirmação confundiu excitação com ionização ou envolveu o núcleo. Compare a energia do fóton com a distância entre os dois níveis.",
           "help": "Compare a energia do fóton com a distância entre os dois níveis.",
           "sourceIds": [
             "openstax-up3-bohr"
@@ -1240,31 +1232,20 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "cloze",
           "role": "prediction",
-          "prompt": "Uma onda eletromagnética viaja no vácuo. Se você escolher outra com o dobro da frequência, o que prevê para o comprimento de onda?",
-          "options": [
-            {
-              "label": "Fica igual, porque a velocidade não muda",
-              "correct": false,
-              "feedback": "A velocidade não muda mesmo, mas ela é o produto das outras duas. Se a frequência dobra, algo precisa compensar."
-            },
-            {
-              "label": "Dobra, porque acompanha a frequência",
-              "correct": false,
-              "feedback": "Se os dois dobrassem, a velocidade quadruplicaria. No vácuo ela é fixa: retome v = f × λ."
-            },
-            {
-              "label": "Cai a um quarto, pela lei do inverso do quadrado",
-              "correct": false,
-              "feedback": "O inverso do quadrado descreve intensidade e distância. Entre frequência e comprimento de onda a relação é um produto simples."
-            },
-            {
-              "label": "Cai à metade, porque o produto é constante",
-              "correct": true,
-              "feedback": "No vácuo, f × λ dá sempre a mesma velocidade. Dobrou a frequência, o comprimento de onda cai à metade."
-            }
+          "prompt": "Complete a relação entre frequência e comprimento de onda no vácuo.",
+          "text": "No vácuo, a velocidade é fixa: se a frequência dobra, o comprimento de onda cai {{1}}.",
+          "answers": [
+            "à metade"
           ],
+          "distractors": [
+            "a um quarto",
+            "ao dobro",
+            "a zero"
+          ],
+          "feedbackCorrect": "Como f × λ dá sempre a mesma velocidade, dobrar a frequência leva o comprimento de onda à metade.",
+          "feedbackIncorrect": "Com a velocidade fixa, o que uma grandeza ganha a outra perde no mesmo fator. Um quarto é marca do inverso do quadrado, que não vale aqui.",
           "help": "O que fica fixo quando a onda eletromagnética está no vácuo?",
           "sourceIds": [
             "openstax-up2-espectro",
@@ -1292,30 +1273,43 @@
         },
         {
           "id": "i4",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Ligue cada grandeza da aula à sua descrição.",
-          "pairs": [
+          "prompt": "Compare cada grandeza com a da luz visível e classifique no grupo certo.",
+          "categories": [
+            "Maior que na luz visível",
+            "Menor que na luz visível",
+            "Igual à da luz visível"
+          ],
+          "items": [
             {
-              "left": "Comprimento de onda",
-              "right": "Distância entre duas cristas vizinhas"
+              "label": "Energia do fóton de raios X",
+              "category": "Maior que na luz visível"
             },
             {
-              "left": "Frequência",
-              "right": "Número de oscilações por segundo"
+              "label": "Comprimento de onda do infravermelho",
+              "category": "Maior que na luz visível"
             },
             {
-              "left": "Velocidade da onda",
-              "right": "Distância que a onda avança por segundo"
+              "label": "Comprimento de onda dos raios X",
+              "category": "Menor que na luz visível"
             },
             {
-              "left": "Energia do fóton",
-              "right": "Aumenta quando a frequência aumenta"
+              "label": "Energia do fóton do infravermelho",
+              "category": "Menor que na luz visível"
+            },
+            {
+              "label": "Velocidade dos raios X no vácuo",
+              "category": "Igual à da luz visível"
+            },
+            {
+              "label": "Velocidade do infravermelho no vácuo",
+              "category": "Igual à da luz visível"
             }
           ],
-          "feedbackCorrect": "Uma mede distância ao longo da onda, uma mede o ritmo e uma mede o avanço. A energia do fóton acompanha o ritmo: frequência maior, mais energia.",
-          "feedbackIncorrect": "Dois termos se confundiram. Retome pelas unidades: comprimento de onda em metros, frequência em hertz, velocidade em metros por segundo.",
-          "help": "Pense na unidade de cada grandeza: metro, hertz ou metro por segundo?",
+          "feedbackCorrect": "No vácuo todas viajam à mesma velocidade. Frequência maior traz fóton com mais energia e comprimento de onda menor; frequência menor, o contrário.",
+          "feedbackIncorrect": "Algum item trocou de grupo. Retome: v = f × λ, E = h × f e a ordem do espectro. Raios X têm frequência maior que a luz visível; o infravermelho, menor.",
+          "help": "Na ordem do espectro, o raio X vem depois da luz visível e o infravermelho vem antes. A velocidade no vácuo muda ao longo do espectro?",
           "sourceIds": [
             "openstax-up1-ondas",
             "openstax-up3-fotons"
@@ -1560,29 +1554,21 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada grandeza elétrica ou magnética à sua unidade.",
-          "pairs": [
-            {
-              "left": "Tensão",
-              "right": "volt (V): joule por coulomb"
-            },
-            {
-              "left": "Corrente",
-              "right": "ampere (A): coulomb por segundo"
-            },
-            {
-              "left": "Carga",
-              "right": "coulomb (C)"
-            },
-            {
-              "left": "Campo magnético",
-              "right": "tesla (T)"
-            }
+          "prompt": "Complete a frase sobre unidades elétricas e magnéticas com o banco.",
+          "text": "A tensão é energia por carga e se mede em {{1}}; o campo magnético se mede em {{2}}.",
+          "answers": [
+            "volt",
+            "tesla"
           ],
-          "feedbackCorrect": "Tensão é energia por carga, corrente é carga por tempo. As próprias unidades contam o que cada grandeza mede.",
-          "feedbackIncorrect": "Tensão e corrente trocaram de unidade. Retome: joule por coulomb fala de energia; coulomb por segundo fala de ritmo.",
+          "distractors": [
+            "ampere",
+            "coulomb",
+            "joule"
+          ],
+          "feedbackCorrect": "Volt é joule por coulomb, e o campo magnético se mede em tesla. Ampere e coulomb ficam para corrente e carga.",
+          "feedbackIncorrect": "Uma unidade trocou de lugar. Retome: joule por coulomb é a tensão em volts; o tesla mede o campo magnético.",
           "help": "Leia a unidade por extenso: o que está sendo dividido pelo quê?",
           "sourceIds": [
             "openstax-up2-potencial",
@@ -1661,31 +1647,33 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "transfer",
-          "prompt": "Num kit didático, um ímã fica parado dentro de uma bobina ligada a um medidor. Depois, alguém puxa o ímã para fora rapidamente. O que o medidor mostra nos dois momentos?",
-          "options": [
+          "prompt": "Um ímã fica parado numa bobina ligada a um medidor e depois é puxado para fora. Julgue cada afirmação.",
+          "statements": [
             {
-              "label": "Tensão nos dois momentos, porque o ímã está sempre presente",
+              "text": "Com o ímã parado, o medidor mostra tensão por causa do campo forte.",
               "correct": false,
-              "feedback": "A presença do campo não basta. Retome: o que precisa acontecer com o campo para surgir tensão na bobina?"
+              "feedback": "Errado: campo forte e parado não induz nada. O que conta é a mudança do campo."
             },
             {
-              "label": "Nada nos dois momentos, porque não há pilha no circuito",
-              "correct": false,
-              "feedback": "A indução dispensa pilha: a tensão vem da variação do campo que atravessa a bobina. Confira o segundo momento."
-            },
-            {
-              "label": "Tensão só com o ímã parado, quando o campo é mais forte",
-              "correct": false,
-              "feedback": "Campo forte e parado não induz nada. O que conta é a mudança do campo ao longo do tempo."
-            },
-            {
-              "label": "Nada com o ímã parado e tensão enquanto ele se move",
+              "text": "A tensão induzida surge sem pilha: vem da variação do campo na bobina.",
               "correct": true,
-              "feedback": "Só há tensão induzida enquanto o campo que atravessa a bobina varia. Com o ímã parado, o medidor fica em zero."
+              "feedback": "Certo: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
+            },
+            {
+              "text": "Com o ímã parado dentro da bobina, o medidor fica em zero.",
+              "correct": true,
+              "feedback": "Certo: sem variação do campo que atravessa a bobina, não há tensão induzida."
+            },
+            {
+              "text": "Enquanto o ímã se move, o campo na bobina varia e surge tensão.",
+              "correct": true,
+              "feedback": "Certo: a tensão aparece só enquanto o campo que atravessa a bobina muda."
             }
           ],
+          "feedbackCorrect": "Só há tensão induzida enquanto o campo que atravessa a bobina varia. Com o ímã parado, o medidor fica em zero.",
+          "feedbackIncorrect": "Alguma afirmação supôs que a presença do campo bastasse. Compare os dois momentos: em qual deles o campo dentro da bobina está mudando?",
           "help": "Compare os dois momentos: em qual deles o campo dentro da bobina está mudando?",
           "sourceIds": [
             "openstax-up2-faraday"
@@ -1916,29 +1904,21 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "cloze",
           "role": "practice",
-          "prompt": "Ligue cada situação à relação que a resolve.",
-          "pairs": [
-            {
-              "left": "Escrever 0,3 s em milissegundos",
-              "right": "Prefixo do SI: multiplicar por mil"
-            },
-            {
-              "left": "Achar o comprimento de onda pela frequência",
-              "right": "v = f × λ"
-            },
-            {
-              "left": "Achar a carga com corrente e tempo",
-              "right": "Q = I × t"
-            },
-            {
-              "left": "Achar a energia do elétron acelerado",
-              "right": "Energia em eV = tensão em V"
-            }
+          "prompt": "Complete as frases com a relação que resolve cada situação.",
+          "text": "Para achar o comprimento de onda pela frequência, uso {{1}}; para a carga com corrente e tempo, uso {{2}}.",
+          "answers": [
+            "v = f × λ",
+            "Q = I × t"
           ],
-          "feedbackCorrect": "Em cada par, a relação contém justamente as grandezas que a situação cita. Esse é o critério da escolha.",
-          "feedbackIncorrect": "Alguma relação não contém as grandezas da situação a que foi ligada. Confira de novo: quais letras aparecem em cada uma?",
+          "distractors": [
+            "E = h × f",
+            "inverso do quadrado",
+            "prefixo do SI"
+          ],
+          "feedbackCorrect": "A relação certa contém justamente as grandezas da situação: v, f e λ para a onda; Q, I e t para a carga.",
+          "feedbackIncorrect": "Alguma relação ficou na situação errada. Confira quais letras aparecem em cada uma: a energia do fóton, por exemplo, não entra aqui.",
           "help": "Procure, em cada relação, as grandezas que a situação menciona.",
           "sourceIds": [
             "bipm-si-prefixos",
@@ -1949,32 +1929,33 @@
         },
         {
           "id": "i4",
-          "type": "case-decision",
+          "type": "true-false",
           "role": "practice",
-          "context": "No quadro de revisão há dois fótons de luz visível: um com comprimento de onda de 400 nm (nanômetros) e outro com 700 nm. Os dois viajam no vácuo. A tarefa pede para dizer qual carrega mais energia e justificar a resposta.",
-          "prompt": "Que resposta você escreve?",
-          "options": [
+          "prompt": "Dois fótons de luz visível viajam no vácuo, um de 400 nm e outro de 700 nm. Julgue cada afirmação sobre eles.",
+          "statements": [
             {
-              "label": "O de 700 nm: maior λ, maior f (v = f × λ), mais energia (E = h × f)",
-              "correct": false,
-              "feedback": "A cadeia tem os dois elos, mas o primeiro saiu invertido: com a velocidade fixa, comprimento de onda maior vem com frequência menor. Retome v = f × λ."
-            },
-            {
-              "label": "O de 400 nm: menor λ, maior f (v = f × λ), mais energia (E = h × f)",
+              "text": "O de 400 nm tem maior frequência, porque a velocidade é fixa.",
               "correct": true,
-              "feedback": "Duas relações em cadeia: no vácuo, menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia."
+              "feedback": "Certo: com velocidade fixa no vácuo, menor comprimento de onda vem com maior frequência."
             },
             {
-              "label": "Os dois iguais: no vácuo a velocidade é a mesma (v = f × λ)",
+              "text": "Os dois têm a mesma energia, pois viajam à mesma velocidade.",
               "correct": false,
-              "feedback": "A velocidade é igual, mas ela não mede a energia do fóton. Confira de novo qual relação fala de energia."
+              "feedback": "Errado: a velocidade é igual, mas ela não mede a energia do fóton; quem mede é a frequência."
             },
             {
-              "label": "O de 400 nm: luz de λ menor é sempre mais intensa (inverso do quadrado)",
+              "text": "O inverso do quadrado mostra que o de 400 nm é mais intenso.",
               "correct": false,
-              "feedback": "O fóton está certo, a justificativa não: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
+              "feedback": "Errado: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
+            },
+            {
+              "text": "O fóton de 400 nm carrega menos energia que o de 700 nm.",
+              "correct": false,
+              "feedback": "Errado: E = h × f, e o de 400 nm tem maior frequência, então carrega mais energia."
             }
           ],
+          "feedbackCorrect": "Duas relações em cadeia: menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia.",
+          "feedbackIncorrect": "Alguma justificativa usou a relação errada. Siga a cadeia: v = f × λ liga comprimento e frequência, e E = h × f liga frequência e energia.",
           "help": "A situação dá comprimento de onda e pede energia. Que grandeza faz a ponte entre as duas?",
           "sourceIds": [
             "openstax-up2-espectro",

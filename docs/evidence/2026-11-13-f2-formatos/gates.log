@@ -1,0 +1,6 @@
+# Gate da F2 — 2026-11-13T23:03:36Z
+comando: cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
+node: v20.20.2  commit: a8c09de
+Test Suites: 234 passed, 234 total
+Tests:       3149 passed, 3149 total
+exit=0
