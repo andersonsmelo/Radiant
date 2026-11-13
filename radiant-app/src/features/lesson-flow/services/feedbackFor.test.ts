@@ -188,3 +188,32 @@ describe('learningActivityWarnings — missing-option-explanation', () => {
         expect(validateLearningActivity(activity)).toEqual([]);
     });
 });
+
+describe('feedbackFor: famílias da 1.6', () => {
+    it('true-false: o erro explica a primeira afirmação julgada errado, não repete o acerto', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'true-false', payload: { prompt: 'Julgue.', statements: [
+            { id: 's1', text: 'Um.', isTrue: true, explanation: 'Um é certa porque a fonte diz.' },
+            { id: 's2', text: 'Dois.', isTrue: false, explanation: 'Dois é errada: o dosímetro não protege.' },
+        ] } };
+        expect(feedbackFor(interaction, '[true,true]', false)).toBe('Dois é errada: o dosímetro não protege.');
+        expect(feedbackFor(interaction, '[true,false]', true)).toBe('Isso mesmo.');
+    });
+
+    it('multi-select: o erro diz quais faltaram e quais sobraram, com a explicação da primeira divergência', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'multi-select', payload: { prompt: 'Marque.', correctOptionIds: ['a', 'c'], options: [
+            { id: 'a', label: 'Avental', explanation: 'O avental reduz a dose no tronco.' },
+            { id: 'b', label: 'Relógio', explanation: 'O relógio não protege de nada.' },
+            { id: 'c', label: 'Distância', explanation: 'A distância reduz a dose.' },
+            { id: 'd', label: 'Pressa', explanation: 'Pressa não é proteção.' },
+        ] } };
+        expect(feedbackFor(interaction, '["a","b"]', false))
+            .toBe('Faltou marcar: Distância. Marcou a mais: Relógio. O relógio não protege de nada.');
+        expect(feedbackFor(interaction, '["a"]', false)).toBe('Faltou marcar: Distância. A distância reduz a dose.');
+    });
+
+    it('cloze e categorize: o erro usa o retorno de erro autoral', () => {
+        const cloze: LearningInteractionV2 = { ...base, type: 'cloze', payload: { prompt: 'Complete.', segments: ['A ', '.'],
+            blanks: [{ id: 'b1', correctTokenId: 't1' }], tokens: [{ id: 't1', label: 'x' }, { id: 't2', label: 'y' }] } };
+        expect(feedbackFor(cloze, '["t2"]', false)).toBe('Reveja o conceito.');
+    });
+});

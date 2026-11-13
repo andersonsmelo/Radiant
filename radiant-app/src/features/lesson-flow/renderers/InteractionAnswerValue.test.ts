@@ -346,3 +346,59 @@ describe('InteractionAnswerValue', () => {
         });
     });
 });
+
+describe('InteractionAnswerValue: famílias da 1.6', () => {
+    const cloze: LearningInteractionV2 = { ...base, type: 'cloze', payload: {
+        prompt: 'Complete a frase.', segments: ['O ', ' protege o ', '.'],
+        blanks: [{ id: 'b1', correctTokenId: 't-avental' }, { id: 'b2', correctTokenId: 't-tronco' }],
+        tokens: [{ id: 't-luva', label: 'luva' }, { id: 't-tronco', label: 'tronco' }, { id: 't-avental', label: 'avental' }, { id: 't-olho', label: 'olho' }],
+    } };
+    const trueFalse: LearningInteractionV2 = { ...base, type: 'true-false', payload: {
+        prompt: 'Julgue.', statements: [
+            { id: 's1', text: 'Afirmação um.', isTrue: true, explanation: 'Um é certa.' },
+            { id: 's2', text: 'Afirmação dois.', isTrue: false, explanation: 'Dois é errada.' },
+            { id: 's3', text: 'Afirmação três.', isTrue: true, explanation: 'Três é certa.' },
+        ] } };
+    const categorize: LearningInteractionV2 = { ...base, type: 'categorize', payload: {
+        prompt: 'Classifique.', categories: [{ id: 'g1', label: 'Técnica' }, { id: 'g2', label: 'Clínica' }],
+        items: [{ id: 'i1', label: 'Posicionar', categoryId: 'g1' }, { id: 'i2', label: 'Laudar', categoryId: 'g2' },
+            { id: 'i3', label: 'Colimar', categoryId: 'g1' }, { id: 'i4', label: 'Indicar', categoryId: 'g2' }],
+    } };
+    const multiSelect: LearningInteractionV2 = { ...base, type: 'multi-select', payload: {
+        prompt: 'Marque todas.', correctOptionIds: ['b', 'd'],
+        options: [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }, { id: 'c', label: 'C' }, { id: 'd', label: 'D' }],
+    } };
+
+    it('cloze: completa só com cada lacuna preenchida por palavra distinta do banco, e acerta na ordem das lacunas', () => {
+        expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['t-avental']))).toBe(false);
+        expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['t-avental', 't-avental']))).toBe(false);
+        expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['t-avental', 'fora']))).toBe(false);
+        expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['t-tronco', 't-avental']))).toBe(true);
+        expect(isCorrectInteractionValue(cloze, encodeInteractionIdSequence(['t-tronco', 't-avental']))).toBe(false);
+        expect(isCorrectInteractionValue(cloze, encodeInteractionIdSequence(['t-avental', 't-tronco']))).toBe(true);
+    });
+
+    it('true-false: completa quando toda afirmação foi julgada, e só acerta quem julga todas', () => {
+        expect(isCompleteInteractionValue(trueFalse, '[true,false]')).toBe(false);
+        expect(isCompleteInteractionValue(trueFalse, '[true,false,"sim"]')).toBe(false);
+        expect(isCompleteInteractionValue(trueFalse, '[true,true,true]')).toBe(true);
+        expect(isCorrectInteractionValue(trueFalse, '[true,true,true]')).toBe(false);
+        expect(isCorrectInteractionValue(trueFalse, '[true,false,true]')).toBe(true);
+    });
+
+    it('categorize: completa quando todo item está num grupo válido, e acerta só com todos no grupo certo', () => {
+        expect(isCompleteInteractionValue(categorize, JSON.stringify({ i1: 'g1', i2: 'g2', i3: 'g1' }))).toBe(false);
+        expect(isCompleteInteractionValue(categorize, JSON.stringify({ i1: 'g1', i2: 'g2', i3: 'g1', i4: 'g9' }))).toBe(false);
+        expect(isCompleteInteractionValue(categorize, JSON.stringify({ i1: 'g1', i2: 'g2', i3: 'g2', i4: 'g2' }))).toBe(true);
+        expect(isCorrectInteractionValue(categorize, JSON.stringify({ i1: 'g1', i2: 'g2', i3: 'g2', i4: 'g2' }))).toBe(false);
+        expect(isCorrectInteractionValue(categorize, JSON.stringify({ i1: 'g1', i2: 'g2', i3: 'g1', i4: 'g2' }))).toBe(true);
+    });
+
+    it('multi-select: completa com ao menos uma marcada, e acerta só com o conjunto exato', () => {
+        expect(isCompleteInteractionValue(multiSelect, '[]')).toBe(false);
+        expect(isCompleteInteractionValue(multiSelect, encodeInteractionIdSequence(['b', 'x']))).toBe(false);
+        expect(isCorrectInteractionValue(multiSelect, encodeInteractionIdSequence(['b']))).toBe(false);
+        expect(isCorrectInteractionValue(multiSelect, encodeInteractionIdSequence(['b', 'd', 'a']))).toBe(false);
+        expect(isCorrectInteractionValue(multiSelect, encodeInteractionIdSequence(['d', 'b']))).toBe(true);
+    });
+});

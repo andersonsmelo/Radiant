@@ -7,7 +7,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison'];
+const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select'];
+// Famílias da 1.6 (ADR-2026-11-13): retorno de acerto e de erro próprios, como ordenação e associação.
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select'];
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
@@ -87,6 +89,57 @@ export function lintUnit(doc, { images = [] } = {}) {
     refs(where, item.sourceIds);
   };
 
+  // Regras de cada família nova. As mesmas garantias do contrato amplo
+  // (`newFamilyIssues`, em EditorialWideContract.ts), na voz do conteudista.
+  const longer = (correct, others) => correct.length && others.length
+    && Math.max(...correct.map((l) => String(l).length)) > Math.max(...others.map((l) => String(l).length)) * 1.2;
+  const newFamily = (where, item) => {
+    if (norm(item.feedbackCorrect) === norm(item.feedbackIncorrect)) err(where, 'retorno de erro igual ao de acerto; o erro precisa de explicação própria');
+    if (item.type === 'cloze') {
+      const answers = Array.isArray(item.answers) ? item.answers : [];
+      const distractors = Array.isArray(item.distractors) ? item.distractors : [];
+      if (answers.length < 1 || answers.length > 2) return err(where, 'cloze: 1 ou 2 lacunas (answers)');
+      text(`${where}.text`, item.text, { min: 20, max: 200 });
+      const markers = String(item.text ?? '').match(/\{\{\d\}\}/g) ?? [];
+      if (markers.join() !== answers.map((_, i) => `{{${i + 1}}}`).join()) err(where, 'cloze: o texto precisa de uma lacuna {{1}}, {{2}} por resposta, em ordem');
+      if (distractors.length < 2 || distractors.length > 4) err(where, 'cloze: de 2 a 4 distratores no banco');
+      const bank = [...answers, ...distractors];
+      bank.forEach((word, i) => text(`${where}.banco[${i}]`, word, { max: 40, caps: false }));
+      if (new Set(bank.map(norm)).size !== bank.length) err(where, 'cloze: palavra do banco repetida');
+      if (longer(answers, distractors)) err(where, 'cloze: a resposta é mais longa que 1,2× o maior distrator');
+    } else if (item.type === 'true-false') {
+      const statements = Array.isArray(item.statements) ? item.statements : [];
+      if (statements.length < 3 || statements.length > 4) return err(where, 'true-false: de 3 a 4 afirmações');
+      if (statements.some((st) => typeof st?.correct !== 'boolean')) return err(where, 'true-false: correct deve ser true ou false em cada afirmação');
+      statements.forEach((st, i) => { text(`${where}.statements[${i}].text`, st.text, { min: 15, max: 160 }); text(`${where}.statements[${i}].feedback`, st.feedback, { min: 25, max: 260 }); });
+      if (!statements.some((st) => st.correct) || !statements.some((st) => !st.correct)) err(where, 'true-false: ao menos uma afirmação certa e ao menos uma errada');
+      else if (longer(statements.filter((st) => st.correct).map((st) => st.text), statements.filter((st) => !st.correct).map((st) => st.text))) err(where, 'true-false: a afirmação certa é mais longa que 1,2× a maior errada');
+      if (new Set(statements.map((st) => norm(st.text))).size !== statements.length || new Set(statements.map((st) => norm(st.feedback))).size !== statements.length) err(where, 'true-false: afirmação ou retorno repetido');
+    } else if (item.type === 'categorize') {
+      const categories = Array.isArray(item.categories) ? item.categories : [];
+      const items = Array.isArray(item.items) ? item.items : [];
+      if (categories.length < 2 || categories.length > 3 || new Set(categories.map(norm)).size !== categories.length) err(where, 'categorize: de 2 a 3 grupos, sem repetir');
+      if (items.length < 4 || items.length > 6 || new Set(items.map((i) => norm(i.label))).size !== items.length) err(where, 'categorize: de 4 a 6 itens únicos');
+      categories.forEach((c, i) => text(`${where}.categories[${i}]`, c, { max: 40 }));
+      items.forEach((i, n) => {
+        text(`${where}.items[${n}].label`, i.label, { max: 60 });
+        if (!categories.includes(i.category)) err(where, `categorize: item de grupo desconhecido: ${i.category}`);
+        if (categories.some((c) => norm(i.label).includes(norm(c)))) err(where, `categorize: o item "${i.label}" entrega o grupo no próprio rótulo`);
+      });
+      if (categories.some((c) => !items.some((i) => i.category === c))) err(where, 'categorize: grupo sem item');
+    } else if (item.type === 'multi-select') {
+      const options = Array.isArray(item.options) ? item.options : [];
+      if (options.length < 4 || options.length > 6) return err(where, 'multi-select: de 4 a 6 alternativas');
+      if (options.some((o) => typeof o?.correct !== 'boolean')) return err(where, 'correct deve ser true ou false em cada alternativa');
+      options.forEach((o, i) => { text(`${where}.options[${i}].label`, o.label, { max: 110 }); text(`${where}.options[${i}].feedback`, o.feedback, { min: 25, max: 260 }); });
+      const correct = options.filter((o) => o.correct);
+      if (correct.length < 2 || correct.length > options.length - 1) err(where, `multi-select: de 2 a ${options.length - 1} corretas; uma só é múltipla escolha, e todas viram resposta constante`);
+      else if (options.slice(0, correct.length).every((o) => o.correct)) err(where, 'multi-select: as corretas estão todas no topo da lista; intercale');
+      if (longer(correct.map((o) => o.label), options.filter((o) => !o.correct).map((o) => o.label))) err(where, 'multi-select: uma correta é mais longa que 1,2× a maior errada');
+      if (new Set(options.map((o) => norm(o.label))).size !== options.length || new Set(options.map((o) => norm(o.feedback))).size !== options.length) err(where, 'multi-select: alternativa ou retorno repetido');
+    }
+  };
+
   const lessons = Array.isArray(doc.lessons) ? doc.lessons : [];
   if (lessons.length < 6) err('lessons', `a unidade tem ${lessons.length} aulas; o mínimo é 6`);
   const seenIds = new Set();
@@ -125,7 +178,13 @@ export function lintUnit(doc, { images = [] } = {}) {
       // O app só trata como segurança o que tem `criticalSafety`; o papel e a marca andam juntos.
       if ((it.role === 'safety') !== (it.criticalSafety === true)) err(iw, 'role safety e criticalSafety: true andam juntos');
       text(`${iw}.help`, it.help, { min: 15, max: 200 });
-      if (it.type === 'comparison') {
+      if (NEW_FAMILIES.includes(it.type)) {
+        text(`${iw}.prompt`, it.prompt, { min: 20, max: 300 });
+        text(`${iw}.feedbackCorrect`, it.feedbackCorrect, { min: 25, max: 260 });
+        text(`${iw}.feedbackIncorrect`, it.feedbackIncorrect, { min: 25, max: 260 });
+        refs(iw, it.sourceIds);
+        newFamily(iw, it);
+      } else if (it.type === 'comparison') {
         comparison(iw, it);
       } else if (CHOICE.includes(it.type)) {
         choice(iw, it);

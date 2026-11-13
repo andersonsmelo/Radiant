@@ -50,7 +50,8 @@ export type EditorialWideContractV1 = Readonly<{
     images?: readonly EditorialLicensedImageV1[];
 }>;
 
-export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison'] as const;
+export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
+    'cloze', 'true-false', 'categorize', 'multi-select'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -60,6 +61,10 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     ordering: ['prompt', 'items', 'correctOrder'],
     matching: ['prompt', 'pairs'],
     comparison: ['prompt', 'options', 'correctOptionId'],
+    cloze: ['prompt', 'segments', 'blanks', 'tokens'],
+    'true-false': ['prompt', 'statements'],
+    categorize: ['prompt', 'categories', 'items'],
+    'multi-select': ['prompt', 'options', 'correctOptionIds'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -67,6 +72,58 @@ const SHA256 = /^[0-9a-f]{64}$/;
 const filled = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 const https = (value: string) => { try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; } catch { return false; } };
 const date = (value: unknown) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));
+
+const normalized = (value: string) => value.trim().toLocaleLowerCase('pt-BR');
+/** "A certa não é sempre a mais longa", na régua da múltipla escolha do verificador: até 1,2× o maior distrator. */
+const longestIsCorrect = (correct: readonly string[], others: readonly string[]) =>
+    correct.length > 0 && others.length > 0 && Math.max(...correct.map(label => label.length)) > Math.max(...others.map(label => label.length)) * 1.2;
+
+/**
+ * As garantias das famílias de escolha (resposta constante, viés de posição,
+ * correta mais longa, retorno de erro próprio) aplicadas às famílias da 1.6.
+ */
+function newFamilyIssues(interaction: LearningInteractionV2): string[] {
+    const codes: string[] = [];
+    if (interaction.type === 'cloze') {
+        const { segments, blanks, tokens } = interaction.payload;
+        const answers = blanks.map(blank => blank.correctTokenId);
+        const labels = new Set(tokens.map(token => normalized(token.label)));
+        if (blanks.length < 1 || blanks.length > 2 || segments.length !== blanks.length + 1 || tokens.length - blanks.length < 2
+            || tokens.length - blanks.length > 4 || labels.size !== tokens.length) codes.push('invalid-wide-shape');
+        if (answers.every((tokenId, index) => tokens[index]?.id === tokenId)) codes.push('wide-answer-position-bias');
+        if (longestIsCorrect(tokens.filter(token => answers.includes(token.id)).map(token => token.label),
+            tokens.filter(token => !answers.includes(token.id)).map(token => token.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'true-false') {
+        const { statements } = interaction.payload;
+        if (statements.length < 3 || statements.length > 4 || new Set(statements.map(statement => normalized(statement.text))).size !== statements.length
+            || new Set(statements.map(statement => normalized(statement.explanation))).size !== statements.length) codes.push('invalid-wide-shape');
+        if (statements.every(statement => statement.isTrue === statements[0]?.isTrue)) codes.push('wide-constant-answer');
+        else if (longestIsCorrect(statements.filter(statement => statement.isTrue).map(statement => statement.text),
+            statements.filter(statement => !statement.isTrue).map(statement => statement.text))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'categorize') {
+        const { categories, items } = interaction.payload;
+        if (categories.length < 2 || categories.length > 3 || items.length < 4 || items.length > 6
+            || categories.some(category => !items.some(item => item.categoryId === category.id))
+            || new Set(items.map(item => normalized(item.label))).size !== items.length) codes.push('invalid-wide-shape');
+        // Em blocos contíguos, a posição entrega o grupo.
+        const changes = items.slice(1).filter((item, index) => item.categoryId !== items[index].categoryId).length;
+        if (changes <= categories.length - 1) codes.push('wide-answer-position-bias');
+        if (items.some(item => categories.some(category => normalized(item.label).includes(normalized(category.label))))) codes.push('wide-label-gives-answer');
+    } else if (interaction.type === 'multi-select') {
+        const { options, correctOptionIds } = interaction.payload;
+        if (options.length < 4 || options.length > 6 || new Set(options.map(option => normalized(option.label))).size !== options.length
+            || options.some(option => !filled(option.explanation))
+            || new Set(options.map(option => normalized(option.explanation ?? ''))).size !== options.length) codes.push('invalid-wide-shape');
+        if (correctOptionIds.length < 2 || correctOptionIds.length > options.length - 1) codes.push('wide-constant-answer');
+        if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
+        if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
+            options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else {
+        return codes;
+    }
+    if (normalized(interaction.feedback.correct) === normalized(interaction.feedback.incorrect)) codes.push('wide-feedback-not-distinct');
+    return codes;
+}
 
 /** Licença permitida e crédito completo. O gerador aplica a todo o cadastro, usado ou não. */
 export function isValidLicensedImage(image: EditorialLicensedImageV1): boolean {
@@ -82,6 +139,10 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'multiple-choice': case 'case-decision': case 'comparison': return interaction.payload.options.map(option => option.id);
         case 'ordering': return interaction.payload.items.map(item => item.id);
         case 'matching': return interaction.payload.pairs.map(pair => pair.id);
+        case 'cloze': return [...interaction.payload.blanks.map(blank => blank.id), ...interaction.payload.tokens.map(token => token.id)];
+        case 'true-false': return interaction.payload.statements.map(statement => statement.id);
+        case 'categorize': return [...interaction.payload.categories.map(category => category.id), ...interaction.payload.items.map(item => item.id)];
+        case 'multi-select': return interaction.payload.options.map(option => option.id);
         default: return [];
     }
 }
@@ -96,6 +157,14 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
     if (interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison') {
         const { options, correctOptionId } = interaction.payload;
         options.forEach(option => add(option.id, option.id === correctOptionId ? 'correct-answer' : 'distractor', option.id !== correctOptionId));
+    } else if (interaction.type === 'multi-select') {
+        const correct = new Set(interaction.payload.correctOptionIds);
+        interaction.payload.options.forEach(option => add(option.id, correct.has(option.id) ? 'correct-answer' : 'distractor', !correct.has(option.id)));
+    } else if (interaction.type === 'cloze') {
+        // A palavra que completa a frase é afirmação da fonte; a que sobra no banco é distrator autoral.
+        const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));
+        interaction.payload.blanks.forEach(blank => add(blank.id, 'prompt'));
+        interaction.payload.tokens.forEach(token => add(token.id, answers.has(token.id) ? 'correct-answer' : 'distractor', !answers.has(token.id)));
     } else {
         wideResponseIds(interaction).forEach(id => add(id, 'prompt'));
         add(`${interaction.id}:answer`, 'correct-answer');
@@ -164,9 +233,14 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
             }
             const labels: unknown[] = interaction.type === 'ordering' ? interaction.payload.items.map(item => item.label)
                 : interaction.type === 'matching' ? interaction.payload.pairs.flatMap(pair => [pair.left, pair.right])
-                    : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison' ? interaction.payload.options.map(option => option.label) : [];
+                    : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison'
+                        || interaction.type === 'multi-select' ? interaction.payload.options.map(option => option.label)
+                        : interaction.type === 'cloze' ? interaction.payload.tokens.map(token => token.label)
+                            : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
+                                : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')
                 && interaction.payload.options.some(option => option.imageRef !== undefined);
+            newFamilyIssues(interaction).forEach(code => add(code, interaction.id));
             if (Object.keys(interaction.payload).some(key => !allowed.includes(key)) || choiceImages
                 || labels.some(label => !filled(label))) add('unsupported-wide-payload', interaction.id);
         }

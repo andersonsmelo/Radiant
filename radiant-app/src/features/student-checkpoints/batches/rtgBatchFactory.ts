@@ -27,7 +27,12 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'case-decision'; context: string; options: RtgOption[] }
     | { type: 'comparison'; options: (RtgOption & { imageId: string })[] }
     | { type: 'ordering'; items: string[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'matching'; pairs: { left: string; right: string }[]; feedbackCorrect: string; feedbackIncorrect: string });
+    | { type: 'matching'; pairs: { left: string; right: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Famílias da 1.6 (ADR-2026-11-13). Todas têm retorno de acerto e de erro próprios.
+    | { type: 'cloze'; text: string; answers: string[]; distractors: string[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'true-false'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
@@ -60,7 +65,8 @@ export const RTG_REVIEW = {
 const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla' };
 // A conferência e a recuperação não têm retorno por alternativa no contrato do item.
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
-const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação' } as const;
+const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
+    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -83,6 +89,20 @@ export function seededDisplayOrder<T>(values: readonly T[], seed: string): T[] {
         [order[index], order[swap]] = [order[swap], order[index]];
     }
     if (order.length > 1 && order.every((value, index) => value === values[index])) order.push(order.shift() as T);
+    return order;
+}
+
+/**
+ * Ordem de exibição da categorização: a semente embaralha, e a intercalação por
+ * grupo garante que os itens nunca apareçam em blocos, o que entregaria a
+ * resposta pela posição. Toma um item de cada grupo por vez, na ordem em que
+ * cada grupo aparece primeiro.
+ */
+export function interleaveByGroup<T>(values: readonly T[], group: (value: T) => string, seed: string): T[] {
+    const buckets = new Map<string, T[]>();
+    for (const value of seededDisplayOrder(values, seed)) buckets.set(group(value), [...(buckets.get(group(value)) ?? []), value]);
+    const order: T[] = [];
+    while (order.length < values.length) for (const bucket of buckets.values()) { const next = bucket.shift(); if (next !== undefined) order.push(next); }
     return order;
 }
 
@@ -155,6 +175,30 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const items = source.items.map((label, index) => ({ id: id('item', slug, source.id, String(index + 1)), label }));
                 interaction = { ...base, type: 'ordering', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, items: seededDisplayOrder(items, interactionId), correctOrder: items.map(entry => entry.id) } };
+            } else if (source.type === 'cloze') {
+                const parts = source.text.split(/\{\{\d\}\}/);
+                const tokens = [...source.answers, ...source.distractors].map((label, index) => ({ id: id('token', slug, source.id, String(index + 1)), label }));
+                const answers = tokens.slice(0, source.answers.length).map(token => token.id);
+                let shown = seededDisplayOrder(tokens, interactionId);
+                // As respostas nunca abrem o banco na ordem das lacunas: isso seria o viés de posição.
+                if (answers.every((tokenId, index) => shown[index]?.id === tokenId)) shown = [...shown.slice(1), shown[0]];
+                interaction = { ...base, type: 'cloze', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, segments: parts, tokens: shown,
+                        blanks: answers.map((tokenId, index) => ({ id: id('blank', slug, source.id, String(index + 1)), correctTokenId: tokenId })) } };
+            } else if (source.type === 'true-false') {
+                interaction = { ...base, type: 'true-false', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, statements: source.statements.map((statement, index) => ({
+                        id: id('statement', slug, source.id, String(index + 1)), text: statement.text, isTrue: statement.correct, explanation: statement.feedback })) } };
+            } else if (source.type === 'categorize') {
+                const categories = source.categories.map((label, index) => ({ id: id('group', slug, source.id, LETTERS[index]), label }));
+                const items = source.items.map((item, index) => ({ id: id('item', slug, source.id, String(index + 1)), label: item.label,
+                    categoryId: categories[source.categories.indexOf(item.category)]?.id ?? '' }));
+                interaction = { ...base, type: 'categorize', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, categories, items: interleaveByGroup(items, item => item.categoryId, interactionId) } };
+            } else if (source.type === 'multi-select') {
+                const options = source.options.map((option, index) => ({ id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback }));
+                interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, options, correctOptionIds: options.filter((_, index) => source.options[index].correct).map(option => option.id) } };
             } else {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };
