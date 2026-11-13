@@ -114,7 +114,9 @@ describe('fábrica de lotes rtg-2026', () => {
             approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' } } as EditorialCandidate)).toBe(batch.materialSha256);
         expect(() => buildRtgBatch({ ...fixture(), unit: { ...source.unit, id: 'm99' } })).toThrow('rtg-batch-unknown-unit:m99');
         expect(RTG_UNIT_ORDER.slice(0, 14)).toEqual(Array.from({ length: 14 }, (_, index) => `m${String(index + 1).padStart(2, '0')}`));
-        expect(RTG_UNIT_ORDER.slice(14)).toEqual(['s-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir']);
+        expect(RTG_UNIT_ORDER.slice(14, 20)).toEqual(['s-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir']);
+        // Unidades da 1.6 no fim, para não fechar trilhas de quem tem progresso da 1.5.0 (mapa de 2026-11-13, seção 3).
+        expect(RTG_UNIT_ORDER.slice(20)).toEqual(['m15', 'm16', 's-od', 's-us']);
     });
 });
 

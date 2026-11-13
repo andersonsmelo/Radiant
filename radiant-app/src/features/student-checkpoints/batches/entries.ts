@@ -223,5 +223,16 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Aprofundamento em Radiologia Intervencionista."
     }
+  },
+  "batch:rtg-2026:s-us": {
+    "slug": "rtg-2026-s-us",
+    "title": "Ultrassonografia para o tecnólogo",
+    "description": "Som, eco, transdutor, frequência, modos e artefatos, a segurança do ultrassom e o limite do que cabe ao aluno e à equipe.",
+    "unitTitle": "Ultrassonografia para o tecnólogo",
+    "reward": {
+      "id": "node:reward:rtg-2026:s-us",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Ultrassonografia para o tecnólogo."
+    }
   }
 };
