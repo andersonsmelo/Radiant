@@ -1,0 +1,147 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M16: aula 01 até o resumo'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn. LessonFlowScreen não recusa nó bloqueado e a aula 01 não tem unlockRule,
+# então a unidade abre numa instalação limpa, mesmo que a trilha a mostre atrás do cadeado. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am16%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am16%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m16:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m16:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Trocar o exame pedido por outro'
+- tapOn:
+    id: 'categorize-item-Trocar o exame pedido por outro'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Decisão de outro profissional'
+- tapOn:
+    id: 'categorize-group-Decisão de outro profissional'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Interpretar as imagens e escrever o laudo'
+- tapOn:
+    id: 'categorize-item-Interpretar as imagens e escrever o laudo'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Decisão de outro profissional'
+- tapOn:
+    id: 'categorize-group-Decisão de outro profissional'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Queda de escada com dor no punho'
+- tapOn:
+    id: 'categorize-item-Queda de escada com dor no punho'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Informação da solicitação'
+- tapOn:
+    id: 'categorize-group-Informação da solicitação'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Dizer à paciente qual é o diagnóstico'
+- tapOn:
+    id: 'categorize-item-Dizer à paciente qual é o diagnóstico'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Decisão de outro profissional'
+- tapOn:
+    id: 'categorize-group-Decisão de outro profissional'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Uso de anticoagulante anotado no pedido'
+- tapOn:
+    id: 'categorize-item-Uso de anticoagulante anotado no pedido'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Informação da solicitação'
+- tapOn:
+    id: 'categorize-group-Informação da solicitação'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Tosse há três dias, descrita no pedido'
+- tapOn:
+    id: 'categorize-item-Tosse há três dias, descrita no pedido'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Informação da solicitação'
+- tapOn:
+    id: 'categorize-group-Informação da solicitação'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 3'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 3'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 case-decision
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m16:aula-01:i4:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m16:aula-01:i4:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m16:aula-01:i5:d'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m16:aula-01:i5:d'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'

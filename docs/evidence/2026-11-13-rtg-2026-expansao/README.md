@@ -10,6 +10,7 @@ Opus, que não viu o trabalho do autor. A revisão é por IA, não por profissio
 | S-US, Ultrassonografia para o tecnólogo | 6 | [s-us.md](s-us.md) | 14 |
 | S-OD, Radiologia odontológica | 7 | [s-od.md](s-od.md) | 15 |
 | M15, Células, tecidos e funções | 6 | [m15.md](m15.md) | 12 |
+| M16, A condição do paciente na aquisição | 6 | [m16.md](m16.md) | 15 |
 
 ## Roteiros do Maestro
 

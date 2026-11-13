@@ -235,6 +235,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Células, tecidos e funções."
     }
   },
+  "batch:rtg-2026:m16": {
+    "slug": "rtg-2026-m16",
+    "title": "A condição do paciente na aquisição",
+    "description": "Dor, falta de ar, gestação, isolamento e imagem fora do padrão: o aluno adapta o que o protocolo permite e, na dúvida, para e chama a equipe.",
+    "unitTitle": "A condição do paciente na aquisição",
+    "reward": {
+      "id": "node:reward:rtg-2026:m16",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade A condição do paciente na aquisição."
+    }
+  },
   "batch:rtg-2026:s-od": {
     "slug": "rtg-2026-s-od",
     "title": "Radiologia odontológica",
