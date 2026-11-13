@@ -38,6 +38,12 @@ export const AppConfig = {
     // (ADR 2026-09-23, decisões do dono).
     ENABLE_REVIEW: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVIEW, true),
 
+    // Liga semanal no Game Center (ADR 2026-11-13). Desligada por padrão até o
+    // dono criar o placar `radiant.liga.semanal.xp` no App Store Connect
+    // (runbook 2026-11-13). Lida em build: o plugin `with-game-center` usa a
+    // mesma variável para pôr a permissão do Game Center no binário.
+    ENABLE_LEAGUE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEAGUE, false),
+
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),
     BETA_INVITE_CODE: process.env.EXPO_PUBLIC_BETA_INVITE_CODE ?? 'RADIANT2025',

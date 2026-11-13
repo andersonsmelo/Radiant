@@ -114,3 +114,72 @@ describe('GamificationService: sequência com proteção', () => {
         expect(semProtecao.snapshot.streakDays).toBe(1);
     });
 });
+
+// A liga semanal (ADR 2026-11-13) soma o XP ganho na semana. O ganho passa só
+// por `recordQuizCompletion` e `addManualXp`; restaurar backup e zerar não são
+// ganho e não podem inflar a liga.
+describe('GamificationService.onXpEarned — o XP ganho que a liga soma', () => {
+    const quiz = (answeredAt: Date): QuizResult => ({
+        lessonId: 'licao-liga', totalQuestions: 5, correctAnswers: 5, answeredAt,
+    } as unknown as QuizResult);
+
+    beforeEach(async () => {
+        await AsyncStorage.clear();
+        await GamificationService.reset();
+    });
+
+    it('avisa o XP da aula concluída, com o instante da resposta', async () => {
+        const ganhos: [number, string][] = [];
+        const parar = GamificationService.onXpEarned((xp, at) => { ganhos.push([xp, at.toISOString()]); });
+        const at = new Date('2026-11-13T15:00:00Z');
+
+        const { award } = await GamificationService.recordQuizCompletion(quiz(at));
+        parar();
+
+        expect(ganhos).toEqual([[award.totalXpAwarded, at.toISOString()]]);
+    });
+
+    it('aula da rota legada /quiz (countsForLeague: false) soma no XP, mas não avisa a liga', async () => {
+        const ganhos: number[] = [];
+        const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });
+        const { snapshot, award } = await GamificationService.recordQuizCompletion(quiz(new Date('2026-11-13T15:00:00Z')), { countsForLeague: false });
+        parar();
+        expect(snapshot.totalXp).toBe(award.totalXpAwarded);
+        expect(ganhos).toEqual([]);
+    });
+
+    it('avisa o XP manual (revisão, missão)', async () => {
+        const ganhos: number[] = [];
+        const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });
+
+        await GamificationService.addManualXp(5);
+        parar();
+
+        expect(ganhos).toEqual([5]);
+    });
+
+    it('restaurar backup e zerar não são ganho', async () => {
+        const ganhos: number[] = [];
+        const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });
+
+        await GamificationService.absorbBackup({ totalXp: 900, streakDays: 3 });
+        await GamificationService.reset();
+        parar();
+
+        expect(ganhos).toEqual([]);
+    });
+
+    it('quem para de ouvir não recebe mais, e um ouvinte que falha não derruba o XP', async () => {
+        const ganhos: number[] = [];
+        const pararQuebrado = GamificationService.onXpEarned(() => { throw new Error('liga fora'); });
+        const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });
+
+        const snapshot = await GamificationService.addManualXp(7);
+        parar();
+        pararQuebrado();
+        await GamificationService.addManualXp(3);
+
+        expect(snapshot.totalXp).toBe(7);
+        expect(ganhos).toEqual([7]);
+    });
+});

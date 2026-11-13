@@ -17,8 +17,32 @@ const DEFAULT_STORE: GamificationStore = {
     updatedAt: new Date().toISOString(),
 };
 
+export type XpEarnedListener = (xp: number, at: Date) => void;
+
 class GamificationServiceImpl {
     private memCache: GamificationStore | null = null;
+    private readonly xpEarnedListeners = new Set<XpEarnedListener>();
+
+    /**
+     * Avisa cada XP **ganho**: aula concluída e XP manual (revisão, missão).
+     * Restaurar backup e zerar não avisam, porque não são ganho. A liga semanal
+     * (ADR 2026-11-13) soma a semana por aqui. Um ouvinte que falha não derruba
+     * o XP já gravado.
+     */
+    onXpEarned(listener: XpEarnedListener): () => void {
+        this.xpEarnedListeners.add(listener);
+        return () => { this.xpEarnedListeners.delete(listener); };
+    }
+
+    private emitXpEarned(xp: number, at: Date): void {
+        for (const listener of this.xpEarnedListeners) {
+            try {
+                listener(xp, at);
+            } catch (error) {
+                console.error('[GamificationService] XP listener failed:', error);
+            }
+        }
+    }
 
     /**
      * Get the current snapshot of gamification state.
@@ -31,7 +55,12 @@ class GamificationServiceImpl {
     /**
      * Record a quiz completion, calculate award, update store, and return details.
      */
-    async recordQuizCompletion(result: QuizResult): Promise<{ snapshot: GamificationSnapshot; award: XpAward }> {
+    async recordQuizCompletion(
+        result: QuizResult,
+        // A rota legada `/quiz` paga XP sem a régua de recompensa da trilha; esse XP
+        // não conta na liga semanal (revisão independente da F4, 2026-11-13).
+        options: { countsForLeague?: boolean } = {},
+    ): Promise<{ snapshot: GamificationSnapshot; award: XpAward }> {
         const store = await this.getOrLoadStore();
 
         const award = this.calculateXpAward(result);
@@ -40,6 +69,7 @@ class GamificationServiceImpl {
         store.updatedAt = new Date().toISOString();
 
         await this.saveStore(store);
+        if (options.countsForLeague !== false) this.emitXpEarned(award.totalXpAwarded, result.answeredAt);
 
         return { snapshot: this.toSnapshot(store), award };
     }
@@ -52,6 +82,7 @@ class GamificationServiceImpl {
         store.totalXp += amount;
         store.updatedAt = new Date().toISOString();
         await this.saveStore(store);
+        this.emitXpEarned(amount, new Date());
         return this.toSnapshot(store);
     }
 

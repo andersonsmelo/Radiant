@@ -112,6 +112,20 @@ describe('kill switches do AppConfig (ADR 2026-09-23)', () => {
         expect(padrao?.kind).toBe(ts.SyntaxKind.TrueKeyword);
     });
 
+    // Liga semanal (ADR 2026-11-13): desligada até o dono criar o placar no App
+    // Store Connect. Ligada por engano, o aluno veria "a liga ainda não abriu".
+    it('ENABLE_LEAGUE lê EXPO_PUBLIC_ENABLE_LEAGUE, com padrão desligado', () => {
+        const valor = flagsDoAppConfig().get('ENABLE_LEAGUE');
+        expect(valor).toBeDefined();
+        if (valor === undefined || !ts.isCallExpression(valor)) return;
+        const [variavel, padrao] = valor.arguments;
+
+        expect(ts.isIdentifier(valor.expression) && valor.expression.text).toBe('readBooleanFlag');
+        expect(variavel !== undefined && ts.isPropertyAccessExpression(variavel) && variavel.getText())
+            .toBe('process.env.EXPO_PUBLIC_ENABLE_LEAGUE');
+        expect(padrao?.kind).toBe(ts.SyntaxKind.FalseKeyword);
+    });
+
     it('nenhum módulo declara um ENABLE_* local fixo, fora do AppConfig', () => {
         const locais: string[] = [];
         for (const arquivo of arquivosDeProducao(SRC)) {

@@ -34,6 +34,7 @@ import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 import { LevelBadge } from '../../gamification/components/LevelBadge';
 import { DailyMissionsService, type DailyMission } from '../../missions/services/DailyMissionsService';
 import { DailyMissionsCard } from '../../missions/components/DailyMissionsCard';
+import { LeagueNoticeRow } from '../../league/components/LeagueNoticeRow';
 import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration, type CelebrationUnit } from '../components/UnitCompleteCelebration';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
@@ -222,6 +223,7 @@ export default function JourneyHomeScreen() {
         onPress={() => { if (dueReviewNode) void openNode(dueReviewNode); }}
       />
       <DailyMissionsCard missions={missions} onPress={() => router.push('/missions')} />
+      <LeagueNoticeRow onPress={() => router.push('/league')} />
     </View>
   );
 

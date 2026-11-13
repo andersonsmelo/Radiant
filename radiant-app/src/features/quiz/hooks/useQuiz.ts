@@ -219,7 +219,7 @@ export function useQuiz(
 
             // Record gamification award (XP/Streak)
             try {
-                GamificationService.recordQuizCompletion(result).then(({ award }) => {
+                GamificationService.recordQuizCompletion(result, { countsForLeague: false }).then(({ award }) => {
                     setXpAward(award);
                     void DailyGoalService.recordXp(award.totalXpAwarded, result.answeredAt).then((afterSnapshot) => {
                         if (afterSnapshot.isCompleted) setDailyGoalJustCompleted(true);

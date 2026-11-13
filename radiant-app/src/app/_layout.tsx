@@ -348,6 +348,14 @@ function RootLayout() {
     return () => cancelAnimationFrame(frame);
   }, [checkpointLaunch.kind, startupPhase]);
 
+  // Liga semanal (ADR 2026-11-13): ouve o XP ganho e envia o pendente. Com
+  // `ENABLE_LEAGUE` desligada, nem o módulo da liga é carregado na abertura.
+  useEffect(() => {
+    if (startupPhase !== 'ready' || !AppConfig.ENABLE_LEAGUE) return;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- carga tardia: a liga desligada não entra na abertura.
+    require('../features/league/LeagueService').startLeague();
+  }, [startupPhase]);
+
   useEffect(() => {
     if (showWelcome || !pendingWelcomeHref) {
       return;
@@ -508,6 +516,7 @@ function RootLayout() {
         <Stack.Screen name="subscription" />
         <Stack.Screen name="settings" />
         <Stack.Screen name="missions" />
+        <Stack.Screen name="league" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
         <Stack.Screen name="licao-hibrida" />
