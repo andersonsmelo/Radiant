@@ -55,7 +55,12 @@ class GamificationServiceImpl {
     /**
      * Record a quiz completion, calculate award, update store, and return details.
      */
-    async recordQuizCompletion(result: QuizResult): Promise<{ snapshot: GamificationSnapshot; award: XpAward }> {
+    async recordQuizCompletion(
+        result: QuizResult,
+        // A rota legada `/quiz` paga XP sem a régua de recompensa da trilha; esse XP
+        // não conta na liga semanal (revisão independente da F4, 2026-11-13).
+        options: { countsForLeague?: boolean } = {},
+    ): Promise<{ snapshot: GamificationSnapshot; award: XpAward }> {
         const store = await this.getOrLoadStore();
 
         const award = this.calculateXpAward(result);
@@ -64,7 +69,7 @@ class GamificationServiceImpl {
         store.updatedAt = new Date().toISOString();
 
         await this.saveStore(store);
-        this.emitXpEarned(award.totalXpAwarded, result.answeredAt);
+        if (options.countsForLeague !== false) this.emitXpEarned(award.totalXpAwarded, result.answeredAt);
 
         return { snapshot: this.toSnapshot(store), award };
     }

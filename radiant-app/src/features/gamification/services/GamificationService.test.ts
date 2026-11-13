@@ -139,6 +139,15 @@ describe('GamificationService.onXpEarned — o XP ganho que a liga soma', () => 
         expect(ganhos).toEqual([[award.totalXpAwarded, at.toISOString()]]);
     });
 
+    it('aula da rota legada /quiz (countsForLeague: false) soma no XP, mas não avisa a liga', async () => {
+        const ganhos: number[] = [];
+        const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });
+        const { snapshot, award } = await GamificationService.recordQuizCompletion(quiz(new Date('2026-11-13T15:00:00Z')), { countsForLeague: false });
+        parar();
+        expect(snapshot.totalXp).toBe(award.totalXpAwarded);
+        expect(ganhos).toEqual([]);
+    });
+
     it('avisa o XP manual (revisão, missão)', async () => {
         const ganhos: number[] = [];
         const parar = GamificationService.onXpEarned(xp => { ganhos.push(xp); });

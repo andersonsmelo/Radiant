@@ -220,7 +220,7 @@ pedir mudanças antes de ligar a chave. O que foi feito com cada achado:
 | Achado | Gravidade | Tratamento |
 | --- | --- | --- |
 | Semana do balde pelo relógio do aparelho, não pela ocorrência do Game Center | alta | corrigido: o envio leva a semana esperada e o Swift recusa com `stale-week`; a página só é adotada se `startsAt` bate com o balde |
-| Rota `/quiz` (só deep link) paga XP sem limite | média | segundo run da F4, porque toca `useQuiz.ts`, fora do escopo declarado deste |
+| Rota `/quiz` (só deep link) paga XP sem limite | média | corrigido num segundo run da F4 (toca `useQuiz.ts`): o XP dessa rota soma no nível, mas não avisa a liga |
 | Tela presa em "Carregando" se a gravação falha | média | corrigido: envio dentro do `try` e `.catch` na tela |
 | Resumo da semana perdido por falha de rede | baixa-média | corrigido no Swift: só "sem semana anterior" vira `nil` |
 | XP datado de semana anterior apaga o balde atual | baixa | corrigido: descartado |
@@ -258,4 +258,14 @@ Tests:       1 failed, 13 passed, 14 total
 Tests:       1 failed, 13 passed, 14 total
 ### injeção: aviso antigo não sai
 Tests:       1 failed, 5 passed, 6 total
+```
+
+Vermelho do segundo run (rota `/quiz`), antes da correção:
+
+```text
+## Run 2 — XP da rota /quiz fora da liga: vermelho
+Tests:       2 failed, 40 passed, 42 total
+  ● Console
+  ● GamificationService.onXpEarned — o XP ganho que a liga soma › aula da rota legada /quiz (countsForLeague: false) soma no XP, mas não avisa a liga
+  ● QuizScreen flow › avaliar e continuar conservam o prêmio e o placar já registrados
 ```

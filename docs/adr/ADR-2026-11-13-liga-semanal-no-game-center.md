@@ -85,5 +85,6 @@ Três fatos pesaram, todos medidos antes desta decisão:
   o Game Center estiver noutra semana, o envio é recusado (`stale-week`) e nada
   da página lida é adotado; o XP ganho nessa janela pode não contar.
 - **A rota antiga `/quiz`**, alcançável só por deep link, paga XP a cada
-  conclusão. A correção (não contar esse XP na liga) entrou num segundo run da
-  mesma frente, porque toca `useQuiz.ts`.
+  conclusão, sem a régua de recompensa da trilha. Esse XP continua no nível do
+  aluno, mas **não conta na liga** (`recordQuizCompletion(result, { countsForLeague: false })`
+  em `useQuiz.ts`).
