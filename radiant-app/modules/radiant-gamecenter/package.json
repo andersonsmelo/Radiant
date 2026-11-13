@@ -1,0 +1,8 @@
+{
+  "name": "radiant-gamecenter",
+  "version": "1.0.0",
+  "description": "Módulo Expo local: liga semanal do Radiant pelo Game Center.",
+  "main": "index.ts",
+  "private": true,
+  "platforms": ["ios"]
+}
