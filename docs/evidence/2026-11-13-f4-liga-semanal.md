@@ -4,6 +4,16 @@ Branch `claude/f4-liga-semanal-26632b`, a partir da `main` em `741c3e3`.
 Decisão: [ADR 2026-11-13](../adr/ADR-2026-11-13-liga-semanal-no-game-center.md).
 Passos do dono: [runbook](../runbooks/2026-11-13-liga-game-center.md).
 
+## Gate
+
+`cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npm run quality`, Node 20.20.2, na
+branch em `e8e6466`: saída 0, **240 suítes e 3.177 testes**, lint com 0 erros
+e 21 avisos (todos em arquivos que esta frente não toca), Visual QA sem
+regressão. Uma primeira rodada, antes das correções da revisão, reprovou uma
+suíte (`startup-gate.flow.test.tsx`): o `_layout` passou a importar o
+`LeagueService`, que carrega o AsyncStorage na abertura. Corrigido carregando a
+liga só com a chave ligada.
+
 ## Compilação do Swift
 
 Compilado nesta máquina, **Xcode 27.2**, para o simulador

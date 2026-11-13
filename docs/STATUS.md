@@ -141,6 +141,11 @@ o que foi visto na tela na [evidência](evidence/2026-11-13-f4-liga-semanal.md).
 
 - **Compila:** o módulo `radiant-gamecenter` compilou com o Xcode 27.2 para o
   simulador. Não foi compilado para aparelho nem no EAS.
+- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, saída 0, com
+  240 suítes e 3.177 testes, na branch em `e8e6466`.
+- **Revisão independente** feita; os achados e o que se fez com cada um estão na
+  evidência. A rota `/quiz` (só deep link) ainda paga XP que entra na liga até o
+  segundo run da frente.
 - **Visto na tela** (simulador iOS 26.5 sem conta): carregando e sem Game
   Center; a linha do Perfil abre a liga. O resto só por teste, porque exige
   conta Apple.
