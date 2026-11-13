@@ -190,12 +190,12 @@ describe('learningActivityWarnings — missing-option-explanation', () => {
 });
 
 describe('feedbackFor: famílias da 1.6', () => {
-    it('true-false: o erro explica a primeira afirmação julgada errado, não repete o acerto', () => {
+    it('true-false: o erro usa o retorno de erro autoral, sem repetir a explicação já lida na afirmação', () => {
         const interaction: LearningInteractionV2 = { ...base, type: 'true-false', payload: { prompt: 'Julgue.', statements: [
             { id: 's1', text: 'Um.', isTrue: true, explanation: 'Um é certa porque a fonte diz.' },
             { id: 's2', text: 'Dois.', isTrue: false, explanation: 'Dois é errada: o dosímetro não protege.' },
         ] } };
-        expect(feedbackFor(interaction, '[true,true]', false)).toBe('Dois é errada: o dosímetro não protege.');
+        expect(feedbackFor(interaction, '[true,true]', false)).toBe('Reveja o conceito.');
         expect(feedbackFor(interaction, '[true,false]', true)).toBe('Isso mesmo.');
     });
 

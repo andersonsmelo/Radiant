@@ -65,6 +65,15 @@ describe('famílias da 1.6 no tocador', () => {
         expect(probe(screen)).toBe('["t-avental","t-tronco"]|true');
     });
 
+    it('cloze: esvaziar a lacuna 1 não empurra a palavra da lacuna 2, e a próxima palavra volta para a 1', () => {
+        const screen = render(<Harness interaction={cloze} initial='["t-luva","t-tronco"]' />);
+        fireEvent.press(screen.getByLabelText('Lacuna 1: luva'));
+        expect(screen.getByLabelText('Lacuna 2: tronco')).toBeTruthy();
+        expect(probe(screen)).toBe('["","t-tronco"]|false');
+        fireEvent.press(screen.getByLabelText('Usar avental na lacuna 1'));
+        expect(probe(screen)).toBe('["t-avental","t-tronco"]|true');
+    });
+
     it('cloze: depois de conferir, a lacuna errada mostra a palavra certa em texto', () => {
         const screen = render(<Harness interaction={cloze} submitted initial='["t-luva","t-tronco"]' />);
         expect(screen.getByText('✗ Lacuna 1: luva (certa: avental)')).toBeTruthy();

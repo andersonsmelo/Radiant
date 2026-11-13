@@ -376,6 +376,8 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['t-tronco', 't-avental']))).toBe(true);
         expect(isCorrectInteractionValue(cloze, encodeInteractionIdSequence(['t-tronco', 't-avental']))).toBe(false);
         expect(isCorrectInteractionValue(cloze, encodeInteractionIdSequence(['t-avental', 't-tronco']))).toBe(true);
+        // Achado 6 da revisão: a lacuna vazia guarda o lugar, para a palavra da lacuna 2 não deslizar para a 1.
+        expect(isCompleteInteractionValue(cloze, encodeInteractionIdSequence(['', 't-tronco']))).toBe(false);
     });
 
     it('true-false: completa quando toda afirmação foi julgada, e só acerta quem julga todas', () => {

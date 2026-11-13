@@ -194,6 +194,7 @@ export function isCompleteInteractionValue(
         case 'bench':
             return parseBenchObject(value) !== null;
         case 'cloze': {
+            // Uma posição por lacuna; '' é lacuna vazia.
             const ids = decodeInteractionIdSequence(value);
             return ids.length === interaction.payload.blanks.length
                 && isDistinctSubset(ids, interaction.payload.tokens.map(token => token.id));

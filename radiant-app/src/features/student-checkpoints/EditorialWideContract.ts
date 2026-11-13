@@ -79,6 +79,18 @@ const longestIsCorrect = (correct: readonly string[], others: readonly string[])
     correct.length > 0 && others.length > 0 && Math.max(...correct.map(label => label.length)) > Math.max(...others.map(label => label.length)) * 1.2;
 
 /**
+ * A sequência de grupos na tela entrega a resposta pela posição? Sim quando os
+ * itens vêm em blocos contíguos (AABB) ou num ciclo que se repete (ABAB, CBACBA):
+ * quem acerta o começo deduz o resto.
+ */
+export function isGroupOrderBiased(groups: readonly string[], groupCount: number): boolean {
+    const changes = groups.slice(1).filter((group, index) => group !== groups[index]).length;
+    const periodic = Array.from({ length: Math.floor(groups.length / 2) }, (_, index) => index + 1)
+        .some(period => groups.every((group, index) => index < period || group === groups[index - period]));
+    return changes <= groupCount - 1 || periodic;
+}
+
+/**
  * As garantias das famílias de escolha (resposta constante, viés de posição,
  * correta mais longa, retorno de erro próprio) aplicadas às famílias da 1.6.
  */
@@ -106,8 +118,7 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
             || categories.some(category => !items.some(item => item.categoryId === category.id))
             || new Set(items.map(item => normalized(item.label))).size !== items.length) codes.push('invalid-wide-shape');
         // Em blocos contíguos, a posição entrega o grupo.
-        const changes = items.slice(1).filter((item, index) => item.categoryId !== items[index].categoryId).length;
-        if (changes <= categories.length - 1) codes.push('wide-answer-position-bias');
+        if (isGroupOrderBiased(items.map(item => item.categoryId), categories.length)) codes.push('wide-answer-position-bias');
         if (items.some(item => categories.some(category => normalized(item.label).includes(normalized(category.label))))) codes.push('wide-label-gives-answer');
     } else if (interaction.type === 'multi-select') {
         const { options, correctOptionIds } = interaction.payload;
@@ -160,6 +171,10 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
     } else if (interaction.type === 'multi-select') {
         const correct = new Set(interaction.payload.correctOptionIds);
         interaction.payload.options.forEach(option => add(option.id, correct.has(option.id) ? 'correct-answer' : 'distractor', !correct.has(option.id)));
+    } else if (interaction.type === 'true-false') {
+        // A afirmação errada é redação do autor, como o distrator; só a certa cita a fonte.
+        interaction.payload.statements.forEach(statement => add(statement.id, statement.isTrue ? 'prompt' : 'distractor', !statement.isTrue));
+        add(`${interaction.id}:answer`, 'correct-answer');
     } else if (interaction.type === 'cloze') {
         // A palavra que completa a frase é afirmação da fonte; a que sobra no banco é distrator autoral.
         const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));

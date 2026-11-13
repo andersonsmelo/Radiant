@@ -15,12 +15,16 @@ const GAP = '_____';
  */
 export function ClozeStepRenderer({ payload, value, onChange, submitted = false, confirmationLabel = 'Conferir resposta' }: Props) {
     const tokenIds = new Set(payload.tokens.map(token => token.id));
-    const filled = decodeInteractionIdSequence(value)
-        .filter((id, index, all) => tokenIds.has(id) && all.indexOf(id) === index)
-        .slice(0, payload.blanks.length);
+    // Uma posição por lacuna, '' quando vazia: esvaziar a 1 não empurra a palavra da 2.
+    const decoded = decodeInteractionIdSequence(value);
+    const filled = payload.blanks.map((_, index) => (tokenIds.has(decoded[index]) && decoded.indexOf(decoded[index]) === index ? decoded[index] : ''));
     const label = (id: string | undefined) => payload.tokens.find(token => token.id === id)?.label;
-    const place = (id: string) => { if (!submitted && filled.length < payload.blanks.length) onChange(encodeInteractionIdSequence([...filled, id])); };
-    const clear = (index: number) => { if (!submitted) onChange(encodeInteractionIdSequence(filled.filter((_, at) => at !== index))); };
+    const nextEmpty = filled.indexOf('');
+    const place = (id: string) => {
+        if (submitted || nextEmpty < 0) return;
+        onChange(encodeInteractionIdSequence(filled.map((entry, index) => (index === nextEmpty ? id : entry))));
+    };
+    const clear = (index: number) => { if (!submitted) onChange(encodeInteractionIdSequence(filled.map((entry, at) => (at === index ? '' : entry)))); };
     const sentence = payload.segments.map((segment, index) => index < payload.blanks.length
         ? `${segment}${label(filled[index]) ?? GAP}` : segment).join('');
 
@@ -46,9 +50,9 @@ export function ClozeStepRenderer({ payload, value, onChange, submitted = false,
             <View style={f2Styles.wrap}>
                 {payload.tokens.filter(token => !filled.includes(token.id)).map(token => (
                     <TapChip key={token.id} testID={`cloze-token-${token.label}`} label={token.label}
-                        accessibilityLabel={`Usar ${token.label} na lacuna ${Math.min(filled.length + 1, payload.blanks.length)}`}
+                        accessibilityLabel={`Usar ${token.label} na lacuna ${nextEmpty + 1}`}
                         accessibilityHint={`Preenche a próxima lacuna. Você confirma em ${confirmationLabel}.`}
-                        disabled={submitted || filled.length >= payload.blanks.length} onPress={() => place(token.id)} />
+                        disabled={submitted || nextEmpty < 0} onPress={() => place(token.id)} />
                 ))}
             </View>
         </EnterView>

@@ -110,6 +110,25 @@ teste:
   continua registrada como múltipla escolha; o mesmo id em `-v1` agora é outra
   família. Não há chave nova no AsyncStorage.
 
+## Decisão 6 — achados da revisão independente (2026-11-13)
+
+Um revisor que não escreveu o código revisou o diff com o `AGENTS.md`. Corrigido:
+a categorização saía em ciclo (ABAB), que entrega o resto pela posição, e com grupos
+desiguais o gerador podia produzir ordem que o próprio contrato recusa; agora as
+duas pontas usam a mesma régua (`isGroupOrderBiased`: nem blocos nem ciclo) e o
+gerador tenta sementes até achar ordem aceita. A afirmação errada do true-false
+passou a ser distrator autoral na proveniência. Esvaziar a lacuna 1 do cloze não
+empurra mais a palavra da lacuna 2. O verificador reprova unidade com a mesma
+contagem de certas em todo true-false. Nove pontos de conteúdo de M01 a M03 foram
+reescritos (polaridade ambígua, afirmações que se negam, distrator que também
+servia, cobertura perdida em m03-02 e m03-04).
+
+Mantido de propósito: o true-false mostra o retorno de cada afirmação ao julgá-la,
+antes do "Conferir resposta". É o "retorno imediato por afirmação" pedido para esta
+família, e o julgamento não volta atrás, então o aluno ainda decide antes de ver. Para
+o leitor de tela ouvir cada explicação uma vez só, o anúncio final do tocador usa o
+retorno de erro autoral, e não repete a explicação da afirmação.
+
 ## Fora do escopo
 
 Áudio novo (F3), liga (F4), widgets (F5), notificações (F6), personagens (F7) e

@@ -6,7 +6,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m01",
-  "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208",
+  "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55",
   "trackId": "track:rtg-2026:m01",
   "unitId": "unit:rtg-2026:m01",
   "contentVersion": "rtg-2026-m01-v1",
@@ -264,6 +264,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m01:aula-01:i2:a"
                 },
                 {
+                  "id": "item:rtg-2026:m01:aula-01:i2:4",
+                  "label": "Escolher qual exame responde à queixa",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:b"
+                },
+                {
                   "id": "item:rtg-2026:m01:aula-01:i2:5",
                   "label": "O pedido não combina com o relato do paciente",
                   "categoryId": "group:rtg-2026:m01:aula-01:i2:c"
@@ -277,11 +282,6 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                   "id": "item:rtg-2026:m01:aula-01:i2:3",
                   "label": "Orientar o paciente durante o exame",
                   "categoryId": "group:rtg-2026:m01:aula-01:i2:a"
-                },
-                {
-                  "id": "item:rtg-2026:m01:aula-01:i2:4",
-                  "label": "Escolher qual exame responde à queixa",
-                  "categoryId": "group:rtg-2026:m01:aula-01:i2:b"
                 }
               ]
             }
@@ -574,26 +574,26 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "payload": {
               "prompt": "Antes de praticar, preveja e complete a frase sobre confirmar quem é a pessoa, usando o banco de palavras.",
               "segments": [
-                "Dizer o nome e esperar um ",
-                " induz a resposta; o certo é pedir que a pessoa ",
-                " os próprios dados."
+                "Na confirmação de identidade, o certo é pedir que a pessoa ",
+                " nome e data de nascimento, e não que responda ",
+                " a um nome que você já disse."
               ],
               "tokens": [
                 {
                   "id": "token:rtg-2026:m01:aula-02:i2:5",
-                  "label": "assine"
+                  "label": "esconda"
                 },
                 {
                   "id": "token:rtg-2026:m01:aula-02:i2:1",
-                  "label": "sim"
-                },
-                {
-                  "id": "token:rtg-2026:m01:aula-02:i2:2",
                   "label": "diga"
                 },
                 {
+                  "id": "token:rtg-2026:m01:aula-02:i2:2",
+                  "label": "sim"
+                },
+                {
                   "id": "token:rtg-2026:m01:aula-02:i2:4",
-                  "label": "anote"
+                  "label": "assine"
                 },
                 {
                   "id": "token:rtg-2026:m01:aula-02:i2:3",
@@ -934,7 +934,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "item:rtg-2026:m01:aula-03:i2:4",
-                  "label": "Você só ajustou a mesa em que ele estava deitado",
+                  "label": "Você só ajustou a mesa em que Seu Jorge estava deitado",
                   "categoryId": "group:rtg-2026:m01:aula-03:i2:b"
                 }
               ]
@@ -1401,7 +1401,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "token:rtg-2026:m01:aula-04:i5:5",
-                  "label": "paciente"
+                  "label": "máquina"
                 },
                 {
                   "id": "token:rtg-2026:m01:aula-04:i5:4",
@@ -1589,9 +1589,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-05:i2:4",
-                  "text": "Chamar pelo motivo do atendimento revela informação de saúde à sala inteira.",
-                  "isTrue": true,
-                  "explanation": "Certo: por isso o motivo não entra na chamada. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
+                  "text": "Chamar pelo motivo do atendimento é um jeito respeitoso de chamar a pessoa.",
+                  "isTrue": false,
+                  "explanation": "Errado: o motivo revela informação de saúde à sala inteira. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
                 }
               ]
             }
@@ -1968,14 +1968,14 @@ export const RTG_2026_M01: ProductionBatchV1 = {
               ],
               "items": [
                 {
+                  "id": "item:rtg-2026:m01:aula-06:i3:3",
+                  "label": "O pedido diz joelho direito; a queixa é no esquerdo",
+                  "categoryId": "group:rtg-2026:m01:aula-06:i3:a"
+                },
+                {
                   "id": "item:rtg-2026:m01:aula-06:i3:4",
                   "label": "A pessoa diz que não quer mais fazer o exame",
                   "categoryId": "group:rtg-2026:m01:aula-06:i3:b"
-                },
-                {
-                  "id": "item:rtg-2026:m01:aula-06:i3:1",
-                  "label": "A data de nascimento dita difere da pulseira",
-                  "categoryId": "group:rtg-2026:m01:aula-06:i3:a"
                 },
                 {
                   "id": "item:rtg-2026:m01:aula-06:i3:2",
@@ -1983,8 +1983,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m01:aula-06:i3:b"
                 },
                 {
-                  "id": "item:rtg-2026:m01:aula-06:i3:3",
-                  "label": "O pedido diz joelho direito; a queixa é no esquerdo",
+                  "id": "item:rtg-2026:m01:aula-06:i3:1",
+                  "label": "A data de nascimento dita difere da pulseira",
                   "categoryId": "group:rtg-2026:m01:aula-06:i3:a"
                 }
               ]
@@ -2069,9 +2069,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-06:i5:2",
-                  "text": "Sem divergência alguma, ainda vale pausar e chamar a equipe por precaução geral.",
-                  "isTrue": false,
-                  "explanation": "Errado: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
+                  "text": "Sem divergência alguma, não há motivo para pausar nem para chamar a equipe.",
+                  "isTrue": true,
+                  "explanation": "Certo: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-06:i5:3",
@@ -2636,6 +2636,17 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
+      "claimId": "item:rtg-2026:m01:aula-01:i2:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-7394-1985",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
       "claimId": "item:rtg-2026:m01:aula-01:i2:5",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
@@ -2659,17 +2670,6 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "item:rtg-2026:m01:aula-01:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
-      ]
-    },
-    {
-      "claimId": "item:rtg-2026:m01:aula-01:i2:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2723,12 +2723,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-01:i3:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-01:i3:2",
@@ -2741,21 +2738,15 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-01:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-01:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-01:i3:answer",
@@ -3397,11 +3388,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-02:i5:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-02:i5:3",
@@ -3413,11 +3402,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-02:i5:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-02:i5:answer",
@@ -4319,11 +4306,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-04:i2:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-04:i2:2",
@@ -4335,11 +4320,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-04:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-04:i2:4",
@@ -4871,12 +4854,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-05:i2:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-05:i2:2",
@@ -4889,21 +4869,15 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-05:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-05:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-05:i2:answer",
@@ -5555,7 +5529,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m01:aula-06:i3:4",
+      "claimId": "item:rtg-2026:m01:aula-06:i3:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5565,7 +5539,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m01:aula-06:i3:1",
+      "claimId": "item:rtg-2026:m01:aula-06:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5585,7 +5559,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m01:aula-06:i3:3",
+      "claimId": "item:rtg-2026:m01:aula-06:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5707,12 +5681,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-06:i5:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m01:aula-06:i5:4",
@@ -6451,7 +6422,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6460,7 +6431,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6469,7 +6440,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6478,7 +6449,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6487,7 +6458,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6496,7 +6467,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3dd401cc0b0350082140939ecec912656f17a2bef3d2aea5601d603c63a7d208"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

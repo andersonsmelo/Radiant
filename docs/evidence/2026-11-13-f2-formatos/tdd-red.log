@@ -210,3 +210,45 @@ Tests:       1 failed, 1 skipped, 2 total
     ✕ activity:rtg-2026:m03:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
     ✕ activity:rtg-2026:m03:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
 Tests:       18 failed, 6 skipped, 1 passed, 25 total
+
+# RED 8 — achados da revisão independente, antes da correção (2026-11-13T22:56:37Z, node v20.20.2)
+    Expected: "Reveja o conceito."
+    Received: "Dois é errada: o dosímetro não protege."
+    Expected: "authorial-distractor"
+    Received: "source-backed"
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.categorizeDisplayOrder) is not a function
+    TypeError: (0 , _rtgBatchFactory.clozeBankOrder) is not a function
+Tests:       12 failed, 117 passed, 129 total
+not ok 39 - famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false
+  error: 'o defeito passou sem erro'
+# fail 1
+
+# RED 8b — funções extraídas verbatim, sem correção (2026-11-13T22:57:01Z, node v20.20.2)
+    ✕ categorize: recusa o ciclo ABAB, que entrega o resto da resposta pela posição (44 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 1 (1 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 2 (40 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 3 (2 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 1 (6 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 2 (44 ms)
+    ✓ o gerador nunca produz ordem que o contrato recusa: grupos 1 (34 ms)
+    ✕ o gerador nunca produz ordem que o contrato recusa: grupos 4 (3 ms)
+    ✓ cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz (2 ms)
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+    Expected: false
+    Received: true
+Tests:       5 failed, 41 skipped, 4 passed, 50 total
+
+# RED 8c — mutação: rotação do banco do cloze removida (2026-11-13T22:57:23Z)
+    ✕ cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz (2 ms)
+Tests:       1 failed, 49 skipped, 50 total

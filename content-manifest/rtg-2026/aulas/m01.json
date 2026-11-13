@@ -526,15 +526,15 @@
           "type": "cloze",
           "role": "prediction",
           "prompt": "Antes de praticar, preveja e complete a frase sobre confirmar quem é a pessoa, usando o banco de palavras.",
-          "text": "Dizer o nome e esperar um {{1}} induz a resposta; o certo é pedir que a pessoa {{2}} os próprios dados.",
+          "text": "Na confirmação de identidade, o certo é pedir que a pessoa {{1}} nome e data de nascimento, e não que responda {{2}} a um nome que você já disse.",
           "answers": [
-            "sim",
-            "diga"
+            "diga",
+            "sim"
           ],
           "distractors": [
             "não",
-            "anote",
-            "assine"
+            "assine",
+            "esconda"
           ],
           "feedbackCorrect": "Quando a pessoa diz os dados, é ela que os produz. Um sim a um nome dito por você pode ser só engano de quem ouviu mal.",
           "feedbackIncorrect": "Releia a pergunta: se o nome já vem dentro dela, a resposta é só concordar. Peça que a pessoa diga nome completo e data de nascimento.",
@@ -857,7 +857,7 @@
               "category": "Antes do contato"
             },
             {
-              "label": "Você só ajustou a mesa em que ele estava deitado",
+              "label": "Você só ajustou a mesa em que Seu Jorge estava deitado",
               "category": "Depois do contato"
             },
             {
@@ -1284,7 +1284,7 @@
           "distractors": [
             "troca",
             "segue",
-            "paciente"
+            "máquina"
           ],
           "feedbackCorrect": "Pedido e relato não combinam, então você pausa e leva a divergência a quem responde pelo exame, sem trocar a região por conta própria.",
           "feedbackIncorrect": "Retome o que se confere antes da aquisição: se o relato não combina com o pedido, o exame não começa. Quem esclarece é a equipe, não você.",
@@ -1516,9 +1516,9 @@
               "feedback": "Errado: apontar uma característica física expõe a pessoa em vez de chamá-la pelo nome."
             },
             {
-              "text": "Chamar pelo motivo do atendimento revela informação de saúde à sala inteira.",
-              "correct": true,
-              "feedback": "Certo: por isso o motivo não entra na chamada. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
+              "text": "Chamar pelo motivo do atendimento é um jeito respeitoso de chamar a pessoa.",
+              "correct": false,
+              "feedback": "Errado: o motivo revela informação de saúde à sala inteira. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
             }
           ],
           "feedbackCorrect": "Você reconheceu que chamar pelo nome respeita a pessoa, enquanto exame, característica física ou motivo expõem o atendimento a todos.",
@@ -1930,9 +1930,9 @@
               "feedback": "Certo: identidade, pedido, triagem e entendimento conferiram, e seguir é a consequência de cada resposta anterior."
             },
             {
-              "text": "Sem divergência alguma, ainda vale pausar e chamar a equipe por precaução geral.",
-              "correct": false,
-              "feedback": "Errado: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
+              "text": "Sem divergência alguma, não há motivo para pausar nem para chamar a equipe.",
+              "correct": true,
+              "feedback": "Certo: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
             },
             {
               "text": "Repetir toda a identificação desde o início acrescenta conferência, mesmo com os dados já comparados.",

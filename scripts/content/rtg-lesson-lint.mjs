@@ -219,6 +219,12 @@ export function lintUnit(doc, { images = [] } = {}) {
     if (lesson.recovery?.transfer?.item) choice(`${w}.recovery.transfer.item`, lesson.recovery.transfer.item); else err(`${w}.recovery.transfer`, 'item ausente');
   });
 
+  // Com a mesma contagem de certas em todo true-false, a última afirmação se deduz das anteriores.
+  const trueCounts = lessons.flatMap((l) => (Array.isArray(l.interactions) ? l.interactions : []))
+    .filter((it) => it.type === 'true-false' && Array.isArray(it.statements))
+    .map((it) => `${it.statements.filter((st) => st.correct === true).length}/${it.statements.length}`);
+  if (trueCounts.length >= 3 && new Set(trueCounts).size === 1) err('unidade', `todo true-false tem a mesma contagem de certas (${trueCounts[0]}); varie para a última afirmação não se deduzir`);
+
   positions.forEach((count, i) => {
     if (choiceCount >= 12 && count / choiceCount > 0.4) err('unidade', `a resposta correta cai na posição ${i + 1} em ${Math.round((count / choiceCount) * 100)}% dos itens (máx. 40%)`);
     if (choiceCount >= 12 && count / choiceCount < 0.1) err('unidade', `a posição ${i + 1} quase nunca é a correta (${count}/${choiceCount}); distribua`);

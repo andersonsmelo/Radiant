@@ -3,7 +3,8 @@ import { resolve } from 'path';
 import { validateEditorialCurriculumCandidate, type EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 import { WIDE_ACTIVITY_FAMILIES } from './EditorialWideContract';
 import { fingerprintProductionBatchMaterial, validateProductionBatchDraft, type ProductionBatchDraftV1 } from './ProductionBatch';
-import { buildRtgBatch, type RtgUnitSource } from './batches/rtgBatchFactory';
+import { buildRtgBatch, categorizeDisplayOrder, clozeBankOrder, seededDisplayOrder, type RtgUnitSource } from './batches/rtgBatchFactory';
+import { isGroupOrderBiased } from './EditorialWideContract';
 import type { LearningStepV2 } from '../../types/learningActivity';
 
 const source = JSON.parse(readFileSync(resolve(__dirname, '../../../../scripts/content/fixtures/rtg-unit-fixture.json'), 'utf8')) as RtgUnitSource;
@@ -326,7 +327,8 @@ describe('contrato amplo: famílias da 1.6', () => {
         cloze.payload.tokens.forEach(token => expect(claims.get(token.id)?.provenanceKind).toBe(answers.has(token.id) ? 'source-backed' : 'authorial-distractor'));
         multi.payload.options.forEach(option => expect(claims.get(option.id)?.provenanceKind)
             .toBe(multi.payload.correctOptionIds.includes(option.id) ? 'source-backed' : 'authorial-distractor'));
-        [...trueFalse.payload.statements, ...categorize.payload.items].forEach(entry => expect(claims.get(entry.id)?.sourceIds.length).toBeGreaterThan(0));
+        trueFalse.payload.statements.forEach(statement => expect(claims.get(statement.id)?.provenanceKind).toBe(statement.isTrue ? 'source-backed' : 'authorial-distractor'));
+        categorize.payload.items.forEach(entry => expect(claims.get(entry.id)?.sourceIds.length).toBeGreaterThan(0));
     });
 
     it('cloze: wide-answer-position-bias', () => {
@@ -358,7 +360,7 @@ describe('contrato amplo: famílias da 1.6', () => {
         expect(newFamilyIssuesAfter(NEW(3), interaction => {
             if (interaction.type !== 'true-false') throw new Error();
             interaction.payload.statements.forEach(statement => { statement.isTrue = true; });
-        })).toEqual([`wide-constant-answer:${NEW(3)}`]);
+        })).toContain(`wide-constant-answer:${NEW(3)}`);
     });
 
     it('true-false: wide-longest-is-correct', () => {
@@ -418,5 +420,36 @@ describe('contrato amplo: famílias da 1.6', () => {
             expect(newFamilyIssuesAfter(NEW(index), interaction => { interaction.feedback.incorrect = interaction.feedback.correct; }))
                 .toEqual([`wide-feedback-not-distinct:${NEW(index)}`]);
         }
+    });
+});
+
+describe('ordem de exibição das famílias da 1.6 (achados 1, 2 e 8 da revisão de 2026-11-13)', () => {
+    it('categorize: recusa o ciclo ABAB, que entrega o resto da resposta pela posição', () => {
+        expect(newFamilyIssuesAfter(NEW(4), interaction => {
+            if (interaction.type !== 'categorize') throw new Error();
+            const [a, b] = interaction.payload.categories.map(category => category.id);
+            const byGroup = (id: string) => interaction.payload.items.filter(item => item.categoryId === id);
+            const [a1, a2] = byGroup(a); const [b1, b2] = byGroup(b);
+            interaction.payload.items = [a1, b1, a2, b2];
+        })).toEqual([`wide-answer-position-bias:${NEW(4)}`]);
+    });
+
+    it.each([[[1, 3]], [[2, 2]], [[3, 1]], [[1, 1, 4]], [[2, 2, 2]], [[1, 2, 3]], [[4, 1, 1]]])('o gerador nunca produz ordem que o contrato recusa: grupos %p', (sizes: number[]) => {
+        const items = sizes.flatMap((size, group) => Array.from({ length: size }, (_, index) => ({ id: `${group}-${index}`, group: String(group) })));
+        for (let seed = 0; seed < 200; seed += 1) {
+            const order = categorizeDisplayOrder(items, item => item.group, `seed-${seed}`);
+            expect(order.map(item => item.id).sort()).toEqual(items.map(item => item.id).sort());
+            expect(isGroupOrderBiased(order.map(item => item.group), sizes.length)).toBe(false);
+        }
+    });
+
+    it('cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz', () => {
+        const tokens = ['a1', 'a2', 'd1', 'd2'].map(id => ({ id, label: id }));
+        const seed = Array.from({ length: 2000 }, (_, index) => `seed-${index}`)
+            .find(candidate => seededDisplayOrder(tokens, candidate).slice(0, 2).map(token => token.id).join() === 'a1,a2');
+        expect(seed).toBeDefined();
+        const shown = clozeBankOrder(tokens, ['a1', 'a2'], seed!);
+        expect(shown.slice(0, 2).map(token => token.id)).not.toEqual(['a1', 'a2']);
+        expect(shown.map(token => token.id).sort()).toEqual(['a1', 'a2', 'd1', 'd2']);
     });
 });

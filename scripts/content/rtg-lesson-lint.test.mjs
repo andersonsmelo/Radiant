@@ -231,3 +231,15 @@ const NEW_FAMILY_DEFECTS = [
 for (const [name, mutate, pattern] of NEW_FAMILY_DEFECTS) {
   test(`famílias da 1.6: reprova ${name}`, () => expectOnly(newDefect(mutate), pattern));
 }
+
+// Achado 4 da revisão de 2026-11-13: com a mesma contagem de certas em todo
+// true-false da unidade, a última afirmação se deduz das anteriores.
+test('famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false', () => {
+  const doc = withNewFamilies();
+  const base = doc.lessons[0].interactions[2];
+  for (const lesson of doc.lessons.slice(1, 3)) lesson.interactions.splice(2, 1, { ...JSON.parse(JSON.stringify(base)), prompt: `${base.prompt} Aula ${lesson.id}.` });
+  expectOnly(lintUnit(doc), /contagem de certas/);
+  doc.lessons[1].interactions[2].statements[0].correct = false;
+  doc.lessons[1].interactions[2].statements[0].feedback = 'Errado aqui: o texto foi trocado para variar a contagem.';
+  assert.deepEqual(lintUnit(doc).filter(error => /contagem de certas/.test(error)), []);
+});

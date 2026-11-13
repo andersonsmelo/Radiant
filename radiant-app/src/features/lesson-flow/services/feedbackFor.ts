@@ -1,5 +1,5 @@
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
-import { benchDirection, decodeInteractionIdSequence, decodeTrueFalseValue } from '../renderers/InteractionAnswerValue';
+import { benchDirection, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
 
 function filled(text: string | undefined): text is string {
     return typeof text === 'string' && text.trim().length > 0;
@@ -37,11 +37,8 @@ export function feedbackFor(
             const explanation = interaction.payload.options.find((option) => option.id === value)?.explanation;
             return filled(explanation) ? explanation : interaction.feedback.incorrect;
         }
-        case 'true-false': {
-            const judged = decodeTrueFalseValue(value);
-            const wrong = interaction.payload.statements.find((statement, index) => judged[index] !== statement.isTrue);
-            return filled(wrong?.explanation) ? wrong.explanation : interaction.feedback.incorrect;
-        }
+        // true-false: cada afirmação já mostrou e anunciou a própria explicação; o
+        // retorno final usa o de erro autoral, para não repetir o que foi lido.
         case 'multi-select': {
             const chosen = new Set(decodeInteractionIdSequence(value));
             const correct = new Set(interaction.payload.correctOptionIds);

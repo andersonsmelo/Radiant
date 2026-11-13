@@ -235,7 +235,7 @@
           "distractors": [
             "deitado",
             "desenha",
-            "lê"
+            "dorme"
           ],
           "feedbackCorrect": "Direita e esquerda pertencem ao corpo descrito, e a vista decide onde cada lado aparece na tela. O lado do corpo não muda.",
           "feedbackIncorrect": "Releia: o lado é o do corpo descrito, em qualquer postura. Quem observa muda de lugar, mas o corpo não muda de lado.",
@@ -621,9 +621,9 @@
               "feedback": "Certo: visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
             },
             {
-              "text": "O marcador radiopaco é uma peça posta no campo antes da exposição.",
-              "correct": true,
-              "feedback": "Certo: o radiopaco entra antes da exposição, e a anotação digital é feita depois, na imagem."
+              "text": "O marcador radiopaco é anotado na imagem depois da exposição.",
+              "correct": false,
+              "feedback": "Errado: o radiopaco é uma peça posta no campo antes da exposição; a anotação digital é que vem depois, na imagem."
             },
             {
               "text": "Deitado, o paciente deixa de ter lado, e o marcador perde o sentido.",
@@ -862,9 +862,9 @@
               "feedback": "Errado: o coronal é vertical e separa anterior de posterior. Cima e baixo são separados pelo transversal."
             },
             {
-              "text": "O plano transversal é vertical e separa o lado direito do esquerdo.",
-              "correct": false,
-              "feedback": "Errado: o transversal, ou axial, é horizontal. Quem separa direita e esquerda é o sagital."
+              "text": "O plano transversal é horizontal e separa cima de baixo.",
+              "correct": true,
+              "feedback": "Certo: o transversal, ou axial, é horizontal e separa a parte superior da inferior."
             },
             {
               "text": "Um plano sagital é vertical e separa o lado direito do esquerdo.",
@@ -1591,9 +1591,9 @@
               "feedback": "Certo: o abdome é dividido por duas linhas que se cruzam no umbigo, e superior é a parte acima."
             },
             {
-              "text": "O lado do quadrante é o de quem observa e não o do paciente.",
-              "correct": false,
-              "feedback": "Errado: o lado é sempre o do paciente, em qualquer posição de quem olha."
+              "text": "De frente, o superior direito fica acima do umbigo, à sua esquerda.",
+              "correct": true,
+              "feedback": "Certo: acima do umbigo pelo quadrante superior, e à sua esquerda porque o lado direito do paciente, de frente, cruza com o seu."
             },
             {
               "text": "O lado do quadrante é o do paciente, não o de quem olha.",

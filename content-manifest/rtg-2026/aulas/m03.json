@@ -378,9 +378,9 @@
           "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Julgue cada afirmação sobre elas.",
           "statements": [
             {
-              "text": "Volt e ampere medem grandezas diferentes.",
-              "correct": true,
-              "feedback": "Certo: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
+              "text": "Volt e ampere medem a mesma grandeza.",
+              "correct": false,
+              "feedback": "Errado: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
             },
             {
               "text": "Os dois valores são iguais, porque o número é o mesmo.",
@@ -647,18 +647,17 @@
           "type": "cloze",
           "role": "practice",
           "prompt": "Complete a frase sobre leitura de gráficos com as palavras do banco.",
-          "text": "Reta que passa pela origem indica proporção {{1}}; ao dobrar a distância, o modelo da fonte pequena deixa {{2}} da intensidade.",
+          "text": "Reta que passa pela origem indica proporção {{1}}; se dobrar x reduz y à metade, a proporção é {{2}}.",
           "answers": [
             "direta",
-            "um quarto"
+            "inversa"
           ],
           "distractors": [
-            "inversa",
-            "um oitavo",
-            "o dobro"
+            "constante",
+            "horizontal"
           ],
-          "feedbackCorrect": "Reta pela origem é proporção direta, e dobrar a distância deixa um quarto da intensidade. Em cada gráfico, pergunte o que y faz quando x dobra.",
-          "feedbackIncorrect": "Uma lacuna ficou trocada. Teste: se x dobra e y dobra, a proporção é direta; no modelo da fonte pequena, dobrar a distância deixa um quarto.",
+          "feedbackCorrect": "Reta pela origem é proporção direta; quando dobrar uma grandeza reduz a outra à metade, a proporção é inversa. Pergunte sempre o que y faz quando x dobra.",
+          "feedbackIncorrect": "As lacunas ficaram trocadas. Teste: se x dobra e y dobra, a proporção é direta; se x dobra e y cai à metade, a proporção é inversa.",
           "help": "Teste cada desenho com a mesma pergunta: o que acontece com y quando x dobra?",
           "sourceIds": [
             "openstax-cp-graficos",
@@ -1276,36 +1275,41 @@
           "id": "i4",
           "type": "categorize",
           "role": "practice",
-          "prompt": "Classifique cada onda conforme viaje no vácuo ou precise de matéria para se propagar.",
+          "prompt": "Compare cada grandeza com a da luz visível e classifique no grupo certo.",
           "categories": [
-            "Viaja no vácuo",
-            "Precisa de matéria"
+            "Maior que na luz visível",
+            "Menor que na luz visível",
+            "Igual à da luz visível"
           ],
           "items": [
             {
-              "label": "Luz visível",
-              "category": "Viaja no vácuo"
+              "label": "Energia do fóton de raios X",
+              "category": "Maior que na luz visível"
             },
             {
-              "label": "Micro-ondas",
-              "category": "Viaja no vácuo"
+              "label": "Comprimento de onda do infravermelho",
+              "category": "Maior que na luz visível"
             },
             {
-              "label": "Raios X",
-              "category": "Viaja no vácuo"
+              "label": "Comprimento de onda dos raios X",
+              "category": "Menor que na luz visível"
             },
             {
-              "label": "Ultrassom",
-              "category": "Precisa de matéria"
+              "label": "Energia do fóton do infravermelho",
+              "category": "Menor que na luz visível"
             },
             {
-              "label": "Som",
-              "category": "Precisa de matéria"
+              "label": "Velocidade dos raios X no vácuo",
+              "category": "Igual à da luz visível"
+            },
+            {
+              "label": "Velocidade do infravermelho no vácuo",
+              "category": "Igual à da luz visível"
             }
           ],
-          "feedbackCorrect": "Ondas eletromagnéticas, da luz aos raios X, dispensam meio. O som, ultrassom incluído, é onda mecânica e precisa de matéria.",
-          "feedbackIncorrect": "Algum item trocou de grupo. Retome: o espectro eletromagnético viaja no vácuo; som e ultrassom dependem de um meio material.",
-          "help": "Pense na unidade de cada grandeza: metro, hertz ou metro por segundo?",
+          "feedbackCorrect": "No vácuo todas viajam à mesma velocidade. Frequência maior traz fóton com mais energia e comprimento de onda menor; frequência menor, o contrário.",
+          "feedbackIncorrect": "Algum item trocou de grupo. Retome: v = f × λ, E = h × f e a ordem do espectro. Raios X têm frequência maior que a luz visível; o infravermelho, menor.",
+          "help": "Na ordem do espectro, o raio X vem depois da luz visível e o infravermelho vem antes. A velocidade no vácuo muda ao longo do espectro?",
           "sourceIds": [
             "openstax-up1-ondas",
             "openstax-up3-fotons"
@@ -1653,9 +1657,9 @@
               "feedback": "Errado: campo forte e parado não induz nada. O que conta é a mudança do campo."
             },
             {
-              "text": "A indução só funciona se houver uma pilha no circuito.",
-              "correct": false,
-              "feedback": "Errado: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
+              "text": "A tensão induzida surge sem pilha: vem da variação do campo na bobina.",
+              "correct": true,
+              "feedback": "Certo: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
             },
             {
               "text": "Com o ímã parado dentro da bobina, o medidor fica em zero.",
@@ -1945,9 +1949,9 @@
               "feedback": "Errado: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
             },
             {
-              "text": "O fóton de 400 nm carrega mais energia que o de 700 nm.",
-              "correct": true,
-              "feedback": "Certo: E = h × f, e maior frequência significa fóton com mais energia."
+              "text": "O fóton de 400 nm carrega menos energia que o de 700 nm.",
+              "correct": false,
+              "feedback": "Errado: E = h × f, e o de 400 nm tem maior frequência, então carrega mais energia."
             }
           ],
           "feedbackCorrect": "Duas relações em cadeia: menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia.",

@@ -6,7 +6,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m03",
-  "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c",
+  "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04",
   "trackId": "track:rtg-2026:m03",
   "unitId": "unit:rtg-2026:m03",
   "contentVersion": "rtg-2026-m03-v1",
@@ -373,14 +373,14 @@ export const RTG_2026_M03: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m03:aula-01:i2:b"
                 },
                 {
-                  "id": "item:rtg-2026:m03:aula-01:i2:2",
-                  "label": "mega (M)",
-                  "categoryId": "group:rtg-2026:m03:aula-01:i2:a"
-                },
-                {
                   "id": "item:rtg-2026:m03:aula-01:i2:3",
                   "label": "mili (m)",
                   "categoryId": "group:rtg-2026:m03:aula-01:i2:b"
+                },
+                {
+                  "id": "item:rtg-2026:m03:aula-01:i2:2",
+                  "label": "mega (M)",
+                  "categoryId": "group:rtg-2026:m03:aula-01:i2:a"
                 }
               ]
             }
@@ -506,9 +506,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
               "statements": [
                 {
                   "id": "statement:rtg-2026:m03:aula-01:i5:1",
-                  "text": "Volt e ampere medem grandezas diferentes.",
-                  "isTrue": true,
-                  "explanation": "Certo: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
+                  "text": "Volt e ampere medem a mesma grandeza.",
+                  "isTrue": false,
+                  "explanation": "Errado: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
                 },
                 {
                   "id": "statement:rtg-2026:m03:aula-01:i5:2",
@@ -718,32 +718,28 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "help": "Teste cada desenho com a mesma pergunta: o que acontece com y quando x dobra?",
             "type": "cloze",
             "feedback": {
-              "correct": "Reta pela origem é proporção direta, e dobrar a distância deixa um quarto da intensidade. Em cada gráfico, pergunte o que y faz quando x dobra.",
-              "incorrect": "Uma lacuna ficou trocada. Teste: se x dobra e y dobra, a proporção é direta; no modelo da fonte pequena, dobrar a distância deixa um quarto."
+              "correct": "Reta pela origem é proporção direta; quando dobrar uma grandeza reduz a outra à metade, a proporção é inversa. Pergunte sempre o que y faz quando x dobra.",
+              "incorrect": "As lacunas ficaram trocadas. Teste: se x dobra e y dobra, a proporção é direta; se x dobra e y cai à metade, a proporção é inversa."
             },
             "payload": {
               "prompt": "Complete a frase sobre leitura de gráficos com as palavras do banco.",
               "segments": [
                 "Reta que passa pela origem indica proporção ",
-                "; ao dobrar a distância, o modelo da fonte pequena deixa ",
-                " da intensidade."
+                "; se dobrar x reduz y à metade, a proporção é ",
+                "."
               ],
               "tokens": [
                 {
-                  "id": "token:rtg-2026:m03:aula-02:i3:5",
-                  "label": "o dobro"
-                },
-                {
-                  "id": "token:rtg-2026:m03:aula-02:i3:3",
-                  "label": "inversa"
+                  "id": "token:rtg-2026:m03:aula-02:i3:4",
+                  "label": "horizontal"
                 },
                 {
                   "id": "token:rtg-2026:m03:aula-02:i3:2",
-                  "label": "um quarto"
+                  "label": "inversa"
                 },
                 {
-                  "id": "token:rtg-2026:m03:aula-02:i3:4",
-                  "label": "um oitavo"
+                  "id": "token:rtg-2026:m03:aula-02:i3:3",
+                  "label": "constante"
                 },
                 {
                   "id": "token:rtg-2026:m03:aula-02:i3:1",
@@ -1439,51 +1435,60 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Classificação: Classifique cada onda conforme viaje no vácuo ou precise de matéria para se propagar."
+              "label": "Classificação: Compare cada grandeza com a da luz visível e classifique no grupo certo."
             },
-            "help": "Pense na unidade de cada grandeza: metro, hertz ou metro por segundo?",
+            "help": "Na ordem do espectro, o raio X vem depois da luz visível e o infravermelho vem antes. A velocidade no vácuo muda ao longo do espectro?",
             "type": "categorize",
             "feedback": {
-              "correct": "Ondas eletromagnéticas, da luz aos raios X, dispensam meio. O som, ultrassom incluído, é onda mecânica e precisa de matéria.",
-              "incorrect": "Algum item trocou de grupo. Retome: o espectro eletromagnético viaja no vácuo; som e ultrassom dependem de um meio material."
+              "correct": "No vácuo todas viajam à mesma velocidade. Frequência maior traz fóton com mais energia e comprimento de onda menor; frequência menor, o contrário.",
+              "incorrect": "Algum item trocou de grupo. Retome: v = f × λ, E = h × f e a ordem do espectro. Raios X têm frequência maior que a luz visível; o infravermelho, menor."
             },
             "payload": {
-              "prompt": "Classifique cada onda conforme viaje no vácuo ou precise de matéria para se propagar.",
+              "prompt": "Compare cada grandeza com a da luz visível e classifique no grupo certo.",
               "categories": [
                 {
                   "id": "group:rtg-2026:m03:aula-04:i4:a",
-                  "label": "Viaja no vácuo"
+                  "label": "Maior que na luz visível"
                 },
                 {
                   "id": "group:rtg-2026:m03:aula-04:i4:b",
-                  "label": "Precisa de matéria"
+                  "label": "Menor que na luz visível"
+                },
+                {
+                  "id": "group:rtg-2026:m03:aula-04:i4:c",
+                  "label": "Igual à da luz visível"
                 }
               ],
               "items": [
                 {
                   "id": "item:rtg-2026:m03:aula-04:i4:5",
-                  "label": "Som",
-                  "categoryId": "group:rtg-2026:m03:aula-04:i4:b"
+                  "label": "Velocidade dos raios X no vácuo",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:c"
                 },
                 {
                   "id": "item:rtg-2026:m03:aula-04:i4:3",
-                  "label": "Raios X",
-                  "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
-                },
-                {
-                  "id": "item:rtg-2026:m03:aula-04:i4:4",
-                  "label": "Ultrassom",
+                  "label": "Comprimento de onda dos raios X",
                   "categoryId": "group:rtg-2026:m03:aula-04:i4:b"
                 },
                 {
+                  "id": "item:rtg-2026:m03:aula-04:i4:6",
+                  "label": "Velocidade do infravermelho no vácuo",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:c"
+                },
+                {
                   "id": "item:rtg-2026:m03:aula-04:i4:2",
-                  "label": "Micro-ondas",
+                  "label": "Comprimento de onda do infravermelho",
                   "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
                 },
                 {
                   "id": "item:rtg-2026:m03:aula-04:i4:1",
-                  "label": "Luz visível",
+                  "label": "Energia do fóton de raios X",
                   "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
+                },
+                {
+                  "id": "item:rtg-2026:m03:aula-04:i4:4",
+                  "label": "Energia do fóton do infravermelho",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:b"
                 }
               ]
             }
@@ -1850,9 +1855,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m03:aula-05:i5:2",
-                  "text": "A indução só funciona se houver uma pilha no circuito.",
-                  "isTrue": false,
-                  "explanation": "Errado: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
+                  "text": "A tensão induzida surge sem pilha: vem da variação do campo na bobina.",
+                  "isTrue": true,
+                  "explanation": "Certo: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
                 },
                 {
                   "id": "statement:rtg-2026:m03:aula-05:i5:3",
@@ -2152,9 +2157,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m03:aula-06:i4:4",
-                  "text": "O fóton de 400 nm carrega mais energia que o de 700 nm.",
-                  "isTrue": true,
-                  "explanation": "Certo: E = h × f, e maior frequência significa fóton com mais energia."
+                  "text": "O fóton de 400 nm carrega menos energia que o de 700 nm.",
+                  "isTrue": false,
+                  "explanation": "Errado: E = h × f, e o de 400 nm tem maior frequência, então carrega mais energia."
                 }
               ]
             }
@@ -2744,7 +2749,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m03:aula-01:i2:2",
+      "claimId": "item:rtg-2026:m03:aula-01:i2:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2753,7 +2758,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m03:aula-01:i2:3",
+      "claimId": "item:rtg-2026:m03:aula-01:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2925,21 +2930,15 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-01:i5:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up1-unidades",
-        "source:rtg-2026:m03:bipm-si-unidades-base"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-01:i5:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up1-unidades",
-        "source:rtg-2026:m03:bipm-si-unidades-base"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-01:i5:3",
@@ -2952,12 +2951,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-01:i5:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up1-unidades",
-        "source:rtg-2026:m03:bipm-si-unidades-base"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-01:i5:answer",
@@ -3359,13 +3355,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "token:rtg-2026:m03:aula-02:i3:5",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "token:rtg-2026:m03:aula-02:i3:3",
+      "claimId": "token:rtg-2026:m03:aula-02:i3:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -3380,7 +3370,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "token:rtg-2026:m03:aula-02:i3:4",
+      "claimId": "token:rtg-2026:m03:aula-02:i3:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -3502,19 +3492,15 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-02:i5:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up1-intensidade"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-02:i5:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up1-intensidade"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-02:i5:4",
@@ -4001,11 +3987,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-03:i4:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up3-bohr"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-03:i4:2",
@@ -4025,11 +4009,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-03:i4:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up3-bohr"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-03:i4:answer",
@@ -4555,6 +4537,15 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
+      "claimId": "group:rtg-2026:m03:aula-04:i4:c",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-ondas",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
       "claimId": "item:rtg-2026:m03:aula-04:i4:5",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
@@ -4573,7 +4564,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m03:aula-04:i4:4",
+      "claimId": "item:rtg-2026:m03:aula-04:i4:6",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4592,6 +4583,15 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "item:rtg-2026:m03:aula-04:i4:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-ondas",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-04:i4:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5187,11 +5187,9 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-05:i5:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up2-faraday"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-05:i5:2",
@@ -5743,30 +5741,21 @@ export const RTG_2026_M03: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-06:i4:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up2-espectro",
-        "source:rtg-2026:m03:openstax-up3-fotons"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-06:i4:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up2-espectro",
-        "source:rtg-2026:m03:openstax-up3-fotons"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m03:aula-06:i4:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up2-espectro",
-        "source:rtg-2026:m03:openstax-up3-fotons"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-06:i4:answer",
@@ -6542,7 +6531,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     },
     {
       "schemaVersion": 1,
@@ -6551,7 +6540,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     },
     {
       "schemaVersion": 1,
@@ -6560,7 +6549,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     },
     {
       "schemaVersion": 1,
@@ -6569,7 +6558,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     },
     {
       "schemaVersion": 1,
@@ -6578,7 +6567,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     },
     {
       "schemaVersion": 1,
@@ -6587,7 +6576,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
+      "materialSha256": "8c503409aa5a8949cd54518755d9a96d5eddfe88944a6e958ae85d52dced8e04"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m02",
-  "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832",
+  "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852",
   "trackId": "track:rtg-2026:m02",
   "unitId": "unit:rtg-2026:m02",
   "contentVersion": "rtg-2026-m02-v1",
@@ -318,7 +318,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                 },
                 {
                   "id": "token:rtg-2026:m02:aula-01:i3:5",
-                  "label": "lê"
+                  "label": "dorme"
                 },
                 {
                   "id": "token:rtg-2026:m02:aula-01:i3:2",
@@ -605,14 +605,14 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m02:aula-02:i2:a"
                 },
                 {
-                  "id": "item:rtg-2026:m02:aula-02:i2:2",
-                  "label": "Letra L",
-                  "categoryId": "group:rtg-2026:m02:aula-02:i2:b"
-                },
-                {
                   "id": "item:rtg-2026:m02:aula-02:i2:1",
                   "label": "Letra R",
                   "categoryId": "group:rtg-2026:m02:aula-02:i2:a"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-02:i2:2",
+                  "label": "Letra L",
+                  "categoryId": "group:rtg-2026:m02:aula-02:i2:b"
                 }
               ]
             }
@@ -749,9 +749,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-02:i5:3",
-                  "text": "O marcador radiopaco é uma peça posta no campo antes da exposição.",
-                  "isTrue": true,
-                  "explanation": "Certo: o radiopaco entra antes da exposição, e a anotação digital é feita depois, na imagem."
+                  "text": "O marcador radiopaco é anotado na imagem depois da exposição.",
+                  "isTrue": false,
+                  "explanation": "Errado: o radiopaco é uma peça posta no campo antes da exposição; a anotação digital é que vem depois, na imagem."
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-02:i5:4",
@@ -920,9 +920,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-03:i2:3",
-                  "text": "O plano transversal é vertical e separa o lado direito do esquerdo.",
-                  "isTrue": false,
-                  "explanation": "Errado: o transversal, ou axial, é horizontal. Quem separa direita e esquerda é o sagital."
+                  "text": "O plano transversal é horizontal e separa cima de baixo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o transversal, ou axial, é horizontal e separa a parte superior da inferior."
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-03:i2:4",
@@ -971,19 +971,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
               ],
               "items": [
                 {
-                  "id": "item:rtg-2026:m02:aula-03:i3:6",
-                  "label": "Plano axial",
-                  "categoryId": "group:rtg-2026:m02:aula-03:i3:c"
-                },
-                {
                   "id": "item:rtg-2026:m02:aula-03:i3:2",
                   "label": "Plano coronal",
                   "categoryId": "group:rtg-2026:m02:aula-03:i3:b"
-                },
-                {
-                  "id": "item:rtg-2026:m02:aula-03:i3:4",
-                  "label": "Plano mediano",
-                  "categoryId": "group:rtg-2026:m02:aula-03:i3:a"
                 },
                 {
                   "id": "item:rtg-2026:m02:aula-03:i3:3",
@@ -991,9 +981,19 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m02:aula-03:i3:c"
                 },
                 {
+                  "id": "item:rtg-2026:m02:aula-03:i3:6",
+                  "label": "Plano axial",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:c"
+                },
+                {
                   "id": "item:rtg-2026:m02:aula-03:i3:5",
                   "label": "Plano frontal",
                   "categoryId": "group:rtg-2026:m02:aula-03:i3:b"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:4",
+                  "label": "Plano mediano",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:a"
                 },
                 {
                   "id": "item:rtg-2026:m02:aula-03:i3:1",
@@ -1753,9 +1753,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-05:i5:3",
-                  "text": "O lado do quadrante é o de quem observa e não o do paciente.",
-                  "isTrue": false,
-                  "explanation": "Errado: o lado é sempre o do paciente, em qualquer posição de quem olha."
+                  "text": "De frente, o superior direito fica acima do umbigo, à sua esquerda.",
+                  "isTrue": true,
+                  "explanation": "Certo: acima do umbigo pelo quadrante superior, e à sua esquerda porque o lado direito do paciente, de frente, cruza com o seu."
                 },
                 {
                   "id": "statement:rtg-2026:m02:aula-05:i5:4",
@@ -1979,14 +1979,14 @@ export const RTG_2026_M02: ProductionBatchV1 = {
                   "categoryId": "group:rtg-2026:m02:aula-06:i3:b"
                 },
                 {
-                  "id": "item:rtg-2026:m02:aula-06:i3:3",
-                  "label": "Letra L",
-                  "categoryId": "group:rtg-2026:m02:aula-06:i3:a"
-                },
-                {
                   "id": "item:rtg-2026:m02:aula-06:i3:4",
                   "label": "Letra P",
                   "categoryId": "group:rtg-2026:m02:aula-06:i3:b"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-06:i3:3",
+                  "label": "Letra L",
+                  "categoryId": "group:rtg-2026:m02:aula-06:i3:a"
                 }
               ]
             }
@@ -2609,12 +2609,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-01:i2:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-01:i2:3",
@@ -2627,12 +2624,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-01:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-01:i2:answer",
@@ -3206,7 +3200,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m02:aula-02:i2:2",
+      "claimId": "item:rtg-2026:m02:aula-02:i2:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3216,7 +3210,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m02:aula-02:i2:1",
+      "claimId": "item:rtg-2026:m02:aula-02:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3370,12 +3364,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-02:i5:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:burbridge-mah-tc"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-02:i5:2",
@@ -3388,21 +3379,15 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-02:i5:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:burbridge-mah-tc"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-02:i5:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:burbridge-mah-tc"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-02:i5:answer",
@@ -3760,12 +3745,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-03:i2:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:nci-seer-terminologia"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-03:i2:3",
@@ -3849,25 +3831,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m02:aula-03:i3:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:nci-seer-terminologia"
-      ]
-    },
-    {
       "claimId": "item:rtg-2026:m02:aula-03:i3:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:nci-seer-terminologia"
-      ]
-    },
-    {
-      "claimId": "item:rtg-2026:m02:aula-03:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3885,7 +3849,25 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:6",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
       "claimId": "item:rtg-2026:m02:aula-03:i3:5",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4521,12 +4503,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-04:i4:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:openstax-ap-19-1"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-04:i4:2",
@@ -4548,12 +4527,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-04:i4:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:openstax-ap-19-1"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-04:i4:answer",
@@ -5133,11 +5109,9 @@ export const RTG_2026_M02: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-05:i5:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6"
-      ]
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "statement:rtg-2026:m02:aula-05:i5:2",
@@ -5594,7 +5568,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m02:aula-06:i3:3",
+      "claimId": "item:rtg-2026:m02:aula-06:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5603,7 +5577,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "item:rtg-2026:m02:aula-06:i3:4",
+      "claimId": "item:rtg-2026:m02:aula-06:i3:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6444,7 +6418,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6453,7 +6427,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6462,7 +6436,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6471,7 +6445,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6480,7 +6454,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6489,7 +6463,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7d647ed7bffd2860a3c33b8a9926f5066e0c31b4b85c3751070bbd2645f2832"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

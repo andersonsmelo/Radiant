@@ -8,7 +8,7 @@
  * `promoteProductionBatch` lança com a lista de violações.
  */
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from '../EditorialCurriculumCandidate';
-import { wideInteractionClaims, type EditorialLicensedImageV1, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
+import { isGroupOrderBiased, wideInteractionClaims, type EditorialLicensedImageV1, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
 import {
     fingerprintProductionBatchMaterial, promoteProductionBatch, PRODUCTION_BATCH_APPROVAL_GATES,
     type ProductionBatchV1,
@@ -93,17 +93,24 @@ export function seededDisplayOrder<T>(values: readonly T[], seed: string): T[] {
 }
 
 /**
- * Ordem de exibição da categorização: a semente embaralha, e a intercalação por
- * grupo garante que os itens nunca apareçam em blocos, o que entregaria a
- * resposta pela posição. Toma um item de cada grupo por vez, na ordem em que
- * cada grupo aparece primeiro.
+ * Ordem de exibição da categorização: embaralhada pela semente, sem blocos por
+ * grupo nem ciclo que se repita (`isGroupOrderBiased`, a mesma régua do
+ * contrato). Tenta sementes derivadas até achar uma ordem aceita; com 4 a 6
+ * itens em 2 ou 3 grupos sempre existe uma.
  */
-export function interleaveByGroup<T>(values: readonly T[], group: (value: T) => string, seed: string): T[] {
-    const buckets = new Map<string, T[]>();
-    for (const value of seededDisplayOrder(values, seed)) buckets.set(group(value), [...(buckets.get(group(value)) ?? []), value]);
-    const order: T[] = [];
-    while (order.length < values.length) for (const bucket of buckets.values()) { const next = bucket.shift(); if (next !== undefined) order.push(next); }
-    return order;
+export function categorizeDisplayOrder<T>(values: readonly T[], group: (value: T) => string, seed: string): T[] {
+    const groupCount = new Set(values.map(group)).size;
+    for (let attempt = 0; attempt < 200; attempt += 1) {
+        const order = seededDisplayOrder(values, attempt ? `${seed}#${attempt}` : seed);
+        if (!isGroupOrderBiased(order.map(group), groupCount)) return order;
+    }
+    throw new Error(`rtg-categorize-order:${seed}`);
+}
+
+/** Banco do cloze embaralhado pela semente; as respostas nunca o abrem na ordem das lacunas (viés de posição). */
+export function clozeBankOrder<T extends { id: string }>(tokens: readonly T[], answers: readonly string[], seed: string): T[] {
+    const shown = seededDisplayOrder(tokens, seed);
+    return answers.every((tokenId, index) => shown[index]?.id === tokenId) ? [...shown.slice(1), shown[0]] : shown;
 }
 
 export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLicensedImageV1[] = []): RtgBatchBuild {
@@ -179,9 +186,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const parts = source.text.split(/\{\{\d\}\}/);
                 const tokens = [...source.answers, ...source.distractors].map((label, index) => ({ id: id('token', slug, source.id, String(index + 1)), label }));
                 const answers = tokens.slice(0, source.answers.length).map(token => token.id);
-                let shown = seededDisplayOrder(tokens, interactionId);
-                // As respostas nunca abrem o banco na ordem das lacunas: isso seria o viés de posição.
-                if (answers.every((tokenId, index) => shown[index]?.id === tokenId)) shown = [...shown.slice(1), shown[0]];
+                const shown = clozeBankOrder(tokens, answers, interactionId);
                 interaction = { ...base, type: 'cloze', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, segments: parts, tokens: shown,
                         blanks: answers.map((tokenId, index) => ({ id: id('blank', slug, source.id, String(index + 1)), correctTokenId: tokenId })) } };
@@ -194,7 +199,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const items = source.items.map((item, index) => ({ id: id('item', slug, source.id, String(index + 1)), label: item.label,
                     categoryId: categories[source.categories.indexOf(item.category)]?.id ?? '' }));
                 interaction = { ...base, type: 'categorize', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
-                    payload: { prompt: source.prompt, categories, items: interleaveByGroup(items, item => item.categoryId, interactionId) } };
+                    payload: { prompt: source.prompt, categories, items: categorizeDisplayOrder(items, item => item.categoryId, interactionId) } };
             } else if (source.type === 'multi-select') {
                 const options = source.options.map((option, index) => ({ id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback }));
                 interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },

@@ -2951,7 +2951,9 @@ describe('LessonFlowScreen — famílias da 1.6', () => {
   it('erro cobra uma vida só, acerto não cobra, e a conclusão registra XP uma vez', async () => {
     renderWithProviders(<LessonFlowScreen blockId="activity:f2:fixture" nodeId="" resumeCursorId="step-3" />);
     await playToEnd();
-    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringMatching(/^Resposta incorreta\. Errado: o dosímetro só mede a dose\./));
+    // Anúncio único: o resultado final usa o retorno de erro autoral; a explicação da afirmação já foi anunciada ao julgá-la.
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringMatching(/^Resposta incorreta\. Compare cada afirmação com o conceito\./));
+    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes('o dosímetro só mede a dose'))).toHaveLength(1);
   });
 
   it('retomada no meio volta à primeira interação, sem resposta antiga e sem cobrança ao abrir', async () => {
