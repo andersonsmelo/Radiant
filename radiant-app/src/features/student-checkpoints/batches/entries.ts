@@ -224,6 +224,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Aprofundamento em Radiologia Intervencionista."
     }
   },
+  "batch:rtg-2026:m15": {
+    "slug": "rtg-2026-m15",
+    "title": "Células, tecidos e funções",
+    "description": "Da célula ao sistema: partes da célula, ciclo de divisão, quatro tecidos, níveis de organização e a base conceitual da sensibilidade dos tecidos, sem prognóstico individual.",
+    "unitTitle": "Células, tecidos e funções",
+    "reward": {
+      "id": "node:reward:rtg-2026:m15",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Células, tecidos e funções."
+    }
+  },
   "batch:rtg-2026:s-od": {
     "slug": "rtg-2026-s-od",
     "title": "Radiologia odontológica",
