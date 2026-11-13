@@ -22,6 +22,7 @@ import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
 import { MedalShelf } from '../components/MedalShelf';
 import { StreakWeek } from '../components/StreakWeek';
 import { TodayGoals } from '../components/TodayGoals';
+import { LeagueProfileRow } from '../../league/components/LeagueProfileRow';
 
 type Reading<T> = { state: 'loading' } | { state: 'ready'; data: T } | { state: 'unavailable' };
 
@@ -89,6 +90,7 @@ export default function ProfileScreen() {
         <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot?.streakDays ?? null}
           today={today} loading={gamification.state === 'loading'} freezes={freezes.state === 'ready' ? { stored: freezes.data, max: MAX_STREAK_FREEZES, everyDays: STREAK_DAYS_PER_FREEZE } : null} />
         <DailyMissionsCard missions={missions.state === 'ready' ? missions.data : null} onPress={() => router.push('/missions')} />
+        <LeagueProfileRow onPress={() => router.push('/league')} />
         <TodayGoals goal={goal.state === 'ready' ? goal.data : null} dueCount={due.state === 'ready' ? due.data : null}
           goalLoading={goal.state === 'loading'} dueLoading={due.state === 'loading'} />
         {gamification.state !== 'loading' ? <Text key={`total-${fontScale}`} style={styles.total}>

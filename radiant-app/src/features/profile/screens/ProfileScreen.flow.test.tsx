@@ -142,6 +142,27 @@ it('marca apenas a última data do serviço e não transforma contador alto em c
   expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: sem registro disponível')).toBeTruthy();
 });
 
+// Liga semanal (ADR 2026-11-13): a entrada fica no Perfil, como as missões, e
+// só existe com a chave ligada.
+it('com a liga ligada, o Perfil tem a entrada da liga, que leva a /league', async () => {
+  const { router } = jest.requireMock('expo-router');
+  const { AppConfig } = jest.requireActual('../../../config');
+  const chave = jest.replaceProperty(AppConfig, 'ENABLE_LEAGUE', true);
+  try {
+    render(<ProfileScreen />);
+    fireEvent.press(await screen.findByRole('button', { name: 'Liga da semana. Ver sua posição.' }));
+    expect(router.push).toHaveBeenCalledWith('/league');
+  } finally {
+    chave.restore();
+  }
+});
+
+it('com a liga desligada (padrão), o Perfil não tem a entrada da liga', async () => {
+  render(<ProfileScreen />);
+  await screen.findByText('0 de 10');
+  expect(screen.queryByTestId('league-profile-row')).toBeNull();
+});
+
 it('deixa edição em Ajustes e preserva Hoje, XP e leitura de meta no Perfil', async () => {
   render(<ProfileScreen />);
   await screen.findByText('0 de 10');

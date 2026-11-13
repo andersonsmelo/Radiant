@@ -28,6 +28,7 @@ import { subscriptionService } from '../features/subscription/SubscriptionServic
 import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
 import { restaurarBackupNaAbertura, type EventoDeAbertura } from '../features/progress-sync/startupRestore';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
+import { startLeague } from '../features/league/LeagueService';
 import {
   initializeObservability,
   wrapRootWithObservability,
@@ -348,6 +349,12 @@ function RootLayout() {
     return () => cancelAnimationFrame(frame);
   }, [checkpointLaunch.kind, startupPhase]);
 
+  // Liga semanal (ADR 2026-11-13): ouve o XP ganho e envia o pendente. Com
+  // `ENABLE_LEAGUE` desligada, `startLeague` não faz nada.
+  useEffect(() => {
+    if (startupPhase === 'ready') startLeague();
+  }, [startupPhase]);
+
   useEffect(() => {
     if (showWelcome || !pendingWelcomeHref) {
       return;
@@ -508,6 +515,7 @@ function RootLayout() {
         <Stack.Screen name="subscription" />
         <Stack.Screen name="settings" />
         <Stack.Screen name="missions" />
+        <Stack.Screen name="league" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
         <Stack.Screen name="licao-hibrida" />
