@@ -151,3 +151,62 @@ not ok 38 - famílias da 1.6: reprova retorno de erro igual ao de acerto
   error: 'o defeito passou sem erro'
 # pass 21
 # fail 17
+
+# RED 4 — componentes ainda fora do registro (2026-11-13T22:46:44Z, node v20.20.2)
+    ✕ as quatro famílias estão registradas (1 ms)
+    ✓ as durações das microinterações ficam nas faixas pedidas (6 ms)
+    ✕ cloze: o banco preenche as lacunas em ordem, a lacuna devolve a palavra, e o alvo tem 44 pt (5 ms)
+    ✕ cloze: depois de conferir, a lacuna errada mostra a palavra certa em texto (1 ms)
+    ✕ true-false: uma afirmação por vez, com retorno imediato e sem voltar atrás (7 ms)
+    ✕ categorize: toca no item, depois no grupo; o item colocado volta com um toque
+    ✕ categorize: depois de conferir, o item no grupo errado diz qual é o certo
+    ✕ multi-select: caixas de marcar com estado, e o retorno diz o que faltou e o que sobrou (1 ms)
+    ✕ depois de conferir, nenhum controle muda a resposta (1 ms)
+    Expected: true
+    Received: false
+    Unable to find an element with accessibility label: Usar avental na lacuna 1
+    Unable to find an element with text: ✗ Lacuna 1: luva (certa: avental)
+      71 |         expect(screen.getByText('✓ Lacuna 2: tronco')).toBeTruthy();
+    Unable to find an element with accessibility label: Certo: A distância reduz a dose.
+    Unable to find an element with accessibility label: Item: Laudar
+    Unable to find an element with accessibility label: Posicionar, em Clínica, errado; o grupo certo é Técnica
+    Unable to find an element with accessibility label: Distância
+    Unable to find an element with accessibility label: Pressa
+Tests:       8 failed, 1 passed, 9 total
+
+# RED 5 — tocador ainda sem 'Conferir resposta' nas famílias novas (2026-11-13T22:48:05Z, node v20.20.2)
+    ✕ erro cobra uma vida só, acerto não cobra, e a conclusão registra XP uma vez (20 ms)
+    ✕ retomada no meio volta à primeira interação, sem resposta antiga e sem cobrança ao abrir (15 ms)
+    Unable to find an element with text: Conferir resposta
+                              [0m✓ [0m
+    Unable to find an element with text: Conferir resposta
+                              [0m✓ [0m
+Tests:       2 failed, 111 skipped, 113 total
+
+# RED 6 — defeito injetado: o catálogo de revisão continua oferecendo a interação convertida (2026-11-13T22:49:45Z, node v20.20.2)
+    ✕ o cartão convertido sai da fila, os outros ficam com a data, e fila e contagem concordam (4 ms)
+    - Expected  - 0
+    + Received  + 1
+    +   "interaction:rtg-2026:m01:aula-01:i3",
+Tests:       1 failed, 1 skipped, 2 total
+
+# RED 7 — meta de M01 a M03 contra os lotes ainda não regenerados (2026-11-13T22:49:57Z, node v20.20.2)
+    ✕ activity:rtg-2026:m01:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha (1 ms)
+    ✕ activity:rtg-2026:m01:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m01:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha (1 ms)
+    ✕ activity:rtg-2026:m02:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m02:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-01: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-02: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-03: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-04: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-05: duas famílias novas, sem trinca, i1 múltipla escolha
+    ✕ activity:rtg-2026:m03:aula-06: duas famílias novas, sem trinca, i1 múltipla escolha
+Tests:       18 failed, 6 skipped, 1 passed, 25 total

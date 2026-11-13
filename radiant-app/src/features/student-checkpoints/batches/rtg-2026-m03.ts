@@ -6,7 +6,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m03",
-  "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f",
+  "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c",
   "trackId": "track:rtg-2026:m03",
   "unitId": "unit:rtg-2026:m03",
   "contentVersion": "rtg-2026-m03-v1",
@@ -341,36 +341,46 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada prefixo do SI ao que ele faz com a unidade."
+              "label": "Classificação: Classifique cada prefixo do SI conforme o efeito sobre a unidade."
             },
             "help": "Separe primeiro os que aumentam a unidade dos que a reduzem.",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "Quilo e mega aumentam a unidade, mili e micro reduzem. De micro a mili, de mili à unidade, dela a quilo e de quilo a mega, cada passo vale mil.",
-              "incorrect": "Algum par trocou de lado. Retome: letra maiúscula M é mega, que multiplica; m minúsculo é mili, que divide."
+              "correct": "Quilo e mega aumentam a unidade; mili e micro a reduzem. De micro a mili, de mili à unidade, dela a quilo e de quilo a mega, cada passo vale mil.",
+              "incorrect": "Algum prefixo foi para o grupo errado. Retome: M maiúsculo é mega e multiplica; m minúsculo é mili e divide."
             },
             "payload": {
-              "prompt": "Ligue cada prefixo do SI ao que ele faz com a unidade.",
-              "pairs": [
+              "prompt": "Classifique cada prefixo do SI conforme o efeito sobre a unidade.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-01:i2:1",
-                  "left": "quilo (k)",
-                  "right": "multiplica por mil"
+                  "id": "group:rtg-2026:m03:aula-01:i2:a",
+                  "label": "Aumenta a unidade"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-01:i2:2",
-                  "left": "mega (M)",
-                  "right": "multiplica por um milhão"
+                  "id": "group:rtg-2026:m03:aula-01:i2:b",
+                  "label": "Reduz a unidade"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m03:aula-01:i2:1",
+                  "label": "quilo (k)",
+                  "categoryId": "group:rtg-2026:m03:aula-01:i2:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-01:i2:3",
-                  "left": "mili (m)",
-                  "right": "divide por mil"
+                  "id": "item:rtg-2026:m03:aula-01:i2:4",
+                  "label": "micro (µ)",
+                  "categoryId": "group:rtg-2026:m03:aula-01:i2:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-01:i2:4",
-                  "left": "micro (µ)",
-                  "right": "divide por um milhão"
+                  "id": "item:rtg-2026:m03:aula-01:i2:2",
+                  "label": "mega (M)",
+                  "categoryId": "group:rtg-2026:m03:aula-01:i2:a"
+                },
+                {
+                  "id": "item:rtg-2026:m03:aula-01:i2:3",
+                  "label": "mili (m)",
+                  "categoryId": "group:rtg-2026:m03:aula-01:i2:b"
                 }
               ]
             }
@@ -483,39 +493,42 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Duas fichas de treino mostram 100 kV e 100 mA. Um colega diz que os valores são iguais. O que você responde?"
+              "label": "Certo ou errado: Duas fichas de treino mostram 100 kV e 100 mA. Julgue cada afirmação sobre elas."
             },
             "help": "Olhe a letra que vem depois do prefixo em cada valor.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Volt mede tensão e ampere mede corrente. Maior ou menor só faz sentido dentro da mesma grandeza.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Tensão e corrente não se comparam: sem a mesma grandeza, o número sozinho não diz qual valor é maior.",
+              "incorrect": "Alguma afirmação tratou o número como se bastasse. Olhe a unidade depois do prefixo antes de comparar."
             },
             "payload": {
-              "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Um colega diz que os valores são iguais. O que você responde?",
-              "options": [
+              "prompt": "Duas fichas de treino mostram 100 kV e 100 mA. Julgue cada afirmação sobre elas.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m03:aula-01:i5:a",
-                  "label": "São iguais, porque o número é o mesmo nas duas",
-                  "explanation": "Olhar só o número ignora a unidade. Retome: volt e ampere medem grandezas diferentes."
+                  "id": "statement:rtg-2026:m03:aula-01:i5:1",
+                  "text": "Volt e ampere medem grandezas diferentes.",
+                  "isTrue": true,
+                  "explanation": "Certo: volt mede tensão e ampere mede corrente, grandezas que não se confundem."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-01:i5:b",
-                  "label": "O de kV é maior, porque quilo vale mais que mili",
-                  "explanation": "O prefixo só permite comparar valores da mesma grandeza. Aqui uma ficha mede tensão e a outra, corrente."
+                  "id": "statement:rtg-2026:m03:aula-01:i5:2",
+                  "text": "Os dois valores são iguais, porque o número é o mesmo.",
+                  "isTrue": false,
+                  "explanation": "Errado: olhar só o número ignora a unidade. Sem a mesma grandeza, igualdade não faz sentido."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-01:i5:c",
-                  "label": "O de mA é maior, porque corrente conta mais que tensão",
-                  "explanation": "Não existe hierarquia entre grandezas. Confira de novo o que cada unidade mede antes de comparar."
+                  "id": "statement:rtg-2026:m03:aula-01:i5:3",
+                  "text": "Só se compara valor com valor da mesma grandeza.",
+                  "isTrue": true,
+                  "explanation": "Certo: maior ou menor só tem sentido dentro da mesma grandeza, na mesma unidade."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-01:i5:d",
-                  "label": "Não dá para comparar: são grandezas diferentes",
-                  "explanation": "Volt mede tensão e ampere mede corrente. Maior ou menor só faz sentido dentro da mesma grandeza."
+                  "id": "statement:rtg-2026:m03:aula-01:i5:4",
+                  "text": "O de kV é maior, porque quilo vale mais que mili.",
+                  "isTrue": false,
+                  "explanation": "Errado: o prefixo só ordena valores da mesma grandeza; aqui uma ficha é tensão e a outra, corrente."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m03:aula-01:i5:d"
+              ]
             }
           }
         },
@@ -700,36 +713,51 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada descrição de gráfico à relação que ela mostra."
+              "label": "Completar a frase: Complete a frase sobre leitura de gráficos com as palavras do banco."
             },
             "help": "Teste cada desenho com a mesma pergunta: o que acontece com y quando x dobra?",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Você leu o comportamento antes do nome. A pergunta que separa as curvas é sempre a mesma: quando x dobra, o que y faz?",
-              "incorrect": "Dois pares se misturaram. Para cada descrição, teste a pergunta: se x dobra, y dobra, não muda, cai à metade ou cai a um quarto?"
+              "correct": "Reta pela origem é proporção direta, e dobrar a distância deixa um quarto da intensidade. Em cada gráfico, pergunte o que y faz quando x dobra.",
+              "incorrect": "Uma lacuna ficou trocada. Teste: se x dobra e y dobra, a proporção é direta; no modelo da fonte pequena, dobrar a distância deixa um quarto."
             },
             "payload": {
-              "prompt": "Ligue cada descrição de gráfico à relação que ela mostra.",
-              "pairs": [
+              "prompt": "Complete a frase sobre leitura de gráficos com as palavras do banco.",
+              "segments": [
+                "Reta que passa pela origem indica proporção ",
+                "; ao dobrar a distância, o modelo da fonte pequena deixa ",
+                " da intensidade."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-02:i3:1",
-                  "left": "Reta que passa pela origem",
-                  "right": "Proporção direta"
+                  "id": "token:rtg-2026:m03:aula-02:i3:5",
+                  "label": "o dobro"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-02:i3:2",
-                  "left": "Reta horizontal",
-                  "right": "Grandeza que não muda"
+                  "id": "token:rtg-2026:m03:aula-02:i3:3",
+                  "label": "inversa"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-02:i3:3",
-                  "left": "Dobra o x e o y cai à metade",
-                  "right": "Proporção inversa"
+                  "id": "token:rtg-2026:m03:aula-02:i3:2",
+                  "label": "um quarto"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-02:i3:4",
-                  "left": "Dobra o x e o y cai a um quarto",
-                  "right": "Inverso do quadrado"
+                  "id": "token:rtg-2026:m03:aula-02:i3:4",
+                  "label": "um oitavo"
+                },
+                {
+                  "id": "token:rtg-2026:m03:aula-02:i3:1",
+                  "label": "direta"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m03:aula-02:i3:1",
+                  "correctTokenId": "token:rtg-2026:m03:aula-02:i3:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m03:aula-02:i3:2",
+                  "correctTokenId": "token:rtg-2026:m03:aula-02:i3:2"
                 }
               ]
             }
@@ -799,40 +827,42 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Caso com decisão: Que leitura esse modelo prevê a 2 m, e por quê?"
+              "label": "Certo ou errado: Um sensor marca 80 unidades a 1 m de uma lâmpada pequena e vai para 2 m. Julgue cada afirmação pelo modelo de fonte pequena."
             },
             "help": "Por que área a mesma luz se espalha quando a distância dobra?",
-            "type": "case-decision",
+            "type": "true-false",
             "feedback": {
-              "correct": "No modelo, a mesma luz cobre uma área quatro vezes maior a 2 m, e o sensor recebe um quarto. Vale só enquanto a fonte puder ser tratada como pequena.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "No modelo, a luz cobre quatro vezes mais área a 2 m, e o sensor recebe um quarto. Vale só para fonte pequena, sem absorção.",
+              "incorrect": "Alguma afirmação tratou a leitura como se acompanhasse a distância de forma simples. Retome: a luz se espalha por uma área que cresce com o quadrado."
             },
             "payload": {
-              "context": "No laboratório didático, um sensor de luz fica diante de uma lâmpada pequena. A 1 m, o visor marca 80 unidades. A turma afasta o sensor para 2 m, sem mudar a lâmpada nem a sala. Vale o modelo de fonte pequena que espalha a luz por igual, sem absorção.",
-              "prompt": "Que leitura esse modelo prevê a 2 m, e por quê?",
-              "options": [
+              "prompt": "Um sensor marca 80 unidades a 1 m de uma lâmpada pequena e vai para 2 m. Julgue cada afirmação pelo modelo de fonte pequena.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m03:aula-02:i5:a",
-                  "label": "40 unidades, porque dobrar a distância divide a leitura por dois",
-                  "explanation": "Metade seria proporção inversa simples. A luz se espalha por uma área, e a área cresce com o quadrado da distância. Retome o modelo."
+                  "id": "statement:rtg-2026:m03:aula-02:i5:1",
+                  "text": "A 2 m, o modelo prevê 20 unidades no visor.",
+                  "isTrue": true,
+                  "explanation": "Certo: dobrar a distância deixa um quarto da leitura, e 80 dividido por quatro dá 20."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-02:i5:b",
-                  "label": "20 unidades, porque dobrar a distância divide a leitura por quatro",
-                  "explanation": "No modelo, a mesma luz cobre uma área quatro vezes maior a 2 m, e o sensor recebe um quarto. Vale só enquanto a fonte puder ser tratada como pequena."
+                  "id": "statement:rtg-2026:m03:aula-02:i5:2",
+                  "text": "A 2 m, o visor marcaria 40 unidades, a metade de 80.",
+                  "isTrue": false,
+                  "explanation": "Errado: metade seria proporção inversa simples. A área cresce com o quadrado da distância."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-02:i5:c",
-                  "label": "80 unidades, porque a lâmpada continua emitindo a mesma luz",
-                  "explanation": "A lâmpada emite o mesmo, mas a luz chega mais espalhada ao sensor. Confira de novo o que a distância faz com a intensidade."
+                  "id": "statement:rtg-2026:m03:aula-02:i5:3",
+                  "text": "De longe o sensor capta mais luz, e a leitura sobe.",
+                  "isTrue": false,
+                  "explanation": "Errado: o sensor tem o mesmo tamanho; a luz se espalha por mais área e a leitura cai."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-02:i5:d",
-                  "label": "160 unidades, porque de longe o sensor capta uma área bem maior de luz",
-                  "explanation": "O sensor tem o mesmo tamanho nas duas posições; quem cresce é a área por onde a luz se espalha. A leitura cai, não sobe."
+                  "id": "statement:rtg-2026:m03:aula-02:i5:4",
+                  "text": "A mesma luz cobre uma área quatro vezes maior a 2 m.",
+                  "isTrue": true,
+                  "explanation": "Certo: a área cresce com o quadrado da distância, por isso o sensor recebe um quarto."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m03:aula-02:i5:b"
+              ]
             }
           }
         },
@@ -969,36 +999,51 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada termo do esquema do átomo à sua descrição."
+              "label": "Completar a frase: Complete a frase sobre o átomo com as palavras do banco."
             },
             "help": "Comece pelo lugar: o que fica no núcleo e o que fica ao redor?",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Núcleo com prótons e nêutrons, elétrons ao redor, e Z contando os prótons. Esse mapa serve para qualquer esquema de átomo.",
-              "incorrect": "Algum termo foi para o lugar errado. Retome: no núcleo ficam as partículas positivas e as sem carga; as negativas ficam ao redor."
+              "correct": "No núcleo ficam prótons e nêutrons, e os elétrons ocupam níveis ao redor. O número atômico Z conta os prótons do átomo.",
+              "incorrect": "Uma palavra foi para a lacuna errada. Retome: carga positiva no núcleo é próton; carga negativa ao redor do núcleo é elétron."
             },
             "payload": {
-              "prompt": "Ligue cada termo do esquema do átomo à sua descrição.",
-              "pairs": [
+              "prompt": "Complete a frase sobre o átomo com as palavras do banco.",
+              "segments": [
+                "O núcleo tem ",
+                " e nêutrons; os ",
+                " ficam ao redor, em níveis de energia."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-03:i2:1",
-                  "left": "Próton",
-                  "right": "Carga positiva, fica no núcleo"
+                  "id": "token:rtg-2026:m03:aula-03:i2:2",
+                  "label": "elétrons"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-03:i2:2",
-                  "left": "Nêutron",
-                  "right": "Sem carga, fica no núcleo"
+                  "id": "token:rtg-2026:m03:aula-03:i2:1",
+                  "label": "prótons"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-03:i2:3",
-                  "left": "Elétron",
-                  "right": "Carga negativa, ao redor do núcleo"
+                  "id": "token:rtg-2026:m03:aula-03:i2:3",
+                  "label": "fótons"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-03:i2:4",
-                  "left": "Número atômico (Z)",
-                  "right": "Quantidade de prótons do átomo"
+                  "id": "token:rtg-2026:m03:aula-03:i2:5",
+                  "label": "ionização"
+                },
+                {
+                  "id": "token:rtg-2026:m03:aula-03:i2:4",
+                  "label": "átomos"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m03:aula-03:i2:1",
+                  "correctTokenId": "token:rtg-2026:m03:aula-03:i2:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m03:aula-03:i2:2",
+                  "correctTokenId": "token:rtg-2026:m03:aula-03:i2:2"
                 }
               ]
             }
@@ -1068,39 +1113,42 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: No esquema do hidrogênio (modelo de Bohr), o elétron está no nível fundamental, em -13,6 eV, e o nível seguinte fica em -3,4 eV. O átomo absorve um fóton de 10,2 eV. O que o esquema mostra em seguida?"
+              "label": "Certo ou errado: No hidrogênio de Bohr, o elétron está em -13,6 eV e o átomo absorve um fóton de 10,2 eV. Julgue cada afirmação."
             },
             "help": "Compare a energia do fóton com a distância entre os dois níveis.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV. O elétron sobe um nível e continua ligado: é excitação.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "A diferença entre os níveis é 10,2 eV, então o elétron sobe um nível e fica no átomo. É excitação, não ionização.",
+              "incorrect": "Alguma afirmação confundiu excitação com ionização ou envolveu o núcleo. Compare a energia do fóton com a distância entre os dois níveis."
             },
             "payload": {
-              "prompt": "No esquema do hidrogênio (modelo de Bohr), o elétron está no nível fundamental, em -13,6 eV, e o nível seguinte fica em -3,4 eV. O átomo absorve um fóton de 10,2 eV. O que o esquema mostra em seguida?",
-              "options": [
+              "prompt": "No hidrogênio de Bohr, o elétron está em -13,6 eV e o átomo absorve um fóton de 10,2 eV. Julgue cada afirmação.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m03:aula-03:i4:a",
-                  "label": "O elétron sai do átomo, que fica ionizado",
-                  "explanation": "Para sair do nível fundamental o elétron precisaria de 13,6 eV. Com 10,2 eV ele não chega lá: confira a diferença entre os níveis."
+                  "id": "statement:rtg-2026:m03:aula-03:i4:1",
+                  "text": "O elétron sai do átomo, que fica ionizado.",
+                  "isTrue": false,
+                  "explanation": "Errado: sair do nível fundamental exigiria 13,6 eV. Com 10,2 eV há excitação e o elétron continua ligado."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-03:i4:b",
-                  "label": "O elétron sobe para o nível seguinte e fica no átomo",
-                  "explanation": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV. O elétron sobe um nível e continua ligado: é excitação."
+                  "id": "statement:rtg-2026:m03:aula-03:i4:2",
+                  "text": "O elétron sobe para o nível seguinte, em -3,4 eV.",
+                  "isTrue": true,
+                  "explanation": "Certo: -3,4 eV é o nível seguinte, e a absorção leva o elétron até ele."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-03:i4:c",
-                  "label": "O elétron permanece no nível fundamental, sem mudança",
-                  "explanation": "O fóton tem justamente a energia que separa os dois níveis, então a absorção acontece. Retome a conta da diferença."
+                  "id": "statement:rtg-2026:m03:aula-03:i4:3",
+                  "text": "A diferença entre -3,4 eV e -13,6 eV é exatamente 10,2 eV.",
+                  "isTrue": true,
+                  "explanation": "Certo: o fóton tem justamente a energia que separa os dois níveis, então é absorvido."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-03:i4:d",
-                  "label": "O núcleo perde um próton e o átomo muda de elemento",
-                  "explanation": "Esse esquema trata só dos níveis do elétron; o núcleo não participa. Retome onde a energia do fóton é absorvida."
+                  "id": "statement:rtg-2026:m03:aula-03:i4:4",
+                  "text": "O núcleo perde um próton e o átomo muda de elemento.",
+                  "isTrue": false,
+                  "explanation": "Errado: o esquema trata só dos níveis do elétron; o núcleo não participa dessa absorção."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m03:aula-03:i4:b"
+              ]
             }
           }
         },
@@ -1286,39 +1334,44 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Uma onda eletromagnética viaja no vácuo. Se você escolher outra com o dobro da frequência, o que prevê para o comprimento de onda?"
+              "label": "Completar a frase: Complete a relação entre frequência e comprimento de onda no vácuo."
             },
             "help": "O que fica fixo quando a onda eletromagnética está no vácuo?",
-            "type": "multiple-choice",
+            "type": "cloze",
             "feedback": {
-              "correct": "No vácuo, f × λ dá sempre a mesma velocidade. Dobrou a frequência, o comprimento de onda cai à metade.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Como f × λ dá sempre a mesma velocidade, dobrar a frequência leva o comprimento de onda à metade.",
+              "incorrect": "Com a velocidade fixa, o que uma grandeza ganha a outra perde no mesmo fator. Um quarto é marca do inverso do quadrado, que não vale aqui."
             },
             "payload": {
-              "prompt": "Uma onda eletromagnética viaja no vácuo. Se você escolher outra com o dobro da frequência, o que prevê para o comprimento de onda?",
-              "options": [
+              "prompt": "Complete a relação entre frequência e comprimento de onda no vácuo.",
+              "segments": [
+                "No vácuo, a velocidade é fixa: se a frequência dobra, o comprimento de onda cai ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "option:rtg-2026:m03:aula-04:i2:a",
-                  "label": "Fica igual, porque a velocidade não muda",
-                  "explanation": "A velocidade não muda mesmo, mas ela é o produto das outras duas. Se a frequência dobra, algo precisa compensar."
+                  "id": "token:rtg-2026:m03:aula-04:i2:2",
+                  "label": "a um quarto"
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-04:i2:b",
-                  "label": "Dobra, porque acompanha a frequência",
-                  "explanation": "Se os dois dobrassem, a velocidade quadruplicaria. No vácuo ela é fixa: retome v = f × λ."
+                  "id": "token:rtg-2026:m03:aula-04:i2:4",
+                  "label": "a zero"
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-04:i2:c",
-                  "label": "Cai a um quarto, pela lei do inverso do quadrado",
-                  "explanation": "O inverso do quadrado descreve intensidade e distância. Entre frequência e comprimento de onda a relação é um produto simples."
+                  "id": "token:rtg-2026:m03:aula-04:i2:3",
+                  "label": "ao dobro"
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-04:i2:d",
-                  "label": "Cai à metade, porque o produto é constante",
-                  "explanation": "No vácuo, f × λ dá sempre a mesma velocidade. Dobrou a frequência, o comprimento de onda cai à metade."
+                  "id": "token:rtg-2026:m03:aula-04:i2:1",
+                  "label": "à metade"
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m03:aula-04:i2:d"
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m03:aula-04:i2:1",
+                  "correctTokenId": "token:rtg-2026:m03:aula-04:i2:1"
+                }
+              ]
             }
           }
         },
@@ -1386,36 +1439,51 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada grandeza da aula à sua descrição."
+              "label": "Classificação: Classifique cada onda conforme viaje no vácuo ou precise de matéria para se propagar."
             },
             "help": "Pense na unidade de cada grandeza: metro, hertz ou metro por segundo?",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "Uma mede distância ao longo da onda, uma mede o ritmo e uma mede o avanço. A energia do fóton acompanha o ritmo: frequência maior, mais energia.",
-              "incorrect": "Dois termos se confundiram. Retome pelas unidades: comprimento de onda em metros, frequência em hertz, velocidade em metros por segundo."
+              "correct": "Ondas eletromagnéticas, da luz aos raios X, dispensam meio. O som, ultrassom incluído, é onda mecânica e precisa de matéria.",
+              "incorrect": "Algum item trocou de grupo. Retome: o espectro eletromagnético viaja no vácuo; som e ultrassom dependem de um meio material."
             },
             "payload": {
-              "prompt": "Ligue cada grandeza da aula à sua descrição.",
-              "pairs": [
+              "prompt": "Classifique cada onda conforme viaje no vácuo ou precise de matéria para se propagar.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-04:i4:1",
-                  "left": "Comprimento de onda",
-                  "right": "Distância entre duas cristas vizinhas"
+                  "id": "group:rtg-2026:m03:aula-04:i4:a",
+                  "label": "Viaja no vácuo"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-04:i4:2",
-                  "left": "Frequência",
-                  "right": "Número de oscilações por segundo"
+                  "id": "group:rtg-2026:m03:aula-04:i4:b",
+                  "label": "Precisa de matéria"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m03:aula-04:i4:5",
+                  "label": "Som",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-04:i4:3",
-                  "left": "Velocidade da onda",
-                  "right": "Distância que a onda avança por segundo"
+                  "id": "item:rtg-2026:m03:aula-04:i4:3",
+                  "label": "Raios X",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-04:i4:4",
-                  "left": "Energia do fóton",
-                  "right": "Aumenta quando a frequência aumenta"
+                  "id": "item:rtg-2026:m03:aula-04:i4:4",
+                  "label": "Ultrassom",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:b"
+                },
+                {
+                  "id": "item:rtg-2026:m03:aula-04:i4:2",
+                  "label": "Micro-ondas",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
+                },
+                {
+                  "id": "item:rtg-2026:m03:aula-04:i4:1",
+                  "label": "Luz visível",
+                  "categoryId": "group:rtg-2026:m03:aula-04:i4:a"
                 }
               ]
             }
@@ -1607,36 +1675,51 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada grandeza elétrica ou magnética à sua unidade."
+              "label": "Completar a frase: Complete a frase sobre unidades elétricas e magnéticas com o banco."
             },
             "help": "Leia a unidade por extenso: o que está sendo dividido pelo quê?",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Tensão é energia por carga, corrente é carga por tempo. As próprias unidades contam o que cada grandeza mede.",
-              "incorrect": "Tensão e corrente trocaram de unidade. Retome: joule por coulomb fala de energia; coulomb por segundo fala de ritmo."
+              "correct": "Volt é joule por coulomb, e o campo magnético se mede em tesla. Ampere e coulomb ficam para corrente e carga.",
+              "incorrect": "Uma unidade trocou de lugar. Retome: joule por coulomb é a tensão em volts; o tesla mede o campo magnético."
             },
             "payload": {
-              "prompt": "Ligue cada grandeza elétrica ou magnética à sua unidade.",
-              "pairs": [
+              "prompt": "Complete a frase sobre unidades elétricas e magnéticas com o banco.",
+              "segments": [
+                "A tensão é energia por carga e se mede em ",
+                "; o campo magnético se mede em ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-05:i2:1",
-                  "left": "Tensão",
-                  "right": "volt (V): joule por coulomb"
+                  "id": "token:rtg-2026:m03:aula-05:i2:3",
+                  "label": "ampere"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-05:i2:2",
-                  "left": "Corrente",
-                  "right": "ampere (A): coulomb por segundo"
+                  "id": "token:rtg-2026:m03:aula-05:i2:2",
+                  "label": "tesla"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-05:i2:3",
-                  "left": "Carga",
-                  "right": "coulomb (C)"
+                  "id": "token:rtg-2026:m03:aula-05:i2:4",
+                  "label": "coulomb"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-05:i2:4",
-                  "left": "Campo magnético",
-                  "right": "tesla (T)"
+                  "id": "token:rtg-2026:m03:aula-05:i2:5",
+                  "label": "joule"
+                },
+                {
+                  "id": "token:rtg-2026:m03:aula-05:i2:1",
+                  "label": "volt"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m03:aula-05:i2:1",
+                  "correctTokenId": "token:rtg-2026:m03:aula-05:i2:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m03:aula-05:i2:2",
+                  "correctTokenId": "token:rtg-2026:m03:aula-05:i2:2"
                 }
               ]
             }
@@ -1748,39 +1831,42 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Num kit didático, um ímã fica parado dentro de uma bobina ligada a um medidor. Depois, alguém puxa o ímã para fora rapidamente. O que o medidor mostra nos dois momentos?"
+              "label": "Certo ou errado: Um ímã fica parado numa bobina ligada a um medidor e depois é puxado para fora. Julgue cada afirmação."
             },
             "help": "Compare os dois momentos: em qual deles o campo dentro da bobina está mudando?",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
               "correct": "Só há tensão induzida enquanto o campo que atravessa a bobina varia. Com o ímã parado, o medidor fica em zero.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "incorrect": "Alguma afirmação supôs que a presença do campo bastasse. Compare os dois momentos: em qual deles o campo dentro da bobina está mudando?"
             },
             "payload": {
-              "prompt": "Num kit didático, um ímã fica parado dentro de uma bobina ligada a um medidor. Depois, alguém puxa o ímã para fora rapidamente. O que o medidor mostra nos dois momentos?",
-              "options": [
+              "prompt": "Um ímã fica parado numa bobina ligada a um medidor e depois é puxado para fora. Julgue cada afirmação.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m03:aula-05:i5:a",
-                  "label": "Tensão nos dois momentos, porque o ímã está sempre presente",
-                  "explanation": "A presença do campo não basta. Retome: o que precisa acontecer com o campo para surgir tensão na bobina?"
+                  "id": "statement:rtg-2026:m03:aula-05:i5:1",
+                  "text": "Com o ímã parado, o medidor mostra tensão por causa do campo forte.",
+                  "isTrue": false,
+                  "explanation": "Errado: campo forte e parado não induz nada. O que conta é a mudança do campo."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-05:i5:b",
-                  "label": "Nada nos dois momentos, porque não há pilha no circuito",
-                  "explanation": "A indução dispensa pilha: a tensão vem da variação do campo que atravessa a bobina. Confira o segundo momento."
+                  "id": "statement:rtg-2026:m03:aula-05:i5:2",
+                  "text": "A indução só funciona se houver uma pilha no circuito.",
+                  "isTrue": false,
+                  "explanation": "Errado: a indução dispensa pilha; a tensão vem da variação do campo na bobina."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-05:i5:c",
-                  "label": "Tensão só com o ímã parado, quando o campo é mais forte",
-                  "explanation": "Campo forte e parado não induz nada. O que conta é a mudança do campo ao longo do tempo."
+                  "id": "statement:rtg-2026:m03:aula-05:i5:3",
+                  "text": "Com o ímã parado dentro da bobina, o medidor fica em zero.",
+                  "isTrue": true,
+                  "explanation": "Certo: sem variação do campo que atravessa a bobina, não há tensão induzida."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-05:i5:d",
-                  "label": "Nada com o ímã parado e tensão enquanto ele se move",
-                  "explanation": "Só há tensão induzida enquanto o campo que atravessa a bobina varia. Com o ímã parado, o medidor fica em zero."
+                  "id": "statement:rtg-2026:m03:aula-05:i5:4",
+                  "text": "Enquanto o ímã se move, o campo na bobina varia e surge tensão.",
+                  "isTrue": true,
+                  "explanation": "Certo: a tensão aparece só enquanto o campo que atravessa a bobina muda."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m03:aula-05:i5:d"
+              ]
             }
           }
         },
@@ -1974,36 +2060,51 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada situação à relação que a resolve."
+              "label": "Completar a frase: Complete as frases com a relação que resolve cada situação."
             },
             "help": "Procure, em cada relação, as grandezas que a situação menciona.",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Em cada par, a relação contém justamente as grandezas que a situação cita. Esse é o critério da escolha.",
-              "incorrect": "Alguma relação não contém as grandezas da situação a que foi ligada. Confira de novo: quais letras aparecem em cada uma?"
+              "correct": "A relação certa contém justamente as grandezas da situação: v, f e λ para a onda; Q, I e t para a carga.",
+              "incorrect": "Alguma relação ficou na situação errada. Confira quais letras aparecem em cada uma: a energia do fóton, por exemplo, não entra aqui."
             },
             "payload": {
-              "prompt": "Ligue cada situação à relação que a resolve.",
-              "pairs": [
+              "prompt": "Complete as frases com a relação que resolve cada situação.",
+              "segments": [
+                "Para achar o comprimento de onda pela frequência, uso ",
+                "; para a carga com corrente e tempo, uso ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m03:aula-06:i3:1",
-                  "left": "Escrever 0,3 s em milissegundos",
-                  "right": "Prefixo do SI: multiplicar por mil"
+                  "id": "token:rtg-2026:m03:aula-06:i3:1",
+                  "label": "v = f × λ"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-06:i3:2",
-                  "left": "Achar o comprimento de onda pela frequência",
-                  "right": "v = f × λ"
+                  "id": "token:rtg-2026:m03:aula-06:i3:5",
+                  "label": "prefixo do SI"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-06:i3:3",
-                  "left": "Achar a carga com corrente e tempo",
-                  "right": "Q = I × t"
+                  "id": "token:rtg-2026:m03:aula-06:i3:3",
+                  "label": "E = h × f"
                 },
                 {
-                  "id": "pair:rtg-2026:m03:aula-06:i3:4",
-                  "left": "Achar a energia do elétron acelerado",
-                  "right": "Energia em eV = tensão em V"
+                  "id": "token:rtg-2026:m03:aula-06:i3:4",
+                  "label": "inverso do quadrado"
+                },
+                {
+                  "id": "token:rtg-2026:m03:aula-06:i3:2",
+                  "label": "Q = I × t"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m03:aula-06:i3:1",
+                  "correctTokenId": "token:rtg-2026:m03:aula-06:i3:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m03:aula-06:i3:2",
+                  "correctTokenId": "token:rtg-2026:m03:aula-06:i3:2"
                 }
               ]
             }
@@ -2020,40 +2121,42 @@ export const RTG_2026_M03: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Caso com decisão: Que resposta você escreve?"
+              "label": "Certo ou errado: Dois fótons de luz visível viajam no vácuo, um de 400 nm e outro de 700 nm. Julgue cada afirmação sobre eles."
             },
             "help": "A situação dá comprimento de onda e pede energia. Que grandeza faz a ponte entre as duas?",
-            "type": "case-decision",
+            "type": "true-false",
             "feedback": {
-              "correct": "Duas relações em cadeia: no vácuo, menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Duas relações em cadeia: menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia.",
+              "incorrect": "Alguma justificativa usou a relação errada. Siga a cadeia: v = f × λ liga comprimento e frequência, e E = h × f liga frequência e energia."
             },
             "payload": {
-              "context": "No quadro de revisão há dois fótons de luz visível: um com comprimento de onda de 400 nm (nanômetros) e outro com 700 nm. Os dois viajam no vácuo. A tarefa pede para dizer qual carrega mais energia e justificar a resposta.",
-              "prompt": "Que resposta você escreve?",
-              "options": [
+              "prompt": "Dois fótons de luz visível viajam no vácuo, um de 400 nm e outro de 700 nm. Julgue cada afirmação sobre eles.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m03:aula-06:i4:a",
-                  "label": "O de 700 nm: maior λ, maior f (v = f × λ), mais energia (E = h × f)",
-                  "explanation": "A cadeia tem os dois elos, mas o primeiro saiu invertido: com a velocidade fixa, comprimento de onda maior vem com frequência menor. Retome v = f × λ."
+                  "id": "statement:rtg-2026:m03:aula-06:i4:1",
+                  "text": "O de 400 nm tem maior frequência, porque a velocidade é fixa.",
+                  "isTrue": true,
+                  "explanation": "Certo: com velocidade fixa no vácuo, menor comprimento de onda vem com maior frequência."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-06:i4:b",
-                  "label": "O de 400 nm: menor λ, maior f (v = f × λ), mais energia (E = h × f)",
-                  "explanation": "Duas relações em cadeia: no vácuo, menor comprimento de onda significa maior frequência, e maior frequência significa fóton com mais energia."
+                  "id": "statement:rtg-2026:m03:aula-06:i4:2",
+                  "text": "Os dois têm a mesma energia, pois viajam à mesma velocidade.",
+                  "isTrue": false,
+                  "explanation": "Errado: a velocidade é igual, mas ela não mede a energia do fóton; quem mede é a frequência."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-06:i4:c",
-                  "label": "Os dois iguais: no vácuo a velocidade é a mesma (v = f × λ)",
-                  "explanation": "A velocidade é igual, mas ela não mede a energia do fóton. Confira de novo qual relação fala de energia."
+                  "id": "statement:rtg-2026:m03:aula-06:i4:3",
+                  "text": "O inverso do quadrado mostra que o de 400 nm é mais intenso.",
+                  "isTrue": false,
+                  "explanation": "Errado: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
                 },
                 {
-                  "id": "option:rtg-2026:m03:aula-06:i4:d",
-                  "label": "O de 400 nm: luz de λ menor é sempre mais intensa (inverso do quadrado)",
-                  "explanation": "O fóton está certo, a justificativa não: o inverso do quadrado liga intensidade e distância, e a tarefa não cita nenhuma das duas."
+                  "id": "statement:rtg-2026:m03:aula-06:i4:4",
+                  "text": "O fóton de 400 nm carrega mais energia que o de 700 nm.",
+                  "isTrue": true,
+                  "explanation": "Certo: E = h × f, e maior frequência significa fóton com mais energia."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m03:aula-06:i4:b"
+              ]
             }
           }
         },
@@ -2605,7 +2708,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-01:i2:1",
+      "claimId": "group:rtg-2026:m03:aula-01:i2:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2614,7 +2717,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-01:i2:2",
+      "claimId": "group:rtg-2026:m03:aula-01:i2:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2623,7 +2726,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-01:i2:3",
+      "claimId": "item:rtg-2026:m03:aula-01:i2:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2632,7 +2735,25 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-01:i2:4",
+      "claimId": "item:rtg-2026:m03:aula-01:i2:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:bipm-si-prefixos",
+        "source:rtg-2026:m03:openstax-up1-unidades"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-01:i2:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:bipm-si-prefixos",
+        "source:rtg-2026:m03:openstax-up1-unidades"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-01:i2:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2803,25 +2924,43 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-01:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-01:i5:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-unidades",
+        "source:rtg-2026:m03:bipm-si-unidades-base"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-01:i5:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-01:i5:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-unidades",
+        "source:rtg-2026:m03:bipm-si-unidades-base"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-01:i5:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-01:i5:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-unidades",
+        "source:rtg-2026:m03:bipm-si-unidades-base"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-01:i5:d",
+      "claimId": "statement:rtg-2026:m03:aula-01:i5:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-unidades",
+        "source:rtg-2026:m03:bipm-si-unidades-base"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m03:aula-01:i5:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3202,7 +3341,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-02:i3:1",
+      "claimId": "blank:rtg-2026:m03:aula-02:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3211,7 +3350,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-02:i3:2",
+      "claimId": "blank:rtg-2026:m03:aula-02:i3:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3220,8 +3359,20 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-02:i3:3",
-      "claimKind": "prompt",
+      "claimId": "token:rtg-2026:m03:aula-02:i3:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-02:i3:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-02:i3:2",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-cp-graficos",
@@ -3229,16 +3380,13 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-02:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-cp-graficos",
-        "source:rtg-2026:m03:openstax-up1-intensidade"
-      ]
+      "claimId": "token:rtg-2026:m03:aula-02:i3:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "interaction:rtg-2026:m03:aula-02:i3:answer",
+      "claimId": "token:rtg-2026:m03:aula-02:i3:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3345,30 +3493,44 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-02:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m03:aula-02:i5:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m03:aula-02:i5:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-up1-intensidade"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-02:i5:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-02:i5:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-intensidade"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-02:i5:d",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-02:i5:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-intensidade"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m03:aula-02:i5:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-intensidade"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m03:aula-02:i5:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-intensidade"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-02:i5:feedback:correct",
@@ -3686,7 +3848,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-03:i2:1",
+      "claimId": "blank:rtg-2026:m03:aula-03:i2:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3695,7 +3857,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-03:i2:2",
+      "claimId": "blank:rtg-2026:m03:aula-03:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3704,31 +3866,40 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-03:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up3-nucleos",
-        "source:rtg-2026:m03:openstax-up2-corrente"
-      ]
-    },
-    {
-      "claimId": "pair:rtg-2026:m03:aula-03:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up3-nucleos",
-        "source:rtg-2026:m03:openstax-up2-corrente"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m03:aula-03:i2:answer",
+      "claimId": "token:rtg-2026:m03:aula-03:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-up3-nucleos",
         "source:rtg-2026:m03:openstax-up2-corrente"
       ]
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-03:i2:1",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up3-nucleos",
+        "source:rtg-2026:m03:openstax-up2-corrente"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-03:i2:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-03:i2:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-03:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-03:i2:feedback:correct",
@@ -3829,30 +4000,44 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-03:i4:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m03:aula-03:i4:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m03:aula-03:i4:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-up3-bohr"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-03:i4:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-03:i4:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up3-bohr"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-03:i4:d",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-03:i4:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up3-bohr"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m03:aula-03:i4:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up3-bohr"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m03:aula-03:i4:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up3-bohr"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-03:i4:feedback:correct",
@@ -4217,25 +4402,34 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-04:i2:a",
+      "claimId": "blank:rtg-2026:m03:aula-04:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-espectro",
+        "source:rtg-2026:m03:openstax-up1-ondas"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-04:i2:2",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-04:i2:b",
+      "claimId": "token:rtg-2026:m03:aula-04:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-04:i2:c",
+      "claimId": "token:rtg-2026:m03:aula-04:i2:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-04:i2:d",
+      "claimId": "token:rtg-2026:m03:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4343,7 +4537,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-04:i4:1",
+      "claimId": "group:rtg-2026:m03:aula-04:i4:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4352,7 +4546,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-04:i4:2",
+      "claimId": "group:rtg-2026:m03:aula-04:i4:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4361,7 +4555,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-04:i4:3",
+      "claimId": "item:rtg-2026:m03:aula-04:i4:5",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4370,7 +4564,34 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-04:i4:4",
+      "claimId": "item:rtg-2026:m03:aula-04:i4:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-ondas",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-04:i4:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-ondas",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-04:i4:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up1-ondas",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m03:aula-04:i4:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4765,7 +4986,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-05:i2:1",
+      "claimId": "blank:rtg-2026:m03:aula-05:i2:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4776,7 +4997,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-05:i2:2",
+      "claimId": "blank:rtg-2026:m03:aula-05:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4787,8 +5008,14 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-05:i2:3",
-      "claimKind": "prompt",
+      "claimId": "token:rtg-2026:m03:aula-05:i2:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-05:i2:2",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-up2-potencial",
@@ -4798,18 +5025,19 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-05:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:openstax-up2-potencial",
-        "source:rtg-2026:m03:openstax-up2-corrente",
-        "source:rtg-2026:m03:openstax-up2-campo-magnetico",
-        "source:rtg-2026:m03:openstax-up2-fontes-campo"
-      ]
+      "claimId": "token:rtg-2026:m03:aula-05:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "interaction:rtg-2026:m03:aula-05:i2:answer",
+      "claimId": "token:rtg-2026:m03:aula-05:i2:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-05:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4958,25 +5186,39 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-05:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-05:i5:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-faraday"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-05:i5:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-05:i5:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-faraday"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-05:i5:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-05:i5:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-faraday"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-05:i5:d",
+      "claimId": "statement:rtg-2026:m03:aula-05:i5:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-faraday"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m03:aula-05:i5:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5398,7 +5640,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-06:i3:1",
+      "claimId": "blank:rtg-2026:m03:aula-06:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5409,7 +5651,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-06:i3:2",
+      "claimId": "blank:rtg-2026:m03:aula-06:i3:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5420,8 +5662,8 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-06:i3:3",
-      "claimKind": "prompt",
+      "claimId": "token:rtg-2026:m03:aula-06:i3:1",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:bipm-si-prefixos",
@@ -5431,18 +5673,25 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m03:aula-06:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m03:bipm-si-prefixos",
-        "source:rtg-2026:m03:openstax-up1-ondas",
-        "source:rtg-2026:m03:openstax-up2-corrente",
-        "source:rtg-2026:m03:openstax-up2-potencial"
-      ]
+      "claimId": "token:rtg-2026:m03:aula-06:i3:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "interaction:rtg-2026:m03:aula-06:i3:answer",
+      "claimId": "token:rtg-2026:m03:aula-06:i3:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-06:i3:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m03:aula-06:i3:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5484,14 +5733,8 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-06:i4:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m03:aula-06:i4:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m03:aula-06:i4:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m03:openstax-up2-espectro",
@@ -5499,16 +5742,40 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-06:i4:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-06:i4:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-espectro",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m03:aula-06:i4:d",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m03:aula-06:i4:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-espectro",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m03:aula-06:i4:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-espectro",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m03:aula-06:i4:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m03:openstax-up2-espectro",
+        "source:rtg-2026:m03:openstax-up3-fotons"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m03:aula-06:i4:feedback:correct",
@@ -6275,7 +6542,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     },
     {
       "schemaVersion": 1,
@@ -6284,7 +6551,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     },
     {
       "schemaVersion": 1,
@@ -6293,7 +6560,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     },
     {
       "schemaVersion": 1,
@@ -6302,7 +6569,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     },
     {
       "schemaVersion": 1,
@@ -6311,7 +6578,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     },
     {
       "schemaVersion": 1,
@@ -6320,7 +6587,7 @@ export const RTG_2026_M03: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e24f3bc1eee0a3e176bdc2754ea82ef8508a8f7d2909e5b969203e76427ec96f"
+      "materialSha256": "ee0ab448cd1e2609d55adb5678d715bd2a35e23d4c4f8f292b3ecb95a3de9d8c"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

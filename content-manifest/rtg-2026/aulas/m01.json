@@ -176,28 +176,37 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Associe cada situação da sala simulada ao tipo de situação que ela representa.",
-          "pairs": [
+          "prompt": "Classifique cada situação da sala simulada no grupo a que ela pertence.",
+          "categories": [
+            "Tarefa técnica",
+            "Decisão clínica",
+            "Pedir apoio"
+          ],
+          "items": [
             {
-              "left": "Posicionar e conferir o enquadramento",
-              "right": "Tarefa técnica da aquisição"
+              "label": "Posicionar e conferir o enquadramento",
+              "category": "Tarefa técnica"
             },
             {
-              "left": "Dizer o que a imagem mostra",
-              "right": "Interpretação, que pertence ao laudo médico"
+              "label": "Dizer o que a imagem mostra",
+              "category": "Decisão clínica"
             },
             {
-              "left": "Escolher qual exame responde à queixa",
-              "right": "Indicação, decidida por quem solicita o exame"
+              "label": "Orientar o paciente durante o exame",
+              "category": "Tarefa técnica"
             },
             {
-              "left": "O pedido não combina com o relato do paciente",
-              "right": "Dúvida: descrever e pedir apoio à equipe"
+              "label": "Escolher qual exame responde à queixa",
+              "category": "Decisão clínica"
+            },
+            {
+              "label": "O pedido não combina com o relato do paciente",
+              "category": "Pedir apoio"
             }
           ],
-          "feedbackCorrect": "Você separou as quatro situações: adquirir é tarefa técnica, interpretar e indicar são decisões clínicas, e a divergência vai para a equipe.",
+          "feedbackCorrect": "Você separou: adquirir e orientar são tarefa técnica, interpretar e indicar são decisões clínicas, e o que não confere pede apoio da equipe.",
           "feedbackIncorrect": "Confira de novo: pergunte, em cada cartão, se a ação produz a imagem, conclui algo sobre ela, escolhe o exame ou revela algo que não confere.",
           "help": "Para cada situação, pergunte: isto produz a imagem, conclui algo sobre ela ou mostra que algo não confere?",
           "sourceIds": [
@@ -209,31 +218,33 @@
         },
         {
           "id": "i3",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "practice",
-          "prompt": "Logo após a aquisição simulada, Dona Marta pergunta: “Deu para ver se quebrou?”. Qual resposta fica dentro do seu papel nesta simulação?",
-          "options": [
+          "prompt": "Dona Marta pergunta se deu para ver se quebrou. Julgue cada resposta quanto ao seu papel nesta simulação.",
+          "statements": [
             {
-              "label": "“Pela imagem, parece que não tem nada quebrado, pode ficar tranquila.”",
+              "text": "A resposta “pela imagem, parece que não tem nada quebrado” está dentro do seu papel.",
               "correct": false,
-              "feedback": "Essa fala interpreta a imagem, o que pertence ao laudo médico. Retome o que é tarefa técnica nesta simulação."
+              "feedback": "Errado: dizer o que a imagem mostra é interpretar, e a interpretação pertence ao laudo médico."
             },
             {
-              "label": "“Quem avalia a imagem é o médico, e o resultado vem no laudo.”",
+              "text": "Dizer que quem avalia é o médico e que o resultado vem no laudo orienta sem interpretar.",
               "correct": true,
-              "feedback": "Você orientou a paciente sem interpretar: disse quem avalia e onde o resultado aparece."
+              "feedback": "Certo: você orientou a paciente sem interpretar, dizendo quem avalia e onde o resultado aparece."
             },
             {
-              "label": "“Vamos repetir o exame agora, só para a senhora ter certeza.”",
+              "text": "Oferecer repetir o exame agora, para a paciente ter certeza, está dentro do seu papel.",
               "correct": false,
-              "feedback": "Repetir para tirar a dúvida seria decidir um novo exame. Confira de novo: a pergunta dela é sobre o resultado."
+              "feedback": "Errado: repetir para tirar a dúvida seria decidir um novo exame, e essa decisão não é da aquisição."
             },
             {
-              "label": "“Não posso falar nada, pergunte para outra pessoa depois.”",
+              "text": "Responder “não posso falar nada, pergunte depois” cumpre a tarefa de orientar a paciente.",
               "correct": false,
-              "feedback": "Essa resposta não interpreta, mas deixa a paciente sem orientação. Retome: orientar faz parte da tarefa."
+              "feedback": "Errado: a resposta não interpreta, mas deixa a paciente sem orientação, e orientar faz parte da tarefa."
             }
           ],
+          "feedbackCorrect": "Você julgou as quatro respostas: só orienta sem interpretar a que diz quem avalia a imagem e onde o resultado aparece.",
+          "feedbackIncorrect": "Releia cada resposta e pergunte: ela interpreta a imagem, decide um novo exame, deixa a paciente sem orientação ou indica o caminho do resultado?",
           "help": "Procure a fala que orienta a paciente sem dizer o que a imagem mostra.",
           "sourceIds": [
             "lei-12842-2013",
@@ -512,31 +523,21 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "cloze",
           "role": "prediction",
-          "prompt": "Antes de praticar, faça uma previsão: qual destas perguntas tem mais chance de receber um “sim” de alguém que não é a pessoa da ficha?",
-          "options": [
-            {
-              "label": "“Qual é o seu nome completo?”",
-              "correct": false,
-              "feedback": "Essa pergunta obriga a pessoa a dizer o dado. Um “sim” nem faz sentido como resposta."
-            },
-            {
-              "label": "“A senhora é a Marta Reis, certo?”",
-              "correct": true,
-              "feedback": "A pergunta entrega o nome e convida a concordar. Quem ouviu mal ou está nervoso pode dizer sim."
-            },
-            {
-              "label": "“Qual é a sua data de nascimento?”",
-              "correct": false,
-              "feedback": "Pedir a data faz a pessoa informar o dado. Retome: procure a pergunta que já traz a resposta dentro."
-            },
-            {
-              "label": "“Como se escreve o seu sobrenome?”",
-              "correct": false,
-              "feedback": "Soletrar exige que a pessoa produza o dado. Confira de novo qual pergunta se responde só com um sim."
-            }
+          "prompt": "Antes de praticar, preveja e complete a frase sobre confirmar quem é a pessoa, usando o banco de palavras.",
+          "text": "Dizer o nome e esperar um {{1}} induz a resposta; o certo é pedir que a pessoa {{2}} os próprios dados.",
+          "answers": [
+            "sim",
+            "diga"
           ],
+          "distractors": [
+            "não",
+            "anote",
+            "assine"
+          ],
+          "feedbackCorrect": "Quando a pessoa diz os dados, é ela que os produz. Um sim a um nome dito por você pode ser só engano de quem ouviu mal.",
+          "feedbackIncorrect": "Releia a pergunta: se o nome já vem dentro dela, a resposta é só concordar. Peça que a pessoa diga nome completo e data de nascimento.",
           "help": "Procure a pergunta que pode ser respondida com uma única palavra de concordância.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
@@ -598,31 +599,33 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "transfer",
-          "prompt": "Dona Marta, paciente simulada, vai fazer uma radiografia de tórax pela primeira vez. A identidade já foi conferida. Qual explicação da etapa dispensa o jargão e ainda verifica o entendimento?",
-          "options": [
+          "prompt": "Dona Marta fará a primeira radiografia de tórax e a identidade já foi conferida. Julgue cada afirmação sobre explicar a etapa.",
+          "statements": [
             {
-              "label": "“Faremos uma incidência PA em ortostase, com apneia inspiratória máxima.”",
-              "correct": false,
-              "feedback": "A frase está correta para a equipe, mas usa termos que a paciente não conhece. Retome: palavras do dia a dia."
-            },
-            {
-              "label": "“Fique em pé aqui, encha o peito de ar e segure. Pode me mostrar como fica?”",
+              "text": "“Fique em pé aqui, encha o peito de ar e segure” usa palavras do dia a dia.",
               "correct": true,
-              "feedback": "Você descreveu a etapa com palavras comuns e pediu que ela mostrasse o que entendeu."
+              "feedback": "Certo: a frase descreve a etapa com palavras comuns, sem termos que a paciente não conhece."
             },
             {
-              "label": "“É rapidinho, não precisa entender, é só fazer o que eu mandar.”",
+              "text": "Termos como ortostase e apneia inspiratória máxima servem bem para explicar a etapa à paciente.",
               "correct": false,
-              "feedback": "Essa fala dispensa o entendimento em vez de verificá-lo. Confira de novo o que a explicação precisa conter."
+              "feedback": "Errado: os termos estão corretos para a equipe, mas a paciente não os conhece. A explicação pede palavras comuns."
             },
             {
-              "label": "“Vou posicionar o tórax no bucky e colimar; não se mexa, tá?”",
+              "text": "Pedir que a pessoa mostre como vai ficar verifica se ela entendeu.",
+              "correct": true,
+              "feedback": "Certo: ao mostrar o que vai fazer, a pessoa torna visível o que entendeu, e você pode corrigir antes de seguir."
+            },
+            {
+              "text": "Dizer “não precisa entender, é só fazer o que eu mandar” verifica o entendimento da pessoa.",
               "correct": false,
-              "feedback": "Bucky e colimar são termos da sala, não da paciente. E o “tá?” pede concordância, não entendimento."
+              "feedback": "Errado: a fala dispensa o entendimento em vez de verificá-lo, e a pessoa fica sem saber o que vai acontecer."
             }
           ],
+          "feedbackCorrect": "Você separou a explicação que usa palavras do dia a dia e verifica o entendimento daquela que só dá ordens ou usa termos da sala.",
+          "feedbackIncorrect": "Releia cada afirmação e pergunte: a paciente conhece essas palavras, e a fala confere se ela entendeu ou só pede que ela obedeça?",
           "help": "Leia cada fala como se você nunca tivesse entrado numa sala de exame.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
@@ -833,29 +836,37 @@
         },
         {
           "id": "i2",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Associe cada momento da higiene das mãos à situação da sala simulada em que ele se aplica.",
-          "pairs": [
+          "prompt": "Classifique cada situação da sala simulada conforme a higiene das mãos venha antes ou depois do contato.",
+          "categories": [
+            "Antes do contato",
+            "Depois do contato"
+          ],
+          "items": [
             {
-              "left": "Antes de tocar o paciente",
-              "right": "Você vai ajudar Dona Marta a subir na mesa"
+              "label": "Você vai ajudar Dona Marta a subir na mesa",
+              "category": "Antes do contato"
             },
             {
-              "left": "Após tocar o paciente",
-              "right": "Você acabou de posicionar o ombro de Seu Jorge"
+              "label": "Você acabou de posicionar o ombro de Seu Jorge",
+              "category": "Depois do contato"
             },
             {
-              "left": "Após tocar áreas próximas ao paciente",
-              "right": "Você só ajustou a mesa em que ele estava deitado"
+              "label": "Você vai preparar um procedimento limpo ou asséptico",
+              "category": "Antes do contato"
             },
             {
-              "left": "Após risco de exposição a fluidos",
-              "right": "Você recolheu um lençol com secreção fictícia"
+              "label": "Você só ajustou a mesa em que ele estava deitado",
+              "category": "Depois do contato"
+            },
+            {
+              "label": "Você recolheu um lençol com secreção fictícia",
+              "category": "Depois do contato"
             }
           ],
-          "feedbackCorrect": "Você ligou cada momento ao contato que o provoca: o toque que vai acontecer, o que aconteceu, a superfície próxima e o fluido.",
-          "feedbackIncorrect": "Confira de novo: em cada situação, pergunte se o contato ainda vai acontecer ou já aconteceu, e com o quê: pessoa, superfície ou fluido.",
+          "feedbackCorrect": "Dois momentos vêm antes do contato e três vêm depois: após tocar o paciente, após tocar a superfície próxima e após o risco com fluidos.",
+          "feedbackIncorrect": "Confira de novo: em cada situação, pergunte se o contato ainda vai acontecer ou se já aconteceu, e com o quê: pessoa, superfície ou fluido.",
           "help": "Em cada situação, o contato vai acontecer ou já aconteceu? Foi com a pessoa, com uma superfície ou com fluido?",
           "sourceIds": [
             "anvisa-higiene-maos-2021",
@@ -919,19 +930,19 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "multi-select",
           "role": "transfer",
-          "prompt": "Em outra simulação, de radiografia de tórax em pé, a paciente apoiou o queixo e as mãos no suporte do detector. Ela saiu e a próxima já foi chamada. O que precisa acontecer antes?",
+          "prompt": "A paciente apoiou o queixo e as mãos no suporte do detector e saiu; a próxima já foi chamada. Marque todas as ações que precisam acontecer antes.",
           "options": [
             {
-              "label": "Nada: ela não tinha sinais de infecção.",
+              "label": "Esperar sinais visíveis de infecção na paciente.",
               "correct": false,
               "feedback": "A limpeza entre pacientes não depende de sinais visíveis. Retome: a superfície foi tocada."
             },
             {
-              "label": "Limpar os apoios e higienizar as mãos.",
+              "label": "Limpar os apoios que ela tocou.",
               "correct": true,
-              "feedback": "Você cortou os dois caminhos: a superfície que ela tocou e as mãos que vão tocar a próxima pessoa."
+              "feedback": "Apoio de queixo e suporte do detector podem se contaminar e são limpos entre um paciente e outro."
             },
             {
               "label": "Cobrir os apoios com um avental plumbífero.",
@@ -939,11 +950,18 @@
               "feedback": "O avental plumbífero é barreira para radiação, não para microrganismos. Confira de novo o risco em jogo."
             },
             {
+              "label": "Higienizar as mãos antes da próxima paciente.",
+              "correct": true,
+              "feedback": "A higiene das mãos corta o caminho dos microrganismos entre uma pessoa e outra, e a luva não a substitui."
+            },
+            {
               "label": "Trocar apenas as luvas usadas no exame.",
               "correct": false,
               "feedback": "Trocar de luva não limpa o suporte nem dispensa a higiene das mãos."
             }
           ],
+          "feedbackCorrect": "Você cortou os dois caminhos: a superfície que ela tocou e as mãos que vão tocar a próxima pessoa.",
+          "feedbackIncorrect": "Revise: o risco vem de duas fontes, o suporte que foi tocado e as mãos. Sinais visíveis não decidem a limpeza, e luva ou avental plumbífero não a substituem.",
           "help": "Liste o que a paciente tocou e o que você vai tocar em seguida.",
           "sourceIds": [
             "esr-efrs-seguranca-2019",
@@ -1155,31 +1173,33 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "prediction",
-          "prompt": "Dona Marta contou que a menstruação está atrasada, e o pedido fictício é de radiografia do abdome. Faça uma previsão: o que você espera que aconteça a partir dessa informação?",
-          "options": [
+          "prompt": "Dona Marta contou que a menstruação está atrasada, e o pedido é de radiografia do abdome. Julgue cada afirmação sobre o que acontece.",
+          "statements": [
             {
-              "label": "O exame é cancelado na hora, sem mais conversa.",
+              "text": "A gravidez possível proíbe o exame por si só, então ele é cancelado na hora.",
               "correct": false,
-              "feedback": "Cancelar de imediato trata a pausa como proibição. A gravidez possível não proíbe o exame por si só."
+              "feedback": "Errado: a gravidez possível não proíbe o exame por si só. O médico pesa benefício e risco."
             },
             {
-              "label": "O exame segue, porque o pedido já estava feito.",
-              "correct": false,
-              "feedback": "O pedido foi feito sem essa informação. Retome: algo mudou, e quem decide precisa saber."
-            },
-            {
-              "label": "A equipe pausa, e o médico avalia o caso.",
+              "text": "A equipe pausa, e o médico avalia o caso.",
               "correct": true,
-              "feedback": "A informação nova chega a quem decide. O que acontece com o exame a partir daí é uma avaliação médica."
+              "feedback": "Certo: a informação nova chega a quem decide, e o que acontece com o exame é uma avaliação médica."
             },
             {
-              "label": "A paciente decide sozinha se quer continuar.",
+              "text": "Como o pedido já estava feito, o exame segue sem mais conversa.",
               "correct": false,
-              "feedback": "A paciente participa da decisão, mas precisa da avaliação médica para decidir informada. Confira de novo."
+              "feedback": "Errado: o pedido foi feito sem essa informação. Algo mudou, e quem decide precisa saber antes de seguir."
+            },
+            {
+              "text": "Pausar o exame não é o mesmo que cancelá-lo.",
+              "correct": true,
+              "feedback": "Certo: pausar é parar para conferir, e a decisão seguinte é de quem responde pelo exame."
             }
           ],
+          "feedbackCorrect": "Você viu que a informação nova pede pausa e avaliação médica, e que pausar não é cancelar nem seguir como se nada tivesse mudado.",
+          "feedbackIncorrect": "Retome: a gravidez possível não proíbe o exame por si só, e o pedido foi feito sem essa informação. A equipe pausa e o médico pesa benefício e risco.",
           "help": "Pausar e cancelar são a mesma coisa? Quem pesa benefício e risco de um exame?",
           "sourceIds": [
             "radiologyinfo-seguranca-radiacao"
@@ -1253,31 +1273,21 @@
         },
         {
           "id": "i5",
-          "type": "multiple-choice",
+          "type": "cloze",
           "role": "transfer",
-          "prompt": "Em outra simulação, o pedido fictício é de tomografia do tórax. Com a identidade já confirmada, a paciente diz que veio fazer “o exame da coluna”. O que essa informação pede de você?",
-          "options": [
-            {
-              "label": "Fazer o tórax, pois é o que está no pedido.",
-              "correct": false,
-              "feedback": "Seguir o pedido ignora que o relato não combina com ele. Retome o que se confere antes da aquisição."
-            },
-            {
-              "label": "Fazer a coluna, pois é o que ela relatou.",
-              "correct": false,
-              "feedback": "Trocar a região é mudar o exame, e essa decisão não é da aquisição. Confira de novo a quem levar a dúvida."
-            },
-            {
-              "label": "Parar e esclarecer o pedido com a equipe.",
-              "correct": true,
-              "feedback": "Pedido e relato não combinam: você pausou e levou a divergência a quem responde pelo exame."
-            },
-            {
-              "label": "Fazer os dois exames e resolver depois.",
-              "correct": false,
-              "feedback": "Fazer os dois acrescenta uma exposição que ninguém indicou."
-            }
+          "prompt": "Complete a frase que resolve a divergência entre pedido e relato, usando o banco de palavras.",
+          "text": "O pedido é de tomografia do tórax, mas a paciente fala em coluna: você {{1}} e esclarece com a {{2}}.",
+          "answers": [
+            "pausa",
+            "equipe"
           ],
+          "distractors": [
+            "troca",
+            "segue",
+            "paciente"
+          ],
+          "feedbackCorrect": "Pedido e relato não combinam, então você pausa e leva a divergência a quem responde pelo exame, sem trocar a região por conta própria.",
+          "feedbackIncorrect": "Retome o que se confere antes da aquisição: se o relato não combina com o pedido, o exame não começa. Quem esclarece é a equipe, não você.",
           "help": "Compare o que está escrito com o que a pessoa conta.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
@@ -1486,31 +1496,33 @@
         },
         {
           "id": "i2",
-          "type": "multiple-choice",
+          "type": "true-false",
           "role": "practice",
-          "prompt": "A sala de espera simulada está cheia. Como você chama a próxima pessoa de modo respeitoso e sem expor informação sobre o atendimento dela?",
-          "options": [
+          "prompt": "A sala de espera simulada está cheia. Julgue cada forma de chamar a próxima pessoa quanto ao respeito e ao sigilo.",
+          "statements": [
             {
-              "label": "“Quem é o da tomografia de crânio? Pode vir.”",
+              "text": "Chamar por “Quem é o da tomografia de crânio?” respeita a privacidade da pessoa.",
               "correct": false,
-              "feedback": "Essa chamada conta a todos qual exame a pessoa vai fazer. Retome o que identifica alguém com respeito."
+              "feedback": "Errado: essa chamada conta a todos qual exame a pessoa vai fazer. Retome o que identifica alguém com respeito."
             },
             {
-              "label": "“O senhor de muleta ali no fundo, é a sua vez.”",
-              "correct": false,
-              "feedback": "Apontar uma característica física expõe a pessoa em vez de chamá-la pelo nome. Confira de novo."
-            },
-            {
-              "label": "“O caso do acidente, da sala 3, pode entrar.”",
-              "correct": false,
-              "feedback": "Chamar pelo motivo do atendimento revela informação de saúde à sala inteira."
-            },
-            {
-              "label": "“Seu Jorge Lima, pode me acompanhar?”",
+              "text": "Chamar pelo nome, sem citar exame nem motivo, respeita a pessoa e o sigilo.",
               "correct": true,
-              "feedback": "Você chamou pelo nome, sem revelar exame nem motivo. Os dados se conferem depois, com a pessoa, na sala."
+              "feedback": "Certo: o nome identifica a pessoa sem revelar nada do atendimento, e os dados se conferem depois, na sala."
+            },
+            {
+              "text": "Chamar por “o senhor de muleta ali no fundo” é um jeito respeitoso de chamar.",
+              "correct": false,
+              "feedback": "Errado: apontar uma característica física expõe a pessoa em vez de chamá-la pelo nome."
+            },
+            {
+              "text": "Chamar pelo motivo do atendimento revela informação de saúde à sala inteira.",
+              "correct": true,
+              "feedback": "Certo: por isso o motivo não entra na chamada. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
             }
           ],
+          "feedbackCorrect": "Você reconheceu que chamar pelo nome respeita a pessoa, enquanto exame, característica física ou motivo expõem o atendimento a todos.",
+          "feedbackIncorrect": "Retome o direito ao nome e ao sigilo: a chamada usa só o nome, e os dados se conferem depois, com a pessoa, na sala.",
           "help": "Qual chamada um estranho na sala de espera poderia ouvir sem aprender nada sobre a saúde da pessoa?",
           "sourceIds": [
             "ms-prc-1-2017",
@@ -1550,32 +1562,21 @@
         },
         {
           "id": "i4",
-          "type": "case-decision",
+          "type": "cloze",
           "role": "practice",
-          "context": "Na simulação, você terminou a aquisição de Dona Marta. Um colega de outra dupla manda mensagem: “me passa uma foto da imagem dela, é para o trabalho de anatomia”. A tela mostra a imagem com o nome fictício e a data de nascimento.",
-          "prompt": "O que você faz diante desse pedido do colega?",
-          "options": [
-            {
-              "label": "Enviar a foto, já que a finalidade é o estudo.",
-              "correct": false,
-              "feedback": "Estudar é um bom motivo, mas a imagem foi feita para o atendimento. Retome a regra do necessário para a tarefa."
-            },
-            {
-              "label": "Enviar a foto cortando só o nome da paciente.",
-              "correct": false,
-              "feedback": "Cortar o nome não torna sua a decisão de tirar a imagem do sistema. Confira de novo a quem cabe autorizar."
-            },
-            {
-              "label": "Enviar e pedir que ele apague logo depois.",
-              "correct": false,
-              "feedback": "Depois de enviada, a imagem sai do seu controle. Pedir que apague não desfaz o envio."
-            },
-            {
-              "label": "Não enviar e orientar que peça à professora.",
-              "correct": true,
-              "feedback": "Você protegeu o dado e apontou o caminho: material de estudo vem por quem pode autorizá-lo."
-            }
+          "prompt": "Um colega pede a foto da imagem de Dona Marta para um trabalho. Complete a frase com o que protege o dado.",
+          "text": "Use só o necessário para a {{1}}; material de estudo se pede à {{2}}, e não se fotografa a tela.",
+          "answers": [
+            "tarefa",
+            "professora"
           ],
+          "distractors": [
+            "curiosidade",
+            "colega",
+            "pressa"
+          ],
+          "feedbackCorrect": "Você manteve o dado onde ele nasceu e apontou o caminho: material de estudo se pede a quem pode autorizá-lo.",
+          "feedbackIncorrect": "Releia: a imagem foi feita para o atendimento, e dado de saúde é sensível. Use só o necessário para a tarefa e não fotografe telas.",
           "help": "Para que essa imagem foi feita? O pedido do colega cabe nessa finalidade?",
           "sourceIds": [
             "lgpd-lei-13709-2018",
@@ -1848,29 +1849,33 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "categorize",
           "role": "practice",
-          "prompt": "Associe cada pergunta do percurso ao sinal que faria você pausar naquela etapa.",
-          "pairs": [
+          "prompt": "Classifique cada sinal do percurso na etapa em que ele aparece.",
+          "categories": [
+            "Quem é e o que está pedido",
+            "O que mudou e se ela concorda"
+          ],
+          "items": [
             {
-              "left": "Quem é?",
-              "right": "A data de nascimento dita difere da pulseira"
+              "label": "A data de nascimento dita difere da pulseira",
+              "category": "Quem é e o que está pedido"
             },
             {
-              "left": "O que está pedido?",
-              "right": "O pedido diz joelho direito; a queixa é no esquerdo"
+              "label": "A paciente comenta que a menstruação atrasou",
+              "category": "O que mudou e se ela concorda"
             },
             {
-              "left": "O que pode ter mudado?",
-              "right": "A paciente comenta que a menstruação atrasou"
+              "label": "O pedido diz joelho direito; a queixa é no esquerdo",
+              "category": "Quem é e o que está pedido"
             },
             {
-              "left": "Ela entendeu e concorda?",
-              "right": "A pessoa diz que não quer mais fazer o exame"
+              "label": "A pessoa diz que não quer mais fazer o exame",
+              "category": "O que mudou e se ela concorda"
             }
           ],
           "feedbackCorrect": "Você localizou cada sinal na etapa em que ele aparece. Em todos os casos, a resposta é a mesma: pausar, descrever e pedir apoio.",
-          "feedbackIncorrect": "Confira de novo: cada sinal responde a uma das perguntas, sobre identidade, pedido, informação nova ou concordância.",
+          "feedbackIncorrect": "Confira de novo: dois sinais vêm de comparar o que a pessoa diz com o registro e o pedido, e dois vêm do que mudou ou do que ela decidiu.",
           "help": "Leia cada sinal e diga o que ele põe em dúvida: a identidade, o pedido, o estado da pessoa ou a concordância.",
           "sourceIds": [
             "esr-efrs-seguranca-2019",
@@ -1915,32 +1920,33 @@
         },
         {
           "id": "i5",
-          "type": "case-decision",
+          "type": "true-false",
           "role": "transfer",
-          "context": "Simulação de ressonância magnética do joelho, com a Lia acompanhando. Seu Jorge diz nome e data de nascimento, e os dois conferem com a ficha fictícia. O pedido fictício diz joelho esquerdo, e ele aponta o esquerdo. A triagem de segurança, revista pela equipe, não traz nenhuma marcação de risco, e ele confirma que nada mudou. Você explica a etapa, e ele conta, com as palavras dele, que vai ficar parado e ouvir um barulho forte.",
-          "prompt": "Qual é o passo coerente com o percurso neste ponto?",
-          "options": [
+          "prompt": "Na ressonância simulada do joelho, identidade, pedido, triagem e entendimento conferiram, sem sinal em aberto. Julgue cada afirmação sobre o próximo passo.",
+          "statements": [
             {
-              "label": "Pausar e chamar a equipe, por precaução geral.",
-              "correct": false,
-              "feedback": "A pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência. Retome as quatro perguntas."
-            },
-            {
-              "label": "Refazer toda a identificação desde o início.",
-              "correct": false,
-              "feedback": "Os dados já foram ditos e comparados. Repetir sem motivo não acrescenta conferência."
-            },
-            {
-              "label": "Seguir para a próxima etapa do roteiro.",
+              "text": "Com todas as respostas conferidas, o percurso segue para a próxima etapa.",
               "correct": true,
-              "feedback": "Identidade, pedido, triagem e entendimento conferiram: seguir é a consequência de cada resposta anterior."
+              "feedback": "Certo: identidade, pedido, triagem e entendimento conferiram, e seguir é a consequência de cada resposta anterior."
             },
             {
-              "label": "Pedir que ele assine outro questionário.",
+              "text": "Sem divergência alguma, ainda vale pausar e chamar a equipe por precaução geral.",
               "correct": false,
-              "feedback": "A triagem já foi revista e ele confirmou que nada mudou. Confira de novo se há algum sinal em aberto."
+              "feedback": "Errado: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
+            },
+            {
+              "text": "Repetir toda a identificação desde o início acrescenta conferência, mesmo com os dados já comparados.",
+              "correct": false,
+              "feedback": "Errado: os dados já foram ditos e comparados, e repetir sem motivo não acrescenta conferência."
+            },
+            {
+              "text": "Qualquer divergência, em qualquer ponto, interrompe o percurso e chama a equipe.",
+              "correct": true,
+              "feedback": "Certo: é a regra de todo o percurso, e vale na identidade, no pedido, na triagem e na concordância."
             }
           ],
+          "feedbackCorrect": "Você reconheceu que a pausa responde a um sinal: sem divergência, o percurso segue, e qualquer divergência o interrompe.",
+          "feedbackIncorrect": "Retome as quatro perguntas do percurso: se todas conferiram, não há motivo para pausar nem para repetir etapas. Só uma divergência interrompe.",
           "help": "Percorra as quatro perguntas do percurso e veja se alguma ficou sem resposta.",
           "sourceIds": [
             "esr-efrs-seguranca-2019",
