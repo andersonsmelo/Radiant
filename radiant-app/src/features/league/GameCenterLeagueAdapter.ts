@@ -23,6 +23,15 @@ function codeOf(cause: unknown): LeagueErrorCode {
     return KNOWN_CODES.find(known => known === code) ?? 'unrecoverable';
 }
 
+/**
+ * Prazo da autenticação. Medido em 2026-11-13 num simulador sem conta: o
+ * GameKit falhou por dentro e nunca chamou o `authenticateHandler`. Sem prazo,
+ * a fila do `LeagueService` travava, e com ela o envio do XP.
+ */
+export const AUTH_TIMEOUT_MS = 15_000;
+
+const AUTH_TIMED_OUT: LeagueAuth = { status: 'unavailable', reason: 'not-authenticated' };
+
 const toEntry = (entry: RadiantGameCenterNativeEntry): LeagueEntry => ({
     rank: entry.rank, xp: entry.score, alias: entry.alias, isLocalPlayer: entry.isLocalPlayer,
 });
@@ -33,7 +42,9 @@ export class GameCenterLeagueAdapter implements LeaguePort {
 
     async authenticate(): Promise<LeagueAuth> {
         try {
-            const auth = await this.native.authenticate();
+            let timer: ReturnType<typeof setTimeout> | undefined;
+            const timeout = new Promise<LeagueAuth>(resolve => { timer = setTimeout(() => resolve(AUTH_TIMED_OUT), AUTH_TIMEOUT_MS); });
+            const auth = await Promise.race([this.native.authenticate(), timeout]).finally(() => clearTimeout(timer));
             if (auth.status !== 'unavailable') return auth;
             return { status: 'unavailable', reason: codeOf({ code: auth.reason }) };
         } catch {

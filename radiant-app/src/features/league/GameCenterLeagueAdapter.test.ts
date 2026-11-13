@@ -1,4 +1,4 @@
-import { GameCenterLeagueAdapter } from './GameCenterLeagueAdapter';
+import { AUTH_TIMEOUT_MS, GameCenterLeagueAdapter } from './GameCenterLeagueAdapter';
 import { UnavailableLeagueAdapter } from './UnavailableLeagueAdapter';
 import { LEAGUE_LEADERBOARD_ID, LeagueError, type RadiantGameCenterNative } from './league.types';
 
@@ -88,5 +88,20 @@ describe('UnavailableLeagueAdapter', () => {
         await expect(a.presentSignIn()).resolves.toBe(false);
         await expect(a.submitWeeklyXp(10)).rejects.toMatchObject({ code: 'unavailable' });
         await expect(a.loadPage({ scope: 'global', occurrence: 'current', start: 1, length: 10 })).rejects.toMatchObject({ code: 'unavailable' });
+    });
+});
+
+// Medido em 2026-11-13 num simulador iOS 26.5 sem conta: o GameKit registrou
+// erro de comunicação e nunca chamou o `authenticateHandler`. Sem prazo, a tela
+// ficava em "Carregando a liga…" e a fila do LeagueService travava o envio.
+describe('GameCenterLeagueAdapter — autenticação que nunca responde', () => {
+    beforeEach(() => jest.useFakeTimers());
+    afterEach(() => jest.useRealTimers());
+
+    it('desiste no prazo e responde Game Center indisponível', async () => {
+        const n = nativo({ authenticate: jest.fn(() => new Promise<never>(() => undefined)) });
+        const resposta = new GameCenterLeagueAdapter(n).authenticate();
+        await jest.advanceTimersByTimeAsync(AUTH_TIMEOUT_MS);
+        await expect(resposta).resolves.toEqual({ status: 'unavailable', reason: 'not-authenticated' });
     });
 });

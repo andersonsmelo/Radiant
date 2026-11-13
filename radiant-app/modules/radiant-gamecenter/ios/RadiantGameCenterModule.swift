@@ -113,14 +113,27 @@ public final class RadiantGameCenterModule: Module {
           guard let self else { return }
           self.pendingSignIn = controlador
           self.lastError = erro
-          let estado = self.estadoAtual()
-          let esperando = self.waiters
-          self.waiters.removeAll()
-          esperando.forEach { $0(estado) }
-          self.sendEvent(kAuthEvent, ["status": estado["status"] ?? "unavailable"])
+          self.responderQuemEspera()
+          self.sendEvent(kAuthEvent, ["status": self.estadoAtual()["status"] ?? "unavailable"])
         }
       }
+      // Medido em 2026-11-13 num simulador iOS 26.5 sem conta: o GameKit falhou
+      // por dentro (erro 3, sem o serviço de sobreposição) e nunca chamou o
+      // handler. Sem prazo, quem espera fica pendente para sempre.
+      Task { @MainActor [weak self] in
+        try? await Task.sleep(nanoseconds: 10_000_000_000)
+        self?.responderQuemEspera()
+      }
     }
+  }
+
+  /// Responde uma vez a cada espera pendente; chamar de novo não repete resposta.
+  @MainActor
+  private func responderQuemEspera() {
+    let estado = estadoAtual()
+    let esperando = waiters
+    waiters.removeAll()
+    esperando.forEach { $0(estado) }
   }
 
   @MainActor
