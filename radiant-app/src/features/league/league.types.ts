@@ -13,6 +13,10 @@ export type LeagueErrorCode =
     | 'not-authenticated'
     | 'network-unavailable'
     | 'leaderboard-not-found'
+    /** A ocorrência do Game Center não é a semana esperada (relógio do aparelho diferente). */
+    | 'stale-week'
+    /** O aluno negou, ou o sistema restringe, a lista de amigos do Game Center. */
+    | 'friends-unavailable'
     /** Sem Game Center neste binário: Android, Jest, chave desligada. */
     | 'unavailable'
     | 'unrecoverable';
@@ -54,8 +58,12 @@ export interface LeaguePort {
     authenticate(): Promise<LeagueAuth>;
     /** `false` quando não há tela de entrada a mostrar. */
     presentSignIn(): Promise<boolean>;
-    /** Envia o XP total da semana corrente. Reenviar o mesmo total não duplica. */
-    submitWeeklyXp(xp: number): Promise<void>;
+    /**
+     * Envia o XP total da semana que começa em `weekStart` (ISO, UTC). Reenviar
+     * o mesmo total não duplica. Recusa com `stale-week` quando a ocorrência
+     * atual do Game Center é outra.
+     */
+    submitWeeklyXp(xp: number, weekStart: string): Promise<void>;
     /** `null` quando a ocorrência pedida não existe (primeira semana do placar). */
     loadPage(query: LeaguePageQuery): Promise<LeaguePage | null>;
     /** Avisa quando a autenticação muda (o aluno entrou pela tela do GameKit). */
@@ -83,7 +91,7 @@ export type RadiantGameCenterNativePage = {
 export interface RadiantGameCenterNative {
     authenticate(): Promise<RadiantGameCenterNativeAuth>;
     presentSignIn(): Promise<boolean>;
-    submitScore(leaderboardId: string, score: number): Promise<void>;
+    submitScore(leaderboardId: string, score: number, expectedStartDate: string): Promise<void>;
     loadEntries(
         leaderboardId: string,
         scope: LeagueScope,

@@ -28,7 +28,6 @@ import { subscriptionService } from '../features/subscription/SubscriptionServic
 import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
 import { restaurarBackupNaAbertura, type EventoDeAbertura } from '../features/progress-sync/startupRestore';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
-import { startLeague } from '../features/league/LeagueService';
 import {
   initializeObservability,
   wrapRootWithObservability,
@@ -350,9 +349,11 @@ function RootLayout() {
   }, [checkpointLaunch.kind, startupPhase]);
 
   // Liga semanal (ADR 2026-11-13): ouve o XP ganho e envia o pendente. Com
-  // `ENABLE_LEAGUE` desligada, `startLeague` não faz nada.
+  // `ENABLE_LEAGUE` desligada, nem o módulo da liga é carregado na abertura.
   useEffect(() => {
-    if (startupPhase === 'ready') startLeague();
+    if (startupPhase !== 'ready' || !AppConfig.ENABLE_LEAGUE) return;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- carga tardia: a liga desligada não entra na abertura.
+    require('../features/league/LeagueService').startLeague();
   }, [startupPhase]);
 
   useEffect(() => {

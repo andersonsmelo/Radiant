@@ -57,9 +57,11 @@ export default function LeagueScreen() {
     const load = useCallback(() => {
         const own = ++generation.current;
         setReading({ state: 'loading' });
-        void LeagueService.loadBoard(scope).then(board => {
-            if (generation.current === own) setReading({ state: 'ready', board });
-        });
+        void LeagueService.loadBoard(scope)
+            .catch((): LeagueBoard => ({ kind: 'unavailable', reason: 'unrecoverable' }))
+            .then(board => {
+                if (generation.current === own) setReading({ state: 'ready', board });
+            });
     }, [scope]);
 
     useFocusEffect(useCallback(() => {
@@ -98,6 +100,9 @@ export default function LeagueScreen() {
                     </>}
             </Message>
         );
+    } else if (board.kind === 'unavailable' && board.reason === 'friends-unavailable') {
+        body = <Message title="Sem acesso aos amigos do Game Center"
+            body="Para ver seus amigos, permita o acesso à lista de amigos em Ajustes, Game Center. A aba Todos continua disponível." />;
     } else if (board.kind === 'unavailable' && board.reason === 'leaderboard-not-found') {
         body = <Message title="A liga ainda não abriu" body="O placar da semana ainda não está disponível. Seu XP continua contando no seu nível." />;
     } else if (board.kind === 'unavailable') {

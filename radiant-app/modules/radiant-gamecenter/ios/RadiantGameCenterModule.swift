@@ -53,13 +53,24 @@ public final class RadiantGameCenterModule: Module {
       await self.mostrarEntrada()
     }
 
-    AsyncFunction("submitScore") { (leaderboardId: String, score: Int) async throws in
+    // O app manda o total da semana que ele acha que é a atual. Se o Game Center
+    // já está noutra ocorrência (relógio do aparelho errado), recusa: enviar
+    // poria o total de uma semana na outra (revisão independente, 2026-11-13).
+    AsyncFunction("submitScore") { (leaderboardId: String, score: Int, expectedStartDate: String) async throws in
       guard GKLocalPlayer.local.isAuthenticated else {
         throw GameCenterException(code: "not-authenticated", reason: "Jogador do Game Center não autenticado.")
       }
       do {
-        try await GKLeaderboard.submitScore(
-          score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [leaderboardId])
+        guard let placar = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardId]).first else {
+          throw GameCenterException(code: "leaderboard-not-found", reason: "Placar não configurado no App Store Connect.")
+        }
+        if let inicio = placar.startDate, let esperado = ISO8601DateFormatter.radiant.date(from: expectedStartDate),
+           abs(inicio.timeIntervalSince(esperado)) > 60 {
+          throw GameCenterException(code: "stale-week", reason: "A semana do Game Center não é a semana do aparelho.")
+        }
+        try await placar.submitScore(score, context: 0, player: GKLocalPlayer.local)
+      } catch let erro as GameCenterException {
+        throw erro
       } catch {
         throw Self.traduzir(error)
       }
@@ -76,20 +87,28 @@ public final class RadiantGameCenterModule: Module {
           throw GameCenterException(code: "leaderboard-not-found", reason: "Placar não configurado no App Store Connect.")
         }
         if occurrence == "previous" {
-          // Sem ocorrência anterior (primeira semana do placar), não há resumo.
-          guard let anterior = try? await placar.loadPreviousOccurrence() else { return nil }
-          placar = anterior
+          // Sem ocorrência anterior (primeira semana do placar), não há resumo. Falta
+          // de rede não é "sem semana anterior": sobe, para o resumo não se perder.
+          do {
+            guard let anterior = try await placar.loadPreviousOccurrence() else { return nil }
+            placar = anterior
+          } catch {
+            let traduzido = Self.traduzir(error)
+            if traduzido.code == "network-unavailable" { throw traduzido }
+            return nil
+          }
         }
         let escopo: GKLeaderboard.PlayerScope = scope == "friends" ? .friendsOnly : .global
         let faixa = NSRange(location: max(1, start), length: max(1, min(length, 100)))
         let (local, entradas, total) = try await placar.loadEntries(for: escopo, timeScope: .allTime, range: faixa)
         let meuId = GKLocalPlayer.local.gamePlayerID
+        // Ausente vira `NSNull`, que chega ao JavaScript como `null`.
         return [
-          "local": local.map { Self.entrada($0, meuId: meuId) } as Any,
+          "local": local.map { Self.entrada($0, meuId: meuId) } ?? NSNull(),
           "entries": entradas.map { Self.entrada($0, meuId: meuId) },
           "totalPlayerCount": total,
-          "startDate": Self.iso(placar.startDate) as Any,
-          "nextStartDate": Self.iso(placar.nextStartDate) as Any,
+          "startDate": Self.iso(placar.startDate) ?? NSNull(),
+          "nextStartDate": Self.iso(placar.nextStartDate) ?? NSNull(),
           "durationSeconds": placar.duration,
         ]
       } catch let erro as GameCenterException {
@@ -180,7 +199,7 @@ public final class RadiantGameCenterModule: Module {
   }
 
   private static func iso(_ data: Date?) -> String? {
-    data.map { ISO8601DateFormatter().string(from: $0) }
+    data.map { ISO8601DateFormatter.radiant.string(from: $0) }
   }
 
   /// Códigos estáveis que o adaptador TypeScript lê.
@@ -195,6 +214,8 @@ public final class RadiantGameCenterModule: Module {
         return GameCenterException(code: "network-unavailable", reason: ns.localizedDescription)
       case .notAuthenticated, .cancelled, .userDenied:
         return GameCenterException(code: "not-authenticated", reason: ns.localizedDescription)
+      case .friendListDenied, .friendListRestricted:
+        return GameCenterException(code: "friends-unavailable", reason: ns.localizedDescription)
       case .gameUnrecognized, .notSupported, .apiNotAvailable:
         return GameCenterException(code: "leaderboard-not-found", reason: ns.localizedDescription)
       default:
@@ -203,4 +224,13 @@ public final class RadiantGameCenterModule: Module {
     }
     return GameCenterException(code: "unrecoverable", reason: ns.localizedDescription)
   }
+}
+
+private extension ISO8601DateFormatter {
+  /// Aceita a data do JavaScript (`toISOString`, com milissegundos).
+  static let radiant: ISO8601DateFormatter = {
+    let formatador = ISO8601DateFormatter()
+    formatador.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+    return formatador
+  }()
 }

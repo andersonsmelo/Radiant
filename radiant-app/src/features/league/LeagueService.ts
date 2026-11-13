@@ -81,6 +81,14 @@ export type LeagueServiceDeps = {
 const errorCode = (cause: unknown): LeagueErrorCode =>
     cause instanceof LeagueError ? cause.code : 'unrecoverable';
 
+/**
+ * A página lida é da semana do balde? O balde segue o relógio do aparelho; a
+ * página, o Game Center. Com relógio errado eles divergem, e aí nada da página
+ * é adotado no balde (revisão independente de 2026-11-13).
+ */
+const sameWeek = (startsAt: string | null, week: string): boolean =>
+    startsAt !== null && Date.parse(startsAt) === Date.parse(week);
+
 export class LeagueServiceImpl {
     private tail: Promise<unknown> = Promise.resolve();
     private port: LeaguePort | null = null;
@@ -139,6 +147,8 @@ export class LeagueServiceImpl {
             if (!Number.isFinite(xp) || xp <= 0) return;
             const week = weekStartUtc(at);
             const stored = await this.read();
+            // XP datado de uma semana anterior à do balde não apaga o balde atual.
+            if (stored && Date.parse(week) < Date.parse(stored.week)) return;
             const store: LeagueStore = stored && stored.week === week ? stored : {
                 schemaVersion: 1, week, weekXp: 0, submittedXp: null, lastRank: null,
                 overtakenNoticeDay: stored?.overtakenNoticeDay ?? null,
@@ -166,7 +176,7 @@ export class LeagueServiceImpl {
         if (auth.status !== 'authenticated') return { kind: 'not-authenticated' };
         const xp = store.weekXp;
         try {
-            await this.adapter.submitWeeklyXp(xp);
+            await this.adapter.submitWeeklyXp(xp, store.week);
         } catch (cause) {
             const code = errorCode(cause);
             return code === 'not-authenticated' ? { kind: 'not-authenticated' } : { kind: 'failed', code };
@@ -176,9 +186,10 @@ export class LeagueServiceImpl {
     }
 
     /** Reinstalação ou outro aparelho: a pontuação do Game Center maior que a local vira a local. */
-    private async adopt(local: LeagueEntry | null): Promise<void> {
+    private async adopt(local: LeagueEntry | null, startsAt: string | null): Promise<void> {
         if (!local) return;
         const store = await this.current();
+        if (!sameWeek(startsAt, store.week)) return;
         if (local.xp <= store.weekXp) return;
         await this.write({ ...store, weekXp: local.xp, submittedXp: local.xp });
     }
@@ -188,14 +199,18 @@ export class LeagueServiceImpl {
         return this.serial(async () => {
             const auth = await this.adapter.authenticate();
             if (auth.status === 'needsSignIn') return { kind: 'needsSignIn' };
-            if (auth.status === 'unavailable') return { kind: 'unavailable', reason: auth.reason };
-            await this.flushUnlocked();
+            if (auth.status === 'unavailable') {
+                return auth.reason === 'network-unavailable' ? { kind: 'offline' } : { kind: 'unavailable', reason: auth.reason };
+            }
             try {
+                // Falhar no envio (rede, disco) não impede ler o placar.
+                await this.flushUnlocked().catch(() => undefined);
                 const page = await this.adapter.loadPage({ scope, occurrence: 'current', start: 1, length: LEAGUE_TOP_SIZE });
                 if (page === null || page.totalPlayers === 0 || page.entries.length === 0) {
                     return { kind: 'empty', endsAt: page?.endsAt ?? null };
                 }
-                if (scope === 'global') await this.adopt(page.local);
+                const sameAsBucket = sameWeek(page.startsAt, (await this.current()).week);
+                if (scope === 'global') await this.adopt(page.local, page.startsAt).catch(() => undefined);
                 let neighbors: LeagueEntry[] = [];
                 const rank = page.local?.rank;
                 if (rank !== undefined && rank > LEAGUE_TOP_SIZE) {
@@ -203,7 +218,7 @@ export class LeagueServiceImpl {
                     const around = await this.adapter.loadPage({ scope, occurrence: 'current', start, length: NEIGHBOR_RADIUS * 2 + 1 });
                     neighbors = around?.entries ?? [];
                 }
-                if (scope === 'global' && rank !== undefined) await this.rememberRank(rank);
+                if (scope === 'global' && rank !== undefined && sameAsBucket) await this.rememberRank(rank).catch(() => undefined);
                 return { kind: 'ready', top: page.entries, neighbors, local: page.local, totalPlayers: page.totalPlayers, endsAt: page.endsAt };
             } catch (cause) {
                 const code = errorCode(cause);
@@ -242,8 +257,8 @@ export class LeagueServiceImpl {
 
                 const page = await this.adapter.loadPage({ scope: 'global', occurrence: 'current', start: 1, length: 1 });
                 const local = page?.local ?? null;
-                if (!local) return null;
-                await this.adopt(local);
+                if (!local || !page || !sameWeek(page.startsAt, store.week)) return null;
+                await this.adopt(local, page.startsAt);
                 const after = await this.current();
                 const today = formatLocalDateKey(this.deps.now());
                 const passed = after.lastRank !== null && local.rank > after.lastRank;
@@ -300,9 +315,9 @@ export function startLeague(
 ): void {
     if (!enabled || stopListening) return;
     stopListening = GamificationService.onXpEarned((xp, at) => {
-        void service.recordXpEarned(xp, at).then(() => service.flush());
+        void service.recordXpEarned(xp, at).then(() => service.flush()).catch(() => undefined);
     });
-    void service.flush();
+    void service.flush().catch(() => undefined);
 }
 
 /** Só para testes. */

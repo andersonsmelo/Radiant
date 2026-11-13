@@ -79,3 +79,11 @@ Três fatos pesaram, todos medidos antes desta decisão:
   Sem o placar, a tela mostra "A liga ainda não abriu".
 - O aviso de ultrapassagem compara a posição atual com a última vista; quem
   entra na liga com mais XP também "passa" o aluno, e isso é verdade.
+- **Dois aparelhos na mesma semana não somam.** O placar guarda a melhor
+  pontuação, e cada aparelho envia o seu total; vale o maior.
+- **Relógio do aparelho errado.** O balde local segue o relógio do aparelho. Se
+  o Game Center estiver noutra semana, o envio é recusado (`stale-week`) e nada
+  da página lida é adotado; o XP ganho nessa janela pode não contar.
+- **A rota antiga `/quiz`**, alcançável só por deep link, paga XP a cada
+  conclusão. A correção (não contar esse XP na liga) entrou num segundo run da
+  mesma frente, porque toca `useQuiz.ts`.

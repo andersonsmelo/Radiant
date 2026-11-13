@@ -10,6 +10,7 @@ import {
     type LeaguePort,
 } from './league.types';
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { weekStartUtc } from './leagueWeek';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
@@ -29,14 +30,19 @@ class FakeGameCenter implements LeaguePort {
     submissions: number[] = [];
     pageCalls: LeaguePageQuery[] = [];
     endsAt = '2026-11-16T00:00:00.000Z';
+    /** Início da ocorrência que o Game Center considera atual. `null` = segue o relógio do teste. */
+    startsAt: string | null = null;
+    clock: () => Date = () => QUINTA;
+    private get occurrence(): string { return this.startsAt ?? weekStartUtc(this.clock()); }
 
     async authenticate() { return this.auth; }
     async presentSignIn() { return false; }
     onAuthenticationChanged() { return () => undefined; }
 
-    async submitWeeklyXp(xp: number) {
+    async submitWeeklyXp(xp: number, weekStart: string) {
         if (this.auth.status !== 'authenticated') throw new LeagueError('not-authenticated');
         if (this.offline) throw new LeagueError('network-unavailable');
+        if (Date.parse(this.occurrence) !== Date.parse(weekStart)) throw new LeagueError('stale-week');
         this.submissions.push(xp);
         this.best.set(this.week, Math.max(this.best.get(this.week) ?? 0, xp));
     }
@@ -54,7 +60,7 @@ class FakeGameCenter implements LeaguePort {
             local: all.find(e => e.isLocalPlayer) ?? null,
             entries: all.slice(query.start - 1, query.start - 1 + query.length),
             totalPlayers: all.length,
-            startsAt: '2026-11-09T00:00:00.000Z',
+            startsAt: this.occurrence,
             endsAt: this.endsAt,
         };
     }
@@ -65,6 +71,7 @@ const SEGUNDA_SEGUINTE = new Date('2026-11-16T10:00:00Z');
 
 function montar(now: () => Date = () => QUINTA) {
     const gc = new FakeGameCenter();
+    gc.clock = now;
     const service = new LeagueServiceImpl({ storage: AsyncStorage, adapter: () => gc, now });
     return { gc, service };
 }
@@ -314,5 +321,52 @@ describe('LeagueService.getStanding — o que a F6 pode perguntar', () => {
         const { gc, service } = montar();
         gc.auth = { status: 'needsSignIn' };
         await expect(service.getStanding()).resolves.toBeNull();
+    });
+});
+
+describe('LeagueService — achados da revisão independente (2026-11-13)', () => {
+    it('relógio do aparelho atrasado: o Game Center já virou e o total da semana velha não entra na nova', async () => {
+        const { gc, service } = montar(); // aparelho acha que é quinta da semana de 09/11
+        await service.recordXpEarned(300, QUINTA);
+        gc.startsAt = '2026-11-16T00:00:00Z'; // Game Center já está na semana de 16/11
+        await expect(service.flush()).resolves.toEqual({ kind: 'failed', code: 'stale-week' });
+        expect(gc.submissions).toEqual([]);
+
+        gc.startsAt = '2026-11-09T00:00:00Z'; // contraprova: com a mesma semana, o envio passa
+        await expect(service.flush()).resolves.toEqual({ kind: 'sent', xp: 300 });
+    });
+
+    it('relógio adiantado: a pontuação da ocorrência antiga não é adotada no balde novo', async () => {
+        const { gc, service } = montar(() => SEGUNDA_SEGUINTE); // aparelho já na semana de 16/11
+        gc.startsAt = '2026-11-09T00:00:00Z'; // Game Center ainda na de 09/11
+        gc.best.set('atual', 300);
+        await service.loadBoard('global');
+        gc.startsAt = '2026-11-16T00:00:00Z';
+        await service.recordXpEarned(10, SEGUNDA_SEGUINTE);
+        await service.flush();
+        expect(gc.submissions).toEqual([10]);
+    });
+
+    it('XP com data de uma semana anterior não apaga o balde da semana atual', async () => {
+        const { gc, service } = montar(() => SEGUNDA_SEGUINTE);
+        await service.recordXpEarned(50, SEGUNDA_SEGUINTE);
+        await service.recordXpEarned(20, QUINTA);
+        await service.flush();
+        expect(gc.submissions).toEqual([50]);
+    });
+
+    it('falha ao gravar o envio não prende a tela em carregando', async () => {
+        const quebrado = { getItem: AsyncStorage.getItem, setItem: async () => { throw new Error('disco cheio'); } };
+        const gc = new FakeGameCenter();
+        gc.others = [{ alias: 'Ana', xp: 10 }];
+        const service = new LeagueServiceImpl({ storage: quebrado, adapter: () => gc, now: () => QUINTA });
+        await AsyncStorage.setItem(STORAGE_KEYS.LEAGUE, JSON.stringify({ schemaVersion: 1, week: '2026-11-09T00:00:00.000Z', weekXp: 20, submittedXp: null, lastRank: null, overtakenNoticeDay: null, summarySeenWeek: null }));
+        await expect(service.loadBoard('global')).resolves.toMatchObject({ kind: 'ready' });
+    });
+
+    it('sem rede na autenticação é "sem conexão", não "indisponível"', async () => {
+        const { gc, service } = montar();
+        gc.auth = { status: 'unavailable', reason: 'network-unavailable' };
+        await expect(service.loadBoard('global')).resolves.toEqual({ kind: 'offline' });
     });
 });

@@ -12,12 +12,15 @@ contornos do `STATUS.md` (`RUBYOPT=-rlogger`, `LANG=en_US.UTF-8` para o
 CocoaPods, `IPHONEOS_DEPLOYMENT_TARGET=15.1`, `SENTRY_DISABLE_AUTO_UPLOAD=true`)
 e `EXPO_PUBLIC_ENABLE_LEAGUE=true` no `expo prebuild`:
 
-- `** BUILD SUCCEEDED **`, duas vezes (antes e depois do prazo de autenticação);
+- `** BUILD SUCCEEDED **`, três vezes: a primeira versão, depois do prazo de
+  autenticação e depois das correções da revisão (a terceira, após um
+  `BUILD FAILED` por `loadPreviousOccurrence` devolver opcional, corrigido);
 - `RadiantGameCenterModule.o` gerado para arm64 e x86_64; o `Podfile.lock`
   lista `RadiantGameCenter (from ../modules/radiant-gamecenter/ios)`;
 - o `.entitlements` gerado tem `com.apple.developer.game-center`;
 - nenhum aviso nem erro do compilador no `RadiantGameCenterModule.swift` na
-  segunda compilação (a saída da primeira foi guardada só em parte).
+  segunda e na terceira compilação (a saída da primeira foi guardada só em
+  parte).
 
 **Não compilado:** para aparelho (`iphoneos`) nem no EAS (Xcode 26). Não houve
 build no EAS, por regra desta frente.
@@ -197,4 +200,52 @@ Tests:       1 failed, 21 passed, 22 total
     ✕ desiste no prazo e responde Game Center indisponível (5002 ms)
     thrown: "Exceeded timeout of 5000 ms for a test.
 Tests:       1 failed, 11 passed, 12 total
+```
+
+## Revisão independente (13/11/2026)
+
+Um subagente que não escreveu o código revisou o diff contra a `main`. Veredito:
+pedir mudanças antes de ligar a chave. O que foi feito com cada achado:
+
+| Achado | Gravidade | Tratamento |
+| --- | --- | --- |
+| Semana do balde pelo relógio do aparelho, não pela ocorrência do Game Center | alta | corrigido: o envio leva a semana esperada e o Swift recusa com `stale-week`; a página só é adotada se `startsAt` bate com o balde |
+| Rota `/quiz` (só deep link) paga XP sem limite | média | segundo run da F4, porque toca `useQuiz.ts`, fora do escopo declarado deste |
+| Tela presa em "Carregando" se a gravação falha | média | corrigido: envio dentro do `try` e `.catch` na tela |
+| Resumo da semana perdido por falha de rede | baixa-média | corrigido no Swift: só "sem semana anterior" vira `nil` |
+| XP datado de semana anterior apaga o balde atual | baixa | corrigido: descartado |
+| Rejeições sem tratamento em `startLeague` | baixa | corrigido |
+| Aviso da Estude não some | baixa | corrigido |
+| Rede na autenticação mostrada como "indisponível"; amigos negados sem texto | baixa | corrigido: "Sem conexão" e texto próprio para amigos |
+| Comentário do plugin prometia binário igual ao da `main` | ajuste | corrigido: o módulo entra no autolink, só não é chamado |
+| Dois aparelhos na mesma semana não somam | limite | registrado na ADR |
+| Envio e leitura sem prazo (suspeita) | suspeita | corrigido: prazo de 20 s no adaptador |
+| `Optional as Any` no dicionário (suspeita) | suspeita | corrigido: `NSNull` |
+| Continuação pendente se o módulo for desalocado antes do handler (suspeita) | suspeita | não corrigido; o prazo de 15 s no JS impede travar a fila |
+| `timeScope: .allTime` em placar recorrente (suspeita) | suspeita | não conferido na documentação da Apple |
+
+Vermelhos das correções (mesmo método da seção anterior):
+
+```text
+## Achados da revisão — vermelho antes da correção
+    ✕ relógio adiantado: a pontuação da ocorrência antiga não é adotada no balde novo (1 ms)
+    ✕ XP com data de uma semana anterior não apaga o balde da semana atual
+    ✕ falha ao gravar o envio não prende a tela em carregando
+    ✕ sem rede na autenticação é "sem conexão", não "indisponível" (1 ms)
+Tests:       4 failed, 25 passed, 29 total
+### relógio atrasado, com contraprova (envio sem a semana esperada)
+    ✕ relógio do aparelho atrasado: o Game Center já virou e o total da semana velha não entra na nova (3 ms)
+Tests:       1 failed, 28 skipped, 29 total
+### prazo de envio/leitura — vermelho: LeagueError lançado solto no timer (withTimeout sem rejeição)
+### injeção: leitura sem prazo
+    ✕ desistem no prazo como "sem rede", sem travar a fila (5018 ms)
+Tests:       1 failed, 14 passed, 15 total
+### injeção: tela sem .catch
+    ✕ falha inesperada ao ler o placar não prende a tela em carregando (1090 ms)
+Tests:       1 failed, 13 passed, 14 total
+### injeção: amigos negados sem texto próprio
+    ✕ lista de amigos negada tem texto próprio (1016 ms)
+Tests:       1 failed, 13 passed, 14 total
+### injeção: aviso antigo não sai
+Tests:       1 failed, 5 passed, 6 total
 ```

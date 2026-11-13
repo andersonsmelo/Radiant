@@ -28,7 +28,8 @@ export type RadiantGameCenterPage = {
 export interface RadiantGameCenterModule {
     authenticate(): Promise<RadiantGameCenterAuth>;
     presentSignIn(): Promise<boolean>;
-    submitScore(leaderboardId: string, score: number): Promise<void>;
+    /** Recusa com `stale-week` se a ocorrência atual não começa em `expectedStartDate`. */
+    submitScore(leaderboardId: string, score: number, expectedStartDate: string): Promise<void>;
     loadEntries(
         leaderboardId: string,
         scope: 'global' | 'friends',

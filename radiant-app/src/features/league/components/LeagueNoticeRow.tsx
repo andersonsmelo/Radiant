@@ -29,7 +29,8 @@ export function LeagueNoticeRow({ onPress, enabled = AppConfig.ENABLE_LEAGUE }: 
   useFocusEffect(useCallback(() => {
     if (!enabled) return;
     let alive = true;
-    void LeagueService.checkNotice().then(next => { if (alive && next) setNotice(next); });
+    // Sem aviso novo, o anterior sai: a posição pode ter mudado desde então.
+    void LeagueService.checkNotice().then(next => { if (alive) setNotice(next); });
     return () => { alive = false; };
   }, [enabled]));
 

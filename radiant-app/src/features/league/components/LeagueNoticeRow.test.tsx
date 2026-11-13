@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
 
 import { LeagueNoticeRow, noticeText } from './LeagueNoticeRow';
 import { LeagueService } from '../LeagueService';
@@ -7,7 +7,11 @@ import { LeagueService } from '../LeagueService';
 jest.mock('expo-router', () => ({
   useFocusEffect: (callback: () => void | (() => void)) => {
     const React = require('react');
-    React.useEffect(() => callback(), [callback]);
+    const state = jest.requireMock('expo-router');
+    React.useEffect(() => {
+      state.__focus = () => { callback(); };
+      return callback();
+    }, [callback, state]);
   },
 }));
 jest.mock('../LeagueService', () => ({ LeagueService: { checkNotice: jest.fn() } }));
@@ -36,6 +40,15 @@ describe('LeagueNoticeRow — aviso da liga na Estude', () => {
     checkNotice.mockResolvedValue(null);
     render(<LeagueNoticeRow enabled onPress={jest.fn()} />);
     await Promise.resolve();
+    expect(screen.queryByTestId('league-notice-row')).toBeNull();
+  });
+
+  it('aviso já mostrado sai quando a nova consulta não tem aviso', async () => {
+    const state = jest.requireMock('expo-router');
+    checkNotice.mockResolvedValueOnce({ kind: 'overtaken', rank: 5 }).mockResolvedValueOnce(null);
+    render(<LeagueNoticeRow enabled onPress={jest.fn()} />);
+    await screen.findByTestId('league-notice-row');
+    await act(async () => { state.__focus(); });
     expect(screen.queryByTestId('league-notice-row')).toBeNull();
   });
 

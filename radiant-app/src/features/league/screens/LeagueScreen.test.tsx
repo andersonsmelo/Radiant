@@ -129,3 +129,16 @@ describe('LeagueScreen — cada estado com texto próprio', () => {
         expect(await screen.findByText(/^Termina em 2 dias e 3 h\./)).toBeTruthy();
     });
 });
+
+describe('LeagueScreen — achados da revisão independente', () => {
+    it('falha inesperada ao ler o placar não prende a tela em carregando', async () => {
+        loadBoard.mockRejectedValue(new Error('disco'));
+        render(<LeagueScreen />);
+        expect(await screen.findByRole('header', { name: 'Game Center indisponível' })).toBeTruthy();
+    });
+
+    it('lista de amigos negada tem texto próprio', async () => {
+        mostrar({ kind: 'unavailable', reason: 'friends-unavailable' });
+        expect(await screen.findByRole('header', { name: 'Sem acesso aos amigos do Game Center' })).toBeTruthy();
+    });
+});

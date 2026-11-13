@@ -1,4 +1,4 @@
-import { AUTH_TIMEOUT_MS, GameCenterLeagueAdapter } from './GameCenterLeagueAdapter';
+import { AUTH_TIMEOUT_MS, GameCenterLeagueAdapter, NATIVE_CALL_TIMEOUT_MS } from './GameCenterLeagueAdapter';
 import { UnavailableLeagueAdapter } from './UnavailableLeagueAdapter';
 import { LEAGUE_LEADERBOARD_ID, LeagueError, type RadiantGameCenterNative } from './league.types';
 
@@ -18,14 +18,14 @@ const erroNativo = (code: string) => Object.assign(new Error(code), { code });
 describe('GameCenterLeagueAdapter', () => {
     it('envia o XP inteiro e não negativo ao placar da liga', async () => {
         const n = nativo();
-        await new GameCenterLeagueAdapter(n).submitWeeklyXp(42.7);
-        expect(n.submitScore).toHaveBeenCalledWith(LEAGUE_LEADERBOARD_ID, 42);
+        await new GameCenterLeagueAdapter(n).submitWeeklyXp(42.7, '2026-11-09T00:00:00.000Z');
+        expect(n.submitScore).toHaveBeenCalledWith(LEAGUE_LEADERBOARD_ID, 42, '2026-11-09T00:00:00.000Z');
     });
 
     it('não envia XP inválido', async () => {
         const n = nativo();
-        await expect(new GameCenterLeagueAdapter(n).submitWeeklyXp(-3)).rejects.toMatchObject({ code: 'unrecoverable' });
-        await expect(new GameCenterLeagueAdapter(n).submitWeeklyXp(Number.NaN)).rejects.toMatchObject({ code: 'unrecoverable' });
+        await expect(new GameCenterLeagueAdapter(n).submitWeeklyXp(-3, '2026-11-09T00:00:00.000Z')).rejects.toMatchObject({ code: 'unrecoverable' });
+        await expect(new GameCenterLeagueAdapter(n).submitWeeklyXp(Number.NaN, '2026-11-09T00:00:00.000Z')).rejects.toMatchObject({ code: 'unrecoverable' });
         expect(n.submitScore).not.toHaveBeenCalled();
     });
 
@@ -62,10 +62,12 @@ describe('GameCenterLeagueAdapter', () => {
         ['network-unavailable', 'network-unavailable'],
         ['not-authenticated', 'not-authenticated'],
         ['leaderboard-not-found', 'leaderboard-not-found'],
+        ['stale-week', 'stale-week'],
+        ['friends-unavailable', 'friends-unavailable'],
         ['algo-novo', 'unrecoverable'],
     ])('erro nativo %s vira LeagueError %s', async (nativeCode, code) => {
         const n = nativo({ submitScore: jest.fn(async () => { throw erroNativo(nativeCode); }) });
-        const promessa = new GameCenterLeagueAdapter(n).submitWeeklyXp(10);
+        const promessa = new GameCenterLeagueAdapter(n).submitWeeklyXp(10, '2026-11-09T00:00:00.000Z');
         await expect(promessa).rejects.toBeInstanceOf(LeagueError);
         await expect(promessa).rejects.toMatchObject({ code });
     });
@@ -86,7 +88,7 @@ describe('UnavailableLeagueAdapter', () => {
         const a = new UnavailableLeagueAdapter();
         await expect(a.authenticate()).resolves.toEqual({ status: 'unavailable', reason: 'unavailable' });
         await expect(a.presentSignIn()).resolves.toBe(false);
-        await expect(a.submitWeeklyXp(10)).rejects.toMatchObject({ code: 'unavailable' });
+        await expect(a.submitWeeklyXp(10, '2026-11-09T00:00:00.000Z')).rejects.toMatchObject({ code: 'unavailable' });
         await expect(a.loadPage({ scope: 'global', occurrence: 'current', start: 1, length: 10 })).rejects.toMatchObject({ code: 'unavailable' });
     });
 });
@@ -103,5 +105,21 @@ describe('GameCenterLeagueAdapter — autenticação que nunca responde', () => 
         const resposta = new GameCenterLeagueAdapter(n).authenticate();
         await jest.advanceTimersByTimeAsync(AUTH_TIMEOUT_MS);
         await expect(resposta).resolves.toEqual({ status: 'unavailable', reason: 'not-authenticated' });
+    });
+});
+
+describe('GameCenterLeagueAdapter — envio e leitura que nunca respondem', () => {
+    beforeEach(() => jest.useFakeTimers());
+    afterEach(() => jest.useRealTimers());
+
+    it('desistem no prazo como "sem rede", sem travar a fila', async () => {
+        const nunca = () => new Promise<never>(() => undefined);
+        const a = new GameCenterLeagueAdapter(nativo({ submitScore: jest.fn(nunca), loadEntries: jest.fn(nunca) }));
+        const envio = a.submitWeeklyXp(10, '2026-11-09T00:00:00.000Z');
+        const leitura = a.loadPage({ scope: 'global', occurrence: 'current', start: 1, length: 10 });
+        const pegos = [expect(envio).rejects.toMatchObject({ code: 'network-unavailable' }),
+            expect(leitura).rejects.toMatchObject({ code: 'network-unavailable' })];
+        await jest.advanceTimersByTimeAsync(NATIVE_CALL_TIMEOUT_MS);
+        await Promise.all(pegos);
     });
 });

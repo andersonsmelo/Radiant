@@ -16,7 +16,9 @@ import {
 } from './league.types';
 import { UnavailableLeagueAdapter } from './UnavailableLeagueAdapter';
 
-const KNOWN_CODES: readonly LeagueErrorCode[] = ['not-authenticated', 'network-unavailable', 'leaderboard-not-found'];
+const KNOWN_CODES: readonly LeagueErrorCode[] = [
+    'not-authenticated', 'network-unavailable', 'leaderboard-not-found', 'stale-week', 'friends-unavailable',
+];
 
 function codeOf(cause: unknown): LeagueErrorCode {
     const code = typeof cause === 'object' && cause !== null ? (cause as { code?: unknown }).code : undefined;
@@ -32,6 +34,18 @@ export const AUTH_TIMEOUT_MS = 15_000;
 
 const AUTH_TIMED_OUT: LeagueAuth = { status: 'unavailable', reason: 'not-authenticated' };
 
+/** Prazo do envio e da leitura: um GameKit que não responde não pode travar a fila. */
+export const NATIVE_CALL_TIMEOUT_MS = 20_000;
+
+function withTimeout<T>(work: Promise<T>, ms: number, onTimeout: () => T): Promise<T> {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    // `then` transforma o throw de `onTimeout` em rejeição, em vez de exceção solta no timer.
+    const timeout = new Promise<T>(resolve => { timer = setTimeout(() => resolve(Promise.resolve().then(onTimeout)), ms); });
+    return Promise.race([work, timeout]).finally(() => clearTimeout(timer));
+}
+
+const timedOut = (): never => { throw new LeagueError('network-unavailable', 'Game Center não respondeu no prazo.'); };
+
 const toEntry = (entry: RadiantGameCenterNativeEntry): LeagueEntry => ({
     rank: entry.rank, xp: entry.score, alias: entry.alias, isLocalPlayer: entry.isLocalPlayer,
 });
@@ -42,9 +56,7 @@ export class GameCenterLeagueAdapter implements LeaguePort {
 
     async authenticate(): Promise<LeagueAuth> {
         try {
-            let timer: ReturnType<typeof setTimeout> | undefined;
-            const timeout = new Promise<LeagueAuth>(resolve => { timer = setTimeout(() => resolve(AUTH_TIMED_OUT), AUTH_TIMEOUT_MS); });
-            const auth = await Promise.race([this.native.authenticate(), timeout]).finally(() => clearTimeout(timer));
+            const auth = await withTimeout(this.native.authenticate(), AUTH_TIMEOUT_MS, () => AUTH_TIMED_OUT);
             if (auth.status !== 'unavailable') return auth;
             return { status: 'unavailable', reason: codeOf({ code: auth.reason }) };
         } catch {
@@ -61,21 +73,23 @@ export class GameCenterLeagueAdapter implements LeaguePort {
         }
     }
 
-    async submitWeeklyXp(xp: number): Promise<void> {
+    async submitWeeklyXp(xp: number, weekStart: string): Promise<void> {
         if (!Number.isFinite(xp) || xp < 0) throw new LeagueError('unrecoverable', 'XP inválido para a liga.');
         try {
-            await this.native.submitScore(LEAGUE_LEADERBOARD_ID, Math.floor(xp));
+            await withTimeout(this.native.submitScore(LEAGUE_LEADERBOARD_ID, Math.floor(xp), weekStart), NATIVE_CALL_TIMEOUT_MS, timedOut);
         } catch (cause) {
-            throw new LeagueError(codeOf(cause));
+            throw cause instanceof LeagueError ? cause : new LeagueError(codeOf(cause));
         }
     }
 
     async loadPage(query: LeaguePageQuery): Promise<LeaguePage | null> {
         let page;
         try {
-            page = await this.native.loadEntries(LEAGUE_LEADERBOARD_ID, query.scope, query.occurrence, query.start, query.length);
+            page = await withTimeout(
+                this.native.loadEntries(LEAGUE_LEADERBOARD_ID, query.scope, query.occurrence, query.start, query.length),
+                NATIVE_CALL_TIMEOUT_MS, timedOut);
         } catch (cause) {
-            throw new LeagueError(codeOf(cause));
+            throw cause instanceof LeagueError ? cause : new LeagueError(codeOf(cause));
         }
         if (page === null) return null;
         return {
