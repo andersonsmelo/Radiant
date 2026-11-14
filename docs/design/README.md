@@ -39,6 +39,17 @@ capturas embutidas. SHA-256: Pixel
 nelas ("8 perguntas, passa com 6", "23 min", "1 de 4 aulas") são de
 demonstração e não mudam regra nenhuma do app.
 
+## Elenco das cenas — bíblia de 2026-11-13
+
+A [bíblia de personagens](2026-11-13-biblia-de-personagens.md) descreve o Pixel,
+a Profa. Lia, o Caio, a Duda e o paciente como aparecem nas 132 cenas
+publicadas: papel, voz, quando aparecem e a ficha visual de cada um. Traz também
+as regras de construção comuns, as cinco expressões e a guarda automática do
+padrão. Os [candidatos](2026-11-13-candidatos-de-personagens.md) para as
+unidades novas de odontológica e ultrassom esperam a decisão do controlador e
+não estão nas aulas. Ao contrário das pranchetas, a arte do elenco é código:
+`radiant-app/src/ui/characters/cast/`.
+
 ## Experiência de estudo — proposta de 2026-10-12
 
 [Prancheta navegável](2026-10-12-study-experience.html) e
