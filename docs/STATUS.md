@@ -35,6 +35,28 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Trilha ampliada pela ementa — F1 da 1.6, medido em 2026-11-13
+
+Na branch `claude/f1-trilha-ampliada`, que nasce da branch da F2
+(`claude/f2-formatos-de-interacao-e37fff`, PR #71). Nada disto está na `main` nem na loja.
+
+- **Conteúdo:** quatro unidades novas, 25 aulas, 125 interações e 50 itens de
+  conferência: M15, Células, tecidos e funções (6 aulas); M16, A condição do paciente na
+  aquisição (6); S-OD, Radiologia odontológica (7); S-US, Ultrassonografia para o
+  tecnólogo (6). A trilha passa a ter 24 unidades, 157 aulas, 785 interações e 314 itens
+  de conferência. Toda aula usa ao menos uma família da 1.6. Autor Claude Sonnet,
+  revisor independente Claude Opus; revisão por IA, não por profissional da área.
+  [Pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md);
+  [mapa da expansão](plans/2026-11-13-rtg-2026-expansao-pela-ementa.md).
+- **Ordem:** M15 depois de M03, M16 depois de M09, S-OD e S-US no fim. A inserção no
+  meio exigiu mudar a regra de acesso entre trilhas (commit `1102ec4`,
+  [levantamento](evidence/2026-11-13-rtg-2026-expansao/motor.md)): trilha concluída ou
+  iniciada fica aberta, e a Home não puxa de volta quem está adiante.
+- **Roteiros do Maestro:** aula 01 e primeira avaliação de cada unidade nova, em
+  `radiant-app/.maestro/rtg-2026/`, gerados do gabarito. **Não vistos na tela.**
+- **Gate:** ver o relatório da frente; os números da suíte inteira estão no
+  [README dos pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md).
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch

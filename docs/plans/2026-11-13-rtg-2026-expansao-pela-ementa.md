@@ -49,9 +49,10 @@ por isso o núcleo ganha `m15` e `m16`, e os ramos ganham `s-od` e `s-us`.
 | `s-od` | S-OD | Radiologia odontológica | Ramo, depois de M14 | Depende de geometria e qualidade (M06), de proteção (M04) e de anatomia da face (M08.04); TC de feixe cônico se apoia em M10. |
 | `s-us` | S-US | Ultrassonografia para o tecnólogo | Ramo, depois de M14 | Depende de ondas (M03.04) e de anatomia seccional (M10). É a única modalidade sem radiação ionizante do app. |
 
-**Posição real no app nesta entrega: as quatro no fim da ordem, depois de S-IR**, na
-ordem `m15`, `m16`, `s-od`, `s-us`. A seção 3 explica por que a posição pedagógica do
-`m15` e do `m16` depende de uma mudança no motor que esta frente não faz.
+**Posição no app, atualizada em 2026-11-13:** `m15` depois de M03, `m16` depois de M09,
+`s-od` e `s-us` no fim, depois de S-IR. A primeira entrega pôs as quatro no fim, só com
+dado; o controlador aceitou a proposta da seção 3, a fatia do motor entrou em `1102ec4`
+e passou no gate, e a ordem pedagógica entrou em `989fb5a`.
 
 ### M15 — Células, tecidos e funções (6 aulas)
 
@@ -190,6 +191,13 @@ Com 1 a 3, `m15` vai para depois de M03 e `m16` para depois de M09 só trocando 
 em `RTG_UNIT_ORDER`, e o teste de progresso antigo passa a cobrir a inserção no meio.
 Os itens 2 e 3 tocam `JourneyTrackUnlockService` e `JourneyProgressService`, que não
 são desta frente.
+
+**Atualização de 2026-11-13, depois da proposta.** O controlador aprovou a mudança de
+motor como fatia separada. Regra implementada e levantamento dos chamadores em
+[`motor.md`](../evidence/2026-11-13-rtg-2026-expansao/motor.md): a regra (b) ganhou a
+cláusula "ou a própria trilha está concluída ou iniciada", que a proposta original
+esquecia, e a escrita do cursor e da retomada passou a ir para a trilha do nó. O teste
+`rtgExpansionProgress.test.ts` agora prova a inserção no meio para todo aluno da 1.5.0.
 
 ## 4. Depois destas quatro
 
