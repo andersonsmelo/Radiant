@@ -68,3 +68,14 @@ a `1102ec4` e o catálogo já com m15 depois de M03 e m16 depois de M09
 Com a regra nova restaurada: 4 de 4 aprovados. Aceito e registrado: quem concluiu M03 e
 não tinha nenhum nó concluído em M04 passa a ter M15 como próxima, e M04 só abre depois
 dela; o mesmo vale para M09 e M16.
+
+## Gates
+
+| Quando | Comando | Node | Commit | Resultado |
+| --- | --- | --- | --- | --- |
+| Run 1, conteúdo no fim da ordem | `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality` | 20.20.2 | `7a89d77` | 235 suítes, 3152 testes, saída 0; `loop validate` 15 de 15 |
+| Fatia do motor | o mesmo | 20.20.2 | `1102ec4` | 238 suítes, 3164 testes, saída 0 |
+| Final, ordem pedagógica | o mesmo | 20.20.2 | `8750df5` | 238 suítes, 3165 testes, saída 0; um aviso de lint do teste de progresso, removido em `1093931` |
+
+A primeira execução do run 1 reprovou por ambiente: o `node_modules` ligado ao checkout
+principal não tinha `@shopify/react-native-skia`. Com `npm ci` na worktree, passou.
