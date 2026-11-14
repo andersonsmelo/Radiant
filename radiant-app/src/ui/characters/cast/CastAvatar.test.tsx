@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import { CAST_HAIR_PATH, CAST_VIEWBOX, CastAvatar } from './CastAvatar';
+import { StyleSheet } from 'react-native';
+import { CAST_HAIR_PATH, CAST_VIEWBOX, CastAvatar, PIXEL_HEAD_SCALE_ON_PLATE } from './CastAvatar';
+import { PIXEL_HEAD_SIZE_MAP } from '../PixelIllustration';
 import { CAST_TONES, type CastPortraitId } from './castRegistry';
 
 jest.mock('../../accessibility/useReducedMotionPreference', () => ({
@@ -77,5 +79,50 @@ describe('CastAvatar', () => {
         render(<CastAvatar speaker="pixel" expression="feliz" accessibilityLabel="Pixel comemorando o acerto" />);
 
         expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+    });
+
+    it('sem expressão, todo retrato é neutro, como antes da F7 (chamadores antigos não mudam)', () => {
+        render(<CastAvatar speaker="caio" />);
+
+        expect(screen.getByTestId('cast-face-neutro', { includeHiddenElements: true })).toBeTruthy();
+        expect(screen.getByLabelText('Caio, tecnólogo do plantão')).toBeTruthy();
+    });
+
+    it('com expressão, o rosto troca e o rótulo diz a expressão', () => {
+        render(<CastAvatar speaker="duda" expression="preocupado" />);
+
+        expect(screen.getByTestId('cast-face-preocupado', { includeHiddenElements: true })).toBeTruthy();
+        expect(screen.queryByTestId('cast-face-neutro', { includeHiddenElements: true })).toBeNull();
+        expect(screen.getByLabelText('Duda, colega de turma, com ar de preocupação')).toBeTruthy();
+    });
+
+    it('a família de expressões do Pixel também serve ao elenco, traduzida para a mais próxima', () => {
+        render(<CastAvatar speaker="lia" expression="pensando" />);
+
+        expect(screen.getByTestId('cast-face-pensativo', { includeHiddenElements: true })).toBeTruthy();
+    });
+
+    it.each(['sm', 'md', 'lg'] as const)('em %s, o retrato tem o lado da cabeça do Pixel no mesmo tamanho', (size) => {
+        render(<CastAvatar speaker="lia" size={size} />);
+
+        const placa = StyleSheet.flatten(screen.getByTestId('cast-avatar-lia').props.style);
+        expect(placa.width).toBe(PIXEL_HEAD_SIZE_MAP[size]);
+        expect(placa.height).toBe(PIXEL_HEAD_SIZE_MAP[size]);
+        expect(placa.borderRadius).toBe(PIXEL_HEAD_SIZE_MAP[size] / 2);
+    });
+
+    it('o Pixel fica na mesma placa do elenco, com a cabeça na escala das outras', () => {
+        render(<CastAvatar speaker="pixel" />);
+
+        const pixel = screen.getByTestId('cast-avatar-pixel');
+        const lia = render(<CastAvatar speaker="lia" />).getByTestId('cast-avatar-lia');
+        const [placaPixel, placaLia] = [pixel, lia].map((node) => StyleSheet.flatten(node.props.style));
+        expect(placaPixel.backgroundColor).toBe(placaLia.backgroundColor);
+        expect(placaPixel.borderColor).toBe(placaLia.borderColor);
+        expect(placaPixel.width).toBe(placaLia.width);
+        expect(StyleSheet.flatten(pixel.children[0].props.style).transform).toEqual([{ scale: PIXEL_HEAD_SCALE_ON_PLATE }]);
+        // Escala que encolhe sem sumir: a cabeça continua a maior coisa da placa.
+        expect(PIXEL_HEAD_SCALE_ON_PLATE).toBeGreaterThan(0.6);
+        expect(PIXEL_HEAD_SCALE_ON_PLATE).toBeLessThan(1);
     });
 });

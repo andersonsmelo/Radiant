@@ -35,6 +35,51 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Atualização 1.6, F7 — personagens (medido em 2026-11-13)
+
+Branch `claude/f7-personagens`, sem merge. **Nada disso está na loja.**
+
+- **Bíblia do elenco** em
+  [`design/2026-11-13-biblia-de-personagens.md`](design/2026-11-13-biblia-de-personagens.md):
+  ficha de Pixel, Profa. Lia, Caio, Duda e paciente, tirada das 415 falas das 132
+  cenas publicadas, mais as regras comuns (grade 64, duas espessuras de traço,
+  tokens, 3:1 contra a placa, tamanho mínimo de 48 pt).
+- **Expressões comuns** (neutro, feliz, pensativo, preocupado, comemorando),
+  montadas por partes em `radiant-app/src/ui/characters/cast/castExpressions.ts`.
+  `CastAvatar` aceita `expression` e `size`, com neutro e `sm` por padrão. Os dois
+  chamadores (`DialogueScene` e `AnswerFeedbackCard`) continuam compilando sem
+  mudança de chamada. O Pixel não foi redesenhado: ganhou a placa do elenco e a
+  escala de 80% ao lado dele. As cores novas estão em `castColors`, no tema.
+- **Seletor** `castExpressionFor(contexto)`, ligado na cena de diálogo: fala que
+  pergunta é pensativa, paciente que pergunta fica preocupado e as outras falas
+  são neutras. **Para a F3 ligar:** o `AnswerFeedbackCard` ainda passa `feliz` ou
+  `pensando` ao Pixel. Ele deve passar
+  `castExpressionFor({ kind: 'retorno', correct, celebrate })`, com `celebrate`
+  verdadeiro no acerto que fecha combo, checkpoint ou aula. Deve também acrescentar
+  `size="lg"` se o retorno for o lugar do retrato grande.
+- **Paciente com dois retratos:** "Dona …" ganha cabelo escuro até os ombros, e
+  "Seu …" ou paciente sem nome mantém o senhor grisalho. O retrato antigo
+  contradizia a Dona Marta da M01.
+- **Dois candidatos** (Dra. Iara, cirurgiã-dentista, e Dr. Ravi, médico
+  ultrassonografista), com ficha em
+  [`design/2026-11-13-candidatos-de-personagens.md`](design/2026-11-13-candidatos-de-personagens.md)
+  e arte no padrão. **Fora de `LessonCastId`:** a entrada depende da decisão do
+  controlador.
+- **Guarda** `castStandard.test.tsx`: lê a árvore renderizada e barra cor fora
+  dos tokens, traço fora de 1,2 e 1,4, expressão ausente, repetida ou fora da
+  caixa, rótulo sem nome ou sem expressão, contraste abaixo de 3:1 e retrato
+  acima de 26 nós. A execução vermelha está em
+  [`evidence/2026-11-13-f7-personagens/`](evidence/2026-11-13-f7-personagens/README.md).
+- **Visto no simulador "Radiant F7":** a cena da M01.01 com Duda pensativa, Caio
+  neutro e o Pixel na placa, e a grade do Storybook em 48 e 96 pt. VoiceOver e o
+  cartão de retorno não foram vistos.
+- **Gates, medidos em 2026-11-13 às 21h20:** `cd radiant-app && EXPO_NO_DOTENV=1
+  npm run quality` no Node 20.20.2 saiu com código 0. Deu 235 suítes e 3.170
+  testes no Jest, os 17 contratos `node --test` e o QA visual estrito sem
+  regressão. O `loop validate` do run `run-1794612344638-8db1af85`, no Node 24,
+  também passou. A revisão independente não achou bloqueante; os achados
+  importantes foram corrigidos e vistos falhando antes da correção.
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch

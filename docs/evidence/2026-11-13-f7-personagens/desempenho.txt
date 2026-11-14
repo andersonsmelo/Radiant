@@ -1,0 +1,37 @@
+Desempenho do retrato do elenco, F7 (2026-11-13)
+================================================
+
+Ambiente: Node 20.20.2, Jest do radiant-app (jsdom do RN), Apple Silicon,
+outras sessões ativas na máquina (carga de 1 min entre 6 e 46).
+Contagem: nós hospedeiros da árvore de `render(...).toJSON()`.
+
+Antes (origin/main 741c3e3)
+  avatar neutro: lia 16, caio 15, duda 14, paciente 17, pixel 66
+  cena de 6 falas (lia, caio, duda, paciente "Dona Marta", pixel, lia): 169 nós
+
+Depois (branch claude/f7-personagens)
+  retrato por expressão (neutro / feliz / pensativo / preocupado / comemorando):
+    lia            21 / 20 / 21 / 21 / 22
+    caio           17 / 16 / 17 / 17 / 18
+    duda           17 / 16 / 17 / 17 / 18
+    paciente       18 / 17 / 18 / 18 / 19
+    paciente-dona  19 / 18 / 19 / 19 / 20
+    dentista       18 / 17 / 18 / 18 / 19   (candidato)
+    ultrassom      17 / 16 / 17 / 17 / 18   (candidato)
+  avatar neutro: lia 22, caio 18, duda 18, paciente 19, pixel 67
+  cena de 6 falas: 192 nós (+23, +14%)
+
+O que pesa mais: sobrancelhas (1 nó), faixa de luz do cabelo (1), o grupo do
+rosto (1), lapelas e dosímetro da Lia (3), cordões da Duda (1) e a View de
+escala do Pixel (1).
+
+Tempo de render da cena de 6 falas, média de 50 renders depois de 5 de
+aquecimento, rodadas intercaladas antes/depois na mesma máquina:
+  antes:  23,98  16,36  21,10 ms  (média 20,5)
+  depois: 24,98  25,16  18,88 ms  (média 23,0)
+A diferença (+2,5 ms, +12%) é menor que a variação entre rodadas do mesmo
+código (7,6 ms no antes). Não há regressão mensurável com este método; o
+custo real é o de nós, que a guarda limita:
+  - teto de 26 nós por retrato em qualquer expressão (máximo medido: 22);
+  - teto de 215 nós para a cena de 6 falas (medido: 192).
+Ambos em `radiant-app/src/ui/characters/cast/castStandard.test.tsx`.
