@@ -27,3 +27,44 @@ Saídas vermelhas do teste do gerador, relatadas pelo agente que o escreveu (Nod
 - sem o argumento `radiantReduceMotion`: `not ok 3 … m01-aula-01.yaml expected { radiantReduceMotion: '1' }`
 - avaliação sem jogar a aula 01 antes: a primeira versão da asserção passou (fraca);
   corrigida, reprovou com `not ok 7 … lesson 01 summary comes before the checkpoint starts`.
+
+## Fatia do motor e ordem pedagógica
+
+Levantamento e regra em [motor.md](motor.md). Implementação por um agente Claude Opus,
+revista pela sessão da F1. Gate na fatia do motor, antes de mover a ordem:
+`EXPO_NO_DOTENV=1 npm run quality`, Node 20.20.2, commit `1102ec4`, 238 suítes e 3164
+testes, saída 0.
+
+Saídas vermelhas relatadas pelo agente do motor (cada uma contra o código anterior ou
+com o defeito injetado, depois restaurado):
+
+- trilha concluída depois da inserção, código antigo: `Expected: true, Received: false` (M04 fechou);
+- trilha em andamento logo depois do ponto, código antigo: `Expected: true, Received: false`;
+- aluno no meio de um ramo, código antigo: `Expected: "m07", Received: "nova"`;
+- aluno que concluiu tudo menos a inserida, código antigo: `Expected: "m07", Received: "nova"`;
+- aluno novo, com a anterior ignorando trilha nunca iniciada: `Expected: false, Received: true` (M04 abriu);
+- compatibilidade, com o padrão "todas iniciadas": `- Expected -7 / + Received +7`;
+- serviço sem o conjunto de iniciadas: `Expected: "trilha-c", Received: "trilha-nova"`;
+- escrita na trilha ativa: `Expected: "node:trilha-c-2", Received: "node:trilha-nova-1"`;
+- percurso sem iniciadas: `Expected: true, Received: false` e `Expected: "c", Received: "nova"`;
+- Perfil com a cópia antiga da régua: `Expected: "c-unit", Received: "nova-unit"`;
+- celebração disparando por abertura: recebeu `+ "nova", + "c"`;
+- linha percorrida sem o filtro: `- false,false / + true,true`;
+- faixa antiga: `Unable to find ... label: Disponível: Inserida.`
+
+Vista pela sessão da F1, com `JourneyTrackUnlockService.ts` trocado pela versão anterior
+a `1102ec4` e o catálogo já com m15 depois de M03 e m16 depois de M09
+(`rtgExpansionProgress.test.ts`, 2 de 4 reprovados; trecho):
+
+```text
+✕ nenhum aluno da 1.5.0 perde acesso ao que fez nem é levado de volta pela Home
+✕ quem está adiante vê a unidade inserida aberta, sem ela virar a ativa
++ "concluídas 3 e no meio de track:rtg-2026:m04: track:rtg-2026:m04 fechou com progresso",
++ "concluídas 4: track:rtg-2026:m04 fechou com progresso",
++ "concluídas 4: trilha ativa track:rtg-2026:m15, esperada track:rtg-2026:m05",
++ "concluídas 9 e no meio de track:rtg-2026:m10: track:rtg-2026:m10 fechou com progresso",
+```
+
+Com a regra nova restaurada: 4 de 4 aprovados. Aceito e registrado: quem concluiu M03 e
+não tinha nenhum nó concluído em M04 passa a ter M15 como próxima, e M04 só abre depois
+dela; o mesmo vale para M09 e M16.

@@ -113,10 +113,9 @@ describe('fábrica de lotes rtg-2026', () => {
         expect(fingerprintProductionBatchMaterial({ ...batch, schemaVersion: 1, promotionState: 'human-gates-pending',
             approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' } } as EditorialCandidate)).toBe(batch.materialSha256);
         expect(() => buildRtgBatch({ ...fixture(), unit: { ...source.unit, id: 'm99' } })).toThrow('rtg-batch-unknown-unit:m99');
-        expect(RTG_UNIT_ORDER.slice(0, 14)).toEqual(Array.from({ length: 14 }, (_, index) => `m${String(index + 1).padStart(2, '0')}`));
-        expect(RTG_UNIT_ORDER.slice(14, 20)).toEqual(['s-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir']);
-        // Unidades da 1.6 no fim, para não fechar trilhas de quem tem progresso da 1.5.0 (mapa de 2026-11-13, seção 3).
-        expect(RTG_UNIT_ORDER.slice(20)).toEqual(['m15', 'm16', 's-od', 's-us']);
+        // Núcleo na ordem da ementa, com as unidades da 1.6 na posição pedagógica (mapa de 2026-11-13).
+        expect(RTG_UNIT_ORDER).toEqual(['m01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+            's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us']);
     });
 });
 
