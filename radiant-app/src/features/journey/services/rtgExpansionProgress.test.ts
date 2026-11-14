@@ -42,7 +42,6 @@ function legacyProgressRegressions(tracks: readonly LearningTrack[], insertedBef
                 : []),
         ];
         for (const { label, started } of populations) {
-            const before = new Map(resolveTrackAccess(legacyTracks, completed).map(entry => [entry.trackId, entry]));
             const after = new Map(resolveTrackAccess([...tracks], completed, started).map(entry => [entry.trackId, entry]));
             for (const id of LEGACY_1_5_0) {
                 if (!after.get(id)!.unlocked && (completed.has(id) || started.has(id))) problems.push(`${label}: ${id} fechou com progresso`);
