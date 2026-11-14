@@ -67,7 +67,9 @@ describe('trilha ampliada da 1.6 e o progresso da 1.5.0', () => {
         const extra: LearningTrack = { ...tracks[0], id: 'track:rtg-2026:inserida', lessonIds: [] };
         const inserted = [...tracks.slice(0, 3), extra, ...tracks.slice(3)];
         const problems = legacyProgressRegressions(inserted);
-        expect(problems).toContain('concluídas 4: track:rtg-2026:m04 fechou');
-        expect(problems).toContain('concluídas 5: trilha ativa track:rtg-2026:inserida, esperada track:rtg-2026:m06');
+        // Desde 2026-11-13 trilha concluída não fecha; quem parou na fronteira
+        // (M03 concluída, nada em M04) ainda vê M04 fechar, como a regra aceita.
+        expect(problems).toContain('concluídas 3: track:rtg-2026:m04 fechou');
+        expect(problems).toContain('concluídas 3: trilha ativa track:rtg-2026:inserida, esperada track:rtg-2026:m04');
     });
 });

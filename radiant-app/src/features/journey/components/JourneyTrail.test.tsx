@@ -292,6 +292,20 @@ describe('JourneyTrail — o caminho percorrido', () => {
     expect(estados.filter((estado, i) => i > 0 && estado !== estados[i - 1])).toHaveLength(1);
   });
 
+  it('unidade inserida atrás do aluno: faixa "Disponível" e só o concluído conta como andado', () => {
+    // Regra de 2026-11-13: a trilha inserida antes da ativa abre sem ser a
+    // próxima. Desenhá-la como percorrida diria que o aluno passou por ela.
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])], { completed: true }),
+      segment('t2', 'Inserida', [unit('u2', 'Unidade 2', ['available', 'locked'])]),
+      segment('t3', 'Tórax', [unit('u3', 'Unidade 3', ['completed', 'available'])]),
+    ], 'u3-node-1');
+
+    expect(traveledStates(screen)).toEqual([false, false, true, true]);
+    expect(screen.getByLabelText('Disponível: Inserida.')).toBeTruthy();
+    expect(screen.getByLabelText('Próximo nível: Tórax.')).toBeTruthy();
+  });
+
   it('sem nó recomendado, acende até o último concluído', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'locked'])]),
