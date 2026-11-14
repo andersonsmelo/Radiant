@@ -151,9 +151,9 @@ describe('JourneyCurriculumService', () => {
     expect(segments[1].units[0].nodes[0].status).toBe('available');
   });
 
-  it('preserva conclusões antigas dentro de uma trilha fechada', async () => {
-    // Uma trilha pode estar atrás do cadeado e conter conclusões anteriores.
-    // Rebaixá-las reescreveria o passado do aluno.
+  it('mantém aberta, com as conclusões, a trilha iniciada atrás de uma anterior pendente', async () => {
+    // Até 2026-11-13 esta trilha fechava e só as conclusões sobreviviam. Com
+    // unidades inseridas no meio do percurso, trilha iniciada não fecha mais.
     mockedCatalog.listTracks.mockReturnValue([
       track('a', 'Primeira', 1),
       track('b', 'Segunda', 2),
@@ -165,8 +165,8 @@ describe('JourneyCurriculumService', () => {
 
     const { segments } = await JourneyCurriculumService.getCurriculumTrail();
 
-    expect(segments[1].unlocked).toBe(false);
-    expect(segments[1].units[0].nodes.map((node) => node.status)).toEqual(['completed', 'locked']);
+    expect(segments[1].unlocked).toBe(true);
+    expect(segments[1].units[0].nodes.map((node) => node.status)).toEqual(['completed', 'available']);
   });
 
   it('não trata trilha sem nó nenhum como concluída', async () => {

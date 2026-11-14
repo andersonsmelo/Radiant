@@ -14,6 +14,11 @@ type JourneyLevelBandProps = {
    * cadeado diz o que fazer: "BLOQUEADO" sozinho deixava o aluno sem saída.
    */
   previousTrackTitle?: string;
+  /**
+   * Aberta e antes da trilha em que o aluno está: unidade inserida atrás dele
+   * (2026-11-13). Não é o "próximo" nível, é um disponível.
+   */
+  behindRecommended?: boolean;
 };
 
 /**
@@ -28,8 +33,8 @@ type JourneyLevelBandProps = {
  * sinal que o nó bloqueado usa, e não é o único: o rótulo também muda de
  * palavra. Cor sozinha nunca carrega informação neste projeto.
  */
-export function JourneyLevelBand({ trackId, trackTitle, unlocked, previousTrackTitle }: JourneyLevelBandProps) {
-  const eyebrow = unlocked ? 'Próximo nível' : 'Bloqueado';
+export function JourneyLevelBand({ trackId, trackTitle, unlocked, previousTrackTitle, behindRecommended = false }: JourneyLevelBandProps) {
+  const eyebrow = !unlocked ? 'Bloqueado' : behindRecommended ? 'Disponível' : 'Próximo nível';
   const unlockHint = !unlocked && previousTrackTitle ? `Abre ao concluir ${previousTrackTitle}` : null;
 
   return (

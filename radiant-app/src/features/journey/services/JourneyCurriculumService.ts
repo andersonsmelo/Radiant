@@ -19,7 +19,7 @@ import type { JourneyNode, JourneySnapshot, JourneyUnit } from '../../../types/j
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { JourneyProgressService } from './JourneyProgressService';
-import { resolveTrackAccess } from './JourneyTrackUnlockService';
+import { resolveActiveTrackId, resolveTrackAccess } from './JourneyTrackUnlockService';
 import { isTrackCompleted } from './trackCompletion';
 
 /** Um trecho do percurso: uma trilha, com suas unidades e seu estado de acesso. */
@@ -36,6 +36,8 @@ export type CurriculumTrail = {
     segments: CurriculumSegment[];
     /** O nó que a trilha destaca. Vem da trilha ativa; sem ela, fica indefinido. */
     recommendedNodeId?: string;
+    /** A trilha ativa, pela mesma função pura que a Home usa (`resolveActiveTrackId`). */
+    activeTrackId?: string;
 };
 
 /** A régua de `trackCompletion.ts`, lida pelo status que a tela mostra. */
@@ -107,7 +109,15 @@ class JourneyCurriculumServiceImpl {
                 .map(([trackId]) => trackId)
         );
 
-        const access = resolveTrackAccess(tracks, completedTrackIds);
+        // Iniciada: ao menos um nó concluído, pelo mesmo status que decide a conclusão.
+        const startedTrackIds = new Set(
+            [...snapshotByTrackId.entries()]
+                .filter(([, snapshot]) => snapshot.track.units.some((unit) =>
+                    unit.nodes.some((node) => node.status === 'completed')))
+                .map(([trackId]) => trackId)
+        );
+
+        const access = resolveTrackAccess(tracks, completedTrackIds, startedTrackIds);
         const titleByTrackId = new Map(tracks.map((track) => [track.id, track.title]));
 
         const segments = access.flatMap<CurriculumSegment>((entry) => {
@@ -131,15 +141,16 @@ class JourneyCurriculumServiceImpl {
             ];
         });
 
-        // O destaque vem da primeira trilha aberta e não concluída — a mesma
-        // régua de `resolveActiveTrackId`, aplicada sobre os trechos que
-        // sobreviveram à leitura.
-        const activeSegment = segments.find((segment) => segment.unlocked && !segment.completed);
-        const recommendedNodeId = activeSegment
+        // O destaque vem da trilha ativa pela função pura, e não de uma cópia
+        // da régua: uma unidade inserida atrás do aluno fica aberta sem virar a
+        // ativa. Trilha ilegível não tem trecho, e então não há destaque.
+        const activeTrackId = resolveActiveTrackId(tracks, completedTrackIds, startedTrackIds) ?? undefined;
+        const activeSegment = segments.find((segment) => segment.trackId === activeTrackId);
+        const recommendedNodeId = activeSegment && !activeSegment.completed
             ? snapshotByTrackId.get(activeSegment.trackId)?.nextRecommendedNode?.id
             : undefined;
 
-        return { segments, recommendedNodeId };
+        return { segments, recommendedNodeId, activeTrackId };
     }
 }
 

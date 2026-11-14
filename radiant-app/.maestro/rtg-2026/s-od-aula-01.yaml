@@ -1,0 +1,91 @@
+appId: com.ascendcreative.radiant
+name: 'RTG S-OD: aula 01 até o resumo'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn. LessonFlowScreen não recusa nó bloqueado e a aula 01 não tem unlockRule,
+# então a unidade abre numa instalação limpa, mesmo que a trilha a mostre atrás do cadeado. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3As-od%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3As-od%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:s-od:aula-01:i1:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:s-od:aula-01:i1:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 matching
+- scrollUntilVisible:
+    element:
+      text: 'Associar Ápice a Ponta da raiz do dente'
+- tapOn: 'Associar Ápice a Ponta da raiz do dente'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Raiz a Parte do dente que fica dentro do osso'
+- tapOn: 'Associar Raiz a Parte do dente que fica dentro do osso'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Mandíbula a Osso da arcada de baixo'
+- tapOn: 'Associar Mandíbula a Osso da arcada de baixo'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 cloze
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-ápice'
+- tapOn:
+    id: 'cloze-token-ápice'
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-mandíbula'
+- tapOn:
+    id: 'cloze-token-mandíbula'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:s-od:aula-01:i4:b'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:s-od:aula-01:i4:b'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 case-decision
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:s-od:aula-01:i5:d'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:s-od:aula-01:i5:d'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'
