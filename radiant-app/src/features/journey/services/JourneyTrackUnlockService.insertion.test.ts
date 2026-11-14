@@ -58,11 +58,25 @@ describe('unidade inserida no meio do percurso', () => {
         expect(ativa(concluidas, iniciadas)).toBe('m07');
     });
 
-    it('(4) quem concluiu tudo menos a inserida fica na última trilha, sem voltar', () => {
+    it('(4) quem concluiu tudo menos a inserida recebe a inserida como recomendação', () => {
+        // Nada adiante da iniciada mais distante resta; cair na última trilha,
+        // já concluída, deixaria o aluno sem recomendação com a inserida por fazer.
         const concluidas = ORDEM.filter((id) => id !== 'nova');
 
         expect(abertas(concluidas).nova).toBe(true);
-        expect(ativa(concluidas)).toBe('m07');
+        expect(ativa(concluidas)).toBe('nova');
+    });
+
+    it('(4b) contraprova: quem está no meio de m06 continua em m06, com a inserida aberta atrás', () => {
+        const concluidas = ['m01', 'm02', 'm03', 'm04', 'm05'];
+        const iniciadas = [...concluidas, 'm06'];
+
+        expect(abertas(concluidas, iniciadas).nova).toBe(true);
+        expect(ativa(concluidas, iniciadas)).toBe('m06');
+    });
+
+    it('(4c) quem concluiu tudo, a inserida inclusive, fica na última trilha', () => {
+        expect(ativa(ORDEM)).toBe('m07');
     });
 
     it('(5) aluno novo segue a ordem: a inserida vem depois de m03 e m04 espera por ela', () => {

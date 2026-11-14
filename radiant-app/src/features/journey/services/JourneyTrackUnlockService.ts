@@ -108,7 +108,8 @@ export function resolveTrackAccess(
  * do aluno fica aberta, mas não o puxa de volta; sem progresso nenhum, a
  * contagem começa do início, como antes de 2026-11-13.
  *
- * Quando todas terminaram devolve a última, e não `null`: o app precisa de uma
+ * Se nada adiante da iniciada mais distante está aberto e por fazer, devolve a
+ * primeira aberta e por fazer de qualquer posição. Quando todas terminaram devolve a última, e não `null`: o app precisa de uma
  * trilha para exibir, e quem concluiu o curso deve continuar vendo o que fez,
  * não uma tela vazia. Quem quiser tratar "curso concluído" pergunta a
  * `resolveTrackAccess`, onde esse fato está explícito.
@@ -126,6 +127,10 @@ export function resolveActiveTrackId(
 
     const furthest = furthestStartedIndex(access.map((entry) => entry.trackId), startedTrackIds);
 
+    // Nada adiante da iniciada mais distante resta: antes de cair na última
+    // (já concluída), recomenda uma trilha aberta e por fazer de qualquer posição,
+    // como a unidade inserida atrás de quem concluiu todo o resto.
     return access.find((entry, index) => index >= furthest && entry.unlocked && !entry.completed)?.trackId
+        ?? access.find((entry) => entry.unlocked && !entry.completed)?.trackId
         ?? access[access.length - 1].trackId;
 }

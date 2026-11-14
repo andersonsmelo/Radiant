@@ -127,3 +127,29 @@ Convenções: "M04" = trilha logo após o ponto de inserção; "m15" = inserida 
 3. Escritas de `setCurrentNode/setResumableNode` na trilha ativa em vez da do nó (1.3.1): unidade inserida atrás do aluno passa a ser o caminho comum e dispara o aviso de "ponto salvo" e perde a retomada.
 4. Cópia/visual: banda "Próximo nível" e linha "percorrida" sobre unidade inserida atrás (`JourneyLevelBand.tsx:32`, `JourneyTrail.tsx:109-120`).
 5. Testes a atualizar: `JourneyTrackUnlockService.test.ts`, `rtgExpansionProgress.test.ts` (afirma "só no fim"), mock em `LessonFlowScreen.flow.test.tsx:837`.
+
+## Ajuste de 2026-11-13, pedido pelo controlador na revisão
+
+**Defeito.** Com nada aberto e por fazer adiante da trilha iniciada mais distante,
+`resolveActiveTrackId` caía direto na última trilha, já concluída. Quem concluísse tudo
+menos M15 (por exemplo, tudo da 1.5.0 e depois S-OD e S-US) ficava sem recomendação, com
+M15 e M16 abertas e por fazer.
+
+**Correção.** Antes de cair na última, a função devolve a primeira trilha aberta e não
+concluída de qualquer posição. O aluno no meio de uma trilha não muda, porque a busca a
+partir da iniciada mais distante continua tendo precedência.
+
+Vermelho visto na sessão da F1, Node 20.20.2, com o caso novo antes da correção
+(`JourneyTrackUnlockService.insertion.test.ts`, ordem `m01 m02 m03 nova m04 … m07`):
+
+```text
+✕ (4) quem concluiu tudo menos a inserida recebe a inserida como recomendação
+✓ (4b) contraprova: quem está no meio de m06 continua em m06, com a inserida aberta atrás
+✓ (4c) quem concluiu tudo, a inserida inclusive, fica na última trilha
+    Expected: "nova"
+    Received: "m07"
+Tests:       1 failed, 7 passed, 8 total
+```
+
+Depois da correção: 8 de 8 no arquivo, e 569 de 569 em `src/features/journey`,
+`src/features/profile` e nos lotes.
