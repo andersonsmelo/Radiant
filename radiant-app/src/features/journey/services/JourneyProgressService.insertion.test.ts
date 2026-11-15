@@ -146,4 +146,27 @@ describe('JourneyProgressService com unidade inserida atrás do aluno', () => {
         expect(store.tracks['trilha-nova'].resumableStepIndex).toBe(1);
         expect(store.tracks['trilha-nova'].currentNodeId).toBe(primeiraDaNova);
     });
+
+    it('concluir lição da inserida, com a limpeza que a tela faz, deixa a retomada da ativa intacta', async () => {
+        const retomadaDeC = await alunoNoMeioDeC();
+        catalogo(DEPOIS);
+        const primeiraDaNova = nodesOf('trilha-nova').find((node) => node.type === 'lesson')!.id;
+        await JourneyProgressService.setCurrentNode(primeiraDaNova);
+        await JourneyProgressService.setResumableNode(primeiraDaNova, 1);
+
+        // A sequência de `LessonFlowScreen` ao concluir (PR #74).
+        const snapshot = await JourneyProgressService.markNodeCompleted(primeiraDaNova);
+        await JourneyProgressService.setCurrentNode(null, snapshot.track);
+        await JourneyProgressService.setResumableNode(undefined, snapshot.track);
+
+        const store = readStore();
+        expect(snapshot.track.id).toBe('trilha-nova');
+        expect(store.tracks['trilha-c'].resumableNodeId).toBe(retomadaDeC);
+        expect(store.tracks['trilha-c'].resumableStepIndex).toBe(2);
+        expect(store.tracks['trilha-c'].currentNodeId).toBe(retomadaDeC);
+        // Validade: a limpeza aconteceu, na trilha do nó.
+        expect(store.tracks['trilha-nova'].completedNodeIds).toContain(primeiraDaNova);
+        expect(store.tracks['trilha-nova'].resumableNodeId).toBeUndefined();
+        expect(store.tracks['trilha-nova'].currentNodeId).toBeNull();
+    });
 });

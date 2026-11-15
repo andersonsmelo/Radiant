@@ -512,9 +512,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // mostrando a unidade sem a lição que acabou de fechar. Encadear a
             // partir da própria marcação elimina a corrida.
             const snapshot = tracksJourney ? await JourneyProgressService.markNodeCompleted(nodeId) : null;
-            if (tracksJourney) {
-                await JourneyProgressService.setCurrentNode(null);
-                await JourneyProgressService.setResumableNode(undefined);
+            if (snapshot) {
+                // Na trilha do nó, não na ativa: a unidade inserida atrás do aluno
+                // (1.6) não pode apagar a retomada da trilha onde ele está.
+                await JourneyProgressService.setCurrentNode(null, snapshot.track);
+                await JourneyProgressService.setResumableNode(undefined, snapshot.track);
             }
             await activeCheckpoint.finish();
 

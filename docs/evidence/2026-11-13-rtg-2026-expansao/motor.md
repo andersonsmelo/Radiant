@@ -153,3 +153,30 @@ Tests:       1 failed, 7 passed, 8 total
 
 Depois da correção: 8 de 8 no arquivo, e 569 de 569 em `src/features/journey`,
 `src/features/profile` e nos lotes.
+
+## Ajuste de 2026-11-15: limpeza ao concluir, na trilha do nó (PR #74, revisão do Codex)
+
+O que o relatório da frente deixou como "não feito" era defeito: ao concluir uma lição
+da unidade inserida, `LessonFlowScreen` chamava `setCurrentNode(null)` e
+`setResumableNode(undefined)` sem trilha, e a limpeza caía na trilha **ativa**. O aluno
+no meio de M07 que fazia uma lição de M15 perdia a retomada de M07. Agora a tela passa
+`snapshot.track`, a trilha que `markNodeCompleted` devolve, que é a do nó. Chamadores
+conferidos: só `LessonFlowScreen.tsx` chama essas duas funções sem nó.
+
+Vermelho antes da correção. Na tela (`LessonFlowScreen.flow.test.tsx`):
+
+```
+✕ limpa cursor e retomada na trilha da lição concluída, não na ativa (PR #74)
+Expected: undefined, {"id": "trilha-do-no", "units": []}
+```
+
+No serviço real, com a sequência antiga da tela (`JourneyProgressService.insertion.test.ts`):
+
+```
+✕ concluir lição da inserida, com a limpeza que a tela faz, deixa a retomada da ativa intacta
+Expected: "node:trilha-c-2"
+Received: undefined
+```
+
+Depois da correção: 919 de 919 em `src/features/lesson-flow` e `src/features/journey`,
+`tsc` sem erro.
