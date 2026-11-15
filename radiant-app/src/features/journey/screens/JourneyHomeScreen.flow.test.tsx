@@ -410,6 +410,34 @@ describe('JourneyHomeScreen track flow', () => {
     expect(mockedTelemetryService.markDayOpen).toHaveBeenCalledTimes(1);
   });
 
+  // Liga semanal (ADR 2026-11-13): com a chave ligada, o aviso da liga entra no
+  // cabeçalho da trilha, depois das missões, e leva à tela da liga.
+  it('com a liga ligada, mostra o aviso da liga e leva a /league', async () => {
+    const { AppConfig } = require('../../../config');
+    const chave = jest.replaceProperty(AppConfig, 'ENABLE_LEAGUE', true);
+    const { LeagueService } = require('../../league/LeagueService');
+    const aviso = jest.spyOn(LeagueService, 'checkNotice').mockResolvedValue({ kind: 'overtaken', rank: 3 });
+    try {
+      renderWithProviders(<JourneyHomeScreen />);
+      fireEvent.press(await screen.findByLabelText('Alguém passou você na liga. Agora você está em 3º. Ver liga.'));
+      expect(router.push).toHaveBeenCalledWith('/league');
+    } finally {
+      aviso.mockRestore();
+      chave.restore();
+    }
+  });
+
+  it('com a liga desligada (padrão), não há aviso da liga', async () => {
+    const { LeagueService } = require('../../league/LeagueService');
+    const aviso = jest.spyOn(LeagueService, 'checkNotice');
+    renderWithProviders(<JourneyHomeScreen />);
+    await waitFor(() => expect(mockedTelemetryService.track).toHaveBeenCalledWith('screen_view', { screen: 'journey_home' }));
+    await screen.findByTestId('journey-home-screen');
+    expect(screen.queryByTestId('league-notice-row')).toBeNull();
+    expect(aviso).not.toHaveBeenCalled();
+    aviso.mockRestore();
+  });
+
   it('keeps track selection out of Home because Galaxy owns exploration', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 

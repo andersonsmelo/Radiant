@@ -375,6 +375,9 @@ describe('QuizScreen flow', () => {
     expect(await screen.findByText('+12 XP')).toBeTruthy();
     expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
     expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalledTimes(1);
+    // A rota legada paga XP a cada conclusão, sem a régua de recompensa da trilha:
+    // esse XP não entra na liga semanal (revisão independente da F4, 2026-11-13).
+    expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalledWith(expect.anything(), { countsForLeague: false });
     fireEvent.press(screen.getByLabelText('Avaliar a aula com 4 de 5'));
     expect(rate).toHaveBeenCalledWith('lesson-1', 4);
     expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
