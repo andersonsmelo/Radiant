@@ -420,8 +420,11 @@ export const MotionView = Reanimated.View;
 export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
 export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
 
-/** Cunhagem: uma única mola, apenas quando a tentativa realmente ganhou estrelas. */
-export function useMedalMint(earned: boolean) {
+/**
+ * Cunhagem: uma única mola, apenas quando a tentativa realmente ganhou estrelas.
+ * `durationMs` vem do mapa de retorno na conclusão rica (F3); a base usa 300.
+ */
+export function useMedalMint(earned: boolean, durationMs = 300) {
     const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
     const played = useRef(false);
     // O estado final já existe no primeiro quadro, inclusive antes da preferência.
@@ -435,9 +438,9 @@ export function useMedalMint(earned: boolean) {
         if (played.current) return;
         played.current = true;
         scale.value = 0.82;
-        scale.value = withSpring(1, { duration: 300, dampingRatio: 0.7 });
+        scale.value = withSpring(1, { duration: durationMs, dampingRatio: 0.7 });
         return () => { cancelAnimation(scale); };
-    }, [earned, reducedMotionEnabled, resolved, scale]);
+    }, [durationMs, earned, reducedMotionEnabled, resolved, scale]);
 
     return useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 }

@@ -7,6 +7,7 @@ import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import type { IllustrationTheme } from '../../../ui/illustrations/illustrationPlayback';
 import { MotionView, useMedalMint, useResultStar } from '../../../ui/motion';
+import { motionMsFor } from '../../../ui/feedback/lessonFeedback';
 import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors } from '../../../ui/theme';
@@ -43,6 +44,8 @@ export type LessonSummaryProps = {
    * movimento" (o `Confetti` decide).
    */
   celebrate?: boolean;
+  /** F3 (`ENABLE_RICH_FEEDBACK`): cunha a medalha em toda conclusão com estrela, não só no recorde. */
+  mintOnComplete?: boolean;
 };
 
 const TOTAL_STARS = 3;
@@ -125,12 +128,14 @@ export function LessonSummary({
   onRetry,
   continueHint = 'Continua o estudo',
   celebrate = false,
+  mintOnComplete = false,
 }: LessonSummaryProps) {
   const { fontScale } = useWindowDimensions();
   const largeText = isLargeTextScale(fontScale);
   const isZeroStars = stars === 0;
   const earned = starsImproved && !isZeroStars;
-  const mintStyle = useMedalMint(earned);
+  const mintStyle = useMedalMint(earned || (mintOnComplete && !isZeroStars),
+    mintOnComplete ? motionMsFor('lesson_complete') : undefined);
   // A nova régua reconhece acertos parciais sem prometer aprovação ou domínio.
   const resultPhrase = stars > 0 && correctAnswers < totalQuestions
     ? 'Você avançou. Vale reforçar os pontos que faltaram.'

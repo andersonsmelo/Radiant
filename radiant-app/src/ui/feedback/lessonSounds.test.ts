@@ -7,10 +7,11 @@ beforeEach(() => {
 });
 
 describe('tocador de sons da lição', () => {
-  it('pré-carrega os nove sons ao abrir e respeita o silencioso', () => {
+  it('pré-carrega os onze sons ao abrir e respeita o silencioso', () => {
     createLessonSoundPlayer();
-    expect(LESSON_SOUND_IDS).toEqual(['toque', 'acerto', 'erro', 'vida', 'sequencia', 'fim', 'combo', 'nivel', 'unidade']);
-    expect(createAudioPlayer).toHaveBeenCalledTimes(9);
+    // `soltar` e `fala` são da F3 da 1.6 (ficha que encaixa e fala de diálogo).
+    expect(LESSON_SOUND_IDS).toEqual(['toque', 'acerto', 'erro', 'vida', 'sequencia', 'fim', 'combo', 'nivel', 'unidade', 'soltar', 'fala']);
+    expect(createAudioPlayer).toHaveBeenCalledTimes(11);
     expect(setAudioModeAsync).toHaveBeenCalledWith({ playsInSilentMode: false });
   });
 
