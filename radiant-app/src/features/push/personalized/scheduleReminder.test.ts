@@ -14,7 +14,7 @@ function fakeCenter(permission = 'granted') {
     SchedulableTriggerInputTypes: { DATE: 'date' } as never,
     getPermissionsAsync: jest.fn(async () => ({ status: permission }) as never),
     cancelAllScheduledNotificationsAsync: jest.fn(async () => { scheduled = []; }),
-    scheduleNotificationAsync: jest.fn(async (req: never) => {
+    scheduleNotificationAsync: jest.fn(async (req: unknown) => {
       const r = req as Request & { identifier?: string };
       const identifier = r.identifier ?? `auto-${scheduled.length}`;
       scheduled = [...scheduled.filter(s => s.identifier !== identifier), { ...r, identifier }];

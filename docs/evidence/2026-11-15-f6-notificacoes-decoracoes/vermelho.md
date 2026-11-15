@@ -138,3 +138,145 @@ A guarda "linhas com a flag desligada" passou com o defeito na primeira injeçã
     ✕ desligada: não monta nada (os Ajustes são os da 1.5.0) (442 ms)
 Tests:       1 failed, 2 passed, 3 total
 ```
+
+## 8. Catálogo e regras (`catalog.test.ts`, `unlocks.test.ts`)
+
+```
+### exclusivo ganho sem assinar
+    ✕ {"kind": "assinante"} com {"lessonsCompleted": 99, "level": 50, "streakDays": 365, "unitsCompleted": 24} → false (1 ms)
+    ✕ quem já cumpriu tudo na atualização ganha tudo de uma vez, sem os exclusivos (1 ms)
+    ✕ o que já foi ganho não volta a aparecer como novo (2 ms)
+Tests:       3 failed, 20 passed, 23 total
+### equipado mostrado sem estar disponível
+    ✕ item equipado que deixou de estar disponível volta ao padrão, sem apagar a escolha (2 ms)
+Tests:       1 failed, 22 passed, 23 total
+### ganho antigo volta como novo
+    ✕ o que já foi ganho não volta a aparecer como novo (3 ms)
+Tests:       1 failed, 22 passed, 23 total
+### cor fora dos tokens
+    ✕ toda cor vem de um token do tema, sem asset binário (2 ms)
+Tests:       1 failed, 3 passed, 4 total
+```
+
+## 9. Serviço (`DecorationsService.test.ts`)
+
+O bloco "grava a chave sem nada ganho e sobre versão mais nova" só removeu a primeira condição; a segunda ficou para a última injeção.
+
+```
+### revisão vencida tira a unidade
+    ✕ conta aulas e unidades concluídas; revisão vencida de novo não tira a unidade (2 ms)
+Tests:       1 failed, 11 passed, 12 total
+### fonte de missões que falhou conta como feita
+    ✕ missões: todas feitas conta; lista vazia (fonte que falhou) não conta (3 ms)
+Tests:       1 failed, 11 passed, 12 total
+### ganho volta atrás quando a sequência zera
+    ✕ ganho não volta atrás quando a sequência zera (1 ms)
+Tests:       1 failed, 11 passed, 12 total
+### grava a chave sem nada ganho e sobre versão mais nova
+    ✕ nada ganho e nada gravado antes: não cria a chave (a flag desligada nunca chega aqui, e o vazio não suja o backup) (1 ms)
+Tests:       1 failed, 11 passed, 12 total
+### equipa item bloqueado ou exclusivo sem assinar
+    ✕ equipa o que está disponível; recusa o bloqueado e o de outro encaixe (1 ms)
+    ✕ exclusivo: equipa só assinando; ao deixar de assinar, some do perfil e a escolha fica (1 ms)
+Tests:       2 failed, 10 passed, 12 total
+### backup da nuvem sobrescreve o equipado local
+Tests:       12 passed, 12 total
+```
+
+Duas guardas passaram com o defeito na primeira injeção e foram corrigidas: o caso do backup tinha os dois lados equipando o mesmo selo (sem conflito), e não havia caso de equipar sobre versão mais nova. Depois da correção:
+
+```
+### backup da nuvem sobrescreve o equipado local (teste corrigido)
+    ✕ restaurar une os ganhos; o equipado local vence, e o da nuvem entra se o local está vazio (5 ms)
+Tests:       1 failed, 11 passed, 12 total
+### equipar grava sobre registro de versão mais nova (teste novo)
+    ✕ registro de versão mais nova: equipar recusa e não grava por cima (1 ms)
+Tests:       1 failed, 12 passed, 13 total
+```
+
+## 10. Backup e reset
+
+Antes da implementação, os testes novos de mescla e do adaptador: `Tests: 4 failed, 136 passed, 140 total`. Por defeito injetado:
+
+```
+### reset sem o passo das decorações
+  ✕ o reset local apaga as decorações gravadas (F6) (2 ms)
+Tests:       1 failed, 1 total
+### fotografia com o campo mesmo sem decoração (payload diferente da 1.5.0)
+    ✕ sem decoração gravada, a fotografia não tem o campo (1 ms)
+Tests:       1 failed, 10 passed, 11 total
+### mescla com o equipado da nuvem por cima do local
+    ✕ une os ganhos e mantém o equipado local; o da nuvem só entra no lugar de um vazio (5 ms)
+Tests:       1 failed, 53 passed, 54 total
+```
+
+## 11. Cabeçalho do Perfil (`ProfileIdentityHeader.test.tsx`)
+
+A primeira versão da guarda "sem decoração, igual à 1.5.0" comparava o componente novo com ele mesmo (sem e com decorações vazias) e passou com o avatar embrulhado: a comparação nunca olhava a 1.5.0. Ela foi trocada por asserções sobre a estrutura que a 1.5.0 desenha. Antes da implementação, o caso do selo reprovou por não achar a moldura. Por defeito injetado:
+
+```
+### selo sem nome para o leitor de tela
+    ✕ o selo vem com o nome escrito para o leitor de tela, e a moldura e o cartão mudam a forma (10 ms)
+Tests:       1 failed, 4 passed, 5 total
+### avatar embrulhado mesmo sem moldura (cabeçalho diferente da 1.5.0)
+Tests:       5 passed, 5 total
+### avatar embrulhado mesmo sem moldura
+    ✕ sem decoração (flag desligada ou nada equipado), a estrutura é a da 1.5.0 (5 ms)
+Tests:       1 failed, 4 passed, 5 total
+### nome embrulhado com decorações vazias
+    ✕ sem decoração (flag desligada ou nada equipado), a estrutura é a da 1.5.0 (15 ms)
+Tests:       1 failed, 4 passed, 5 total
+### cabeçalho com estilo de cartão sem cartão
+    ✕ sem decoração (flag desligada ou nada equipado), a estrutura é a da 1.5.0 (4 ms)
+    ✕ o selo vem com o nome escrito para o leitor de tela, e a moldura e o cartão mudam a forma (6 ms)
+Tests:       2 failed, 3 passed, 5 total
+```
+
+## 12. Tela de decorações (`DecorationsScreen.test.tsx`)
+
+```
+### exclusivo bloqueado não leva à assinatura
+    ✕ bloqueado comum não é botão; exclusivo bloqueado leva à assinatura que já existe (63 ms)
+Tests:       1 failed, 4 passed, 5 total
+### bloqueado comum vira botão
+    ✕ lista os 11 itens nos três encaixes, com o estado escrito e não só por cor (252 ms)
+    ✕ bloqueado comum não é botão; exclusivo bloqueado leva à assinatura que já existe (1004 ms)
+Tests:       2 failed, 3 passed, 5 total
+### equipado sem estado para o leitor de tela
+    ✕ equipar e tirar: o estado muda na tela e no storage (110 ms)
+Tests:       1 failed, 4 passed, 5 total
+### alvo de toque menor que 44 pt
+    ✕ todo item tocável tem alvo de pelo menos 44 pt (15 ms)
+Tests:       1 failed, 4 passed, 5 total
+```
+
+## 13. Perfil, rota e flag (`ProfileScreen.flow.test.tsx`, `flagOff.test.tsx`)
+
+```
+### Perfil lê decorações com a flag desligada
+  ✕ rejeição real de gamification não derruba fatos de outra seção nem inventa zero (29 ms)
+  ✕ rejeição real de curriculum não derruba fatos de outra seção nem inventa zero (26 ms)
+    ✕ desligada (padrão): nem lê nem grava decoração, e o Perfil não mostra a entrada (12 ms)
+Tests:       3 failed, 19 passed, 22 total
+### linha do Perfil com a flag desligada
+  ✕ padrão desligado: a rota volta para a Estude e a linha do Perfil não monta (85 ms)
+Tests:       1 failed, 1 passed, 2 total
+### rota aberta com a flag desligada
+  ✕ padrão desligado: a rota volta para a Estude e a linha do Perfil não monta (252 ms)
+Tests:       1 failed, 1 passed, 2 total
+### equipado não aparece onde o aluno se vê
+    ✕ ligada: ganhos em silêncio pelo estado real, selo equipado ao lado do nome e entrada para a tela (47 ms)
+Tests:       1 failed, 21 passed, 22 total
+```
+
+## 14. Fila do serviço
+
+Achado durante a contraprova: com a flag ligada pelo ambiente (`EXPO_PUBLIC_ENABLE_DECORATIONS=true`), uma leitura que nunca resolvia prendia a fila do serviço e todo `sync` seguinte esperava para sempre. As leituras de progresso e assinatura saíram da fila; o teste novo, rodado contra a versão anterior:
+
+```
+### leitura das fontes dentro da fila (versão anterior)
+    ✕ uma fonte que nunca responde não prende equipar nem a leitura seguinte (5001 ms)
+Tests:       1 failed, 13 passed, 14 total
+```
+
+Com a flag ligada pelo ambiente, 4 testes antigos do Perfil reprovam por limitação do mock do `expo-router` daquele arquivo, e não por defeito: ele guarda um único `__focus` (o último `useFocusEffect` registrado, agora o das decorações), e as rejeições `mockRejectedValueOnce` são consumidas pela leitura das decorações, que chama `getSnapshot` e `getCurriculumTrail` antes das leituras adiadas do Perfil. O gate roda com a flag no padrão (desligada), em que os 22 testes passam.

@@ -22,6 +22,8 @@ import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
 import { MedalShelf } from '../components/MedalShelf';
 import { StreakWeek } from '../components/StreakWeek';
 import { TodayGoals } from '../components/TodayGoals';
+import { useDecorationsState } from '../../decorations/useEquippedDecorations';
+import { DecorationsProfileRow } from '../../decorations/components/DecorationsProfileRow';
 
 type Reading<T> = { state: 'loading' } | { state: 'ready'; data: T } | { state: 'unavailable' };
 
@@ -74,6 +76,8 @@ export default function ProfileScreen() {
     read(() => SpacedRepetitionService.getDueCount(), setDue);
     return () => { generation.current++; };
   }, []));
+  // F6: depois das leituras do Perfil, que vêm primeiro; null com a flag desligada.
+  const decorations = useDecorationsState();
 
   const snapshot = gamification.state === 'ready' ? gamification.data : null;
   const totalXp = snapshot?.totalXp;
@@ -82,7 +86,8 @@ export default function ProfileScreen() {
     <StarfieldBackground backgroundColor={galaxyColors.background} />
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <ProfileIdentityHeader email={null} onOpenSettings={() => router.push('/settings')} />
+        <ProfileIdentityHeader email={null} onOpenSettings={() => router.push('/settings')} decorations={decorations?.equipped ?? null} />
+        <DecorationsProfileRow state={decorations} />
         <LevelBadge xp={validXp ? totalXp : null} />
         <MedalShelf unit={curriculum.state === 'ready' ? currentUnit(curriculum.data) : null}
           starsByLessonId={stars.state === 'ready' ? stars.data : null} loading={curriculum.state === 'loading'} starsLoading={stars.state === 'loading'} />
