@@ -91,6 +91,64 @@ describe('AnswerFeedbackCard', () => {
         expect(screen.getByText('Compare as cargas.')).toBeTruthy();
     });
 
+    describe('retorno rico (F3, ENABLE_RICH_FEEDBACK)', () => {
+        const expressao = () => screen.getByTestId('pixel-expression', { includeHiddenElements: true }).props.children;
+        const lado = () => StyleSheet.flatten(screen.getByTestId('cast-avatar-pixel').props.style).width;
+
+        it('o acerto que fecha um marco comemora, pelo seletor da F7', () => {
+            render(<AnswerFeedbackCard rich correct celebrate message="a" />);
+            expect(expressao()).toBe('orgulhoso');
+            expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+        });
+
+        it('o acerto comum fica feliz, e o rótulo diz isso', () => {
+            render(<AnswerFeedbackCard rich correct message="a" />);
+            expect(expressao()).toBe('feliz');
+            expect(screen.getByLabelText('Pixel feliz com o acerto')).toBeTruthy();
+        });
+
+        it('o erro é acolhimento: preocupado no seletor, desenhado e lido como pensando', () => {
+            render(<AnswerFeedbackCard rich correct={false} celebrate message="a" />);
+            expect(expressao()).toBe('pensando');
+            expect(screen.getByLabelText('Pixel pensando com você')).toBeTruthy();
+        });
+
+        it('o retrato do retorno é o médio, de 64 pt', () => {
+            render(<AnswerFeedbackCard rich correct message="a" />);
+            expect(lado()).toBe(64);
+        });
+
+        it('entra em 150 ms, a faixa de confirmar resposta da seção 10', () => {
+            render(<AnswerFeedbackCard rich correct message="a" />);
+            expect(timing).toHaveBeenCalled();
+            for (const [, config] of timing.mock.calls) expect(config.duration).toBe(150);
+        });
+
+        it('mostra o incentivo como texto, depois do retorno', () => {
+            render(<AnswerFeedbackCard rich correct message="Isso." encouragement="Três seguidas. Você pegou o ritmo." />);
+            expect(screen.getByText('Três seguidas. Você pegou o ritmo.')).toBeTruthy();
+        });
+
+        it('com "Reduzir movimento", o rico também aparece no lugar, com o incentivo', () => {
+            mockReducedMotion = true;
+            render(<AnswerFeedbackCard rich correct celebrate message="a" encouragement="Boa retomada." />);
+            expect(timing).not.toHaveBeenCalled();
+            expect(StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style).opacity).toBe(1);
+            expect(screen.getByText('Boa retomada.')).toBeTruthy();
+            expect(expressao()).toBe('orgulhoso');
+        });
+
+        // Contraprova: sem a chave, as props novas não mudam nada do que se vê.
+        it('desligado, ignora marco e incentivo: Pixel da base, 48 pt e 220 ms', () => {
+            render(<AnswerFeedbackCard correct celebrate message="a" encouragement="Boa retomada." />);
+            expect(expressao()).toBe('feliz');
+            expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+            expect(lado()).toBe(48);
+            expect(screen.queryByText('Boa retomada.')).toBeNull();
+            for (const [, config] of timing.mock.calls) expect(config.duration).toBe(220);
+        });
+    });
+
     it('título e texto não têm teto de fonte', () => {
         render(<AnswerFeedbackCard correct message="Elétrons têm carga negativa." />);
 

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { AccessibilityInfo, StyleSheet } from 'react-native';
+import { AccessibilityInfo, Animated, StyleSheet } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
 import { ActivityInteractionRenderer, isInteractionTypeRegistered } from './ActivityRendererRegistry';
 import { isCorrectInteractionValue } from './InteractionAnswerValue';
 import { F2_MOTION } from './TapChip';
+import { AppConfig } from '../../../config';
+import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 
 const base = {
     competencyIds: ['competency:test'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
@@ -152,5 +154,35 @@ describe('famílias da 1.6 no tocador', () => {
         const screen = render(<Harness interaction={multi} submitted initial='["b"]' />);
         fireEvent.press(screen.getByLabelText('Pressa, não marcada, certo'));
         expect(probe(screen)).toBe('["b"]|false');
+    });
+});
+
+// F3 (ENABLE_RICH_FEEDBACK): a alternativa da múltipla escolha afunda ao toque
+// e volta ao soltar, no mesmo vocabulário das fichas da F2 (100 ms, escala 0,98).
+describe('pressão da alternativa da múltipla escolha (F3)', () => {
+    const payload = { prompt: 'Qual?', options: [{ id: 'a', label: 'Alfa' }, { id: 'b', label: 'Beta' }], correctOptionId: 'a', explanation: 'Alfa.' };
+    let timing: jest.SpyInstance;
+    beforeEach(() => { timing = jest.spyOn(Animated, 'timing'); });
+    afterEach(() => { timing.mockRestore(); AppConfig.ENABLE_RICH_FEEDBACK = false; });
+
+    it('ligado: pressionar afunda e soltar volta, em 100 ms', () => {
+        AppConfig.ENABLE_RICH_FEEDBACK = true;
+        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} />);
+        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
+        fireEvent(view.getByLabelText('Alfa'), 'pressOut');
+        expect(timing.mock.calls.map(([, config]) => [config.toValue, config.duration])).toEqual([[0.98, 100], [1, 100]]);
+    });
+
+    it('ligado e já conferida: não afunda, porque o toque não faz nada', () => {
+        AppConfig.ENABLE_RICH_FEEDBACK = true;
+        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} submitted />);
+        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
+        expect(timing).not.toHaveBeenCalled();
+    });
+
+    it('desligado (contraprova): a alternativa fica parada, como na base', () => {
+        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} />);
+        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
+        expect(timing).not.toHaveBeenCalled();
     });
 });

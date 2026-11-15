@@ -126,6 +126,17 @@ describe('kill switches do AppConfig (ADR 2026-09-23)', () => {
         expect(padrao?.kind).toBe(ts.SyntaxKind.FalseKeyword);
     });
 
+    // F3 da 1.6: o retorno rico da aula nasce desligado; ligar é decisão do dono.
+    it('ENABLE_RICH_FEEDBACK lê EXPO_PUBLIC_ENABLE_RICH_FEEDBACK, com padrão desligado', () => {
+        const valor = flagsDoAppConfig().get('ENABLE_RICH_FEEDBACK');
+        expect(valor !== undefined && ts.isCallExpression(valor)).toBe(true);
+        if (valor === undefined || !ts.isCallExpression(valor)) return;
+        const [variavel, padrao] = valor.arguments;
+        expect(ts.isIdentifier(valor.expression) && valor.expression.text).toBe('readBooleanFlag');
+        expect(variavel?.getText()).toBe('process.env.EXPO_PUBLIC_ENABLE_RICH_FEEDBACK');
+        expect(padrao?.kind).toBe(ts.SyntaxKind.FalseKeyword);
+    });
+
     it('nenhum módulo declara um ENABLE_* local fixo, fora do AppConfig', () => {
         const locais: string[] = [];
         for (const arquivo of arquivosDeProducao(SRC)) {

@@ -287,10 +287,37 @@ describe('LessonSummary', () => {
     expect(starEntries()).toHaveLength(starCount);
   });
 
+  it('sem mintOnComplete, o recorde cunha nos 300 ms da base', () => {
+    render(<LessonSummary {...base} stars={2} starsImproved />);
+    expect(reanimated.withSpring.mock.calls[0][1]).toEqual(expect.objectContaining({ duration: 300 }));
+  });
+
   it('não encena ganho em uma repetição sem melhora', () => {
     render(<LessonSummary {...base} starsImproved={false} xpAwarded={0} />);
     expect(reanimated.withSpring).not.toHaveBeenCalled();
     expect(starEntries()).toHaveLength(0);
+  });
+
+  // F3 (ENABLE_RICH_FEEDBACK): toda conclusão com estrela cunha a medalha,
+  // não só o recorde novo; nunca a de zero estrela, nunca com menos movimento.
+  it('com mintOnComplete, cunha a medalha mesmo sem recorde novo, e o Continuar já está livre', () => {
+    render(<LessonSummary {...base} starsImproved={false} xpAwarded={0} mintOnComplete />);
+    expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+    // A conclusão rica dura 600 ms, na faixa de 450–700 ms da seção 10.
+    expect(reanimated.withSpring.mock.calls[0][1]).toEqual(expect.objectContaining({ duration: 600 }));
+    expect(starEntries()).toHaveLength(0);
+    expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityState?.disabled).not.toBe(true);
+  });
+
+  it('com mintOnComplete, zero estrela continua sem cunhar', () => {
+    render(<LessonSummary {...base} stars={0} correctAnswers={0} starsImproved={false} mintOnComplete />);
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
+  });
+
+  it('com mintOnComplete e menos movimento, a medalha fica no lugar', () => {
+    reducedMotion.mockReturnValue({ reducedMotionEnabled: true, resolved: true });
+    render(<LessonSummary {...base} starsImproved={false} mintOnComplete />);
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
   });
 
   it('movimento reduzido preserva medalha, estrelas e pose final sem cunhar', () => {

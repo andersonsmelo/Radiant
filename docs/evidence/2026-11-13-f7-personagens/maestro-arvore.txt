@@ -1,0 +1,25 @@
+Árvore do Maestro (maestro hierarchy), simulador "Radiant F7" (iPhone 17, iOS 26.5),
+dev client Debug da F2 + Metro da branch claude/f7-personagens na porta 8082, 2026-11-13 ~20:48 -03.
+Aula M01.01 "O trabalho do tecnólogo", passo 1 de 8, cena com 2 de 3 falas reveladas.
+Colunas: texto ou rótulo do nó (60 primeiros caracteres), resource-id, limites em pontos.
+
+'' dialogue-scene [37,375][365,710]
+'Duda: Primeiro dia. A paciente da simulação me perguntou se ' dialogue-line [37,408][365,535]
+'' cast-avatar-duda [37,408][85,456]
+'' cast-hair-duda [46,411][76,436]
+'' cast-hair-shine-duda [48,412][60,422]
+'' cast-face-pensativo [55,423][66,433]
+'' cast-clothing-duda [43,441][79,456]
+'Caio: Boa pergunta para começar. Na sala, metade do trabalho' dialogue-line [37,551][365,678]
+'' cast-avatar-caio [37,551][85,599]
+'' cast-hair-caio [52,560][69,569]
+'' cast-hair-shine-caio [54,561][60,566]
+'' cast-face-neutro [55,567][66,577]
+'' cast-clothing-caio [43,585][79,599]
+
+Leitura: a fala da Duda termina em pergunta e o retrato dela desenha cast-face-pensativo;
+a do Caio afirma e desenha cast-face-neutro. A terceira fala, do Pixel (pergunta), foi
+revelada depois e aparece em cena-2.png com a tela "pensando".
+Observação: o Maestro lista os nós internos do SVG, mas o avatar é decorativo na cena
+(accessibilityElementsHidden); o leitor de tela lê só o nó dialogue-line, "Nome: fala".
+Isso não foi conferido com o VoiceOver, só pela árvore e pelos testes.

@@ -7,8 +7,10 @@ import { Confetti } from '../../../components/ui/Confetti';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { rawHasUnknownSchemaVersion } from '../../../storage/schemaVersionGuard';
 import type { JourneyUnit } from '../../../types/journey';
+import { AppConfig } from '../../../config';
 import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
-import type { LessonFeedback } from '../../../ui/feedback/lessonFeedback';
+import { motionMsFor, type LessonFeedback } from '../../../ui/feedback/lessonFeedback';
+import { MotionView, useMedalMint } from '../../../ui/motion';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 import { resolveNodeTheme } from '../services/resolveNodeTheme';
@@ -55,6 +57,12 @@ export async function takeUnitCelebration(completed: readonly CelebrationUnit[])
   }
 }
 
+/** F3: a medalha da unidade cunha ao aparecer, na duração de conclusão do mapa. */
+function MintedMedal({ children }: { children: React.ReactNode }) {
+  const mintStyle = useMedalMint(true, motionMsFor('unit_complete'));
+  return <MotionView style={mintStyle}>{children}</MotionView>;
+}
+
 type UnitCompleteCelebrationProps = {
   /** A unidade que acabou de ser concluída; `null` não mostra nada. */
   unit: CelebrationUnit | null;
@@ -70,6 +78,8 @@ type UnitCompleteCelebrationProps = {
 export function UnitCompleteCelebration({ unit, onContinue, feedback }: UnitCompleteCelebrationProps): React.ReactElement | null {
   const reducedMotion = useReducedMotionPreference();
   const unitId = unit?.id ?? null;
+  // F3 (ADR 2026-11-15): com a chave, a medalha cunha ao abrir; o botão não espera.
+  const rich = AppConfig.ENABLE_RICH_FEEDBACK;
 
   // Uma vez por unidade mostrada: o efeito só roda quando a unidade muda.
   useEffect(() => {
@@ -78,13 +88,18 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback }: UnitComp
   }, [unitId]);
 
   if (!unit) return null;
+  const medal = (
+    <JourneyMedal node={{ id: unit.id, type: 'reward' }} theme={resolveNodeTheme({}, unit)} state="done" pulsing={false} size={56}
+      accessibilityLabel={`${unit.title}. Unidade concluída.`} />
+  );
   return (
     <Modal visible transparent animationType={reducedMotion ? 'none' : 'fade'} onRequestClose={onContinue}>
       <View style={styles.backdrop} accessibilityViewIsModal>
         <Confetti count={30} />
         <View style={styles.card}>
-          <JourneyMedal node={{ id: unit.id, type: 'reward' }} theme={resolveNodeTheme({}, unit)} state="done" pulsing={false} size={56}
-            accessibilityLabel={`${unit.title}. Unidade concluída.`} />
+          {/* A Home deixa esta comemoração montada entre unidades: a chave pela
+              unidade dá a cada uma a sua cunhagem. */}
+          {rich ? <MintedMedal key={unit.id}>{medal}</MintedMedal> : medal}
           <Text style={styles.title} accessibilityRole="header">Unidade concluída</Text>
           <Text style={styles.line}>Você fechou {unit.title}. Cada aula e cada conferência dela contam no seu caminho.</Text>
           <AppButton label="Continuar" variant="galaxy" onPress={onContinue} accessibilityLabel="Continuar" />

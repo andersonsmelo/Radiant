@@ -1,9 +1,12 @@
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { type ReactElement } from 'react';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AppConfig } from '../../../config';
 import type { ExposureReadingImage } from '../../../types/learningActivity';
 import type { MultipleChoicePayload } from '../../../types/lessonFlow';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { usePressScale } from '../../../ui/motion';
+import { motionMsFor } from '../../../ui/feedback/lessonFeedback';
 
 const galaxy = semanticColors.galaxy;
 
@@ -15,6 +18,17 @@ type MultipleChoiceStepRendererProps = {
     confirmationLabel?: string;
     submitted?: boolean;
 };
+
+/**
+ * F3 (`ENABLE_RICH_FEEDBACK`): a alternativa afunda ao toque e volta ao soltar,
+ * como as fichas da F2. Desligado, a árvore é a da base, sem envoltório.
+ */
+function PressDepth({ disabled, children }: { disabled: boolean; children: (handlers: object) => ReactElement }) {
+    const press = usePressScale(motionMsFor('option_tap'));
+    if (!AppConfig.ENABLE_RICH_FEEDBACK) return children({});
+    const handlers = disabled ? {} : { onPressIn: press.onPressIn, onPressOut: press.onPressOut };
+    return <Animated.View style={press.animatedStyle}>{children(handlers)}</Animated.View>;
+}
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
 // trocável e nada foi commitado. Quem confirma é a ação do rodapé — por
@@ -45,8 +59,9 @@ export function MultipleChoiceStepRenderer({
                     const selected = option.id === selectedOptionId;
 
                     return (
+                        <PressDepth key={option.id} disabled={submitted}>{(handlers) => (
                         <Pressable
-                            key={option.id}
+                            {...handlers}
                             onPress={() => { if (!submitted) onSelect(option.id); }}
                             testID={`lesson-option-${option.id}`}
                             accessibilityRole="button"
@@ -67,6 +82,7 @@ export function MultipleChoiceStepRenderer({
                                 {selected ? <Text style={styles.selectionLabel}>Selecionada</Text> : null}
                             </View>
                         </Pressable>
+                        )}</PressDepth>
                     );
                 })}
             </View>

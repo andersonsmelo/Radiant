@@ -44,6 +44,11 @@ export const AppConfig = {
     // mesma variável para pôr a permissão do Game Center no binário.
     ENABLE_LEAGUE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEAGUE, false),
 
+    // F3 da 1.6: retorno rico da aula (sons de ficha e de fala, vibração ao
+    // avançar, elenco no retorno, incentivo e conclusão com medalha). Desligado,
+    // a aula é a da base (ADR 2026-11-15).
+    ENABLE_RICH_FEEDBACK: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_RICH_FEEDBACK, false),
+
     // Widgets da tela inicial do iOS (ADR 2026-11-15). Desligada por padrão; a
     // mesma variável liga o alvo no prebuild (`plugins/with-widgets.js`).
     ENABLE_WIDGETS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_WIDGETS, false),
