@@ -4446,3 +4446,11 @@ As evidências nativas antigas não aprovam o currículo futuro.
   deixou de repetir o cartão "Resposta correta" da última questão; e o tempo do próximo
   coração voltou a andar (o React Compiler guardava a hora da primeira renderização).
   Continua aberto: o último par da associação não tem escolha.
+
+## Kill switches reais
+
+Dois, medidos em 2026-09-23: `ENABLE_LEARNING_ROAD` (trilha contra Home antiga)
+e `ENABLE_REVIEW` (por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`). São lidos
+em build, então só se acionam por build novo ou OTA. A guarda
+`src/config/killSwitches.contract.test.ts` barra flag `ENABLE_*` fixa ou sem
+leitor.

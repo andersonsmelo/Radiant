@@ -35,6 +35,44 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Atualização 1.6 — as oito frentes estão na `main` (medido em 2026-11-15)
+
+A `main` em `0428b7d` tem as oito frentes da 1.6, mescladas em 2026-11-15 pelo
+controlador, por ordem do dono
+([ADR](adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)). O CI (`quality` e
+`content`) passou verde depois de cada merge. **Nenhuma build foi gerada e nada
+foi enviado à loja.**
+
+| Frente | PR | Chega ao aluno |
+| --- | --- | --- |
+| F2, quatro famílias de interação | #71 | sim: M01 a M03 convertidas |
+| F1, trilha ampliada (M15, M16, S-OD, S-US, 25 aulas) | #74 | sim: conteúdo e regra de desbloqueio |
+| F7, personagens | #73, pelo merge da #78 | sim: retratos do elenco |
+| F3, sons e microinterações | #78 | só com `ENABLE_RICH_FEEDBACK` |
+| F4, liga semanal | #72 | só com `ENABLE_LEAGUE` e build nova |
+| F5, widgets do iOS | #77 | só com `ENABLE_WIDGETS` e build nova |
+| F6, lembrete personalizado e decorações | #75 | só com as duas chaves da frente |
+| F8, convites de assinatura | #76 | só com `ENABLE_CONVERSION_PROMPTS` |
+
+**Depende do dono:** build de distribuição; o placar `radiant.liga.semanal.xp`
+no App Store Connect ([runbook](runbooks/2026-11-13-liga-game-center.md)); o App
+Group dos widgets no portal da Apple
+([runbook](runbooks/2026-11-15-widgets-ios.md)); a compra em sandbox com os
+convites ligados; e decidir quais chaves ligar.
+
+**Não visto, em nenhuma frente:** as 25 aulas novas no simulador, o placar real,
+a entrega de uma notificação, a compra em sandbox, o widget na tela inicial,
+VoiceOver, aparelho físico e Android. Ninguém ouviu os sons novos. O conteúdo
+das aulas foi revisado só por IA.
+
+**Aberto:** a fala em voz alta dos diálogos (pede módulo nativo novo) e a rota
+legada `/quiz`, que paga XP de nível sem as travas das outras rotas.
+
+```bash
+git log --oneline --merges -9 origin/main
+gh pr list --state merged --search 'merged:2026-11-15' --json number,title
+```
+
 ## F6 da 1.6: lembrete personalizado e decorações (medido em 2026-11-15)
 
 Branch `claude/f6-notificacoes-decoracoes-8fda11`, a partir da `main` em `741c3e3`. **Nada disto
@@ -1128,11 +1166,21 @@ simulador). Ligar depende do dono: App Group no portal e a variável no `eas.jso
 
 ## Kill switches reais
 
-Dois, medidos em 2026-09-23: `ENABLE_LEARNING_ROAD` (trilha contra Home antiga)
-e `ENABLE_REVIEW` (por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`). São lidos
-em build, então só se acionam por build novo ou OTA. A guarda
+Medido em 2026-11-15, na `main` em `0428b7d`. Ligadas por padrão:
+`ENABLE_LEARNING_ROAD` (trilha contra Home antiga) e `ENABLE_REVIEW`. Desligadas
+por padrão, todas da 1.6: `ENABLE_LEAGUE`, `ENABLE_WIDGETS`,
+`ENABLE_PERSONALIZED_NOTIFICATIONS`, `ENABLE_DECORATIONS`,
+`ENABLE_CONVERSION_PROMPTS` e `ENABLE_RICH_FEEDBACK`. Cada uma se liga com
+`EXPO_PUBLIC_<nome>=true`; só o texto `true` liga. São lidas em build, então só
+se acionam por build novo ou OTA. `ENABLE_LEAGUE` e `ENABLE_WIDGETS` também
+mudam o binário (permissão do Game Center, alvo do widget e App Group) e por
+isso **só valem por build novo**. A guarda
 `src/config/killSwitches.contract.test.ts` barra flag `ENABLE_*` fixa ou sem
 leitor.
+
+```bash
+grep -n 'ENABLE_' radiant-app/src/config.ts | grep readBooleanFlag
+```
 
 ## Melhorias locais — itens 36, 39 e 27 (2026-10-12)
 
