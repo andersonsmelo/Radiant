@@ -84,6 +84,8 @@ type TrailBandItem = {
   key: string;
   segment: CurriculumSegment;
   previousTrackTitle: string;
+  /** Aberta, não concluída e antes do trecho recomendado: unidade inserida atrás do aluno. */
+  behindRecommended: boolean;
 };
 
 type TrailNodeItem = {
@@ -115,6 +117,16 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
     -1,
   );
   const reachedIndex = recommendedIndex >= 0 ? recommendedIndex : lastCompletedIndex;
+  const recommendedSegmentIndex = segments.findIndex(segment =>
+    segment.units.some(unit => unit.nodes.some(node => node.id === recommendedNodeId)));
+  const isBehind = (segment: CurriculumSegment, segmentIndex: number) =>
+    segment.unlocked && !segment.completed && segmentIndex < recommendedSegmentIndex;
+  // Num trecho atrás do recomendado e não concluído (unidade inserida depois do
+  // progresso do aluno), só conta como andado o nó que ele de fato concluiu.
+  const traveledByIndex = segments
+    .flatMap((segment, segmentIndex) => segment.units.flatMap(unit => unit.nodes.map(node =>
+      !isBehind(segment, segmentIndex) || node.status === 'completed')))
+    .map((counts, index) => counts && index <= reachedIndex);
   const items: TrailItem[] = [];
   let nodeIndex = 0;
 
@@ -125,6 +137,7 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
         key: `band:${segment.trackId}`,
         segment,
         previousTrackTitle: segments[segmentIndex - 1].trackTitle,
+        behindRecommended: isBehind(segment, segmentIndex),
       });
     }
 
@@ -139,9 +152,9 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
           unit,
           unitNumber: unitIndex + 1,
           nodeIndex,
-          traveled: nodeIndex <= reachedIndex,
+          traveled: traveledByIndex[nodeIndex],
           hasNext: nodeIndex < flatNodes.length - 1,
-          nextTraveled: nodeIndex + 1 <= reachedIndex,
+          nextTraveled: traveledByIndex[nodeIndex + 1] ?? false,
         });
         nodeIndex += 1;
       });
@@ -535,6 +548,7 @@ export function JourneyTrail({
                 trackId={item.segment.trackId}
                 trackTitle={item.segment.trackTitle}
                 unlocked={item.segment.unlocked}
+                behindRecommended={item.behindRecommended}
                 previousTrackTitle={item.previousTrackTitle}
               />
             </View>

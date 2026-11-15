@@ -10,6 +10,10 @@ import { HotspotStepRenderer } from './HotspotStepRenderer';
 import { MatchingStepRenderer } from './MatchingStepRenderer';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { OrderingStepRenderer } from './OrderingStepRenderer';
+import { CategorizeStepRenderer } from './CategorizeStepRenderer';
+import { ClozeStepRenderer } from './ClozeStepRenderer';
+import { MultiSelectStepRenderer } from './MultiSelectStepRenderer';
+import { TrueFalseStepRenderer } from './TrueFalseStepRenderer';
 
 /**
  * Registro de renderizadores de interação.
@@ -144,6 +148,18 @@ function CaseDecisionInteraction({ interaction, value, onChange, submitted, conf
         onSelect={onChange} submitted={submitted} confirmationLabel={confirmationLabel} />;
 }
 
+/** Famílias da 1.6: o mesmo contrato `interaction / value / onChange`, com o retorno pós-conferência dentro do componente. */
+function NewFamilyInteraction({ interaction, value, onChange, submitted, confirmationLabel }: InteractionRendererProps) {
+    const shared = { value, onChange, submitted, confirmationLabel };
+    switch (interaction.type) {
+        case 'cloze': return <ClozeStepRenderer payload={interaction.payload} {...shared} />;
+        case 'true-false': return <TrueFalseStepRenderer payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
+        case 'categorize': return <CategorizeStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
+        case 'multi-select': return <MultiSelectStepRenderer payload={interaction.payload} {...shared} />;
+        default: return <UnsupportedInteraction interaction={interaction} />;
+    }
+}
+
 const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     'case-decision': CaseDecisionInteraction,
     'multiple-choice': MultipleChoiceInteraction,
@@ -152,6 +168,10 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     matching: MatchingInteraction,
     ordering: OrderingInteraction,
     bench: BenchInteraction,
+    cloze: NewFamilyInteraction,
+    'true-false': NewFamilyInteraction,
+    categorize: NewFamilyInteraction,
+    'multi-select': NewFamilyInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

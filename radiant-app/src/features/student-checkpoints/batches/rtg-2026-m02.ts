@@ -6,7 +6,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m02",
-  "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc",
+  "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852",
   "trackId": "track:rtg-2026:m02",
   "unitId": "unit:rtg-2026:m02",
   "contentVersion": "rtg-2026-m02-v1",
@@ -242,39 +242,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Duda fica de frente para você e levanta a mão direita. Antes de conferir, preveja: de que lado do seu campo de visão essa mão aparece?"
+              "label": "Certo ou errado: Duda fica de frente para você e levanta a mão direita. Antes de conferir, julgue cada afirmação sobre a vista."
             },
             "help": "Imagine apertar a mão direita de alguém que está de frente para você. Para que lado você estende o braço?",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "De frente, a direita dela fica do seu lado esquerdo. A mão é dela; o campo de visão é seu.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você aplicou a vista: de frente, os lados se cruzam com os seus; de costas, coincidem. A mão é dela, e o campo de visão é seu.",
+              "incorrect": "Retome a vista: de frente, a direita do corpo aparece à esquerda de quem olha; de costas, os lados coincidem. Quem escreve com qual mão não entra."
             },
             "payload": {
-              "prompt": "Duda fica de frente para você e levanta a mão direita. Antes de conferir, preveja: de que lado do seu campo de visão essa mão aparece?",
-              "options": [
+              "prompt": "Duda fica de frente para você e levanta a mão direita. Antes de conferir, julgue cada afirmação sobre a vista.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m02:aula-01:i2:a",
-                  "label": "À sua direita.",
-                  "explanation": "Isso aconteceria se vocês olhassem na mesma direção. De frente, os lados se cruzam. Confira de novo a vista."
+                  "id": "statement:rtg-2026:m02:aula-01:i2:1",
+                  "text": "De frente, a mão direita de Duda aparece à sua esquerda.",
+                  "isTrue": true,
+                  "explanation": "Certo: de frente, os lados se cruzam, e a direita do corpo dela aparece à esquerda de quem olha."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-01:i2:b",
-                  "label": "Bem no centro, acima da cabeça dela.",
-                  "explanation": "Levantar a mão não a leva para o centro: ela continua do lado direito do corpo de Duda. Retome a vista de frente."
+                  "id": "statement:rtg-2026:m02:aula-01:i2:2",
+                  "text": "De frente, a mão direita dela aparece à sua direita, como no seu próprio corpo.",
+                  "isTrue": false,
+                  "explanation": "Errado: isso só acontece se vocês olham na mesma direção, como numa vista de costas. De frente, os lados se cruzam."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-01:i2:c",
-                  "label": "Depende de você ser destro ou canhoto.",
-                  "explanation": "A mão com que você escreve não entra na conta. Vale o lado do corpo de Duda e a vista em que ela está."
+                  "id": "statement:rtg-2026:m02:aula-01:i2:3",
+                  "text": "De costas, os lados dela coincidem com os seus.",
+                  "isTrue": true,
+                  "explanation": "Certo: de costas, corpo e observador olham na mesma direção, e os lados coincidem."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-01:i2:d",
-                  "label": "À sua esquerda.",
-                  "explanation": "De frente, a direita dela fica do seu lado esquerdo. A mão é dela; o campo de visão é seu."
+                  "id": "statement:rtg-2026:m02:aula-01:i2:4",
+                  "text": "O lado em que a mão aparece depende de você ser destro ou canhoto.",
+                  "isTrue": false,
+                  "explanation": "Errado: a mão com que você escreve não entra na conta. Vale o lado do corpo de Duda e a vista em que ela está."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m02:aula-01:i2:d"
+              ]
             }
           }
         },
@@ -289,36 +292,51 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada termo ao que ele descreve."
+              "label": "Completar a frase: Complete a frase sobre os lados do corpo, usando o banco de palavras."
             },
             "help": "Comece pelo par que não depende da tela e deixe as duas vistas para o fim.",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Você separou três coisas: a postura de referência, o lado do corpo e o lugar em que ele aparece em cada vista.",
-              "incorrect": "Confira de novo as duas vistas: de frente, os lados se cruzam com os seus; de costas, coincidem. O lado do corpo não muda."
+              "correct": "Direita e esquerda pertencem ao corpo descrito, e a vista decide onde cada lado aparece na tela. O lado do corpo não muda.",
+              "incorrect": "Releia: o lado é o do corpo descrito, em qualquer postura. Quem observa muda de lugar, mas o corpo não muda de lado."
             },
             "payload": {
-              "prompt": "Ligue cada termo ao que ele descreve.",
-              "pairs": [
+              "prompt": "Complete a frase sobre os lados do corpo, usando o banco de palavras.",
+              "segments": [
+                "Direita e esquerda são os lados do corpo ",
+                ", e não os de quem ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-01:i3:1",
-                  "left": "Posição anatômica",
-                  "right": "Em pé, olhando para a frente, palmas para a frente"
+                  "id": "token:rtg-2026:m02:aula-01:i3:4",
+                  "label": "desenha"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-01:i3:2",
-                  "left": "Vista de frente",
-                  "right": "A direita do corpo aparece à esquerda da tela"
+                  "id": "token:rtg-2026:m02:aula-01:i3:1",
+                  "label": "descrito"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-01:i3:3",
-                  "left": "Vista de costas",
-                  "right": "A direita do corpo aparece à direita da tela"
+                  "id": "token:rtg-2026:m02:aula-01:i3:5",
+                  "label": "dorme"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-01:i3:4",
-                  "left": "Direita do paciente",
-                  "right": "Lado do corpo dele, em qualquer vista"
+                  "id": "token:rtg-2026:m02:aula-01:i3:2",
+                  "label": "observa"
+                },
+                {
+                  "id": "token:rtg-2026:m02:aula-01:i3:3",
+                  "label": "deitado"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m02:aula-01:i3:1",
+                  "correctTokenId": "token:rtg-2026:m02:aula-01:i3:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m02:aula-01:i3:2",
+                  "correctTokenId": "token:rtg-2026:m02:aula-01:i3:2"
                 }
               ]
             }
@@ -555,36 +573,46 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada elemento ao que ele informa."
+              "label": "Classificação: Classifique cada letra de marcador no lado do corpo que ela indica."
             },
             "help": "Duas linhas falam de lado do corpo, e duas falam de quando o marcador aparece.",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "R e L falam do corpo, como D e E nos serviços que usam as letras em português. Radiopaco e digital dizem quando o marcador entrou na imagem: antes ou depois da exposição.",
-              "incorrect": "Retome em duas etapas: primeiro o que cada letra indica, depois o momento em que cada tipo de marcador é aplicado."
+              "correct": "R e D indicam o lado direito do corpo, e L e E indicam o esquerdo. As letras falam do corpo, e não do lado da tela.",
+              "incorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo."
             },
             "payload": {
-              "prompt": "Ligue cada elemento ao que ele informa.",
-              "pairs": [
+              "prompt": "Classifique cada letra de marcador no lado do corpo que ela indica.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-02:i2:1",
-                  "left": "Letra R",
-                  "right": "Lado direito do corpo"
+                  "id": "group:rtg-2026:m02:aula-02:i2:a",
+                  "label": "Lado direito"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-02:i2:2",
-                  "left": "Letra L",
-                  "right": "Lado esquerdo do corpo"
+                  "id": "group:rtg-2026:m02:aula-02:i2:b",
+                  "label": "Lado esquerdo"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m02:aula-02:i2:4",
+                  "label": "Letra E",
+                  "categoryId": "group:rtg-2026:m02:aula-02:i2:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-02:i2:3",
-                  "left": "Marcador radiopaco",
-                  "right": "Peça colocada no campo antes da exposição"
+                  "id": "item:rtg-2026:m02:aula-02:i2:3",
+                  "label": "Letra D",
+                  "categoryId": "group:rtg-2026:m02:aula-02:i2:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-02:i2:4",
-                  "left": "Marcador digital",
-                  "right": "Anotação acrescentada depois da exposição"
+                  "id": "item:rtg-2026:m02:aula-02:i2:1",
+                  "label": "Letra R",
+                  "categoryId": "group:rtg-2026:m02:aula-02:i2:a"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-02:i2:2",
+                  "label": "Letra L",
+                  "categoryId": "group:rtg-2026:m02:aula-02:i2:b"
                 }
               ]
             }
@@ -696,39 +724,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Em outra simulação, o diagrama mostra Seu Jorge deitado de barriga para cima, como você o veria dos pés da mesa, olhando em direção à cabeça dele. O marcador L aparece à direita da tela. O marcador está coerente com o lado que indica?"
+              "label": "Certo ou errado: Seu Jorge está deitado de barriga para cima, visto dos pés, e o L aparece à direita da tela. Julgue cada afirmação sobre o marcador."
             },
             "help": "Antes de olhar a letra, diga onde fica a esquerda do corpo nesta posição de observação.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você conferiu o marcador pelo lado do corpo e pela posição de observação, e não pelo lado da tela.",
+              "incorrect": "Retome: o marcador indica o lado do corpo em qualquer postura. Visto dos pés, de barriga para cima, os lados se cruzam com os seus."
             },
             "payload": {
-              "prompt": "Em outra simulação, o diagrama mostra Seu Jorge deitado de barriga para cima, como você o veria dos pés da mesa, olhando em direção à cabeça dele. O marcador L aparece à direita da tela. O marcador está coerente com o lado que indica?",
-              "options": [
+              "prompt": "Seu Jorge está deitado de barriga para cima, visto dos pés, e o L aparece à direita da tela. Julgue cada afirmação sobre o marcador.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m02:aula-02:i5:a",
-                  "label": "Não: o L deveria ficar à esquerda da tela.",
-                  "explanation": "Essa resposta usa o lado da tela. Retome a posição de observação e localize a esquerda do corpo."
+                  "id": "statement:rtg-2026:m02:aula-02:i5:1",
+                  "text": "Para conferir o L, vale o lado da tela e não o lado do corpo do paciente.",
+                  "isTrue": false,
+                  "explanation": "Errado: o marcador fala do corpo. Use a vista e o lado do corpo, não o lado da tela."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-02:i5:b",
-                  "label": "Não: deitado, o marcador perde o sentido.",
-                  "explanation": "O marcador continua indicando um lado do corpo em qualquer postura. Confira de novo a vista."
+                  "id": "statement:rtg-2026:m02:aula-02:i5:2",
+                  "text": "Vista dos pés, a esquerda dele aparece à direita da tela, então o L está coerente.",
+                  "isTrue": true,
+                  "explanation": "Certo: visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-02:i5:c",
-                  "label": "Sim: o lado esquerdo dele fica ali.",
-                  "explanation": "Visto dos pés e de barriga para cima, os lados se cruzam com os seus, e a esquerda dele fica à direita da tela."
+                  "id": "statement:rtg-2026:m02:aula-02:i5:3",
+                  "text": "O marcador radiopaco é anotado na imagem depois da exposição.",
+                  "isTrue": false,
+                  "explanation": "Errado: o radiopaco é uma peça posta no campo antes da exposição; a anotação digital é que vem depois, na imagem."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-02:i5:d",
-                  "label": "Sim: qualquer borda serve para o L.",
-                  "explanation": "A conclusão coincide, mas o motivo não: a posição importa e precisa cair no lado esquerdo do corpo."
+                  "id": "statement:rtg-2026:m02:aula-02:i5:4",
+                  "text": "Deitado, o paciente deixa de ter lado, e o marcador perde o sentido.",
+                  "isTrue": false,
+                  "explanation": "Errado: o marcador continua indicando um lado do corpo em qualquer postura. Confira a vista."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m02:aula-02:i5:c"
+              ]
             }
           }
         },
@@ -864,39 +895,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Antes de conferir no modelo, preveja: um plano vertical passa exatamente no meio do corpo, da frente para trás. O que fica separado?"
+              "label": "Certo ou errado: Antes de conferir no modelo, julgue cada afirmação sobre os planos que atravessam o corpo."
             },
             "help": "Imagine uma folha de papel em pé, entrando pelo nariz e saindo pela nuca.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Esse é o plano mediano, um plano sagital que passa bem no meio e separa direita e esquerda.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você separou os planos: sagital e mediano dividem direita e esquerda, coronal divide frente e trás, e transversal divide cima e baixo.",
+              "incorrect": "Retome a pergunta da Profa. Lia: este plano separa o quê do quê? Os dois planos verticais, sagital e coronal, são os mais fáceis de trocar."
             },
             "payload": {
-              "prompt": "Antes de conferir no modelo, preveja: um plano vertical passa exatamente no meio do corpo, da frente para trás. O que fica separado?",
-              "options": [
+              "prompt": "Antes de conferir no modelo, julgue cada afirmação sobre os planos que atravessam o corpo.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m02:aula-03:i2:a",
-                  "label": "A parte da frente e a parte de trás.",
-                  "explanation": "Para separar frente e trás, o plano vertical teria de correr de um lado ao outro. Esse é o coronal."
+                  "id": "statement:rtg-2026:m02:aula-03:i2:1",
+                  "text": "O plano mediano é o sagital que passa exatamente no meio do corpo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o mediano é um plano sagital vertical, que passa bem no meio e separa direita e esquerda."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-03:i2:b",
-                  "label": "A parte de cima e a parte de baixo.",
-                  "explanation": "Cima e baixo são separados por um plano horizontal, o transversal. O plano descrito é vertical."
+                  "id": "statement:rtg-2026:m02:aula-03:i2:2",
+                  "text": "O plano coronal, ou frontal, separa a parte superior da inferior.",
+                  "isTrue": false,
+                  "explanation": "Errado: o coronal é vertical e separa anterior de posterior. Cima e baixo são separados pelo transversal."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-03:i2:c",
-                  "label": "A metade direita e a metade esquerda.",
-                  "explanation": "Esse é o plano mediano, um plano sagital que passa bem no meio e separa direita e esquerda."
+                  "id": "statement:rtg-2026:m02:aula-03:i2:3",
+                  "text": "O plano transversal é horizontal e separa cima de baixo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o transversal, ou axial, é horizontal e separa a parte superior da inferior."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-03:i2:d",
-                  "label": "A pele de um lado e os ossos do outro.",
-                  "explanation": "Um plano atravessa todas as camadas no caminho. Retome: o que fica de cada lado dele?"
+                  "id": "statement:rtg-2026:m02:aula-03:i2:4",
+                  "text": "Um plano sagital é vertical e separa o lado direito do esquerdo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o sagital é vertical e divide o corpo em lado direito e lado esquerdo."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m02:aula-03:i2:c"
+              ]
             }
           }
         },
@@ -911,36 +945,60 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada plano ao que ele separa."
+              "label": "Classificação: Classifique cada plano pelo par de partes do corpo que ele separa."
             },
             "help": "Dois planos são verticais e um é horizontal. Comece pelo horizontal.",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "Cada plano tem a sua separação. O mediano é o sagital que passa exatamente no meio.",
-              "incorrect": "Retome a pergunta da Profa. Lia: este plano separa o quê do quê? Os dois planos verticais são os mais fáceis de trocar."
+              "correct": "Cada plano tem a sua separação: sagital e mediano, direita e esquerda; coronal e frontal, anterior e posterior; transversal e axial, superior e inferior.",
+              "incorrect": "Confira de novo: em cada plano, pergunte o que fica de cada lado dele. Os dois planos verticais são os mais fáceis de trocar."
             },
             "payload": {
-              "prompt": "Ligue cada plano ao que ele separa.",
-              "pairs": [
+              "prompt": "Classifique cada plano pelo par de partes do corpo que ele separa.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-03:i3:1",
-                  "left": "Plano sagital",
-                  "right": "Lado direito e lado esquerdo"
+                  "id": "group:rtg-2026:m02:aula-03:i3:a",
+                  "label": "Direita e esquerda"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-03:i3:2",
-                  "left": "Plano coronal (frontal)",
-                  "right": "Parte anterior e parte posterior"
+                  "id": "group:rtg-2026:m02:aula-03:i3:b",
+                  "label": "Anterior e posterior"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-03:i3:3",
-                  "left": "Plano transversal (axial)",
-                  "right": "Parte superior e parte inferior"
+                  "id": "group:rtg-2026:m02:aula-03:i3:c",
+                  "label": "Superior e inferior"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:2",
+                  "label": "Plano coronal",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-03:i3:4",
-                  "left": "Plano mediano",
-                  "right": "Metades direita e esquerda, bem no meio"
+                  "id": "item:rtg-2026:m02:aula-03:i3:3",
+                  "label": "Plano transversal",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:c"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:6",
+                  "label": "Plano axial",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:c"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:5",
+                  "label": "Plano frontal",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:b"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:4",
+                  "label": "Plano mediano",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:a"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-03:i3:1",
+                  "label": "Plano sagital",
+                  "categoryId": "group:rtg-2026:m02:aula-03:i3:a"
                 }
               ]
             }
@@ -1180,36 +1238,51 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada órgão ao sistema a que ele pertence."
+              "label": "Completar a frase: Complete a frase ligando cada órgão ao sistema a que ele pertence, usando o banco de palavras."
             },
             "help": "Pergunte a que função cada órgão serve: circulação, respiração, urina ou digestão?",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Cada órgão trabalha com outros num sistema. Muitos órgãos também contribuem para mais de um sistema.",
-              "incorrect": "Retome a pergunta “com quem trabalha?”: pense na função principal de cada órgão."
+              "correct": "Cada órgão trabalha com outros em um sistema: o coração no cardiovascular e os rins no urinário.",
+              "incorrect": "Retome a pergunta “com quem trabalha?”: pense na função principal de cada órgão e no grupo de órgãos que atua junto."
             },
             "payload": {
-              "prompt": "Ligue cada órgão ao sistema a que ele pertence.",
-              "pairs": [
+              "prompt": "Complete a frase ligando cada órgão ao sistema a que ele pertence, usando o banco de palavras.",
+              "segments": [
+                "O coração pertence ao sistema ",
+                ", e os rins, ao sistema ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-04:i2:1",
-                  "left": "Coração",
-                  "right": "Sistema cardiovascular"
+                  "id": "token:rtg-2026:m02:aula-04:i2:4",
+                  "label": "digestório"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-04:i2:2",
-                  "left": "Pulmões",
-                  "right": "Sistema respiratório"
+                  "id": "token:rtg-2026:m02:aula-04:i2:5",
+                  "label": "nervoso"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-04:i2:3",
-                  "left": "Rins",
-                  "right": "Sistema urinário"
+                  "id": "token:rtg-2026:m02:aula-04:i2:3",
+                  "label": "respiratório"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-04:i2:4",
-                  "left": "Estômago",
-                  "right": "Sistema digestório"
+                  "id": "token:rtg-2026:m02:aula-04:i2:2",
+                  "label": "urinário"
+                },
+                {
+                  "id": "token:rtg-2026:m02:aula-04:i2:1",
+                  "label": "cardiovascular"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m02:aula-04:i2:1",
+                  "correctTokenId": "token:rtg-2026:m02:aula-04:i2:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m02:aula-04:i2:2",
+                  "correctTokenId": "token:rtg-2026:m02:aula-04:i2:2"
                 }
               ]
             }
@@ -1279,39 +1352,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Qual frase descreve corretamente a relação entre o coração e os pulmões?"
+              "label": "Certo ou errado: Julgue cada afirmação sobre a posição do coração em relação às estruturas vizinhas."
             },
             "help": "Medial e lateral se medem pela distância até a linha média do corpo.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "O coração fica entre os dois pulmões, mais perto da linha média: por isso, medial a eles.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você usou os pares de termos: medial é o mais próximo da linha média, e lateral, o mais afastado. O coração fica entre os pulmões.",
+              "incorrect": "Retome: medial é perto da linha média e lateral é longe dela. Coração e pulmões ficam na cavidade torácica, acima do diafragma."
             },
             "payload": {
-              "prompt": "Qual frase descreve corretamente a relação entre o coração e os pulmões?",
-              "options": [
+              "prompt": "Julgue cada afirmação sobre a posição do coração em relação às estruturas vizinhas.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m02:aula-04:i4:a",
-                  "label": "O coração fica medial aos pulmões.",
-                  "explanation": "O coração fica entre os dois pulmões, mais perto da linha média: por isso, medial a eles."
+                  "id": "statement:rtg-2026:m02:aula-04:i4:1",
+                  "text": "O coração fica lateral aos pulmões, mais afastado da linha média.",
+                  "isTrue": false,
+                  "explanation": "Errado: lateral quer dizer mais afastado da linha média, e o coração está no meio do tórax."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-04:i4:b",
-                  "label": "O coração fica lateral aos pulmões.",
-                  "explanation": "Lateral quer dizer mais afastado da linha média. Confira de novo quem está no meio do tórax."
+                  "id": "statement:rtg-2026:m02:aula-04:i4:2",
+                  "text": "O coração fica medial aos pulmões, mais próximo da linha média.",
+                  "isTrue": true,
+                  "explanation": "Certo: o coração fica entre os dois pulmões, mais perto da linha média, por isso é medial a eles."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-04:i4:c",
-                  "label": "O coração fica inferior ao diafragma.",
-                  "explanation": "O diafragma é o piso da cavidade torácica, e o coração fica acima dele. Retome a divisa das cavidades."
+                  "id": "statement:rtg-2026:m02:aula-04:i4:3",
+                  "text": "Os pulmões ficam laterais ao coração, na cavidade torácica.",
+                  "isTrue": true,
+                  "explanation": "Certo: os pulmões ficam mais afastados da linha média que o coração, dos dois lados dele."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-04:i4:d",
-                  "label": "O coração fica inferior aos pulmões.",
-                  "explanation": "Coração e pulmões ficam lado a lado, na mesma cavidade. Entre eles, o que muda é a distância até a linha média."
+                  "id": "statement:rtg-2026:m02:aula-04:i4:4",
+                  "text": "O coração fica inferior ao diafragma, na cavidade abdominopélvica.",
+                  "isTrue": false,
+                  "explanation": "Errado: o diafragma é o piso da cavidade torácica, e o coração fica acima dele."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m02:aula-04:i4:a"
+              ]
             }
           }
         },
@@ -1543,36 +1619,51 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada palavra de um pedido fictício ao segmento do corpo que ela indica."
+              "label": "Completar a frase: Complete a frase com os pontos que limitam cada segmento nomeado no pedido, usando o banco de palavras."
             },
             "help": "Cada membro tem um segmento acima e outro abaixo da articulação do meio: cotovelo ou joelho.",
-            "type": "matching",
+            "type": "cloze",
             "feedback": {
-              "correct": "Na anatomia, braço e perna são só um segmento cada, e não o membro inteiro.",
-              "incorrect": "Confira de novo os dois pares mais trocados: braço não é antebraço, e perna não é coxa."
+              "correct": "Na anatomia, braço e perna são só um segmento cada: o braço vai do ombro ao cotovelo, e a perna, do joelho ao tornozelo.",
+              "incorrect": "Confira de novo os dois nomes mais trocados: braço não é antebraço, e perna não é coxa. Cada segmento tem os seus limites."
             },
             "payload": {
-              "prompt": "Ligue cada palavra de um pedido fictício ao segmento do corpo que ela indica.",
-              "pairs": [
+              "prompt": "Complete a frase com os pontos que limitam cada segmento nomeado no pedido, usando o banco de palavras.",
+              "segments": [
+                "O braço fica entre o ombro e o ",
+                ", e a perna, entre o joelho e o ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-05:i3:1",
-                  "left": "Braço",
-                  "right": "Entre o ombro e o cotovelo"
+                  "id": "token:rtg-2026:m02:aula-05:i3:1",
+                  "label": "cotovelo"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-05:i3:2",
-                  "left": "Antebraço",
-                  "right": "Entre o cotovelo e o punho"
+                  "id": "token:rtg-2026:m02:aula-05:i3:3",
+                  "label": "punho"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-05:i3:3",
-                  "left": "Coxa",
-                  "right": "Entre o quadril e o joelho"
+                  "id": "token:rtg-2026:m02:aula-05:i3:5",
+                  "label": "antebraço"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-05:i3:4",
-                  "left": "Perna",
-                  "right": "Entre o joelho e o tornozelo"
+                  "id": "token:rtg-2026:m02:aula-05:i3:2",
+                  "label": "tornozelo"
+                },
+                {
+                  "id": "token:rtg-2026:m02:aula-05:i3:4",
+                  "label": "quadril"
+                }
+              ],
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m02:aula-05:i3:1",
+                  "correctTokenId": "token:rtg-2026:m02:aula-05:i3:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m02:aula-05:i3:2",
+                  "correctTokenId": "token:rtg-2026:m02:aula-05:i3:2"
                 }
               ]
             }
@@ -1637,39 +1728,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Um roteiro fictício cita o “quadrante superior direito do abdome”. O paciente simulado está em pé, de frente para você. Onde essa região aparece no seu campo de visão?"
+              "label": "Certo ou errado: Um roteiro cita o quadrante superior direito do abdome, e o paciente simulado está em pé, de frente para você. Julgue cada afirmação."
             },
             "help": "Resolva em duas etapas: primeiro acima ou abaixo do umbigo, depois o lado do paciente.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Superior é acima da linha do umbigo, e a direita do paciente, de frente, fica à sua esquerda.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você combinou as duas pistas: superior é acima da linha do umbigo, e o lado é o do paciente, que de frente aparece à sua esquerda.",
+              "incorrect": "Retome as duas pistas, altura e lado: o lado do quadrante é o do paciente, e de frente os lados se cruzam com os seus."
             },
             "payload": {
-              "prompt": "Um roteiro fictício cita o “quadrante superior direito do abdome”. O paciente simulado está em pé, de frente para você. Onde essa região aparece no seu campo de visão?",
-              "options": [
+              "prompt": "Um roteiro cita o quadrante superior direito do abdome, e o paciente simulado está em pé, de frente para você. Julgue cada afirmação.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m02:aula-05:i5:a",
-                  "label": "Acima do umbigo, à sua direita.",
-                  "explanation": "A altura está certa, mas o lado é o do paciente. De frente, os lados se cruzam com os seus."
+                  "id": "statement:rtg-2026:m02:aula-05:i5:1",
+                  "text": "De frente, o lado direito do paciente aparece à sua direita.",
+                  "isTrue": false,
+                  "explanation": "Errado: de frente, os lados se cruzam, e a direita do paciente aparece à sua esquerda."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-05:i5:b",
-                  "label": "Acima do umbigo, à sua esquerda.",
-                  "explanation": "Superior é acima da linha do umbigo, e a direita do paciente, de frente, fica à sua esquerda."
+                  "id": "statement:rtg-2026:m02:aula-05:i5:2",
+                  "text": "O quadrante superior direito fica acima da linha do umbigo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o abdome é dividido por duas linhas que se cruzam no umbigo, e superior é a parte acima."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-05:i5:c",
-                  "label": "Abaixo do umbigo, à sua esquerda.",
-                  "explanation": "O lado está certo, mas superior indica a parte acima da linha que passa pelo umbigo."
+                  "id": "statement:rtg-2026:m02:aula-05:i5:3",
+                  "text": "De frente, o superior direito fica acima do umbigo, à sua esquerda.",
+                  "isTrue": true,
+                  "explanation": "Certo: acima do umbigo pelo quadrante superior, e à sua esquerda porque o lado direito do paciente, de frente, cruza com o seu."
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-05:i5:d",
-                  "label": "Abaixo do umbigo, à sua direita.",
-                  "explanation": "Esse é o lugar do quadrante inferior esquerdo. Retome as duas pistas: altura e lado do paciente."
+                  "id": "statement:rtg-2026:m02:aula-05:i5:4",
+                  "text": "O lado do quadrante é o do paciente, não o de quem olha.",
+                  "isTrue": true,
+                  "explanation": "Certo: o lado é sempre o do paciente, e é por isso que a vista precisa ser conferida."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m02:aula-05:i5:b"
+              ]
             }
           }
         },
@@ -1853,36 +1947,46 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada letra de orientação ao que ela indica numa imagem."
+              "label": "Classificação: Classifique cada letra de orientação no tipo de informação que ela dá numa imagem."
             },
             "help": "Duas letras vêm de right e left. As outras duas, de anterior e posterior.",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "R e L falam dos lados do paciente. A e P, da frente e de trás.",
-              "incorrect": "Confira de novo: duas letras indicam lados do paciente, e duas indicam frente e trás."
+              "correct": "R e L falam dos lados do paciente, e A e P falam de frente e de trás.",
+              "incorrect": "Confira de novo: duas letras indicam lados do paciente, e duas indicam a parte da frente ou a de trás."
             },
             "payload": {
-              "prompt": "Ligue cada letra de orientação ao que ela indica numa imagem.",
-              "pairs": [
+              "prompt": "Classifique cada letra de orientação no tipo de informação que ela dá numa imagem.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m02:aula-06:i3:1",
-                  "left": "R",
-                  "right": "Lado direito do paciente"
+                  "id": "group:rtg-2026:m02:aula-06:i3:a",
+                  "label": "Lados do paciente"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-06:i3:2",
-                  "left": "L",
-                  "right": "Lado esquerdo do paciente"
+                  "id": "group:rtg-2026:m02:aula-06:i3:b",
+                  "label": "Frente e trás"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m02:aula-06:i3:1",
+                  "label": "Letra R",
+                  "categoryId": "group:rtg-2026:m02:aula-06:i3:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-06:i3:3",
-                  "left": "A",
-                  "right": "Parte anterior, a da frente"
+                  "id": "item:rtg-2026:m02:aula-06:i3:2",
+                  "label": "Letra A",
+                  "categoryId": "group:rtg-2026:m02:aula-06:i3:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m02:aula-06:i3:4",
-                  "left": "P",
-                  "right": "Parte posterior, a de trás"
+                  "id": "item:rtg-2026:m02:aula-06:i3:4",
+                  "label": "Letra P",
+                  "categoryId": "group:rtg-2026:m02:aula-06:i3:b"
+                },
+                {
+                  "id": "item:rtg-2026:m02:aula-06:i3:3",
+                  "label": "Letra L",
+                  "categoryId": "group:rtg-2026:m02:aula-06:i3:a"
                 }
               ]
             }
@@ -1947,39 +2051,44 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Um corte axial de tomografia do treino traz a letra L na borda direita da tela. Uma estrutura aparece junto à borda esquerda da tela. De que lado do paciente ela está?"
+              "label": "Completar a frase: Complete a frase que dá o lado do paciente a partir do marcador L e da borda da tela, usando o banco de palavras."
             },
             "help": "Um marcador numa borda também informa o que há na borda oposta.",
-            "type": "multiple-choice",
+            "type": "cloze",
             "feedback": {
-              "correct": "O L marca a borda do lado esquerdo do paciente. A borda oposta, à esquerda da tela, é o lado direito dele.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "O L marca a borda do lado esquerdo do paciente, então a borda oposta é o lado direito dele.",
+              "incorrect": "Confira de novo o que o L diz: ele marca o lado esquerdo do paciente. A estrutura na borda oposta está do outro lado do corpo."
             },
             "payload": {
-              "prompt": "Um corte axial de tomografia do treino traz a letra L na borda direita da tela. Uma estrutura aparece junto à borda esquerda da tela. De que lado do paciente ela está?",
-              "options": [
+              "prompt": "Complete a frase que dá o lado do paciente a partir do marcador L e da borda da tela, usando o banco de palavras.",
+              "segments": [
+                "O L está na borda direita da tela, então a estrutura na borda esquerda fica no lado ",
+                " do paciente."
+              ],
+              "tokens": [
                 {
-                  "id": "option:rtg-2026:m02:aula-06:i5:a",
-                  "label": "Do lado direito do paciente.",
-                  "explanation": "O L marca a borda do lado esquerdo do paciente. A borda oposta, à esquerda da tela, é o lado direito dele."
+                  "id": "token:rtg-2026:m02:aula-06:i5:3",
+                  "label": "anterior"
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-06:i5:b",
-                  "label": "Do lado esquerdo do paciente.",
-                  "explanation": "Essa resposta usa o lado da tela. Confira de novo o que o L diz sobre a borda direita."
+                  "id": "token:rtg-2026:m02:aula-06:i5:2",
+                  "label": "esquerdo"
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-06:i5:c",
-                  "label": "Na parte anterior do paciente.",
-                  "explanation": "Anterior e posterior são indicados por A e P. O L fala de direita e esquerda."
+                  "id": "token:rtg-2026:m02:aula-06:i5:4",
+                  "label": "posterior"
                 },
                 {
-                  "id": "option:rtg-2026:m02:aula-06:i5:d",
-                  "label": "Não dá para saber pelo marcador.",
-                  "explanation": "Dá, sim: se o L está numa borda, a borda oposta é o lado direito do paciente."
+                  "id": "token:rtg-2026:m02:aula-06:i5:1",
+                  "label": "direito"
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m02:aula-06:i5:a"
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m02:aula-06:i5:1",
+                  "correctTokenId": "token:rtg-2026:m02:aula-06:i5:1"
+                }
+              ]
             }
           }
         },
@@ -2490,25 +2599,37 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-01:i2:a",
+      "claimId": "statement:rtg-2026:m02:aula-01:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-01:i2:2",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-01:i2:b",
+      "claimId": "statement:rtg-2026:m02:aula-01:i2:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-01:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-01:i2:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m02:aula-01:i2:d",
+      "claimId": "interaction:rtg-2026:m02:aula-01:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2544,7 +2665,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-01:i3:1",
+      "claimId": "blank:rtg-2026:m02:aula-01:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2553,7 +2674,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-01:i3:2",
+      "claimId": "blank:rtg-2026:m02:aula-01:i3:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2562,31 +2683,40 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-01:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
-      ]
+      "claimId": "token:rtg-2026:m02:aula-01:i3:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-01:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6",
-        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m02:aula-01:i3:answer",
+      "claimId": "token:rtg-2026:m02:aula-01:i3:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-6",
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
       ]
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-01:i3:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-01:i3:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:radiopaedia-posicao-anatomica"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-01:i3:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-01:i3:feedback:correct",
@@ -3030,7 +3160,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-02:i2:1",
+      "claimId": "group:rtg-2026:m02:aula-02:i2:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3040,7 +3170,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-02:i2:2",
+      "claimId": "group:rtg-2026:m02:aula-02:i2:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3050,7 +3180,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-02:i2:3",
+      "claimId": "item:rtg-2026:m02:aula-02:i2:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3060,7 +3190,27 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-02:i2:4",
+      "claimId": "item:rtg-2026:m02:aula-02:i2:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:chung-2020-marcadores",
+        "source:rtg-2026:m02:scor-marcadores",
+        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-02:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:chung-2020-marcadores",
+        "source:rtg-2026:m02:scor-marcadores",
+        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-02:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3213,20 +3363,14 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-02:i5:a",
+      "claimId": "statement:rtg-2026:m02:aula-02:i5:1",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-02:i5:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m02:aula-02:i5:c",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m02:aula-02:i5:2",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
@@ -3234,10 +3378,25 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-02:i5:d",
+      "claimId": "statement:rtg-2026:m02:aula-02:i5:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-02:i5:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "interaction:rtg-2026:m02:aula-02:i5:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:chung-2020-marcadores",
+        "source:rtg-2026:m02:burbridge-mah-tc"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-02:i5:feedback:correct",
@@ -3576,20 +3735,8 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-03:i2:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m02:aula-03:i2:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m02:aula-03:i2:c",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m02:aula-03:i2:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-6",
@@ -3597,10 +3744,37 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-03:i2:d",
+      "claimId": "statement:rtg-2026:m02:aula-03:i2:2",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-03:i2:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-03:i2:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m02:aula-03:i2:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-03:i2:feedback:correct",
@@ -3630,7 +3804,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-03:i3:1",
+      "claimId": "group:rtg-2026:m02:aula-03:i3:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3639,7 +3813,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-03:i3:2",
+      "claimId": "group:rtg-2026:m02:aula-03:i3:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3648,7 +3822,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-03:i3:3",
+      "claimId": "group:rtg-2026:m02:aula-03:i3:c",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3657,7 +3831,52 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-03:i3:4",
+      "claimId": "item:rtg-2026:m02:aula-03:i3:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:6",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:5",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:nci-seer-terminologia"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-03:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4127,7 +4346,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-04:i2:1",
+      "claimId": "blank:rtg-2026:m02:aula-04:i2:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4135,7 +4354,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-04:i2:2",
+      "claimId": "blank:rtg-2026:m02:aula-04:i2:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4143,23 +4362,33 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-04:i2:3",
-      "claimKind": "prompt",
+      "claimId": "token:rtg-2026:m02:aula-04:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-04:i2:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-04:i2:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-04:i2:2",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-2"
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-2"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m02:aula-04:i2:answer",
+      "claimId": "token:rtg-2026:m02:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4273,8 +4502,14 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-04:i4:a",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m02:aula-04:i4:1",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-04:i4:2",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-6",
@@ -4282,22 +4517,28 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-04:i4:b",
+      "claimId": "statement:rtg-2026:m02:aula-04:i4:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:openstax-ap-19-1"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m02:aula-04:i4:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-04:i4:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m02:aula-04:i4:d",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "interaction:rtg-2026:m02:aula-04:i4:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6",
+        "source:rtg-2026:m02:openstax-ap-19-1"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-04:i4:feedback:correct",
@@ -4743,7 +4984,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-05:i3:1",
+      "claimId": "blank:rtg-2026:m02:aula-05:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4751,7 +4992,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-05:i3:2",
+      "claimId": "blank:rtg-2026:m02:aula-05:i3:2",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4759,28 +5000,38 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-05:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6"
-      ]
-    },
-    {
-      "claimId": "pair:rtg-2026:m02:aula-05:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m02:openstax-ap-1-6"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m02:aula-05:i3:answer",
+      "claimId": "token:rtg-2026:m02:aula-05:i3:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-6"
       ]
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-05:i3:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-05:i3:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-05:i3:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-05:i3:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-05:i3:feedback:correct",
@@ -4857,30 +5108,42 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-05:i5:a",
+      "claimId": "statement:rtg-2026:m02:aula-05:i5:1",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-05:i5:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m02:aula-05:i5:2",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:openstax-ap-1-6"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-05:i5:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m02:aula-05:i5:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-05:i5:d",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "statement:rtg-2026:m02:aula-05:i5:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m02:aula-05:i5:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:openstax-ap-1-6"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-05:i5:feedback:correct",
@@ -5269,7 +5532,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-06:i3:1",
+      "claimId": "group:rtg-2026:m02:aula-06:i3:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5278,7 +5541,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-06:i3:2",
+      "claimId": "group:rtg-2026:m02:aula-06:i3:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5287,7 +5550,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-06:i3:3",
+      "claimId": "item:rtg-2026:m02:aula-06:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5296,7 +5559,25 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m02:aula-06:i3:4",
+      "claimId": "item:rtg-2026:m02:aula-06:i3:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:burbridge-mah-tc",
+        "source:rtg-2026:m02:chung-2020-marcadores"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-06:i3:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:burbridge-mah-tc",
+        "source:rtg-2026:m02:chung-2020-marcadores"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m02:aula-06:i3:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5394,30 +5675,38 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-06:i5:a",
-      "claimKind": "correct-answer",
+      "claimId": "blank:rtg-2026:m02:aula-06:i5:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:burbridge-mah-tc"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-06:i5:b",
+      "claimId": "token:rtg-2026:m02:aula-06:i5:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-06:i5:c",
+      "claimId": "token:rtg-2026:m02:aula-06:i5:2",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m02:aula-06:i5:d",
+      "claimId": "token:rtg-2026:m02:aula-06:i5:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m02:aula-06:i5:1",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m02:burbridge-mah-tc"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m02:aula-06:i5:feedback:correct",
@@ -6129,7 +6418,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6138,7 +6427,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6147,7 +6436,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6156,7 +6445,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6165,7 +6454,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     },
     {
       "schemaVersion": 1,
@@ -6174,7 +6463,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bbff73da628c3cbd8b580a00ce00a4cc4f96591fe7424c63b9fb8db9f1c15dc"
+      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

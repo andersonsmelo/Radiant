@@ -8,7 +8,7 @@
  * `promoteProductionBatch` lança com a lista de violações.
  */
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from '../EditorialCurriculumCandidate';
-import { wideInteractionClaims, type EditorialLicensedImageV1, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
+import { isGroupOrderBiased, wideInteractionClaims, type EditorialLicensedImageV1, type EditorialWideRecoveryV1 } from '../EditorialWideContract';
 import {
     fingerprintProductionBatchMaterial, promoteProductionBatch, PRODUCTION_BATCH_APPROVAL_GATES,
     type ProductionBatchV1,
@@ -27,7 +27,12 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'case-decision'; context: string; options: RtgOption[] }
     | { type: 'comparison'; options: (RtgOption & { imageId: string })[] }
     | { type: 'ordering'; items: string[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'matching'; pairs: { left: string; right: string }[]; feedbackCorrect: string; feedbackIncorrect: string });
+    | { type: 'matching'; pairs: { left: string; right: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Famílias da 1.6 (ADR-2026-11-13). Todas têm retorno de acerto e de erro próprios.
+    | { type: 'cloze'; text: string; answers: string[]; distractors: string[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'true-false'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
@@ -45,10 +50,17 @@ export type RtgUnitSource = {
 };
 export type RtgBatchBuild = { batch: ProductionBatchV1; presentation: ProductionCatalogEntry['presentation'] };
 
-/** Ordem da trilha: núcleo de M01 a M14, depois os ramos, que só abrem após M14. */
+/**
+ * Ordem da trilha, pela ementa: núcleo de M01 a M14 com as unidades da 1.6 na
+ * posição pedagógica (m15, biologia, depois de M03; m16, condição do paciente,
+ * depois de M09), seguido dos ramos, que só abrem após M14, com s-od e s-us no fim.
+ * A inserção no meio vale porque `resolveTrackAccess` mantém aberta toda trilha
+ * concluída ou iniciada e toda trilha antes da iniciada mais adiante (2026-11-13).
+ * Mapa: docs/plans/2026-11-13-rtg-2026-expansao-pela-ementa.md.
+ */
 export const RTG_UNIT_ORDER = [
-    'm01', 'm02', 'm03', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12', 'm13', 'm14',
-    's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir',
+    'm01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+    's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us',
 ] as const;
 
 /** Aceite por IA sob delegação (ADR-2026-11-05, decisão 1). Não é revisão por profissional da área. */
@@ -60,7 +72,8 @@ export const RTG_REVIEW = {
 const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla' };
 // A conferência e a recuperação não têm retorno por alternativa no contrato do item.
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
-const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação' } as const;
+const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
+    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -84,6 +97,27 @@ export function seededDisplayOrder<T>(values: readonly T[], seed: string): T[] {
     }
     if (order.length > 1 && order.every((value, index) => value === values[index])) order.push(order.shift() as T);
     return order;
+}
+
+/**
+ * Ordem de exibição da categorização: embaralhada pela semente, sem blocos por
+ * grupo nem ciclo que se repita (`isGroupOrderBiased`, a mesma régua do
+ * contrato). Tenta sementes derivadas até achar uma ordem aceita; com 4 a 6
+ * itens em 2 ou 3 grupos sempre existe uma.
+ */
+export function categorizeDisplayOrder<T>(values: readonly T[], group: (value: T) => string, seed: string): T[] {
+    const groupCount = new Set(values.map(group)).size;
+    for (let attempt = 0; attempt < 200; attempt += 1) {
+        const order = seededDisplayOrder(values, attempt ? `${seed}#${attempt}` : seed);
+        if (!isGroupOrderBiased(order.map(group), groupCount)) return order;
+    }
+    throw new Error(`rtg-categorize-order:${seed}`);
+}
+
+/** Banco do cloze embaralhado pela semente; as respostas nunca o abrem na ordem das lacunas (viés de posição). */
+export function clozeBankOrder<T extends { id: string }>(tokens: readonly T[], answers: readonly string[], seed: string): T[] {
+    const shown = seededDisplayOrder(tokens, seed);
+    return answers.every((tokenId, index) => shown[index]?.id === tokenId) ? [...shown.slice(1), shown[0]] : shown;
 }
 
 export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLicensedImageV1[] = []): RtgBatchBuild {
@@ -155,6 +189,28 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const items = source.items.map((label, index) => ({ id: id('item', slug, source.id, String(index + 1)), label }));
                 interaction = { ...base, type: 'ordering', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, items: seededDisplayOrder(items, interactionId), correctOrder: items.map(entry => entry.id) } };
+            } else if (source.type === 'cloze') {
+                const parts = source.text.split(/\{\{\d\}\}/);
+                const tokens = [...source.answers, ...source.distractors].map((label, index) => ({ id: id('token', slug, source.id, String(index + 1)), label }));
+                const answers = tokens.slice(0, source.answers.length).map(token => token.id);
+                const shown = clozeBankOrder(tokens, answers, interactionId);
+                interaction = { ...base, type: 'cloze', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, segments: parts, tokens: shown,
+                        blanks: answers.map((tokenId, index) => ({ id: id('blank', slug, source.id, String(index + 1)), correctTokenId: tokenId })) } };
+            } else if (source.type === 'true-false') {
+                interaction = { ...base, type: 'true-false', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, statements: source.statements.map((statement, index) => ({
+                        id: id('statement', slug, source.id, String(index + 1)), text: statement.text, isTrue: statement.correct, explanation: statement.feedback })) } };
+            } else if (source.type === 'categorize') {
+                const categories = source.categories.map((label, index) => ({ id: id('group', slug, source.id, LETTERS[index]), label }));
+                const items = source.items.map((item, index) => ({ id: id('item', slug, source.id, String(index + 1)), label: item.label,
+                    categoryId: categories[source.categories.indexOf(item.category)]?.id ?? '' }));
+                interaction = { ...base, type: 'categorize', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, categories, items: categorizeDisplayOrder(items, item => item.categoryId, interactionId) } };
+            } else if (source.type === 'multi-select') {
+                const options = source.options.map((option, index) => ({ id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback }));
+                interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, options, correctOptionIds: options.filter((_, index) => source.options[index].correct).map(option => option.id) } };
             } else {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };

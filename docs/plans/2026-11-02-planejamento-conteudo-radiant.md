@@ -478,14 +478,14 @@ matrizes revelou lacunas que precisam continuar visíveis:
 | Domínio | Cobertura proposta | Decisão antes da autoria ou promoção |
 | --- | --- | --- |
 | Anatomia espacial e por imagem | M02/M07/M08/M10/M12 | Coberto em briefs; selecionar imagens e conferir amplitude por região. |
-| Biologia celular e fisiologia | Introdução transversal em M02.04/M04.04 e nos sistemas de M08 | **Parcial.** O blueprint deve explicitar células, tecidos e funções relevantes antes das aplicações; dividir ou ampliar aulas se necessário. |
-| Patologia aplicada à aquisição | Casos de M07–M13, sem ensino de diagnóstico autônomo | **Parcial.** Incluir efeitos sobre preparo, posição e qualidade e limites profissionais revisados. |
-| Odontológica | Sem módulo próprio no núcleo | **Pendente de recorte.** Conferir com docente se entra num bloco adicional de formação de imagem e qualidade; não alegar cobertura completa. |
-| Ultrassom | Física de ondas em M03; sem percurso próprio | **Pendente.** Planejar visão técnica e limites de atuação antes de incluí-lo como modalidade coberta. |
-| Radiologia industrial | Fora deste primeiro recorte clínico | Possível expansão; requer ementa, fontes e escopo profissional próprios. |
+| Biologia celular e fisiologia | Introdução transversal em M02.04/M04.04 e nos sistemas de M08; **M15** (6 aulas) desde 2026-11-13 | **Coberta em 2026-11-13** por M15, Células, tecidos e funções. Fisiologia por sistemas segue só como contexto: candidata a segunda unidade. |
+| Patologia aplicada à aquisição | Casos de M07–M13; **M16** (6 aulas) desde 2026-11-13, sem ensino de diagnóstico | **Coberta em 2026-11-13** por M16, A condição do paciente na aquisição. O efeito de gesso e de acúmulo de líquido na imagem saiu por falta de fonte lida. |
+| Odontológica | Ramo **S-OD** (7 aulas) desde 2026-11-13 | **Coberta em 2026-11-13** como ramo: intraoral, panorâmica, feixe cônico e proteção. Sem conferência por docente; não alegar cobertura completa. |
+| Ultrassom | Física de ondas em M03; ramo **S-US** (6 aulas) desde 2026-11-13 | **Coberta em 2026-11-13** como visão técnica: física, transdutor, modos, artefatos e limite de atuação. Não ensina a executar nem a laudar o exame. |
+| Radiologia industrial | Fora deste primeiro recorte clínico | **Ainda aberta (2026-11-13).** Possível ramo; requer ementa, fontes e escopo profissional próprios. |
 | Prática profissional e estágio | Apenas situações educacionais simuladas | Fora da equivalência do app; medalha não substitui prática supervisionada. |
 
-O PC03 decide se o recorte é adequado ou se o mapa precisa crescer. A contagem
+A expansão de 2026-11-13 está em [`2026-11-13-rtg-2026-expansao-pela-ementa.md`](2026-11-13-rtg-2026-expansao-pela-ementa.md), que também registra ética e legislação profissional como lacuna parcial. O PC03 decide se o recorte é adequado ou se o mapa precisa crescer. A contagem
 84+48 não pode esconder omissões nem justificar promover um módulo sem os
 conhecimentos necessários. Esses pontos são pendências da proposta, e não
 competências já entregues ao aluno.
