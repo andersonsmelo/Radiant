@@ -37,8 +37,13 @@ export type WidgetSnapshot = {
     nextLesson: WidgetSource['nextLesson'];
 };
 
-/** Hoje mais três viradas: depois de dois dias perdidos, com ou sem proteção, nada mais muda. */
-const MAX_DAYS = 4;
+/**
+ * Teto de viradas. O horizonte normal vem da quebra real (`settled`), no máximo três dias à
+ * frente com proteção; o teto só segura um `lastActiveDate` absurdo, de relógio muito atrasado.
+ * shortcut: estudo mais de ~4 dias "no futuro" deixa a quebra fora do horizonte e o widget mostra
+ * a sequência até o app abrir; ampliar o teto se isso aparecer em campo.
+ */
+const MAX_HORIZON_DAYS = 7;
 
 /** A sequência que vale no dia `dayKey` se o aluno ainda não estudou nele. */
 function standing(source: WidgetSource, dayKey: string): { streakDays: number; countsToday: boolean } {
@@ -55,7 +60,7 @@ function standing(source: WidgetSource, dayKey: string): { streakDays: number; c
 
 export function buildWidgetSnapshot(source: WidgetSource, now: Date): WidgetSnapshot {
     const entries: WidgetEntry[] = [];
-    for (let offset = 0; offset < MAX_DAYS; offset += 1) {
+    for (let offset = 0; offset <= MAX_HORIZON_DAYS; offset += 1) {
         // O construtor local acerta a meia-noite mesmo em dia de horário de verão.
         const day = offset === 0 ? now : new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
         const dayKey = formatLocalDateKey(day);
@@ -67,9 +72,11 @@ export function buildWidgetSnapshot(source: WidgetSource, now: Date): WidgetSnap
         };
         // Dia igual ao anterior não vira entrada, mas não encerra a conta: a quebra pode vir depois.
         const previous = entries[entries.length - 1];
-        if (previous && previous.streakDays === entry.streakDays && previous.countsToday === entry.countsToday
-            && previous.goalCompleted === entry.goalCompleted) continue;
-        entries.push(entry);
+        if (!previous || previous.streakDays !== entry.streakDays || previous.countsToday !== entry.countsToday
+            || previous.goalCompleted !== entry.goalCompleted) entries.push(entry);
+        // Sequência quebrada e meta já vencida: nenhum dia seguinte muda o que o widget mostra.
+        const settled = entry.streakDays === 0 && (source.goalDateKey === null || source.goalDateKey < dayKey);
+        if (settled) break;
     }
     return { schemaVersion: WIDGET_SNAPSHOT_SCHEMA_VERSION, generatedAt: now.getTime(), entries, nextLesson: source.nextLesson };
 }

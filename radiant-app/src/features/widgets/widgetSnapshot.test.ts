@@ -84,6 +84,26 @@ describe('buildWidgetSnapshot', () => {
         expect(first).toMatchObject({ streakDays: 5, countsToday: true });
     });
 
+    it('estudo um dia "no futuro" com proteção: a linha do tempo vai até a quebra real, em 19/11', () => {
+        // Caso do revisor da PR #77: com política `.never`, sem a quebra o widget mostraria 7 para sempre.
+        const source = { ...base, streakDays: 7, lastActiveDate: '2026-11-16', freezes: 1 };
+        const { entries } = buildWidgetSnapshot(source, NOW);
+        expect(entries.map((e) => [e.startsAt, e.streakDays, e.countsToday])).toEqual([
+            [NOW.getTime(), 7, true],
+            [midnight(1), 7, true],
+            [midnight(2), 7, false],
+            // 18/11 é coberto pela proteção e repete o dia anterior; 19/11 é a quebra.
+            [midnight(4), 0, false],
+        ]);
+    });
+
+    it('relógio muito atrasado: o horizonte para em sete dias, e as entradas continuam válidas', () => {
+        const source = { ...base, lastActiveDate: '2099-01-01', freezes: 1 };
+        const { entries } = buildWidgetSnapshot(source, NOW);
+        expect(Math.max(...entries.map((e) => e.startsAt))).toBeLessThanOrEqual(midnight(7));
+        expect(entries.every((e) => e.streakDays === 5 && e.countsToday)).toBe(true);
+    });
+
     it('cada virada cai na meia-noite local, mesmo no dia em que o relógio muda', () => {
         // 1º de novembro de 2026 tem 25 h em Nova York; o teste roda também com TZ=America/New_York.
         const source = { ...base, lastActiveDate: '2026-10-31', goalDateKey: '2026-10-31' };

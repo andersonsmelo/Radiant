@@ -73,3 +73,34 @@ Tests:       2 failed, 9 passed, 11 total
     +   23,
         0,
 Tests:       1 failed, 9 skipped, 1 passed, 11 total
+
+# Vermelho 5 — 16:20, achado do Codex na PR #77 (widgetSnapshot.ts:41): estudo um dia "no futuro" com proteção, contra o código do commit e4e895f (horizonte fixo de quatro dias)
+    ✕ estudo um dia "no futuro" com proteção: a linha do tempo vai até a quebra real, em 19/11 (3 ms)
+    ✓ relógio muito atrasado: o horizonte para em sete dias, e as entradas continuam válidas
+    - Expected  - 5
+    + Received  + 0
+        Array [
+          1794884400000,
+          7,
+          false,
+        ],
+    -   Array [
+    -     1795057200000,
+    -     0,
+    -     false,
+    -   ],
+      ]
+      89 |         const source = { ...base, streakDays: 7, lastActiveDate: '2026-11-16', freezes: 1 };
+      90 |         const { entries } = buildWidgetSnapshot(source, NOW);
+      92 |             [NOW.getTime(), 7, true],
+      93 |             [midnight(1), 7, true],
+      94 |             [midnight(2), 7, false],
+
+Tests:       1 failed, 11 skipped, 1 passed, 13 total
+# A guarda do teto passa contra o código antigo, que tinha horizonte fixo de quatro dias. Por isso ela foi vista vermelha à parte, no vermelho 6.
+
+# Vermelho 6 — 16:22, guarda do teto, contra uma implementação defeituosa TEMPORÁRIA sem teto (MAX_HORIZON_DAYS = 100000): o horizonte segue o lastActiveDate de 2099
+    ✕ relógio muito atrasado: o horizonte para em sete dias, e as entradas continuam válidas (19 ms)
+    Expected: <= 1795316400000
+    Received:    4071178800000
+Tests:       1 failed, 12 skipped, 13 total

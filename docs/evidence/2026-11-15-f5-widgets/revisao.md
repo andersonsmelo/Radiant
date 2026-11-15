@@ -25,3 +25,11 @@ boas-vindas ou um checkpoint na abertura, e a assinatura com App Group no EAS.
 
 - `startup-gate.flow.test.tsx` não carregava: o `_layout` passou a importar a ponte, que importava o retrato, que importa o `StreakFreezeService`, que importa o `AsyncStorage` nativo. **Consertado:** a ponte carrega o retrato sob demanda, como já fazia com os serviços.
 - `storageInventory.test.ts` (G7) achou a constante `WIDGET_SNAPSHOT_KEY` e cobrou entrada no inventário. O inventário é do AsyncStorage, e essa chave é do `UserDefaults` do App Group. **Consertado pelo desenho:** a chave passou a morar só no Swift (o módulo grava, o widget lê), e o JS não a conhece mais. O inventário não foi tocado.
+
+## Achado do Codex na PR #77 (2026-11-15, ~16h)
+
+| # | Achado | Gravidade | Tratamento |
+| --- | --- | --- | --- |
+| 10 | Com o último estudo um dia "no futuro" e uma proteção guardada, os quatro dias fixos da linha do tempo não alcançavam a quebra. Exemplo: retrato em 15/11, `lastActiveDate: '2026-11-16'`, `streakDays: 7`, `freezes: 1`. A quebra de 19/11 ficava de fora, e com a política `.never` o widget mostraria 7 até o app abrir. | P2 | **Consertado.** O horizonte para na quebra real: a linha do tempo segue até o primeiro dia em que a regra do `StreakFreezeService` zera a sequência e a meta já venceu. O teto de sete viradas só segura um `lastActiveDate` absurdo. Teste do caso exato visto vermelho contra `e4e895f` (vermelho 5). Guarda do teto vista vermelha contra uma implementação temporária sem teto (vermelho 6). Limite aceito: estudo mais de ~4 dias no futuro deixa a quebra fora do teto. |
+
+Gate depois do conserto: `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, saída 0, 235 suítes e 3116 testes (os dois novos incluídos).
