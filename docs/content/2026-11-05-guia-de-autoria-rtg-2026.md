@@ -53,7 +53,124 @@ Tipos de interação:
 - `matching`: `prompt`, `pairs[4]` (`left`, `right`), `feedbackCorrect`, `feedbackIncorrect`, `help`.
 - `comparison`: `prompt`, `options[2 a 4]` (`label` neutro, `imageId`, `correct`, `feedback`), `help`. Cada `imageId` existe em `content-manifest/rtg-2026/imagens.json`, com licença CC0 ou CC BY conferida. O item só afirma o que a descrição da imagem no acervo sustenta.
 
+- `cloze`, `true-false`, `categorize`, `multi-select`: famílias da 1.6, descritas na seção 3a.
+
 `help` é uma pista que orienta o raciocínio sem entregar a resposta.
+
+## 3a. Famílias da 1.6 (ADR-2026-11-13)
+
+Decisão e garantias em `docs/adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md`. As
+quatro têm `prompt` (20 a 300 caracteres), `help`, `sourceIds`, `feedbackCorrect` e
+`feedbackIncorrect` (25 a 260 cada). **O retorno de erro é diferente do de acerto**: ele
+explica o raciocínio, não repete o parabéns. Nenhuma tem posição de resposta para
+distribuir na unidade; a régua de 10% a 40% continua valendo para as escolhas que
+sobram. Ao converter uma interação existente, mantenha `id`, `role`, `help`,
+`sourceIds` e `criticalSafety`, e não acrescente fato que não estava na aula.
+
+### `cloze` (completar a frase)
+
+**Use** quando a aula ensina um termo que o aluno precisa dizer exato: nome de plano,
+unidade, marcador, sigla com palavra. **Não use** para ideia que se diz de vários jeitos
+(duas palavras do banco serviriam), nem para frase copiada do conceito que a resposta
+completa por gramática ("o"/"a" já denunciam o gênero).
+
+Regras: `text` com `{{1}}` e, se houver, `{{2}}`, em ordem (20 a 200 caracteres);
+`answers` com 1 ou 2 palavras ou expressões curtas (até 40); `distractors` de 2 a 4;
+nada repetido no banco; nenhuma resposta mais longa que 1,2× o maior distrator. O
+gerador embaralha o banco e nunca o abre com as respostas na ordem das lacunas.
+
+```json
+{ "id": "i3", "type": "cloze", "role": "practice", "prompt": "Complete a frase com as palavras do banco.",
+  "text": "O plano {{1}} divide o corpo em direita e esquerda.", "answers": ["sagital"], "distractors": ["coronal", "axial", "oblíquo"],
+  "feedbackCorrect": "Isso: o plano sagital separa direita e esquerda.",
+  "feedbackIncorrect": "Pense no que o plano separa: o coronal separa frente e trás, o axial separa cima e baixo.",
+  "help": "Qual plano corta o corpo de frente para trás?", "sourceIds": ["…"] }
+```
+
+Reprovado: `"text": "O plano {{1}} divide o corpo."` com `"answers": ["sagital", "mediano"]`
+(duas respostas, uma lacuna: "o texto precisa de uma lacuna {{1}}, {{2}} por resposta");
+`"distractors": ["coronal"]` ("de 2 a 4 distratores no banco").
+
+### `true-false` (certo ou errado)
+
+**Use** para separar ideias que o aluno confunde: o que mede e o que protege, o lado do
+paciente e o da tela. Boa conversão de uma múltipla escolha cujas alternativas erradas
+são equívocos comuns. **Não use** quando a afirmação errada só é errada por um detalhe de
+redação, nem com afirmação que a fonte não sustenta como certa ou como errada.
+
+Regras: 3 ou 4 `statements` (`text` de 15 a 160, `correct` booleano, `feedback` próprio
+de 25 a 260), ao menos uma certa e uma errada, sem repetir texto nem retorno; a certa
+mais longa não passa de 1,2× a errada mais longa. O aluno julga uma por vez e vê o
+retorno daquela afirmação na hora; o julgamento não volta atrás.
+
+```json
+{ "id": "i5", "type": "true-false", "role": "transfer", "prompt": "Julgue cada afirmação sobre o dosímetro.",
+  "statements": [
+    { "text": "O dosímetro registra a dose que você recebeu.", "correct": true, "feedback": "Certo: ele mede a dose acumulada no período." },
+    { "text": "O dosímetro diminui a dose que você recebe.", "correct": false, "feedback": "Errado: ele só mede; quem reduz é distância, tempo e blindagem." },
+    { "text": "O dosímetro é de uso individual.", "correct": true, "feedback": "Certo: cada pessoa usa o próprio, para a leitura ser dela." } ],
+  "feedbackCorrect": "Você separou medir de proteger.", "feedbackIncorrect": "Releia o conceito: medir a dose não é o mesmo que reduzi-la.",
+  "help": "Ele mede ou protege?", "sourceIds": ["…"] }
+```
+
+Reprovado: as três afirmações com `"correct": true` ("ao menos uma afirmação certa e ao
+menos uma errada"); `"correct": "false"` em texto ("correct deve ser true ou false").
+
+### `categorize` (classificar em grupos)
+
+**Use** quando os itens se dividem em 2 ou 3 classes que a aula ensina: técnico ou
+clínico, antes ou depois do contato, aumenta ou reduz. Substitui a associação cujos
+lados direitos já eram classes. **Não use** para pares um a um (isso é `matching`), nem
+com grupo que tenha um item só por falta de material.
+
+Regras: 2 ou 3 `categories` (até 40 caracteres), de 4 a 6 `items` (`label` até 60,
+`category` igual ao texto de um grupo), todo grupo com item, e **o rótulo do item não
+contém o nome do grupo**. O gerador intercala os itens para que nunca apareçam em blocos.
+
+```json
+{ "id": "i2", "type": "categorize", "role": "practice", "prompt": "Classifique cada ação no grupo certo.",
+  "categories": ["Tarefa técnica", "Decisão clínica"],
+  "items": [ { "label": "Posicionar o paciente", "category": "Tarefa técnica" }, { "label": "Ajustar o campo", "category": "Tarefa técnica" },
+             { "label": "Escrever o laudo", "category": "Decisão clínica" }, { "label": "Indicar o exame", "category": "Decisão clínica" } ],
+  "feedbackCorrect": "Você separou o que produz a imagem do que decide sobre ela.",
+  "feedbackIncorrect": "Pergunte de cada ação: ela produz a imagem ou decide algo a partir dela?",
+  "help": "Quem faz cada ação na sala?", "sourceIds": ["…"] }
+```
+
+Reprovado: `{ "label": "Escrever o laudo (decisão clínica)", … }` ("entrega o grupo no
+próprio rótulo"); todos os itens em "Tarefa técnica" ("grupo sem item").
+
+### `multi-select` (marque todas as corretas)
+
+**Use** quando o conceito lista várias condutas certas e o erro típico é lembrar só de
+uma. O enunciado diz "Marque todas…". **Não use** com uma correta só (é múltipla
+escolha) nem com todas corretas (resposta constante).
+
+Regras: de 4 a 6 `options` (`label` até 110, `correct` booleano, `feedback` próprio de 25
+a 260), de 2 a n−1 corretas, as corretas não ocupam todas as primeiras posições, nenhuma
+correta mais longa que 1,2× a maior errada. O retorno do erro diz o que faltou marcar e o
+que foi marcado a mais, seguido da explicação da primeira divergência.
+
+```json
+{ "id": "i4", "type": "multi-select", "role": "practice", "prompt": "Marque todas as medidas que reduzem a dose.",
+  "options": [ { "label": "Usar o dosímetro", "correct": false, "feedback": "O dosímetro mede a dose; não reduz." },
+               { "label": "Aumentar a distância", "correct": true, "feedback": "A distância reduz a dose recebida." },
+               { "label": "Apressar o paciente", "correct": false, "feedback": "Pressa não é medida de proteção." },
+               { "label": "Vestir o avental", "correct": true, "feedback": "O avental reduz a dose no tronco." } ],
+  "feedbackCorrect": "Você marcou as duas medidas e deixou de fora as outras.",
+  "feedbackIncorrect": "Releia o conceito: proteção é o que diminui a dose, não o que a mede.",
+  "help": "O que diminui a dose, e não só a registra?", "sourceIds": ["…"] }
+```
+
+Reprovado: as duas corretas nas posições 1 e 2 ("as corretas estão todas no topo da
+lista"); só uma correta ("de 2 a 3 corretas").
+
+### Composição da aula
+
+Continua valendo: 5 interações, ao menos 3 tipos, i1 `prerequisite`. Em M01 a M03 a meta
+da 1.6 é ao menos duas famílias novas por aula, nenhuma família três vezes seguidas e a
+i1 em múltipla escolha, porque a tela de revisão só sabe mostrar múltipla escolha. Para
+unidades novas, mantenha ao menos uma múltipla escolha por aula pelo mesmo motivo.
 
 ## 4. Formato do arquivo
 

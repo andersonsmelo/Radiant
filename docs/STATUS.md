@@ -35,6 +35,55 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Atualização 1.6 — F2, formatos de interação (medido em 2026-11-15)
+
+Branch `claude/f2-formatos-de-interacao-e37fff`, PR
+[#71](https://github.com/andersonsmelo/Radiant/pull/71) em rascunho, sem merge.
+Decisão em [ADR 2026-11-13](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md);
+evidência em [`evidence/2026-11-13-f2-formatos/`](evidence/2026-11-13-f2-formatos/README.md).
+
+- **Quatro famílias novas** (`cloze`, `true-false`, `categorize`, `multi-select`) no
+  tipo, no contrato amplo, no verificador da aula-fonte, no gerador e no tocador.
+  `slider-estimate` ficou de fora (ADR, decisão 1).
+- **M01 a M03 convertidas:** 36 interações; toda aula tem ao menos duas famílias
+  novas, nenhuma família três vezes seguidas e a i1 em múltipla escolha.
+  `node scripts/content/build-rtg-batches.mjs --check` sai com 0.
+- **Gate:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`, Node 20.20.2,
+  234 suítes e 3151 testes, saída 0.
+- **Simulador:** os três roteiros de `radiant-app/.maestro/f2-formatos/` passaram
+  inteiros no simulador "Radiant F2" (`63575E19`, iPhone 17 Pro, iOS 26.5), criado em
+  2026-11-13 porque o `E262D4C1` não existia mais. Ele fica desligado e guardado para
+  as próximas frentes. O dev client foi compilado localmente com `xcodebuild`, numa
+  worktree à parte, com `LANG`/`LC_ALL` em UTF-8 (sem isso o CocoaPods quebra na
+  normalização Unicode) e `node_modules` como clone APFS, não link (o Metro não segue
+  link para fora do projeto).
+- **Não visto:** VoiceOver ouvido, texto ampliado AX2, som, tela de conclusão,
+  aparelho físico e Android.
+- **Fila de revisão de quem atualiza da 1.5.0:** o cartão de uma interação que mudou de
+  família sai da fila; os demais ficam com a data (`familyChangeUpgrade.test.ts`).
+
+## Trilha ampliada pela ementa — F1 da 1.6, medido em 2026-11-13
+
+Na branch `claude/f1-trilha-ampliada`, que nasce da branch da F2
+(`claude/f2-formatos-de-interacao-e37fff`, PR #71). Nada disto está na `main` nem na loja.
+
+- **Conteúdo:** quatro unidades novas, 25 aulas, 125 interações e 50 itens de
+  conferência: M15, Células, tecidos e funções (6 aulas); M16, A condição do paciente na
+  aquisição (6); S-OD, Radiologia odontológica (7); S-US, Ultrassonografia para o
+  tecnólogo (6). A trilha passa a ter 24 unidades, 157 aulas, 785 interações e 314 itens
+  de conferência. Toda aula usa ao menos uma família da 1.6. Autor Claude Sonnet,
+  revisor independente Claude Opus; revisão por IA, não por profissional da área.
+  [Pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md);
+  [mapa da expansão](plans/2026-11-13-rtg-2026-expansao-pela-ementa.md).
+- **Ordem:** M15 depois de M03, M16 depois de M09, S-OD e S-US no fim. A inserção no
+  meio exigiu mudar a regra de acesso entre trilhas (commit `1102ec4`,
+  [levantamento](evidence/2026-11-13-rtg-2026-expansao/motor.md)): trilha concluída ou
+  iniciada fica aberta, e a Home não puxa de volta quem está adiante.
+- **Roteiros do Maestro:** aula 01 e primeira avaliação de cada unidade nova, em
+  `radiant-app/.maestro/rtg-2026/`, gerados do gabarito. **Não vistos na tela.**
+- **Gate:** ver o relatório da frente; os números da suíte inteira estão no
+  [README dos pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md).
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch
@@ -951,6 +1000,17 @@ roteiros usam como âncora. Eles agora rolam até ele. A bateria padrão passou
 rolagem ampliado.
 `rating-prompt`, `store-capture` e os `student-checkpoint-*` não foram
 executados ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md)).
+
+## Widgets do iOS — F5 da 1.6, medido em 2026-11-15
+
+Na branch `claude/f5-widgets-ios`, **não está na `main` nem em build**. Dois widgets
+(sequência; sequência, meta e próxima aula) atrás de `ENABLE_WIDGETS`, **desligada por
+padrão**: com ela desligada, o prebuild sai igual ao da `main` e nenhum pod novo entra
+([ADR](adr/ADR-2026-11-15-widgets-ios.md), [evidência](evidence/2026-11-15-f5-widgets/README.md)).
+Compilou em Release para o simulador com a chave ligada e o app gravou o retrato no
+App Group; **o widget na tela inicial não foi visto** (sem acesso ao painel do
+simulador). Ligar depende do dono: App Group no portal e a variável no `eas.json`
+([runbook](runbooks/2026-11-15-widgets-ios.md)).
 
 ## Kill switches reais
 

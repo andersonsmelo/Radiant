@@ -1,0 +1,21 @@
+# xcodebuild com a chave ligada — 2026-11-15, Xcode 27.2, simulador 'Radiant F5' (iPhone 17 Pro, iOS 26.5)
+# Prebuild na worktree: CI=1 EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 EXPO_PUBLIC_ENABLE_WIDGETS=true npx expo prebuild -p ios --clean --no-install; pod install com RUBYOPT=-rlogger
+# xcodebuild -workspace Radiant.xcworkspace -scheme Radiant -configuration Release -sdk iphonesimulator -derivedDataPath <rascunho> IPHONEOS_DEPLOYMENT_TARGET=17.0 CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= build (SENTRY_DISABLE_AUTO_UPLOAD=true)
+# IPHONEOS_DEPLOYMENT_TARGET=17.0 só nesta compilação local: o contorno do STATUS (15.1) rebaixaria também o alvo do widget, que pede 17.0.
+
+## Tentativa 1: BUILD FAILED — ExpoModulesProvider.swift: cannot find 'RadiantWidgetsModule' in scope. Causa: o alvo do widget e o pod se chamavam RadiantWidgets; o app importava o módulo Swift do alvo. Conserto: alvo renomeado para RadiantHomeWidgets.
+## Tentativa 2: mesmo erro, por um RadiantWidgets.swiftmodule velho do alvo antigo em Build/Products. Apagado.
+## Tentativa 3:
+** BUILD SUCCEEDED **
+
+## Produto
+RadiantHomeWidgets.appex
+
+## No simulador (app instalado e aberto às 14h45): App Group group.com.ascendcreative.radiant.widgets, Library/Preferences/group.com.ascendcreative.radiant.widgets.plist
+radiant.widget.snapshot => {"schemaVersion":1,"generatedAt":1794764718485,"entries":[{"startsAt":1794764718485,"streakDays":0,"countsToday":false,"goalCompleted":0,"goalTarget":10}],"nextLesson":null}
+
+## NÃO visto: o widget na tela inicial ou na galeria. O painel do simulador não foi liberado para esta sessão (pedido de acesso sem resposta), e pôr widget exige toque. A leitura do retrato pelo Swift e o desenho não foram vistos rodando; o Swift compilou (tentativa 3) e a revisão independente fez swiftc -typecheck.
+
+## Tentativa 4 (depois de mover a chave do retrato para o Swift do módulo), 14:59:
+** BUILD SUCCEEDED **
+(o retrato no App Group acima foi gravado pela tentativa 3, com a chave ainda passada pelo JS; a tentativa 4 só foi compilada, não rodada)

@@ -1,0 +1,378 @@
+# Maestro — roteiros da F2, 2026-11-15T16:11:55Z
+simulador: Radiant F2 (63575E19-F90A-42A4-80D0-2086B74AEB93), iPhone 17 Pro, iOS 26.5; dev client Debug compilado local com xcodebuild (Xcode 27.2)
+maestro 2.7.0; Metro da worktree com EXPO_NO_TYPESCRIPT_SETUP=1; comando: maestro --device <udid> test .maestro/f2-formatos/<mNN>.yaml
+
+== m01 16:00:01
+Running on Radiant F2 - iOS 26.5 - 63575E19-F90A-42A4-80D0-2086B74AEB93
+ > Flow F2 — M01.03: categorização (acerto), múltipla seleção (erro) e retomada
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that (Optional) "Pular apresentação|This is the developer menu\. .*" is visible... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Run ../subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run ../subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am01%3Aaula-03... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Repeat while "Pedir que ela diga os próprios dados." is not visible...
+  Tap on "Continuar"... COMPLETED
+Repeat while "Pedir que ela diga os próprios dados." is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Pedir que ela diga os próprios dados." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Pedir que ela diga os próprios dados."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Stop com.ascendcreative.radiant... COMPLETED
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am01%3Aaula-03&resumeCursorId=step-6... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Assert that "Pedir que ela diga os próprios dados." is visible... COMPLETED
+Assert that id: categorize-item-Você vai ajudar Dona Marta a subir na mesa is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Pedir que ela diga os próprios dados." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Pedir que ela diga os próprios dados."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-item-Você vai ajudar Dona Marta a subir na mesa is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-item-Você vai ajudar Dona Marta a subir na mesa... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-group-Antes do contato is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-group-Antes do contato... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-item-Você acabou de posicionar o ombro de Seu Jorge is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-item-Você acabou de posicionar o ombro de Seu Jorge... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-group-Depois do contato is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-group-Depois do contato... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-item-Você vai preparar um procedimento limpo ou asséptico is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-item-Você vai preparar um procedimento limpo ou asséptico... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-group-Antes do contato is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-group-Antes do contato... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-item-Você só ajustou a mesa em que Seu Jorge estava deitado is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-item-Você só ajustou a mesa em que Seu Jorge estava deitado... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-group-Depois do contato is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-group-Depois do contato... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-item-Você recolheu um lençol com secreção fictícia is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-item-Você recolheu um lençol com secreção fictícia... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: categorize-group-Depois do contato is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: categorize-group-Depois do contato... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling UP until "Você vai ajudar Dona Marta a subir na mesa, em Antes do contato, certo" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Selecionar esta ordem" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Selecionar esta ordem"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Higienizar as mãos antes de qualquer contato." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Higienizar as mãos antes de qualquer contato."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: multi-select-Limpar os apoios que ela tocou. is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: multi-select-Limpar os apoios que ela tocou.... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Higienizar as mãos antes da próxima paciente., faltou marcar, errado" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Repeat while "Concluir e voltar" is not visible...
+Repeat while "Concluir e voltar" is not visible... SKIPPED
+Tap on "Concluir e voltar"... COMPLETED
+== m02 16:04:27
+Running on Radiant F2 - iOS 26.5 - 63575E19-F90A-42A4-80D0-2086B74AEB93
+ > Flow F2 — M02.01: true-false (acerto), cloze (erro) e retomada
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that (Optional) "Pular apresentação|This is the developer menu\. .*" is visible... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Run ../subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run ../subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am02%3Aaula-01... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Repeat while "Pedir nome completo e nascimento e comparar." is not visible...
+  Tap on "Continuar"... COMPLETED
+Repeat while "Pedir nome completo e nascimento e comparar." is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Pedir nome completo e nascimento e comparar." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Pedir nome completo e nascimento e comparar."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Stop com.ascendcreative.radiant... COMPLETED
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... WARNED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am02%3Aaula-01&resumeCursorId=step-6... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Assert that "Pedir nome completo e nascimento e comparar." is visible... COMPLETED
+Assert that id: true-false-certo is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Pedir nome completo e nascimento e comparar." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Pedir nome completo e nascimento e comparar."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Afirmação 1 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-certo is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-certo... COMPLETED
+Assert that "Afirmação 2 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-errado is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-errado... COMPLETED
+Assert that "Afirmação 3 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-certo is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-certo... COMPLETED
+Assert that "Afirmação 4 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-errado is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-errado... COMPLETED
+Assert that ".*Não é isso.*" is not visible... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: cloze-token-deitado is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: cloze-token-deitado... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: cloze-token-observa is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: cloze-token-observa... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Lacuna 1: deitado, errado; a certa é descrito" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Selecionar esta ordem" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Selecionar esta ordem"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "À sua esquerda, como numa vista de frente." is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "À sua esquerda, como numa vista de frente."... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Repeat while "Concluir e voltar" is not visible...
+Repeat while "Concluir e voltar" is not visible... SKIPPED
+Tap on "Concluir e voltar"... COMPLETED
+== m03 16:07:30
+Running on Radiant F2 - iOS 26.5 - 63575E19-F90A-42A4-80D0-2086B74AEB93
+ > Flow F2 — M03.02: cloze (acerto), true-false (erro) e retomada
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that (Optional) "Pular apresentação|This is the developer menu\. .*" is visible... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... COMPLETED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Run ../subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run ../subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am03%3Aaula-02... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Repeat while "A grandeza representada e a sua unidade" is not visible...
+  Tap on "Continuar"... COMPLETED
+Repeat while "A grandeza representada e a sua unidade" is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "A grandeza representada e a sua unidade" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "A grandeza representada e a sua unidade"... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Stop com.ascendcreative.radiant... COMPLETED
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação" is visible... WARNED
+Run flow when "No development servers found" is visible...
+Run flow when "No development servers found" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Open radiantapp://learn?blockId=activity%3Artg-2026%3Am03%3Aaula-02&resumeCursorId=step-6... COMPLETED
+Assert that (Optional) "Abrir com .*" is visible... WARNED
+Run flow when "Abrir com .*" is visible...
+Run flow when "Abrir com .*" is visible... SKIPPED
+Assert that "A grandeza representada e a sua unidade" is visible... COMPLETED
+Assert that id: cloze-token-direta is not visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "A grandeza representada e a sua unidade" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "A grandeza representada e a sua unidade"... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "20 mAs" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "20 mAs"... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: cloze-token-direta is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: cloze-token-direta... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: cloze-token-inversa is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: cloze-token-inversa... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Lacuna 1: direta, certo" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Lacuna 2: inversa, certo" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until "Selecionar esta ordem" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on "Selecionar esta ordem"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Afirmação 1 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-certo is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-certo... COMPLETED
+Assert that "Afirmação 2 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-certo is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-certo... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until ".*Você marcou certo. Não é isso.*" is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Assert that "Afirmação 3 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-errado is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-errado... COMPLETED
+Assert that "Afirmação 4 de 4" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Scrolling DOWN until id: true-false-certo is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: true-false-certo... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Repeat while "Concluir e voltar" is not visible...
+Repeat while "Concluir e voltar" is not visible... SKIPPED
+Tap on "Concluir e voltar"... COMPLETED

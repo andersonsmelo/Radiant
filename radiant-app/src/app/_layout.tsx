@@ -4,7 +4,7 @@ import { router, Stack, type Href } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, AppState, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
 
@@ -28,6 +28,7 @@ import { subscriptionService } from '../features/subscription/SubscriptionServic
 import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
 import { restaurarBackupNaAbertura, type EventoDeAbertura } from '../features/progress-sync/startupRestore';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
+import { refreshWidgets } from '../features/widgets/WidgetBridge';
 import {
   initializeObservability,
   wrapRootWithObservability,
@@ -147,6 +148,15 @@ function RootLayout() {
     },
     [],
   );
+
+  // O widget só aparece com o app fora da tela: ao sair, o estado já é o final (aula marcada,
+  // revisão concluída); ao voltar, as meias-noites se recalculam no fuso de agora.
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'background' || state === 'active') void refreshWidgets();
+    });
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -276,6 +286,8 @@ function RootLayout() {
         if (!active) {
           return;
         }
+        // Estado já migrado e restaurado: o widget recebe o retrato de hoje.
+        void refreshWidgets();
 
         const shouldShowWelcome = FirstRunService.shouldShowWelcome();
         setShowWelcome(shouldShowWelcome);

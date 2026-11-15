@@ -67,7 +67,8 @@
       ],
       "@sentry/react-native",
       "./plugins/with-gradle-memory",
-      "./plugins/with-game-center"
+      "./plugins/with-game-center",
+      "./plugins/with-widgets"
     ],
     "experiments": {
       "typedRoutes": true,

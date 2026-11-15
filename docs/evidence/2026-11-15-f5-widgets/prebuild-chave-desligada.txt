@@ -1,0 +1,72 @@
+# Prebuild com a chave desligada contra a main — 2026-11-15 14:20 -03, Node v20.20.2
+# Comando em cada cópia (fora da worktree): CI=1 EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 npx expo prebuild -p ios --no-install, sem EXPO_PUBLIC_ENABLE_WIDGETS
+# main = git archive origin/main (741c3e3); off = árvore desta branch
+
+## diff -r main/ios off/ios
+diff -r main/radiant-app/ios/Radiant.xcodeproj/project.pbxproj off/radiant-app/ios/Radiant.xcodeproj/project.pbxproj
+109c109
+< 				4E13587FCFC348A597EE12CB /* Upload Debug Symbols to Sentry */,
+---
+> 				B509A1330A0844C4BD87C235 /* Upload Debug Symbols to Sentry */,
+226c226
+< 		4E13587FCFC348A597EE12CB /* Upload Debug Symbols to Sentry */ = {
+---
+> 		B509A1330A0844C4BD87C235 /* Upload Debug Symbols to Sentry */ = {
+
+## Controle: diff -r main/ios main2/ios (a mesma main, prebuild repetido)
+diff -r main/radiant-app/ios/Radiant.xcodeproj/project.pbxproj main2/radiant-app/ios/Radiant.xcodeproj/project.pbxproj
+109c109
+< 				4E13587FCFC348A597EE12CB /* Upload Debug Symbols to Sentry */,
+---
+> 				AE6CA05D72514DF88D2A1274 /* Upload Debug Symbols to Sentry */,
+226c226
+< 		4E13587FCFC348A597EE12CB /* Upload Debug Symbols to Sentry */ = {
+---
+> 		AE6CA05D72514DF88D2A1274 /* Upload Debug Symbols to Sentry */ = {
+
+## Conclusão: a única diferença é o identificador da fase 'Upload Debug Symbols to Sentry', que muda a cada prebuild da própria main. Nenhum alvo, permissão ou Info.plist novo com a chave desligada.
+
+## Contraprova, chave ligada (EXPO_PUBLIC_ENABLE_WIDGETS=true): arquivos que mudam
+Only in on/radiant-app/ios: .targets
+Files off/radiant-app/ios/Podfile and on/radiant-app/ios/Podfile differ
+Files off/radiant-app/ios/Radiant/Radiant.entitlements and on/radiant-app/ios/Radiant/Radiant.entitlements differ
+Files off/radiant-app/ios/Radiant.xcodeproj/project.pbxproj and on/radiant-app/ios/Radiant.xcodeproj/project.pbxproj differ
+
+## Permissões do app com a chave ligada
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>aps-environment</key>
+    <string>development</string>
+    <key>com.apple.developer.icloud-container-identifiers</key>
+    <array>
+      <string>iCloud.com.ascendcreative.radiant</string>
+    </array>
+    <key>com.apple.developer.icloud-services</key>
+    <array>
+      <string>CloudKit</string>
+    </array>
+    <key>com.apple.security.application-groups</key>
+    <array>
+      <string>group.com.ascendcreative.radiant.widgets</string>
+    </array>
+  </dict>
+</plist>
+## Permissões do alvo
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>com.apple.security.application-groups</key>
+    <array>
+      <string>group.com.ascendcreative.radiant.widgets</string>
+    </array>
+  </dict>
+</plist>
+## Achado 4 da revisão independente: lockfile mudou dependências de build
+O `npm install` do `@bacons/apple-targets` subiu o `@expo/image-utils` da raiz de 0.8.8 para 0.8.17 (usado pelo `@expo/cli` e pelo `@expo/prebuild-config` que gera ícone e splash), o `minipass` de 7.1.2 para 7.1.3, e tirou `global-dirs` e `resolve-global`.
+Remedido às 14h45: a cópia `main` passou a usar o próprio `node_modules`, instalado por `npm ci` do lockfile da main (`@expo/image-utils` 0.8.8); a cópia `off` usa o da branch (0.8.17). Prebuild de novo na `main`, com o mesmo comando:
+- `diff -r main/ios off/ios`: só as duas linhas do identificador da fase do Sentry (109 e 226 do project.pbxproj), como no controle acima;
+- os 4 PNG gerados (ícone e splash) são iguais byte a byte.
+Conclusão: as ferramentas de build da branch são outras versões, mas a saída do prebuild com a chave desligada é a da main.
