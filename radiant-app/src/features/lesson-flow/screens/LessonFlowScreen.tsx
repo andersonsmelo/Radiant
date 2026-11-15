@@ -50,6 +50,8 @@ import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitPr
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
 import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
+import { encouragementFor } from '../../../ui/feedback/encouragement';
+import { AppConfig } from '../../../config';
 import type { XpAward } from '../../../types/gamification';
 import type { JourneySnapshot } from '../../../types/journey';
 import type { QuizResult } from '../../../types/quiz';
@@ -87,6 +89,10 @@ const HEART_LOSS_DELAY_MS = 320;
 
 /** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
 const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
+// Rodízio da frase de aula sem erro entre as aulas da mesma abertura do app (F3).
+let perfectLessonTurn = 0;
+// Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
+const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize']);
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -132,18 +138,20 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // chegarem, nada toca. Som é enfeite: falha aqui nunca para a lição.
     const feedbackRef = useRef<LessonFeedback | null>(null);
     const scrollRef = useRef<ScrollView>(null);
+    // F3 (ADR 2026-11-15): desligado, o mapa devolve o retorno da base.
+    const rich = AppConfig.ENABLE_RICH_FEEDBACK;
     useEffect(() => {
         const sounds = createLessonSoundPlayer();
         let alive = true;
         void readFeedbackPreferences().then((preferences) => {
-            if (alive) feedbackRef.current = createLessonFeedback(sounds, preferences);
+            if (alive) feedbackRef.current = createLessonFeedback(sounds, preferences, { rich });
         });
         return () => {
             alive = false;
             feedbackRef.current = null;
             sounds.release();
         };
-    }, []);
+    }, [rich]);
     const emit = useCallback((event: LessonFeedbackEvent) => feedbackRef.current?.emit(event), []);
 
     // Sequência de acertos, aviso de vida perdida, pista e cena de diálogo
@@ -154,6 +162,14 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const [heartLossVisible, setHeartLossVisible] = useState(false);
     const hintUsed = useRef<Record<string, boolean>>({});
     const [dialogueReveal, setDialogueReveal] = useState({ step: -1, count: 1 });
+    // Incentivo do retorno (F3): o rodízio conta os incentivos já mostrados, e
+    // `anyWrong` guarda se a sessão teve erro, para a frase de aula sem erro.
+    // Um contador por tipo, para a mesma frase não voltar no mesmo marco.
+    const [retorno, setRetorno] = useState<{ celebrate: boolean; encouragement?: string }>({ celebrate: false });
+    const encouragementTurn = useRef({ sequencia: 0, retomada: 0 });
+    const [perfectLine, setPerfectLine] = useState<string | null>(null);
+    const lastWasWrong = useRef(false);
+    const anyWrong = useRef(false);
     const answerShake = useShakeError();
     const comboTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const heartTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -382,6 +398,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         // O foco do leitor de tela está no botão: a fala nova é anunciada.
         if (dialoguePending && stepDialogue) {
             setDialogueReveal({ step: stepIndex, count: revealedLines + 1 });
+            emit('dialogue_line');
             AccessibilityInfo.announceForAccessibility(dialogueLineLabel(stepDialogue.lines[revealedLines]));
             return;
         }
@@ -448,11 +465,19 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // Só aqui a resposta está de fato confirmada (o toque duplo num erro
             // já cobrado saiu acima): a sequência conta uma vez por confirmação.
             combo.current = comboNow;
+            const milestone = correct ? comboNow.milestone : null;
+            const turns = encouragementTurn.current;
+            const encouragement = milestone ? encouragementFor({ kind: 'sequencia', milestone }, turns.sequencia++)
+                : correct && lastWasWrong.current ? encouragementFor({ kind: 'retomada' }, turns.retomada++) : undefined;
+            lastWasWrong.current = !correct;
+            if (!correct) anyWrong.current = true;
+            setRetorno({ celebrate: milestone !== null, encouragement });
             if (!correct) answerShake.animateIn();
             if (comboTimer.current) clearTimeout(comboTimer.current);
             setComboMilestone(comboNow.milestone);
             if (comboNow.milestone) comboTimer.current = setTimeout(() => setComboMilestone(null), TOP_NOTICE_MS);
-            const comboCopy = comboNow.milestone ? `${comboNow.milestone} respostas certas seguidas. ` : '';
+            // Com o retorno rico, o incentivo diz o marco: a contagem não se repete no anúncio.
+            const comboCopy = comboNow.milestone && !(rich && encouragement) ? `${comboNow.milestone} respostas certas seguidas. ` : '';
 
             const message = feedbackFor(currentInteraction, player.value, correct);
             const choice = currentInteraction.type === 'multiple-choice'
@@ -462,7 +487,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             const recap = hybrid && choice && answer
                 ? `Sua resposta: ${choice}. ${correct ? '' : `Resposta certa: ${answer}. `}` : '';
             AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${comboCopy}${recap}${message}${heartLossCopy}`,
+                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${comboCopy}${recap}${message}${heartLossCopy}`
+                + (rich && encouragement ? ` ${encouragement}` : ''),
             );
         }
 
@@ -473,6 +499,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         }
 
         if (!isLastStep) {
+            // Passar de etapa, não conferir: a confirmação já teve o seu retorno.
+            if (!currentInteraction || player.showingFeedback) emit('advance');
             if (costsHeart && nextHearts.status === 'empty') {
                 if (tracksJourney) await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
@@ -519,6 +547,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             await activeCheckpoint.finish();
 
             setJourneySnapshot(snapshot);
+            // Aula (não revisão) sem erro nesta sessão e completa no registro: a
+            // retomada no meio não sabe dos erros de antes, então o registro também conta.
+            const { correctAnswers, totalQuestions } = lessonOutcome.result;
+            setPerfectLine(rich && !isReview && !anyWrong.current && totalQuestions > 0 && correctAnswers === totalQuestions
+                ? encouragementFor({ kind: 'aula-sem-erro' }, perfectLessonTurn++) : null);
             setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
             completion.finished = true;
         } finally { completion.finishing = false; }
@@ -681,7 +714,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             totalQuestions={outcome.result.totalQuestions}
                             unitCompleted={unitProgress.completed}
                             unitTotal={unitProgress.total}
-                            habitLine={null}
+                            habitLine={perfectLine}
+                            mintOnComplete={rich}
                             nextReviewInDays={summary.nextReviewInDays}
                             currentRating={summary.rating}
                             onRate={(nota) => {
@@ -807,7 +841,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         submitted={player.showingFeedback}
                                         onChange={(value) => {
                                             if (player.showingFeedback) return;
-                                            emit('option_tap');
+                                            emit(TOKEN_FAMILIES.has(currentInteraction.type) ? 'token_drop' : 'option_tap');
                                             player.setValue(value);
                                         }}
                                     />
@@ -822,6 +856,9 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
                             {player.showingFeedback && currentInteraction ? (
                                 <AnswerFeedbackCard
+                                    rich={rich}
+                                    celebrate={retorno.celebrate}
+                                    encouragement={retorno.encouragement}
                                     correct={player.lastFeedback?.correct === true}
                                     message={player.lastFeedback?.message ?? ''}
                                     chosenLabel={currentInteraction.type === 'multiple-choice'

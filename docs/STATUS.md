@@ -107,6 +107,34 @@ Branch `claude/f7-personagens`, sem merge. **Nada disso está na loja.**
   também passou. A revisão independente não achou bloqueante; os achados
   importantes foram corrigidos e vistos falhando antes da correção.
 
+## Atualização 1.6, F3 — sons e microinterações da aula (medido em 2026-11-15)
+
+Branch `claude/f3-sons-e-microinteracoes-db21d1`, sobre a F2 com a F7 mesclada, sem
+merge. **Nada disso está na loja.** Decisões em
+[ADR 2026-11-15](adr/ADR-2026-11-15-retorno-rico-da-aula.md); evidência em
+[`evidence/2026-11-15-f3-sons/`](evidence/2026-11-15-f3-sons/README.md).
+
+- **Mapa único** `LESSON_FEEDBACK` em `radiant-app/src/ui/feedback/lessonFeedback.ts`:
+  som, vibração e animação de cada momento da aula, com três momentos novos (soltar
+  ficha, avançar, revelar fala).
+- **Chave `ENABLE_RICH_FEEDBACK`, desligada por padrão.** Desligada, a aula é a da
+  base, com contraprova em teste. Ligada: sons `soltar` e `fala` (sintetizados, 110 e
+  80 ms), vibração ao avançar, alternativa que afunda ao toque, retorno em 150 ms com
+  o Pixel pelo seletor da F7 em 64 pt, incentivo na sequência, na retomada e na aula
+  sem erro, e medalha cunhada na conclusão de aula e de unidade.
+- **Simulador "Radiant F2", com a chave ligada:** o roteiro `f2-formatos/m01.yaml`
+  passou, e o log confirmou `fala` nas revelações da abertura e `soltar` em cada ficha
+  do categorize. Não visto: vibração, animação (o roteiro reduz movimento), incentivo
+  na tela e se os sons agradam ao ouvido.
+- **Fala em voz alta:** não entrou. Pede `expo-speech`, módulo nativo novo, e isso é
+  pendência do dono.
+- **Gate, medido em 2026-11-15 às 16h08:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run
+  quality` no Node 20.20.2 saiu com código 0: 238 suítes e 3.315 testes no Jest, os 17
+  contratos `node --test` e o QA visual estrito sem regressão. A revisão independente
+  deu 14 achados, nenhum bloqueante; 12 corrigidos, 1 documentado e 1 pendente (toque
+  duplo no Conferir, que já existia na base), em
+  [`revisao.md`](evidence/2026-11-15-f3-sons/revisao.md).
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch

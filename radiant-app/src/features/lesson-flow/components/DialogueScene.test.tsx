@@ -3,6 +3,7 @@ import { Animated, StyleSheet } from 'react-native';
 import { render, screen } from '@testing-library/react-native';
 import type { LessonDialogue } from '../../../types/learningActivity';
 import { DialogueScene, dialogueLineLabel, visibleDialogueLines } from './DialogueScene';
+import { AppConfig } from '../../../config';
 
 let mockReducedMotion = false;
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
@@ -30,6 +31,24 @@ describe('DialogueScene', () => {
     });
 
     afterEach(() => timing.mockRestore());
+
+    // F3 (ENABLE_RICH_FEEDBACK): cada fala entra em 200 ms, a duração do mapa
+    // para `dialogue_line`; desligado, os 220 ms da base.
+    it('ligado, cada fala nova entra em 200 ms', () => {
+        AppConfig.ENABLE_RICH_FEEDBACK = true;
+        try {
+            const view = render(<DialogueScene dialogue={CENA} visibleCount={1} />);
+            view.rerender(<DialogueScene dialogue={CENA} visibleCount={2} />);
+            expect(timing).toHaveBeenCalled();
+            for (const [, config] of timing.mock.calls) expect(config.duration).toBe(200);
+        } finally { AppConfig.ENABLE_RICH_FEEDBACK = false; }
+    });
+
+    it('desligado (contraprova), as falas entram nos 220 ms da base', () => {
+        render(<DialogueScene dialogue={CENA} visibleCount={2} />);
+        expect(timing).toHaveBeenCalled();
+        for (const [, config] of timing.mock.calls) expect(config.duration).toBe(220);
+    });
 
     it('abre com o cenário e só a primeira fala, e diz em texto quantas faltam', () => {
         render(<DialogueScene dialogue={CENA} visibleCount={1} />);

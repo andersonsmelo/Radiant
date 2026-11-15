@@ -1,0 +1,41 @@
+F3: desempenho no fio do JS, 2026-11-15 às 15h41 (America/Bahia)
+
+Como foi medido
+- React Profiler em volta de <LessonFlowScreen>, na fixture do describe
+  "F3 — retorno rico da aula" de LessonFlowScreen.flow.test.tsx, Jest no Node 20.20.2.
+- O arquivo de medição foi uma cópia temporária da suíte (zzF3Perf.test.tsx), criada
+  e apagada dentro do run; não ficou no repositório.
+- 7 repetições por modo, cada uma numa montagem nova. Mediana de commits e de
+  actualDuration somado no gesto. Carga de 1 minuto: 2,42.
+- "desligado" é a base (ENABLE_RICH_FEEDBACK=false); "ligado" é a F3.
+
+Resultado
+desligado | revelar fala         | commits 2 | render JS mediana 11.00 ms
+desligado | soltar ficha (cloze) | commits 1 | render JS mediana  1.00 ms
+desligado | conferir cloze       | commits 2 | render JS mediana  7.00 ms
+ligado    | revelar fala         | commits 2 | render JS mediana  6.00 ms
+ligado    | soltar ficha (cloze) | commits 1 | render JS mediana  0.00 ms
+ligado    | conferir cloze       | commits 2 | render JS mediana  6.00 ms
+
+Leitura
+- O número de commits por gesto não mudou. O estado novo do retorno (`retorno`)
+  é gravado no mesmo lote do conferir, e o som da fala e da ficha não renderiza
+  nada.
+- Os milissegundos são do relógio do Jest, em passos de 1 ms e com JIT. Servem para
+  ver que não houve salto, não como medida do aparelho. A queda de 11 para 6 ms na
+  fala é ruído da ordem das execuções, não ganho.
+
+Animações novas e onde rodam (nenhuma redesenha pelo JS por quadro)
+- Pressão da alternativa da múltipla escolha: `usePressScale`, RN Animated com
+  `useNativeDriver: true` (o mesmo das fichas da F2).
+- Entrada do cartão de retorno em 150 ms: `useCardEnter`, RN Animated com
+  `useNativeDriver: true`.
+- Cunhagem da medalha na conclusão de aula e de unidade: `useMedalMint`, mola do
+  Reanimated no fio da UI.
+
+Não medido: quadros por segundo no aparelho e o custo no fio da UI. O simulador
+não serve para isso.
+
+Nota de 2026-11-15, 16h10: depois da revisão, a conclusão ganhou um setState (a frase
+de aula sem erro), gravado no mesmo lote do resultado; a medição acima é de antes
+dessa correção e não foi refeita.

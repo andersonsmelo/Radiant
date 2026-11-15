@@ -4,6 +4,8 @@ import type { LessonDialogue, LessonDialogueLine } from '../../../types/learning
 import { CastAvatar } from '../../../ui/characters/cast/CastAvatar';
 import { castExpressionFor } from '../../../ui/characters/cast/castExpressionFor';
 import { castSpeakerName } from '../../../ui/characters/cast/castRegistry';
+import { AppConfig } from '../../../config';
+import { motionMsFor } from '../../../ui/feedback/lessonFeedback';
 import { useCardEnter } from '../../../ui/motion';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
@@ -21,7 +23,8 @@ export function dialogueLineLabel(line: LessonDialogueLine): string {
 function DialogueBubble({ line }: { line: LessonDialogueLine }) {
     // `useCardEnter` espera a preferência de movimento e, com "Reduzir
     // movimento", põe a fala no lugar sem animar.
-    const { animateIn, animatedStyle } = useCardEnter();
+    // F3: com a chave, a duração da fala vem do mapa de retorno.
+    const { animateIn, animatedStyle } = useCardEnter(AppConfig.ENABLE_RICH_FEEDBACK ? motionMsFor('dialogue_line') : undefined);
     useEffect(() => { animateIn(); }, [animateIn]);
 
     return (

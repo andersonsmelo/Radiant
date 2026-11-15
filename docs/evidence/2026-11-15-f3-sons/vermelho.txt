@@ -1,0 +1,311 @@
+## 1. lessonFeedback.test.ts antes do mapa (Node v20.20.2, 2026-11-15 15:31:15)
+    ✓ option_tap toca toque e vibra com hapticSelection (1 ms)
+    ✓ correct toca acerto e vibra com hapticSuccess
+    ✓ incorrect toca erro e vibra com hapticError (1 ms)
+    ✓ streak toca sequencia e vibra com hapticStreak
+    ✓ heart_lost toca vida e vibra com hapticLifeLost
+    ✓ lesson_complete toca fim e vibra com hapticCelebrate
+    ✓ combo toca combo e vibra com hapticStreak (1 ms)
+    ✓ level_up toca nivel e vibra com hapticCelebrate
+    ✓ unit_complete toca unidade e vibra com hapticCelebrate
+    ✓ option_tap não muda com o retorno rico ligado
+    ✓ correct não muda com o retorno rico ligado
+    ✓ incorrect não muda com o retorno rico ligado (1 ms)
+    ✓ streak não muda com o retorno rico ligado
+    ✓ heart_lost não muda com o retorno rico ligado
+    ✓ lesson_complete não muda com o retorno rico ligado
+    ✓ combo não muda com o retorno rico ligado
+    ✓ level_up não muda com o retorno rico ligado
+    ✓ unit_complete não muda com o retorno rico ligado
+    ✓ com sons desligados, só vibra
+    ✓ com vibração desligada, só toca (1 ms)
+    ✕ ligado, token_drop toca soltar e vibra com hapticSelection
+    ✕ ligado, dialogue_line toca fala e vibra com null
+    ✕ ligado, advance toca null e vibra com hapticSelection
+    ✕ desligado, soltar ficha é o toque da base
+    ✕ desligado, advance não toca nem vibra
+    ✕ desligado, dialogue_line não toca nem vibra
+    ✕ o padrão, sem opção, é desligado
+    ✓ as preferências valem para os momentos novos
+    ✕ todo momento do mapa diz qual animação usa
+    ✕ option_tap anima entre 80 e 120 ms
+    ✕ token_drop anima entre 80 e 120 ms
+    ✕ correct anima entre 120 e 180 ms (1 ms)
+    ✕ incorrect anima entre 120 e 180 ms
+    ✕ advance anima entre 160 e 240 ms
+    ✕ dialogue_line anima entre 160 e 240 ms
+    ✕ streak anima entre 150 e 250 ms
+    ✕ combo anima entre 150 e 250 ms
+    ✕ lesson_complete anima entre 450 e 700 ms
+    ✕ unit_complete anima entre 450 e 700 ms
+    ✕ com menos movimento, option_tap vira mudança de estado (0 ms)
+    ✕ com menos movimento, token_drop vira mudança de estado (0 ms)
+    ✕ com menos movimento, correct vira mudança de estado (0 ms)
+    ✕ com menos movimento, incorrect vira mudança de estado (0 ms)
+    ✕ com menos movimento, advance vira mudança de estado (0 ms)
+    ✕ com menos movimento, dialogue_line vira mudança de estado (0 ms)
+    ✕ com menos movimento, streak vira mudança de estado (0 ms)
+    ✕ com menos movimento, combo vira mudança de estado (0 ms)
+    ✕ com menos movimento, lesson_complete vira mudança de estado (0 ms)
+    ✕ com menos movimento, unit_complete vira mudança de estado (0 ms)
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: HAPTIC[event] is not a function
+    TypeError: Cannot convert undefined or null to object
+    TypeError: (0 , _lessonFeedback.feedbackMotion) is not a function
+    TypeError: (0 , _lessonFeedback.feedbackMotion) is not a function
+    TypeError: (0 , _lessonFeedback.feedbackMotion) is not a function
+
+## 2. lessonSounds.test.ts com o tocador da base (2026-11-15 15:31:55)
+    ✕ pré-carrega os onze sons ao abrir e respeita o silencioso (2 ms)
+    ✓ toca do começo o som pedido, e só ele
+    ✓ libera os players ao sair
+    ✓ falha ao carregar não derruba a lição
+    - Expected  - 2
+    + Received  + 0
+      14 |     expect(createAudioPlayer).toHaveBeenCalledTimes(11);
+Tests:       1 failed, 3 passed, 4 total
+
+## 3b. encouragement.test.ts, esboço de frase única (2026-11-15 15:33:26)
+    ✕ { kind: 'sequencia', milestone: 3 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma (1 ms)
+    ✕ { kind: 'sequencia', milestone: 5 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma
+    ✕ { kind: 'sequencia', milestone: 10 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma
+    ✕ { kind: 'retomada' } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma
+    ✕ { kind: 'aula-sem-erro' } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma (1 ms)
+    ✓ { kind: 'sequencia', milestone: 3 } é determinístico pelo turno, para a tela e o teste concordarem
+    ✓ { kind: 'sequencia', milestone: 5 } é determinístico pelo turno, para a tela e o teste concordarem
+    ✓ { kind: 'sequencia', milestone: 10 } é determinístico pelo turno, para a tela e o teste concordarem
+    ✓ { kind: 'retomada' } é determinístico pelo turno, para a tela e o teste concordarem
+    ✓ { kind: 'aula-sem-erro' } é determinístico pelo turno, para a tela e o teste concordarem
+    ✓ a sequência diz o número de acertos, por extenso ou em algarismo (1 ms)
+    ✓ { kind: 'sequencia', milestone: 3 } é curto, sem exagero e nunca pune
+    ✓ { kind: 'sequencia', milestone: 5 } é curto, sem exagero e nunca pune (1 ms)
+    ✓ { kind: 'sequencia', milestone: 10 } é curto, sem exagero e nunca pune
+    ✓ { kind: 'retomada' } é curto, sem exagero e nunca pune (1 ms)
+    ✓ { kind: 'aula-sem-erro' } é curto, sem exagero e nunca pune
+    ✕ frases diferentes entre os momentos: a retomada não repete a aula sem erro
+Tests:       6 failed, 11 passed, 17 total
+
+## 3a. encouragement.test.ts, esboço aleatório e punitivo (2026-11-15 15:33:35)
+    ✓ { kind: 'sequencia', milestone: 3 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma (2 ms)
+    ✓ { kind: 'sequencia', milestone: 5 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma
+    ✓ { kind: 'sequencia', milestone: 10 } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma (1 ms)
+    ✓ { kind: 'retomada' } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma
+    ✓ { kind: 'aula-sem-erro' } varia: pelo menos duas frases, e duas vezes seguidas nunca a mesma (1 ms)
+    ✕ { kind: 'sequencia', milestone: 3 } é determinístico pelo turno, para a tela e o teste concordarem (3 ms)
+    ✕ { kind: 'sequencia', milestone: 5 } é determinístico pelo turno, para a tela e o teste concordarem (1 ms)
+    ✕ { kind: 'sequencia', milestone: 10 } é determinístico pelo turno, para a tela e o teste concordarem (1 ms)
+    ✕ { kind: 'retomada' } é determinístico pelo turno, para a tela e o teste concordarem
+    ✕ { kind: 'aula-sem-erro' } é determinístico pelo turno, para a tela e o teste concordarem (1 ms)
+    ✕ a sequência diz o número de acertos, por extenso ou em algarismo (1 ms)
+    ✕ { kind: 'sequencia', milestone: 3 } é curto, sem exagero e nunca pune
+    ✕ { kind: 'sequencia', milestone: 5 } é curto, sem exagero e nunca pune
+    ✕ { kind: 'sequencia', milestone: 10 } é curto, sem exagero e nunca pune
+    ✕ { kind: 'retomada' } é curto, sem exagero e nunca pune
+    ✕ { kind: 'aula-sem-erro' } é curto, sem exagero e nunca pune (1 ms)
+    ✓ frases diferentes entre os momentos: a retomada não repete a aula sem erro
+Tests:       11 failed, 6 passed, 17 total
+
+## 4. killSwitches.contract.test.ts sem a chave no AppConfig (2026-11-15 15:34:00)
+    ✓ encontra as flags — a guarda não passa vazia (7 ms)
+    ✓ nenhuma flag ENABLE_* é constante fixa: toda uma é acionável (1 ms)
+    ✓ toda flag ENABLE_* tem leitor no código de produção (623 ms)
+    ✓ ENABLE_REVIEW lê EXPO_PUBLIC_ENABLE_REVIEW, com padrão ligado (1 ms)
+    ✕ ENABLE_RICH_FEEDBACK lê EXPO_PUBLIC_ENABLE_RICH_FEEDBACK, com padrão desligado (1 ms)
+    ✓ nenhum módulo declara um ENABLE_* local fixo, fora do AppConfig (345 ms)
+    Expected: true
+    Received: false
+Tests:       1 failed, 5 passed, 6 total
+
+## 4b. a mesma guarda, com a chave ligada por padrão (2026-11-15 15:34:10)
+    ✕ ENABLE_RICH_FEEDBACK lê EXPO_PUBLIC_ENABLE_RICH_FEEDBACK, com padrão desligado (5 ms)
+    Expected: 97
+    Received: 112
+Tests:       1 failed, 5 skipped, 6 total
+
+## 5. AnswerFeedbackCard.test.tsx antes do retorno rico (2026-11-15 15:34:38)
+    ✓ no acerto, o título diz o resultado e o Pixel comemora (518 ms)
+    ✓ no erro, o título muda, o Pixel pensa junto e as duas respostas aparecem por escrito (9 ms)
+    ✓ a cor acompanha o resultado, mas não é o único canal: o título em texto difere (14 ms)
+    ✓ no acerto, mostra a resposta do aluno uma vez só, sem repetir como gabarito (8 ms)
+    ✓ fora da múltipla escolha, não inventa linhas de resposta (9 ms)
+    ✓ entra animado em 220 ms (7 ms)
+    ✓ com "Reduzir movimento", aparece no lugar, sem animação, com o mesmo texto (8 ms)
+    ✓ título e texto não têm teto de fonte (8 ms)
+      ✕ o acerto que fecha um marco comemora, pelo seletor da F7 (8 ms)
+      ✕ o acerto comum fica feliz, e o rótulo diz isso (8 ms)
+      ✕ o erro é acolhimento: preocupado, nunca reprovação (8 ms)
+      ✕ o retrato do retorno é o médio, de 64 pt (7 ms)
+      ✕ entra em 150 ms, a faixa de confirmar resposta da seção 10 (8 ms)
+      ✕ mostra o incentivo como texto, depois do retorno (6 ms)
+      ✕ com "Reduzir movimento", o rico também aparece no lugar, com o incentivo (9 ms)
+      ✓ desligado, ignora marco e incentivo: Pixel da base, 48 pt e 220 ms (7 ms)
+Tests:       7 failed, 9 passed, 16 total
+
+## 5b. contraprova do cartão, com o rico vazando sem a chave (2026-11-15 15:35:09)
+      ✕ desligado, ignora marco e incentivo: Pixel da base, 48 pt e 220 ms (67 ms)
+    Expected: "feliz"
+    Received: "orgulhoso"
+Tests:       1 failed, 15 skipped, 16 total
+
+## 6. LessonFlowScreen.flow.test.tsx, F3, antes da tela (2026-11-15 15:36:20)
+    ✕ ligado: a fala soa, avançar só vibra, julgar toca e a ficha encaixa com som próprio (46 ms)
+    ✓ ligado: conferir não soma a vibração de avançar à do acerto (48 ms)
+    ✓ desligado (contraprova): a aula é a da base, sem som de fala, sem vibrar ao avançar e com o toque na ficha (72 ms)
+    ✕ ligado: a terceira certa seguida comemora no retorno e diz o incentivo (86 ms)
+    ✕ ligado: o acerto logo depois de um erro recebe reforço, e o erro recebe acolhimento (85 ms)
+    ✕ ligado: a aula sem erro termina com a frase de aula sem erro (114 ms)
+    ✓ desligado (contraprova): a conclusão não ganha a frase (114 ms)
+    - Expected  - 3
+    + Received  + 1
+    Unable to find an element with text: Três seguidas. Você pegou o ritmo.
+    Unable to find an element with accessibility label: Pixel preocupado, acolhendo você
+    Unable to find an element with text: Aula sem nenhum erro.
+Tests:       4 failed, 113 skipped, 3 passed, 120 total
+
+## 7. LessonSummary.test.tsx antes de mintOnComplete (2026-11-15 15:37:05)
+    ✕ com mintOnComplete, cunha a medalha mesmo sem recorde novo, e o Continuar já está livre (24 ms)
+    ✓ com mintOnComplete, zero estrela continua sem cunhar (12 ms)
+    ✓ com mintOnComplete e menos movimento, a medalha fica no lugar (9 ms)
+    Expected number of calls: 1
+    Received number of calls: 0
+Tests:       1 failed, 53 skipped, 2 passed, 56 total
+
+## 7b. mintOnComplete defeituoso, que cunha também a zero estrela (2026-11-15 15:37:21)
+    ✓ com mintOnComplete, cunha a medalha mesmo sem recorde novo, e o Continuar já está livre (25 ms)
+    ✕ com mintOnComplete, zero estrela continua sem cunhar (10 ms)
+    ✓ com mintOnComplete e menos movimento, a medalha fica no lugar (11 ms)
+    Expected number of calls: 0
+    Received number of calls: 1
+Tests:       1 failed, 53 skipped, 2 passed, 56 total
+
+## 6b. tela com 'advance' emitido também no conferir (2026-11-15 15:38:11)
+    ✕ ligado: conferir não soma a vibração de avançar à do acerto (46 ms)
+    Expected number of calls: 1
+    Received number of calls: 2
+Tests:       1 failed, 113 skipped, 6 passed, 120 total
+
+## 6c. tela com a chave vazando (sempre ligada) (2026-11-15 15:38:14)
+    ✕ desligado (contraprova): a aula é a da base, sem som de fala, sem vibrar ao avançar e com o toque na ficha (31 ms)
+    ✕ desligado (contraprova): a conclusão não ganha a frase (996 ms)
+    - Expected  - 1
+    + Received  + 3
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugInfo": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugStack": [Error: react-stack-top-frame], "_debugTask": null, "actualDuration": 0, "actualStartTime": 1794767898227, "alternate": [FiberNode], "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": "Text", "flags": 4, "index": 0, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 3, "pendingProps": [Object], "ref": null, "refCleanup": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Object], "subtreeFlags": 262144, "tag": 5, "treeBaseDuration": 0, "type": "Text", "updateQueue": null}}
+Tests:       2 failed, 113 skipped, 5 passed, 120 total
+
+## 8. UnitCompleteCelebration.test.tsx antes da cunhagem (2026-11-15 15:38:48)
+    ✓ conclui a unidade quando a última aula e a última conferência fecham, sem esperar a conquista (1 ms)
+    ✓ comemora cada unidade uma única vez, e a marca fica gravada com schemaVersion (2 ms)
+    ✓ quem já tinha unidades concluídas na primeira leitura não recebe a comemoração delas (1 ms)
+    ✓ não grava por cima de um store com schemaVersion desconhecido, e sem poder marcar não comemora (1 ms)
+    ✓ falha de gravação não comemora: sem a marca a festa voltaria a cada abertura
+    ✓ mostra medalha, a frase da unidade e Continuar, e toca unit_complete uma vez por unidade (137 ms)
+    ✓ sem unidade não mostra nada nem toca som
+    ✓ com "reduzir movimento" abre sem transição e sem confete, com o texto e o botão no lugar (3 ms)
+      ✕ ligado, a medalha cunha uma vez, e Continuar dispensa sem esperar (4 ms)
+      ✓ desligado (contraprova), a medalha fica parada como na base (2 ms)
+      ✓ ligado e com menos movimento, a medalha fica no lugar (3 ms)
+    Expected number of calls: 1
+    Received number of calls: 0
+Tests:       1 failed, 10 passed, 11 total
+
+## 8b. cunhagem que ignora a chave (2026-11-15 15:39:04)
+      ✕ desligado (contraprova), a medalha fica parada como na base (5 ms)
+    Expected number of calls: 0
+    Received number of calls: 1
+Tests:       1 failed, 8 skipped, 2 passed, 11 total
+
+## 9. NewFamilyRenderers.test.tsx, pressão da alternativa, antes (2026-11-15 15:39:34)
+    ✕ ligado: pressionar afunda e soltar volta, em 100 ms (12 ms)
+    ✓ ligado e já conferida: não afunda, porque o toque não faz nada (2 ms)
+    ✓ desligado (contraprova): a alternativa fica parada, como na base (1 ms)
+    - Expected  - 10
+    + Received  +  1
+Tests:       1 failed, 12 skipped, 2 passed, 15 total
+
+## 9b. pressão que ignora o já conferido (2026-11-15 15:39:58)
+    ✕ ligado e já conferida: não afunda, porque o toque não faz nada (4 ms)
+Tests:       1 failed, 12 skipped, 2 passed, 15 total
+
+## 9c. pressão que ignora a chave (2026-11-15 15:40:01)
+    ✕ desligado (contraprova): a alternativa fica parada, como na base (10 ms)
+Tests:       1 failed, 12 skipped, 2 passed, 15 total
+
+## 1b. mapa que ignora a chave (2026-11-15 15:40:11)
+    ✕ desligado, soltar ficha é o toque da base (2 ms)
+    ✕ desligado, advance não toca nem vibra
+    ✕ desligado, dialogue_line não toca nem vibra (1 ms)
+    ✕ o padrão, sem opção, é desligado
+Tests:       4 failed, 45 passed, 49 total
+
+## 1c. mapa que ignora as preferências (2026-11-15 15:40:22)
+    ✕ com sons desligados, só vibra (1 ms)
+    ✕ com vibração desligada, só toca
+    ✕ as preferências valem para os momentos novos
+Tests:       3 failed, 46 passed, 49 total
+
+## 1d. confirmar em 220 ms (a duração da base) e menos movimento animando 1 ms (2026-11-15 15:40:31)
+    ✕ correct anima entre 120 e 180 ms (1 ms)
+    ✕ incorrect anima entre 120 e 180 ms
+    ✕ com menos movimento, option_tap vira mudança de estado (0 ms)
+    ✕ com menos movimento, token_drop vira mudança de estado (0 ms)
+    ✕ com menos movimento, correct vira mudança de estado (0 ms)
+    ✕ com menos movimento, incorrect vira mudança de estado (0 ms)
+    ✕ com menos movimento, advance vira mudança de estado (0 ms)
+    ✕ com menos movimento, dialogue_line vira mudança de estado (0 ms)
+    ✕ com menos movimento, streak vira mudança de estado (0 ms)
+    ✕ com menos movimento, combo vira mudança de estado (0 ms)
+    ✕ com menos movimento, lesson_complete vira mudança de estado (0 ms)
+    ✕ com menos movimento, unit_complete vira mudança de estado (0 ms) (1 ms)
+Tests:       12 failed, 37 passed, 49 total
+
+## 10. Revisão, achados 1 e 2: durações nos componentes e a segunda unidade (2026-11-15 15:59:59)
+    - Expected  - 2
+    + Received  + 3
+    Expected number of calls: 2
+    Received number of calls: 1
+    Expected: 200
+    Received: 220
+    - Expected  - 2
+    + Received  + 3
+Tests:       4 failed, 141 passed, 145 total
+
+## 11. Revisão, achados 3, 4, 7 e 10: testes novos da tela antes da correção (2026-11-15 16:00:53)
+    ✓ ligado: a fala soa, avançar só vibra, julgar toca e a ficha encaixa com som próprio (74 ms)
+    ✓ ligado: conferir não soma a vibração de avançar à do acerto (42 ms)
+    ✓ desligado (contraprova): a aula é a da base, sem som de fala, sem vibrar ao avançar e com o toque na ficha (62 ms)
+    ✕ ligado: a terceira certa seguida comemora no retorno e diz o incentivo (80 ms)
+    ✓ ligado: o acerto logo depois de um erro recebe reforço, e o erro recebe acolhimento (84 ms)
+    ✓ ligado: a aula sem erro termina com a frase de aula sem erro e a medalha cunhada (104 ms)
+    ✓ desligado (contraprova): a conclusão não ganha a frase (105 ms)
+    ✓ ligado: errar na sessão tira a frase, mesmo que o registro conte 3 de 3 (147 ms)
+    ✓ ligado: sem erro nesta sessão, mas com o registro abaixo do total (retomada), não há frase (104 ms)
+    ✕ ligado: a revisão sem erro não recebe a frase de aula (652 ms)
+    ✓ desligado (contraprova): o acerto depois do erro não leva incentivo ao leitor de tela (97 ms)
+Tests:       2 failed, 113 skipped, 9 passed, 124 total
+
+## 11b. mutação: frase sem olhar o erro da sessão (2026-11-15 16:01:52)
+    ✕ ligado: errar na sessão tira a frase, mesmo que o registro conte 3 de 3 (961 ms)
+Tests:       1 failed, 113 skipped, 10 passed, 124 total
+
+## 11c. mutação: frase sem olhar o registro (2026-11-15 16:01:57)
+    ✕ ligado: sem erro nesta sessão, mas com o registro abaixo do total (retomada), não há frase (942 ms)
+Tests:       1 failed, 113 skipped, 10 passed, 124 total
+
+## 11d. mutação: cunhagem vazando com a chave desligada (2026-11-15 16:02:01)
+    ✕ desligado (contraprova): a conclusão não ganha a frase (105 ms)
+Tests:       1 failed, 113 skipped, 10 passed, 124 total
+
+## 11e. mutação: incentivo no anúncio com a chave desligada (2026-11-15 16:02:05)
+    ✕ desligado (contraprova): o acerto depois do erro não leva incentivo ao leitor de tela (88 ms)
+Tests:       1 failed, 113 skipped, 10 passed, 124 total
+
+## 12. Achado 2, redesenho: medalha sem a chave pela unidade (2026-11-15 16:05:47)
+      ✕ ligado, a troca direta de uma unidade para outra também cunha de novo (5 ms)
+    Expected number of calls: 2
+    Received number of calls: 1
+Tests:       1 failed, 8 skipped, 4 passed, 13 total

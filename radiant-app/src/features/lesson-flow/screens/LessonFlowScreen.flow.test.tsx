@@ -22,6 +22,8 @@ import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { EXPOSICAO } from '../../../test/fixtures/syntheticLessons';
+import { AppConfig } from '../../../config';
+import { LessonSummary } from '../../quiz/components/LessonSummary';
 
 jest.mock('../../bench/lessons/BenchLessonCatalog', () => ({ isBenchLessonId: (id: string) => id.startsWith('bancada:'), BenchLessonCatalog: { getActivityById: () => null } }));
 
@@ -2963,5 +2965,215 @@ describe('LessonFlowScreen — famílias da 1.6', () => {
     expect(screen.getByText('Afirmação 1 de 2')).toBeTruthy();
     expect(hearts.spend).not.toHaveBeenCalled();
     await playToEnd();
+  });
+});
+
+// F3 da 1.6 (ADR 2026-11-15): o mapa único de retorno, com a chave
+// ENABLE_RICH_FEEDBACK ligada e desligada. Mede o que a aula PEDE ao tocador.
+describe('F3 — retorno rico da aula', () => {
+  const haptics = jest.requireMock('../../../ui/feedback/haptics') as Record<string, jest.Mock>;
+  const preferences = jest.requireMock('../../../ui/feedback/feedbackPreferences') as { readFeedbackPreferences: jest.Mock };
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id);
+  const AULA_SEM_ERRO = /^(Aula sem nenhum erro\.|Tudo certo nesta aula, do começo ao fim\.|Nenhum erro nesta aula\.)$/u;
+  const common = { competencyIds: ['competency:f3'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
+    criticalSafety: false, accessibility: { label: 'Item da F3' } };
+  const activity: LearningActivityV2 = {
+    id: 'activity:f3:fixture', competencyIds: ['competency:f3'], provenance: { contentVersion: 'f3-v1', sourceIds: ['source:f3'] },
+    steps: [
+      { kind: 'presentation', id: 'f3-hook', role: 'hook', payload: { title: 'Proteção na sala', dialogue: { lines: [
+        { speaker: 'lia', text: 'Vamos conferir a proteção.' },
+        { speaker: 'pixel', text: 'Eu sigo com você.' },
+      ] } } },
+      { kind: 'presentation', id: 'f3-concept', role: 'concept', payload: { title: 'Três medidas' } },
+      { kind: 'interaction', interaction: { ...common, id: 'f3-tf', type: 'true-false',
+        feedback: { correct: 'Julgou como a fonte.', incorrect: 'Compare com o conceito.' },
+        payload: { prompt: 'Julgue a afirmação.', statements: [
+          { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Certo: longe da fonte, menos dose.' },
+        ] } } },
+      { kind: 'interaction', interaction: { ...common, id: 'f3-cloze', type: 'cloze',
+        feedback: { correct: 'Isso: o avental cobre o tronco.', incorrect: 'Releia: o avental cobre o tronco.' },
+        payload: { prompt: 'Complete a frase.', segments: ['O ', ' protege o tronco.'],
+          blanks: [{ id: 'b1', correctTokenId: 't2' }], tokens: [{ id: 't1', label: 'relógio' }, { id: 't2', label: 'avental' }] } } },
+      { kind: 'interaction', interaction: { ...common, id: 'f3-mc', type: 'multiple-choice',
+        feedback: { correct: 'O pedido orienta o exame.', incorrect: 'Volte ao pedido.' },
+        payload: { prompt: 'O que orienta o exame?', options: [{ id: 'a', label: 'O pedido' }, { id: 'b', label: 'O horário' }], correctOptionId: 'a' } } },
+      { kind: 'presentation', id: 'f3-closing', role: 'closing', payload: { title: 'Fechamento da proteção' } },
+    ],
+  };
+
+  function abrir() {
+    renderWithProviders(<LessonFlowScreen blockId="activity:f3:fixture" nodeId="" />);
+  }
+  async function ateOJulgamento() {
+    expect(await screen.findByText('Vamos conferir a proteção.')).toBeTruthy();
+    await act(async () => {});
+    fireEvent.press(screen.getByText('Continuar')); // segunda fala
+    fireEvent.press(screen.getByText('Continuar')); // conceito
+    await screen.findByText('Três medidas');
+    fireEvent.press(screen.getByText('Continuar')); // julgamento
+    await screen.findByText('Julgue a afirmação.');
+  }
+  async function conferir() {
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+  async function julgar(certo: boolean) {
+    fireEvent.press(screen.getByLabelText(`${certo ? 'Certo' : 'Errado'}: A distância reduz a dose.`));
+    await conferir();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Complete a frase.');
+  }
+  async function completar() {
+    fireEvent.press(screen.getByLabelText('Usar avental na lacuna 1'));
+    await conferir();
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    AppConfig.ENABLE_RICH_FEEDBACK = true;
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: true, haptics: true });
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-15T12:30:00.000Z', unlimitedUntil: null });
+    (require('../../journey/services/JourneyDefinitionService').JourneyDefinitionService.getNodeType as jest.Mock).mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activity);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 3, correctAnswers: 3 } });
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+  afterAll(() => { AppConfig.ENABLE_RICH_FEEDBACK = false; });
+
+  it('ligado: a fala soa, avançar só vibra, julgar toca e a ficha encaixa com som próprio', async () => {
+    abrir();
+    expect(await screen.findByText('Vamos conferir a proteção.')).toBeTruthy();
+    await act(async () => {});
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(tocados()).toEqual(['fala']);
+    expect(haptics.hapticSelection).not.toHaveBeenCalled();
+
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Três medidas');
+    // Avançar de etapa vibra e não soa.
+    expect(tocados()).toEqual(['fala']);
+    expect(haptics.hapticSelection).toHaveBeenCalledTimes(1);
+
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Julgue a afirmação.');
+    await julgar(true);
+    await completar();
+    expect(tocados()).toEqual(['fala', 'toque', 'acerto', 'soltar', 'acerto']);
+  });
+
+  it('ligado: conferir não soma a vibração de avançar à do acerto', async () => {
+    abrir();
+    await ateOJulgamento();
+    haptics.hapticSelection.mockClear();
+    fireEvent.press(screen.getByLabelText('Certo: A distância reduz a dose.'));
+    await conferir();
+    expect(haptics.hapticSelection).toHaveBeenCalledTimes(1); // o toque, não o conferir
+    expect(haptics.hapticSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('desligado (contraprova): a aula é a da base, sem som de fala, sem vibrar ao avançar e com o toque na ficha', async () => {
+    AppConfig.ENABLE_RICH_FEEDBACK = false;
+    abrir();
+    await ateOJulgamento();
+    expect(tocados()).toEqual([]);
+    expect(haptics.hapticSelection).not.toHaveBeenCalled();
+    await julgar(true);
+    await completar();
+    expect(tocados()).toEqual(['toque', 'acerto', 'toque', 'acerto']);
+    expect(screen.queryByText(/Você pegou o ritmo|Boa retomada|acertou o rumo/u)).toBeNull();
+  });
+
+  it('ligado: a terceira certa seguida comemora no retorno e diz o incentivo', async () => {
+    abrir();
+    await ateOJulgamento();
+    await julgar(true);
+    await completar();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByLabelText('O pedido'));
+    await conferir();
+    expect(screen.getByText('Três seguidas. Você pegou o ritmo.')).toBeTruthy();
+    expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
+    expect(tocados()).toContain('sequencia');
+    // Anúncio único: o incentivo diz o marco; a contagem não se repete antes dele.
+    const anuncio = String(announceForAccessibility.mock.calls.at(-1)?.[0]);
+    expect(anuncio).toContain('Três seguidas. Você pegou o ritmo.');
+    expect(anuncio).not.toContain('3 respostas certas seguidas');
+  });
+
+  it('ligado: o acerto logo depois de um erro recebe reforço, e o erro recebe acolhimento', async () => {
+    abrir();
+    await ateOJulgamento();
+    fireEvent.press(screen.getByLabelText('Errado: A distância reduz a dose.'));
+    await conferir();
+    expect(screen.getByLabelText('Pixel pensando com você')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Complete a frase.');
+    await completar();
+    expect(screen.getByText('Isso. Você acertou o rumo.')).toBeTruthy();
+    expect(announceForAccessibility).toHaveBeenLastCalledWith(expect.stringContaining('Isso. Você acertou o rumo.'));
+  });
+
+  async function concluir(julgamentoCerto = true, corretas = 3) {
+    await ateOJulgamento();
+    await julgar(julgamentoCerto);
+    await completar();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByLabelText('O pedido'));
+    await conferir();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+    expect(await screen.findByText(`${corretas} de 3 corretas`)).toBeTruthy();
+  }
+
+  it('ligado: a aula sem erro termina com a frase de aula sem erro e a medalha cunhada', async () => {
+    abrir();
+    await concluir();
+    expect(screen.UNSAFE_getByType(LessonSummary).props.mintOnComplete).toBe(true);
+    // O rodízio já mostrou o incentivo da sequência: qualquer frase do conjunto vale.
+    expect(screen.getByText(AULA_SEM_ERRO)).toBeTruthy();
+  });
+
+  it('desligado (contraprova): a conclusão não ganha a frase', async () => {
+    AppConfig.ENABLE_RICH_FEEDBACK = false;
+    abrir();
+    await concluir();
+    expect(screen.queryByText(AULA_SEM_ERRO)).toBeNull();
+    expect(screen.UNSAFE_getByType(LessonSummary).props.mintOnComplete).toBe(false);
+  });
+
+  it('ligado: errar na sessão tira a frase, mesmo que o registro conte 3 de 3', async () => {
+    abrir();
+    await concluir(false);
+    expect(screen.queryByText(AULA_SEM_ERRO)).toBeNull();
+  });
+
+  it('ligado: sem erro nesta sessão, mas com o registro abaixo do total (retomada), não há frase', async () => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 3, correctAnswers: 2 } });
+    abrir();
+    await concluir(true, 2);
+    expect(screen.queryByText(AULA_SEM_ERRO)).toBeNull();
+  });
+
+  it('ligado: a revisão sem erro não recebe a frase de aula', async () => {
+    (require('../../journey/services/JourneyDefinitionService').JourneyDefinitionService.getNodeType as jest.Mock).mockReturnValue('review');
+    abrir();
+    await concluir();
+    expect(screen.queryByText(AULA_SEM_ERRO)).toBeNull();
+  });
+
+  it('desligado (contraprova): o acerto depois do erro não leva incentivo ao leitor de tela', async () => {
+    AppConfig.ENABLE_RICH_FEEDBACK = false;
+    abrir();
+    await ateOJulgamento();
+    fireEvent.press(screen.getByLabelText('Errado: A distância reduz a dose.'));
+    await conferir();
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Complete a frase.');
+    await completar();
+    expect(String(announceForAccessibility.mock.calls.at(-1)?.[0])).not.toMatch(/acertou o rumo|Boa retomada|Rever ajuda/u);
   });
 });

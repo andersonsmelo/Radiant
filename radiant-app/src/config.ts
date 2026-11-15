@@ -38,6 +38,11 @@ export const AppConfig = {
     // (ADR 2026-09-23, decisões do dono).
     ENABLE_REVIEW: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVIEW, true),
 
+    // F3 da 1.6: retorno rico da aula (sons de ficha e de fala, vibração ao
+    // avançar, elenco no retorno, incentivo e conclusão com medalha). Desligado,
+    // a aula é a da base (ADR 2026-11-15).
+    ENABLE_RICH_FEEDBACK: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_RICH_FEEDBACK, false),
+
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),
     BETA_INVITE_CODE: process.env.EXPO_PUBLIC_BETA_INVITE_CODE ?? 'RADIANT2025',

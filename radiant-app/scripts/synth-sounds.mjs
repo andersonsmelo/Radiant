@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 /**
- * Sintetiza os três sons autorais da trilha ampla (I6 do plano de 2026-11-05):
- * `combo.m4a`, `nivel.m4a` e `unidade.m4a`, em `assets/sounds/`.
+ * Sintetiza os sons autorais da aula, em `assets/sounds/`: `combo.m4a`,
+ * `nivel.m4a` e `unidade.m4a` (trilha ampla, I6 do plano de 2026-11-05) e
+ * `soltar.m4a` e `fala.m4a` (F3 da 1.6, 2026-11-15).
  *
  * Nada é baixado: cada som é uma soma de senoides com decaimento exponencial
  * (timbre de sino), escrita como expressão do `aevalsrc` do ffmpeg. Duas
  * passadas: a primeira mede o pico, a segunda aplica o ganho que o leva a
  * -3 dBFS, abaixo do corte.
  *
- * Uso: node scripts/synth-sounds.mjs            (gera os três arquivos)
+ * Uso: node scripts/synth-sounds.mjs            (gera todos)
+ *      node scripts/synth-sounds.mjs soltar fala (gera só os nomeados)
  *      FFMPEG=/caminho/ffmpeg node scripts/synth-sounds.mjs
  */
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -23,9 +25,13 @@ const SAMPLE_RATE = 44100;
 const PEAK_DB = -3;
 
 // Dó maior. Cada nota: [frequência em Hz, início em s, decaimento por segundo].
-const C5 = 523.25, E5 = 659.25, G5 = 783.99, C6 = 1046.5, E6 = 1318.51, G6 = 1567.98, C7 = 2093;
+const G4 = 392, C5 = 523.25, E5 = 659.25, A5 = 880, G5 = 783.99, C6 = 1046.5, E6 = 1318.51, G6 = 1567.98, C7 = 2093;
 
-/** Durações distintas entre si e das seis já existentes (40, 136, 188, 290, 373 e 993 ms). */
+/**
+ * Durações distintas entre si e das seis já existentes (40, 136, 188, 290, 373 e
+ * 993 ms). `peakDb` opcional: os sons frequentes da F3 ficam abaixo dos de
+ * evento, entre o `toque` (pico -27,5 dBFS) e o `acerto` (-0,9).
+ */
 export const SOUNDS = {
   // 5 e 10 acertos seguidos: arpejo curto, para cima.
   combo: { seconds: 0.45, notes: [[C6, 0, 9], [E6, 0.07, 9], [G6, 0.14, 9], [C7, 0.21, 8]] },
@@ -36,6 +42,10 @@ export const SOUNDS = {
     seconds: 1.4,
     notes: [[C5, 0, 6], [E5, 0.12, 6], [G5, 0.24, 6], [C6, 0.36, 5], [C6, 0.6, 3], [E6, 0.6, 3], [G6, 0.6, 3], [C7, 0.9, 4]],
   },
+  // Ficha que encaixa (cloze, categorize): duas notas graves e secas, "toc-toc".
+  soltar: { seconds: 0.11, peakDb: -14, notes: [[G4, 0, 40], [C5, 0.035, 40]] },
+  // Fala de diálogo: uma nota curta e baixa, que marca a vez sem pedir atenção.
+  fala: { seconds: 0.08, peakDb: -12, notes: [[A5, 0, 45]] },
 };
 
 /** Uma nota de sino: fundamental mais a oitava, baixa, com ataque de 6 ms para não estalar. */
@@ -60,13 +70,16 @@ function measurePeakDb(sound) {
   return { preGain, peak: Number(match[1]) };
 }
 
+const wanted = process.argv.slice(2);
 for (const [name, sound] of Object.entries(SOUNDS)) {
+  if (wanted.length > 0 && !wanted.includes(name)) continue;
   const { preGain, peak } = measurePeakDb(sound);
+  const peakDb = sound.peakDb ?? PEAK_DB;
   const target = join(OUT_DIR, `${name}.m4a`);
   execFileSync(FFMPEG, [
-    '-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', filterFor(sound, preGain + (PEAK_DB - peak)),
+    '-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', filterFor(sound, preGain + (peakDb - peak)),
     '-ac', '1', '-ar', String(SAMPLE_RATE), '-c:a', 'aac', '-b:a', '96k',
     '-map_metadata', '-1', '-fflags', '+bitexact', '-movflags', '+faststart', target,
   ]);
-  console.log(`${name}.m4a: ${sound.seconds * 1000} ms pedidos, pico em ${PEAK_DB} dBFS`);
+  console.log(`${name}.m4a: ${sound.seconds * 1000} ms pedidos, pico em ${peakDb} dBFS`);
 }
