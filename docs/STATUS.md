@@ -142,7 +142,8 @@ o que foi visto na tela na [evidência](evidence/2026-11-13-f4-liga-semanal.md).
 - **Compila:** o módulo `radiant-gamecenter` compilou com o Xcode 27.2 para o
   simulador. Não foi compilado para aparelho nem no EAS.
 - **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, saída 0, com
-  240 suítes e 3.178 testes, na branch em `ab223cf`.
+  240 suítes e 3.181 testes, na branch em `0bdf18b` (2026-11-15, depois da
+  correção do achado do Codex sobre a base do placar após reinstalar).
 - **Revisão independente** feita; os achados e o que se fez com cada um estão na
   evidência. O XP da rota legada `/quiz` (só deep link) não conta na liga.
 - **Visto na tela** (simulador iOS 26.5 sem conta): carregando e sem Game
