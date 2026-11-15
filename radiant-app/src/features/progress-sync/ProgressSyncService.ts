@@ -64,6 +64,31 @@ export function mergeProgressBackups(local: ProgressBackup, cloud: ProgressBacku
         totalXp: Math.max(local.totalXp, cloud.totalXp),
         streakDays: Math.max(local.streakDays, cloud.streakDays),
         lastRefillAt: laterIso(local.lastRefillAt, cloud.lastRefillAt),
+        ...(local.decorations || cloud.decorations ? { decorations: mergeDecorations(local.decorations, cloud.decorations) } : {}),
+    };
+}
+
+type BackupDecorations = NonNullable<ProgressBackup['decorations']>;
+
+/** Ganhos se unem; o equipado deste aparelho vence, e o da nuvem só preenche um vazio. */
+function mergeDecorations(local: unknown, cloud: unknown): BackupDecorations {
+    const clean = (value: unknown): BackupDecorations => {
+        const record = typeof value === 'object' && value !== null ? value as Record<string, unknown> : {};
+        const unlocked = Array.isArray(record.unlocked) ? record.unlocked.filter((id): id is string => typeof id === 'string') : [];
+        const equipped: BackupDecorations['equipped'] = {};
+        if (typeof record.equipped === 'object' && record.equipped !== null) {
+            for (const slot of ['moldura', 'selo', 'cartao'] as const) {
+                const id = (record.equipped as Record<string, unknown>)[slot];
+                if (typeof id === 'string') equipped[slot] = id;
+            }
+        }
+        return { unlocked, equipped };
+    };
+    const mine = clean(local);
+    const theirs = clean(cloud);
+    return {
+        unlocked: [...new Set([...mine.unlocked, ...theirs.unlocked])],
+        equipped: Object.keys(mine.equipped).length ? mine.equipped : theirs.equipped,
     };
 }
 

@@ -253,3 +253,29 @@ describe('LocalProgressAdapter', () => {
         });
     });
 });
+
+describe('LocalProgressAdapter — decorações (F6)', () => {
+    beforeEach(async () => { await AsyncStorage.clear(); });
+    const decoracoes = (payload: unknown) => ({ backupPayload: jest.fn(async () => payload), absorbBackup: jest.fn(async () => undefined) });
+
+    it('fotografa as decorações gravadas, e só elas', async () => {
+        const deco = decoracoes({ unlocked: ['moldura-aurora'], equipped: { moldura: 'moldura-aurora' } });
+        const adapter = new LocalProgressAdapter({ gamification: gamificacao(0, 1), decorations: deco as never });
+        expect((await adapter.snapshot(AGORA_ISO)).decorations).toEqual({ unlocked: ['moldura-aurora'], equipped: { moldura: 'moldura-aurora' } });
+    });
+
+    it('sem decoração gravada, a fotografia não tem o campo', async () => {
+        const adapter = new LocalProgressAdapter({ gamification: gamificacao(0, 1), decorations: decoracoes(null) as never });
+        expect(await adapter.snapshot(AGORA_ISO)).not.toHaveProperty('decorations');
+    });
+
+    it('aplica as decorações da mescla, e não chama nada quando elas não vieram', async () => {
+        const deco = decoracoes(null);
+        const adapter = new LocalProgressAdapter({ gamification: gamificacao(0, 1), decorations: deco as never });
+        const base = await adapter.snapshot(AGORA_ISO);
+        await adapter.apply(base);
+        expect(deco.absorbBackup).not.toHaveBeenCalled();
+        await adapter.apply({ ...base, decorations: { unlocked: ['selo-faisca'], equipped: {} } });
+        expect(deco.absorbBackup).toHaveBeenCalledWith({ unlocked: ['selo-faisca'], equipped: {} });
+    });
+});

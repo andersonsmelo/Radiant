@@ -69,6 +69,7 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant:subscription_v1', 'economia'),
     exact('@radiant:streak_freeze_v1', 'economia'),
     exact('@radiant:daily_missions_v1', 'economia'),
+    exact('@radiant:decorations_v1', 'economia'),
     // Liga semanal (ADR 2026-11-13): XP da semana e fila de envio ao Game Center.
     // Fora do backup de progresso: o Game Center guarda a pontuação, e o serviço a adota.
     exact('@radiant:league_v1', 'economia'),
@@ -109,6 +110,7 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant:lesson_ratings_v1', 'preferencia'),
     exact('push.optin.v1', 'preferencia'),
     exact('push.permission.v1', 'preferencia'),
+    exact('@radiant:notification_preferences_v1', 'preferencia'),
 
     exact('telemetry.events.v1', 'telemetria'),
     exact('telemetry.daily.v1', 'telemetria'),

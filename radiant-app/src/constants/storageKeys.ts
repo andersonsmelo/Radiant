@@ -38,6 +38,9 @@ export const STORAGE_KEYS = {
     STREAK_FREEZE: '@radiant:streak_freeze_v1',
     DAILY_MISSIONS: '@radiant:daily_missions_v1',
     UNIT_CELEBRATIONS: '@radiant:unit_celebrations_v1',
+    // F6 da 1.6 (ADR 2026-11-15).
+    NOTIFICATION_PREFERENCES: '@radiant:notification_preferences_v1',
+    DECORATIONS: '@radiant:decorations_v1',
     LEAGUE: '@radiant:league_v1',
 } as const;
 

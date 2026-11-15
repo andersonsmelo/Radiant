@@ -5,6 +5,7 @@ import { hasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import { KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS } from '../../types/journey';
 import { GamificationService } from '../gamification/services/GamificationService';
 import { HeartsRepository } from '../hearts/HeartsRepository';
+import { DecorationsService, type DecorationsBackup } from '../decorations/DecorationsService';
 import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 import type { LocalProgressPort, ProgressBackup } from './progressSync.types';
 import { refreshWidgets } from '../widgets/WidgetBridge';
@@ -15,7 +16,12 @@ type Gamification = {
     absorbBackup(backup: { totalXp: number; streakDays: number }): Promise<unknown>;
 };
 
-type Deps = { storage?: Storage; gamification?: Gamification };
+type Decorations = {
+    backupPayload(): Promise<DecorationsBackup | null>;
+    absorbBackup(backup: DecorationsBackup): Promise<unknown>;
+};
+
+type Deps = { storage?: Storage; gamification?: Gamification; decorations?: Decorations };
 
 type JourneyStoreShape = {
     tracks?: Record<string, { completedNodeIds?: unknown } & Record<string, unknown>>;
@@ -58,18 +64,22 @@ async function readJson<T>(storage: Storage, key: string): Promise<T | null> {
 export class LocalProgressAdapter implements LocalProgressPort {
     private readonly storage: Storage;
     private readonly gamification: Gamification;
+    private readonly decorations: Decorations;
 
     constructor(deps: Deps = {}) {
         this.storage = deps.storage ?? AsyncStorage;
         this.gamification = deps.gamification ?? GamificationService;
+        this.decorations = deps.decorations ?? DecorationsService;
     }
 
     async snapshot(nowIso: string): Promise<ProgressBackup> {
-        const [journey, schedule, hearts, gamification] = await Promise.all([
+        const [journey, schedule, hearts, gamification, decorations] = await Promise.all([
             readJson<JourneyStoreShape>(this.storage, STORAGE_KEYS.JOURNEY_PROGRESS),
             readJson<ScheduleStoreShape>(this.storage, STORAGE_KEYS.SPACED_REPETITION_SCHEDULE),
             readJson<HeartsShape>(this.storage, STORAGE_KEYS.HEARTS),
             this.gamification.getSnapshot(),
+            // Decoração ilegível não impede o backup do estudo.
+            this.decorations.backupPayload().catch(() => null),
         ]);
 
         const completedNodesByTrack: Record<string, string[]> = {};
@@ -86,6 +96,7 @@ export class LocalProgressAdapter implements LocalProgressPort {
             totalXp: gamification.totalXp,
             streakDays: gamification.streakDays,
             lastRefillAt: typeof hearts?.lastRefillAt === 'string' ? hearts.lastRefillAt : null,
+            ...(decorations ? { decorations } : {}),
         };
     }
 
@@ -94,6 +105,7 @@ export class LocalProgressAdapter implements LocalProgressPort {
         await this.applySchedule(merged);
         await this.applyHearts(merged);
         await this.gamification.absorbBackup({ totalXp: merged.totalXp, streakDays: merged.streakDays });
+        if (merged.decorations) await this.decorations.absorbBackup(merged.decorations);
         void refreshWidgets();
     }
 

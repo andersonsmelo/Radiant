@@ -18,6 +18,7 @@ import { CloudKitPrivateAdapter, resolvePrivateCloudAdapter } from '../../progre
 import { progressSyncService } from '../../progress-sync/ProgressSyncService';
 import type { BackupState } from '../../progress-sync/progressSync.types';
 import { ReminderRow } from '../../push/components/ReminderRow';
+import { NotificationTypeRows } from '../../push/components/NotificationTypeRows';
 import { SubscriptionCard } from '../../subscription/components/SubscriptionCard';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import type { SubscriptionStatus } from '../../subscription/subscription.types';
@@ -132,7 +133,7 @@ export default function SettingsScreen() {
         <SubscriptionCard status={subscription} onOpen={() => router.push('/subscription')} />
         <FeedbackPreferencesCard preferences={feedbackPreferences} onChange={changeFeedbackPreferences} />
         {feedbackError ? <Text key={`feedback-error-${fontScale}`} style={styles.detail} accessibilityRole="alert">Não foi possível salvar sons e vibração. Tente novamente.</Text> : null}
-        <GroupedList header="Lembrete"><ReminderRow visible /></GroupedList>
+        <GroupedList header="Lembrete"><ReminderRow visible />{AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS ? <NotificationTypeRows /> : null}</GroupedList>
         <GroupedList header="Meta diária">
           {goal.state === 'loading' ? <Text key={`goal-loading-${fontScale}`} style={styles.message}>Carregando meta…</Text>
             : !validGoal ? <Text key={`goal-unavailable-${fontScale}`} style={styles.message}>Meta diária indisponível</Text>

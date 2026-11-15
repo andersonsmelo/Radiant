@@ -112,6 +112,18 @@ describe('kill switches do AppConfig (ADR 2026-09-23)', () => {
         expect(padrao?.kind).toBe(ts.SyntaxKind.TrueKeyword);
     });
 
+    // F6 da 1.6 (2026-11-15): as duas frentes nascem desligadas e só o dono as liga.
+    it.each(['ENABLE_PERSONALIZED_NOTIFICATIONS', 'ENABLE_DECORATIONS'])('%s lê a variável EXPO_PUBLIC_ de mesmo nome, com padrão desligado', (nome) => {
+        const valor = flagsDoAppConfig().get(nome);
+        expect(valor !== undefined && ts.isCallExpression(valor)).toBe(true);
+        if (valor === undefined || !ts.isCallExpression(valor)) return;
+        const [variavel, padrao] = valor.arguments;
+        expect(ts.isIdentifier(valor.expression) && valor.expression.text).toBe('readBooleanFlag');
+        expect(variavel !== undefined && ts.isPropertyAccessExpression(variavel) && variavel.getText())
+            .toBe(`process.env.EXPO_PUBLIC_${nome}`);
+        expect(padrao?.kind).toBe(ts.SyntaxKind.FalseKeyword);
+    });
+
     // Liga semanal (ADR 2026-11-13): desligada até o dono criar o placar no App
     // Store Connect. Ligada por engano, o aluno veria "a liga ainda não abriu".
     it('ENABLE_LEAGUE lê EXPO_PUBLIC_ENABLE_LEAGUE, com padrão desligado', () => {

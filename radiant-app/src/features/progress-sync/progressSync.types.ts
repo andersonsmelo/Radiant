@@ -32,6 +32,11 @@ export type ProgressBackup = {
     totalXp: number;
     streakDays: number;
     lastRefillAt: string | null;
+    /**
+     * Decorações do perfil (F6 da 1.6). Opcional: os registros da 1.5.0 não têm o
+     * campo, e ele só existe quando o aparelho gravou alguma decoração.
+     */
+    decorations?: { unlocked: string[]; equipped: Partial<Record<'moldura' | 'selo' | 'cartao', string>> };
 };
 
 /**

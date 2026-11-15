@@ -1,6 +1,7 @@
 import { AuthService } from '../../auth/AuthService';
 import { BetaService } from '../../beta/BetaService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
+import { DecorationsService } from '../../decorations/DecorationsService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { HealthScoreService } from '../../health/HealthScoreService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -32,6 +33,10 @@ class IosHomologationServiceImpl {
         {
             label: 'gamification',
             run: async () => GamificationService.reset(),
+        },
+        {
+            label: 'decorations',
+            run: async () => DecorationsService.reset(),
         },
         {
             label: 'sync queue',

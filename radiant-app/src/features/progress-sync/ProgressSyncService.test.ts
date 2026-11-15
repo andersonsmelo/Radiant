@@ -663,3 +663,27 @@ describe('ProgressSyncService — desligar marca a decisão no registro remoto',
         expect(cloud.enviados[0].backupEnabled).toBe(true);
     });
 });
+
+// F6 da 1.6 (ADR 2026-11-15): decorações viajam num campo opcional. Sem decoração
+// gravada dos dois lados, a mescla não cria o campo e o payload é o da 1.5.0.
+describe('mergeProgressBackups — decorações', () => {
+    it('sem decorações dos dois lados, nenhum campo novo', () => {
+        expect(mergeProgressBackups(backup(), backup())).not.toHaveProperty('decorations');
+    });
+
+    it('une os ganhos e mantém o equipado local; o da nuvem só entra no lugar de um vazio', () => {
+        const local = backup({ decorations: { unlocked: ['moldura-aurora'], equipped: { moldura: 'moldura-aurora' } } });
+        const nuvem = backup({ decorations: { unlocked: ['selo-faisca'], equipped: { selo: 'selo-faisca' } } });
+        expect(mergeProgressBackups(local, nuvem).decorations).toEqual({
+            unlocked: ['moldura-aurora', 'selo-faisca'], equipped: { moldura: 'moldura-aurora' },
+        });
+        expect(mergeProgressBackups(backup(), nuvem).decorations).toEqual({ unlocked: ['selo-faisca'], equipped: { selo: 'selo-faisca' } });
+    });
+
+    it('decorações malformadas na nuvem não derrubam a mescla do resto', () => {
+        const nuvem = backup({ totalXp: 999, decorations: { unlocked: 'x', equipped: null } as never });
+        const merged = mergeProgressBackups(backup(), nuvem);
+        expect(merged.totalXp).toBe(999);
+        expect(merged.decorations).toEqual({ unlocked: [], equipped: {} });
+    });
+});

@@ -275,3 +275,19 @@ it('POP com falha real de storage libera nova montagem e nova escolha, sem suces
     await waitFor(() => expect(b.getByRole('radio', { name: 'Desafio, 50 XP' }).props.accessibilityState.checked).toBe(true));
   } finally { await act(async () => gate.resolve()); b.unmount(); await DailyGoalService.getSnapshot(); error.mockRestore(); }
 });
+it('F6: tipos do lembrete só com ENABLE_PERSONALIZED_NOTIFICATIONS; desligada, o grupo Lembrete tem só a linha da 1.5.0', async () => {
+  const original = AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS;
+  try {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = false;
+    const off = await ready();
+    expect(screen.queryByRole('switch', { name: 'Sequência de estudo' })).toBeNull();
+    expect(screen.queryByText('Do que o lembrete pode falar')).toBeNull();
+    off.unmount();
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = true;
+    await ready();
+    expect(await screen.findByRole('switch', { name: 'Sequência de estudo' })).toBeTruthy();
+    expect(screen.getByRole('switch', { name: 'Lembrete diário' })).toBeTruthy();
+  } finally {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = original;
+  }
+});

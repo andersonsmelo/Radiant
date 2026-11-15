@@ -20,16 +20,20 @@ jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
 }));
 jest.mock('expo-router', () => ({
   router: { push: jest.fn() },
+  // Todos os focos da tela, não só o último: com dois `useFocusEffect` (o do Perfil e o das
+  // decorações, F6), guardar um só fazia o refoco chamar o efeito errado.
+  __entries: new Set(),
   useFocusEffect: (callback: () => void | (() => void)) => {
     const React = require('react');
     const state = jest.requireMock('expo-router');
     React.useEffect(() => {
-      state.__focus = () => { state.__cleanup = callback(); };
-      state.__focus();
-      return () => { state.__cleanup?.(); };
+      const entry: { callback: typeof callback; cleanup?: void | (() => void) } = { callback, cleanup: callback() };
+      state.__entries.add(entry);
+      return () => { entry.cleanup?.(); state.__entries.delete(entry); };
     }, [callback, state]);
   },
-  __blur: () => { const state = jest.requireMock('expo-router'); state.__cleanup?.(); },
+  __focus: () => { for (const entry of jest.requireMock('expo-router').__entries) entry.cleanup = entry.callback(); },
+  __blur: () => { for (const entry of jest.requireMock('expo-router').__entries) entry.cleanup?.(); },
 }));
 jest.mock('../../gamification/services/GamificationService', () => ({ GamificationService: { getSnapshot: jest.fn() } }));
 jest.mock('../../daily-goal/services/DailyGoalService', () => ({ DailyGoalService: { getSnapshot: jest.fn(), setTier: jest.fn() } }));
@@ -254,4 +258,34 @@ it('missões que não leem não escondem o XP nem o nível, e a entrada some', a
   expect(screen.getByText('Nível 3')).toBeTruthy();
   expect(screen.queryByText('Missões de hoje')).toBeNull();
   mockMissions = [];
+});
+
+// F6 da 1.6 (ADR 2026-11-15): decorações atrás de ENABLE_DECORATIONS, desligada por padrão.
+describe('decorações no Perfil', () => {
+  const { AppConfig } = require('../../../config') as typeof import('../../../config');
+  const { DecorationsService } = require('../../decorations/DecorationsService') as typeof import('../../decorations/DecorationsService');
+  const AsyncStorage = require('@react-native-async-storage/async-storage');
+  const original = AppConfig.ENABLE_DECORATIONS;
+  afterEach(async () => { AppConfig.ENABLE_DECORATIONS = original; jest.restoreAllMocks(); await AsyncStorage.clear(); });
+
+  it('desligada (padrão): nem lê nem grava decoração, e o Perfil não mostra a entrada', async () => {
+    expect(original).toBe(false);
+    const sync = jest.spyOn(DecorationsService, 'sync');
+    render(<ProfileScreen />);
+    await screen.findByText('72 XP no total');
+    expect(sync).not.toHaveBeenCalled();
+    expect(screen.queryByText('Decorações')).toBeNull();
+    expect(await AsyncStorage.getItem('@radiant:decorations_v1')).toBeNull();
+  });
+
+  it('ligada: ganhos em silêncio pelo estado real, selo equipado ao lado do nome e entrada para a tela', async () => {
+    AppConfig.ENABLE_DECORATIONS = true;
+    await AsyncStorage.setItem('@radiant:decorations_v1', JSON.stringify({ schemaVersion: 1, unlocked: ['selo-faisca'], equipped: { selo: 'selo-faisca' } }));
+    render(<ProfileScreen />);
+    expect(await screen.findByLabelText('Selo Faísca')).toBeTruthy();
+    // 2 aulas, 1 unidade inteira, sequência 9 e 72 XP (nível 3): Aurora, Órbita, Faísca, Escudo e Noite clara.
+    const row = await screen.findByRole('button', { name: 'Decorações. 5 de 11 disponíveis.' });
+    fireEvent.press(row);
+    expect(jest.requireMock('expo-router').router.push).toHaveBeenCalledWith('/decoracoes');
+  });
 });
