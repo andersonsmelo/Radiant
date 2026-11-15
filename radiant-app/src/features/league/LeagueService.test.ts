@@ -342,6 +342,7 @@ describe('LeagueService — achados da revisão independente (2026-11-13)', () =
         gc.best.set('atual', 300);
         await service.loadBoard('global');
         gc.startsAt = '2026-11-16T00:00:00Z';
+        gc.week = 'seguinte'; // a ocorrência nova do Game Center começa vazia
         await service.recordXpEarned(10, SEGUNDA_SEGUINTE);
         await service.flush();
         expect(gc.submissions).toEqual([10]);
@@ -368,5 +369,47 @@ describe('LeagueService — achados da revisão independente (2026-11-13)', () =
         const { gc, service } = montar();
         gc.auth = { status: 'unavailable', reason: 'network-unavailable' };
         await expect(service.loadBoard('global')).resolves.toEqual({ kind: 'offline' });
+    });
+});
+
+// Achado do Codex na PR #72 (2026-11-15): depois de reinstalar no meio da
+// semana, o XP ganho antes de qualquer leitura do placar se perdia. O placar
+// tinha 70, o aluno ganhava 5, o app enviava 5 (o placar guardava 70) e a
+// adoção depois gravava 70 como enviado: os 75 nunca saíam.
+describe('LeagueService — base do Game Center antes do primeiro envio da semana', () => {
+    it('reinstalou com 70 no placar e ganhou 5 antes de ler: envia 75', async () => {
+        const { gc, service } = montar();
+        gc.best.set('atual', 70);
+        await service.recordXpEarned(5, QUINTA);
+        await service.flush();
+        expect(gc.best.get('atual')).toBe(75);
+        expect(gc.submissions).toEqual([75]);
+        await service.loadBoard('global');
+        await service.flush();
+        expect(gc.submissions).toEqual([75]);
+    });
+
+    it('variante sem rede: nada sai até a base ser lida, e depois sai 75 uma vez', async () => {
+        const { gc, service } = montar();
+        gc.best.set('atual', 70);
+        gc.offline = true;
+        await service.recordXpEarned(5, QUINTA);
+        await expect(service.flush()).resolves.toEqual({ kind: 'failed', code: 'network-unavailable' });
+        await expect(service.loadBoard('global')).resolves.toEqual({ kind: 'offline' });
+        expect(gc.submissions).toEqual([]);
+
+        gc.offline = false;
+        await service.flush();
+        await service.flush();
+        expect(gc.submissions).toEqual([75]);
+    });
+
+    it('a base é lida uma vez por semana: o XP enviado por este aparelho não é somado de novo', async () => {
+        const { gc, service } = montar();
+        await service.recordXpEarned(20, QUINTA);
+        await service.flush();
+        await service.recordXpEarned(5, QUINTA);
+        await service.flush();
+        expect(gc.submissions).toEqual([20, 25]);
     });
 });

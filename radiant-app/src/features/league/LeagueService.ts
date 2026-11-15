@@ -40,7 +40,24 @@ type LeagueStore = {
     overtakenNoticeDay: string | null;
     /** Semana em que o resumo da semana anterior já foi conferido. */
     summarySeenWeek: string | null;
+    /**
+     * A pontuação que o Game Center já tinha nesta semana foi lida e somada ao
+     * balde. Sem isso, depois de reinstalar, o primeiro envio mandava só o XP
+     * local e perdia a base (achado do Codex na PR #72, 2026-11-15).
+     */
+    baselineRead?: boolean;
 };
+
+/** Ainda falta ler a base desta semana: nada foi enviado deste balde e a base não foi lida. */
+const needsBaseline = (store: LeagueStore): boolean => !store.baselineRead && store.submittedXp === null;
+
+/** Soma a pontuação que o Game Center já tinha ao XP local ainda não enviado. */
+const withBaseline = (store: LeagueStore, remoteXp: number): LeagueStore => ({
+    ...store,
+    weekXp: store.weekXp + remoteXp,
+    submittedXp: remoteXp > 0 ? remoteXp : null,
+    baselineRead: true,
+});
 
 export type FlushResult =
     | { kind: 'sent'; xp: number }
@@ -174,14 +191,30 @@ export class LeagueServiceImpl {
         if (store.weekXp <= 0 || store.submittedXp === store.weekXp) return { kind: 'nothing-to-send' };
         const auth = await this.adapter.authenticate();
         if (auth.status !== 'authenticated') return { kind: 'not-authenticated' };
-        const xp = store.weekXp;
+        let base = store;
+        if (needsBaseline(store)) {
+            // Antes do primeiro envio da semana, lê o que o placar já tem (reinstalação,
+            // outro aparelho). Sem a base, nada sai: o XP local continua pendente.
+            let page;
+            try {
+                page = await this.adapter.loadPage({ scope: 'global', occurrence: 'current', start: 1, length: 1 });
+            } catch (cause) {
+                const code = errorCode(cause);
+                return code === 'not-authenticated' ? { kind: 'not-authenticated' } : { kind: 'failed', code };
+            }
+            if (page !== null && !sameWeek(page.startsAt, store.week)) return { kind: 'failed', code: 'stale-week' };
+            base = withBaseline(store, page?.local?.xp ?? 0);
+            await this.write(base);
+            if (base.submittedXp === base.weekXp) return { kind: 'nothing-to-send' };
+        }
+        const xp = base.weekXp;
         try {
-            await this.adapter.submitWeeklyXp(xp, store.week);
+            await this.adapter.submitWeeklyXp(xp, base.week);
         } catch (cause) {
             const code = errorCode(cause);
             return code === 'not-authenticated' ? { kind: 'not-authenticated' } : { kind: 'failed', code };
         }
-        await this.write({ ...store, submittedXp: xp });
+        await this.write({ ...base, submittedXp: xp });
         return { kind: 'sent', xp };
     }
 
@@ -190,8 +223,12 @@ export class LeagueServiceImpl {
         if (!local) return;
         const store = await this.current();
         if (!sameWeek(startsAt, store.week)) return;
+        if (needsBaseline(store)) {
+            await this.write(withBaseline(store, local.xp));
+            return;
+        }
         if (local.xp <= store.weekXp) return;
-        await this.write({ ...store, weekXp: local.xp, submittedXp: local.xp });
+        await this.write({ ...store, weekXp: local.xp, submittedXp: local.xp, baselineRead: true });
     }
 
     /** O placar da tela "Liga da semana". Nunca lança: todo estado tem texto. */

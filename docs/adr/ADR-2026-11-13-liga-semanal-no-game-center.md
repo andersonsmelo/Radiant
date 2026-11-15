@@ -49,8 +49,11 @@ Três fatos pesaram, todos medidos antes desta decisão:
    resumo da semana encerrada, na primeira abertura depois da virada, ou
    "alguém passou você", no máximo uma vez por dia.
 8. **O estado local (`@radiant:league_v1`) fica fora do backup de progresso.**
-   O que importa já está no Game Center, e o serviço adota a pontuação de lá
-   quando ela é maior que a local (reinstalação, outro aparelho). O backup do
+   O que importa já está no Game Center. Antes do primeiro envio de cada
+   semana, o serviço lê a pontuação que o placar já tem e a soma ao XP local
+   ainda não enviado (reinstalação no meio da semana, outro aparelho); sem essa
+   leitura, nada é enviado e o XP local fica pendente. Depois disso, uma
+   pontuação remota maior que a local é adotada. O backup do
    iOS leva a pasta inteira do AsyncStorage
    ([ADR de 2026-10-19](ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md));
    isso não atrapalha, porque a mesma regra corrige.

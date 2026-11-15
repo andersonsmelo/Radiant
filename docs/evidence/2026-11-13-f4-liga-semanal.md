@@ -269,3 +269,50 @@ Tests:       2 failed, 40 passed, 42 total
   ● GamificationService.onXpEarned — o XP ganho que a liga soma › aula da rota legada /quiz (countsForLeague: false) soma no XP, mas não avisa a liga
   ● QuizScreen flow › avaliar e continuar conservam o prêmio e o placar já registrados
 ```
+
+## Achado do Codex na PR #72 (15/11/2026)
+
+**Defeito:** depois de reinstalar no meio da semana, o XP ganho antes de
+qualquer leitura do placar se perdia. Com 70 no Game Center, o aluno ganhava 5,
+o app enviava 5 (o placar de melhor pontuação guardava 70) e a adoção seguinte
+gravava 70 como enviado; os 75 nunca saíam. O mesmo valia quando a primeira
+leitura falhava sem rede.
+
+**Correção** (`LeagueService.flushUnlocked`): antes do primeiro envio de cada
+semana, o serviço lê a pontuação do aluno no placar e a soma ao XP local ainda
+não enviado (`baselineRead` no balde). Sem conseguir ler a base, nada é
+enviado. A base é lida uma vez por semana, então o que este aparelho já enviou
+não é somado de novo. Um teste antigo ("relógio adiantado") passou a modelar a
+ocorrência nova do Game Center vazia, como ela é; o falso devolvia a pontuação
+da semana velha na nova.
+
+Vermelhos (Node 20.20.2), primeiro antes da correção, depois cada metade dela
+desfeita no código pronto:
+
+```text
+## Achado do Codex (PR #72) — vermelho antes da correção
+    ✕ reinstalou com 70 no placar e ganhou 5 antes de ler: envia 75 (2 ms)
+    ✕ variante sem rede: nada sai até a base ser lida, e depois sai 75 uma vez (2 ms)
+    ✓ a base é lida uma vez por semana: o XP enviado por este aparelho não é somado de novo
+    Expected: 75
+    Received: 70
+    - Expected  - 1
+    + Received  + 1
+Tests:       2 failed, 29 skipped, 1 passed, 32 total
+### injeção: sem ler a base antes do primeiro envio
+    ✕ reinstalou com 70 no placar e ganhou 5 antes de ler: envia 75 (1 ms)
+    ✕ variante sem rede: nada sai até a base ser lida, e depois sai 75 uma vez (2 ms)
+Tests:       2 failed, 30 passed, 32 total
+### injeção: base relida e somada a cada envio
+    ✕ reinstalou no meio da semana: adota a pontuação do Game Center em vez de recomeçar do zero (3 ms)
+    ✕ alguém passou o aluno: avisa no máximo uma vez por dia (1 ms)
+    ✕ reinstalou com 70 no placar e ganhou 5 antes de ler: envia 75 (1 ms)
+    ✕ a base é lida uma vez por semana: o XP enviado por este aparelho não é somado de novo (1 ms)
+Tests:       4 failed, 28 passed, 32 total
+### injeção: sem rede na leitura da base vira base zero
+    ✕ variante sem rede: nada sai até a base ser lida, e depois sai 75 uma vez (3 ms)
+Tests:       1 failed, 31 passed, 32 total
+### injeção: adoção sem conferir a semana
+    ✕ relógio adiantado: a pontuação da ocorrência antiga não é adotada no balde novo (1 ms)
+Tests:       1 failed, 31 passed, 32 total
+```
