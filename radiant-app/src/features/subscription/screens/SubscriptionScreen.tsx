@@ -9,12 +9,16 @@ import { LEGAL_LINKS } from '../../../config/legal';
 import { depth, galaxyColors, medalColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { formatShortDate } from '../components/SubscriptionCard';
+import { conversionService, type ConversionService } from '../../conversion/ConversionService';
+import { PlanComparison } from '../../conversion/components/PlanComparison';
 import { SubscriptionService, subscriptionService } from '../SubscriptionService';
 import type { StoreProduct, SubscriptionOffers, SubscriptionStatus } from '../subscription.types';
 
 type SubscriptionScreenProps = {
     service?: SubscriptionService;
     nowMs?: () => number;
+    /** Convites da F8: a comparação e a contagem local do funil, só com a chave ligada. */
+    conversion?: Pick<ConversionService, 'enabled' | 'record'>;
 };
 
 type Notice =
@@ -50,7 +54,7 @@ function periodCopy(product: StoreProduct): string {
  * Restaurar compras, termos, privacidade e como cancelar. Rede e dinheiro só
  * existem aqui, na folha de vidas e no cartão de backup — nunca no estudo.
  */
-export default function SubscriptionScreen({ service = subscriptionService, nowMs = Date.now }: SubscriptionScreenProps) {
+export default function SubscriptionScreen({ service = subscriptionService, nowMs = Date.now, conversion = conversionService }: SubscriptionScreenProps) {
     const [status, setStatus] = useState<SubscriptionStatus | null>(null);
     const [offers, setOffers] = useState<SubscriptionOffers | null>(null);
     const [notice, setNotice] = useState<Notice>(null);
@@ -61,6 +65,12 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     // troca de loja correm juntas, e sem ordem a mais antiga podia chegar por
     // último e trazer a moeda velha de volta (revisão da PR #38).
     const ultimaCargaDeOfertas = useRef(0);
+    const comparing = conversion.enabled();
+
+    // Funil local da F8: só conta, nunca envia. Desligada, `record` não escreve.
+    useEffect(() => {
+        void conversion.record('screen_opened');
+    }, [conversion]);
 
     useEffect(() => {
         let alive = true;
@@ -119,7 +129,9 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         setBusy(true);
         setNotice(null);
         try {
+            void conversion.record('purchase_started');
             const result = await service.purchase(product.id, nowMs());
+            if (result.kind === 'purchased') void conversion.record('purchase_completed');
             switch (result.kind) {
                 case 'purchased':
                     setStatus(result.status);
@@ -140,7 +152,7 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         } finally {
             setBusy(false);
         }
-    }, [nowMs, service]);
+    }, [conversion, nowMs, service]);
 
     const restore = useCallback(async () => {
         setBusy(true);
@@ -255,10 +267,12 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                     </View>
                 ) : null}
 
-                <View style={styles.introduction}>
-                    <Text style={styles.cardTitle}>Errar não custa vida.</Text>
-                    <Text style={styles.body}>As aulas são as mesmas para todo mundo.</Text>
-                </View>
+                {comparing ? <PlanComparison /> : (
+                    <View style={styles.introduction}>
+                        <Text style={styles.cardTitle}>Errar não custa vida.</Text>
+                        <Text style={styles.body}>As aulas são as mesmas para todo mundo.</Text>
+                    </View>
+                )}
 
                 <View style={styles.plans} accessibilityRole="radiogroup" accessibilityLabel="Escolha seu plano">
                     {offers.products.map((product) => {

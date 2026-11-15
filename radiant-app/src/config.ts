@@ -23,6 +23,10 @@ export const AppConfig = {
     SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? '',
     ENABLE_CRASH_REPORTING: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CRASH_REPORTING, false),
 
+    // Convites de assinatura da F8 (ADR 2026-11-15). Desligados por padrão:
+    // ligar é decisão do dono, por build ou OTA. Desligados, o app é o da `main`.
+    ENABLE_CONVERSION_PROMPTS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS, false),
+
     // release controls
     SHOW_DEV_TOOLS: __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DEV_TOOLS, false),
     ENABLE_TELEMETRY_DEBUG_SCREEN:
@@ -42,6 +46,12 @@ export const AppConfig = {
     // do perfil. Desligadas, o app é o da 1.5.0; só o dono as liga.
     ENABLE_PERSONALIZED_NOTIFICATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS, false),
     ENABLE_DECORATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DECORATIONS, false),
+
+    // Liga semanal no Game Center (ADR 2026-11-13). Desligada por padrão até o
+    // dono criar o placar `radiant.liga.semanal.xp` no App Store Connect
+    // (runbook 2026-11-13). Lida em build: o plugin `with-game-center` usa a
+    // mesma variável para pôr a permissão do Game Center no binário.
+    ENABLE_LEAGUE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEAGUE, false),
 
     // F3 da 1.6: retorno rico da aula (sons de ficha e de fala, vibração ao
     // avançar, elenco no retorno, incentivo e conclusão com medalha). Desligado,

@@ -22,6 +22,7 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { useUnlimitedExpiry } from '../../conversion/useConversionInvite';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { getRecommendationActionCopy } from '../components/nodeCopy';
@@ -34,6 +35,7 @@ import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 import { LevelBadge } from '../../gamification/components/LevelBadge';
 import { DailyMissionsService, type DailyMission } from '../../missions/services/DailyMissionsService';
 import { DailyMissionsCard } from '../../missions/components/DailyMissionsCard';
+import { LeagueNoticeRow } from '../../league/components/LeagueNoticeRow';
 import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration, type CelebrationUnit } from '../components/UnitCompleteCelebration';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
@@ -135,6 +137,9 @@ export default function JourneyHomeScreen() {
     }, [loadSnapshot])
   );
 
+  const rereadHearts = useCallback(() => { void heartsRepository.getSnapshot(Date.now()).then(setHearts); }, []);
+  useUnlimitedExpiry(hearts?.unlimitedUntil ?? null, rereadHearts);
+
   const homeNextNode = snapshot?.nextRecommendedNode ?? null;
 
   /**
@@ -222,6 +227,7 @@ export default function JourneyHomeScreen() {
         onPress={() => { if (dueReviewNode) void openNode(dueReviewNode); }}
       />
       <DailyMissionsCard missions={missions} onPress={() => router.push('/missions')} />
+      <LeagueNoticeRow onPress={() => router.push('/league')} />
     </View>
   );
 
@@ -328,6 +334,8 @@ export default function JourneyHomeScreen() {
           snapshot={hearts}
           dueReviewCount={dueReviewNode ? dueReviewCount : 0}
           storeAvailable={subscriptionService.storeAvailable()}
+          inviteAllowed
+          onHeartsChanged={(next) => { setHearts(next); setHeartsSheetVisible(false); }}
           onClose={() => setHeartsSheetVisible(false)}
           onReview={() => {
             setHeartsSheetVisible(false);

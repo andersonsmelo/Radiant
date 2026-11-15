@@ -12,6 +12,7 @@ import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 import { HybridLessonMetricsCard } from '../components/HybridLessonMetricsCard';
+import { ConversionFunnelCard } from '../components/ConversionFunnelCard';
 import {
     isStoreBenchEnabled,
     runStoreDeviceBench,
@@ -307,6 +308,7 @@ export default function DevConsoleScreen() {
                 </GlassCard>
 
                 <HybridLessonMetricsCard />
+                <ConversionFunnelCard />
 
                 <ActionButton onPress={() => router.push('/licao-hibrida')} variant="secondary">
                     Piloto: lição híbrida (L1)

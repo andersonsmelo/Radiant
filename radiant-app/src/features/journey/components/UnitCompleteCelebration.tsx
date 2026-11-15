@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 import { AppButton } from '../../../components/ui/AppButton';
 import { Confetti } from '../../../components/ui/Confetti';
@@ -15,6 +16,9 @@ import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 import { resolveNodeTheme } from '../services/resolveNodeTheme';
 import { JourneyMedal } from './JourneyMedal';
+import type { ConversionService } from '../../conversion/ConversionService';
+import { ConversionInvite } from '../../conversion/components/ConversionInvite';
+import { useConversionInvite } from '../../conversion/useConversionInvite';
 
 export type CelebrationUnit = { id: string; title: string; theme?: JourneyUnit['theme'] };
 type TrailSegment = { trackId: string; trackTitle: string; units: Pick<JourneyUnit, 'nodes' | 'theme'>[] };
@@ -68,6 +72,7 @@ type UnitCompleteCelebrationProps = {
   unit: CelebrationUnit | null;
   onContinue: () => void;
   feedback?: Pick<LessonFeedback, 'emit'> | null;
+  conversion?: Pick<ConversionService, 'peekInvite' | 'markInviteSeen' | 'takeSample'>;
 };
 
 /**
@@ -75,8 +80,10 @@ type UnitCompleteCelebrationProps = {
  * "Continuar". O botão (ou o voltar do Android) dispensa na hora; o confete
  * não recebe toque e some sozinho com "reduzir movimento".
  */
-export function UnitCompleteCelebration({ unit, onContinue, feedback }: UnitCompleteCelebrationProps): React.ReactElement | null {
+export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion }: UnitCompleteCelebrationProps): React.ReactElement | null {
   const reducedMotion = useReducedMotionPreference();
+  // F8: convite opcional e discreto; "Continuar" segue como a ação principal.
+  const { invite } = useConversionInvite('unit-complete', unit !== null, conversion);
   const unitId = unit?.id ?? null;
   // F3 (ADR 2026-11-15): com a chave, a medalha cunha ao abrir; o botão não espera.
   const rich = AppConfig.ENABLE_RICH_FEEDBACK;
@@ -103,6 +110,15 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback }: UnitComp
           <Text style={styles.title} accessibilityRole="header">Unidade concluída</Text>
           <Text style={styles.line}>Você fechou {unit.title}. Cada aula e cada conferência dela contam no seu caminho.</Text>
           <AppButton label="Continuar" variant="galaxy" onPress={onContinue} accessibilityLabel="Continuar" />
+          {invite ? (
+            <ConversionInvite moment="unit-complete" sampleAvailable={false}
+              onLearnMore={() => {
+                // Empilha a assinatura sob o Modal e só então o fecha: empilhar
+                // depois, com o Modal saindo, não foi visto no iOS (revisão da F8).
+                router.push('/subscription');
+                onContinue();
+              }} />
+          ) : null}
         </View>
       </View>
     </Modal>

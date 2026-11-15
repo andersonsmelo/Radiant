@@ -8,6 +8,9 @@ import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import type { HeartsSnapshot } from '../hearts.types';
 import { useNow } from '../../../ui/useNow';
+import type { ConversionService } from '../../conversion/ConversionService';
+import { ConversionInvite } from '../../conversion/components/ConversionInvite';
+import { useConversionInvite } from '../../conversion/useConversionInvite';
 
 type HeartsSheetProps = {
   visible: boolean;
@@ -18,6 +21,18 @@ type HeartsSheetProps = {
   onReview: () => void;
   onSubscribe: () => void;
   nowMs?: number;
+  /**
+   * F8: recebe as vidas da amostra. A tela passa a guardá-las e fecha a folha;
+   * sem esta prop, a amostra não é oferecida.
+   */
+  onHeartsChanged?: (snapshot: HeartsSnapshot) => void;
+  /**
+   * F8: a tela diz que o estudo está numa pausa (entre um passo e outro, ou o
+   * contador da Estude). Sem isso não há convite: ele nunca entra no meio de
+   * uma questão (revisão da F8).
+   */
+  inviteAllowed?: boolean;
+  conversion?: Pick<ConversionService, 'peekInvite' | 'markInviteSeen' | 'takeSample'>;
 };
 
 function waitCopy(snapshot: HeartsSnapshot, nowMs: number): string {
@@ -39,8 +54,14 @@ export function HeartsSheet({
   onReview,
   onSubscribe,
   nowMs,
+  onHeartsChanged,
+  inviteAllowed = false,
+  conversion,
 }: HeartsSheetProps) {
   const now = useNow(visible && nowMs === undefined && snapshot.nextRefillAt !== null);
+  // Só sem vidas: é o momento em que a assinatura muda algo agora (ADR 2026-11-15).
+  const { invite, takeSample } = useConversionInvite('hearts-empty', visible && inviteAllowed && storeAvailable && snapshot.status === 'empty', conversion);
+  const [sampling, setSampling] = React.useState(false);
   if (snapshot.status === 'unlimited') return null;
 
   return (
@@ -73,7 +94,18 @@ export function HeartsSheet({
               <AppButton label="Revisar agora" variant="galaxy" onPress={onReview} />
             ) : null}
 
-            {storeAvailable ? (
+            {storeAvailable && invite ? (
+              <ConversionInvite
+                moment="hearts-empty"
+                sampleAvailable={invite.sampleAvailable}
+                onLearnMore={onSubscribe}
+                busy={sampling}
+                onSample={onHeartsChanged ? () => {
+                  setSampling(true);
+                  void takeSample().then((next) => { if (next) onHeartsChanged(next); }).finally(() => setSampling(false));
+                } : undefined}
+              />
+            ) : storeAvailable ? (
               <Pressable accessibilityRole="link" onPress={onSubscribe} style={styles.subscribe}>
                 <Text style={styles.subscribeText}>Vidas ilimitadas</Text>
               </Pressable>
