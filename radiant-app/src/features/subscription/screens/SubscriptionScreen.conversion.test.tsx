@@ -59,7 +59,7 @@ describe('SubscriptionScreen com ENABLE_CONVERSION_PROMPTS', () => {
         const { contagem } = abrir(true);
         expect(await screen.findByText('Gratuito', { includeHiddenElements: true })).toBeTruthy();
         expect(screen.getByText('Assinante', { includeHiddenElements: true })).toBeTruthy();
-        expect(screen.getByLabelText(/^Vidas\. Gratuito: 5; cada erro gasta uma/)).toBeTruthy();
+        expect(screen.getByLabelText(/^Vidas\. Gratuito: 5; errar em aula ou avaliação pode gastar uma \(revisão nunca gasta\)/)).toBeTruthy();
         expect(screen.getByLabelText('Aulas, revisões e avaliações. Gratuito: Todas. Assinante: Todas.')).toBeTruthy();
         await waitFor(() => expect(contagem()?.screen_opened).toBe(1));
     });

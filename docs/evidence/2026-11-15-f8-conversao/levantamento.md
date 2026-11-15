@@ -86,9 +86,12 @@ não fala da assinatura.
 
 `git diff origin/main...<branch>` nos arquivos que a F8 toca, em 2026-11-15:
 
-- F4 (#72) acrescenta linhas em `config.ts`, `storageKeys.ts`, `storageInventory.ts`
-  e uma em `JourneyHomeScreen.tsx`. As inserções da F8 ficam em pontos distantes
-  dessas, para o merge não conflitar.
+- F4 (#72) acrescenta linhas em `config.ts`, `storageKeys.ts`, `storageInventory.ts`,
+  `config/killSwitches.contract.test.ts` e `docs/STATUS.md`, e uma em
+  `JourneyHomeScreen.tsx`. **Correção pela revisão:** este levantamento não tinha visto
+  o teste de kill switches nem o `STATUS.md`, e o `git merge-tree` deu conflito nos dois.
+  Os dois blocos da F8 foram movidos para outro ponto. Medido de novo em 2026-11-15:
+  `git merge-tree --write-tree` sem conflito contra #71, #72, #73 e #74.
 - F1 (#74) e F2 (#71) mudam 7 linhas de `LessonFlowScreen.tsx`, longe da folha de vidas.
 - F7 (#73) não toca nenhum desses arquivos.
 - Nenhuma frente toca `features/hearts`, `features/subscription`, `features/dev-console`

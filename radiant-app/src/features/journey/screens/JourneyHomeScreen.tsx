@@ -328,6 +328,7 @@ export default function JourneyHomeScreen() {
           snapshot={hearts}
           dueReviewCount={dueReviewNode ? dueReviewCount : 0}
           storeAvailable={subscriptionService.storeAvailable()}
+          inviteAllowed
           onHeartsChanged={(next) => { setHearts(next); setHeartsSheetVisible(false); }}
           onClose={() => setHeartsSheetVisible(false)}
           onReview={() => {

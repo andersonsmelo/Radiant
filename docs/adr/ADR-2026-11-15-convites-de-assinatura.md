@@ -19,13 +19,16 @@ de vidas e o cartão nos Ajustes.
    `main`: nenhum texto novo e nenhuma escrita em disco. Isso está provado por
    contraprova em teste, vista falhando com o defeito injetado.
 2. **Dois momentos, ambos já pausas existentes:**
-   - **sem vidas:** o convite entra na folha de vidas, quando ela abre com zero vidas.
-     "Revisar agora" e "Voltar" continuam lá;
+   - **sem vidas:** o convite entra na folha de vidas, quando ela abre com zero vidas
+     **numa pausa**: na aula, depois do retorno do item, entre um passo e outro; na Estude,
+     pelo contador do cabeçalho. "Revisar agora" e "Voltar" continuam lá. A folha que barra
+     uma resposta (o aluno confirma sem vidas) e a folha da avaliação, com o item pendente,
+     **não convidam** (achado 1 da revisão);
    - **fim de unidade:** uma linha e um link na comemoração. "Continuar" segue como a
      ação principal.
 
-   O convite nunca abre tela própria e nunca aparece no meio de uma questão: ele vai
-   dentro de uma tela que o app já mostra quando o estudo parou.
+   O convite nunca abre tela própria e nunca aparece no meio de uma questão. Cada tela
+   diz à folha se ela abriu numa pausa (`inviteAllowed`), e o padrão é não convidar.
 3. **Sequência em risco não recebe convite.** A assinatura não protege a sequência,
    e o convite prometeria o que o código não entrega.
 4. **Frequência:** no máximo um convite por dia local, somando os dois momentos.
@@ -33,16 +36,28 @@ de vidas e o cartão nos Ajustes.
    A folha reaberta no mesmo dia volta ao link de sempre.
 5. **Comparação verdadeira na tela de assinatura.** A tabela gratuito × assinante é
    montada das constantes de `HeartsService` (5 vidas, uma volta a cada 30 min, a
-   revisão devolve 1). A linha das aulas diz "Todas" nos dois planos.
+   revisão devolve 1). Ela diz que errar em aula ou avaliação **pode** gastar uma vida e
+   que a revisão nunca gasta, porque a aula híbrida não cobra o primeiro contato
+   (achado 3). A linha das aulas diz "Todas" nos dois planos.
 6. **Amostra única.** Na folha sem vidas, quem nunca assinou pode experimentar uma vez
-   por aparelho 30 minutos de vidas ilimitadas, pelo `setUnlimited` que já existe. Pela
+   (por instalação; o texto diz "Só uma vez") 30 minutos de vidas ilimitadas, pelo `setUnlimited` que já existe. Pela
    regra de fim de ilimitado que já existe, as vidas voltam cheias depois, e o convite
    diz isso. Ex-assinante não recebe amostra, porque a releitura da assinatura
    expirada a apagaria.
 7. **Funil só local.** A chave `@radiant:conversion_v1` (classe `controle` no inventário)
    conta seis eventos: convite visto (sem vidas, fim de unidade), tela aberta, compra
    iniciada, compra concluída e amostra usada. O dono lê os números no console de
-   desenvolvimento. Nada é enviado para fora.
+   desenvolvimento. Nada é enviado para fora. O dia só é consumido quando o convite chega
+   à tela, e as escritas vão em fila, para contagens simultâneas não se perderem.
+   Limites conhecidos:
+   - "tela aberta" conta toda abertura, inclusive pelos Ajustes e por quem já assina;
+   - "compra concluída" não conta um Ask to Buy aprovado depois;
+   - o cartão do console aparece mesmo com a chave desligada, e diz isso. Ele só existe
+     com `SHOW_DEV_TOOLS`.
+8. **Fim das vidas ilimitadas com a tela aberta.** A aula e a avaliação releem as vidas
+   quando `unlimitedUntil` vence. Sem isso, a amostra acabava no meio da aula com o HUD
+   ainda em ∞, e a vida perdida em seguida não era anunciada (achado 2). Para a
+   assinatura (datas além do limite do timer), continua valendo a releitura que já existia.
 
 ## Proibido
 

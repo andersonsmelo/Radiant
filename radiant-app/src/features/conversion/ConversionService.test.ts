@@ -132,4 +132,50 @@ describe('ConversionService', () => {
         const { service } = build({ storage });
         expect(await service.takeInvite('hearts-empty', night)).toEqual({ sampleAvailable: true });
     });
+
+    it('espiar o convite não grava; só marcar o visto consome o dia e conta', async () => {
+        const { service, storage } = build();
+        expect(await service.peekInvite('hearts-empty', night)).toEqual({ sampleAvailable: true });
+        expect(storage.setItem).not.toHaveBeenCalled();
+        await service.markInviteSeen('hearts-empty', night);
+        expect(await service.peekInvite('hearts-empty', night)).toBeNull();
+        expect((await service.read()).counts.invite_seen_hearts_empty).toBe(1);
+    });
+
+    it('toque duplo na amostra dá uma só', async () => {
+        const { service, hearts } = build();
+        const [a, b] = await Promise.all([service.takeSample(night), service.takeSample(night)]);
+        expect(hearts.setUnlimited).toHaveBeenCalledTimes(1);
+        expect([a, b].filter(Boolean)).toHaveLength(2); // a mesma promessa para os dois toques
+        expect((await service.read()).counts.sample_taken).toBe(1);
+    });
+
+    it('contagens simultâneas não se perdem', async () => {
+        const { service } = build();
+        await Promise.all([service.record('purchase_started'), service.record('purchase_started'), service.record('purchase_completed')]);
+        const { counts } = await service.read();
+        expect(counts.purchase_started).toBe(2);
+        expect(counts.purchase_completed).toBe(1);
+    });
+
+    it('se as vidas não forem gravadas, a amostra não fica marcada como usada', async () => {
+        const { service, hearts } = build();
+        hearts.setUnlimited.mockRejectedValueOnce(new Error('disco cheio'));
+        jest.spyOn(console, 'error').mockImplementation(() => undefined);
+        expect(await service.takeSample(night)).toBeNull();
+        expect((await service.read()).sampleTakenAt).toBeNull();
+        expect(await service.takeSample(night)).not.toBeNull();
+    });
+
+    it('falha do armazenamento não vira rejeição: não convida, não conta e não quebra a tela', async () => {
+        const storage = memoryStorage();
+        storage.getItem.mockRejectedValue(new Error('sem acesso'));
+        const { service } = build({ storage });
+        jest.spyOn(console, 'error').mockImplementation(() => undefined);
+        await expect(service.peekInvite('hearts-empty', night)).resolves.toBeNull();
+        await expect(service.markInviteSeen('hearts-empty', night)).resolves.toBeUndefined();
+        await expect(service.record('screen_opened')).resolves.toBeUndefined();
+        await expect(service.takeSample(night)).resolves.toBeNull();
+        await expect(service.read()).resolves.toMatchObject({ lastInviteDay: null });
+    });
 });

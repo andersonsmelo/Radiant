@@ -26,7 +26,7 @@ describe('ConversionInvite', () => {
         render(<ConversionInvite moment="hearts-empty" sampleAvailable onLearnMore={jest.fn()} onSample={onSample} />);
         fireEvent.press(screen.getByRole('button', { name: `Experimentar ${SAMPLE_MINUTES} min sem gastar vidas` }));
         expect(onSample).toHaveBeenCalledTimes(1);
-        expect(screen.getByText('Uma vez por aparelho, sem custo. Depois, suas vidas voltam cheias.')).toBeTruthy();
+        expect(screen.getByText('Só uma vez, sem custo. Depois, suas vidas voltam cheias.')).toBeTruthy();
     });
 
     it('sem quem receba as vidas novas, não oferece a amostra', () => {

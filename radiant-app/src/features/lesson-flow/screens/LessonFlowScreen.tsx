@@ -65,6 +65,7 @@ import { LessonCatalogService } from '../../content/services/LessonCatalogServic
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
+import { useUnlimitedExpiry } from '../../conversion/useConversionInvite';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { HeartLossNotice, TOP_NOTICE_MS } from '../../hearts/components/HeartLossNotice';
@@ -108,6 +109,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const [error, setError] = useState<string | null>(null);
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+    // F8: a folha só convida quando abre entre um passo e outro, nunca no meio de uma questão.
+    const [heartsSheetInvites, setHeartsSheetInvites] = useState(false);
+    // Vidas ilimitadas que vencem no meio da aula (amostra da F8, assinatura que acaba): relê,
+    // para o HUD não seguir em ∞ e a próxima vida perdida ser anunciada.
+    const rereadHearts = useCallback(() => { void heartsRepository.getSnapshot(Date.now()).then(setHearts); }, []);
+    useUnlimitedExpiry(hearts.unlimitedUntil, rereadHearts);
     const [dueReviewCount, setDueReviewCount] = useState(0);
     const chargedInteractions = useRef(new Set<string>());
     const completions = useRef(new Map<string, { finishing: boolean; finished: boolean; identity: { attemptId: string; answeredAt: Date } | null }>());
@@ -389,6 +396,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         // no último retorno conclui a lição (ADR de 2026-10-18, régua e última vida).
         const costsHeart = !isReview && (!hybrid || player.isRetry);
         if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
+            setHeartsSheetInvites(false);
             setHeartsSheetVisible(true);
             return;
         }
@@ -472,6 +480,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         if (!isLastStep) {
             if (costsHeart && nextHearts.status === 'empty') {
                 if (tracksJourney) await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
+                setHeartsSheetInvites(true);
                 setHeartsSheetVisible(true);
             }
             return;
@@ -879,6 +888,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 snapshot={hearts}
                 dueReviewCount={dueReviewCount}
                 storeAvailable={subscriptionService.storeAvailable()}
+                inviteAllowed={heartsSheetInvites}
                 onHeartsChanged={(next) => { setHearts(next); setHeartsSheetVisible(false); }}
                 onClose={exitLesson}
                 onReview={() => {

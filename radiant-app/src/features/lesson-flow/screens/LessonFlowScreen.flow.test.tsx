@@ -188,9 +188,10 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const { Text } = require('react-native');
   const { Pressable } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose, inviteAllowed }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void; inviteAllowed?: boolean }) =>
       visible ? (
         <>
+          <Text>{inviteAllowed ? 'convite: permitido' : 'convite: não'}</Text>
           <Text>Sua lição está pausada</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
           <Text>{`A revisar: ${dueReviewCount}`}</Text>
@@ -774,6 +775,23 @@ describe('LessonFlowScreen — economia de vidas', () => {
       fireEvent.press(screen.getByText('Conferir resposta'));
       expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     }
+
+    it('F8: a folha aberta entre um passo e outro pode convidar', async () => {
+      await pausarSemVidas();
+      expect(screen.getByText('convite: permitido')).toBeTruthy();
+    });
+
+    it('F8: a folha que barra uma resposta, no meio da questão, não convida', async () => {
+      heartsRepository.getSnapshot.mockResolvedValue(vazia);
+      renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      await act(async () => {});
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+      expect(screen.getByText('convite: não')).toBeTruthy();
+      expect(heartsRepository.spend).not.toHaveBeenCalled();
+    });
 
     it('T12 a folha aberta some ao voltar ilimitado sem fechar antes', async () => {
       await pausarSemVidas();

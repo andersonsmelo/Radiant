@@ -26,7 +26,13 @@ type HeartsSheetProps = {
    * sem esta prop, a amostra não é oferecida.
    */
   onHeartsChanged?: (snapshot: HeartsSnapshot) => void;
-  conversion?: Pick<ConversionService, 'takeInvite' | 'takeSample'>;
+  /**
+   * F8: a tela diz que o estudo está numa pausa (entre um passo e outro, ou o
+   * contador da Estude). Sem isso não há convite: ele nunca entra no meio de
+   * uma questão (revisão da F8).
+   */
+  inviteAllowed?: boolean;
+  conversion?: Pick<ConversionService, 'peekInvite' | 'markInviteSeen' | 'takeSample'>;
 };
 
 function waitCopy(snapshot: HeartsSnapshot, nowMs: number): string {
@@ -49,11 +55,12 @@ export function HeartsSheet({
   onSubscribe,
   nowMs,
   onHeartsChanged,
+  inviteAllowed = false,
   conversion,
 }: HeartsSheetProps) {
   const now = useNow(visible && nowMs === undefined && snapshot.nextRefillAt !== null);
   // Só sem vidas: é o momento em que a assinatura muda algo agora (ADR 2026-11-15).
-  const { invite, takeSample } = useConversionInvite('hearts-empty', visible && storeAvailable && snapshot.status === 'empty', conversion);
+  const { invite, takeSample } = useConversionInvite('hearts-empty', visible && inviteAllowed && storeAvailable && snapshot.status === 'empty', conversion);
   const [sampling, setSampling] = React.useState(false);
   if (snapshot.status === 'unlimited') return null;
 

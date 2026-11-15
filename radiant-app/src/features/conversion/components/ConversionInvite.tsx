@@ -39,7 +39,7 @@ export function ConversionInvite({ moment, sampleAvailable, onLearnMore, onSampl
             {sampleAvailable && onSample ? (
                 <>
                     <AppButton label={`Experimentar ${SAMPLE_MINUTES} min sem gastar vidas`} variant="ghost" disabled={busy} onPress={onSample} />
-                    <Text style={styles.caption}>Uma vez por aparelho, sem custo. Depois, suas vidas voltam cheias.</Text>
+                    <Text style={styles.caption}>Só uma vez, sem custo. Depois, suas vidas voltam cheias.</Text>
                 </>
             ) : null}
         </View>

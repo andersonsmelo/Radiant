@@ -12,7 +12,8 @@ export function planComparison(): PlanComparisonRow[] {
         { label: 'Aulas, revisões e avaliações', free: 'Todas', plus: 'Todas' },
         {
             label: 'Vidas',
-            free: `${MAX_HEARTS}; cada erro gasta uma, e uma volta a cada ${REFILL_MIN} min`,
+            // "pode": a aula híbrida não cobra o primeiro contato, só a nova tentativa.
+            free: `${MAX_HEARTS}; errar em aula ou avaliação pode gastar uma (revisão nunca gasta); uma volta a cada ${REFILL_MIN} min`,
             plus: 'Ilimitadas: errar não gasta vida',
         },
         {

@@ -78,6 +78,16 @@ function parse(raw: string | null): ConversionStateV1 {
     return state;
 }
 
+/** Convite e funil nunca derrubam a tela: falha de disco vira "sem convite" e fica no log. */
+async function safely<T>(what: string, fallback: T, run: () => Promise<T>): Promise<T> {
+    try {
+        return await run();
+    } catch (cause) {
+        console.error(`[ConversionService] Falha em ${what}:`, cause);
+        return fallback;
+    }
+}
+
 /**
  * Convites de assinatura (F8, ADR 2026-11-15). Decide se um convite pode
  * aparecer agora, guarda o limite de um por dia local e conta o funil, tudo
@@ -89,6 +99,8 @@ export class ConversionService {
     private readonly subscription: NonNullable<Deps['subscription']>;
     private readonly hearts: NonNullable<Deps['hearts']>;
     private readonly isEnabled: () => boolean;
+    private queue: Promise<unknown> = Promise.resolve();
+    private sampling: Promise<HeartsSnapshot | null> | null = null;
 
     constructor(deps: Deps = {}) {
         this.storage = deps.storage ?? AsyncStorage;
@@ -102,22 +114,20 @@ export class ConversionService {
     }
 
     /**
-     * Toma o convite do dia, se houver: marca o dia e conta o convite visto.
-     * Só para quem pode comprar e não tem nem pediu a assinatura.
+     * Diz se cabe um convite agora, sem gravar nada. Só para quem pode comprar e
+     * não tem nem pediu a assinatura, e só se o convite do dia ainda não foi visto.
      */
-    async takeInvite(moment: ConversionMoment, nowMs: number): Promise<{ sampleAvailable: boolean } | null> {
+    async peekInvite(moment: ConversionMoment, nowMs: number): Promise<{ sampleAvailable: boolean } | null> {
+        return safely('peekInvite', null, () => this.decideInvite(moment, nowMs));
+    }
+
+    private async decideInvite(moment: ConversionMoment, nowMs: number): Promise<{ sampleAvailable: boolean } | null> {
         if (!this.enabled() || !this.subscription.storeAvailable()) return null;
         const status = await this.subscription.getStatus(nowMs);
         if (status.kind !== 'none' && status.kind !== 'expired') return null;
 
         const loaded = await this.load();
-        if (loaded === null) return null;
-        const today = localDay(nowMs);
-        if (loaded.lastInviteDay === today) return null;
-
-        loaded.lastInviteDay = today;
-        loaded.counts[SEEN[moment]] += 1;
-        await this.save(loaded);
+        if (loaded === null || loaded.lastInviteDay === localDay(nowMs)) return null;
         return {
             // Ex-assinante não recebe amostra: `refresh` de quem está `expired`
             // chama `setUnlimited(null)` e a apagaria na próxima abertura.
@@ -125,31 +135,70 @@ export class ConversionService {
         };
     }
 
-    /** Amostra única: `SAMPLE_MINUTES` de vidas ilimitadas, pela regra de vidas que já existe. */
-    async takeSample(nowMs: number): Promise<HeartsSnapshot | null> {
+    /** Consome o convite do dia e o conta como visto. Chamado quando ele chega à tela. */
+    async markInviteSeen(moment: ConversionMoment, nowMs: number): Promise<void> {
+        if (!this.enabled()) return;
+        await safely('markInviteSeen', undefined, () => this.update((state) => {
+            state.lastInviteDay = localDay(nowMs);
+            state.counts[SEEN[moment]] += 1;
+        }));
+    }
+
+    /** Espiar e marcar de uma vez; quem tem tela usa os dois passos separados. */
+    async takeInvite(moment: ConversionMoment, nowMs: number): Promise<{ sampleAvailable: boolean } | null> {
+        const invite = await this.peekInvite(moment, nowMs);
+        if (invite) await this.markInviteSeen(moment, nowMs);
+        return invite;
+    }
+
+    /**
+     * Amostra única: `SAMPLE_MINUTES` de vidas ilimitadas, pela regra de vidas que
+     * já existe. Toques simultâneos recebem a mesma promessa, então dão uma só.
+     */
+    takeSample(nowMs: number): Promise<HeartsSnapshot | null> {
+        this.sampling ??= safely('takeSample', null, () => this.giveSample(nowMs)).finally(() => { this.sampling = null; });
+        return this.sampling;
+    }
+
+    private async giveSample(nowMs: number): Promise<HeartsSnapshot | null> {
         if (!this.enabled()) return null;
         if ((await this.subscription.getStatus(nowMs)).kind !== 'none') return null;
         const loaded = await this.load();
         if (loaded === null || loaded.sampleTakenAt !== null) return null;
 
-        // Marca antes de dar: um segundo toque durante a escrita não dá duas.
-        loaded.sampleTakenAt = new Date(nowMs).toISOString();
-        loaded.counts.sample_taken += 1;
-        await this.save(loaded);
-        return this.hearts.setUnlimited(new Date(nowMs + SAMPLE_MINUTES * 60_000).toISOString(), nowMs);
+        // Dá antes de marcar: se as vidas não forem gravadas, a amostra continua
+        // disponível, em vez de constar como usada sem ter sido dada.
+        const snapshot = await this.hearts.setUnlimited(new Date(nowMs + SAMPLE_MINUTES * 60_000).toISOString(), nowMs);
+        await this.update((state) => {
+            state.sampleTakenAt = new Date(nowMs).toISOString();
+            state.counts.sample_taken += 1;
+        });
+        return snapshot;
     }
 
     async record(event: FunnelEvent): Promise<void> {
         if (!this.enabled()) return;
-        const loaded = await this.load();
-        if (loaded === null) return;
-        loaded.counts[event] += 1;
-        await this.save(loaded);
+        await safely('record', undefined, () => this.update((state) => { state.counts[event] += 1; }));
     }
 
     /** Leitura para a tela de desenvolvimento; store de outra versão aparece vazio. */
     async read(): Promise<ConversionStateV1> {
-        return (await this.load()) ?? emptyState();
+        return safely('read', emptyState(), async () => (await this.load()) ?? emptyState());
+    }
+
+    /**
+     * Leitura e escrita em fila: contagens que chegam juntas (compra iniciada e
+     * concluída) não se sobrescrevem.
+     */
+    private update(change: (state: ConversionStateV1) => void): Promise<void> {
+        const run = this.queue.then(async () => {
+            const loaded = await this.load();
+            if (loaded === null) return;
+            change(loaded);
+            await this.save(loaded);
+        });
+        this.queue = run.catch(() => undefined);
+        return run;
     }
 
     /** `null`: o store é de uma versão mais nova (G7), e esta não o toca. */

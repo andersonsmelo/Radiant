@@ -64,7 +64,7 @@ type UnitCompleteCelebrationProps = {
   unit: CelebrationUnit | null;
   onContinue: () => void;
   feedback?: Pick<LessonFeedback, 'emit'> | null;
-  conversion?: Pick<ConversionService, 'takeInvite' | 'takeSample'>;
+  conversion?: Pick<ConversionService, 'peekInvite' | 'markInviteSeen' | 'takeSample'>;
 };
 
 /**
@@ -97,7 +97,12 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion
           <AppButton label="Continuar" variant="galaxy" onPress={onContinue} accessibilityLabel="Continuar" />
           {invite ? (
             <ConversionInvite moment="unit-complete" sampleAvailable={false}
-              onLearnMore={() => { onContinue(); router.push('/subscription'); }} />
+              onLearnMore={() => {
+                // Empilha a assinatura sob o Modal e só então o fecha: empilhar
+                // depois, com o Modal saindo, não foi visto no iOS (revisão da F8).
+                router.push('/subscription');
+                onContinue();
+              }} />
           ) : null}
         </View>
       </View>

@@ -74,3 +74,36 @@ Serviço restaurado da cópia; `grep -c DEFEITO` = 0.
 
 Esqueleto vazio: `Unable to find an element with text: Convite visto, sem vidas: 4` e
 `… desligada · nada é contado · nenhum convite ainda`.
+
+## Run 2: correções da revisão
+
+- **Tarefa 3, injeção refeita:** "com vidas, a folha não convida" com o `active` da
+  folha trocado por `true` (`/* DEFEITO INJETADO */`):
+  `expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull()`
+  falhou (176). A primeira tentativa usava um comentário `//` que engoliu o fim da linha
+  e não compilou (0 testes); essa não conta.
+- **"Sem quem receba as vidas novas, não oferece a amostra":** com
+  `{sampleAvailable ? (` no lugar de `{sampleAvailable && onSample ? (`, falhou na
+  linha 34.
+- **Serviço:** cinco testes novos, todos vermelhos antes:
+  - `peekInvite is not a function`;
+  - toque duplo: `Expected number of calls: 1 / Received number of calls: 2`;
+  - contagens simultâneas: `Expected: 2 / Received: 0`;
+  - falha de `setUnlimited`: a rejeição escapou;
+  - com `peekInvite` já criado, falha de disco:
+    `Received promise rejected instead of resolved / Rejected to value: [Error: sem acesso]`.
+- **Gancho:** com um dublê que reproduz o caminho antigo (marca depois de espiar, mesmo
+  com a folha fechada), "folha fechada antes da decisão" falhou com
+  `Expected number of calls: 0 / Received number of calls: 1` (43). Com o esqueleto vazio
+  de `useUnlimitedExpiry`, o aviso de expiração falhou com `Received number of calls: 0` (64).
+- **Pausa na folha:** "sem a tela dizer que é uma pausa, não convida" falhou antes da prop
+  `inviteAllowed` (195), e o texto "Só uma vez, sem custo" falhou no texto antigo (29).
+- **Meio da questão, nas telas:**
+  - com `setHeartsSheetInvites(true)` no caminho que barra a resposta, a aula falhou com
+    `Unable to find an element with text: convite: não`;
+  - com `inviteAllowed` injetado na avaliação, a avaliação falhou igual.
+
+  As duas telas foram restauradas da cópia; `grep -c DEFEITO` = 0.
+- **Comparação:** "não promete que todo erro gasta vida" falhou no texto antigo:
+  `Expected pattern: not /cada erro gasta/i / Received string: "5; cada erro gasta uma, …"`.
+  A guarda de comportamento dos números **não foi vista falhando** (ver `revisao.md`, achado 7).

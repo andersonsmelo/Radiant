@@ -143,7 +143,7 @@ describe('HeartsSheet — convite de assinatura (F8)', () => {
 
   it('sem vidas e chave ligada: convida, oferece a amostra e mantém Revisar e Voltar', async () => {
     const { service } = conversao(true);
-    const view = render(sheet({ conversion: service, onHeartsChanged: jest.fn() }));
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged: jest.fn() }));
     expect(await view.findByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeTruthy();
     expect(view.getByRole('button', { name: /Experimentar/ })).toBeTruthy();
     expect(view.getByRole('button', { name: 'Revisar agora' })).toBeTruthy();
@@ -153,7 +153,7 @@ describe('HeartsSheet — convite de assinatura (F8)', () => {
 
   it('Conhecer o Ilimitado segue para a assinatura pelo mesmo caminho do link', async () => {
     const onSubscribe = jest.fn();
-    const view = render(sheet({ conversion: conversao(true).service, onSubscribe }));
+    const view = render(sheet({ inviteAllowed: true, conversion: conversao(true).service, onSubscribe }));
     fireEvent.press(await view.findByRole('button', { name: 'Conhecer o Ilimitado' }));
     expect(onSubscribe).toHaveBeenCalledTimes(1);
   });
@@ -161,7 +161,7 @@ describe('HeartsSheet — convite de assinatura (F8)', () => {
   it('a amostra entrega as vidas novas à tela que montou a folha', async () => {
     const { service, hearts, unlimited } = conversao(true);
     const onHeartsChanged = jest.fn();
-    const view = render(sheet({ conversion: service, onHeartsChanged }));
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged }));
     const amostra = await view.findByRole('button', { name: /Experimentar/ });
     await act(async () => { fireEvent.press(amostra); });
     expect(hearts.setUnlimited).toHaveBeenCalledTimes(1);
@@ -171,7 +171,7 @@ describe('HeartsSheet — convite de assinatura (F8)', () => {
   it('com vidas, a folha não convida', async () => {
     const { service, disco } = conversao(true);
     const snapshot: HeartsSnapshot = { ...recovering, count: 2, status: 'recovering' };
-    const view = render(sheet({ conversion: service, snapshot }));
+    const view = render(sheet({ inviteAllowed: true, conversion: service, snapshot }));
     expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
     expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
     expect(disco.setItem).not.toHaveBeenCalled();
@@ -179,17 +179,27 @@ describe('HeartsSheet — convite de assinatura (F8)', () => {
 
   it('reaberta no mesmo dia, volta ao link de sempre', async () => {
     const { service } = conversao(true);
-    const first = render(sheet({ conversion: service }));
+    const first = render(sheet({ inviteAllowed: true, conversion: service }));
     await first.findByText('Com o Radiant Ilimitado, errar não gasta vida.');
+    await act(async () => {});
     first.unmount();
-    const second = render(sheet({ conversion: service }));
+    const second = render(sheet({ inviteAllowed: true, conversion: service }));
     expect(await second.findByText('Vidas ilimitadas')).toBeTruthy();
     expect(second.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
   });
 
+  it('sem a tela dizer que é uma pausa, não convida: nunca no meio de uma questão', async () => {
+    const { service, disco } = conversao(true);
+    const view = render(sheet({ conversion: service, onHeartsChanged: jest.fn() }));
+    expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
+    await act(async () => {});
+    expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
+    expect(disco.setItem).not.toHaveBeenCalled();
+  });
+
   it('desligada (contraprova): o link da main, sem convite e sem escrever a chave', async () => {
     const { service, disco, dados } = conversao(false);
-    const view = render(sheet({ conversion: service, onHeartsChanged: jest.fn() }));
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged: jest.fn() }));
     expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
     expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
     expect(view.queryByRole('button', { name: /Experimentar/ })).toBeNull();
