@@ -310,3 +310,25 @@ Tests:       1 failed, 23 passed, 24 total
     ✕ reset no meio de um sync não é desfeito pela gravação atrasada (1 ms)
 Tests:       1 failed, 15 passed, 16 total
 ```
+
+## 17. Achado do Codex na PR #75: recompensa opcional contava para concluir a unidade
+
+`progressFromSources` filtrava só `review`, enquanto `computeUnitPrimaryProgress` e
+`isTrackCompleted` usam `isRequiredProgressionNode`, que exclui também a recompensa com
+`optionalForProgression`. A trilha mostrava a unidade concluída e Escudo, Nebulosa e Rastro azul
+continuavam travados. Correção: a mesma função, importada de `trackCompletion.ts`.
+
+```
+### antes da correção (filtro só de revisão)
+    ✕ recompensa opcional não coletada não tira a unidade; recompensa sem a marca continua obrigatória (1 ms)
+    Expected: 1
+    Received: 0
+Tests:       1 failed, 16 skipped, 17 total
+### correção larga demais injetada (exclui toda recompensa, inclusive sem a marca)
+    ✕ recompensa opcional não coletada não tira a unidade; recompensa sem a marca continua obrigatória (1 ms)
+    Expected: 1
+    Received: 2
+Tests:       1 failed, 16 skipped, 17 total
+### com isRequiredProgressionNode
+Tests:       17 passed, 17 total
+```

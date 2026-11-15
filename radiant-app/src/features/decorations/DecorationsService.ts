@@ -9,6 +9,7 @@ import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { rawHasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import { DECORATIONS, type DecorationSlot } from './catalog';
 import { levelFromXp } from '../gamification/services/levelFromXp';
+import { isRequiredProgressionNode } from '../journey/services/trackCompletion';
 import type { CurriculumTrail } from '../journey/services/JourneyCurriculumService';
 import { availableIds, newlyEarned, resolveEquipped, type DecorationProgress, type EquippedDecorations, type EquippedIds } from './unlocks';
 
@@ -138,8 +139,8 @@ export function progressFromSources(
     const lessons = units.flatMap(u => u.nodes).filter(n => n.type === 'lesson');
     return {
         lessonsCompleted: lessons.filter(n => n.status === 'completed').length,
-        // A revisão não conta para concluir (ADR 2026-10-16): uma revisão que vence de novo não tira a unidade.
-        unitsCompleted: units.map(u => u.nodes.filter(n => n.type !== 'review'))
+        // A régua da trilha (revisão e recompensa opcional não contam): a mesma de `computeUnitPrimaryProgress`.
+        unitsCompleted: units.map(u => u.nodes.filter(isRequiredProgressionNode))
             .filter(nodes => nodes.length > 0 && nodes.every(n => n.status === 'completed')).length,
         streakDays: gamification.streakDays,
         allMissionsDoneToday: missions.length > 0 && missions.every(m => m.done),

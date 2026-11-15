@@ -26,6 +26,7 @@ Um subagente que não escreveu o código revisou `741c3e3..938e850` e pediu muda
 | M1 | Textos da tela sem `key` por `fontScale` | Aplicado |
 | M2 | Chave do último agendamento em três literais | Uma constante para o agendador e o contexto; o `PushService` mantém a dele |
 | M4 | Resposta guardada podia repetir a navegação | `clearLastNotificationResponse` depois de tratar |
+| Codex (PR #75) | Unidade com recompensa opcional não coletada não contava como concluída nas decorações, embora a trilha a mostrasse concluída | Corrigido: `progressFromSources` usa `isRequiredProgressionNode`, a régua da trilha (seção 17 do `vermelho.md`) |
 | M3, M5, M6, M7 | Tipos visíveis com o geral desligado; toque durante a aula; revisão não conta como estudo; retorno segue "aula" | Registrados na ADR como decisão do dono |
 
 Durante a contraprova, achei também a fila do serviço de decorações presa por uma leitura que

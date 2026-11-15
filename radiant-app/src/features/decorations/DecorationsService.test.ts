@@ -116,6 +116,15 @@ describe('progressFromSources', () => {
     expect(p).toEqual({ lessonsCompleted: 2, unitsCompleted: 1, streakDays: 4, allMissionsDoneToday: false, level: 3 });
   });
 
+  it('recompensa opcional não coletada não tira a unidade; recompensa sem a marca continua obrigatória', () => {
+    const optionalReward = { ...node('reward', 'available'), optionalForProgression: true };
+    const p = progressFromSources(trail([
+      [node('lesson', 'completed'), node('checkpoint', 'completed'), optionalReward],
+      [node('lesson', 'completed'), node('reward', 'available')],
+    ]), { streakDays: 0, totalXp: 0 }, []);
+    expect(p.unitsCompleted).toBe(1);
+  });
+
   it('missões: todas feitas conta; lista vazia (fonte que falhou) não conta', () => {
     const empty = trail([]);
     expect(progressFromSources(empty, { streakDays: 0, totalXp: 0 }, [{ done: true }, { done: true }, { done: true }]).allMissionsDoneToday).toBe(true);
