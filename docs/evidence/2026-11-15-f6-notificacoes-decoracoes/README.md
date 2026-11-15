@@ -43,6 +43,13 @@ Todos no Node 20.20.2 (`node --version` conferido), na worktree `f6-notificacoes
 - `loop validate` (Node 24.14.1, run `run-1794756566107-d8930530`): `VALIDATION_PASSED`, 15 de 15
   validadores, com `app-quality` em 132 s e `app-test` em 120 s.
 
+- Depois do achado do Codex (`030d017`): `npm run quality` com saída 0, 244 suítes e 3228 testes;
+  `loop validate` 15 de 15.
+- Depois de mesclar a `main` duas vezes (F2 e F1 em `74d685b`, widgets em `fcd4a8e`; merge
+  `bb41b3e`): `npm run quality` com saída 0, **253 suítes e 3345 testes**, depois de `npm ci`
+  (a primeira rodada reprovou só `widgetsPlugin.test.ts`, porque a dependência nova dos widgets não
+  estava instalada nesta worktree).
+
 ## No simulador
 
 Simulador próprio "Radiant F6" (`84B8865C`, iPhone 17 Pro, iOS 26.5), com o cliente de
