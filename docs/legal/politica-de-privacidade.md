@@ -6,7 +6,7 @@
 > recomendada como boa prática, mas não bloqueia a publicação — o conteúdo
 > reflete fielmente o tratamento de dados atual.
 
-**Última atualização:** 2026-10-19
+**Última atualização:** 2026-11-15
 **Aplicativo:** Radiant — aplicativo educacional de radiologia
 **Controlador dos dados:** Anderson Melo (pessoa física)
 **Contato para privacidade:** anderson.smelo94@gmail.com
@@ -99,7 +99,18 @@ quando for ativado (por exemplo, durante o beta, para monitorar estabilidade),
 esta política já o cobre; a data de "Última atualização" será revista caso o
 tratamento mude de forma relevante.
 
-### 4.3. Lojas de aplicativos
+### 4.3. Liga da semana (Game Center da Apple) — opcional
+
+Se você entrar no Game Center da Apple, o Radiant envia à Apple o total de XP
+que você ganhou na semana, para montar a liga. A Apple mostra aos outros
+participantes só o seu apelido do Game Center, a sua posição e o seu XP. O
+Radiant não recebe seu nome, e-mail ou identificador da Apple, e não guarda
+esses dados em servidor próprio. Entrar no Game Center é opcional e não muda
+nada no seu estudo. O tratamento desses dados segue os termos e a política de
+privacidade da Apple. A aba "Amigos" da liga só lê a sua lista de amigos do
+Game Center se você permitir, e mostra apenas o apelido de cada um.
+
+### 4.4. Lojas de aplicativos
 
 O download e a distribuição do app são feitos pela **App Store (Apple)** e pelo
 **Google Play (Google)**, que tratam dados conforme as suas próprias políticas de
@@ -132,7 +143,7 @@ aplicativo**, conforme exigido pelas lojas.
 
 Nós **não vendemos e não compartilhamos** seus dados para fins de marketing. O
 único compartilhamento possível é o processamento técnico pelos terceiros da
-seção 4 (Expo e, quando ativo, Sentry), estritamente para operar e manter o app.
+seção 4 (Expo, a Apple pelo Game Center se você entrar nele e, quando ativo, Sentry), estritamente para operar e manter o app.
 
 ## 8. Retenção e como apagar seus dados
 
@@ -175,7 +186,7 @@ a superfície de exposição em trânsito é mínima. Quando houver transmissão
 
 ## 12. Transferência internacional
 
-Os terceiros da seção 4 (Expo e, quando ativo, Sentry) podem processar os
+Os terceiros da seção 4 (Expo, a Apple pelo Game Center quando você entra nele e, quando ativo, Sentry) podem processar os
 metadados técnicos em servidores **fora do Brasil** (por exemplo, nos Estados
 Unidos). Nesses casos, o tratamento se limita ao necessário para operar o app e
 segue as salvaguardas aplicáveis.

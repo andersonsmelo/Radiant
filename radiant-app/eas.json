@@ -84,6 +84,12 @@
         "EXPO_PUBLIC_ENABLE_PUSH": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
         "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "off",
+        "EXPO_PUBLIC_ENABLE_RICH_FEEDBACK": "true",
+        "EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS": "true",
+        "EXPO_PUBLIC_ENABLE_DECORATIONS": "true",
+        "EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS": "true",
+        "EXPO_PUBLIC_ENABLE_LEAGUE": "true",
+        "EXPO_PUBLIC_ENABLE_WIDGETS": "true",
         "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       },
       "ios": {
