@@ -1,0 +1,75 @@
+# Vermelho do retrato — 2026-11-15 14:14 -03, Node v20.20.2, contra a versão ingênua (sequência crua, uma entrada, meta sem data)
+    ✓ declara a versão do esquema e leva a próxima aula (1 ms)
+    ✓ estudou hoje: a primeira entrada vale agora e hoje conta (1 ms)
+    ✕ à meia-noite local, sem o app abrir, hoje deixa de contar e a meta zera (1 ms)
+    ✕ dois dias sem estudo e sem proteção: a sequência aparece zerada, não a velha
+    ✕ um dia perdido com proteção guardada: a sequência continua de pé (1 ms)
+    ✕ meta gravada num dia anterior conta zero hoje (1 ms)
+    ✕ nunca estudou: sequência zero, não o 1 padrão do store
+    ✕ estudou ontem: hoje ainda não conta, mas a sequência vale
+    Expected: {"countsToday": false, "goalCompleted": 0, "goalTarget": 3, "startsAt": 1794798000000, "streakDays": 5}
+    Received: undefined
+    Expected: {"countsToday": false, "goalCompleted": 0, "goalTarget": 3, "startsAt": 1794884400000, "streakDays": 0}
+    Received: undefined
+    - Expected  - 12
+    + Received  +  0
+    Expected: 0
+    Received: 2
+    - Expected  - 1
+    + Received  + 1
+    - Expected  - 1
+    + Received  + 1
+Tests:       6 failed, 2 passed, 8 total
+
+
+# Vermelho 2 — 14:14, contra a primeira implementação, que parava no primeiro dia igual ao anterior
+    ✓ declara a versão do esquema e leva a próxima aula (1 ms)
+    ✓ estudou hoje: a primeira entrada vale agora e hoje conta (1 ms)
+    ✓ à meia-noite local, sem o app abrir, hoje deixa de contar e a meta zera
+    ✓ dois dias sem estudo e sem proteção: a sequência aparece zerada, não a velha
+    ✕ um dia perdido com proteção guardada: a sequência continua de pé (1 ms)
+    ✓ meta gravada num dia anterior conta zero hoje
+    ✓ nunca estudou: sequência zero, não o 1 padrão do store
+    ✓ estudou ontem: hoje ainda não conta, mas a sequência vale (1 ms)
+    ✕ dia igual ao anterior não encerra a linha do tempo: a quebra que vem depois ainda entra
+    - Expected  - 8
+    + Received  + 0
+          1794798000000,
+          5,
+    -   Array [
+    -     1794884400000,
+    -     5,
+    -   ],
+    -   Array [
+    -     1794970800000,
+    -     0,
+    -   ],
+      47 |     it('um dia perdido com proteção guardada: a sequência continua de pé', () => {
+      48 |         const { entries } = buildWidgetSnapshot({ ...base, freezes: 1 }, NOW);
+      50 |             [NOW.getTime(), 5],
+      51 |             [midnight(1), 5],
+      52 |             [midnight(2), 5],
+    - Expected  - 4
+    + Received  + 0
+          1794762000000,
+          5,
+
+# Vermelho 3 — 14:41, TZ=America/New_York, achados 5 e 8 da revisão independente: último estudo no futuro; meia-noite verificada pela hora local (não pela mesma conta da implementação)
+    ✕ último estudo "no futuro" (viagem para oeste, relógio atrasado): hoje conta, não zera (2 ms)
+    ✕ cada virada cai na meia-noite local, mesmo no dia em que o relógio muda
+    - Expected  - 2
+    + Received  + 2
+    Expected: > 0
+    Received:   0
+Tests:       2 failed, 9 passed, 11 total
+# Nota: o vermelho 3 acima do teste da meia-noite falhou pelo motivo errado (o último estudo, 15/11, ficava no futuro em relação a 31/10, e não havia virada). A entrada foi corrigida para 31/10.
+
+# Vermelho 4 — 14:42, TZ=America/New_York, contra uma implementação defeituosa TEMPORÁRIA que soma 24 h a partir da primeira meia-noite (o defeito de horário de verão que o teste nomeia)
+    ✓ à meia-noite local, sem o app abrir, hoje deixa de contar e a meta zera (1 ms)
+    ✕ cada virada cai na meia-noite local, mesmo no dia em que o relógio muda (1 ms)
+    - Expected  - 1
+    + Received  + 1
+    -   0,
+    +   23,
+        0,
+Tests:       1 failed, 9 skipped, 1 passed, 11 total

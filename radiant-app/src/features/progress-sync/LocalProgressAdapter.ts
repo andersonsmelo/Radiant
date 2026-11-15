@@ -7,6 +7,7 @@ import { GamificationService } from '../gamification/services/GamificationServic
 import { HeartsRepository } from '../hearts/HeartsRepository';
 import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 import type { LocalProgressPort, ProgressBackup } from './progressSync.types';
+import { refreshWidgets } from '../widgets/WidgetBridge';
 
 type Storage = Pick<typeof AsyncStorage, 'getItem' | 'setItem'>;
 type Gamification = {
@@ -93,6 +94,7 @@ export class LocalProgressAdapter implements LocalProgressPort {
         await this.applySchedule(merged);
         await this.applyHearts(merged);
         await this.gamification.absorbBackup({ totalXp: merged.totalXp, streakDays: merged.streakDays });
+        void refreshWidgets();
     }
 
     private async applyJourney(merged: ProgressBackup): Promise<void> {

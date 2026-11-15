@@ -18,6 +18,7 @@ import type { JourneySnapshot } from '../../../types/journey';
 import { QuizService } from '../services/QuizService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { refreshWidgets } from '../../widgets/WidgetBridge';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { MAX_HEARTS } from '../../hearts/HeartsService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
@@ -223,6 +224,7 @@ export function useQuiz(
                     setXpAward(award);
                     void DailyGoalService.recordXp(award.totalXpAwarded, result.answeredAt).then((afterSnapshot) => {
                         if (afterSnapshot.isCompleted) setDailyGoalJustCompleted(true);
+                        void refreshWidgets();
                     });
                 });
             } catch (error) {
@@ -242,6 +244,7 @@ export function useQuiz(
                 completionPromise
                     .then((snapshot) => {
                         setJourneySnapshot(snapshot);
+                        void refreshWidgets();
                     })
                     .catch((error) => {
                         console.error('[useQuiz] Error syncing journey progress:', error);

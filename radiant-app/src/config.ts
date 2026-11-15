@@ -38,6 +38,10 @@ export const AppConfig = {
     // (ADR 2026-09-23, decisões do dono).
     ENABLE_REVIEW: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVIEW, true),
 
+    // Widgets da tela inicial do iOS (ADR 2026-11-15). Desligada por padrão; a
+    // mesma variável liga o alvo no prebuild (`plugins/with-widgets.js`).
+    ENABLE_WIDGETS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_WIDGETS, false),
+
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),
     BETA_INVITE_CODE: process.env.EXPO_PUBLIC_BETA_INVITE_CODE ?? 'RADIANT2025',

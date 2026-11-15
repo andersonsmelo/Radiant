@@ -1,0 +1,12 @@
+# Gate da F5 — 2026-11-15
+
+## cd radiant-app && EXPO_NO_DOTENV=1 npm run quality (Node v20.20.2), segunda execução, depois dos consertos
+Saída: 0. Carga ao começar: 5,35.
+✖ 21 problems (0 errors, 21 warnings)
+Test Suites: 235 passed, 235 total
+Tests:       3114 passed, 3114 total
+Contratos node --test: 17 blocos, todos com '# fail 0'.
+Os 21 avisos do lint são de arquivos que esta mudança não toca (AnimatedCounter, Confetti, PixelFace e outros).
+
+A primeira execução (exit 1, 2 suítes reprovadas por esta mudança) está descrita em revisao.md.
+Contagem com os arquivos da entrega na árvore; a árvore não tinha arquivo de outra sessão.
