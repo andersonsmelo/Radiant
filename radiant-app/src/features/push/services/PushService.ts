@@ -4,6 +4,8 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PushConfig } from '../../../config/push';
+import { AppConfig } from '../../../config';
+import { schedulePersonalizedReminder } from '../personalized/scheduleReminder';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
@@ -186,6 +188,14 @@ class PushServiceImpl {
                 // Silent block
                 return;
             }
+        }
+
+        // F6 (ADR 2026-11-15): com a flag, o conteúdo e o horário vêm do contexto do
+        // aluno, e aceite ou permissão ausentes cancelam o pendente. Desligada, nada muda.
+        if (AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS) {
+            const outcome = await schedulePersonalizedReminder(await getNotifications(), { optedIn: (await this.getOptInUnlocked()) === true });
+            await this.logDecision(context.reason, `personalized_${outcome}`);
+            return;
         }
 
         // 1. Check Opt-in

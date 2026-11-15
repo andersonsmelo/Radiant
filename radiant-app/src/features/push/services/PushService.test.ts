@@ -176,3 +176,61 @@ describe('PushService — transação inteira entre portas', () => {
     await expect(PushService.cancelAll()).resolves.toBeUndefined();
   });
 });
+
+jest.mock('../personalized/reminderContext', () => ({ gatherReminderContext: jest.fn() }));
+
+// F6 da 1.6 (ADR 2026-11-15). A flag nasce desligada: o caso desligado é a contraprova
+// de que o lembrete da 1.5.0 continua exatamente o mesmo.
+describe('PushService — lembrete personalizado atrás de ENABLE_PERSONALIZED_NOTIFICATIONS', () => {
+  const { AppConfig } = require('../../../config') as typeof import('../../../config');
+  const gather = jest.requireMock('../personalized/reminderContext').gatherReminderContext as jest.Mock;
+  const original = AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS;
+
+  beforeEach(async () => {
+    jest.clearAllMocks();
+    storage.getItem.mockImplementation(originalRead); storage.setItem.mockImplementation(originalWrite);
+    await AsyncStorage.clear();
+    await AsyncStorage.setItem('push.optin.v1', 'true');
+    notifications.getPermissionsAsync.mockResolvedValue({ status: 'granted' } as never);
+    notifications.scheduleNotificationAsync.mockResolvedValue('id-1');
+    dailyGoal.getSnapshot.mockResolvedValue({ isCompleted: false } as never); spacedRepetition.getDueLessons.mockResolvedValue([]);
+    jest.useFakeTimers({ doNotFake: ['setImmediate', 'nextTick', 'queueMicrotask'], now: new Date(2026, 10, 15, 10) });
+    gather.mockResolvedValue({
+      now: new Date(2026, 10, 15, 10), lastStudyDateKey: '2026-11-14', streakDays: 1, dueReviews: 0, nextLessonTitle: 'Colimação',
+      goalCompletedToday: false, usualHour: 20, league: null, firedTodayAlready: false,
+      preferences: { sequencia: true, revisao: true, aula: true, meta: true, liga: true },
+    });
+  });
+  afterEach(() => { AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = original; jest.useRealTimers(); });
+
+  it('padrão desligado', () => {
+    expect(original).toBe(false);
+  });
+
+  it('desligada (contraprova): o lembrete é o da 1.5.0, sem rota nem identificador', async () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = false;
+    await PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
+    expect(gather).not.toHaveBeenCalled();
+    const [request] = notifications.scheduleNotificationAsync.mock.calls[0];
+    expect(request.content.data).toEqual({ type: 'goal' });
+    expect(request).not.toHaveProperty('identifier');
+  });
+
+  it('ligada: o texto e o horário vêm do contexto do aluno, e o toque leva à rota', async () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = true;
+    await PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
+    expect(spacedRepetition.getDueLessons).not.toHaveBeenCalled();
+    expect(notifications.scheduleNotificationAsync).toHaveBeenCalledTimes(1);
+    const [request] = notifications.scheduleNotificationAsync.mock.calls[0];
+    expect(request).toMatchObject({ identifier: 'radiant.lembrete.personalizado', content: { title: 'Próxima aula: Colimação', data: { url: '/', kind: 'aula' } } });
+    expect((request.trigger as { date: Date }).date).toEqual(new Date(2026, 10, 15, 20));
+  });
+
+  it('ligada e sem aceite: cancela e não agenda', async () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = true;
+    await AsyncStorage.setItem('push.optin.v1', 'false');
+    await PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
+    expect(notifications.cancelAllScheduledNotificationsAsync).toHaveBeenCalled();
+    expect(notifications.scheduleNotificationAsync).not.toHaveBeenCalled();
+  });
+});

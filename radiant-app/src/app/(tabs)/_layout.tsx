@@ -5,8 +5,11 @@ import { HapticTab } from '@/components/haptic-tab';
 import { ProfileTabIcon, StudyTabIcon } from '@/src/ui/components/TabIcons';
 import { radius, space } from '@/src/ui/styles';
 import { galaxyColors } from '@/src/ui/theme';
+import { useNotificationRouting } from '@/src/features/push/personalized/useNotificationRouting';
 
 export default function TabLayout() {
+  // F6: toque no lembrete personalizado abre a rota dele (só com a flag ligada).
+  useNotificationRouting();
   return (
     <Tabs
       screenOptions={{

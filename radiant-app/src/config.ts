@@ -38,6 +38,11 @@ export const AppConfig = {
     // (ADR 2026-09-23, decisões do dono).
     ENABLE_REVIEW: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVIEW, true),
 
+    // F6 da 1.6 (ADR 2026-11-15): lembrete com o contexto do aluno e decorações
+    // do perfil. Desligadas, o app é o da 1.5.0; só o dono as liga.
+    ENABLE_PERSONALIZED_NOTIFICATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS, false),
+    ENABLE_DECORATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DECORATIONS, false),
+
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),
     BETA_INVITE_CODE: process.env.EXPO_PUBLIC_BETA_INVITE_CODE ?? 'RADIANT2025',
