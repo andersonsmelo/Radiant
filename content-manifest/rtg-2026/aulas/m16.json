@@ -1,0 +1,2086 @@
+{
+ "schemaVersion": 1,
+ "unit": {
+  "id": "m16",
+  "code": "M16",
+  "title": "A condição do paciente na aquisição",
+  "summary": "Dor, falta de ar, gestação, isolamento e imagem fora do padrão: o aluno adapta o que o protocolo permite e, na dúvida, para e chama a equipe."
+ },
+ "sources": [
+  {
+   "id": "cdc-precaucoes-transmissao",
+   "title": "Transmission-Based Precautions (Isolation Precautions in Healthcare Settings)",
+   "publisher": "CDC",
+   "url": "https://www.cdc.gov/infection-control/hcp/isolation-precautions/precautions.html",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página do CDC, domínio público dos EUA; consultada para fatos, com redação própria."
+  },
+  {
+   "id": "hps-gestante-radiologia",
+   "title": "Radiation and pregnancy: perguntas e respostas para radiologia",
+   "publisher": "Health Physics Society",
+   "url": "https://hps.org/physicians/radiology_pregnant_patient_qa/",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página institucional; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "radiologyinfo-torax",
+   "title": "Radiografia do tórax (Chest X-ray)",
+   "publisher": "RadiologyInfo.org (RSNA e ACR)",
+   "url": "https://www.radiologyinfo.org/en/info/chestrad",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página institucional para pacientes; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "radiologyinfo-osso",
+   "title": "Radiografia óssea (Bone X-ray)",
+   "publisher": "RadiologyInfo.org (RSNA e ACR)",
+   "url": "https://www.radiologyinfo.org/en/info/bonerad",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página institucional para pacientes; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "radiologyinfo-contraste",
+   "title": "Contrast Materials",
+   "publisher": "RadiologyInfo.org (RSNA e ACR)",
+   "url": "https://www.radiologyinfo.org/en/info/safety-contrast",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página de orientação ao paciente; consultada para o que informar antes do exame, sem reprodução de texto."
+  },
+  {
+   "id": "radiopaedia-torax-ap",
+   "title": "Chest (AP erect view)",
+   "publisher": "Radiopaedia.org",
+   "url": "https://radiopaedia.org/articles/chest-ap-erect-view-1",
+   "accessedAt": "2026-11-06",
+   "use": "factual-reference",
+   "licenseNote": "Fonte da M08.05, citada aqui só para a recuperação do que aquela aula ensinou; licença restritiva, sem reprodução de texto."
+  }
+ ],
+ "lessons": [
+  {
+   "id": "m16-01",
+   "code": "M16.01",
+   "title": "Condição clínica não é diagnóstico",
+   "objective": "Hoje você vai conseguir separar o que a solicitação informa do que cabe a outro profissional decidir.",
+   "competency": "Separar o que a solicitação informa do que o tecnólogo decide.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de radiografia do serviço-escola",
+    "lines": [
+     {
+      "speaker": "paciente",
+      "text": "A médica escreveu que é por causa da minha dor no ombro. Então você já sabe o que eu tenho, não é?",
+      "name": "Dona Marta"
+     },
+     {
+      "speaker": "duda",
+      "text": "Está no pedido: dor no ombro depois de uma queda. Eu até ia dizer o que me parece que é."
+     },
+     {
+      "speaker": "lia",
+      "text": "Duda, o pedido informa a queixa. Dar nome ao que a pessoa tem é tarefa de quem?"
+     },
+     {
+      "speaker": "pixel",
+      "text": "Vamos separar duas coisas: o que chega escrito e o que outros profissionais decidem."
+     }
+    ]
+   },
+   "concept": {
+    "title": "O pedido informa, não decide",
+    "body": "A solicitação traz a história clínica que a equipe tem: a queixa, o que aconteceu e o motivo do exame. Você lê esses dados para entender o que a pessoa sente e quais cuidados a sala pede. Ela não pede que você descubra o que a pessoa tem. Quem interpreta as imagens é o radiologista, e quem conversa sobre o resultado com a pessoa é o médico que a acompanha. Trocar o exame pedido também não cabe a você. Se o pedido e o relato da pessoa não combinam, descreva o que encontrou e peça apoio à equipe.",
+    "keyPoints": [
+     "O pedido informa a queixa e o motivo; você usa isso para cuidar da sala.",
+     "Nomear a doença, trocar o exame e explicar o resultado são decisões de outros.",
+     "Pedido e relato que não combinam: descrever e pedir apoio."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na triagem do contraste, o paciente contou uma alergia. O que essa informação pedia de você?",
+     "options": [
+      {
+       "label": "Concluir sozinho que o exame está proibido.",
+       "correct": false,
+       "feedback": "Proibir é decidir pela equipe. Retome: a triagem registra e avisa, sem veredito."
+      },
+      {
+       "label": "Concluir sozinho que o exame está liberado.",
+       "correct": false,
+       "feedback": "Liberar sem avaliação também é decidir sozinho. Confira de novo o papel da triagem."
+      },
+      {
+       "label": "Anotar com as palavras da pessoa e avisar a equipe antes de seguir.",
+       "correct": true,
+       "feedback": "Isso: você registra e avisa, e quem avalia é a equipe."
+      },
+      {
+       "label": "Deixar de anotar, porque a equipe já conhece o paciente.",
+       "correct": false,
+       "feedback": "Sem a anotação, a equipe pode não ver a informação. Retome o que a triagem pede."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-contraste"
+     ],
+     "help": "Lembre: na triagem, você registra ou veredita?"
+    },
+    {
+     "id": "i2",
+     "type": "categorize",
+     "role": "practice",
+     "prompt": "Classifique cada item: ele vem da solicitação ou é decisão de outro profissional?",
+     "categories": [
+      "Informação da solicitação",
+      "Decisão de outro profissional"
+     ],
+     "items": [
+      {
+       "label": "Queda de escada com dor no punho",
+       "category": "Informação da solicitação"
+      },
+      {
+       "label": "Uso de anticoagulante anotado no pedido",
+       "category": "Informação da solicitação"
+      },
+      {
+       "label": "Tosse há três dias, descrita no pedido",
+       "category": "Informação da solicitação"
+      },
+      {
+       "label": "Dizer à paciente qual é o diagnóstico",
+       "category": "Decisão de outro profissional"
+      },
+      {
+       "label": "Trocar o exame pedido por outro",
+       "category": "Decisão de outro profissional"
+      },
+      {
+       "label": "Interpretar as imagens e escrever o laudo",
+       "category": "Decisão de outro profissional"
+      }
+     ],
+     "feedbackCorrect": "Você separou o que o pedido registra do que outros profissionais decidem.",
+     "feedbackIncorrect": "Pergunte de cada item: é um dado da pessoa escrito no pedido, ou uma escolha que nomeia a doença ou muda o exame?",
+     "help": "O pedido descreve a situação. Quem decide o quê?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre a solicitação e o seu papel.",
+     "statements": [
+      {
+       "text": "O pedido pode trazer a queixa e o motivo do exame.",
+       "correct": true,
+       "feedback": "Certo: queixa e história são dados que a equipe registrou para o exame."
+      },
+      {
+       "text": "Quem lê o pedido já pode dizer à pessoa o que ela tem, para tranquilizá-la.",
+       "correct": false,
+       "feedback": "Errado: ler a queixa não é diagnosticar. O resultado é conversado pelo médico que acompanha a pessoa."
+      },
+      {
+       "text": "Se o pedido e o relato divergem, você descreve a diferença e pede apoio.",
+       "correct": true,
+       "feedback": "Certo: você não corrige o pedido sozinho; descreve o que encontrou e a equipe decide."
+      }
+     ],
+     "feedbackCorrect": "Você separou ler o pedido de decidir sobre ele.",
+     "feedbackIncorrect": "Releia o conceito: o pedido informa a situação, e nomear a doença ou mudar o exame cabe a outros profissionais.",
+     "help": "Ler a queixa é o mesmo que concluir sobre ela?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a sua resposta?",
+     "options": [
+      {
+       "label": "Acolher e dizer que o médico dele fala do resultado.",
+       "correct": true,
+       "feedback": "Isso: você acolhe e leva a conversa sobre o resultado a quem cabe."
+      },
+      {
+       "label": "Dizer que provavelmente é algo simples, só para acalmá-lo agora.",
+       "correct": false,
+       "feedback": "Antecipar uma causa é dar diagnóstico sem ser o profissional que decide. Retome o conceito."
+      },
+      {
+       "label": "Dizer que vai olhar as imagens e contar na saída do exame.",
+       "correct": false,
+       "feedback": "Comentar as imagens é interpretar, e isso cabe ao radiologista. Confira de novo."
+      },
+      {
+       "label": "Ficar em silêncio e seguir o exame, sem responder a nada.",
+       "correct": false,
+       "feedback": "Silêncio deixa a preocupação sem acolhida. Retome: acolher cabe a você, o resultado não."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "context": "Seu Jorge entrega o pedido de radiografia do tórax, com a queixa 'tosse e febre'. Ele pergunta, ansioso: 'Moço, é coisa grave? Você já me diz o que eu tenho?'",
+     "help": "Acolher é seu; diagnosticar, não.",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "O pedido é de radiografia do punho, com a queixa 'dor depois de queda'. A paciente aponta o tornozelo como o lugar que dói. O que você faz?",
+     "options": [
+      {
+       "label": "Radiografa o tornozelo, porque a paciente sabe onde dói e fala.",
+       "correct": false,
+       "feedback": "Mudar a região é mudar o exame pedido, e isso não cabe a você. Retome o conceito."
+      },
+      {
+       "label": "Radiografa o punho, porque o pedido é o documento oficial.",
+       "correct": false,
+       "feedback": "Seguir o pedido ignora a divergência que você viu. Descreva-a à equipe antes de expor."
+      },
+      {
+       "label": "Corrige o pedido por conta própria e segue com o exame.",
+       "correct": false,
+       "feedback": "Corrigir o registro sozinho tira da equipe a decisão. Descreva e peça apoio."
+      },
+      {
+       "label": "Descreve a diferença à equipe e aguarda antes de expor.",
+       "correct": true,
+       "feedback": "Isso: pedido e relato divergem, então você descreve e a equipe decide."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "help": "Quem decide quando pedido e relato não combinam?"
+    }
+   ],
+   "closing": {
+    "title": "Você lê, a equipe decide",
+    "body": "Agora você consegue separar o que a solicitação informa do que outros profissionais decidem: nomear a doença, trocar o exame e explicar o resultado ficam com eles. Quando pedido e relato não combinam, você descreve o que encontrou e chama a equipe.",
+    "line": {
+     "speaker": "lia",
+     "text": "Saber o que não é seu faz parte de cuidar bem."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma solicitação traz a queixa 'dor no ombro depois de queda'. O que você faz com essa informação?",
+     "options": [
+      {
+       "label": "Diz à paciente qual é a causa provável da dor dela.",
+       "correct": false,
+       "feedback": "Nomear a causa é diagnóstico, e não é seu papel. Retome o conceito."
+      },
+      {
+       "label": "Usa para cuidar da sala, sem nomear a causa.",
+       "correct": true,
+       "feedback": "Isso: a queixa orienta o cuidado, não a conclusão."
+      },
+      {
+       "label": "Troca o exame pelo que acha mais indicado.",
+       "correct": false,
+       "feedback": "Trocar o exame é decisão de outro profissional. Confira de novo o conceito."
+      },
+      {
+       "label": "Ignora a queixa e confere só o nome do exame.",
+       "correct": false,
+       "feedback": "A queixa ajuda a preparar a sala. Retome o que o pedido informa."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "prompt": "Logo depois da imagem, a paciente pergunta qual é o resultado. Qual resposta é adequada?",
+     "options": [
+      {
+       "label": "Comentar o que parece estar na imagem, para tranquilizá-la.",
+       "correct": false,
+       "feedback": "Comentar a imagem é interpretar. Retome quem interpreta."
+      },
+      {
+       "label": "Dizer o diagnóstico mais provável, com bastante cautela.",
+       "correct": false,
+       "feedback": "Um diagnóstico com cautela ainda é diagnóstico. Confira de novo o conceito."
+      },
+      {
+       "label": "Pedir que ela volte outro dia, sem explicar.",
+       "correct": false,
+       "feedback": "Sem explicação, a paciente fica sem saber a quem recorrer. Informe quem conversa com ela."
+      },
+      {
+       "label": "Explicar que o radiologista interpreta e o médico dela conversa.",
+       "correct": true,
+       "feedback": "Isso: você informa quem interpreta e quem conversa com ela."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o pedido informa a queixa, e quem interpreta as imagens é o...",
+     "item": {
+      "prompt": "Quem interpreta as imagens e envia o relatório ao médico da pessoa?",
+      "options": [
+       {
+        "label": "O tecnólogo, no momento da exposição.",
+        "correct": false,
+        "feedback": "O tecnólogo produz a imagem; interpretar cabe a outro. Retome o conceito."
+       },
+       {
+        "label": "O radiologista.",
+        "correct": true,
+        "feedback": "Isso: o radiologista interpreta e o relatório segue para o médico."
+       },
+       {
+        "label": "A própria pessoa, ao ver a tela.",
+        "correct": false,
+        "feedback": "A pessoa recebe a conversa do médico, não a interpretação na tela. Confira de novo."
+       },
+       {
+        "label": "O colega que posicionou antes.",
+        "correct": false,
+        "feedback": "Quem posicionou não interpreta. Retome quem faz o relatório."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Num pedido de tomografia, a queixa é 'dor abdominal há dois dias'. A paciente pede que você diga o que ela tem. O que responde?",
+      "options": [
+       {
+        "label": "Diz que provavelmente é algo simples.",
+        "correct": false,
+        "feedback": "Dizer que é simples é dar diagnóstico. Retome o conceito."
+       },
+       {
+        "label": "Acolhe e diz que o médico dela fala do resultado.",
+        "correct": true,
+        "feedback": "Isso: acolhimento e encaminhamento da conversa a quem cabe."
+       },
+       {
+        "label": "Sugere que o exame seja trocado por outro.",
+        "correct": false,
+        "feedback": "Sugerir troca de exame é decidir sozinho. Confira de novo."
+       },
+       {
+        "label": "Diz que não pode falar nada e vira de costas.",
+        "correct": false,
+        "feedback": "Acolher continua sendo seu papel. Retome a abordagem."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m16-02",
+   "code": "M16.02",
+   "title": "Dor e mobilidade limitada",
+   "objective": "Hoje você vai conseguir adaptar a abordagem a quem sente dor, sem forçar o membro e pedindo apoio.",
+   "competency": "Adaptar a abordagem sem forçar o membro e pedir apoio.",
+   "minutes": 6,
+   "scene": {
+    "setting": "Sala de radiografia, paciente na maca",
+    "lines": [
+     {
+      "speaker": "paciente",
+      "text": "Moço, meu braço dói demais. Dá para você só puxar ele para o lado, rapidinho?",
+      "name": "Seu Jorge"
+     },
+     {
+      "speaker": "caio",
+      "text": "Se doer mais, a pessoa trava e a imagem piora. E eu não movo membro nenhum sem combinar antes."
+     },
+     {
+      "speaker": "pixel",
+      "text": "O que vem primeiro quando a dor aparece: o jeito rápido ou o combinado?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "A dor é informação",
+    "body": "Dor intensa ou limitação de movimento muda a abordagem. Você não move o membro contra a dor nem contra uma suspeita de lesão, e não retira por conta própria o que o imobiliza. Pergunte onde dói e o que a pessoa consegue fazer sozinha, explique cada passo e avise antes de tocar. Adapte o que o protocolo permite: mova a maca, o tubo e o detector, e use os apoios do serviço. Se a posição padrão não for possível, ou a dor aumentar, pare e chame a equipe. Como mover a pessoa é decisão da equipe, pelo protocolo do serviço.",
+    "keyPoints": [
+     "Não mover o membro contra a dor nem retirar imobilização por conta própria.",
+     "Adaptar equipamento e apoios dentro do protocolo.",
+     "Dor que aumenta ou posição impossível: parar e chamar a equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na unidade de posicionamento, a pessoa não consegue a posição padrão. Qual é o primeiro passo?",
+     "options": [
+      {
+       "label": "Forçar a posição aos poucos, até a pessoa tolerar.",
+       "correct": false,
+       "feedback": "Forçar contra a limitação não cabe a você. Retome a sequência: parar e descrever."
+      },
+      {
+       "label": "Disparar uma imagem de teste para ver como fica.",
+       "correct": false,
+       "feedback": "Uma exposição de teste não resolve a limitação e é exposição sem necessidade. Retome o primeiro passo."
+      },
+      {
+       "label": "Ajustar o tubo antes de falar com a pessoa.",
+       "correct": false,
+       "feedback": "Ajustar o tubo antes de conversar deixa de fora o que a pessoa consegue fazer. Retome a ordem."
+      },
+      {
+       "label": "Parar e descrever a limitação, pedindo apoio se preciso.",
+       "correct": true,
+       "feedback": "Isso: parar e descrever vêm antes de qualquer adaptação."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "help": "Pense: parar ou ajustar, o que vem primeiro?"
+    },
+    {
+     "id": "i2",
+     "type": "multi-select",
+     "role": "practice",
+     "prompt": "Marque todas as condutas seguras diante de uma pessoa com dor forte no braço.",
+     "options": [
+      {
+       "label": "Pedir que a pessoa gire o braço até o ponto em que dói pouco.",
+       "correct": false,
+       "feedback": "Girar o braço com dor é mover o membro sem combinar. Como movê-lo é decisão da equipe."
+      },
+      {
+       "label": "Explicar cada passo e avisar antes de tocar.",
+       "correct": true,
+       "feedback": "Certo: explicar e avisar reduz o susto e a tensão da pessoa."
+      },
+      {
+       "label": "Retirar a tala para facilitar a posição.",
+       "correct": false,
+       "feedback": "Retirar a imobilização por conta própria não cabe a você. Chame a equipe."
+      },
+      {
+       "label": "Mover a maca, o tubo e o detector em vez do braço.",
+       "correct": true,
+       "feedback": "Certo: adaptar o equipamento preserva o membro."
+      },
+      {
+       "label": "Perguntar onde dói e o que a pessoa move sozinha.",
+       "correct": true,
+       "feedback": "Certo: a pessoa mostra o que tolera, e você adapta com base nisso."
+      },
+      {
+       "label": "Segurar o braço com firmeza para a pessoa não se mexer.",
+       "correct": false,
+       "feedback": "Conter o braço à força vai contra o cuidado combinado. Peça apoio em vez de conter."
+      }
+     ],
+     "feedbackCorrect": "Você marcou as condutas que preservam o membro e deixou de fora as que forçam.",
+     "feedbackIncorrect": "Releia o conceito: não se move o membro contra a dor nem se retira imobilização sozinho. Adapte o equipamento e comunique.",
+     "help": "O que você pode mover sem tocar na região que dói?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "cloze",
+     "role": "practice",
+     "prompt": "Complete a frase com as palavras do banco.",
+     "text": "Se a dor aumentar durante o posicionamento, você {{1}} e chama a {{2}}.",
+     "answers": [
+      "pausa",
+      "equipe"
+     ],
+     "distractors": [
+      "insiste",
+      "acelera",
+      "família"
+     ],
+     "feedbackCorrect": "Isso: a dor que aumenta pede pausa e a equipe, não pressa.",
+     "feedbackIncorrect": "Pense no gesto seguro: parar quando a dor aumenta e levar a decisão sobre mover o membro a quem cabe decidir.",
+     "help": "O que se faz primeiro quando a dor piora?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a sua conduta?",
+     "options": [
+      {
+       "label": "Parar, não mexer no gesso nem no braço e chamar a equipe.",
+       "correct": true,
+       "feedback": "Isso: pare, preserve o membro e chame quem decide."
+      },
+      {
+       "label": "Cortar o gesso para aliviar a pressão.",
+       "correct": false,
+       "feedback": "Cortar ou abrir o gesso não cabe a você: quem decide é a equipe. Retome o conceito."
+      },
+      {
+       "label": "Pedir que ela aguente só mais uma imagem.",
+       "correct": false,
+       "feedback": "Pedir que aguente ignora a dor que aumentou. Pare e chame a equipe."
+      },
+      {
+       "label": "Girar o antebraço devagar até a posição do protocolo.",
+       "correct": false,
+       "feedback": "Girar o antebraço com dor é mover o membro. Retome: adaptar é mover o equipamento, não o membro."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "context": "Dona Marta chegou de cadeira de rodas, com o antebraço engessado. O pedido é de radiografia do antebraço. Ao posicionar, ela grita e diz que o gesso aperta e dói mais.",
+     "help": "A dor aumentou. O que vem agora?",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Seu Jorge tem dor no quadril e não consegue virar na maca. O que você pode adaptar sem mover a perna?",
+     "options": [
+      {
+       "label": "Pedir que ele vire de lado devagar, com a ajuda da Duda aqui.",
+       "correct": false,
+       "feedback": "Virar com dor, mesmo com ajuda, é mover a pessoa sem a equipe decidir. Retome o conceito."
+      },
+      {
+       "label": "Puxar a perna dele para alinhar com o detector da mesa.",
+       "correct": false,
+       "feedback": "Puxar a perna é mover o membro contra a dor. Adapte o equipamento."
+      },
+      {
+       "label": "Mover tubo e detector, usar apoios do serviço e avisar a equipe.",
+       "correct": true,
+       "feedback": "Isso: adapta o equipamento, preserva a perna e comunica."
+      },
+      {
+       "label": "Radiografar como ele está, sem avisar ninguém da equipe.",
+       "correct": false,
+       "feedback": "Seguir sem avisar deixa a equipe sem saber da limitação. Descreva e peça apoio."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "help": "Adaptar o quê, o membro ou o equipamento?"
+    }
+   ],
+   "closing": {
+    "title": "Adaptar sem forçar",
+    "body": "Agora você consegue abordar quem sente dor: perguntar, explicar, adaptar o equipamento dentro do protocolo e parar para chamar a equipe quando a dor aumenta ou a posição não é possível. O membro não é movido contra a dor.",
+    "line": {
+     "speaker": "caio",
+     "text": "Imagem boa não vale uma dor a mais."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma pessoa com dor forte no ombro não consegue levantar o braço. O que orienta sua conduta?",
+     "options": [
+      {
+       "label": "Não forçar o movimento, adaptar o equipamento e avisar a equipe.",
+       "correct": true,
+       "feedback": "Isso: você preserva o membro e comunica."
+      },
+      {
+       "label": "Pedir que levante o braço até onde aguentar, para ganhar tempo.",
+       "correct": false,
+       "feedback": "Pedir mais um pouco ainda é forçar. Retome o conceito."
+      },
+      {
+       "label": "Levantar o braço dela por baixo, só desta vez.",
+       "correct": false,
+       "feedback": "Levantar o braço é mover contra a dor. Adapte o equipamento."
+      },
+      {
+       "label": "Esperar a dor passar e repetir o pedido de movimento.",
+       "correct": false,
+       "feedback": "Esperar e repetir o pedido insiste no mesmo movimento. Chame a equipe."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "prompt": "Qual atitude é a mais segura antes de tocar numa pessoa com dor?",
+     "options": [
+      {
+       "label": "Tocar primeiro para localizar a dor com as mãos.",
+       "correct": false,
+       "feedback": "Tocar para localizar pode causar dor. Pergunte em vez disso."
+      },
+      {
+       "label": "Pedir silêncio para se concentrar no posicionamento.",
+       "correct": false,
+       "feedback": "Pedir silêncio fecha a conversa com a pessoa. Retome o conceito."
+      },
+      {
+       "label": "Explicar o que vai fazer e avisar quando for tocar.",
+       "correct": true,
+       "feedback": "Isso: explicar e avisar antes de tocar."
+      },
+      {
+       "label": "Começar pela parte do corpo que dói menos, sem avisar.",
+       "correct": false,
+       "feedback": "Mesmo na parte que dói menos, avisar é o gesto seguro."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: com dor forte, eu adapto o equipamento e não o...",
+     "item": {
+      "prompt": "O que se adapta primeiro quando um membro dói?",
+      "options": [
+       {
+        "label": "O membro, até ele caber na posição padrão.",
+        "correct": false,
+        "feedback": "Mover o membro até caber é forçar. Retome o conceito."
+       },
+       {
+        "label": "A dor, pedindo que a pessoa a ignore.",
+        "correct": false,
+        "feedback": "Pedir que ignore a dor não a resolve. Adapte o equipamento."
+       },
+       {
+        "label": "O tubo, o detector e a maca, sem mexer no membro.",
+        "correct": true,
+        "feedback": "Isso: o equipamento se move, o membro fica."
+       },
+       {
+        "label": "O protocolo, descartando a posição do serviço.",
+        "correct": false,
+        "feedback": "Descartar o protocolo é decidir sozinho. Retome o conceito."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Uma pessoa idosa com dor nas costas não consegue sentar para a radiografia. O que você faz?",
+      "options": [
+       {
+        "label": "Mantém a pessoa como está, não a levanta e chama a equipe.",
+        "correct": true,
+        "feedback": "Isso: sem mover contra a dor, e com a equipe."
+       },
+       {
+        "label": "Ajuda a sentar, apoiando as costas com travesseiros.",
+        "correct": false,
+        "feedback": "Sentar contra a dor é mover a pessoa. Chame a equipe."
+       },
+       {
+        "label": "Pede que gire o tronco só um pouco para a imagem.",
+        "correct": false,
+        "feedback": "Girar o tronco com dor é mover a pessoa sem a equipe. Retome o conceito."
+       },
+       {
+        "label": "Segue com a pessoa na cadeira, para ganhar tempo.",
+        "correct": false,
+        "feedback": "Mudar para a cadeira também move a pessoa. Peça apoio."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m16-03",
+   "code": "M16.03",
+   "title": "Falta de ar e quem não deita",
+   "objective": "Hoje você vai conseguir reconhecer quando a posição padrão não é possível por falta de ar e comunicar.",
+   "competency": "Reconhecer quando a posição padrão não é possível e comunicar.",
+   "minutes": 6,
+   "scene": {
+    "setting": "Sala de radiografia do serviço-escola",
+    "lines": [
+     {
+      "speaker": "paciente",
+      "text": "Eu não consigo me deitar, moço. Quando deito, parece que me falta o ar.",
+      "name": "Dona Marta"
+     },
+     {
+      "speaker": "caio",
+      "text": "Então a maca deitada não é ponto de partida para ela. Primeiro a gente descobre o que ela tolera."
+     },
+     {
+      "speaker": "duda",
+      "text": "Mas o pedido diz tórax. Eu coloco ela de pé de qualquer jeito, né?"
+     },
+     {
+      "speaker": "pixel",
+      "text": "De qualquer jeito, ou combinando com ela e com a equipe?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "A posição é combinada",
+    "body": "A posição padrão supõe que a pessoa tolere ficar de pé, sentada ou deitada como o protocolo pede. A falta de ar pode impedir isso. Para o tórax, a referência descreve a pessoa de pé como o usual e prevê outra posição para quem não fica de pé. Em M08 você viu uma delas: sentada o mais ereta possível. Você não impõe posição: pergunte em qual a pessoa respira melhor, ofereça o que o protocolo permite, anote a posição usada e avise a equipe. Se a falta de ar piorar, pare e chame a equipe.",
+    "keyPoints": [
+     "A posição padrão pode não ser possível: pergunte em qual a pessoa tolera ficar.",
+     "Use só as posições que o protocolo permite e anote a usada.",
+     "Falta de ar que piora: parar e chamar a equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na unidade de tórax, a pessoa não consegue ficar de pé. Qual posição foi descrita?",
+     "options": [
+      {
+       "label": "Deitada de bruços, com o tórax na mesa.",
+       "correct": false,
+       "feedback": "De bruços não foi a posição descrita para quem não fica de pé. Retome M08."
+      },
+      {
+       "label": "De pé, apoiada na parede, mesmo com dificuldade.",
+       "correct": false,
+       "feedback": "Insistir em ficar de pé é impor a posição. Retome a alternativa sentada."
+      },
+      {
+       "label": "De cócoras, com o tórax inclinado para a frente.",
+       "correct": false,
+       "feedback": "De cócoras não faz parte do que foi descrito. Retome a posição sentada, ereta."
+      },
+      {
+       "label": "Sentada o mais ereta possível, com as costas no receptor.",
+       "correct": true,
+       "feedback": "Isso: sentada o mais ereta possível, com apoio se preciso."
+      }
+     ],
+     "sourceIds": [
+      "radiopaedia-torax-ap",
+      "radiologyinfo-torax"
+     ],
+     "help": "Pense em quem não fica de pé: sentada ou o quê?"
+    },
+    {
+     "id": "i2",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre a posição de quem tem falta de ar.",
+     "statements": [
+      {
+       "text": "Uma posição que a pessoa não tolera não deve ser imposta.",
+       "correct": true,
+       "feedback": "Certo: a posição se combina com a pessoa, dentro do protocolo. Impor não cabe a você."
+      },
+      {
+       "text": "Perguntar em qual posição a pessoa respira melhor ajuda a combinar a adaptação.",
+       "correct": true,
+       "feedback": "Certo: a pessoa sabe o que tolera, e isso orienta a adaptação dentro do protocolo."
+      },
+      {
+       "text": "Se a falta de ar piora no posicionamento, você para e chama a equipe.",
+       "correct": true,
+       "feedback": "Certo: piora é sinal para pausar e levar à equipe, sem esperar o fim da imagem."
+      },
+      {
+       "text": "Pedir que a pessoa deite e aguente a falta de ar acelera o exame e é aceitável.",
+       "correct": false,
+       "feedback": "Errado: a pressa não justifica forçar a posição. Pare e combine com a equipe."
+      }
+     ],
+     "feedbackCorrect": "Você separou combinar a posição de impô-la.",
+     "feedbackIncorrect": "Releia o conceito: a posição se combina com a pessoa e com a equipe, e a falta de ar que piora pede pausa.",
+     "help": "Quem sabe em qual posição a pessoa respira melhor?",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Associe cada situação à conduta adequada.",
+     "pairs": [
+      {
+       "left": "Pessoa que não tolera ficar deitada",
+       "right": "Combinar a posição que o protocolo permite e anotar"
+      },
+      {
+       "left": "A falta de ar piora durante o posicionamento",
+       "right": "Parar e chamar a equipe"
+      },
+      {
+       "left": "Pessoa respira melhor apoiada em travesseiros",
+       "right": "Usar o apoio previsto no serviço e registrar"
+      },
+      {
+       "left": "Pessoa pede uma posição que o protocolo não prevê",
+       "right": "Descrever o pedido e deixar a decisão para a equipe"
+      }
+     ],
+     "feedbackCorrect": "Você ligou cada situação à conduta que respeita a pessoa e o protocolo.",
+     "feedbackIncorrect": "Confira de novo: o que o protocolo permite se combina e se anota; piora e pedido fora do protocolo vão à equipe.",
+     "help": "O que o protocolo permite, e o que vai para a equipe?",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a sua conduta?",
+     "options": [
+      {
+       "label": "Fazer a imagem rápido, já que ele pediu para começar.",
+       "correct": false,
+       "feedback": "Pressa com a falta de ar piorando coloca a pessoa em risco. Retome o conceito."
+      },
+      {
+       "label": "Interromper, ficar com ele e chamar a equipe pelo canal do serviço.",
+       "correct": true,
+       "feedback": "Isso: piora de falta de ar é pausa, presença e equipe."
+      },
+      {
+       "label": "Deitar o paciente com cuidado, para a imagem ficar no padrão.",
+       "correct": false,
+       "feedback": "Deitar vai contra o que ele disse que não tolera. Pare e chame a equipe."
+      },
+      {
+       "label": "Deixá-lo sozinho e ir buscar o protocolo no corredor.",
+       "correct": false,
+       "feedback": "Deixar a pessoa sozinha agrava o risco. Fique com ela e chame a equipe."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ],
+     "context": "Seu Jorge, de cadeira de rodas, respira rápido e diz que não consegue se deitar. O pedido é de radiografia do tórax. Ele diz: 'Começa logo, eu aguento.' Enquanto você ajusta o detector, ele diz que o ar piorou.",
+     "help": "O ar piorou. O que muda na sua conduta?",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Dona Marta consegue sentar, mas não ficar de pé. O protocolo do serviço prevê a posição sentada. O que você faz?",
+     "options": [
+      {
+       "label": "Posiciona de pé mesmo assim, para seguir o padrão do livro.",
+       "correct": false,
+       "feedback": "Impor a posição de pé ignora a limitação. Retome o conceito."
+      },
+      {
+       "label": "Explica, posiciona sentada com o apoio previsto e registra.",
+       "correct": true,
+       "feedback": "Isso: usa a posição prevista, explica e registra."
+      },
+      {
+       "label": "Muda o exame por conta própria, porque a posição mudou.",
+       "correct": false,
+       "feedback": "A posição mudou, mas o exame pedido não é seu para trocar. Retome o conceito."
+      },
+      {
+       "label": "Faz a imagem sem registrar, porque a posição é só detalhe.",
+       "correct": false,
+       "feedback": "A posição usada precisa constar, pois quem interpreta a imagem a considera. Registre."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ],
+     "help": "A posição usada fica só na sua memória?"
+    }
+   ],
+   "closing": {
+    "title": "Combinar a posição",
+    "body": "Agora você consegue reconhecer quando a posição padrão não é possível por falta de ar: pergunta o que a pessoa tolera, usa só o que o protocolo permite, registra a posição e chama a equipe quando o ar piora.",
+    "line": {
+     "speaker": "lia",
+     "text": "Quem respira com dificuldade não deve ser o preço da imagem."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma pessoa que não tolera ficar deitada chega para a radiografia. Qual é o primeiro gesto?",
+     "options": [
+      {
+       "label": "Deitar a pessoa bem devagar, para ela se acostumar com isso.",
+       "correct": false,
+       "feedback": "Deitar devagar ainda é impor. Retome o conceito."
+      },
+      {
+       "label": "Escolher a posição que mais se parece com a do livro de estudo.",
+       "correct": false,
+       "feedback": "Seguir o livro à risca ignora a pessoa. Pergunte e confira o protocolo."
+      },
+      {
+       "label": "Perguntar em que posição ela respira melhor e ver o protocolo.",
+       "correct": true,
+       "feedback": "Isso: ouvir a pessoa e conferir o protocolo."
+      },
+      {
+       "label": "Esperar a pessoa melhorar antes de falar com a equipe do setor.",
+       "correct": false,
+       "feedback": "Esperar sem avisar atrasa o cuidado. Retome: comunicar é parte do gesto."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "prompt": "Durante o posicionamento, a pessoa diz que o ar piorou. O que faz mais sentido?",
+     "options": [
+      {
+       "label": "Parar, ficar com ela e acionar a equipe.",
+       "correct": true,
+       "feedback": "Isso: pausa, presença e equipe."
+      },
+      {
+       "label": "Terminar a imagem em poucos segundos e depois avisar.",
+       "correct": false,
+       "feedback": "Terminar a imagem primeiro atrasa a ajuda. Retome o conceito."
+      },
+      {
+       "label": "Pedir que respire fundo e continuar o posicionamento.",
+       "correct": false,
+       "feedback": "Pedir que respire fundo e continuar ignora o sinal. Pare."
+      },
+      {
+       "label": "Anotar para contar depois, no fim do turno.",
+       "correct": false,
+       "feedback": "Contar só no fim do turno deixa a pessoa sem ajuda agora. Aja já."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: a posição padrão não é possível, então combino a que o protocolo...",
+     "item": {
+      "prompt": "A pessoa não tolera ficar deitada. Qual conduta combina com o protocolo?",
+      "options": [
+       {
+        "label": "Deitar mesmo assim, por segurança do exame.",
+        "correct": false,
+        "feedback": "Deitar contra a limitação não é segurança. Retome o conceito."
+       },
+       {
+        "label": "Cancelar o exame e mandar a pessoa para casa, sem conversa.",
+        "correct": false,
+        "feedback": "Cancelar é decisão da equipe. Retome a alternativa prevista."
+       },
+       {
+        "label": "Inventar uma posição nova, sem consultar ninguém.",
+        "correct": false,
+        "feedback": "Inventar posição é improvisar. Consulte o protocolo."
+       },
+       {
+        "label": "Usar a alternativa que o protocolo prevê e registrá-la.",
+        "correct": true,
+        "feedback": "Isso: alternativa prevista, com registro."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-torax",
+       "radiologyinfo-osso"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Na enfermaria, uma pessoa com falta de ar está sentada na cama para a radiografia no leito e pede para deitar. O que você faz?",
+      "options": [
+       {
+        "label": "Combina com a equipe antes de mudar a posição.",
+        "correct": true,
+        "feedback": "Isso: mudança de posição se combina com a equipe."
+       },
+       {
+        "label": "Deita a pessoa e segue, porque ela pediu.",
+        "correct": false,
+        "feedback": "Mudar a posição sem combinar com a equipe é decidir sozinho, mesmo a pedido. Retome o conceito."
+       },
+       {
+        "label": "Mantém a pessoa sentada, sem explicar nada.",
+        "correct": false,
+        "feedback": "Manter sem explicar ignora a pessoa. Combine com a equipe."
+       },
+       {
+        "label": "Espera que ela se acalme e mantém tudo como está.",
+        "correct": false,
+        "feedback": "Esperar sem comunicar atrasa a decisão. Avise a equipe."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-torax",
+       "radiologyinfo-osso"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m16-04",
+   "code": "M16.04",
+   "title": "Gestação e possibilidade de gestação",
+   "objective": "Hoje você vai conseguir aplicar a triagem de possível gestação e levar a dúvida à equipe, sem decidir o exame.",
+   "competency": "Aplicar a triagem e encaminhar a dúvida, sem decidir o exame.",
+   "minutes": 6,
+   "scene": {
+    "setting": "Recepção da sala de radiografia",
+    "lines": [
+     {
+      "speaker": "paciente",
+      "text": "Minha menstruação atrasou, mas pode ser estresse. Acho que não estou grávida.",
+      "name": "Carla"
+     },
+     {
+      "speaker": "duda",
+      "text": "Ela mesma disse que acha que não. Então posso seguir, né?"
+     },
+     {
+      "speaker": "lia",
+      "text": "Duda, 'acho que não' é uma certeza?"
+     },
+     {
+      "speaker": "pixel",
+      "text": "Qual é o primeiro gesto quando a resposta não é um 'não' firme?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Na dúvida, pausa e equipe",
+    "body": "O serviço pergunta sobre possível gestação antes de exames com radiação, e você segue o protocolo dele. Pergunte com respeito e em particular, e anote com as palavras da pessoa. Se ela diz que pode estar grávida, atrasou ou não sabe, pause antes de expor e avise a equipe. A Health Physics Society orienta considerar grávida quem está com a menstruação atrasada, até prova em contrário. O médico que pediu justifica o uso da radiação, e a equipe decide o que fazer. Você não cancela, não troca o exame nem acrescenta proteção sozinho. Na ordem ensinada nesta aula: perguntar, anotar, pausar, avisar, aguardar a decisão.",
+    "keyPoints": [
+     "Perguntar e anotar com as palavras da pessoa, em particular.",
+     "Possível gestação, atraso ou 'não sei': pausar antes de expor e avisar a equipe.",
+     "Cancelar, trocar o exame ou acrescentar proteção sozinho não cabe a você."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na triagem do contraste, 'não sei' era uma resposta. O que você faz com ela?",
+     "options": [
+      {
+       "label": "Troca por 'não' para completar o campo.",
+       "correct": false,
+       "feedback": "Trocar a resposta adultera o registro. Retome o que a triagem pede."
+      },
+      {
+       "label": "Pergunta de novo até a pessoa dizer sim ou não.",
+       "correct": false,
+       "feedback": "Insistir pressiona a pessoa e pode apagar a dúvida real. Anote e avise."
+      },
+      {
+       "label": "Anota como foi dita e leva à equipe antes de seguir.",
+       "correct": true,
+       "feedback": "Isso: 'não sei' fica anotado como foi dito e vai à equipe."
+      },
+      {
+       "label": "Considera liberado e segue.",
+       "correct": false,
+       "feedback": "Considerar liberado é decidir sozinho. Retome: a equipe avalia."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-contraste"
+     ],
+     "help": "O que a triagem pede com um 'não sei'?"
+    },
+    {
+     "id": "i2",
+     "type": "ordering",
+     "role": "practice",
+     "prompt": "Coloque as etapas na ordem ensinada nesta aula.",
+     "items": [
+      "Perguntar sobre possível gestação, com respeito e em particular",
+      "Anotar a resposta com as palavras da pessoa",
+      "Pausar antes de qualquer exposição",
+      "Avisar a equipe pelo canal do serviço",
+      "Aguardar a decisão da equipe e seguir o que ela definir"
+     ],
+     "feedbackCorrect": "Você montou a sequência: perguntar, anotar, pausar, avisar e aguardar a decisão.",
+     "feedbackIncorrect": "Releia a ordem ensinada: primeiro a pergunta e o registro; depois a pausa e o aviso; por fim, a decisão da equipe.",
+     "help": "O que precisa acontecer antes da pausa?",
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "multi-select",
+     "role": "practice",
+     "prompt": "Marque todas as condutas adequadas quando a paciente diz 'minha menstruação atrasou'.",
+     "options": [
+      {
+       "label": "Seguir o exame, porque o atraso pode ser estresse.",
+       "correct": false,
+       "feedback": "Seguir é decidir sozinho. Atraso pede pausa e aviso à equipe."
+      },
+      {
+       "label": "Pausar antes de expor e avisar a equipe.",
+       "correct": true,
+       "feedback": "Certo: a pausa dá à equipe a chance de avaliar antes da exposição."
+      },
+      {
+       "label": "Anotar a resposta com as palavras dela.",
+       "correct": true,
+       "feedback": "Certo: o registro fiel é o que a equipe lê."
+      },
+      {
+       "label": "Cancelar o exame e dispensar a paciente.",
+       "correct": false,
+       "feedback": "Cancelar também é decidir sozinho. Pausar não é cancelar."
+      },
+      {
+       "label": "Aguardar a decisão da equipe, sem trocar o exame.",
+       "correct": true,
+       "feedback": "Certo: quem decide o que fazer é a equipe."
+      },
+      {
+       "label": "Acrescentar proteção por conta própria e seguir.",
+       "correct": false,
+       "feedback": "Acrescentar proteção e seguir é decidir sozinho. A equipe define o que fazer."
+      }
+     ],
+     "feedbackCorrect": "Você marcou pausa, registro e espera, e deixou de fora as decisões solitárias.",
+     "feedbackIncorrect": "Releia o conceito: o atraso pede pausa, registro fiel e decisão da equipe. Seguir, cancelar ou acrescentar proteção sozinho não cabe a você.",
+     "help": "O que é seu nessa situação: decidir ou comunicar?",
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a sua conduta?",
+     "options": [
+      {
+       "label": "Seguir, pois ela não disse que está grávida, só que não sabe.",
+       "correct": false,
+       "feedback": "Seguir ignora a dúvida que a própria paciente declarou. Retome o conceito."
+      },
+      {
+       "label": "Marcar 'não' na ficha para agilizar todo o atendimento.",
+       "correct": false,
+       "feedback": "Alterar a resposta adultera o registro. Anote como foi dita."
+      },
+      {
+       "label": "Registrar o 'não sei', pausar e avisar a equipe.",
+       "correct": true,
+       "feedback": "Isso: 'não sei' é registrado e levado à equipe antes da exposição."
+      },
+      {
+       "label": "Trocar o abdome por outra região, por conta própria e sem avisar.",
+       "correct": false,
+       "feedback": "Trocar a região é mudar o exame pedido, e isso não cabe a você."
+      }
+     ],
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ],
+     "context": "Carla preenche a ficha e marca 'não sei' na pergunta sobre gestação. A radiografia pedida inclui o abdome. Ela diz que está com pressa e pede para não complicar. A Duda sugere seguir, já que ela não disse que está grávida.",
+     "help": "A paciente disse 'não sei'. O que isso pede?",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Uma paciente avisa, já posicionada, que acha que pode estar grávida. O que você faz?",
+     "options": [
+      {
+       "label": "Interrompe antes de expor e avisa a equipe.",
+       "correct": true,
+       "feedback": "Isso: mesmo posicionada, a pausa vem antes da exposição."
+      },
+      {
+       "label": "Termina a imagem, porque já está posicionada.",
+       "correct": false,
+       "feedback": "Estar posicionada não dispensa a pausa. Retome o conceito."
+      },
+      {
+       "label": "Encerra o atendimento sem avisar ninguém.",
+       "correct": false,
+       "feedback": "Encerrar sem avisar deixa a equipe sem a informação. Avise."
+      },
+      {
+       "label": "Diz que não há problema e segue, para tranquilizá-la.",
+       "correct": false,
+       "feedback": "Garantir que não há problema é decidir sozinho. Pare e avise a equipe."
+      }
+     ],
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ],
+     "help": "A posição já está pronta. Isso muda a regra?"
+    }
+   ],
+   "closing": {
+    "title": "Perguntar, anotar, pausar",
+    "body": "Agora você consegue aplicar a triagem: perguntar, anotar com as palavras da pessoa, pausar antes de expor e avisar a equipe, que decide o que fazer. Você não cancela, não troca o exame nem decide sozinho.",
+    "line": {
+     "speaker": "lia",
+     "text": "A pausa não é desconfiança. É cuidado com quem pode estar grávida."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Quem decide o que fazer quando a paciente informa possível gestação?",
+     "options": [
+      {
+       "label": "O tecnólogo que está na sala, decidindo sozinho.",
+       "correct": false,
+       "feedback": "Decidir sozinho não é seu papel. Retome o conceito."
+      },
+      {
+       "label": "A própria paciente, ao assinar a ficha do serviço.",
+       "correct": false,
+       "feedback": "Assinar a ficha não decide o exame. Retome quem decide."
+      },
+      {
+       "label": "O colega que a atendeu antes dessa vez.",
+       "correct": false,
+       "feedback": "Quem atendeu antes não é a equipe responsável. Retome o conceito."
+      },
+      {
+       "label": "A equipe responsável pelo exame e pela justificativa dele.",
+       "correct": true,
+       "feedback": "Isso: a decisão é da equipe."
+      }
+     ],
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "prompt": "Por que a pausa vem antes de qualquer exposição?",
+     "options": [
+      {
+       "label": "Porque a pausa faz parte do preparo da sala de exame.",
+       "correct": false,
+       "feedback": "A pausa não é tempo de preparo; é para a avaliação da equipe. Retome o conceito."
+      },
+      {
+       "label": "Porque a equipe precisa avaliar antes de usar a radiação.",
+       "correct": true,
+       "feedback": "Isso: avaliar antes de expor."
+      },
+      {
+       "label": "Porque a paciente precisa se acalmar antes da imagem.",
+       "correct": false,
+       "feedback": "Acalmar a paciente é bom, mas não é a razão da pausa. Retome."
+      },
+      {
+       "label": "Porque o tecnólogo deve calcular o risco para o feto.",
+       "correct": false,
+       "feedback": "Calcular risco não é função do tecnólogo. A equipe avalia."
+      }
+     ],
+     "sourceIds": [
+      "hps-gestante-radiologia",
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: se há possível gestação, eu pauso, aviso a equipe e não decido...",
+     "item": {
+      "prompt": "A paciente diz que pode estar grávida. Qual é o primeiro passo seguro?",
+      "options": [
+       {
+        "label": "Fazer o exame mais rápido, com menos imagens.",
+        "correct": false,
+        "feedback": "Menos imagens ainda é decidir sozinho. Retome o conceito."
+       },
+       {
+        "label": "Escolher outro exame que não use radiação.",
+        "correct": false,
+        "feedback": "Escolher o exame não cabe a você. Pause e avise."
+       },
+       {
+        "label": "Perguntar à acompanhante se pode seguir.",
+        "correct": false,
+        "feedback": "A acompanhante não decide o exame. Avise a equipe."
+       },
+       {
+        "label": "Pausar antes de expor e avisar a equipe.",
+        "correct": true,
+        "feedback": "Isso: pausa antes de expor e aviso à equipe."
+       }
+      ],
+      "sourceIds": [
+       "hps-gestante-radiologia",
+       "radiologyinfo-osso"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Numa rotina, a ficha de uma paciente está sem resposta sobre gestação. O que você faz?",
+      "options": [
+       {
+        "label": "Preenche 'não' pelo padrão do serviço, para constar.",
+        "correct": false,
+        "feedback": "Preencher no lugar da paciente adultera o registro. Pergunte."
+       },
+       {
+        "label": "Pergunta, anota a resposta e avisa a equipe na dúvida.",
+        "correct": true,
+        "feedback": "Isso: pergunta, anota e avisa se houver dúvida."
+       },
+       {
+        "label": "Segue sem perguntar, porque ninguém avisou nada.",
+        "correct": false,
+        "feedback": "Seguir sem perguntar pula a triagem. Retome a ordem."
+       },
+       {
+        "label": "Devolve a ficha sem dizer nada à paciente na recepção.",
+        "correct": false,
+        "feedback": "Devolver sem conversar deixa a lacuna. Pergunte e anote."
+       }
+      ],
+      "sourceIds": [
+       "hps-gestante-radiologia",
+       "radiologyinfo-osso"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m16-05",
+   "code": "M16.05",
+   "title": "Isolamento e precauções",
+   "objective": "Hoje você vai conseguir escolher a barreira pela precaução indicada e organizar a sala em torno dela.",
+   "competency": "Escolher a barreira pela precaução indicada e organizar a sala.",
+   "minutes": 6,
+   "scene": {
+    "setting": "Corredor do setor de radiologia",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "Chegou um paciente com placa de precaução na porta do leito. A equipe que cuida dele indicou o tipo."
+     },
+     {
+      "speaker": "duda",
+      "text": "Máscara comum para todo mundo, então? Ou avental?"
+     },
+     {
+      "speaker": "lia",
+      "text": "Quem define o tipo de precaução, e como você descobre?"
+     },
+     {
+      "speaker": "pixel",
+      "text": "Quem indica a precaução e o que muda de uma para outra?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "A barreira segue a precaução",
+    "body": "A precaução padrão vale para todos: higiene das mãos e barreiras conforme o contato. Por cima dela, a equipe indica a precaução por transmissão. Pela referência do CDC, na de contato, avental e luvas se vestem ao entrar no quarto e se descartam antes de sair. Na de gotículas, você usa máscara, em geral vestida ao entrar; fora do quarto, o paciente usa máscara se tolerar. Na de aerossóis, respirador N95 ou superior antes de entrar, e o paciente fica em quarto de isolamento ou de porta fechada. Você não escolhe nem muda o tipo: confere a indicação, prepara a sala e pede apoio se faltar item.",
+    "keyPoints": [
+     "Contato: avental e luvas ao entrar, descartados antes de sair.",
+     "Gotículas: máscara ao entrar. Aerossóis: respirador N95 ou superior antes de entrar.",
+     "Quem indica o tipo é a equipe; você confere e pede apoio."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na unidade de preparo, um campo do protocolo estava vazio. O que você fazia?",
+     "options": [
+      {
+       "label": "Preencher com o que o costume indica.",
+       "correct": false,
+       "feedback": "O costume não substitui o protocolo. Retome M09."
+      },
+      {
+       "label": "Descrever o que achou e pedir conferência.",
+       "correct": true,
+       "feedback": "Isso: descrever e pedir conferência, sem decidir sozinho."
+      },
+      {
+       "label": "Seguir sem o campo, para não atrasar o turno.",
+       "correct": false,
+       "feedback": "Seguir sem o campo ignora a lacuna. Descreva e peça conferência."
+      },
+      {
+       "label": "Suspender o exame por conta própria.",
+       "correct": false,
+       "feedback": "Suspender é decidir sozinho. Retome o gesto de pedir conferência."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-contraste"
+     ],
+     "help": "Campo vazio: preencher, ignorar ou descrever?"
+    },
+    {
+     "id": "i2",
+     "type": "categorize",
+     "role": "practice",
+     "prompt": "Classifique cada medida no tipo de precaução em que ela aparece.",
+     "categories": [
+      "Contato",
+      "Gotículas",
+      "Aerossóis"
+     ],
+     "items": [
+      {
+       "label": "Avental e luvas ao entrar no quarto",
+       "category": "Contato"
+      },
+      {
+       "label": "Luvas e avental descartados antes de sair",
+       "category": "Contato"
+      },
+      {
+       "label": "Máscara vestida ao entrar no quarto",
+       "category": "Gotículas"
+      },
+      {
+       "label": "Paciente de máscara fora do quarto, se tolerar",
+       "category": "Gotículas"
+      },
+      {
+       "label": "Respirador N95 ou superior antes de entrar",
+       "category": "Aerossóis"
+      },
+      {
+       "label": "Quarto de isolamento, de porta fechada",
+       "category": "Aerossóis"
+      }
+     ],
+     "feedbackCorrect": "Você ligou cada barreira ao tipo de precaução em que ela aparece.",
+     "feedbackIncorrect": "Pense na via: o que toca, o que respinga e o que fica no ar. Cada via pede uma barreira diferente.",
+     "help": "Toque, respingo ou ar: qual barreira combina?",
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "cloze",
+     "role": "practice",
+     "prompt": "Complete a frase com as palavras do banco.",
+     "text": "Na precaução de contato, você veste avental e {{1}} ao entrar e os retira antes de {{2}}.",
+     "answers": [
+      "luvas",
+      "sair"
+     ],
+     "distractors": [
+      "óculos",
+      "entrar",
+      "gorro"
+     ],
+     "feedbackCorrect": "Isso: avental e luvas ao entrar, retirados antes de sair.",
+     "feedbackIncorrect": "Pense no contato: a barreira entra com você e sai antes de você deixar o quarto.",
+     "help": "A barreira de contato vai e volta com quem?",
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a sua conduta?",
+     "options": [
+      {
+       "label": "Entrar só com luvas, porque o tempo é muito curto.",
+       "correct": false,
+       "feedback": "Luvas sozinhas não cumprem gotículas. Retome o conceito."
+      },
+      {
+       "label": "Trocar a placa pelo tipo que parece mais adequado a você.",
+       "correct": false,
+       "feedback": "Trocar a placa é decidir sozinho. A indicação é da equipe."
+      },
+      {
+       "label": "Cancelar o exame sem avisar ninguém do setor.",
+       "correct": false,
+       "feedback": "Cancelar sem avisar não resolve a falta. Peça os itens e comunique."
+      },
+      {
+       "label": "Conferir a indicação e pedir a máscara antes de entrar.",
+       "correct": true,
+       "feedback": "Isso: a barreira segue a indicação; sem a máscara, você pede o item antes de entrar."
+      }
+     ],
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ],
+     "context": "Dona Marta vai fazer radiografia no leito. Na porta há placa de precaução por gotículas, mas só há luvas e avental à mão. A Duda diz que luvas bastam, para não perder tempo.",
+     "help": "A placa diz gotículas. Quais barreiras ela pede?",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Um paciente com precaução por aerossóis precisa de radiografia no leito. Qual é o preparo antes de entrar?",
+     "options": [
+      {
+       "label": "Respirador N95 ou superior antes de entrar, porta fechada.",
+       "correct": true,
+       "feedback": "Isso: respirador antes de entrar e porta fechada."
+      },
+      {
+       "label": "Máscara comum e porta aberta, para ventilar bem a sala.",
+       "correct": false,
+       "feedback": "Máscara comum e porta aberta não servem aos aerossóis. Retome o conceito."
+      },
+      {
+       "label": "Avental e luvas somente, como na precaução de contato.",
+       "correct": false,
+       "feedback": "Avental e luvas são a barreira do contato, não dos aerossóis. Confira de novo."
+      },
+      {
+       "label": "Nenhum preparo, porque o exame é bem rápido e simples.",
+       "correct": false,
+       "feedback": "A rapidez não dispensa barreira. Retome o conceito."
+      }
+     ],
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ],
+     "help": "No ar, qual proteção vem antes de entrar?"
+    }
+   ],
+   "closing": {
+    "title": "Barreira certa, sala pronta",
+    "body": "Agora você consegue conferir a precaução indicada, escolher a barreira que ela pede e organizar a sala. Você não escolhe nem muda o tipo, e pede apoio quando falta um item.",
+    "line": {
+     "speaker": "caio",
+     "text": "Placa na porta é recado da equipe. Eu só preciso obedecer direito."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Quem indica o tipo de precaução de um paciente?",
+     "options": [
+      {
+       "label": "O tecnólogo, conforme a aparência do paciente.",
+       "correct": false,
+       "feedback": "A aparência não define a precaução. Retome o conceito."
+      },
+      {
+       "label": "A equipe que cuida dele; você confere a indicação.",
+       "correct": true,
+       "feedback": "Isso: a equipe indica e você confere."
+      },
+      {
+       "label": "O próprio paciente, ao escolher a sala.",
+       "correct": false,
+       "feedback": "O paciente não escolhe o tipo. Retome quem indica."
+      },
+      {
+       "label": "O serviço de limpeza, ao preparar o quarto.",
+       "correct": false,
+       "feedback": "A limpeza prepara o quarto, mas não indica a precaução. Retome."
+      }
+     ],
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ]
+    },
+    {
+     "prompt": "Na precaução por gotículas, qual item o paciente usa fora do quarto, se tolerar?",
+     "options": [
+      {
+       "label": "Avental e luvas.",
+       "correct": false,
+       "feedback": "Avental e luvas são do profissional na precaução de contato. Retome."
+      },
+      {
+       "label": "Respirador N95.",
+       "correct": false,
+       "feedback": "O respirador é do profissional na de aerossóis. Retome o conceito."
+      },
+      {
+       "label": "Máscara.",
+       "correct": true,
+       "feedback": "Isso: máscara, se tolerar."
+      },
+      {
+       "label": "Protetor de tireoide.",
+       "correct": false,
+       "feedback": "O protetor de tireoide é da proteção radiológica, não da precaução. Retome."
+      }
+     ],
+     "sourceIds": [
+      "cdc-precaucoes-transmissao"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: eu confiro a indicação e não escolho o tipo de...",
+     "item": {
+      "prompt": "Você vê uma placa de precaução na porta. O que faz primeiro?",
+      "options": [
+       {
+        "label": "Entra rápido e coloca os itens depois.",
+        "correct": false,
+        "feedback": "Entrar sem barreira expõe você e os outros. Retome o conceito."
+       },
+       {
+        "label": "Escolhe a barreira pelo que parece mais seguro.",
+        "correct": false,
+        "feedback": "Escolher pelo palpite ignora a indicação. Confira a placa."
+       },
+       {
+        "label": "Confere o tipo indicado e pega os itens que ele pede.",
+        "correct": true,
+        "feedback": "Isso: confere o tipo e pega os itens."
+       },
+       {
+        "label": "Pede ao paciente que explique a precaução.",
+        "correct": false,
+        "feedback": "O paciente não define a precaução. Confira com a equipe."
+       }
+      ],
+      "sourceIds": [
+       "cdc-precaucoes-transmissao"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Falta o respirador N95 no setor e o paciente está em precaução por aerossóis. O que você faz?",
+      "options": [
+       {
+        "label": "Entra com máscara comum, só desta vez.",
+        "correct": false,
+        "feedback": "Trocar a barreira indicada por conta própria é decidir sozinho. A equipe define o que fazer na falta do item."
+       },
+       {
+        "label": "Entra sem barreira, por ser rápido.",
+        "correct": false,
+        "feedback": "Ser rápido não dispensa a barreira. Retome."
+       },
+       {
+        "label": "Não entra e pede o item à equipe.",
+        "correct": true,
+        "feedback": "Isso: sem o item, você não entra e comunica."
+       },
+       {
+        "label": "Faz a imagem de fora, com a porta aberta.",
+        "correct": false,
+        "feedback": "Abrir a porta quebra a precaução. Peça o item."
+       }
+      ],
+      "sourceIds": [
+       "cdc-precaucoes-transmissao"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m16-06",
+   "code": "M16.06",
+   "title": "Quando a imagem não sai como o padrão",
+   "objective": "Hoje você vai conseguir agir pelo protocolo quando a imagem sai fora do padrão, chamando a equipe.",
+   "competency": "Reconhecer uma imagem fora do padrão e seguir o protocolo, sem improvisar nem interpretar.",
+   "minutes": 6,
+   "scene": {
+    "setting": "Sala de radiografia",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "Essa imagem saiu diferente do padrão. A pessoa está com gesso no punho."
+     },
+     {
+      "speaker": "duda",
+      "text": "Eu aumento o disparo até ficar igual ao do livro?"
+     },
+     {
+      "speaker": "lia",
+      "text": "Quem define o ajuste, Duda: o livro, o seu palpite ou o protocolo?"
+     },
+     {
+      "speaker": "pixel",
+      "text": "Antes de mexer no equipamento: o que a imagem diferente está te dizendo?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Imagem fora do padrão",
+    "body": "Nem toda imagem sai como o padrão de estudo. A região pode estar engessada, a pessoa pode não conseguir a posição ideal, e cada corpo é diferente. Você não improvisa a técnica: consulte o protocolo do serviço, use só os ajustes que ele permite e descreva à equipe o que observou. Gesso e tala não se retiram por conta própria. Repetir a imagem por palpite é nova exposição, então não se faz sem combinar. Se o protocolo não resolver, pare e chame a equipe. O aspecto diferente da imagem não é diagnóstico, e quem interpreta é o radiologista.",
+    "keyPoints": [
+     "Imagem fora do padrão: protocolo primeiro, sem retirar gesso ou tala.",
+     "Sem improvisar técnica nem repetir por palpite.",
+     "Imagem fora do padrão que persiste: descrever e chamar a equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na unidade de tórax, você notou um problema técnico na imagem, como pouca inspiração. O que fazia?",
+     "options": [
+      {
+       "label": "Dizer à pessoa o que a imagem mostra.",
+       "correct": false,
+       "feedback": "Dizer o que a imagem mostra é interpretar. Retome M08: você descreve e leva à supervisão."
+      },
+      {
+       "label": "Repetir a imagem na hora, sem avisar.",
+       "correct": false,
+       "feedback": "Repetir sem avisar é nova exposição sem combinar. Retome o que M08 pedia."
+      },
+      {
+       "label": "Descrever o que viu e levar à supervisão.",
+       "correct": true,
+       "feedback": "Isso: você descreve o problema técnico e leva à supervisão, sem interpretar."
+      },
+      {
+       "label": "Deixar como está, porque o laudo resolve.",
+       "correct": false,
+       "feedback": "Deixar como está esconde o problema técnico. Retome: descrever e levar à supervisão."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-torax"
+     ],
+     "help": "Achar o problema técnico é o mesmo que interpretar?"
+    },
+    {
+     "id": "i2",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Associe cada situação à conduta que o protocolo pede.",
+     "pairs": [
+      {
+       "left": "Imagem do punho engessado sai com pouco detalhe",
+       "right": "Consultar o protocolo e descrever o que viu à equipe"
+      },
+      {
+       "left": "Vontade de repetir a imagem por palpite",
+       "right": "Combinar com a equipe antes de nova exposição"
+      },
+      {
+       "left": "O protocolo não resolve a imagem",
+       "right": "Parar e chamar a equipe"
+      },
+      {
+       "left": "A pessoa pergunta o que a imagem mostra",
+       "right": "Explicar que o radiologista interpreta as imagens"
+      }
+     ],
+     "feedbackCorrect": "Você ligou cada situação à conduta: protocolo, combinação, equipe e interpretação por quem cabe.",
+     "feedbackIncorrect": "Confira de novo: o protocolo vem primeiro; repetição se combina; persistência vai à equipe; interpretar é do radiologista.",
+     "help": "Quem resolve cada situação: você, o protocolo ou a equipe?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre a imagem fora do padrão.",
+     "statements": [
+      {
+       "text": "Aumentar o disparo por conta própria até ficar igual ao livro é aceitável.",
+       "correct": false,
+       "feedback": "Errado: a técnica segue o protocolo, e repetir ou aumentar é nova exposição que se combina."
+      },
+      {
+       "text": "Retirar o gesso para a imagem ficar no padrão é decisão da equipe.",
+       "correct": true,
+       "feedback": "Certo: gesso e tala não se retiram por conta própria; o ajuste segue o protocolo e a equipe."
+      },
+      {
+       "text": "Dar nome ao que a imagem mostra de diferente faz parte do seu papel.",
+       "correct": false,
+       "feedback": "Errado: interpretar a imagem é do radiologista. Você descreve o que observou."
+      }
+     ],
+     "feedbackCorrect": "Você separou o ajuste pelo protocolo da interpretação e da improvisação.",
+     "feedbackIncorrect": "Releia o conceito: a técnica segue o protocolo, repetir se combina e interpretar não é seu papel.",
+     "help": "Quem define a técnica e quem interpreta a imagem?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "prompt": "Qual é a conduta mais segura?",
+     "options": [
+      {
+       "label": "Cortar o gesso e repetir a imagem, para ficar no padrão.",
+       "correct": false,
+       "feedback": "Cortar o gesso não cabe a você: quem decide é a equipe. Retome o conceito."
+      },
+      {
+       "label": "Mostrar a imagem a ele e dizer o que parece ser, com calma.",
+       "correct": false,
+       "feedback": "Dizer o que parece ser é interpretar. Isso cabe ao radiologista."
+      },
+      {
+       "label": "Repetir a imagem com mais disparo, sem avisar ninguém.",
+       "correct": false,
+       "feedback": "Repetir com mais disparo, sem avisar, é nova exposição por palpite. Chame a equipe."
+      },
+      {
+       "label": "Não tirar o gesso nem repetir sozinho: descrever e chamar a equipe.",
+       "correct": true,
+       "feedback": "Isso: nada de retirar, repetir ou interpretar sozinho."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ],
+     "context": "Seu Jorge tem o antebraço engessado e dor. A primeira imagem do antebraço saiu com pouco detalhe. A Duda propõe tirar o gesso e repetir, e Seu Jorge pede para ver a imagem e saber se 'quebrou'.",
+     "help": "O que você deixa para a equipe decidir?",
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multi-select",
+     "role": "transfer",
+     "prompt": "Marque todas as ações adequadas quando a imagem sai fora do padrão.",
+     "options": [
+      {
+       "label": "Repetir a imagem com outro disparo, por palpite.",
+       "correct": false,
+       "feedback": "Repetir por palpite é nova exposição sem combinação. Consulte o protocolo."
+      },
+      {
+       "label": "Consultar o protocolo do serviço.",
+       "correct": true,
+       "feedback": "Certo: o ajuste previsto está no protocolo."
+      },
+      {
+       "label": "Descrever à equipe o que observou.",
+       "correct": true,
+       "feedback": "Certo: sua descrição ajuda a equipe a decidir."
+      },
+      {
+       "label": "Dizer à pessoa o que o aspecto da imagem significa.",
+       "correct": false,
+       "feedback": "Interpretar não é seu papel. Quem interpreta é o radiologista."
+      },
+      {
+       "label": "Chamar a equipe se o protocolo não resolver.",
+       "correct": true,
+       "feedback": "Certo: persistindo, a equipe decide o que fazer."
+      },
+      {
+       "label": "Descartar a imagem sem registrar.",
+       "correct": false,
+       "feedback": "Descartar sem registrar apaga o rastro. Descreva à equipe."
+      }
+     ],
+     "feedbackCorrect": "Você marcou protocolo, descrição e equipe, e deixou de fora palpite, interpretação e descarte.",
+     "feedbackIncorrect": "Releia o conceito: protocolo primeiro, descrição à equipe e chamada se persistir. Palpite, interpretação e descarte não cabem a você.",
+     "help": "O que você faz sem decidir sozinho?",
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "Protocolo e equipe",
+    "body": "Agora você consegue agir quando a imagem sai fora do padrão: consultar o protocolo, descrever à equipe e chamá-la quando o ajuste não resolve. Você não retira gesso, não improvisa a técnica nem interpreta a imagem.",
+    "line": {
+     "speaker": "lia",
+     "text": "Imagem diferente é pergunta para o protocolo, não palpite."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma imagem sai fora do padrão e o protocolo já foi consultado, sem resolver. O que você faz?",
+     "options": [
+      {
+       "label": "Para e chama a equipe.",
+       "correct": true,
+       "feedback": "Isso: o protocolo não resolveu, então a equipe decide."
+      },
+      {
+       "label": "Repete com outros valores até acertar.",
+       "correct": false,
+       "feedback": "Repetir com outros valores é tentativa por palpite. Retome o conceito."
+      },
+      {
+       "label": "Envia a imagem assim, sem comentar.",
+       "correct": false,
+       "feedback": "Enviar sem comentar esconde o problema. Descreva."
+      },
+      {
+       "label": "Pede à pessoa para ir embora.",
+       "correct": false,
+       "feedback": "Dispensar a pessoa é decidir sozinho. Chame a equipe."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    },
+    {
+     "prompt": "Quem interpreta o que a imagem mostra de diferente do padrão?",
+     "options": [
+      {
+       "label": "O tecnólogo que fez a imagem.",
+       "correct": false,
+       "feedback": "O tecnólogo descreve o que observou; interpretar é de outro. Retome."
+      },
+      {
+       "label": "A pessoa atendida.",
+       "correct": false,
+       "feedback": "A pessoa atendida recebe a conversa do médico. Retome o conceito."
+      },
+      {
+       "label": "O colega que viu a imagem primeiro.",
+       "correct": false,
+       "feedback": "Ver primeiro não é interpretar. Retome quem interpreta."
+      },
+      {
+       "label": "O radiologista.",
+       "correct": true,
+       "feedback": "Isso: o radiologista interpreta."
+      }
+     ],
+     "sourceIds": [
+      "radiologyinfo-osso"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: imagem fora do padrão, eu consulto o... e descrevo à equipe.",
+     "item": {
+      "prompt": "Uma imagem sai diferente do padrão. O que vem antes de qualquer ajuste?",
+      "options": [
+       {
+        "label": "Repetir a imagem com mais disparo.",
+        "correct": false,
+        "feedback": "Repetir com mais disparo é palpite. Retome o conceito."
+       },
+       {
+        "label": "Consultar o protocolo do serviço.",
+        "correct": true,
+        "feedback": "Isso: o protocolo vem antes do ajuste."
+       },
+       {
+        "label": "Pedir opinião à pessoa atendida.",
+        "correct": false,
+        "feedback": "A pessoa atendida não define a técnica. Consulte o protocolo."
+       },
+       {
+        "label": "Apagar a imagem e fazer outra.",
+        "correct": false,
+        "feedback": "Apagar e refazer esconde o problema. Retome o conceito."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "No leito, a pessoa não conseguiu a posição ideal e a imagem saiu fora do padrão. O que você faz?",
+      "options": [
+       {
+        "label": "Aumenta o disparo e repete, sem avisar.",
+        "correct": false,
+        "feedback": "Repetir com mais disparo, sem avisar, é nova exposição por palpite. Retome o conceito."
+       },
+       {
+        "label": "Segue o protocolo e combina com a equipe.",
+        "correct": true,
+        "feedback": "Isso: protocolo e equipe."
+       },
+       {
+        "label": "Cancela o exame por conta própria.",
+        "correct": false,
+        "feedback": "Cancelar é decidir sozinho. Retome o protocolo."
+       },
+       {
+        "label": "Reposiciona a pessoa à força, se preciso.",
+        "correct": false,
+        "feedback": "Reposicionar à força contraria o cuidado. Combine com a equipe."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-osso"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

@@ -58,10 +58,18 @@ describe('resolveTrackAccess', () => {
 
     it('não abre a terceira quando a segunda foi pulada', () => {
         // Se `c` abrisse porque `a` terminou, o cadeado não seria sequencial —
-        // seria só um atraso na primeira trilha.
-        const acesso = resolveTrackAccess(TRILHAS, new Set(['a', 'c']));
+        // seria só um atraso na primeira trilha. Desde 2026-11-13 uma trilha
+        // concluída fica aberta mesmo com a anterior pendente (unidade
+        // inserida antes dela), então o caso aqui é `c` sem conclusão própria.
+        const acesso = resolveTrackAccess(TRILHAS, new Set(['a']));
 
         expect(acesso.find((e) => e.trackId === 'c')?.unlocked).toBe(false);
+    });
+
+    it('mantém aberta a trilha concluída mesmo com a anterior pendente', () => {
+        const acesso = resolveTrackAccess(TRILHAS, new Set(['a', 'c']));
+
+        expect(acesso.map((e) => e.unlocked)).toEqual([true, true, true]);
     });
 
     it('mantém aberta a trilha já concluída, porque o cadeado impede pular, não voltar', () => {

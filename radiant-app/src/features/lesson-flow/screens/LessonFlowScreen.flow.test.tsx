@@ -1085,6 +1085,27 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     expect(order).toEqual(['outcome', 'markNodeCompleted']);
   });
 
+  it('limpa cursor e retomada na trilha da lição concluída, não na ativa (PR #74)', async () => {
+    // A unidade inserida atrás do aluno (1.6) não é a trilha ativa: limpar sem
+    // trilha apagaria a retomada da ativa. A trilha certa é a que a marcação devolve.
+    const trilhaDoNo = { id: 'trilha-do-no', units: [] };
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: trilhaDoNo } as never);
+    mockedJourneyProgress.setCurrentNode.mockClear();
+    mockedJourneyProgress.setResumableNode.mockClear();
+
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText('Resposta correta')).toBeTruthy();
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+
+    await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith(undefined, trilhaDoNo));
+    expect(mockedJourneyProgress.setCurrentNode).toHaveBeenCalledWith(null, trilhaDoNo);
+    expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalledWith(null);
+    expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith(undefined);
+  });
+
   it('registra escolha confirmada incorreta como incorreta', async () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
 

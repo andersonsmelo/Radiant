@@ -50,10 +50,17 @@ export type RtgUnitSource = {
 };
 export type RtgBatchBuild = { batch: ProductionBatchV1; presentation: ProductionCatalogEntry['presentation'] };
 
-/** Ordem da trilha: núcleo de M01 a M14, depois os ramos, que só abrem após M14. */
+/**
+ * Ordem da trilha, pela ementa: núcleo de M01 a M14 com as unidades da 1.6 na
+ * posição pedagógica (m15, biologia, depois de M03; m16, condição do paciente,
+ * depois de M09), seguido dos ramos, que só abrem após M14, com s-od e s-us no fim.
+ * A inserção no meio vale porque `resolveTrackAccess` mantém aberta toda trilha
+ * concluída ou iniciada e toda trilha antes da iniciada mais adiante (2026-11-13).
+ * Mapa: docs/plans/2026-11-13-rtg-2026-expansao-pela-ementa.md.
+ */
 export const RTG_UNIT_ORDER = [
-    'm01', 'm02', 'm03', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12', 'm13', 'm14',
-    's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir',
+    'm01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+    's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us',
 ] as const;
 
 /** Aceite por IA sob delegação (ADR-2026-11-05, decisão 1). Não é revisão por profissional da área. */

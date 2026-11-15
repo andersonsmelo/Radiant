@@ -1,0 +1,141 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M15: avaliação 1 (aula 01)'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# BLOQUEADA EM INSTALAÇÃO LIMPA: a tela de avaliação mostra "Bloqueada" até a aula 01 estar concluída
+# (unlockRule do nó), e o app não é alterado para contornar isso. Por isso o flow joga a aula 01 antes e só então abre a rota /checkpoint.
+# Sem repetir launchApp: reaberto com clearState, o progresso se perderia. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am15%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am15%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m15:aula-01:i1:b'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m15:aula-01:i1:b'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 matching
+- scrollUntilVisible:
+    element:
+      text: 'Associar Núcleo a Guarda o DNA e controla a célula'
+- tapOn: 'Associar Núcleo a Guarda o DNA e controla a célula'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Membrana plasmática a Separa dentro e fora e controla a passagem'
+- tapOn: 'Associar Membrana plasmática a Separa dentro e fora e controla a passagem'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Mitocôndria a Transforma a energia dos nutrientes em ATP'
+- tapOn: 'Associar Mitocôndria a Transforma a energia dos nutrientes em ATP'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 cloze
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-mitocôndria'
+- tapOn:
+    id: 'cloze-token-mitocôndria'
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-núcleo'
+- tapOn:
+    id: 'cloze-token-núcleo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m15:aula-01:i4:d'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m15:aula-01:i4:d'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'
+- openLink: 'radiantapp://checkpoint?nodeId=node%3Acheckpoint%3Artg-2026%3Am15%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- extendedWaitUntil:
+    visible: 'Começar avaliação'
+    timeout: 15000
+- tapOn: 'Começar avaliação'
+# item 1
+- scrollUntilVisible:
+    element:
+      text: 'O lisossomo'
+- tapOn: 'O lisossomo'
+- scrollUntilVisible:
+    element:
+      text: 'Próxima questão'
+- tapOn: 'Próxima questão'
+# item 2
+- scrollUntilVisible:
+    element:
+      text: 'O ribossomo'
+- tapOn: 'O ribossomo'
+- scrollUntilVisible:
+    element:
+      text: 'Enviar avaliação'
+- tapOn: 'Enviar avaliação'
+- extendedWaitUntil:
+    visible: 'Avaliação concluída'
+    timeout: 15000
