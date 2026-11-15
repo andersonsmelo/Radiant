@@ -9,7 +9,7 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import type { CurriculumTrail } from '../../journey/services/JourneyCurriculumService';
 import { ALL_ON, type NotificationPreferences, type ReminderContext } from './composeReminder';
-import { EMPTY_LEAGUE_STANDING, type LeagueStandingSource } from './LeagueStandingSource';
+import { liveLeagueStanding, type LeagueStandingSource } from './LeagueStandingSource';
 import { readNotificationPreferences } from './notificationPreferences';
 
 export type ReminderContextPorts = {
@@ -82,7 +82,7 @@ const livePorts: ReminderContextPorts = {
     dueReviews: now => require('../../spaced-repetition/services/SpacedRepetitionService').SpacedRepetitionService.getDueCount(now),
     trail: () => require('../../journey/services/JourneyCurriculumService').JourneyCurriculumService.getCurriculumTrail(),
     attempts: () => require('../../spaced-repetition/repositories/ItemReviewRepository').itemReviewRepository.getAttempts(),
-    league: EMPTY_LEAGUE_STANDING,
+    league: liveLeagueStanding(),
     lastScheduledIso: () => AsyncStorage.getItem(LAST_SCHEDULED_KEY),
     preferences: readNotificationPreferences,
 };

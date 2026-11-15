@@ -45,7 +45,7 @@ está na `main` nem na loja.** Tudo atrás de `ENABLE_PERSONALIZED_NOTIFICATIONS
 
 - **Lembrete:** um por dia e um pendente por vez, das 9 h às 21 h, nada para quem já estudou
   hoje, um único retorno depois de 3 dias, voz do elenco, interruptor por tipo nos Ajustes e
-  toque que abre a rota. A posição na liga entra depois do merge da PR #72.
+  toque que abre a rota. A posição na liga vem do `LeagueService` só com `ENABLE_LEAGUE` ligada.
 - **Decorações:** 11 itens (moldura, selo, cartão), ganhos em silêncio pelo estado real, três
   exclusivos de assinante, tela `/decoracoes` com entrada no Perfil, backup no iCloud e reset.
 - **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20, saída 0, **244 suítes e 3227

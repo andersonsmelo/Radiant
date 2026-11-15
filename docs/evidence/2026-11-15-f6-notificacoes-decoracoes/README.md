@@ -27,6 +27,7 @@ Um subagente que não escreveu o código revisou `741c3e3..938e850` e pediu muda
 | M2 | Chave do último agendamento em três literais | Uma constante para o agendador e o contexto; o `PushService` mantém a dele |
 | M4 | Resposta guardada podia repetir a navegação | `clearLastNotificationResponse` depois de tratar |
 | Codex (PR #75) | Unidade com recompensa opcional não coletada não contava como concluída nas decorações, embora a trilha a mostrasse concluída | Corrigido: `progressFromSources` usa `isRequiredProgressionNode`, a régua da trilha (seção 17 do `vermelho.md`) |
+| Liga (pedido do controlador, depois do merge da #72) | A porta `LeagueStandingSource` estava vazia | Ligada ao `LeagueService.getStanding()` só com `ENABLE_LEAGUE`, por carga tardia; desligada, o módulo da liga não é carregado (seção 18 do `vermelho.md`) |
 | M3, M5, M6, M7 | Tipos visíveis com o geral desligado; toque durante a aula; revisão não conta como estudo; retorno segue "aula" | Registrados na ADR como decisão do dono |
 
 Durante a contraprova, achei também a fila do serviço de decorações presa por uma leitura que
@@ -49,6 +50,9 @@ Todos no Node 20.20.2 (`node --version` conferido), na worktree `f6-notificacoes
   `bb41b3e`): `npm run quality` com saída 0, **253 suítes e 3345 testes**, depois de `npm ci`
   (a primeira rodada reprovou só `widgetsPlugin.test.ts`, porque a dependência nova dos widgets não
   estava instalada nesta worktree).
+
+- Merge final da `main` (`25edf25`, depois de F8, F7, F3 e liga) mais a porta da liga:
+  `npm run quality` com saída 0, **272 suítes e 3660 testes**, Node 20.20.2.
 
 ## No simulador
 

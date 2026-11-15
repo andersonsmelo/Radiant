@@ -45,8 +45,10 @@ do backup são os da 1.5.0, com contraprova em teste.
    fundo e quando um tipo muda nos Ajustes. Assim quem estuda e fecha o app sem voltar à
    Estude não recebe à noite o convite da aula que já fez, e quem desliga um tipo às 18 h não
    recebe o das 19 h. Para amanhã, o título da revisão não cita a contagem de hoje.
-9. **Liga:** porta `LeagueStandingSource` com adaptador vazio. Liga-se ao
-   `LeagueService.getStanding()` depois do merge da PR #72; até lá, o tipo "liga" nunca sai.
+9. **Liga:** porta `LeagueStandingSource`. Depois do merge da PR #72 (2026-11-15),
+   `liveLeagueStanding()` lê `LeagueService.getStanding()` só com `ENABLE_LEAGUE` ligada, por
+   `require` na hora da leitura, como o `_layout`; desligada, a porta é vazia, o módulo da liga
+   não é carregado e o tipo "liga" nunca sai.
 
 ### Regras de desbloqueio das decorações
 

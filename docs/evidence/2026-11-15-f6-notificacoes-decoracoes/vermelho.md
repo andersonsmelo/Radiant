@@ -332,3 +332,42 @@ Tests:       1 failed, 16 skipped, 17 total
 ### com isRequiredProgressionNode
 Tests:       17 passed, 17 total
 ```
+
+## 18. Porta da liga ligada ao `LeagueService` (depois do merge da F4)
+
+`liveLeagueStanding()` lê `LeagueService.getStanding()` só com `ENABLE_LEAGUE` ligada, por
+`require` na hora da leitura; desligada, devolve a porta vazia e o módulo da liga não entra no
+registro. A guarda do registro conta as execuções da fábrica do `jest.mock`, que só roda quando o
+módulo é carregado, com `jest.resetModules()` antes de cada teste. A primeira versão usava
+`isolateModules`, que é síncrono e não alcança o `require` feito na hora da leitura: o controle
+"ligada carrega uma vez" reprovou com 0, e a guarda foi refeita antes de valer.
+
+```
+### antes da implementação
+    ✕ ligada: o lembrete fala da posição real na liga
+    ✕ desligada: o lembrete não fala de liga, mesmo com posição disponível
+    ✕ desligada: o módulo da liga não entra no registro, nem na carga nem na leitura
+    TypeError: liveLeagueStanding is not a function
+Tests:       3 failed, 3 total
+### porta sempre vazia (ligada não lê a liga)
+    ✕ ligada: o lembrete fala da posição real na liga (71 ms)
+    ✕ desligada: o módulo da liga não entra no registro, nem na carga nem na leitura (2 ms)
+    - Expected  - 2
+    + Received  + 2
+    Expected: 1
+    Received: 0
+Tests:       2 failed, 1 passed, 3 total
+### chave ignorada (desligada lê a liga)
+    ✕ desligada: o lembrete não fala de liga, mesmo com posição disponível (2 ms)
+    ✕ desligada: o módulo da liga não entra no registro, nem na carga nem na leitura (2 ms)
+    Expected: not "liga"
+    Received: {"rank": 3, "totalPlayers": 12}
+Tests:       2 failed, 1 passed, 3 total
+### importação imediata do LeagueService (regra da chave certa)
+    ✕ desligada: o módulo da liga não entra no registro, nem na carga nem na leitura (2 ms)
+    Expected: 0
+    Received: 1
+Tests:       1 failed, 2 passed, 3 total
+### com a correção
+Tests:       3 passed, 3 total
+```
