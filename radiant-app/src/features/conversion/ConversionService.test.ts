@@ -1,14 +1,14 @@
-// O dia do limite é o do aluno, não o UTC: o defeito da sequência de 2026-11-06
-// só aparecia fora de UTC (AGENTS.md, lições de 2026-11-05 e 06).
-process.env.TZ = 'America/Sao_Paulo';
-
-jest.mock('@react-native-async-storage/async-storage', () =>
-    require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
-
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import type { HeartsSnapshot } from '../hearts/hearts.types';
 import type { SubscriptionStatus } from '../subscription/subscription.types';
 import { ConversionService, SAMPLE_MINUTES } from './ConversionService';
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+    require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
+
+// O dia do limite é o do aluno, não o UTC: o defeito da sequência de 2026-11-06
+// só aparecia fora de UTC (AGENTS.md, lições de 2026-11-05 e 06).
+process.env.TZ = 'America/Sao_Paulo';
 
 function memoryStorage(initial: Record<string, string> = {}) {
     const data = new Map(Object.entries(initial));
