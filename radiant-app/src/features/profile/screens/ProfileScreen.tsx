@@ -25,11 +25,12 @@ import { TodayGoals } from '../components/TodayGoals';
 
 type Reading<T> = { state: 'loading' } | { state: 'ready'; data: T } | { state: 'unavailable' };
 
-function currentUnit(trail: CurriculumTrail): JourneyUnit | null {
+export function currentUnit(trail: CurriculumTrail): JourneyUnit | null {
   const units = trail.segments.flatMap(segment => segment.units);
   const recommended = units.find(unit => unit.nodes.some(node => node.id === trail.recommendedNodeId));
   if (recommended) return recommended;
-  const active = trail.segments.find(segment => segment.unlocked && !segment.completed);
+  // A trilha ativa vem da mesma função pura da Home, e não de uma cópia da régua.
+  const active = trail.segments.find(segment => segment.trackId === trail.activeTrackId && !segment.completed);
   if (active) return active.units.find(unit => unit.nodes.some(node => node.type === 'lesson' && node.status !== 'completed')) ?? active.units[0] ?? null;
   const completed = trail.segments.filter(segment => segment.completed).flatMap(segment => segment.units);
   return completed[completed.length - 1] ?? null;
