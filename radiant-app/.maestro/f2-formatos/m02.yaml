@@ -1,0 +1,246 @@
+appId: com.ascendcreative.radiant
+name: 'F2 — M02.01: true-false (acerto), cloze (erro) e retomada'
+tags:
+  - f2-formatos
+---
+# Frente F2 da 1.6 (ADR-2026-11-13). Abre a aula por link, sem nó da trilha:
+# o tocador resolve a atividade pelo id, e sem nó a aula não grava cursor nem
+# conclusão na trilha. Cobre acerto, erro e retomada no meio.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+# Quando o launcher não descobre o Metro, abre o dev client pela URL (AGENTS.md, 2026-10-09).
+- extendedWaitUntil:
+    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação'
+    timeout: 30000
+    optional: true
+- runFlow:
+    when:
+      visible: 'No development servers found'
+    commands:
+      - openLink: radiantapp://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081
+      - runFlow:
+          when:
+            visible: 'Abrir com .*'
+          commands:
+            - tapOn: Abrir
+- runFlow: ../subflows/dismiss-dev-client.yaml
+# O link só pode sair com o JS carregado: antes disso o dev client o trata
+# como pedido de servidor e volta ao launcher (medido em 2026-11-13).
+# O menu de boas-vindas do dev client pode subir depois do subfluxo, quando o
+# bundle termina de carregar (medido em 2026-11-13): espera um dos dois e dispensa de novo.
+- extendedWaitUntil:
+    visible: 'Pular apresentação|This is the developer menu\. .*'
+    timeout: 120000
+    optional: true
+# Quando o launcher não descobre o Metro, abre o dev client pela URL (AGENTS.md, 2026-10-09).
+- extendedWaitUntil:
+    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação'
+    timeout: 30000
+    optional: true
+- runFlow:
+    when:
+      visible: 'No development servers found'
+    commands:
+      - openLink: radiantapp://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081
+      - runFlow:
+          when:
+            visible: 'Abrir com .*'
+          commands:
+            - tapOn: Abrir
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- extendedWaitUntil:
+    visible:
+      id: journey-trail
+    timeout: 60000
+- openLink: radiantapp://learn?blockId=activity%3Artg-2026%3Am02%3Aaula-01
+# O iOS pergunta se abre o link no Radiant.
+- extendedWaitUntil:
+    visible: 'Abrir com .*'
+    timeout: 10000
+    optional: true
+- runFlow:
+    when:
+      visible: 'Abrir com .*'
+    commands:
+      - tapOn: Abrir
+- repeat:
+    while:
+      notVisible: 'Pedir nome completo e nascimento e comparar.'
+    commands:
+      - tapOn: Continuar
+# i1, múltipla escolha de pré-requisito.
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      text: 'Pedir nome completo e nascimento e comparar.'
+    direction: DOWN
+    timeout: 15000
+- tapOn: 'Pedir nome completo e nascimento e comparar.'
+- tapOn: Conferir resposta
+- tapOn: Continuar
+# Retomada no meio: o app é encerrado depois da i1 e relançado sem limpar o
+# estado; a aula aberta com o cursor no passo 6 volta à primeira interação,
+# sem resposta antiga. (Reabrir a rota sem encerrar não remonta a tela.)
+- stopApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+# Quando o launcher não descobre o Metro, abre o dev client pela URL (AGENTS.md, 2026-10-09).
+- extendedWaitUntil:
+    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*|Pular apresentação'
+    timeout: 30000
+    optional: true
+- runFlow:
+    when:
+      visible: 'No development servers found'
+    commands:
+      - openLink: radiantapp://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081
+      - runFlow:
+          when:
+            visible: 'Abrir com .*'
+          commands:
+            - tapOn: Abrir
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- extendedWaitUntil:
+    visible:
+      id: journey-trail
+    timeout: 90000
+- openLink: radiantapp://learn?blockId=activity%3Artg-2026%3Am02%3Aaula-01&resumeCursorId=step-6
+# O iOS pergunta se abre o link no Radiant.
+- extendedWaitUntil:
+    visible: 'Abrir com .*'
+    timeout: 10000
+    optional: true
+- runFlow:
+    when:
+      visible: 'Abrir com .*'
+    commands:
+      - tapOn: Abrir
+- extendedWaitUntil:
+    visible: 'Pedir nome completo e nascimento e comparar.'
+    timeout: 15000
+- assertNotVisible:
+    id: 'true-false-certo'
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      text: 'Pedir nome completo e nascimento e comparar.'
+    direction: DOWN
+    timeout: 15000
+- tapOn: 'Pedir nome completo e nascimento e comparar.'
+- tapOn: Conferir resposta
+- tapOn: Continuar
+# i2, true-false: acerto, uma afirmação por vez (certa, errada, certa, errada).
+- extendedWaitUntil:
+    visible: 'Afirmação 1 de 4'
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: true-false-certo
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: true-false-certo
+- extendedWaitUntil:
+    visible: 'Afirmação 2 de 4'
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: true-false-errado
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: true-false-errado
+- extendedWaitUntil:
+    visible: 'Afirmação 3 de 4'
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: true-false-certo
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: true-false-certo
+- extendedWaitUntil:
+    visible: 'Afirmação 4 de 4'
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: true-false-errado
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: true-false-errado
+- assertNotVisible: '.*Não é isso.*'
+- tapOn: Conferir resposta
+- tapOn: Continuar
+# i3, cloze: erro na lacuna 1.
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: cloze-token-deitado
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: cloze-token-deitado
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      id: cloze-token-observa
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: cloze-token-observa
+- tapOn: Conferir resposta
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      text: 'Lacuna 1: deitado, errado; a certa é descrito'
+    direction: DOWN
+    timeout: 15000
+- tapOn: Continuar
+# Ordenação: confirma a ordem mostrada, certa ou não.
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      text: 'Selecionar esta ordem'
+    direction: DOWN
+    timeout: 15000
+- tapOn: Selecionar esta ordem
+- tapOn: Continuar
+- tapOn: Continuar
+- waitForAnimationToEnd:
+    timeout: 3000
+- scrollUntilVisible:
+    element:
+      text: 'À sua esquerda, como numa vista de frente.'
+    direction: DOWN
+    timeout: 15000
+- tapOn: 'À sua esquerda, como numa vista de frente.'
+- tapOn: Conferir resposta
+- tapOn: Continuar
+- repeat:
+    while:
+      notVisible: Concluir e voltar
+    commands:
+      - tapOn: Continuar
+- tapOn: Concluir e voltar

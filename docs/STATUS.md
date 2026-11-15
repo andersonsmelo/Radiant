@@ -35,6 +35,33 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Atualização 1.6 — F2, formatos de interação (medido em 2026-11-15)
+
+Branch `claude/f2-formatos-de-interacao-e37fff`, PR
+[#71](https://github.com/andersonsmelo/Radiant/pull/71) em rascunho, sem merge.
+Decisão em [ADR 2026-11-13](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md);
+evidência em [`evidence/2026-11-13-f2-formatos/`](evidence/2026-11-13-f2-formatos/README.md).
+
+- **Quatro famílias novas** (`cloze`, `true-false`, `categorize`, `multi-select`) no
+  tipo, no contrato amplo, no verificador da aula-fonte, no gerador e no tocador.
+  `slider-estimate` ficou de fora (ADR, decisão 1).
+- **M01 a M03 convertidas:** 36 interações; toda aula tem ao menos duas famílias
+  novas, nenhuma família três vezes seguidas e a i1 em múltipla escolha.
+  `node scripts/content/build-rtg-batches.mjs --check` sai com 0.
+- **Gate:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`, Node 20.20.2,
+  234 suítes e 3151 testes, saída 0.
+- **Simulador:** os três roteiros de `radiant-app/.maestro/f2-formatos/` passaram
+  inteiros no simulador "Radiant F2" (`63575E19`, iPhone 17 Pro, iOS 26.5), criado em
+  2026-11-13 porque o `E262D4C1` não existia mais. Ele fica desligado e guardado para
+  as próximas frentes. O dev client foi compilado localmente com `xcodebuild`, numa
+  worktree à parte, com `LANG`/`LC_ALL` em UTF-8 (sem isso o CocoaPods quebra na
+  normalização Unicode) e `node_modules` como clone APFS, não link (o Metro não segue
+  link para fora do projeto).
+- **Não visto:** VoiceOver ouvido, texto ampliado AX2, som, tela de conclusão,
+  aparelho físico e Android.
+- **Fila de revisão de quem atualiza da 1.5.0:** o cartão de uma interação que mudou de
+  família sai da fila; os demais ficam com a data (`familyChangeUpgrade.test.ts`).
+
 ## Trilha ampliada pela ementa — F1 da 1.6, medido em 2026-11-13
 
 Na branch `claude/f1-trilha-ampliada`, que nasce da branch da F2

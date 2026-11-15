@@ -78,6 +78,9 @@ describe('famílias da 1.6 no tocador', () => {
         const screen = render(<Harness interaction={cloze} submitted initial='["t-luva","t-tronco"]' />);
         expect(screen.getByText('✗ Lacuna 1: luva (certa: avental)')).toBeTruthy();
         expect(screen.getByText('✓ Lacuna 2: tronco')).toBeTruthy();
+        // Visto no simulador em 2026-11-13: o rótulo acessível não dizia o veredito.
+        expect(screen.getByLabelText('Lacuna 1: luva, errado; a certa é avental')).toBeTruthy();
+        expect(screen.getByLabelText('Lacuna 2: tronco, certo')).toBeTruthy();
     });
 
     it('true-false: uma afirmação por vez, com retorno imediato e sem voltar atrás', () => {
@@ -90,9 +93,20 @@ describe('famílias da 1.6 no tocador', () => {
         expect(screen.queryByLabelText('Certo: A distância reduz a dose.')).toBeNull();
         fireEvent.press(screen.getByLabelText('Certo: O dosímetro protege.'));
         expect(announce).toHaveBeenLastCalledWith('Não é isso. Errado: o dosímetro só mede.');
+        // Só a última afirmação julgada mantém a explicação aberta; a tela não empilha retornos.
+        expect(screen.queryByText('Certo: longe da fonte, menos dose.')).toBeNull();
+        expect(screen.getByText('Errado: o dosímetro só mede.')).toBeTruthy();
         fireEvent.press(screen.getByLabelText('Certo: O avental cobre o tronco.'));
         expect(probe(screen)).toBe('[true,true,true]|false');
         announce.mockRestore();
+    });
+
+    it('true-false: a afirmação da vez vem antes do retorno da anterior, ao alcance sem rolar', () => {
+        const screen = render(<Harness interaction={trueFalse} />);
+        fireEvent.press(screen.getByLabelText('Certo: A distância reduz a dose.'));
+        const tree = JSON.stringify(screen.toJSON());
+        expect(tree.indexOf('Certo: O dosímetro protege.')).toBeGreaterThan(-1);
+        expect(tree.indexOf('Certo: O dosímetro protege.')).toBeLessThan(tree.indexOf('Certo: longe da fonte, menos dose.'));
     });
 
     it('categorize: toca no item, depois no grupo; o item colocado volta com um toque', () => {
@@ -106,6 +120,12 @@ describe('famílias da 1.6 no tocador', () => {
         fireEvent.press(screen.getByLabelText('Colocar Colimar em Técnica'));
         fireEvent.press(screen.getByLabelText('Colocar Indicar em Clínica'));
         expect(probe(screen)).toBe(`${JSON.stringify({ i2: 'g2', i1: 'g1', i3: 'g1', i4: 'g2' })}|true`);
+    });
+
+    it('categorize: os botões dos grupos vêm antes dos itens pendentes, para colocar um item não mover o próximo alvo', () => {
+        const tree = JSON.stringify(render(<Harness interaction={categorize} />).toJSON());
+        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeGreaterThan(-1);
+        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeLessThan(tree.indexOf('Item: Posicionar'));
     });
 
     it('categorize: depois de conferir, o item no grupo errado diz qual é o certo', () => {
@@ -125,11 +145,12 @@ describe('famílias da 1.6 no tocador', () => {
         expect(after.getByText('✗ Avental (faltou marcar)')).toBeTruthy();
         expect(after.getByText('✗ Pressa (marcou a mais)')).toBeTruthy();
         expect(after.getByText('✓ Distância')).toBeTruthy();
+        expect(after.getByLabelText('Distância, marcada, certo')).toBeTruthy();
     });
 
     it('depois de conferir, nenhum controle muda a resposta', () => {
         const screen = render(<Harness interaction={multi} submitted initial='["b"]' />);
-        fireEvent.press(screen.getByLabelText('Pressa'));
+        fireEvent.press(screen.getByLabelText('Pressa, não marcada, certo'));
         expect(probe(screen)).toBe('["b"]|false');
     });
 });

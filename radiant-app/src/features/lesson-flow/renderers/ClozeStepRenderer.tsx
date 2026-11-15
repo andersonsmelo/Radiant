@@ -39,7 +39,7 @@ export function ClozeStepRenderer({ payload, value, onChange, submitted = false,
                     return (
                         <TapChip key={blank.id} testID={`cloze-blank-${index + 1}`}
                             label={`Lacuna ${index + 1}: ${chosen ?? 'vazia'}${submitted && !right ? ` (certa: ${label(blank.correctTokenId)})` : ''}`}
-                            accessibilityLabel={`Lacuna ${index + 1}: ${chosen ?? 'vazia'}`}
+                            accessibilityLabel={`Lacuna ${index + 1}: ${chosen ?? 'vazia'}${submitted ? (right ? ', certo' : `, errado; a certa é ${label(blank.correctTokenId)}`) : ''}`}
                             accessibilityHint={chosen && !submitted ? 'Toque para devolver a palavra ao banco.' : undefined}
                             selected={Boolean(chosen)} disabled={submitted || !chosen} onPress={() => clear(index)}
                             verdict={submitted ? (right ? 'correct' : 'incorrect') : undefined} />
