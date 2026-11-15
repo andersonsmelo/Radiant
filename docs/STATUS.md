@@ -35,6 +35,27 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## F6 da 1.6: lembrete personalizado e decorações (medido em 2026-11-15)
+
+Branch `claude/f6-notificacoes-decoracoes-8fda11`, a partir da `main` em `741c3e3`. **Nada disto
+está na `main` nem na loja.** Tudo atrás de `ENABLE_PERSONALIZED_NOTIFICATIONS` e
+`ENABLE_DECORATIONS`, as duas **desligadas por padrão**; ligar é decisão do dono
+([ADR](adr/ADR-2026-11-15-notificacoes-personalizadas-e-decoracoes.md),
+[evidência](evidence/2026-11-15-f6-notificacoes-decoracoes/README.md)).
+
+- **Lembrete:** um por dia e um pendente por vez, das 9 h às 21 h, nada para quem já estudou
+  hoje, um único retorno depois de 3 dias, voz do elenco, interruptor por tipo nos Ajustes e
+  toque que abre a rota. A posição na liga entra depois do merge da PR #72.
+- **Decorações:** 11 itens (moldura, selo, cartão), ganhos em silêncio pelo estado real, três
+  exclusivos de assinante, tela `/decoracoes` com entrada no Perfil, backup no iCloud e reset.
+- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20, saída 0, **244 suítes e 3227
+  testes**, medido sobre `f825c77`.
+- **Visto no simulador "Radiant F6"** (`84B8865C`): a lista pendente do sistema com um pedido só
+  depois de três recálculos, e o item equipado no Perfil. **Não visto:** a entrega e o toque da
+  notificação, em simulador ou aparelho.
+- **Pendente do dono:** fixar `TZ` nos testes de data (CI em UTC), e quatro decisões de produto
+  listadas na ADR.
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch
