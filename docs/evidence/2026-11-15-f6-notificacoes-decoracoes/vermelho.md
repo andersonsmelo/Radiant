@@ -280,3 +280,33 @@ Tests:       1 failed, 13 passed, 14 total
 ```
 
 Com a flag ligada pelo ambiente, 4 testes antigos do Perfil reprovam por limitação do mock do `expo-router` daquele arquivo, e não por defeito: ele guarda um único `__focus` (o último `useFocusEffect` registrado, agora o das decorações), e as rejeições `mockRejectedValueOnce` são consumidas pela leitura das decorações, que chama `getSnapshot` e `getCurriculumTrail` antes das leituras adiadas do Perfil. O gate roda com a flag no padrão (desligada), em que os 22 testes passam.
+
+## 15. Gate 1 reprovado (2026-11-15, `EXPO_NO_DOTENV=1 npm run quality`, Node 20.20.2)
+
+`Tests: 2 failed, 3217 passed, 3219 total`, saída 1: `ProfileScreen.flow.test.tsx`, "refoco após ajuste" (`Unable to find an element with text: 7 de 35`). Causa minha: para o Perfil ler antes, o gancho das decorações tinha ido para depois do `useFocusEffect` do Perfil, e o mock de `expo-router` daquele arquivo guarda só o último foco registrado. Depois da mudança eu só tinha rodado esse arquivo com a flag ligada. O gancho voltou para antes do efeito do Perfil, e o arquivo passou em banda única (70 testes no `src/features/profile`).
+
+## 16. Achados da revisão independente, por defeito injetado
+
+```
+### D3: preferência sem recalcular o pendente
+    ✕ desligar um tipo grava só ele (1109 ms)
+Tests:       1 failed, 2 passed, 3 total
+### D2: fundo sem recalcular o lembrete
+    ✕ ligada: ir para o fundo recalcula o lembrete (quem estudou e fechou não recebe convite da aula feita) (1 ms)
+Tests:       1 failed, 12 passed, 13 total
+### D4: dia do disparo em UTC, com a máquina em UTC (como o CI)
+Tests:       7 passed, 7 total
+(passou: `process.env.TZ` atribuído no arquivo de teste não alcança o processo, porque o Jest entrega uma cópia do ambiente. Linhas retiradas; ver README, pendência D4.)
+### D5: contagem de hoje no título de amanhã
+    ✕ revisão para amanhã não cita a contagem de hoje, que pode ter crescido (2 ms)
+Tests:       1 failed, 37 passed, 38 total
+### D8: variante 0 da sequência com ameaça de perda
+    ✕ sequencia no dia 16: sem culpa nem ameaça de perda (1 ms)
+Tests:       1 failed, 37 passed, 38 total
+### D6: exclusivo liberado por estar gravado (regra anterior)
+    ✕ exclusivo gravado em `unlocked` (backup editado) não fica disponível sem assinar (1 ms)
+Tests:       1 failed, 23 passed, 24 total
+### D7: sync atrasado regrava depois do reset
+    ✕ reset no meio de um sync não é desfeito pela gravação atrasada (1 ms)
+Tests:       1 failed, 15 passed, 16 total
+```

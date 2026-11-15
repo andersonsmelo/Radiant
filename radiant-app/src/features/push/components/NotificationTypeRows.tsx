@@ -7,6 +7,7 @@ import { space, typography } from '../../../ui/styles';
 import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 import type { NotificationPreferences, ReminderPreferenceId } from '../personalized/composeReminder';
 import { readNotificationPreferences, setNotificationPreference } from '../personalized/notificationPreferences';
+import { PushService } from '../services/PushService';
 
 const ROWS: readonly { id: ReminderPreferenceId; label: string }[] = [
   { id: 'sequencia', label: 'Sequência de estudo' },
@@ -33,7 +34,10 @@ export function NotificationTypeRows(): React.ReactElement | null {
   const change = useCallback((id: ReminderPreferenceId, value: boolean) => {
     setPrefs(current => current && { ...current, [id]: value });
     // Em fila: dois toques rápidos não gravam um sobre o outro.
-    writes.current = writes.current.then(() => setNotificationPreference(id, value)).then(setPrefs, () => undefined);
+    // O pendente se recalcula na hora: desligar "Sequência" às 18 h não deixa chegar a das 19 h.
+    writes.current = writes.current.then(() => setNotificationPreference(id, value))
+      .then(next => { setPrefs(next); return PushService.scheduleDailyIfEligible({ reason: 'preferences_changed' }); })
+      .catch(() => undefined);
   }, []);
 
   if (!enabled || prefs === null) return null;

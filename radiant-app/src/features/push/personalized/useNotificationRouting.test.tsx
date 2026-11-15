@@ -9,7 +9,9 @@ jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
 jest.mock('expo-notifications', () => ({
   addNotificationResponseReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
   getLastNotificationResponseAsync: jest.fn(async () => null),
+  clearLastNotificationResponse: jest.fn(),
 }));
+jest.mock('../services/PushService', () => ({ PushService: { scheduleDailyIfEligible: jest.fn(async () => undefined) } }));
 
 const notifications = Notifications as jest.Mocked<typeof Notifications>;
 const push = router.push as jest.Mock;
@@ -55,5 +57,40 @@ describe('useNotificationRouting', () => {
     render(<Host />);
     await new Promise(resolve => setImmediate(resolve));
     expect(push).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('reagendar ao ir para o fundo', () => {
+  const { AppState } = require('react-native');
+  const { PushService } = jest.requireMock('../services/PushService');
+  let listeners: ((state: string) => void)[] = [];
+  beforeEach(() => {
+    listeners = [];
+    jest.spyOn(AppState, 'addEventListener').mockImplementation(((_: string, fn: (state: string) => void) => {
+      listeners.push(fn); return { remove: jest.fn() };
+    }) as never);
+  });
+  afterEach(() => jest.restoreAllMocks());
+
+  it('ligada: ir para o fundo recalcula o lembrete (quem estudou e fechou não recebe convite da aula feita)', () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = true;
+    render(<Host />);
+    listeners.forEach(fn => fn('inactive'));
+    expect(PushService.scheduleDailyIfEligible).not.toHaveBeenCalled();
+    listeners.forEach(fn => fn('background'));
+    expect(PushService.scheduleDailyIfEligible).toHaveBeenCalledWith({ reason: 'app_background' });
+  });
+
+  it('desligada: nada novo ouve o ciclo do app', () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = false;
+    render(<Host />);
+    expect(listeners).toHaveLength(0);
+  });
+
+  it('o toque tratado limpa a resposta guardada', () => {
+    AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = true;
+    render(<Host />);
+    notifications.addNotificationResponseReceivedListener.mock.calls[0][0](response({ url: '/' }, 'x', 9));
+    expect(notifications.clearLastNotificationResponse).toHaveBeenCalled();
   });
 });

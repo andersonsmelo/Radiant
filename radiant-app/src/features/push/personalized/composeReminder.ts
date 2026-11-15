@@ -62,7 +62,7 @@ function daysBetween(fromKey: string, to: Date): number {
 
 type Copy = { title: string; line: string };
 
-function copyFor(kind: ReminderKind, ctx: ReminderContext, variant: 0 | 1): Copy {
+function copyFor(kind: ReminderKind, ctx: ReminderContext, variant: 0 | 1, today: boolean): Copy {
     const lesson = ctx.nextLessonTitle;
     switch (kind) {
         case 'retorno':
@@ -76,7 +76,9 @@ function copyFor(kind: ReminderKind, ctx: ReminderContext, variant: 0 | 1): Copy
                 { title: `${ctx.streakDays} dias seguidos de estudo`, line: 'Vamos manter o ritmo? Uma aula hoje já conta para a sequência.' },
             ][variant];
         case 'revisao': {
-            const title = ctx.dueReviews === 1 ? '1 revisão para hoje' : `${ctx.dueReviews} revisões para hoje`;
+            // A contagem é de agora: para amanhã ela pode ter crescido, então o título não a cita.
+            const title = !today ? 'Revisões esperando por você'
+                : ctx.dueReviews === 1 ? '1 revisão para hoje' : `${ctx.dueReviews} revisões para hoje`;
             return [
                 { title, line: 'Revise antes de avançar. Poucos minutos firmam o que você já viu.' },
                 { title, line: 'Separe cinco minutos para a revisão. Depois, siga para a próxima aula.' },
@@ -127,7 +129,7 @@ export function planReminder(ctx: ReminderContext): ReminderDecision {
                                 : null;
     if (kind === null) return { skip: 'nada-a-dizer' };
 
-    const { title, line } = copyFor(kind, ctx, (target.getDate() % 2) as 0 | 1);
+    const { title, line } = copyFor(kind, ctx, (target.getDate() % 2) as 0 | 1, today);
     const voice = VOICE[kind];
     const route: ReminderRoute = kind === 'revisao' ? '/review' : '/';
     return { kind, voice, title, body: `${voice}: ${line}`, route, fireAt: target };

@@ -24,6 +24,9 @@ export type ReminderContextPorts = {
     preferences(): Promise<NotificationPreferences>;
 };
 
+/** Mesma chave que o `PushService` usa (`KEYS.LAST_SCHEDULED`); o agendador personalizado a importa daqui. */
+export const LAST_SCHEDULED_KEY = 'push.lastScheduled.v1';
+
 const USUAL_HOUR_WINDOW = 40;
 const USUAL_HOUR_MIN_ATTEMPTS = 5;
 
@@ -80,7 +83,7 @@ const livePorts: ReminderContextPorts = {
     trail: () => require('../../journey/services/JourneyCurriculumService').JourneyCurriculumService.getCurriculumTrail(),
     attempts: () => require('../../spaced-repetition/repositories/ItemReviewRepository').itemReviewRepository.getAttempts(),
     league: EMPTY_LEAGUE_STANDING,
-    lastScheduledIso: () => AsyncStorage.getItem('push.lastScheduled.v1'),
+    lastScheduledIso: () => AsyncStorage.getItem(LAST_SCHEDULED_KEY),
     preferences: readNotificationPreferences,
 };
 /* eslint-enable @typescript-eslint/no-require-imports */

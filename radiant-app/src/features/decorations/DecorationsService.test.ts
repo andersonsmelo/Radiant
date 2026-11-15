@@ -136,3 +136,23 @@ describe('fila', () => {
     expect(await svc.equip('moldura', 'moldura-aurora')).toBe(true);
   });
 });
+
+describe('revisão independente (D6, D7)', () => {
+  it('backup com exclusivo em `unlocked` não o grava nem o libera', async () => {
+    const { svc } = service({}, false);
+    await svc.absorbBackup({ unlocked: ['moldura-ouro', 'selo-faisca'], equipped: { moldura: 'moldura-ouro' } });
+    expect((await stored()).unlocked).toEqual(['selo-faisca']);
+    expect((await svc.sync()).equipped.moldura).toBeNull();
+  });
+
+  it('reset no meio de um sync não é desfeito pela gravação atrasada', async () => {
+    let release!: (p: DecorationProgress) => void;
+    const ports: DecorationsPorts = { progress: () => new Promise(resolve => { release = resolve; }), subscriber: async () => false };
+    const svc = new DecorationsCoordinator(ports);
+    const pending = svc.sync();
+    await svc.reset();
+    release({ ...base, lessonsCompleted: 5 });
+    await pending;
+    expect(await AsyncStorage.getItem(STORAGE_KEYS.DECORATIONS)).toBeNull();
+  });
+});

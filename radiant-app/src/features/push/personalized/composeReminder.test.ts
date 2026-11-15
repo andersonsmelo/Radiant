@@ -51,6 +51,11 @@ describe('planReminder: tipo, voz e rota', () => {
     expect(plan({ streakDays: 1, dueReviews: 1 }).title).toBe('1 revisão para hoje');
     expect(plan({ streakDays: 1, dueReviews: 3 }).title).toBe('3 revisões para hoje');
   });
+
+  it('revisão para amanhã não cita a contagem de hoje, que pode ter crescido', () => {
+    const p = plan({ streakDays: 1, dueReviews: 3, lastStudyDateKey: '2026-11-15' });
+    expect([p.kind, p.fireAt.getDate(), p.title]).toEqual(['revisao', 16, 'Revisões esperando por você']);
+  });
 });
 
 describe('planReminder: limites duros', () => {
@@ -107,15 +112,26 @@ describe('planReminder: limites duros', () => {
 });
 
 describe('planReminder: tom de convite', () => {
-  const casos: Partial<ReminderContext>[] = [
-    {}, { streakDays: 1, dueReviews: 2 }, { streakDays: 1, league: { rank: 2, totalPlayers: 5 } },
-    { streakDays: 1 }, { streakDays: 1, nextLessonTitle: null }, { lastStudyDateKey: '2026-11-01' },
+  // Para cada tipo, o contexto que o produz nos dois dias (as duas variantes), hoje e amanhã.
+  const porTipo: [ReminderPlan['kind'], Partial<ReminderContext>][] = [
+    ['sequencia', {}], ['revisao', { streakDays: 1, dueReviews: 2 }], ['liga', { streakDays: 1, league: { rank: 2, totalPlayers: 5 } }],
+    ['aula', { streakDays: 1 }], ['meta', { streakDays: 1, nextLessonTitle: null }], ['retorno', { lastStudyDateKey: '2026-11-01' }],
   ];
-  const dias = [new Date(2026, 10, 15, 8), new Date(2026, 10, 16, 8)]; // as duas variantes
-  it.each(casos.flatMap(c => dias.map(now => ({ ...c, now }))))('sem culpa nem ameaça de perda: %#', (over) => {
+  const casos = porTipo.flatMap(([kind, over]) => [15, 16].map(day => {
+    // O último estudo acompanha o dia para manter o mesmo tipo: a véspera do alvo.
+    const lastStudyDateKey = over.lastStudyDateKey ?? `2026-11-${String(day - 1).padStart(2, '0')}`;
+    return [kind, day, { ...over, lastStudyDateKey, now: new Date(2026, 10, day, 8) }] as const;
+  }));
+  it.each(casos)('%s no dia %i: sem culpa nem ameaça de perda', (kind, _day, over) => {
     const p = plan(over);
+    expect(p.kind).toBe(kind);
     expect(`${p.title} ${p.body}`).not.toMatch(/perd|perca|acab|última chance|culpa|vergonha|decepcion|especialista|!/i);
     expect(p.title.length).toBeGreaterThan(0);
     expect(p.body.length).toBeLessThanOrEqual(178);
+  });
+
+  it('as duas variantes de cada tipo passam pela guarda', () => {
+    const textos = new Set(casos.map(([, , over]) => plan(over).body));
+    expect(textos.size).toBe(porTipo.length * 2);
   });
 });

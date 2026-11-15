@@ -20,16 +20,20 @@ jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
 }));
 jest.mock('expo-router', () => ({
   router: { push: jest.fn() },
+  // Todos os focos da tela, não só o último: com dois `useFocusEffect` (o do Perfil e o das
+  // decorações, F6), guardar um só fazia o refoco chamar o efeito errado.
+  __entries: new Set(),
   useFocusEffect: (callback: () => void | (() => void)) => {
     const React = require('react');
     const state = jest.requireMock('expo-router');
     React.useEffect(() => {
-      state.__focus = () => { state.__cleanup = callback(); };
-      state.__focus();
-      return () => { state.__cleanup?.(); };
+      const entry: { callback: typeof callback; cleanup?: void | (() => void) } = { callback, cleanup: callback() };
+      state.__entries.add(entry);
+      return () => { entry.cleanup?.(); state.__entries.delete(entry); };
     }, [callback, state]);
   },
-  __blur: () => { const state = jest.requireMock('expo-router'); state.__cleanup?.(); },
+  __focus: () => { for (const entry of jest.requireMock('expo-router').__entries) entry.cleanup = entry.callback(); },
+  __blur: () => { for (const entry of jest.requireMock('expo-router').__entries) entry.cleanup?.(); },
 }));
 jest.mock('../../gamification/services/GamificationService', () => ({ GamificationService: { getSnapshot: jest.fn() } }));
 jest.mock('../../daily-goal/services/DailyGoalService', () => ({ DailyGoalService: { getSnapshot: jest.fn(), setTier: jest.fn() } }));

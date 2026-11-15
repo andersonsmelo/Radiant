@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 
@@ -28,6 +28,8 @@ function Preview({ item }: { item: Decoration }) {
 
 /** Escolher e equipar decorações, na rota `/decoracoes` (F6). Nada aqui muda o estudo. */
 export default function DecorationsScreen() {
+  // Padrão da casa: o texto refaz o layout quando o tamanho de fonte muda com a tela aberta.
+  const { fontScale } = useWindowDimensions();
   const [reading, setReading] = useState<Reading>({ state: 'loading' });
   const [equippedIds, setEquippedIds] = useState<Record<string, string | undefined>>({});
   const busy = useRef(false);
@@ -65,16 +67,16 @@ export default function DecorationsScreen() {
           <Pressable onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Voltar" hitSlop={space.s1}
             style={({ pressed }) => [styles.back, pressed && styles.pressed]}>
             <IconSymbol name="chevron.left" size={20} color={galaxyColors.navBlue} />
-            <Text style={styles.backLabel}>Voltar</Text>
+            <Text key={`t1-${fontScale}`} style={styles.backLabel}>Voltar</Text>
           </Pressable>
-          <Text style={styles.title} accessibilityRole="header">Decorações</Text>
-          <Text style={styles.detail}>Enfeites do seu perfil, ganhos pelo estudo. Não mudam XP, vidas nem aulas.</Text>
+          <Text key={`t2-${fontScale}`} style={styles.title} accessibilityRole="header">Decorações</Text>
+          <Text key={`t3-${fontScale}`} style={styles.detail}>Enfeites do seu perfil, ganhos pelo estudo. Não mudam XP, vidas nem aulas.</Text>
         </View>
         <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          {reading.state === 'loading' ? <Text style={styles.detail}>Carregando decorações…</Text>
-            : reading.state === 'unavailable' ? <Text style={styles.detail} accessibilityRole="alert">Não foi possível ler as decorações agora. Tente de novo em instantes.</Text>
+          {reading.state === 'loading' ? <Text key={`t4-${fontScale}`} style={styles.detail}>Carregando decorações…</Text>
+            : reading.state === 'unavailable' ? <Text key={`t5-${fontScale}`} style={styles.detail} accessibilityRole="alert">Não foi possível ler as decorações agora. Tente de novo em instantes.</Text>
               : DECORATION_SLOTS.map(({ slot, title }) => <View key={slot} style={styles.section}>
-                <Text style={styles.sectionTitle} accessibilityRole="header">{title}</Text>
+                <Text key={`t6-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">{title}</Text>
                 {DECORATIONS.filter(d => d.slot === slot).map(item => {
                   const w = words(item);
                   const isEquipped = equippedIds[slot] === item.id && available.has(item.id);
@@ -82,9 +84,9 @@ export default function DecorationsScreen() {
                   const body = <>
                     <View style={styles.preview}><Preview item={item} /></View>
                     <View style={styles.itemText}>
-                      <Text style={styles.itemName}>{item.name}</Text>
-                      <Text style={styles.detail}>{item.description}</Text>
-                      <Text style={[styles.status, isEquipped && styles.statusOn]}>
+                      <Text key={`t7-${fontScale}`} style={styles.itemName}>{item.name}</Text>
+                      <Text key={`t8-${fontScale}`} style={styles.detail}>{item.description}</Text>
+                      <Text key={`t9-${fontScale}`} style={[styles.status, isEquipped && styles.statusOn]}>
                         {isEquipped ? `${w.equipped}. Toque para tirar.`
                           : available.has(item.id) ? `${w.earned}. Toque para equipar.`
                             : exclusiveLocked ? `${w.exclusive} do Radiant Ilimitado. Toque para conhecer.`

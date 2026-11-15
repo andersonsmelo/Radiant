@@ -24,7 +24,8 @@ export type DecorationsPorts = {
     subscriber(): Promise<boolean>;
 };
 
-const KNOWN_IDS = new Set(DECORATIONS.map(d => d.id));
+// Só os que se ganham pelo estudo se gravam: o exclusivo de assinante nunca entra em `unlocked`.
+const KNOWN_IDS = new Set(DECORATIONS.filter(d => d.rule.kind !== 'assinante').map(d => d.id));
 
 function cleanEquipped(value: unknown): EquippedIds {
     const equipped: EquippedIds = {};
@@ -49,6 +50,8 @@ function parse(raw: string | null): Store {
 export class DecorationsCoordinator {
     // Fila única, como as missões: duas telas não gravam uma sobre a outra.
     private tail: Promise<unknown> = Promise.resolve();
+    // Um `sync` que leu o progresso antes de um reset não regrava os ganhos depois dele.
+    private generation = 0;
 
     constructor(private readonly ports: DecorationsPorts = livePorts) {}
 
@@ -74,9 +77,11 @@ export class DecorationsCoordinator {
 
     async sync(): Promise<DecorationsState> {
         // As fontes leem fora da fila: uma leitura que demora ou trava não prende equipar nem o próximo foco.
+        const startedAt = this.generation;
         const [progress, subscriber] = await Promise.all([this.ports.progress(), this.subscriber()]);
         return this.queued(async () => {
             const { store, writable } = await this.load();
+            if (startedAt !== this.generation) return { unlocked: [], subscriber, equipped: resolveEquipped({}, availableIds([], subscriber)) };
             const earned = newlyEarned(progress, store.unlocked);
             const unlocked = [...store.unlocked, ...earned];
             if (earned.length && writable) await this.save({ ...store, unlocked });
@@ -120,6 +125,7 @@ export class DecorationsCoordinator {
     }
 
     reset(): Promise<void> {
+        this.generation += 1;
         return this.queued(() => AsyncStorage.removeItem(STORAGE_KEYS.DECORATIONS));
     }
 }

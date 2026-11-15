@@ -32,7 +32,8 @@ export function newlyEarned(progress: DecorationProgress, unlocked: readonly str
 }
 
 export function availableIds(unlocked: readonly string[], subscriber: boolean): Set<string> {
-    return new Set(DECORATIONS.filter(d => unlocked.includes(d.id) || (subscriber && d.rule.kind === 'assinante')).map(d => d.id));
+    // Exclusivo vale só pela assinatura, nunca por estar gravado (um backup editado não o libera).
+    return new Set(DECORATIONS.filter(d => d.rule.kind === 'assinante' ? subscriber : unlocked.includes(d.id)).map(d => d.id));
 }
 
 export function resolveEquipped(equipped: EquippedIds, available: ReadonlySet<string>): EquippedDecorations {

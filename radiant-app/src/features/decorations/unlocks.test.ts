@@ -40,6 +40,10 @@ describe('availableIds e resolveEquipped', () => {
     expect(availableIds(['moldura-aurora'], true).has('moldura-ouro')).toBe(true);
   });
 
+  it('exclusivo gravado em `unlocked` (backup editado) não fica disponível sem assinar', () => {
+    expect(availableIds(['moldura-ouro', 'selo-cometa'], false)).toEqual(new Set());
+  });
+
   it('item equipado que deixou de estar disponível volta ao padrão, sem apagar a escolha', () => {
     const equipped = { moldura: 'moldura-ouro', selo: 'selo-faisca' };
     const resolved = resolveEquipped(equipped, availableIds(['selo-faisca'], false));

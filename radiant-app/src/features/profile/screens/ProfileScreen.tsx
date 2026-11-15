@@ -49,6 +49,7 @@ export default function ProfileScreen() {
   const [freezes, setFreezes] = useState<Reading<number>>({ state: 'loading' });
   const [today, setToday] = useState(() => new Date());
   const generation = useRef(0);
+  const decorations = useDecorationsState(); // F6: null com a flag desligada
 
   useFocusEffect(useCallback(() => {
     const ownGeneration = ++generation.current;
@@ -76,8 +77,6 @@ export default function ProfileScreen() {
     read(() => SpacedRepetitionService.getDueCount(), setDue);
     return () => { generation.current++; };
   }, []));
-  // F6: depois das leituras do Perfil, que vêm primeiro; null com a flag desligada.
-  const decorations = useDecorationsState();
 
   const snapshot = gamification.state === 'ready' ? gamification.data : null;
   const totalXp = snapshot?.totalXp;

@@ -6,10 +6,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type * as ExpoNotifications from 'expo-notifications';
 import { planReminder, type ReminderContext } from './composeReminder';
-import { gatherReminderContext } from './reminderContext';
+import { LAST_SCHEDULED_KEY, gatherReminderContext } from './reminderContext';
 
 export const PERSONALIZED_REMINDER_ID = 'radiant.lembrete.personalizado';
-const LAST_SCHEDULED_KEY = 'push.lastScheduled.v1';
 
 export type ReminderNotifications = Pick<typeof ExpoNotifications,
     'SchedulableTriggerInputTypes' | 'getPermissionsAsync' | 'cancelAllScheduledNotificationsAsync' | 'scheduleNotificationAsync'>;

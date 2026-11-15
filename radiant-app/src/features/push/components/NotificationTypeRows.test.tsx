@@ -14,6 +14,8 @@ jest.mock('expo-router', () => ({
   },
 }));
 
+jest.mock('../services/PushService', () => ({ PushService: { scheduleDailyIfEligible: jest.fn(async () => undefined) } }));
+
 const original = AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS;
 beforeEach(() => AsyncStorage.clear());
 afterEach(() => { AppConfig.ENABLE_PERSONALIZED_NOTIFICATIONS = original; });
@@ -45,5 +47,8 @@ describe('NotificationTypeRows', () => {
     await waitFor(async () => expect((await readNotificationPreferences()).liga).toBe(false));
     expect((await readNotificationPreferences()).sequencia).toBe(true);
     await waitFor(() => expect(screen.getByLabelText('Liga da semana').props.value).toBe(false));
+    // O pendente se recalcula depois de gravar, e não antes.
+    await waitFor(() => expect(jest.requireMock('../services/PushService').PushService.scheduleDailyIfEligible)
+      .toHaveBeenCalledWith({ reason: 'preferences_changed' }));
   });
 });
