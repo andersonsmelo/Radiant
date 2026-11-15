@@ -117,9 +117,10 @@ jest.mock('../../hearts/components/HeartsSheet', () => {
   const { Text } = require('react-native');
   const { Pressable } = require('react-native');
   return {
-    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void }) =>
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe, dueReviewCount, onReview, onClose, inviteAllowed }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void; dueReviewCount: number; onReview: () => void; onClose: () => void; inviteAllowed?: boolean }) =>
       visible ? (
         <>
+          <Text>{inviteAllowed ? 'convite: permitido' : 'convite: não'}</Text>
           <Text>Checkpoint pausado por falta de vidas</Text>
           <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
           <Text>{`A revisar: ${dueReviewCount}`}</Text>
@@ -826,6 +827,8 @@ describe('CheckpointScreen flow', () => {
 
     expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
     expect(screen.getByText(item.prompt)).toBeTruthy();
+    // F8: com o item ainda pendente, a folha não convida a assinar.
+    expect(screen.getByText('convite: não')).toBeTruthy();
   });
 
   it('assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio', async () => {

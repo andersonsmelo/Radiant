@@ -402,6 +402,26 @@ Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
 implementado.
 
+## 1.6, F8: convites de assinatura
+
+**Medido em 2026-11-15**, na branch `claude/f8-conversao-072f92`. Nada disto está na `main`
+nem na loja. Os convites ficam atrás de `ENABLE_CONVERSION_PROMPTS`, **desligada por
+padrão**. Para ligar, use `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS=true`; `1` não liga.
+Desligada, o app é o da `main`, como as contraprovas provam
+([ADR](adr/ADR-2026-11-15-convites-de-assinatura.md),
+[evidência](evidence/2026-11-15-f8-conversao/README.md)).
+
+- **O que entra:** um convite na folha sem vidas, quando ela abre numa pausa (nunca no
+  meio de uma questão nem na avaliação), com uma amostra única de 30 min de vidas
+  ilimitadas, e outro na comemoração de unidade. No máximo um por dia local.
+  A tela de assinatura ganha uma comparação gratuito × assinante tirada das regras
+  de vidas, e o funil é contado só no aparelho (`@radiant:conversion_v1`), com leitura
+  no console de desenvolvimento.
+- **Visto no simulador:** a folha com o convite, a comparação, a folha reaberta sem
+  convite, a amostra e o funil. **Não visto:** compra em sandbox, o convite da
+  comemoração (só em teste), VoiceOver, texto ampliado, Android e aparelho físico.
+- **Do dono:** ligar a chave (build ou OTA) e conferir a compra em sandbox antes.
+
 ## Risco de build — iOS 27 (medido em 2026-09-23)
 
 **Compilado com o Xcode 27 (SDK do iOS 27), o app fecha na abertura no iOS 27.**

@@ -150,4 +150,18 @@ describe('kill switches do AppConfig (ADR 2026-09-23)', () => {
         }
         expect(locais).toEqual([]);
     });
+
+    // F8 (ADR 2026-11-15): os convites de assinatura nascem desligados. Ligar é
+    // decisão do dono, por build ou OTA; o padrão `true` os poria em produção.
+    it('ENABLE_CONVERSION_PROMPTS lê EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS, com padrão desligado', () => {
+        const valor = flagsDoAppConfig().get('ENABLE_CONVERSION_PROMPTS');
+        expect(valor).toBeDefined();
+        if (valor === undefined || !ts.isCallExpression(valor)) return;
+        const [variavel, padrao] = valor.arguments;
+
+        expect(ts.isIdentifier(valor.expression) && valor.expression.text).toBe('readBooleanFlag');
+        expect(variavel !== undefined && ts.isPropertyAccessExpression(variavel)
+            && variavel.getText()).toBe('process.env.EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS');
+        expect(padrao?.kind).toBe(ts.SyntaxKind.FalseKeyword);
+    });
 });

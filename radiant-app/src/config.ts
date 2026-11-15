@@ -23,6 +23,10 @@ export const AppConfig = {
     SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? '',
     ENABLE_CRASH_REPORTING: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CRASH_REPORTING, false),
 
+    // Convites de assinatura da F8 (ADR 2026-11-15). Desligados por padrão:
+    // ligar é decisão do dono, por build ou OTA. Desligados, o app é o da `main`.
+    ENABLE_CONVERSION_PROMPTS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS, false),
+
     // release controls
     SHOW_DEV_TOOLS: __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DEV_TOOLS, false),
     ENABLE_TELEMETRY_DEBUG_SCREEN:

@@ -7,7 +7,7 @@ import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
-import { StyleSheet } from 'react-native';
+import { AppState, StyleSheet, type AppStateStatus } from 'react-native';
 import { PixelBody } from '../../../ui/characters/PixelBody';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { TRAIL_MOMENT_MS } from '../../../ui/motion';
@@ -686,6 +686,38 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
       mockedJourneyProgressService.bootstrap.mockResolvedValue({ ...snapshot, dueReviewCount: 2, nextDecision: null } as any);
       await abrirAFolha();
       expect(screen.queryByText('Revisar pela folha')).toBeNull();
+    });
+
+    // Achado do Codex na PR #76: a amostra de 30 min tomada aqui grava vidas
+    // ilimitadas, e a Estude só relia as vidas no foco de navegação.
+    it('F8: a amostra vence com a Estude aberta, o HUD deixa o ∞ e a folha volta a abrir', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      heartsRepository().getSnapshot.mockResolvedValueOnce({ ...ilimitada, unlimitedUntil: new Date(Date.now() + 1500).toISOString() });
+      renderWithProviders(<JourneyHomeScreen />);
+      fireEvent.press(await screen.findByText('HUD vidas: unlimited'));
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+      fireEvent.press(await screen.findByText('HUD vidas: empty', {}, { timeout: 3000 }));
+      expect(screen.getByText('Folha de vidas aberta')).toBeTruthy();
+    }, 10_000);
+
+    it('F8: a amostra vence com o app no fundo, e a volta à mesma rota relê as vidas', async () => {
+      const calls = (AppState.addEventListener as jest.Mock).mock.calls;
+      const before = calls.length;
+      const inicio = Date.now();
+      const relogio = jest.spyOn(Date, 'now').mockReturnValue(inicio);
+      try {
+        heartsRepository().getSnapshot.mockResolvedValue(vazia);
+        heartsRepository().getSnapshot.mockResolvedValueOnce({ ...ilimitada, unlimitedUntil: new Date(inicio + 30 * 60_000).toISOString() });
+        renderWithProviders(<JourneyHomeScreen />);
+        await screen.findByText('HUD vidas: unlimited');
+        // O processo dormiu 31 min: o relógio andou, o timer não disparou e não houve foco de navegação.
+        relogio.mockReturnValue(inicio + 31 * 60_000);
+        act(() => calls.slice(before).forEach((call) => { if (call[0] === 'change') (call[1] as (status: AppStateStatus) => void)('active'); }));
+        fireEvent.press(await screen.findByText('HUD vidas: empty'));
+        expect(screen.getByText('Folha de vidas aberta')).toBeTruthy();
+      } finally {
+        relogio.mockRestore();
+      }
     });
 
     it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {

@@ -33,6 +33,7 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { useUnlimitedExpiry } from '../../conversion/useConversionInvite';
 import { HeartLossNotice, TOP_NOTICE_MS } from '../../hearts/components/HeartLossNotice';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
@@ -115,6 +116,9 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  // Vidas ilimitadas que vencem com a tela aberta (amostra da F8, assinatura que acaba): relê.
+  const rereadHearts = useCallback(() => { void heartsRepository.getSnapshot(Date.now()).then(setHearts); }, []);
+  useUnlimitedExpiry(hearts.unlimitedUntil, rereadHearts);
   const [heartLossVisible, setHeartLossVisible] = useState(false);
   const heartLossTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const processingAnswer = useRef(false);

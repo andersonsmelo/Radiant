@@ -7,6 +7,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import Svg, { Ellipse } from 'react-native-svg';
 import type { HeartsSnapshot } from '../hearts.types';
 import { HeartsSheet } from './HeartsSheet';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { ConversionService } from '../../conversion/ConversionService';
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 // I/O da preferência do sistema é fixado; a folha e o vetor continuam reais.
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
@@ -117,5 +122,88 @@ describe('HeartsSheet — o tempo da próxima vida anda sozinho', () => {
     act(() => { jest.advanceTimersByTime(10 * 60_000); });
 
     expect(screen.getByText('A próxima volta em 20 min.')).toBeTruthy();
+  });
+});
+
+describe('HeartsSheet — convite de assinatura (F8)', () => {
+  function conversao(ligada: boolean) {
+    const dados = new Map<string, string>();
+    const disco = {
+      getItem: jest.fn(async (key: string) => dados.get(key) ?? null),
+      setItem: jest.fn(async (key: string, value: string) => { dados.set(key, value); }),
+    };
+    const unlimited: HeartsSnapshot = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-09-14T12:30:00.000Z' };
+    const hearts = { setUnlimited: jest.fn(async () => unlimited) };
+    const service = new ConversionService({
+      storage: disco, hearts, enabled: () => ligada,
+      subscription: { getStatus: async () => ({ kind: 'none' }), storeAvailable: () => true },
+    });
+    return { service, disco, hearts, unlimited, dados };
+  }
+
+  it('sem vidas e chave ligada: convida, oferece a amostra e mantém Revisar e Voltar', async () => {
+    const { service } = conversao(true);
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged: jest.fn() }));
+    expect(await view.findByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeTruthy();
+    expect(view.getByRole('button', { name: /Experimentar/ })).toBeTruthy();
+    expect(view.getByRole('button', { name: 'Revisar agora' })).toBeTruthy();
+    expect(view.getByRole('button', { name: 'Voltar' })).toBeTruthy();
+    expect(view.queryByText('Vidas ilimitadas')).toBeNull();
+  });
+
+  it('Conhecer o Ilimitado segue para a assinatura pelo mesmo caminho do link', async () => {
+    const onSubscribe = jest.fn();
+    const view = render(sheet({ inviteAllowed: true, conversion: conversao(true).service, onSubscribe }));
+    fireEvent.press(await view.findByRole('button', { name: 'Conhecer o Ilimitado' }));
+    expect(onSubscribe).toHaveBeenCalledTimes(1);
+  });
+
+  it('a amostra entrega as vidas novas à tela que montou a folha', async () => {
+    const { service, hearts, unlimited } = conversao(true);
+    const onHeartsChanged = jest.fn();
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged }));
+    const amostra = await view.findByRole('button', { name: /Experimentar/ });
+    await act(async () => { fireEvent.press(amostra); });
+    expect(hearts.setUnlimited).toHaveBeenCalledTimes(1);
+    expect(onHeartsChanged).toHaveBeenCalledWith(unlimited);
+  });
+
+  it('com vidas, a folha não convida', async () => {
+    const { service, disco } = conversao(true);
+    const snapshot: HeartsSnapshot = { ...recovering, count: 2, status: 'recovering' };
+    const view = render(sheet({ inviteAllowed: true, conversion: service, snapshot }));
+    expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
+    expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
+    expect(disco.setItem).not.toHaveBeenCalled();
+  });
+
+  it('reaberta no mesmo dia, volta ao link de sempre', async () => {
+    const { service } = conversao(true);
+    const first = render(sheet({ inviteAllowed: true, conversion: service }));
+    await first.findByText('Com o Radiant Ilimitado, errar não gasta vida.');
+    await act(async () => {});
+    first.unmount();
+    const second = render(sheet({ inviteAllowed: true, conversion: service }));
+    expect(await second.findByText('Vidas ilimitadas')).toBeTruthy();
+    expect(second.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
+  });
+
+  it('sem a tela dizer que é uma pausa, não convida: nunca no meio de uma questão', async () => {
+    const { service, disco } = conversao(true);
+    const view = render(sheet({ conversion: service, onHeartsChanged: jest.fn() }));
+    expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
+    await act(async () => {});
+    expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
+    expect(disco.setItem).not.toHaveBeenCalled();
+  });
+
+  it('desligada (contraprova): o link da main, sem convite e sem escrever a chave', async () => {
+    const { service, disco, dados } = conversao(false);
+    const view = render(sheet({ inviteAllowed: true, conversion: service, onHeartsChanged: jest.fn() }));
+    expect(await view.findByText('Vidas ilimitadas')).toBeTruthy();
+    expect(view.queryByText('Com o Radiant Ilimitado, errar não gasta vida.')).toBeNull();
+    expect(view.queryByRole('button', { name: /Experimentar/ })).toBeNull();
+    expect(disco.setItem).not.toHaveBeenCalled();
+    expect(dados.has(STORAGE_KEYS.CONVERSION)).toBe(false);
   });
 });
