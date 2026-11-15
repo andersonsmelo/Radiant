@@ -51,3 +51,9 @@ escopo não se amplia depois de aberto.
   (`run-1794759484835-cd2686f9`, correções da revisão, até `662240a`) teve 15 de 15,
   com o `app-quality` repetindo o gate sobre a árvore final, e foi fechado com a memória
   gravada (`MEMORY_WRITTEN`). O run 3 só acrescenta esta seção.
+
+## Depois da PR: o primeiro CI
+
+O job `quality` da PR #76 reprovou: 1 de 3134 testes, num teste do serviço que
+dependia do fuso da máquina. O código estava certo e o teste, não. A correção foi
+feita no run 4 e está detalhada em [vermelho.md](vermelho.md), seção "Run 4".

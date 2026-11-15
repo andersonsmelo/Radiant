@@ -107,3 +107,25 @@ Esqueleto vazio: `Unable to find an element with text: Convite visto, sem vidas:
 - **Comparação:** "não promete que todo erro gasta vida" falhou no texto antigo:
   `Expected pattern: not /cada erro gasta/i / Received string: "5; cada erro gasta uma, …"`.
   A guarda de comportamento dos números **não foi vista falhando** (ver `revisao.md`, achado 7).
+
+## Run 4: o teste do dia local dependia da máquina
+
+O primeiro CI da PR #76 reprovou em "ligado, convida uma vez por dia local…":
+`Expected: {"sampleAvailable": false} / Received: null` (linha 56), num runner em UTC.
+**A causa estava no teste.** Ele fazia `process.env.TZ = 'America/Sao_Paulo'`, mas
+dentro do Jest `process.env` é uma cópia e não muda o fuso do Node. O teste só passava
+porque esta máquina está em America/Bahia; a medição local de "fuso de São Paulo" no
+run 1 era, na verdade, do fuso da máquina. O que vale como prova é a execução abaixo,
+com `TZ` do processo.
+
+**Correção:** as datas são montadas no calendário local
+(`new Date(2026, 10, 15, 23, 30)`), como no `GamificationService.test.ts`.
+
+- **Verde em quatro fusos:** `TZ=UTC`, `America/Sao_Paulo`, `Asia/Tokyo` e
+  `America/Los_Angeles`, 16 de 16 em cada.
+- **A guarda ainda pega o defeito que nomeia:** com
+  `localDay` = `toISOString().slice(0, 10)` (`// DEFEITO INJETADO`) e
+  `TZ=America/Sao_Paulo`, falhou na linha 58 (`Received: null`). O serviço foi restaurado
+  (`cmp` idêntico).
+- **Limite:** em UTC, que é o fuso do CI, dia local e dia UTC coincidem, então essa
+  asserção não distingue os dois lá. A distinção só é provada rodando com `TZ` brasileiro.

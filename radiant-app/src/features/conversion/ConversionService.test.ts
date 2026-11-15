@@ -7,8 +7,10 @@ jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 // O dia do limite é o do aluno, não o UTC: o defeito da sequência de 2026-11-06
-// só aparecia fora de UTC (AGENTS.md, lições de 2026-11-05 e 06).
-process.env.TZ = 'America/Sao_Paulo';
+// só aparecia fora de UTC (AGENTS.md, lições de 2026-11-05 e 06). As datas são
+// montadas no calendário local, como o relógio do aparelho, e valem em qualquer
+// fuso. Mudar `process.env.TZ` dentro do Jest não muda o fuso do Node: o teste
+// antigo dependia da máquina e reprovou no CI, que roda em UTC.
 
 function memoryStorage(initial: Record<string, string> = {}) {
     const data = new Map(Object.entries(initial));
@@ -33,10 +35,10 @@ function build(opts: { status?: SubscriptionStatus; store?: boolean; enabled?: b
     return { service, storage, hearts };
 }
 
-// 23h30 de 15/11 no Brasil; o UTC já está no dia 16.
-const night = Date.parse('2026-11-15T23:30:00-03:00');
-// 01h de 16/11 no Brasil: dia local novo, mesmo dia UTC de `night`.
-const nextLocalDay = Date.parse('2026-11-16T01:00:00-03:00');
+// 23h30 de 15/11 no relógio do aparelho; no Brasil, o UTC já está no dia 16.
+const night = new Date(2026, 10, 15, 23, 30).getTime();
+// 01h de 16/11 no relógio do aparelho: dia local novo, o mesmo dia UTC de `night` no Brasil.
+const nextLocalDay = new Date(2026, 10, 16, 1, 0).getTime();
 
 describe('ConversionService', () => {
     it('desligado, não convida, não amostra, não conta e não escreve nada', async () => {
