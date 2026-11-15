@@ -8,6 +8,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { DAILY_GOAL_TIERS, type DailyGoalTierId } from '../../../constants/dailyGoal';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
+import { refreshWidgets } from '../../widgets/WidgetBridge';
 import WelcomeFlowScreen from '../../first-run/screens/WelcomeFlowScreen';
 import { FeedbackPreferencesCard } from '../../profile/components/FeedbackPreferencesCard';
 import { AccountSyncCard } from '../../progress/components/AccountSyncCard';
@@ -104,6 +105,7 @@ export default function SettingsScreen() {
     setGoalSaveError(false);
     const ownGeneration = generation.current;
     goalPending.current = DailyGoalService.setTier(tier).then(data => {
+      void refreshWidgets();
       if (generation.current === ownGeneration) setGoal({ state: 'ready', data });
     }, () => { if (generation.current === ownGeneration) setGoalSaveError(true); }).finally(() => {
       goalSavingRef.current = false;
