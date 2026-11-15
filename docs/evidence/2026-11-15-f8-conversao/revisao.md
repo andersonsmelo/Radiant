@@ -57,3 +57,4 @@ escopo não se amplia depois de aberto.
 O job `quality` da PR #76 reprovou: 1 de 3134 testes, num teste do serviço que
 dependia do fuso da máquina. O código estava certo e o teste, não. A correção foi
 feita no run 4 e está detalhada em [vermelho.md](vermelho.md), seção "Run 4".
+| 10 | (Codex, PR #76, `JourneyHomeScreen.tsx:332`) A amostra tomada na Estude vence com a tela aberta ou no fundo, e o cabeçalho continua em ∞, sem abrir a folha. | importante | Corrigido no run 5. A Estude liga o mesmo `useUnlimitedExpiry` da aula e da avaliação, e o gancho relê também na volta a `active`. Testes vistos falhando sem a correção e com só metade dela (`vermelho.md`, run 5). |

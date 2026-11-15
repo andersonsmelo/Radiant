@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { AppState } from 'react-native';
 
 import type { HeartsSnapshot } from '../hearts/hearts.types';
 import { conversionService, type ConversionMoment, type ConversionService } from './ConversionService';
@@ -59,9 +60,17 @@ const MAX_TIMER_MS = 2 ** 31 - 1;
 export function useUnlimitedExpiry(unlimitedUntil: string | null, onExpire: () => void, nowMs: () => number = Date.now): void {
     useEffect(() => {
         if (unlimitedUntil === null) return;
-        const remaining = Date.parse(unlimitedUntil) - nowMs();
-        if (!Number.isFinite(remaining) || remaining > MAX_TIMER_MS) return;
-        const timer = setTimeout(onExpire, Math.max(0, remaining) + 1);
-        return () => clearTimeout(timer);
+        const expiresAt = Date.parse(unlimitedUntil);
+        if (!Number.isFinite(expiresAt)) return;
+        // O timer dorme com o app no fundo; a volta confere o relógio.
+        const subscription = AppState.addEventListener('change', (status) => {
+            if (status === 'active' && nowMs() >= expiresAt) onExpire();
+        });
+        const remaining = expiresAt - nowMs();
+        const timer = remaining > MAX_TIMER_MS ? null : setTimeout(onExpire, Math.max(0, remaining) + 1);
+        return () => {
+            subscription.remove();
+            if (timer !== null) clearTimeout(timer);
+        };
     }, [nowMs, onExpire, unlimitedUntil]);
 }

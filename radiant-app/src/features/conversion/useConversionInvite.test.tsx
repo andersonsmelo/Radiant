@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native';
+import { AppState, type AppStateStatus } from 'react-native';
 
 import { useConversionInvite, useUnlimitedExpiry } from './useConversionInvite';
 
@@ -70,6 +71,21 @@ describe('useUnlimitedExpiry', () => {
         act(() => { jest.advanceTimersByTime(30 * 60_000 - 1); });
         expect(onExpire).not.toHaveBeenCalled();
         act(() => { jest.advanceTimersByTime(1_000); });
+        expect(onExpire).toHaveBeenCalledTimes(1);
+    });
+
+    it('volta do fundo depois do vencimento: avisa sem depender do timer, que dormiu com o app', () => {
+        const calls = (AppState.addEventListener as jest.Mock).mock.calls;
+        const before = calls.length;
+        const listeners = () => calls.slice(before).map((call) => call[1] as (status: AppStateStatus) => void);
+        let agora = AGORA;
+        const onExpire = jest.fn();
+        renderHook(() => useUnlimitedExpiry('2026-11-15T12:30:00.000Z', onExpire, () => agora));
+        agora = AGORA + 10 * 60_000;
+        act(() => listeners().forEach((listener) => listener('active')));
+        expect(onExpire).not.toHaveBeenCalled();
+        agora = AGORA + 31 * 60_000;
+        act(() => listeners().forEach((listener) => listener('active')));
         expect(onExpire).toHaveBeenCalledTimes(1);
     });
 

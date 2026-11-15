@@ -22,6 +22,7 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { useUnlimitedExpiry } from '../../conversion/useConversionInvite';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { getRecommendationActionCopy } from '../components/nodeCopy';
@@ -134,6 +135,9 @@ export default function JourneyHomeScreen() {
         .then(() => GamificationService.getSnapshot()).then(setGamification);
     }, [loadSnapshot])
   );
+
+  const rereadHearts = useCallback(() => { void heartsRepository.getSnapshot(Date.now()).then(setHearts); }, []);
+  useUnlimitedExpiry(hearts?.unlimitedUntil ?? null, rereadHearts);
 
   const homeNextNode = snapshot?.nextRecommendedNode ?? null;
 

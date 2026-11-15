@@ -129,3 +129,44 @@ com `TZ` do processo.
   (`cmp` idêntico).
 - **Limite:** em UTC, que é o fuso do CI, dia local e dia UTC coincidem, então essa
   asserção não distingue os dois lá. A distinção só é provada rodando com `TZ` brasileiro.
+
+## Run 5: a amostra vencia com a Estude aberta (achado do Codex na PR #76)
+
+**Defeito:** a amostra tomada na folha da Estude grava vidas ilimitadas, mas a
+`JourneyHomeScreen` só relia as vidas no foco de navegação. Quem ficava na tela além dos
+30 min, inclusive indo ao fundo e voltando à mesma rota, continuava vendo ∞, e o toque no
+contador não abria a folha. A aula e a avaliação já tinham `useUnlimitedExpiry`; a Estude
+não.
+
+**Correção:** a Estude liga o mesmo `useUnlimitedExpiry`, com a mesma releitura da aula.
+O gancho passou a conferir o relógio também quando o app volta a `active`, porque o timer
+dorme com o processo no fundo. A mudança no gancho vale para as três telas.
+
+Três testes, com as execuções salvas inteiras e resumidas aqui (Node 20.20.2):
+
+- `useUnlimitedExpiry` › "volta do fundo depois do vencimento…": o relógio anda 31 min
+  sem o timer disparar. Ao voltar a `active` antes do vencimento, nada acontece (guarda de
+  validade); depois do vencimento, avisa uma vez.
+- `JourneyHomeScreen` › "F8: a amostra vence com a Estude aberta…": o vencimento chega com
+  a tela aberta, e o HUD sai do ∞ sem foco de navegação. O ∞ inicial é conferido (o toque
+  não abre a folha), e depois a folha abre.
+- `JourneyHomeScreen` › "F8: a amostra vence com o app no fundo…": com o relógio parado no
+  início, o processo "dorme" 31 min e volta a `active` na mesma rota.
+
+**Vermelho sem a correção** (gancho e tela restaurados de `0f62300`): 3 falhas.
+
+- gancho: `Expected number of calls: 1 / Received number of calls: 0`;
+- as duas da Estude: `Unable to find an element with text: HUD vidas: empty`.
+
+**Vermelho com só metade da correção** (tela ligada, gancho sem a volta do fundo): 2
+falhas. Falharam a do gancho e a da Estude que volta do fundo, e a da tela aberta passou.
+Isso mostra que cada metade é pega pelo seu teste, e não por um defeito vizinho.
+
+Os dois arquivos foram restaurados (`cmp` idêntico). Verde: 36 suítes e 658 testes em
+`conversion`, `journey`, `lesson-flow/screens` e `checkpoint`.
+
+**Tropeço:** o mock de `AppState` do React Native já é um `jest.fn`.
+`jest.spyOn(...).mockRestore()` apagava a fábrica dele, e o teste seguinte quebrava no
+`remove`. Os testes leem os ouvintes de `mock.calls` sem trocar a implementação.
+
+**Não visto na tela:** o vencimento real no simulador, com o app no fundo.
