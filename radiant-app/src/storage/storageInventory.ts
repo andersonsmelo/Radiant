@@ -87,6 +87,8 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('@radiant/first_run_v1', 'controle'),
     exact('@radiant/onboarding', 'controle'),
     exact('@radiant:rating_prompt_v1', 'controle'),
+    // Convites de assinatura (ADR 2026-11-15): limite diário, amostra usada e contagem do funil, só local.
+    exact('@radiant:conversion_v1', 'controle'),
     exact('@radiant:unit_celebrations_v1', 'controle'),
     exact('@radiant/beta_access', 'controle'),
     exact('@radiant/beta_feedback', 'controle'),

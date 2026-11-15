@@ -24,6 +24,7 @@ export const STORAGE_KEYS = {
     CHECKPOINT_CHARGED_ITEMS: '@radiant:checkpoint_charged_items_v1',
     ASSESSMENT_ATTEMPTS: '@radiant:assessment_attempts_v1',
     SUBSCRIPTION: '@radiant:subscription_v1',
+    CONVERSION: '@radiant:conversion_v1',
     PROGRESS_BACKUP: '@radiant:progress_backup_v1',
     FIRST_RUN: '@radiant/first_run_v1',
     LEGACY_GAMIFICATION: 'radiant:gami:v1',
