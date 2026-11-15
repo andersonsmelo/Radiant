@@ -1,0 +1,60 @@
+# ADR 2026-11-15 — Convites de assinatura (F8 da 1.6)
+
+**Data:** 2026-11-15. **Decisor:** Claude (Opus 5.5), na frente F8, pela delegação
+de decisões de construção que o dono (Anderson Melo) deu ao controlador da 1.6 em
+2026-11-13. **Ligar a chave em produção é decisão do dono.**
+
+## Contexto
+
+O [levantamento](../evidence/2026-11-15-f8-conversao/levantamento.md) mediu no código
+que o assinante do "Radiant Ilimitado" ganha uma coisa só: vidas ilimitadas. Nenhuma
+aula, revisão ou avaliação é exclusiva, e a proteção de sequência vale igual para o
+gratuito. Antes desta frente, o único convite era o link "Vidas ilimitadas" na folha
+de vidas e o cartão nos Ajustes.
+
+## Decisão
+
+1. **Chave nova, desligada.** `ENABLE_CONVERSION_PROMPTS`
+   (`EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS`, padrão `false`). Desligada, o app é o da
+   `main`: nenhum texto novo e nenhuma escrita em disco. Isso está provado por
+   contraprova em teste, vista falhando com o defeito injetado.
+2. **Dois momentos, ambos já pausas existentes:**
+   - **sem vidas:** o convite entra na folha de vidas, quando ela abre com zero vidas.
+     "Revisar agora" e "Voltar" continuam lá;
+   - **fim de unidade:** uma linha e um link na comemoração. "Continuar" segue como a
+     ação principal.
+
+   O convite nunca abre tela própria e nunca aparece no meio de uma questão: ele vai
+   dentro de uma tela que o app já mostra quando o estudo parou.
+3. **Sequência em risco não recebe convite.** A assinatura não protege a sequência,
+   e o convite prometeria o que o código não entrega.
+4. **Frequência:** no máximo um convite por dia local, somando os dois momentos.
+   Nunca para assinante, para pedido pendente (Ask to Buy) ou sem loja no aparelho.
+   A folha reaberta no mesmo dia volta ao link de sempre.
+5. **Comparação verdadeira na tela de assinatura.** A tabela gratuito × assinante é
+   montada das constantes de `HeartsService` (5 vidas, uma volta a cada 30 min, a
+   revisão devolve 1). A linha das aulas diz "Todas" nos dois planos.
+6. **Amostra única.** Na folha sem vidas, quem nunca assinou pode experimentar uma vez
+   por aparelho 30 minutos de vidas ilimitadas, pelo `setUnlimited` que já existe. Pela
+   regra de fim de ilimitado que já existe, as vidas voltam cheias depois, e o convite
+   diz isso. Ex-assinante não recebe amostra, porque a releitura da assinatura
+   expirada a apagaria.
+7. **Funil só local.** A chave `@radiant:conversion_v1` (classe `controle` no inventário)
+   conta seis eventos: convite visto (sem vidas, fim de unidade), tela aberta, compra
+   iniciada, compra concluída e amostra usada. O dono lê os números no console de
+   desenvolvimento. Nada é enviado para fora.
+
+## Proibido
+
+- Urgência, contagem regressiva, "só hoje", desconto que não exista no StoreKit, culpa.
+- Preço no convite. Preço só na tela de assinatura, vindo do StoreKit, nunca escrito no código.
+- Botão de recusa escondido, e convite que bloqueie o estudo gratuito.
+- Mudar produtos, preços, grupo ou qualquer item do App Store Connect, ou a regra das vidas.
+- Dizer que o conteúdo foi "revisado por especialista".
+
+## Consequências
+
+- Para ligar, o dono define `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS=true` no perfil de build
+  ou no OTA. Recomendação: ligar primeiro no TestFlight e ler o funil no console.
+- A compra em sandbox não foi vista por esta frente; quem liga confere antes.
+- O funil não distingue aparelhos nem pessoas: é a contagem de um aparelho.

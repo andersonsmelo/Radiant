@@ -122,5 +122,5 @@ em `DevConsoleScreen.tsx`. Mostra as seis contagens, o último dia de convite e 
 
 ### Tarefa 5: ver, revisar, fechar
 
-Simulador "Radiant F2" com `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS=1`, lido por
+Simulador "Radiant F2" com `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS=true`, lido por
 `maestro hierarchy`; revisão independente; gate; ADR; STATUS; PR em rascunho.
