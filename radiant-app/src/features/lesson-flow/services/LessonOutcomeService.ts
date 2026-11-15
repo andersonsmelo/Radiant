@@ -22,6 +22,7 @@ import type { LessonBlock } from '../../../types/lessonFlow';
 import type { QuizResult } from '../../../types/quiz';
 import type { XpAward } from '../../../types/gamification';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { refreshWidgets } from '../../widgets/WidgetBridge';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
@@ -423,6 +424,7 @@ class LessonOutcomeServiceImpl {
             console.error('[LessonOutcomeService] Falha ao registrar XP:', error);
         }
 
+        void refreshWidgets();
         return award;
     }
 }

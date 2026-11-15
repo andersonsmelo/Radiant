@@ -1,0 +1,14 @@
+# pod install com e sem a chave — 2026-11-15 14:27 -03, CocoaPods 1.16.2, Node v20.20.2
+# Mesmo ios/ (prebuild desta branch), só a variável muda. Linhas do Podfile.lock que citam os pods em questão.
+
+## Sem EXPO_PUBLIC_ENABLE_WIDGETS
+320:  - RadiantCloudKit (1.0.0):
+
+## Com EXPO_PUBLIC_ENABLE_WIDGETS=true
+320:  - RadiantCloudKit (1.0.0):
+324:  - RadiantWidgets (1.0.0):
+2470:  - RadiantWidgets (from `../modules/radiant-widgets/ios`)
+2631:  RadiantWidgets:
+2824:  RadiantWidgets: c149b5d7b7d752a718702500cc2c2a1853f3a627
+
+## Leitura: sem a chave, o autolink pula o radiant-widgets (plataforma 99.0) e o @bacons/apple-targets (iOS 16.4 > alvo 15.1); com a chave, o RadiantWidgets entra e o ExtensionStorage continua de fora. O RadiantCloudKit aparece nos dois casos como controle.

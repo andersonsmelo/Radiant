@@ -992,6 +992,17 @@ rolagem ampliado.
 `rating-prompt`, `store-capture` e os `student-checkpoint-*` não foram
 executados ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md)).
 
+## Widgets do iOS — F5 da 1.6, medido em 2026-11-15
+
+Na branch `claude/f5-widgets-ios`, **não está na `main` nem em build**. Dois widgets
+(sequência; sequência, meta e próxima aula) atrás de `ENABLE_WIDGETS`, **desligada por
+padrão**: com ela desligada, o prebuild sai igual ao da `main` e nenhum pod novo entra
+([ADR](adr/ADR-2026-11-15-widgets-ios.md), [evidência](evidence/2026-11-15-f5-widgets/README.md)).
+Compilou em Release para o simulador com a chave ligada e o app gravou o retrato no
+App Group; **o widget na tela inicial não foi visto** (sem acesso ao painel do
+simulador). Ligar depende do dono: App Group no portal e a variável no `eas.json`
+([runbook](runbooks/2026-11-15-widgets-ios.md)).
+
 ## Kill switches reais
 
 Dois, medidos em 2026-09-23: `ENABLE_LEARNING_ROAD` (trilha contra Home antiga)

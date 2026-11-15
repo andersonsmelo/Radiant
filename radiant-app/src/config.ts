@@ -42,6 +42,9 @@ export const AppConfig = {
     // do perfil. Desligadas, o app é o da 1.5.0; só o dono as liga.
     ENABLE_PERSONALIZED_NOTIFICATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS, false),
     ENABLE_DECORATIONS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DECORATIONS, false),
+    // Widgets da tela inicial do iOS (ADR 2026-11-15). Desligada por padrão; a
+    // mesma variável liga o alvo no prebuild (`plugins/with-widgets.js`).
+    ENABLE_WIDGETS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_WIDGETS, false),
 
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),

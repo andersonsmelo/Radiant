@@ -8,6 +8,7 @@ import { HeartsRepository } from '../hearts/HeartsRepository';
 import { DecorationsService, type DecorationsBackup } from '../decorations/DecorationsService';
 import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 import type { LocalProgressPort, ProgressBackup } from './progressSync.types';
+import { refreshWidgets } from '../widgets/WidgetBridge';
 
 type Storage = Pick<typeof AsyncStorage, 'getItem' | 'setItem'>;
 type Gamification = {
@@ -105,6 +106,7 @@ export class LocalProgressAdapter implements LocalProgressPort {
         await this.applyHearts(merged);
         await this.gamification.absorbBackup({ totalXp: merged.totalXp, streakDays: merged.streakDays });
         if (merged.decorations) await this.decorations.absorbBackup(merged.decorations);
+        void refreshWidgets();
     }
 
     private async applyJourney(merged: ProgressBackup): Promise<void> {
