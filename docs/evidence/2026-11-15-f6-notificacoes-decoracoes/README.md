@@ -39,7 +39,8 @@ Todos no Node 20.20.2 (`node --version` conferido), na worktree `f6-notificacoes
   3219 (seção 15 do `vermelho.md`).
 - 2ª vez, sobre `f825c77`: **saída 0, 244 suítes e 3227 testes**, 21 avisos de lint, nenhum em
   arquivo desta frente. Carga de 1 minuto em 4,94 na largada.
-- `loop validate`: ver o fim desta página.
+- `loop validate` (Node 24.14.1, run `run-1794756566107-d8930530`): `VALIDATION_PASSED`, 15 de 15
+  validadores, com `app-quality` em 132 s e `app-test` em 120 s.
 
 ## No simulador
 
