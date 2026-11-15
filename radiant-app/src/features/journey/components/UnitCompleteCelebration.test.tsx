@@ -1,9 +1,13 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
 
 import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration } from './UnitCompleteCelebration';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { ConversionService } from '../../conversion/ConversionService';
+
+jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
+const mockedRouter = jest.requireMock('expo-router').router as { push: jest.Mock };
 
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
@@ -101,5 +105,31 @@ describe('UnitCompleteCelebration', () => {
     expect(screen.UNSAFE_getByType(require('react-native').Modal).props.animationType).toBe('none');
     expect(screen.queryByTestId('confetti')).toBeNull();
     expect(screen.getByLabelText('Continuar')).toBeTruthy();
+  });
+});
+
+describe('UnitCompleteCelebration — convite de assinatura (F8)', () => {
+  const conversao = (ligada: boolean) => new ConversionService({
+    storage: AsyncStorage, enabled: () => ligada, hearts: { setUnlimited: jest.fn() },
+    subscription: { getStatus: async () => ({ kind: 'none' }), storeAvailable: () => true },
+  });
+  beforeEach(async () => { await AsyncStorage.clear(); mockedRouter.push.mockClear(); });
+
+  it('ligada: uma linha e o link, com Continuar ainda como ação principal', async () => {
+    const onContinue = jest.fn();
+    render(<UnitCompleteCelebration unit={m01} onContinue={onContinue} conversion={conversao(true)} />);
+    expect(await screen.findByText('Na próxima unidade, com o Radiant Ilimitado, errar não gasta vida.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Continuar' })).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Conhecer o Ilimitado' }));
+    expect(onContinue).toHaveBeenCalledTimes(1);
+    expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+  });
+
+  it('desligada (contraprova): a comemoração da main, sem convite e sem escrever a chave', async () => {
+    render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} conversion={conversao(false)} />);
+    expect(await screen.findByRole('button', { name: 'Continuar' })).toBeTruthy();
+    await act(async () => { await Promise.resolve(); });
+    expect(screen.queryByText(/Radiant Ilimitado/)).toBeNull();
+    expect(await AsyncStorage.getItem(STORAGE_KEYS.CONVERSION)).toBeNull();
   });
 });

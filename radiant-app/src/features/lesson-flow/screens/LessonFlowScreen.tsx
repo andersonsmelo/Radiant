@@ -879,6 +879,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 snapshot={hearts}
                 dueReviewCount={dueReviewCount}
                 storeAvailable={subscriptionService.storeAvailable()}
+                onHeartsChanged={(next) => { setHearts(next); setHeartsSheetVisible(false); }}
                 onClose={exitLesson}
                 onReview={() => {
                     setHeartsSheetVisible(false);
