@@ -252,3 +252,20 @@ Tests:       5 failed, 41 skipped, 4 passed, 50 total
 # RED 8c — mutação: rotação do banco do cloze removida (2026-11-13T22:57:23Z)
     ✕ cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz (2 ms)
 Tests:       1 failed, 49 skipped, 50 total
+
+# RED 9 — achados do simulador: veredito fora do rótulo acessível e true-false empilhando retornos (2026-11-14T00:00:51Z, node v20.20.2)
+    ✕ cloze: depois de conferir, a lacuna errada mostra a palavra certa em texto (14 ms)
+    ✕ true-false: uma afirmação por vez, com retorno imediato e sem voltar atrás (486 ms)
+    ✕ multi-select: caixas de marcar com estado, e o retorno diz o que faltou e o que sobrou (23 ms)
+    Unable to find an element with accessibility label: Lacuna 1: luva, errado; a certa é avental
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugInfo": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugStack": [Error: react-stack-top-frame], "_debugTask": null, "actualDuration": 0, "actualStartTime": 1794614468423, "alternate": [FiberNode], "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": "Text", "flags": 0, "index": 0, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 3, "pendingProps": [Object], "ref": null, "refCleanup": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Object], "subtreeFlags": 0, "tag": 5, "treeBaseDuration": 0, "type": "Text", "updateQueue": null}}
+    Unable to find an element with accessibility label: Distância, marcada, certo
+Tests:       3 failed, 7 passed, 10 total
+
+# RED 10 — mutação: grupos de volta abaixo dos pendentes (2026-11-15T15:59:30Z, node v20.20.2)
+    ✕ categorize: os botões dos grupos vêm antes dos itens pendentes, para colocar um item não mover o próximo alvo (111 ms)
+Tests:       1 failed, 10 skipped, 11 total
+
+# RED 11 — mutação: retorno da anterior de volta antes da afirmação da vez (2026-11-15T15:59:48Z, node v20.20.2)
+    ✕ true-false: a afirmação da vez vem antes do retorno da anterior, ao alcance sem rolar (92 ms)
+Tests:       1 failed, 11 skipped, 12 total

@@ -26,19 +26,7 @@ export function TrueFalseStepRenderer({ payload, value, onChange, submitted = fa
         <EnterView>
             <Text style={f2Styles.prompt}>{payload.prompt}</Text>
             <Text style={f2Styles.secondary}>{`Afirmação ${Math.min(judged.length + 1, payload.statements.length)} de ${payload.statements.length}`}</Text>
-            {payload.statements.slice(0, judged.length).map((statement, index) => {
-                const right = judged[index] === statement.isTrue;
-                return (
-                    <View key={statement.id} style={f2Styles.column} accessible accessibilityLabel={
-                        `Afirmação ${index + 1}: ${statement.text}. Você marcou ${judged[index] ? 'certo' : 'errado'}. ${right ? 'Acertou.' : 'Não é isso.'} ${statement.explanation}`}>
-                        <Text style={f2Styles.body}>{statement.text}</Text>
-                        <TapChip label={`${judged[index] ? 'Certo' : 'Errado'}: ${right ? 'acertou' : 'não é isso'}`}
-                            accessibilityLabel={`Você marcou ${judged[index] ? 'certo' : 'errado'}`} disabled selected
-                            verdict={right ? 'correct' : 'incorrect'} />
-                        <Text style={f2Styles.secondary}>{statement.explanation}</Text>
-                    </View>
-                );
-            })}
+            {/* A afirmação da vez vem primeiro, ao alcance sem rolar; abaixo, só o retorno da última julgada. */}
             {current && !submitted ? (
                 <EnterView key={current.id}>
                     <Text style={f2Styles.section}>{current.text}</Text>
@@ -50,6 +38,19 @@ export function TrueFalseStepRenderer({ payload, value, onChange, submitted = fa
                     </View>
                 </EnterView>
             ) : null}
+            {payload.statements.slice(0, judged.length).map((statement, index) => index !== judged.length - 1 ? null : (() => {
+                const right = judged[index] === statement.isTrue;
+                return (
+                    <View key={statement.id} style={f2Styles.column} accessible accessibilityLabel={
+                        `Afirmação ${index + 1}: ${statement.text}. Você marcou ${judged[index] ? 'certo' : 'errado'}. ${right ? 'Acertou.' : 'Não é isso.'} ${statement.explanation}`}>
+                        <Text style={f2Styles.body}>{statement.text}</Text>
+                        <TapChip label={`${judged[index] ? 'Certo' : 'Errado'}: ${right ? 'acertou' : 'não é isso'}`}
+                            accessibilityLabel={`Você marcou ${judged[index] ? 'certo' : 'errado'}`} disabled selected
+                            verdict={right ? 'correct' : 'incorrect'} />
+                        <Text style={f2Styles.secondary}>{statement.explanation}</Text>
+                    </View>
+                );
+            })())}
         </EnterView>
     );
 }

@@ -24,10 +24,12 @@ export function MultiSelectStepRenderer({ payload, value, onChange, submitted = 
                     const isChosen = chosen.includes(option.id);
                     const isCorrect = payload.correctOptionIds.includes(option.id);
                     const note = !submitted ? '' : isCorrect && !isChosen ? ' (faltou marcar)' : !isCorrect && isChosen ? ' (marcou a mais)' : '';
+                    const spoken = !submitted ? '' : isCorrect && isChosen ? ', marcada, certo' : isCorrect ? ', faltou marcar, errado'
+                        : isChosen ? ', marcou a mais, errado' : ', não marcada, certo';
                     return (
                         <TapChip key={option.id} role="checkbox" testID={`multi-select-${option.label}`} label={`${option.label}${note}`}
                             selected={isChosen} disabled={submitted} onPress={() => toggle(option.id)}
-                            accessibilityLabel={`${option.label}${note}`}
+                            accessibilityLabel={`${option.label}${spoken}`}
                             accessibilityHint={submitted ? undefined : `Marca ou desmarca. Você confirma em ${confirmationLabel}.`}
                             verdict={submitted && (isChosen || isCorrect) ? (isChosen === isCorrect ? 'correct' : 'incorrect') : undefined} />
                     );

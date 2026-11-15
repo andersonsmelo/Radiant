@@ -129,6 +129,21 @@ família, e o julgamento não volta atrás, então o aluno ainda decide antes de
 o leitor de tela ouvir cada explicação uma vez só, o anúncio final do tocador usa o
 retorno de erro autoral, e não repete a explicação da afirmação.
 
+## Decisão 7 — o que o simulador mostrou (2026-11-15)
+
+Os roteiros do Maestro acharam três defeitos que os testes de componente não viam,
+todos corrigidos com teste vermelho antes (RED 9 a 11 em `tdd-red.log`):
+
+- o rótulo acessível da lacuna do cloze e da alternativa da múltipla seleção não
+  dizia, depois de conferir, se estava certa; quem usa leitor de tela só ouvia o
+  texto. Agora diz ("Lacuna 1: direta, certo");
+- no true-false, cada afirmação julgada empurrava a próxima para baixo do botão
+  fixo do rodapé. A afirmação da vez passou a vir logo depois do enunciado, e só o
+  retorno da última julgada aparece abaixo dela;
+- na categorização, colocar um item encolhia a lista de pendentes e movia os
+  botões dos grupos sob o dedo; um toque rápido caía num item já colocado e o
+  devolvia. Os grupos agora ficam fixos logo abaixo do enunciado.
+
 ## Fora do escopo
 
 Áudio novo (F3), liga (F4), widgets (F5), notificações (F6), personagens (F7) e

@@ -30,6 +30,15 @@ export function CategorizeStepRenderer({ payload, value, onChange, submitted = f
     return (
         <EnterView>
             <Text style={f2Styles.prompt}>{payload.prompt}</Text>
+            {/* Os grupos ficam fixos logo abaixo do enunciado: colocar um item não move o alvo do próximo toque. */}
+            <View style={f2Styles.column}>
+                {payload.categories.map(category => (
+                    <TapChip key={category.id} testID={`categorize-group-${category.label}`} label={active && !submitted ? `Colocar em ${category.label}` : category.label}
+                        accessibilityLabel={active ? `Colocar ${active.label} em ${category.label}` : `Grupo ${category.label}`}
+                        accessibilityHint={active ? `Classifica o item escolhido. Você confirma em ${confirmationLabel}.` : undefined}
+                        disabled={submitted || !active} onPress={() => put(category.id)} />
+                ))}
+            </View>
             {pending.length && !submitted ? (
                 <View style={f2Styles.column}>
                     <Text style={f2Styles.section}>Itens para classificar</Text>
@@ -41,18 +50,15 @@ export function CategorizeStepRenderer({ payload, value, onChange, submitted = f
                     </View>
                 </View>
             ) : null}
-            {payload.categories.map(category => (
+            {payload.categories.filter(category => payload.items.some(item => assigned[item.id] === category.id)).map(category => (
                 <View key={category.id} style={f2Styles.column}>
-                    <TapChip testID={`categorize-group-${category.label}`} label={active && !submitted ? `Colocar em ${category.label}` : category.label}
-                        accessibilityLabel={active ? `Colocar ${active.label} em ${category.label}` : `Grupo ${category.label}`}
-                        accessibilityHint={active ? `Classifica o item escolhido. Você confirma em ${confirmationLabel}.` : undefined}
-                        disabled={submitted || !active} onPress={() => put(category.id)} />
+                    <Text style={f2Styles.section}>{category.label}</Text>
                     <View style={f2Styles.wrap}>
                         {payload.items.filter(item => assigned[item.id] === category.id).map(item => {
                             const right = item.categoryId === category.id;
                             const correctLabel = payload.categories.find(entry => entry.id === item.categoryId)?.label;
                             return (
-                                <TapChip key={item.id} label={submitted && !right ? `${item.label} (certo: ${correctLabel})` : item.label} selected
+                                <TapChip key={item.id} label={submitted && !right ? `${item.label} (certo: ${correctLabel})` : item.label}
                                     accessibilityLabel={`${item.label}, em ${category.label}${submitted ? (right ? ', certo' : `, errado; o grupo certo é ${correctLabel}`) : ''}`}
                                     accessibilityHint={submitted ? undefined : 'Toque para devolver o item.'}
                                     disabled={submitted} onPress={() => unput(item.id)} verdict={submitted ? (right ? 'correct' : 'incorrect') : undefined} />
