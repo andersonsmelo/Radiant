@@ -4,6 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react-native';
 
 import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration } from './UnitCompleteCelebration';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { AppConfig } from '../../../config';
 import { ConversionService } from '../../conversion/ConversionService';
 
 jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
@@ -13,7 +14,16 @@ jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
 const mockReducedMotion = jest.fn(() => false);
-jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({ useReducedMotionPreference: () => mockReducedMotion() }));
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreference: () => mockReducedMotion(),
+  useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: mockReducedMotion(), resolved: true }),
+}));
+// A cunhagem da medalha (F3) é uma mola do Reanimated: conta-se a chamada.
+jest.mock('react-native-reanimated', () => {
+  const actual = jest.requireActual('react-native-reanimated/mock');
+  return { ...actual, __esModule: true, withSpring: jest.fn((value: unknown) => value) };
+});
+const reanimated = jest.requireMock('react-native-reanimated') as { withSpring: jest.Mock };
 jest.mock('../../../components/ui/Confetti', () => {
   const { View } = require('react-native');
   return { Confetti: () => (mockReducedMotion() ? null : <View testID="confetti" pointerEvents="none" />) };
@@ -97,6 +107,50 @@ describe('UnitCompleteCelebration', () => {
     render(<UnitCompleteCelebration unit={null} onContinue={jest.fn()} feedback={feedback} />);
     expect(screen.queryByText('Unidade concluída')).toBeNull();
     expect(feedback.emit).not.toHaveBeenCalled();
+  });
+
+  describe('F3: a medalha da unidade cunha com ENABLE_RICH_FEEDBACK', () => {
+    beforeEach(() => reanimated.withSpring.mockClear());
+    afterEach(() => { AppConfig.ENABLE_RICH_FEEDBACK = false; });
+
+    it('ligado, a medalha cunha uma vez, e Continuar dispensa sem esperar', () => {
+      AppConfig.ENABLE_RICH_FEEDBACK = true;
+      const onContinue = jest.fn();
+      render(<UnitCompleteCelebration unit={m01} onContinue={onContinue} />);
+      expect(reanimated.withSpring).toHaveBeenCalledTimes(1);
+      expect(reanimated.withSpring.mock.calls[0][1]).toEqual(expect.objectContaining({ duration: 600 }));
+      fireEvent.press(screen.getByLabelText('Continuar'));
+      expect(onContinue).toHaveBeenCalledTimes(1);
+    });
+
+    // A Home deixa o componente montado entre comemorações (unit null no meio).
+    it('ligado, cada unidade nova cunha de novo, com o componente montado', () => {
+      AppConfig.ENABLE_RICH_FEEDBACK = true;
+      const view = render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} />);
+      view.rerender(<UnitCompleteCelebration unit={null} onContinue={jest.fn()} />);
+      view.rerender(<UnitCompleteCelebration unit={m02} onContinue={jest.fn()} />);
+      expect(reanimated.withSpring).toHaveBeenCalledTimes(2);
+    });
+
+    it('ligado, a troca direta de uma unidade para outra também cunha de novo', () => {
+      AppConfig.ENABLE_RICH_FEEDBACK = true;
+      const view = render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} />);
+      view.rerender(<UnitCompleteCelebration unit={m02} onContinue={jest.fn()} />);
+      expect(reanimated.withSpring).toHaveBeenCalledTimes(2);
+    });
+
+    it('desligado (contraprova), a medalha fica parada como na base', () => {
+      render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} />);
+      expect(reanimated.withSpring).not.toHaveBeenCalled();
+    });
+
+    it('ligado e com menos movimento, a medalha fica no lugar', () => {
+      AppConfig.ENABLE_RICH_FEEDBACK = true;
+      mockReducedMotion.mockReturnValue(true);
+      render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} />);
+      expect(reanimated.withSpring).not.toHaveBeenCalled();
+      expect(screen.getByLabelText('Unidade m01. Unidade concluída.')).toBeTruthy();
+    });
   });
 
   it('com "reduzir movimento" abre sem transição e sem confete, com o texto e o botão no lugar', () => {

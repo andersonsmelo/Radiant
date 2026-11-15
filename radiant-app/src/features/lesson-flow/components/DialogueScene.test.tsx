@@ -3,6 +3,7 @@ import { Animated, StyleSheet } from 'react-native';
 import { render, screen } from '@testing-library/react-native';
 import type { LessonDialogue } from '../../../types/learningActivity';
 import { DialogueScene, dialogueLineLabel, visibleDialogueLines } from './DialogueScene';
+import { AppConfig } from '../../../config';
 
 let mockReducedMotion = false;
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
@@ -30,6 +31,24 @@ describe('DialogueScene', () => {
     });
 
     afterEach(() => timing.mockRestore());
+
+    // F3 (ENABLE_RICH_FEEDBACK): cada fala entra em 200 ms, a duração do mapa
+    // para `dialogue_line`; desligado, os 220 ms da base.
+    it('ligado, cada fala nova entra em 200 ms', () => {
+        AppConfig.ENABLE_RICH_FEEDBACK = true;
+        try {
+            const view = render(<DialogueScene dialogue={CENA} visibleCount={1} />);
+            view.rerender(<DialogueScene dialogue={CENA} visibleCount={2} />);
+            expect(timing).toHaveBeenCalled();
+            for (const [, config] of timing.mock.calls) expect(config.duration).toBe(200);
+        } finally { AppConfig.ENABLE_RICH_FEEDBACK = false; }
+    });
+
+    it('desligado (contraprova), as falas entram nos 220 ms da base', () => {
+        render(<DialogueScene dialogue={CENA} visibleCount={2} />);
+        expect(timing).toHaveBeenCalled();
+        for (const [, config] of timing.mock.calls) expect(config.duration).toBe(220);
+    });
 
     it('abre com o cenário e só a primeira fala, e diz em texto quantas faltam', () => {
         render(<DialogueScene dialogue={CENA} visibleCount={1} />);
@@ -105,6 +124,27 @@ describe('DialogueScene', () => {
             expect(style.height).toBeUndefined();
             expect(style.lineHeight).toBeUndefined();
         }
+    });
+
+    it('cada retrato mostra a expressão que a fala pede: afirmação neutra, paciente que pergunta preocupado', () => {
+        render(<DialogueScene dialogue={CENA} visibleCount={3} />);
+
+        const rostos = screen.getAllByTestId(/^cast-face-/u, { includeHiddenElements: true }).map((rosto) => rosto.props.testID);
+        // Lia afirma; o paciente pergunta. O Pixel não tem rosto do elenco: a tela dele é outra.
+        expect(rostos).toEqual(['cast-face-neutro', 'cast-face-preocupado']);
+    });
+
+    it('quem é da equipe e pergunta fica pensativo, não preocupado', () => {
+        render(<DialogueScene dialogue={{ lines: [{ speaker: 'duda', text: 'Então quanto mais, melhor?' }] }} visibleCount={1} />);
+
+        expect(screen.getByTestId('cast-face-pensativo', { includeHiddenElements: true })).toBeTruthy();
+    });
+
+    it('a Dona da cena ganha o retrato dela, não o do senhor grisalho', () => {
+        render(<DialogueScene dialogue={{ lines: [{ speaker: 'paciente', name: 'Dona Marta', text: 'Tem problema fazer o raio X hoje?' }] }} visibleCount={1} />);
+
+        expect(screen.getByTestId('cast-hair-paciente-dona', { includeHiddenElements: true })).toBeTruthy();
+        expect(screen.queryByTestId('cast-hair-paciente', { includeHiddenElements: true })).toBeNull();
     });
 
     it('a contagem pedida nunca esconde a primeira fala nem passa do fim', () => {

@@ -1,0 +1,29 @@
+# Vermelho do plugin — 2026-11-15 14:15 -03, Node v20.20.2, contra a versão ingênua (aplica sempre, pasta padrão, sem App Group, plugin fora do app.json, alvo ainda não criado)
+    ✕ chave undefined: devolve a config intacta e não chama o apple-targets (2 ms)
+    ✕ chave "": devolve a config intacta e não chama o apple-targets
+    ✕ chave "false": devolve a config intacta e não chama o apple-targets (1 ms)
+    ✕ chave "1": devolve a config intacta e não chama o apple-targets
+    ✕ chave "yes": devolve a config intacta e não chama o apple-targets
+    ✕ chave ligada: App Group nas permissões do app, sem perder as que já existiam
+    ✕ chave ligada: o apple-targets procura o alvo dentro de modules/, onde ele mora
+    ✕ a chave de build é a mesma que o AppConfig lê
+    ✕ o app.json registra o plugin
+    - Expected  - 0
+    + Received  + 1
+    - Expected  - 0
+    + Received  + 1
+    - Expected  - 0
+    + Received  + 1
+    - Expected  - 0
+    + Received  + 1
+    - Expected  - 0
+    + Received  + 1
+    Expected: ["group.com.ascendcreative.radiant.widgets"]
+    Received: undefined
+    Expected: "./modules/radiant-widgets/targets"
+    Received: undefined
+    Expected: false
+    Received: true
+    Expected value: "./plugins/with-widgets"
+    Received array: ["expo-router", ["expo-notifications", {"color": "#0A84FF", "defaultChannel": "study-reminders", "icon": "./assets/images/notification-icon.png"}], ["expo-splash-screen", {"backgroundColor": "#13151c", "dark": {"backgroundColor": "#13151c"}, "image": "./assets/images/splash-icon.png", "imageWidth": 200, "resizeMode": "contain"}], "@sentry/react-native", "./plugins/with-gradle-memory"]
+Tests:       9 failed, 9 total

@@ -1,0 +1,43 @@
+# Vermelho da ponte — 2026-11-15 14:17 -03, Node v20.20.2, contra a versão ingênua (ignora a chave, recarrega antes de gravar, deixa o erro subir, URL sem codificar, revisão na home, ENABLE_WIDGETS ausente do AppConfig)
+    ✕ chave desligada: não lê, não grava e não recarrega (1 ms)
+    ✕ chave ligada: grava o retrato versionado e só depois recarrega as timelines (1 ms)
+    ✕ falha ao ler o estado não derruba quem chamou e não grava retrato pela metade (1 ms)
+    ✕ aula: abre /learn com o nó e o bloco, como o botão da home (1 ms)
+    ✕ revisão: abre /review
+    ✕ aula sem nó ou bloco: abre a home, como a home faria
+    ✕ vem desligada quando a build não a liga, e só "true" liga (12 ms)
+    Expected number of calls: 0
+    Received number of calls: 1
+    - Expected  - 1
+    + Received  + 1
+    Received promise rejected instead of resolved
+    Expected: "radiantapp://learn?nodeId=n%201&blockId=b%262"
+    Received: "radiantapp://learn?nodeId=n 1&blockId=b&2"
+    Expected: "radiantapp://review"
+    Received: "radiantapp://"
+    Expected: "radiantapp://"
+    Received: "radiantapp://learn?nodeId=null&blockId=null"
+    Expected: false
+    Received: undefined
+Tests:       7 failed, 7 total
+
+# Vermelho 2 da ponte — 14:27, contra a ponte que supunha o módulo nativo sempre presente (o ExtensionStorage exige iOS 16.4 e o autolink o pula num app de alvo 15.1)
+    ✓ chave desligada: não lê, não grava e não recarrega (1 ms)
+    ✓ chave ligada: grava o retrato versionado e só depois recarrega as timelines
+    ✓ falha ao ler o estado não derruba quem chamou e não grava retrato pela metade
+    ✕ binário compilado sem a chave (chave ligada por OTA): não lê, não grava e não avisa
+    ✓ aula: abre /learn com o nó e o bloco, como o botão da home
+    ✓ revisão: abre /review
+    ✓ aula sem nó ou bloco: abre a home, como a home faria
+    ✓ vem desligada quando a build não a liga, e só "true" liga
+    Expected number of calls: 0
+    Received number of calls: 1
+Tests:       1 failed, 7 passed, 8 total
+
+# Vermelho 3 da ponte — 14:41, achado 3 da revisão: chamadas concorrentes sem fila
+    ✕ grava na ordem das chamadas, cada uma lendo o estado na hora em que roda (23 ms)
+    - Expected  - 1
+    + Received  + 1
+    -   "1",
+    +   "1",
+Tests:       1 failed, 8 passed, 9 total

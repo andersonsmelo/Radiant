@@ -144,6 +144,28 @@ function isExactPermutation(actual: string[], expected: string[]): boolean {
     return actual.every((id) => expectedIds.has(id));
 }
 
+/** Mapa item → grupo da categorização; `{}` para qualquer valor que não seja objeto de textos. */
+export function decodeCategorizeValue(value: string | undefined): Record<string, string> {
+    const parsed = parseBenchObject(value);
+    if (!parsed) return {};
+    return Object.fromEntries(Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === 'string'));
+}
+
+/** Julgamentos do certo ou errado, na ordem das afirmações; `[]` para valor inválido. */
+export function decodeTrueFalseValue(value: string | undefined): boolean[] {
+    try {
+        const parsed: unknown = value ? JSON.parse(value) : [];
+        return Array.isArray(parsed) && parsed.every(item => typeof item === 'boolean') ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+function isDistinctSubset(actual: string[], allowed: string[]): boolean {
+    const allowedIds = new Set(allowed);
+    return new Set(actual).size === actual.length && actual.every(id => allowedIds.has(id));
+}
+
 export function isCompleteInteractionValue(
     interaction: LearningInteractionV2,
     value: string | undefined,
@@ -171,6 +193,23 @@ export function isCompleteInteractionValue(
             );
         case 'bench':
             return parseBenchObject(value) !== null;
+        case 'cloze': {
+            // Uma posição por lacuna; '' é lacuna vazia.
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length === interaction.payload.blanks.length
+                && isDistinctSubset(ids, interaction.payload.tokens.map(token => token.id));
+        }
+        case 'true-false':
+            return decodeTrueFalseValue(value).length === interaction.payload.statements.length;
+        case 'categorize': {
+            const assigned = decodeCategorizeValue(value);
+            const categoryIds = new Set(interaction.payload.categories.map(category => category.id));
+            return interaction.payload.items.every(item => categoryIds.has(assigned[item.id]));
+        }
+        case 'multi-select': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length > 0 && isDistinctSubset(ids, interaction.payload.options.map(option => option.id));
+        }
         default:
             return false;
     }
@@ -201,6 +240,19 @@ export function isCorrectInteractionValue(
             );
         case 'bench':
             return isBenchGoalMet(interaction, value);
+        case 'cloze':
+            return decodeInteractionIdSequence(value).every((id, index) => id === interaction.payload.blanks[index]?.correctTokenId);
+        case 'true-false':
+            return decodeTrueFalseValue(value).every((judged, index) => judged === interaction.payload.statements[index]?.isTrue);
+        case 'categorize': {
+            const assigned = decodeCategorizeValue(value);
+            return interaction.payload.items.every(item => assigned[item.id] === item.categoryId);
+        }
+        case 'multi-select': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length === interaction.payload.correctOptionIds.length
+                && interaction.payload.correctOptionIds.every(id => ids.includes(id));
+        }
         default:
             return false;
     }

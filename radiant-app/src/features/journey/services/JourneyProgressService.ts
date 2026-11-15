@@ -96,7 +96,7 @@ class JourneyProgressServiceImpl {
         nodeId: string | null,
         trackDefinition?: JourneyTrackDefinition
     ): Promise<JourneySnapshot> {
-        const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
+        const resolvedTrackDefinition = await this.resolveWriteTrack(nodeId, trackDefinition);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
         const nextProgress: JourneyProgress = {
             ...progress,
@@ -123,7 +123,7 @@ class JourneyProgressServiceImpl {
     ): Promise<JourneySnapshot> {
         const stepIndex = typeof stepIndexOrTrack === 'number' ? stepIndexOrTrack : undefined;
         const requestedTrack = typeof stepIndexOrTrack === 'number' ? trackDefinition : stepIndexOrTrack;
-        const resolvedTrackDefinition = await this.resolveTrackDefinition(requestedTrack);
+        const resolvedTrackDefinition = await this.resolveWriteTrack(nodeId, requestedTrack);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
 
         // ADR de 2026-09-25 (defeito 1 do E2E, opção A): reabrir uma lição já
@@ -383,6 +383,27 @@ class JourneyProgressServiceImpl {
     }
 
     /**
+     * Cursor e retomada vão para a trilha que CONTÉM o nó (2026-11-13): abrir a
+     * unidade inserida atrás do aluno não pode gravar na trilha ativa. Sem nó
+     * (a limpeza ao concluir), a trilha ativa, como antes.
+     */
+    private async resolveWriteTrack(
+        nodeId: string | null | undefined,
+        trackDefinition?: JourneyTrackDefinition,
+    ): Promise<JourneyTrackDefinition> {
+        if (trackDefinition) return trackDefinition;
+        return nodeId ? this.resolveTrackDefinitionForNode(nodeId) : this.resolveTrackDefinition();
+    }
+
+    /** Iniciada: ao menos um nó DESTA trilha concluído, lido como `isTrackCompleted` lê. */
+    private isTrackStarted(trackId: string, store: JourneyProgressStore | null): boolean {
+        const completed = new Set(store?.tracks?.[trackId]?.completedNodeIds ?? []);
+
+        return completed.size > 0 && JourneyDefinitionService.getTrackDefinition(trackId)
+            .units.some((unit) => unit.nodes.some((node) => completed.has(node.id)));
+    }
+
+    /**
      * A trilha ativa passou a ser DERIVADA da regra sequencial em 2026-08-14,
      * em vez de lida direto de `store.activeTrackId`.
      *
@@ -413,8 +434,11 @@ class JourneyProgressServiceImpl {
         const completedTrackIds = new Set(
             tracks.map((track) => track.id).filter((trackId) => this.isTrackCompleted(trackId, store)),
         );
+        const startedTrackIds = new Set(
+            tracks.map((track) => track.id).filter((trackId) => this.isTrackStarted(trackId, store)),
+        );
 
-        const sequentialTrackId = resolveActiveTrackId(tracks, completedTrackIds);
+        const sequentialTrackId = resolveActiveTrackId(tracks, completedTrackIds, startedTrackIds);
         const defaultTrackId = JourneyDefinitionService.getDefaultTrackId();
         const activeTrackId = sequentialTrackId ?? store?.activeTrackId ?? defaultTrackId ?? undefined;
 

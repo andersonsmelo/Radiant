@@ -35,6 +35,128 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Atualização 1.6 — F2, formatos de interação (medido em 2026-11-15)
+
+Branch `claude/f2-formatos-de-interacao-e37fff`, PR
+[#71](https://github.com/andersonsmelo/Radiant/pull/71) em rascunho, sem merge.
+Decisão em [ADR 2026-11-13](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md);
+evidência em [`evidence/2026-11-13-f2-formatos/`](evidence/2026-11-13-f2-formatos/README.md).
+
+- **Quatro famílias novas** (`cloze`, `true-false`, `categorize`, `multi-select`) no
+  tipo, no contrato amplo, no verificador da aula-fonte, no gerador e no tocador.
+  `slider-estimate` ficou de fora (ADR, decisão 1).
+- **M01 a M03 convertidas:** 36 interações; toda aula tem ao menos duas famílias
+  novas, nenhuma família três vezes seguidas e a i1 em múltipla escolha.
+  `node scripts/content/build-rtg-batches.mjs --check` sai com 0.
+- **Gate:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`, Node 20.20.2,
+  234 suítes e 3151 testes, saída 0.
+- **Simulador:** os três roteiros de `radiant-app/.maestro/f2-formatos/` passaram
+  inteiros no simulador "Radiant F2" (`63575E19`, iPhone 17 Pro, iOS 26.5), criado em
+  2026-11-13 porque o `E262D4C1` não existia mais. Ele fica desligado e guardado para
+  as próximas frentes. O dev client foi compilado localmente com `xcodebuild`, numa
+  worktree à parte, com `LANG`/`LC_ALL` em UTF-8 (sem isso o CocoaPods quebra na
+  normalização Unicode) e `node_modules` como clone APFS, não link (o Metro não segue
+  link para fora do projeto).
+- **Não visto:** VoiceOver ouvido, texto ampliado AX2, som, tela de conclusão,
+  aparelho físico e Android.
+- **Fila de revisão de quem atualiza da 1.5.0:** o cartão de uma interação que mudou de
+  família sai da fila; os demais ficam com a data (`familyChangeUpgrade.test.ts`).
+
+## Atualização 1.6, F7 — personagens (medido em 2026-11-13)
+
+Branch `claude/f7-personagens`, sem merge. **Nada disso está na loja.**
+
+- **Bíblia do elenco** em
+  [`design/2026-11-13-biblia-de-personagens.md`](design/2026-11-13-biblia-de-personagens.md):
+  ficha de Pixel, Profa. Lia, Caio, Duda e paciente, tirada das 415 falas das 132
+  cenas publicadas, mais as regras comuns (grade 64, duas espessuras de traço,
+  tokens, 3:1 contra a placa, tamanho mínimo de 48 pt).
+- **Expressões comuns** (neutro, feliz, pensativo, preocupado, comemorando),
+  montadas por partes em `radiant-app/src/ui/characters/cast/castExpressions.ts`.
+  `CastAvatar` aceita `expression` e `size`, com neutro e `sm` por padrão. Os dois
+  chamadores (`DialogueScene` e `AnswerFeedbackCard`) continuam compilando sem
+  mudança de chamada. O Pixel não foi redesenhado: ganhou a placa do elenco e a
+  escala de 80% ao lado dele. As cores novas estão em `castColors`, no tema.
+- **Seletor** `castExpressionFor(contexto)`, ligado na cena de diálogo: fala que
+  pergunta é pensativa, paciente que pergunta fica preocupado e as outras falas
+  são neutras. **Para a F3 ligar:** o `AnswerFeedbackCard` ainda passa `feliz` ou
+  `pensando` ao Pixel. Ele deve passar
+  `castExpressionFor({ kind: 'retorno', correct, celebrate })`, com `celebrate`
+  verdadeiro no acerto que fecha combo, checkpoint ou aula. Deve também acrescentar
+  `size="lg"` se o retorno for o lugar do retrato grande.
+- **Paciente com dois retratos:** "Dona …" ganha cabelo escuro até os ombros, e
+  "Seu …" ou paciente sem nome mantém o senhor grisalho. O retrato antigo
+  contradizia a Dona Marta da M01.
+- **Dois candidatos** (Dra. Iara, cirurgiã-dentista, e Dr. Ravi, médico
+  ultrassonografista), com ficha em
+  [`design/2026-11-13-candidatos-de-personagens.md`](design/2026-11-13-candidatos-de-personagens.md)
+  e arte no padrão. **Fora de `LessonCastId`:** a entrada depende da decisão do
+  controlador.
+- **Guarda** `castStandard.test.tsx`: lê a árvore renderizada e barra cor fora
+  dos tokens, traço fora de 1,2 e 1,4, expressão ausente, repetida ou fora da
+  caixa, rótulo sem nome ou sem expressão, contraste abaixo de 3:1 e retrato
+  acima de 26 nós. A execução vermelha está em
+  [`evidence/2026-11-13-f7-personagens/`](evidence/2026-11-13-f7-personagens/README.md).
+- **Visto no simulador "Radiant F7":** a cena da M01.01 com Duda pensativa, Caio
+  neutro e o Pixel na placa, e a grade do Storybook em 48 e 96 pt. VoiceOver e o
+  cartão de retorno não foram vistos.
+- **Gates, medidos em 2026-11-13 às 21h20:** `cd radiant-app && EXPO_NO_DOTENV=1
+  npm run quality` no Node 20.20.2 saiu com código 0. Deu 235 suítes e 3.170
+  testes no Jest, os 17 contratos `node --test` e o QA visual estrito sem
+  regressão. O `loop validate` do run `run-1794612344638-8db1af85`, no Node 24,
+  também passou. A revisão independente não achou bloqueante; os achados
+  importantes foram corrigidos e vistos falhando antes da correção.
+
+## Atualização 1.6, F3 — sons e microinterações da aula (medido em 2026-11-15)
+
+Branch `claude/f3-sons-e-microinteracoes-db21d1`, sobre a F2 com a F7 mesclada, sem
+merge. **Nada disso está na loja.** Decisões em
+[ADR 2026-11-15](adr/ADR-2026-11-15-retorno-rico-da-aula.md); evidência em
+[`evidence/2026-11-15-f3-sons/`](evidence/2026-11-15-f3-sons/README.md).
+
+- **Mapa único** `LESSON_FEEDBACK` em `radiant-app/src/ui/feedback/lessonFeedback.ts`:
+  som, vibração e animação de cada momento da aula, com três momentos novos (soltar
+  ficha, avançar, revelar fala).
+- **Chave `ENABLE_RICH_FEEDBACK`, desligada por padrão.** Desligada, a aula é a da
+  base, com contraprova em teste. Ligada: sons `soltar` e `fala` (sintetizados, 110 e
+  80 ms, pico −28 dBFS, nivelados com o `toque`), vibração ao avançar, alternativa que afunda ao toque, retorno em 150 ms com
+  o Pixel pelo seletor da F7 em 64 pt, incentivo na sequência, na retomada e na aula
+  sem erro, e medalha cunhada na conclusão de aula e de unidade.
+- **Simulador "Radiant F2", com a chave ligada:** o roteiro `f2-formatos/m01.yaml`
+  passou, e o log confirmou `fala` nas revelações da abertura e `soltar` em cada ficha
+  do categorize. Não visto: vibração, animação (o roteiro reduz movimento), incentivo
+  na tela e se os sons agradam ao ouvido.
+- **Fala em voz alta:** não entrou. Pede `expo-speech`, módulo nativo novo, e isso é
+  pendência do dono.
+- **Gate, medido em 2026-11-15 às 16h08:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run
+  quality` no Node 20.20.2 saiu com código 0: 238 suítes e 3.315 testes no Jest, os 17
+  contratos `node --test` e o QA visual estrito sem regressão. A revisão independente
+  deu 14 achados, nenhum bloqueante; 13 corrigidos e 1 pendente (toque duplo no
+  Conferir, que já existia na base), em
+  [`revisao.md`](evidence/2026-11-15-f3-sons/revisao.md).
+
+## Trilha ampliada pela ementa — F1 da 1.6, medido em 2026-11-13
+
+Na branch `claude/f1-trilha-ampliada`, que nasce da branch da F2
+(`claude/f2-formatos-de-interacao-e37fff`, PR #71). Nada disto está na `main` nem na loja.
+
+- **Conteúdo:** quatro unidades novas, 25 aulas, 125 interações e 50 itens de
+  conferência: M15, Células, tecidos e funções (6 aulas); M16, A condição do paciente na
+  aquisição (6); S-OD, Radiologia odontológica (7); S-US, Ultrassonografia para o
+  tecnólogo (6). A trilha passa a ter 24 unidades, 157 aulas, 785 interações e 314 itens
+  de conferência. Toda aula usa ao menos uma família da 1.6. Autor Claude Sonnet,
+  revisor independente Claude Opus; revisão por IA, não por profissional da área.
+  [Pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md);
+  [mapa da expansão](plans/2026-11-13-rtg-2026-expansao-pela-ementa.md).
+- **Ordem:** M15 depois de M03, M16 depois de M09, S-OD e S-US no fim. A inserção no
+  meio exigiu mudar a regra de acesso entre trilhas (commit `1102ec4`,
+  [levantamento](evidence/2026-11-13-rtg-2026-expansao/motor.md)): trilha concluída ou
+  iniciada fica aberta, e a Home não puxa de volta quem está adiante.
+- **Roteiros do Maestro:** aula 01 e primeira avaliação de cada unidade nova, em
+  `radiant-app/.maestro/rtg-2026/`, gerados do gabarito. **Não vistos na tela.**
+- **Gate:** ver o relatório da frente; os números da suíte inteira estão no
+  [README dos pareceres](evidence/2026-11-13-rtg-2026-expansao/README.md).
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch
@@ -941,6 +1063,17 @@ roteiros usam como âncora. Eles agora rolam até ele. A bateria padrão passou
 rolagem ampliado.
 `rating-prompt`, `store-capture` e os `student-checkpoint-*` não foram
 executados ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md)).
+
+## Widgets do iOS — F5 da 1.6, medido em 2026-11-15
+
+Na branch `claude/f5-widgets-ios`, **não está na `main` nem em build**. Dois widgets
+(sequência; sequência, meta e próxima aula) atrás de `ENABLE_WIDGETS`, **desligada por
+padrão**: com ela desligada, o prebuild sai igual ao da `main` e nenhum pod novo entra
+([ADR](adr/ADR-2026-11-15-widgets-ios.md), [evidência](evidence/2026-11-15-f5-widgets/README.md)).
+Compilou em Release para o simulador com a chave ligada e o app gravou o retrato no
+App Group; **o widget na tela inicial não foi visto** (sem acesso ao painel do
+simulador). Ligar depende do dono: App Group no portal e a variável no `eas.json`
+([runbook](runbooks/2026-11-15-widgets-ios.md)).
 
 ## Kill switches reais
 

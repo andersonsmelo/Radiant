@@ -1,0 +1,2018 @@
+{
+ "schemaVersion": 1,
+ "unit": {
+  "id": "s-us",
+  "code": "S-US",
+  "title": "Ultrassonografia para o tecnólogo",
+  "summary": "Som, eco, transdutor, frequência, modos e artefatos, a segurança do ultrassom e o limite do que cabe ao aluno e à equipe."
+ },
+ "sources": [
+  {
+   "id": "nibib-us",
+   "title": "Ultrasound",
+   "publisher": "NIBIB, National Institutes of Health",
+   "url": "https://www.nibib.nih.gov/science-education/science-topics/ultrasound",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página institucional do NIBIB; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "fda-us",
+   "title": "Ultrasound Imaging",
+   "publisher": "U.S. Food and Drug Administration",
+   "url": "https://www.fda.gov/radiation-emitting-products/medical-imaging/ultrasound-imaging",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página institucional da FDA; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "radiologyinfo-us",
+   "title": "General Ultrasound",
+   "publisher": "RadiologyInfo.org (RSNA e ACR)",
+   "url": "https://www.radiologyinfo.org/en/info/genus",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página de informação ao paciente; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "aium-alara",
+   "title": "As Low As Reasonably Achievable (ALARA) Principle",
+   "publisher": "American Institute of Ultrasound in Medicine (AIUM)",
+   "url": "https://www.aium.org/resources/official-statements/view/as-low-as-reasonably-achievable-(alara)-principle",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Declaração oficial da AIUM; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "acep-physics",
+   "title": "Ultrasound Physics, SonoGuide",
+   "publisher": "American College of Emergency Physicians (ACEP)",
+   "url": "https://acep.org/sonoguide/physics.html",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Página educacional; consultada para fatos, sem reprodução de texto."
+  },
+  {
+   "id": "lei-12842-2013",
+   "title": "Lei nº 12.842, de 10 de julho de 2013",
+   "publisher": "Presidência da República, Planalto",
+   "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12842.htm",
+   "accessedAt": "2026-11-13",
+   "use": "factual-reference",
+   "licenseNote": "Ato normativo federal; consultado para o art. 4º, VII e § 7º, sem reprodução de texto."
+  }
+ ],
+ "lessons": [
+  {
+   "id": "s-us-01",
+   "code": "S-US.01",
+   "title": "Som, frequência e eco",
+   "objective": "Hoje você vai conseguir relacionar frequência, comprimento de onda e eco ao que o aparelho de ultrassom mede.",
+   "competency": "Relacionar frequência, comprimento de onda e eco ao que o aparelho mede.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de ultrassonografia (simulação)",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "Aqui o feixe não é de raios X. O aparelho manda som para dentro do corpo e fica escutando."
+     },
+     {
+      "speaker": "duda",
+      "text": "Escutando o quê? Som não tira foto de ninguém."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Se ele só recebe ecos, o que precisa medir para saber a que distância algo ficou?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Som que volta",
+    "body": "O ultrassom é som com frequência acima da que o ouvido humano capta, acima de 20 kHz, e a maioria dos transdutores trabalha em megahertz. É onda mecânica e não usa radiação ionizante. Quando o pulso chega à fronteira entre dois tecidos, parte dele volta como eco. O aparelho mede o tempo de retorno e, com a velocidade do som em tecido mole, cerca de 1540 m/s, estima a distância. Pela relação v = f × λ, com a velocidade fixa, dobrar a frequência reduz o comprimento de onda à metade.",
+    "keyPoints": [
+     "Ultrassom é som acima de 20 kHz, em geral na faixa dos megahertz.",
+     "O eco nasce na fronteira entre tecidos; o tempo de retorno dá a distância.",
+     "Com velocidade fixa, frequência maior significa comprimento de onda menor."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Num mesmo meio, a velocidade da onda é fixa. Se a frequência cai à metade, o que acontece com o comprimento de onda?",
+     "options": [
+      {
+       "label": "Dobra",
+       "correct": true,
+       "feedback": "Com v = f × λ e v fixa, o que a frequência perde o comprimento de onda ganha: ele dobra."
+      },
+      {
+       "label": "Cai à metade",
+       "correct": false,
+       "feedback": "Cair junto seria proporção direta, e o produto f × λ deixaria de ser constante. Retome a relação."
+      },
+      {
+       "label": "Não muda",
+       "correct": false,
+       "feedback": "Se λ não mudasse e f caísse, a velocidade cairia. Confira a condição do enunciado."
+      },
+      {
+       "label": "Cai a um quarto",
+       "correct": false,
+       "feedback": "Um quarto é marca do inverso do quadrado, que não vale aqui. O fator é o mesmo nos dois lados."
+      }
+     ],
+     "help": "Teste com números: dois valores cujo produto é 12.",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "cloze",
+     "role": "prediction",
+     "prompt": "Complete a frase com as palavras do banco.",
+     "text": "O ultrassom tem frequência {{1}} da que o ouvido humano capta, e a maioria dos transdutores opera na faixa dos {{2}}.",
+     "answers": [
+      "acima",
+      "megahertz"
+     ],
+     "distractors": [
+      "abaixo",
+      "quilohertz",
+      "gigahertz"
+     ],
+     "feedbackCorrect": "Isso: ultrassom é som acima de 20 kHz, e a faixa típica dos transdutores é a dos megahertz.",
+     "feedbackIncorrect": "Pense no prefixo: ultra quer dizer além do audível, e os transdutores usam milhões de hertz, não milhares nem bilhões.",
+     "help": "Ultra vem de além. Quantos hertz tem um megahertz?",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre o som e o eco.",
+     "statements": [
+      {
+       "text": "O aparelho estima a distância pelo tempo de retorno do eco.",
+       "correct": true,
+       "feedback": "Certo: ele mede o tempo de cada eco e usa a velocidade do som no tecido."
+      },
+      {
+       "text": "O ultrassom é uma onda eletromagnética, como os raios X.",
+       "correct": false,
+       "feedback": "Errado: é som, onda mecânica que precisa de matéria para se propagar."
+      },
+      {
+       "text": "No mesmo meio, frequência maior dá comprimento de onda maior.",
+       "correct": false,
+       "feedback": "Errado: com velocidade fixa, f × λ não muda, então frequência maior encurta o comprimento de onda."
+      },
+      {
+       "text": "O ultrassom diagnóstico não usa radiação ionizante.",
+       "correct": true,
+       "feedback": "Certo: o ultrassom é som, e não produz radiação ionizante como a dos raios X."
+      }
+     ],
+     "feedbackCorrect": "Você separou o que o aparelho mede da natureza da onda.",
+     "feedbackIncorrect": "Retome o conceito: o ultrassom é som, e o tempo de retorno do eco é o que vira distância.",
+     "help": "Pergunte: que tipo de onda é essa e o que volta para o aparelho?",
+     "sourceIds": [
+      "nibib-us",
+      "fda-us",
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "multiple-choice",
+     "role": "practice",
+     "prompt": "Em que ponto do caminho do pulso nasce o eco que o aparelho aproveita?",
+     "options": [
+      {
+       "label": "Dentro do próprio transdutor",
+       "correct": false,
+       "feedback": "O transdutor emite e recebe, mas o eco vem de fora dele, do tecido."
+      },
+      {
+       "label": "Numa fronteira entre tecidos diferentes",
+       "correct": true,
+       "feedback": "O pulso reflete parcialmente onde muda o tecido, e esse retorno é o eco."
+      },
+      {
+       "label": "Na pele, só quando há gel",
+       "correct": false,
+       "feedback": "O gel ajuda a onda a entrar, mas não é ele que gera o eco."
+      },
+      {
+       "label": "Em qualquer ponto, sem mudança de meio",
+       "correct": false,
+       "feedback": "Sem mudança de meio, quase nada volta. Retome: eco pede fronteira."
+      }
+     ],
+     "help": "Pense no que o pulso encontra pelo caminho.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "case-decision",
+     "role": "transfer",
+     "context": "Na tela de simulação, o mesmo pulso gerou dois ecos pela mesma linha: o primeiro voltou depressa e o segundo voltou bem mais tarde.",
+     "prompt": "O que o aparelho conclui sobre a fronteira do segundo eco?",
+     "options": [
+      {
+       "label": "Ela está mais perto do transdutor",
+       "correct": false,
+       "feedback": "Mais perto devolveria o eco mais cedo, como o primeiro."
+      },
+      {
+       "label": "Ela é de um tecido mais rígido",
+       "correct": false,
+       "feedback": "O tempo de retorno mede distância; ele sozinho não diz a rigidez."
+      },
+      {
+       "label": "Ela está mais longe do transdutor",
+       "correct": true,
+       "feedback": "Quanto maior o tempo de retorno, maior a distância percorrida."
+      },
+      {
+       "label": "Ela está à mesma distância da primeira",
+       "correct": false,
+       "feedback": "Distâncias iguais dariam o mesmo tempo de retorno."
+      }
+     ],
+     "help": "Qual grandeza o aparelho mede em cada eco?",
+     "sourceIds": [
+      "nibib-us",
+      "acep-physics"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que o aparelho mede",
+    "body": "Você sabe que o ultrassom é som acima de 20 kHz, que o eco nasce nas fronteiras entre tecidos e que o tempo de retorno vira distância. Com velocidade fixa, frequência maior encurta o comprimento de onda.",
+    "line": {
+     "speaker": "lia",
+     "text": "Quando a imagem parecer mágica, volte à pergunta: que tempo o aparelho mediu?"
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Qual característica diferencia o ultrassom do som que o ouvido capta?",
+     "options": [
+      {
+       "label": "Frequência acima de 20 kHz",
+       "correct": true,
+       "feedback": "Isso: ultra significa além da faixa audível, acima de 20 kHz."
+      },
+      {
+       "label": "Velocidade menor no ar",
+       "correct": false,
+       "feedback": "A velocidade não é o que o define. Confira a faixa de frequência."
+      },
+      {
+       "label": "Natureza eletromagnética",
+       "correct": false,
+       "feedback": "O ultrassom é som, onda mecânica."
+      },
+      {
+       "label": "Necessidade de radiação ionizante",
+       "correct": false,
+       "feedback": "Ele não usa radiação ionizante."
+      }
+     ],
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "prompt": "Com a velocidade do som fixa em 1540 m/s, qual frequência dá o menor comprimento de onda?",
+     "options": [
+      {
+       "label": "1 MHz",
+       "correct": false,
+       "feedback": "É a menor frequência da lista, logo o maior comprimento de onda."
+      },
+      {
+       "label": "2 MHz",
+       "correct": false,
+       "feedback": "Ainda há frequência maior na lista. Retome v = f × λ."
+      },
+      {
+       "label": "5 MHz",
+       "correct": true,
+       "feedback": "Frequência maior, com velocidade fixa, encurta o comprimento de onda."
+      },
+      {
+       "label": "3 MHz",
+       "correct": false,
+       "feedback": "Há opção de frequência mais alta, então esta não dá o menor λ."
+      }
+     ],
+     "sourceIds": [
+      "acep-physics"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o aparelho mede o tempo de retorno do ____.",
+     "item": {
+      "prompt": "O que o aparelho mede em cada eco para estimar a distância?",
+      "options": [
+       {
+        "label": "A cor do tecido",
+        "correct": false,
+        "feedback": "O aparelho não mede cor, mede o tempo e a intensidade do eco."
+       },
+       {
+        "label": "O tempo de retorno",
+        "correct": true,
+        "feedback": "Com a velocidade do som no tecido, o tempo vira distância."
+       },
+       {
+        "label": "A dose recebida",
+        "correct": false,
+        "feedback": "Não há dose de radiação ionizante envolvida."
+       },
+       {
+        "label": "O peso do órgão",
+        "correct": false,
+        "feedback": "O peso não é medido pelo eco."
+       }
+      ],
+      "sourceIds": [
+       "nibib-us"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Um eco volta duas vezes mais tarde que outro, pela mesma linha. O que isso indica?",
+      "options": [
+       {
+        "label": "A fronteira dele está mais perto",
+        "correct": false,
+        "feedback": "Mais perto devolveria antes."
+       },
+       {
+        "label": "O tecido dele é mais quente",
+        "correct": false,
+        "feedback": "O tempo de retorno não mede temperatura."
+       },
+       {
+        "label": "O pulso mudou de natureza",
+        "correct": false,
+        "feedback": "O pulso continua sendo som."
+       },
+       {
+        "label": "A fronteira dele está mais longe",
+        "correct": true,
+        "feedback": "Mais tempo de retorno, mais distância."
+       }
+      ],
+      "sourceIds": [
+       "nibib-us",
+       "acep-physics"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "s-us-02",
+   "code": "S-US.02",
+   "title": "O transdutor",
+   "objective": "Hoje você vai conseguir explicar o efeito piezoelétrico e para que serve o gel.",
+   "competency": "Explicar o efeito piezoelétrico e para que serve o gel.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de ultrassonografia (simulação)",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Esse aparelho tem alto-falante e microfone dentro do transdutor?"
+     },
+     {
+      "speaker": "caio",
+      "text": "Ele tem cristais especiais. Os mesmos cristais fazem as duas coisas."
+     },
+     {
+      "speaker": "lia",
+      "text": "Que propriedade permite a um só material emitir e receber som?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Cristal que fala e escuta",
+    "body": "Os elementos ativos do transdutor são, em geral, cristais cerâmicos piezoelétricos. Quando recebem um campo elétrico, produzem som: é o pulso que sai. Quando o eco chega, o mesmo cristal produz um campo elétrico, que o aparelho lê. Entre a pele e o transdutor, o gel evita bolsas de ar, e o ar bloqueia as ondas. O caminho, na ordem ensinada nesta aula, é: sinal elétrico no cristal, pulso de som, reflexo numa fronteira, eco de volta ao cristal e cálculo da distância.",
+    "keyPoints": [
+     "O cristal piezoelétrico converte campo elétrico em som e som em campo elétrico.",
+     "O gel evita bolsas de ar, que bloqueiam as ondas.",
+     "Emitir e receber é trabalho do mesmo elemento."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior: o que o aparelho mede em cada eco para chegar à distância?",
+     "options": [
+      {
+       "label": "A radiação absorvida",
+       "correct": false,
+       "feedback": "O ultrassom não usa radiação ionizante."
+      },
+      {
+       "label": "O tempo de retorno",
+       "correct": true,
+       "feedback": "Com a velocidade do som, o tempo vira distância."
+      },
+      {
+       "label": "A cor do tecido",
+       "correct": false,
+       "feedback": "Cor não faz parte do que o eco informa."
+      },
+      {
+       "label": "A temperatura do cristal",
+       "correct": false,
+       "feedback": "A temperatura não entra no cálculo da distância."
+      }
+     ],
+     "help": "Lembre o que o eco leva de volta ao aparelho.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "ordering",
+     "role": "practice",
+     "prompt": "Ordene o caminho do pulso ao eco, na ordem ensinada nesta aula.",
+     "items": [
+      "O aparelho aplica sinal elétrico ao cristal",
+      "O cristal produz o pulso de som",
+      "O pulso reflete numa fronteira entre tecidos",
+      "O eco volta e o cristal produz sinal elétrico",
+      "O aparelho calcula a distância pelo tempo"
+     ],
+     "feedbackCorrect": "Isso: do sinal elétrico ao som, do eco de volta ao sinal e então à distância.",
+     "feedbackIncorrect": "Comece pelo que faz o cristal vibrar e termine no cálculo; o eco só existe depois do reflexo.",
+     "help": "O cristal participa duas vezes: uma na saída e outra na volta.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "cloze",
+     "role": "practice",
+     "prompt": "Complete a frase sobre o cristal piezoelétrico.",
+     "text": "No cristal piezoelétrico, um campo elétrico aplicado produz {{1}}, e o som que chega produz {{2}}.",
+     "answers": [
+      "som",
+      "campo elétrico"
+     ],
+     "distractors": [
+      "calor",
+      "luz visível",
+      "radiação ionizante"
+     ],
+     "feedbackCorrect": "Isso: o cristal converte nos dois sentidos, e por isso emite e recebe.",
+     "feedbackIncorrect": "Retome o que sai e o que volta: nos dois sentidos o cristal converte entre eletricidade e som, não gera luz nem radiação.",
+     "help": "A conversão acontece nos dois sentidos.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "multiple-choice",
+     "role": "practice",
+     "prompt": "Por que o gel entra entre a pele e o transdutor?",
+     "options": [
+      {
+       "label": "Para evitar bolsas de ar no caminho",
+       "correct": true,
+       "feedback": "O ar bloqueia as ondas, e o gel preenche esse espaço."
+      },
+      {
+       "label": "Para aquecer o cristal e gerar mais eco",
+       "correct": false,
+       "feedback": "O gel não aquece cristal nenhum, e o eco vem dos tecidos."
+      },
+      {
+       "label": "Para blindar o paciente contra radiação",
+       "correct": false,
+       "feedback": "Não há radiação ionizante aqui, e gel não blinda."
+      },
+      {
+       "label": "Para deixar a pele mais clara na imagem",
+       "correct": false,
+       "feedback": "A cor da pele não aparece na imagem."
+      }
+     ],
+     "help": "O que o ar faz com o som?",
+     "sourceIds": [
+      "nibib-us",
+      "fda-us"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "case-decision",
+     "role": "transfer",
+     "context": "Duda desenha o transdutor com dois componentes: um alto-falante que emite e um microfone que recebe. Lia pergunta se isso corresponde ao que você estudou.",
+     "prompt": "O que você responde a Duda?",
+     "options": [
+      {
+       "label": "Sim, são sempre dois dispositivos sem relação",
+       "correct": false,
+       "feedback": "Aqui o material é um só, que converte nos dois sentidos."
+      },
+      {
+       "label": "Não, o transdutor só emite e o eco é lido na pele",
+       "correct": false,
+       "feedback": "A leitura acontece no próprio cristal, não na pele."
+      },
+      {
+       "label": "Sim, porque o gel faz a função do microfone",
+       "correct": false,
+       "feedback": "O gel só preenche o espaço de ar; ele não detecta som."
+      },
+      {
+       "label": "Em geral o mesmo cristal faz as duas conversões",
+       "correct": true,
+       "feedback": "O cristal piezoelétrico produz som e também produz campo elétrico quando recebe o eco."
+      }
+     ],
+     "help": "Quantas vezes o cristal entra no caminho do pulso?",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O cristal e o gel",
+    "body": "Você sabe que o cristal piezoelétrico converte campo elétrico em som e som em campo elétrico, e que o gel evita bolsas de ar. Consegue ordenar o caminho do pulso até a distância.",
+    "line": {
+     "speaker": "caio",
+     "text": "Na sala, quando a imagem some numa faixa, o ar costuma ser o primeiro suspeito."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "O que o gel evita entre a pele e o transdutor?",
+     "options": [
+      {
+       "label": "Choque elétrico no cristal",
+       "correct": false,
+       "feedback": "O gel não está ali para proteger o cristal: ele ocupa o espaço onde ficaria ar."
+      },
+      {
+       "label": "Radiação espalhada na sala",
+       "correct": false,
+       "feedback": "O ultrassom não usa radiação ionizante."
+      },
+      {
+       "label": "Ruído audível no ambiente",
+       "correct": false,
+       "feedback": "O ultrassom está acima do que se ouve."
+      },
+      {
+       "label": "Bolsas de ar no caminho",
+       "correct": true,
+       "feedback": "O ar bloqueia as ondas; sem ele, elas entram no corpo."
+      }
+     ],
+     "sourceIds": [
+      "nibib-us",
+      "fda-us"
+     ]
+    },
+    {
+     "prompt": "O que o cristal piezoelétrico produz quando o eco chega até ele?",
+     "options": [
+      {
+       "label": "Um novo pulso de som igual ao eco",
+       "correct": false,
+       "feedback": "Isso seria reemitir; ele converte som em eletricidade."
+      },
+      {
+       "label": "Um campo elétrico lido pelo aparelho",
+       "correct": true,
+       "feedback": "A conversão acontece nos dois sentidos."
+      },
+      {
+       "label": "Calor para aquecer a pele",
+       "correct": false,
+       "feedback": "O cristal não serve de aquecedor."
+      },
+      {
+       "label": "Luz que forma a imagem",
+       "correct": false,
+       "feedback": "A imagem vem de sinais elétricos."
+      }
+     ],
+     "sourceIds": [
+      "nibib-us"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o cristal converte campo elétrico em ____ e som em campo elétrico.",
+     "item": {
+      "prompt": "Qual etapa vem logo antes de o aparelho calcular a distância?",
+      "options": [
+       {
+        "label": "O pulso é emitido pelo cristal",
+        "correct": false,
+        "feedback": "Ela vem antes do reflexo."
+       },
+       {
+        "label": "O gel é aplicado na pele",
+        "correct": false,
+        "feedback": "Isso é preparo, anterior ao caminho do pulso."
+       },
+       {
+        "label": "O eco volta e vira sinal elétrico",
+        "correct": true,
+        "feedback": "Só depois de receber o eco o aparelho tem o que medir."
+       },
+       {
+        "label": "O pulso reflete numa fronteira",
+        "correct": false,
+        "feedback": "Ainda falta o eco chegar e ser convertido."
+       }
+      ],
+      "sourceIds": [
+       "nibib-us"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Num esquema, o eco chega e nada ocorre no cristal. O que falta nessa figura?",
+      "options": [
+       {
+        "label": "A conversão de som em radiação",
+        "correct": false,
+        "feedback": "Não há conversão em radiação ionizante."
+       },
+       {
+        "label": "A conversão de som em sinal elétrico",
+        "correct": true,
+        "feedback": "Sem ela o aparelho não lê o eco."
+       },
+       {
+        "label": "A emissão de calor pelo gel",
+        "correct": false,
+        "feedback": "O gel não emite calor nenhum no caminho do pulso."
+       },
+       {
+        "label": "A mudança de cor do tecido",
+        "correct": false,
+        "feedback": "Cor não faz parte do caminho."
+       }
+      ],
+      "sourceIds": [
+       "nibib-us"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "s-us-03",
+   "code": "S-US.03",
+   "title": "Frequência e profundidade",
+   "objective": "Hoje você vai conseguir prever que frequência mais alta melhora o detalhe e perde profundidade.",
+   "competency": "Prever que frequência alta melhora detalhe e perde profundidade.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Laboratório didático de imagem",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Se frequência alta dá mais detalhe, por que ninguém usa só a mais alta possível?"
+     },
+     {
+      "speaker": "caio",
+      "text": "Porque tudo tem um preço. Tem um jeito de a onda mais fina ficar sem fôlego."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Qual é o preço? Pense no que acontece com a onda quando ela viaja pelo tecido."
+     }
+    ]
+   },
+   "concept": {
+    "title": "Detalhe contra alcance",
+    "body": "Os transdutores diagnósticos usam, em geral, de 2 a 20 MHz. Frequência mais alta mostra mais detalhe, mas com menos penetração: as ondas são mais atenuadas ao longo da distância. Frequência mais baixa chega mais fundo, com menos detalhe. Por isso a escolha do transdutor depende do alvo. O transdutor linear, de frequência alta, serve a estruturas rasas e a vasos. O curvilíneo e o phased array, de frequência mais baixa, alcançam estruturas profundas do abdome ou entre as costelas. Aqui você aprende o princípio físico, não a escolher o exame.",
+    "keyPoints": [
+     "Frequência alta: mais detalhe, menos profundidade.",
+     "Frequência baixa: mais profundidade, menos detalhe.",
+     "O princípio explica por que há transdutores diferentes."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior: de que é feito o elemento ativo do transdutor, que converte campo elétrico em som e som em campo elétrico?",
+     "options": [
+      {
+       "label": "De gel condutor",
+       "correct": false,
+       "feedback": "O gel só evita bolsas de ar entre a pele e o transdutor."
+      },
+      {
+       "label": "De chumbo laminado",
+       "correct": false,
+       "feedback": "Chumbo é blindagem para radiação ionizante, que não está em jogo."
+      },
+      {
+       "label": "De fibra óptica",
+       "correct": false,
+       "feedback": "Fibra óptica conduz luz, não converte eletricidade em som."
+      },
+      {
+       "label": "De cristal cerâmico",
+       "correct": true,
+       "feedback": "A propriedade piezoelétrica do cristal faz a conversão nos dois sentidos."
+      }
+     ],
+     "help": "Lembre o nome da propriedade do cristal.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "multiple-choice",
+     "role": "prediction",
+     "prompt": "Dois transdutores: um de 3 MHz e outro de 12 MHz. Qual dá mais detalhe, mas alcança menos profundidade?",
+     "options": [
+      {
+       "label": "O de 3 MHz",
+       "correct": false,
+       "feedback": "Frequência mais baixa penetra mais, com menos detalhe."
+      },
+      {
+       "label": "Os dois dão o mesmo detalhe",
+       "correct": false,
+       "feedback": "A frequência muda a resolução, então eles diferem."
+      },
+      {
+       "label": "O de 12 MHz",
+       "correct": true,
+       "feedback": "Frequência mais alta traz mais detalhe e perde penetração."
+      },
+      {
+       "label": "Nenhum, a profundidade independe da frequência",
+       "correct": false,
+       "feedback": "Frequências mais altas são mais atenuadas, então a profundidade depende dela."
+      }
+     ],
+     "help": "Qual das duas frequências é atenuada mais depressa?",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "categorize",
+     "role": "practice",
+     "prompt": "Classifique cada item pelo grupo de frequência a que ele se associa.",
+     "categories": [
+      "Frequência mais alta",
+      "Frequência mais baixa"
+     ],
+     "items": [
+      {
+       "label": "Transdutor linear",
+       "category": "Frequência mais alta"
+      },
+      {
+       "label": "Estrutura rasa sob a pele",
+       "category": "Frequência mais alta"
+      },
+      {
+       "label": "Transdutor curvilíneo",
+       "category": "Frequência mais baixa"
+      },
+      {
+       "label": "Transdutor phased array",
+       "category": "Frequência mais baixa"
+      },
+      {
+       "label": "Alvo fundo no abdome",
+       "category": "Frequência mais baixa"
+      }
+     ],
+     "feedbackCorrect": "Você ligou detalhe e alvo raso às frequências altas, e alcance e alvo profundo às baixas.",
+     "feedbackIncorrect": "Pergunte de cada item: o alvo é raso e pede detalhe, ou é fundo e pede alcance?",
+     "help": "O alvo está perto da pele ou longe dela?",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "practice",
+     "context": "Na simulação, uma estrutura funda deixou de aparecer depois que o transdutor foi trocado por outro de frequência mais alta. Duda acha que o aparelho quebrou.",
+     "prompt": "Que explicação física você oferece primeiro?",
+     "options": [
+      {
+       "label": "Frequência mais alta atenua mais e penetra menos",
+       "correct": true,
+       "feedback": "A onda mais alta se perde antes de chegar fundo, e o eco não volta."
+      },
+      {
+       "label": "O gel perdeu efeito em frequências altas",
+       "correct": false,
+       "feedback": "O gel evita ar; não depende da frequência."
+      },
+      {
+       "label": "O tempo de retorno ficou negativo",
+       "correct": false,
+       "feedback": "O tempo de retorno não é negativo; o eco é que é fraco demais."
+      },
+      {
+       "label": "O aparelho só mostra estruturas rasas",
+       "correct": false,
+       "feedback": "Nada impede o aparelho de mostrar o fundo com frequência baixa."
+      }
+     ],
+     "help": "O que a frequência mais alta faz com a onda ao longo da distância?",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "true-false",
+     "role": "transfer",
+     "prompt": "Julgue cada afirmação sobre frequência e profundidade.",
+     "statements": [
+      {
+       "text": "Frequência baixa penetra mais fundo, mas mostra menos detalhe.",
+       "correct": true,
+       "feedback": "Certo: o ganho de alcance vem com perda de resolução."
+      },
+      {
+       "text": "Aumentar a frequência sempre melhora a imagem em qualquer profundidade.",
+       "correct": false,
+       "feedback": "Errado: o ganho de detalhe vem com perda de penetração, e o fundo some."
+      },
+      {
+       "text": "Os transdutores diagnósticos usam, em geral, de 2 a 20 MHz.",
+       "correct": true,
+       "feedback": "Certo: é a faixa típica dos transdutores diagnósticos."
+      }
+     ],
+     "feedbackCorrect": "Você manteve a troca entre detalhe e alcance.",
+     "feedbackIncorrect": "Retome o conceito: frequência alta ganha detalhe e perde profundidade; baixa faz o contrário.",
+     "help": "Cada ganho tem uma perda do outro lado.",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "Detalhe contra alcance",
+    "body": "Você consegue prever que frequência alta melhora o detalhe e perde profundidade, e associa transdutores linear, curvilíneo e phased array a alvos rasos ou profundos, sem escolher o exame.",
+    "line": {
+     "speaker": "lia",
+     "text": "Quando o fundo sumir, pense primeiro em frequência e atenuação."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Que efeito tem aumentar a frequência do transdutor?",
+     "options": [
+      {
+       "label": "Menos detalhe e mais penetração",
+       "correct": false,
+       "feedback": "É o efeito da frequência baixa."
+      },
+      {
+       "label": "Mais detalhe e mais penetração",
+       "correct": false,
+       "feedback": "O ganho de uma vem com perda da outra."
+      },
+      {
+       "label": "Mais detalhe e menos penetração",
+       "correct": true,
+       "feedback": "Frequência alta é mais atenuada, mas dá imagem mais fina."
+      },
+      {
+       "label": "Nenhuma mudança no detalhe",
+       "correct": false,
+       "feedback": "A frequência muda a resolução."
+      }
+     ],
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "prompt": "Que combinação descreve um transdutor de frequência baixa?",
+     "options": [
+      {
+       "label": "Alcança fundo, com menos detalhe",
+       "correct": true,
+       "feedback": "Baixa frequência penetra mais, com resolução menor."
+      },
+      {
+       "label": "Mostra o raso com detalhe máximo",
+       "correct": false,
+       "feedback": "Isso descreve a frequência alta."
+      },
+      {
+       "label": "Não penetra além da pele",
+       "correct": false,
+       "feedback": "Ele penetra mais, não menos."
+      },
+      {
+       "label": "Só funciona com gel colorido",
+       "correct": false,
+       "feedback": "O tipo de gel não define a frequência."
+      }
+     ],
+     "sourceIds": [
+      "acep-physics"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: frequência mais alta dá mais ____, mas menos profundidade.",
+     "item": {
+      "prompt": "Qual par liga frequência e alcance de forma correta?",
+      "options": [
+       {
+        "label": "Frequência alta e alvo profundo",
+        "correct": false,
+        "feedback": "Frequência alta perde profundidade."
+       },
+       {
+        "label": "Frequência baixa e alvo profundo",
+        "correct": true,
+        "feedback": "Baixa frequência alcança mais fundo."
+       },
+       {
+        "label": "Frequência alta e eco sem tempo",
+        "correct": false,
+        "feedback": "Todo eco tem tempo de retorno."
+       },
+       {
+        "label": "Frequência baixa e imagem mais fina",
+        "correct": false,
+        "feedback": "Baixa frequência dá menos detalhe."
+       }
+      ],
+      "sourceIds": [
+       "acep-physics"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Uma estrutura rasa pede muito detalhe. A que classe de frequência isso se associa?",
+      "options": [
+       {
+        "label": "Frequência mais baixa",
+        "correct": false,
+        "feedback": "Ela daria menos detalhe do que o pedido."
+       },
+       {
+        "label": "Qualquer uma, sem diferença",
+        "correct": false,
+        "feedback": "O detalhe depende da frequência."
+       },
+       {
+        "label": "Frequência nula",
+        "correct": false,
+        "feedback": "Sem frequência, não há onda."
+       },
+       {
+        "label": "Frequência mais alta",
+        "correct": true,
+        "feedback": "Raso e detalhe: a frequência alta atende, e a perda de profundidade pesa pouco."
+       }
+      ],
+      "sourceIds": [
+       "acep-physics"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "s-us-04",
+   "code": "S-US.04",
+   "title": "Modos e apresentação",
+   "objective": "Hoje você vai conseguir distinguir modo B, modo M e Doppler pelo que cada um mostra.",
+   "competency": "Distinguir modo B, modo M e Doppler pelo que mostram.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de ultrassonografia (simulação)",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "O aparelho tem botão de modo B, modo M e Doppler. É tudo a mesma imagem?"
+     },
+     {
+      "speaker": "caio",
+      "text": "Mesmo transdutor, jeitos diferentes de mostrar o eco."
+     },
+     {
+      "speaker": "pixel",
+      "text": "O que cada modo coloca na tela? Pense em brilho, em tempo e em movimento do sangue."
+     }
+    ]
+   },
+   "concept": {
+    "title": "Um eco, vários jeitos de mostrar",
+    "body": "O modo B, de brilho, dá a imagem estrutural em tons de cinza: quanto mais forte o eco, mais claro o ponto. O modo M, de movimento, registra os ecos de uma única linha do modo B ao longo do tempo, e mostra como as estruturas dessa linha se mexem. O Doppler mede e mostra fluxo, como o do sangue, com velocidade e direção; no Doppler colorido, um mapa de cores. A elastografia, outro recurso, mostra a rigidez relativa do tecido. Aqui você só separa o que cada modo mostra.",
+    "keyPoints": [
+     "Modo B: imagem em tons de cinza.",
+     "Modo M: uma linha do modo B ao longo do tempo.",
+     "Doppler: fluxo, com velocidade e direção."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior: o que aumenta quando a frequência sobe?",
+     "options": [
+      {
+       "label": "A profundidade, com perda de detalhe",
+       "correct": false,
+       "feedback": "É o contrário: frequência alta penetra menos."
+      },
+      {
+       "label": "O detalhe e a profundidade juntos",
+       "correct": false,
+       "feedback": "Há uma troca entre os dois."
+      },
+      {
+       "label": "O detalhe, com perda de profundidade",
+       "correct": true,
+       "feedback": "Frequência mais alta melhora a resolução e penetra menos."
+      },
+      {
+       "label": "Nada, a imagem é igual",
+       "correct": false,
+       "feedback": "A frequência altera a resolução e o alcance."
+      }
+     ],
+     "help": "Pense na troca entre detalhe e alcance.",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Associe cada recurso ao que ele mostra.",
+     "pairs": [
+      {
+       "left": "Modo B",
+       "right": "Imagem em tons de cinza, pela força do eco"
+      },
+      {
+       "left": "Modo M",
+       "right": "Uma linha de ecos acompanhada ao longo do tempo"
+      },
+      {
+       "left": "Doppler colorido",
+       "right": "Mapa de cores de fluxo, com velocidade e direção"
+      },
+      {
+       "left": "Elastografia",
+       "right": "Rigidez relativa do tecido"
+      }
+     ],
+     "feedbackCorrect": "Cada recurso mostra uma informação diferente a partir do mesmo som.",
+     "feedbackIncorrect": "Retome o conceito: o que cada um traz, brilho, movimento numa linha, fluxo ou rigidez.",
+     "help": "Pergunte de cada nome: ele mostra forma, movimento numa linha, fluxo ou rigidez?",
+     "sourceIds": [
+      "nibib-us",
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre os modos.",
+     "statements": [
+      {
+       "text": "No modo B, o brilho de cada ponto reflete a força do eco.",
+       "correct": true,
+       "feedback": "Certo: o modo B converte a amplitude do eco em tons de cinza."
+      },
+      {
+       "text": "O modo M mostra a imagem completa, sem relação com o tempo.",
+       "correct": false,
+       "feedback": "Errado: ele acompanha ao longo do tempo uma só linha do modo B."
+      },
+      {
+       "text": "O Doppler mede fluxo, como o do sangue, com velocidade e direção.",
+       "correct": true,
+       "feedback": "Certo: é o recurso do aparelho para o fluxo."
+      },
+      {
+       "text": "A elastografia mede a velocidade do sangue.",
+       "correct": false,
+       "feedback": "Errado: ela mostra a rigidez relativa do tecido."
+      }
+     ],
+     "feedbackCorrect": "Você separou forma, movimento, fluxo e rigidez.",
+     "feedbackIncorrect": "Retome o conceito: cada recurso mostra uma informação diferente.",
+     "help": "O que cada um coloca na tela?",
+     "sourceIds": [
+      "nibib-us",
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "multiple-choice",
+     "role": "practice",
+     "prompt": "Qual modo mostra o movimento de estruturas ao longo de uma única linha, com o tempo?",
+     "options": [
+      {
+       "label": "O modo B",
+       "correct": false,
+       "feedback": "O modo B dá a imagem estrutural, sem a linha do tempo."
+      },
+      {
+       "label": "A elastografia",
+       "correct": false,
+       "feedback": "Ela mostra rigidez, não movimento."
+      },
+      {
+       "label": "A imagem em três dimensões",
+       "correct": false,
+       "feedback": "A imagem 3D mostra volume, não uma linha acompanhada no tempo."
+      },
+      {
+       "label": "O modo M",
+       "correct": true,
+       "feedback": "Ele registra uma linha do modo B ao longo do tempo."
+      }
+     ],
+     "help": "O M de modo M vem de motion.",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "cloze",
+     "role": "transfer",
+     "prompt": "Complete a frase sobre um exame simulado de uma artéria do braço.",
+     "text": "Na artéria do braço, o Doppler colorido mostra a direção e a {{1}} do fluxo de sangue.",
+     "answers": [
+      "velocidade"
+     ],
+     "distractors": [
+      "espessura",
+      "temperatura",
+      "densidade"
+     ],
+     "feedbackCorrect": "Isso: no vaso do braço, como em qualquer vaso, o Doppler mostra para onde e com que velocidade o sangue corre.",
+     "feedbackIncorrect": "Pense no que se mede num fluxo em movimento, e não no que o tecido é: espessura e densidade são do tecido.",
+     "help": "Além de para onde, o que mais descreve um fluxo em movimento?",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que cada modo mostra",
+    "body": "Você consegue distinguir o modo B, o modo M e o Doppler pelo que cada um mostra, e lembrar que a elastografia mostra a rigidez relativa do tecido.",
+    "line": {
+     "speaker": "caio",
+     "text": "Mesmo som, informações diferentes: o modo é a pergunta que você faz ao eco."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Que informação o modo B apresenta?",
+     "options": [
+      {
+       "label": "A velocidade do fluxo em cores",
+       "correct": false,
+       "feedback": "Esse é o Doppler colorido."
+      },
+      {
+       "label": "A imagem estrutural em tons de cinza",
+       "correct": true,
+       "feedback": "O brilho acompanha a força do eco."
+      },
+      {
+       "label": "Uma linha ao longo do tempo",
+       "correct": false,
+       "feedback": "Esse é o modo M, que registra uma linha no tempo."
+      },
+      {
+       "label": "A rigidez relativa do tecido",
+       "correct": false,
+       "feedback": "Essa é a elastografia, que mostra a rigidez relativa."
+      }
+     ],
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "prompt": "Qual recurso mostra velocidade e direção do fluxo de sangue?",
+     "options": [
+      {
+       "label": "O modo B",
+       "correct": false,
+       "feedback": "Ele dá a imagem estrutural."
+      },
+      {
+       "label": "O modo M",
+       "correct": false,
+       "feedback": "Ele acompanha uma linha no tempo."
+      },
+      {
+       "label": "A elastografia",
+       "correct": false,
+       "feedback": "Ela mostra a rigidez relativa do tecido, não o fluxo."
+      },
+      {
+       "label": "O Doppler",
+       "correct": true,
+       "feedback": "Ele mede e visualiza o fluxo."
+      }
+     ],
+     "sourceIds": [
+      "nibib-us"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o modo M acompanha uma ____ do modo B ao longo do tempo.",
+     "item": {
+      "prompt": "Qual recurso dá o mapa de cores de fluxo?",
+      "options": [
+       {
+        "label": "O modo M",
+        "correct": false,
+        "feedback": "Ele registra uma linha no tempo e não colore o fluxo."
+       },
+       {
+        "label": "O modo B",
+        "correct": false,
+        "feedback": "Seu mapa é de tons de cinza."
+       },
+       {
+        "label": "O Doppler colorido",
+        "correct": true,
+        "feedback": "As cores codificam velocidade e direção."
+       },
+       {
+        "label": "A frequência alta",
+        "correct": false,
+        "feedback": "A frequência não é um modo de apresentação."
+       }
+      ],
+      "sourceIds": [
+       "nibib-us"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Um registro mostra os ecos de uma linha ao longo do tempo. Que modo é esse?",
+      "options": [
+       {
+        "label": "O modo M",
+        "correct": true,
+        "feedback": "Uma linha do modo B no tempo é o modo M."
+       },
+       {
+        "label": "O modo B",
+        "correct": false,
+        "feedback": "O B dá a imagem estrutural."
+       },
+       {
+        "label": "O Doppler colorido",
+        "correct": false,
+        "feedback": "Ele é um mapa de cores de fluxo."
+       },
+       {
+        "label": "A elastografia",
+        "correct": false,
+        "feedback": "Ela mostra a rigidez relativa do tecido, não uma linha no tempo."
+       }
+      ],
+      "sourceIds": [
+       "acep-physics"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "s-us-05",
+   "code": "S-US.05",
+   "title": "Artefatos e segurança",
+   "objective": "Hoje você vai conseguir reconhecer sombra e reforço como fenômenos físicos e aplicar o princípio de exposição mínima.",
+   "competency": "Reconhecer sombra e reforço como fenômenos físicos e aplicar o princípio de exposição mínima.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de ultrassonografia (simulação)",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Atrás daquele ponto brilhante a imagem ficou escura. Algo deu errado?"
+     },
+     {
+      "speaker": "lia",
+      "text": "Não necessariamente. Que fenômeno do som poderia produzir isso?"
+     },
+     {
+      "speaker": "caio",
+      "text": "E tem mais: ultrassom não usa radiação ionizante, mas também não é sem limite."
+     }
+    ]
+   },
+   "concept": {
+    "title": "Sombra, reforço e exposição mínima",
+    "body": "A sombra acústica aparece atrás de refletores fortes, como ar, cálculos ou osso, porque o som é refletido ou absorvido e quase nada passa. O reforço posterior aparece atrás de uma estrutura cheia de líquido e sem ecos: o som sofre pouca atenuação ali, e a região além dela parece mais clara. São fenômenos físicos do som, não diagnóstico. Sobre segurança: o ultrassom não usa radiação ionizante, mas sua energia pode aquecer levemente os tecidos e causar cavitação. Vale o princípio de exposição mínima, conhecido pela sigla em inglês Alara: o menor necessário para a imagem diagnóstica.",
+    "keyPoints": [
+     "Sombra: atrás de refletor forte; reforço: atrás de líquido sem ecos.",
+     "Ambos nascem da forma como o som é refletido ou atenuado.",
+     "Exposição mínima: só o necessário para a imagem."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula 2: por que o gel entra entre a pele e o transdutor?",
+     "options": [
+      {
+       "label": "Para esfriar o cristal piezoelétrico",
+       "correct": false,
+       "feedback": "O gel não regula a temperatura do cristal."
+      },
+      {
+       "label": "Para filtrar a radiação do ambiente",
+       "correct": false,
+       "feedback": "Não há radiação ionizante em jogo."
+      },
+      {
+       "label": "Para evitar bolsas de ar no caminho",
+       "correct": true,
+       "feedback": "O ar bloqueia as ondas; sem ele, a onda entra no corpo."
+      },
+      {
+       "label": "Para aumentar a frequência do pulso",
+       "correct": false,
+       "feedback": "O gel não muda a frequência."
+      }
+     ],
+     "help": "Lembre o que o ar faz com o som.",
+     "sourceIds": [
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "multi-select",
+     "role": "practice",
+     "prompt": "Marque todas as afirmações certas sobre sombra e reforço.",
+     "options": [
+      {
+       "label": "A sombra surge quando o eco volta mais forte do que o esperado",
+       "correct": false,
+       "feedback": "Na sombra, volta um sinal muito mais fraco de trás do refletor."
+      },
+      {
+       "label": "A sombra aparece atrás de refletores fortes, como ar ou osso",
+       "correct": true,
+       "feedback": "Certo: o som é refletido ou absorvido e quase nada passa."
+      },
+      {
+       "label": "O reforço aparece atrás de estruturas sólidas e densas",
+       "correct": false,
+       "feedback": "O reforço vem atrás de estrutura cheia de líquido, não atrás de algo denso."
+      },
+      {
+       "label": "O reforço aparece atrás de uma estrutura cheia de líquido",
+       "correct": true,
+       "feedback": "Certo: o líquido atenua pouco, e a região de trás parece mais clara."
+      },
+      {
+       "label": "Os dois fenômenos vêm de como o som é refletido ou atenuado",
+       "correct": true,
+       "feedback": "Certo: são efeitos físicos do som no tecido."
+      }
+     ],
+     "feedbackCorrect": "Você marcou os três enunciados que descrevem a física dos dois fenômenos.",
+     "feedbackIncorrect": "Releia o conceito: sombra atrás de refletor forte, reforço atrás de líquido, ambos efeitos do som no tecido.",
+     "help": "Pergunte: atrás do quê o som passa pouco, e atrás do quê passa quase sem perda?",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre segurança no ultrassom.",
+     "statements": [
+      {
+       "text": "O princípio de exposição mínima mantém só o necessário para a imagem diagnóstica.",
+       "correct": true,
+       "feedback": "Certo: a FDA e a AIUM pedem a menor exposição que ainda dê a informação diagnóstica."
+      },
+      {
+       "text": "Sem radiação ionizante, o ultrassom dispensa qualquer cuidado com tempo e potência.",
+       "correct": false,
+       "feedback": "Errado: a energia pode aquecer levemente os tecidos, e o tempo de exposição deve ser o necessário."
+      },
+      {
+       "text": "A energia do ultrassom pode aquecer levemente os tecidos.",
+       "correct": true,
+       "feedback": "Certo: o aquecimento leve e a cavitação são efeitos possíveis."
+      },
+      {
+       "text": "Gravar vídeo de lembrança sem indicação é prática recomendada.",
+       "correct": false,
+       "feedback": "Errado: o uso não médico é desencorajado."
+      }
+     ],
+     "feedbackCorrect": "Você separou ausência de radiação ionizante de ausência de cuidado.",
+     "feedbackIncorrect": "Retome: sem radiação ionizante não significa sem efeitos; a exposição deve ser a necessária.",
+     "help": "O que a falta de radiação ionizante garante, e o que não garante?",
+     "sourceIds": [
+      "fda-us",
+      "aium-alara",
+      "radiologyinfo-us"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "context": "Num treino de simulação, um colega propõe deixar o transdutor parado vários minutos num mesmo ponto para fazer um vídeo de lembrança. A indicação do exame não inclui isso.",
+     "prompt": "Como você responde nessa situação?",
+     "options": [
+      {
+       "label": "Aceitar, pois o ultrassom não usa radiação ionizante",
+       "correct": false,
+       "feedback": "Sem radiação ionizante ainda há aquecimento leve e cavitação possíveis."
+      },
+      {
+       "label": "Lembrar que a exposição deve ser a mínima necessária e chamar a equipe",
+       "correct": true,
+       "feedback": "Tempo extra sem necessidade foge do princípio de exposição mínima; quem decide é a equipe."
+      },
+      {
+       "label": "Aceitar se a potência for aumentada para o vídeo ficar nítido",
+       "correct": false,
+       "feedback": "Mais potência vai contra a exposição mínima."
+      },
+      {
+       "label": "Seguir calado, sem comentar, para evitar atrito",
+       "correct": false,
+       "feedback": "Calar não resolve; descreva a dúvida e peça apoio à equipe."
+      }
+     ],
+     "help": "O que a indicação do exame inclui, e o que ficou fora dela?",
+     "sourceIds": [
+      "fda-us",
+      "aium-alara"
+     ],
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Na simulação, a região atrás de uma bexiga cheia de líquido aparece mais clara que a vizinha. Que fenômeno físico explica?",
+     "options": [
+      {
+       "label": "Sombra acústica, porque o líquido reflete tudo",
+       "correct": false,
+       "feedback": "A sombra vem de refletor forte, e o líquido deixa passar o som."
+      },
+      {
+       "label": "Defeito do gel, que clareia a região",
+       "correct": false,
+       "feedback": "O gel não clareia regiões profundas."
+      },
+      {
+       "label": "Frequência mais baixa, que clareia o fundo",
+       "correct": false,
+       "feedback": "A frequência não explica uma faixa clara atrás do líquido."
+      },
+      {
+       "label": "Reforço posterior, porque o líquido atenua pouco o som",
+       "correct": true,
+       "feedback": "Pouca atenuação no líquido deixa o que vem depois mais claro."
+      }
+     ],
+     "help": "Líquido sem ecos atenua muito ou pouco?",
+     "sourceIds": [
+      "acep-physics"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "Fenômenos e exposição",
+    "body": "Você reconhece sombra e reforço como efeitos físicos do som e aplica o princípio de exposição mínima: só o necessário para a imagem diagnóstica, e dúvida vai para a equipe.",
+    "line": {
+     "speaker": "lia",
+     "text": "Fenômeno físico se descreve. O que fazer com ele a equipe define."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "O que o princípio de exposição mínima pede?",
+     "options": [
+      {
+       "label": "Manter a exposição ao necessário para a imagem",
+       "correct": true,
+       "feedback": "Menos que isso perde a qualidade; mais que isso expõe sem ganho."
+      },
+      {
+       "label": "Zerar o tempo de uso do aparelho",
+       "correct": false,
+       "feedback": "Sem uso não há imagem. O princípio busca o mínimo suficiente."
+      },
+      {
+       "label": "Subir a potência para acelerar o exame",
+       "correct": false,
+       "feedback": "Mais potência foge do mínimo."
+      },
+      {
+       "label": "Dispensar cuidado por não haver radiação",
+       "correct": false,
+       "feedback": "O aquecimento leve e a cavitação são efeitos possíveis."
+      }
+     ],
+     "sourceIds": [
+      "fda-us",
+      "aium-alara"
+     ]
+    },
+    {
+     "prompt": "O que aparece atrás de um refletor forte, como o osso?",
+     "options": [
+      {
+       "label": "Reforço posterior",
+       "correct": false,
+       "feedback": "O reforço vem atrás de líquido."
+      },
+      {
+       "label": "Aumento de frequência",
+       "correct": false,
+       "feedback": "A frequência é definida pelo transdutor."
+      },
+      {
+       "label": "Sombra acústica",
+       "correct": true,
+       "feedback": "Quase nenhum som passa, e a região fica escura."
+      },
+      {
+       "label": "Mais brilho no modo B",
+       "correct": false,
+       "feedback": "Atrás do refletor forte o sinal é fraco."
+      }
+     ],
+     "sourceIds": [
+      "acep-physics"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: atrás de um refletor forte, o som quase não passa e surge a ____.",
+     "item": {
+      "prompt": "Qual afirmação sobre segurança está certa?",
+      "options": [
+       {
+        "label": "Emite radiação ionizante",
+        "correct": false,
+        "feedback": "Ele não usa radiação ionizante."
+       },
+       {
+        "label": "Pode aquecer levemente os tecidos",
+        "correct": true,
+        "feedback": "Por isso se limita a exposição ao necessário."
+       },
+       {
+        "label": "Tempo de exposição não importa",
+        "correct": false,
+        "feedback": "Mantém-se o tempo necessário para a imagem."
+       },
+       {
+        "label": "Vídeo de lembrança é sempre indicado",
+        "correct": false,
+        "feedback": "O uso não médico é desencorajado."
+       }
+      ],
+      "sourceIds": [
+       "fda-us"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Atrás de um cisto cheio de líquido a imagem fica mais clara. Que nome tem o fenômeno?",
+      "options": [
+       {
+        "label": "Sombra acústica",
+        "correct": false,
+        "feedback": "A sombra escurece a região."
+       },
+       {
+        "label": "Efeito Doppler",
+        "correct": false,
+        "feedback": "O Doppler mostra fluxo; aqui o fenômeno é de atenuação."
+       },
+       {
+        "label": "Modo M",
+        "correct": false,
+        "feedback": "O modo M é uma apresentação ao longo do tempo."
+       },
+       {
+        "label": "Reforço posterior",
+        "correct": true,
+        "feedback": "Pouca atenuação no líquido deixa mais claro o que vem depois."
+       }
+      ],
+      "sourceIds": [
+       "acep-physics"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "s-us-06",
+   "code": "S-US.06",
+   "title": "Onde o tecnólogo entra",
+   "objective": "Hoje você vai conseguir separar preparo de sala, equipamento e paciente do que a lei e o serviço definem, como a emissão do laudo.",
+   "competency": "Separar preparo de sala, equipamento e paciente da execução e do laudo, conforme a fonte.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de ultrassonografia (simulação)",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Se o aparelho é tão simples de entender, posso já conduzir o exame?"
+     },
+     {
+      "speaker": "lia",
+      "text": "Entender a física não habilita ninguém. Quem executa e quem emite o laudo a lei e o serviço definem."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Que parte você pode afirmar com apoio em lei, e o que fica para perguntar à equipe?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "O que a fonte sustenta",
+    "body": "Este curso não qualifica ninguém. O que está lido em fonte: a Lei 12.842/2013 diz que a emissão de laudo dos exames endoscópicos e de imagem é atividade privativa do médico, e manda aplicar a lei de modo a resguardar as competências do técnico e do tecnólogo de radiologia. Quem executa a varredura em cada serviço é definido pela lei e pelo serviço: aqui não se afirma. Nesta simulação supervisionada, o preparo é apoio: orientar o paciente sobre roupa e joias e organizar a sala. Na dúvida, descreva e pergunte à equipe.",
+    "keyPoints": [
+     "Laudo de exame de imagem: privativo do médico, pela Lei 12.842/2013.",
+     "Quem executa o exame: a lei e o serviço definem.",
+     "Na dúvida, descreva e peça apoio à equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior: qual princípio limita o uso do ultrassom ao necessário para a imagem?",
+     "options": [
+      {
+       "label": "O princípio da frequência máxima",
+       "correct": false,
+       "feedback": "Frequência máxima perde profundidade e não é princípio de segurança."
+      },
+      {
+       "label": "O princípio de exposição mínima",
+       "correct": true,
+       "feedback": "Ele pede só o necessário para a imagem diagnóstica."
+      },
+      {
+       "label": "O princípio do gel obrigatório",
+       "correct": false,
+       "feedback": "O gel é recurso de acoplamento, não princípio de exposição."
+      },
+      {
+       "label": "O princípio da imagem 3D",
+       "correct": false,
+       "feedback": "Não há esse princípio; 3D é só um jeito de apresentar."
+      }
+     ],
+     "help": "Pense no menor necessário.",
+     "sourceIds": [
+      "fda-us",
+      "aium-alara"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre o que a fonte sustenta.",
+     "statements": [
+      {
+       "text": "Pela Lei 12.842/2013, a emissão de laudo de exames de imagem é privativa do médico.",
+       "correct": true,
+       "feedback": "Certo: é o inciso VII do artigo 4º da lei."
+      },
+      {
+       "text": "A mesma lei manda resguardar as competências do técnico e do tecnólogo de radiologia.",
+       "correct": true,
+       "feedback": "Certo: o parágrafo 7º do artigo 4º manda aplicá-la dessa forma."
+      },
+      {
+       "text": "Entender a física do ultrassom já define quem executa o exame num serviço.",
+       "correct": false,
+       "feedback": "Errado: quem executa é definido pela lei e pelo serviço, não pelo conteúdo do curso."
+      },
+      {
+       "text": "Ao notar algo na imagem, o aluno pode registrar a interpretação por conta própria.",
+       "correct": false,
+       "feedback": "Errado: a interpretação é do laudo; descreva o que viu e peça apoio à equipe."
+      }
+     ],
+     "feedbackCorrect": "Você apoiou cada afirmação na lei lida ou no limite do curso.",
+     "feedbackIncorrect": "Retome: laudo é do médico pela lei; execução, a lei e o serviço definem.",
+     "help": "A afirmação vem da lei lida ou de uma suposição?",
+     "sourceIds": [
+      "lei-12842-2013"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "categorize",
+     "role": "practice",
+     "prompt": "Classifique cada item no grupo que a fonte ou o limite do curso sustenta.",
+     "categories": [
+      "Apoio de preparo",
+      "Privativo do médico",
+      "Lei e serviço definem"
+     ],
+     "items": [
+      {
+       "label": "Lembrar o paciente de tirar joias",
+       "category": "Apoio de preparo"
+      },
+      {
+       "label": "Organizar a sala e o gel antes do paciente",
+       "category": "Apoio de preparo"
+      },
+      {
+       "label": "Emitir o laudo do exame de imagem",
+       "category": "Privativo do médico"
+      },
+      {
+       "label": "Definir quem faz a varredura em cada clínica",
+       "category": "Lei e serviço definem"
+      },
+      {
+       "label": "Decidir se um aluno já pode executar o exame",
+       "category": "Lei e serviço definem"
+      }
+     ],
+     "feedbackCorrect": "Você separou o apoio, o que a lei reserva ao médico e o que a lei e o serviço definem.",
+     "feedbackIncorrect": "Pergunte de cada item: é apoio de preparo, é a emissão do laudo ou depende da lei e do serviço?",
+     "help": "Cada item é apoio, laudo ou decisão do serviço?",
+     "sourceIds": [
+      "lei-12842-2013",
+      "radiologyinfo-us",
+      "nibib-us"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "case-decision",
+     "role": "safety",
+     "context": "Numa visita de estágio simulada, Dona Marta olha a tela e pergunta: \"O que o senhor viu? Está tudo bem comigo?\"",
+     "prompt": "Como você responde nessa situação?",
+     "options": [
+      {
+       "label": "Dizer que está tudo normal, para tranquilizá-la",
+       "correct": false,
+       "feedback": "Qualquer parecer informal faz as vezes do laudo, que cabe ao médico."
+      },
+      {
+       "label": "Explicar que o médico emite o laudo e chamar a equipe",
+       "correct": true,
+       "feedback": "O laudo é do médico; a equipe orienta a paciente."
+      },
+      {
+       "label": "Descrever o que parece uma alteração na imagem",
+       "correct": false,
+       "feedback": "Descrever a imagem como parecer é interpretar, o que não cabe ao aluno."
+      },
+      {
+       "label": "Virar a tela e não responder nada",
+       "correct": false,
+       "feedback": "Silêncio seco também não acolhe; explique e acione a equipe."
+      }
+     ],
+     "help": "Quem emite o laudo, pela lei lida?",
+     "sourceIds": [
+      "lei-12842-2013"
+     ],
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "multiple-choice",
+     "role": "transfer",
+     "prompt": "Num serviço novo, não está claro se o aluno pode executar a varredura sozinho. O que ele faz?",
+     "options": [
+      {
+       "label": "Executa sozinho, porque entendeu a física",
+       "correct": false,
+       "feedback": "Entender a física não habilita ninguém."
+      },
+      {
+       "label": "Pede a um colega que também não sabe",
+       "correct": false,
+       "feedback": "Um colega sem a definição não responde pelo serviço."
+      },
+      {
+       "label": "Pergunta à equipe antes de qualquer execução",
+       "correct": true,
+       "feedback": "A lei e o serviço definem; na dúvida, pergunte."
+      },
+      {
+       "label": "Espera sem falar nada até ser chamado",
+       "correct": false,
+       "feedback": "Silêncio deixa a dúvida aberta; descreva e peça apoio."
+      }
+     ],
+     "help": "Quem define a execução no serviço?",
+     "sourceIds": [
+      "lei-12842-2013"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que fica para a equipe",
+    "body": "Você separa o apoio de preparo do que a lei reserva ao médico, a emissão do laudo, e do que a lei e o serviço definem. O curso não qualifica ninguém; na dúvida, você descreve e pergunta à equipe.",
+    "line": {
+     "speaker": "lia",
+     "text": "Saber onde termina o seu papel faz parte de aprender bem."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Segundo a Lei 12.842/2013, a emissão de laudo de exames de imagem é...",
+     "options": [
+      {
+       "label": "Atividade livre a qualquer pessoa",
+       "correct": false,
+       "feedback": "A lei a reserva ao médico."
+      },
+      {
+       "label": "Atividade do tecnólogo em qualquer serviço",
+       "correct": false,
+       "feedback": "A lei reserva o laudo ao médico."
+      },
+      {
+       "label": "Atividade do paciente",
+       "correct": false,
+       "feedback": "Não é o paciente quem emite."
+      },
+      {
+       "label": "Atividade privativa do médico",
+       "correct": true,
+       "feedback": "É o inciso VII do artigo 4º."
+      }
+     ],
+     "sourceIds": [
+      "lei-12842-2013"
+     ]
+    },
+    {
+     "prompt": "Pelo que esta aula sustenta, quem define quem executa a varredura num serviço?",
+     "options": [
+      {
+       "label": "O aluno, por conta própria",
+       "correct": false,
+       "feedback": "O aluno não se autoriza a executar por conta própria."
+      },
+      {
+       "label": "A lei e o serviço",
+       "correct": true,
+       "feedback": "A aula não afirma quem executa: isso a lei e o serviço definem."
+      },
+      {
+       "label": "O fabricante do aparelho",
+       "correct": false,
+       "feedback": "A definição não é do fabricante."
+      },
+      {
+       "label": "O próprio paciente",
+       "correct": false,
+       "feedback": "Não cabe ao paciente definir isso."
+      }
+     ],
+     "sourceIds": [
+      "lei-12842-2013"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o laudo do exame de imagem é emitido pelo ____.",
+     "item": {
+      "prompt": "Em dúvida sobre o que cabe a você num exame, qual é a ação certa?",
+      "options": [
+       {
+        "label": "Agir como acha melhor",
+        "correct": false,
+        "feedback": "Agir sozinho foge do limite."
+       },
+       {
+        "label": "Esperar que alguém note",
+        "correct": false,
+        "feedback": "A dúvida precisa ser dita."
+       },
+       {
+        "label": "Descrever e pedir apoio",
+        "correct": true,
+        "feedback": "Dúvida vai para a equipe."
+       },
+       {
+        "label": "Corrigir o registro sozinho",
+        "correct": false,
+        "feedback": "Ninguém corrige registro sem a equipe."
+       }
+      ],
+      "sourceIds": [
+       "lei-12842-2013"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Qual item é apoio de preparo, e não laudo?",
+      "options": [
+       {
+        "label": "Lembrar o paciente de tirar joias",
+        "correct": true,
+        "feedback": "É apoio de preparo, anterior à execução e ao laudo."
+       },
+       {
+        "label": "Emitir o laudo do exame",
+        "correct": false,
+        "feedback": "A emissão do laudo é privativa do médico pela Lei 12.842/2013."
+       },
+       {
+        "label": "Decidir se o aluno executa o exame",
+        "correct": false,
+        "feedback": "Isso depende da lei e do serviço."
+       },
+       {
+        "label": "Interpretar a imagem para o paciente",
+        "correct": false,
+        "feedback": "A interpretação é do laudo."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-us"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

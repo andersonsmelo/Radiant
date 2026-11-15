@@ -243,6 +243,28 @@ export const pixelColors = {
   glow: '#5CF0FF',
 } as const;
 
+// O elenco das cenas de diálogo (bíblia de 2026-11-13,
+// `docs/design/2026-11-13-biblia-de-personagens.md`). Pele e cabelo não
+// existem em outro lugar do tema e nascem aqui, uma vez; roupa clara e azul
+// vêm do Pixel. Cada material tem base e sombra, com a luz de cima à esquerda,
+// e todo cabelo tem um tom `light`: a faixa de brilho que separa a silhueta da
+// placa grafite (≥ 3:1 contra `galaxyColors.surfaceActive`, medido no teste
+// de padrão do elenco), porque cabelo escuro some no fundo escuro.
+// `candidates` são as duas vozes propostas para odontológica e ultrassom; não
+// entram nas aulas antes da decisão do controlador.
+export const castColors = {
+  lia: { skin: '#B9785A', skinShade: '#9C5F44', hair: '#2B2230', hairShade: '#1C161F', hairLight: '#8A7A73' },
+  caio: { skin: '#E3B08C', skinShade: '#C98F6B', hair: '#4A3426', hairShade: '#33231A', hairLight: '#A9805F', scrubShade: '#2C66B8' },
+  duda: { skin: '#8C5A3C', skinShade: '#74472E', hair: '#C2562E', hairShade: '#9B3F1F', hairLight: '#E58A5F', hoodie: '#2FA39A', hoodieShade: '#1F7F78' },
+  pacienteSeu: { skin: '#D9A382', skinShade: '#BD8565', hair: '#C9CED8', hairShade: '#A3AABB', hairLight: '#EEF2F9' },
+  pacienteDona: { skin: '#C68A64', skinShade: '#A86F4C', hair: '#5A3F36', hairShade: '#3F2C26', hairLight: '#A8806C' },
+  gown: { base: '#A9D2FF', shade: '#7FB4EA' },
+  candidates: {
+    dentista: { skin: '#E0A47E', skinShade: '#C4865F', hair: '#1F2A44', hairShade: '#151D30', hairLight: '#8A9BC4', scrub: '#9D8CF0', scrubShade: '#7461D1', cap: '#C9C0FA' },
+    ultrassom: { skin: '#94603F', skinShade: '#7A4C30', hair: '#2E2A2B', hairShade: '#1F1C1D', hairLight: '#8C8486', shirt: '#3B4A6B' },
+  },
+} as const;
+
 // Profundidade em pontos: lábio de 5 no botão e de 8 na medalha.
 export const depth = { lip: 5, medalLip: 8 } as const;
 

@@ -1,0 +1,74 @@
+F3: simulador, 2026-11-15 entre 15h43 e 15h52 (America/Bahia)
+
+Ambiente
+- Simulador "Radiant F2" (63575E19-F90A-42A4-80D0-2086B74AEB93), iPhone 17 Pro, iOS 26.5,
+  com o dev client compilado pela F2. A F3 não muda código nativo; os dois sons novos
+  vêm no bundle do Metro.
+- Metro na worktree da F3, porta 8081, com EXPO_NO_TYPESCRIPT_SETUP=1 e
+  EXPO_PUBLIC_ENABLE_RICH_FEEDBACK=true. O `.claude/launch.json` foi criado só para o
+  preview_start e apagado em seguida; `radiant-app/expo-env.d.ts` não foi criado.
+- Roteiro: `radiant-app/.maestro/f2-formatos/m01.yaml` (M01.03: múltipla escolha,
+  categorização, ordenação, múltipla seleção e retomada no meio), saída do Maestro
+  fora do repositório. Resultado: passou inteiro (código 0).
+- Log: `xcrun simctl spawn <udid> log stream --predicate 'process == "Radiant"'`.
+  Cada som tocado aparece como `endTime is duration <s>`.
+- Ao terminar: app encerrado, log parado, simulador desligado (Shutdown), Metro parado.
+
+Como cada som foi identificado
+Os nove sons antigos têm duração exata no log (`gaplessEdit source.duration` em
+amostras, 1781 = 40,4 ms etc.). Os dois novos, gerados pelo ffmpeg, não têm esse
+registro, e o `endTime` deles sai menor que o arquivo: 85 ms para o `soltar` (arquivo de
+110 ms) e 55 ms para a `fala` (arquivo de 80 ms). Por isso foram identificados por dois
+caminhos que concordam:
+1. a ordem de criação dos players, que é a de `LESSON_SOUND_IDS` (o 10º é `soltar`, o
+   11º é `fala`): `I/VQA.01` e `I/BDO.01` são o 10º e o 11º das suas cargas;
+2. o horário de cada toque do Maestro (commands.json): cada som saiu cerca de 0,5 s
+   depois do gesto que o pede.
+
+Sons tocados, pelo log
+15:46:27.889  I/BDO.01  0.055  fala    toque em Continuar às 27.385, revelou a 2ª fala da abertura
+15:46:29.320  I/BDO.01  0.055  fala    toque às 28.812, revelou a 3ª fala
+              (toques às 30.233 e 31.747 passaram de etapa: nenhum som, como o mapa diz)
+15:46:40.649  I/KGD.01  0.040  toque   alternativa "Pedir que ela diga os próprios dados."
+15:46:41.432  I/EYG.01  0.290  acerto  Conferir resposta
+15:47:30.552  I/WJP.01  0.040  toque   (retomada) a mesma alternativa
+15:47:31.232  I/GGO.01  0.290  acerto
+15:47:34.434  I/VQA.01  0.085  soltar  grupo "Antes do contato" às 33.926
+15:47:36.853  I/VQA.01  0.085  soltar  grupo "Depois do contato" às 36.397
+15:47:39.296  I/VQA.01  0.085  soltar  grupo "Antes do contato" às 38.818
+15:47:41.680  I/VQA.01  0.085  soltar  grupo "Depois do contato" às 41.202
+15:47:44.095  I/VQA.01  0.085  soltar  grupo "Depois do contato" às 43.610
+              (os 5 toques em item, às 32.7, 35.2, 37.6, 40.0 e 42.4, ficaram mudos)
+15:47:44.908  I/GGO.01  0.290  acerto  categorização conferida
+15:47:49.940  I/WJP.01  0.040  toque   "Selecionar esta ordem" (ordenação)
+15:47:50.709  I/NBP.01  0.136  erro
+15:47:51.068  I/JBZ.01  0.188  vida    359 ms depois do erro
+15:47:52.687  I/WJP.01  0.040  toque
+15:47:53.526  I/GGO.01  0.290  acerto
+15:47:55.449  I/WJP.01  0.040  toque   múltipla seleção
+15:47:56.231  I/NBP.01  0.136  erro
+15:47:56.565  I/JBZ.01  0.188  vida
+15:48:06.606  I/PED.01  0.993  fim    conclusão com 1 estrela
+15:51:38.831  I/SSF.01  0.040  toque   roteiro curto de captura do retorno
+15:51:39.618  I/QBO.01  0.290  acerto
+
+Visto na tela (capturas fora do repositório)
+- Cartão de retorno de acerto com o Pixel na placa de 64 pt (retrato médio), título
+  "Resposta correta", resposta do aluno e retorno autoral.
+- Tela de conclusão da M01.03 (3 de 5 corretas, 1 estrela), com medalha, Pixel e
+  Continuar livre.
+
+Não visto, não ouvido
+- Se os sons são audíveis e agradáveis: o log prova que tocaram, não como soam. É do dono.
+- Vibração: o simulador não vibra. A vibração de avançar é provada só no teste.
+- Animações: o roteiro liga "reduzir movimento" (radiantReduceMotion=1), então pressão,
+  entrada de 150 ms e cunhagem da medalha não foram vistas em movimento.
+- Incentivo de sequência, de retomada e de aula sem erro, Pixel comemorando e a
+  conclusão de unidade: cobertos por teste, não exercidos no simulador.
+- Cloze, verdadeiro ou falso e as cenas de M02 e M03 (roteiros m02.yaml e m03.yaml não
+  rodados nesta sessão).
+- VoiceOver, texto ampliado, aparelho físico e Android.
+
+Nota de 2026-11-15, 16h15: depois desta sessão, `soltar` e `fala` foram regerados com
+pico mais baixo (−28 dBFS), sem mudar notas nem duração. O log acima é da versão
+anterior; a versão nivelada não foi tocada no simulador.

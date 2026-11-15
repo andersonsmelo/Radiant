@@ -1,6 +1,6 @@
 # Sons da lição
 
-Nove sons, em dois grupos:
+Onze sons, em três grupos:
 
 - **seis escolhidos de ouvido pelo dono em 2026-09-23**, entre 40 candidatos,
   para a camada de som e vibração da
@@ -8,11 +8,14 @@ Nove sons, em dois grupos:
   §5.2;
 - **três autorais, sintetizados em 2026-11-05** para a trilha ampla
   ([plano](../../../docs/plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md),
-  I6): `combo`, `nivel` e `unidade`.
+  I6): `combo`, `nivel` e `unidade`;
+- **dois autorais, sintetizados em 2026-11-15** para a F3 da 1.6
+  ([plano](../../../docs/plans/2026-11-15-f3-sons-e-microinteracoes.md)):
+  `soltar` e `fala`. Só tocam com `ENABLE_RICH_FEEDBACK` ligada.
 
-Quem os toca é `src/ui/feedback/lessonSounds.ts`, que carrega os nove na
+Quem os toca é `src/ui/feedback/lessonSounds.ts`, que carrega os onze na
 abertura da aula. Quem decide o que toca em cada evento é
-`src/ui/feedback/lessonFeedback.ts`, que respeita os interruptores de som e
+`src/ui/feedback/lessonFeedback.ts` (o mapa `LESSON_FEEDBACK`), que respeita os interruptores de som e
 vibração do Perfil. A chave de silencioso do iPhone vale
 (`playsInSilentMode: false`).
 
@@ -27,6 +30,9 @@ vibração do Perfil. A chave de silencioso do iPhone vale
 | `lesson_complete` | `fim`, na conclusão com pelo menos uma estrela |
 | `level_up` | `nivel` |
 | `unit_complete` | `unidade` |
+| `token_drop` | `soltar`, ao pôr ou tirar ficha no cloze e no categorize; desligada a chave, `toque` |
+| `dialogue_line` | `fala`, ao revelar a próxima fala de uma cena; desligada a chave, nada |
+| `advance` | nenhum som; só vibra, e só com a chave ligada |
 
 ## Licença
 
@@ -36,7 +42,7 @@ licença de cada pacote está ao lado, como veio no download:
 [`LICENSE-kenney-interface-sounds.txt`](LICENSE-kenney-interface-sounds.txt) e
 [`LICENSE-kenney-music-jingles.txt`](LICENSE-kenney-music-jingles.txt).
 
-`combo.m4a`, `nivel.m4a` e `unidade.m4a` são **obra autoral do projeto
+`combo.m4a`, `nivel.m4a`, `unidade.m4a`, `soltar.m4a` e `fala.m4a` são **obra autoral do projeto
 Radiant**. Nenhum material de terceiros entra neles: cada um é uma soma de
 senoides com decaimento, escrita como expressão matemática em
 [`scripts/synth-sounds.mjs`](../../scripts/synth-sounds.mjs) e renderizada pelo
@@ -68,6 +74,17 @@ cada som pelo log do simulador:
 | `nivel.m4a` | subida de nível | arpejo de três notas que pousa num acorde | 700 ms |
 | `unidade.m4a` | unidade concluída | fanfarra de quatro notas, acorde sustentado e um brilho | 1400 ms |
 
+Os dois da F3, gerados em 2026-11-15 por `node scripts/synth-sounds.mjs soltar fala`
+(o argumento evita regerar os três acima). São sons de gesto, como o `toque`, e
+ficam no pico dele (−27,5 dBFS): nivelados em 2026-11-15, a pedido do controlador,
+depois de uma primeira versão uns 15 dB mais alta. Pico e média medidos com
+`ffmpeg -af volumedetect`:
+
+| Arquivo | Evento | Desenho | Duração | Pico / média |
+| --- | --- | --- | --- | --- |
+| `soltar.m4a` | ficha que encaixa | duas notas secas, 392 e 523 Hz, com 35 ms de intervalo | 110 ms | −28,0 / −39,2 dBFS |
+| `fala.m4a` | fala de diálogo | uma nota de 880 Hz, com decaimento rápido | 80 ms | −28,0 / −39,5 dBFS |
+
 ## Integridade (SHA-256)
 
 | Arquivo | Original (`.ogg`) | Convertido (`.m4a`) |
@@ -81,8 +98,10 @@ cada som pelo log do simulador:
 | `combo.m4a` | sintetizado, sem original | `fd09b983ebd8631fb87e8a9b22acd5bd19914e2eef0cc98f698b90afae30bd22` |
 | `nivel.m4a` | sintetizado, sem original | `06b1a7c2ab8554b8ade5b6cd4f23029d2dd1ff8e9a59953a0aadcaf54304a647` |
 | `unidade.m4a` | sintetizado, sem original | `5d2c8db8f16f61d8519364654340f729c02050d1b5bbcbda7862452641d21c10` |
+| `soltar.m4a` | sintetizado, sem original | `05b4a1222c98048554ee9718260756fefd9b2ebce443e2226e79aa187a073056` |
+| `fala.m4a` | sintetizado, sem original | `a71f6339f37fc0085b617b1c0e2edc3d15a35defeff48dd225a72e94eda47ab4` |
 
-Os três sintetizados saíram com os mesmos bytes em duas execuções seguidas do
+Os cinco sintetizados saíram com os mesmos bytes em duas execuções seguidas do
 script, com o ffmpeg 9.0.2. Outra versão do ffmpeg pode gerar bytes diferentes
 para o mesmo som.
 
@@ -92,7 +111,7 @@ Os nomes são por evento, não pelo som, de propósito: trocar um som é substit
 o arquivo, atualizar a linha correspondente nas tabelas acima e anotar a data.
 O código não muda. Para os três sintetizados, mude as notas em
 `scripts/synth-sounds.mjs`, rode o script e confira a duração com `afinfo`:
-ela precisa continuar diferente das outras oito.
+ela precisa continuar diferente das outras dez.
 
 ```bash
 cd radiant-app/assets/sounds && shasum -a 256 *.m4a

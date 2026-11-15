@@ -161,3 +161,85 @@ test('role safety e criticalSafety true andam juntos', () => {
     other.criticalSafety = true;
   }), /safety/);
 });
+
+// Famílias da 1.6 (ADR-2026-11-13). A aula 1 troca i2 a i5 pelas quatro famílias; i1 segue múltipla escolha.
+function withNewFamilies(doc = fixture()) {
+  const [, ...old] = doc.lessons[0].interactions;
+  const keep = index => ({ id: old[index].id, role: old[index].role, help: old[index].help, sourceIds: old[index].sourceIds,
+    ...(old[index].criticalSafety ? { criticalSafety: true } : {}) });
+  doc.lessons[0].interactions.splice(1, 4,
+    { ...keep(0), type: 'cloze', prompt: 'Complete a frase com as palavras do banco.', text: 'O {{1}} reduz a dose no {{2}}.',
+      answers: ['avental', 'tronco'], distractors: ['relógio', 'cabelo'],
+      feedbackCorrect: 'Você completou: o avental protege o tronco, como no conceito.',
+      feedbackIncorrect: 'Releia o conceito: o avental cobre o tronco, onde estão os órgãos mais sensíveis.' },
+    { ...keep(1), type: 'true-false', prompt: 'Julgue cada afirmação sobre a proteção.',
+      statements: [
+        { text: 'A distância da fonte reduz a dose recebida.', correct: true, feedback: 'Certo: quanto mais longe da fonte, menor a dose.' },
+        { text: 'O dosímetro reduz a dose de quem o usa.', correct: false, feedback: 'Errado: o dosímetro mede a dose, não protege.' },
+        { text: 'O avental cobre o tronco durante o exame.', correct: true, feedback: 'Certo: o avental cobre a região do tronco.' },
+      ],
+      feedbackCorrect: 'Você julgou as três afirmações como a fonte descreve.',
+      feedbackIncorrect: 'Releia o conceito e compare cada afirmação com ele.' },
+    { ...keep(2), type: 'categorize', prompt: 'Classifique cada ação no grupo certo.', categories: ['Tarefa técnica', 'Decisão clínica'],
+      items: [
+        { label: 'Posicionar o paciente', category: 'Tarefa técnica' }, { label: 'Ajustar o campo', category: 'Tarefa técnica' },
+        { label: 'Escrever o laudo', category: 'Decisão clínica' }, { label: 'Indicar o exame', category: 'Decisão clínica' },
+      ],
+      feedbackCorrect: 'Você separou o que produz a imagem do que decide sobre ela.',
+      feedbackIncorrect: 'Pergunte de cada ação: ela produz a imagem ou decide algo a partir dela?' },
+    { ...keep(3), type: 'multi-select', prompt: 'Marque todas as medidas que reduzem a dose.',
+      options: [
+        { label: 'Usar o dosímetro', correct: false, feedback: 'O dosímetro mede a dose; não reduz.' },
+        { label: 'Aumentar a distância', correct: true, feedback: 'A distância reduz a dose recebida.' },
+        { label: 'Apressar o paciente', correct: false, feedback: 'Pressa não é medida de proteção.' },
+        { label: 'Vestir o avental', correct: true, feedback: 'O avental reduz a dose no tronco.' },
+      ],
+      feedbackCorrect: 'Você marcou as duas medidas de proteção e deixou de fora as outras.',
+      feedbackIncorrect: 'Releia o conceito: proteção é o que diminui a dose, não o que a mede.' });
+  return doc;
+}
+function newDefect(mutate) {
+  assert.deepEqual(lintUnit(withNewFamilies()), [], 'a aula com as famílias novas precisa passar antes do defeito');
+  const doc = withNewFamilies();
+  mutate(doc.lessons[0].interactions);
+  return lintUnit(doc);
+}
+
+test('famílias da 1.6: a aula com cloze, true-false, categorize e multi-select passa', () => {
+  assert.deepEqual(lintUnit(withNewFamilies()), []);
+});
+
+const NEW_FAMILY_DEFECTS = [
+  ['cloze sem marcador de lacuna para cada resposta', ([, c]) => { c.text = 'O {{1}} reduz a dose.'; }, /lacuna/],
+  ['cloze com três lacunas', ([, c]) => { c.text = 'O {{1}} reduz a {{2}} no {{3}}.'; c.answers.push('dose'); }, /1 ou 2 lacunas/],
+  ['cloze com um distrator só', ([, c]) => { c.distractors = ['relógio']; }, /de 2 a 4 distratores/],
+  ['cloze com palavra repetida no banco', ([, c]) => { c.distractors = ['Avental', 'cabelo']; }, /banco repetid/],
+  ['cloze com resposta mais longa', ([, c]) => { c.answers[0] = 'avental plumbífero de corpo inteiro'; }, /mais longa/],
+  ['true-false com veredito constante', ([, , t]) => { t.statements.forEach(s => { s.correct = true; }); }, /certa e ao menos uma errada/],
+  ['true-false com afirmação certa mais longa', ([, , t]) => { t.statements[0].text = 'A distância da fonte reduz a dose recebida, porque a radiação se espalha e perde intensidade.'; }, /mais longa/],
+  ['true-false com veredito em texto', ([, , t]) => { t.statements[1].correct = 'false'; }, /true ou false/],
+  ['true-false com duas afirmações', ([, , t]) => { t.statements.pop(); }, /de 3 a 4 afirmações/],
+  ['categorize com item de grupo desconhecido', ([, , , g]) => { g.items[0].category = 'Outro'; }, /grupo desconhecido/],
+  ['categorize com grupo vazio', ([, , , g]) => { g.items.forEach(i => { i.category = 'Tarefa técnica'; }); }, /grupo sem item/],
+  ['categorize com item que entrega o grupo', ([, , , g]) => { g.items[2].label = 'Escrever o laudo (decisão clínica)'; }, /entrega o grupo/],
+  ['categorize com três itens', ([, , , g]) => { g.items.pop(); }, /de 4 a 6 itens/],
+  ['multi-select com uma correta só', ([, , , , m]) => { m.options[3].correct = false; }, /de 2 a/],
+  ['multi-select com corretas no topo', ([, , , , m]) => { m.options.sort((a, b) => Number(b.correct) - Number(a.correct)); }, /no topo/],
+  ['multi-select com correta mais longa', ([, , , , m]) => { m.options[1].label = 'Aumentar a distância entre a fonte e quem está na sala'; }, /mais longa/],
+  ['retorno de erro igual ao de acerto', ([, c]) => { c.feedbackIncorrect = c.feedbackCorrect; }, /retorno de erro igual/],
+];
+for (const [name, mutate, pattern] of NEW_FAMILY_DEFECTS) {
+  test(`famílias da 1.6: reprova ${name}`, () => expectOnly(newDefect(mutate), pattern));
+}
+
+// Achado 4 da revisão de 2026-11-13: com a mesma contagem de certas em todo
+// true-false da unidade, a última afirmação se deduz das anteriores.
+test('famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false', () => {
+  const doc = withNewFamilies();
+  const base = doc.lessons[0].interactions[2];
+  for (const lesson of doc.lessons.slice(1, 3)) lesson.interactions.splice(2, 1, { ...JSON.parse(JSON.stringify(base)), prompt: `${base.prompt} Aula ${lesson.id}.` });
+  expectOnly(lintUnit(doc), /contagem de certas/);
+  doc.lessons[1].interactions[2].statements[0].correct = false;
+  doc.lessons[1].interactions[2].statements[0].feedback = 'Errado aqui: o texto foi trocado para variar a contagem.';
+  assert.deepEqual(lintUnit(doc).filter(error => /contagem de certas/.test(error)), []);
+});

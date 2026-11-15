@@ -1,0 +1,8 @@
+{
+  "name": "radiant-widgets",
+  "version": "1.0.0",
+  "description": "Módulo Expo local: grava o retrato dos widgets no App Group e recarrega as timelines.",
+  "main": "index.ts",
+  "private": true,
+  "platforms": ["ios"]
+}

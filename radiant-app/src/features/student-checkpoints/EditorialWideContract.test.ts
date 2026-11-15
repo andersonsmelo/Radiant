@@ -3,7 +3,8 @@ import { resolve } from 'path';
 import { validateEditorialCurriculumCandidate, type EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 import { WIDE_ACTIVITY_FAMILIES } from './EditorialWideContract';
 import { fingerprintProductionBatchMaterial, validateProductionBatchDraft, type ProductionBatchDraftV1 } from './ProductionBatch';
-import { buildRtgBatch, type RtgUnitSource } from './batches/rtgBatchFactory';
+import { buildRtgBatch, categorizeDisplayOrder, clozeBankOrder, seededDisplayOrder, type RtgUnitSource } from './batches/rtgBatchFactory';
+import { isGroupOrderBiased } from './EditorialWideContract';
 import type { LearningStepV2 } from '../../types/learningActivity';
 
 const source = JSON.parse(readFileSync(resolve(__dirname, '../../../../scripts/content/fixtures/rtg-unit-fixture.json'), 'utf8')) as RtgUnitSource;
@@ -237,5 +238,218 @@ describe('contrato amplo (wide)', () => {
         };
         expect(validateProductionBatchDraft(draft)).toEqual(['invalid-wide-batch-identity']);
         expect(validateProductionBatchDraft({ ...draft, batchId: batch.batchId })).toEqual([]);
+    });
+});
+
+/** A aula de teste com as quatro famílias da 1.6 no lugar de i2 a i5 (i1 continua múltipla escolha). */
+function newFamiliesSource(): RtgUnitSource {
+    const doc = JSON.parse(JSON.stringify(source));
+    const [, ...old] = doc.lessons[0].interactions;
+    const keep = (index: number) => ({ id: old[index].id, role: old[index].role, help: old[index].help, sourceIds: old[index].sourceIds,
+        ...(old[index].criticalSafety ? { criticalSafety: true } : {}) });
+    doc.lessons[0].interactions.splice(1, 4,
+        { ...keep(0), type: 'cloze', prompt: 'Complete a frase com as palavras do banco.', text: 'O {{1}} reduz a dose no {{2}}.',
+            answers: ['avental', 'tronco'], distractors: ['relógio', 'cabelo'],
+            feedbackCorrect: 'Você completou: o avental protege o tronco, como no conceito.',
+            feedbackIncorrect: 'Releia o conceito: o avental cobre o tronco, onde estão os órgãos mais sensíveis.' },
+        { ...keep(1), type: 'true-false', prompt: 'Julgue cada afirmação sobre a proteção.',
+            statements: [
+                { text: 'A distância da fonte reduz a dose recebida.', correct: true, feedback: 'Certo: quanto mais longe da fonte, menor a dose.' },
+                { text: 'O dosímetro reduz a dose de quem o usa.', correct: false, feedback: 'Errado: o dosímetro mede a dose, não protege.' },
+                { text: 'O avental cobre o tronco durante o exame.', correct: true, feedback: 'Certo: o avental cobre a região do tronco.' },
+            ],
+            feedbackCorrect: 'Você julgou as três afirmações como a fonte descreve.',
+            feedbackIncorrect: 'Releia o conceito e compare cada afirmação com ele.' },
+        { ...keep(2), type: 'categorize', prompt: 'Classifique cada ação no grupo certo.', categories: ['Tarefa técnica', 'Decisão clínica'],
+            items: [
+                { label: 'Posicionar o paciente', category: 'Tarefa técnica' }, { label: 'Ajustar o campo', category: 'Tarefa técnica' },
+                { label: 'Escrever o laudo', category: 'Decisão clínica' }, { label: 'Indicar o exame', category: 'Decisão clínica' },
+            ],
+            feedbackCorrect: 'Você separou o que produz a imagem do que decide sobre ela.',
+            feedbackIncorrect: 'Pergunte de cada ação: ela produz a imagem ou decide algo a partir dela?' },
+        { ...keep(3), type: 'multi-select', prompt: 'Marque todas as medidas que reduzem a dose.',
+            options: [
+                { label: 'Usar o dosímetro', correct: false, feedback: 'O dosímetro mede a dose; não reduz.' },
+                { label: 'Aumentar a distância', correct: true, feedback: 'A distância reduz a dose recebida.' },
+                { label: 'Apressar o paciente', correct: false, feedback: 'Pressa não é medida de proteção.' },
+                { label: 'Vestir o avental', correct: true, feedback: 'O avental reduz a dose no tronco.' },
+            ],
+            feedbackCorrect: 'Você marcou as duas medidas de proteção e deixou de fora as outras.',
+            feedbackIncorrect: 'Releia o conceito: proteção é o que diminui a dose, não o que a mede.' },
+    );
+    return doc;
+}
+function newFamiliesCandidate(): EditorialWideCandidateV1 {
+    const built = buildRtgBatch(newFamiliesSource()).batch;
+    return JSON.parse(JSON.stringify({
+        schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+        contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+        activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+        claimProvenance: built.claimProvenance, wide: built.wide,
+        approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+    }));
+}
+const NEW = (index: number) => `interaction:rtg-2026:m01:aula-01:i${index}`;
+function newFamilyIssuesAfter(id: string, mutate: (interaction: Mutable<import('../../types/learningActivity').LearningInteractionV2>) => void) {
+    const value = newFamiliesCandidate();
+    const step = value.activities[0].steps.find(entry => entry.kind === 'interaction' && entry.interaction.id === id);
+    if (step?.kind !== 'interaction') throw new Error(`sem ${id}`);
+    mutate(step.interaction as Mutable<import('../../types/learningActivity').LearningInteractionV2>);
+    return validateEditorialCurriculumCandidate(value);
+}
+
+describe('contrato amplo: famílias da 1.6', () => {
+    it('as quatro famílias entram no contrato, e o lote gerado com elas é válido', () => {
+        expect(WIDE_ACTIVITY_FAMILIES).toEqual(expect.arrayContaining(['cloze', 'true-false', 'categorize', 'multi-select']));
+        const value = newFamiliesCandidate();
+        expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+        expect(interactionsOf(value.activities[0].steps).map(interaction => interaction.type))
+            .toEqual(['multiple-choice', 'cloze', 'true-false', 'categorize', 'multi-select']);
+    });
+
+    it('o gerador embaralha o banco do cloze e intercala os grupos da categorização, sem perder a validade', () => {
+        const [, cloze, , categorize] = interactionsOf(newFamiliesCandidate().activities[0].steps);
+        if (cloze.type !== 'cloze' || categorize.type !== 'categorize') throw new Error('famílias fora do lugar');
+        const answers = cloze.payload.blanks.map(blank => blank.correctTokenId);
+        expect(cloze.payload.tokens.slice(0, answers.length).map(token => token.id)).not.toEqual(answers);
+        expect(cloze.payload.tokens).toHaveLength(4);
+        const changes = categorize.payload.items.slice(1).filter((item, index) => item.categoryId !== categorize.payload.items[index].categoryId).length;
+        expect(changes).toBeGreaterThan(categorize.payload.categories.length - 1);
+        expect(new Set(categorize.payload.items.map(item => item.id)).size).toBe(4);
+    });
+
+    it('proveniência por afirmação: distrator do banco e alternativa errada são autorais, o resto cita a fonte', () => {
+        const value = newFamiliesCandidate();
+        const claims = new Map(value.claimProvenance.map(claim => [claim.claimId, claim]));
+        const [, cloze, trueFalse, categorize, multi] = interactionsOf(value.activities[0].steps);
+        if (cloze.type !== 'cloze' || multi.type !== 'multi-select' || trueFalse.type !== 'true-false' || categorize.type !== 'categorize') throw new Error('famílias fora do lugar');
+        const answers = new Set(cloze.payload.blanks.map(blank => blank.correctTokenId));
+        cloze.payload.tokens.forEach(token => expect(claims.get(token.id)?.provenanceKind).toBe(answers.has(token.id) ? 'source-backed' : 'authorial-distractor'));
+        multi.payload.options.forEach(option => expect(claims.get(option.id)?.provenanceKind)
+            .toBe(multi.payload.correctOptionIds.includes(option.id) ? 'source-backed' : 'authorial-distractor'));
+        trueFalse.payload.statements.forEach(statement => expect(claims.get(statement.id)?.provenanceKind).toBe(statement.isTrue ? 'source-backed' : 'authorial-distractor'));
+        categorize.payload.items.forEach(entry => expect(claims.get(entry.id)?.sourceIds.length).toBeGreaterThan(0));
+    });
+
+    it('cloze: wide-answer-position-bias', () => {
+        expect(newFamilyIssuesAfter(NEW(2), interaction => {
+            if (interaction.type !== 'cloze') throw new Error();
+            const answers = interaction.payload.blanks.map(blank => blank.correctTokenId);
+            interaction.payload.tokens.sort((a, b) => Number(answers.includes(b.id)) - Number(answers.includes(a.id))
+                || answers.indexOf(a.id) - answers.indexOf(b.id));
+        })).toEqual([`wide-answer-position-bias:${NEW(2)}`]);
+    });
+
+    it('cloze: wide-longest-is-correct', () => {
+        expect(newFamilyIssuesAfter(NEW(2), interaction => {
+            if (interaction.type !== 'cloze') throw new Error();
+            const answer = interaction.payload.tokens.find(token => token.id === interaction.payload.blanks[0].correctTokenId)!;
+            answer.label = 'avental plumbífero de corpo inteiro';
+        })).toEqual([`wide-longest-is-correct:${NEW(2)}`]);
+    });
+
+    it('cloze: invalid-wide-shape', () => {
+        expect(newFamilyIssuesAfter(NEW(2), interaction => {
+            if (interaction.type !== 'cloze') throw new Error();
+            const answers = interaction.payload.blanks.map(blank => blank.correctTokenId);
+            interaction.payload.tokens = interaction.payload.tokens.filter(token => answers.includes(token.id) || token.label === 'cabelo');
+        })).toContain(`invalid-wide-shape:${NEW(2)}`);
+    });
+
+    it('true-false: wide-constant-answer', () => {
+        expect(newFamilyIssuesAfter(NEW(3), interaction => {
+            if (interaction.type !== 'true-false') throw new Error();
+            interaction.payload.statements.forEach(statement => { statement.isTrue = true; });
+        })).toContain(`wide-constant-answer:${NEW(3)}`);
+    });
+
+    it('true-false: wide-longest-is-correct', () => {
+        expect(newFamilyIssuesAfter(NEW(3), interaction => {
+            if (interaction.type !== 'true-false') throw new Error();
+            interaction.payload.statements[0].text = 'A distância da fonte reduz a dose recebida, porque a radiação se espalha e perde intensidade.';
+        })).toEqual([`wide-longest-is-correct:${NEW(3)}`]);
+    });
+
+    it('categorize: wide-answer-position-bias', () => {
+        expect(newFamilyIssuesAfter(NEW(4), interaction => {
+            if (interaction.type !== 'categorize') throw new Error();
+            const order = interaction.payload.categories.map(category => category.id);
+            interaction.payload.items.sort((a, b) => order.indexOf(a.categoryId) - order.indexOf(b.categoryId));
+        })).toEqual([`wide-answer-position-bias:${NEW(4)}`]);
+    });
+
+    it('categorize: wide-label-gives-answer', () => {
+        expect(newFamilyIssuesAfter(NEW(4), interaction => {
+            if (interaction.type !== 'categorize') throw new Error();
+            interaction.payload.items[0].label = `${interaction.payload.items[0].label} (decisão clínica)`;
+        })).toEqual([`wide-label-gives-answer:${NEW(4)}`]);
+    });
+
+    it('categorize: invalid-wide-shape', () => {
+        expect(newFamilyIssuesAfter(NEW(4), interaction => {
+            if (interaction.type !== 'categorize') throw new Error();
+            interaction.payload.items.forEach(item => { item.categoryId = interaction.payload.categories[0].id; });
+        })).toContain(`invalid-wide-shape:${NEW(4)}`);
+    });
+
+    it('multi-select: wide-constant-answer', () => {
+        expect(newFamilyIssuesAfter(NEW(5), interaction => {
+            if (interaction.type !== 'multi-select') throw new Error();
+            interaction.payload.correctOptionIds = interaction.payload.correctOptionIds.slice(0, 1);
+        })).toContain(`wide-constant-answer:${NEW(5)}`);
+    });
+
+    it('multi-select: wide-answer-position-bias', () => {
+        expect(newFamilyIssuesAfter(NEW(5), interaction => {
+            if (interaction.type !== 'multi-select') throw new Error();
+            const correct = interaction.payload.correctOptionIds;
+            interaction.payload.options.sort((a, b) => Number(correct.includes(b.id)) - Number(correct.includes(a.id)));
+        })).toEqual([`wide-answer-position-bias:${NEW(5)}`]);
+    });
+
+    it('multi-select: wide-longest-is-correct', () => {
+        expect(newFamilyIssuesAfter(NEW(5), interaction => {
+            if (interaction.type !== 'multi-select') throw new Error();
+            const option = interaction.payload.options.find(entry => entry.id === interaction.payload.correctOptionIds[0])!;
+            option.label = 'Aumentar a distância entre a fonte e quem está na sala';
+        })).toEqual([`wide-longest-is-correct:${NEW(5)}`]);
+    });
+
+    it('nas quatro famílias, o retorno do erro precisa ser diferente do retorno do acerto', () => {
+        for (const index of [2, 3, 4, 5]) {
+            expect(newFamilyIssuesAfter(NEW(index), interaction => { interaction.feedback.incorrect = interaction.feedback.correct; }))
+                .toEqual([`wide-feedback-not-distinct:${NEW(index)}`]);
+        }
+    });
+});
+
+describe('ordem de exibição das famílias da 1.6 (achados 1, 2 e 8 da revisão de 2026-11-13)', () => {
+    it('categorize: recusa o ciclo ABAB, que entrega o resto da resposta pela posição', () => {
+        expect(newFamilyIssuesAfter(NEW(4), interaction => {
+            if (interaction.type !== 'categorize') throw new Error();
+            const [a, b] = interaction.payload.categories.map(category => category.id);
+            const byGroup = (id: string) => interaction.payload.items.filter(item => item.categoryId === id);
+            const [a1, a2] = byGroup(a); const [b1, b2] = byGroup(b);
+            interaction.payload.items = [a1, b1, a2, b2];
+        })).toEqual([`wide-answer-position-bias:${NEW(4)}`]);
+    });
+
+    it.each([[[1, 3]], [[2, 2]], [[3, 1]], [[1, 1, 4]], [[2, 2, 2]], [[1, 2, 3]], [[4, 1, 1]]])('o gerador nunca produz ordem que o contrato recusa: grupos %p', (sizes: number[]) => {
+        const items = sizes.flatMap((size, group) => Array.from({ length: size }, (_, index) => ({ id: `${group}-${index}`, group: String(group) })));
+        for (let seed = 0; seed < 200; seed += 1) {
+            const order = categorizeDisplayOrder(items, item => item.group, `seed-${seed}`);
+            expect(order.map(item => item.id).sort()).toEqual(items.map(item => item.id).sort());
+            expect(isGroupOrderBiased(order.map(item => item.group), sizes.length)).toBe(false);
+        }
+    });
+
+    it('cloze: quando a semente abre o banco com as respostas na ordem das lacunas, o gerador desfaz', () => {
+        const tokens = ['a1', 'a2', 'd1', 'd2'].map(id => ({ id, label: id }));
+        const seed = Array.from({ length: 2000 }, (_, index) => `seed-${index}`)
+            .find(candidate => seededDisplayOrder(tokens, candidate).slice(0, 2).map(token => token.id).join() === 'a1,a2');
+        expect(seed).toBeDefined();
+        const shown = clozeBankOrder(tokens, ['a1', 'a2'], seed!);
+        expect(shown.slice(0, 2).map(token => token.id)).not.toEqual(['a1', 'a2']);
+        expect(shown.map(token => token.id).sort()).toEqual(['a1', 'a2', 'd1', 'd2']);
     });
 });

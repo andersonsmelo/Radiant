@@ -6,7 +6,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m01",
-  "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70",
+  "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55",
   "trackId": "track:rtg-2026:m01",
   "unitId": "unit:rtg-2026:m01",
   "contentVersion": "rtg-2026-m01-v1",
@@ -233,36 +233,55 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Associe cada situação da sala simulada ao tipo de situação que ela representa."
+              "label": "Classificação: Classifique cada situação da sala simulada no grupo a que ela pertence."
             },
             "help": "Para cada situação, pergunte: isto produz a imagem, conclui algo sobre ela ou mostra que algo não confere?",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "Você separou as quatro situações: adquirir é tarefa técnica, interpretar e indicar são decisões clínicas, e a divergência vai para a equipe.",
+              "correct": "Você separou: adquirir e orientar são tarefa técnica, interpretar e indicar são decisões clínicas, e o que não confere pede apoio da equipe.",
               "incorrect": "Confira de novo: pergunte, em cada cartão, se a ação produz a imagem, conclui algo sobre ela, escolhe o exame ou revela algo que não confere."
             },
             "payload": {
-              "prompt": "Associe cada situação da sala simulada ao tipo de situação que ela representa.",
-              "pairs": [
+              "prompt": "Classifique cada situação da sala simulada no grupo a que ela pertence.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m01:aula-01:i2:1",
-                  "left": "Posicionar e conferir o enquadramento",
-                  "right": "Tarefa técnica da aquisição"
+                  "id": "group:rtg-2026:m01:aula-01:i2:a",
+                  "label": "Tarefa técnica"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-01:i2:2",
-                  "left": "Dizer o que a imagem mostra",
-                  "right": "Interpretação, que pertence ao laudo médico"
+                  "id": "group:rtg-2026:m01:aula-01:i2:b",
+                  "label": "Decisão clínica"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-01:i2:3",
-                  "left": "Escolher qual exame responde à queixa",
-                  "right": "Indicação, decidida por quem solicita o exame"
+                  "id": "group:rtg-2026:m01:aula-01:i2:c",
+                  "label": "Pedir apoio"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m01:aula-01:i2:1",
+                  "label": "Posicionar e conferir o enquadramento",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-01:i2:4",
-                  "left": "O pedido não combina com o relato do paciente",
-                  "right": "Dúvida: descrever e pedir apoio à equipe"
+                  "id": "item:rtg-2026:m01:aula-01:i2:4",
+                  "label": "Escolher qual exame responde à queixa",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:b"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-01:i2:5",
+                  "label": "O pedido não combina com o relato do paciente",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:c"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-01:i2:2",
+                  "label": "Dizer o que a imagem mostra",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:b"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-01:i2:3",
+                  "label": "Orientar o paciente durante o exame",
+                  "categoryId": "group:rtg-2026:m01:aula-01:i2:a"
                 }
               ]
             }
@@ -279,39 +298,42 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Logo após a aquisição simulada, Dona Marta pergunta: “Deu para ver se quebrou?”. Qual resposta fica dentro do seu papel nesta simulação?"
+              "label": "Certo ou errado: Dona Marta pergunta se deu para ver se quebrou. Julgue cada resposta quanto ao seu papel nesta simulação."
             },
             "help": "Procure a fala que orienta a paciente sem dizer o que a imagem mostra.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Você orientou a paciente sem interpretar: disse quem avalia e onde o resultado aparece.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você julgou as quatro respostas: só orienta sem interpretar a que diz quem avalia a imagem e onde o resultado aparece.",
+              "incorrect": "Releia cada resposta e pergunte: ela interpreta a imagem, decide um novo exame, deixa a paciente sem orientação ou indica o caminho do resultado?"
             },
             "payload": {
-              "prompt": "Logo após a aquisição simulada, Dona Marta pergunta: “Deu para ver se quebrou?”. Qual resposta fica dentro do seu papel nesta simulação?",
-              "options": [
+              "prompt": "Dona Marta pergunta se deu para ver se quebrou. Julgue cada resposta quanto ao seu papel nesta simulação.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m01:aula-01:i3:a",
-                  "label": "“Pela imagem, parece que não tem nada quebrado, pode ficar tranquila.”",
-                  "explanation": "Essa fala interpreta a imagem, o que pertence ao laudo médico. Retome o que é tarefa técnica nesta simulação."
+                  "id": "statement:rtg-2026:m01:aula-01:i3:1",
+                  "text": "A resposta “pela imagem, parece que não tem nada quebrado” está dentro do seu papel.",
+                  "isTrue": false,
+                  "explanation": "Errado: dizer o que a imagem mostra é interpretar, e a interpretação pertence ao laudo médico."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-01:i3:b",
-                  "label": "“Quem avalia a imagem é o médico, e o resultado vem no laudo.”",
-                  "explanation": "Você orientou a paciente sem interpretar: disse quem avalia e onde o resultado aparece."
+                  "id": "statement:rtg-2026:m01:aula-01:i3:2",
+                  "text": "Dizer que quem avalia é o médico e que o resultado vem no laudo orienta sem interpretar.",
+                  "isTrue": true,
+                  "explanation": "Certo: você orientou a paciente sem interpretar, dizendo quem avalia e onde o resultado aparece."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-01:i3:c",
-                  "label": "“Vamos repetir o exame agora, só para a senhora ter certeza.”",
-                  "explanation": "Repetir para tirar a dúvida seria decidir um novo exame. Confira de novo: a pergunta dela é sobre o resultado."
+                  "id": "statement:rtg-2026:m01:aula-01:i3:3",
+                  "text": "Oferecer repetir o exame agora, para a paciente ter certeza, está dentro do seu papel.",
+                  "isTrue": false,
+                  "explanation": "Errado: repetir para tirar a dúvida seria decidir um novo exame, e essa decisão não é da aquisição."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-01:i3:d",
-                  "label": "“Não posso falar nada, pergunte para outra pessoa depois.”",
-                  "explanation": "Essa resposta não interpreta, mas deixa a paciente sem orientação. Retome: orientar faz parte da tarefa."
+                  "id": "statement:rtg-2026:m01:aula-01:i3:4",
+                  "text": "Responder “não posso falar nada, pergunte depois” cumpre a tarefa de orientar a paciente.",
+                  "isTrue": false,
+                  "explanation": "Errado: a resposta não interpreta, mas deixa a paciente sem orientação, e orientar faz parte da tarefa."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m01:aula-01:i3:b"
+              ]
             }
           }
         },
@@ -541,39 +563,53 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Antes de praticar, faça uma previsão: qual destas perguntas tem mais chance de receber um “sim” de alguém que não é a pessoa da ficha?"
+              "label": "Completar a frase: Antes de praticar, preveja e complete a frase sobre confirmar quem é a pessoa, usando o banco de palavras."
             },
             "help": "Procure a pergunta que pode ser respondida com uma única palavra de concordância.",
-            "type": "multiple-choice",
+            "type": "cloze",
             "feedback": {
-              "correct": "A pergunta entrega o nome e convida a concordar. Quem ouviu mal ou está nervoso pode dizer sim.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Quando a pessoa diz os dados, é ela que os produz. Um sim a um nome dito por você pode ser só engano de quem ouviu mal.",
+              "incorrect": "Releia a pergunta: se o nome já vem dentro dela, a resposta é só concordar. Peça que a pessoa diga nome completo e data de nascimento."
             },
             "payload": {
-              "prompt": "Antes de praticar, faça uma previsão: qual destas perguntas tem mais chance de receber um “sim” de alguém que não é a pessoa da ficha?",
-              "options": [
+              "prompt": "Antes de praticar, preveja e complete a frase sobre confirmar quem é a pessoa, usando o banco de palavras.",
+              "segments": [
+                "Na confirmação de identidade, o certo é pedir que a pessoa ",
+                " nome e data de nascimento, e não que responda ",
+                " a um nome que você já disse."
+              ],
+              "tokens": [
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i2:a",
-                  "label": "“Qual é o seu nome completo?”",
-                  "explanation": "Essa pergunta obriga a pessoa a dizer o dado. Um “sim” nem faz sentido como resposta."
+                  "id": "token:rtg-2026:m01:aula-02:i2:5",
+                  "label": "esconda"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i2:b",
-                  "label": "“A senhora é a Marta Reis, certo?”",
-                  "explanation": "A pergunta entrega o nome e convida a concordar. Quem ouviu mal ou está nervoso pode dizer sim."
+                  "id": "token:rtg-2026:m01:aula-02:i2:1",
+                  "label": "diga"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i2:c",
-                  "label": "“Qual é a sua data de nascimento?”",
-                  "explanation": "Pedir a data faz a pessoa informar o dado. Retome: procure a pergunta que já traz a resposta dentro."
+                  "id": "token:rtg-2026:m01:aula-02:i2:2",
+                  "label": "sim"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i2:d",
-                  "label": "“Como se escreve o seu sobrenome?”",
-                  "explanation": "Soletrar exige que a pessoa produza o dado. Confira de novo qual pergunta se responde só com um sim."
+                  "id": "token:rtg-2026:m01:aula-02:i2:4",
+                  "label": "assine"
+                },
+                {
+                  "id": "token:rtg-2026:m01:aula-02:i2:3",
+                  "label": "não"
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m01:aula-02:i2:b"
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m01:aula-02:i2:1",
+                  "correctTokenId": "token:rtg-2026:m01:aula-02:i2:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m01:aula-02:i2:2",
+                  "correctTokenId": "token:rtg-2026:m01:aula-02:i2:2"
+                }
+              ]
             }
           }
         },
@@ -684,39 +720,42 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Dona Marta, paciente simulada, vai fazer uma radiografia de tórax pela primeira vez. A identidade já foi conferida. Qual explicação da etapa dispensa o jargão e ainda verifica o entendimento?"
+              "label": "Certo ou errado: Dona Marta fará a primeira radiografia de tórax e a identidade já foi conferida. Julgue cada afirmação sobre explicar a etapa."
             },
             "help": "Leia cada fala como se você nunca tivesse entrado numa sala de exame.",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Você descreveu a etapa com palavras comuns e pediu que ela mostrasse o que entendeu.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você separou a explicação que usa palavras do dia a dia e verifica o entendimento daquela que só dá ordens ou usa termos da sala.",
+              "incorrect": "Releia cada afirmação e pergunte: a paciente conhece essas palavras, e a fala confere se ela entendeu ou só pede que ela obedeça?"
             },
             "payload": {
-              "prompt": "Dona Marta, paciente simulada, vai fazer uma radiografia de tórax pela primeira vez. A identidade já foi conferida. Qual explicação da etapa dispensa o jargão e ainda verifica o entendimento?",
-              "options": [
+              "prompt": "Dona Marta fará a primeira radiografia de tórax e a identidade já foi conferida. Julgue cada afirmação sobre explicar a etapa.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i5:a",
-                  "label": "“Faremos uma incidência PA em ortostase, com apneia inspiratória máxima.”",
-                  "explanation": "A frase está correta para a equipe, mas usa termos que a paciente não conhece. Retome: palavras do dia a dia."
+                  "id": "statement:rtg-2026:m01:aula-02:i5:1",
+                  "text": "“Fique em pé aqui, encha o peito de ar e segure” usa palavras do dia a dia.",
+                  "isTrue": true,
+                  "explanation": "Certo: a frase descreve a etapa com palavras comuns, sem termos que a paciente não conhece."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i5:b",
-                  "label": "“Fique em pé aqui, encha o peito de ar e segure. Pode me mostrar como fica?”",
-                  "explanation": "Você descreveu a etapa com palavras comuns e pediu que ela mostrasse o que entendeu."
+                  "id": "statement:rtg-2026:m01:aula-02:i5:2",
+                  "text": "Termos como ortostase e apneia inspiratória máxima servem bem para explicar a etapa à paciente.",
+                  "isTrue": false,
+                  "explanation": "Errado: os termos estão corretos para a equipe, mas a paciente não os conhece. A explicação pede palavras comuns."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i5:c",
-                  "label": "“É rapidinho, não precisa entender, é só fazer o que eu mandar.”",
-                  "explanation": "Essa fala dispensa o entendimento em vez de verificá-lo. Confira de novo o que a explicação precisa conter."
+                  "id": "statement:rtg-2026:m01:aula-02:i5:3",
+                  "text": "Pedir que a pessoa mostre como vai ficar verifica se ela entendeu.",
+                  "isTrue": true,
+                  "explanation": "Certo: ao mostrar o que vai fazer, a pessoa torna visível o que entendeu, e você pode corrigir antes de seguir."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-02:i5:d",
-                  "label": "“Vou posicionar o tórax no bucky e colimar; não se mexa, tá?”",
-                  "explanation": "Bucky e colimar são termos da sala, não da paciente. E o “tá?” pede concordância, não entendimento."
+                  "id": "statement:rtg-2026:m01:aula-02:i5:4",
+                  "text": "Dizer “não precisa entender, é só fazer o que eu mandar” verifica o entendimento da pessoa.",
+                  "isTrue": false,
+                  "explanation": "Errado: a fala dispensa o entendimento em vez de verificá-lo, e a pessoa fica sem saber o que vai acontecer."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m01:aula-02:i5:b"
+              ]
             }
           }
         },
@@ -852,36 +891,51 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Associe cada momento da higiene das mãos à situação da sala simulada em que ele se aplica."
+              "label": "Classificação: Classifique cada situação da sala simulada conforme a higiene das mãos venha antes ou depois do contato."
             },
             "help": "Em cada situação, o contato vai acontecer ou já aconteceu? Foi com a pessoa, com uma superfície ou com fluido?",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
-              "correct": "Você ligou cada momento ao contato que o provoca: o toque que vai acontecer, o que aconteceu, a superfície próxima e o fluido.",
-              "incorrect": "Confira de novo: em cada situação, pergunte se o contato ainda vai acontecer ou já aconteceu, e com o quê: pessoa, superfície ou fluido."
+              "correct": "Dois momentos vêm antes do contato e três vêm depois: após tocar o paciente, após tocar a superfície próxima e após o risco com fluidos.",
+              "incorrect": "Confira de novo: em cada situação, pergunte se o contato ainda vai acontecer ou se já aconteceu, e com o quê: pessoa, superfície ou fluido."
             },
             "payload": {
-              "prompt": "Associe cada momento da higiene das mãos à situação da sala simulada em que ele se aplica.",
-              "pairs": [
+              "prompt": "Classifique cada situação da sala simulada conforme a higiene das mãos venha antes ou depois do contato.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m01:aula-03:i2:1",
-                  "left": "Antes de tocar o paciente",
-                  "right": "Você vai ajudar Dona Marta a subir na mesa"
+                  "id": "group:rtg-2026:m01:aula-03:i2:a",
+                  "label": "Antes do contato"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-03:i2:2",
-                  "left": "Após tocar o paciente",
-                  "right": "Você acabou de posicionar o ombro de Seu Jorge"
+                  "id": "group:rtg-2026:m01:aula-03:i2:b",
+                  "label": "Depois do contato"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m01:aula-03:i2:3",
+                  "label": "Você vai preparar um procedimento limpo ou asséptico",
+                  "categoryId": "group:rtg-2026:m01:aula-03:i2:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-03:i2:3",
-                  "left": "Após tocar áreas próximas ao paciente",
-                  "right": "Você só ajustou a mesa em que ele estava deitado"
+                  "id": "item:rtg-2026:m01:aula-03:i2:2",
+                  "label": "Você acabou de posicionar o ombro de Seu Jorge",
+                  "categoryId": "group:rtg-2026:m01:aula-03:i2:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-03:i2:4",
-                  "left": "Após risco de exposição a fluidos",
-                  "right": "Você recolheu um lençol com secreção fictícia"
+                  "id": "item:rtg-2026:m01:aula-03:i2:1",
+                  "label": "Você vai ajudar Dona Marta a subir na mesa",
+                  "categoryId": "group:rtg-2026:m01:aula-03:i2:a"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-03:i2:5",
+                  "label": "Você recolheu um lençol com secreção fictícia",
+                  "categoryId": "group:rtg-2026:m01:aula-03:i2:b"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-03:i2:4",
+                  "label": "Você só ajustou a mesa em que Seu Jorge estava deitado",
+                  "categoryId": "group:rtg-2026:m01:aula-03:i2:b"
                 }
               ]
             }
@@ -999,26 +1053,26 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Em outra simulação, de radiografia de tórax em pé, a paciente apoiou o queixo e as mãos no suporte do detector. Ela saiu e a próxima já foi chamada. O que precisa acontecer antes?"
+              "label": "Marque todas as corretas: A paciente apoiou o queixo e as mãos no suporte do detector e saiu; a próxima já foi chamada. Marque todas as ações que precisam acontecer antes."
             },
             "help": "Liste o que a paciente tocou e o que você vai tocar em seguida.",
-            "type": "multiple-choice",
+            "type": "multi-select",
             "feedback": {
               "correct": "Você cortou os dois caminhos: a superfície que ela tocou e as mãos que vão tocar a próxima pessoa.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "incorrect": "Revise: o risco vem de duas fontes, o suporte que foi tocado e as mãos. Sinais visíveis não decidem a limpeza, e luva ou avental plumbífero não a substituem."
             },
             "payload": {
-              "prompt": "Em outra simulação, de radiografia de tórax em pé, a paciente apoiou o queixo e as mãos no suporte do detector. Ela saiu e a próxima já foi chamada. O que precisa acontecer antes?",
+              "prompt": "A paciente apoiou o queixo e as mãos no suporte do detector e saiu; a próxima já foi chamada. Marque todas as ações que precisam acontecer antes.",
               "options": [
                 {
                   "id": "option:rtg-2026:m01:aula-03:i5:a",
-                  "label": "Nada: ela não tinha sinais de infecção.",
+                  "label": "Esperar sinais visíveis de infecção na paciente.",
                   "explanation": "A limpeza entre pacientes não depende de sinais visíveis. Retome: a superfície foi tocada."
                 },
                 {
                   "id": "option:rtg-2026:m01:aula-03:i5:b",
-                  "label": "Limpar os apoios e higienizar as mãos.",
-                  "explanation": "Você cortou os dois caminhos: a superfície que ela tocou e as mãos que vão tocar a próxima pessoa."
+                  "label": "Limpar os apoios que ela tocou.",
+                  "explanation": "Apoio de queixo e suporte do detector podem se contaminar e são limpos entre um paciente e outro."
                 },
                 {
                   "id": "option:rtg-2026:m01:aula-03:i5:c",
@@ -1027,11 +1081,19 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m01:aula-03:i5:d",
+                  "label": "Higienizar as mãos antes da próxima paciente.",
+                  "explanation": "A higiene das mãos corta o caminho dos microrganismos entre uma pessoa e outra, e a luva não a substitui."
+                },
+                {
+                  "id": "option:rtg-2026:m01:aula-03:i5:e",
                   "label": "Trocar apenas as luvas usadas no exame.",
                   "explanation": "Trocar de luva não limpa o suporte nem dispensa a higiene das mãos."
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m01:aula-03:i5:b"
+              "correctOptionIds": [
+                "option:rtg-2026:m01:aula-03:i5:b",
+                "option:rtg-2026:m01:aula-03:i5:d"
+              ]
             }
           }
         },
@@ -1169,39 +1231,42 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Dona Marta contou que a menstruação está atrasada, e o pedido fictício é de radiografia do abdome. Faça uma previsão: o que você espera que aconteça a partir dessa informação?"
+              "label": "Certo ou errado: Dona Marta contou que a menstruação está atrasada, e o pedido é de radiografia do abdome. Julgue cada afirmação sobre o que acontece."
             },
             "help": "Pausar e cancelar são a mesma coisa? Quem pesa benefício e risco de um exame?",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "A informação nova chega a quem decide. O que acontece com o exame a partir daí é uma avaliação médica.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você viu que a informação nova pede pausa e avaliação médica, e que pausar não é cancelar nem seguir como se nada tivesse mudado.",
+              "incorrect": "Retome: a gravidez possível não proíbe o exame por si só, e o pedido foi feito sem essa informação. A equipe pausa e o médico pesa benefício e risco."
             },
             "payload": {
-              "prompt": "Dona Marta contou que a menstruação está atrasada, e o pedido fictício é de radiografia do abdome. Faça uma previsão: o que você espera que aconteça a partir dessa informação?",
-              "options": [
+              "prompt": "Dona Marta contou que a menstruação está atrasada, e o pedido é de radiografia do abdome. Julgue cada afirmação sobre o que acontece.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i2:a",
-                  "label": "O exame é cancelado na hora, sem mais conversa.",
-                  "explanation": "Cancelar de imediato trata a pausa como proibição. A gravidez possível não proíbe o exame por si só."
+                  "id": "statement:rtg-2026:m01:aula-04:i2:1",
+                  "text": "A gravidez possível proíbe o exame por si só, então ele é cancelado na hora.",
+                  "isTrue": false,
+                  "explanation": "Errado: a gravidez possível não proíbe o exame por si só. O médico pesa benefício e risco."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i2:b",
-                  "label": "O exame segue, porque o pedido já estava feito.",
-                  "explanation": "O pedido foi feito sem essa informação. Retome: algo mudou, e quem decide precisa saber."
+                  "id": "statement:rtg-2026:m01:aula-04:i2:2",
+                  "text": "A equipe pausa, e o médico avalia o caso.",
+                  "isTrue": true,
+                  "explanation": "Certo: a informação nova chega a quem decide, e o que acontece com o exame é uma avaliação médica."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i2:c",
-                  "label": "A equipe pausa, e o médico avalia o caso.",
-                  "explanation": "A informação nova chega a quem decide. O que acontece com o exame a partir daí é uma avaliação médica."
+                  "id": "statement:rtg-2026:m01:aula-04:i2:3",
+                  "text": "Como o pedido já estava feito, o exame segue sem mais conversa.",
+                  "isTrue": false,
+                  "explanation": "Errado: o pedido foi feito sem essa informação. Algo mudou, e quem decide precisa saber antes de seguir."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i2:d",
-                  "label": "A paciente decide sozinha se quer continuar.",
-                  "explanation": "A paciente participa da decisão, mas precisa da avaliação médica para decidir informada. Confira de novo."
+                  "id": "statement:rtg-2026:m01:aula-04:i2:4",
+                  "text": "Pausar o exame não é o mesmo que cancelá-lo.",
+                  "isTrue": true,
+                  "explanation": "Certo: pausar é parar para conferir, e a decisão seguinte é de quem responde pelo exame."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m01:aula-04:i2:c"
+              ]
             }
           }
         },
@@ -1310,39 +1375,53 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Em outra simulação, o pedido fictício é de tomografia do tórax. Com a identidade já confirmada, a paciente diz que veio fazer “o exame da coluna”. O que essa informação pede de você?"
+              "label": "Completar a frase: Complete a frase que resolve a divergência entre pedido e relato, usando o banco de palavras."
             },
             "help": "Compare o que está escrito com o que a pessoa conta.",
-            "type": "multiple-choice",
+            "type": "cloze",
             "feedback": {
-              "correct": "Pedido e relato não combinam: você pausou e levou a divergência a quem responde pelo exame.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Pedido e relato não combinam, então você pausa e leva a divergência a quem responde pelo exame, sem trocar a região por conta própria.",
+              "incorrect": "Retome o que se confere antes da aquisição: se o relato não combina com o pedido, o exame não começa. Quem esclarece é a equipe, não você."
             },
             "payload": {
-              "prompt": "Em outra simulação, o pedido fictício é de tomografia do tórax. Com a identidade já confirmada, a paciente diz que veio fazer “o exame da coluna”. O que essa informação pede de você?",
-              "options": [
+              "prompt": "Complete a frase que resolve a divergência entre pedido e relato, usando o banco de palavras.",
+              "segments": [
+                "O pedido é de tomografia do tórax, mas a paciente fala em coluna: você ",
+                " e esclarece com a ",
+                "."
+              ],
+              "tokens": [
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i5:a",
-                  "label": "Fazer o tórax, pois é o que está no pedido.",
-                  "explanation": "Seguir o pedido ignora que o relato não combina com ele. Retome o que se confere antes da aquisição."
+                  "id": "token:rtg-2026:m01:aula-04:i5:1",
+                  "label": "pausa"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i5:b",
-                  "label": "Fazer a coluna, pois é o que ela relatou.",
-                  "explanation": "Trocar a região é mudar o exame, e essa decisão não é da aquisição. Confira de novo a quem levar a dúvida."
+                  "id": "token:rtg-2026:m01:aula-04:i5:3",
+                  "label": "troca"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i5:c",
-                  "label": "Parar e esclarecer o pedido com a equipe.",
-                  "explanation": "Pedido e relato não combinam: você pausou e levou a divergência a quem responde pelo exame."
+                  "id": "token:rtg-2026:m01:aula-04:i5:5",
+                  "label": "máquina"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-04:i5:d",
-                  "label": "Fazer os dois exames e resolver depois.",
-                  "explanation": "Fazer os dois acrescenta uma exposição que ninguém indicou."
+                  "id": "token:rtg-2026:m01:aula-04:i5:4",
+                  "label": "segue"
+                },
+                {
+                  "id": "token:rtg-2026:m01:aula-04:i5:2",
+                  "label": "equipe"
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m01:aula-04:i5:c"
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m01:aula-04:i5:1",
+                  "correctTokenId": "token:rtg-2026:m01:aula-04:i5:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m01:aula-04:i5:2",
+                  "correctTokenId": "token:rtg-2026:m01:aula-04:i5:2"
+                }
+              ]
             }
           }
         },
@@ -1479,39 +1558,42 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: A sala de espera simulada está cheia. Como você chama a próxima pessoa de modo respeitoso e sem expor informação sobre o atendimento dela?"
+              "label": "Certo ou errado: A sala de espera simulada está cheia. Julgue cada forma de chamar a próxima pessoa quanto ao respeito e ao sigilo."
             },
             "help": "Qual chamada um estranho na sala de espera poderia ouvir sem aprender nada sobre a saúde da pessoa?",
-            "type": "multiple-choice",
+            "type": "true-false",
             "feedback": {
-              "correct": "Você chamou pelo nome, sem revelar exame nem motivo. Os dados se conferem depois, com a pessoa, na sala.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você reconheceu que chamar pelo nome respeita a pessoa, enquanto exame, característica física ou motivo expõem o atendimento a todos.",
+              "incorrect": "Retome o direito ao nome e ao sigilo: a chamada usa só o nome, e os dados se conferem depois, com a pessoa, na sala."
             },
             "payload": {
-              "prompt": "A sala de espera simulada está cheia. Como você chama a próxima pessoa de modo respeitoso e sem expor informação sobre o atendimento dela?",
-              "options": [
+              "prompt": "A sala de espera simulada está cheia. Julgue cada forma de chamar a próxima pessoa quanto ao respeito e ao sigilo.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i2:a",
-                  "label": "“Quem é o da tomografia de crânio? Pode vir.”",
-                  "explanation": "Essa chamada conta a todos qual exame a pessoa vai fazer. Retome o que identifica alguém com respeito."
+                  "id": "statement:rtg-2026:m01:aula-05:i2:1",
+                  "text": "Chamar por “Quem é o da tomografia de crânio?” respeita a privacidade da pessoa.",
+                  "isTrue": false,
+                  "explanation": "Errado: essa chamada conta a todos qual exame a pessoa vai fazer. Retome o que identifica alguém com respeito."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i2:b",
-                  "label": "“O senhor de muleta ali no fundo, é a sua vez.”",
-                  "explanation": "Apontar uma característica física expõe a pessoa em vez de chamá-la pelo nome. Confira de novo."
+                  "id": "statement:rtg-2026:m01:aula-05:i2:2",
+                  "text": "Chamar pelo nome, sem citar exame nem motivo, respeita a pessoa e o sigilo.",
+                  "isTrue": true,
+                  "explanation": "Certo: o nome identifica a pessoa sem revelar nada do atendimento, e os dados se conferem depois, na sala."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i2:c",
-                  "label": "“O caso do acidente, da sala 3, pode entrar.”",
-                  "explanation": "Chamar pelo motivo do atendimento revela informação de saúde à sala inteira."
+                  "id": "statement:rtg-2026:m01:aula-05:i2:3",
+                  "text": "Chamar por “o senhor de muleta ali no fundo” é um jeito respeitoso de chamar.",
+                  "isTrue": false,
+                  "explanation": "Errado: apontar uma característica física expõe a pessoa em vez de chamá-la pelo nome."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i2:d",
-                  "label": "“Seu Jorge Lima, pode me acompanhar?”",
-                  "explanation": "Você chamou pelo nome, sem revelar exame nem motivo. Os dados se conferem depois, com a pessoa, na sala."
+                  "id": "statement:rtg-2026:m01:aula-05:i2:4",
+                  "text": "Chamar pelo motivo do atendimento é um jeito respeitoso de chamar a pessoa.",
+                  "isTrue": false,
+                  "explanation": "Errado: o motivo revela informação de saúde à sala inteira. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m01:aula-05:i2:d"
+              ]
             }
           }
         },
@@ -1572,40 +1654,53 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Caso com decisão: O que você faz diante desse pedido do colega?"
+              "label": "Completar a frase: Um colega pede a foto da imagem de Dona Marta para um trabalho. Complete a frase com o que protege o dado."
             },
             "help": "Para que essa imagem foi feita? O pedido do colega cabe nessa finalidade?",
-            "type": "case-decision",
+            "type": "cloze",
             "feedback": {
-              "correct": "Você protegeu o dado e apontou o caminho: material de estudo vem por quem pode autorizá-lo.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você manteve o dado onde ele nasceu e apontou o caminho: material de estudo se pede a quem pode autorizá-lo.",
+              "incorrect": "Releia: a imagem foi feita para o atendimento, e dado de saúde é sensível. Use só o necessário para a tarefa e não fotografe telas."
             },
             "payload": {
-              "context": "Na simulação, você terminou a aquisição de Dona Marta. Um colega de outra dupla manda mensagem: “me passa uma foto da imagem dela, é para o trabalho de anatomia”. A tela mostra a imagem com o nome fictício e a data de nascimento.",
-              "prompt": "O que você faz diante desse pedido do colega?",
-              "options": [
+              "prompt": "Um colega pede a foto da imagem de Dona Marta para um trabalho. Complete a frase com o que protege o dado.",
+              "segments": [
+                "Use só o necessário para a ",
+                "; material de estudo se pede à ",
+                ", e não se fotografa a tela."
+              ],
+              "tokens": [
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i4:a",
-                  "label": "Enviar a foto, já que a finalidade é o estudo.",
-                  "explanation": "Estudar é um bom motivo, mas a imagem foi feita para o atendimento. Retome a regra do necessário para a tarefa."
+                  "id": "token:rtg-2026:m01:aula-05:i4:5",
+                  "label": "pressa"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i4:b",
-                  "label": "Enviar a foto cortando só o nome da paciente.",
-                  "explanation": "Cortar o nome não torna sua a decisão de tirar a imagem do sistema. Confira de novo a quem cabe autorizar."
+                  "id": "token:rtg-2026:m01:aula-05:i4:1",
+                  "label": "tarefa"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i4:c",
-                  "label": "Enviar e pedir que ele apague logo depois.",
-                  "explanation": "Depois de enviada, a imagem sai do seu controle. Pedir que apague não desfaz o envio."
+                  "id": "token:rtg-2026:m01:aula-05:i4:2",
+                  "label": "professora"
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-05:i4:d",
-                  "label": "Não enviar e orientar que peça à professora.",
-                  "explanation": "Você protegeu o dado e apontou o caminho: material de estudo vem por quem pode autorizá-lo."
+                  "id": "token:rtg-2026:m01:aula-05:i4:3",
+                  "label": "curiosidade"
+                },
+                {
+                  "id": "token:rtg-2026:m01:aula-05:i4:4",
+                  "label": "colega"
                 }
               ],
-              "correctOptionId": "option:rtg-2026:m01:aula-05:i4:d"
+              "blanks": [
+                {
+                  "id": "blank:rtg-2026:m01:aula-05:i4:1",
+                  "correctTokenId": "token:rtg-2026:m01:aula-05:i4:1"
+                },
+                {
+                  "id": "blank:rtg-2026:m01:aula-05:i4:2",
+                  "correctTokenId": "token:rtg-2026:m01:aula-05:i4:2"
+                }
+              ]
             }
           }
         },
@@ -1851,36 +1946,46 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Associe cada pergunta do percurso ao sinal que faria você pausar naquela etapa."
+              "label": "Classificação: Classifique cada sinal do percurso na etapa em que ele aparece."
             },
             "help": "Leia cada sinal e diga o que ele põe em dúvida: a identidade, o pedido, o estado da pessoa ou a concordância.",
-            "type": "matching",
+            "type": "categorize",
             "feedback": {
               "correct": "Você localizou cada sinal na etapa em que ele aparece. Em todos os casos, a resposta é a mesma: pausar, descrever e pedir apoio.",
-              "incorrect": "Confira de novo: cada sinal responde a uma das perguntas, sobre identidade, pedido, informação nova ou concordância."
+              "incorrect": "Confira de novo: dois sinais vêm de comparar o que a pessoa diz com o registro e o pedido, e dois vêm do que mudou ou do que ela decidiu."
             },
             "payload": {
-              "prompt": "Associe cada pergunta do percurso ao sinal que faria você pausar naquela etapa.",
-              "pairs": [
+              "prompt": "Classifique cada sinal do percurso na etapa em que ele aparece.",
+              "categories": [
                 {
-                  "id": "pair:rtg-2026:m01:aula-06:i3:1",
-                  "left": "Quem é?",
-                  "right": "A data de nascimento dita difere da pulseira"
+                  "id": "group:rtg-2026:m01:aula-06:i3:a",
+                  "label": "Quem é e o que está pedido"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-06:i3:2",
-                  "left": "O que está pedido?",
-                  "right": "O pedido diz joelho direito; a queixa é no esquerdo"
+                  "id": "group:rtg-2026:m01:aula-06:i3:b",
+                  "label": "O que mudou e se ela concorda"
+                }
+              ],
+              "items": [
+                {
+                  "id": "item:rtg-2026:m01:aula-06:i3:3",
+                  "label": "O pedido diz joelho direito; a queixa é no esquerdo",
+                  "categoryId": "group:rtg-2026:m01:aula-06:i3:a"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-06:i3:3",
-                  "left": "O que pode ter mudado?",
-                  "right": "A paciente comenta que a menstruação atrasou"
+                  "id": "item:rtg-2026:m01:aula-06:i3:4",
+                  "label": "A pessoa diz que não quer mais fazer o exame",
+                  "categoryId": "group:rtg-2026:m01:aula-06:i3:b"
                 },
                 {
-                  "id": "pair:rtg-2026:m01:aula-06:i3:4",
-                  "left": "Ela entendeu e concorda?",
-                  "right": "A pessoa diz que não quer mais fazer o exame"
+                  "id": "item:rtg-2026:m01:aula-06:i3:2",
+                  "label": "A paciente comenta que a menstruação atrasou",
+                  "categoryId": "group:rtg-2026:m01:aula-06:i3:b"
+                },
+                {
+                  "id": "item:rtg-2026:m01:aula-06:i3:1",
+                  "label": "A data de nascimento dita difere da pulseira",
+                  "categoryId": "group:rtg-2026:m01:aula-06:i3:a"
                 }
               ]
             }
@@ -1945,40 +2050,42 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Caso com decisão: Qual é o passo coerente com o percurso neste ponto?"
+              "label": "Certo ou errado: Na ressonância simulada do joelho, identidade, pedido, triagem e entendimento conferiram, sem sinal em aberto. Julgue cada afirmação sobre o próximo passo."
             },
             "help": "Percorra as quatro perguntas do percurso e veja se alguma ficou sem resposta.",
-            "type": "case-decision",
+            "type": "true-false",
             "feedback": {
-              "correct": "Identidade, pedido, triagem e entendimento conferiram: seguir é a consequência de cada resposta anterior.",
-              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
+              "correct": "Você reconheceu que a pausa responde a um sinal: sem divergência, o percurso segue, e qualquer divergência o interrompe.",
+              "incorrect": "Retome as quatro perguntas do percurso: se todas conferiram, não há motivo para pausar nem para repetir etapas. Só uma divergência interrompe."
             },
             "payload": {
-              "context": "Simulação de ressonância magnética do joelho, com a Lia acompanhando. Seu Jorge diz nome e data de nascimento, e os dois conferem com a ficha fictícia. O pedido fictício diz joelho esquerdo, e ele aponta o esquerdo. A triagem de segurança, revista pela equipe, não traz nenhuma marcação de risco, e ele confirma que nada mudou. Você explica a etapa, e ele conta, com as palavras dele, que vai ficar parado e ouvir um barulho forte.",
-              "prompt": "Qual é o passo coerente com o percurso neste ponto?",
-              "options": [
+              "prompt": "Na ressonância simulada do joelho, identidade, pedido, triagem e entendimento conferiram, sem sinal em aberto. Julgue cada afirmação sobre o próximo passo.",
+              "statements": [
                 {
-                  "id": "option:rtg-2026:m01:aula-06:i5:a",
-                  "label": "Pausar e chamar a equipe, por precaução geral.",
-                  "explanation": "A pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência. Retome as quatro perguntas."
+                  "id": "statement:rtg-2026:m01:aula-06:i5:1",
+                  "text": "Com todas as respostas conferidas, o percurso segue para a próxima etapa.",
+                  "isTrue": true,
+                  "explanation": "Certo: identidade, pedido, triagem e entendimento conferiram, e seguir é a consequência de cada resposta anterior."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-06:i5:b",
-                  "label": "Refazer toda a identificação desde o início.",
-                  "explanation": "Os dados já foram ditos e comparados. Repetir sem motivo não acrescenta conferência."
+                  "id": "statement:rtg-2026:m01:aula-06:i5:2",
+                  "text": "Sem divergência alguma, não há motivo para pausar nem para chamar a equipe.",
+                  "isTrue": true,
+                  "explanation": "Certo: a pausa responde a um sinal, e aqui nenhuma etapa mostrou divergência."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-06:i5:c",
-                  "label": "Seguir para a próxima etapa do roteiro.",
-                  "explanation": "Identidade, pedido, triagem e entendimento conferiram: seguir é a consequência de cada resposta anterior."
+                  "id": "statement:rtg-2026:m01:aula-06:i5:3",
+                  "text": "Repetir toda a identificação desde o início acrescenta conferência, mesmo com os dados já comparados.",
+                  "isTrue": false,
+                  "explanation": "Errado: os dados já foram ditos e comparados, e repetir sem motivo não acrescenta conferência."
                 },
                 {
-                  "id": "option:rtg-2026:m01:aula-06:i5:d",
-                  "label": "Pedir que ele assine outro questionário.",
-                  "explanation": "A triagem já foi revista e ele confirmou que nada mudou. Confira de novo se há algum sinal em aberto."
+                  "id": "statement:rtg-2026:m01:aula-06:i5:4",
+                  "text": "Qualquer divergência, em qualquer ponto, interrompe o percurso e chama a equipe.",
+                  "isTrue": true,
+                  "explanation": "Certo: é a regra de todo o percurso, e vale na identidade, no pedido, na triagem e na concordância."
                 }
-              ],
-              "correctOptionId": "option:rtg-2026:m01:aula-06:i5:c"
+              ]
             }
           }
         },
@@ -2485,7 +2592,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-01:i2:1",
+      "claimId": "group:rtg-2026:m01:aula-01:i2:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2496,7 +2603,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-01:i2:2",
+      "claimId": "group:rtg-2026:m01:aula-01:i2:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2507,7 +2614,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-01:i2:3",
+      "claimId": "group:rtg-2026:m01:aula-01:i2:c",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2518,7 +2625,51 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-01:i2:4",
+      "claimId": "item:rtg-2026:m01:aula-01:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-7394-1985",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-01:i2:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-7394-1985",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-01:i2:5",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-7394-1985",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-01:i2:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-7394-1985",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-01:i2:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -2571,14 +2722,14 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-01:i3:a",
+      "claimId": "statement:rtg-2026:m01:aula-01:i3:1",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-01:i3:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m01:aula-01:i3:2",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:lei-12842-2013",
@@ -2586,16 +2737,25 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-01:i3:c",
+      "claimId": "statement:rtg-2026:m01:aula-01:i3:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-01:i3:d",
+      "claimId": "statement:rtg-2026:m01:aula-01:i3:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "interaction:rtg-2026:m01:aula-01:i3:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-01:i3:feedback:correct",
@@ -3019,13 +3179,29 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i2:a",
+      "claimId": "blank:rtg-2026:m01:aula-02:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "blank:rtg-2026:m01:aula-02:i2:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-02:i2:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i2:b",
+      "claimId": "token:rtg-2026:m01:aula-02:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3033,13 +3209,21 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i2:c",
+      "claimId": "token:rtg-2026:m01:aula-02:i2:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-02:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i2:d",
+      "claimId": "token:rtg-2026:m01:aula-02:i2:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -3195,30 +3379,40 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-02:i5:b",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m01:aula-02:i5:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i5:c",
+      "claimId": "statement:rtg-2026:m01:aula-02:i5:2",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-02:i5:d",
+      "claimId": "statement:rtg-2026:m01:aula-02:i5:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m01:aula-02:i5:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "interaction:rtg-2026:m01:aula-02:i5:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-02:i5:feedback:correct",
@@ -3531,7 +3725,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-03:i2:1",
+      "claimId": "group:rtg-2026:m01:aula-03:i2:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3540,7 +3734,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-03:i2:2",
+      "claimId": "group:rtg-2026:m01:aula-03:i2:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3549,7 +3743,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-03:i2:3",
+      "claimId": "item:rtg-2026:m01:aula-03:i2:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3558,7 +3752,34 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-03:i2:4",
+      "claimId": "item:rtg-2026:m01:aula-03:i2:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-03:i2:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-03:i2:5",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-03:i2:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3760,6 +3981,15 @@ export const RTG_2026_M01: ProductionBatchV1 = {
     },
     {
       "claimId": "option:rtg-2026:m01:aula-03:i5:d",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+      ]
+    },
+    {
+      "claimId": "option:rtg-2026:m01:aula-03:i5:e",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4075,30 +4305,40 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i2:a",
+      "claimId": "statement:rtg-2026:m01:aula-04:i2:1",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i2:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-04:i2:c",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m01:aula-04:i2:2",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao"
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i2:d",
+      "claimId": "statement:rtg-2026:m01:aula-04:i2:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "statement:rtg-2026:m01:aula-04:i2:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m01:aula-04:i2:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-04:i2:feedback:correct",
@@ -4255,19 +4495,23 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "blank:rtg-2026:m01:aula-04:i5:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i5:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimId": "blank:rtg-2026:m01:aula-04:i5:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i5:c",
+      "claimId": "token:rtg-2026:m01:aula-04:i5:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4275,10 +4519,30 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-04:i5:d",
+      "claimId": "token:rtg-2026:m01:aula-04:i5:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-04:i5:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-04:i5:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-04:i5:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-04:i5:feedback:correct",
@@ -4589,25 +4853,34 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i2:a",
+      "claimId": "statement:rtg-2026:m01:aula-05:i2:1",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i2:b",
+      "claimId": "statement:rtg-2026:m01:aula-05:i2:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m01:aula-05:i2:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i2:c",
+      "claimId": "statement:rtg-2026:m01:aula-05:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i2:d",
+      "claimId": "interaction:rtg-2026:m01:aula-05:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4715,31 +4988,58 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i4:a",
+      "claimId": "blank:rtg-2026:m01:aula-05:i4:1",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:ms-prc-1-2017"
+      ]
+    },
+    {
+      "claimId": "blank:rtg-2026:m01:aula-05:i4:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:ms-prc-1-2017"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-05:i4:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-05:i4:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-05:i4:c",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-05:i4:d",
+      "claimId": "token:rtg-2026:m01:aula-05:i4:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:lgpd-lei-13709-2018",
         "source:rtg-2026:m01:ms-prc-1-2017"
       ]
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-05:i4:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:ms-prc-1-2017"
+      ]
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-05:i4:3",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "token:rtg-2026:m01:aula-05:i4:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-05:i4:feedback:correct",
@@ -5209,7 +5509,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-06:i3:1",
+      "claimId": "group:rtg-2026:m01:aula-06:i3:a",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5219,7 +5519,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-06:i3:2",
+      "claimId": "group:rtg-2026:m01:aula-06:i3:b",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5229,7 +5529,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-06:i3:3",
+      "claimId": "item:rtg-2026:m01:aula-06:i3:3",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5239,7 +5539,27 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "pair:rtg-2026:m01:aula-06:i3:4",
+      "claimId": "item:rtg-2026:m01:aula-06:i3:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
+        "source:rtg-2026:m01:ms-prc-1-2017"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-06:i3:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
+        "source:rtg-2026:m01:ms-prc-1-2017"
+      ]
+    },
+    {
+      "claimId": "item:rtg-2026:m01:aula-06:i3:1",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5342,20 +5662,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-06:i5:a",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-06:i5:b",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "option:rtg-2026:m01:aula-06:i5:c",
-      "claimKind": "correct-answer",
+      "claimId": "statement:rtg-2026:m01:aula-06:i5:1",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
@@ -5363,10 +5671,37 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "option:rtg-2026:m01:aula-06:i5:d",
+      "claimId": "statement:rtg-2026:m01:aula-06:i5:2",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m01:aula-06:i5:3",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
+    },
+    {
+      "claimId": "statement:rtg-2026:m01:aula-06:i5:4",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
+      ]
+    },
+    {
+      "claimId": "interaction:rtg-2026:m01:aula-06:i5:answer",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m01:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
+      ]
     },
     {
       "claimId": "interaction:rtg-2026:m01:aula-06:i5:feedback:correct",
@@ -6087,7 +6422,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6096,7 +6431,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6105,7 +6440,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6114,7 +6449,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6123,7 +6458,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     },
     {
       "schemaVersion": 1,
@@ -6132,7 +6467,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "61bc41ec2c68ec0fba6295b57021f3dde7c9de8ae1c85b73c10b45065dbd5f70"
+      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
