@@ -68,3 +68,7 @@ Não visto, não ouvido
 - Cloze, verdadeiro ou falso e as cenas de M02 e M03 (roteiros m02.yaml e m03.yaml não
   rodados nesta sessão).
 - VoiceOver, texto ampliado, aparelho físico e Android.
+
+Nota de 2026-11-15, 16h15: depois desta sessão, `soltar` e `fala` foram regerados com
+pico mais baixo (−28 dBFS), sem mudar notas nem duração. O log acima é da versão
+anterior; a versão nivelada não foi tocada no simulador.

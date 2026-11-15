@@ -119,7 +119,7 @@ merge. **Nada disso está na loja.** Decisões em
   ficha, avançar, revelar fala).
 - **Chave `ENABLE_RICH_FEEDBACK`, desligada por padrão.** Desligada, a aula é a da
   base, com contraprova em teste. Ligada: sons `soltar` e `fala` (sintetizados, 110 e
-  80 ms), vibração ao avançar, alternativa que afunda ao toque, retorno em 150 ms com
+  80 ms, pico −28 dBFS, nivelados com o `toque`), vibração ao avançar, alternativa que afunda ao toque, retorno em 150 ms com
   o Pixel pelo seletor da F7 em 64 pt, incentivo na sequência, na retomada e na aula
   sem erro, e medalha cunhada na conclusão de aula e de unidade.
 - **Simulador "Radiant F2", com a chave ligada:** o roteiro `f2-formatos/m01.yaml`
@@ -131,8 +131,8 @@ merge. **Nada disso está na loja.** Decisões em
 - **Gate, medido em 2026-11-15 às 16h08:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run
   quality` no Node 20.20.2 saiu com código 0: 238 suítes e 3.315 testes no Jest, os 17
   contratos `node --test` e o QA visual estrito sem regressão. A revisão independente
-  deu 14 achados, nenhum bloqueante; 12 corrigidos, 1 documentado e 1 pendente (toque
-  duplo no Conferir, que já existia na base), em
+  deu 14 achados, nenhum bloqueante; 13 corrigidos e 1 pendente (toque duplo no
+  Conferir, que já existia na base), em
   [`revisao.md`](evidence/2026-11-15-f3-sons/revisao.md).
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05

@@ -29,8 +29,8 @@ const G4 = 392, C5 = 523.25, E5 = 659.25, A5 = 880, G5 = 783.99, C6 = 1046.5, E6
 
 /**
  * Durações distintas entre si e das seis já existentes (40, 136, 188, 290, 373 e
- * 993 ms). `peakDb` opcional: os sons frequentes da F3 ficam abaixo dos de
- * evento, entre o `toque` (pico -27,5 dBFS) e o `acerto` (-0,9).
+ * 993 ms). `peakDb` opcional: os sons de gesto da F3 ficam no pico do `toque`
+ * (-27,5 dBFS), o som de interação que o `soltar` substitui nas fichas.
  */
 export const SOUNDS = {
   // 5 e 10 acertos seguidos: arpejo curto, para cima.
@@ -43,9 +43,9 @@ export const SOUNDS = {
     notes: [[C5, 0, 6], [E5, 0.12, 6], [G5, 0.24, 6], [C6, 0.36, 5], [C6, 0.6, 3], [E6, 0.6, 3], [G6, 0.6, 3], [C7, 0.9, 4]],
   },
   // Ficha que encaixa (cloze, categorize): duas notas graves e secas, "toc-toc".
-  soltar: { seconds: 0.11, peakDb: -14, notes: [[G4, 0, 40], [C5, 0.035, 40]] },
+  soltar: { seconds: 0.11, peakDb: -28, notes: [[G4, 0, 40], [C5, 0.035, 40]] },
   // Fala de diálogo: uma nota curta e baixa, que marca a vez sem pedir atenção.
-  fala: { seconds: 0.08, peakDb: -12, notes: [[A5, 0, 45]] },
+  fala: { seconds: 0.08, peakDb: -28, notes: [[A5, 0, 45]] },
 };
 
 /** Uma nota de sino: fundamental mais a oitava, baixa, com ataque de 6 ms para não estalar. */

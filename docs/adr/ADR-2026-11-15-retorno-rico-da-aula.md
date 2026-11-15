@@ -40,15 +40,14 @@ chave vazando, inclusive vazamentos isolados (só a cunhagem, só o anúncio)
 
 ## Decisão 3 — dois sons novos, sintetizados
 
-- `soltar` (110 ms, pico −12 dBFS), quando a ficha encaixa;
-- `fala` (80 ms, pico −12 dBFS), quando aparece uma fala.
+- `soltar` (110 ms, pico −28 dBFS), quando a ficha encaixa;
+- `fala` (80 ms, pico −28 dBFS), quando aparece uma fala.
 
 Ambos foram feitos por `scripts/synth-sounds.mjs`, sem nada baixado
-([`sons.md`](../evidence/2026-11-15-f3-sons/sons.md)). Ficam abaixo dos sons de
-resultado, mas **bem acima do `toque`** (pico −27,5 dBFS, quase inaudível): pôr
-ficha soa uns 15 dB mais alto que tocar uma alternativa. Foi escolha para o encaixe
-ser percebido; se soa alto demais é **decisão de ouvido do dono**, e baixar é mudar
-o `peakDb` no script e regerar. **Avançar vibra e não soa:** é
+([`sons.md`](../evidence/2026-11-15-f3-sons/sons.md)). São sons de gesto, e ficam
+**nivelados com o `toque`** (pico −27,5 dBFS), que o `soltar` substitui nas fichas.
+A primeira versão saía uns 15 dB acima; o controlador pediu o nivelamento antes do
+merge, e os dois foram regerados com `peakDb: -28` em 2026-11-15. **Avançar vibra e não soa:** é
 o gesto mais frequente da aula, e um som a cada passo cansaria. A fala soa e não
 vibra.
 

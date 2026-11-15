@@ -75,14 +75,15 @@ cada som pelo log do simulador:
 | `unidade.m4a` | unidade concluída | fanfarra de quatro notas, acorde sustentado e um brilho | 1400 ms |
 
 Os dois da F3, gerados em 2026-11-15 por `node scripts/synth-sounds.mjs soltar fala`
-(o argumento evita regerar os três acima), com pico mais baixo porque tocam
-muito: entre o `toque` (pico −27,5 dBFS) e o `acerto` (−0,9). Pico e média
-medidos com `ffmpeg -af volumedetect`:
+(o argumento evita regerar os três acima). São sons de gesto, como o `toque`, e
+ficam no pico dele (−27,5 dBFS): nivelados em 2026-11-15, a pedido do controlador,
+depois de uma primeira versão uns 15 dB mais alta. Pico e média medidos com
+`ffmpeg -af volumedetect`:
 
 | Arquivo | Evento | Desenho | Duração | Pico / média |
 | --- | --- | --- | --- | --- |
-| `soltar.m4a` | ficha que encaixa | duas notas secas, 392 e 523 Hz, com 35 ms de intervalo | 110 ms | −12,1 / −24,3 dBFS |
-| `fala.m4a` | fala de diálogo | uma nota de 880 Hz, com decaimento rápido | 80 ms | −12,0 / −23,3 dBFS |
+| `soltar.m4a` | ficha que encaixa | duas notas secas, 392 e 523 Hz, com 35 ms de intervalo | 110 ms | −28,0 / −39,2 dBFS |
+| `fala.m4a` | fala de diálogo | uma nota de 880 Hz, com decaimento rápido | 80 ms | −28,0 / −39,5 dBFS |
 
 ## Integridade (SHA-256)
 
@@ -97,8 +98,8 @@ medidos com `ffmpeg -af volumedetect`:
 | `combo.m4a` | sintetizado, sem original | `fd09b983ebd8631fb87e8a9b22acd5bd19914e2eef0cc98f698b90afae30bd22` |
 | `nivel.m4a` | sintetizado, sem original | `06b1a7c2ab8554b8ade5b6cd4f23029d2dd1ff8e9a59953a0aadcaf54304a647` |
 | `unidade.m4a` | sintetizado, sem original | `5d2c8db8f16f61d8519364654340f729c02050d1b5bbcbda7862452641d21c10` |
-| `soltar.m4a` | sintetizado, sem original | `e70ae9e8f0253e6a215f567fc50c4e9301afc07ff7b9eec2c11530b9398b83d8` |
-| `fala.m4a` | sintetizado, sem original | `89cdaf11ed65380d29c89ae6253ba311ee29fc3092f33cfd3baa521d3afb8e19` |
+| `soltar.m4a` | sintetizado, sem original | `05b4a1222c98048554ee9718260756fefd9b2ebce443e2226e79aa187a073056` |
+| `fala.m4a` | sintetizado, sem original | `a71f6339f37fc0085b617b1c0e2edc3d15a35defeff48dd225a72e94eda47ab4` |
 
 Os cinco sintetizados saíram com os mesmos bytes em duas execuções seguidas do
 script, com o ffmpeg 9.0.2. Outra versão do ffmpeg pode gerar bytes diferentes

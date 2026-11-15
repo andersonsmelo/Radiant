@@ -19,6 +19,6 @@ bloqueante; com a chave desligada, o app é a base. Os vermelhos das correções
 | 9 | Menor | Com a chave desligada, a árvore da unidade tinha um envoltório a mais | **Corrigido.** O `MotionView` só entra com a chave ligada. |
 | 10 | Menor | A revisão recebia "Aula sem nenhum erro." | **Corrigido.** A frase não vale para revisão; teste visto falhando antes da correção. |
 | 11 | Menor | Leitura de ref no render | **Corrigido.** A frase é calculada no momento de gravar o resultado e guardada em estado. |
-| 12 | Menor | Os sons novos são uns 15 dB mais altos que o `toque`, e o texto dizia o contrário | **Documentado.** `sons.md` e a ADR dizem os números e deixam o nivelamento ao ouvido do dono. Os arquivos não mudaram. |
+| 12 | Menor | Os sons novos são uns 15 dB mais altos que o `toque`, e o texto dizia o contrário | **Corrigido** num segundo run, a pedido do controlador: os dois foram regerados com pico de −28,0 dBFS, contra −27,5 do `toque`. Antes e depois em `sons.md`. |
 | 13 | Menor | O README da evidência apontava para este arquivo, que não existia | **Corrigido** com este arquivo. |
 | 14 | Menor | O plano dizia `usePressDepth` em Reanimated, e a ADR registrava outro caminho | **Corrigido.** O passo 6 do plano diz o que foi feito e por quê. |
