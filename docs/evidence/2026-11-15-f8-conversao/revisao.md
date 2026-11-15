@@ -36,3 +36,18 @@ escopo não se amplia depois de aberto.
 | 7 | A guarda da comparação não sabe nada da regra de cobrança. | menor | Em parte. Há uma guarda de comportamento que confere, nas regras de `HeartsService`, os números citados (gastar, recuperar em 30 min, a revisão devolver 1). Ela passou de primeira porque as regras estão certas; vê-la falhar exigiria quebrar `HeartsService`, fora do escopo do run. A regra "revisão não cobra" mora em `LessonFlowScreen` e não tem guarda direta além do teste de texto. |
 | 8 | Conflito com a #72 em `killSwitches.contract.test.ts`; o levantamento dizia que não haveria. | menor | Corrigido. O teste da chave foi para o fim do `describe`, e a seção do `STATUS.md` para antes de "Risco de build". O `git merge-tree --write-tree` ficou sem conflito contra #71, #72, #73 e #74, e o levantamento §7 foi corrigido. |
 | 9 | "Uma vez por aparelho" é por instalação; o cartão do console tem texto novo com a chave desligada; `router.push` com o Modal fechando não foi visto no iOS. | menor | Texto trocado para "Só uma vez, sem custo". A exceção do console está registrada na ADR. Na comemoração, `router.push` vem antes de `onContinue`, empilhando a assinatura sob o Modal antes de ele fechar. Isso não foi visto no iOS. |
+
+## Gate e fechamento
+
+- **Gate do app:** `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`, com
+  `node --version` = v20.20.2, em 2026-11-15 sobre o commit `0cdf839`, com a árvore limpa.
+  Saiu com 0: **238 suítes e 3134 testes**, `tsc` limpo e o Visual QA "passed without
+  unapproved regressions". O lint dessa passada deu 25 avisos, sem erro; 4 eram do
+  `ConversionService.test.ts` (imports depois de código). O commit `662240a` os tirou, e o
+  `npx eslint src` voltou a 21 avisos, todos anteriores à F8. Medição local, numa
+  worktree com só os arquivos desta branch.
+- **`loop validate`:** run 1 (`run-1794756484027-0d38a488`, até `3f7a8cc`, mais o STATUS
+  e os vermelhos) teve 15 de 15 validadores aprovados, fechado sem memória. Run 2
+  (`run-1794759484835-cd2686f9`, correções da revisão, até `662240a`) teve 15 de 15,
+  com o `app-quality` repetindo o gate sobre a árvore final, e foi fechado com a memória
+  gravada (`MEMORY_WRITTEN`). O run 3 só acrescenta esta seção.
