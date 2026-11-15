@@ -259,8 +259,9 @@ Desligada, o app é o da `main`, como as contraprovas provam
 ([ADR](adr/ADR-2026-11-15-convites-de-assinatura.md),
 [evidência](evidence/2026-11-15-f8-conversao/README.md)).
 
-- **O que entra:** um convite na folha sem vidas, com uma amostra única de 30 min de
-  vidas ilimitadas, e outro na comemoração de unidade. No máximo um por dia local.
+- **O que entra:** um convite na folha sem vidas, quando ela abre numa pausa (nunca no
+  meio de uma questão nem na avaliação), com uma amostra única de 30 min de vidas
+  ilimitadas, e outro na comemoração de unidade. No máximo um por dia local.
   A tela de assinatura ganha uma comparação gratuito × assinante tirada das regras
   de vidas, e o funil é contado só no aparelho (`@radiant:conversion_v1`), com leitura
   no console de desenvolvimento.

@@ -54,3 +54,25 @@ Ao terminar: app encerrado, simulador "Radiant F8" desligado, Metro parado,
   prova em teste (`UnitCompleteCelebration.test.tsx`).
 - A amostra **expirando** no meio de uma aula, a folha da aula e da avaliação (vi só a do
   cabeçalho da Estude), texto ampliado, VoiceOver, Android e aparelho físico.
+
+## Conferência depois da revisão (run 2, commit `1a3fe1c`)
+
+Mesmo simulador, Metro na 8082 com `NODE_OPTIONS=--max-old-space-size=8192`. A primeira
+tentativa caiu com saída 134, com a carga da máquina entre 21 e 37. Numa das
+tentativas, o cliente abriu sozinho o Metro de outra sessão, na 8081, e mostrou a tela
+de decorações da F6. Nada foi lido daí; a leitura abaixo é do bundle desta branch,
+aberto pela URL da 8082.
+
+- **Folha do contador da Estude, sem vidas:** o convite, "Conhecer o Ilimitado", a
+  amostra, o texto novo "Só uma vez, sem custo. Depois, suas vidas voltam cheias." e
+  "Voltar".
+- **Tela de assinatura:** a linha corrigida, "Vidas. Gratuito: 5; errar em aula ou
+  avaliação pode gastar uma (revisão nunca gasta); uma volta a cada 30 min. Assinante:
+  Ilimitadas: errar não gasta vida."
+- **Não visto na tela, só em teste:**
+  - a folha da aula sem convite no meio da questão e com convite depois do retorno;
+  - a folha da avaliação sem convite;
+  - a releitura das vidas quando a amostra vence.
+
+Simulador desligado, Metro parado, `.claude/launch.json` apagado e
+`radiant-app/expo-env.d.ts` ausente.
