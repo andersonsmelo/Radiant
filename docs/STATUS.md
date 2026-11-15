@@ -250,6 +250,36 @@ node scripts/content/rtg-lesson-lint.mjs content-manifest/rtg-2026/aulas/*.json
 node scripts/content/build-rtg-batches.mjs --check > /dev/null; echo $?   # 0
 ```
 
+## Liga semanal da 1.6 (frente F4) — medido em 2026-11-13
+
+**Na branch `claude/f4-liga-semanal-26632b`, não na `main` nem na loja.** Liga
+semanal sobre um placar recorrente do Game Center (`radiant.liga.semanal.xp`,
+segunda 00:00 UTC, 7 dias), atrás do kill switch `ENABLE_LEAGUE`
+(`EXPO_PUBLIC_ENABLE_LEAGUE`, padrão desligado). Com a chave desligada, o app e
+o binário ficam como a `main` (`src/features/league/flagOff.test.tsx` e o
+plugin `with-game-center`). Decisão na
+[ADR](adr/ADR-2026-11-13-liga-semanal-no-game-center.md); evidência, vermelhos e
+o que foi visto na tela na [evidência](evidence/2026-11-13-f4-liga-semanal.md).
+
+- **Compila:** o módulo `radiant-gamecenter` compilou com o Xcode 27.2 para o
+  simulador. Não foi compilado para aparelho nem no EAS.
+- **Gate:** `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, saída 0, com
+  240 suítes e 3.181 testes, na branch em `0bdf18b` (2026-11-15, depois da
+  correção do achado do Codex sobre a base do placar após reinstalar).
+- **Revisão independente** feita; os achados e o que se fez com cada um estão na
+  evidência. O XP da rota legada `/quiz` (só deep link) não conta na liga.
+- **Visto na tela** (simulador iOS 26.5 sem conta): carregando e sem Game
+  Center; a linha do Perfil abre a liga. O resto só por teste, porque exige
+  conta Apple.
+- **Depende do dono**, pelo
+  [runbook](runbooks/2026-11-13-liga-game-center.md): criar o placar no App
+  Store Connect, ligar a chave numa build, testar com conta de sandbox e
+  conferir a ficha de privacidade e a política.
+
+```bash
+cd radiant-app && npx jest src/features/league   # suítes da liga
+```
+
 ## A 1.4 publicada
 
 **A `1.4.0 (12)`, compilada do `221e2ec`, foi aprovada e liberada no
