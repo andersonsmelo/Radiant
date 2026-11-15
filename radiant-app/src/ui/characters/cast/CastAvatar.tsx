@@ -1,21 +1,32 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Svg, { Circle, Ellipse, Path, Rect } from 'react-native-svg';
+import Svg, { Circle, Ellipse, G, Path, Rect } from 'react-native-svg';
 import type { LessonCastId } from '../../../types/learningActivity';
-import { galaxyColors, pixelColors } from '../../theme';
-import { PixelIllustration } from '../PixelIllustration';
+import { galaxyColors, medalColors } from '../../theme';
+import { PixelIllustration, PIXEL_HEAD_SIZE_MAP } from '../PixelIllustration';
 import type { PixelExpression } from '../pixelExpressions';
-import { CAST, CAST_TONES, castSpeakerName, type CastPortraitId } from './castRegistry';
+import type { CharacterSize } from '../types';
+import {
+    CAST_ACCESSORIES, CAST_BROWS, CAST_EXPRESSION_LABEL, CAST_EYES, CAST_FACES, CAST_MOUTHS,
+    isCastExpression, labelExpressionFor, pixelExpressionFor, type CastExpression,
+} from './castExpressions';
+import {
+    CAST_FACE, CAST_FACE_SHADE, CAST_INK, CAST_LOOKS, CAST_NECK, CAST_SHOULDERS, CAST_SHOULDERS_SHADE, CAST_VIEWBOX,
+    castLookFor, type CastDetail, type CastLook, type CastShape,
+} from './castLooks';
+import { CAST, castSpeakerName, type CastPortraitId } from './castRegistry';
 
-/** Lado do retrato, igual à janela da cabeça do Pixel em `sm`: os dois alinham na mesma coluna. */
-export const CAST_AVATAR_SIZE = 48;
-/** Caixa de desenho de todo retrato. */
-export const CAST_VIEWBOX = 64;
+export { CAST_VIEWBOX } from './castLooks';
 
-/** Círculo em comandos absolutos, para toda coordenada do traçado ficar dentro da caixa. */
-function circle(cx: number, cy: number, r: number): string {
-    return `M${cx - r} ${cy} A${r} ${r} 0 1 0 ${cx + r} ${cy} A${r} ${r} 0 1 0 ${cx - r} ${cy} Z`;
-}
+/** Lado do retrato em `sm`, igual à janela da cabeça do Pixel: os dois alinham na mesma coluna. */
+export const CAST_AVATAR_SIZE = PIXEL_HEAD_SIZE_MAP.sm;
+
+/**
+ * Quanto do diâmetro da placa a cabeça do Pixel ocupa. A janela da cabeça dele
+ * é a caixa inteira; sem a escala, o mascote ficaria quase duas vezes maior que
+ * as cabeças do elenco ao lado (bíblia, "escala relativa").
+ */
+export const PIXEL_HEAD_SCALE_ON_PLATE = 0.8;
 
 /**
  * A massa de cabelo é o que separa as silhuetas: coque no alto (Lia), topo reto
@@ -23,67 +34,65 @@ function circle(cx: number, cy: number, r: number): string {
  * porque o Jest não rasteriza SVG: o teste mede o traçado que decide o desenho.
  */
 export const CAST_HAIR_PATH: Record<CastPortraitId, string> = {
-    lia: `${circle(32, 10, 6)} M20 29 C17 16 24 11 32 11 C40 11 47 16 44 29 C42 22 38 18 32 18 C26 18 22 22 20 29 Z`,
-    caio: 'M21 24 C20 14 26 12 32 12 C39 12 45 14 43 24 C42 20 40 18 37 18 L27 18 C24 18 22 20 21 24 Z',
-    duda: [circle(21, 20, 8), circle(30, 13, 8), circle(40, 14, 8), circle(46, 23, 7), circle(18, 30, 6), circle(47, 32, 6)].join(' '),
-    paciente: 'M20 28 C18 22 20 18 24 17 C22 21 22 25 22 30 Z M44 28 C46 22 44 18 40 17 C42 21 42 25 42 30 Z',
+    lia: CAST_LOOKS.lia.hair,
+    caio: CAST_LOOKS.caio.hair,
+    duda: CAST_LOOKS.duda.hair,
+    paciente: CAST_LOOKS.paciente.hair,
 };
 
-/** Ombros e rosto são os mesmos em todo retrato; muda quem os veste. */
-const SHOULDERS = 'M8 64 C8 51 20 45 32 45 C44 45 56 51 56 64 Z';
-const SHOULDERS_SHADE = 'M32 45 C44 45 56 51 56 64 L42 64 C43 55 39 49 32 45 Z';
-const FACE_SHADE = 'M38 16 C44 20 45 33 38 39 C41 33 41 22 38 16 Z';
-const INK = galaxyColors.background;
+/** Desenha uma forma da caixa 64. Traço com `strokeWidth`; senão, preenchimento. */
+function Shape({ shape, color, testID }: { shape: CastShape | CastDetail; color: string; testID?: string }) {
+    const isStroke = 'strokeWidth' in shape && shape.strokeWidth !== undefined;
+    const paint = isStroke
+        ? { stroke: color, strokeWidth: shape.strokeWidth, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' }
+        : { fill: color };
+    if (shape.kind === 'circle') return <Circle testID={testID} cx={shape.cx} cy={shape.cy} r={shape.r} {...paint} />;
+    if (shape.kind === 'rect') {
+        return <Rect testID={testID} x={shape.x} y={shape.y} width={shape.width} height={shape.height} rx={shape.rx} {...paint} />;
+    }
+    return <Path testID={testID} d={shape.d} {...paint} />;
+}
 
-function Portrait({ id }: { id: CastPortraitId }) {
-    const tones = CAST_TONES[id];
+function Details({ list }: { list: readonly CastDetail[] | undefined }) {
+    return <>{list?.map((detail, index) => <Shape key={index} shape={detail} color={detail.color} />)}</>;
+}
+
+type PortraitProps = { look: CastLook; expression?: CastExpression; size?: CharacterSize };
+
+/**
+ * O retrato de um personagem do elenco, montado pelas regras da bíblia: o
+ * mesmo corpo para todos, o que ele veste, e as feições do conjunto comum.
+ * Exportado para o Storybook e para o teste de padrão, que o conferem com os
+ * candidatos que ainda não estão nas aulas.
+ */
+export function CastPortrait({ look, expression = 'neutro', size = 'sm' }: PortraitProps) {
+    const { tones } = look;
+    const face = CAST_FACES[expression];
+    const dimension = PIXEL_HEAD_SIZE_MAP[size];
+    const hair = <Path testID={`cast-hair-${look.id}`} d={look.hair} fill={tones.hair} />;
+
     return (
-        <Svg width={CAST_AVATAR_SIZE} height={CAST_AVATAR_SIZE} viewBox={`0 0 ${CAST_VIEWBOX} ${CAST_VIEWBOX}`}>
-            {/* Os cachos da Duda passam por trás da cabeça; os outros cabelos ficam por cima. */}
-            {id === 'duda' ? <Path testID={`cast-hair-${id}`} d={CAST_HAIR_PATH[id]} fill={tones.hair} /> : null}
-            <Path testID={`cast-clothing-${id}`} d={SHOULDERS} fill={tones.clothing} />
-            <Path d={SHOULDERS_SHADE} fill={tones.clothingShade} />
-            <Rect x={27} y={36} width={10} height={11} fill={tones.skinShade} />
-            <Ellipse cx={32} cy={27} rx={11} ry={12.5} fill={tones.skin} />
-            <Path d={FACE_SHADE} fill={tones.skinShade} />
-            {id === 'duda' ? (
-                <Path d={`${circle(26, 17, 5)} ${circle(35, 16, 5)}`} fill={tones.hair} />
-            ) : (
-                <Path testID={`cast-hair-${id}`} d={CAST_HAIR_PATH[id]} fill={tones.hair} />
-            )}
-            <Circle cx={27.5} cy={27} r={1.4} fill={INK} />
-            <Circle cx={36.5} cy={27} r={1.4} fill={INK} />
-            <Path d="M28 32.5 Q32 35.5 36 32.5" stroke={INK} strokeWidth={1.4} strokeLinecap="round" fill="none" />
-            {id === 'lia' ? (
-                <>
-                    {/* Óculos e a gola da blusa azul sob o jaleco. */}
-                    <Circle cx={27.5} cy={27} r={3.8} stroke={tones.hairShade} strokeWidth={1.2} fill="none" />
-                    <Circle cx={36.5} cy={27} r={3.8} stroke={tones.hairShade} strokeWidth={1.2} fill="none" />
-                    <Path d="M31.3 27 L32.7 27" stroke={tones.hairShade} strokeWidth={1.2} />
-                    <Path d="M27 45.5 L32 54 L37 45.5 Z" fill={pixelColors.blue.base} />
-                </>
-            ) : null}
-            {id === 'caio' ? (
-                <>
-                    {/* Gola em V do pijama cirúrgico e o crachá do plantão. */}
-                    <Path d="M27 45.5 L32 53 L37 45.5 Z" fill={tones.skin} />
-                    <Rect x={40} y={54} width={7} height={8} rx={1} fill={pixelColors.coat.base} />
-                    <Rect x={41.5} y={57} width={4} height={1.2} fill={pixelColors.coat.shade} />
-                </>
-            ) : null}
-            {id === 'duda' ? (
-                <Path d="M22 48 C26 53 38 53 42 48 C39 45 25 45 22 48 Z" fill={tones.clothingShade} />
-            ) : null}
-            {id === 'paciente' ? (
-                <>
-                    {/* Sobrancelhas grisalhas, decote redondo e a estampa do avental. */}
-                    <Path d="M25 23 L30 22.4 M34 22.4 L39 23" stroke={tones.hairShade} strokeWidth={1.3} strokeLinecap="round" />
-                    <Path d="M25 46 Q32 52 39 46" stroke={tones.clothingShade} strokeWidth={2} fill="none" />
-                    <Circle cx={20} cy={57} r={1.3} fill={tones.clothingShade} />
-                    <Circle cx={32} cy={59} r={1.3} fill={tones.clothingShade} />
-                    <Circle cx={44} cy={57} r={1.3} fill={tones.clothingShade} />
-                </>
-            ) : null}
+        <Svg width={dimension} height={dimension} viewBox={`0 0 ${CAST_VIEWBOX} ${CAST_VIEWBOX}`}>
+            {look.hairBehind ? hair : null}
+            <Path testID={`cast-clothing-${look.id}`} d={CAST_SHOULDERS} fill={tones.clothing} />
+            <Path d={CAST_SHOULDERS_SHADE} fill={tones.clothingShade} />
+            <Rect {...CAST_NECK} fill={tones.skinShade} />
+            <Ellipse {...CAST_FACE} fill={tones.skin} />
+            <Path d={CAST_FACE_SHADE} fill={tones.skinShade} />
+            {look.hairBehind ? null : hair}
+            {look.fringe ? <Path d={look.fringe} fill={tones.hair} /> : null}
+            <Path testID={`cast-hair-shine-${look.id}`} d={look.hairShine} fill={tones.hairLight} />
+            <Details list={look.details} />
+            {/* As feições são sempre tinta; o acessório de expressão, sempre ouro. */}
+            <G testID={`cast-face-${expression}`}>
+                {[...CAST_BROWS[face.brows], ...CAST_EYES[face.eyes], ...CAST_MOUTHS[face.mouth]].map((shape, index) => (
+                    <Shape key={index} shape={shape} color={CAST_INK} />
+                ))}
+                {CAST_ACCESSORIES[face.accessory].map((shape, index) => (
+                    <Shape key={`a${index}`} shape={shape} color={medalColors.gold.face} />
+                ))}
+            </G>
+            <Details list={look.overlay} />
         </Svg>
     );
 }
@@ -92,28 +101,56 @@ type CastAvatarProps = {
     speaker: LessonCastId;
     /** Nome da fala, quando difere do elenco (o paciente de cada cena). */
     name?: string;
-    /** Só para o Pixel: a expressão do rosto. */
-    expression?: PixelExpression;
+    /**
+     * A expressão do rosto, do conjunto comum (`castExpressionFor` escolhe pelo
+     * contexto). Para o Pixel, a família dele também é aceita, como já era.
+     */
+    expression?: CastExpression | PixelExpression;
+    /** `sm` é o avatar da fala; `lg`, o do retorno. Os mesmos lados da cabeça do Pixel. */
+    size?: CharacterSize;
     /** Rótulo próprio, quando o momento diz mais que nome e papel. */
     accessibilityLabel?: string;
     /** Quando o texto ao lado já diz quem é, o retrato some do leitor de tela. */
     decorative?: boolean;
 };
 
+/** O que o leitor de tela lê: nome, papel e, quando muda o sentido, a expressão. */
+export function castAvatarLabel(speaker: LessonCastId, name: string | undefined, expression: CastExpression): string {
+    const base = `${castSpeakerName(speaker, name)}, ${CAST[speaker].role}`;
+    const mood = CAST_EXPRESSION_LABEL[labelExpressionFor(speaker, expression)];
+    return mood ? `${base}, ${mood}` : base;
+}
+
+/** A expressão do conjunto comum que um valor recebido representa (a família do Pixel é traduzida). */
+function commonExpression(expression: CastExpression | PixelExpression | undefined): CastExpression {
+    if (expression === undefined) return 'neutro';
+    if (isCastExpression(expression)) return expression;
+    if (expression === 'pensando' || expression === 'surpreso') return 'pensativo';
+    if (expression === 'orgulhoso') return 'comemorando';
+    return 'neutro';
+}
+
 /**
  * Retrato de quem fala. Lia, Caio, Duda e o paciente são desenho autoral em
- * SVG; o Pixel é a cabeça do mascote de sempre, recortada da mesma arte.
+ * SVG, montado por `CastPortrait`; o Pixel é a cabeça do mascote de sempre,
+ * sobre a mesma placa e na mesma escala do elenco.
  */
-export function CastAvatar({ speaker, name, expression, accessibilityLabel, decorative = false }: CastAvatarProps) {
-    const label = accessibilityLabel ?? `${castSpeakerName(speaker, name)}, ${CAST[speaker].role}`;
+export function CastAvatar({ speaker, name, expression, size = 'sm', accessibilityLabel, decorative = false }: CastAvatarProps) {
+    const common = commonExpression(expression);
+    const label = accessibilityLabel ?? castAvatarLabel(speaker, name, common);
+    const dimension = PIXEL_HEAD_SIZE_MAP[size];
+    const slot = { width: dimension, height: dimension, borderRadius: dimension / 2 };
     const hidden = decorative
         ? { accessible: false, accessibilityElementsHidden: true, importantForAccessibility: 'no-hide-descendants' as const }
         : null;
 
     if (speaker === 'pixel') {
         return (
-            <View testID="cast-avatar-pixel" style={styles.slot} {...hidden}>
-                <PixelIllustration variant="head" size="sm" state="idle" expression={expression} accessibilityLabel={label} />
+            <View testID="cast-avatar-pixel" style={[styles.plate, slot]} {...hidden}>
+                <View style={{ transform: [{ scale: PIXEL_HEAD_SCALE_ON_PLATE }] }}>
+                    <PixelIllustration variant="head" size={size} state="idle"
+                        expression={expression === undefined ? undefined : pixelExpressionFor(expression)} accessibilityLabel={label} />
+                </View>
             </View>
         );
     }
@@ -121,26 +158,21 @@ export function CastAvatar({ speaker, name, expression, accessibilityLabel, deco
     return (
         <View
             testID={`cast-avatar-${speaker}`}
-            style={[styles.slot, styles.plate]}
+            style={[styles.plate, slot]}
             accessible={!decorative}
             accessibilityRole={decorative ? undefined : 'image'}
             accessibilityLabel={decorative ? undefined : label}
             {...hidden}
         >
-            <Portrait id={speaker} />
+            <CastPortrait look={castLookFor(speaker, name)} expression={common} size={size} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    slot: {
-        width: CAST_AVATAR_SIZE,
-        height: CAST_AVATAR_SIZE,
+    plate: {
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    plate: {
-        borderRadius: CAST_AVATAR_SIZE / 2,
         overflow: 'hidden',
         backgroundColor: galaxyColors.surfaceActive,
         borderWidth: 1,

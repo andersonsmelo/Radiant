@@ -107,6 +107,27 @@ describe('DialogueScene', () => {
         }
     });
 
+    it('cada retrato mostra a expressão que a fala pede: afirmação neutra, paciente que pergunta preocupado', () => {
+        render(<DialogueScene dialogue={CENA} visibleCount={3} />);
+
+        const rostos = screen.getAllByTestId(/^cast-face-/u, { includeHiddenElements: true }).map((rosto) => rosto.props.testID);
+        // Lia afirma; o paciente pergunta. O Pixel não tem rosto do elenco: a tela dele é outra.
+        expect(rostos).toEqual(['cast-face-neutro', 'cast-face-preocupado']);
+    });
+
+    it('quem é da equipe e pergunta fica pensativo, não preocupado', () => {
+        render(<DialogueScene dialogue={{ lines: [{ speaker: 'duda', text: 'Então quanto mais, melhor?' }] }} visibleCount={1} />);
+
+        expect(screen.getByTestId('cast-face-pensativo', { includeHiddenElements: true })).toBeTruthy();
+    });
+
+    it('a Dona da cena ganha o retrato dela, não o do senhor grisalho', () => {
+        render(<DialogueScene dialogue={{ lines: [{ speaker: 'paciente', name: 'Dona Marta', text: 'Tem problema fazer o raio X hoje?' }] }} visibleCount={1} />);
+
+        expect(screen.getByTestId('cast-hair-paciente-dona', { includeHiddenElements: true })).toBeTruthy();
+        expect(screen.queryByTestId('cast-hair-paciente', { includeHiddenElements: true })).toBeNull();
+    });
+
     it('a contagem pedida nunca esconde a primeira fala nem passa do fim', () => {
         expect(visibleDialogueLines(CENA, 0)).toHaveLength(1);
         expect(visibleDialogueLines(CENA, 99)).toHaveLength(3);

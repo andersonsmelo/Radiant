@@ -1,0 +1,270 @@
+Execução vermelha da guarda de padrão do elenco, F7, 2026-11-13 20:34 -0300
+Node v20.20.2. Comando: npx jest src/ui/characters/cast/castStandard.test.tsx --runInBand
+Defeitos injetados no código real (revertidos depois; a execução verde vem em seguida no gate):
+  1. cor: dosímetro da Lia pintado com '#7A7A7A' (fora dos tokens)
+  2. traço: lapelas da Lia com strokeWidth 1.6 (fora de 1,2 e 1,4)
+  3. contraste: hairLight da Lia igual ao cabelo (a faixa de luz some)
+  4. expressão ignorada: a Duda desenha sempre o rosto neutro
+  5. expressão ausente: o paciente rotula todo rosto como neutro
+  6. rótulo: o Caio perde a expressão no rótulo; a Duda perde o rótulo
+  7. caixa: a segunda faísca do comemorar sai da caixa (x até 66,5)
+
+    ✕ lia: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (40 ms)
+    ✕ caio: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (22 ms)
+    ✕ duda: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (19 ms)
+    ✕ paciente: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (23 ms)
+    ✕ paciente-dona: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (17 ms)
+    ✕ dentista: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (14 ms)
+    ✕ ultrassom: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (19 ms)
+    ✕ lia: silhueta, roupa e feições têm 3:1 contra a placa grafite (1 ms)
+    ✓ caio: silhueta, roupa e feições têm 3:1 contra a placa grafite (1 ms)
+    ✓ duda: silhueta, roupa e feições têm 3:1 contra a placa grafite
+    ✓ paciente: silhueta, roupa e feições têm 3:1 contra a placa grafite (1 ms)
+    ✓ paciente-dona: silhueta, roupa e feições têm 3:1 contra a placa grafite
+    ✓ dentista: silhueta, roupa e feições têm 3:1 contra a placa grafite
+    ✓ ultrassom: silhueta, roupa e feições têm 3:1 contra a placa grafite
+    ✓ lia: tem ao menos um traço de identidade que não depende de cor
+    ✓ caio: tem ao menos um traço de identidade que não depende de cor
+    ✓ duda: tem ao menos um traço de identidade que não depende de cor
+    ✓ paciente: tem ao menos um traço de identidade que não depende de cor
+    ✓ paciente-dona: tem ao menos um traço de identidade que não depende de cor
+    ✓ dentista: tem ao menos um traço de identidade que não depende de cor (1 ms)
+    ✓ ultrassom: tem ao menos um traço de identidade que não depende de cor
+    ✓ pixel neutro: o avatar é lido com o nome e, quando muda o sentido, a expressão (20 ms)
+    ✓ pixel feliz: o avatar é lido com o nome e, quando muda o sentido, a expressão (20 ms)
+    ✓ pixel pensativo: o avatar é lido com o nome e, quando muda o sentido, a expressão (19 ms)
+    ✓ pixel preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (21 ms)
+    ✓ pixel comemorando: o avatar é lido com o nome e, quando muda o sentido, a expressão (15 ms)
+    ✓ lia neutro: o avatar é lido com o nome e, quando muda o sentido, a expressão (7 ms)
+    ✓ lia feliz: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✓ lia pensativo: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✓ lia preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (4 ms)
+    ✓ lia comemorando: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✓ caio neutro: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✕ caio feliz: o avatar é lido com o nome e, quando muda o sentido, a expressão (5 ms)
+    ✕ caio pensativo: o avatar é lido com o nome e, quando muda o sentido, a expressão (6 ms)
+    ✕ caio preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (5 ms)
+    ✕ caio comemorando: o avatar é lido com o nome e, quando muda o sentido, a expressão (4 ms)
+    ✕ duda neutro: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✕ duda feliz: o avatar é lido com o nome e, quando muda o sentido, a expressão (3 ms)
+    ✕ duda pensativo: o avatar é lido com o nome e, quando muda o sentido, a expressão (4 ms)
+    ✕ duda preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (7 ms)
+    ✕ duda comemorando: o avatar é lido com o nome e, quando muda o sentido, a expressão (5 ms)
+    ✓ paciente neutro: o avatar é lido com o nome e, quando muda o sentido, a expressão (7 ms)
+    ✓ paciente feliz: o avatar é lido com o nome e, quando muda o sentido, a expressão (4 ms)
+    ✓ paciente pensativo: o avatar é lido com o nome e, quando muda o sentido, a expressão (6 ms)
+    ✓ paciente preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (6 ms)
+    ✓ paciente comemorando: o avatar é lido com o nome e, quando muda o sentido, a expressão (5 ms)
+    ✓ decorativo, nenhum avatar fica na árvore de acessibilidade (41 ms)
+    ✓ o Pixel responde às cinco expressões comuns com rostos dele, sem redesenho (1 ms)
+    ✓ os candidatos têm nome, papel e uma ficha de desenho que passa pela mesma guarda (2 ms)
+    ✓ pega cor fora dos tokens (33 ms)
+    ✓ pega traço fora das duas espessuras (54 ms)
+    ✓ pega personagem que ignora a expressão pedida (o retrato fixo de antes) (24 ms)
+    ✓ pega duas expressões iguais (6 ms)
+    ✓ pega expressão diferente, mas fora da caixa (diferença sem validade) (7 ms)
+    ✓ pega personagem sem rótulo acessível, e rótulo sem o nome ou sem a expressão (4 ms)
+    ✓ pega cabelo escuro sem a faixa de luz, roupa que some e feição sem contraste
+    ✓ lia: cabe no teto de nós em qualquer expressão (26 ms)
+    ✓ caio: cabe no teto de nós em qualquer expressão (18 ms)
+    ✓ duda: cabe no teto de nós em qualquer expressão (18 ms)
+    ✓ paciente: cabe no teto de nós em qualquer expressão (24 ms)
+    ✓ paciente-dona: cabe no teto de nós em qualquer expressão (22 ms)
+    ✓ dentista: cabe no teto de nós em qualquer expressão (22 ms)
+    ✓ ultrassom: cabe no teto de nós em qualquer expressão (24 ms)
+    ✓ uma cena de seis falas com o elenco inteiro fica no teto medido (43 ms)
+    - Expected  -  1
+    + Received  + 13
+    - Array []
+    + Array [
+    +   "neutro: traço fora da bíblia: 1.6",
+    +   "neutro: cor fora dos tokens: #7A7A7A",
+    +   "feliz: traço fora da bíblia: 1.6",
+    +   "feliz: cor fora dos tokens: #7A7A7A",
+    +   "pensativo: traço fora da bíblia: 1.6",
+    +   "pensativo: cor fora dos tokens: #7A7A7A",
+    +   "preocupado: traço fora da bíblia: 1.6",
+    +   "preocupado: cor fora dos tokens: #7A7A7A",
+    +   "comemorando: traço fora da bíblia: 1.6",
+    +   "comemorando: cor fora dos tokens: #7A7A7A",
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 6
+    - Array []
+    + Array [
+    +   "feliz igual a neutro",
+    +   "pensativo igual a neutro",
+    +   "preocupado igual a neutro",
+    +   "comemorando igual a neutro",
+    + ]
+    - Expected  - 1
+    + Received  + 7
+    - Array []
+    + Array [
+    +   "sem a expressão feliz",
+    +   "sem a expressão pensativo",
+    +   "sem a expressão preocupado",
+    +   "sem a expressão comemorando",
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "comemorando: fora da caixa 64: 66.5",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "cabelo some na placa: 1.03:1",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "rótulo sem a expressão feliz: Caio, tecnólogo do plantão",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "rótulo sem a expressão pensativo: Caio, tecnólogo do plantão",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "rótulo sem a expressão preocupado: Caio, tecnólogo do plantão",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "rótulo sem a expressão comemorando: Caio, tecnólogo do plantão",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "sem rótulo acessível",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "sem rótulo acessível",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "sem rótulo acessível",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "sem rótulo acessível",
+    + ]
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "sem rótulo acessível",
+    + ]
+Tests:       17 failed, 47 passed, 64 total
+
+=== Segunda execução vermelha, 2026-11-13 20:35 -0300, Node v20.20.2
+Comando: npx jest src/ui/characters/cast/castExpressions.test.ts src/ui/characters/cast/castExpressionFor.test.ts --runInBand
+Defeitos injetados:
+  8. uma sobrancelha 'carranca' (ponta de dentro para baixo) entra na tabela de partes
+  9. o seletor comemora todo marco, inclusive o erro que cai num marco
+
+    Expected: "preocupado"
+    Received: "comemorando"
+    - Expected  - 1
+    + Received  + 1
+    -   "frown": false,
+    +   "frown": true,
+        "name": "carranca",
+    > 31 |             expect({ name, frown: inner[0] > outer[0] + 0.3 && inner[1] > outer[1] + 0.3 }).toEqual({ name, frown: false });
+Tests:       2 failed, 7 passed, 9 total
+
+=== Terceira execução vermelha (achados da revisão independente), 2026-11-13 21:17 -0300, Node v20.20.2
+Comando: npx jest src/ui/characters/cast/castStandard.test.tsx --runInBand
+Defeitos injetados:
+  10. a faixa de luz da Lia vira 'M0 0 Z' (cor certa, forma nenhuma)
+  11. o retrato desenha o rosto de comemorando quando pedem feliz
+  12. o avatar decorativo mantém o rótulo (escondido só pelo pai)
+  13. o Pixel diz 'com ar de preocupação' enquanto mostra o rosto pensando
+
+    ✕ lia: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (37 ms)
+    ✕ caio: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (16 ms)
+    ✕ duda: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (15 ms)
+    ✕ paciente: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (20 ms)
+    ✕ paciente-dona: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (21 ms)
+    ✕ dentista: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (21 ms)
+    ✕ ultrassom: as cinco expressões existem, são distintas, só usam tokens e as duas espessuras, e cabem na caixa (21 ms)
+    ✕ lia: silhueta, roupa e feições têm 3:1 contra a placa grafite (1 ms)
+    ✕ pixel preocupado: o avatar é lido com o nome e, quando muda o sentido, a expressão (16 ms)
+    ✕ decorativo, nenhum avatar fica na árvore de acessibilidade (36 ms)
+    ✕ pega cabelo escuro sem a faixa de luz, roupa que some e feição sem contraste
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 4
+    +   "feliz não desenha o rosto da tabela",
+    +   "comemorando igual a feliz",
+    - Expected  - 1
+    + Received  + 3
+    +   "faixa de luz pequena demais: 0.0 × 0.0",
+    - Expected  - 1
+    + Received  + 3
+    +   "rótulo sem a expressão pensativo: Pixel, guia de estudo, com ar de preocupação",
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugInfo": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugStack": [Error: react-stack-top-frame], "_debugTask": null, "actualDuration": 2, "actualStartTime": 1794615457956, "alternate": null, "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": "View", "flags": 0, "index": 0, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 3, "pendingProps": [Object], "ref": null, "refCleanup": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Object], "subtreeFlags": 5243397, "tag": 5, "treeBaseDuration": 2, "type": "View", "updateQueue": null}}
+    - Expected  - 0
+    + Received  + 1
+    +   "faixa de luz pequena demais: 0.0 × 0.0",
+Tests:       11 failed, 55 passed, 66 total
