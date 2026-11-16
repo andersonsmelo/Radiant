@@ -1,5 +1,14 @@
 # Character System Specification (MVP)
 
+> **Superseded on 2026-11-13 (update 1.6).** This is the MVP spec, kept as
+> history. The app now has a cast of five (Pixel, Profa. Lia, Caio, Duda and
+> Paciente) drawn as SVG from shared parts, with one common expression set
+> (`neutro`, `feliz`, `pensativo`, `preocupado`, `comemorando`). The current
+> source is the
+> [character bible](../../docs/design/2026-11-13-biblia-de-personagens.md); the
+> code is in `src/ui/characters/cast/`. The placement, frequency and
+> accessibility rules below still describe intent.
+
 ## Vision & Purpose
 The Radiant Character System ("Pixel") is designed to provide emotional guidance, celebration, and calm reinforcement inside a premium medical learning product. It acts as a companion, not a distraction. The tone is **Medical-Tech Premium** - calm, confident, and encouraging, never childish or overly cartoonish.
 

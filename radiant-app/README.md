@@ -66,6 +66,40 @@ src/config.ts            # configuração central e flags do app
 - `auth`
 - `sync`
 
+A lista acima é a de 2026-04. Em 2026-11-16, `src/features/` tem também
+`hearts`, `subscription`, `progress-sync`, `missions`, `daily-goal`, `rewards`,
+`student-checkpoints`, `profile`, `settings` e, da atualização 1.6, `league`,
+`widgets`, `decorations` e `conversion`. A lista de verdade é a pasta:
+
+```bash
+ls src/features
+```
+
+### Atualização 1.6 (versão `1.6.0`, na `main` desde 2026-11-15)
+
+| O que entrou | Onde | Chave |
+| --- | --- | --- |
+| Quatro formatos de interação: `cloze`, `true-false`, `categorize`, `multi-select` | `src/types/learningActivity.ts`, `src/features/lesson-flow` | nenhuma |
+| Trilha com 24 unidades e 157 aulas, e desbloqueio que respeita unidade inserida no meio | `src/features/student-checkpoints/batches/`, `src/features/journey/services/JourneyTrackUnlockService.ts` | nenhuma |
+| Elenco de cinco personagens com expressões comuns | `src/ui/characters/cast/` | nenhuma |
+| Sons e microinterações da aula | `src/features/lesson-flow`, `assets/sounds/` | `EXPO_PUBLIC_ENABLE_RICH_FEEDBACK` |
+| Liga semanal no Game Center, rota `/league` | `src/features/league`, `modules/radiant-gamecenter`, `plugins/with-game-center.js` | `EXPO_PUBLIC_ENABLE_LEAGUE` |
+| Widgets do iOS (alvo `RadiantHomeWidgets`, iOS 17 ou mais novo) | `src/features/widgets`, `modules/radiant-widgets`, `plugins/with-widgets.js` | `EXPO_PUBLIC_ENABLE_WIDGETS` |
+| Lembrete personalizado | `src/features/push` | `EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS` |
+| Decorações do perfil, rota `/decoracoes` | `src/features/decorations` | `EXPO_PUBLIC_ENABLE_DECORATIONS` |
+| Convites de assinatura | `src/features/conversion` | `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS` |
+
+As seis chaves são `false` por padrão em `src/config.ts`; só o texto `true`
+liga. O perfil `production` do `eas.json` liga as seis. `ENABLE_LEAGUE` e
+`ENABLE_WIDGETS` mudam o binário (permissão do Game Center, alvo do widget e App
+Group), então só valem por build nova, nunca por OTA. Decisões em
+[`../docs/adr/`](../docs/adr/) (2026-11-13 e 2026-11-15); roteiros do dono em
+[`../docs/runbooks/2026-11-13-liga-game-center.md`](../docs/runbooks/2026-11-13-liga-game-center.md)
+e [`../docs/runbooks/2026-11-15-widgets-ios.md`](../docs/runbooks/2026-11-15-widgets-ios.md).
+
+Módulos nativos locais em `modules/`: `radiant-storekit`, `radiant-cloudkit`,
+`radiant-gamecenter` e `radiant-widgets`.
+
 ## Conteúdo
 
 O app usa atualmente um catálogo local versionado para alimentar Quiz e Review:
@@ -82,6 +116,12 @@ Estado runtime do catálogo em 2026-04-09:
 - `Tórax` (`track-thorax-patterns`) — trilha selecionável na jornada;
 - `Abdome` (`track-abdomen-essentials`) — trilha selecionável na jornada;
 - refresh remoto opcional via `/v1/content/catalog`, sem bloquear o fallback local.
+
+Isso é histórico. Desde a 1.5.0 (2026-11-11) o conteúdo do aluno é a trilha
+`rtg-2026`, de graduação tecnológica: cada unidade é um arquivo em
+`../content-manifest/rtg-2026/aulas/`, e os lotes gerados ficam em
+`src/features/student-checkpoints/batches/`. Veja
+[`../docs/CONTENT_PIPELINE.md`](../docs/CONTENT_PIPELINE.md).
 
 ## Learning Road
 
@@ -409,6 +449,11 @@ Variáveis esperadas:
 - `EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN`
 - `EXPO_PUBLIC_ENABLE_BETA_GATE`
 - `EXPO_PUBLIC_BETA_INVITE_CODE`
+- `EXPO_PUBLIC_ENABLE_PUSH` — padrão `true`
+- as seis chaves da 1.6, todas com padrão `false`: `EXPO_PUBLIC_ENABLE_RICH_FEEDBACK`,
+  `EXPO_PUBLIC_ENABLE_LEAGUE`, `EXPO_PUBLIC_ENABLE_WIDGETS`,
+  `EXPO_PUBLIC_ENABLE_PERSONALIZED_NOTIFICATIONS`, `EXPO_PUBLIC_ENABLE_DECORATIONS` e
+  `EXPO_PUBLIC_ENABLE_CONVERSION_PROMPTS`
 
 Com `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`, o app continua operando apenas no modo local-first.
 Com `EXPO_PUBLIC_ENABLE_REMOTE_CONTENT_CATALOG=false`, o runtime usa apenas o catálogo local.
@@ -579,7 +624,8 @@ configurados do monorepo. Resultados e data da execução ficam no STATUS.
 O [STATUS](../docs/STATUS.md) distingue o produto distribuído dos pacotes locais
 ainda em validação, integração ou preparação para release.
 
-Prioridades imediatas:
+Prioridades imediatas (lista de 2026-09; as de hoje estão no STATUS e na
+[FILA](../docs/FILA.md)):
 
 - (concluído em 2026-09-14) a App Review da `1.3.1` foi aprovada com a build `(11)` e a versão liberada;
 - no Android, alcançar 12 opt-ins e completar os 14 dias do teste fechado;

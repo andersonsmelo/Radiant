@@ -6,6 +6,48 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ---
 
+## [1.6.0] — build 16 compilada em 2026-11-16, ainda não enviada à revisão
+
+Na `main` desde 2026-11-15 (PRs #71 a #78). Decisões nas ADRs de 2026-11-13 e
+2026-11-15, em [`../../docs/adr/`](../../docs/adr/); estado em
+[`../../docs/STATUS.md`](../../docs/STATUS.md). Nada foi visto em aparelho.
+
+### Adicionado
+- Quatro formatos de interação na aula: lacuna (`cloze`), verdadeiro ou falso
+  (`true-false`), classificar (`categorize`) e múltipla seleção (`multi-select`).
+  M01 a M03 foram convertidas para usá-los.
+- Quatro unidades na trilha: M15, M16, S-OD e S-US, com 25 aulas. A trilha passa
+  a ter 24 unidades e 157 aulas.
+- Elenco de cinco personagens (Pixel, Profa. Lia, Caio, Duda e Paciente) com um
+  padrão único de expressões.
+- Sons e microinterações da aula, atrás de `ENABLE_RICH_FEEDBACK`.
+- Liga semanal pelo Game Center da Apple, com a rota `/league`, atrás de
+  `ENABLE_LEAGUE`. Entrar no Game Center é opcional.
+- Dois widgets para a tela de início do iOS 17 ou mais novo, atrás de
+  `ENABLE_WIDGETS`.
+- Lembrete personalizado, com interruptor por tipo nos Ajustes, atrás de
+  `ENABLE_PERSONALIZED_NOTIFICATIONS`.
+- Onze decorações do perfil, com a tela `/decoracoes`, atrás de
+  `ENABLE_DECORATIONS`.
+- Convites de assinatura na folha sem vidas e na comemoração de unidade, atrás de
+  `ENABLE_CONVERSION_PROMPTS`.
+
+### Alterado
+- Unidade inserida no meio da trilha não tira acesso de quem já avançou: a
+  unidade concluída ou iniciada continua aberta.
+- O perfil `production` do `eas.json` liga as seis chaves acima.
+- A política de privacidade ganhou a seção 4.3, sobre o Game Center.
+
+### Conhecido
+- A rota legada `/quiz` paga XP de nível sem as travas das outras rotas.
+- A fala em voz alta dos diálogos não entrou.
+
+## [1.5.0] e anteriores, de 1.3.0 a 1.4.0
+
+Não têm entrada própria aqui. O que cada uma levou à loja está em
+[`../../docs/STATUS.md`](../../docs/STATUS.md) e em
+[`../../docs/archive/STATUS_historico.md`](../../docs/archive/STATUS_historico.md).
+
 ## [Não lançado]
 
 ### Remediação local de QA — 2026-10-14

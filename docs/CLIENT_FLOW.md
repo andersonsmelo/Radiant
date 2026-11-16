@@ -46,6 +46,8 @@ flowchart TD
     P --> C[Backup no iCloud]
     P --> F[Sons e vibração]
     P --> H[Privacidade e suporte]
+    P -.->|1.6, com a chave ligada| LG[Liga da semana]
+    P -.->|1.6, com a chave ligada| DC[Decorações]
     E --> L[Lição]
     E --> CK[Avaliação V2]
     E --> RV[Revisão devida]
@@ -92,6 +94,16 @@ recomendação. O E2E `reward-unlock` confirmou o CTA e a gravação em
 As abas atuais são **Estude e Perfil**. Missões, progresso, configuração de
 sons, backup, assinatura e ajuda são acessados pelo Perfil. As rotas legadas
 de mapa não são abas do fluxo principal.
+
+Desde a 1.6 (na `main` em 2026-11-15, ainda fora da loja), o Perfil ganha duas
+entradas quando as chaves estão ligadas: **Liga da semana** (`/league`,
+`ENABLE_LEAGUE`), que pede a entrada no Game Center e é opcional, e
+**Decorações** (`/decoracoes`, `ENABLE_DECORATIONS`). Os Ajustes ganham um
+interruptor por tipo de lembrete (`ENABLE_PERSONALIZED_NOTIFICATIONS`). Com
+`ENABLE_CONVERSION_PROMPTS`, a folha sem vidas e a comemoração de unidade podem
+mostrar um convite de assinatura, no máximo um por dia. No iOS 17 ou mais novo,
+com `ENABLE_WIDGETS`, o aluno pode pôr na tela de início um widget de sequência
+e outro com sequência, meta e próxima aula; tocar nele abre o app.
 
 O estudo, catálogo e progresso local funcionam **sem conta e sem API**.
 Compra e backup dependem dos serviços da Apple. A evidência física de
@@ -203,10 +215,11 @@ restauração invalidam apenas o checkpoint e voltam à Home; progresso pedagóg
 confirmado nunca é apagado. Contrato completo:
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md).
 
-## Trilha ampla rtg-2026 — caminho do aluno na branch, 2026-11-06
+## Trilha ampla rtg-2026 — caminho do aluno, escrito em 2026-11-06
 
-Vale só para a branch `claude/conteudo-reinicio-tecnologo`. O aluno da loja continua
-no fluxo descrito acima.
+Escrito na branch `claude/conteudo-reinicio-tecnologo`. É o caminho do aluno da
+loja desde a 1.5.0 (2026-11-11). Na 1.6 a aula também pode trazer lacuna,
+verdadeiro ou falso, classificar e múltipla seleção, e a trilha tem 24 unidades.
 
 1. **Estude** mostra a unidade atual, o progresso ("0 de 13") e o próximo passo. Sob o
    cabeçalho ficam o nível e as missões do dia.
@@ -219,6 +232,9 @@ no fluxo descrito acima.
 4. **Conferência:** dois itens novos, sem pista. Reprovado, o aluno refaz a aula, e
    os dois itens de recuperação daquela aula entram na revisão.
 5. **Unidade concluída:** celebração uma vez por unidade, e a próxima unidade abre.
+   Desde a 1.6, unidade já concluída ou iniciada continua aberta, e a unidade
+   inserida atrás do aluno (M15 e M16) aparece como disponível, sem puxar a
+   tela inicial de volta.
 6. **Sequência:** a cada sete dias seguidos o aluno ganha uma proteção (até duas),
    que cobre um dia perdido.
 

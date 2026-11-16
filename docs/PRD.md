@@ -2,6 +2,8 @@
 
 > Direção curricular de 02/11/2026: graduação tecnológica em radiologia, seguida de especializações. O [planejamento único](plans/2026-11-02-planejamento-conteudo-radiant.md) define sequência e entrega. Todas as aulas anteriores foram abrangidas pela autorização de retirada; este PRD não é um catálogo de aulas.
 
+> **Nota de 2026-11-16 (atualização 1.6):** este PRD descreve o MVP. Depois dele entraram, por decisão do dono, recursos que o texto abaixo lista como fora do MVP ou não descreve: liga semanal opcional pelo Game Center, widgets do iOS, lembrete personalizado, decorações do perfil e convites de assinatura. As decisões estão nas ADRs de 2026-11-13 e 2026-11-15, em [`adr/`](adr/), e o estado no [`STATUS.md`](STATUS.md).
+
 
 > **Estado:** requisitos-base vigentes. A evolução educacional por competências
 > foi aprovada em 2026-07-31 e está sendo implementada de forma incremental; ver
@@ -86,7 +88,7 @@ Permitir que estudantes e profissionais de radiologia:
 * Viewer DICOM completo
 * Upload de casos por usuários
 * Comunidade ativa ou comentários abertos
-* Leaderboards globais
+* Leaderboards globais (a 1.6 trouxe uma liga semanal opcional pelo Game Center; veja a nota no topo)
 * Certificação oficial ou créditos CME
 * Conteúdo em vídeo longo
 
@@ -180,7 +182,8 @@ Contratos de produto aprovados:
 - domínio e retenção como métricas primárias de aprendizagem;
 - XP e sequência como apoio, sem punição severa;
 - vidas nunca bloqueiam estudo;
-- ranking global fora da primeira fase;
+- ranking global fora da primeira fase (a liga semanal da 1.6 é opcional e
+  fica atrás de `ENABLE_LEAGUE`);
 - conteúdo e mídia promovidos somente após direitos, proveniência, anonimização
   e revisão humana.
 

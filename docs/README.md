@@ -107,11 +107,25 @@ Quando documentos divergirem, use esta ordem:
   com MCPs, skills, plugins e fluxos. Cada uma traz grau de evidência e o que a
   sessão conferiu.
 
-### 1.6 — liga semanal (frente F4, 2026-11-13)
+### 1.6 — oito frentes (2026-11-13 a 2026-11-16)
 
-- decisão: [ADR da liga semanal no Game Center](adr/ADR-2026-11-13-liga-semanal-no-game-center.md);
-- passos do dono no App Store Connect, privacidade e teste em sandbox: [runbook](runbooks/2026-11-13-liga-game-center.md);
-- evidência, vermelhos e o que foi visto na tela: [`evidence/2026-11-13-f4-liga-semanal.md`](evidence/2026-11-13-f4-liga-semanal.md).
+Estado e pendências no [`STATUS.md`](STATUS.md). Como a atualização foi
+conduzida: [ADR da delegação e do merge](adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md).
+
+| Frente | Decisão | Plano | Evidência | Roteiro do dono |
+| --- | --- | --- | --- | --- |
+| F1, trilha ampliada | na ADR da delegação, item 4 | [plano](plans/2026-11-13-rtg-2026-expansao-pela-ementa.md) | [`evidence/2026-11-13-rtg-2026-expansao/`](evidence/2026-11-13-rtg-2026-expansao/) | |
+| F2, formatos de interação | [ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md) | | [`evidence/2026-11-13-f2-formatos/`](evidence/2026-11-13-f2-formatos/README.md) | |
+| F3, sons e microinterações | [ADR](adr/ADR-2026-11-15-retorno-rico-da-aula.md) | [plano](plans/2026-11-15-f3-sons-e-microinteracoes.md) | [`evidence/2026-11-15-f3-sons/`](evidence/2026-11-15-f3-sons/) | |
+| F4, liga semanal | [ADR](adr/ADR-2026-11-13-liga-semanal-no-game-center.md) | | [`evidence/2026-11-13-f4-liga-semanal.md`](evidence/2026-11-13-f4-liga-semanal.md) | [runbook](runbooks/2026-11-13-liga-game-center.md) |
+| F5, widgets do iOS | [ADR](adr/ADR-2026-11-15-widgets-ios.md) | [plano](plans/2026-11-15-f5-widgets.md) | [`evidence/2026-11-15-f5-widgets/`](evidence/2026-11-15-f5-widgets/README.md) | [runbook](runbooks/2026-11-15-widgets-ios.md) |
+| F6, lembrete e decorações | [ADR](adr/ADR-2026-11-15-notificacoes-personalizadas-e-decoracoes.md) | [plano](plans/2026-11-15-f6-notificacoes-e-decoracoes.md) | [`evidence/2026-11-15-f6-notificacoes-decoracoes/`](evidence/2026-11-15-f6-notificacoes-decoracoes/README.md) | |
+| F7, personagens | [bíblia de personagens](design/2026-11-13-biblia-de-personagens.md) e [candidatos](design/2026-11-13-candidatos-de-personagens.md) | | [`evidence/2026-11-13-f7-personagens/`](evidence/2026-11-13-f7-personagens/) | |
+| F8, convites de assinatura | [ADR](adr/ADR-2026-11-15-convites-de-assinatura.md) | [plano](plans/2026-11-15-f8-conversao.md) | [`evidence/2026-11-15-f8-conversao/`](evidence/2026-11-15-f8-conversao/README.md) | |
+
+A política de privacidade ganhou a seção do Game Center e foi publicada em
+2026-11-16: [`legal/politica-de-privacidade.md`](legal/politica-de-privacidade.md)
+e [`legal/PROMPT_PUBLICACAO_PAGINAS.md`](legal/PROMPT_PUBLICACAO_PAGINAS.md).
 
 ### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
 

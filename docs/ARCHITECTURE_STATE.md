@@ -1,5 +1,7 @@
 # Radiant — estado arquitetural
 
+> **Estado mais recente:** a seção "Atualização 1.6 — medido em 2026-11-16, na `main`", perto do fim deste arquivo. As demais descrevem estados anteriores.
+
 > No checkout Medalhão, o reinício de conteúdo de 02/11/2026 retira datasets e exemplos, preservando motores e armazenamento. O catálogo explicita `retired`. As seções históricas abaixo descrevem a arquitetura anterior, não provam conteúdo ativo. [Decisão](adr/ADR-2026-11-02-reinicio-conteudo-e-foco-tecnologo.md).
 
 
@@ -49,6 +51,8 @@ O motor da Learning Road preserva `journey-progress.v2` e progresso separado por
 trilha. Em02/11/2026, no checkout Medalhão, o catálogo runtime está vazio e o
 bootstrap `retired` retorna antes de remoto/cache/migração. Os dados de aulas
 antigos não são baseline ativo; motores e histórico do usuário permanecem.
+Desde a 1.5.0 (2026-11-11) o catálogo runtime é a trilha `rtg-2026`, descrita nas
+duas seções do fim deste arquivo.
 
 Regra arquitetural: alternar trilhas não apaga progresso, uma falha de sync não
 bloqueia o estudo e estados vazios devem manter continuidade no fluxo principal.
@@ -396,10 +400,11 @@ legado. `itemReviewTiming` fornece sinal temporal operacional, sem promoção a
 `delayed-retention`. A adaptação continua sem ativação nova.
 [Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
 
-## Trilha ampla rtg-2026 — medido em 2026-11-06, só na branch
+## Trilha ampla rtg-2026 — medido em 2026-11-06
 
-Vale para a branch `claude/conteudo-reinicio-tecnologo` (PR #69 em rascunho). Nada
-disto está na `main` nem na loja.
+Medido na branch `claude/conteudo-reinicio-tecnologo`. A PR #69 entrou na `main`
+em 2026-11-11 e saiu na 1.5.0. Os números abaixo são os daquela data; os de hoje
+estão na seção da 1.6, logo depois.
 
 - **Conteúdo como dado.** Cada unidade é um arquivo
   `content-manifest/rtg-2026/aulas/<unidade>.json`. `scripts/content/rtg-lesson-lint.mjs`
@@ -427,6 +432,49 @@ disto está na `main` nem na loja.
 - **Evidências:** [motor](evidence/2026-11-06-trilha-ampla-motor.md),
   [experiência](evidence/2026-11-06-trilha-ampla-experiencia.md) e
   [metas](evidence/2026-11-06-trilha-ampla-metas.md).
+
+## Atualização 1.6 — medido em 2026-11-16, na `main`
+
+Entrou em 2026-11-15, pelas PRs #71 a #78
+([ADR](adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)). Versão `1.6.0`.
+
+- **Trilha.** 24 unidades e 157 aulas, na ordem M01 M02 M03 **M15** M04 a M09
+  **M16** M10 a M14, depois S-TC, S-RM, S-MD, S-MN, S-RT, S-IR, **S-OD** e
+  **S-US** (`radiant-app/src/features/student-checkpoints/batches/index.ts`).
+  `resolveTrackAccess`, em `journey/services/JourneyTrackUnlockService.ts`, abre
+  também a unidade já concluída ou iniciada e a que fica antes da mais avançada
+  que o aluno iniciou: unidade inserida no meio não tira acesso de ninguém.
+- **Interações.** O tocador aceita 13 tipos
+  (`radiant-app/src/types/learningActivity.ts`); os quatro novos são `cloze`,
+  `true-false`, `categorize` e `multi-select`. O contrato `wide` aceita nove:
+  `multiple-choice`, `case-decision`, `ordering`, `matching`, `comparison` e os
+  quatro novos ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)).
+- **Personagens.** Elenco de cinco em `src/ui/characters/cast/castRegistry.ts`
+  (Pixel, Profa. Lia, Caio, Duda e Paciente), com as expressões `neutro`,
+  `feliz`, `pensativo`, `preocupado` e `comemorando`
+  ([bíblia](design/2026-11-13-biblia-de-personagens.md)).
+- **Features novas** em `radiant-app/src/features/`: `league` (rota `/league`),
+  `widgets`, `decorations` (rota `/decoracoes`, 11 itens) e `conversion`; o
+  lembrete personalizado fica em `push`. Chaves novas de armazenamento:
+  `@radiant:league_v1`, `@radiant:decorations_v1`, `@radiant:conversion_v1` e
+  `@radiant:notification_preferences_v1`.
+- **Módulos nativos** em `radiant-app/modules/`: aos dois que existiam
+  (`radiant-storekit`, `radiant-cloudkit`) somam-se `radiant-gamecenter` e
+  `radiant-widgets`. Plugins de configuração em `radiant-app/plugins/`:
+  `with-game-center` e `with-widgets`, além do `with-gradle-memory`. O widget é o
+  alvo `RadiantHomeWidgets`, iOS 17 ou mais novo, gerado por
+  `@bacons/apple-targets`; o app grava o retrato no `UserDefaults` do App Group
+  `group.com.ascendcreative.radiant.widgets`, e nada sai do aparelho.
+- **Chaves.** `ENABLE_RICH_FEEDBACK`, `ENABLE_LEAGUE`, `ENABLE_WIDGETS`,
+  `ENABLE_PERSONALIZED_NOTIFICATIONS`, `ENABLE_DECORATIONS` e
+  `ENABLE_CONVERSION_PROMPTS`, todas `false` por padrão em
+  `radiant-app/src/config.ts` e `"true"` no perfil `production` do `eas.json`.
+  `ENABLE_LEAGUE` e `ENABLE_WIDGETS` mudam o binário e só valem por build nova.
+- **Sons.** 11 arquivos em `radiant-app/assets/sounds/`; `fala.m4a` e
+  `soltar.m4a` são da 1.6 ([ADR](adr/ADR-2026-11-15-retorno-rico-da-aula.md)).
+- **Rede.** A 1.6 não acrescenta evento de telemetria nem chamada a servidor
+  próprio. O único dado que sai do aparelho é o total de XP da semana, enviado à
+  Apple pelo Game Center quando o aluno entra nele.
 
 ## Fontes de verdade
 
