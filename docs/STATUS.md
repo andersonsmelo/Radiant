@@ -56,9 +56,23 @@ foi enviado à loja.**
 
 **Configuração da build 1.6.0 (2026-11-15):** a versão no repositório é
 `1.6.0` e o perfil `production` do `radiant-app/eas.json` liga as seis chaves
-da 1.6, por decisão do dono nesse dia. Nenhuma build saiu; a loja segue na
-1.5.0. A política de privacidade no repositório ganhou a seção 4.3 (Game
-Center); **a página pública ainda não foi atualizada**.
+da 1.6, por decisão do dono nesse dia. A política de privacidade no repositório ganhou a seção 4.3 (Game
+Center).
+
+**Build 1.6.0 (16) e preparação na Apple (medido em 2026-11-16):** a build de
+produção do iOS compilou no EAS a partir de `e8e3a0e`, com os alvos `Radiant` e
+`RadiantHomeWidgets`. O envio ao TestFlight estava na fila do EAS na última
+leitura, **sem confirmação**; a loja segue na 1.5.0. O dono criou, com o agente
+conferindo pela página: o App Group `group.com.ascendcreative.radiant.widgets`,
+ligado aos App IDs `com.ascendcreative.radiant` e
+`com.ascendcreative.radiant.widgets`; e o placar recorrente
+`radiant.liga.semanal.xp` (início 2026-11-23 00:00 UTC, 7 dias, melhor
+pontuação, decrescente, pt-BR com sufixo " XP"). O placar **ainda não foi
+adicionado à versão 1.6** no App Store Connect, porque a versão não existe lá.
+A política de privacidade pública foi atualizada nesse dia: a URL
+`https://saudediagnostica.com/radiant/privacidade/` responde 200 com o SHA-256
+do arquivo do repositório (`b13f9d48…`). A página de suporte no ar continua a de
+2026-07-29. **Nada foi visto em aparelho.**
 
 **Depende do dono:** build de distribuição; o placar `radiant.liga.semanal.xp`
 no App Store Connect ([runbook](runbooks/2026-11-13-liga-game-center.md)); o App

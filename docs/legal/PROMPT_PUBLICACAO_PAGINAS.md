@@ -24,12 +24,18 @@ sistema (iCloud e Google) e como zerar o progresso em cada plataforma
 ([ADR](../adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md)). A versão
 no ar continua a de 2026-07-29 até ser republicada.
 
+**Atualizado em 2026-11-16:** a política ganhou a seção 4.3, sobre a liga da
+semana pelo Game Center da Apple, e foi publicada no mesmo dia por SSH
+(`sd-hostgator`, em `public_html/radiant/privacidade/index.html`), com o
+SHA-256 abaixo conferido no servidor e pela URL. A página de suporte no ar
+continua a de 2026-07-29.
+
 **Checksums das fontes (SHA-256).** Servem para detectar divergência entre o que
 está aqui e o que foi publicado:
 
 | Arquivo | SHA-256 |
 | --- | --- |
-| `politica-de-privacidade.html` | `358e1a168525e5df127e72743ad640df8975f3fe69f1ee8c3057fcf75e0d6988` |
+| `politica-de-privacidade.html` | `b13f9d480bd423bbef859ba805dea3e2ad5897e07a1a6b952097729b57363c66` |
 | `pagina-de-suporte.html` | `75dacf48a0475d90cd0a1d5ede73f33844ab18256e0cedf8c68fe527cf963a95` |
 
 ---
@@ -151,7 +157,7 @@ Quando terminar, me mande:
   <header>
     <h1>Política de Privacidade do Radiant</h1>
     <p class="meta"><strong>Aplicativo:</strong> Radiant — aplicativo educacional de radiologia</p>
-    <p class="meta"><strong>Última atualização:</strong> 19 de outubro de 2026</p>
+    <p class="meta"><strong>Última atualização:</strong> 15 de novembro de 2026</p>
     <p class="meta"><strong>Controlador dos dados:</strong> Anderson Melo (pessoa física)</p>
     <p class="meta"><strong>Contato para privacidade:</strong> <a href="mailto:anderson.smelo94@gmail.com">anderson.smelo94@gmail.com</a></p>
   </header>
@@ -187,7 +193,9 @@ Quando terminar, me mande:
   <p>Para entregar correções e melhorias sem exigir uma nova instalação, o app verifica atualizações de software nos servidores da <strong>Expo</strong> (<code>u.expo.dev</code>). Nessa verificação, a Expo pode receber <strong>metadados técnicos</strong> do dispositivo (como versão do app, plataforma e endereço IP da conexão), o mínimo necessário para entregar a atualização correta. Nenhum dado de estudo é enviado nesse processo.</p>
   <h3>4.2. Relatórios de falha (Sentry) — apenas quando habilitado</h3>
   <p>Para diagnosticar travamentos e melhorar a estabilidade, o app pode usar o serviço <strong>Sentry</strong>. Quando esse recurso está habilitado, em caso de erro são enviados <strong>dados de diagnóstico</strong> — como tipo de erro, pilha de execução, versão do app e ambiente — junto de um <strong>identificador gerado pelo aplicativo</strong> para agrupar ocorrências. Esse envio é configurado com <code>sendDefaultPii</code> <strong>desligado</strong>, ou seja, <strong>sem o seu e-mail</strong> e sem dados pessoais adicionais que a biblioteca coletaria por padrão. Na build de lançamento atual, o relatório de falhas <strong>não está ativo</strong>.</p>
-  <h3>4.3. Lojas de aplicativos</h3>
+  <h3>4.3. Liga da semana (Game Center da Apple) — opcional</h3>
+  <p>Se você entrar no Game Center da Apple, o Radiant envia à Apple o total de XP que você ganhou na semana, para montar a liga. A Apple mostra aos outros participantes só o seu apelido do Game Center, a sua posição e o seu XP. O Radiant não recebe seu nome, e-mail ou identificador da Apple, e não guarda esses dados em servidor próprio. Entrar no Game Center é opcional e não muda nada no seu estudo. O tratamento desses dados segue os termos e a política de privacidade da Apple. A aba "Amigos" da liga só lê a sua lista de amigos do Game Center se você permitir, e mostra apenas o apelido de cada um.</p>
+  <h3>4.4. Lojas de aplicativos</h3>
   <p>O download e a distribuição do app são feitos pela <strong>App Store (Apple)</strong> e pelo <strong>Google Play (Google)</strong>, que tratam dados conforme as suas próprias políticas de privacidade, fora do controle do Radiant.</p>
 
   <h2>5. Conta e sincronização (não ativas nesta versão)</h2>
@@ -201,7 +209,7 @@ Quando terminar, me mande:
   </ul>
 
   <h2>7. Compartilhamento</h2>
-  <p>Nós <strong>não vendemos e não compartilhamos</strong> seus dados para fins de marketing. O único compartilhamento possível é o processamento técnico pelos terceiros da seção 4 (Expo e, quando ativo, Sentry), estritamente para operar e manter o app.</p>
+  <p>Nós <strong>não vendemos e não compartilhamos</strong> seus dados para fins de marketing. O único compartilhamento possível é o processamento técnico pelos terceiros da seção 4 (Expo, a Apple pelo Game Center se você entrar nele e, quando ativo, Sentry), estritamente para operar e manter o app.</p>
 
   <h2>8. Retenção e como apagar seus dados</h2>
   <p>Os dados locais (seção 3.1) permanecem no dispositivo <strong>enquanto o app estiver instalado</strong>. Você pode apagá-los a qualquer momento:</p>
@@ -222,7 +230,7 @@ Quando terminar, me mande:
   <p>Os dados locais ficam protegidos pelo isolamento (sandbox) do sistema operacional do dispositivo. Na configuração atual, como não há transmissão de dados pessoais, a superfície de exposição em trânsito é mínima. Quando houver transmissão técnica (seção 4), ela ocorre por canais criptografados (HTTPS).</p>
 
   <h2>12. Transferência internacional</h2>
-  <p>Os terceiros da seção 4 (Expo e, quando ativo, Sentry) podem processar os metadados técnicos em servidores <strong>fora do Brasil</strong> (por exemplo, nos Estados Unidos). Nesses casos, o tratamento se limita ao necessário para operar o app e segue as salvaguardas aplicáveis.</p>
+  <p>Os terceiros da seção 4 (Expo, a Apple pelo Game Center quando você entra nele e, quando ativo, Sentry) podem processar os metadados técnicos em servidores <strong>fora do Brasil</strong> (por exemplo, nos Estados Unidos). Nesses casos, o tratamento se limita ao necessário para operar o app e segue as salvaguardas aplicáveis.</p>
 
   <h2>13. Alterações nesta política</h2>
   <p>Podemos atualizar esta política para refletir mudanças no app ou na legislação. Mudanças relevantes serão sinalizadas pela data de "Última atualização" no topo e, quando o tratamento passar a incluir novas categorias de dados, a atualização será publicada <strong>antes</strong> de a mudança entrar em vigor.</p>
