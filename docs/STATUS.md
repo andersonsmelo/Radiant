@@ -59,8 +59,10 @@ O estado de cada frente medido na própria branch, antes do merge, está no fim 
 **Build 1.6.0 (16), medido em 2026-11-16:** a versão no repositório é `1.6.0`,
 e o perfil `production` do `radiant-app/eas.json` liga as seis chaves da 1.6,
 por decisão do dono em 2026-11-15. A build de produção do iOS compilou no EAS a
-partir de `e8e3a0e`, com os alvos `Radiant` e `RadiantHomeWidgets`. O envio ao
-TestFlight estava na fila do EAS na última leitura, **sem confirmação**.
+partir de `e8e3a0e`, com os alvos `Radiant` e `RadiantHomeWidgets`. O EAS enviou
+o binário ao App Store Connect nesse dia ("Submitted your app to Apple App
+Store Connect", lido no terminal do dono). **Não conferido:** o fim do
+processamento pela Apple e a build aparecendo no TestFlight.
 
 **Feito na Apple pelo dono em 2026-11-16, com o agente conferindo pela página:**
 o App Group `group.com.ascendcreative.radiant.widgets`, ligado aos App IDs
