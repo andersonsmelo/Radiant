@@ -54,6 +54,12 @@ foi enviado à loja.**
 | F6, lembrete personalizado e decorações | #75 | só com as duas chaves da frente |
 | F8, convites de assinatura | #76 | só com `ENABLE_CONVERSION_PROMPTS` |
 
+**Configuração da build 1.6.0 (2026-11-15):** a versão no repositório é
+`1.6.0` e o perfil `production` do `radiant-app/eas.json` liga as seis chaves
+da 1.6, por decisão do dono nesse dia. Nenhuma build saiu; a loja segue na
+1.5.0. A política de privacidade no repositório ganhou a seção 4.3 (Game
+Center); **a página pública ainda não foi atualizada**.
+
 **Depende do dono:** build de distribuição; o placar `radiant.liga.semanal.xp`
 no App Store Connect ([runbook](runbooks/2026-11-13-liga-game-center.md)); o App
 Group dos widgets no portal da Apple
