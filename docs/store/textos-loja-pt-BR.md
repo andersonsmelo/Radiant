@@ -146,6 +146,27 @@ Notas: o nome do app ("Radiant") e o subtítulo não precisam se repetir nas
 keywords; termos no plural/singular são indexados de forma parecida — priorizamos
 os de maior intenção de busca.
 
+## Notas de versão — v1.6 (rascunho de 2026-11-16, aguarda o dono)
+
+Rascunho escrito pelo agente a partir do que entrou na `main`. **Não foi
+aprovado nem colado no App Store Connect.** Só vale se a build enviada mantiver
+as seis chaves ligadas; tire a linha de qualquer recurso que sair.
+
+- Liga da semana: entre no Game Center e compare seu XP com outros estudantes e
+  com seus amigos. É opcional.
+- Widgets para a tela de início: sua sequência, a meta do dia e a próxima aula.
+- Quatro unidades novas: células, tecidos e funções; a condição do paciente na
+  aquisição; radiologia odontológica; e ultrassonografia.
+- Aulas com mais formatos: lacuna, verdadeiro ou falso, classificar e múltipla
+  seleção.
+- Personagens novos nas cenas, sons e animações na aula.
+- Lembretes que acompanham seu ritmo, com controle por tipo nos Ajustes.
+- Decorações para o seu perfil, conquistadas com o estudo.
+
+A descrição e as keywords abaixo e acima são as da 1.3 e 1.4, e citam
+"Fundamentos", "Tórax" e "Abdome", trilhas que saíram na 1.5.0. **Estão
+defasadas e precisam de texto novo do dono antes do envio da 1.6.**
+
 ## Notas de versão (release notes) — v1.3 (primeira versão pública)
 
 **Primeira versão pública do Radiant.**

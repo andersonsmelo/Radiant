@@ -1395,6 +1395,15 @@ a trilha de lojas.
   bloquear; a parte social (seguidores, handle público) sai do escopo. Ver
   [ADR](../adr/ADR-2026-08-15-liga-como-metrica-local.md). A construção continua
   precisando de spec própria — a ADR fixa direção, não autoriza código.
+  **Atualizado em 2026-11-16:** em 2026-11-13 o dono pediu ranqueamento na
+  atualização 1.6, e a frente F4 construiu uma **liga semanal opcional pelo Game
+  Center da Apple**, atrás de `ENABLE_LEAGUE`, sem servidor próprio, sem conta e
+  sem competidor simulado
+  ([ADR](../adr/ADR-2026-11-13-liga-semanal-no-game-center.md)). Está na `main`
+  desde 2026-11-15. A ADR nova não cita a de 2026-08-15; a relação entre as duas
+  (a liga local deixa de ser a direção, ou convive) **não foi registrada por
+  decisão do dono**. Seguidores e handle público próprios continuam fora do
+  escopo: o que aparece é o apelido do Game Center.
 
 **O que I2 herda de I1 — maior do que se registrou.** A dívida conhecida era a regra da
 melhor tentativa inerte pela rota `/quiz`, que não tem ponto de entrada in-app. A
@@ -1985,3 +1994,14 @@ Regras de loja mudam com frequência; revalidar §4 nas datas de M0 e M4.
    estado vivo.
 4. Para as Tasks 12, 15 e 16 detalhadas, usar os blocos correspondentes do
    [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md).
+
+## 11. Atualização 1.6 (2026-11-13 a 2026-11-16) — fora das ondas deste roadmap
+
+A 1.6 não nasceu das tasks A1 a F7. Foi pedida pelo dono em 2026-11-13 e
+conduzida em oito frentes, cada uma numa sessão e numa PR
+([ADR](../adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)). **Estado em
+2026-11-16:** as oito frentes estão na `main` (PRs #71 a #78), a build
+`1.6.0 (16)` do iOS compilou no EAS e ainda não foi à revisão. O estado vivo, as
+pendências do dono e o índice por frente ficam no
+[`STATUS.md`](../STATUS.md) e no [`README.md`](../README.md) de `docs/`; as
+pendências executáveis, no item 8 da [`FILA.md`](../FILA.md).

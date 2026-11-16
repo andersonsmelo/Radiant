@@ -76,9 +76,21 @@ Respostas tecnicamente sustentadas pelo binário:
 | Drogas, álcool, tabaco | Não |
 | Jogos de azar / apostas / loot boxes | Não |
 | Conteúdo assustador / horror | Não |
-| Competições entre usuários | Não — XP, sequência e meta são progresso individual |
+| Competições entre usuários | Não — XP, sequência e meta são progresso individual. **Rever antes de enviar a 1.6:** ver a nota logo abaixo da tabela |
 | Tópicos de saúde ou bem-estar | Não — o app não oferece autocuidado nem recomendações de estilo de vida |
 | **Informações médicas ou de tratamento** | **Pouco frequente** — atestado pelo titular e persistido no App Store Connect em 2026-08-05 |
+
+**Nota de 2026-11-16, para a 1.6 (ainda não enviada):** a liga semanal, atrás
+de `ENABLE_LEAGUE`, compara o XP da semana entre alunos pelo Game Center da
+Apple, no placar global e no de amigos. A resposta "Não" da linha de competições
+foi dada antes de ela existir e **precisa ser revista pelo dono no questionário
+de classificação antes do envio**; esta sessão não abriu o formulário vigente. A
+pontuação vai à Apple pelo GameKit, sem servidor do Radiant; a leitura registrada
+no [runbook da liga](../runbooks/2026-11-13-liga-game-center.md), seção 5, é que
+a ficha de privacidade continua "Dados não coletados", e ela também não foi
+conferida contra o texto atual da Apple. A política de privacidade já descreve a
+liga na seção 4.3. Os widgets gravam só no aparelho (App Group), e a 1.6 não
+acrescenta evento de telemetria.
 
 O console calculou `13+` para 172 países ou regiões e `12+` para Brasil e Coreia
 do Sul. Para sistemas anteriores à versão 26, exibiu classificação global `12+`

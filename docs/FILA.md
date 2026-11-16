@@ -1314,6 +1314,37 @@ respondida hoje.**
 
 ---
 
+### 8. Atualização 1.6 — do TestFlight à revisão
+
+**Estado:** as oito frentes na `main`; build `1.6.0 (16)` do iOS compilada no
+EAS em 2026-11-16, com as seis chaves ligadas; envio ao TestFlight sem
+confirmação na última leitura. App Group, App ID do widget e placar
+`radiant.liga.semanal.xp` criados pelo dono nesse dia. Política de privacidade
+pública atualizada. **Bloqueio:** humano. **Dono:** dono.
+
+O número das frentes da 1.6 (F1 a F8) não tem relação com as etapas F1 a F7 do
+teste fechado do Android, usadas nos outros itens desta fila.
+
+Falta, nesta ordem:
+
+1. Ver a build no aparelho pelo TestFlight: aulas novas, sons, liga em sandbox,
+   widgets na tela de início, notificação e decorações.
+2. Conferir a compra em sandbox com os convites de assinatura ligados.
+3. Fazer as mudanças que o dono quer antes da revisão (pedido de 2026-11-16) e
+   gerar build nova, se elas tocarem o app.
+4. Criar a versão 1.6.0 no App Store Connect, **adicionar o placar a ela**,
+   escrever as novidades e rever a descrição, que ainda é a da 1.4.0.
+5. Enviar à revisão.
+
+Roteiros: [liga](runbooks/2026-11-13-liga-game-center.md) e
+[widgets](runbooks/2026-11-15-widgets-ios.md). Detalhe em
+[`STATUS.md`](STATUS.md), seção da 1.6.
+
+```bash
+cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
+curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([r['version'] for r in json.load(sys.stdin)['results']])"
+```
+
 ## Precisa de aparelho ou janela de host
 
 **B5 Android**, **C4** (flows em device físico), **C5** (TalkBack no Android),

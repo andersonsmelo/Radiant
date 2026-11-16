@@ -1,6 +1,8 @@
 # Radiant
 
-> Planejamento de conteúdo em reinício (02/11/2026): público inicial de graduação tecnológica em radiologia, seguido de especializações. [Entrada única](docs/plans/2026-11-02-planejamento-conteudo-radiant.md). Esta retirada é local à branch Medalhão; não altera o app distribuído.
+> Planejamento de conteúdo em reinício (02/11/2026): público inicial de graduação tecnológica em radiologia, seguido de especializações. [Entrada única](docs/plans/2026-11-02-planejamento-conteudo-radiant.md). A retirada do conteúdo antigo chegou à loja com a 1.5.0, em 2026-11-11.
+
+> **Estado em 2026-11-16:** a loja tem a 1.5.0, com a trilha de graduação tecnológica. A `main` tem a atualização 1.6 (versão `1.6.0`): trilha com 24 unidades e 157 aulas, quatro formatos novos de interação, elenco de personagens e, atrás de chaves, sons e microinterações, liga semanal no Game Center, widgets do iOS, lembrete personalizado, decorações do perfil e convites de assinatura. O que é verdade agora está no [`docs/STATUS.md`](docs/STATUS.md).
 
 
 Radiant é um aplicativo mobile educacional de radiologia, local-first, com
@@ -26,7 +28,9 @@ A próxima fase transforma a jornada atual em uma trilha espiral por
 competências, começando por **Fundamentos e Segurança Radiológica**. As sessões
 terão 3–5 minutos, atividades visuais reutilizáveis, domínio por competência,
 checkpoint e revisão posterior. Vidas não bloqueiam estudo e ranking global não
-faz parte da primeira fase.
+faz parte da primeira fase. (A 1.6 trouxe uma liga semanal opcional pelo Game
+Center, atrás de `ENABLE_LEAGUE`; veja a
+[ADR](docs/adr/ADR-2026-11-13-liga-semanal-no-game-center.md).)
 
 Snapshot histórico das fundações em 2026-07-31:
 
@@ -59,6 +63,12 @@ Os contratos do motor, do agendador, de evidência e de quarentena permanecem;
 nenhuma aprovação antiga autoriza aulas futuras. Catálogos ativos estão vazios,
 com estado explícito `retired`, e não importam remoto/cache ou migram histórico
 no bootstrap. A apresentação inicial mantém Pixel/navegação, sem exercício de kV.
+
+Isso descreve a branch em 2026-11-02. Desde a 1.5.0 o catálogo ativo é a trilha
+`rtg-2026`, lida dos lotes promovidos em
+`radiant-app/src/features/student-checkpoints/batches/`; na `main` de 2026-11-16
+são 24 unidades e 157 aulas, e o tocador aceita 13 tipos de interação
+(`radiant-app/src/types/learningActivity.ts`).
 
 O [plano de conteúdo](docs/plans/2026-11-02-planejamento-conteudo-radiant.md) é a
 única proposta curricular. O [pipeline](docs/CONTENT_PIPELINE.md) continua sendo

@@ -319,9 +319,11 @@ qualquer erro reprova a geração inteira; não existe lote parcial.
 
 **O que `wide` aceita** (`EditorialWideContract.ts`):
 
-- de 3 a 8 interações por atividade, nas famílias `multiple-choice`,
-  `case-decision`, `ordering` e `matching`. `hotspot`, `comparison` e `bench`
-  ficam fora, porque dependem de ativo que esta etapa não tem;
+- de 3 a 8 interações por atividade, em nove famílias: `multiple-choice`,
+  `case-decision`, `ordering`, `matching`, `comparison` e, desde a 1.6
+  (2026-11-15), `cloze`, `true-false`, `categorize` e `multi-select`
+  ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)). `hotspot` e
+  `bench` ficam fora, porque dependem de ativo que esta etapa não tem;
 - fonte com `use: 'cc-by-4.0' | 'factual-reference'`, mais `publisher`, `url`
   https, `accessedAt` e `licenseNote`. Não há hash do corpo recuperado: a fonte de
   consulta sustenta o fato, e a redação é própria;
@@ -349,9 +351,13 @@ a conferência daquela competência.
 material. Isso registra revisão por IA sob delegação. Não é revisão por
 profissional de radiologia.
 
-**Trilha.** Uma trilha por unidade, na ordem `m01`…`m14` e depois `s-tc`, `s-rm`,
-`s-md`, `s-mn`, `s-rt`, `s-ir`. A trilha seguinte abre quando a anterior termina,
-então os ramos só abrem depois de M14. `curriculum-state.json` continua `retired`:
+**Trilha.** Uma trilha por unidade. Desde a 1.6 são 24, nesta ordem: `m01`,
+`m02`, `m03`, `m15`, `m04`…`m09`, `m16`, `m10`…`m14` e depois `s-tc`, `s-rm`,
+`s-md`, `s-mn`, `s-rt`, `s-ir`, `s-od`, `s-us`. A trilha seguinte abre quando a
+anterior termina, então os ramos só abrem depois de M14. Uma unidade já
+concluída ou iniciada continua aberta, e a que foi inserida antes do ponto em que
+o aluno está aparece como disponível (`resolveTrackAccess`, em
+`JourneyTrackUnlockService.ts`). `curriculum-state.json` continua `retired`:
 ele descreve o conteúdo antigo, que não volta.
 
 **Depois de uma conferência reprovada.** O app bloqueia nova tentativa até o

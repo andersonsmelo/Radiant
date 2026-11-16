@@ -1,5 +1,29 @@
 # Maestro local E2E runbook
 
+## Estado em 2026-11-16 (1.5.0 na loja, 1.6 na `main`)
+
+O conteúdo deixou de estar retirado: desde a 1.5.0 o app traz a trilha
+`rtg-2026`, e a seção seguinte descreve o checkout de 2026-11-02, mantida como
+histórico. Roteiros que existem hoje em `.maestro/`:
+
+- `boot-to-home.yaml`: o único que `.maestro/config.yaml` descobre sozinho;
+- `f2-formatos/m01.yaml`, `m02.yaml` e `m03.yaml`: os quatro formatos novos de
+  interação da 1.6, nas unidades convertidas. Passaram inteiros no simulador em
+  2026-11-13 ([evidência](../../docs/evidence/2026-11-13-f2-formatos/README.md));
+- `rtg-2026/`: uma aula e uma avaliação de cada unidade nova da 1.6
+  (`m15`, `m16`, `s-od`, `s-us`), gerados por
+  `scripts/qa/generate-rtg-maestro.mjs`. **Não há registro de execução deles no
+  simulador.**
+
+Os roteiros das duas pastas só rodam quando chamados pelo caminho:
+
+```bash
+maestro test .maestro/f2-formatos/m01.yaml
+```
+
+Liga, widgets, notificação, decorações e convites de assinatura não têm roteiro
+Maestro.
+
 ## Checkout com conteúdo retirado — 02/11/2026
 
 O catálogo local declara `retired`. Todas as aulas antigas, inclusive bancada e

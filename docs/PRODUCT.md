@@ -1,6 +1,8 @@
 # Product
 
-> Content direction, 2026-11-02: radiology technology undergraduates first, then specializations. Use the [single content plan](plans/2026-11-02-planejamento-conteudo-radiant.md). The Medalhão visual identity and reusable engines remain; previous lesson content is retired locally, without changing the distributed app.
+> Content direction, 2026-11-02: radiology technology undergraduates first, then specializations. Use the [single content plan](plans/2026-11-02-planejamento-conteudo-radiant.md). The Medalhão visual identity and reusable engines remain; previous lesson content was retired, and the retirement shipped in 1.5.0 on 2026-11-11.
+
+> State on 2026-11-16: `main` carries update 1.6 (24 units, 157 lessons, four new interaction formats, a character cast and, behind flags, rich feedback, a weekly Game Center league, iOS widgets, personalized reminders, profile decorations and subscription invites). See [`STATUS.md`](STATUS.md).
 
 
 ## Register
