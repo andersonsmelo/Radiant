@@ -1,7 +1,9 @@
 import React from 'react';
 import { AccessibilityInfo, Animated, StyleSheet } from 'react-native';
 import { fireEvent, render, screen, within } from '@testing-library/react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { feedbackColors } from '../../../ui/theme';
+import { space } from '../../../ui/styles';
 import { AnswerFeedbackSheet, feedbackSheetMaxHeight, revealOffset } from './AnswerFeedbackSheet';
 
 let mockReducedMotion = false;
@@ -116,6 +118,23 @@ describe('AnswerFeedbackSheet', () => {
         expect(within(corpo).queryByRole('button', { name: 'Continuar' })).toBeNull();
         expect(within(screen.getByTestId('lesson-item-feedback')).getByRole('button', { name: 'Continuar' })).toBeTruthy();
         expect(feedbackSheetMaxHeight(900)).toBe(600);
+    });
+
+    // Tarefa 11: sobrava uma faixa do fundo da aula abaixo da folha. A cor dela
+    // vai até a borda da tela, e o inset da área segura vira padding interno.
+    it('a superfície vai até a borda de baixo e o padding inferior inclui o inset da área segura', () => {
+        const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 0, left: 0, right: 0, bottom: 34 } };
+        render(
+            <SafeAreaProvider initialMetrics={metrics}>
+                <AnswerFeedbackSheet correct={false} message="a" actionLabel="Continuar" onAction={jest.fn()} />
+            </SafeAreaProvider>,
+        );
+        const folha = StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style);
+        expect(folha.position).toBe('absolute');
+        expect(folha.bottom).toBe(0);
+        expect(folha.paddingBottom).toBe(space.s3 + 34);
+        // Validade: o botão continua dentro da folha, acima do indicador de início.
+        expect(within(screen.getByTestId('lesson-item-feedback')).getByRole('button', { name: 'Continuar' })).toBeTruthy();
     });
 
     it('mede a própria altura para a tela', () => {

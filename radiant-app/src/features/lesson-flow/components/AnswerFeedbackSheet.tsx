@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AccessibilityInfo, Animated, ScrollView, StyleSheet, Text, View, findNodeHandle, useWindowDimensions } from 'react-native';
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import { AppButton } from '../../../components/ui/AppButton';
 import { CastAvatar } from '../../../ui/characters/cast/CastAvatar';
 import { castExpressionFor } from '../../../ui/characters/cast/castExpressionFor';
@@ -14,7 +15,7 @@ type AnswerFeedbackSheetProps = {
     correct: boolean;
     /** O retorno autoral do item, que vem de `feedbackFor`. */
     message: string;
-    /** Só para formatos sem alternativas marcadas: a resposta certa em texto. */
+    /** A resposta certa em texto, mostrada só no erro. */
     correctLabel?: string;
     /** A confirmação gastou uma vida: "Menos 1 vida" vai na linha do título. */
     heartLost?: boolean;
@@ -68,6 +69,9 @@ export function AnswerFeedbackSheet({
     rich = false, celebrate = false, encouragement, onHeightChange,
 }: AnswerFeedbackSheetProps) {
     const { height } = useWindowDimensions();
+    // A tela não aplica a borda de baixo da área segura: a cor da folha desce até
+    // a borda, e o inset vira padding interno. Sem provider (testes), é 0.
+    const bottomInset = useContext(SafeAreaInsetsContext)?.bottom ?? 0;
     // Entra sempre pelo gancho da base: 220 ms sem a chave, 150 ms com ela (ADR do
     // retorno rico); sob "reduzir movimento", o gancho a põe no lugar.
     const { animateIn, animatedStyle } = useCardEnter(rich ? motionMsFor('correct') : undefined);
@@ -79,7 +83,8 @@ export function AnswerFeedbackSheet({
     return (
         <Animated.View testID="lesson-item-feedback"
             onLayout={event => onHeightChange?.(event.nativeEvent.layout.height)}
-            style={[styles.sheet, { backgroundColor: tone.surface, borderTopColor: tone.lip, maxHeight: feedbackSheetMaxHeight(height) },
+            style={[styles.sheet, { backgroundColor: tone.surface, borderTopColor: tone.lip, maxHeight: feedbackSheetMaxHeight(height),
+                paddingBottom: space.s3 + bottomInset },
                 animatedStyle]}>
             <ScrollView testID="lesson-item-feedback-body" style={styles.body} contentContainerStyle={styles.bodyContent}
                 bounces={false} showsVerticalScrollIndicator={false}>

@@ -11,7 +11,7 @@ import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors } from '../../../ui/theme';
 import type { LessonStars } from '../services/resolveLessonStars';
-import { SummaryHero, ctaClearance } from './SummaryHero';
+import { SummaryHero, useFixedFooter } from './SummaryHero';
 
 export type LessonSummaryProps = {
   /** Título autoral do catálogo/abertura. Ausente apenas se a fonte não o possui. */
@@ -121,6 +121,8 @@ export function LessonSummary({
   mintOnComplete = false,
 }: LessonSummaryProps) {
   const { fontScale } = useWindowDimensions();
+  // Rodapé irmão da rolagem (como na recompensa): a rolagem guarda só um respiro.
+  const fixedFooter = useFixedFooter();
   const largeText = isLargeTextScale(fontScale);
   const isZeroStars = stars === 0;
   const earned = starsImproved && !isZeroStars;
@@ -138,7 +140,7 @@ export function LessonSummary({
 
   return (
     <View style={styles.root}>
-      <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={[styles.body, { paddingBottom: fixedFooter.scrollPaddingBottom }]} showsVerticalScrollIndicator={false}>
         <SummaryHero
           pixel={kind === 'lesson' ? {
             state: isZeroStars ? 'guide' : 'celebrate',
@@ -226,7 +228,7 @@ export function LessonSummary({
         )}
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View testID="lesson-summary-footer" style={[styles.footer, fixedFooter.footerStyle]}>
         <AppButton label="Continuar" accessibilityHint={continueHint} onPress={onContinue} variant="galaxy" />
         {/* Continuar segue como a ação principal; Refazer é a alternativa. */}
         {kind === 'lesson' && correctAnswers < totalQuestions && onRetry ? (
@@ -268,7 +270,6 @@ const styles = StyleSheet.create({
   body: {
     padding: space.s3,
     gap: space.s3,
-    paddingBottom: ctaClearance,
   },
   starRow: {
     flexDirection: 'row',

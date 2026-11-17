@@ -583,3 +583,24 @@ test('os números do HUD passam AA sobre a pílula', () => {
     );
   }
 });
+
+// Tarefa 11: os pares de texto sobre superfície que a Tarefa 6 criou e que só
+// tinham sido medidos à mão, mais o aviso de vida dentro da folha de erro.
+test('os pares de texto da Tarefa 6 e o "Menos 1 vida" na folha de erro passam AA', () => {
+  const theme = (...keys) => resolveColor('src/ui/theme.ts', ...keys);
+  const pares = [
+    ['galaxyColors.critical sobre surfaceActive', theme('galaxyColors', 'critical'), theme('galaxyColors', 'surfaceActive')],
+    ['galaxyColors.xpColor sobre surfaceActive', theme('galaxyColors', 'xpColor'), theme('galaxyColors', 'surfaceActive')],
+    ['textSecondary sobre a superfície de acerto', theme('galaxyColors', 'textSecondary'), theme('feedbackColors', 'success', 'surface')],
+    ['textSecondary sobre a superfície de erro', theme('galaxyColors', 'textSecondary'), theme('feedbackColors', 'error', 'surface')],
+    // A cor vem do próprio aviso: se ele trocar de tom, o par medido troca junto.
+    ['"Menos 1 vida" sobre a superfície de erro',
+      resolveColor('src/features/hearts/components/HeartLossNotice.tsx', 'styles', 'heartLossText', 'color'),
+      theme('feedbackColors', 'error', 'surface')],
+  ];
+
+  for (const [nome, texto, fundo] of pares) {
+    const ratio = contrastRatio(parseHex(texto), parseHex(fundo));
+    assert.ok(ratio >= MIN_NORMAL_TEXT, `${nome}: ${texto} sobre ${fundo} rende ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`);
+  }
+});

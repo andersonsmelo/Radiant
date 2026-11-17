@@ -476,22 +476,30 @@ escolhida". Grupo sem ficha mostra "Vazio". O alvo de toque é o cabeçalho; as
 fichas colocadas têm cada uma o seu toque, que as devolve. Com fichas pendentes
 o botão do rodapé diz "Faltam N fichas", na aula e na avaliação, que rodam no
 mesmo `LessonFlowScreen`.
+Região de imagem (`HotspotStepRenderer`): a região livre tem borda de 2 px em
+Ciano de Sinal (`statusInformation`) sobre o véu `imageScrim`; a escolhida muda só a borda, para
+3 px no verde de acerto, e mantém o véu, porque um fundo opaco apagaria a
+anatomia escolhida.
 
 ### Folha de retorno
 Retorno da resposta na aula (`AnswerFeedbackSheet`), preso ao rodapé, no lugar
 do botão "Conferir resposta" e fora da rolagem.
 - **Superfície:** a de acerto (`#14281f`) ou a de erro (`#2c1820`), com borda
-  de cima de 2 px no lábio do mesmo par. Padding de 16 pt.
+  de cima de 2 px no lábio do mesmo par. Padding de 16 pt. A cor desce até a
+  borda de baixo da tela; o inset da área segura entra como padding interno, e
+  o botão fica acima do indicador de início.
 - **Conteúdo:** retrato do Pixel, título "Resposta correta" ou "Vamos
   reforçar" no preenchimento do par, a explicação no texto principal e o botão
   de seguir na variante `success` ou `error`. No erro que gasta vida, "Menos 1
   vida" vai na linha do título, e o aviso sob o HUD não aparece.
-- **Resposta em texto:** na múltipla escolha, no verdadeiro ou falso e na
-  múltipla seleção, a folha não escreve a resposta do aluno nem a certa: as
-  alternativas já mostram. Em ordenar, associar, região, comparação, decisão de
-  caso e lacunas, o erro diz "Resposta certa: …". Categorizar mostra o grupo
-  certo em cada ficha; bancada, laboratório e caça ao risco ficam com o retorno
-  autoral.
+- **Resposta em texto:** no erro, a folha diz "Resposta certa: …" em todo
+  formato com resposta curta: múltipla escolha, verdadeiro ou falso (o
+  julgamento certo de cada afirmação), múltipla seleção (as certas separadas
+  por vírgula), ordenar, associar, região, comparação, decisão de caso e
+  lacunas. Com enunciado longo, a alternativa certa fica atrás da folha, então
+  marcá-la na tela não basta. No acerto a linha não aparece, e a folha nunca
+  escreve a resposta do aluno. Categorizar mostra o grupo certo em cada ficha;
+  bancada, laboratório e caça ao risco ficam com o retorno autoral.
 - **Altura:** no máximo dois terços da janela. Acima disso a explicação rola
   por dentro e o botão fica fixo. A rolagem da aula ganha a altura da folha
   como folga no fim e leva a alternativa escolhida para cima da folha.
@@ -695,7 +703,10 @@ no cartão é proibida, porque derruba junto o contraste do texto.
 - **Don't** parecer um **dashboard hospitalar**: prontuário, tabela densa em cinza, densidade de software de uso obrigatório.
 - **Don't** parecer **template de IA**: gradiente genérico, brilho sem fonte de luz, ícone de biblioteca.
 - **Don't** pintar texto ou estado ativo pequeno com azul saturado sobre o grafite: `#2155FF` mede 3,31:1 e `#2559E6` mede 3,17:1.
-- **Don't** pintar texto branco sobre o ouro ou sobre o azul da unidade.
+- **Don't** pintar texto branco sobre o ouro ou sobre o azul da unidade. O
+  glifo branco decorativo das peças de missão e das medalhas é a exceção: é
+  desenho em três tons, não texto, e o leitor de tela recebe o estado pelo
+  rótulo.
 - **Don't** importar a paleta clara dentro de `src/features/**` ou `src/app/**`.
 - **Don't** declarar paleta local num arquivo de tela. Cor nova nasce em `src/ui/theme.ts` ou `semantic-colors.ts`.
 - **Don't** usar emoji ou caractere de texto como ícone, nem `@expo/vector-icons` novo.

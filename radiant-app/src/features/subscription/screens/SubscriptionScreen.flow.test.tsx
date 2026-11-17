@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { medalColors } from '../../../ui/theme';
+import { space } from '../../../ui/styles';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -568,5 +569,24 @@ describe('SubscriptionScreen — Tarefa 10 cartões de plano', () => {
         expect(await screen.findByRole('radio', { name: 'Anual, $22.99, por ano, $1.92 por mês' })).toBeTruthy();
         expect(screen.getByText('$1.92 por mês')).toBeTruthy();
         expect(screen.getByRole('radio', { name: 'Mensal, $2.99, por mês' })).toBeTruthy();
+    });
+});
+
+describe('SubscriptionScreen — Tarefa 11 margem do conteúdo', () => {
+    it('o conteúdo rolável tem a margem horizontal do título, e nenhum filho a anula', async () => {
+        const view = abrir(loja());
+        await screen.findByRole('radio', { name: /^Anual/u });
+        const rolagem = view.UNSAFE_getByType(ScrollView);
+        expect(StyleSheet.flatten(rolagem.props.contentContainerStyle).paddingHorizontal).toBe(space.s3);
+        // Validade: o conteúdo de verdade está dentro da rolagem.
+        expect(within(rolagem).getByText('Errar não custa vida.')).toBeTruthy();
+        expect(within(rolagem).getByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
+        for (const no of rolagem.findAll((n: { type: unknown }) => typeof n.type === 'string')) {
+            const estilo = StyleSheet.flatten(no.props.style) ?? {};
+            for (const lado of ['margin', 'marginHorizontal', 'marginLeft', 'marginRight', 'marginStart', 'marginEnd'] as const) {
+                const valor = estilo[lado];
+                if (typeof valor === 'number') expect(valor).toBeGreaterThanOrEqual(0);
+            }
+        }
     });
 });

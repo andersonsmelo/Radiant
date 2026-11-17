@@ -7,6 +7,12 @@ import { appRoot, ts, unwrap } from './ast-helpers.mjs';
 // escapou: cor (`#rgb`, `#rrggbb`, `rgb(`, `rgba(`), `fontSize` numérico e
 // `textTransform: 'uppercase'`. Comentário não existe na AST, e texto que só
 // cita uma cor não é uma cor inteira, então nenhum dos dois é acusado.
+//
+// shortcut: a guarda só vê literal escrito no lugar. Ela não acusa tamanho de
+// texto vindo de identificador ou de conta (`fontSize: SIZE`, `fontSize: base * 1.2`),
+// cor montada por template (`#${hex}`) nem cor nomeada (`'white'`, `'black'`).
+// Vale ampliar quando um desses aparecer numa revisão de tela, ou quando uma
+// tarefa trocar uma cor ou um tamanho por constante local para escapar da guarda.
 
 const ROOTS = ['src/features/', 'src/app/'];
 

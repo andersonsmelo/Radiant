@@ -2,7 +2,9 @@ import React from 'react';
 import { router } from 'expo-router';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { QuizLesson } from '../../../types/quiz';
+import { StyleSheet } from 'react-native';
 import QuizScreen from './QuizScreen';
+import { feedbackColors } from '../../../ui/theme';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { Confetti } from '../../../components/ui/Confetti';
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -931,6 +933,23 @@ describe('QuizScreen — vidas vêm do heartsRepository', () => {
     await flushPixelMoodResolution();
 
     expect(heartsRepository.spend).not.toHaveBeenCalled();
+  });
+
+  // Tarefa 11: o selo do retorno é a cor cheia do papel com o texto `onFill`
+  // (pendente da revisão da Tarefa 6).
+  it.each([
+    ['Pneumotórax', 'Reforçar', feedbackColors.error],
+    ['Consolidação alveolar', 'Mantém', feedbackColors.success],
+  ] as const)('ao responder %s, o selo "%s" é cor cheia com texto onFill', async (resposta, selo, tons) => {
+    montarQuiz(lessonFixture);
+    expect(await screen.findByLabelText('3 de 5 vidas')).toBeTruthy();
+
+    await responder(resposta);
+    await flushPixelMoodResolution();
+
+    const texto = await screen.findByText(selo);
+    expect(StyleSheet.flatten(texto.props.style).color).toBe(tons.onFill);
+    expect(StyleSheet.flatten(texto.parent?.parent?.props.style).backgroundColor).toBe(tons.fill);
   });
 
   it('o modo revisão não cobra vida ao errar', async () => {

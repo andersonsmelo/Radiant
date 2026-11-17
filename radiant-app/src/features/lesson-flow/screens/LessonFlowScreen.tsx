@@ -1,8 +1,8 @@
 import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
 import { isLearningContentMissing } from '../../content/services/ContentAvailability';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Alert, Animated, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaInsetsContext, SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
@@ -97,21 +97,26 @@ let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
 const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize']);
 
-/** Formatos em que as próprias alternativas mostram a certa e a errada depois de conferir. */
-const MARKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'true-false', 'multi-select']);
-
 /**
- * A resposta certa em texto, para a folha de retorno nos formatos que não a
- * marcam na tela. Categorizar já mostra o grupo certo em cada ficha; bancada,
- * laboratório e caça ao risco não têm uma resposta curta e única, e o retorno
- * autoral explica.
+ * A resposta certa em texto, para a folha de retorno no erro. Vale também nos
+ * formatos que marcam a certa na tela: com enunciado longo, a alternativa certa
+ * fica atrás da folha (Tarefa 11). Categorizar já mostra o grupo certo em cada
+ * ficha; bancada, laboratório e caça ao risco não têm uma resposta curta e
+ * única, e o retorno autoral explica.
  */
 function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
     switch (interaction.type) {
+        case 'multi-select': {
+            const { options, correctOptionIds } = interaction.payload;
+            return options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label).join(', ');
+        }
+        case 'true-false':
+            return interaction.payload.statements.map(statement => `${statement.isTrue ? 'Certo' : 'Errado'}: ${statement.text}`).join(' ');
         case 'ordering': {
             const { items, correctOrder } = interaction.payload;
             return correctOrder.map(id => items.find(item => item.id === id)?.label ?? id).join('; ');
         }
+        case 'multiple-choice':
         case 'comparison':
         case 'case-decision': {
             const { options, correctOptionId } = interaction.payload;
@@ -212,6 +217,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const [retorno, setRetorno] = useState<{ celebrate: boolean; encouragement?: string; heartLost?: boolean }>({ celebrate: false });
     // Altura medida da folha de retorno: vira folga no fim da rolagem.
     const [sheetHeight, setSheetHeight] = useState(0);
+    const bottomInset = useContext(SafeAreaInsetsContext)?.bottom ?? 0;
     const answerLayout = useRef({ y: 0, height: 0 });
     // Alternativa escolhida, relativa à área de resposta; só a múltipla escolha informa.
     const chosenLayout = useRef<{ y: number; height: number } | null>(null);
@@ -837,7 +843,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     return (
         <View style={styles.root}>
             <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
-            <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+            {/* Sem a borda de baixo: o rodapé e a folha de retorno pintam até a borda da tela e levam o inset por dentro. */}
+            <SafeAreaView style={styles.safe} edges={['top']}>
                 <View style={styles.page}>
                     {/*
                       Uma linha só: fechar, progresso e vidas. O cabeçalho
@@ -984,13 +991,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             heartsLeft={{ current: hearts.count, max: MAX_HEARTS }}
                             correct={player.lastFeedback?.correct === true}
                             message={player.lastFeedback?.message ?? ''}
-                            correctLabel={MARKED_FAMILIES.has(currentInteraction.type) ? undefined : correctAnswerText(currentInteraction)}
+                            correctLabel={correctAnswerText(currentInteraction)}
                             actionLabel={confirmationLabel}
                             onAction={() => void handleContinue()}
                             onHeightChange={setSheetHeight}
                         />
                     ) : (
-                        <View testID="lesson-footer" style={styles.footer}>
+                        <View testID="lesson-footer" style={[styles.footer, { paddingBottom: space.s3 + bottomInset }]}>
                             <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
                                 accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
                                 {actionLabel}
@@ -1071,10 +1078,10 @@ const styles = StyleSheet.create({
         gap: space.s4,
     },
     openingMedal: { alignItems: 'center' },
+    // O padding de baixo soma o inset da área segura, na própria tela.
     footer: {
         paddingHorizontal: space.s3,
         paddingTop: space.s2,
-        paddingBottom: space.s3,
         backgroundColor: semanticColors.galaxy.surface,
     },
     retryLabel: { ...typography.bodyStrong, color: galaxyColors.textPrimary },

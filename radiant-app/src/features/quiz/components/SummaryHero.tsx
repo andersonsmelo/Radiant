@@ -6,18 +6,8 @@ import { space } from '../../../ui/styles';
 
 type PixelProps = Pick<React.ComponentProps<typeof PixelIllustration>, 'state' | 'expression' | 'accessibilityLabel'>;
 
-// `Continuar` vive num rodapé fixo fora do ScrollView — a mesma forma do
-// problema que `tabBarClearance` (src/ui/styles.ts) resolve para as telas de
-// tab: um elemento fixado fora do conteúdo rolável precisa da sua própria
-// reserva, ou o fim do scroll renderiza cortado ou fica invisível no primeiro
-// paint atrás do botão. Estas telas não são tabs, então ganham sua própria
-// constante nomeada em vez de importar `tabBarClearance` — mesmo desenho,
-// valor próprio.
-const CTA_HEIGHT = 56; // altura mínima do AppButton, components/ui/AppButton.tsx
-export const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
-
 /**
- * Rodapé fixo IRMÃO da rolagem (Reward e unidade concluída): ele ocupa a sua
+ * Rodapé fixo IRMÃO da rolagem (recompensa, unidade concluída e resumo da aula): ele ocupa a sua
  * própria faixa, então a rolagem não reserva a altura dele, só um respiro.
  * Reservar duplicava o espaço e empurrava o conteúdo centrado para cima. O
  * rodapé leva o inset de baixo da área segura. Sem provider (testes) o inset é 0.

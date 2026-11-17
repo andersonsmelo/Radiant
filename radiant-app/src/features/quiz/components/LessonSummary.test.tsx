@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, within } from '@testing-library/react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LessonSummary } from './LessonSummary';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
@@ -246,20 +247,20 @@ describe('LessonSummary', () => {
     expect(screen.queryByText('É opcional')).toBeNull();
   });
 
-  it('reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo', () => {
-    // O rodapé com `Continuar` fica fora do ScrollView, fixo na base da tela
-    // (padding vertical space.s3 * 2 + altura do AppButton, 56px). Sem essa
-    // reserva no `contentContainerStyle`, a linha de hábito renderiza cortada
-    // e a linha de avaliação fica invisível atrás do botão no primeiro paint
-    // — Achado Importante 2 do QA visual. Este teste não importa a constante
-    // `ctaClearance` do componente de propósito: comparar contra o footprint
-    // real do rodapé é o que faz o teste falhar se a reserva for removida ou
-    // reduzida de volta a um valor que não cobre o botão.
-    render(<LessonSummary {...base} />);
+  // Tarefa 11: o rodapé é IRMÃO da rolagem, não fica por cima dela. A reserva
+  // antiga (`ctaClearance`) dobrava o espaço, como na recompensa. A rolagem
+  // guarda só `space.s3`, e o rodapé leva o inset de baixo da área segura,
+  // porque as duas telas que montam o resumo só aplicam a borda de cima.
+  it('o rodapé é irmão da rolagem: a folga é só space.s3 e o rodapé leva o inset inferior', () => {
+    const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 0, left: 0, right: 0, bottom: 34 } };
+    render(<SafeAreaProvider initialMetrics={metrics}><LessonSummary {...base} /></SafeAreaProvider>);
     const scrollView = screen.UNSAFE_getByType(ScrollView);
-    const contentStyle = StyleSheet.flatten(scrollView.props.contentContainerStyle);
-    const FOOTER_FOOTPRINT = space.s3 * 2 + 56;
-    expect(contentStyle.paddingBottom).toBeGreaterThanOrEqual(FOOTER_FOOTPRINT);
+    const footer = screen.getByTestId('lesson-summary-footer');
+    // Validade: o botão está no rodapé, e o rodapé não está dentro da rolagem.
+    expect(within(footer).getByRole('button', { name: 'Continuar' })).toBeTruthy();
+    expect(within(scrollView).queryByTestId('lesson-summary-footer')).toBeNull();
+    expect(StyleSheet.flatten(scrollView.props.contentContainerStyle).paddingBottom).toBe(space.s3);
+    expect(StyleSheet.flatten(footer.props.style).paddingBottom).toBe(space.s3 + 34);
   });
 
   it('não renderiza oferta de assinatura nem pedido de notificação', () => {

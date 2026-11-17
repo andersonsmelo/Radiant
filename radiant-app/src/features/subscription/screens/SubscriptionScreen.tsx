@@ -396,7 +396,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: galaxyColors.surface,
     },
+    // A mesma margem do título: frase, comparação, planos, botão e texto legal.
     content: {
+        paddingHorizontal: space.s3,
         gap: space.s2,
         paddingBottom: space.s6,
     },

@@ -53,6 +53,28 @@ describe('HotspotStepRenderer', () => {
         expect(StyleSheet.flatten(textAlternative.props.style).minHeight).toBeGreaterThanOrEqual(44);
     });
 
+    // Tarefa 11: a região escolhida muda só a borda (mais grossa e verde) e
+    // mantém o véu translúcido: um fundo opaco apagaria a anatomia escolhida.
+    it('a região escolhida tem borda verde de 3 pt e o mesmo véu translúcido da região livre', () => {
+        const { getByLabelText } = render(
+            <HotspotStepRenderer
+                payload={payload}
+                accessibilityLabel="Geometria simplificada do feixe de raios X"
+                selectedRegionId="detector"
+                onSelect={jest.fn()}
+            />,
+        );
+        const escolhida = StyleSheet.flatten(getByLabelText('Selecionar Detector plano na imagem').props.style);
+        const livre = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
+        expect(livre.borderWidth).toBe(2);
+        expect(livre.borderColor).toBe(semanticColors.galaxy.statusInformation);
+        expect(escolhida.borderWidth).toBe(3);
+        expect(escolhida.borderColor).toBe(semanticColors.galaxy.statusSuccess);
+        // Validade: o fundo continua o véu, nas duas.
+        expect(escolhida.backgroundColor).toBe(galaxyColors.imageScrim);
+        expect(livre.backgroundColor).toBe(galaxyColors.imageScrim);
+    });
+
     it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
         const { getByLabelText, getByTestId, queryByText } = render(
             <HotspotStepRenderer
