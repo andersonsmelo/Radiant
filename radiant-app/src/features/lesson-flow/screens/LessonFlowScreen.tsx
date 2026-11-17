@@ -24,6 +24,8 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import { categorizePendingCount } from '../renderers/CategorizeStepRenderer';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
 import { feedbackFor } from '../services/feedbackFor';
 import { COMBO_START, nextCombo, type ComboMilestone } from '../services/lessonCombo';
 import { AnswerFeedbackSheet, revealOffset } from '../components/AnswerFeedbackSheet';
@@ -456,6 +458,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         : currentInteraction && CHECKED_FAMILIES.has(currentInteraction.type)
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
+
+    // Em classificar o botão diz quantas fichas faltam; o rótulo de confirmação, que os
+    // renderizadores citam nas dicas, continua sendo "Conferir resposta".
+    const pendingTokens = !player.showingFeedback && !dialoguePending && currentInteraction?.type === 'categorize'
+        ? categorizePendingCount(currentInteraction.payload, player.value) : 0;
+    const actionLabel = pendingTokens === 1 ? 'Falta 1 ficha' : pendingTokens > 1 ? `Faltam ${pendingTokens} fichas` : confirmationLabel;
 
     const handleContinue = async () => {
         const key = JSON.stringify([blockId, nodeId]);
@@ -973,7 +981,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             celebrate={retorno.celebrate}
                             encouragement={retorno.encouragement}
                             heartLost={retorno.heartLost}
-                            heartsLeft={{ current: hearts.count, max: 5 }}
+                            heartsLeft={{ current: hearts.count, max: MAX_HEARTS }}
                             correct={player.lastFeedback?.correct === true}
                             message={player.lastFeedback?.message ?? ''}
                             correctLabel={MARKED_FAMILIES.has(currentInteraction.type) ? undefined : correctAnswerText(currentInteraction)}
@@ -985,7 +993,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                         <View testID="lesson-footer" style={styles.footer}>
                             <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
                                 accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
-                                {confirmationLabel}
+                                {actionLabel}
                             </AppButton>
                         </View>
                     )}

@@ -528,6 +528,28 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     LessonFlowService.getActivityById.mockReturnValue(null);
   });
 
+  it('em classificar, o botão diz quantas fichas faltam e volta a Conferir resposta com 0', async () => {
+    const interaction: LearningInteractionV2 = { id: 'cat-final', type: 'categorize',
+      competencyIds: ['competency:fixture'], evidenceKind: 'guided-practice', criticalSafety: false, completionRule: 'confirmed',
+      accessibility: { label: 'Classificar' }, feedback: { correct: 'Certo.', incorrect: 'Reveja.' },
+      payload: { prompt: 'Classifique as fichas.', categories: [{ id: 'g1', label: 'Técnica' }, { id: 'g2', label: 'Clínica' }],
+        items: [{ id: 'i1', label: 'Posicionar', categoryId: 'g1' }, { id: 'i2', label: 'Laudar', categoryId: 'g2' }] } };
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ id: 'activity:fixture:cat-final', competencyIds: ['competency:fixture'],
+      provenance: { contentVersion: 'fixture-v1', sourceIds: ['source:fixture'] }, steps: [
+        { kind: 'presentation', id: 'cat-hook', role: 'hook', payload: { title: 'Treino fictício' } },
+        { kind: 'presentation', id: 'cat-concept', role: 'concept', payload: { title: 'Regra do treino' } },
+        { kind: 'interaction', interaction },
+      ] });
+    renderWithProviders(<LessonFlowScreen blockId="activity:fixture:cat-final" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Classifique as fichas.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Faltam 2 fichas' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-group-Técnica'));
+    expect(screen.getByRole('button', { name: 'Falta 1 ficha' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-group-Clínica'));
+    expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
+  });
+
   it('bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso', async () => {
     const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository;
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);

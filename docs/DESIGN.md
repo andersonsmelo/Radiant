@@ -446,6 +446,20 @@ três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
 da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem
 do mesmo arquivo: nenhum ✓, ✗ ou ✕ de texto serve de ícone.
 
+### Ficha e área de grupo
+Ficha (`TapChip`, em `lesson-flow/renderers`): o toque das famílias de
+classificar, lacuna, verdadeiro ou falso e múltipla seleção, com o relevo da
+alternativa e lábio de 4 pt por baixo. Alvo de 44 pt no mínimo. A face desce
+3 pt na pressão, de uma vez. Repouso: borda `border` e lábio `backgroundAlt`;
+escolhida: borda ouro e lábio da unidade; certa ou errada: face, borda e lábio
+de acerto ou de erro, mais a marca `VerdictIcon`.
+Área de grupo (`GroupArea`): recebe fichas e mostra o que já está dentro. Sem
+ficha escolhida, borda tracejada em `borderActive`; com ficha escolhida, borda
+cheia em Azul de Navegação e a linha "Toque aqui para colocar a ficha
+escolhida". Grupo sem ficha mostra "Vazio". O alvo de toque é o cabeçalho; as
+fichas colocadas têm cada uma o seu toque, que as devolve. Com fichas pendentes
+o botão do rodapé diz "Faltam N fichas".
+
 ### Folha de retorno
 Retorno da resposta na aula (`AnswerFeedbackSheet`), preso ao rodapé, no lugar
 do botão "Conferir resposta" e fora da rolagem.

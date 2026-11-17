@@ -1,8 +1,8 @@
 import React, { useEffect, type ReactNode } from 'react';
-import { Animated, Pressable, StyleSheet, Text } from 'react-native';
-import { galaxyColors } from '../../../ui/theme';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { feedbackColors, galaxyColors, medalColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { useCardEnter, usePressScale, useScalePop } from '../../../ui/motion';
+import { useCardEnter, useScalePop } from '../../../ui/motion';
 import { radius, space, typography } from '../../../ui/styles';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
 
@@ -29,31 +29,43 @@ type TapChipProps = {
     testID?: string;
 };
 
+// Mesmo relevo da `ChoiceOption`: lábio de 4 pt atrás, face que desce até 1 pt do fim dele.
+// A descida é de uma vez, sem tween: `ui/motion` não tem hook de deslocamento e o visual-qa (R4) barra reanimated direto.
+const LIP = 4;
+const PRESSED_OFFSET = LIP - 1;
+
 /** Botão de toque das famílias novas: alvo de 44 pt, ouro como evidência da escolha. */
 export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress, selected = false, verdict, disabled = false, role = 'button', testID }: TapChipProps) {
-    const press = usePressScale(F2_MOTION.press);
     const pop = useScalePop(F2_MOTION.confirm);
     const { animateIn } = pop;
     useEffect(() => { if (verdict) animateIn(); }, [animateIn, verdict]);
+    const tone = verdict === 'correct'
+        ? { face: feedbackColors.success.surface, border: galaxy.statusSuccess, lip: feedbackColors.success.lip, width: 2 }
+        : verdict === 'incorrect'
+        ? { face: feedbackColors.error.surface, border: galaxy.statusError, lip: feedbackColors.error.lip, width: 2 }
+        : selected
+        ? { face: galaxyColors.surface, border: galaxy.reward, lip: medalColors.unit.lip, width: 2 }
+        : { face: galaxyColors.surface, border: galaxy.border, lip: galaxyColors.backgroundAlt, width: 1 };
 
     return (
-        <Animated.View style={verdict ? pop.style : press.animatedStyle}>
-            <Pressable
-                testID={testID}
-                onPress={disabled ? undefined : onPress}
-                onPressIn={disabled ? undefined : press.onPressIn}
-                onPressOut={press.onPressOut}
-                disabled={disabled}
-                accessibilityRole={role}
-                accessibilityLabel={accessibilityLabel}
-                accessibilityHint={accessibilityHint}
-                accessibilityState={role === 'checkbox' ? { checked: selected, disabled } : { selected, disabled }}
-                style={[styles.chip, selected && styles.selected,
-                    verdict === 'correct' && styles.correct, verdict === 'incorrect' && styles.incorrect]}
-            >
-                {verdict ? <VerdictIcon verdict={verdict} size={20} testID={`verdict-icon-${verdict}`} /> : null}
-                <Text style={styles.label}>{label}</Text>
-            </Pressable>
+        <Animated.View style={verdict ? pop.style : undefined}>
+            <View style={styles.relief}>
+                <View testID="tap-chip-lip" pointerEvents="none" style={[styles.lip, { backgroundColor: tone.lip }]} />
+                <Pressable
+                    testID={testID}
+                    onPress={disabled ? undefined : onPress}
+                    disabled={disabled}
+                    accessibilityRole={role}
+                    accessibilityLabel={accessibilityLabel}
+                    accessibilityHint={accessibilityHint}
+                    accessibilityState={role === 'checkbox' ? { checked: selected, disabled } : { selected, disabled }}
+                    style={({ pressed }) => [styles.chip, { backgroundColor: tone.face, borderColor: tone.border, borderWidth: tone.width },
+                        pressed && !disabled && styles.pressed]}
+                >
+                    {verdict ? <VerdictIcon verdict={verdict} size={20} testID={`verdict-icon-${verdict}`} /> : null}
+                    <Text style={styles.label}>{label}</Text>
+                </Pressable>
+            </View>
         </Animated.View>
     );
 }
@@ -80,21 +92,18 @@ export const f2Styles = StyleSheet.create({
 
 const styles = StyleSheet.create({
     enter: { gap: space.s3 },
+    pressed: { transform: [{ translateY: PRESSED_OFFSET }] },
+    relief: { paddingBottom: LIP },
+    lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rMd },
     chip: {
         minHeight: 44,
         minWidth: 44,
         paddingHorizontal: space.s3,
         paddingVertical: space.s2,
         borderRadius: radius.rMd,
-        borderWidth: 1,
-        borderColor: galaxy.border,
-        backgroundColor: galaxyColors.surface,
         flexDirection: 'row',
         alignItems: 'center',
         gap: space.s1,
     },
-    selected: { borderColor: galaxy.reward, borderWidth: 2 },
-    correct: { borderColor: galaxy.statusSuccess, borderWidth: 2 },
-    incorrect: { borderColor: galaxy.statusError, borderWidth: 2 },
     label: { ...typography.bodyRegular, color: galaxy.textPrimary, flexShrink: 1 },
 });
