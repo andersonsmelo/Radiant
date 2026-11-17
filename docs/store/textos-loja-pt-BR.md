@@ -146,9 +146,26 @@ Notas: o nome do app ("Radiant") e o subtítulo não precisam se repetir nas
 keywords; termos no plural/singular são indexados de forma parecida — priorizamos
 os de maior intenção de busca.
 
-## Textos da ficha para a 1.6 (rascunho de 2026-11-17, aguarda o dono)
+## Textos da ficha para a 1.6 (colados no App Store Connect em 2026-11-17)
 
-Rascunho do agente. **Nada aqui foi aprovado nem colado em console.** O motivo: a
+**Colados pelo agente na versão 1.6.0 do App Store Connect em 2026-11-17, por ordem do
+dono ("Sim, colar"):** texto promocional, descrição da App Store, novidades e keywords.
+Salvos e relidos depois de recarregar a página. **No Play nada foi colado.** O dono não
+leu o texto linha a linha: a ordem foi colar os rascunhos.
+
+- Os números "24 unidades e 157 aulas" foram remedidos antes de colar: 24 arquivos de
+  lote e 157 identificadores de aula em `student-checkpoints/batches/`.
+- **Correção feita na hora de colar:** a frase "o único benefício é ter vidas
+  ilimitadas" deixou de ser verdadeira na 1.6, porque três decorações do perfil são
+  exclusivas de assinante (`catalog.test.ts`). O texto colado diz "Os benefícios são
+  vidas ilimitadas e três decorações exclusivas para o perfil." A tela de assinatura
+  do app continua comparando só as vidas.
+- As notas para o revisor também foram trocadas para a 1.6.0 (build 18), em inglês:
+  liga pelo Game Center e o placar `radiant.liga.semanal.xp`, widgets, unidades e
+  formatos novos, lembretes, decorações com três exclusivas, e o caminho da assinatura
+  (aba Perfil, engrenagem, cartão Radiant Ilimitado).
+
+Texto original do rascunho, que **não** tinha aprovação antes da ordem de colar: O motivo: a
 descrição e as keywords em vigor são da 1.3 e da 1.4, falam de "Fundamentos", "Tórax" e
 "Abdome" e descrevem o público como "estudantes de medicina"; desde a 1.5.0 a trilha é a
 do tecnólogo. Nome e subtítulo aprovados em 2026-08-05 continuam valendo e não mudam.
@@ -214,7 +231,7 @@ SÓ NO IPHONE
 
 ASSINATURA
 
-O Radiant Ilimitado é opcional, mensal ou anual, com renovação automática, e o único benefício é ter vidas ilimitadas. Todo o conteúdo continua aberto para todo mundo. Você gerencia ou cancela a assinatura nos Ajustes do iPhone.
+O Radiant Ilimitado é opcional, mensal ou anual, com renovação automática. Os benefícios são vidas ilimitadas e três decorações exclusivas para o perfil. Todo o conteúdo continua aberto para todo mundo. Você gerencia ou cancela a assinatura nos Ajustes do iPhone.
 
 Termos de Uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Política de Privacidade: https://saudediagnostica.com/radiant/privacidade/

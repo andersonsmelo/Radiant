@@ -12,12 +12,12 @@ Connect e no Play Console quem edita é o dono; o agente confere pela página.
 | Build de produção | **1.6.0 (18) em compilação no EAS** na última leitura; envio ao App Store Connect agendado. A 17 e a 16 não servem: são anteriores ao texto novo | agente dispara, dono confere no TestFlight |
 | Ver a build no aparelho | Não feito | dono |
 | Compra em sandbox com os convites ligados | Não feito | dono |
-| Versão 1.6.0 no App Store Connect | Não criada (última leitura do `STATUS.md`) | dono |
+| Versão 1.6.0 no App Store Connect | **Criada pelo agente em 2026-11-17**, por ordem do dono, depois de o dono aceitar a nova versão do contrato de apps pagos. Estado lido na página: "Preparar para envio" | feito |
 | Placar `radiant.liga.semanal.xp` adicionado à versão | Não feito; **precisa entrar antes do envio** | dono |
 | Capturas de iPhone | Prontas: [6,7"](assets/screenshots-ios-67/) e [6,5"](assets/screenshots-ios-65/) | dono sobe |
 | Captura de revisão da assinatura | Pronta: [arquivo](assets/assinatura-revisao.png) | dono sobe |
-| Novidades da versão | Rascunho em [textos-loja-pt-BR.md](textos-loja-pt-BR.md), sem aprovação | dono aprova e cola |
-| Descrição, texto promocional e keywords | **Defasados na loja** (falam de trilhas que saíram na 1.5.0). Rascunho novo no mesmo arquivo, sem aprovação | dono aprova e cola |
+| Novidades da versão | **Coladas e salvas em 2026-11-17** | feito |
+| Descrição, texto promocional e keywords | **Colados e salvos em 2026-11-17**, com a frase da assinatura corrigida para citar as decorações exclusivas. Notas do revisor trocadas para a 1.6.0 | feito |
 | Política de privacidade | No ar com a seção do Game Center desde 2026-11-16 | — |
 | Página de suporte | A de 2026-07-29 | dono decide se atualiza |
 | Imagem de abertura | Continua com o Pixel antigo | dono decide a arte |

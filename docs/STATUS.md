@@ -70,6 +70,12 @@ no EAS, com o envio ao App Store Connect agendado. **Não conferido:** o fim da
 compilação e do envio. A lista do que falta em cada loja está em
 [store/2026-11-17-preparo-envio-1-6.md](store/2026-11-17-preparo-envio-1-6.md).
 
+**App Store Connect, lido na página em 2026-11-17, por volta de 15:30 UTC:** a versão
+1.6.0 existe, em "Preparar para envio", com texto promocional, descrição, novidades,
+keywords e notas do revisor da 1.6 salvos. Sem build escolhida (a 18 não tinha chegado),
+sem capturas novas e sem o placar adicionado. O contrato de apps pagos foi aceito pelo
+dono nesse dia. **Nada foi enviado à revisão.**
+
 **A build 17 não tem o texto novo da apresentação inicial.** Ela mostra "Conteúdo em
 preparação." a todo aluno novo, frase que ficou na tela desde a retirada do currículo
 antigo (`30c95b0e`). O dono aprovou, em 2026-11-17, o texto "Aqui você treina o dia a
