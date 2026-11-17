@@ -40,3 +40,26 @@ Tests:       45 passed, 45 total
 npm run test:contrast-contract: 18 pass, 0 fail
 npx tsc --noEmit e eslint dos três arquivos: sem saída
 ```
+
+## Rodada 1 de correção
+
+Comando: `cd radiant-app && npx jest --runInBand src/components/ui/AppButton.test.tsx`
+
+Vermelho (testes novos antes do conserto):
+```
+    ✕ carregando primary mantém a face da variante (2 ms)
+    ✕ carregando galaxy mantém a face da variante (2 ms)
+    ✕ alternar disabled não muda borderWidth nem minHeight da face (primary) (2 ms)
+    ✕ alternar disabled não muda borderWidth nem minHeight da face (galaxy) (1 ms)
+    ✕ alternar disabled não muda borderWidth nem minHeight da face (gold) (1 ms)
+    ✕ alternar disabled não muda borderWidth nem minHeight da face (success) (1 ms)
+    ✕ alternar disabled não muda borderWidth nem minHeight da face (error) (1 ms)
+Tests:       7 failed, 47 passed, 54 total
+```
+O teste `carregando não aplica opacidade` já nascia verde (loading não tem opacidade desde a rodada anterior); é guarda de regressão, sem passo vermelho.
+
+Verde:
+```
+Tests:       54 passed, 54 total
+tsc --noEmit e eslint dos três arquivos: sem saída
+```

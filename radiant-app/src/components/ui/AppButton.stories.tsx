@@ -23,10 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {};
 
-export const Disabled: Story = {
-  args: { disabled: true, label: 'Indisponível agora' },
-};
-
 // As seis variantes com lábio, desabilitadas: face neutra, rótulo legível.
 export const Desabilitado: Story = {
   render: () => (

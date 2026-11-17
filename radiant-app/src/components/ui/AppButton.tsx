@@ -53,6 +53,11 @@ const LIP_COLOR: Record<Exclude<Variant, 'ghost'>, string> = {
   error: feedbackColors.error.lip,
 };
 
+// Toda face com lábio tem borda de 1 px, para que alternar `disabled` (que
+// pinta a borda neutra) não mude a medida: nas variantes cheias ela é
+// transparente e fica sobre o próprio fundo.
+const TRANSPARENT_BORDER = { borderWidth: 1, borderColor: 'transparent' } as const;
+
 // Raio comum à face e ao lábio: o lábio é a mesma forma, deslocada para baixo.
 const BUTTON_RADIUS = 18;
 
@@ -161,7 +166,7 @@ export function AppButton({
   // Só entradas verdadeiras: o Reanimated, em jest, percorre o array de estilo
   // com `in`, que lança diante de `false`.
   const faceStyle: StyleProp<ViewStyle>[] = [styles.base, VARIANT_STYLE[variant]];
-  if (hasLip && isDisabled) {
+  if (hasLip && disabled) {
     faceStyle.push(styles.disabledFace);
   }
   if (focused) {
@@ -189,7 +194,13 @@ export function AppButton({
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={galaxyColors.textSecondary}
+          color={
+            disabled
+              ? galaxyColors.textSecondary
+              : variant === 'secondary'
+                ? galaxy.textPrimary
+                : (onFillLabel ?? light.textOnAccent)
+          }
         />
       ) : null}
       {icon != null && icon}
@@ -200,7 +211,7 @@ export function AppButton({
           variant === 'ghost' && styles.labelGhost,
           ghostPressed && styles.labelGhostPressed,
           onFillLabel != null && { color: onFillLabel },
-          isDisabled && (hasLip ? styles.labelDisabled : styles.labelGhostDisabled),
+          disabled && (hasLip ? styles.labelDisabled : styles.labelGhostDisabled),
           textStyle,
         ]}
         maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
@@ -224,7 +235,7 @@ export function AppButton({
         // área toda, a descida descobria no topo uma faixa na cor dele, e o
         // relevo aparecia invertido em todo toque (revisão final do plano 1).
         //
-        // Desabilitado não usa opacidade: a face neutra e o lábio `backgroundAlt`
+        // Desabilitado (a prop `disabled`, não `loading`) não usa opacidade: a face neutra e o lábio `backgroundAlt`
         // são opacos e legíveis, e nada vaza através deles.
         <View testID="app-button-relief" style={styles.relief}>
           <View
@@ -232,7 +243,7 @@ export function AppButton({
             pointerEvents="none"
             style={[
               styles.lip,
-              { backgroundColor: isDisabled ? galaxyColors.backgroundAlt : LIP_COLOR[variant] },
+              { backgroundColor: disabled ? galaxyColors.backgroundAlt : LIP_COLOR[variant] },
             ]}
           />
           {face}
@@ -271,18 +282,23 @@ const styles = StyleSheet.create({
   },
   primary: {
     backgroundColor: light.actionPrimary,
+    ...TRANSPARENT_BORDER,
   },
   galaxy: {
     backgroundColor: galaxy.actionPrimary,
+    ...TRANSPARENT_BORDER,
   },
   gold: {
     backgroundColor: medalColors.gold.face,
+    ...TRANSPARENT_BORDER,
   },
   success: {
     backgroundColor: feedbackColors.success.fill,
+    ...TRANSPARENT_BORDER,
   },
   error: {
     backgroundColor: feedbackColors.error.fill,
+    ...TRANSPARENT_BORDER,
   },
   secondary: {
     backgroundColor: galaxy.surfaceElevated,

@@ -423,6 +423,9 @@ as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
   com borda de 1 px `border` (`#323747`), lábio `backgroundAlt` (`#171920`) e
   rótulo `textSecondary` (`#a3aabb`, mais de 4,5:1 sobre a face). Vale para
   toda variante com lábio. A `ghost` só troca o rótulo para `textTertiary`.
+  Só a prop `disabled` aciona a face neutra; `loading` mantém a face da
+  variante. As variantes cheias têm borda de 1 px transparente, para que
+  alternar `disabled` não mude a medida da face.
 
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,

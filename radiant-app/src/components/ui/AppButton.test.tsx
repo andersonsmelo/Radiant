@@ -350,12 +350,49 @@ describe('AppButton — relevo', () => {
   // através da face e não há mais composição em grupo.
   const NEUTRAL_VARIANTS = ['primary', 'galaxy', 'gold', 'secondary', 'success', 'error'] as const;
 
+  // Nós sem `style` (o spinner) não têm opacidade própria.
+  const opacityOf = (node: { props: { style?: unknown } }) =>
+    (StyleSheet.flatten(node.props.style as never) as { opacity?: number } | undefined)?.opacity ?? 1;
+
   it.each(NEUTRAL_VARIANTS)('desabilitado %s não aplica opacidade', (variant) => {
-    const { getByTestId } = render(<AppButton label="Continuar" variant={variant} disabled onPress={jest.fn()} />);
-    for (const id of ['app-button-face', 'app-button-relief']) {
-      expect(styleOf(getByTestId(id)).opacity ?? 1).toBe(1);
+    const { toJSON } = render(<AppButton label="Continuar" variant={variant} disabled onPress={jest.fn()} />);
+    const all = findAllNodes(toJSON(), () => true);
+    expect(all.length).toBeGreaterThan(3);
+    for (const node of all) {
+      expect(opacityOf(node)).toBe(1);
+      expect(node.props.needsOffscreenAlphaCompositing).toBeFalsy();
     }
-    expect(getByTestId('app-button-relief').props.needsOffscreenAlphaCompositing).toBeFalsy();
+  });
+
+  it.each(['primary', 'galaxy'] as const)('carregando %s mantém a face da variante', (variant) => {
+    const enabled = render(<AppButton label="Salvar" variant={variant} onPress={jest.fn()} />);
+    const loading = render(<AppButton label="Salvar" variant={variant} loading onPress={jest.fn()} />);
+    const faceOf = (v: typeof enabled) => styleOf(v.getByTestId('app-button-face'));
+    expect(faceOf(loading).backgroundColor).toBe(faceOf(enabled).backgroundColor);
+    expect(faceOf(loading).backgroundColor).not.toBe(galaxyColors.surfaceActive);
+    expect(styleOf(loading.getByTestId('app-button-lip')).backgroundColor).toBe(
+      styleOf(enabled.getByTestId('app-button-lip')).backgroundColor,
+    );
+    expect(styleOf(loading.getByText('Salvar')).color).toBe(styleOf(enabled.getByText('Salvar')).color);
+  });
+
+  it('carregando não aplica opacidade', () => {
+    const { toJSON } = render(<AppButton label="Salvar" loading onPress={jest.fn()} />);
+    for (const node of findAllNodes(toJSON(), () => true)) {
+      expect(opacityOf(node)).toBe(1);
+    }
+  });
+
+  it.each(NEUTRAL_VARIANTS)('alternar disabled não muda borderWidth nem minHeight da face (%s)', (variant) => {
+    const faceOf = (disabled: boolean) => {
+      const view = render(<AppButton label="Continuar" variant={variant} disabled={disabled} onPress={jest.fn()} />);
+      return styleOf(view.getByTestId('app-button-face'));
+    };
+    const on = faceOf(false);
+    const off = faceOf(true);
+    expect(off.borderWidth).toBe(on.borderWidth);
+    expect(off.minHeight).toBe(on.minHeight);
+    expect(off.minHeight).toBe(56);
   });
 
   it.each(NEUTRAL_VARIANTS)('desabilitado %s usa a face neutra', (variant) => {
