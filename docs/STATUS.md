@@ -56,13 +56,13 @@ na 1.5.0, e nada da 1.6 foi visto em aparelho.**
 O estado de cada frente medido na própria branch, antes do merge, está no fim do
 [histórico](archive/STATUS_historico.md).
 
-**Build 1.6.0 (16), medido em 2026-11-16:** a versão no repositório é `1.6.0`,
+**Build 1.6.0 (17), medido em 2026-11-17:** a versão no repositório é `1.6.0`,
 e o perfil `production` do `radiant-app/eas.json` liga as seis chaves da 1.6,
 por decisão do dono em 2026-11-15. A build de produção do iOS compilou no EAS a
-partir de `e8e3a0e`, com os alvos `Radiant` e `RadiantHomeWidgets`. O EAS enviou
-o binário ao App Store Connect nesse dia ("Submitted your app to Apple App
-Store Connect", lido no terminal do dono). **Não conferido:** o fim do
-processamento pela Apple e a build aparecendo no TestFlight.
+partir de `32b2db94`, a `main` com o refinamento visual, e terminou às 11:52 UTC;
+o envio do EAS ao App Store Connect consta como concluído (`eas submit:list`).
+A build 16, de `e8e3a0e`, é anterior ao refinamento. **Não conferido:** o fim do
+processamento pela Apple e a build 17 aparecendo no TestFlight.
 
 **Feito na Apple pelo dono em 2026-11-16, com o agente conferindo pela página:**
 o App Group `group.com.ascendcreative.radiant.widgets`, ligado aos App IDs
@@ -99,8 +99,8 @@ cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
 
 O dono pediu, em 2026-11-16, um refinamento visual do app inteiro antes de a 1.6
 ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não muda.
-**O plano foi executado na branch `claude/refinamento-1-6-desenho` (código até
-`f6b39148`) e não está na `main`.** A build 1.6.0 do EAS não tem este trabalho.
+**Está na `main` desde 2026-11-17** (PR #84, merge `32b2db94`, feito pelo agente por
+ordem do dono, com o CI verde), e a build 1.6.0 (17) já o contém.
 
 - **Desenho e plano:** [spec](superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md)
   e [plano de 11 tarefas](plans/2026-11-16-refinamento-visual-1-6.md). A spec traz
@@ -118,9 +118,10 @@ ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não mud
 - **Não provado:** Android, texto no tamanho máximo, leitor de tela, roteiros do
   Maestro, liga com dados e compra real.
 - **Depende do dono:**
-  - revisar e mesclar a PR da branch;
-  - build novo e capturas da loja refeitas (a captura de revisão da assinatura
-    enviada à Apple mostra o desenho antigo);
+  - subir ao App Store Connect as capturas de iPhone refeitas em 2026-11-17
+    ([6,7"](store/assets/screenshots-ios-67/) e [6,5"](store/assets/screenshots-ios-65/));
+  - refazer a captura de revisão da assinatura enviada à Apple, que mostra o desenho
+    antigo, e as capturas do Play, que são de 2026-08-03;
   - a imagem de abertura, que continua com o Pixel antigo;
   - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
     por decisão do dono em 2026-11-17.

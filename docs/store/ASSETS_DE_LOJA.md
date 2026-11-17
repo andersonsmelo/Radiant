@@ -132,6 +132,39 @@ captura posterior às duas correções, e agora mostram `⚡ 36`, `🔥 1d`,
 loja tem de mostrar o que o usuário realmente recebe. Foi exatamente ela que
 transformou "vitrine fraca" em "defeito a corrigir" em vez de "recortar melhor".
 
+## Capturas de iPhone refeitas em 2026-11-17 (1.6, depois do refinamento visual)
+
+Os doze arquivos de `screenshots-ios-67/` e `screenshots-ios-65/` foram refeitos na
+`main` em `32b2db94`, por ordem do dono. As anteriores eram de 2026-08-03 e mostravam
+o desenho de antes do Medalhão.
+
+| Arquivo | O que mostra agora |
+| --- | --- |
+| `01-home.png` | Trilha com a primeira aula concluída, 23 XP e sequência de 1 dia |
+| `02-licao.png` | Abertura da aula "O trabalho do tecnólogo" |
+| `03-quiz.png` | Pergunta respondida, com a folha de acerto |
+| `04-checkpoint.png` | Classificar em grupos, conferido e certo. O nome do arquivo é o antigo; a tela não é uma avaliação |
+| `05-conquista.png` | Resumo da aula: três estrelas, +18 XP, 5 de 5 |
+| `06-progresso.png` | Perfil com a medalha, a semana e a liga |
+
+**Como foram feitas, e no que diferem da receita antiga:**
+
+- Simuladores criados para isso: "Radiant Loja 67" (iPhone 16 Plus) e "Radiant Loja 65"
+  (iPhone 11 Pro Max), iOS 26.5, com `simctl status_bar override` (9:41, bateria cheia).
+- **Não é build Release.** É o cliente de desenvolvimento de 2026-11-15 servindo o
+  JavaScript da `main` pelo Metro, com as variáveis do perfil `production` do
+  `eas.json` passadas no ambiente. O que aparece na tela é o mesmo código; o binário
+  não é o da loja.
+- **Sem Maestro.** O roteiro `store-capture.yaml` saiu do repositório em `30c95b0e`. O
+  agente percorreu a primeira aula pela trilha, com toques, e capturou com
+  `xcrun simctl io <udid> screenshot`. Não há roteiro para reproduzir.
+- Passaram pelo `normalize-screenshots.py` (`ios-67` e `ios-65`): tamanho exato, RGB
+  sem alfa.
+
+**Não refeitas:** as seis capturas do Play (`screenshots/`, de 2026-08-03) e a captura
+de revisão da assinatura no App Store Connect. **Subir os arquivos ao App Store Connect
+é do dono.**
+
 ## Lado iOS — normalizado e travado no contrato (2026-07-30)
 
 Esta pasta atende **apenas o Play**: o teto 2:1 e a faixa de lado 320–3840 são
