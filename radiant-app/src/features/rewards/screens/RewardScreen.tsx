@@ -14,7 +14,7 @@ import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
@@ -328,7 +328,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
+          streakDays={shownStreakDays(gamification)}
           hearts={hearts?.count ?? MAX_HEARTS}
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}

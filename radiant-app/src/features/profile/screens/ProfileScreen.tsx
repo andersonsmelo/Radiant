@@ -8,7 +8,7 @@ import { DailyMissionsService } from '../../missions/services/DailyMissionsServi
 import { LevelBadge } from '../../gamification/components/LevelBadge';
 import { JourneyCurriculumService, type CurriculumTrail } from '../../journey/services/JourneyCurriculumService';
 import { JourneyStarsService } from '../../journey/services/JourneyStarsService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import type { JourneyUnit } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
@@ -78,7 +78,7 @@ export default function ProfileScreen() {
         <LevelBadge xp={validXp ? totalXp : null} />
         <MedalShelf unit={curriculum.state === 'ready' ? currentUnit(curriculum.data) : null}
           starsByLessonId={stars.state === 'ready' ? stars.data : null} loading={curriculum.state === 'loading'} starsLoading={stars.state === 'loading'} />
-        <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot?.streakDays ?? null}
+        <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot ? shownStreakDays(snapshot) : null}
           today={today} loading={gamification.state === 'loading'} freezes={freezes.state === 'ready' ? { stored: freezes.data, max: MAX_STREAK_FREEZES, everyDays: STREAK_DAYS_PER_FREEZE } : null} />
         <View>
           <LeagueProfileRow onPress={() => router.push('/league')} />

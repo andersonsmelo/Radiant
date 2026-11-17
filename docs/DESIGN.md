@@ -455,6 +455,11 @@ movimento", de uma vez. Sem opacidade em nenhum estado.
 - **Errada:** o mesmo em erro, com a marca de erro.
 - **Apagada** (as demais, depois de conferir): como o repouso, com o texto em
   `textTertiary`.
+A mesma peça serve às opções de parear, às alternativas do cartão de revisão, ao
+"Selecionar esta ordem" e à comparação. Na comparação a figura entra acima do
+rótulo (`media`) e a escolhida leva a marca de seleção desenhada
+(`selectedMark`), porque ali a escolha não pode depender só de cor. O item de
+ordenar tem o mesmo lábio, parado: quem se toca são as setas.
 A marca de veredito (`VerdictIcon`, em `ui/components/VerdictIcons`) é SVG em
 três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
 da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem

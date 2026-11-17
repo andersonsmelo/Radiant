@@ -15,8 +15,8 @@ it('sequência de 10 que começa antes da semana: tudo até a última data é da
   expect(states).toEqual(['inStreak', 'inStreak', 'inStreak', 'inStreak', 'future', 'future', 'future']);
   expect(states).toHaveLength(7);
 });
-it('última data há quatro dias com sequência 5: sequência morta, só aquele dia', () => {
-  expect(run('2026-10-31', '2026-10-27', 5)).toEqual(['unknown', 'inStreak', 'unknown', 'unknown', 'unknown', 'today', 'future']);
+it('última data há quatro dias, sequência parada (vale 0): só aquele dia', () => {
+  expect(run('2026-10-31', '2026-10-27', 0)).toEqual(['unknown', 'inStreak', 'unknown', 'unknown', 'unknown', 'today', 'future']);
 });
 it('sem última data não há dia na sequência, e a validade fica: passado unknown, hoje today, depois future', () => {
   const states = run('2026-10-29', null, 4);
@@ -31,4 +31,7 @@ it('última data no futuro não marca nada', () => {
 });
 it('virada de mês: sequência de 3 terminando em 01/11 cobre três dias', () => {
   expect(run('2026-11-01', '2026-11-01', 3)).toEqual(['unknown', 'unknown', 'unknown', 'unknown', 'inStreak', 'inStreak', 'inStreak']);
+});
+it('dia perdido coberto por proteção: a sequência que ainda vale marca os dias dela até a última data', () => {
+  expect(run('2026-10-30', '2026-10-28', 3)).toEqual(['inStreak', 'inStreak', 'inStreak', 'unknown', 'today', 'future', 'future']);
 });

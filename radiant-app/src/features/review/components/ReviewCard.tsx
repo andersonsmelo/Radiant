@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Animated, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { useCardEnter } from '../../../ui/motion';
 import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -48,12 +49,9 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
       <View style={styles.cardContent}>
         <Text style={styles.prompt} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.prompt}</Text>
         {!feedback ? <View accessibilityRole="radiogroup" style={styles.optionsPreview}>
-          {question.options.map((option, index) => <Pressable key={`${question.id}:${index}`} testID={`review-option-${index}`} accessibilityRole="radio"
-            accessibilityLabel={option.label} accessibilityState={{ selected: selected === index, disabled: submitted || saving }}
-            disabled={submitted || saving} onPress={() => setSelected(index)}
-            style={[styles.optionRow, selected === index && { borderColor: galaxyColors.borderActive }]}>
-            <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
-          </Pressable>)}
+          {question.options.map((option, index) => <ChoiceOption key={`${question.id}:${index}`} testID={`review-option-${index}`} role="radio"
+            label={option.label} state={selected === index ? 'selected' : 'idle'}
+            disabled={submitted || saving} onPress={() => setSelected(index)} />)}
         </View> : <View
           testID="review-feedback-shell"
           style={[
@@ -104,22 +102,6 @@ const styles = StyleSheet.create({
   },
   optionsPreview: {
     gap: space.s2,
-  },
-  optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.s2,
-    minHeight: space.s6,
-    paddingHorizontal: space.s3,
-    borderRadius: radius.rLg,
-    backgroundColor: galaxyColors.surfaceMuted,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-  },
-  optionText: {
-    ...typography.bodyRegular,
-    color: galaxyColors.textSecondary,
-    flex: 1,
   },
   answerShell: {
     gap: space.s2,

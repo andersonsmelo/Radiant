@@ -97,4 +97,12 @@ describe('OrderingStepRenderer', () => {
             dimensions.mockRestore();
         }
     });
+
+    it('cada item tem lábio de relevo, e "Selecionar esta ordem" é a peça com relevo da aula', () => {
+        const { getAllByTestId } = render(<OrderingStepRenderer payload={payload} value={undefined} onChange={jest.fn()} />);
+        const lips = getAllByTestId('ordering-item-lip', { includeHiddenElements: true });
+        expect(lips).toHaveLength(3);
+        expect(StyleSheet.flatten(lips[0].props.style).position).toBe('absolute');
+        expect(getAllByTestId('choice-option-lip', { includeHiddenElements: true })).toHaveLength(1);
+    });
 });

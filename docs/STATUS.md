@@ -122,10 +122,15 @@ ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não mud
   - a imagem de abertura, que continua com o Pixel antigo;
   - apagar três componentes sem uso (`PixelHeroSplit`, `AnimatedCounter`,
     `GalaxyStatRow`), que o agente não removeu;
-  - decidir sobre as superfícies que ficaram sem relevo (ordenar, parear,
-    comparação, e as telas antigas de quiz e de cartão de revisão) e sobre o
-    número da sequência, que mostra a contagem guardada mesmo com a sequência
-    parada.
+  - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
+    por decisão do dono em 2026-11-17.
+- **Decisões do dono em 2026-11-17, entregues na mesma branch:** ordenar, parear,
+  comparação e o cartão de revisão usam a peça com relevo da aula (a comparação
+  perdeu a etiqueta "Selecionada" e ficou com a marca desenhada); e a sequência
+  parada mostra 0 no topo e no perfil, pela mesma regra do widget
+  (`standingStreakDays`). Suíte em 284 suítes e 3.855 testes (Node 20.20.2,
+  `jest --runInBand`, árvore da branch). **Não visto em simulador.**
+  [Evidência](evidence/2026-11-refinamento/tarefa-13-decisoes-em-aberto.md).
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 

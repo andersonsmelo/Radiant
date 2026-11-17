@@ -108,14 +108,12 @@ it('as proteções aparecem numa linha curta, e só quando foram lidas', () => {
   view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} loading freezes={{ stored: 1, max: 2, everyDays: 7 }} />);
   expect(screen.queryByText(/proteç/)).toBeNull();
 });
-// Tarefa 11: divergência documentada, não conserto. Com a sequência parada (último
-// estudo na terça, hoje é quinta), a semana marca só o último dia de estudo, mas o
-// número grande ao lado da chama continua mostrando a contagem guardada. Mudar o
-// número é regra de produto e está fora deste escopo.
-it('contagem 5 com a sequência parada mostra 5 dias e um dia marcado', () => {
-  show('2026-10-27', 5);
-  expect(screen.getByText('5')).toBeTruthy();
-  expect(screen.getByLabelText('Contador de sequência: 5')).toBeTruthy();
+// Decisão do dono em 2026-11-17: sequência parada vale 0, como no widget. A tela passa
+// a contagem que vale hoje; o dia do último estudo continua marcado.
+it('sequência parada mostra 0 dias e só o dia do último estudo marcado', () => {
+  show('2026-10-27', 0);
+  expect(screen.getByLabelText('Contador de sequência: 0')).toBeTruthy();
+  expect(screen.getByText('dias')).toBeTruthy();
   expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(1);
   expect(screen.getByLabelText('Terça, na sequência')).toBeTruthy();
 });

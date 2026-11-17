@@ -104,4 +104,9 @@ describe('MatchingStepRenderer', () => {
             expect(firstIsCorrect.slice(0, -1).every(Boolean)).toBe(false);
         });
     });
+
+    it('cada opção a associar é a peça com relevo da aula', () => {
+        const { getAllByTestId } = render(<MatchingStepRenderer payload={payload} value={undefined} onChange={jest.fn()} />);
+        expect(getAllByTestId('choice-option-lip', { includeHiddenElements: true })).toHaveLength(2);
+    });
 });

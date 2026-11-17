@@ -1,5 +1,5 @@
 import { formatLocalDateKey } from '../../constants/gamification';
-import { advanceStreak } from '../gamification/services/StreakFreezeService';
+import { standingStreakDays } from '../gamification/services/StreakFreezeService';
 
 /**
  * Retrato que o app grava no App Group para os widgets (ADR 2026-11-15).
@@ -47,15 +47,11 @@ const MAX_HORIZON_DAYS = 7;
 
 /** A sequência que vale no dia `dayKey` se o aluno ainda não estudou nele. */
 function standing(source: WidgetSource, dayKey: string): { streakDays: number; countsToday: boolean } {
-    // Chave `AAAA-MM-DD` compara como texto. Estudo "no futuro" (viagem para oeste, relógio
-    // atrasado) vale como hoje: zerar aqui mostraria 0 com a home mostrando N.
-    if (source.lastActiveDate !== null && source.lastActiveDate >= dayKey) {
-        return { streakDays: source.streakDays, countsToday: true };
-    }
-    // Viva se estudar hoje a estenderia; a regra (proteção, recomeço) é só a do StreakFreezeService.
-    const ifStudied = advanceStreak({ streakDays: source.streakDays, lastActiveDate: source.lastActiveDate }, source.freezes, dayKey);
-    const alive = source.lastActiveDate !== null && ifStudied.streakDays === source.streakDays + 1;
-    return { streakDays: alive ? source.streakDays : 0, countsToday: false };
+    // A regra (proteção, recomeço, estudo "no futuro") é a mesma do topo e do perfil.
+    return {
+        streakDays: standingStreakDays({ streakDays: source.streakDays, lastActiveDate: source.lastActiveDate }, source.freezes, dayKey),
+        countsToday: source.lastActiveDate !== null && source.lastActiveDate >= dayKey,
+    };
 }
 
 export function buildWidgetSnapshot(source: WidgetSource, now: Date): WidgetSnapshot {

@@ -24,12 +24,15 @@ describe('ComparisonStepRenderer', () => {
         expect(getByLabelText('Radiografia B. Tórax visto pelo outro ângulo.')).toBeTruthy();
     });
 
-    it('não depende de cor: mostra texto e estado acessível da seleção', () => {
-        const { getByLabelText, getByText } = render(
+    it('não depende de cor: marca desenhada na escolhida, sem a etiqueta "Selecionada", e estado acessível', () => {
+        const { getByLabelText, queryByText, getAllByTestId } = render(
             <ComparisonStepRenderer payload={payload} selectedOptionId="b" onSelect={jest.fn()} />,
         );
 
-        expect(getByText('Selecionada')).toBeTruthy(); // sem o ✓ no texto: a marca é desenhada
+        expect(queryByText('Selecionada')).toBeNull();
+        expect(getAllByTestId('choice-option-selected-mark', { includeHiddenElements: true })).toHaveLength(1);
+        // Decisão do dono (2026-11-17): a comparação usa a peça com relevo da aula.
+        expect(getAllByTestId('choice-option-lip', { includeHiddenElements: true })).toHaveLength(2);
         expect(getByLabelText('Campo restrito à região de interesse').props.accessibilityState.selected).toBe(true);
         expect(getByLabelText('Campo amplo').props.accessibilityState.selected).toBe(false);
     });

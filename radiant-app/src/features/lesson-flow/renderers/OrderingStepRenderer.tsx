@@ -4,6 +4,7 @@ import type { OrderingPayload } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
 
 type OrderingStepRendererProps = {
@@ -43,7 +44,9 @@ export function OrderingStepRenderer({ payload, value, onChange, submitted = fal
                     const first = index === 0;
                     const last = index === currentOrder.length - 1;
                     return (
-                        <View key={id} style={[styles.itemRow, stacked && styles.itemRowStacked]}>
+                        <View key={id} style={styles.relief}>
+                        <View testID="ordering-item-lip" pointerEvents="none" style={styles.lip} />
+                        <View style={[styles.itemRow, stacked && styles.itemRowStacked]}>
                             <Text style={styles.position}>{index + 1}</Text>
                             <Text style={[styles.itemLabel, stacked && styles.itemLabelStacked]}>{item.label}</Text>
                             <View style={styles.controls}>
@@ -69,22 +72,19 @@ export function OrderingStepRenderer({ payload, value, onChange, submitted = fal
                                 </Pressable>
                             </View>
                         </View>
+                        </View>
                     );
                 })}
             </View>
-            <Pressable
+            <ChoiceOption
+                label={value === undefined ? 'Selecionar esta ordem' : 'Ordem selecionada'}
+                state={value === undefined ? 'idle' : 'selected'}
+                selectedMark
                 disabled={submitted}
                 onPress={() => { if (!submitted) onChange(encodeInteractionIdSequence(currentOrder)); }}
-                accessibilityRole="button"
                 accessibilityLabel="Selecionar esta ordem"
                 accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona a sequência atual. Você confirma em ${confirmationLabel}.`}
-                accessibilityState={{ selected: value !== undefined, disabled: submitted }}
-                style={styles.selectOrder}
-            >
-                <Text style={styles.selectOrderLabel}>
-                    {value === undefined ? 'Selecionar esta ordem' : 'Ordem selecionada'}
-                </Text>
-            </Pressable>
+            />
         </View>
     );
 }
@@ -95,14 +95,17 @@ const styles = StyleSheet.create({
     activity: { gap: space.s3 },
     prompt: { ...typography.h3, color: galaxy.textPrimary },
     list: { gap: space.s2 },
+    // Mesmo lábio de 4 pt da `ChoiceOption`; o item não desce porque quem se toca são as setas.
+    relief: { paddingBottom: 4 },
+    lip: { position: 'absolute', top: 4, bottom: 0, left: 0, right: 0, borderRadius: radius.rLg, backgroundColor: galaxyColors.backgroundAlt },
     itemRow: {
         minHeight: 60,
         flexDirection: 'row',
         alignItems: 'center',
         gap: space.s2,
         paddingLeft: space.s3,
-        borderRadius: radius.rMd,
-        borderWidth: 1,
+        borderRadius: radius.rLg,
+        borderWidth: 2,
         borderColor: galaxy.border,
         backgroundColor: galaxyColors.surface,
         overflow: 'hidden',
@@ -122,15 +125,4 @@ const styles = StyleSheet.create({
     },
     disabled: { opacity: 0.32 },
     moveLabel: { ...typography.bodyStrong, color: galaxy.textPrimary },
-    selectOrder: {
-        minHeight: 44,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: space.s3,
-        borderRadius: radius.rMd,
-        borderWidth: 1,
-        borderColor: galaxy.statusInformation,
-        backgroundColor: galaxyColors.surfaceActive,
-    },
-    selectOrderLabel: { ...typography.bodyStrong, color: galaxy.textPrimary },
 });

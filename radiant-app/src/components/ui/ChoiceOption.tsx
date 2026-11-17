@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import { StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
-import { VerdictIcon } from '../../ui/components/VerdictIcons';
+import { CheckIcon, VerdictIcon } from '../../ui/components/VerdictIcons';
 import { MotionPressable, usePressDescend } from '../../ui/motion';
 import { radius, space, typography } from '../../ui/styles';
 import { feedbackColors, galaxyColors, medalColors } from '../../ui/theme';
@@ -19,6 +19,10 @@ export type ChoiceOptionProps = {
   testID?: string;
   accessibilityLabel?: string;
   accessibilityHint?: string;
+  /** Imagem ou figura acima do rótulo (comparação): a face empilha em coluna. */
+  media?: ReactNode;
+  /** Desenha a marca de escolhida em `selected`, para a escolha não depender só de cor. */
+  selectedMark?: boolean;
   /** Medida da peça inteira, com o lábio: a aula usa para rolar até a escolhida. */
   onLayout?: (event: LayoutChangeEvent) => void;
 };
@@ -38,7 +42,7 @@ const TONES: Record<ChoiceOptionState, { face: string; border: string; lip: stri
 };
 
 
-export function ChoiceOption({ label, state, onPress, disabled = false, chosen, role, testID, accessibilityLabel, accessibilityHint, onLayout }: ChoiceOptionProps) {
+export function ChoiceOption({ label, state, onPress, disabled = false, chosen, role, testID, accessibilityLabel, accessibilityHint, media, selectedMark = false, onLayout }: ChoiceOptionProps) {
   const descend = usePressDescend(PRESSED_OFFSET, disabled);
   const tone = TONES[state];
   const selected = chosen ?? state === 'selected';
@@ -62,27 +66,37 @@ export function ChoiceOption({ label, state, onPress, disabled = false, chosen, 
         accessibilityHint={accessibilityHint}
         accessibilityState={role === 'checkbox' ? { checked: selected, disabled } : { selected, disabled }}
         accessibilityValue={verdict ? { text: verdict === 'correct' ? 'certa' : 'errada' } : undefined}
-        style={[styles.face, { backgroundColor: tone.face, borderColor: tone.border }, descend.style]}
+        style={[media ? styles.faceStacked : styles.face, { backgroundColor: tone.face, borderColor: tone.border }, descend.style]}
       >
-        <Text style={[styles.label, { color: tone.text }]}>{label}</Text>
-        {verdict ? <VerdictIcon verdict={verdict} testID={`verdict-icon-${verdict}`} /> : null}
+        {media}
+        <View style={media ? styles.copyStacked : styles.copy}>
+          <Text style={[styles.label, { color: tone.text }]}>{label}</Text>
+          {verdict ? <VerdictIcon verdict={verdict} testID={`verdict-icon-${verdict}`} />
+            : selectedMark && state === 'selected' ? <View testID="choice-option-selected-mark" accessibilityElementsHidden importantForAccessibility="no-hide-descendants"><CheckIcon size={16} color={tone.border} /></View> : null}
+        </View>
       </MotionPressable>
     </View>
   );
 }
 
+const face = {
+  minHeight: 56,
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: space.s2,
+  borderWidth: 2,
+  borderRadius: radius.rLg,
+  paddingVertical: space.s2,
+  paddingHorizontal: space.s3,
+} as const;
+
 const styles = StyleSheet.create({
   relief: { paddingBottom: LIP },
   lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rLg },
-  face: {
-    minHeight: 56,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.s2,
-    borderWidth: 2,
-    borderRadius: radius.rLg,
-    paddingVertical: space.s2,
-    paddingHorizontal: space.s3,
-  },
+  face,
+  // Sem `null` na lista de estilos: o utilitário de teste do Reanimated não o aceita.
+  faceStacked: { ...face, flexDirection: 'column', alignItems: 'stretch' },
+  copy: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: space.s2 },
+  copyStacked: { flexDirection: 'row', alignItems: 'center', gap: space.s2 },
   label: { ...typography.body, flex: 1 },
 });

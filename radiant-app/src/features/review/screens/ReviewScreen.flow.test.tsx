@@ -32,6 +32,7 @@ jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 jest.mock('../../../ui/motion', () => {
   const enter = { animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() };
   return ({
+  ...jest.requireActual('../../../ui/motion'),
   MotionView: require('react-native').View,
   useMedalPulse: () => ({}),
   duration: {

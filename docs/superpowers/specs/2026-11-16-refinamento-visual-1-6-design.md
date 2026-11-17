@@ -343,6 +343,12 @@ como foi aprovado.
 - **7.5, missões.** O "+N XP" acende quando a missão está concluída e creditada.
 - **7.6, assinatura.** O período cobrado tem linha própria, acima do valor por mês
   calculado. A ADR de convites recebeu um adendo.
+- **Decisões do dono depois da execução (2026-11-17).** Ordenar, parear, comparação
+  e o cartão de revisão passaram a usar a peça com relevo; o quiz antigo ficou de
+  fora, porque não tem entrada dentro do app. Na comparação, a escolhida leva a
+  marca desenhada, para a escolha não depender só de cor. A sequência parada
+  mostra 0 no topo e no perfil, como no widget; a contagem guardada continua
+  servindo à regra e à sincronização.
 - **Seção 6, componentes sem uso.** `PixelHeroSplit`, `AnimatedCounter` e
   `GalaxyStatRow` ficaram sem uso e continuam no repositório.
 - **Seção 3 e seção 9, relevo em toda superfície de resposta.** O plano não cobriu

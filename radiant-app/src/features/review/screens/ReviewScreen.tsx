@@ -15,7 +15,7 @@ import { ProductionCurriculumCatalog } from '../../student-checkpoints/Productio
 import { itemKey } from '../../../types/itemReview';
 import type { ReviewItem } from '../hooks/useReview';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import { duration, useFadeInUp } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
@@ -240,7 +240,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
         <SafeAreaView style={styles.safe} edges={['top']}>
           <HUD
             totalXp={gamification?.totalXp ?? 0}
-            streakDays={gamification?.streakDays ?? 0}
+            streakDays={shownStreakDays(gamification)}
             hearts={hearts.count}
             maxHearts={5}
             heartsSnapshot={hearts}
@@ -311,7 +311,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
         <SafeAreaView style={styles.safe} edges={['top']}>
           <HUD
             totalXp={gamification?.totalXp ?? 0}
-            streakDays={gamification?.streakDays ?? 0}
+            streakDays={shownStreakDays(gamification)}
             hearts={hearts.count}
             maxHearts={5}
             heartsSnapshot={hearts}
@@ -366,7 +366,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
+          streakDays={shownStreakDays(gamification)}
           hearts={hearts.count}
           maxHearts={5}
           heartsSnapshot={hearts}

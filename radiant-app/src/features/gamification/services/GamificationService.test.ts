@@ -183,3 +183,29 @@ describe('GamificationService.onXpEarned — o XP ganho que a liga soma', () => 
         expect(ganhos).toEqual([7]);
     });
 });
+
+describe('GamificationService: a sequência que vale hoje', () => {
+    beforeEach(async () => {
+        await AsyncStorage.clear();
+        await GamificationService.reset();
+    });
+
+    it('o snapshot traz a contagem guardada e, à parte, a que vale no dia da leitura', async () => {
+        const dia = (d: number) => new Date(2026, 10, d, 21, 30);
+        for (const d of [4, 5]) await GamificationService.recordQuizCompletion({ totalQuestions: 5, correctAnswers: 5, answeredAt: dia(d) } as QuizResult);
+        expect(await GamificationService.getSnapshot(dia(6))).toMatchObject({ streakDays: 2, standingStreakDays: 2 });
+        expect(await GamificationService.getSnapshot(dia(9))).toMatchObject({ streakDays: 2, standingStreakDays: 0 });
+    });
+});
+
+describe('shownStreakDays (o número que as telas mostram)', () => {
+    const { shownStreakDays } = require('../../../types/gamification') as typeof import('../../../types/gamification');
+    it('mostra a sequência que vale hoje, e não a guardada', () => {
+        expect(shownStreakDays({ streakDays: 5, standingStreakDays: 0 })).toBe(0);
+        expect(shownStreakDays({ streakDays: 5, standingStreakDays: 5 })).toBe(5);
+    });
+    it('sem leitura mostra 0; snapshot antigo, sem o campo, cai na contagem guardada', () => {
+        expect(shownStreakDays(null)).toBe(0);
+        expect(shownStreakDays({ streakDays: 3 })).toBe(3);
+    });
+});

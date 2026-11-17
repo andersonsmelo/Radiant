@@ -9,6 +9,7 @@ import type { QuizQuestion } from '../../../types/quiz';
 
 const mockEnter = { animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() };
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
   useCardEnter: () => ({ ...mockEnter }),
   useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
 }));
@@ -33,6 +34,14 @@ describe('ReviewCard — resposta antes do gabarito', () => {
     view.rerender(<ReviewCard {...props} feedback={{ correct: false, assisted: false }} />);
     expect(screen.getByText('Vamos revisar este ponto')).toBeTruthy();
     expect(screen.getByText(question.explanation)).toBeTruthy();
+  });
+  it('as alternativas são a peça com relevo da aula, em grupo de rádio, e a tocada fica escolhida', () => {
+    render(<ReviewCard question={question} onAnswer={jest.fn()} onContinue={jest.fn()} feedback={null} saving={false} />);
+    expect(screen.getAllByTestId('choice-option-lip', { includeHiddenElements: true })).toHaveLength(2);
+    expect(screen.getByTestId('review-option-0').props.accessibilityRole).toBe('radio');
+    fireEvent.press(screen.getByTestId('review-option-1'));
+    expect(screen.getByTestId('review-option-1').props.accessibilityState.selected).toBe(true);
+    expect(screen.getByTestId('review-option-0').props.accessibilityState.selected).toBe(false);
   });
   it('pedir gabarito envia ajuda, sem autodeclarar acerto', () => {
     const onAnswer = jest.fn();

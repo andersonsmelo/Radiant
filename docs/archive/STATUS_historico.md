@@ -4741,3 +4741,15 @@ Medalhão não muda.
 - **Fora do escopo, por escolha registrada na spec:** a `HomeScreen` antiga, o
   desenho da tela da liga (não foi vista com dados de Game Center) e a
   reescrita de passos de ensino aula por aula.
+
+## Refinamento visual antes da 1.6: pendência que saiu do STATUS em 2026-11-17
+
+Até 2026-11-17 o `STATUS.md` listava, entre o que dependia do dono:
+
+- decidir sobre as superfícies que ficaram sem relevo (ordenar, parear,
+  comparação, e as telas antigas de quiz e de cartão de revisão) e sobre o
+  número da sequência, que mostra a contagem guardada mesmo com a sequência
+  parada.
+
+O dono decidiu no mesmo dia: relevo nas quatro superfícies que o aluno alcança e
+sequência parada mostrando 0.

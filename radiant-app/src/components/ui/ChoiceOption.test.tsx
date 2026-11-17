@@ -134,4 +134,19 @@ describe('ChoiceOption', () => {
     fireEvent(peca, 'layout', { nativeEvent: { layout: { x: 0, y: 64, width: 300, height: 60 } } });
     expect(onLayout).toHaveBeenCalledWith(expect.objectContaining({ nativeEvent: { layout: { x: 0, y: 64, width: 300, height: 60 } } }));
   });
+
+  it('com mídia, a face empilha a mídia acima do rótulo e mantém o relevo', () => {
+    const { Text: RNText } = require('react-native');
+    const view = render(<ChoiceOption label="Radiografia A" state="idle" testID="opt" media={<RNText testID="midia">img</RNText>} />);
+    expect(flat(view.getByTestId('opt')).flexDirection).toBe('column');
+    expect(view.getByTestId('midia')).toBeTruthy();
+    expect(view.getByTestId('choice-option-lip', HIDDEN)).toBeTruthy();
+    expect(flat(renderState('idle').getByTestId('opt')).flexDirection).toBe('row');
+  });
+
+  it('selectedMark desenha a marca de escolhida só em selected, para a escolha não depender de cor', () => {
+    expect(render(<ChoiceOption label="A" state="selected" selectedMark />).queryByTestId('choice-option-selected-mark', HIDDEN)).toBeTruthy();
+    expect(render(<ChoiceOption label="A" state="idle" selectedMark />).queryByTestId('choice-option-selected-mark', HIDDEN)).toBeNull();
+    expect(renderState('selected').queryByTestId('choice-option-selected-mark', HIDDEN)).toBeNull();
+  });
 });

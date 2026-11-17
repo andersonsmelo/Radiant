@@ -132,6 +132,14 @@ it('sequência viva marca só os dias da semana que a contagem sustenta, sem pas
   expect(screen.getByLabelText('Quinta, hoje, ainda sem estudo')).toBeTruthy();
 });
 
+it('sequência parada mostra 0 no contador, não a contagem guardada', async () => {
+  gami.mockResolvedValue({ totalXp: 10, streakDays: 5, standingStreakDays: 0, lastActiveDate: '2026-10-26' });
+  render(<ProfileScreen />);
+  await screen.findByText('10 XP no total');
+  expect(screen.getByLabelText('Contador de sequência: 0')).toBeTruthy();
+  expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(1);
+});
+
 // Liga semanal (ADR 2026-11-13): a entrada fica no Perfil, como as missões, e
 // só existe com a chave ligada.
 it('com a liga ligada, o Perfil tem a entrada da liga, que leva a /league', async () => {

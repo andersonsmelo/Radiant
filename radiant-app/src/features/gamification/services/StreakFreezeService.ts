@@ -48,6 +48,18 @@ export function advanceStreak(state: StreakState, freezes: number, todayKey: str
     };
 }
 
+/**
+ * A sequência que vale no dia `dayKey` antes de estudar nele: a guardada, se estudar hoje a
+ * estenderia (ontem, ou anteontem com proteção); senão 0. Widget, topo e perfil mostram esta.
+ */
+export function standingStreakDays(state: StreakState, freezes: number, dayKey: string): number {
+    // Chave `AAAA-MM-DD` compara como texto. Estudo "no futuro" (viagem para oeste, relógio
+    // atrasado) vale como hoje.
+    if (state.lastActiveDate !== null && state.lastActiveDate >= dayKey) return state.streakDays;
+    const alive = state.lastActiveDate !== null && advanceStreak(state, freezes, dayKey).streakDays === state.streakDays + 1;
+    return alive ? state.streakDays : 0;
+}
+
 const SCHEMA_VERSION = 1;
 const KNOWN_SCHEMA_VERSIONS: readonly unknown[] = [SCHEMA_VERSION];
 
