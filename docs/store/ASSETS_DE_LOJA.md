@@ -161,9 +161,43 @@ o desenho de antes do Medalhão.
 - Passaram pelo `normalize-screenshots.py` (`ios-67` e `ios-65`): tamanho exato, RGB
   sem alfa.
 
-**Não refeitas:** as seis capturas do Play (`screenshots/`, de 2026-08-03) e a captura
-de revisão da assinatura no App Store Connect. **Subir os arquivos ao App Store Connect
-é do dono.**
+**Captura de revisão da assinatura, refeita em 2026-11-17:**
+[`assets/assinatura-revisao.png`](assets/assinatura-revisao.png), 1206×2622, RGB. Mostra a
+tela "Radiant Ilimitado" com os dois cartões de plano e os preços do arquivo
+`RadiantIlimitado.storekit` (R$ 19,90 por mês e R$ 149,90 por ano). O app foi lançado pelo
+Xcode (Product → Perform Action → Run Without Building) no simulador "Radiant F6", com o
+JavaScript da `main` em `a4e3a635` mais a troca do texto da apresentação.
+
+- O `ios/` local é de setembro e **não compila no Xcode 27.2** (dependências com alvo de
+  iOS abaixo de 15). O binário lançado foi o compilado em 2026-11-13 na árvore da F4,
+  copiado para a pasta de produtos que o Xcode procura. Para a próxima vez, o caminho
+  limpo é regenerar o `ios/` com `expo prebuild` e religar o `.storekit` ao esquema.
+- O Xcode começou a indexar o projeto ao abrir e levou a carga da máquina acima de 100
+  por uns três minutos; o simulador só voltou a aceitar toque depois disso.
+
+**Capturas do Play, refeitas em 2026-11-17:** os seis arquivos de `screenshots/`, em
+1080×1920, com as mesmas seis telas e os mesmos nomes dos buckets de iPhone.
+
+- A máquina não tinha Android: o dono autorizou baixar a imagem
+  `system-images;android-35;google_apis;arm64-v8a` pelo `sdkmanager`. O emulador é o
+  AVD "RadiantPlay" (Pixel 7), ligado sem janela, com `wm size 1080x1920`, densidade
+  420 e o modo de demonstração da barra de status (9:41).
+- O `android/` local era de julho. Foi regenerado com `expo prebuild --platform android
+  --clean` e compilado com `./gradlew :app:assembleDebug` (11 min). É o cliente de
+  desenvolvimento servindo o JavaScript da branch pelo Metro, com as variáveis do
+  perfil `production`; não é o binário da loja.
+- O primeiro bundle do Android demora mais que o prazo do app, que mostra
+  `SocketTimeoutException`. Recarregar depois de o Metro terminar resolve.
+- O app abre por `exp+radiant-app://expo-development-client/?url=…`, com
+  `adb reverse tcp:8081 tcp:8081`.
+- Os toques foram por texto do elemento (`uiautomator dump` mais `input tap`), num
+  script que ficou fora do repositório. Um alvo atrás do rodapé fixo aparece na árvore
+  mas não recebe o toque: é preciso rolar antes.
+
+**Visto nas capturas do Android, não investigado:** os títulos grandes parecem sair na
+fonte do sistema, e não na Sora, como no iPhone.
+
+**Subir os arquivos ao App Store Connect e ao Play Console é do dono.**
 
 ## Lado iOS — normalizado e travado no contrato (2026-07-30)
 

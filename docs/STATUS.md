@@ -64,6 +64,13 @@ o envio do EAS ao App Store Connect consta como concluído (`eas submit:list`).
 A build 16, de `e8e3a0e`, é anterior ao refinamento. **Não conferido:** o fim do
 processamento pela Apple e a build 17 aparecendo no TestFlight.
 
+**A build 17 não tem o texto novo da apresentação inicial.** Ela mostra "Conteúdo em
+preparação." a todo aluno novo, frase que ficou na tela desde a retirada do currículo
+antigo (`30c95b0e`). O dono aprovou, em 2026-11-17, o texto "Aqui você treina o dia a
+dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo
+certo.", trocado em `WelcomeFlowScreen.tsx` depois da build. **Pede build nova antes
+do envio à revisão.**
+
 **Feito na Apple pelo dono em 2026-11-16, com o agente conferindo pela página:**
 o App Group `group.com.ascendcreative.radiant.widgets`, ligado aos App IDs
 `com.ascendcreative.radiant` e `com.ascendcreative.radiant.widgets`; e o placar
@@ -120,8 +127,11 @@ ordem do dono, com o CI verde), e a build 1.6.0 (17) já o contém.
 - **Depende do dono:**
   - subir ao App Store Connect as capturas de iPhone refeitas em 2026-11-17
     ([6,7"](store/assets/screenshots-ios-67/) e [6,5"](store/assets/screenshots-ios-65/));
-  - refazer a captura de revisão da assinatura enviada à Apple, que mostra o desenho
-    antigo, e as capturas do Play, que são de 2026-08-03;
+  - subir ao App Store Connect a captura de revisão da assinatura refeita em
+    2026-11-17 ([arquivo](store/assets/assinatura-revisao.png)); a que está lá mostra o
+    desenho antigo;
+  - subir ao Play Console as seis capturas refeitas em 2026-11-17
+    ([pasta](store/assets/screenshots/));
   - a imagem de abertura, que continua com o Pixel antigo;
   - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
     por decisão do dono em 2026-11-17.

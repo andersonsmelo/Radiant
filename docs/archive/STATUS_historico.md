@@ -4782,3 +4782,17 @@ processamento pela Apple e a build aparecendo no TestFlight.
   - build novo e capturas da loja refeitas (a captura de revisão da assinatura
     enviada à Apple mostra o desenho antigo);
 
+## Saída do STATUS em 2026-11-17: captura de revisão da assinatura
+
+Até a captura ser refeita, o `STATUS.md` dizia:
+
+- refazer a captura de revisão da assinatura enviada à Apple, que mostra o desenho
+  antigo, e as capturas do Play, que são de 2026-08-03;
+
+## Saída do STATUS em 2026-11-17: capturas do Play
+
+Até as capturas serem refeitas, o `STATUS.md` dizia:
+
+- as capturas do Play, que são de 2026-08-03: esta máquina não tem imagem de sistema
+  nem emulador Android instalados;
+
