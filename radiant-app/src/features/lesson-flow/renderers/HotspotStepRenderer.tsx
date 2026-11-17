@@ -5,6 +5,7 @@ import type { HotspotPayload, NormalizedRegion } from '../../../types/learningAc
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { CheckIcon } from '../../../ui/components/VerdictIcons';
 
 type HotspotStepRendererProps = {
     payload: HotspotPayload;
@@ -65,7 +66,11 @@ export function HotspotStepRenderer({
                                 selected && styles.selected,
                             ]}
                         >
-                            <Text style={styles.hotspotIndex}>{selected ? '✓' : index + 1}</Text>
+                            {selected ? (
+                                <View testID="hotspot-selected-mark" style={styles.hotspotBadge}>
+                                    <CheckIcon size={20} color={galaxy.textPrimary} />
+                                </View>
+                            ) : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
                         </Pressable>
                     );
                 })}
@@ -138,6 +143,14 @@ const styles = StyleSheet.create({
         borderRadius: radius.rMd,
         overflow: 'hidden',
         paddingHorizontal: space.s2,
+    },
+    // Mesmo selo do número, com a marca desenhada no lugar dele.
+    hotspotBadge: {
+        backgroundColor: galaxyColors.background,
+        borderRadius: radius.rMd,
+        paddingHorizontal: space.s2,
+        minHeight: 24,
+        justifyContent: 'center',
     },
     textAlternatives: { gap: space.s2 },
     alternativeTitle: { ...typography.bodyStrong, color: galaxy.textSecondary },

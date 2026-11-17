@@ -427,6 +427,25 @@ as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
   variante. As variantes cheias têm borda de 1 px transparente, para que
   alternar `disabled` não mude a medida da face.
 
+### Alternativa
+Linha de resposta da múltipla escolha (`ChoiceOption`), com o relevo do botão:
+face de 56 pt no mínimo, borda de 2 px, raio de 16 px e lábio de 4 pt por
+baixo. A face desce 3 pt na pressão, em `duration.micro`; sob "reduzir
+movimento", de uma vez. Sem opacidade em nenhum estado.
+- **Repouso:** face `surface`, borda `border`, lábio `backgroundAlt`, texto
+  principal.
+- **Selecionada:** face `surfaceActive`, borda Azul de Navegação (`#4A9EFF`),
+  lábio da unidade (`#1846C9`).
+- **Certa:** face e lábio de acerto, borda e texto no preenchimento de acerto,
+  mais a marca de acerto desenhada à direita.
+- **Errada:** o mesmo em erro, com a marca de erro.
+- **Apagada** (as demais, depois de conferir): como o repouso, com o texto em
+  `textTertiary`.
+A marca de veredito (`VerdictIcon`, em `ui/components/VerdictIcons`) é SVG em
+três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
+da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem
+do mesmo arquivo: nenhum ✓, ✗ ou ✕ de texto serve de ícone.
+
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
   raio de 16 px e padding de 16 px.

@@ -1,12 +1,10 @@
-import React, { type ReactElement } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
-import { AppConfig } from '../../../config';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ChoiceOption, type ChoiceOptionState } from '../../../components/ui/ChoiceOption';
 import type { ExposureReadingImage } from '../../../types/learningActivity';
 import type { MultipleChoicePayload } from '../../../types/lessonFlow';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
-import { usePressScale } from '../../../ui/motion';
-import { motionMsFor } from '../../../ui/feedback/lessonFeedback';
+import { space, typography } from '../../../ui/styles';
 
 const galaxy = semanticColors.galaxy;
 
@@ -17,18 +15,9 @@ type MultipleChoiceStepRendererProps = {
     onSelect: (optionId: string) => void;
     confirmationLabel?: string;
     submitted?: boolean;
+    /** Lido só depois de conferir; sem ele, vale o do próprio `payload`. */
+    correctOptionId?: string;
 };
-
-/**
- * F3 (`ENABLE_RICH_FEEDBACK`): a alternativa afunda ao toque e volta ao soltar,
- * como as fichas da F2. Desligado, a árvore é a da base, sem envoltório.
- */
-function PressDepth({ disabled, children }: { disabled: boolean; children: (handlers: object) => ReactElement }) {
-    const press = usePressScale(motionMsFor('option_tap'));
-    if (!AppConfig.ENABLE_RICH_FEEDBACK) return children({});
-    const handlers = disabled ? {} : { onPressIn: press.onPressIn, onPressOut: press.onPressOut };
-    return <Animated.View style={press.animatedStyle}>{children(handlers)}</Animated.View>;
-}
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
 // trocável e nada foi commitado. Quem confirma é a ação do rodapé — por
@@ -40,6 +29,7 @@ export function MultipleChoiceStepRenderer({
     onSelect,
     confirmationLabel = 'Continuar',
     submitted = false,
+    correctOptionId = payload.correctOptionId,
 }: MultipleChoiceStepRendererProps) {
     // Mesmo limite lazy da bancada: atividades sem imagem não carregam Skia.
     // A migração global dos dublês/imports pertence à T04a.
@@ -57,32 +47,25 @@ export function MultipleChoiceStepRenderer({
             <View style={styles.options}>
                 {payload.options.map((option) => {
                     const selected = option.id === selectedOptionId;
+                    const state: ChoiceOptionState = !submitted
+                        ? (selected ? 'selected' : 'idle')
+                        : option.id === correctOptionId ? 'correct' : selected ? 'incorrect' : 'dimmed';
 
                     return (
-                        <PressDepth key={option.id} disabled={submitted}>{(handlers) => (
-                        <Pressable
-                            {...handlers}
+                        <ChoiceOption
+                            key={option.id}
+                            label={option.label}
+                            state={state}
+                            chosen={selected}
+                            disabled={submitted}
                             onPress={() => { if (!submitted) onSelect(option.id); }}
                             testID={`lesson-option-${option.id}`}
-                            accessibilityRole="button"
-                            accessibilityLabel={option.label}
                             accessibilityHint={
                                 submitted ? 'Resposta já conferida. Leia o feedback e continue.' : selected
                                     ? `Selecionada. Toque em outra alternativa para trocar antes de ${confirmationLabel}.`
                                     : `Seleciona esta resposta. Você confirma em ${confirmationLabel}.`
                             }
-                            accessibilityState={{ selected, disabled: submitted }}
-                            style={[
-                                styles.option,
-                                selected && styles.optionSelected,
-                            ]}
-                        >
-                            <View style={styles.optionContent}>
-                                <Text style={styles.optionLabel}>{option.label}</Text>
-                                {selected ? <Text style={styles.selectionLabel}>Selecionada</Text> : null}
-                            </View>
-                        </Pressable>
-                        )}</PressDepth>
+                        />
                     );
                 })}
             </View>
@@ -102,29 +85,5 @@ const styles = StyleSheet.create({
     },
     options: {
         gap: space.s2,
-    },
-    option: {
-        minHeight: 56,
-        justifyContent: 'center',
-        backgroundColor: galaxy.surface,
-        borderWidth: 1,
-        borderColor: galaxy.border,
-        borderRadius: radius.rLg,
-        padding: space.s3,
-    },
-    optionSelected: {
-        backgroundColor: galaxy.surfaceElevated,
-        borderColor: galaxy.statusInformation,
-    },
-    optionContent: {
-        gap: space.s1,
-    },
-    selectionLabel: {
-        ...typography.micro,
-        color: galaxy.statusInformation,
-    },
-    optionLabel: {
-        ...typography.body,
-        color: galaxy.textPrimary,
     },
 });

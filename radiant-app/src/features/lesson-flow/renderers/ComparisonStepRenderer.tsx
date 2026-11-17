@@ -5,6 +5,7 @@ import type { ComparisonPayload } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { CheckIcon } from '../../../ui/components/VerdictIcons';
 
 type ComparisonStepRendererProps = {
     payload: ComparisonPayload;
@@ -53,7 +54,12 @@ export function ComparisonStepRenderer({ payload, selectedOptionId, onSelect, re
                                 <Text style={styles.optionIndex}>{index + 1}</Text>
                                 <Text style={styles.optionLabel}>{option.label}</Text>
                             </View>
-                            {selected ? <Text style={styles.selectedLabel}>✓ Selecionada</Text> : null}
+                            {selected ? (
+                                <View style={styles.selectedRow}>
+                                    <CheckIcon size={16} color={galaxy.statusSuccess} />
+                                    <Text style={styles.selectedLabel}>Selecionada</Text>
+                                </View>
+                            ) : null}
                         </Pressable>
                     );
                 })}
@@ -95,5 +101,6 @@ const styles = StyleSheet.create({
     optionCopy: { flexDirection: 'row', alignItems: 'flex-start', gap: space.s2 },
     optionIndex: { ...typography.bodyStrong, color: galaxy.statusInformation },
     optionLabel: { ...typography.bodyRegular, color: galaxy.textPrimary, flex: 1 },
+    selectedRow: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
     selectedLabel: { ...typography.caption, color: galaxy.statusSuccess },
 });

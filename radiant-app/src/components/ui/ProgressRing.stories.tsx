@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { Text, View } from 'react-native';
 
+import { CheckIcon } from '../../ui/components/VerdictIcons';
+
 import { semanticColors } from '../../ui/semantic-colors';
 import { ProgressRing } from './ProgressRing';
 
@@ -29,7 +31,7 @@ export const Empty: Story = {
 };
 
 export const Success: Story = {
-  args: { value: 1, color: semanticColors.light.statusSuccess, children: <Text style={{ color: semanticColors.light.statusSuccess }}>✓</Text> },
+  args: { value: 1, color: semanticColors.light.statusSuccess, children: <CheckIcon size={32} color={semanticColors.light.statusSuccess} /> },
 };
 
 export const NeedsAttention: Story = {

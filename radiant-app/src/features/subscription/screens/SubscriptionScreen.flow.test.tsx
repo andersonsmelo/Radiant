@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { SubscriptionService } from '../SubscriptionService';
@@ -306,6 +306,14 @@ describe('SubscriptionScreen — estados', () => {
         expect(await screen.findByText(/expirou em 01\/09\/2026/u)).toBeTruthy();
         expect(screen.getByText(/voltaram a 5/u)).toBeTruthy();
         expect(screen.getByRole('button', { name: 'Assinar anual' })).toBeTruthy();
+    });
+
+    it('o botão de fechar não tem o caractere ✕', async () => {
+        abrir(loja());
+        await screen.findByText('R$ 19,90');
+
+        expect(screen.queryByText('✕')).toBeNull();
+        expect(within(screen.getByLabelText('Fechar')).queryAllByText(/./u)).toHaveLength(0);
     });
 
     it('fechar devolve o aluno de onde veio', async () => {

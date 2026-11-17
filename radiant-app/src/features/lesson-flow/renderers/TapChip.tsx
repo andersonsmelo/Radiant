@@ -4,6 +4,7 @@ import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { useCardEnter, usePressScale, useScalePop } from '../../../ui/motion';
 import { radius, space, typography } from '../../../ui/styles';
+import { VerdictIcon } from '../../../ui/components/VerdictIcons';
 
 /**
  * Durações das microinterações das famílias da 1.6, em milissegundos: pressionar
@@ -21,7 +22,7 @@ type TapChipProps = {
     accessibilityHint?: string;
     onPress?: () => void;
     selected?: boolean;
-    /** Depois de conferir: a marca vem em texto (✓ ou ✗), não só na cor. */
+    /** Depois de conferir: a marca é desenhada (`VerdictIcon`), não só a cor. */
     verdict?: TapChipVerdict;
     disabled?: boolean;
     role?: 'button' | 'checkbox';
@@ -34,7 +35,6 @@ export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress,
     const pop = useScalePop(F2_MOTION.confirm);
     const { animateIn } = pop;
     useEffect(() => { if (verdict) animateIn(); }, [animateIn, verdict]);
-    const mark = verdict === 'correct' ? '✓ ' : verdict === 'incorrect' ? '✗ ' : '';
 
     return (
         <Animated.View style={verdict ? pop.style : press.animatedStyle}>
@@ -51,7 +51,8 @@ export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress,
                 style={[styles.chip, selected && styles.selected,
                     verdict === 'correct' && styles.correct, verdict === 'incorrect' && styles.incorrect]}
             >
-                <Text style={styles.label}>{mark}{label}</Text>
+                {verdict ? <VerdictIcon verdict={verdict} size={20} testID={`verdict-icon-${verdict}`} /> : null}
+                <Text style={styles.label}>{label}</Text>
             </Pressable>
         </Animated.View>
     );
@@ -88,10 +89,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: galaxy.border,
         backgroundColor: galaxyColors.surface,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: space.s1,
     },
     selected: { borderColor: galaxy.reward, borderWidth: 2 },
     correct: { borderColor: galaxy.statusSuccess, borderWidth: 2 },
     incorrect: { borderColor: galaxy.statusError, borderWidth: 2 },
-    label: { ...typography.bodyRegular, color: galaxy.textPrimary },
+    label: { ...typography.bodyRegular, color: galaxy.textPrimary, flexShrink: 1 },
 });

@@ -53,7 +53,7 @@ describe('HotspotStepRenderer', () => {
     });
 
     it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
-        const { getByLabelText, getByText } = render(
+        const { getByLabelText, getByTestId, queryByText, toJSON } = render(
             <HotspotStepRenderer
                 payload={payload}
                 accessibilityLabel="Geometria simplificada do feixe de raios X"
@@ -62,9 +62,10 @@ describe('HotspotStepRenderer', () => {
             />,
         );
 
-        const badge = StyleSheet.flatten(getByText('✓').props.style);
+        const badge = StyleSheet.flatten(getByTestId('hotspot-selected-mark').props.style);
         expect(badge.backgroundColor).toBe(galaxyColors.background);
-        expect(badge.color).toBe(semanticColors.galaxy.textPrimary);
+        expect(JSON.stringify(toJSON())).toContain(semanticColors.galaxy.textPrimary);
+        expect(queryByText('✓')).toBeNull();
         const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
         expect(region.alignItems).toBe('flex-start');
         expect(region.justifyContent).toBe('flex-start');

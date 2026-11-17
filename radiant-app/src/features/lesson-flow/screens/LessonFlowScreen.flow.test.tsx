@@ -539,7 +539,8 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
 
     expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
     expect(screen.getByLabelText('Consolidação alveolar').props.accessibilityHint).toContain('Conferir resposta');
-    expect(screen.getByText('Selecionada')).toBeTruthy();
+    expect(screen.getByLabelText('Consolidação alveolar').props.accessibilityState.selected).toBe(true);
+    expect(screen.queryByText('Selecionada')).toBeNull();
     expect(screen.queryByText('Resposta correta')).toBeNull();
     expect(announceForAccessibility).not.toHaveBeenCalled();
     expect(heartsRepository.spend).not.toHaveBeenCalled();

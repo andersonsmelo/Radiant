@@ -29,7 +29,7 @@ describe('ComparisonStepRenderer', () => {
             <ComparisonStepRenderer payload={payload} selectedOptionId="b" onSelect={jest.fn()} />,
         );
 
-        expect(getByText(/Selecionada/)).toBeTruthy();
+        expect(getByText('Selecionada')).toBeTruthy(); // sem o ✓ no texto: a marca é desenhada
         expect(getByLabelText('Campo restrito à região de interesse').props.accessibilityState.selected).toBe(true);
         expect(getByLabelText('Campo amplo').props.accessibilityState.selected).toBe(false);
     });

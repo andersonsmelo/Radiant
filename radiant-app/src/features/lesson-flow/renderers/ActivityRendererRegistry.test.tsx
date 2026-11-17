@@ -113,13 +113,15 @@ describe('ActivityRendererRegistry', () => {
     });
 
     it('sincroniza hints com a confirmação explícita recebida e mostra o estado selecionado', () => {
-        const { getByLabelText, getByText } = render(
+        const { getByLabelText, queryByText } = render(
             <ActivityInteractionRenderer interaction={multipleChoice()} value="a" onChange={jest.fn()} confirmationLabel="Conferir resposta" />,
         );
 
         expect(getByLabelText('Osso').props.accessibilityHint).toContain('Conferir resposta');
         expect(getByLabelText('Ar').props.accessibilityHint).toBe('Seleciona esta resposta. Você confirma em Conferir resposta.');
-        expect(getByText('Selecionada')).toBeTruthy();
+        expect(getByLabelText('Osso').props.accessibilityState.selected).toBe(true);
+        expect(getByLabelText('Ar').props.accessibilityState.selected).toBe(false);
+        expect(queryByText('Selecionada')).toBeNull();
     });
 
     it('mantém Continuar como default para chamadores do registry e do renderer legado', () => {

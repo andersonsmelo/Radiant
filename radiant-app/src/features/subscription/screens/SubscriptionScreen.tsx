@@ -8,6 +8,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { LEGAL_LINKS } from '../../../config/legal';
 import { depth, galaxyColors, medalColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
+import { CloseIcon } from '../../../ui/components/VerdictIcons';
 import { formatShortDate } from '../components/SubscriptionCard';
 import { conversionService, type ConversionService } from '../../conversion/ConversionService';
 import { PlanComparison } from '../../conversion/components/PlanComparison';
@@ -364,7 +365,7 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                     hitSlop={12}
                     style={styles.close}
                 >
-                    <Text style={styles.closeText}>✕</Text>
+                    <CloseIcon color={galaxyColors.textPrimary} />
                 </Pressable>
             </View>
             <ScrollView contentContainerStyle={[layout.container, styles.content]} showsVerticalScrollIndicator={false}>
@@ -401,10 +402,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: galaxyColors.surface,
-    },
-    closeText: {
-        ...typography.bodyStrong,
-        color: galaxyColors.textPrimary,
     },
     content: {
         gap: space.s2,
