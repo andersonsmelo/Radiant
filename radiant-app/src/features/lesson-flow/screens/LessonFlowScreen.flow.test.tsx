@@ -2617,7 +2617,7 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
         } },
         { kind: 'presentation', id: 'conceito', role: 'concept', payload: {
           title: 'O pedido orienta o exame', body: 'Ele diz o que examinar e por quê.',
-          keyPoints: ['Leia o pedido inteiro.', 'Confirme a identidade.'],
+          keyPoints: ['Leitura: leia o pedido inteiro.', 'Confirme a identidade.'],
         } },
         item(1), item(2, 'Pense em quem assina o pedido.'), item(3), item(4), item(5),
         { kind: 'presentation', id: 'fecho', role: 'closing', payload: {
@@ -2706,7 +2706,10 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
     // Com todas as falas na tela, o mesmo botão avança o passo.
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
     expect(await screen.findByText('Passo 2 de 8')).toBeTruthy();
+    // Os pontos viram blocos: o termo e a explicação aparecem separados, sem a etiqueta antiga.
+    expect(screen.getByText('Leitura')).toBeTruthy();
     expect(screen.getByText('Leia o pedido inteiro.')).toBeTruthy();
+    expect(screen.queryByText('Ideia-chave')).toBeNull();
     expect(screen.getByText('Confirme a identidade.')).toBeTruthy();
   });
 

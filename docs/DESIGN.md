@@ -487,6 +487,21 @@ do botão "Conferir resposta" e fora da rolagem.
   da sequência, quando há).
 - O conteúdo do passo fica direto sobre o fundo, sem cartão em volta.
 
+### Passo de ensino
+O passo de conceito (`TeachStepRenderer` mais `KeyPointsList`), direto sobre o
+fundo, sem etiqueta acima do título.
+- **Texto:** título em `h3`. A primeira frase do corpo em texto principal; o
+  restante, em outro parágrafo, no texto secundário. Corpo de uma frase só não
+  tem segundo parágrafo.
+- **Blocos:** cada ponto-chave é uma linha com divisória de 1 px em cima, uma
+  peça numerada à esquerda (círculo de 32 pt com lábio, no azul da unidade,
+  número em branco) e, ao lado, o termo em negrito e a explicação no texto
+  secundário. O termo é o que vem antes do primeiro ": ", se tiver até 40
+  caracteres e não for enumeração, fórmula nem terminar em número. Sem termo,
+  só o texto, no principal.
+- **Leitor de tela:** a peça é decorativa; cada bloco é lido como "1. Termo:
+  texto".
+
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
   raio de 16 px e padding de 16 px.
