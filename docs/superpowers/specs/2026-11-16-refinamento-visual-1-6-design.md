@@ -1,8 +1,9 @@
 # Radiant — refinamento visual antes da 1.6
 
-**Estado:** rascunho, aguardando a aprovação do dono. A direção das seis telas
-da prancheta foi aprovada em 2026-11-16 (America/Bahia) com "Aprovado, siga";
-este documento ainda não foi.
+**Estado:** aprovado pelo dono em 2026-11-16 (America/Bahia), com a resposta
+"Aprovo, faça o plano". A direção das seis telas da prancheta tinha sido
+aprovada antes, no mesmo dia, com "Aprovado, siga". O plano de execução está em
+[`docs/plans/2026-11-16-refinamento-visual-1-6.md`](../../plans/2026-11-16-refinamento-visual-1-6.md).
 **Decisor:** Anderson Melo, na conversa de 2026-11-16. As decisões dele estão na
 seção 2. Tudo que é escolha minha está marcado **[escolha do agente]**.
 **Autoria do registro:** Claude Fable 5.2 (Anthropic, `claude-fable-5-2`).
@@ -219,7 +220,8 @@ Toque numa ficha e depois no grupo.
   `title`, `body` e `imageUrl` [`src/types/lessonFlow.ts`]. Não existe campo de
   lista; os marcadores que aparecem hoje são linhas dentro do `body`. Os blocos
   da prancheta pedem um campo novo e opcional no conteúdo. **[escolha do
-  agente, sujeita à resposta do dono]** Antes do lançamento entram o campo
+  agente, aceita pelo dono em 2026-11-16 ao aprovar este documento]** Antes do
+  lançamento entram o campo
   opcional e a forma nova de mostrar o `body` de todas as aulas (frase de
   abertura em texto principal, corpo em medida curta, nota de fonte separada).
   Escrever os blocos aula por aula é trabalho de conteúdo e fica para depois,

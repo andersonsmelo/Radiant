@@ -93,6 +93,25 @@ git log --oneline --merges -12 origin/main
 cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
 ```
 
+## Refinamento visual antes da 1.6 (medido em 2026-11-16)
+
+O dono pediu, em 2026-11-16, um refinamento visual do app inteiro antes de a 1.6
+ir para a loja, e escolheu o caminho mais amplo: ciclo de resposta da aula,
+limpeza das regras do `DESIGN.md` e segunda passada em classificar, ensino,
+perfil, missões, assinatura, recompensa e unidade concluída. A identidade
+Medalhão não muda.
+
+- **Desenho aprovado:** [spec](superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md),
+  com a prancheta privada do dono citada nela.
+- **Plano escrito, não iniciado:** [11 tarefas](plans/2026-11-16-refinamento-visual-1-6.md).
+  **Nenhum código do app mudou.**
+- **Consequência para o lançamento:** a build 1.6.0 que está no EAS não tem
+  este trabalho. Ele pede build novo e capturas da loja refeitas, que são do
+  dono.
+- **Fora do escopo, por escolha registrada na spec:** a `HomeScreen` antiga, o
+  desenho da tela da liga (não foi vista com dados de Game Center) e a
+  reescrita de passos de ensino aula por aula.
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch
