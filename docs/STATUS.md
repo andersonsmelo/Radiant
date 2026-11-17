@@ -127,8 +127,11 @@ ordem do dono, com o CI verde), e a build 1.6.0 (17) já o contém.
 - **Depende do dono:**
   - subir ao App Store Connect as capturas de iPhone refeitas em 2026-11-17
     ([6,7"](store/assets/screenshots-ios-67/) e [6,5"](store/assets/screenshots-ios-65/));
-  - refazer a captura de revisão da assinatura enviada à Apple, que mostra o desenho
-    antigo, e as capturas do Play, que são de 2026-08-03;
+  - subir ao App Store Connect a captura de revisão da assinatura refeita em
+    2026-11-17 ([arquivo](store/assets/assinatura-revisao.png)); a que está lá mostra o
+    desenho antigo;
+  - as capturas do Play, que são de 2026-08-03: esta máquina não tem imagem de sistema
+    nem emulador Android instalados;
   - a imagem de abertura, que continua com o Pixel antigo;
   - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
     por decisão do dono em 2026-11-17.
