@@ -66,8 +66,10 @@ it('com mais de uma fileira, mostra a primeira e "Ver as <total>" expande no lug
   render(<MedalShelf unit={many} starsByLessonId={{}} />);
   expect(screen.getByText('2 de 13')).toBeTruthy();
   expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(6);
+  expect(screen.getByRole('button', { name: 'Ver as 13' }).props.accessibilityState).toMatchObject({ expanded: false });
   fireEvent.press(screen.getByRole('button', { name: 'Ver as 13' }));
   expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(13);
+  expect(screen.getByRole('button', { name: 'Ver menos' }).props.accessibilityState).toMatchObject({ expanded: true });
   fireEvent.press(screen.getByRole('button', { name: 'Ver menos' }));
   expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(6);
 });

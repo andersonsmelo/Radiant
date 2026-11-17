@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { render, screen } from '@testing-library/react-native';
+import { galaxyColors } from '../../../ui/theme';
 import { StreakWeek } from './StreakWeek';
 const Native = require('react-native');
 const today = new Date(2026, 9, 29, 12);
@@ -8,45 +9,62 @@ function show(lastActiveDate: string | null = null, streakDays: number | null = 
   return render(<StreakWeek lastActiveDate={lastActiveDate} streakDays={streakDays} today={date} />);
 }
 
-it.each([1, 9, 99])('contador%s sem data mostra o número com a chama e não fabrica atividade nem falta', count => {
+it.each([1, 9, 99])('contador%s sem data mostra o número com a chama e não fabrica dia na sequência', count => {
   show(null, count);
   expect(screen.getByText(String(count))).toBeTruthy();
   expect(screen.getByLabelText(`Contador de sequência: ${count}`)).toBeTruthy();
   expect(screen.getByTestId('streak-flame', { includeHiddenElements: true })).toBeTruthy();
-  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
-  expect(screen.getAllByLabelText(/sem registro/u)).toHaveLength(6);
-  expect(screen.getByLabelText('Quinta, hoje, sem estudo')).toBeTruthy();
+  expect(screen.queryAllByLabelText(/na sequência|estudou/u)).toHaveLength(0);
+  expect(screen.getAllByLabelText(/, sem registro$/u)).toHaveLength(3);
+  expect(screen.getAllByLabelText(/, ainda não chegou$/u)).toHaveLength(3);
+  expect(screen.getByLabelText('Quinta, hoje, ainda sem estudo')).toBeTruthy();
   expect(screen.queryByText(/dias seguidos|meia-noite|faltou/iu)).toBeNull();
 });
-it('dia sem registro é círculo vazio: sem "?" e sem os dois parágrafos de explicação', () => {
+it('dia sem registro é um ponto discreto, sem círculo nem aro, e não há "?" nem parágrafos de explicação', () => {
   show(null, 3);
   expect(screen.queryByText('?')).toBeNull();
   expect(screen.queryByText(/Sem registro disponível|A semana mostra|Cada uma cobre|Você ganha uma/u)).toBeNull();
+  const dots = screen.getAllByTestId('week-unknown-dot');
+  expect(dots).toHaveLength(3);
+  const style = StyleSheet.flatten(dots[0].props.style);
+  expect(style.borderWidth ?? 0).toBe(0);
+  expect(style.width).toBeLessThan(12);
+  expect(style.backgroundColor).toBe(galaxyColors.textTertiary);
 });
-it('última data válida marca um único dia, sem retropreencher pelo contador', () => {
-  show('2026-10-28', 9);
-  expect(screen.getAllByLabelText(/estudou/u)).toHaveLength(1);
-  expect(screen.getByLabelText('Quarta, estudou')).toBeTruthy();
+it('sequência viva até ontem preenche os dias dela e deixa hoje por fazer, sem dizer "estudou"', () => {
+  show('2026-10-28', 2);
+  expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(2);
+  expect(screen.getByLabelText('Quarta, na sequência')).toBeTruthy();
+  expect(screen.getByLabelText('Terça, na sequência')).toBeTruthy();
+  expect(screen.getByLabelText('Segunda, sem registro')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, ainda sem estudo')).toBeTruthy();
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
 });
-it('hoje com anel só marca atividade quando lastActiveDate também é hoje', () => {
+it('hoje na sequência é anunciado como hoje e leva o aro', () => {
   show('2026-10-29', 1);
-  expect(screen.getByLabelText('Quinta, hoje, estudou')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, na sequência')).toBeTruthy();
   const ring = screen.getByTestId('week-today-ring');
   expect(StyleSheet.flatten(ring.props.style).borderWidth).toBeGreaterThan(0);
 });
+it.each([1, 2, 3, 7, 30])('os dias na sequência nunca passam do número mostrado (%s)', count => {
+  show('2026-10-29', count);
+  expect(screen.queryAllByLabelText(/na sequência/u).length).toBeLessThanOrEqual(count);
+  expect(screen.queryAllByLabelText(/na sequência/u).length).toBe(Math.min(count, 4));
+});
 it.each(['2026-10-30', '2026-10-25', '2026-02-30', '2026-13-01', '2026-10-28T12:00:00Z', 'bad', '2026-1-28'])('data%s não comprova dia desta semana', date => {
   show(date, 5);
-  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
+  expect(screen.queryAllByLabelText(/na sequência/u)).toHaveLength(0);
 });
 it('valida dia impossível que cairia nesta semana se o Date o normalizasse', () => {
   show('2026-02-30', 5, new Date(2026, 2, 2, 12));
-  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
+  expect(screen.queryAllByLabelText(/na sequência/u)).toHaveLength(0);
 });
 it('segunda e domingo locais continuam na semana mesmo na virada de ano', () => {
   show('2025-12-29', 8, new Date(2026, 0, 4, 0, 5));
-  expect(screen.getByLabelText('Segunda, estudou')).toBeTruthy();
-  expect(screen.getByLabelText('Domingo, hoje, sem estudo')).toBeTruthy();
-  expect(screen.getAllByLabelText(/sem registro/u)).toHaveLength(5);
+  expect(screen.getByLabelText('Segunda, na sequência')).toBeTruthy();
+  expect(screen.getByLabelText('Domingo, hoje, ainda sem estudo')).toBeTruthy();
+  expect(screen.getAllByLabelText(/, sem registro$/u)).toHaveLength(5);
+  expect(screen.queryAllByLabelText(/ainda não chegou/u)).toHaveLength(0);
 });
 it.each([null, NaN, Infinity, -1])('contador inválido%s fica indisponível, não zero', count => {
   show(null, count);

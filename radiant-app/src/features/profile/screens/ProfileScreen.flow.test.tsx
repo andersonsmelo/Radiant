@@ -123,13 +123,13 @@ it('aluno novo tem silhuetas reais, mas default1 não marca hoje', async () => {
   expect(screen.queryByText(/nenhuma medalha|comece para|sem atividade/iu)).toBeNull();
 });
 
-it('marca apenas a última data do serviço e não transforma contador alto em calendário', async () => {
+it('sequência viva marca só os dias da semana que a contagem sustenta, sem passar de onde ela começa', async () => {
   gami.mockResolvedValue({ totalXp: 10, streakDays: 99, lastActiveDate: '2026-10-28' });
   render(<ProfileScreen />);
   await screen.findByText('10 XP no total');
-  expect(screen.getAllByLabelText(/estudou/u)).toHaveLength(1);
-  expect(screen.getByLabelText('Quarta, estudou')).toBeTruthy();
-  expect(screen.getByLabelText('Quinta, hoje, sem estudo')).toBeTruthy();
+  expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(3);
+  expect(screen.getByLabelText('Quarta, na sequência')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, ainda sem estudo')).toBeTruthy();
 });
 
 // Liga semanal (ADR 2026-11-13): a entrada fica no Perfil, como as missões, e
@@ -175,7 +175,7 @@ it('reabre os serviços no novo foco e mantém configurações e rolagem única 
   gami.mockResolvedValue({ totalXp: 80, streakDays: 2, lastActiveDate: '2026-10-29' });
   render(<ProfileScreen />);
   await screen.findByText('80 XP no total');
-  expect(screen.getByLabelText('Quinta, hoje, estudou')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, na sequência')).toBeTruthy();
   expect(screen.queryByText(/assinatura|backup|sons e vibração|console de desenvolvimento/iu)).toBeNull();
 });
 

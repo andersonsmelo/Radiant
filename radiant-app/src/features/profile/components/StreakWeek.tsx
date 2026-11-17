@@ -6,6 +6,7 @@ import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, hudLabelTones } from '../../../ui/theme';
 import { StreakIcon } from '../../../ui/components/HudIcons';
+import { streakWeekDays } from './streakWeekDays';
 
 type StreakWeekProps = {
   lastActiveDate: string | null;
@@ -34,16 +35,15 @@ export function StreakWeek({ lastActiveDate, streakDays, today, loading = false,
   const todayKey = formatLocalDateKey(today);
   const monday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12);
   monday.setDate(monday.getDate() - (monday.getDay() + 6) % 7);
-  const days = DAY_NAMES.map((name, index) => {
+  const keys = DAY_NAMES.map((_, index) => {
     const date = new Date(monday);
     date.setDate(monday.getDate() + index);
-    const key = formatLocalDateKey(date);
-    const state = key > todayKey ? 'future'
-      : validDateKey(lastActiveDate) && lastActiveDate === key ? 'recorded' : 'unknown';
-    return { name, initial: DAY_INITIALS[index], key, state };
+    return formatLocalDateKey(date);
   });
-  const rows = largeText ? [days.slice(0, 4), days.slice(4)] : [days];
   const countKnown = typeof streakDays === 'number' && Number.isFinite(streakDays) && streakDays >= 0;
+  const states = streakWeekDays({ weekDays: keys, todayKey, lastActiveDate: validDateKey(lastActiveDate) ? lastActiveDate : null, streak: countKnown ? streakDays : 0 });
+  const days = DAY_NAMES.map((name, index) => ({ name, initial: DAY_INITIALS[index], key: keys[index], state: states[index] }));
+  const rows = largeText ? [days.slice(0, 4), days.slice(4)] : [days];
 
   const freezeLine = freezes && Number.isInteger(freezes.stored) && freezes.stored >= 0
     ? freezes.stored === 0 ? 'Nenhuma proteção guardada' : `${freezes.stored} ${freezes.stored === 1 ? 'proteção guardada' : 'proteções guardadas'}` : null;
@@ -61,16 +61,19 @@ export function StreakWeek({ lastActiveDate, streakDays, today, loading = false,
         {rows.map((row, rowIndex) => <View key={rowIndex} testID={`week-row-${rowIndex}`} style={styles.weekRow}>
           {row.map(day => {
             const isToday = day.key === todayKey;
-            const description = day.state === 'recorded' ? 'estudou' : isToday ? 'sem estudo' : 'sem registro';
+            const description = day.state === 'inStreak' ? 'na sequência' : day.state === 'today' ? 'ainda sem estudo'
+              : day.state === 'future' ? 'ainda não chegou' : 'sem registro';
             return <View key={day.key} accessible accessibilityRole="text"
               accessibilityLabel={`${day.name}${isToday ? ', hoje' : ''}, ${description}`}
               style={styles.day}>
               <Text key={`day-${fontScale}`} style={styles.dayName}>{day.initial}</Text>
-              <View testID={isToday ? 'week-today-ring' : undefined} style={[styles.ring, isToday && styles.today]}>
-                <View style={[styles.circle, { width: circleSize, height: circleSize, borderRadius: circleSize / 2 }, day.state === 'recorded' && styles.recorded]}>
-                  {day.state === 'recorded' ? <Svg width={16} height={16} viewBox="0 0 16 16"><Path d="M3 8 L6.5 11.5 L13 4.5" stroke={galaxyColors.background} strokeWidth={2.4} fill="none" strokeLinecap="round" strokeLinejoin="round" /></Svg> : null}
-                </View>
-              </View>
+              {day.state === 'unknown'
+                ? <View style={[styles.dotSlot, { height: circleSize }]}><View testID="week-unknown-dot" style={styles.dot} /></View>
+                : <View testID={isToday ? 'week-today-ring' : undefined} style={[styles.ring, isToday && styles.today]}>
+                  <View style={[styles.circle, { width: circleSize, height: circleSize, borderRadius: circleSize / 2 }, day.state === 'inStreak' && styles.recorded]}>
+                    {day.state === 'inStreak' ? <Svg width={16} height={16} viewBox="0 0 16 16"><Path d="M3 8 L6.5 11.5 L13 4.5" stroke={galaxyColors.background} strokeWidth={2.4} fill="none" strokeLinecap="round" strokeLinejoin="round" /></Svg> : null}
+                  </View>
+                </View>}
             </View>;
           })}
           {largeText && row.length === 3 ? <View style={styles.day} /> : null}
@@ -88,6 +91,8 @@ const styles = StyleSheet.create({
   dayName: { ...typography.caption, lineHeight: undefined, color: galaxyColors.textSecondary, textAlign: 'center' },
   ring: { borderWidth: 2, borderColor: 'transparent', borderRadius: 999, padding: space.s2 / 4 },
   today: { borderColor: galaxyColors.streakColor },
+  dotSlot: { alignItems: 'center', justifyContent: 'center', padding: space.s2 / 4 + 2 },
+  dot: { width: 6, height: 6, borderRadius: 999, backgroundColor: galaxyColors.textTertiary },
   circle: { alignItems: 'center', justifyContent: 'center', backgroundColor: galaxyColors.surfaceMuted },
   recorded: { backgroundColor: galaxyColors.streakColor },
   count: { flexDirection: 'row', alignItems: 'center', gap: space.s2 },

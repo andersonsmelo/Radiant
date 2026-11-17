@@ -44,7 +44,7 @@ export function MedalShelf({ unit, starsByLessonId, loading = false, starsLoadin
                 accessibilityLabel={`${node.title}. ${description}`} />;
             })}
           </View>
-          {hasMore ? <Pressable accessibilityRole="button" onPress={() => setExpanded(value => !value)} style={styles.more}>
+          {hasMore ? <Pressable accessibilityRole="button" accessibilityState={{ expanded }} onPress={() => setExpanded(value => !value)} style={styles.more}>
             <Text key={`more-${fontScale}`} style={styles.moreText}>{expanded ? 'Ver menos' : `Ver as ${lessons.length}`}</Text>
           </Pressable> : null}
           {starsByLessonId === null ? <Text key={`stars-${fontScale}`} style={styles.detail}>{starsLoading ? 'Carregando estrelas…' : 'Estrelas indisponíveis'}</Text> : null}

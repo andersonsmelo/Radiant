@@ -36,3 +36,10 @@ Prova em aparelho (captura do perfil, Maestro) fica com o controlador.
 `SettingsScreen.flow.test.tsx` perdeu o ramo `profile` do teste de POP (o bloco "Hoje" saiu do perfil).
 Teste novo: o XP do perfil é lido depois de `DailyMissionsService.sync()` (bônus no total); nasceu verde.
 Suíte inteira em banda: 282 suítes, 3785 testes passando.
+
+## Correção, rodada 1 (2026-11-17)
+
+Semana da sequência por `streakWeekDays` (sequência viva cobre os dias da contagem; dia sem prova é ponto, não falta),
+rótulos sem "estudou", `accessibilityState.expanded` na estante.
+Vermelho: 13 testes de `StreakWeek`/`MedalShelf` reprovados antes da implementação; `streakWeekDays` nasceu verde (módulo novo).
+Verde: suíte inteira em banda, 284 suítes e 3807 testes; `tsc`, `eslint` e `visual:qa:strict` limpos.

@@ -537,10 +537,14 @@ Cabeçalho, nível, estante, sequência, duas linhas e o total de XP, sem cartã
   mostra 6 medalhas; com mais, o botão de texto "Ver as 13" expande a grade no
   próprio lugar e "Ver menos" recolhe.
 - **Sequência:** o número grande no tom de sequência do HUD, com a chama, e uma
-  linha curta com as proteções ("1 proteção guardada"). A semana mostra o dia
-  estudado com a marca de feito e hoje com o anel; dia sem registro é um círculo
-  vazio. O leitor de tela lê cada dia ("Segunda, estudou", "Quinta, hoje, sem
-  estudo", "Sexta, sem registro").
+  linha curta com as proteções ("1 proteção guardada"). O app guarda só a
+  última data e a contagem, então a semana mostra o que elas sustentam
+  (`streakWeekDays`): sequência viva (última data hoje ou ontem) preenche os
+  dias da contagem com a marca de feito; hoje ainda sem estudo é um círculo
+  vazio com aro; dia passado sem prova é um ponto pequeno em `textTertiary`,
+  nunca uma falta; dia futuro é círculo neutro. O leitor de tela lê "Segunda,
+  na sequência", "Quinta, hoje, ainda sem estudo", "Sexta, ainda não chegou" e
+  "Terça, sem registro", sem "estudou", porque uma proteção pode ter coberto o dia.
 - **Liga e decorações:** linhas no padrão `ListRow`, com o valor à direita e a
   seta. Com a chave desligada, a linha não existe.
 - **Fora do perfil:** missões, "Hoje" e "Revisões pendentes" ficam na tela
