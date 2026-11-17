@@ -4762,3 +4762,23 @@ Até 2026-11-17 o `STATUS.md` listava, entre o que dependia do dono:
   `GalaxyStatRow`), que o agente não removeu;
 
 O dono mandou o agente apagá-los no mesmo dia, e eles saíram do repositório.
+
+## Saídas do STATUS em 2026-11-17: merge do refinamento e build 17
+
+Trechos que valiam até o merge da PR #84 e a build 1.6.0 (17):
+
+**Build 1.6.0 (16), medido em 2026-11-16:** a versão no repositório é `1.6.0`,
+e o perfil `production` do `radiant-app/eas.json` liga as seis chaves da 1.6,
+por decisão do dono em 2026-11-15. A build de produção do iOS compilou no EAS a
+partir de `e8e3a0e`, com os alvos `Radiant` e `RadiantHomeWidgets`. O EAS enviou
+o binário ao App Store Connect nesse dia ("Submitted your app to Apple App
+Store Connect", lido no terminal do dono). **Não conferido:** o fim do
+processamento pela Apple e a build aparecendo no TestFlight.
+
+**O plano foi executado na branch `claude/refinamento-1-6-desenho` (código até
+`f6b39148`) e não está na `main`.** A build 1.6.0 do EAS não tem este trabalho.
+
+  - revisar e mesclar a PR da branch;
+  - build novo e capturas da loja refeitas (a captura de revisão da assinatura
+    enviada à Apple mostra o desenho antigo);
+
