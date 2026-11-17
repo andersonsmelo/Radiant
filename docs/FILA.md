@@ -1317,8 +1317,8 @@ respondida hoje.**
 ### 8. Atualização 1.6 — do TestFlight à revisão
 
 **Estado:** as oito frentes na `main`; build `1.6.0 (16)` do iOS compilada no
-EAS em 2026-11-16, com as seis chaves ligadas; envio ao TestFlight sem
-confirmação na última leitura. App Group, App ID do widget e placar
+EAS em 2026-11-16, com as seis chaves ligadas; binário enviado ao App Store
+Connect pelo EAS nesse dia; o processamento pela Apple não foi conferido. App Group, App ID do widget e placar
 `radiant.liga.semanal.xp` criados pelo dono nesse dia. Política de privacidade
 pública atualizada. **Bloqueio:** humano. **Dono:** dono.
 
