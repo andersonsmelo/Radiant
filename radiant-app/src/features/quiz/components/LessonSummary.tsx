@@ -3,7 +3,6 @@ import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } fr
 import { AppButton } from '../../../components/ui/AppButton';
 import { Confetti } from '../../../components/ui/Confetti';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import type { IllustrationTheme } from '../../../ui/illustrations/illustrationPlayback';
 import { MotionView, useMedalMint, useResultStar } from '../../../ui/motion';
@@ -12,6 +11,7 @@ import { isLargeTextScale } from '../../../ui/accessibility/useLargeTextLayout';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors } from '../../../ui/theme';
 import type { LessonStars } from '../services/resolveLessonStars';
+import { SummaryHero, ctaClearance } from './SummaryHero';
 
 export type LessonSummaryProps = {
   /** Título autoral do catálogo/abertura. Ausente apenas se a fonte não o possui. */
@@ -52,16 +52,6 @@ const TOTAL_STARS = 3;
 const STAR_SLOTS = Array.from({ length: TOTAL_STARS }, (_, index) => index);
 const RATING_MAX = 5;
 const RATING_SLOTS = Array.from({ length: RATING_MAX }, (_, index) => index + 1);
-
-// `Continuar` vive num rodapé fixo fora do ScrollView — a mesma forma do
-// problema que `tabBarClearance` (src/ui/styles.ts) resolve para as telas de
-// tab: um elemento fixado fora do conteúdo rolável precisa da sua própria
-// reserva, ou o fim do scroll (aqui, a linha de hábito e a linha de
-// avaliação) renderiza cortado ou fica invisível no primeiro paint atrás do
-// botão. Esta tela não é uma tab, então ganha sua própria constante nomeada
-// em vez de importar `tabBarClearance` — mesmo desenho, valor próprio.
-const CTA_HEIGHT = 56; // altura mínima do AppButton, components/ui/AppButton.tsx
-const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
 
 /** Cada estrela possui seu hook; somente a preenchida encena ganho real. */
 function SummaryStar({ filled, animate, index }: { filled: boolean; animate: boolean; index: number }) {
@@ -149,7 +139,13 @@ export function LessonSummary({
   return (
     <View style={styles.root}>
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
-        <View style={styles.hero}>
+        <SummaryHero
+          pixel={kind === 'lesson' ? {
+            state: isZeroStars ? 'guide' : 'celebrate',
+            expression: isZeroStars ? 'neutro' : 'orgulhoso',
+            accessibilityLabel: isZeroStars ? 'Pixel incentivando a tentar novamente' : 'Pixel comemorando',
+          } : undefined}
+        >
           <MotionView style={mintStyle}>
             <JourneyMedal
               node={{ id: 'lesson-summary', type: 'lesson' }}
@@ -161,15 +157,7 @@ export function LessonSummary({
               accessibilityLabel={title ? `${title}. Concluído.` : 'Aula concluída.'}
             />
           </MotionView>
-          {kind === 'lesson' ? (
-            <PixelIllustration
-              state={isZeroStars ? 'guide' : 'celebrate'}
-              expression={isZeroStars ? 'neutro' : 'orgulhoso'}
-              size="md"
-              accessibilityLabel={isZeroStars ? 'Pixel incentivando a tentar novamente' : 'Pixel comemorando'}
-            />
-          ) : null}
-        </View>
+        </SummaryHero>
         <StarRow stars={stars} animate={earned} />
         {/* No cliente iOS, mudar Dynamic Type com o resultado aberto pode
             reutilizar a medição dos parágrafos. Renova só os Text: conquista,
@@ -255,13 +243,6 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: galaxyColors.background,
-  },
-  hero: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space.s2,
-    paddingTop: space.s3,
   },
   title: {
     ...typography.h2,

@@ -14,7 +14,6 @@ import { medalColors } from '../../../ui/theme';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -48,22 +47,6 @@ jest.mock('../../../components/ui/AppButton', () => {
       <Pressable {...props} accessibilityRole="button" onPress={onPress} disabled={disabled}>
         <Text>{children}</Text>
       </Pressable>
-    ),
-  };
-});
-
-jest.mock('../../../components/ui/PixelHeroSplit', () => {
-  const React = require('react');
-  const { Text, View } = require('react-native');
-
-  // Observa apenas a montagem dos hosts fornecidos pelo caller. Não rasteriza
-  // fonte nem simula a medida/recorte nativo de SpeechBubble.
-  return {
-    PixelHeroSplit: ({ eyebrow, message }: { eyebrow: string; message?: string }) => (
-      <View testID="reward-pixel-host">
-        <Text>{eyebrow}</Text>
-        <Text>{message}</Text>
-      </View>
     ),
   };
 });
@@ -244,7 +227,8 @@ describe('RewardScreen flow', () => {
           : status === 'locked' ? 'Esta conquista ainda não abriu' : 'Conquista registrada';
         await screen.findByText(actionTitle);
         const texts = [
-          'Conquista', 'Unidade ativa', 'Unidade 1', 'Conquista do módulo',
+          'Unidade', 'Unidade 1', 'Conquista do módulo',
+          status === 'completed' ? 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.' : 'Você chegou até aqui. Recolha sua conquista antes de seguir.',
           status === 'available' ? 'Recompensa pronta para coleta.' : status === 'locked' ? 'Recompensa ainda bloqueada.' : 'Recompensa registrada.',
           'Status', status === 'available' ? 'Pronta para ser coletada' : status === 'locked' ? 'Bloqueada até a unidade fechar' : 'Salva no seu progresso',
           'Progresso', status === 'completed' ? '2 de 2 marcos da unidade concluídos' : status === 'locked' ? '0 de 2 marcos da unidade concluídos' : '1 de 2 marcos da unidade concluídos',
@@ -252,14 +236,12 @@ describe('RewardScreen flow', () => {
           status === 'available' ? 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'
             : status === 'locked' ? 'Ela abre quando os marcos da unidade forem concluídos. O progresso acima mostra quanto falta.'
               : 'Seu progresso está salvo e o próximo passo já está esperando por você.',
-          ...(status === 'completed' ? ['XP TOTAL', 'Sequência de 3 dias mantida', 'Volte amanhã para continuar'] : []),
         ];
         const hosts = texts.map(text => screen.getByText(text));
         const buttons = view.UNSAFE_getAllByType(AppButton);
         const scroll = view.UNSAFE_getByType(ScrollView);
         const medal = view.UNSAFE_getByType(JourneyMedal);
         const close = screen.getByLabelText('Voltar');
-        const counter = status === 'completed' ? view.UNSAFE_getByType(AnimatedCounter) : null;
         window.fontScale = to;
         view.rerender(<RewardScreen nodeId="reward-1" />);
         expect(texts.filter((text, index) => screen.getByText(text) === hosts[index])).toEqual([]);
@@ -267,10 +249,6 @@ describe('RewardScreen flow', () => {
         expect(view.UNSAFE_getByType(JourneyMedal) === medal).toBe(true);
         expect(screen.getByLabelText('Voltar') === close).toBe(true);
         expect(view.UNSAFE_getAllByType(AppButton).every((button, index) => button === buttons[index])).toBe(true);
-        if (counter) {
-          expect(view.UNSAFE_getByType(AnimatedCounter) === counter).toBe(true);
-          expect(screen.getByLabelText('XP total acumulado: 54').props.value).toBe('54 XP');
-        }
         const renewed = texts.map(text => screen.getByText(text));
         view.rerender(<RewardScreen nodeId="reward-1" />);
         expect(texts.every((text, index) => screen.getByText(text) === renewed[index])).toBe(true);
@@ -315,15 +293,13 @@ describe('RewardScreen flow', () => {
     });
   });
 
-  it.each([[1, 3.1], [3.1, 2.5], [3.1, 1]])('FIX2 renova fala e eyebrow em %s → %s sem remontar estado ou saídas', async (from, to) => {
+  it.each([[1, 3.1], [3.1, 2.5], [3.1, 1]])('FIX2 renova a fala em %s → %s sem remontar estado ou saídas', async (from, to) => {
     const window = { width: 402, height: 874, scale: 3, fontScale: from };
     const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue(window);
     mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(lockedSnapshot);
     try {
       const view = renderRewardForLiveFont();
       await screen.findByText('Esta conquista ainda não abriu');
-      const host = screen.getByTestId('reward-pixel-host');
-      const eyebrow = screen.getByText('Jornada de Radiologia');
       const message = screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.');
       const scroll = view.UNSAFE_getByType(ScrollView);
       const medal = view.UNSAFE_getByType(JourneyMedal);
@@ -331,11 +307,7 @@ describe('RewardScreen flow', () => {
       const exit = screen.getByText('Voltar para jornada');
       window.fontScale = to;
       view.rerender(<RewardScreen nodeId="reward-1" />);
-      expect([
-        screen.getByTestId('reward-pixel-host') === host ? 'host' : null,
-        screen.getByText('Jornada de Radiologia') === eyebrow ? 'eyebrow' : null,
-        screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.') === message ? 'fala' : null,
-      ].filter(Boolean)).toEqual([]);
+      expect(screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.') === message).toBe(false);
       expect(view.UNSAFE_getByType(ScrollView) === scroll).toBe(true);
       expect(view.UNSAFE_getByType(JourneyMedal) === medal).toBe(true);
       expect(screen.getByLabelText('Voltar') === close).toBe(true);
@@ -344,9 +316,9 @@ describe('RewardScreen flow', () => {
       expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
       expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
       expect(RatingPromptService.maybePromptForReview).not.toHaveBeenCalled();
-      const sameScaleHost = screen.getByTestId('reward-pixel-host');
+      const sameScaleMessage = screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.');
       view.rerender(<RewardScreen nodeId="reward-1" />);
-      expect(screen.getByTestId('reward-pixel-host') === sameScaleHost).toBe(true);
+      expect(screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.') === sameScaleMessage).toBe(true);
       fireEvent.press(screen.getByText('Voltar para jornada'));
       expect(router.dismissTo).toHaveBeenCalledWith('/(tabs)');
     } finally {
@@ -368,10 +340,10 @@ describe('RewardScreen flow', () => {
       const captured = collection.props.onPress;
       fireEvent.press(screen.getByText('Receber conquista'));
       await screen.findByText('Registrando conquista...');
-      const host = screen.getByTestId('reward-pixel-host');
+      const host = screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.');
       window.fontScale = 3.1;
       view.rerender(<RewardScreen nodeId="reward-1" />);
-      expect(screen.getByTestId('reward-pixel-host') === host).toBe(false);
+      expect(screen.getByText('Você chegou até aqui. Recolha sua conquista antes de seguir.') === host).toBe(false);
       expect(view.UNSAFE_getByType(ScrollView) === scroll).toBe(true);
       expect(view.UNSAFE_getByType(JourneyMedal) === medal).toBe(true);
       expect(view.UNSAFE_getAllByType(AppButton).includes(collection)).toBe(true);
@@ -380,11 +352,11 @@ describe('RewardScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledTimes(1);
       await act(async () => { confirm(completedSnapshot); });
       await screen.findByText('Conquista registrada');
-      const confirmedHost = screen.getByTestId('reward-pixel-host');
+      const confirmedHost = screen.getByText('Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.');
       const next = screen.getByText('Continuar');
       window.fontScale = 1;
       view.rerender(<RewardScreen nodeId="reward-1" />);
-      expect(screen.getByTestId('reward-pixel-host') === confirmedHost).toBe(false);
+      expect(screen.getByText('Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.') === confirmedHost).toBe(false);
       expect(screen.getByText('Continuar') === next).toBe(true);
       expect(screen.getByText('Conquista registrada')).toBeTruthy();
       expect(view.UNSAFE_getByType(ScrollView) === scroll).toBe(true);
@@ -728,6 +700,84 @@ describe('RewardScreen flow', () => {
     it('aceita o no disponivel e o ativo, senao a correcao vira "nada coleta"', () => {
       expect(canCollectReward(node('available'), false)).toBe(true);
       expect(canCollectReward(node('active'), false)).toBe(true);
+    });
+  });
+
+  describe('padrão do resumo da aula (tarefa 7)', () => {
+    const principal = (view: ReturnType<typeof render>) =>
+      view.UNSAFE_getAllByType(AppButton).filter(button => !['ghost', 'secondary'].includes(button.props.variant));
+
+    it.each([
+      ['pronta', availableSnapshot, 'Receber conquista'],
+      ['bloqueada', lockedSnapshot, 'Voltar para jornada'],
+      ['registrada', completedSnapshot, 'Continuar'],
+    ] as const)('%s: há uma única ação principal', async (_nome, snapshot, rotulo) => {
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot);
+      const view = renderWithProviders(<RewardScreen nodeId="reward-1" />);
+      await screen.findByText(rotulo);
+      const botoes = principal(view);
+      expect(botoes).toHaveLength(1);
+      expect(botoes[0].props.children).toBe(rotulo);
+    });
+
+    it('registrada: não há "XP TOTAL", o XP aparece uma vez (no HUD) e a sequência não se repete', async () => {
+      const gamification = jest.spyOn(GamificationService, 'getSnapshot').mockResolvedValue({ totalXp: 54, streakDays: 3, lastActiveDate: null });
+      mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(completedSnapshot);
+      try {
+        renderWithProviders(<RewardScreen nodeId="reward-1" />);
+        await screen.findByText('Conquista registrada');
+        // Validade: o HUD segue mostrando os dois valores, uma vez cada.
+        expect(await screen.findAllByLabelText(/54/)).toHaveLength(1);
+        expect(screen.getAllByLabelText(/3 dias de sequência/)).toHaveLength(1);
+        expect(screen.queryByText('XP TOTAL')).toBeNull();
+        expect(screen.queryByText(/Sequência de/)).toBeNull();
+        expect(screen.queryByText(/Volte amanhã/)).toBeNull();
+      } finally {
+        gamification.mockRestore();
+      }
+    });
+
+    it.each([['pronta', availableSnapshot], ['bloqueada', lockedSnapshot], ['registrada', completedSnapshot]])(
+      '%s: sem etiqueta em caixa alta acima de título',
+      async (_nome, snapshot) => {
+        mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot);
+        renderWithProviders(<RewardScreen nodeId="reward-1" />);
+        await screen.findByText('Conquista do módulo');
+        for (const etiqueta of ['Conquista', 'Unidade ativa', 'Jornada de Radiologia', 'Marcos concluídos']) {
+          expect(screen.queryByText(etiqueta)).toBeNull();
+        }
+        // Validade: o título e as linhas de detalhe continuam na tela.
+        expect(screen.getByRole('header', { name: 'Conquista do módulo' })).toBeTruthy();
+        expect(screen.getByText('Status')).toBeTruthy();
+      },
+    );
+
+    // Guarda sobre código-fonte lê a AST, não o texto.
+    it.each([
+      ['RewardScreen', 'RewardScreen.tsx'],
+      ['UnitCompleteCelebration', '../../journey/components/UnitCompleteCelebration.tsx'],
+    ])('%s: nenhuma cor literal nem fontSize numérico', (_nome, arquivo) => {
+      const ts = require('typescript') as typeof import('typescript');
+      const caminho = require('path').join(__dirname, arquivo);
+      const fonte = ts.createSourceFile(caminho, require('fs').readFileSync(caminho, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+      const achados: string[] = [];
+      const visita = (no: import('typescript').Node) => {
+        if (ts.isStringLiteralLike(no) && /^(#[0-9a-f]{3,8}|rgba?\()/i.test(no.text)) achados.push(`cor ${no.text}`);
+        if (ts.isPropertyAssignment(no) && no.name.getText() === 'fontSize' && ts.isNumericLiteral(no.initializer)) achados.push(`fontSize ${no.initializer.text}`);
+        ts.forEachChild(no, visita);
+      };
+      visita(fonte);
+      expect(achados).toEqual([]);
+      // Validade: a guarda enxerga cores e tamanhos de verdade neste parser.
+      const amostra = ts.createSourceFile('x.tsx', "const a = { fontSize: 11, c: '#fff', d: 'rgba(0,0,0,1)' };", ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+      let vistos = 0;
+      const conta = (no: import('typescript').Node) => {
+        if (ts.isStringLiteralLike(no) && /^(#[0-9a-f]{3,8}|rgba?\()/i.test(no.text)) vistos += 1;
+        if (ts.isPropertyAssignment(no) && no.name.getText(amostra) === 'fontSize') vistos += 1;
+        ts.forEachChild(no, conta);
+      };
+      conta(amostra);
+      expect(vistos).toBe(3);
     });
   });
 });

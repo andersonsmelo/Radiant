@@ -587,6 +587,10 @@ plástico e o painel holográfico.
   quando agrupa uma ação, e nunca um cartão dentro de outro.
 - **Cada número aparece uma vez.** XP, sequência e vidas moram no HUD. Nenhuma
   tela repete em bloco o que o HUD mostra.
+- **Fim de aula, recompensa e unidade concluída são a mesma tela.** Medalha no
+  centro (com o Pixel ao lado, quando fala), título, linhas simples com divisória
+  para o detalhe e uma única ação principal no rodapé (`SummaryHero`). Sem
+  cartão, sem etiqueta em caixa alta e sem repetir o XP e a sequência do HUD.
 - **Ouro é conquista.** Ouro só em medalha ganha, estrela e plano anual. Azul é
   ação e unidade atual; prata, avaliação; grafite, o que ainda não abriu.
 - **O Pixel fala, não decora.** Só nos quatro momentos da seção Pixel.
