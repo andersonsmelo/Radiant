@@ -446,6 +446,26 @@ três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
 da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem
 do mesmo arquivo: nenhum ✓, ✗ ou ✕ de texto serve de ícone.
 
+### Folha de retorno
+Retorno da resposta na aula (`AnswerFeedbackSheet`), preso ao rodapé, no lugar
+do botão "Conferir resposta" e fora da rolagem.
+- **Superfície:** a de acerto (`#14281f`) ou a de erro (`#2c1820`), com borda
+  de cima de 2 px no lábio do mesmo par. Padding de 16 pt.
+- **Conteúdo:** retrato do Pixel, título "Resposta correta" ou "Vamos
+  reforçar" no preenchimento do par, a explicação no texto principal e o botão
+  de seguir na variante `success` ou `error`. No erro que gasta vida, "Menos 1
+  vida" vai na linha do título, e o aviso sob o HUD não aparece.
+- **Resposta em texto:** na múltipla escolha, no verdadeiro ou falso e na
+  múltipla seleção, a folha não escreve a resposta do aluno nem a certa: as
+  alternativas já mostram. Nos outros formatos, o erro diz "Resposta certa: …".
+- **Altura:** no máximo dois terços da janela. Acima disso a explicação rola
+  por dentro e o botão fica fixo. A rolagem da aula ganha a altura da folha
+  como folga no fim.
+- **Movimento e foco:** com o retorno rico, sobe em 150 ms; sem ele, ou sob
+  "reduzir movimento", aparece no lugar. O foco do leitor de tela vai para o
+  título.
+- O conteúdo do passo fica direto sobre o fundo, sem cartão em volta.
+
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
   raio de 16 px e padding de 16 px.
