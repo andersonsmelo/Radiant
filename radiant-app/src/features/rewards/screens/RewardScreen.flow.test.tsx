@@ -1,5 +1,6 @@
 import React from 'react';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react-native';
+import { space } from '../../../ui/styles';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RewardScreen, { canCollectReward } from './RewardScreen';
@@ -752,8 +753,9 @@ describe('RewardScreen flow', () => {
       },
     );
 
-    // O rodapé é fixo e mede mais de um botão (ou texto ampliado): a rolagem
-    // reserva a altura MEDIDA, e o rodapé respeita a área segura de baixo.
+    // O rodapé é IRMÃO da rolagem, não fica por cima dela: a rolagem guarda só
+    // `space.s3`, seja qual for a altura do rodapé, e o rodapé respeita a área
+    // segura de baixo.
     describe.each([['pronta', availableSnapshot], ['registrada', completedSnapshot]])('rodapé fixo, %s', (_nome, snapshot) => {
       const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 0, left: 0, right: 0, bottom: 34 } };
       const renderIt = () => render(<RewardScreen nodeId="reward-1" />, {
@@ -761,12 +763,15 @@ describe('RewardScreen flow', () => {
       });
       const flat = (style: unknown) => StyleSheet.flatten(style as never) as { paddingBottom: number };
 
-      it('com rodapé de 180 pt medido, o paddingBottom da rolagem é pelo menos 180', async () => {
+      it('a folga da rolagem é só space.s3 e não depende da altura do rodapé', async () => {
         mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot);
         const view = renderIt();
         await screen.findByTestId('reward-footer');
+        const scroll = view.UNSAFE_getByType(ScrollView);
+        expect(within(scroll).queryByTestId('reward-footer')).toBeNull();
+        expect(flat(scroll.props.contentContainerStyle).paddingBottom).toBe(space.s3);
         act(() => { fireEvent(screen.getByTestId('reward-footer'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 402, height: 180 } } }); });
-        expect(flat(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle).paddingBottom).toBeGreaterThanOrEqual(180);
+        expect(flat(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle).paddingBottom).toBe(space.s3);
       });
 
       it('o paddingBottom do rodapé inclui o inset inferior simulado', async () => {

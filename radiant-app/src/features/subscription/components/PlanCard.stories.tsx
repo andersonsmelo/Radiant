@@ -8,7 +8,7 @@ import { PlanCard } from './PlanCard';
 const meta = {
   title: 'Assinatura/PlanCard',
   component: PlanCard,
-  args: { title: 'Anual', price: 'R$ 149,90', detail: 'por ano, R$ 12,49 por mês', selected: true, tone: 'gold', onPress: fn() },
+  args: { title: 'Anual', price: 'R$ 149,90', period: 'por ano', detail: 'R$ 12,49 por mês', selected: true, tone: 'gold', onPress: fn() },
   argTypes: { tone: { control: 'select', options: ['neutral', 'gold'] } },
   decorators: [
     (Story) => (
@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AnualSelecionado: Story = {};
-export const MensalSelecionado: Story = { args: { title: 'Mensal', price: 'R$ 19,90', detail: 'por mês', tone: 'neutral' } };
+export const MensalSelecionado: Story = { args: { title: 'Mensal', price: 'R$ 19,90', period: 'por mês', detail: undefined, tone: 'neutral' } };
 export const Desabilitado: Story = { args: { disabled: true } };
 
 // Os dois lado a lado, como na tela, com o anual escolhido.
@@ -31,10 +31,10 @@ export const LadoALado: Story = {
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12 }}>
       <View style={{ flex: 1 }}>
-        <PlanCard title="Mensal" price="R$ 19,90" detail="por mês" selected={false} tone="neutral" onPress={() => {}} />
+        <PlanCard title="Mensal" price="R$ 19,90" period="por mês" selected={false} tone="neutral" onPress={() => {}} />
       </View>
       <View style={{ flex: 1 }}>
-        <PlanCard title="Anual" price="R$ 149,90" detail="por ano, R$ 12,49 por mês" selected tone="gold" onPress={() => {}} />
+        <PlanCard title="Anual" price="R$ 149,90" period="por ano" detail="R$ 12,49 por mês" selected tone="gold" onPress={() => {}} />
       </View>
     </View>
   ),
@@ -45,8 +45,8 @@ export const LadoALado: Story = {
 export const TextoAmpliado: Story = {
   render: () => (
     <View style={{ gap: 12, width: 180 }}>
-      <PlanCard title="Anual" price="R$ 149,90" detail="por ano, R$ 12,49 por mês" selected tone="gold" onPress={() => {}} />
-      <PlanCard title="Mensal" price="R$ 19,90" detail="por mês" selected={false} tone="neutral" onPress={() => {}} />
+      <PlanCard title="Anual" price="R$ 149,90" period="por ano" detail="R$ 12,49 por mês" selected tone="gold" onPress={() => {}} />
+      <PlanCard title="Mensal" price="R$ 19,90" period="por mês" selected={false} tone="neutral" onPress={() => {}} />
     </View>
   ),
 };

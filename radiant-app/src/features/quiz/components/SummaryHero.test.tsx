@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
 import { Text } from 'react-native';
-import { SummaryHero, ctaClearance, scrollClearance } from './SummaryHero';
+import { SummaryHero, useFixedFooter } from './SummaryHero';
+import { space } from '../../../ui/styles';
 
 jest.mock('../../../ui/characters/PixelIllustration', () => {
   const { Text: T } = require('react-native');
@@ -21,8 +22,12 @@ describe('SummaryHero', () => {
     expect(screen.queryByText('Pixel comemorando')).toBeNull();
   });
 
-  it('a folga da rolagem é a altura medida do rodapé, e a estimada de um botão antes da medida', () => {
-    expect(scrollClearance(null)).toBe(ctaClearance);
-    expect(scrollClearance(180)).toBe(180);
+  it('o rodapé fixo deixa à rolagem só space.s3 e leva o inset de baixo no próprio respiro', () => {
+    let footer: ReturnType<typeof useFixedFooter> | undefined;
+    const Probe = () => { footer = useFixedFooter(); return null; };
+    render(<Probe />);
+    expect(footer?.scrollPaddingBottom).toBe(space.s3);
+    // Sem provider de área segura o inset é 0.
+    expect(footer?.footerStyle).toEqual({ paddingBottom: space.s3 });
   });
 });

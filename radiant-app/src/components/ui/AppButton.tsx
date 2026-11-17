@@ -195,7 +195,10 @@ export function AppButton({
         <ActivityIndicator
           size="small"
           color={
-            disabled
+            // O ghost não tem face: o indicador toma a cor do próprio rótulo.
+            variant === 'ghost'
+              ? StyleSheet.flatten([styles.labelGhost, disabled && styles.labelGhostDisabled]).color as string
+              : disabled
               ? galaxyColors.textSecondary
               : variant === 'secondary'
                 ? galaxy.textPrimary

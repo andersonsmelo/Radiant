@@ -300,6 +300,10 @@ lábio e miolo.
 - **Azul de Navegação** (`#4A9EFF`): o foco (`borderFocus`). Mede 6,62:1 sobre
   o grafite.
 - **Ciano de Sinal** (`#3DCAE8`): `statusInformation`, raro.
+- **Véus** (`galaxyColors.scrim`, grafite a 72%, e `imageScrim`, a 34%): as
+  únicas transparências de tela. `scrim` escurece o app atrás de uma folha
+  modal; `imageScrim` marca a área tocável sobre a imagem de uma aula sem apagar
+  a anatomia. Texto nunca é pintado direto sobre eles.
 
 ### Named Rules
 
@@ -319,6 +323,16 @@ só o contexto galaxy, por `galaxyColors`, `medalColors`, `feedbackColors` e
 `src/features/**` ou `src/app/**` é defeito: foi assim que texto pedagógico já
 renderizou a 1,21:1. O `identity-palette-contract` barra as duas portas, o
 `colors` e o `semanticColors.light`.
+
+**A Regra do Literal Barrado.** Tela não escreve cor nem tamanho de texto. O
+`style-literal-contract` lê a AST de `src/features/**` e `src/app/**` e reprova
+cor literal (`#rgb`, `#rrggbb`, `rgb(`, `rgba(`), `fontSize` numérico e
+`textTransform: 'uppercase'`. O retorno pinta superfície **opaca**: acerto em
+`feedbackColors.success.surface`, erro em `feedbackColors.error.surface`, e
+âmbar, que não tem superfície própria, em `surfaceActive` com borda na cor
+cheia. Ficam de fora, por caminho e com o motivo no script, as telas de
+desenvolvimento, a `HomeScreen` antiga, as ilustrações SVG das lições híbridas
+(`curriculum-v3`) e o shader da bancada.
 
 **A Regra da Cor Muda.** Cor nunca carrega informação sozinha. Cada estado tem
 também forma, ícone ou texto:
@@ -520,16 +534,19 @@ Escolha de plano na assinatura (`PlanCard`, em `subscription/components`), com o
 relevo da alternativa: borda de 2 px, raio de 16 px, lábio de 4 pt e face que
 desce 3 pt na pressão (`usePressDescend`). Dois cartões lado a lado; com texto
 ampliado (`useLargeTextLayout`), empilhados. Mostra o plano, o preço exatamente
-como o StoreKit entrega e o detalhe ("por ano, R$ 12,49 por mês" no anual,
-quando a loja dá o preço numérico).
+como o StoreKit entrega, o período cobrado ("por ano", "por mês") numa linha
+própria em Body Regular, e, no anual, o valor por mês calculado ("R$ 12,49 por
+mês") em caption secundário, quando a loja dá o preço numérico.
 - **Repouso:** face `surface`, borda `border`, lábio `backgroundAlt`.
 - **Selecionado:** face `surfaceActive`; no tom `gold` (anual), borda e lábio de
   ouro; no `neutral` (mensal), borda Azul de Navegação e lábio da unidade.
 - **Leitor de tela:** botão de escolha (`radio`) com `selected`, lido como
-  "Anual, R$ 149,90, por ano, selecionado".
+  "Anual, R$ 149,90, por ano, R$ 12,49 por mês, selecionado": preço, período e
+  depois o detalhe.
 Abaixo, um só botão nomeia o plano escolhido: "Assinar o anual" (`gold`) ou
 "Assinar o mensal" (`galaxy`). Enquanto os preços carregam, ele aparece
-desabilitado com "Carregando os planos".
+desabilitado com "Carregando os planos", e é só ele que anuncia o carregamento:
+o esqueleto dos cartões é decorativo para o leitor de tela.
 
 ### Perfil
 Cabeçalho, nível, estante, sequência, duas linhas e o total de XP, sem cartão:

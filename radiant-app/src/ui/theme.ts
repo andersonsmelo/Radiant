@@ -162,6 +162,13 @@ export const galaxyColors = {
    */
   celebrationBand: '#F5C518',
 
+  // Véus escuros. São as únicas transparências de tela que sobram, porque o
+  // que fica atrás precisa continuar visível: `scrim` escurece o app atrás de
+  // uma folha modal; `imageScrim` marca a área tocável sobre uma imagem de aula
+  // sem apagar a anatomia por baixo. Nenhum texto é pintado direto sobre eles.
+  scrim: 'rgba(3, 3, 13, 0.72)',
+  imageScrim: 'rgba(3, 3, 13, 0.34)',
+
   // Galaxy mode extended
   galaxyBg2: '#171920',
   galaxyBg3: '#1b1e27',

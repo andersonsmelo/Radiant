@@ -12,6 +12,7 @@ import {
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { ReinforceStepRenderer } from './ReinforceStepRenderer';
+import { ContextStepRenderer } from './ContextStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -263,3 +264,12 @@ it('Tarefa 3: a múltipla escolha informa à tela onde está a alternativa escol
     expect(onChosenLayout).toHaveBeenLastCalledWith({ y: 110, height: 64 });
 });
 
+
+describe('ContextStepRenderer', () => {
+    it('não mostra a etiqueta acima do título; título e corpo ficam', () => {
+        const view = render(<ContextStepRenderer payload={{ eyebrow: 'Caso clínico', title: 'Paciente com tosse', body: 'Dois dias de febre.' }} />);
+        expect(view.queryByText('Caso clínico')).toBeNull();
+        expect(view.getByText('Paciente com tosse')).toBeTruthy();
+        expect(view.getByText('Dois dias de febre.')).toBeTruthy();
+    });
+});

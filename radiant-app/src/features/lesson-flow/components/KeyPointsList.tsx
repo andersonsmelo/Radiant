@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors, medalGlyphTones } from '../../../ui/theme';
 import { splitKeyPoint } from '../renderers/teachBody';
+import { CHROME_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 
 const PIECE = 32;
 const LIP = 3;
@@ -25,7 +26,8 @@ export function KeyPointsList({ points }: { points: readonly string[] }) {
                     >
                         <View style={styles.piece} accessibilityElementsHidden importantForAccessibility="no">
                             <View style={styles.pieceFace}>
-                                <Text style={styles.number}>{index + 1}</Text>
+                                {/* A peça tem tamanho fixo: o número cresce até o teto do cromo e não vaza do círculo. */}
+                                <Text style={styles.number} maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>{index + 1}</Text>
                             </View>
                         </View>
                         <View style={styles.copy}>

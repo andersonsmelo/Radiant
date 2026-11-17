@@ -43,7 +43,7 @@ describe('PushOptInCard', () => {
 
   it.each([1, 2, 3.1].flatMap((scale) => [
     [scale, title, 24, 'Sora-Bold'],
-    [scale, body, 14, 'Sora-SemiBold'],
+    [scale, body, 16, 'Sora-SemiBold'],
   ] as const))('usa altura natural na escala %s para %s', (scale, copy, fontSize, fontFamily) => {
     fontScale = scale;
     render(<PushOptInCard onDismiss={jest.fn()} />);

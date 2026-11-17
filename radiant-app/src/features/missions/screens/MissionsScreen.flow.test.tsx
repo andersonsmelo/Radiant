@@ -76,6 +76,19 @@ describe('MissionsScreen na rota /missions', () => {
     expect(screen.getAllByText('+5 XP')).toHaveLength(2);
   });
 
+  it('o bônus acende e é lido na mesma condição: concluída E creditada', async () => {
+    sync.mockResolvedValue({ bonusXp: 0, missions: [
+      { id: 'meta', title: 'Bata a meta diária', progress: 50, goal: 50, done: true, rewarded: false },
+      { id: 'seguidas-5', title: 'Acerte 5 seguidas', progress: 5, goal: 5, done: true, rewarded: true },
+    ] });
+    render(<MissionsScreen />);
+    await screen.findByLabelText('Bata a meta diária. Concluída.');
+    const [semCredito, creditada] = screen.getAllByText('+5 XP');
+    expect(StyleSheet.flatten(semCredito.props.style).color).toBe(galaxyColors.textTertiary);
+    expect(screen.getByLabelText('Acerte 5 seguidas. Concluída, +5 XP.')).toBeTruthy();
+    expect(StyleSheet.flatten(creditada.props.style).color).toBe(hudLabelTones.xp);
+  });
+
   it('missão concluída mostra a peça em ouro; em andamento, a peça azul', async () => {
     sync.mockResolvedValue({ bonusXp: 0, missions: [
       { id: 'aula-2', title: 'Conclua 2 aulas', progress: 1, goal: 2, done: false, rewarded: false },

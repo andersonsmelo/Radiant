@@ -1,6 +1,5 @@
 import React from 'react';
 import { Circle } from 'react-native-svg';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,15 +75,6 @@ jest.mock('../../../components/ui/AppButton', () => {
         <Text>{children ?? label}</Text>
       </Pressable>
     ),
-  };
-});
-
-jest.mock('../../../components/ui/PixelHeroSplit', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PixelHeroSplit: () => <View />,
   };
 });
 
@@ -359,7 +349,6 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.bootstrap).not.toHaveBeenCalled();
       expect(screen.getByText('Avaliação 1 de 5')).toBeTruthy();
       expect(screen.getByText('Questão 1 de 2')).toBeTruthy();
-      expect(screen.UNSAFE_queryByType(PixelHeroSplit)).toBeNull();
       expect(screen.UNSAFE_queryByType(PixelIllustration)).toBeNull();
       expect(screen.queryByLabelText(/Pixel/u)).toBeNull();
       expect(screen.queryByText(/checkpoint|jornada|indisponível/iu)).toBeNull();

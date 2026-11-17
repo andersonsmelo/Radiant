@@ -217,7 +217,8 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     if (status === null || offers === null) {
         body = (
             <>
-                <View style={styles.card} accessible accessibilityRole="progressbar" accessibilityLabel={LOADING_LABEL}>
+                {/* Decorativo: quem anuncia o carregamento é o botão, para não ler duas vezes. */}
+                <View style={styles.card} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
                     <View style={styles.skeletonLine} />
                     <View style={[styles.skeletonLine, styles.skeletonShort]} />
                     <View style={styles.skeletonLine} />
@@ -293,7 +294,8 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                                 <PlanCard
                                     title={annual ? 'Anual' : 'Mensal'}
                                     price={product.displayPrice}
-                                    detail={monthly ? `${periodCopy(product)}, ${monthly}` : periodCopy(product)}
+                                    period={periodCopy(product)}
+                                    detail={monthly ?? undefined}
                                     selected={selectedProduct?.id === product.id}
                                     tone={annual ? 'gold' : 'neutral'}
                                     disabled={busy}

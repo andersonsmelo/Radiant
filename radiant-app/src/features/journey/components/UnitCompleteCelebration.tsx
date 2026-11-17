@@ -112,7 +112,7 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion
           <Text style={styles.title} accessibilityRole="header">Unidade concluída</Text>
           <Text style={styles.line}>Você fechou {unit.title}. Cada aula e cada conferência dela contam no seu caminho.</Text>
         </ScrollView>
-        <View style={[styles.footer, fixedFooter.footerStyle]} onLayout={fixedFooter.onLayout} testID="unit-celebration-footer">
+        <View style={[styles.footer, fixedFooter.footerStyle]} testID="unit-celebration-footer">
           <AppButton label="Continuar" variant="galaxy" onPress={onContinue} accessibilityLabel="Continuar" />
           {invite ? (
             <ConversionInvite moment="unit-complete" sampleAvailable={false}

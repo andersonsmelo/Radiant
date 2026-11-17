@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { act, fireEvent, render, within } from '@testing-library/react-native';
 import { getAnimatedStyle } from 'react-native-reanimated';
 import { AppButton } from './AppButton';
@@ -405,6 +405,25 @@ describe('AppButton — relevo', () => {
     expect(face.borderColor).toBe(galaxyColors.border);
     expect(styleOf(getByTestId('app-button-lip')).backgroundColor).toBe(galaxyColors.backgroundAlt);
     expect(styleOf(getByText('Continuar')).color).toBe(galaxyColors.textSecondary);
+  });
+
+  it.each(NEUTRAL_VARIANTS)('desabilitado e carregando juntos, %s fica na face neutra', (variant) => {
+    const { getByTestId, getByText, UNSAFE_getByType } = render(
+      <AppButton label="Continuar" variant={variant} disabled loading onPress={jest.fn()} />,
+    );
+    expect(styleOf(getByTestId('app-button-face')).backgroundColor).toBe(galaxyColors.surfaceActive);
+    expect(styleOf(getByTestId('app-button-lip')).backgroundColor).toBe(galaxyColors.backgroundAlt);
+    expect(styleOf(getByText('Continuar')).color).toBe(galaxyColors.textSecondary);
+    expect(UNSAFE_getByType(ActivityIndicator).props.color).toBe(galaxyColors.textSecondary);
+  });
+
+  it.each([false, true])('ghost carregando (desabilitado: %s) pinta o indicador na cor do próprio rótulo', (disabled) => {
+    const { getByText, UNSAFE_getByType } = render(
+      <AppButton label="Agora não" variant="ghost" disabled={disabled} loading onPress={jest.fn()} />,
+    );
+    const label = styleOf(getByText('Agora não')).color;
+    expect(label).toMatch(/^#/u);
+    expect(UNSAFE_getByType(ActivityIndicator).props.color).toBe(label);
   });
 
   it('desabilitado ghost só troca o rótulo, sem opacidade', () => {

@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         borderRadius: radius.rMd,
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
-        backgroundColor: 'rgba(3,3,13,0.34)',
+        backgroundColor: galaxyColors.imageScrim,
         // The corner keeps the index clear of labels drawn inside the image itself.
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderWidth: 3,
+        // Só a borda muda: um fundo opaco apagaria a anatomia escolhida.
         borderColor: galaxy.statusSuccess,
-        backgroundColor: 'rgba(93,227,174,0.16)',
     },
     // Opaque badge: the image behind it can be light, as the local diagrams are.
     hotspotIndex: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, within } from '@testing-library/react-native';
+import { space } from '../../../ui/styles';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -203,10 +204,15 @@ describe('UnitCompleteCelebration — tela curta e área segura', () => {
     expect(screen.getByRole('header', { name: 'Unidade concluída' })).toBeTruthy();
   });
 
-  it('com rodapé de 180 pt medido, o paddingBottom da rolagem é pelo menos 180', () => {
+  // O rodapé é IRMÃO da rolagem, não fica por cima dela: reservar a altura dele
+  // na rolagem duplicava o espaço e empurrava o conteúdo centrado para cima.
+  it('a folga da rolagem é só space.s3 e não depende da altura do rodapé', () => {
     const view = renderIt();
+    const scroll = view.UNSAFE_getByType(ScrollView);
+    expect(within(scroll).queryByTestId('unit-celebration-footer')).toBeNull();
+    expect(padding(scroll.props.contentContainerStyle)).toBe(space.s3);
     act(() => { fireEvent(screen.getByTestId('unit-celebration-footer'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 402, height: 180 } } }); });
-    expect(padding(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle)).toBeGreaterThanOrEqual(180);
+    expect(padding(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle)).toBe(space.s3);
   });
 
   it('o paddingBottom do rodapé inclui o inset inferior simulado', () => {

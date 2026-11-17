@@ -402,7 +402,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           ) : null}
         </ScrollView>
 
-        <View style={[styles.footer, fixedFooter.footerStyle]} onLayout={fixedFooter.onLayout} testID="reward-footer">
+        <View style={[styles.footer, fixedFooter.footerStyle]} testID="reward-footer">
           {rewardLocked ? (
             <AppButton onPress={() => router.dismissTo('/(tabs)')} variant="galaxy" style={styles.fullWidthButton}>
               Voltar para jornada

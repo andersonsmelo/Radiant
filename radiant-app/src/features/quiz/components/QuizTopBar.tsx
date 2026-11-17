@@ -4,7 +4,7 @@ import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar'
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { HeartsCountPill } from '../../../ui/components/HUD';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space } from '../../../ui/styles';
+import { radius, space, typography } from '../../../ui/styles';
 
 type QuizTopBarProps = {
   questionIndex: number;
@@ -61,14 +61,14 @@ export function QuizTopBar({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: space.s2, width: '100%' },
   barSlot: { flex: 1 },
-  infinity: { fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
+  infinity: { ...typography.h3, color: galaxyColors.heartFull },
   iconButton: {
     width: 40,
     height: 40,
     borderRadius: radius.rXl,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.07)',
+    backgroundColor: galaxyColors.surfaceActive,
     borderWidth: 1,
     borderColor: galaxyColors.border,
   },

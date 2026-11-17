@@ -5,7 +5,7 @@ import { XrayPanel } from '../../../components/ui/XrayPanel';
 import { UI_CONFIG } from '../../../constants/quiz';
 import type { QuizQuestion as QuizQuestionModel } from '../../../types/quiz';
 import { useCardEnter } from '../../../ui/motion';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -36,12 +36,7 @@ export function QuizQuestion({
   return (
     <Animated.View style={cardEnter.animatedStyle}>
       <SurfaceCard variant="galaxy" style={styles.card}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>
-            {question.type === 'image' ? 'Questão guiada por imagem' : 'Questão de múltipla escolha'}
-          </Text>
-          <Text style={styles.prompt}>{question.prompt}</Text>
-        </View>
+        <Text style={styles.prompt}>{question.prompt}</Text>
 
         {question.type === 'image' ? (
           <XrayPanel height={220} highlight={{ x: 230, y: 110, r: 18 }} />
@@ -86,15 +81,6 @@ const styles = StyleSheet.create({
   card: {
     gap: space.s3,
   },
-  header: {
-    gap: space.s1,
-  },
-  eyebrow: {
-    ...typography.caption,
-    color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-  },
   prompt: {
     ...typography.h2,
     color: galaxyColors.textPrimary,
@@ -130,13 +116,12 @@ const styles = StyleSheet.create({
   optionButtonPressed: {
     opacity: 0.72,
   },
-  // Tintas translúcidas: as versões sólidas viravam blocos claros na revelação.
   optionButtonCorrect: {
-    backgroundColor: 'rgba(93,227,174,0.16)',
+    backgroundColor: feedbackColors.success.surface,
     borderColor: galaxy.statusSuccess,
   },
   optionButtonWrong: {
-    backgroundColor: 'rgba(255,130,152,0.16)',
+    backgroundColor: feedbackColors.error.surface,
     borderColor: galaxyColors.critical,
   },
   optionMarker: {
@@ -148,8 +133,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   optionMarkerSelected: {
-    borderColor: '#FFFFFF',
-    backgroundColor: '#FFFFFF',
+    borderColor: galaxy.textOnAccent,
+    backgroundColor: galaxy.textOnAccent,
   },
   optionText: {
     ...typography.bodyRegular,
@@ -158,7 +143,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   optionTextSelected: {
-    color: '#FFFFFF',
+    color: galaxy.textOnAccent,
     fontWeight: '700',
   },
 });

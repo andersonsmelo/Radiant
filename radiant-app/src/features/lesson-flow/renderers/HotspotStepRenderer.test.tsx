@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { Path } from 'react-native-svg';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
@@ -53,7 +54,7 @@ describe('HotspotStepRenderer', () => {
     });
 
     it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
-        const { getByLabelText, getByTestId, queryByText, toJSON } = render(
+        const { getByLabelText, getByTestId, queryByText } = render(
             <HotspotStepRenderer
                 payload={payload}
                 accessibilityLabel="Geometria simplificada do feixe de raios X"
@@ -64,7 +65,10 @@ describe('HotspotStepRenderer', () => {
 
         const badge = StyleSheet.flatten(getByTestId('hotspot-selected-mark').props.style);
         expect(badge.backgroundColor).toBe(galaxyColors.background);
-        expect(JSON.stringify(toJSON())).toContain(semanticColors.galaxy.textPrimary);
+        // O traço da marca, só dentro da marca: a cor do texto aparece em outros nós da tela.
+        const strokes = getByTestId('hotspot-selected-mark').findAllByType(Path).map((path: { props: { stroke?: string } }) => path.props.stroke);
+        expect(strokes.length).toBeGreaterThan(0);
+        expect(strokes.every((stroke: string | undefined) => stroke === semanticColors.galaxy.textPrimary)).toBe(true);
         expect(queryByText('✓')).toBeNull();
         const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
         expect(region.alignItems).toBe('flex-start');

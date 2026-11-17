@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { isResolvedInteractionImage, type InteractionImageResolver } from './InteractionImageSource';
 import type { ComparisonPayload } from '../../../types/learningActivity';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { CheckIcon } from '../../../ui/components/VerdictIcons';
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     selected: {
         borderWidth: 2,
         borderColor: galaxy.statusSuccess,
-        backgroundColor: 'rgba(93,227,174,0.10)',
+        backgroundColor: feedbackColors.success.surface,
     },
     optionImage: { width: '100%', aspectRatio: 16 / 9, borderRadius: radius.rMd },
     visualPlaceholder: {

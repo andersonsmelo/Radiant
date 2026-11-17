@@ -62,15 +62,6 @@ jest.mock('../../../components/ui/AppButton', () => {
   };
 });
 
-jest.mock('../../../components/ui/PixelHeroSplit', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PixelHeroSplit: () => <View testID="forbidden-review-pixel" />,
-  };
-});
-
 jest.mock('../../../components/ui/ProgressRing', () => {
   const React = require('react');
   const { View } = require('react-native');
@@ -187,7 +178,9 @@ describe('ReviewScreen flow', () => {
     const view = renderWithProviders(<ReviewScreen />);
 
     expect(await screen.findByText('Qual achado deve ser revisto?')).toBeTruthy();
-    expect(screen.getByText('Sessão ativa')).toBeTruthy();
+    // A instrução é uma linha de texto, sem o cartão "Sessão ativa" em volta.
+    expect(screen.queryByText('Sessão ativa')).toBeNull();
+    expect(screen.getByText('Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.')).toBeTruthy();
     expect(screen.getByText('Confirmar resposta')).toBeTruthy();
     expect(await screen.findByText('80 XP')).toBeTruthy();
     // Short screens and enlarged text must be able to reach the entire card.
@@ -418,7 +411,6 @@ describe('T07 — fila real', () => {
     renderWithProviders(<ReviewScreen />);
     await act(async () => {});
     await screen.findByText('80 XP');
-    expect(screen.queryByTestId('forbidden-review-pixel')).toBeNull();
     expect(screen.queryByTestId('forbidden-review-ring')).toBeNull();
     if (state === 'review') expect(screen.getByText('1/1')).toBeTruthy();
   });

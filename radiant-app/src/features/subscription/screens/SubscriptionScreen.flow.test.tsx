@@ -79,7 +79,10 @@ describe('SubscriptionScreen — estados', () => {
         let liberar: ((value: StoreProduct[]) => void) | undefined;
         abrir(loja({ loadProducts: jest.fn(() => new Promise<StoreProduct[]>(resolve => { liberar = resolve; })) }));
 
-        expect(screen.getByRole('progressbar', { name: 'Carregando os planos' })).toBeTruthy();
+        // O esqueleto é decorativo; quem anuncia o carregamento é o botão, uma vez só.
+        expect(screen.queryByRole('progressbar')).toBeNull();
+        expect(screen.getAllByLabelText('Carregando os planos')).toHaveLength(1);
+        expect(screen.getByRole('button', { name: 'Carregando os planos' })).toBeTruthy();
         expect(screen.queryByText(/R\$/u)).toBeNull();
 
         await act(async () => { liberar?.(produtos); });
@@ -347,7 +350,7 @@ describe('SubscriptionScreen — T11 seleção e preço real', () => {
 
     it('divide o número explícito pela duração anual e formata a moeda, sem ler displayPrice', async () => {
         abrir(loja({ loadProducts: jest.fn(async () => [produtos[0], { ...produtos[1], displayPrice: 'Preço localizado da Apple', price: 22.99, currencyCode: 'USD' }]) }));
-        expect(await screen.findByText('por ano, $1.92 por mês')).toBeTruthy();
+        expect(await screen.findByText('$1.92 por mês')).toBeTruthy();
         expect(screen.getByText('Preço localizado da Apple')).toBeTruthy();
     });
 
@@ -399,10 +402,10 @@ describe('SubscriptionScreen — T11 atualização e espera', () => {
             .mockResolvedValueOnce([{ ...produtos[1], price: 22.99, currencyCode: 'USD' }])
             .mockResolvedValue([{ ...produtos[1], displayPrice: '€36.00', price: 36, currencyCode: 'EUR' }]);
         abrir(loja({ loadProducts, onStorefrontChanged: jest.fn(listener => { avisar = listener; return () => undefined; }) }));
-        expect(await screen.findByText('por ano, $1.92 por mês')).toBeTruthy();
+        expect(await screen.findByText('$1.92 por mês')).toBeTruthy();
         await act(async () => avisar());
-        expect(await screen.findByText('por ano, €3.00 por mês')).toBeTruthy();
-        expect(screen.queryByText('por ano, $1.92 por mês')).toBeNull();
+        expect(await screen.findByText('€3.00 por mês')).toBeTruthy();
+        expect(screen.queryByText('$1.92 por mês')).toBeNull();
     });
 
     it('bloqueia seleção e nova compra enquanto aguarda a loja', async () => {
@@ -477,7 +480,7 @@ describe('SubscriptionScreen — T11 fix1 rótulo acessível do equivalente mens
         ]) }));
         expect(await screen.findByRole('radio', { name: 'Anual, $22.99, por ano, $1.92 por mês' })).toBeTruthy();
         expect(screen.getByRole('radio', { name: 'Mensal, $2.99, por mês' })).toBeTruthy();
-        expect(screen.getByText('por ano, $1.92 por mês')).toBeTruthy();
+        expect(screen.getByText('$1.92 por mês')).toBeTruthy();
     });
 
     it.each([
@@ -548,7 +551,7 @@ describe('SubscriptionScreen — Tarefa 10 cartões de plano', () => {
     it('preço ausente mostra o estado de carregamento atual e o botão desabilitado', async () => {
         let liberar: ((value: StoreProduct[]) => void) | undefined;
         abrir(loja({ loadProducts: jest.fn(() => new Promise<StoreProduct[]>(resolve => { liberar = resolve; })) }));
-        expect(screen.getByRole('progressbar', { name: 'Carregando os planos' })).toBeTruthy();
+        expect(screen.queryByRole('progressbar')).toBeNull();
         const botao = screen.getByRole('button', { name: 'Carregando os planos' });
         expect(botao.props.accessibilityState.disabled).toBe(true);
         expect(screen.queryAllByRole('radio')).toHaveLength(0);
@@ -563,7 +566,7 @@ describe('SubscriptionScreen — Tarefa 10 cartões de plano', () => {
             { ...produtos[1], displayPrice: '$22.99', price: 22.99, currencyCode: 'USD' },
         ]) }));
         expect(await screen.findByRole('radio', { name: 'Anual, $22.99, por ano, $1.92 por mês' })).toBeTruthy();
-        expect(screen.getByText('por ano, $1.92 por mês')).toBeTruthy();
+        expect(screen.getByText('$1.92 por mês')).toBeTruthy();
         expect(screen.getByRole('radio', { name: 'Mensal, $2.99, por mês' })).toBeTruthy();
     });
 });

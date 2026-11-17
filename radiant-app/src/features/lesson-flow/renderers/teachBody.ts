@@ -17,5 +17,6 @@ export function splitKeyPoint(point: string): { term: string | null; text: strin
     if (!term || term.length > MAX_TERM || /[,;=]/u.test(term) || /\d$/u.test(term) || !rest) return { term: null, text: point };
     // Unidade ("mAs", "kV") começa em minúscula de propósito: não se capitaliza.
     const unit = /^\p{Ll}\p{Lu}/u.test(rest);
+    // Só a primeira letra do texto sobe para maiúscula, como início de frase; não é etiqueta em caixa alta.
     return { term, text: unit ? rest : rest.charAt(0).toLocaleUpperCase('pt-BR') + rest.slice(1) };
 }

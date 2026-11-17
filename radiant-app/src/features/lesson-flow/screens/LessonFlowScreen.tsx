@@ -13,7 +13,7 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2, LearningInteractionV2 } from '../../../types/learningActivity';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -1057,7 +1057,7 @@ const styles = StyleSheet.create({
         width: 44,
         height: 44,
         borderRadius: 999,
-        backgroundColor: 'rgba(255,255,255,0.07)',
+        backgroundColor: galaxyColors.surfaceActive,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -1090,16 +1090,16 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     errorCard: {
-        backgroundColor: 'rgba(255,59,48,0.10)',
+        backgroundColor: galaxyColors.surfaceActive,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: 'rgba(255,59,48,0.25)',
+        borderColor: feedbackColors.error.fill,
         padding: space.s3,
         width: '100%',
     },
     errorText: {
         ...typography.bodyRegular,
-        color: '#FF6B6B',
+        color: galaxyColors.critical,
         textAlign: 'center',
     },
 });

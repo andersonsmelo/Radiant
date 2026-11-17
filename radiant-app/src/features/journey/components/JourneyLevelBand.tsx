@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
     ...typography.micro,
     color: galaxyColors.textTertiary,
     fontWeight: '800',
-    letterSpacing: 0.8,
-    textTransform: 'uppercase',
   },
   title: {
     ...typography.label,

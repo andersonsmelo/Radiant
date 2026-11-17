@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: galaxyColors.border,
   },
   text: { ...typography.bodyRegular, color: galaxyColors.textPrimary, flexShrink: 1 },
-  action: { ...typography.label, textTransform: 'none', letterSpacing: 0, fontSize: 13, lineHeight: 18, marginLeft: 'auto', color: galaxyColors.navBlue, fontWeight: '700' },
+  action: { ...typography.label, textTransform: 'none', letterSpacing: 0, fontSize: typography.caption.fontSize, lineHeight: typography.caption.lineHeight, marginLeft: 'auto', color: galaxyColors.navBlue, fontWeight: '700' },
 });

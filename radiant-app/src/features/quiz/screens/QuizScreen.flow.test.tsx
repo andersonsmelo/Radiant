@@ -82,15 +82,6 @@ jest.mock('../../../components/ui/AppButton', () => {
   };
 });
 
-jest.mock('../../../components/ui/PixelHeroSplit', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    PixelHeroSplit: ({ children }: { children?: React.ReactNode }) => <View>{children}</View>,
-  };
-});
-
 jest.mock('../../../components/ui/ProgressRing', () => {
   const React = require('react');
   const { View } = require('react-native');
@@ -426,6 +417,9 @@ describe('QuizScreen flow', () => {
     expect(screen.queryByText('Quiz')).toBeNull();
     expect(screen.queryByText('1/3')).toBeNull();
     expect(screen.queryByLabelText('Questões')).toBeNull();
+    // Sem etiqueta acima da pergunta; a pergunta continua.
+    expect(screen.queryByText(/^Questão (de múltipla escolha|guiada por imagem)$/iu)).toBeNull();
+    expect(screen.getByText(lessonTresQuestoes.questions[0].prompt)).toBeTruthy();
   });
 
   it('completes a quiz and syncs the result', async () => {

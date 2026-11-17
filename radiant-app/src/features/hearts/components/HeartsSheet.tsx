@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(3, 3, 13, 0.72)',
+    backgroundColor: galaxyColors.scrim,
   },
   sheet: {
     borderTopLeftRadius: radius.rLg,

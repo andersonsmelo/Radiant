@@ -27,6 +27,14 @@ describe('KeyPointsList', () => {
         expect(view.queryByText('0', { includeHiddenElements: true })).toBeNull();
     });
 
+    it('o número tem teto de escala e cabe na face da peça (29 pt) no texto máximo', () => {
+        const view = render(<KeyPointsList points={POINTS} />);
+        const number = view.getByText('1', { includeHiddenElements: true });
+        const { fontSize } = flat(number.props.style);
+        expect(number.props.maxFontSizeMultiplier).toBeGreaterThan(1);
+        expect(fontSize * number.props.maxFontSizeMultiplier).toBeLessThanOrEqual(29);
+    });
+
     it('cada bloco é um nó acessível lido como "1. Termo: texto"', () => {
         const view = render(<KeyPointsList points={POINTS} />);
         const blocos = view.getAllByTestId('lesson-key-point');

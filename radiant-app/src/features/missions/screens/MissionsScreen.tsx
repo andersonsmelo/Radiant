@@ -63,8 +63,10 @@ export default function MissionsScreen() {
           {reading.state === 'loading' ? <Text style={styles.detail}>Carregando missões…</Text>
             : reading.state === 'unavailable' ? <Text style={styles.detail} accessibilityRole="alert">Não foi possível ler as missões agora. Tente de novo em instantes.</Text>
               : reading.missions.map(mission => {
+                // O bônus acende e é lido na mesma condição: só depois de creditado.
+                const bonusLit = mission.done && mission.rewarded;
                 const status = mission.done
-                  ? mission.rewarded ? `Concluída, +${MISSION_BONUS_XP} XP` : 'Concluída'
+                  ? bonusLit ? `Concluída, +${MISSION_BONUS_XP} XP` : 'Concluída'
                   : `${mission.progress} de ${mission.goal}`;
                 return (
                   <View key={mission.id} style={styles.mission} accessible accessibilityRole="progressbar"
@@ -74,7 +76,7 @@ export default function MissionsScreen() {
                     <View style={styles.missionBody}>
                       <View style={styles.missionLine}>
                         <Text style={styles.missionTitle}>{mission.title}</Text>
-                        <Text style={[styles.reward, mission.done && styles.rewardDone]}>+{MISSION_BONUS_XP} XP</Text>
+                        <Text style={[styles.reward, bonusLit && styles.rewardDone]}>+{MISSION_BONUS_XP} XP</Text>
                       </View>
                       <Text style={styles.detail}>{mission.done ? 'Concluída' : `${mission.progress} de ${mission.goal}`}</Text>
                       <View style={styles.track}>

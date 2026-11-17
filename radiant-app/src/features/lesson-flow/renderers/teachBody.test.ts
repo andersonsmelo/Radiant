@@ -57,6 +57,7 @@ describe('splitKeyPoint — conteúdo real', () => {
     it.each([
         'Pedido, faixa, série e registro: quatro passos.',
         'Corrente × tempo = carga: mA × s = mAs.',
+        'Dose; tempo e distância: reduza a exposição.',
     ])('enumeração e fórmula não viram termo: %s', (ponto) => {
         expect(splitKeyPoint(ponto)).toEqual({ term: null, text: ponto });
     });

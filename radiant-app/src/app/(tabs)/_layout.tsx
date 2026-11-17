@@ -3,7 +3,7 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { ProfileTabIcon, StudyTabIcon } from '@/src/ui/components/TabIcons';
-import { radius, space } from '@/src/ui/styles';
+import { radius, space, typography } from '@/src/ui/styles';
 import { galaxyColors } from '@/src/ui/theme';
 import { useNotificationRouting } from '@/src/features/push/personalized/useNotificationRouting';
 
@@ -22,7 +22,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: galaxyColors.tabBarInactive,
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
-          fontSize: 11,
+          fontSize: typography.label.fontSize,
           fontWeight: '600',
         },
         tabBarItemStyle: {

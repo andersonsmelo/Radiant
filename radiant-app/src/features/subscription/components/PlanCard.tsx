@@ -9,7 +9,10 @@ export type PlanCardProps = {
     title: string;
     /** Preço localizado exatamente como o StoreKit entregou. */
     price: string;
-    detail: string;
+    /** Período cobrado ("por mês", "por ano"), numa linha própria abaixo do preço. */
+    period: string;
+    /** Valor por mês calculado, quando houver. */
+    detail?: string;
     selected: boolean;
     tone: 'neutral' | 'gold';
     onPress: () => void;
@@ -25,7 +28,7 @@ const LIP = 4;
  * tomam o tom do plano (ouro no anual, azul no mensal); em repouso, os dois
  * ficam neutros.
  */
-export function PlanCard({ title, price, detail, selected, tone, onPress, disabled = false, testID }: PlanCardProps) {
+export function PlanCard({ title, price, period, detail, selected, tone, onPress, disabled = false, testID }: PlanCardProps) {
     const descend = usePressDescend(LIP - 1, disabled);
     const gold = tone === 'gold';
     const border = !selected ? galaxyColors.border : gold ? medalColors.gold.face : galaxyColors.navBlue;
@@ -41,13 +44,14 @@ export function PlanCard({ title, price, detail, selected, tone, onPress, disabl
                 onPressOut={descend.onPressOut}
                 disabled={disabled}
                 accessibilityRole="radio"
-                accessibilityLabel={`${title}, ${price}, ${detail}`}
+                accessibilityLabel={[title, price, period, detail].filter(Boolean).join(', ')}
                 accessibilityState={{ selected, disabled }}
                 style={[styles.face, { backgroundColor: selected ? galaxyColors.surfaceActive : galaxyColors.surface, borderColor: border }, descend.style]}
             >
                 <Text style={[styles.title, gold && styles.goldTitle]}>{title}</Text>
                 <Text style={styles.price}>{price}</Text>
-                <Text style={styles.detail}>{detail}</Text>
+                <Text style={styles.period}>{period}</Text>
+                {detail ? <Text style={styles.detail}>{detail}</Text> : null}
             </MotionPressable>
         </View>
     );
@@ -70,5 +74,6 @@ const styles = StyleSheet.create({
     title: { ...typography.bodyStrong, color: galaxyColors.textPrimary, textAlign: 'center' },
     goldTitle: { color: medalColors.gold.face },
     price: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
+    period: { ...typography.bodyRegular, color: galaxyColors.textPrimary, textAlign: 'center' },
     detail: { ...typography.caption, color: galaxyColors.textSecondary, textAlign: 'center' },
 });
