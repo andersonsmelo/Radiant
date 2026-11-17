@@ -71,9 +71,13 @@ iPhone simulado "Radiant F6", iOS, tamanho de texto normal, aulas abertas por li
 | [14-comparacao.jpg](capturas/14-comparacao.jpg) | Comparação: radiografia dentro da peça, escolhida com marca (M08, aula 1, passo 4) |
 | [15-perfil-sequencia-zero.jpg](capturas/15-perfil-sequencia-zero.jpg) | Perfil com "0 dias" e nenhum dia marcado; o topo da trilha mostrava "0d" |
 
-Nenhum defeito de tela apareceu. Uma observação para o dono: em ordenar, "Selecionar
-esta ordem" ficou com a mesma aparência dos itens da lista até ser tocado, e pode ser
-lido como um quinto item.
+Nenhum defeito de tela apareceu. Uma observação foi levada ao dono: em ordenar,
+"Selecionar esta ordem" tinha a mesma aparência dos itens da lista até ser tocado, e
+podia ser lido como um quinto item. O dono mandou ajustar, e ele virou botão
+secundário (`AppButton`), com a marca desenhada depois de escolhido. O rótulo lido
+pelo leitor de tela continua "Selecionar esta ordem"; a dica passa a dizer "Ordem
+selecionada". A execução vermelha foi `Expected length: 0, Received length: 1` na
+contagem de `choice-option-lip`. As capturas 11 e 12 são anteriores a esse ajuste.
 
 ## Não provado
 

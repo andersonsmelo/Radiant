@@ -455,8 +455,9 @@ movimento", de uma vez. Sem opacidade em nenhum estado.
 - **Errada:** o mesmo em erro, com a marca de erro.
 - **Apagada** (as demais, depois de conferir): como o repouso, com o texto em
   `textTertiary`.
-A mesma peça serve às opções de parear, às alternativas do cartão de revisão, ao
-"Selecionar esta ordem" e à comparação. Na comparação a figura entra acima do
+A mesma peça serve às opções de parear, às alternativas do cartão de revisão e à
+comparação. "Selecionar esta ordem" é botão secundário, e não esta peça: igual aos
+itens, ele se lia como mais um item da lista. Na comparação a figura entra acima do
 rótulo (`media`) e a escolhida leva a marca de seleção desenhada
 (`selectedMark`), porque ali a escolha não pode depender só de cor. O item de
 ordenar tem o mesmo lábio, parado: quem se toca são as setas.

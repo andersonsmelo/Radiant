@@ -4,7 +4,8 @@ import type { OrderingPayload } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
-import { ChoiceOption } from '../../../components/ui/ChoiceOption';
+import { AppButton } from '../../../components/ui/AppButton';
+import { CheckIcon } from '../../../ui/components/VerdictIcons';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
 
 type OrderingStepRendererProps = {
@@ -76,14 +77,20 @@ export function OrderingStepRenderer({ payload, value, onChange, submitted = fal
                     );
                 })}
             </View>
-            <ChoiceOption
+            {/* Botão, e não a peça de alternativa: igual aos itens, ele parecia mais um item da lista. */}
+            <AppButton
+                variant="secondary"
                 label={value === undefined ? 'Selecionar esta ordem' : 'Ordem selecionada'}
-                state={value === undefined ? 'idle' : 'selected'}
-                selectedMark
+                icon={value === undefined ? undefined : (
+                    <View testID="ordering-selected-mark" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                        <CheckIcon size={16} color={galaxy.statusInformation} />
+                    </View>
+                )}
                 disabled={submitted}
                 onPress={() => { if (!submitted) onChange(encodeInteractionIdSequence(currentOrder)); }}
+                // O rótulo lido não muda (roteiros e leitores o conhecem); a dica diz que já está escolhida.
                 accessibilityLabel="Selecionar esta ordem"
-                accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona a sequência atual. Você confirma em ${confirmationLabel}.`}
+                accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `${value === undefined ? 'Seleciona a sequência atual' : 'Ordem selecionada'}. Você confirma em ${confirmationLabel}.`}
             />
         </View>
     );
