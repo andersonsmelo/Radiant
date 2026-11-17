@@ -100,6 +100,21 @@ test('galaxy: rótulo do botão desabilitado (textSecondary) passa 4,5:1 sobre s
   );
 });
 
+test('passo de ensino: número branco da peça passa 4,5:1 sobre o azul de ação', async () => {
+  const { read } = await readTheme();
+  const semantic = await readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8');
+  const galaxyBlock = semantic.match(/galaxy:\s*\{([\s\S]*?)\n\s{2}\}/u);
+  assert.ok(galaxyBlock, 'bloco galaxy não encontrado em semantic-colors.ts');
+  const action = galaxyBlock[1].match(/\n\s*actionPrimary:\s*'(#[0-9a-fA-F]{6})'/u);
+  assert.ok(action, 'galaxy.actionPrimary não encontrado');
+
+  const ratio = contrastRatio(parseHex(read('medalGlyphTones', 'light')), parseHex(action[1]));
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `medalGlyphTones.light sobre galaxy.actionPrimary: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
 test('light: todo texto informativo passa WCAG AA sobre background e surface', async () => {
   const { read } = await readTheme();
 

@@ -102,9 +102,6 @@ const styles = StyleSheet.create({
     ...typography.h3,
     color: galaxyColors.textPrimary,
   },
-  contentArea: {
-    justifyContent: 'center',
-  },
   optionsPreview: {
     gap: space.s2,
   },
@@ -118,12 +115,6 @@ const styles = StyleSheet.create({
     backgroundColor: galaxyColors.surfaceMuted,
     borderWidth: 1,
     borderColor: galaxyColors.border,
-  },
-  optionBullet: {
-    width: space.s1,
-    height: space.s1,
-    borderRadius: radius.rSm,
-    backgroundColor: galaxyColors.textTertiary,
   },
   optionText: {
     ...typography.bodyRegular,
@@ -173,22 +164,5 @@ const styles = StyleSheet.create({
   },
   footer: {
     gap: space.s2,
-  },
-  button: {
-    width: '100%',
-  },
-  ratingRow: {
-    flexDirection: 'row',
-    gap: space.s2,
-  },
-  ratingButton: {
-    flex: 1,
-  },
-  ratingRowStacked: {
-    flexDirection: 'column',
-  },
-  ratingButtonStacked: {
-    flex: 0,
-    width: '100%',
   },
 });

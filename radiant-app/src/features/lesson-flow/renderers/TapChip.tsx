@@ -45,7 +45,7 @@ export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress,
         ? { face: feedbackColors.error.surface, border: galaxy.statusError, lip: feedbackColors.error.lip, width: 2 }
         : selected
         ? { face: galaxyColors.surface, border: galaxy.reward, lip: medalColors.unit.lip, width: 2 }
-        : { face: galaxyColors.surface, border: galaxy.border, lip: galaxyColors.backgroundAlt, width: 1 };
+        : { face: galaxyColors.surface, border: galaxy.border, lip: galaxyColors.backgroundAlt, width: 2 };
 
     return (
         <Animated.View style={verdict ? pop.style : undefined}>

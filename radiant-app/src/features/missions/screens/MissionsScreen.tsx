@@ -89,7 +89,7 @@ export default function MissionsScreen() {
               })}
         </ScrollView>
         <View style={styles.footer}>
-          <AppButton label="Continuar a trilha" variant="galaxy" onPress={() => router.replace('/(tabs)')} />
+          <AppButton label="Continuar a trilha" variant="galaxy" onPress={() => router.dismissTo('/(tabs)')} />
         </View>
       </SafeAreaView>
     </View>

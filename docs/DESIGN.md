@@ -516,8 +516,9 @@ fundo, sem etiqueta acima do título.
   restante, em outro parágrafo, no texto secundário. Corpo de uma frase só não
   tem segundo parágrafo.
 - **Blocos:** cada ponto-chave é uma linha com divisória de 1 px em cima, uma
-  peça numerada à esquerda (círculo de 32 pt com lábio, no azul da unidade,
-  número em branco) e, ao lado, o termo em negrito e a explicação no texto
+  peça numerada à esquerda (círculo de 32 pt com lábio, no azul de ação do
+  botão `galaxy`, `#2559E6`, e não no azul da unidade, que dá 4,499:1; número em
+  branco, 4,5:1 ou mais, guardado em `contrast-contract.test.mjs`) e, ao lado, o termo em negrito e a explicação no texto
   secundário. O termo é o que vem antes do primeiro ": ", se tiver até 40
   caracteres e não for enumeração, fórmula nem terminar em número. Sem termo,
   só o texto, no principal.

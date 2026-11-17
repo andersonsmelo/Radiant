@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors, medalGlyphTones } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { splitKeyPoint } from '../renderers/teachBody';
 import { CHROME_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         width: PIECE,
         height: PIECE - LIP,
         borderRadius: PIECE / 2,
-        backgroundColor: medalColors.unit.face,
+        backgroundColor: semanticColors.galaxy.actionPrimary,
         alignItems: 'center',
         justifyContent: 'center',
     },

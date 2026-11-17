@@ -65,4 +65,14 @@ describe('TapChip', () => {
             expect(translateYOf(off.getByTestId('off'))).toBe(0);
         } finally { jest.useRealTimers(); }
     });
+
+    it('a borda tem a mesma largura em todos os estados: só a cor muda', () => {
+        const width = (props: object) =>
+            flat(render(<TapChip label="A" accessibilityLabel="A" testID="chip" {...props} />).getByTestId('chip').props.style).borderWidth;
+        const idle = width({});
+        expect(idle).toBe(2);
+        expect(width({ selected: true })).toBe(idle);
+        expect(width({ verdict: 'correct' })).toBe(idle);
+        expect(width({ verdict: 'incorrect' })).toBe(idle);
+    });
 });

@@ -7,7 +7,7 @@ import { Confetti } from '../../../components/ui/Confetti';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { LearningInteractionV2, LearningActivityV2 } from '../../../types/learningActivity';
-import LessonFlowScreen from './LessonFlowScreen';
+import LessonFlowScreen, { correctAnswerText } from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -3305,7 +3305,7 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
   it('em múltipla escolha a folha diz a resposta certa, e não repete "Sua resposta"', async () => {
     abrir(escolha);
     const folha = await conferirEscolha('Opção B');
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: Opção A')).toBeTruthy();
     expect(within(folha).queryByText(/Sua resposta/u)).toBeNull();
     // Asserção que ficou da Tarefa 2: as próprias alternativas dizem certa e errada.
@@ -3333,17 +3333,17 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     fireEvent.press(screen.getByLabelText('Certo: A distância reduz a dose.'));
     fireEvent.press(screen.getByLabelText('Certo: O dosímetro reduz a dose.'));
     const folha = await conferir();
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
-    expect(within(folha).getByText('Resposta certa: Certo: A distância reduz a dose. Errado: O dosímetro reduz a dose.')).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: A distância reduz a dose.: certo; O dosímetro reduz a dose.: errado')).toBeTruthy();
   });
 
-  it('em marcar várias, a folha diz as certas separadas por vírgula', async () => {
+  it('em marcar várias, a folha diz as certas separadas por ponto e vírgula', async () => {
     abrir(marcar);
     await screen.findByText('Marque as certas.');
     fireEvent.press(screen.getByTestId('multi-select-Opção B'));
     const folha = await conferir();
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
-    expect(within(folha).getByText('Resposta certa: Opção A, Opção C')).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: Opção A; Opção C')).toBeTruthy();
   });
 
   it('no acerto de marcar várias, a linha da resposta certa não aparece', async () => {
@@ -3378,7 +3378,7 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true));
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
     const folha = await screen.findByTestId('lesson-item-feedback');
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: Segundo; Primeiro')).toBeTruthy();
   });
 
@@ -3452,7 +3452,7 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     await screen.findByText('Associe os pares.');
     fireEvent.press(screen.getByRole('button', { name: 'Associar A a Beta' }));
     const folha = await seguir();
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: A → Alfa; B → Beta')).toBeTruthy();
   });
 
@@ -3461,7 +3461,7 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     await screen.findByText('Escolha a região.');
     fireEvent.press(screen.getByRole('button', { name: 'Selecionar Região B na lista' }));
     const folha = await seguir();
-    expect(within(folha).getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: Região A, Região C')).toBeTruthy();
   });
 
@@ -3507,3 +3507,24 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
   });
 });
 
+
+describe('correctAnswerText: resposta certa em texto', () => {
+  const tf = (statements: { id: string; text: string; isTrue: boolean }[]) =>
+    ({ type: 'true-false', payload: { statements } }) as unknown as LearningInteractionV2;
+  const ms = (options: { id: string; label: string }[], correctOptionIds: string[]) =>
+    ({ type: 'multi-select', payload: { options, correctOptionIds } }) as unknown as LearningInteractionV2;
+
+  it('verdadeiro ou falso lista cada afirmação com o veredito, separadas por "; "', () => {
+    expect(correctAnswerText(tf([
+      { id: 'a', text: 'O avental protege', isTrue: true },
+      { id: 'b', text: 'Pode pular a checagem, se houver pressa', isTrue: false },
+    ]))).toBe('O avental protege: certo; Pode pular a checagem, se houver pressa: errado');
+    expect(correctAnswerText(tf([{ id: 'a', text: 'A dose é ajustada', isTrue: false }]))).toBe('A dose é ajustada: errado');
+  });
+
+  it('múltipla seleção junta os rótulos certos por "; ", sem quebrar rótulo com vírgula', () => {
+    const options = [{ id: 'a', label: 'Luvas, avental e óculos' }, { id: 'b', label: 'Chinelo' }, { id: 'c', label: 'Máscara' }];
+    expect(correctAnswerText(ms(options, ['a', 'c']))).toBe('Luvas, avental e óculos; Máscara');
+    expect(correctAnswerText(ms(options, ['b']))).toBe('Chinelo');
+  });
+});

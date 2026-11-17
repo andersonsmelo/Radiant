@@ -48,8 +48,17 @@ describe('AnswerFeedbackSheet', () => {
         expect(errado.borderTopColor).toBe(feedbackColors.error.lip);
         expect(errado.borderTopWidth).toBe(2);
         // A cor não vai sozinha: o título em texto diz o resultado.
-        expect(screen.getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+        expect(screen.getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
         expect(screen.getByRole('button', { name: 'Continuar' })).toBeTruthy();
+    });
+
+    it('o título tem rótulo próprio para o leitor, sem mudar o texto visível', () => {
+        const view = render(<AnswerFeedbackSheet correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        expect(screen.getByRole('header', { name: 'Resposta correta' })).toBeTruthy();
+        expect(screen.getByText('Resposta correta')).toBeTruthy();
+        view.rerender(<AnswerFeedbackSheet correct={false} message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        expect(screen.getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+        expect(screen.getByText('Vamos reforçar')).toBeTruthy();
     });
 
     it('heartLost mostra "Menos 1 vida"', () => {
@@ -58,7 +67,7 @@ describe('AnswerFeedbackSheet', () => {
 
         view.rerender(<AnswerFeedbackSheet correct={false} heartLost message="a" actionLabel="Continuar" onAction={jest.fn()} />);
         expect(within(screen.getByTestId('lesson-item-feedback')).getByText('Menos 1 vida')).toBeTruthy();
-        expect(screen.getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
+        expect(screen.getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     });
 
     it('a vida perdida diz ao leitor de tela quantas restam, quando a tela sabe', () => {

@@ -9,8 +9,9 @@ import { DailyMissionsService } from '../services/DailyMissionsService';
 
 const mockBack = jest.fn();
 const mockReplace = jest.fn();
+const mockDismissTo = jest.fn();
 jest.mock('expo-router', () => ({
-  router: { back: () => mockBack(), replace: (href: string) => mockReplace(href) },
+  router: { back: () => mockBack(), replace: (href: string) => mockReplace(href), dismissTo: (href: string) => mockDismissTo(href) },
   useFocusEffect: (callback: () => void | (() => void)) => {
     const React = require('react');
     React.useEffect(() => callback(), [callback]);
@@ -30,7 +31,7 @@ jest.mock('../services/DailyMissionsService', () => ({
 const sync = DailyMissionsService.sync as jest.Mock;
 
 describe('MissionsScreen na rota /missions', () => {
-  beforeEach(() => { sync.mockReset(); mockBack.mockReset(); mockReplace.mockReset(); });
+  beforeEach(() => { sync.mockReset(); mockBack.mockReset(); mockReplace.mockReset(); mockDismissTo.mockReset(); });
 
   it('mostra as três missões do dia com o progresso e o bônus de cada uma', async () => {
     sync.mockResolvedValue({ bonusXp: 5, missions: [
@@ -106,6 +107,8 @@ describe('MissionsScreen na rota /missions', () => {
     sync.mockResolvedValue({ bonusXp: 0, missions: [] });
     render(<MissionsScreen />);
     fireEvent.press(screen.getByRole('button', { name: 'Continuar a trilha' }));
-    expect(mockReplace).toHaveBeenCalledWith('/(tabs)');
+    // dismissTo volta às abas que já estão na pilha; replace criaria uma segunda rota de abas.
+    expect(mockDismissTo).toHaveBeenCalledWith('/(tabs)');
+    expect(mockReplace).not.toHaveBeenCalled();
   });
 });

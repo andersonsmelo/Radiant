@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { KeyPointsList } from './KeyPointsList';
-import { galaxyColors } from '../../../ui/theme';
+import { galaxyColors, medalColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 
 const flat = (style: unknown) => Object.assign({}, ...[style].flat(Infinity).filter(Boolean));
 const POINTS = ['Tarefa técnica: adquirir a imagem.', 'Confirme a identidade.'];
@@ -48,5 +49,16 @@ describe('KeyPointsList', () => {
     it('não há marcador de lista em caractere', () => {
         const view = render(<KeyPointsList points={POINTS} />);
         expect(view.queryByText(/^[•·\-–—*]/u)).toBeNull();
+    });
+
+    it('a peça usa o azul de ação, com o lábio do botão galaxy, para o número branco passar de 4,5:1', () => {
+        const view = render(<KeyPointsList points={POINTS} />);
+        // Sobe da árvore composta: o primeiro fundo é o da face, o seguinte (diferente) é o da peça.
+        const fills: unknown[] = [];
+        for (let node: any = view.getByText('1', { includeHiddenElements: true }); node; node = node.parent) {
+            const fill = flat(node.props.style).backgroundColor;
+            if (fill && fill !== fills[fills.length - 1]) fills.push(fill);
+        }
+        expect(fills.slice(0, 2)).toEqual([semanticColors.galaxy.actionPrimary, medalColors.unit.lip]);
     });
 });

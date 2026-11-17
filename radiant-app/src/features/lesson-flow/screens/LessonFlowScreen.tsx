@@ -104,14 +104,14 @@ const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categor
  * ficha; bancada, laboratório e caça ao risco não têm uma resposta curta e
  * única, e o retorno autoral explica.
  */
-function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
+export function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
     switch (interaction.type) {
         case 'multi-select': {
             const { options, correctOptionIds } = interaction.payload;
-            return options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label).join(', ');
+            return options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label).join('; ');
         }
         case 'true-false':
-            return interaction.payload.statements.map(statement => `${statement.isTrue ? 'Certo' : 'Errado'}: ${statement.text}`).join(' ');
+            return interaction.payload.statements.map(statement => `${statement.text}: ${statement.isTrue ? 'certo' : 'errado'}`).join('; ');
         case 'ordering': {
             const { items, correctOrder } = interaction.payload;
             return correctOrder.map(id => items.find(item => item.id === id)?.label ?? id).join('; ');
@@ -1054,19 +1054,6 @@ const styles = StyleSheet.create({
         lineHeight: undefined,
         flexShrink: 0,
         color: galaxyColors.textSecondary,
-    },
-    headerTopRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-    closeButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 999,
-        backgroundColor: galaxyColors.surfaceActive,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     scroll: {
         flex: 1,

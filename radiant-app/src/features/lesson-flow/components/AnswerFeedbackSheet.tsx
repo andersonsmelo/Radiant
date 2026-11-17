@@ -93,7 +93,7 @@ export function AnswerFeedbackSheet({
                         expression={rich ? castExpressionFor({ kind: 'retorno', correct, celebrate }) : correct ? 'feliz' : 'pensando'}
                         accessibilityLabel={pixelLabel(correct, celebrate, rich)} />
                     <Text ref={title} style={[styles.title, { color: correct ? semanticColors.galaxy.statusSuccess : semanticColors.galaxy.statusError }]}
-                        accessibilityRole="header" onLayout={() => {
+                        accessibilityRole="header" accessibilityLabel={correct ? 'Resposta correta' : 'Resposta incorreta. Vamos reforçar'} onLayout={() => {
                             if (focused.current) return;
                             focused.current = true;
                             const target = findNodeHandle(title.current);
