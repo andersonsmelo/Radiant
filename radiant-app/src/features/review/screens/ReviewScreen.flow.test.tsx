@@ -8,7 +8,7 @@ import type { ReviewItem } from '../hooks/useReview';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import type { QuizQuestion } from '../../../types/quiz';
 import ReviewScreen from './ReviewScreen';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 
 jest.mock('../../../data/catalog', () => ({ LESSON_CATALOG: require('../../../test/fixtures/syntheticLessons').LESSON_CATALOG }));
@@ -413,8 +413,8 @@ describe('T07 — fila real', () => {
     renderWithProviders(<ReviewScreen />);
     await act(async () => {});
     await screen.findByText('80 XP');
-    // A revisão não mostra o Pixel (guarda restaurada na Tarefa 11, sem mock).
-    expect(screen.UNSAFE_queryByType(PixelHeroSplit)).toBeNull();
+    // A revisão não mostra o Pixel (o herói `PixelHeroSplit` foi apagado em 2026-11-17).
+    expect(screen.UNSAFE_queryByType(PixelIllustration)).toBeNull();
     expect(screen.queryByTestId('forbidden-review-ring')).toBeNull();
     if (state === 'review') expect(screen.getByText('1/1')).toBeTruthy();
   });

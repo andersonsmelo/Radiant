@@ -28,6 +28,7 @@ foram subagentes em Sonnet e Opus.
 | [tarefa-10.md](tarefa-10.md) | Assinatura |
 | [tarefa-11.md](tarefa-11.md) | Ajustes da prova em simulador, histórias e pendentes |
 | [tarefa-12-revisao-final.md](tarefa-12-revisao-final.md) | Correções da revisão final da branch |
+| [tarefa-15-componentes-sem-uso.md](tarefa-15-componentes-sem-uso.md) | Remoção de `PixelHeroSplit`, `AnimatedCounter` e `GalaxyStatRow` |
 | [tarefa-14-pendencias-menores.md](tarefa-14-pendencias-menores.md) | Pontuação do verdadeiro ou falso, início antigo, guarda de rótulo em caixa alta, relevo único e capturas refeitas |
 | [tarefa-13-decisoes-em-aberto.md](tarefa-13-decisoes-em-aberto.md) | Relevo nas quatro superfícies restantes e sequência parada em 0 (decisões de 2026-11-17) |
 

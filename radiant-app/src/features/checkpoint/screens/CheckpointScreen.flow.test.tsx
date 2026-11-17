@@ -1,6 +1,5 @@
 import React from 'react';
 import { Circle } from 'react-native-svg';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -350,8 +349,7 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.bootstrap).not.toHaveBeenCalled();
       expect(screen.getByText('Avaliação 1 de 5')).toBeTruthy();
       expect(screen.getByText('Questão 1 de 2')).toBeTruthy();
-      // A avaliação não monta o herói do Pixel (guarda restaurada na Tarefa 11, sem mock).
-      expect(screen.UNSAFE_queryByType(PixelHeroSplit)).toBeNull();
+      // A avaliação não monta o Pixel (o herói `PixelHeroSplit` foi apagado em 2026-11-17).
       expect(screen.UNSAFE_queryByType(PixelIllustration)).toBeNull();
       expect(screen.queryByLabelText(/Pixel/u)).toBeNull();
       expect(screen.queryByText(/checkpoint|jornada|indisponível/iu)).toBeNull();

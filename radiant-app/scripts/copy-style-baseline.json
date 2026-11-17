@@ -72,11 +72,6 @@
       "dash": 0,
       "jargon": 3
     },
-    "src/components/ui/PixelHeroSplit.tsx": {
-      "eyebrow": 2,
-      "dash": 0,
-      "jargon": 0
-    },
     "src/components/ui/StatItem.tsx": {
       "eyebrow": 1,
       "dash": 0,
@@ -235,11 +230,6 @@
     "src/features/telemetry/screens/TelemetryDebugScreen.tsx": {
       "eyebrow": 2,
       "dash": 1,
-      "jargon": 0
-    },
-    "src/ui/components/GalaxyStatRow.tsx": {
-      "eyebrow": 1,
-      "dash": 0,
       "jargon": 0
     },
     "src/ui/styles.ts": {

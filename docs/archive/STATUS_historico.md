@@ -4753,3 +4753,12 @@ Até 2026-11-17 o `STATUS.md` listava, entre o que dependia do dono:
 
 O dono decidiu no mesmo dia: relevo nas quatro superfícies que o aluno alcança e
 sequência parada mostrando 0.
+
+## Refinamento visual antes da 1.6: componentes sem uso, saída do STATUS em 2026-11-17
+
+Até 2026-11-17 o `STATUS.md` listava, entre o que dependia do dono:
+
+- apagar três componentes sem uso (`PixelHeroSplit`, `AnimatedCounter`,
+  `GalaxyStatRow`), que o agente não removeu;
+
+O dono mandou o agente apagá-los no mesmo dia, e eles saíram do repositório.

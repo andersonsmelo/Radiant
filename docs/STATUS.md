@@ -120,8 +120,6 @@ ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não mud
   - build novo e capturas da loja refeitas (a captura de revisão da assinatura
     enviada à Apple mostra o desenho antigo);
   - a imagem de abertura, que continua com o Pixel antigo;
-  - apagar três componentes sem uso (`PixelHeroSplit`, `AnimatedCounter`,
-    `GalaxyStatRow`), que o agente não removeu;
   - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
     por decisão do dono em 2026-11-17.
 - **Decisões do dono em 2026-11-17, entregues na mesma branch:** ordenar, parear,
