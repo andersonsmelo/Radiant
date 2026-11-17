@@ -27,6 +27,17 @@ export const Disabled: Story = {
   args: { disabled: true, label: 'Indisponível agora' },
 };
 
+// As seis variantes com lábio, desabilitadas: face neutra, rótulo legível.
+export const Desabilitado: Story = {
+  render: () => (
+    <View style={{ flex: 1, justifyContent: 'center', gap: 12, padding: 20, backgroundColor: semanticColors.galaxy.surface }}>
+      {(['primary', 'galaxy', 'gold', 'secondary', 'success', 'error'] as const).map((variant) => (
+        <AppButton key={variant} variant={variant} label={`Indisponível (${variant})`} disabled onPress={() => {}} />
+      ))}
+    </View>
+  ),
+};
+
 export const Loading: Story = {
   args: { loading: true, label: 'Salvando progresso' },
 };

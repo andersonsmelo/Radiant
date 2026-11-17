@@ -419,10 +419,10 @@ as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
 - **Pressão:** a face desce 4 pt em `duration.micro`; sob "reduzir movimento",
   de uma vez.
 - **Foco:** borda de 3 px em Azul de Navegação nas variantes escuras.
-- **Desabilitado:** opacidade 0,45 no conjunto, face e lábio juntos, com
-  `needsOffscreenAlphaCompositing`. No iOS, a camada já é composta em grupo;
-  no Android, o `ReactViewGroup` só faz isso com essa propriedade. Sem ela,
-  cada filho recebe 0,45 sozinho e o lábio aparece através da face.
+- **Desabilitado:** sem opacidade. A face vira `surfaceActive` (`#232733`),
+  com borda de 1 px `border` (`#323747`), lábio `backgroundAlt` (`#171920`) e
+  rótulo `textSecondary` (`#a3aabb`, mais de 4,5:1 sobre a face). Vale para
+  toda variante com lábio. A `ghost` só troca o rótulo para `textTertiary`.
 
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,

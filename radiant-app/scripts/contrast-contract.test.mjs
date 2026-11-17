@@ -87,6 +87,19 @@ test('galaxy: todo texto informativo passa WCAG AA sobre fundo e superfície', a
   }
 });
 
+test('galaxy: rótulo do botão desabilitado (textSecondary) passa 4,5:1 sobre surfaceActive', async () => {
+  const { read } = await readTheme();
+
+  const face = parseHex(read('galaxyColors', 'surfaceActive'));
+  const label = parseHex(read('galaxyColors', 'textSecondary'));
+  const ratio = contrastRatio(label, face);
+
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `galaxyColors.textSecondary sobre surfaceActive: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
 test('light: todo texto informativo passa WCAG AA sobre background e surface', async () => {
   const { read } = await readTheme();
 
