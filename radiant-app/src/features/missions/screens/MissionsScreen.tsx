@@ -5,8 +5,10 @@ import { router, useFocusEffect } from 'expo-router';
 
 import { IconSymbol } from '../../../../components/ui/icon-symbol';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
+import { AppButton } from '../../../components/ui/AppButton';
+import { MissionIcon, missionKind } from '../../../ui/components/MissionIcons';
 import { radius, space, typography } from '../../../ui/styles';
-import { galaxyColors } from '../../../ui/theme';
+import { galaxyColors, hudLabelTones } from '../../../ui/theme';
 import { DailyMissionsService, MISSION_BONUS_XP, type DailyMission } from '../services/DailyMissionsService';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION, useShadowCheckpoint } from '../../student-checkpoints/useShadowCheckpoint';
 
@@ -68,18 +70,25 @@ export default function MissionsScreen() {
                   <View key={mission.id} style={styles.mission} accessible accessibilityRole="progressbar"
                     accessibilityLabel={`${mission.title}. ${status}.`}
                     accessibilityValue={{ min: 0, max: mission.goal, now: mission.progress }}>
-                    <View style={styles.missionLine}>
-                      <Text style={styles.missionTitle}>{mission.title}</Text>
-                      <Text style={styles.detail}>{status}</Text>
-                    </View>
-                    <View style={styles.track}>
-                      <View testID={`mission-fill-${mission.id}`}
-                        style={[styles.fill, mission.done && styles.fillDone, { width: `${(mission.progress / mission.goal) * 100}%` }]} />
+                    <MissionIcon kind={missionKind(mission.id)} done={mission.done} />
+                    <View style={styles.missionBody}>
+                      <View style={styles.missionLine}>
+                        <Text style={styles.missionTitle}>{mission.title}</Text>
+                        <Text style={[styles.reward, mission.done && styles.rewardDone]}>+{MISSION_BONUS_XP} XP</Text>
+                      </View>
+                      <Text style={styles.detail}>{mission.done ? 'Concluída' : `${mission.progress} de ${mission.goal}`}</Text>
+                      <View style={styles.track}>
+                        <View testID={`mission-fill-${mission.id}`}
+                          style={[styles.fill, mission.done && styles.fillDone, { width: `${(mission.progress / mission.goal) * 100}%` }]} />
+                      </View>
                     </View>
                   </View>
                 );
               })}
         </ScrollView>
+        <View style={styles.footer}>
+          <AppButton label="Continuar a trilha" variant="galaxy" onPress={() => router.replace('/(tabs)')} />
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -96,8 +105,12 @@ const styles = StyleSheet.create({
   detail: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
   scroll: { flex: 1 },
   content: { paddingHorizontal: space.s3, paddingBottom: space.s6 },
-  mission: { gap: space.s2, paddingVertical: space.s3, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: galaxyColors.border },
+  mission: { flexDirection: 'row', alignItems: 'center', columnGap: space.s2, paddingVertical: space.s3, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: galaxyColors.border },
+  missionBody: { flex: 1, gap: space.s1 },
   missionLine: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', columnGap: space.s2 },
+  reward: { ...typography.bodyStrong, lineHeight: undefined, color: galaxyColors.textTertiary },
+  rewardDone: { color: hudLabelTones.xp },
+  footer: { paddingHorizontal: space.s3, paddingVertical: space.s2 },
   missionTitle: { ...typography.bodyStrong, lineHeight: undefined, color: galaxyColors.textPrimary, flexShrink: 1 },
   track: { height: 6, borderRadius: radius.rMd / 4, backgroundColor: galaxyColors.surfaceMuted, overflow: 'hidden' },
   fill: { height: 6, borderRadius: radius.rMd / 4, backgroundColor: galaxyColors.navBlue },

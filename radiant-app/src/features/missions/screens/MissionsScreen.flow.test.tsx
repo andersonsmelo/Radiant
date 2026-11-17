@@ -1,12 +1,16 @@
 import React from 'react';
+import { StyleSheet, processColor } from 'react-native';
 import { fireEvent, render, screen } from '@testing-library/react-native';
+
+import { galaxyColors, hudLabelTones, medalColors } from '../../../ui/theme';
 
 import MissionsScreen from './MissionsScreen';
 import { DailyMissionsService } from '../services/DailyMissionsService';
 
 const mockBack = jest.fn();
+const mockReplace = jest.fn();
 jest.mock('expo-router', () => ({
-  router: { back: () => mockBack() },
+  router: { back: () => mockBack(), replace: (href: string) => mockReplace(href) },
   useFocusEffect: (callback: () => void | (() => void)) => {
     const React = require('react');
     React.useEffect(() => callback(), [callback]);
@@ -26,7 +30,7 @@ jest.mock('../services/DailyMissionsService', () => ({
 const sync = DailyMissionsService.sync as jest.Mock;
 
 describe('MissionsScreen na rota /missions', () => {
-  beforeEach(() => { sync.mockReset(); mockBack.mockReset(); });
+  beforeEach(() => { sync.mockReset(); mockBack.mockReset(); mockReplace.mockReset(); });
 
   it('mostra as três missões do dia com o progresso e o bônus de cada uma', async () => {
     sync.mockResolvedValue({ bonusXp: 5, missions: [
@@ -57,5 +61,38 @@ describe('MissionsScreen na rota /missions', () => {
     render(<MissionsScreen />);
     fireEvent.press(screen.getByLabelText('Voltar'));
     expect(mockBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('cada linha mostra a recompensa "+5 XP", apagada em andamento e no tom de XP quando concluída', async () => {
+    sync.mockResolvedValue({ bonusXp: 5, missions: [
+      { id: 'aula-2', title: 'Conclua 2 aulas', progress: 1, goal: 2, done: false, rewarded: false },
+      { id: 'meta', title: 'Bata a meta diária', progress: 50, goal: 50, done: true, rewarded: true },
+    ] });
+    render(<MissionsScreen />);
+    await screen.findByLabelText('Conclua 2 aulas. 1 de 2.');
+    const [open, done] = screen.getAllByText('+5 XP');
+    expect(StyleSheet.flatten(open.props.style).color).toBe(galaxyColors.textTertiary);
+    expect(StyleSheet.flatten(done.props.style).color).toBe(hudLabelTones.xp);
+    expect(screen.getAllByText('+5 XP')).toHaveLength(2);
+  });
+
+  it('missão concluída mostra a peça em ouro; em andamento, a peça azul', async () => {
+    sync.mockResolvedValue({ bonusXp: 0, missions: [
+      { id: 'aula-2', title: 'Conclua 2 aulas', progress: 1, goal: 2, done: false, rewarded: false },
+      { id: 'meta', title: 'Bata a meta diária', progress: 50, goal: 50, done: true, rewarded: false },
+    ] });
+    render(<MissionsScreen />);
+    await screen.findByLabelText('Conclua 2 aulas. 1 de 2.');
+    // O SVG não é rasterizado em jest: conta as faces na árvore, uma de cada.
+    const faces = (hex: string) => JSON.stringify(screen.toJSON()).split(`"payload":${Number(processColor(hex))}`).length - 1;
+    expect(faces(medalColors.unit.face)).toBe(1);
+    expect(faces(medalColors.gold.face)).toBe(1);
+  });
+
+  it('há um botão "Continuar a trilha" que volta à trilha', async () => {
+    sync.mockResolvedValue({ bonusXp: 0, missions: [] });
+    render(<MissionsScreen />);
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar a trilha' }));
+    expect(mockReplace).toHaveBeenCalledWith('/(tabs)');
   });
 });

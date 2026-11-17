@@ -502,6 +502,19 @@ fundo, sem etiqueta acima do título.
 - **Leitor de tela:** a peça é decorativa; cada bloco é lido como "1. Termo:
   texto".
 
+### Linha de missão
+Cada missão das "Missões de hoje" é uma linha com divisória de 1 px:
+- **Peça (`MissionIcon`):** a medalha do Medalhão em miniatura, círculo de
+  48 pt com lábio, no azul da unidade em andamento e em ouro quando concluída,
+  com glifo branco por tipo (aulas, acertos, meta). Concluída, o glifo vira a
+  marca de feito.
+- **Corpo:** título, progresso em número ("1 de 2" ou "Concluída") e barra.
+- **Recompensa:** "+5 XP" à direita (valor de `MISSION_BONUS_XP`), em
+  `textTertiary` e, concluída, no tom de XP do HUD.
+- **Leitor de tela:** a linha é um `progressbar` com valor; a peça é decorativa
+  e "concluída" vem no rótulo. O botão "Continuar a trilha" (`galaxy`) fecha a
+  tela e volta à trilha.
+
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
   raio de 16 px e padding de 16 px.
