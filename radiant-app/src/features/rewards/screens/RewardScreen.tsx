@@ -26,7 +26,7 @@ import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
-import { SummaryHero, ctaClearance } from '../../quiz/components/SummaryHero';
+import { SummaryHero, useFixedFooter } from '../../quiz/components/SummaryHero';
 
 interface RewardScreenProps {
   nodeId?: string;
@@ -124,6 +124,7 @@ function DetailRow({ label, value, fontScale }: { label: string; value: string; 
 
 export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const { fontScale } = useWindowDimensions();
+  const fixedFooter = useFixedFooter();
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -332,7 +333,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
         />
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: fixedFooter.scrollPaddingBottom }]} showsVerticalScrollIndicator={false}>
           <Pressable
             onPress={() => router.back()}
             accessibilityRole="button"
@@ -401,7 +402,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           ) : null}
         </ScrollView>
 
-        <View style={styles.footer}>
+        <View style={[styles.footer, fixedFooter.footerStyle]} onLayout={fixedFooter.onLayout} testID="reward-footer">
           {rewardLocked ? (
             <AppButton onPress={() => router.dismissTo('/(tabs)')} variant="galaxy" style={styles.fullWidthButton}>
               Voltar para jornada
@@ -444,7 +445,6 @@ const styles = StyleSheet.create({
   content: {
     padding: space.s3,
     gap: space.s3,
-    paddingBottom: ctaClearance,
   },
   iconButton: {
     width: ICON_BUTTON_SIZE,

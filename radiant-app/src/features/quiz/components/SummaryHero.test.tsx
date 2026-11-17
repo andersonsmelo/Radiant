@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
 import { Text } from 'react-native';
-import { SummaryHero } from './SummaryHero';
+import { SummaryHero, ctaClearance, scrollClearance } from './SummaryHero';
 
 jest.mock('../../../ui/characters/PixelIllustration', () => {
   const { Text: T } = require('react-native');
@@ -19,5 +19,10 @@ describe('SummaryHero', () => {
     render(<SummaryHero><Text>medalha</Text></SummaryHero>);
     expect(screen.getByText('medalha')).toBeTruthy();
     expect(screen.queryByText('Pixel comemorando')).toBeNull();
+  });
+
+  it('a folga da rolagem é a altura medida do rodapé, e a estimada de um botão antes da medida', () => {
+    expect(scrollClearance(null)).toBe(ctaClearance);
+    expect(scrollClearance(180)).toBe(180);
   });
 });

@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useCallback, useContext, useState } from 'react';
+import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { space } from '../../../ui/styles';
 
@@ -14,6 +15,26 @@ type PixelProps = Pick<React.ComponentProps<typeof PixelIllustration>, 'state' |
 // valor próprio.
 const CTA_HEIGHT = 56; // altura mínima do AppButton, components/ui/AppButton.tsx
 export const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
+
+/** Folga da rolagem: a altura medida do rodapé, ou a estimada de um botão até a primeira medida. */
+export function scrollClearance(measuredFooter: number | null): number {
+  return measuredFooter ?? ctaClearance;
+}
+
+/**
+ * Rodapé fixo fora da rolagem: mede a si mesmo (vários botões, texto ampliado) e
+ * respeita a área segura de baixo. Sem provider (testes) o inset é 0.
+ */
+export function useFixedFooter() {
+  const [measured, setMeasured] = useState<number | null>(null);
+  const bottomInset = useContext(SafeAreaInsetsContext)?.bottom ?? 0;
+  const onLayout = useCallback((event: LayoutChangeEvent) => setMeasured(event.nativeEvent.layout.height), []);
+  return {
+    onLayout,
+    footerStyle: { paddingBottom: space.s3 + bottomInset },
+    scrollPaddingBottom: scrollClearance(measured === null ? null : measured + space.s3),
+  };
+}
 
 /** A faixa do alto do resumo: a medalha no centro e, se pedido, o Pixel ao lado. */
 export function SummaryHero({ children, pixel }: { children: React.ReactNode; pixel?: PixelProps }) {

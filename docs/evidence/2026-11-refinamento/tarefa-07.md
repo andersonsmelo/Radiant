@@ -37,3 +37,24 @@ tinha um botão principal por estado; a asserção guarda contra regressão).
 ## Fica para o controlador
 
 Passo 4 do brief (roteiros `reward-locked`/`reward-unlock`) e capturas em aparelho.
+
+## Rodada 1 (revisão)
+
+Medido em 2026-11-16, Node 20.20.2. A guarda por AST de cor e `fontSize` saiu de
+`RewardScreen.flow.test.tsx` (o contrato único da Tarefa 6 a cobre).
+
+Vermelho (com o `testID` dos rodapés já no lugar, para o motivo ser o defeito):
+
+```
+RewardScreen, pronta e registrada: com rodapé de 180 pt medido, o paddingBottom da rolagem é pelo menos 180
+    Expected: >= 180   Received: 104
+rodapé: o paddingBottom inclui o inset inferior simulado (34)   Received has value: undefined
+UnitCompleteCelebration: título e frase ficam num corpo rolável   (sem ScrollView)
+UnitCompleteCelebration: folga medida e inset   (mesmos valores acima)
+Tests: 7 failed, 68 passed
+```
+
+Correção: `useFixedFooter` / `scrollClearance` em `SummaryHero.tsx` (mede o rodapé por `onLayout`,
+folga inicial `ctaClearance`, inset de `SafeAreaInsetsContext`, 0 sem provider). Verde: focados
+(382 testes de rewards, journey/components, SummaryHero, LessonSummary), `tsc` e `eslint` limpos.
+`LessonSummary` não foi tocado (usar a medida mudaria o comportamento dele).

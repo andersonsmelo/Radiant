@@ -1,6 +1,8 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { UnitCompleteCelebration, completedCelebrationUnits, takeUnitCelebration } from './UnitCompleteCelebration';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
@@ -185,5 +187,30 @@ describe('UnitCompleteCelebration — convite de assinatura (F8)', () => {
     await act(async () => { await Promise.resolve(); });
     expect(screen.queryByText(/Radiant Ilimitado/)).toBeNull();
     expect(await AsyncStorage.getItem(STORAGE_KEYS.CONVERSION)).toBeNull();
+  });
+});
+
+describe('UnitCompleteCelebration — tela curta e área segura', () => {
+  const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 0, left: 0, right: 0, bottom: 34 } };
+  const renderIt = () => render(<UnitCompleteCelebration unit={m01} onContinue={jest.fn()} />, {
+    wrapper: ({ children }: { children: React.ReactNode }) => <SafeAreaProvider initialMetrics={metrics}>{children}</SafeAreaProvider>,
+  });
+  const padding = (style: unknown) => (StyleSheet.flatten(style as never) as { paddingBottom: number }).paddingBottom;
+
+  it('título e frase ficam num corpo rolável', () => {
+    const view = renderIt();
+    expect(view.UNSAFE_getByType(ScrollView)).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Unidade concluída' })).toBeTruthy();
+  });
+
+  it('com rodapé de 180 pt medido, o paddingBottom da rolagem é pelo menos 180', () => {
+    const view = renderIt();
+    act(() => { fireEvent(screen.getByTestId('unit-celebration-footer'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 402, height: 180 } } }); });
+    expect(padding(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle)).toBeGreaterThanOrEqual(180);
+  });
+
+  it('o paddingBottom do rodapé inclui o inset inferior simulado', () => {
+    renderIt();
+    expect(padding(screen.getByTestId('unit-celebration-footer').props.style)).toBeGreaterThanOrEqual(34);
   });
 });

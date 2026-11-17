@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RewardScreen, { canCollectReward } from './RewardScreen';
 import type { JourneyNode } from '../../../types/journey';
@@ -752,32 +752,29 @@ describe('RewardScreen flow', () => {
       },
     );
 
-    // Guarda sobre código-fonte lê a AST, não o texto.
-    it.each([
-      ['RewardScreen', 'RewardScreen.tsx'],
-      ['UnitCompleteCelebration', '../../journey/components/UnitCompleteCelebration.tsx'],
-    ])('%s: nenhuma cor literal nem fontSize numérico', (_nome, arquivo) => {
-      const ts = require('typescript') as typeof import('typescript');
-      const caminho = require('path').join(__dirname, arquivo);
-      const fonte = ts.createSourceFile(caminho, require('fs').readFileSync(caminho, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-      const achados: string[] = [];
-      const visita = (no: import('typescript').Node) => {
-        if (ts.isStringLiteralLike(no) && /^(#[0-9a-f]{3,8}|rgba?\()/i.test(no.text)) achados.push(`cor ${no.text}`);
-        if (ts.isPropertyAssignment(no) && no.name.getText() === 'fontSize' && ts.isNumericLiteral(no.initializer)) achados.push(`fontSize ${no.initializer.text}`);
-        ts.forEachChild(no, visita);
-      };
-      visita(fonte);
-      expect(achados).toEqual([]);
-      // Validade: a guarda enxerga cores e tamanhos de verdade neste parser.
-      const amostra = ts.createSourceFile('x.tsx', "const a = { fontSize: 11, c: '#fff', d: 'rgba(0,0,0,1)' };", ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-      let vistos = 0;
-      const conta = (no: import('typescript').Node) => {
-        if (ts.isStringLiteralLike(no) && /^(#[0-9a-f]{3,8}|rgba?\()/i.test(no.text)) vistos += 1;
-        if (ts.isPropertyAssignment(no) && no.name.getText(amostra) === 'fontSize') vistos += 1;
-        ts.forEachChild(no, conta);
-      };
-      conta(amostra);
-      expect(vistos).toBe(3);
+    // O rodapé é fixo e mede mais de um botão (ou texto ampliado): a rolagem
+    // reserva a altura MEDIDA, e o rodapé respeita a área segura de baixo.
+    describe.each([['pronta', availableSnapshot], ['registrada', completedSnapshot]])('rodapé fixo, %s', (_nome, snapshot) => {
+      const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 0, left: 0, right: 0, bottom: 34 } };
+      const renderIt = () => render(<RewardScreen nodeId="reward-1" />, {
+        wrapper: ({ children }: { children: React.ReactNode }) => <SafeAreaProvider initialMetrics={metrics}>{children}</SafeAreaProvider>,
+      });
+      const flat = (style: unknown) => StyleSheet.flatten(style as never) as { paddingBottom: number };
+
+      it('com rodapé de 180 pt medido, o paddingBottom da rolagem é pelo menos 180', async () => {
+        mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot);
+        const view = renderIt();
+        await screen.findByTestId('reward-footer');
+        act(() => { fireEvent(screen.getByTestId('reward-footer'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 402, height: 180 } } }); });
+        expect(flat(view.UNSAFE_getByType(ScrollView).props.contentContainerStyle).paddingBottom).toBeGreaterThanOrEqual(180);
+      });
+
+      it('o paddingBottom do rodapé inclui o inset inferior simulado', async () => {
+        mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshot);
+        renderIt();
+        const footer = await screen.findByTestId('reward-footer');
+        expect(flat(footer.props.style).paddingBottom).toBeGreaterThanOrEqual(34);
+      });
     });
   });
 });

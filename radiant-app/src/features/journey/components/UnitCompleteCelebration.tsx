@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 
@@ -19,7 +19,7 @@ import { JourneyMedal } from './JourneyMedal';
 import type { ConversionService } from '../../conversion/ConversionService';
 import { ConversionInvite } from '../../conversion/components/ConversionInvite';
 import { useConversionInvite } from '../../conversion/useConversionInvite';
-import { SummaryHero } from '../../quiz/components/SummaryHero';
+import { SummaryHero, useFixedFooter } from '../../quiz/components/SummaryHero';
 
 export type CelebrationUnit = { id: string; title: string; theme?: JourneyUnit['theme'] };
 type TrailSegment = { trackId: string; trackTitle: string; units: Pick<JourneyUnit, 'nodes' | 'theme'>[] };
@@ -83,6 +83,7 @@ type UnitCompleteCelebrationProps = {
  */
 export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion }: UnitCompleteCelebrationProps): React.ReactElement | null {
   const reducedMotion = useReducedMotionPreference();
+  const fixedFooter = useFixedFooter();
   // F8: convite opcional e discreto; "Continuar" segue como a ação principal.
   const { invite } = useConversionInvite('unit-complete', unit !== null, conversion);
   const unitId = unit?.id ?? null;
@@ -104,14 +105,14 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion
     <Modal visible transparent animationType={reducedMotion ? 'none' : 'fade'} onRequestClose={onContinue}>
       <View style={styles.backdrop} accessibilityViewIsModal>
         <Confetti count={30} />
-        <View style={styles.body}>
+        <ScrollView contentContainerStyle={[styles.body, { paddingBottom: fixedFooter.scrollPaddingBottom }]} showsVerticalScrollIndicator={false}>
           {/* A Home deixa esta comemoração montada entre unidades: a chave pela
               unidade dá a cada uma a sua cunhagem. */}
           <SummaryHero>{rich ? <MintedMedal key={unit.id}>{medal}</MintedMedal> : medal}</SummaryHero>
           <Text style={styles.title} accessibilityRole="header">Unidade concluída</Text>
           <Text style={styles.line}>Você fechou {unit.title}. Cada aula e cada conferência dela contam no seu caminho.</Text>
-        </View>
-        <View style={styles.footer}>
+        </ScrollView>
+        <View style={[styles.footer, fixedFooter.footerStyle]} onLayout={fixedFooter.onLayout} testID="unit-celebration-footer">
           <AppButton label="Continuar" variant="galaxy" onPress={onContinue} accessibilityLabel="Continuar" />
           {invite ? (
             <ConversionInvite moment="unit-complete" sampleAvailable={false}
@@ -130,7 +131,8 @@ export function UnitCompleteCelebration({ unit, onContinue, feedback, conversion
 
 const styles = StyleSheet.create({
   backdrop: { flex: 1, backgroundColor: galaxyColors.background },
-  body: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: space.s3, padding: space.s4 },
+  // `flexGrow` centra o conteúdo quando cabe; quando não cabe, a rolagem o alcança inteiro.
+  body: { flexGrow: 1, alignItems: 'center', justifyContent: 'center', gap: space.s3, padding: space.s4 },
   footer: { gap: space.s2, padding: space.s3 },
   title: { ...typography.h2, lineHeight: undefined, color: galaxyColors.textPrimary, textAlign: 'center' },
   line: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary, textAlign: 'center' },
