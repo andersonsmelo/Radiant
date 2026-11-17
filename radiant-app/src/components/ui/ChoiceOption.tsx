@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { VerdictIcon } from '../../ui/components/VerdictIcons';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
@@ -21,6 +21,8 @@ export type ChoiceOptionProps = {
   testID?: string;
   accessibilityLabel?: string;
   accessibilityHint?: string;
+  /** Medida da peça inteira, com o lábio: a aula usa para rolar até a escolhida. */
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
 // Mesmo relevo do `AppButton`, com lábio de 4 pt: face na frente, lábio atrás.
@@ -39,7 +41,7 @@ const TONES: Record<ChoiceOptionState, { face: string; border: string; lip: stri
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export function ChoiceOption({ label, state, onPress, disabled = false, chosen, role, testID, accessibilityLabel, accessibilityHint }: ChoiceOptionProps) {
+export function ChoiceOption({ label, state, onPress, disabled = false, chosen, role, testID, accessibilityLabel, accessibilityHint, onLayout }: ChoiceOptionProps) {
   const reducedMotion = useReducedMotionPreference();
   const translateY = useSharedValue(0);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }));
@@ -55,7 +57,7 @@ export function ChoiceOption({ label, state, onPress, disabled = false, chosen, 
   };
 
   return (
-    <View style={styles.relief}>
+    <View style={styles.relief} onLayout={onLayout}>
       <View
         testID="choice-option-lip"
         pointerEvents="none"

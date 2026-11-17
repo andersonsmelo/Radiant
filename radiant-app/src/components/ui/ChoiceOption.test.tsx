@@ -120,4 +120,18 @@ describe('ChoiceOption', () => {
     fireEvent.press(view.getByTestId('opt'));
     expect(onPress).not.toHaveBeenCalled();
   });
+
+  it('repassa a medida da peça inteira, com o lábio, a quem pede', () => {
+    const onLayout = jest.fn();
+    const view = render(<ChoiceOption label="A" state="idle" onLayout={onLayout} testID="opt" />);
+    // A peça é a vista do relevo, a que reserva os 4 pt do lábio por baixo.
+    let peca = view.getByTestId('choice-option-lip').parent;
+    while (peca && StyleSheet.flatten(peca.props.style)?.paddingBottom !== 4) peca = peca.parent;
+    if (!peca) throw new Error('vista do relevo não encontrada');
+    // O nativo só mede vistas de verdade: o manejador precisa estar na vista da peça,
+    // não só na prop do componente (o fireEvent subiria até ela).
+    expect(peca.props.onLayout).toBe(onLayout);
+    fireEvent(peca, 'layout', { nativeEvent: { layout: { x: 0, y: 64, width: 300, height: 60 } } });
+    expect(onLayout).toHaveBeenCalledWith(expect.objectContaining({ nativeEvent: { layout: { x: 0, y: 64, width: 300, height: 60 } } }));
+  });
 });

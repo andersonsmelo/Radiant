@@ -38,11 +38,13 @@ export type InteractionRendererProps = {
     onChange: (value: string) => void;
     confirmationLabel?: string;
     submitted?: boolean;
+    /** Só na múltipla escolha: onde está a alternativa escolhida, relativa ao renderer. */
+    onChosenLayout?: (layout: { y: number; height: number }) => void;
 };
 
 type InteractionRenderer = (props: InteractionRendererProps) => React.ReactElement;
 
-function MultipleChoiceInteraction({ interaction, value, onChange, confirmationLabel = 'Continuar', submitted = false }: InteractionRendererProps) {
+function MultipleChoiceInteraction({ interaction, value, onChange, confirmationLabel = 'Continuar', submitted = false, onChosenLayout }: InteractionRendererProps) {
     if (interaction.type !== 'multiple-choice') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
@@ -61,6 +63,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
             onSelect={onChange}
             confirmationLabel={confirmationLabel}
             submitted={submitted}
+            onChosenLayout={onChosenLayout}
         />
     );
 }

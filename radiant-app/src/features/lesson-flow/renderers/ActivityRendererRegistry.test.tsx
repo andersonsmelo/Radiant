@@ -10,6 +10,7 @@ import {
     isInteractionTypeRegistered,
 } from './ActivityRendererRegistry';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { ReinforceStepRenderer } from './ReinforceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
@@ -252,3 +253,13 @@ it('T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta', (
     for (const tone of ['bone', 'soft', 'background']) expect(uniforms[tone]).toBe(reference[tone]);
     expect(view.getByRole('button', { name: 'Ar' })).toBeTruthy();
 });
+
+it('Tarefa 3: a múltipla escolha informa à tela onde está a alternativa escolhida', () => {
+    const onChosenLayout = jest.fn();
+    const view = render(<ActivityInteractionRenderer interaction={multipleChoice()} value="b" onChange={jest.fn()} onChosenLayout={onChosenLayout} />);
+    const layout = (y: number, height: number) => ({ nativeEvent: { layout: { x: 0, y, width: 300, height } } });
+    fireEvent(view.getByTestId('multiple-choice-options'), 'layout', layout(40, 140));
+    fireEvent(view.UNSAFE_getAllByType(ChoiceOption)[1], 'layout', layout(70, 64));
+    expect(onChosenLayout).toHaveBeenLastCalledWith({ y: 110, height: 64 });
+});
+

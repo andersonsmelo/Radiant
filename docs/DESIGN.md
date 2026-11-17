@@ -457,13 +457,17 @@ do botão "Conferir resposta" e fora da rolagem.
   vida" vai na linha do título, e o aviso sob o HUD não aparece.
 - **Resposta em texto:** na múltipla escolha, no verdadeiro ou falso e na
   múltipla seleção, a folha não escreve a resposta do aluno nem a certa: as
-  alternativas já mostram. Nos outros formatos, o erro diz "Resposta certa: …".
+  alternativas já mostram. Em ordenar, associar, região, comparação, decisão de
+  caso e lacunas, o erro diz "Resposta certa: …". Categorizar mostra o grupo
+  certo em cada ficha; bancada, laboratório e caça ao risco ficam com o retorno
+  autoral.
 - **Altura:** no máximo dois terços da janela. Acima disso a explicação rola
   por dentro e o botão fica fixo. A rolagem da aula ganha a altura da folha
-  como folga no fim.
-- **Movimento e foco:** com o retorno rico, sobe em 150 ms; sem ele, ou sob
-  "reduzir movimento", aparece no lugar. O foco do leitor de tela vai para o
-  título.
+  como folga no fim e leva a alternativa escolhida para cima da folha.
+- **Movimento e foco:** sobe em `duration.ui` (220 ms); com o retorno rico, em
+  150 ms. Sob "reduzir movimento", aparece no lugar. O foco do leitor de tela
+  vai para o título, e o anúncio do conferir diz só o resultado (mais o marco
+  da sequência, quando há).
 - O conteúdo do passo fica direto sobre o fundo, sem cartão em volta.
 
 ### Cards / Containers

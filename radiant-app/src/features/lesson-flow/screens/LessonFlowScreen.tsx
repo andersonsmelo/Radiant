@@ -26,7 +26,7 @@ import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 import { feedbackFor } from '../services/feedbackFor';
 import { COMBO_START, nextCombo, type ComboMilestone } from '../services/lessonCombo';
-import { AnswerFeedbackSheet } from '../components/AnswerFeedbackSheet';
+import { AnswerFeedbackSheet, revealOffset } from '../components/AnswerFeedbackSheet';
 import { ComboBadge } from '../components/ComboBadge';
 import { DialogueScene, dialogueLineLabel } from '../components/DialogueScene';
 import { KeyPointsList } from '../components/KeyPointsList';
@@ -100,8 +100,9 @@ const MARKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice
 
 /**
  * A resposta certa em texto, para a folha de retorno nos formatos que não a
- * marcam na tela. Sem uma resposta curta e única (bancada, região, pares,
- * grupos), fica de fora e o retorno autoral explica.
+ * marcam na tela. Categorizar já mostra o grupo certo em cada ficha; bancada,
+ * laboratório e caça ao risco não têm uma resposta curta e única, e o retorno
+ * autoral explica.
  */
 function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
     switch (interaction.type) {
@@ -113,6 +114,12 @@ function correctAnswerText(interaction: LearningInteractionV2): string | undefin
         case 'case-decision': {
             const { options, correctOptionId } = interaction.payload;
             return options.find(option => option.id === correctOptionId)?.label;
+        }
+        case 'matching':
+            return interaction.payload.pairs.map(pair => `${pair.left} → ${pair.right}`).join('; ');
+        case 'hotspot': {
+            const { regions, correctRegionIds } = interaction.payload;
+            return correctRegionIds.map(id => regions.find(region => region.id === id)?.label ?? id).join(', ');
         }
         case 'cloze': {
             const { blanks, tokens } = interaction.payload;
@@ -204,7 +211,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // Altura medida da folha de retorno: vira folga no fim da rolagem.
     const [sheetHeight, setSheetHeight] = useState(0);
     const answerLayout = useRef({ y: 0, height: 0 });
-    const scrollViewport = useRef(0);
+    // Alternativa escolhida, relativa à área de resposta; só a múltipla escolha informa.
+    const chosenLayout = useRef<{ y: number; height: number } | null>(null);
+    const scrollY = useRef(0);
+    // Estado, não ref: a janela cresce quando o rodapé sai, e a rolagem recalcula.
+    const [scrollViewport, setScrollViewport] = useState(0);
     const encouragementTurn = useRef({ sequencia: 0, retomada: 0 });
     const [perfectLine, setPerfectLine] = useState<string | null>(null);
     const lastWasWrong = useRef(false);
@@ -333,7 +344,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     }, [blockId, nodeId, tracksJourney]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
-    useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
+    useEffect(() => {
+        chosenLayout.current = null;
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+    }, [stepIndex]);
     // O passo legado continua disponível enquanto o catálogo antigo coexistir
     // com o v2. A atividade promovida, porém, não precisa fabricar esse bloco.
     const legacyStep = player.isRetry ? undefined : block?.steps[stepIndex];
@@ -394,9 +408,17 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     useEffect(() => {
         if (!showingSheet || sheetHeight === 0) return;
         const { y, height } = answerLayout.current;
-        const target = Math.min(y, y + height + space.s3 - (scrollViewport.current - sheetHeight));
+        const chosen = chosenLayout.current;
+        if (chosen) {
+            const offset = revealOffset({ top: y + chosen.y, bottom: y + chosen.y + chosen.height, scrollY: scrollY.current,
+                viewportHeight: scrollViewport, sheetHeight, margin: space.s3 });
+            if (offset !== null) scrollRef.current?.scrollTo({ y: offset, animated: false });
+            return;
+        }
+        // Sem alternativas: o fim da área de resposta encosta na folha, sem esconder o começo.
+        const target = Math.min(y, y + height + space.s3 - (scrollViewport - sheetHeight));
         scrollRef.current?.scrollTo({ y: Math.max(0, target), animated: false });
-    }, [showingSheet, sheetHeight]);
+    }, [showingSheet, sheetHeight, scrollViewport]);
     // Cena de diálogo: as falas aparecem uma por toque no botão do rodapé, que
     // fica fora da rolagem e por isso continua ao alcance com texto ampliado.
     const stepDialogue = !legacyStep && currentStep?.kind === 'presentation' ? currentStep.payload.dialogue : undefined;
@@ -531,17 +553,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // Com o retorno rico, o incentivo diz o marco: a contagem não se repete no anúncio.
             const comboCopy = comboNow.milestone && !(rich && encouragement) ? `${comboNow.milestone} respostas certas seguidas. ` : '';
 
+            const result = correct ? 'Resposta correta.' : 'Resposta incorreta.';
+            // Com retorno por item, a folha recebe o foco e o leitor lê o título, a
+            // explicação e a vida perdida nela: o anúncio diz só o resultado. O
+            // marco da sequência fica, porque o selo do topo não recebe o foco.
             const message = feedbackFor(currentInteraction, player.value, correct);
-            const choice = currentInteraction.type === 'multiple-choice'
-                ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
-            const answer = currentInteraction.type === 'multiple-choice'
-                ? currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label : undefined;
-            const recap = hybrid && choice && answer
-                ? `Sua resposta: ${choice}. ${correct ? '' : `Resposta certa: ${answer}. `}` : '';
-            AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${comboCopy}${recap}${message}${heartLossCopy}`
-                + (rich && encouragement ? ` ${encouragement}` : ''),
-            );
+            AccessibilityInfo.announceForAccessibility(perItemFeedback ? `${result} ${comboCopy}`.trim()
+                : `${result} ${comboCopy}${message}${heartLossCopy}` + (rich && encouragement ? ` ${encouragement}` : ''));
         }
 
         const nextConfirmed = player.confirm();
@@ -843,7 +861,9 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                         style={styles.scroll}
                         contentContainerStyle={[styles.scrollContent, showingSheet ? { paddingBottom: space.s4 + sheetHeight } : null]}
                         showsVerticalScrollIndicator={false}
-                        onLayout={event => { scrollViewport.current = event.nativeEvent.layout.height; }}
+                        onLayout={event => setScrollViewport(event.nativeEvent.layout.height)}
+                        onScroll={event => { scrollY.current = event.nativeEvent.contentOffset.y; }}
+                        scrollEventThrottle={16}
                     >
                         {currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
                             <View style={styles.openingMedal}>
@@ -889,6 +909,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                         {currentInteraction ? (
                             // O tremor leve no erro é da área de resposta, não do cartão de retorno.
                             <Animated.View style={answerShake.style}
+                                testID="lesson-answer"
                                 onLayout={event => { answerLayout.current = event.nativeEvent.layout; }}>
                                 <ActivityInteractionRenderer
                                     interaction={currentInteraction}
@@ -896,6 +917,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                     value={player.value}
                                     confirmationLabel={confirmationLabel}
                                     submitted={player.showingFeedback}
+                                    onChosenLayout={layout => { chosenLayout.current = layout; }}
                                     onChange={(value) => {
                                         if (player.showingFeedback) return;
                                         emit(TOKEN_FAMILIES.has(currentInteraction.type) ? 'token_drop' : 'option_tap');
@@ -951,6 +973,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             celebrate={retorno.celebrate}
                             encouragement={retorno.encouragement}
                             heartLost={retorno.heartLost}
+                            heartsLeft={{ current: hearts.count, max: 5 }}
                             correct={player.lastFeedback?.correct === true}
                             message={player.lastFeedback?.message ?? ''}
                             correctLabel={MARKED_FAMILIES.has(currentInteraction.type) ? undefined : correctAnswerText(currentInteraction)}

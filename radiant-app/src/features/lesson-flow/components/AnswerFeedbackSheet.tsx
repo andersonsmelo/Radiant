@@ -18,6 +18,8 @@ type AnswerFeedbackSheetProps = {
     correctLabel?: string;
     /** A confirmação gastou uma vida: "Menos 1 vida" vai na linha do título. */
     heartLost?: boolean;
+    /** Vidas depois da perda, para o leitor de tela ouvir quantas restam. */
+    heartsLeft?: { current: number; max: number };
     actionLabel: string;
     onAction: () => void;
     /** `ENABLE_RICH_FEEDBACK`: elenco da F7, retrato médio, entrada de 150 ms e incentivo. */
@@ -35,6 +37,21 @@ export function feedbackSheetMaxHeight(windowHeight: number): number {
     return Math.floor((windowHeight * 2) / 3);
 }
 
+/**
+ * Para onde rolar para que a alternativa escolhida (de `top` a `bottom`, nas
+ * coordenadas do conteúdo) fique entre o topo da rolagem e a folha. `null`
+ * quando já está; senão, o mínimo, e o começo dela quando não cabe inteira.
+ */
+export function revealOffset({ top, bottom, scrollY, viewportHeight, sheetHeight, margin }: {
+    top: number; bottom: number; scrollY: number; viewportHeight: number; sheetHeight: number; margin: number;
+}): number | null {
+    const visible = viewportHeight - sheetHeight;
+    if (top - margin >= scrollY && bottom + margin <= scrollY + visible) return null;
+    const toTop = top - margin;
+    const target = bottom + margin > scrollY + visible ? Math.min(bottom + margin - visible, toTop) : toTop;
+    return Math.max(0, target);
+}
+
 function pixelLabel(correct: boolean, celebrate: boolean, rich: boolean): string {
     // O Pixel preocupado é desenhado pensando: o rótulo diz o que se vê, e acolhe.
     if (!correct) return 'Pixel pensando com você';
@@ -47,13 +64,14 @@ function pixelLabel(correct: boolean, celebrate: boolean, rich: boolean): string
  * de acerto ou de erro. O botão de seguir mora aqui, fora da área que rola.
  */
 export function AnswerFeedbackSheet({
-    correct, message, correctLabel, heartLost = false, actionLabel, onAction,
+    correct, message, correctLabel, heartLost = false, heartsLeft, actionLabel, onAction,
     rich = false, celebrate = false, encouragement, onHeightChange,
 }: AnswerFeedbackSheetProps) {
     const { height } = useWindowDimensions();
-    const { animateIn, animatedStyle } = useCardEnter(motionMsFor('correct'));
-    // Sem a chave, a folha aparece no lugar: a entrada é do retorno rico.
-    useEffect(() => { if (rich) animateIn(); }, [animateIn, rich]);
+    // Entra sempre pelo gancho da base: 220 ms sem a chave, 150 ms com ela (ADR do
+    // retorno rico); sob "reduzir movimento", o gancho a põe no lugar.
+    const { animateIn, animatedStyle } = useCardEnter(rich ? motionMsFor('correct') : undefined);
+    useEffect(() => { animateIn(); }, [animateIn]);
     const title = useRef<Text>(null);
     const focused = useRef(false);
     const tone = correct ? feedbackColors.success : feedbackColors.error;
@@ -62,7 +80,7 @@ export function AnswerFeedbackSheet({
         <Animated.View testID="lesson-item-feedback"
             onLayout={event => onHeightChange?.(event.nativeEvent.layout.height)}
             style={[styles.sheet, { backgroundColor: tone.surface, borderTopColor: tone.lip, maxHeight: feedbackSheetMaxHeight(height) },
-                rich ? animatedStyle : null]}>
+                animatedStyle]}>
             <ScrollView testID="lesson-item-feedback-body" style={styles.body} contentContainerStyle={styles.bodyContent}
                 bounces={false} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
@@ -78,7 +96,13 @@ export function AnswerFeedbackSheet({
                         }}>
                         {correct ? 'Resposta correta' : 'Vamos reforçar'}
                     </Text>
-                    {heartLost ? <HeartLossNotice testID="lesson-feedback-heart-loss" /> : null}
+                    {heartLost ? (
+                        // Um nó só para o leitor de tela: o aviso visível diz "Menos 1 vida", e o rótulo diz quantas restam.
+                        <View testID="lesson-feedback-heart-loss-group" accessible accessibilityRole="text"
+                            accessibilityLabel={`Você perdeu uma vida.${heartsLeft ? ` Restam ${heartsLeft.current} de ${heartsLeft.max}.` : ''}`}>
+                            <HeartLossNotice testID="lesson-feedback-heart-loss" />
+                        </View>
+                    ) : null}
                 </View>
                 {!correct && correctLabel !== undefined ? <Text style={styles.text}>{`Resposta certa: ${correctLabel}`}</Text> : null}
                 <Text style={styles.text}>{message}</Text>

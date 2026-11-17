@@ -37,7 +37,8 @@ Tests:       7 failed, 6 passed, 13 total
 
 Nasceram verdes contra o esboço, porque migram o que o cartão já fazia:
 `correctLabel` só no erro, a entrada de 150 ms com `rich`, o Pixel do retorno
-e o teto de fonte.
+e o teto de fonte. (O teste "sem rich, não chama a animação" foi substituído na
+rodada 1; ver abaixo.)
 
 `LessonFlowScreen.flow.test.tsx`, bloco novo "Tarefa 3", com a tela no estado de `HEAD`:
 `npx jest --runInBand src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx -t "Tarefa 3"`
@@ -121,3 +122,149 @@ Contraste medido na superfície de erro (`#2c1820`): "Menos 1 vida" (`#FF6B6B`)
 ## Ficou para o controlador
 
 Os roteiros do Maestro e a prova em aparelho (passo 6).
+
+## Rodada 1 de correção (revisão do controlador)
+
+Decisão do controlador: a folha sempre entra pelo gancho da base, 220 ms sem a
+chave e 150 ms com ela; sob "reduzir movimento", no lugar.
+
+### Vermelho
+
+Testes novos de `AnswerFeedbackSheet`, `ChoiceOption`, `MultipleChoiceStepRenderer`
+e `ActivityRendererRegistry` (`npx jest --runInBand <os quatro arquivos>`):
+
+```
+● AnswerFeedbackSheet › entra sempre pelo gancho da base: 220 ms sem a chave, 150 ms com ela
+    Expected: > 0
+    Received:   0
+  ● AnswerFeedbackSheet › sob "Reduzir movimento" aparece no lugar, visível (rich=false)
+    Expected: 1
+    Received: undefined
+  ● AnswerFeedbackSheet › revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha › alternativa já visível acima da folha não rola
+    TypeError: (0 , _AnswerFeedbackSheet.revealOffset) is not a function
+  ● AnswerFeedbackSheet › revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha › alternativa sob a folha rola o mínimo para o fim dela encostar na folha, com a margem
+    TypeError: (0 , _AnswerFeedbackSheet.revealOffset) is not a function
+  ● AnswerFeedbackSheet › revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha › alternativa acima do topo visível volta até ela
+    TypeError: (0 , _AnswerFeedbackSheet.revealOffset) is not a function
+  ● AnswerFeedbackSheet › revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha › alternativa mais alta que a área visível mostra o começo dela
+    TypeError: (0 , _AnswerFeedbackSheet.revealOffset) is not a function
+  ● AnswerFeedbackSheet › revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha › nunca rola para antes do início
+    TypeError: (0 , _AnswerFeedbackSheet.revealOffset) is not a function
+    Unable to find an element with testID: multiple-choice-options
+  ● MultipleChoiceStepRenderer › informa a posição da alternativa escolhida, relativa ao próprio renderer
+    Unable to find an element with testID: multiple-choice-options
+Tests:       9 failed, 44 passed, 53 total
+    ✕ repassa a medida da peça inteira, com o lábio, a quem pede (7 ms)
+    Expected: "View"
+    Received: [Function View]
+    ✕ repassa a medida da peça inteira, com o lábio, a quem pede (9 ms)
+    Expected: [Function mockConstructor]
+    Received: undefined
+```
+
+O `ChoiceOption` nasceu verde na primeira forma, porque o `fireEvent` sobe até a
+prop do componente. A asserção passou a exigir o manejador na vista do relevo
+(a que o nativo mede). Vista falhando com a ligação tirada:
+
+```
+✕ repassa a medida da peça inteira, com o lábio, a quem pede (8 ms)
+    Expected: [Function mockConstructor]
+    Received: undefined
+```
+
+Bloco "Tarefa 3" da tela (`-t "Tarefa 3"`):
+
+```
+✓ depois de conferir, o retorno está fora da ScrollView e o rodapé antigo não está na árvore (44 ms)
+    ✓ em múltipla escolha a folha não repete "Sua resposta" (25 ms)
+    ✓ em ordenar, a folha diz a resposta certa (25 ms)
+    ✓ com fontScale 3,1 e janela de 568 pt de altura, o botão de continuar está dentro da janela (26 ms)
+    ✓ com ENABLE_RICH_FEEDBACK desligada, nenhum som novo é emitido ao abrir a folha (431 ms)
+    ✓ o erro que gasta vida diz "Menos 1 vida" na folha, e o aviso sob o HUD não aparece (580 ms)
+    ✕ em associar, a folha diz os pares certos (46 ms)
+    ✕ em região, a folha diz as regiões certas (30 ms)
+    ✕ com a folha, o anúncio do conferir diz só o resultado; o resto o leitor lê na folha (24 ms)
+    ✕ o acerto anuncia só "Resposta correta." (22 ms)
+    ✕ a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai (6 ms)
+    Unable to find an element with text: Resposta certa: A → Alfa; B → Beta
+    Unable to find an element with text: Resposta certa: Região A, Região C
+    - Expected  - 1
+    + Received  + 1
+    - Expected  - 1
+    + Received  + 1
+    Unable to find an element with testID: lesson-answer
+Tests:       5 failed, 127 skipped, 6 passed, 138 total
+```
+
+A rolagem reprovou primeiro por falta do `testID` da área de resposta. Com o
+defeito específico injetado e revertido em seguida:
+- ignorando a alternativa escolhida (a área inteira, como antes): `y` 236 em vez de 186;
+- sem recalcular quando a janela cresce (rodapé saindo depois da medida da folha): `y` 266 em vez de 186.
+
+```
+✕ a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai (1051 ms)
+    - Expected
+    + Received
+    -   "y": 186,
+    +   "y": 236,
+    > 3410 |       await waitFor(() => expect(scrollTo).toHaveBeenLastCalledWith({ y: 186, animated: false }));
+    ✓ a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai (47 ms)
+    ✕ a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai (1054 ms)
+    -   "y": 186,
+    +   "y": 266,
+```
+
+Asserções antigas que reprovaram com o anúncio curto e foram migradas (19 testes):
+M4 do "FILA 58", as duas do "feedbackFor" (escolha e bancada), as 12 do `it.each`
+do T04, a "(a)" da "Frente C", "famílias da 1.6" e duas do "F3". Agora asseveram o
+anúncio exato e leem a explicação e o incentivo na folha.
+
+### Verde
+
+```
+✓ depois de conferir, o retorno está fora da ScrollView e o rodapé antigo não está na árvore (44 ms)
+    ✓ em múltipla escolha a folha não repete "Sua resposta" (25 ms)
+    ✓ em ordenar, a folha diz a resposta certa (24 ms)
+    ✓ com fontScale 3,1 e janela de 568 pt de altura, o botão de continuar está dentro da janela (25 ms)
+    ✓ com ENABLE_RICH_FEEDBACK desligada, nenhum som novo é emitido ao abrir a folha (427 ms)
+    ✓ o erro que gasta vida diz "Menos 1 vida" na folha, e o aviso sob o HUD não aparece (572 ms)
+    ✓ em associar, a folha diz os pares certos (44 ms)
+    ✓ em região, a folha diz as regiões certas (28 ms)
+    ✓ com a folha, o anúncio do conferir diz só o resultado; o resto o leitor lê na folha (26 ms)
+    ✓ o acerto anuncia só "Resposta correta." (22 ms)
+    ✓ a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai (34 ms)
+Tests:       127 skipped, 11 passed, 138 total
+Test Suites: 4 passed, 4 total
+Tests:       53 passed, 53 total
+```
+
+Suíte inteira em banda, Node 20.20.2: 276 suítes e 3727 testes, todos verdes.
+`tsc --noEmit` e `eslint` nos arquivos tocados: sem saída.
+
+### Resposta certa em texto, por formato
+
+| Formato | Linha na folha | Motivo |
+|---|---|---|
+| múltipla escolha, verdadeiro ou falso, múltipla seleção | não | as alternativas mostram certa e errada |
+| ordenar | sim, "a; b" | a tela não mostra a ordem certa |
+| associar | sim, "esquerda → direita; …" | `MatchingStepRenderer` não mostra os pares certos |
+| região | sim, "Região A, Região C" | `HotspotStepRenderer` não mostra as regiões certas |
+| comparação, decisão de caso | sim, rótulo da opção certa | |
+| lacunas | sim, fichas certas por lacuna | |
+| categorizar | não | cada ficha já mostra "(certo: grupo)" depois de conferir |
+| bancada | não | a resposta é uma faixa de valor; a dica do lado certo vem no retorno autoral |
+| laboratório de parâmetros, caça ao risco | não | sem resposta curta e única; o retorno autoral explica |
+
+### Ajuste final: vidas restantes no leitor de tela
+
+A folha ganhou `heartsLeft?: { current; max }`. O aviso "Menos 1 vida" fica num
+nó acessível com o rótulo "Você perdeu uma vida. Restam N de M.", e sem a prop o
+rótulo é "Você perdeu uma vida.". Vermelho (`-t "quantas restam"`):
+
+```
+    ✕ a vida perdida diz ao leitor de tela quantas restam, quando a tela sabe (44 ms)
+    Unable to find an element with testID: lesson-feedback-heart-loss-group
+```
+
+Verde: folha e tela, Tests:       158 passed, 158 total. Na tela, a folha mostra "Restam 4 de 5." depois
+de gastar uma vida, com a contagem gravada.

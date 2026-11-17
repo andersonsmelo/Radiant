@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ChoiceOption, type ChoiceOptionState } from '../../../components/ui/ChoiceOption';
 import type { ExposureReadingImage } from '../../../types/learningActivity';
@@ -17,6 +17,8 @@ type MultipleChoiceStepRendererProps = {
     submitted?: boolean;
     /** Lido só depois de conferir; sem ele, vale o do próprio `payload`. */
     correctOptionId?: string;
+    /** Posição da alternativa escolhida, relativa a este renderer: a aula rola até ela. */
+    onChosenLayout?: (layout: { y: number; height: number }) => void;
 };
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
@@ -30,7 +32,16 @@ export function MultipleChoiceStepRenderer({
     confirmationLabel = 'Continuar',
     submitted = false,
     correctOptionId = payload.correctOptionId,
+    onChosenLayout,
 }: MultipleChoiceStepRendererProps) {
+    // A lista e cada alternativa medem à parte; a escolhida soma as duas.
+    const optionsY = useRef<number | null>(null);
+    const optionLayouts = useRef(new Map<string, { y: number; height: number }>());
+    const reportChosen = useCallback(() => {
+        const chosen = selectedOptionId ? optionLayouts.current.get(selectedOptionId) : undefined;
+        if (chosen && optionsY.current !== null) onChosenLayout?.({ y: optionsY.current + chosen.y, height: chosen.height });
+    }, [onChosenLayout, selectedOptionId]);
+    useEffect(reportChosen, [reportChosen]);
     // Mesmo limite lazy da bancada: atividades sem imagem não carregam Skia.
     // A migração global dos dublês/imports pertence à T04a.
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -44,7 +55,8 @@ export function MultipleChoiceStepRenderer({
                     <Text style={styles.caption}>{exposureImage.label}</Text>
                 </View>
             ) : null}
-            <View style={styles.options}>
+            <View testID="multiple-choice-options" style={styles.options}
+                onLayout={event => { optionsY.current = event.nativeEvent.layout.y; reportChosen(); }}>
                 {payload.options.map((option) => {
                     const selected = option.id === selectedOptionId;
                     const state: ChoiceOptionState = !submitted
@@ -60,6 +72,11 @@ export function MultipleChoiceStepRenderer({
                             disabled={submitted}
                             onPress={() => { if (!submitted) onSelect(option.id); }}
                             testID={`lesson-option-${option.id}`}
+                            onLayout={event => {
+                                const { y, height } = event.nativeEvent.layout;
+                                optionLayouts.current.set(option.id, { y, height });
+                                if (selected) reportChosen();
+                            }}
                             accessibilityHint={
                                 submitted ? 'Resposta já conferida. Leia o feedback e continue.' : selected
                                     ? `Selecionada. Toque em outra alternativa para trocar antes de ${confirmationLabel}.`

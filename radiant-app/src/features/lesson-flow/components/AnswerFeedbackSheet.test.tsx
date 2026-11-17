@@ -2,7 +2,7 @@ import React from 'react';
 import { AccessibilityInfo, Animated, StyleSheet } from 'react-native';
 import { fireEvent, render, screen, within } from '@testing-library/react-native';
 import { feedbackColors } from '../../../ui/theme';
-import { AnswerFeedbackSheet, feedbackSheetMaxHeight } from './AnswerFeedbackSheet';
+import { AnswerFeedbackSheet, feedbackSheetMaxHeight, revealOffset } from './AnswerFeedbackSheet';
 
 let mockReducedMotion = false;
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
@@ -59,6 +59,19 @@ describe('AnswerFeedbackSheet', () => {
         expect(screen.getByRole('header', { name: 'Vamos reforçar' })).toBeTruthy();
     });
 
+    it('a vida perdida diz ao leitor de tela quantas restam, quando a tela sabe', () => {
+        const view = render(<AnswerFeedbackSheet correct={false} heartLost heartsLeft={{ current: 3, max: 5 }} message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        const aviso = () => screen.getByTestId('lesson-feedback-heart-loss-group');
+        expect(aviso().props.accessible).toBe(true);
+        expect(aviso().props.accessibilityLabel).toContain('Restam 3 de 5');
+        // O texto visível continua o mesmo.
+        expect(within(aviso()).getByText('Menos 1 vida')).toBeTruthy();
+
+        view.rerender(<AnswerFeedbackSheet correct={false} heartLost message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        expect(aviso().props.accessibilityLabel).toBe('Você perdeu uma vida.');
+        expect(aviso().props.accessibilityLabel).not.toContain('Restam');
+    });
+
     it('correctLabel aparece como "Resposta certa: …" só no erro', () => {
         const view = render(<AnswerFeedbackSheet correct={false} correctLabel="Segundo; Primeiro" message="a" actionLabel="Continuar" onAction={jest.fn()} />);
         expect(screen.getByText('Resposta certa: Segundo; Primeiro')).toBeTruthy();
@@ -70,25 +83,24 @@ describe('AnswerFeedbackSheet', () => {
         expect(screen.queryByText(/^Sua resposta:/u)).toBeNull();
     });
 
-    it('sem rich, não chama a animação de entrada com duração', () => {
-        render(<AnswerFeedbackSheet correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
-        expect(timing).not.toHaveBeenCalled();
-        // Aparece no lugar, visível.
-        expect(StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style).opacity ?? 1).toBe(1);
-        expect(screen.getByText('Resposta correta')).toBeTruthy();
-    });
-
-    it('com rich, sobe na faixa de confirmar resposta (150 ms), e sob "Reduzir movimento" aparece no lugar', () => {
-        const view = render(<AnswerFeedbackSheet rich correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
-        expect(timing).toHaveBeenCalled();
-        for (const [, config] of timing.mock.calls) expect(config.duration).toBe(150);
+    it('entra sempre pelo gancho da base: 220 ms sem a chave, 150 ms com ela', () => {
+        const view = render(<AnswerFeedbackSheet correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        expect(timing.mock.calls.length).toBeGreaterThan(0);
+        for (const [, config] of timing.mock.calls) expect(config.duration).toBe(220);
         view.unmount();
 
         timing.mockClear();
-        mockReducedMotion = true;
         render(<AnswerFeedbackSheet rich correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
+        expect(timing.mock.calls.length).toBeGreaterThan(0);
+        for (const [, config] of timing.mock.calls) expect(config.duration).toBe(150);
+    });
+
+    it.each([false, true])('sob "Reduzir movimento" aparece no lugar, visível (rich=%s)', (rich) => {
+        mockReducedMotion = true;
+        render(<AnswerFeedbackSheet rich={rich} correct message="a" actionLabel="Continuar" onAction={jest.fn()} />);
         expect(timing).not.toHaveBeenCalled();
         expect(StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style).opacity).toBe(1);
+        expect(screen.getByText('Resposta correta')).toBeTruthy();
     });
 
     it('o botão chama onAction uma vez', () => {
@@ -161,4 +173,35 @@ describe('AnswerFeedbackSheet', () => {
         expect(screen.getByText('Resposta correta').props.maxFontSizeMultiplier).toBeUndefined();
         expect(screen.getByText('Elétrons têm carga negativa.').props.maxFontSizeMultiplier).toBeUndefined();
     });
+
+    describe('revealOffset: quanto rolar para a alternativa escolhida ficar acima da folha', () => {
+        // Janela de rolagem de 600 pt, folha de 240: sobram 360 visíveis.
+        const base = { scrollY: 0, viewportHeight: 600, sheetHeight: 240, margin: 12 };
+
+        it('alternativa já visível acima da folha não rola', () => {
+            expect(revealOffset({ ...base, top: 100, bottom: 160 })).toBeNull();
+        });
+
+        it('alternativa sob a folha rola o mínimo para o fim dela encostar na folha, com a margem', () => {
+            // Fim em 500 + 12 de margem, menos os 360 visíveis.
+            expect(revealOffset({ ...base, top: 440, bottom: 500 })).toBe(152);
+            const depois = revealOffset({ ...base, top: 440, bottom: 500 })!;
+            // Validade: depois de rolar, a alternativa inteira está entre o topo e a folha.
+            expect(440).toBeGreaterThanOrEqual(depois);
+            expect(500 + 12).toBeLessThanOrEqual(depois + 600 - 240);
+        });
+
+        it('alternativa acima do topo visível volta até ela', () => {
+            expect(revealOffset({ ...base, scrollY: 300, top: 200, bottom: 260 })).toBe(188);
+        });
+
+        it('alternativa mais alta que a área visível mostra o começo dela', () => {
+            expect(revealOffset({ ...base, top: 100, bottom: 600 })).toBe(88);
+        });
+
+        it('nunca rola para antes do início', () => {
+            expect(revealOffset({ ...base, scrollY: 50, top: 4, bottom: 60 })).toBe(0);
+        });
+    });
 });
+

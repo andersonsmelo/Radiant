@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { feedbackColors, galaxyColors } from '../../../ui/theme';
 
 const payload = {
@@ -55,5 +56,17 @@ describe('MultipleChoiceStepRenderer', () => {
         const done = render(<MultipleChoiceStepRenderer payload={payload} onSelect={onSelect} submitted />);
         fireEvent.press(done.getByTestId('lesson-option-c'));
         expect(onSelect).toHaveBeenCalledTimes(1);
+    });
+
+    it('informa a posição da alternativa escolhida, relativa ao próprio renderer', () => {
+        const onChosenLayout = jest.fn();
+        const view = render(<MultipleChoiceStepRenderer payload={payload} selectedOptionId="b" onSelect={jest.fn()} onChosenLayout={onChosenLayout} />);
+        const layout = (y: number, height: number) => ({ nativeEvent: { layout: { x: 0, y, width: 300, height } } });
+        fireEvent(view.getByTestId('multiple-choice-options'), 'layout', layout(80, 200));
+        fireEvent(view.UNSAFE_getAllByType(ChoiceOption)[0], 'layout', layout(0, 60));
+        fireEvent(view.UNSAFE_getAllByType(ChoiceOption)[1], 'layout', layout(68, 60));
+        // A escolhida é a segunda: 80 da lista mais 68 dentro dela.
+        expect(onChosenLayout).toHaveBeenLastCalledWith({ y: 148, height: 60 });
+        expect(onChosenLayout).not.toHaveBeenCalledWith({ y: 80, height: 60 });
     });
 });
