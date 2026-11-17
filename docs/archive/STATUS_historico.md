@@ -4720,3 +4720,24 @@ Compilou em Release para o simulador com a chave ligada e o app gravou o retrato
 App Group; **o widget na tela inicial não foi visto** (sem acesso ao painel do
 simulador). Ligar depende do dono: App Group no portal e a variável no `eas.json`
 ([runbook](runbooks/2026-11-15-widgets-ios.md)).
+
+<!-- Movido do STATUS em 2026-11-17: seção do refinamento visual como estava antes da execução. -->
+
+## Refinamento visual antes da 1.6 (medido em 2026-11-16)
+
+O dono pediu, em 2026-11-16, um refinamento visual do app inteiro antes de a 1.6
+ir para a loja, e escolheu o caminho mais amplo: ciclo de resposta da aula,
+limpeza das regras do `DESIGN.md` e segunda passada em classificar, ensino,
+perfil, missões, assinatura, recompensa e unidade concluída. A identidade
+Medalhão não muda.
+
+- **Desenho aprovado:** [spec](superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md),
+  com a prancheta privada do dono citada nela.
+- **Plano escrito, não iniciado:** [11 tarefas](plans/2026-11-16-refinamento-visual-1-6.md).
+  **Nenhum código do app mudou.**
+- **Consequência para o lançamento:** a build 1.6.0 que está no EAS não tem
+  este trabalho. Ele pede build novo e capturas da loja refeitas, que são do
+  dono.
+- **Fora do escopo, por escolha registrada na spec:** a `HomeScreen` antiga, o
+  desenho da tela da liga (não foi vista com dados de Game Center) e a
+  reescrita de passos de ensino aula por aula.

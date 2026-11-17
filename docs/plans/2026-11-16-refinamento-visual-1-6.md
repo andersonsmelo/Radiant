@@ -18,8 +18,14 @@ impede que cor e tamanho de texto literais voltem.
 **Desenho:** [`2026-11-16-refinamento-visual-1-6-design.md`](../superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md),
 aprovado pelo dono em 2026-11-16. Quem executa lê os dois.
 
-**Estado:** plano escrito em 2026-11-16, não iniciado. A 1.6.0 já tem build no
-EAS; este trabalho pede build novo, que é do dono.
+**Estado:** executado na noite de 2026-11-16 para 2026-11-17, na branch
+`claude/refinamento-1-6-desenho`, até `f6b39148`. As tarefas 1 a 10 estão feitas e
+revisadas. Da tarefa 11, ficaram sem fazer a imagem de abertura (passo 1), as
+capturas no Android, no texto máximo e com "reduzir movimento" (passo 3) e a suíte
+em worktree limpa (passo 4). A execução mudou alguns pontos do desenho; eles estão
+na seção 11 da spec. [Evidência](../evidence/2026-11-refinamento/README.md). As
+caixas abaixo não foram marcadas uma a uma: o registro é a evidência de cada tarefa.
+A 1.6.0 já tem build no EAS; este trabalho pede build novo, que é do dono.
 
 ## Restrições globais
 

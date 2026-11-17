@@ -313,3 +313,39 @@ Cada um entra com história no Storybook e com os estados sob texto ampliado e
 - Quais telas da seção 6 usam cada cor opaca que substitui um `rgba`.
 - A prova por tela: Maestro, capturas em iOS e Android, e a execução vermelha de
   cada asserção nova registrada como evidência.
+
+## 11. O que a execução fez diferente deste desenho
+
+Registrado em 2026-11-17, depois da execução. O dono delegou as decisões ao sair
+("voce tem autonomia para tomar decisões"); cada item abaixo é **[escolha do
+agente]** e pode ser revertido por ele. O texto das seções anteriores foi mantido
+como foi aprovado.
+
+- **7.1, resposta certa em texto.** O desenho tirava "Resposta certa" da folha na
+  múltipla escolha, no verdadeiro ou falso e na múltipla seleção, porque as
+  alternativas mostrariam as duas. No simulador, com enunciado longo, a alternativa
+  certa ficou escondida atrás da folha. No erro, a folha diz "Resposta certa: …" em
+  todos os formatos que têm resposta em texto.
+- **7.1, movimento.** A folha entra em `duration.ui` (220 ms) com
+  `ENABLE_RICH_FEEDBACK` desligada, como o cartão antigo, e em 150 ms com a chave
+  ligada, como a ADR do retorno rico fixou.
+- **7.1, relevo e a chave.** O relevo da alternativa e a descida ao toque aparecem
+  com a chave ligada ou desligada: são desenho, não retorno rico.
+- **7.2, classificar.** O rótulo "Faltam N fichas" vale também na avaliação, que
+  roda na mesma tela.
+- **7.3, passo de ensino.** Não houve campo novo no conteúdo. As aulas já trazem
+  `keyPoints`, quase sempre como "Termo: explicação", e os blocos saem daí: 179 dos
+  469 pontos têm termo. No lugar do ícone por bloco há uma peça numerada. A nota de
+  fonte separada e a medida curta do corpo não foram feitas.
+- **7.4, perfil.** "Ver todas" as medalhas expande a grade no próprio lugar. A
+  semana marca os dias cobertos pela sequência viva, lidos como "na sequência": o
+  app só guarda a última data de estudo e a contagem, não o histórico da semana.
+- **7.5, missões.** O "+N XP" acende quando a missão está concluída e creditada.
+- **7.6, assinatura.** O período cobrado tem linha própria, acima do valor por mês
+  calculado. A ADR de convites recebeu um adendo.
+- **Seção 6, componentes sem uso.** `PixelHeroSplit`, `AnimatedCounter` e
+  `GalaxyStatRow` ficaram sem uso e continuam no repositório.
+- **Seção 3 e seção 9, relevo em toda superfície de resposta.** O plano não cobriu
+  ordenar, parear, comparação, e as telas antigas de quiz e de cartão de revisão;
+  elas continuam sem relevo.
+- **Seção 6, abertura.** A imagem de abertura não foi trocada.

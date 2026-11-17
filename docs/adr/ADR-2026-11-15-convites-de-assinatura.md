@@ -73,3 +73,25 @@ de vidas e o cartão nos Ajustes.
   ou no OTA. Recomendação: ligar primeiro no TestFlight e ler o funil no console.
 - A compra em sandbox não foi vista por esta frente; quem liga confere antes.
 - O funil não distingue aparelhos nem pessoas: é a contagem de um aparelho.
+
+## Adendo de 2026-11-17 — a comparação ficou com uma linha
+
+**Decisor:** Anderson Melo, ao aprovar em 2026-11-16 a prancheta e a
+[spec do refinamento visual](../superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md)
+(seção 7.6). **Estado:** na branch `claude/refinamento-1-6-desenho`, ainda fora da
+`main`.
+
+O item 5 da decisão descreve uma tabela gratuito × assinante. Com o refinamento:
+
+- não há mais tabela nem colunas "Gratuito" e "Assinante"; a comparação mostra só a
+  linha em que os planos diferem, com os títulos "Vidas" e "Com o Ilimitado";
+- saíram a linha "Revisão concluída" e a linha das aulas, que dizia "Todas" nos dois
+  planos; no lugar da segunda, a tela diz "Aulas, revisões e avaliações continuam
+  gratuitas.";
+- o texto do assinante passou de "Ilimitadas: errar não gasta vida" para "Sem
+  limite";
+- com a chave ligada, a abertura "Errar não custa vida." aparece junto com a
+  comparação.
+
+Continua valendo: os números vêm de `HeartsService`, errar "pode" gastar uma vida, a
+revisão nunca gasta, e nada do que está em "Proibido" mudou.
