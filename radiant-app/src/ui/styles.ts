@@ -126,6 +126,17 @@ export const typography = StyleSheet.create({
 // ============================================================================
 // LAYOUT STYLES
 // ============================================================================
+/**
+ * Relevo das peças de resposta (alternativa, ficha, cartão de plano, item de ordenar):
+ * o lábio é a mesma forma da face, atrás dela e `PIECE_LIP` abaixo. O botão tem o seu
+ * (`depth.lip`, em `AppButton`).
+ */
+export const PIECE_LIP = 4;
+export const pieceRelief = (borderRadius: number) => ({
+  wrap: { paddingBottom: PIECE_LIP },
+  lip: { position: 'absolute', top: PIECE_LIP, bottom: 0, left: 0, right: 0, borderRadius },
+}) as const;
+
 export const layout = StyleSheet.create({
     // Full-screen base
     screen: {

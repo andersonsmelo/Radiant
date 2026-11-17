@@ -93,6 +93,53 @@ git log --oneline --merges -12 origin/main
 cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
 ```
 
+## Refinamento visual antes da 1.6 (medido em 2026-11-17)
+
+O dono pediu, em 2026-11-16, um refinamento visual do app inteiro antes de a 1.6
+ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não muda.
+**O plano foi executado na branch `claude/refinamento-1-6-desenho` (código até
+`f6b39148`) e não está na `main`.** A build 1.6.0 do EAS não tem este trabalho.
+
+- **Desenho e plano:** [spec](superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md)
+  e [plano de 11 tarefas](plans/2026-11-16-refinamento-visual-1-6.md). A spec traz
+  uma seção com o que a execução fez diferente do desenho aprovado.
+- **O que entrou:** folha de retorno fixa no rodapé da aula, alternativa e ficha com
+  relevo, marcas desenhadas, classificar em grupos, passo de ensino em blocos,
+  recompensa e unidade concluída no padrão do resumo, missões com peça e
+  recompensa, perfil enxuto, assinatura com cartões de plano, botão desabilitado
+  legível, e a guarda `style-literal-contract` no `quality`.
+- **Como foi medido:** 18 runs do Loop validados, cada um com os 15 validadores passando (outros 2 foram fechados sem validar, só para ampliar o escopo declarado); suíte em
+  284 suítes e 3.841 testes segundo os implementadores (Node 20.20.2, árvore da
+  branch, não remedido em worktree limpa); revisão independente por tarefa e uma
+  revisão final da branch; prova em simulador iOS em tamanho normal.
+  [Evidência e limites](evidence/2026-11-refinamento/README.md).
+- **Não provado:** Android, texto no tamanho máximo, leitor de tela, roteiros do
+  Maestro, liga com dados e compra real.
+- **Depende do dono:**
+  - revisar e mesclar a PR da branch;
+  - build novo e capturas da loja refeitas (a captura de revisão da assinatura
+    enviada à Apple mostra o desenho antigo);
+  - a imagem de abertura, que continua com o Pixel antigo;
+  - o quiz antigo (rota `/quiz`, sem entrada dentro do app) continua sem relevo,
+    por decisão do dono em 2026-11-17.
+- **Decisões do dono em 2026-11-17, entregues na mesma branch:** ordenar, parear,
+  comparação e o cartão de revisão usam a peça com relevo da aula (a comparação
+  perdeu a etiqueta "Selecionada" e ficou com a marca desenhada); e a sequência
+  parada mostra 0 no topo e no perfil, pela mesma regra do widget
+  (`standingStreakDays`). Suíte em 284 suítes e 3.855 testes (Node 20.20.2,
+  `jest --runInBand`, árvore da branch). Ordenar, parear, comparação e o contador
+  em 0 foram vistos em simulador iOS no commit `3c8a4369`, sem defeito; **o cartão
+  de revisão não foi visto**, porque o simulador não tinha item de revisão.
+  [Evidência](evidence/2026-11-refinamento/tarefa-13-decisoes-em-aberto.md).
+- **Pendências menores, fechadas em 2026-11-17 a pedido do dono:** a resposta do
+  verdadeiro ou falso sem "dose.: certo"; a `HomeScreen` antiga com a sequência que
+  vale hoje; a guarda `style-literal-contract` acusando `...typography.label` fora
+  dos usos julgados; um só helper de relevo (`pieceRelief`) para alternativa, ficha,
+  cartão de plano e item de ordenar. Suíte em 284 suítes e 3.856 testes (Node
+  20.20.2, `jest --runInBand`, árvore da branch). A pasta de trabalho
+  `.superpowers/sdd/…` continua no disco: a PR não foi mesclada.
+  [Evidência](evidence/2026-11-refinamento/tarefa-14-pendencias-menores.md).
+
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 
 **Medido em 2026-11-07, às 16:45 (America/Bahia),** na branch

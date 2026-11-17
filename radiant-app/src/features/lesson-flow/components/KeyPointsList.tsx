@@ -1,28 +1,75 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { radius, space, typography } from '../../../ui/styles';
-import { galaxyColors } from '../../../ui/theme';
+import { space, typography } from '../../../ui/styles';
+import { galaxyColors, medalColors, medalGlyphTones } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
+import { splitKeyPoint } from '../renderers/teachBody';
+import { CHROME_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 
-/** Os dois ou três pontos que resumem o conceito, em lista curta sob o corpo. */
+const PIECE = 32;
+const LIP = 3;
+
+/** Os pontos do conceito em blocos: peça numerada, termo e explicação. */
 export function KeyPointsList({ points }: { points: readonly string[] }) {
     if (points.length === 0) return null;
 
     return (
         <View testID="lesson-key-points" accessibilityRole="list" style={styles.list}>
-            {points.map((point, index) => (
-                <View key={index} style={styles.item}>
-                    <View style={styles.marker} accessibilityElementsHidden importantForAccessibility="no" />
-                    <Text style={styles.text}>{point}</Text>
-                </View>
-            ))}
+            {points.map((point, index) => {
+                const { term, text } = splitKeyPoint(point);
+                return (
+                    <View
+                        key={index}
+                        testID="lesson-key-point"
+                        accessible
+                        accessibilityLabel={`${index + 1}. ${term ? `${term}: ${text}` : text}`}
+                        style={styles.block}
+                    >
+                        <View style={styles.piece} accessibilityElementsHidden importantForAccessibility="no">
+                            <View style={styles.pieceFace}>
+                                {/* A peça tem tamanho fixo: o número cresce até o teto do cromo e não vaza do círculo. */}
+                                <Text style={styles.number} maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>{index + 1}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.copy}>
+                            {term ? <Text style={styles.term}>{term}</Text> : null}
+                            <Text style={term ? styles.text : styles.bareText}>{text}</Text>
+                        </View>
+                    </View>
+                );
+            })}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     list: { gap: space.s2 },
-    item: { flexDirection: 'row', alignItems: 'flex-start', gap: space.s2 },
-    // Marcador desenhado, não caractere de texto; alinha com a primeira linha.
-    marker: { width: 6, height: 6, borderRadius: radius.rSm, marginTop: space.s1, backgroundColor: galaxyColors.textSecondary },
-    text: { ...typography.bodyRegular, lineHeight: undefined, flex: 1, color: galaxyColors.textPrimary },
+    block: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        gap: space.s3,
+        paddingTop: space.s3,
+        borderTopWidth: 1,
+        borderTopColor: galaxyColors.border,
+    },
+    // Lábio: a peça inteira tem a cor da base e a face sobe `LIP` pontos sobre ela.
+    piece: {
+        width: PIECE,
+        height: PIECE,
+        borderRadius: PIECE / 2,
+        backgroundColor: medalColors.unit.lip,
+    },
+    pieceFace: {
+        width: PIECE,
+        height: PIECE - LIP,
+        borderRadius: PIECE / 2,
+        backgroundColor: semanticColors.galaxy.actionPrimary,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    number: { ...typography.bodyStrong, lineHeight: undefined, color: medalGlyphTones.light },
+    copy: { flex: 1, gap: space.s1 },
+    term: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
+    text: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+    bareText: { ...typography.bodyRegular, color: galaxyColors.textPrimary },
 });

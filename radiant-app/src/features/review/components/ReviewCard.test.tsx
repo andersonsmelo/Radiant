@@ -3,10 +3,13 @@ import { AccessibilityInfo } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { ReviewCard } from './ReviewCard';
+import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import type { QuizQuestion } from '../../../types/quiz';
 
 const mockEnter = { animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() };
 jest.mock('../../../ui/motion', () => ({
+  ...jest.requireActual('../../../ui/motion'),
   useCardEnter: () => ({ ...mockEnter }),
   useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
 }));
@@ -31,6 +34,14 @@ describe('ReviewCard — resposta antes do gabarito', () => {
     view.rerender(<ReviewCard {...props} feedback={{ correct: false, assisted: false }} />);
     expect(screen.getByText('Vamos revisar este ponto')).toBeTruthy();
     expect(screen.getByText(question.explanation)).toBeTruthy();
+  });
+  it('as alternativas são a peça com relevo da aula, em grupo de rádio, e a tocada fica escolhida', () => {
+    render(<ReviewCard question={question} onAnswer={jest.fn()} onContinue={jest.fn()} feedback={null} saving={false} />);
+    expect(screen.getAllByTestId('choice-option-lip', { includeHiddenElements: true })).toHaveLength(2);
+    expect(screen.getByTestId('review-option-0').props.accessibilityRole).toBe('radio');
+    fireEvent.press(screen.getByTestId('review-option-1'));
+    expect(screen.getByTestId('review-option-1').props.accessibilityState.selected).toBe(true);
+    expect(screen.getByTestId('review-option-0').props.accessibilityState.selected).toBe(false);
   });
   it('pedir gabarito envia ajuda, sem autodeclarar acerto', () => {
     const onAnswer = jest.fn();
@@ -72,5 +83,27 @@ describe('ReviewCard — resposta antes do gabarito', () => {
     expect(announce).toHaveBeenCalledTimes(2);
     expect(announce).toHaveBeenLastCalledWith('Resposta consultada. Resposta certa: A. Explicação somente depois da confirmação');
     announce.mockRestore();
+  });
+});
+
+describe('ReviewCard: sem cartão dentro de cartão', () => {
+  it('a pergunta fica direto sobre o fundo, sem a moldura externa e sem a etiqueta "Revisão"', () => {
+    render(<ReviewCard question={question} onAnswer={jest.fn()} onContinue={jest.fn()} feedback={null} saving={false} />);
+    expect(screen.UNSAFE_queryAllByType(SurfaceCard)).toHaveLength(0);
+    expect(screen.queryByText('Revisão')).toBeNull();
+    // Validade: o conteúdo continua lá.
+    expect(screen.getByText(question.prompt)).toBeTruthy();
+    expect(screen.getByTestId('review-option-0')).toBeTruthy();
+  });
+  it.each([
+    ['correta', { correct: true, assisted: false }, feedbackColors.success.surface, feedbackColors.success.fill],
+    ['errada', { correct: false, assisted: false }, feedbackColors.error.surface, feedbackColors.error.fill],
+    ['consultada', { correct: false, assisted: true }, galaxyColors.surfaceActive, galaxyColors.xpColor],
+  ])('o retorno %s usa superfície opaca com borda na cor do papel', (_name, feedback, backgroundColor, borderColor) => {
+    render(<ReviewCard question={question} onAnswer={jest.fn()} onContinue={jest.fn()} feedback={feedback} saving={false} />);
+    const style = require('react-native').StyleSheet.flatten(screen.getByTestId('review-feedback-shell').props.style);
+    expect(style.backgroundColor).toBe(backgroundColor);
+    expect(style.borderColor).toBe(borderColor);
+    expect(String(style.backgroundColor)).toMatch(/^#[0-9a-f]{6}$/i);
   });
 });

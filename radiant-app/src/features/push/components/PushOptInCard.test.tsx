@@ -43,7 +43,7 @@ describe('PushOptInCard', () => {
 
   it.each([1, 2, 3.1].flatMap((scale) => [
     [scale, title, 24, 'Sora-Bold'],
-    [scale, body, 14, 'Sora-SemiBold'],
+    [scale, body, 16, 'Sora-SemiBold'],
   ] as const))('usa altura natural na escala %s para %s', (scale, copy, fontSize, fontFamily) => {
     fontScale = scale;
     render(<PushOptInCard onDismiss={jest.fn()} />);
@@ -59,6 +59,14 @@ describe('PushOptInCard', () => {
     expect(text.props.maxFontSizeMultiplier).toBeUndefined();
     expect(push.setOptIn).not.toHaveBeenCalled();
     expect(TelemetryService.track).not.toHaveBeenCalled();
+  });
+
+  // Tarefa 11: "Agora não" usa o corpo de 16 do cartão (era 14 até a Tarefa 6).
+  it('"Agora não" tem o tamanho do corpo, 16', () => {
+    render(<PushOptInCard onDismiss={jest.fn()} />);
+    const style = ReactNative.StyleSheet.flatten(screen.getByText('Agora não').props.style);
+    expect(style.fontSize).toBe(16);
+    expect(style.fontFamily).toBe('Sora-SemiBold');
   });
 
   it.each([title, body, 'Agora não'])('remede %s em normal→máximo→normal sem reiniciar o aceite pendente', async (copy) => {

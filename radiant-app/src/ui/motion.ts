@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Pressable } from 'react-native';
 import {
     default as Reanimated,
     Easing as ReanimatedEasing,
@@ -198,6 +198,27 @@ export function useShakeError() {
     };
 
     return { translateX, style, animateIn };
+}
+
+/**
+ * Descida do relevo na pressão: a face desce `depth` pt em `duration.micro` e
+ * volta ao soltar; sob "reduzir movimento" vai de uma vez. Desabilitada, não
+ * desce. Devolve o estilo animado (para a face) e os manipuladores de pressão.
+ */
+export function usePressDescend(depth: number, disabled = false) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const translateY = useSharedValue(0);
+    const style = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }));
+    const moveTo = (target: number) => {
+        translateY.value = reducedMotionEnabled
+            ? target
+            : withTiming(target, { duration: duration.micro, easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1) });
+    };
+    return {
+        style,
+        onPressIn: () => { if (!disabled) moveTo(depth); },
+        onPressOut: () => moveTo(0),
+    };
 }
 
 /**
@@ -417,6 +438,7 @@ export const createPressScale = usePressScale;
 export const createCardEnter = useCardEnter;
 export const createLossPulse = useLossPulse;
 export const MotionView = Reanimated.View;
+export const MotionPressable = Reanimated.createAnimatedComponent(Pressable);
 export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
 export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
 

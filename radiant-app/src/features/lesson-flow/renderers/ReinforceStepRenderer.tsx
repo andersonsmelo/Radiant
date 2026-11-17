@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { ReinforcePayload } from '../../../types/lessonFlow';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
 type ReinforceStepRendererProps = {
@@ -15,19 +15,19 @@ export function ReinforceStepRenderer({
     answeredCorrectly,
     explanation,
 }: ReinforceStepRendererProps) {
-    // Tintas translúcidas sobre o fundo galaxy: as versões "soft" da paleta
-    // clara viravam blocos brancos no meio da lição.
+    // Superfícies opacas: acerto na superfície verde; reforço em âmbar, que não
+    // tem superfície própria, vai no grafite ativo com a borda na cor cheia.
     const backgroundColor =
         answeredCorrectly === true
-            ? 'rgba(93,227,174,0.12)'
+            ? feedbackColors.success.surface
             : answeredCorrectly === false
-                ? 'rgba(245,166,35,0.12)'
+                ? galaxyColors.surfaceActive
                 : galaxyColors.surface;
     const borderColor =
         answeredCorrectly === true
-            ? 'rgba(93,227,174,0.30)'
+            ? feedbackColors.success.fill
             : answeredCorrectly === false
-                ? 'rgba(245,166,35,0.30)'
+                ? galaxyColors.xpColor
                 : galaxyColors.border;
 
     const hasQuestionContext = Boolean(payload.prompt || payload.correctAnswerLabel);

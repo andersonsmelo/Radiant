@@ -300,6 +300,10 @@ lábio e miolo.
 - **Azul de Navegação** (`#4A9EFF`): o foco (`borderFocus`). Mede 6,62:1 sobre
   o grafite.
 - **Ciano de Sinal** (`#3DCAE8`): `statusInformation`, raro.
+- **Véus** (`galaxyColors.scrim`, grafite a 72%, e `imageScrim`, a 34%): as
+  únicas transparências de tela. `scrim` escurece o app atrás de uma folha
+  modal; `imageScrim` marca a área tocável sobre a imagem de uma aula sem apagar
+  a anatomia. Texto nunca é pintado direto sobre eles.
 
 ### Named Rules
 
@@ -319,6 +323,16 @@ só o contexto galaxy, por `galaxyColors`, `medalColors`, `feedbackColors` e
 `src/features/**` ou `src/app/**` é defeito: foi assim que texto pedagógico já
 renderizou a 1,21:1. O `identity-palette-contract` barra as duas portas, o
 `colors` e o `semanticColors.light`.
+
+**A Regra do Literal Barrado.** Tela não escreve cor nem tamanho de texto. O
+`style-literal-contract` lê a AST de `src/features/**` e `src/app/**` e reprova
+cor literal (`#rgb`, `#rrggbb`, `rgb(`, `rgba(`), `fontSize` numérico e
+`textTransform: 'uppercase'`. O retorno pinta superfície **opaca**: acerto em
+`feedbackColors.success.surface`, erro em `feedbackColors.error.surface`, e
+âmbar, que não tem superfície própria, em `surfaceActive` com borda na cor
+cheia. Ficam de fora, por caminho e com o motivo no script, as telas de
+desenvolvimento, a `HomeScreen` antiga, as ilustrações SVG das lições híbridas
+(`curriculum-v3`) e o shader da bancada.
 
 **A Regra da Cor Muda.** Cor nunca carrega informação sozinha. Cada estado tem
 também forma, ícone ou texto:
@@ -419,10 +433,156 @@ as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
 - **Pressão:** a face desce 4 pt em `duration.micro`; sob "reduzir movimento",
   de uma vez.
 - **Foco:** borda de 3 px em Azul de Navegação nas variantes escuras.
-- **Desabilitado:** opacidade 0,45 no conjunto, face e lábio juntos, com
-  `needsOffscreenAlphaCompositing`. No iOS, a camada já é composta em grupo;
-  no Android, o `ReactViewGroup` só faz isso com essa propriedade. Sem ela,
-  cada filho recebe 0,45 sozinho e o lábio aparece através da face.
+- **Desabilitado:** sem opacidade. A face vira `surfaceActive` (`#232733`),
+  com borda de 1 px `border` (`#323747`), lábio `backgroundAlt` (`#171920`) e
+  rótulo `textSecondary` (`#a3aabb`, mais de 4,5:1 sobre a face). Vale para
+  toda variante com lábio. A `ghost` só troca o rótulo para `textTertiary`.
+  Só a prop `disabled` aciona a face neutra; `loading` mantém a face da
+  variante. As variantes cheias têm borda de 1 px transparente, para que
+  alternar `disabled` não mude a medida da face.
+
+### Alternativa
+Linha de resposta da múltipla escolha (`ChoiceOption`), com o relevo do botão:
+face de 56 pt no mínimo, borda de 2 px, raio de 16 px e lábio de 4 pt por
+baixo. A face desce 3 pt na pressão, em `duration.micro`; sob "reduzir
+movimento", de uma vez. Sem opacidade em nenhum estado.
+- **Repouso:** face `surface`, borda `border`, lábio `backgroundAlt`, texto
+  principal.
+- **Selecionada:** face `surfaceActive`, borda Azul de Navegação (`#4A9EFF`),
+  lábio da unidade (`#1846C9`).
+- **Certa:** face e lábio de acerto, borda e texto no preenchimento de acerto,
+  mais a marca de acerto desenhada à direita.
+- **Errada:** o mesmo em erro, com a marca de erro.
+- **Apagada** (as demais, depois de conferir): como o repouso, com o texto em
+  `textTertiary`.
+A mesma peça serve às opções de parear, às alternativas do cartão de revisão e à
+comparação. "Selecionar esta ordem" é botão secundário, e não esta peça: igual aos
+itens, ele se lia como mais um item da lista. Na comparação a figura entra acima do
+rótulo (`media`) e a escolhida leva a marca de seleção desenhada
+(`selectedMark`), porque ali a escolha não pode depender só de cor. O item de
+ordenar tem o mesmo lábio, parado: quem se toca são as setas.
+O lábio destas peças, da ficha, do cartão de plano e do item de ordenar sai de um
+lugar só: `pieceRelief`, em `ui/styles.ts` (4 pt). O botão tem o seu, de 5 pt.
+A marca de veredito (`VerdictIcon`, em `ui/components/VerdictIcons`) é SVG em
+três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
+da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem
+do mesmo arquivo: nenhum ✓, ✗ ou ✕ de texto serve de ícone.
+
+### Ficha e área de grupo
+Ficha (`TapChip`, em `lesson-flow/renderers`): o toque das famílias de
+classificar, lacuna, verdadeiro ou falso e múltipla seleção, com o relevo da
+alternativa e lábio de 4 pt por baixo. Alvo de 44 pt no mínimo. A face desce
+3 pt na pressão, pelo gancho `usePressDescend` (`ui/motion`), o mesmo da alternativa:
+em `duration.micro`, e de uma vez sob "reduzir movimento". Repouso: borda `border` e lábio `backgroundAlt`;
+escolhida: borda ouro e lábio da unidade; certa ou errada: face, borda e lábio
+de acerto ou de erro, mais a marca `VerdictIcon`.
+Área de grupo (`GroupArea`): recebe fichas e mostra o que já está dentro. Sem
+ficha escolhida (nenhuma vem escolhida: só o toque do aluno escolhe, e depois de
+colocar a escolha se desfaz), borda tracejada em `borderActive`; com ficha escolhida, borda
+cheia em Azul de Navegação e a linha "Toque aqui para colocar a ficha
+escolhida". Grupo sem ficha mostra "Vazio". O alvo de toque é o cabeçalho; as
+fichas colocadas têm cada uma o seu toque, que as devolve. Com fichas pendentes
+o botão do rodapé diz "Faltam N fichas", na aula e na avaliação, que rodam no
+mesmo `LessonFlowScreen`.
+Região de imagem (`HotspotStepRenderer`): a região livre tem borda de 2 px em
+Ciano de Sinal (`statusInformation`) sobre o véu `imageScrim`; a escolhida muda só a borda, para
+3 px no verde de acerto, e mantém o véu, porque um fundo opaco apagaria a
+anatomia escolhida.
+
+### Folha de retorno
+Retorno da resposta na aula (`AnswerFeedbackSheet`), preso ao rodapé, no lugar
+do botão "Conferir resposta" e fora da rolagem.
+- **Superfície:** a de acerto (`#14281f`) ou a de erro (`#2c1820`), com borda
+  de cima de 2 px no lábio do mesmo par. Padding de 16 pt. A cor desce até a
+  borda de baixo da tela; o inset da área segura entra como padding interno, e
+  o botão fica acima do indicador de início.
+- **Conteúdo:** retrato do Pixel, título "Resposta correta" ou "Vamos
+  reforçar" no preenchimento do par, a explicação no texto principal e o botão
+  de seguir na variante `success` ou `error`. No erro que gasta vida, "Menos 1
+  vida" vai na linha do título, e o aviso sob o HUD não aparece.
+- **Resposta em texto:** no erro, a folha diz "Resposta certa: …" em todo
+  formato com resposta curta: múltipla escolha, verdadeiro ou falso (o
+  julgamento certo de cada afirmação), múltipla seleção (as certas separadas
+  por vírgula), ordenar, associar, região, comparação, decisão de caso e
+  lacunas. Com enunciado longo, a alternativa certa fica atrás da folha, então
+  marcá-la na tela não basta. No acerto a linha não aparece, e a folha nunca
+  escreve a resposta do aluno. Categorizar mostra o grupo certo em cada ficha;
+  bancada, laboratório e caça ao risco ficam com o retorno autoral.
+- **Altura:** no máximo dois terços da janela. Acima disso a explicação rola
+  por dentro e o botão fica fixo. A rolagem da aula ganha a altura da folha
+  como folga no fim e leva a alternativa escolhida para cima da folha.
+- **Movimento e foco:** sobe em `duration.ui` (220 ms); com o retorno rico, em
+  150 ms. Sob "reduzir movimento", aparece no lugar. O foco do leitor de tela
+  vai para o título, e o anúncio do conferir diz só o resultado (mais o marco
+  da sequência, quando há).
+- O conteúdo do passo fica direto sobre o fundo, sem cartão em volta.
+
+### Passo de ensino
+O passo de conceito (`TeachStepRenderer` mais `KeyPointsList`), direto sobre o
+fundo, sem etiqueta acima do título.
+- **Texto:** título em `h3`. A primeira frase do corpo em texto principal; o
+  restante, em outro parágrafo, no texto secundário. Corpo de uma frase só não
+  tem segundo parágrafo.
+- **Blocos:** cada ponto-chave é uma linha com divisória de 1 px em cima, uma
+  peça numerada à esquerda (círculo de 32 pt com lábio, no azul de ação do
+  botão `galaxy`, `#2559E6`, e não no azul da unidade, que dá 4,499:1; número em
+  branco, 4,5:1 ou mais, guardado em `contrast-contract.test.mjs`) e, ao lado, o termo em negrito e a explicação no texto
+  secundário. O termo é o que vem antes do primeiro ": ", se tiver até 40
+  caracteres e não for enumeração, fórmula nem terminar em número. Sem termo,
+  só o texto, no principal.
+- **Leitor de tela:** a peça é decorativa; cada bloco é lido como "1. Termo:
+  texto".
+
+### Linha de missão
+Cada missão das "Missões de hoje" é uma linha com divisória de 1 px:
+- **Peça (`MissionIcon`):** a medalha do Medalhão em miniatura, círculo de
+  48 pt com lábio, no azul da unidade em andamento e em ouro quando concluída,
+  com glifo branco por tipo (aulas, acertos, meta). Concluída, o glifo vira a
+  marca de feito.
+- **Corpo:** título, progresso em número ("1 de 2" ou "Concluída") e barra.
+- **Recompensa:** "+5 XP" à direita (valor de `MISSION_BONUS_XP`), em
+  `textTertiary` e, concluída, no tom de XP do HUD.
+- **Leitor de tela:** a linha é um `progressbar` com valor; a peça é decorativa
+  e "concluída" vem no rótulo. O botão "Continuar a trilha" (`galaxy`) fecha a
+  tela e volta à trilha.
+
+### Cartão de plano
+Escolha de plano na assinatura (`PlanCard`, em `subscription/components`), com o
+relevo da alternativa: borda de 2 px, raio de 16 px, lábio de 4 pt e face que
+desce 3 pt na pressão (`usePressDescend`). Dois cartões lado a lado; com texto
+ampliado (`useLargeTextLayout`), empilhados. Mostra o plano, o preço exatamente
+como o StoreKit entrega, o período cobrado ("por ano", "por mês") numa linha
+própria em Body Regular, e, no anual, o valor por mês calculado ("R$ 12,49 por
+mês") em caption secundário, quando a loja dá o preço numérico.
+- **Repouso:** face `surface`, borda `border`, lábio `backgroundAlt`.
+- **Selecionado:** face `surfaceActive`; no tom `gold` (anual), borda e lábio de
+  ouro; no `neutral` (mensal), borda Azul de Navegação e lábio da unidade.
+- **Leitor de tela:** botão de escolha (`radio`) com `selected`, lido como
+  "Anual, R$ 149,90, por ano, R$ 12,49 por mês, selecionado": preço, período e
+  depois o detalhe.
+Abaixo, um só botão nomeia o plano escolhido: "Assinar o anual" (`gold`) ou
+"Assinar o mensal" (`galaxy`). Enquanto os preços carregam, ele aparece
+desabilitado com "Carregando os planos", e é só ele que anuncia o carregamento:
+o esqueleto dos cartões é decorativo para o leitor de tela.
+
+### Perfil
+Cabeçalho, nível, estante, sequência, duas linhas e o total de XP, sem cartão:
+- **Estante:** a contagem "2 de 13" vem ao lado do título. A primeira fileira
+  mostra 6 medalhas; com mais, o botão de texto "Ver as 13" expande a grade no
+  próprio lugar e "Ver menos" recolhe.
+- **Sequência:** o número grande no tom de sequência do HUD, com a chama, e uma
+  linha curta com as proteções ("1 proteção guardada"). O app guarda só a
+  última data e a contagem, então a semana mostra o que elas sustentam
+  (`streakWeekDays`): sequência viva (última data hoje ou ontem) preenche os
+  dias da contagem com a marca de feito; hoje ainda sem estudo é um círculo
+  vazio com aro; dia passado sem prova é um ponto pequeno em `textTertiary`,
+  nunca uma falta; dia futuro é círculo neutro. O leitor de tela lê "Segunda,
+  na sequência", "Quinta, hoje, ainda sem estudo", "Sexta, ainda não chegou" e
+  "Terça, sem registro", sem "estudou", porque uma proteção pode ter coberto o dia.
+- **Liga e decorações:** linhas no padrão `ListRow`, com o valor à direita e a
+  seta. Com a chave desligada, a linha não existe.
+- **Fora do perfil:** missões, "Hoje" e "Revisões pendentes" ficam na tela
+  inicial.
 
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
@@ -509,6 +669,10 @@ plástico e o painel holográfico.
   quando agrupa uma ação, e nunca um cartão dentro de outro.
 - **Cada número aparece uma vez.** XP, sequência e vidas moram no HUD. Nenhuma
   tela repete em bloco o que o HUD mostra.
+- **Fim de aula, recompensa e unidade concluída são a mesma tela.** Medalha no
+  centro (com o Pixel ao lado, quando fala), título, linhas simples com divisória
+  para o detalhe e uma única ação principal no rodapé (`SummaryHero`). Sem
+  cartão, sem etiqueta em caixa alta e sem repetir o XP e a sequência do HUD.
 - **Ouro é conquista.** Ouro só em medalha ganha, estrela e plano anual. Azul é
   ação e unidade atual; prata, avaliação; grafite, o que ainda não abriu.
 - **O Pixel fala, não decora.** Só nos quatro momentos da seção Pixel.
@@ -548,7 +712,10 @@ no cartão é proibida, porque derruba junto o contraste do texto.
 - **Don't** parecer um **dashboard hospitalar**: prontuário, tabela densa em cinza, densidade de software de uso obrigatório.
 - **Don't** parecer **template de IA**: gradiente genérico, brilho sem fonte de luz, ícone de biblioteca.
 - **Don't** pintar texto ou estado ativo pequeno com azul saturado sobre o grafite: `#2155FF` mede 3,31:1 e `#2559E6` mede 3,17:1.
-- **Don't** pintar texto branco sobre o ouro ou sobre o azul da unidade.
+- **Don't** pintar texto branco sobre o ouro ou sobre o azul da unidade. O
+  glifo branco decorativo das peças de missão e das medalhas é a exceção: é
+  desenho em três tons, não texto, e o leitor de tela recebe o estado pelo
+  rótulo.
 - **Don't** importar a paleta clara dentro de `src/features/**` ou `src/app/**`.
 - **Don't** declarar paleta local num arquivo de tela. Cor nova nasce em `src/ui/theme.ts` ou `semantic-colors.ts`.
 - **Don't** usar emoji ou caractere de texto como ícone, nem `@expo/vector-icons` novo.

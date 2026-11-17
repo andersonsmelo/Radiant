@@ -5,6 +5,7 @@ import type { HotspotPayload, NormalizedRegion } from '../../../types/learningAc
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { CheckIcon } from '../../../ui/components/VerdictIcons';
 
 type HotspotStepRendererProps = {
     payload: HotspotPayload;
@@ -65,7 +66,11 @@ export function HotspotStepRenderer({
                                 selected && styles.selected,
                             ]}
                         >
-                            <Text style={styles.hotspotIndex}>{selected ? '✓' : index + 1}</Text>
+                            {selected ? (
+                                <View testID="hotspot-selected-mark" style={styles.hotspotBadge}>
+                                    <CheckIcon size={20} color={galaxy.textPrimary} />
+                                </View>
+                            ) : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
                         </Pressable>
                     );
                 })}
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
         borderRadius: radius.rMd,
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
-        backgroundColor: 'rgba(3,3,13,0.34)',
+        backgroundColor: galaxyColors.imageScrim,
         // The corner keeps the index clear of labels drawn inside the image itself.
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
@@ -127,8 +132,8 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderWidth: 3,
+        // Só a borda muda: um fundo opaco apagaria a anatomia escolhida.
         borderColor: galaxy.statusSuccess,
-        backgroundColor: 'rgba(93,227,174,0.16)',
     },
     // Opaque badge: the image behind it can be light, as the local diagrams are.
     hotspotIndex: {
@@ -138,6 +143,14 @@ const styles = StyleSheet.create({
         borderRadius: radius.rMd,
         overflow: 'hidden',
         paddingHorizontal: space.s2,
+    },
+    // Mesmo selo do número, com a marca desenhada no lugar dele.
+    hotspotBadge: {
+        backgroundColor: galaxyColors.background,
+        borderRadius: radius.rMd,
+        paddingHorizontal: space.s2,
+        minHeight: 24,
+        justifyContent: 'center',
     },
     textAlternatives: { gap: space.s2 },
     alternativeTitle: { ...typography.bodyStrong, color: galaxy.textSecondary },

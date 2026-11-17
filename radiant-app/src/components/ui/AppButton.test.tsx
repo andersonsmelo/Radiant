@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { act, fireEvent, render, within } from '@testing-library/react-native';
 import { getAnimatedStyle } from 'react-native-reanimated';
 import { AppButton } from './AppButton';
@@ -346,16 +346,99 @@ describe('AppButton — relevo', () => {
     expect(styleOf(group).paddingBottom).toBe(depth.lip);
   });
 
-  // Minor 4: no Android, o ReactViewGroup só compõe a opacidade em grupo com
-  // `needsOffscreenAlphaCompositing`. Sem ele, cada filho recebe 0,45 sozinho e
-  // o lábio aparece através da face.
-  it('desabilitado, o conjunto que recebe a opacidade compõe em grupo', () => {
-    const { toJSON } = render(<AppButton label="Continuar" disabled onPress={jest.fn()} />);
-    const faded = findAllNodes(toJSON(), (node) => styleOf(node).opacity === 0.45);
+  // Desabilitado legível: face neutra em vez de opacidade, então nada vaza
+  // através da face e não há mais composição em grupo.
+  const NEUTRAL_VARIANTS = ['primary', 'galaxy', 'gold', 'secondary', 'success', 'error'] as const;
 
-    expect(faded).toHaveLength(1);
-    expect(findAllNodes(faded[0], (node) => node.props.testID === 'app-button-face')).toHaveLength(1);
-    expect(faded[0].props.needsOffscreenAlphaCompositing).toBe(true);
+  // Nós sem `style` (o spinner) não têm opacidade própria.
+  const opacityOf = (node: { props: { style?: unknown } }) =>
+    (StyleSheet.flatten(node.props.style as never) as { opacity?: number } | undefined)?.opacity ?? 1;
+
+  it.each(NEUTRAL_VARIANTS)('desabilitado %s não aplica opacidade', (variant) => {
+    const { toJSON } = render(<AppButton label="Continuar" variant={variant} disabled onPress={jest.fn()} />);
+    const all = findAllNodes(toJSON(), () => true);
+    expect(all.length).toBeGreaterThan(3);
+    for (const node of all) {
+      expect(opacityOf(node)).toBe(1);
+      expect(node.props.needsOffscreenAlphaCompositing).toBeFalsy();
+    }
+  });
+
+  it.each(['primary', 'galaxy'] as const)('carregando %s mantém a face da variante', (variant) => {
+    const enabled = render(<AppButton label="Salvar" variant={variant} onPress={jest.fn()} />);
+    const loading = render(<AppButton label="Salvar" variant={variant} loading onPress={jest.fn()} />);
+    const faceOf = (v: typeof enabled) => styleOf(v.getByTestId('app-button-face'));
+    expect(faceOf(loading).backgroundColor).toBe(faceOf(enabled).backgroundColor);
+    expect(faceOf(loading).backgroundColor).not.toBe(galaxyColors.surfaceActive);
+    expect(styleOf(loading.getByTestId('app-button-lip')).backgroundColor).toBe(
+      styleOf(enabled.getByTestId('app-button-lip')).backgroundColor,
+    );
+    expect(styleOf(loading.getByText('Salvar')).color).toBe(styleOf(enabled.getByText('Salvar')).color);
+  });
+
+  it('carregando não aplica opacidade', () => {
+    const { toJSON } = render(<AppButton label="Salvar" loading onPress={jest.fn()} />);
+    for (const node of findAllNodes(toJSON(), () => true)) {
+      expect(opacityOf(node)).toBe(1);
+    }
+  });
+
+  it.each(NEUTRAL_VARIANTS)('alternar disabled não muda borderWidth nem minHeight da face (%s)', (variant) => {
+    const faceOf = (disabled: boolean) => {
+      const view = render(<AppButton label="Continuar" variant={variant} disabled={disabled} onPress={jest.fn()} />);
+      return styleOf(view.getByTestId('app-button-face'));
+    };
+    const on = faceOf(false);
+    const off = faceOf(true);
+    expect(off.borderWidth).toBe(on.borderWidth);
+    expect(off.minHeight).toBe(on.minHeight);
+    expect(off.minHeight).toBe(56);
+  });
+
+  it.each(NEUTRAL_VARIANTS)('desabilitado %s usa a face neutra', (variant) => {
+    const { getByTestId, getByText } = render(
+      <AppButton label="Continuar" variant={variant} disabled onPress={jest.fn()} />,
+    );
+    const face = styleOf(getByTestId('app-button-face'));
+    expect(face.backgroundColor).toBe(galaxyColors.surfaceActive);
+    expect(face.borderWidth).toBe(1);
+    expect(face.borderColor).toBe(galaxyColors.border);
+    expect(styleOf(getByTestId('app-button-lip')).backgroundColor).toBe(galaxyColors.backgroundAlt);
+    expect(styleOf(getByText('Continuar')).color).toBe(galaxyColors.textSecondary);
+  });
+
+  it.each(NEUTRAL_VARIANTS)('desabilitado e carregando juntos, %s fica na face neutra', (variant) => {
+    const { getByTestId, getByText, UNSAFE_getByType } = render(
+      <AppButton label="Continuar" variant={variant} disabled loading onPress={jest.fn()} />,
+    );
+    expect(styleOf(getByTestId('app-button-face')).backgroundColor).toBe(galaxyColors.surfaceActive);
+    expect(styleOf(getByTestId('app-button-lip')).backgroundColor).toBe(galaxyColors.backgroundAlt);
+    expect(styleOf(getByText('Continuar')).color).toBe(galaxyColors.textSecondary);
+    expect(UNSAFE_getByType(ActivityIndicator).props.color).toBe(galaxyColors.textSecondary);
+  });
+
+  it.each([false, true])('ghost carregando (desabilitado: %s) pinta o indicador na cor do próprio rótulo', (disabled) => {
+    const { getByText, UNSAFE_getByType } = render(
+      <AppButton label="Agora não" variant="ghost" disabled={disabled} loading onPress={jest.fn()} />,
+    );
+    const label = styleOf(getByText('Agora não')).color;
+    expect(label).toMatch(/^#/u);
+    expect(UNSAFE_getByType(ActivityIndicator).props.color).toBe(label);
+  });
+
+  it('desabilitado ghost só troca o rótulo, sem opacidade', () => {
+    const { getByTestId, getByText } = render(
+      <AppButton label="Agora não" variant="ghost" disabled onPress={jest.fn()} />,
+    );
+    const face = styleOf(getByTestId('app-button-face'));
+    expect(face.opacity ?? 1).toBe(1);
+    expect(face.backgroundColor).toBe('transparent');
+    expect(styleOf(getByText('Agora não')).color).toBe(galaxyColors.textTertiary);
+  });
+
+  it('desabilitado continua anunciado como desabilitado', () => {
+    const { getByRole } = render(<AppButton label="Continuar" disabled onPress={jest.fn()} />);
+    expect(getByRole('button', { name: 'Continuar' }).props.accessibilityState.disabled).toBe(true);
   });
 
   it('arrastar o dedo para fora cancela: a face volta ao lugar e o onPress não dispara', () => {

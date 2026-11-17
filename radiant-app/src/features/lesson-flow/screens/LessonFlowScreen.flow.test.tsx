@@ -1,13 +1,13 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import { Confetti } from '../../../components/ui/Confetti';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { LearningInteractionV2, LearningActivityV2 } from '../../../types/learningActivity';
-import LessonFlowScreen from './LessonFlowScreen';
+import LessonFlowScreen, { correctAnswerText } from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -21,6 +21,9 @@ import LearnRoute from '../../../app/learn';
 import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
 import { semanticColors } from '../../../ui/semantic-colors';
+import { feedbackColors } from '../../../ui/theme';
+import { space } from '../../../ui/styles';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { EXPOSICAO } from '../../../test/fixtures/syntheticLessons';
 import { AppConfig } from '../../../config';
 import { LessonSummary } from '../../quiz/components/LessonSummary';
@@ -526,6 +529,30 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     LessonFlowService.getActivityById.mockReturnValue(null);
   });
 
+  it('em classificar, o botão diz quantas fichas faltam e volta a Conferir resposta com 0', async () => {
+    const interaction: LearningInteractionV2 = { id: 'cat-final', type: 'categorize',
+      competencyIds: ['competency:fixture'], evidenceKind: 'guided-practice', criticalSafety: false, completionRule: 'confirmed',
+      accessibility: { label: 'Classificar' }, feedback: { correct: 'Certo.', incorrect: 'Reveja.' },
+      payload: { prompt: 'Classifique as fichas.', categories: [{ id: 'g1', label: 'Técnica' }, { id: 'g2', label: 'Clínica' }],
+        items: [{ id: 'i1', label: 'Posicionar', categoryId: 'g1' }, { id: 'i2', label: 'Laudar', categoryId: 'g2' }] } };
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ id: 'activity:fixture:cat-final', competencyIds: ['competency:fixture'],
+      provenance: { contentVersion: 'fixture-v1', sourceIds: ['source:fixture'] }, steps: [
+        { kind: 'presentation', id: 'cat-hook', role: 'hook', payload: { title: 'Treino fictício' } },
+        { kind: 'presentation', id: 'cat-concept', role: 'concept', payload: { title: 'Regra do treino' } },
+        { kind: 'interaction', interaction },
+      ] });
+    renderWithProviders(<LessonFlowScreen blockId="activity:fixture:cat-final" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Classifique as fichas.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Faltam 2 fichas' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-item-Posicionar'));
+    fireEvent.press(screen.getByTestId('categorize-group-Técnica'));
+    expect(screen.getByRole('button', { name: 'Falta 1 ficha' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-item-Laudar'));
+    fireEvent.press(screen.getByTestId('categorize-group-Clínica'));
+    expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
+  });
+
   it('bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso', async () => {
     const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository;
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
@@ -539,7 +566,8 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
 
     expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
     expect(screen.getByLabelText('Consolidação alveolar').props.accessibilityHint).toContain('Conferir resposta');
-    expect(screen.getByText('Selecionada')).toBeTruthy();
+    expect(screen.getByLabelText('Consolidação alveolar').props.accessibilityState.selected).toBe(true);
+    expect(screen.queryByText('Selecionada')).toBeNull();
     expect(screen.queryByText('Resposta correta')).toBeNull();
     expect(announceForAccessibility).not.toHaveBeenCalled();
     expect(heartsRepository.spend).not.toHaveBeenCalled();
@@ -1746,15 +1774,14 @@ describe('FILA 58 — integração do motor híbrido', () => {
     fireEvent.press(screen.getByText('Conferir resposta'));
     await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
     expect(heartsRepository.spend).not.toHaveBeenCalled();
-    expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
-    expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
-    expect(screen.getByText('Resposta certa: Consolidação alveolar')).toBeTruthy();
+    // Desde a Tarefa 11 a folha diz a certa também na múltipla escolha; "Sua resposta" continua fora.
+    const folhaDoErro = await screen.findByTestId('lesson-item-feedback');
+    expect(within(folhaDoErro).getByText(/^Resposta certa: /u)).toBeTruthy();
+    expect(within(folhaDoErro).queryByText(/Sua resposta/u)).toBeNull();
     fireEvent.press(screen.getByText('Continuar'));
     await answer('Resposta dois');
-    // No acerto, o anúncio não repete a resposta como gabarito (achado 6 da prova).
-    const anuncio = announceForAccessibility.mock.calls.map(([texto]) => texto).find((texto) => texto.includes('Sua resposta: Resposta dois.'));
-    expect(anuncio).toBeDefined();
-    expect(anuncio).not.toContain('Resposta certa');
+    // A folha recebe o foco: o anúncio diz só o resultado, sem gabarito (achado 6, Tarefa 3).
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Resposta correta.');
     fireEvent.press(screen.getByText('Continuar'));
     expect(screen.getByText('Vamos tentar novamente')).toBeTruthy();
     await answer('Pneumotórax');
@@ -1861,7 +1888,7 @@ describe('FILA 58 — integração do motor híbrido', () => {
       await open();
       expect(start).toHaveBeenCalledTimes(1);
       await answer('Pneumotórax');
-      expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+      expect(screen.getByTestId('lesson-item-feedback')).toBeTruthy();
       expect(start).toHaveBeenCalledTimes(1);
     } finally {
       start.mockRestore();
@@ -1869,18 +1896,20 @@ describe('FILA 58 — integração do motor híbrido', () => {
     }
   });
 
-  it('C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess', async () => {
+  it('C2 o feedback tem o tom do resultado: superfície e lábio de erro ou de acerto, título no tom', async () => {
     await open();
     await answer('Pneumotórax');
     const errado = StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style);
-    expect(errado.borderColor).toBe(semanticColors.galaxy.statusError);
+    expect(errado.backgroundColor).toBe(feedbackColors.error.surface);
+    expect(errado.borderTopColor).toBe(feedbackColors.error.lip);
     expect(StyleSheet.flatten(screen.getByText('Vamos reforçar').props.style).color).toBe(semanticColors.galaxy.statusError);
     fireEvent.press(screen.getByText('Continuar'));
     await answer('Resposta dois');
     const certo = StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style);
-    expect(certo.borderColor).toBe(semanticColors.galaxy.statusSuccess);
+    expect(certo.backgroundColor).toBe(feedbackColors.success.surface);
+    expect(certo.borderTopColor).toBe(feedbackColors.success.lip);
     expect(StyleSheet.flatten(screen.getByText('Resposta correta').props.style).color).toBe(semanticColors.galaxy.statusSuccess);
-    expect(certo.borderWidth).toBeGreaterThan(0);
+    expect(certo.borderTopWidth).toBeGreaterThan(0);
   });
 
   it('M2 mantém título e corpo do feedback sem teto de fonte', async () => {
@@ -1888,7 +1917,6 @@ describe('FILA 58 — integração do motor híbrido', () => {
     await answer('Pneumotórax');
     expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBeUndefined();
     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
-    expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
   });
 
   it('M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa', async () => {
@@ -2004,9 +2032,8 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     const bloco = await screen.findByTestId('lesson-item-feedback');
     expect(within(bloco).getByText('O próton tem carga positiva, não negativa.')).toBeTruthy();
     expect(within(bloco).queryByText('Compare as cargas.')).toBeNull();
-    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
-      expect.stringContaining('O próton tem carga positiva, não negativa.'),
-    ));
+    // A explicação é lida na folha, que recebe o foco; o anúncio diz só o resultado (Tarefa 3).
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith('Resposta incorreta.'));
   });
 
   it('bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha', async () => {
@@ -2022,9 +2049,7 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     expect(within(bloco).getByText('Suba o kV.')).toBeTruthy();
     expect(within(bloco).queryByText(/Sua resposta|Resposta certa/)).toBeNull();
     expect(within(bloco).queryByText('Reveja o kV.')).toBeNull();
-    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
-      expect.stringContaining('Suba o kV.'),
-    ));
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith('Resposta incorreta.'));
   });
 
   it('bancada certa: o bloco mostra feedback.correct, sem dica', async () => {
@@ -2449,7 +2474,9 @@ describe('T04 — abertura, retorno e botão apto', () => {
     const expectedMessage = correct ? 'Certo.' : message;
     expect(within(feedback).getByText(expectedMessage)).toBeTruthy();
     expect(feedback.props.accessibilityLiveRegion).toBeUndefined();
-    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(expectedMessage))).toHaveLength(1);
+    // O resultado é anunciado uma vez; a explicação, lida na folha que recebe o foco (Tarefa 3).
+    expect(announceForAccessibility.mock.calls.filter(([text]) => text === (correct ? 'Resposta correta.' : 'Resposta incorreta.'))).toHaveLength(1);
+    expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes(expectedMessage))).toHaveLength(0);
     // A pergunta continua na tela; o segundo toque, não a seleção, avança.
     await esperarBotaoApto('Continuar');
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
@@ -2593,7 +2620,7 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
         } },
         { kind: 'presentation', id: 'conceito', role: 'concept', payload: {
           title: 'O pedido orienta o exame', body: 'Ele diz o que examinar e por quê.',
-          keyPoints: ['Leia o pedido inteiro.', 'Confirme a identidade.'],
+          keyPoints: ['Leitura: leia o pedido inteiro.', 'Confirme a identidade.'],
         } },
         item(1), item(2, 'Pense em quem assina o pedido.'), item(3), item(4), item(5),
         { kind: 'presentation', id: 'fecho', role: 'closing', payload: {
@@ -2682,7 +2709,10 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
     // Com todas as falas na tela, o mesmo botão avança o passo.
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
     expect(await screen.findByText('Passo 2 de 8')).toBeTruthy();
+    // Os pontos viram blocos: o termo e a explicação aparecem separados, sem a etiqueta antiga.
+    expect(screen.getByText('Leitura')).toBeTruthy();
     expect(screen.getByText('Leia o pedido inteiro.')).toBeTruthy();
+    expect(screen.queryByText('Ideia-chave')).toBeNull();
     expect(screen.getByText('Confirme a identidade.')).toBeTruthy();
   });
 
@@ -2702,7 +2732,7 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
 
     await responder('Certa 3');
     expect(screen.getByText('3 seguidas')).toBeTruthy();
-    expect(announceForAccessibility).toHaveBeenLastCalledWith(expect.stringContaining('3 respostas certas seguidas.'));
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Resposta correta. 3 respostas certas seguidas.');
     fireEvent.press(screen.getByText('Continuar'));
     await screen.findByText('Pergunta 4?');
     await responder('Certa 4');
@@ -2812,11 +2842,12 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
       expect(screen.getByText('Antes de posicionar, confira o pedido.')).toBeTruthy();
       await atePrimeiraPergunta();
 
-      // Erro: título, as duas respostas, o retorno e a vida perdida, tudo em texto.
+      // Erro: título, o retorno e a vida perdida em texto; as duas respostas,
+      // nas próprias alternativas, pelo valor que o leitor de tela lê (Tarefa 3).
       await responder('Errada 1');
       expect(screen.getByText('Vamos reforçar')).toBeTruthy();
-      expect(screen.getByText('Sua resposta: Errada 1')).toBeTruthy();
-      expect(screen.getByText('Resposta certa: Certa 1')).toBeTruthy();
+      expect(screen.getByLabelText('Errada 1').props.accessibilityValue).toEqual({ text: 'errada' });
+      expect(screen.getByLabelText('Certa 1').props.accessibilityValue).toEqual({ text: 'certa' });
       expect(screen.getByText('Retorno de reforço 1.')).toBeTruthy();
       expect(await screen.findByText('Menos 1 vida')).toBeTruthy();
       fireEvent.press(screen.getByText('Continuar'));
@@ -2827,8 +2858,8 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
       expect(screen.getByText('Pista: Pense em quem assina o pedido.')).toBeTruthy();
       await responder('Certa 2');
       expect(screen.getByText('Resposta correta')).toBeTruthy();
-      // No acerto, o gabarito repetiria a resposta do aluno: fica só "Sua resposta" (achado 6).
-      expect(screen.queryByText(/^Resposta certa:/u)).toBeNull();
+      // No acerto, a folha não escreve gabarito nem a resposta do aluno (achado 6, Tarefa 3).
+      expect(screen.queryByText(/^(Resposta certa|Sua resposta):/u)).toBeNull();
       fireEvent.press(screen.getByText('Continuar'));
       await screen.findByText('Pergunta 3?');
       await responderEAvancar('Certa 3', 'Pergunta 4?');
@@ -2992,8 +3023,8 @@ describe('LessonFlowScreen — famílias da 1.6', () => {
   it('erro cobra uma vida só, acerto não cobra, e a conclusão registra XP uma vez', async () => {
     renderWithProviders(<LessonFlowScreen blockId="activity:f2:fixture" nodeId="" resumeCursorId="step-3" />);
     await playToEnd();
-    // Anúncio único: o resultado final usa o retorno de erro autoral; a explicação da afirmação já foi anunciada ao julgá-la.
-    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringMatching(/^Resposta incorreta\. Compare cada afirmação com o conceito\./));
+    // O conferir anuncia só o resultado; o retorno autoral é lido na folha. A explicação da afirmação já foi anunciada ao julgá-la.
+    expect(announceForAccessibility).toHaveBeenCalledWith('Resposta incorreta.');
     expect(announceForAccessibility.mock.calls.filter(([text]) => String(text).includes('o dosímetro só mede a dose'))).toHaveLength(1);
   });
 
@@ -3137,10 +3168,8 @@ describe('F3 — retorno rico da aula', () => {
     expect(screen.getByText('Três seguidas. Você pegou o ritmo.')).toBeTruthy();
     expect(screen.getByLabelText('Pixel comemorando o acerto')).toBeTruthy();
     expect(tocados()).toContain('sequencia');
-    // Anúncio único: o incentivo diz o marco; a contagem não se repete antes dele.
-    const anuncio = String(announceForAccessibility.mock.calls.at(-1)?.[0]);
-    expect(anuncio).toContain('Três seguidas. Você pegou o ritmo.');
-    expect(anuncio).not.toContain('3 respostas certas seguidas');
+    // O incentivo diz o marco e é lido na folha: o anúncio diz só o resultado, sem a contagem (Tarefa 3).
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Resposta correta.');
   });
 
   it('ligado: o acerto logo depois de um erro recebe reforço, e o erro recebe acolhimento', async () => {
@@ -3153,7 +3182,9 @@ describe('F3 — retorno rico da aula', () => {
     await screen.findByText('Complete a frase.');
     await completar();
     expect(screen.getByText('Isso. Você acertou o rumo.')).toBeTruthy();
-    expect(announceForAccessibility).toHaveBeenLastCalledWith(expect.stringContaining('Isso. Você acertou o rumo.'));
+    // O reforço é lido na folha, que recebe o foco; o anúncio diz só o resultado (Tarefa 3).
+    expect(within(screen.getByTestId('lesson-item-feedback')).getByText('Isso. Você acertou o rumo.')).toBeTruthy();
+    expect(announceForAccessibility).toHaveBeenLastCalledWith('Resposta correta.');
   });
 
   async function concluir(julgamentoCerto = true, corretas = 3) {
@@ -3214,5 +3245,289 @@ describe('F3 — retorno rico da aula', () => {
     await screen.findByText('Complete a frase.');
     await completar();
     expect(String(announceForAccessibility.mock.calls.at(-1)?.[0])).not.toMatch(/acertou o rumo|Boa retomada|Rever ajuda/u);
+  });
+});
+
+// Tarefa 3 do refinamento visual (spec 2026-11-16, 7.1): o retorno vira uma
+// folha fixa no rodapé, no lugar do botão, fora da rolagem.
+describe('Tarefa 3 — folha de retorno no rodapé', () => {
+  const { feedbackSheetMaxHeight } = require('../components/AnswerFeedbackSheet') as typeof import('../components/AnswerFeedbackSheet');
+  const preferences = jest.requireMock('../../../ui/feedback/feedbackPreferences') as { readFeedbackPreferences: jest.Mock };
+  const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id);
+  const closing = promotedActivityFixture.steps[2];
+  const shell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
+  const common = { competencyIds: ['competency:test'], evidenceKind: 'guided-practice', completionRule: 'answered', criticalSafety: false,
+    accessibility: { label: 'Imagem da atividade' }, feedback: { correct: 'Certo.', incorrect: 'Reveja a ordem.' } };
+  const escolha = { ...common, id: 't3:mc', type: 'multiple-choice',
+    payload: { prompt: 'Escolha a resposta.', options: [{ id: 'a', label: 'Opção A' }, { id: 'b', label: 'Opção B' }], correctOptionId: 'a' } } as LearningInteractionV2;
+  const ordenar = { ...common, id: 't3:ordering', type: 'ordering',
+    payload: { prompt: 'Ordene os itens.', items: [{ id: 'a', label: 'Primeiro' }, { id: 'b', label: 'Segundo' }], correctOrder: ['b', 'a'] } } as LearningInteractionV2;
+  function abrir(interaction: LearningInteractionV2) {
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction }, closing] } as LearningActivityV2);
+    renderWithProviders(<LessonFlowScreen blockId="t3" nodeId="" />);
+  }
+  async function conferirEscolha(label: string) {
+    await screen.findByText('Escolha a resposta.');
+    fireEvent.press(screen.getByRole('button', { name: label }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+    return screen.findByTestId('lesson-item-feedback');
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    AppConfig.ENABLE_RICH_FEEDBACK = false;
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: true, haptics: true });
+    mockedLessonFlowService.getBlockById.mockReturnValue(shell);
+  });
+
+  it('depois de conferir, o retorno está fora da ScrollView e o rodapé antigo não está na árvore', async () => {
+    abrir(escolha);
+    await screen.findByText('Escolha a resposta.');
+    // Antes de conferir, o rodapé de hoje continua igual.
+    expect(screen.getByTestId('lesson-footer')).toBeTruthy();
+    expect(within(screen.getByTestId('lesson-footer')).getByRole('button', { name: 'Conferir resposta' })).toBeTruthy();
+
+    const folha = await conferirEscolha('Opção B');
+    expect(within(screen.getByTestId('lesson-scroll')).queryByTestId('lesson-item-feedback')).toBeNull();
+    expect(screen.queryByTestId('lesson-footer')).toBeNull();
+    // O botão de seguir mora na folha, e só nela.
+    expect(within(folha).getByRole('button', { name: 'Continuar' })).toBeTruthy();
+    expect(screen.getAllByRole('button', { name: 'Continuar' })).toHaveLength(1);
+    // A rolagem ganha a altura da folha como folga no fim.
+    fireEvent(folha, 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 390, height: 240 } } });
+    const folga = StyleSheet.flatten(screen.getByTestId('lesson-scroll').props.contentContainerStyle).paddingBottom;
+    expect(folga).toBeGreaterThanOrEqual(240);
+  });
+
+  // Tarefa 11: com enunciado longo, a alternativa certa ficava atrás da folha.
+  // No erro, a folha diz a certa em texto em todo formato, e nunca "Sua resposta".
+  it('em múltipla escolha a folha diz a resposta certa, e não repete "Sua resposta"', async () => {
+    abrir(escolha);
+    const folha = await conferirEscolha('Opção B');
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: Opção A')).toBeTruthy();
+    expect(within(folha).queryByText(/Sua resposta/u)).toBeNull();
+    // Asserção que ficou da Tarefa 2: as próprias alternativas dizem certa e errada.
+    expect(screen.getByTestId('lesson-option-a').props.accessibilityValue).toEqual({ text: 'certa' });
+    expect(screen.getByTestId('lesson-option-b').props.accessibilityValue).toEqual({ text: 'errada' });
+  });
+
+  const julgar = { ...common, id: 't11:tf', type: 'true-false',
+    payload: { prompt: 'Julgue as afirmações.', statements: [
+      { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Longe da fonte, menos dose.' },
+      { id: 's2', text: 'O dosímetro reduz a dose.', isTrue: false, explanation: 'O dosímetro só mede a dose.' },
+    ] } } as LearningInteractionV2;
+  const marcar = { ...common, id: 't11:ms', type: 'multi-select',
+    payload: { prompt: 'Marque as certas.', options: [{ id: 'a', label: 'Opção A' }, { id: 'b', label: 'Opção B' }, { id: 'c', label: 'Opção C' }],
+      correctOptionIds: ['a', 'c'] } } as LearningInteractionV2;
+  async function conferir() {
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+    return screen.findByTestId('lesson-item-feedback');
+  }
+
+  it('em certo ou errado, a folha diz o julgamento certo de cada afirmação', async () => {
+    abrir(julgar);
+    await screen.findByText('Julgue as afirmações.');
+    fireEvent.press(screen.getByLabelText('Certo: A distância reduz a dose.'));
+    fireEvent.press(screen.getByLabelText('Certo: O dosímetro reduz a dose.'));
+    const folha = await conferir();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: A distância reduz a dose: certo; O dosímetro reduz a dose: errado')).toBeTruthy();
+  });
+
+  it('em marcar várias, a folha diz as certas separadas por ponto e vírgula', async () => {
+    abrir(marcar);
+    await screen.findByText('Marque as certas.');
+    fireEvent.press(screen.getByTestId('multi-select-Opção B'));
+    const folha = await conferir();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: Opção A; Opção C')).toBeTruthy();
+  });
+
+  it('no acerto de marcar várias, a linha da resposta certa não aparece', async () => {
+    abrir(marcar);
+    await screen.findByText('Marque as certas.');
+    fireEvent.press(screen.getByTestId('multi-select-Opção A'));
+    fireEvent.press(screen.getByTestId('multi-select-Opção C'));
+    const folha = await conferir();
+    expect(within(folha).getByRole('header', { name: 'Resposta correta' })).toBeTruthy();
+    expect(within(folha).queryByText(/^Resposta certa:/u)).toBeNull();
+  });
+
+  // Tarefa 11: a borda de baixo da área segura deixava uma faixa do fundo da
+  // aula abaixo da folha. O rodapé e a folha pintam até a borda e levam o inset.
+  it('com inset inferior, o rodapé e a folha descem até a borda e levam o inset por dentro', async () => {
+    const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 47, left: 0, right: 0, bottom: 34 } };
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, steps: [{ kind: 'interaction', interaction: escolha }, closing] } as LearningActivityV2);
+    const view = renderWithProviders(<SafeAreaProvider initialMetrics={metrics}><LessonFlowScreen blockId="t3" nodeId="" /></SafeAreaProvider>);
+    await screen.findByText('Escolha a resposta.');
+    for (const area of view.UNSAFE_getAllByType(SafeAreaView)) expect(area.props.edges ?? ['top', 'bottom']).not.toContain('bottom');
+    expect(StyleSheet.flatten(screen.getByTestId('lesson-footer').props.style).paddingBottom).toBe(space.s3 + 34);
+    const folha = await conferirEscolha('Opção B');
+    const estilo = StyleSheet.flatten(folha.props.style);
+    expect(estilo.bottom).toBe(0);
+    expect(estilo.paddingBottom).toBe(space.s3 + 34);
+  });
+
+  it('em ordenar, a folha diz a resposta certa', async () => {
+    abrir(ordenar);
+    await screen.findByText('Ordene os itens.');
+    fireEvent.press(screen.getByRole('button', { name: 'Selecionar esta ordem' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    const folha = await screen.findByTestId('lesson-item-feedback');
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: Segundo; Primeiro')).toBeTruthy();
+  });
+
+  it('com fontScale 3,1 e janela de 568 pt de altura, o botão de continuar está dentro da janela', async () => {
+    const janela = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
+    try {
+      abrir(escolha);
+      const folha = await conferirEscolha('Opção B');
+      const estilo = StyleSheet.flatten(folha.props.style);
+      // Presa ao rodapé, com teto de dois terços da janela.
+      expect(estilo.position).toBe('absolute');
+      expect(estilo.bottom).toBe(0);
+      expect(estilo.maxHeight).toBe(feedbackSheetMaxHeight(568));
+      expect(estilo.maxHeight).toBeGreaterThan(0);
+      expect(estilo.maxHeight).toBeLessThan(568);
+      // Acima do teto, só a explicação rola: o botão fica fora dela.
+      const corpo = within(folha).getByTestId('lesson-item-feedback-body');
+      expect(within(corpo).queryByRole('button', { name: 'Continuar' })).toBeNull();
+      expect(within(folha).getByRole('button', { name: 'Continuar' })).toBeTruthy();
+    } finally {
+      janela.mockRestore();
+    }
+  });
+
+  it('com ENABLE_RICH_FEEDBACK desligada, nenhum som novo é emitido ao abrir a folha', async () => {
+    abrir(escolha);
+    await screen.findByText('Escolha a resposta.');
+    await act(async () => {});
+    const folha = await conferirEscolha('Opção A');
+    expect(within(folha).getByRole('header', { name: 'Resposta correta' })).toBeTruthy();
+    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 400)); });
+    expect(tocados()).toEqual(['toque', 'acerto']);
+  });
+
+  it('o erro que gasta vida diz "Menos 1 vida" na folha, e o aviso sob o HUD não aparece', async () => {
+    // Sem modo híbrido, o primeiro erro já custa vida; duas questões ligam o retorno por item.
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...promotedActivityFixture, steps: [
+      { kind: 'interaction', interaction: escolha }, { kind: 'interaction', interaction: { ...escolha, id: 't3:mc:2' } as LearningInteractionV2 }, closing,
+    ] } as LearningActivityV2);
+    renderWithProviders(<LessonFlowScreen blockId="t3" nodeId="" />);
+    await screen.findByText('Escolha a resposta.');
+    await act(async () => {});
+    const folha = await conferirEscolha('Opção B');
+    await waitFor(() => expect(within(folha).getByText('Menos 1 vida')).toBeTruthy());
+    // O leitor de tela ouve quantas restam, com a contagem que a tela acabou de gravar.
+    expect(within(folha).getByTestId('lesson-feedback-heart-loss-group').props.accessibilityLabel).toBe('Você perdeu uma vida. Restam 4 de 5.');
+    // Passa do atraso do som da vida: ele ainda toca, mas o aviso do topo não volta.
+    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
+    expect(tocados()).toContain('vida');
+    expect(screen.queryByTestId('lesson-heart-loss')).toBeNull();
+    expect(screen.getAllByText('Menos 1 vida')).toHaveLength(1);
+  });
+
+  // Rodada 1 de correção: resposta certa em texto onde a tela não a mostra.
+  const parear = { ...common, id: 't3:matching', type: 'matching',
+    payload: { prompt: 'Associe os pares.', pairs: [{ id: 'a', left: 'A', right: 'Alfa' }, { id: 'b', left: 'B', right: 'Beta' }] } } as LearningInteractionV2;
+  const regiao = { ...common, id: 't3:hotspot', type: 'hotspot',
+    payload: { prompt: 'Escolha a região.', imageRef: 'image:rtg-2026:m08:torax-pa-adulto-01', regions: [
+      { id: 'a', label: 'Região A', x: 0, y: 0, width: 0.3, height: 0.3 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.3, height: 0.3 },
+      { id: 'c', label: 'Região C', x: 0.6, y: 0, width: 0.3, height: 0.3 },
+    ], correctRegionIds: ['a', 'c'] } } as LearningInteractionV2;
+  async function seguir() {
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    return screen.findByTestId('lesson-item-feedback');
+  }
+
+  it('em associar, a folha diz os pares certos', async () => {
+    abrir(parear);
+    await screen.findByText('Associe os pares.');
+    fireEvent.press(screen.getByRole('button', { name: 'Associar A a Beta' }));
+    const folha = await seguir();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: A → Alfa; B → Beta')).toBeTruthy();
+  });
+
+  it('em região, a folha diz as regiões certas', async () => {
+    abrir(regiao);
+    await screen.findByText('Escolha a região.');
+    fireEvent.press(screen.getByRole('button', { name: 'Selecionar Região B na lista' }));
+    const folha = await seguir();
+    expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: Região A, Região C')).toBeTruthy();
+  });
+
+  it('com a folha, o anúncio do conferir diz só o resultado; o resto o leitor lê na folha', async () => {
+    abrir(escolha);
+    const folha = await conferirEscolha('Opção B');
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    expect(announceForAccessibility.mock.calls.map(([texto]) => texto)).toEqual(['Resposta incorreta.']);
+    // Validade: o que saiu do anúncio continua na folha, que recebe o foco.
+    expect(within(folha).getByText('Reveja a ordem.')).toBeTruthy();
+    fireEvent.press(within(folha).getByRole('button', { name: 'Continuar' }));
+    await screen.findByText('Síntese');
+  });
+
+  it('o acerto anuncia só "Resposta correta."', async () => {
+    abrir(escolha);
+    await conferirEscolha('Opção A');
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    expect(announceForAccessibility.mock.calls.map(([texto]) => texto)).toEqual(['Resposta correta.']);
+  });
+
+  it('a rolagem leva a alternativa escolhida para cima da folha, com a janela medida depois que o rodapé sai', async () => {
+    const scrollTo = jest.spyOn(require('react-native').ScrollView.prototype, 'scrollTo').mockImplementation(() => {});
+    try {
+      abrir(escolha);
+      await screen.findByText('Escolha a resposta.');
+      const layout = (y: number, height: number) => ({ nativeEvent: { layout: { x: 0, y, width: 390, height } } });
+      // Com o rodapé, a rolagem mede 500; a área de resposta começa em 300 e a escolhida está 150 dentro dela.
+      fireEvent(screen.getByTestId('lesson-scroll'), 'layout', layout(0, 500));
+      fireEvent(screen.getByTestId('lesson-answer'), 'layout', layout(300, 260));
+      fireEvent(screen.getByTestId('multiple-choice-options'), 'layout', layout(60, 200));
+      fireEvent(screen.UNSAFE_getAllByType(ChoiceOption)[1], 'layout', layout(90, 60));
+      const folha = await conferirEscolha('Opção B');
+      scrollTo.mockClear();
+      // A folha mede 240; depois, sem o rodapé, a rolagem cresce para 580 e o cálculo refaz.
+      fireEvent(folha, 'layout', layout(0, 240));
+      fireEvent(screen.getByTestId('lesson-scroll'), 'layout', layout(0, 580));
+      // Fim da escolhida: 300 + 60 + 90 + 60 = 510, mais 16 de margem, menos 580 - 240 visíveis.
+      await waitFor(() => expect(scrollTo).toHaveBeenLastCalledWith({ y: 186, animated: false }));
+    } finally {
+      scrollTo.mockRestore();
+    }
+  });
+});
+
+
+describe('correctAnswerText: resposta certa em texto', () => {
+  const tf = (statements: { id: string; text: string; isTrue: boolean }[]) =>
+    ({ type: 'true-false', payload: { statements } }) as unknown as LearningInteractionV2;
+  const ms = (options: { id: string; label: string }[], correctOptionIds: string[]) =>
+    ({ type: 'multi-select', payload: { options, correctOptionIds } }) as unknown as LearningInteractionV2;
+
+  it('verdadeiro ou falso lista cada afirmação com o veredito, separadas por "; "', () => {
+    expect(correctAnswerText(tf([
+      { id: 'a', text: 'O avental protege', isTrue: true },
+      { id: 'b', text: 'Pode pular a checagem, se houver pressa', isTrue: false },
+    ]))).toBe('O avental protege: certo; Pode pular a checagem, se houver pressa: errado');
+    expect(correctAnswerText(tf([{ id: 'a', text: 'A dose é ajustada', isTrue: false }]))).toBe('A dose é ajustada: errado');
+    // O ponto final da afirmação não fica antes dos dois-pontos ("dose.: certo").
+    expect(correctAnswerText(tf([{ id: 'a', text: 'A distância reduz a dose.', isTrue: true }, { id: 'b', text: 'Basta o avental…', isTrue: false }])))
+      .toBe('A distância reduz a dose: certo; Basta o avental: errado');
+  });
+
+  it('múltipla seleção junta os rótulos certos por "; ", sem quebrar rótulo com vírgula', () => {
+    const options = [{ id: 'a', label: 'Luvas, avental e óculos' }, { id: 'b', label: 'Chinelo' }, { id: 'c', label: 'Máscara' }];
+    expect(correctAnswerText(ms(options, ['a', 'c']))).toBe('Luvas, avental e óculos; Máscara');
+    expect(correctAnswerText(ms(options, ['b']))).toBe('Chinelo');
   });
 });

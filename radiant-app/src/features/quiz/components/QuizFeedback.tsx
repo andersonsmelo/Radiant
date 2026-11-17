@@ -5,7 +5,7 @@ import { FEEDBACK_MESSAGES } from '../../../constants/quiz';
 import { useScalePop, useShakeError } from '../../../ui/motion';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import type { PixelExpression } from '../../../ui/characters/pixelExpressions';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -63,7 +63,7 @@ export function QuizFeedback({
             </Text>
           </View>
           <View style={[styles.badge, isCorrect ? styles.correctBadge : styles.incorrectBadge]}>
-            <Text style={styles.badgeText}>{isCorrect ? 'Mantém' : 'Reforçar'}</Text>
+            <Text style={[styles.badgeText, isCorrect ? styles.correctBadgeText : styles.incorrectBadgeText]}>{isCorrect ? 'Mantém' : 'Reforçar'}</Text>
           </View>
         </View>
         <Text style={styles.explanation}>{explanation}</Text>
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
     borderRadius: radius.rLg,
   },
   correctCard: {
-    backgroundColor: 'rgba(93,227,174,0.14)',
+    backgroundColor: feedbackColors.success.surface,
     borderColor: galaxy.statusSuccess,
   },
   incorrectCard: {
-    backgroundColor: 'rgba(255,130,152,0.14)',
+    backgroundColor: feedbackColors.error.surface,
     borderColor: galaxyColors.critical,
   },
   header: {
@@ -112,17 +112,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.s2,
     paddingVertical: space.s1,
   },
+  // O selo é a cor cheia do papel, com o texto escuro feito para ela.
   correctBadge: {
-    backgroundColor: 'rgba(93,227,174,0.16)',
+    backgroundColor: feedbackColors.success.fill,
   },
   incorrectBadge: {
-    backgroundColor: 'rgba(255,130,152,0.16)',
+    backgroundColor: feedbackColors.error.fill,
   },
   badgeText: {
     ...typography.micro,
-    color: galaxyColors.textPrimary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
+  },
+  correctBadgeText: {
+    color: feedbackColors.success.onFill,
+  },
+  incorrectBadgeText: {
+    color: feedbackColors.error.onFill,
   },
   explanation: {
     ...typography.bodyRegular,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MatchingPayload } from '../../../types/learningActivity';
-import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
 
 type MatchingStepRendererProps = {
@@ -74,16 +74,14 @@ export function MatchingStepRenderer({ payload, value, onChange }: MatchingStepR
                 <View style={styles.currentPair}>
                     <Text style={styles.sectionTitle}>Agora associe: {currentLeft.left}</Text>
                     {matchingDisplayOrder(payload.pairs).filter((pair) => !usedIds.has(pair.id)).map((right) => (
-                        <Pressable
+                        <ChoiceOption
                             key={right.id}
+                            label={right.right}
+                            state="idle"
                             onPress={() => choose(right.id)}
-                            accessibilityRole="button"
                             accessibilityLabel={`Associar ${currentLeft.left} a ${right.right}`}
                             accessibilityHint="Forma este par sem arrastar. Você confirma a atividade em Continuar."
-                            style={styles.option}
-                        >
-                            <Text style={styles.optionLabel}>{right.right}</Text>
-                        </Pressable>
+                        />
                     ))}
                 </View>
             ) : (
@@ -117,17 +115,6 @@ const styles = StyleSheet.create({
         paddingVertical: space.s1,
     },
     currentPair: { gap: space.s2 },
-    option: {
-        minHeight: 44,
-        paddingHorizontal: space.s3,
-        paddingVertical: space.s2,
-        borderRadius: radius.rMd,
-        borderWidth: 1,
-        borderColor: galaxy.border,
-        backgroundColor: galaxyColors.surface,
-        justifyContent: 'center',
-    },
-    optionLabel: { ...typography.bodyRegular, color: galaxy.textPrimary },
     completeMessage: { ...typography.bodyStrong, color: galaxy.textPrimary },
     undoButton: {
         minHeight: 44,

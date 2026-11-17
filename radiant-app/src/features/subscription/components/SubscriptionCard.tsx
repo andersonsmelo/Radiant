@@ -23,7 +23,7 @@ export function formatShortDate(iso: string): string {
 function describe(status: SubscriptionStatus): { headline: string; detail: string; action: string | null } {
     switch (status.kind) {
         case 'none':
-            return { headline: 'Radiant Ilimitado', detail: 'Vidas ilimitadas — e só isso.', action: 'Conhecer' };
+            return { headline: 'Radiant Ilimitado', detail: 'Errar não custa vida.', action: 'Conhecer' };
         case 'pending':
             // Nunca sem botão: a Apple não avisa a recusa, então a tela precisa
             // continuar alcançável para comprar de novo ou restaurar.

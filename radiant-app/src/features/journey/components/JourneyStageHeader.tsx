@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     // como na prancheta. Branco: 5,75:1 sobre o azul e 13,55:1 sobre a trilha.
     textTransform: 'none',
     letterSpacing: 0,
-    fontSize: 12,
+    fontSize: typography.micro.fontSize,
     lineHeight: BAR_HEIGHT,
     fontWeight: '700',
     fontVariant: ['tabular-nums'],

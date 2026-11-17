@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Animated, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { useCardEnter } from '../../../ui/motion';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
@@ -45,18 +45,13 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
   };
   return (
     <Animated.View style={[layout.container, enterAnim.animatedStyle]}>
-      <SurfaceCard variant="galaxyElevated" style={styles.card} contentStyle={styles.cardContent}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>Revisão</Text>
-          <Text style={styles.prompt} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.prompt}</Text>
-        </View>
+      {/* Sem moldura: a pergunta fica direto sobre o grafite, e só o retorno tem superfície. */}
+      <View style={styles.cardContent}>
+        <Text style={styles.prompt} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.prompt}</Text>
         {!feedback ? <View accessibilityRole="radiogroup" style={styles.optionsPreview}>
-          {question.options.map((option, index) => <Pressable key={`${question.id}:${index}`} testID={`review-option-${index}`} accessibilityRole="radio"
-            accessibilityLabel={option.label} accessibilityState={{ selected: selected === index, disabled: submitted || saving }}
-            disabled={submitted || saving} onPress={() => setSelected(index)}
-            style={[styles.optionRow, selected === index && { borderColor: galaxyColors.borderActive }]}>
-            <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
-          </Pressable>)}
+          {question.options.map((option, index) => <ChoiceOption key={`${question.id}:${index}`} testID={`review-option-${index}`} role="radio"
+            label={option.label} state={selected === index ? 'selected' : 'idle'}
+            disabled={submitted || saving} onPress={() => setSelected(index)} />)}
         </View> : <View
           testID="review-feedback-shell"
           style={[
@@ -92,84 +87,44 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
             <AppButton variant="secondary" onPress={() => confirm(null)} disabled={submitted || saving}>Ver resposta com ajuda</AppButton>
           </>}
         </View>
-      </SurfaceCard>
+      </View>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    minHeight: 360,
-  },
   cardContent: {
     gap: space.s3,
-  },
-  header: {
-    gap: space.s1,
-  },
-  eyebrow: {
-    ...typography.caption,
-    color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
   },
   prompt: {
     ...typography.h3,
     color: galaxyColors.textPrimary,
   },
-  contentArea: {
-    justifyContent: 'center',
-  },
   optionsPreview: {
     gap: space.s2,
-  },
-  optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.s2,
-    minHeight: space.s6,
-    paddingHorizontal: space.s3,
-    borderRadius: radius.rLg,
-    backgroundColor: galaxyColors.surfaceMuted,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-  },
-  optionBullet: {
-    width: space.s1,
-    height: space.s1,
-    borderRadius: radius.rSm,
-    backgroundColor: galaxyColors.textTertiary,
-  },
-  optionText: {
-    ...typography.bodyRegular,
-    color: galaxyColors.textSecondary,
-    flex: 1,
   },
   answerShell: {
     gap: space.s2,
     padding: space.s3,
     borderRadius: radius.rLg,
-    backgroundColor: 'rgba(93,227,174,0.16)',
     borderWidth: 1,
-    borderColor: galaxyColors.borderActive,
   },
   answerShellCorrect: {
-    backgroundColor: 'rgba(93,227,174,0.16)',
-    borderColor: 'rgba(93,227,174,0.36)',
+    backgroundColor: feedbackColors.success.surface,
+    borderColor: feedbackColors.success.fill,
   },
+  // Âmbar não tem superfície própria: grafite ativo com a borda na cor cheia.
   answerShellAssisted: {
-    backgroundColor: 'rgba(245,166,35,0.14)',
-    borderColor: 'rgba(245,166,35,0.36)',
+    backgroundColor: galaxyColors.surfaceActive,
+    borderColor: galaxy.statusWarning,
   },
   answerShellIncorrect: {
-    backgroundColor: 'rgba(255,130,152,0.14)',
-    borderColor: 'rgba(255,130,152,0.36)',
+    backgroundColor: feedbackColors.error.surface,
+    borderColor: feedbackColors.error.fill,
   },
   answerLabel: {
-    ...typography.caption,
+    ...typography.bodyStrong,
     color: galaxy.statusSuccess,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
   },
   answerLabelCorrect: {
     color: galaxy.statusSuccess,
@@ -191,29 +146,5 @@ const styles = StyleSheet.create({
   },
   footer: {
     gap: space.s2,
-  },
-  button: {
-    width: '100%',
-  },
-  ratingRow: {
-    flexDirection: 'row',
-    gap: space.s2,
-  },
-  ratingButton: {
-    flex: 1,
-  },
-  ratingRowStacked: {
-    flexDirection: 'column',
-  },
-  ratingButtonStacked: {
-    flex: 0,
-    width: '100%',
-  },
-  attentionButton: {
-    backgroundColor: 'rgba(245,166,35,0.16)',
-    borderColor: galaxyColors.xpColor,
-  },
-  attentionButtonText: {
-    color: galaxyColors.textPrimary,
   },
 });

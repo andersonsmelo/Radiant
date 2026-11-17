@@ -27,8 +27,18 @@ export interface GamificationStore {
  */
 export interface GamificationSnapshot {
     totalXp: number;
+    /** A contagem guardada: só muda quando o aluno estuda. Regra e sincronização leem esta. */
     streakDays: number;
     lastActiveDate: string | null;
+    /** A sequência que vale no dia da leitura: 0 se parou (decisão do dono, 2026-11-17). */
+    standingStreakDays?: number;
+}
+
+/** O número de sequência que as telas mostram: o que vale hoje, nunca a contagem parada. */
+export function shownStreakDays(snapshot: Pick<GamificationSnapshot, 'streakDays' | 'standingStreakDays'> | null | undefined): number {
+    // shortcut: snapshot sem o campo (mock antigo) cai na contagem guardada; tornar o campo
+    // obrigatório quando todo teste de tela devolver o snapshot completo.
+    return snapshot?.standingStreakDays ?? snapshot?.streakDays ?? 0;
 }
 
 /**

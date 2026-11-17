@@ -2,15 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { TeachPayload } from '../../../types/lessonFlow';
 import { galaxyColors } from '../../../ui/theme';
-import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
+import { splitTeachBody } from './teachBody';
 
 export function TeachStepRenderer({ payload }: { payload: TeachPayload }) {
+    const { lead, rest } = splitTeachBody(payload.body);
+
     return (
         <View style={styles.card}>
-            <Text style={styles.eyebrow}>Ideia-chave</Text>
             <Text style={styles.title}>{payload.title}</Text>
-            <Text style={styles.body}>{payload.body}</Text>
+            {lead ? <Text style={styles.lead}>{lead}</Text> : null}
+            {rest ? <Text style={styles.rest}>{rest}</Text> : null}
         </View>
     );
 }
@@ -19,17 +21,15 @@ const styles = StyleSheet.create({
     card: {
         gap: space.s2,
     },
-    eyebrow: {
-        ...typography.caption,
-        color: semanticColors.galaxy.statusInformation,
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-    },
     title: {
         ...typography.h3,
         color: galaxyColors.textPrimary,
     },
-    body: {
+    lead: {
+        ...typography.bodyRegular,
+        color: galaxyColors.textPrimary,
+    },
+    rest: {
         ...typography.bodyRegular,
         color: galaxyColors.textSecondary,
     },

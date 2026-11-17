@@ -87,6 +87,34 @@ test('galaxy: todo texto informativo passa WCAG AA sobre fundo e superfície', a
   }
 });
 
+test('galaxy: rótulo do botão desabilitado (textSecondary) passa 4,5:1 sobre surfaceActive', async () => {
+  const { read } = await readTheme();
+
+  const face = parseHex(read('galaxyColors', 'surfaceActive'));
+  const label = parseHex(read('galaxyColors', 'textSecondary'));
+  const ratio = contrastRatio(label, face);
+
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `galaxyColors.textSecondary sobre surfaceActive: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
+test('passo de ensino: número branco da peça passa 4,5:1 sobre o azul de ação', async () => {
+  const { read } = await readTheme();
+  const semantic = await readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8');
+  const galaxyBlock = semantic.match(/galaxy:\s*\{([\s\S]*?)\n\s{2}\}/u);
+  assert.ok(galaxyBlock, 'bloco galaxy não encontrado em semantic-colors.ts');
+  const action = galaxyBlock[1].match(/\n\s*actionPrimary:\s*'(#[0-9a-fA-F]{6})'/u);
+  assert.ok(action, 'galaxy.actionPrimary não encontrado');
+
+  const ratio = contrastRatio(parseHex(read('medalGlyphTones', 'light')), parseHex(action[1]));
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `medalGlyphTones.light sobre galaxy.actionPrimary: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
 test('light: todo texto informativo passa WCAG AA sobre background e surface', async () => {
   const { read } = await readTheme();
 
@@ -568,5 +596,26 @@ test('os números do HUD passam AA sobre a pílula', () => {
       ratio >= MIN_NORMAL_TEXT,
       `hudLabelTones.${tone} (${color}) sobre a pílula: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
     );
+  }
+});
+
+// Tarefa 11: os pares de texto sobre superfície que a Tarefa 6 criou e que só
+// tinham sido medidos à mão, mais o aviso de vida dentro da folha de erro.
+test('os pares de texto da Tarefa 6 e o "Menos 1 vida" na folha de erro passam AA', () => {
+  const theme = (...keys) => resolveColor('src/ui/theme.ts', ...keys);
+  const pares = [
+    ['galaxyColors.critical sobre surfaceActive', theme('galaxyColors', 'critical'), theme('galaxyColors', 'surfaceActive')],
+    ['galaxyColors.xpColor sobre surfaceActive', theme('galaxyColors', 'xpColor'), theme('galaxyColors', 'surfaceActive')],
+    ['textSecondary sobre a superfície de acerto', theme('galaxyColors', 'textSecondary'), theme('feedbackColors', 'success', 'surface')],
+    ['textSecondary sobre a superfície de erro', theme('galaxyColors', 'textSecondary'), theme('feedbackColors', 'error', 'surface')],
+    // A cor vem do próprio aviso: se ele trocar de tom, o par medido troca junto.
+    ['"Menos 1 vida" sobre a superfície de erro',
+      resolveColor('src/features/hearts/components/HeartLossNotice.tsx', 'styles', 'heartLossText', 'color'),
+      theme('feedbackColors', 'error', 'surface')],
+  ];
+
+  for (const [nome, texto, fundo] of pares) {
+    const ratio = contrastRatio(parseHex(texto), parseHex(fundo));
+    assert.ok(ratio >= MIN_NORMAL_TEXT, `${nome}: ${texto} sobre ${fundo} rende ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`);
   }
 });

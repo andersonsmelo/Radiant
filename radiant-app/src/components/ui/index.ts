@@ -10,3 +10,5 @@ export { SpeechBubble } from './SpeechBubble';
 export { StatItem } from './StatItem';
 export { XrayPanel } from './XrayPanel';
 export { Confetti } from './Confetti';
+export { ChoiceOption } from './ChoiceOption';
+export type { ChoiceOptionState } from './ChoiceOption';

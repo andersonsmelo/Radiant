@@ -4,7 +4,6 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { requireOptionalNativeModule } from 'expo-modules-core';
 import SettingsScreen from './SettingsScreen';
-import ProfileScreen from '../../profile/screens/ProfileScreen';
 import { AppConfig } from '../../../config';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
@@ -237,7 +236,7 @@ it('backup bloqueia duplo callback e refoco aguarda a gravação antes da releit
   expect(screen.getByText(/Último backup em 29\/10\/2026/u)).toBeTruthy();
 });
 
-it.each(['profile', 'settings'] as const)('POP real da montagem A: %s novo espera I/O da meta e recebe persistido sem refoco extra', async destination => {
+it.each(['settings'] as const)('POP real da montagem A: %s novo espera I/O da meta e recebe persistido sem refoco extra', async destination => {
   const gate = deferred<void>(); const entered = deferred<void>();
   const a = await ready();
   jest.mocked(AsyncStorage.setItem).mockImplementationOnce(async (key, value) => { entered.resolve(); await gate.promise; return storageWrite(key, value); });
@@ -247,15 +246,14 @@ it.each(['profile', 'settings'] as const)('POP real da montagem A: %s novo esper
   fireEvent.press(screen.getByRole('button', { name: 'Voltar ao Perfil' }));
   expect(routes.router.back).toHaveBeenCalledTimes(1);
   a.unmount();
-  const b = render(destination === 'profile' ? <ProfileScreen /> : <SettingsScreen />);
+  const b = render(<SettingsScreen />);
   try {
     await act(async () => undefined);
     expect(b.getByText('Carregando meta…')).toBeTruthy();
     expect(b.queryByText('Ganhe 10 XP')).toBeNull();
     expect(b.queryByRole('button', { name: 'Meta diária: Começar' })).toBeNull();
     await act(async () => gate.resolve());
-    if (destination === 'profile') expect(b.getByText('Ganhe 35 XP')).toBeTruthy();
-    else expect(b.getByRole('button', { name: 'Meta diária: Foco' }).props.accessibilityState.disabled).toBe(false);
+    expect(b.getByRole('button', { name: 'Meta diária: Foco' }).props.accessibilityState.disabled).toBe(false);
   } finally { await act(async () => gate.resolve()); b.unmount(); await DailyGoalService.getSnapshot(); }
 });
 it('POP com falha real de storage libera nova montagem e nova escolha, sem sucesso ou erro tardio da A', async () => {

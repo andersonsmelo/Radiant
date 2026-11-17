@@ -3,7 +3,9 @@ import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-na
 import type { OrderingPayload } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
+import { pieceRelief, radius, space, typography } from '../../../ui/styles';
+import { AppButton } from '../../../components/ui/AppButton';
+import { CheckIcon } from '../../../ui/components/VerdictIcons';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
 
 type OrderingStepRendererProps = {
@@ -43,7 +45,9 @@ export function OrderingStepRenderer({ payload, value, onChange, submitted = fal
                     const first = index === 0;
                     const last = index === currentOrder.length - 1;
                     return (
-                        <View key={id} style={[styles.itemRow, stacked && styles.itemRowStacked]}>
+                        <View key={id} style={styles.relief}>
+                        <View testID="ordering-item-lip" pointerEvents="none" style={styles.lip} />
+                        <View style={[styles.itemRow, stacked && styles.itemRowStacked]}>
                             <Text style={styles.position}>{index + 1}</Text>
                             <Text style={[styles.itemLabel, stacked && styles.itemLabelStacked]}>{item.label}</Text>
                             <View style={styles.controls}>
@@ -69,22 +73,25 @@ export function OrderingStepRenderer({ payload, value, onChange, submitted = fal
                                 </Pressable>
                             </View>
                         </View>
+                        </View>
                     );
                 })}
             </View>
-            <Pressable
+            {/* Botão, e não a peça de alternativa: igual aos itens, ele parecia mais um item da lista. */}
+            <AppButton
+                variant="secondary"
+                label={value === undefined ? 'Selecionar esta ordem' : 'Ordem selecionada'}
+                icon={value === undefined ? undefined : (
+                    <View testID="ordering-selected-mark" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                        <CheckIcon size={16} color={galaxy.statusInformation} />
+                    </View>
+                )}
                 disabled={submitted}
                 onPress={() => { if (!submitted) onChange(encodeInteractionIdSequence(currentOrder)); }}
-                accessibilityRole="button"
+                // O rótulo lido não muda (roteiros e leitores o conhecem); a dica diz que já está escolhida.
                 accessibilityLabel="Selecionar esta ordem"
-                accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona a sequência atual. Você confirma em ${confirmationLabel}.`}
-                accessibilityState={{ selected: value !== undefined, disabled: submitted }}
-                style={styles.selectOrder}
-            >
-                <Text style={styles.selectOrderLabel}>
-                    {value === undefined ? 'Selecionar esta ordem' : 'Ordem selecionada'}
-                </Text>
-            </Pressable>
+                accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `${value === undefined ? 'Seleciona a sequência atual' : 'Ordem selecionada'}. Você confirma em ${confirmationLabel}.`}
+            />
         </View>
     );
 }
@@ -95,14 +102,17 @@ const styles = StyleSheet.create({
     activity: { gap: space.s3 },
     prompt: { ...typography.h3, color: galaxy.textPrimary },
     list: { gap: space.s2 },
+    // Mesmo lábio das peças de resposta (`pieceRelief`); o item não desce porque quem se toca são as setas.
+    relief: pieceRelief(radius.rLg).wrap,
+    lip: { ...pieceRelief(radius.rLg).lip, backgroundColor: galaxyColors.backgroundAlt },
     itemRow: {
         minHeight: 60,
         flexDirection: 'row',
         alignItems: 'center',
         gap: space.s2,
         paddingLeft: space.s3,
-        borderRadius: radius.rMd,
-        borderWidth: 1,
+        borderRadius: radius.rLg,
+        borderWidth: 2,
         borderColor: galaxy.border,
         backgroundColor: galaxyColors.surface,
         overflow: 'hidden',
@@ -122,15 +132,4 @@ const styles = StyleSheet.create({
     },
     disabled: { opacity: 0.32 },
     moveLabel: { ...typography.bodyStrong, color: galaxy.textPrimary },
-    selectOrder: {
-        minHeight: 44,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: space.s3,
-        borderRadius: radius.rMd,
-        borderWidth: 1,
-        borderColor: galaxy.statusInformation,
-        backgroundColor: galaxyColors.surfaceActive,
-    },
-    selectOrderLabel: { ...typography.bodyStrong, color: galaxy.textPrimary },
 });

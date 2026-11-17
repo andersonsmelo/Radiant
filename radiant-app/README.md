@@ -131,7 +131,6 @@ Estado atual:
 
 - foundation visual V2 centralizada em `src/ui/theme.ts`, `src/ui/styles.ts` e `src/ui/motion.ts`;
 - primitives novas em `src/components/ui/*` com `AppButton`, `SurfaceCard`, `ProgressRing`, `SpeechBubble` e `StatItem`;
-- hero compartilhado do mascote em `src/components/ui/PixelHeroSplit.tsx`;
 - mascote oficial `Pixel` encapsulado em `src/ui/characters/PixelIllustration.tsx`;
 - corpo do mascote desenhado em vetor por `src/ui/characters/PixelBody.tsx`, com as poses em `src/ui/characters/pixelPoses.ts`;
 - domínio `journey` implementado em `src/types/journey.ts` e `src/features/journey/services/*`;
@@ -261,7 +260,6 @@ O app agora usa uma camada visual clara e progress-driven inspirada na direção
 - `ProgressRing`
 - `SpeechBubble`
 - `StatItem`
-- `PixelHeroSplit`
 
 Esses componentes são a base obrigatória para telas novas do rollout V2. `PrimaryButton` permanece apenas como wrapper de compatibilidade.
 

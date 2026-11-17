@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GAMIFICATION_STORAGE_KEY, XP_RULES, formatLocalDateKey } from '../../../constants/gamification';
 import type { GamificationStore, GamificationSnapshot, XpAward } from '../../../types/gamification';
 import type { QuizResult } from '../../../types/quiz';
-import { StreakFreezeService } from './StreakFreezeService';
+import { StreakFreezeService, standingStreakDays } from './StreakFreezeService';
 
 const DEFAULT_STORE: GamificationStore = {
     totalXp: 0,
@@ -47,9 +47,9 @@ class GamificationServiceImpl {
     /**
      * Get the current snapshot of gamification state.
      */
-    async getSnapshot(): Promise<GamificationSnapshot> {
+    async getSnapshot(now: Date = new Date()): Promise<GamificationSnapshot> {
         const store = await this.getOrLoadStore();
-        return this.toSnapshot(store);
+        return this.toSnapshot(store, now);
     }
 
     /**
@@ -71,7 +71,7 @@ class GamificationServiceImpl {
         await this.saveStore(store);
         if (options.countsForLeague !== false) this.emitXpEarned(award.totalXpAwarded, result.answeredAt);
 
-        return { snapshot: this.toSnapshot(store), award };
+        return { snapshot: await this.toSnapshot(store), award };
     }
 
     /**
@@ -112,11 +112,12 @@ class GamificationServiceImpl {
 
     // ── Private Helpers ──────────────────────────────────────
 
-    private toSnapshot(store: GamificationStore): GamificationSnapshot {
+    private async toSnapshot(store: GamificationStore, now: Date = new Date()): Promise<GamificationSnapshot> {
         return {
             totalXp: store.totalXp,
             streakDays: store.streakDays,
             lastActiveDate: store.lastActiveDate,
+            standingStreakDays: standingStreakDays(store, await StreakFreezeService.getFreezes(), formatLocalDateKey(now)),
         };
     }
 

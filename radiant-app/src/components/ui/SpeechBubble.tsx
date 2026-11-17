@@ -47,9 +47,7 @@ interface SpeechBubbleProps {
 
 /**
  * O balão do Pixel usava vidro branco (`colors.surfaceGlass`) e texto escuro —
- * e aparece em todo `PixelHeroSplit`, ou seja, em Journey, Quiz, Reward,
- * Checkpoint e Review. Era a maior superfície clara sobrevivente dentro do
- * app galaxy.
+ * e era a maior superfície clara sobrevivente dentro do app galaxy.
  *
  * Sobre a animação: o balão cresce A PARTIR do rabicho, não do próprio centro.
  * É o que faz a fala parecer sair da boca em vez de aparecer ao lado da cabeça.

@@ -15,7 +15,7 @@ import { ProductionCurriculumCatalog } from '../../student-checkpoints/Productio
 import { itemKey } from '../../../types/itemReview';
 import type { ReviewItem } from '../hooks/useReview';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import { duration, useFadeInUp } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
@@ -32,7 +32,6 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
-import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
   count: 5,
@@ -84,7 +83,6 @@ function reviewRows(queue: ReviewItem[]) {
 }
 
 export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
-  const largeText = useLargeTextLayout();
   const { fontScale } = useWindowDimensions();
   const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, hasUnavailableReviews, startReview, submitAnswer, continueReview, answerFeedback, saving, persistenceError, retrySubmission } = useReview({
     resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
@@ -242,7 +240,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
         <SafeAreaView style={styles.safe} edges={['top']}>
           <HUD
             totalXp={gamification?.totalXp ?? 0}
-            streakDays={gamification?.streakDays ?? 0}
+            streakDays={shownStreakDays(gamification)}
             hearts={hearts.count}
             maxHearts={5}
             heartsSnapshot={hearts}
@@ -313,7 +311,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
         <SafeAreaView style={styles.safe} edges={['top']}>
           <HUD
             totalXp={gamification?.totalXp ?? 0}
-            streakDays={gamification?.streakDays ?? 0}
+            streakDays={shownStreakDays(gamification)}
             hearts={hearts.count}
             maxHearts={5}
             heartsSnapshot={hearts}
@@ -368,7 +366,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
+          streakDays={shownStreakDays(gamification)}
           hearts={hearts.count}
           maxHearts={5}
           heartsSnapshot={hearts}
@@ -393,17 +391,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             <Text key={`progress-${fontScale}`} style={styles.headerProgressText}>{progressValue}/{Math.max(totalItems, 1)}</Text>
           </View>
 
-          <View style={styles.activeHeroCard}>
-            <View style={[styles.activeHeroHeader, largeText && styles.activeHeroHeaderStacked]}>
-              <View style={[styles.activeHeroCopy, largeText && styles.activeHeroCopyStacked]}>
-                <Text key={`active-title-${fontScale}`} style={styles.activeTitle}>Sessão ativa</Text>
-                <Text key={`active-body-${fontScale}`} style={styles.activeBody}>
-                  Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.
-                </Text>
-              </View>
-
-            </View>
-          </View>
+          <Text key={`active-body-${fontScale}`} style={styles.activeBody}>
+            Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.
+          </Text>
 
           <View style={styles.focusArea}>
             {currentItem ? <ReviewCard key={`${currentItem.lessonId}:${currentItem.question.id}`}
@@ -431,7 +421,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.rXl,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.07)',
+    backgroundColor: galaxyColors.surfaceActive,
     borderWidth: 1,
     borderColor: galaxyColors.border,
   },
@@ -460,7 +450,7 @@ const styles = StyleSheet.create({
   sectionTitle: { ...typography.h3, lineHeight: undefined, color: galaxyColors.textPrimary },
   statsList: { gap: space.s2, marginTop: space.s1 },
   actionCard: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,
     borderWidth: 1,
     borderColor: galaxyColors.border,
@@ -471,19 +461,6 @@ const styles = StyleSheet.create({
   actionBody: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
   fullWidthButton: { width: '100%' },
   pushCard: { width: '100%', maxWidth: SCREEN_MAX_WIDTH, alignSelf: 'center' },
-  activeHeroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  activeHeroHeader: { flexDirection: 'row', alignItems: 'center', gap: space.s3 },
-  activeHeroHeaderStacked: { flexDirection: 'column', alignItems: 'stretch' },
-  activeHeroCopy: { flex: 1, gap: space.s1 },
-  activeHeroCopyStacked: { flex: 0 },
-  activeTitle: { ...typography.h3, lineHeight: undefined, color: galaxyColors.textPrimary },
   activeBody: { ...typography.bodyRegular, lineHeight: undefined, color: galaxyColors.textSecondary },
   focusArea: { width: '100%' },
 });

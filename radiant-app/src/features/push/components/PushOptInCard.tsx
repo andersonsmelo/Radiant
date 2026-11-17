@@ -9,12 +9,7 @@ import { PrimaryButton } from '../../../components/ui/PrimaryButton';
 import { PushService } from '../services/PushService';
 import { space, typography } from '../../../ui/styles';
 import { TelemetryService } from '../../telemetry/TelemetryService';
-
-const COLORS = {
-    text: '#FFFFFF',
-    textSecondary: '#8E8E93',
-    primary: '#0A84FF',
-};
+import { galaxyColors } from '../../../ui/theme';
 
 interface Props {
     onDismiss: () => void;
@@ -75,24 +70,23 @@ const styles = StyleSheet.create({
     card: {
         marginTop: space.s6,
         borderWidth: 1,
-        borderColor: 'rgba(10, 132, 255, 0.3)',
-        backgroundColor: 'rgba(10, 132, 255, 0.05)',
+        borderColor: galaxyColors.border,
+        backgroundColor: galaxyColors.surface,
         alignItems: 'center',
         padding: space.s5,
     },
     title: {
         ...typography.h3,
         lineHeight: undefined,
-        color: COLORS.text,
+        color: galaxyColors.textPrimary,
         marginBottom: space.s2,
         textAlign: 'center',
     },
     body: {
         ...typography.body,
-        color: COLORS.textSecondary,
+        color: galaxyColors.textSecondary,
         textAlign: 'center',
         marginBottom: space.s5,
-        fontSize: 14,
         lineHeight: undefined,
     },
     primaryBtn: {
@@ -103,8 +97,7 @@ const styles = StyleSheet.create({
         padding: space.s2,
     },
     secondaryText: {
-        color: COLORS.textSecondary,
-        fontSize: 14,
-        fontWeight: '500',
+        ...typography.body,
+        color: galaxyColors.textSecondary,
     },
 });

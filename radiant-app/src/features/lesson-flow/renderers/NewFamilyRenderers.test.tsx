@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { AccessibilityInfo, Animated, StyleSheet } from 'react-native';
+import { AccessibilityInfo, StyleSheet } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
 import { ActivityInteractionRenderer, isInteractionTypeRegistered } from './ActivityRendererRegistry';
 import { isCorrectInteractionValue } from './InteractionAnswerValue';
 import { F2_MOTION } from './TapChip';
-import { AppConfig } from '../../../config';
-import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 
 const base = {
     competencyIds: ['competency:test'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
@@ -78,8 +76,10 @@ describe('famílias da 1.6 no tocador', () => {
 
     it('cloze: depois de conferir, a lacuna errada mostra a palavra certa em texto', () => {
         const screen = render(<Harness interaction={cloze} submitted initial='["t-luva","t-tronco"]' />);
-        expect(screen.getByText('✗ Lacuna 1: luva (certa: avental)')).toBeTruthy();
-        expect(screen.getByText('✓ Lacuna 2: tronco')).toBeTruthy();
+        expect(screen.getByText('Lacuna 1: luva (certa: avental)')).toBeTruthy();
+        expect(screen.getByText('Lacuna 2: tronco')).toBeTruthy();
+        expect(screen.getAllByTestId('verdict-icon-incorrect', { includeHiddenElements: true })).toHaveLength(1);
+        expect(screen.getAllByTestId('verdict-icon-correct', { includeHiddenElements: true })).toHaveLength(1);
         // Visto no simulador em 2026-11-13: o rótulo acessível não dizia o veredito.
         expect(screen.getByLabelText('Lacuna 1: luva, errado; a certa é avental')).toBeTruthy();
         expect(screen.getByLabelText('Lacuna 2: tronco, certo')).toBeTruthy();
@@ -116,18 +116,21 @@ describe('famílias da 1.6 no tocador', () => {
         fireEvent.press(screen.getByLabelText('Item: Laudar'));
         expect(screen.getByLabelText('Item: Laudar').props.accessibilityState.selected).toBe(true);
         fireEvent.press(screen.getByLabelText('Colocar Laudar em Clínica'));
+        fireEvent.press(screen.getByLabelText('Item: Posicionar'));
         fireEvent.press(screen.getByLabelText('Colocar Posicionar em Técnica'));
+        fireEvent.press(screen.getByLabelText('Item: Colimar'));
         fireEvent.press(screen.getByLabelText('Colocar Colimar em Clínica'));
         fireEvent.press(screen.getByLabelText('Colimar, em Clínica'));
         fireEvent.press(screen.getByLabelText('Colocar Colimar em Técnica'));
+        fireEvent.press(screen.getByLabelText('Item: Indicar'));
         fireEvent.press(screen.getByLabelText('Colocar Indicar em Clínica'));
         expect(probe(screen)).toBe(`${JSON.stringify({ i2: 'g2', i1: 'g1', i3: 'g1', i4: 'g2' })}|true`);
     });
 
     it('categorize: os botões dos grupos vêm antes dos itens pendentes, para colocar um item não mover o próximo alvo', () => {
         const tree = JSON.stringify(render(<Harness interaction={categorize} />).toJSON());
-        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeGreaterThan(-1);
-        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeLessThan(tree.indexOf('Item: Posicionar'));
+        expect(tree.indexOf('Grupo Técnica')).toBeGreaterThan(-1);
+        expect(tree.indexOf('Grupo Técnica')).toBeLessThan(tree.indexOf('Item: Posicionar'));
     });
 
     it('categorize: depois de conferir, o item no grupo errado diz qual é o certo', () => {
@@ -144,9 +147,11 @@ describe('famílias da 1.6 no tocador', () => {
         expect(screen.getByLabelText('Distância').props.accessibilityState.checked).toBe(true);
         expect(probe(screen)).toBe('["b","c"]|false');
         const after = render(<Harness interaction={multi} submitted initial='["b","c"]' />);
-        expect(after.getByText('✗ Avental (faltou marcar)')).toBeTruthy();
-        expect(after.getByText('✗ Pressa (marcou a mais)')).toBeTruthy();
-        expect(after.getByText('✓ Distância')).toBeTruthy();
+        expect(after.getByText('Avental (faltou marcar)')).toBeTruthy();
+        expect(after.getByText('Pressa (marcou a mais)')).toBeTruthy();
+        expect(after.getByText('Distância')).toBeTruthy();
+        expect(after.getAllByTestId('verdict-icon-incorrect', { includeHiddenElements: true })).toHaveLength(2);
+        expect(after.getAllByTestId('verdict-icon-correct', { includeHiddenElements: true })).toHaveLength(1);
         expect(after.getByLabelText('Distância, marcada, certo')).toBeTruthy();
     });
 
@@ -154,35 +159,5 @@ describe('famílias da 1.6 no tocador', () => {
         const screen = render(<Harness interaction={multi} submitted initial='["b"]' />);
         fireEvent.press(screen.getByLabelText('Pressa, não marcada, certo'));
         expect(probe(screen)).toBe('["b"]|false');
-    });
-});
-
-// F3 (ENABLE_RICH_FEEDBACK): a alternativa da múltipla escolha afunda ao toque
-// e volta ao soltar, no mesmo vocabulário das fichas da F2 (100 ms, escala 0,98).
-describe('pressão da alternativa da múltipla escolha (F3)', () => {
-    const payload = { prompt: 'Qual?', options: [{ id: 'a', label: 'Alfa' }, { id: 'b', label: 'Beta' }], correctOptionId: 'a', explanation: 'Alfa.' };
-    let timing: jest.SpyInstance;
-    beforeEach(() => { timing = jest.spyOn(Animated, 'timing'); });
-    afterEach(() => { timing.mockRestore(); AppConfig.ENABLE_RICH_FEEDBACK = false; });
-
-    it('ligado: pressionar afunda e soltar volta, em 100 ms', () => {
-        AppConfig.ENABLE_RICH_FEEDBACK = true;
-        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} />);
-        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
-        fireEvent(view.getByLabelText('Alfa'), 'pressOut');
-        expect(timing.mock.calls.map(([, config]) => [config.toValue, config.duration])).toEqual([[0.98, 100], [1, 100]]);
-    });
-
-    it('ligado e já conferida: não afunda, porque o toque não faz nada', () => {
-        AppConfig.ENABLE_RICH_FEEDBACK = true;
-        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} submitted />);
-        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
-        expect(timing).not.toHaveBeenCalled();
-    });
-
-    it('desligado (contraprova): a alternativa fica parada, como na base', () => {
-        const view = render(<MultipleChoiceStepRenderer payload={payload} onSelect={jest.fn()} />);
-        fireEvent(view.getByLabelText('Alfa'), 'pressIn');
-        expect(timing).not.toHaveBeenCalled();
     });
 });

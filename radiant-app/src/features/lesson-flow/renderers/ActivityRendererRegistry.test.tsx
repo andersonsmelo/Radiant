@@ -10,7 +10,9 @@ import {
     isInteractionTypeRegistered,
 } from './ActivityRendererRegistry';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
+import { ChoiceOption } from '../../../components/ui/ChoiceOption';
 import { ReinforceStepRenderer } from './ReinforceStepRenderer';
+import { ContextStepRenderer } from './ContextStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -113,13 +115,15 @@ describe('ActivityRendererRegistry', () => {
     });
 
     it('sincroniza hints com a confirmação explícita recebida e mostra o estado selecionado', () => {
-        const { getByLabelText, getByText } = render(
+        const { getByLabelText, queryByText } = render(
             <ActivityInteractionRenderer interaction={multipleChoice()} value="a" onChange={jest.fn()} confirmationLabel="Conferir resposta" />,
         );
 
         expect(getByLabelText('Osso').props.accessibilityHint).toContain('Conferir resposta');
         expect(getByLabelText('Ar').props.accessibilityHint).toBe('Seleciona esta resposta. Você confirma em Conferir resposta.');
-        expect(getByText('Selecionada')).toBeTruthy();
+        expect(getByLabelText('Osso').props.accessibilityState.selected).toBe(true);
+        expect(getByLabelText('Ar').props.accessibilityState.selected).toBe(false);
+        expect(queryByText('Selecionada')).toBeNull();
     });
 
     it('mantém Continuar como default para chamadores do registry e do renderer legado', () => {
@@ -249,4 +253,23 @@ it('T04 pinta o grão da leitura com o modelo e mantém enunciado e resposta', (
     expect(grain).toBeGreaterThan(reference.noise);
     for (const tone of ['bone', 'soft', 'background']) expect(uniforms[tone]).toBe(reference[tone]);
     expect(view.getByRole('button', { name: 'Ar' })).toBeTruthy();
+});
+
+it('Tarefa 3: a múltipla escolha informa à tela onde está a alternativa escolhida', () => {
+    const onChosenLayout = jest.fn();
+    const view = render(<ActivityInteractionRenderer interaction={multipleChoice()} value="b" onChange={jest.fn()} onChosenLayout={onChosenLayout} />);
+    const layout = (y: number, height: number) => ({ nativeEvent: { layout: { x: 0, y, width: 300, height } } });
+    fireEvent(view.getByTestId('multiple-choice-options'), 'layout', layout(40, 140));
+    fireEvent(view.UNSAFE_getAllByType(ChoiceOption)[1], 'layout', layout(70, 64));
+    expect(onChosenLayout).toHaveBeenLastCalledWith({ y: 110, height: 64 });
+});
+
+
+describe('ContextStepRenderer', () => {
+    it('não mostra a etiqueta acima do título; título e corpo ficam', () => {
+        const view = render(<ContextStepRenderer payload={{ eyebrow: 'Caso clínico', title: 'Paciente com tosse', body: 'Dois dias de febre.' }} />);
+        expect(view.queryByText('Caso clínico')).toBeNull();
+        expect(view.getByText('Paciente com tosse')).toBeTruthy();
+        expect(view.getByText('Dois dias de febre.')).toBeTruthy();
+    });
 });

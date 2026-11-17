@@ -3,22 +3,18 @@ import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import Svg, { Path } from 'react-native-svg';
 import { AppButton } from '../../../components/ui/AppButton';
 import { Confetti } from '../../../components/ui/Confetti';
-import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
-import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { JourneyMedal } from '../../journey/components/JourneyMedal';
 import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
@@ -26,10 +22,11 @@ import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
-import { galaxyColors } from '../../../ui/theme';
-import { layout, radius, space, typography } from '../../../ui/styles';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
+import { space, typography } from '../../../ui/styles';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
+import { SummaryHero, useFixedFooter } from '../../quiz/components/SummaryHero';
 
 interface RewardScreenProps {
   nodeId?: string;
@@ -115,8 +112,19 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
 }
 
+/** Uma linha de detalhe, como as do resumo da aula: rótulo e valor, sem caixa. */
+function DetailRow({ label, value, fontScale }: { label: string; value: string; fontScale: number }) {
+  return (
+    <View style={styles.row} accessible accessibilityRole="text" accessibilityLabel={`${label}: ${value}`}>
+      <Text key={`label-${fontScale}`} style={styles.rowLabel}>{label}</Text>
+      <Text key={`value-${fontScale}`} style={styles.rowValue}>{value}</Text>
+    </View>
+  );
+}
+
 export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const { fontScale } = useWindowDimensions();
+  const fixedFooter = useFixedFooter();
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -310,191 +318,116 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     );
   }
 
+  const phrase = rewardCompleted
+    ? rewardOptional ? 'Conquista sua! O registro está salvo na sua jornada.' : 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
+    : rewardOptional ? 'Você chegou até aqui. Colete sua conquista quando quiser.' : 'Você chegou até aqui. Recolha sua conquista antes de seguir.';
+
   return (
     <View style={styles.root}>
-      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <Confetti count={50} run={rewardCompleted} />
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
+          streakDays={shownStreakDays(gamification)}
           hearts={hearts?.count ?? MAX_HEARTS}
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
         />
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          <View style={styles.headerRow}>
-            <Pressable
-              onPress={() => router.back()}
-              accessibilityRole="button"
-              accessibilityLabel="Voltar"
-              style={styles.iconButton}
-            >
-              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
-            </Pressable>
-            {/* Renova só hosts de texto: estado, scroll e controles permanecem montados. */}
-            <Text key={`reward-header-${fontScale}`} style={styles.headerLabel}>Conquista</Text>
-            <View style={styles.iconSpacer} />
-          </View>
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: fixedFooter.scrollPaddingBottom }]} showsVerticalScrollIndicator={false}>
+          <Pressable
+            onPress={() => router.back()}
+            accessibilityRole="button"
+            accessibilityLabel="Voltar"
+            style={styles.iconButton}
+          >
+            <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
+          </Pressable>
 
-          <View style={styles.heroCard}>
+          <SummaryHero
+            pixel={{
+              state: rewardCompleted ? 'celebrate' : 'guide',
+              expression: rewardCompleted ? 'orgulhoso' : 'neutro',
+              accessibilityLabel: 'Pixel apresentando a conquista da jornada',
+            }}
+          >
             <JourneyMedal
               node={rewardNode}
               theme={resolveNodeTheme(rewardNode, activeUnit)}
               state={rewardLocked ? 'locked' : rewardCompleted ? 'done' : 'next'}
               pulsing={false}
-              size={64}
+              size={68}
               accessibilityLabel={`${rewardNode.title}. ${rewardCompleted ? 'Conquista registrada' : rewardLocked ? 'Conquista bloqueada' : 'Pronta para coleta'}.`}
             />
-            <PixelHeroSplit
-              // Renova os parágrafos e medidas locais do hero no Dynamic Type.
-              // Snapshot, coleta, medalha, scroll e controles ficam fora dele.
-              key={`reward-pixel-${fontScale}`}
-              eyebrow="Jornada de Radiologia"
-              message={rewardCompleted
-                ? rewardOptional ? 'Conquista sua! O registro está salvo na sua jornada.' : 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
-                : rewardOptional ? 'Você chegou até aqui. Colete sua conquista quando quiser.' : 'Você chegou até aqui. Recolha sua conquista antes de seguir.'}
-              ringValue={completedPrimaryNodes}
-              ringTotal={Math.max(totalPrimaryNodes, 1)}
-              ringLabel="Marcos concluídos"
-              state={rewardCompleted ? 'celebrate' : 'happy'}
-              tier={rewardCompleted ? 'advanced' : 'intermediate'}
-              accessibilityLabel="Pixel apresentando a conquista da jornada"
+          </SummaryHero>
+
+          {/* Renova só hosts de texto: estado, scroll e controles permanecem montados. */}
+          <Text key={`reward-title-${fontScale}`} style={styles.title} accessibilityRole="header">{rewardNode.title}</Text>
+          <Text key={`reward-phrase-${fontScale}`} style={styles.phrase}>{phrase}</Text>
+          <Text key={`reward-description-${fontScale}`} style={styles.subtitle}>
+            {rewardNode.description ?? (rewardOptional ? 'Reconhecimento pelas etapas que você concluiu.' : 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.')}
+          </Text>
+
+          <View style={styles.details}>
+            <DetailRow label="Unidade" value={activeUnit.title} fontScale={fontScale} />
+            <DetailRow
+              label="Status"
+              value={rewardCompleted ? 'Salva no seu progresso' : rewardLocked ? 'Bloqueada até a unidade fechar' : 'Pronta para ser coletada'}
+              fontScale={fontScale}
             />
-            <View style={styles.heroFooter}>
-              <Text key={`reward-unit-label-${fontScale}`} style={styles.heroFooterLabel}>Unidade ativa</Text>
-              <Text key={`reward-unit-title-${fontScale}`} style={styles.heroFooterValue}>{activeUnit.title}</Text>
-            </View>
+            <DetailRow label="Progresso" value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`} fontScale={fontScale} />
+            <DetailRow
+              label="Revisão"
+              value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
+              fontScale={fontScale}
+            />
           </View>
 
-          <View style={styles.sectionCard}>
-            <Text key={`reward-title-${fontScale}`} style={styles.sectionTitle} accessibilityRole="header">{rewardNode.title}</Text>
-            <Text key={`reward-description-${fontScale}`} style={styles.sectionBody}>
-              {rewardNode.description ?? (rewardOptional ? 'Reconhecimento pelas etapas que você concluiu.' : 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.')}
-            </Text>
-
-            <View style={styles.statsList}>
-              <GalaxyStatRow
-                key={`reward-status-${fontScale}`}
-                icon={<DecorativeIcon name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Status"
-                value={
-                  rewardCompleted
-                    ? 'Salva no seu progresso'
-                    : rewardLocked
-                      ? 'Bloqueada até a unidade fechar'
-                      : 'Pronta para ser coletada'
-                }
-              />
-              <GalaxyStatRow
-                key={`reward-progress-${fontScale}`}
-                icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Progresso"
-                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`}
-              />
-              <GalaxyStatRow
-                key={`reward-review-${fontScale}`}
-                icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Revisão"
-                value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
-              />
-            </View>
-          </View>
-
-          {rewardCompleted && (
-            <View style={styles.rewardStack}>
-              {/* XP card — total real acumulado */}
-              <View style={styles.xpCard}>
-                <View style={styles.xpIcon}>
-                  <Svg width={20} height={20} viewBox="0 0 24 24">
-                    <Path d="M13 2L4.5 13.5H11L10 22l9.5-12H14L13 2z" fill="#fff"/>
-                  </Svg>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text key={`reward-xp-label-${fontScale}`} style={styles.rewardCardLabel}>XP TOTAL</Text>
-                  <AnimatedCounter
-                    value={gamification?.totalXp ?? 0}
-                    suffix=" XP"
-                    style={styles.xpValue}
-                    accessibilityLabel={`XP total acumulado: ${gamification?.totalXp ?? 0}`}
-                  />
-                </View>
-              </View>
-
-              {/* Streak card — estado real */}
-              {(gamification?.streakDays ?? 0) > 0 && (
-                <View style={styles.streakCard}>
-                  <View style={styles.streakIcon}>
-                    <Svg width={16} height={16} viewBox="0 0 24 24">
-                      <Path d="M12 2C12 2 9 8 9 12c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1-1-3-1-4 0 0 4 2 4 7 0 3.31-2.69 6-6 6S6 18.31 6 15c0-5.5 4-9 6-13z" fill="#FF8A4C"/>
-                    </Svg>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text key={`reward-streak-title-${fontScale}`} style={styles.rewardCardTitle}>
-                      {(gamification?.streakDays ?? 0) === 1
-                        ? 'Sequência de 1 dia mantida'
-                        : `Sequência de ${gamification?.streakDays} dias mantida`}
-                    </Text>
-                    <Text key={`reward-streak-body-${fontScale}`} style={styles.rewardCardSub}>Volte amanhã para continuar</Text>
-                  </View>
-                </View>
-              )}
-            </View>
-          )}
+          <Text key={`reward-action-title-${fontScale}`} style={styles.actionTitle}>
+            {rewardCompleted
+              ? 'Conquista registrada'
+              : rewardLocked
+                ? 'Esta conquista ainda não abriu'
+                : 'Pronto para coletar essa conquista?'}
+          </Text>
+          <Text key={`reward-action-body-${fontScale}`} style={styles.phrase}>
+            {rewardCompleted
+              ? rewardOptional ? 'Sua conquista está salva. Volte à jornada para continuar ou rever o que estudou.' : 'Seu progresso está salvo e o próximo passo já está esperando por você.'
+              : rewardLocked
+                ? 'Ela abre quando os marcos da unidade forem concluídos. O progresso acima mostra quanto falta.'
+                : rewardOptional ? 'A coleta é opcional e não bloqueia seus estudos.' : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
+          </Text>
 
           {error ? (
-            <View style={styles.errorCard}>
-              <Text key={`reward-collect-error-${fontScale}`} style={styles.errorText}>{error}</Text>
-            </View>
+            <Text key={`reward-collect-error-${fontScale}`} style={styles.errorText} accessibilityRole="alert">{error}</Text>
           ) : null}
+        </ScrollView>
 
-          <View style={styles.actionCard}>
-            <Text key={`reward-action-title-${fontScale}`} style={styles.actionTitle}>
-              {rewardCompleted
-                ? 'Conquista registrada'
-                : rewardLocked
-                  ? 'Esta conquista ainda não abriu'
-                  : 'Pronto para coletar essa conquista?'}
-            </Text>
-            <Text key={`reward-action-body-${fontScale}`} style={styles.actionBody}>
-              {rewardCompleted
-                ? rewardOptional ? 'Sua conquista está salva. Volte à jornada para continuar ou rever o que estudou.' : 'Seu progresso está salvo e o próximo passo já está esperando por você.'
-                : rewardLocked
-                  ? 'Ela abre quando os marcos da unidade forem concluídos. O progresso acima mostra quanto falta.'
-                  : rewardOptional ? 'A coleta é opcional e não bloqueia seus estudos.' : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
-            </Text>
-
-            {rewardLocked ? (
-              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
+        <View style={[styles.footer, fixedFooter.footerStyle]} testID="reward-footer">
+          {rewardLocked ? (
+            <AppButton onPress={() => router.dismissTo('/(tabs)')} variant="galaxy" style={styles.fullWidthButton}>
+              Voltar para jornada
+            </AppButton>
+          ) : rewardCompleted ? (
+            <AppButton onPress={nextAction.action} accessibilityHint={nextAction.label} variant="galaxy" style={styles.fullWidthButton}>
+              Continuar
+            </AppButton>
+          ) : (
+            <>
+              <AppButton onPress={() => void handleComplete()} disabled={submitting} variant="galaxy" style={styles.fullWidthButton}>
+                {submitting ? 'Registrando conquista...' : 'Receber conquista'}
+              </AppButton>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} variant="ghost" style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
-            ) : rewardCompleted ? (
-              <AppButton onPress={nextAction.action} accessibilityHint={nextAction.label} style={styles.fullWidthButton}>
-                Continuar
-              </AppButton>
-            ) : (
-              <>
-                <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
-                  {submitting ? 'Registrando conquista...' : 'Receber conquista'}
-                </AppButton>
-                <AppButton
-                  onPress={() => router.dismissTo('/(tabs)')}
-                  variant="ghost"
-                  style={styles.fullWidthButton}
-                  textStyle={{ color: galaxyColors.textSecondary }}
-                >
-                  Voltar para jornada
-                </AppButton>
-              </>
-            )}
-          </View>
-        </ScrollView>
+            </>
+          )}
+        </View>
       </SafeAreaView>
     </View>
   );
 }
 
-const ICON_BUTTON_SIZE = 36;
+const ICON_BUTTON_SIZE = 44;
 
 const styles = StyleSheet.create({
   root: {
@@ -512,121 +445,75 @@ const styles = StyleSheet.create({
   content: {
     padding: space.s3,
     gap: space.s3,
-    paddingBottom: space.s5,
-  },
-  headerRow: {
-    ...layout.rowBetween,
-    width: '100%',
-    paddingHorizontal: space.s1,
   },
   iconButton: {
     width: ICON_BUTTON_SIZE,
     height: ICON_BUTTON_SIZE,
-    borderRadius: radius.rXl,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.07)',
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
+    backgroundColor: galaxyColors.surfaceActive,
+    borderRadius: ICON_BUTTON_SIZE / 2,
   },
-  iconSpacer: {
-    width: ICON_BUTTON_SIZE,
-    height: ICON_BUTTON_SIZE,
-  },
-  headerLabel: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: 'rgba(255,255,255,0.35)',
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-  },
-  heroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s3,
-    overflow: 'hidden',
-  },
-  heroFooter: {
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    borderRadius: radius.rMd,
-    paddingHorizontal: space.s3,
-    paddingVertical: space.s2,
-    gap: space.s0,
-  },
-  heroFooterLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-  },
-  heroFooterValue: {
-    ...typography.h3,
+  title: {
+    ...typography.h2,
+    // Em texto ampliado, o parágrafo usa as métricas naturais da Sora.
+    lineHeight: undefined,
     color: galaxyColors.textPrimary,
+    textAlign: 'center',
   },
-  sectionCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  sectionTitle: {
-    ...typography.h3,
-    color: galaxyColors.textPrimary,
-  },
-  sectionBody: {
+  phrase: {
     ...typography.bodyRegular,
+    lineHeight: undefined,
+    color: galaxyColors.textPrimary,
+    textAlign: 'center',
+  },
+  subtitle: {
+    ...typography.bodyRegular,
+    lineHeight: undefined,
     color: galaxyColors.textSecondary,
-  },
-  statsList: {
-    gap: space.s2,
-    marginTop: space.s1,
-  },
-  actionCard: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
+    textAlign: 'center',
   },
   actionTitle: {
-    ...typography.h3,
+    ...typography.bodyStrong,
+    lineHeight: undefined,
     color: galaxyColors.textPrimary,
+    textAlign: 'center',
   },
-  actionBody: {
+  details: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderColor: galaxyColors.border,
+  },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: space.s2,
+    paddingVertical: space.s3,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: galaxyColors.border,
+  },
+  rowLabel: {
     ...typography.bodyRegular,
     color: galaxyColors.textSecondary,
+  },
+  rowValue: {
+    ...typography.bodyStrong,
+    flex: 1,
+    minWidth: 160,
+    color: galaxyColors.textPrimary,
+    textAlign: 'right',
+  },
+  footer: {
+    gap: space.s2,
+    padding: space.s3,
   },
   fullWidthButton: {
     width: '100%',
   },
-  errorCard: {
-    backgroundColor: 'rgba(255,59,48,0.10)',
-    borderRadius: radius.rMd,
-    borderWidth: 1,
-    borderColor: 'rgba(255,59,48,0.25)',
-    padding: space.s3,
-  },
   errorText: {
     ...typography.bodyRegular,
-    color: '#FF6B6B',
-  },
-  messageCard: {
-    backgroundColor: galaxyColors.surfaceMuted,
-    borderRadius: radius.rMd,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-  },
-  messageText: {
-    ...typography.bodyRegular,
-    color: galaxyColors.textSecondary,
+    color: feedbackColors.error.fill,
+    textAlign: 'center',
   },
   emptyState: {
     flex: 1,
@@ -634,86 +521,6 @@ const styles = StyleSheet.create({
     padding: space.s3,
   },
   emptyCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
     gap: space.s3,
-  },
-  emptyTitle: {
-    ...typography.h3,
-    color: galaxyColors.textPrimary,
-    textAlign: 'center',
-  },
-  emptyBody: {
-    ...typography.bodyRegular,
-    color: galaxyColors.textSecondary,
-    textAlign: 'center',
-  },
-  rewardStack: {
-    gap: 8,
-  },
-  xpCard: {
-    backgroundColor: 'rgba(245,166,35,0.20)',
-    borderWidth: 1,
-    borderColor: 'rgba(245,166,35,0.40)',
-    borderRadius: radius.rLg,
-    padding: space.s2,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  xpIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 12,
-    backgroundColor: '#F5A623',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rewardCardLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: 'rgba(255,255,255,0.60)',
-    letterSpacing: 0.08,
-    textTransform: 'uppercase',
-  },
-  xpValue: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: -0.02,
-  },
-  streakCard: {
-    backgroundColor: 'rgba(255,107,44,0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,107,44,0.35)',
-    borderRadius: radius.rLg,
-    padding: 12,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  streakIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: radius.rMd,
-    backgroundColor: 'rgba(255,107,44,0.25)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rewardCardTitle: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#FFFFFF',
-  },
-  rewardCardSub: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: 'rgba(255,255,255,0.55)',
-    marginTop: 2,
   },
 });

@@ -53,6 +53,11 @@ const LIP_COLOR: Record<Exclude<Variant, 'ghost'>, string> = {
   error: feedbackColors.error.lip,
 };
 
+// Toda face com lábio tem borda de 1 px, para que alternar `disabled` (que
+// pinta a borda neutra) não mude a medida: nas variantes cheias ela é
+// transparente e fica sobre o próprio fundo.
+const TRANSPARENT_BORDER = { borderWidth: 1, borderColor: 'transparent' } as const;
+
 // Raio comum à face e ao lábio: o lábio é a mesma forma, deslocada para baixo.
 const BUTTON_RADIUS = 18;
 
@@ -161,10 +166,8 @@ export function AppButton({
   // Só entradas verdadeiras: o Reanimated, em jest, percorre o array de estilo
   // com `in`, que lança diante de `false`.
   const faceStyle: StyleProp<ViewStyle>[] = [styles.base, VARIANT_STYLE[variant]];
-  if (!hasLip && isDisabled) {
-    // Com lábio, a opacidade do desabilitado vai no conjunto (ver o retorno):
-    // na face sozinha, o lábio apareceria através dela.
-    faceStyle.push(styles.disabled);
+  if (hasLip && disabled) {
+    faceStyle.push(styles.disabledFace);
   }
   if (focused) {
     faceStyle.push(variant === 'galaxy' || variant === 'secondary' ? styles.focusGalaxy : styles.focusLight);
@@ -191,7 +194,16 @@ export function AppButton({
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={variant === 'secondary' ? galaxy.textPrimary : (onFillLabel ?? light.textOnAccent)}
+          color={
+            // O ghost não tem face: o indicador toma a cor do próprio rótulo.
+            variant === 'ghost'
+              ? StyleSheet.flatten([styles.labelGhost, disabled && styles.labelGhostDisabled]).color as string
+              : disabled
+              ? galaxyColors.textSecondary
+              : variant === 'secondary'
+                ? galaxy.textPrimary
+                : (onFillLabel ?? light.textOnAccent)
+          }
         />
       ) : null}
       {icon != null && icon}
@@ -202,6 +214,7 @@ export function AppButton({
           variant === 'ghost' && styles.labelGhost,
           ghostPressed && styles.labelGhostPressed,
           onFillLabel != null && { color: onFillLabel },
+          disabled && (hasLip ? styles.labelDisabled : styles.labelGhostDisabled),
           textStyle,
         ]}
         maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
@@ -225,19 +238,16 @@ export function AppButton({
         // área toda, a descida descobria no topo uma faixa na cor dele, e o
         // relevo aparecia invertido em todo toque (revisão final do plano 1).
         //
-        // A opacidade do desabilitado vai no conjunto. No iOS a camada já é
-        // composta em grupo; no Android, o `ReactViewGroup` só faz isso com
-        // `needsOffscreenAlphaCompositing`. Sem ele, cada filho recebe 0,45
-        // sozinho, e o lábio aparece através da face.
-        <View
-          testID="app-button-relief"
-          style={[styles.relief, isDisabled && styles.disabled]}
-          needsOffscreenAlphaCompositing={isDisabled}
-        >
+        // Desabilitado (a prop `disabled`, não `loading`) não usa opacidade: a face neutra e o lábio `backgroundAlt`
+        // são opacos e legíveis, e nada vaza através deles.
+        <View testID="app-button-relief" style={styles.relief}>
           <View
             testID="app-button-lip"
             pointerEvents="none"
-            style={[styles.lip, { backgroundColor: LIP_COLOR[variant] }]}
+            style={[
+              styles.lip,
+              { backgroundColor: disabled ? galaxyColors.backgroundAlt : LIP_COLOR[variant] },
+            ]}
           />
           {face}
         </View>
@@ -275,18 +285,23 @@ const styles = StyleSheet.create({
   },
   primary: {
     backgroundColor: light.actionPrimary,
+    ...TRANSPARENT_BORDER,
   },
   galaxy: {
     backgroundColor: galaxy.actionPrimary,
+    ...TRANSPARENT_BORDER,
   },
   gold: {
     backgroundColor: medalColors.gold.face,
+    ...TRANSPARENT_BORDER,
   },
   success: {
     backgroundColor: feedbackColors.success.fill,
+    ...TRANSPARENT_BORDER,
   },
   error: {
     backgroundColor: feedbackColors.error.fill,
+    ...TRANSPARENT_BORDER,
   },
   secondary: {
     backgroundColor: galaxy.surfaceElevated,
@@ -296,8 +311,17 @@ const styles = StyleSheet.create({
   ghost: {
     backgroundColor: 'transparent',
   },
-  disabled: {
-    opacity: 0.45,
+  // Face neutra, por cima da cor da variante (vem depois dela no array).
+  disabledFace: {
+    backgroundColor: galaxyColors.surfaceActive,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+  },
+  labelDisabled: {
+    color: galaxyColors.textSecondary,
+  },
+  labelGhostDisabled: {
+    color: galaxyColors.textTertiary,
   },
   focusLight: {
     borderWidth: 3,

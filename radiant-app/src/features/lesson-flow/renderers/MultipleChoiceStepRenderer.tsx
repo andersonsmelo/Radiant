@@ -1,12 +1,10 @@
-import React, { type ReactElement } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
-import { AppConfig } from '../../../config';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ChoiceOption, type ChoiceOptionState } from '../../../components/ui/ChoiceOption';
 import type { ExposureReadingImage } from '../../../types/learningActivity';
 import type { MultipleChoicePayload } from '../../../types/lessonFlow';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
-import { usePressScale } from '../../../ui/motion';
-import { motionMsFor } from '../../../ui/feedback/lessonFeedback';
+import { space, typography } from '../../../ui/styles';
 
 const galaxy = semanticColors.galaxy;
 
@@ -17,18 +15,11 @@ type MultipleChoiceStepRendererProps = {
     onSelect: (optionId: string) => void;
     confirmationLabel?: string;
     submitted?: boolean;
+    /** Lido só depois de conferir; sem ele, vale o do próprio `payload`. */
+    correctOptionId?: string;
+    /** Posição da alternativa escolhida, relativa a este renderer: a aula rola até ela. */
+    onChosenLayout?: (layout: { y: number; height: number }) => void;
 };
-
-/**
- * F3 (`ENABLE_RICH_FEEDBACK`): a alternativa afunda ao toque e volta ao soltar,
- * como as fichas da F2. Desligado, a árvore é a da base, sem envoltório.
- */
-function PressDepth({ disabled, children }: { disabled: boolean; children: (handlers: object) => ReactElement }) {
-    const press = usePressScale(motionMsFor('option_tap'));
-    if (!AppConfig.ENABLE_RICH_FEEDBACK) return children({});
-    const handlers = disabled ? {} : { onPressIn: press.onPressIn, onPressOut: press.onPressOut };
-    return <Animated.View style={press.animatedStyle}>{children(handlers)}</Animated.View>;
-}
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
 // trocável e nada foi commitado. Quem confirma é a ação do rodapé — por
@@ -40,7 +31,17 @@ export function MultipleChoiceStepRenderer({
     onSelect,
     confirmationLabel = 'Continuar',
     submitted = false,
+    correctOptionId = payload.correctOptionId,
+    onChosenLayout,
 }: MultipleChoiceStepRendererProps) {
+    // A lista e cada alternativa medem à parte; a escolhida soma as duas.
+    const optionsY = useRef<number | null>(null);
+    const optionLayouts = useRef(new Map<string, { y: number; height: number }>());
+    const reportChosen = useCallback(() => {
+        const chosen = selectedOptionId ? optionLayouts.current.get(selectedOptionId) : undefined;
+        if (chosen && optionsY.current !== null) onChosenLayout?.({ y: optionsY.current + chosen.y, height: chosen.height });
+    }, [onChosenLayout, selectedOptionId]);
+    useEffect(reportChosen, [reportChosen]);
     // Mesmo limite lazy da bancada: atividades sem imagem não carregam Skia.
     // A migração global dos dublês/imports pertence à T04a.
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -54,35 +55,34 @@ export function MultipleChoiceStepRenderer({
                     <Text style={styles.caption}>{exposureImage.label}</Text>
                 </View>
             ) : null}
-            <View style={styles.options}>
+            <View testID="multiple-choice-options" style={styles.options}
+                onLayout={event => { optionsY.current = event.nativeEvent.layout.y; reportChosen(); }}>
                 {payload.options.map((option) => {
                     const selected = option.id === selectedOptionId;
+                    const state: ChoiceOptionState = !submitted
+                        ? (selected ? 'selected' : 'idle')
+                        : option.id === correctOptionId ? 'correct' : selected ? 'incorrect' : 'dimmed';
 
                     return (
-                        <PressDepth key={option.id} disabled={submitted}>{(handlers) => (
-                        <Pressable
-                            {...handlers}
+                        <ChoiceOption
+                            key={option.id}
+                            label={option.label}
+                            state={state}
+                            chosen={selected}
+                            disabled={submitted}
                             onPress={() => { if (!submitted) onSelect(option.id); }}
                             testID={`lesson-option-${option.id}`}
-                            accessibilityRole="button"
-                            accessibilityLabel={option.label}
+                            onLayout={event => {
+                                const { y, height } = event.nativeEvent.layout;
+                                optionLayouts.current.set(option.id, { y, height });
+                                if (selected) reportChosen();
+                            }}
                             accessibilityHint={
                                 submitted ? 'Resposta já conferida. Leia o feedback e continue.' : selected
                                     ? `Selecionada. Toque em outra alternativa para trocar antes de ${confirmationLabel}.`
                                     : `Seleciona esta resposta. Você confirma em ${confirmationLabel}.`
                             }
-                            accessibilityState={{ selected, disabled: submitted }}
-                            style={[
-                                styles.option,
-                                selected && styles.optionSelected,
-                            ]}
-                        >
-                            <View style={styles.optionContent}>
-                                <Text style={styles.optionLabel}>{option.label}</Text>
-                                {selected ? <Text style={styles.selectionLabel}>Selecionada</Text> : null}
-                            </View>
-                        </Pressable>
-                        )}</PressDepth>
+                        />
                     );
                 })}
             </View>
@@ -102,29 +102,5 @@ const styles = StyleSheet.create({
     },
     options: {
         gap: space.s2,
-    },
-    option: {
-        minHeight: 56,
-        justifyContent: 'center',
-        backgroundColor: galaxy.surface,
-        borderWidth: 1,
-        borderColor: galaxy.border,
-        borderRadius: radius.rLg,
-        padding: space.s3,
-    },
-    optionSelected: {
-        backgroundColor: galaxy.surfaceElevated,
-        borderColor: galaxy.statusInformation,
-    },
-    optionContent: {
-        gap: space.s1,
-    },
-    selectionLabel: {
-        ...typography.micro,
-        color: galaxy.statusInformation,
-    },
-    optionLabel: {
-        ...typography.body,
-        color: galaxy.textPrimary,
     },
 });

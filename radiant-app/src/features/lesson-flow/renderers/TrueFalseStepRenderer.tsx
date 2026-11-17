@@ -12,6 +12,9 @@ type Props = { payload: TrueFalsePayload; value?: string; onChange: (value: stri
  * Quando todas estão julgadas, o player confere o conjunto, cobra a vida uma
  * vez só se alguma estiver errada e anuncia o resultado.
  */
+/** A afirmação sem o ponto final, para emendar em outra frase sem "dose.: certo" nem "dose.. Você". */
+export const statementStem = (text: string): string => text.replace(/[.…\s]+$/u, '');
+
 export function TrueFalseStepRenderer({ payload, value, onChange, submitted = false }: Props) {
     const judged = decodeTrueFalseValue(value).slice(0, payload.statements.length);
     const current = payload.statements[judged.length];
@@ -42,7 +45,7 @@ export function TrueFalseStepRenderer({ payload, value, onChange, submitted = fa
                 const right = judged[index] === statement.isTrue;
                 return (
                     <View key={statement.id} style={f2Styles.column} accessible accessibilityLabel={
-                        `Afirmação ${index + 1}: ${statement.text}. Você marcou ${judged[index] ? 'certo' : 'errado'}. ${right ? 'Acertou.' : 'Não é isso.'} ${statement.explanation}`}>
+                        `Afirmação ${index + 1}: ${statementStem(statement.text)}. Você marcou ${judged[index] ? 'certo' : 'errado'}. ${right ? 'Acertou.' : 'Não é isso.'} ${statement.explanation}`}>
                         <Text style={f2Styles.body}>{statement.text}</Text>
                         <TapChip label={`${judged[index] ? 'Certo' : 'Errado'}: ${right ? 'acertou' : 'não é isso'}`}
                             accessibilityLabel={`Você marcou ${judged[index] ? 'certo' : 'errado'}`} disabled selected

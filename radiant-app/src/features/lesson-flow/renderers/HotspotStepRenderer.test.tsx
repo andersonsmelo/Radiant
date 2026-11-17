@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { Path } from 'react-native-svg';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { HotspotStepRenderer } from './HotspotStepRenderer';
@@ -52,8 +53,30 @@ describe('HotspotStepRenderer', () => {
         expect(StyleSheet.flatten(textAlternative.props.style).minHeight).toBeGreaterThanOrEqual(44);
     });
 
+    // Tarefa 11: a região escolhida muda só a borda (mais grossa e verde) e
+    // mantém o véu translúcido: um fundo opaco apagaria a anatomia escolhida.
+    it('a região escolhida tem borda verde de 3 pt e o mesmo véu translúcido da região livre', () => {
+        const { getByLabelText } = render(
+            <HotspotStepRenderer
+                payload={payload}
+                accessibilityLabel="Geometria simplificada do feixe de raios X"
+                selectedRegionId="detector"
+                onSelect={jest.fn()}
+            />,
+        );
+        const escolhida = StyleSheet.flatten(getByLabelText('Selecionar Detector plano na imagem').props.style);
+        const livre = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
+        expect(livre.borderWidth).toBe(2);
+        expect(livre.borderColor).toBe(semanticColors.galaxy.statusInformation);
+        expect(escolhida.borderWidth).toBe(3);
+        expect(escolhida.borderColor).toBe(semanticColors.galaxy.statusSuccess);
+        // Validade: o fundo continua o véu, nas duas.
+        expect(escolhida.backgroundColor).toBe(galaxyColors.imageScrim);
+        expect(livre.backgroundColor).toBe(galaxyColors.imageScrim);
+    });
+
     it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
-        const { getByLabelText, getByText } = render(
+        const { getByLabelText, getByTestId, queryByText } = render(
             <HotspotStepRenderer
                 payload={payload}
                 accessibilityLabel="Geometria simplificada do feixe de raios X"
@@ -62,9 +85,13 @@ describe('HotspotStepRenderer', () => {
             />,
         );
 
-        const badge = StyleSheet.flatten(getByText('✓').props.style);
+        const badge = StyleSheet.flatten(getByTestId('hotspot-selected-mark').props.style);
         expect(badge.backgroundColor).toBe(galaxyColors.background);
-        expect(badge.color).toBe(semanticColors.galaxy.textPrimary);
+        // O traço da marca, só dentro da marca: a cor do texto aparece em outros nós da tela.
+        const strokes = getByTestId('hotspot-selected-mark').findAllByType(Path).map((path: { props: { stroke?: string } }) => path.props.stroke);
+        expect(strokes.length).toBeGreaterThan(0);
+        expect(strokes.every((stroke: string | undefined) => stroke === semanticColors.galaxy.textPrimary)).toBe(true);
+        expect(queryByText('✓')).toBeNull();
         const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
         expect(region.alignItems).toBe('flex-start');
         expect(region.justifyContent).toBe('flex-start');

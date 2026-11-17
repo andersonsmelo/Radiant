@@ -93,10 +93,6 @@ jest.mock('../../../components/ui/AppButton', () => {
   };
 });
 
-jest.mock('../../../components/ui/PixelHeroSplit', () => ({
-  PixelHeroSplit: () => null,
-}));
-
 jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));

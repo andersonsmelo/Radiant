@@ -7,7 +7,7 @@ import type { AuthSession } from '../../auth/types';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { AppConfig } from '../../../config';
 import { isApiConfigured } from '../../../lib/api';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { ActionButton, CardRow, CardTitle, GlassCard } from '../../../ui/components/InfoCards';
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: space.s1,
-        backgroundColor: 'rgba(93,227,174,0.12)',
+        backgroundColor: feedbackColors.success.surface,
         borderRadius: radius.rSm,
         paddingHorizontal: space.s2,
         paddingVertical: space.s1,
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
         color: D.textSec,
     },
     modeTabTextActive: {
-        color: '#FFFFFF',
+        color: semanticColors.galaxy.textOnAccent,
     },
     input: {
         height: 48,

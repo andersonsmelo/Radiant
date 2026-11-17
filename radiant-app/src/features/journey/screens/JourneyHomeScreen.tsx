@@ -9,8 +9,8 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
-import { galaxyColors } from '../../../ui/theme';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { JourneyStageHeader } from '../components/JourneyStageHeader';
 import { JourneyTrail } from '../components/JourneyTrail';
@@ -266,7 +266,7 @@ export default function JourneyHomeScreen() {
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
+          streakDays={shownStreakDays(gamification)}
           hearts={hearts?.count ?? MAX_HEARTS}
           maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
@@ -362,12 +362,12 @@ const styles = StyleSheet.create({
   trailHeader: { gap: space.s3 },
   level: { paddingHorizontal: space.s3, paddingTop: space.s1 },
   errorCard: {
-    backgroundColor: 'rgba(255,59,48,0.10)',
+    backgroundColor: galaxyColors.surfaceActive,
     borderRadius: radius.rMd,
     borderWidth: 1,
-    borderColor: 'rgba(255,59,48,0.25)',
+    borderColor: feedbackColors.error.fill,
     padding: space.s3,
   },
-  errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
+  errorText: { ...typography.bodyRegular, color: galaxyColors.critical },
   retry: { marginTop: space.s1 },
 });

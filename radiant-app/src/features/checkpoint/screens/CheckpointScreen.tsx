@@ -15,7 +15,7 @@ import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/J
 import type { JourneyNode, JourneySnapshot, JourneyUnit } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
-import type { GamificationSnapshot } from '../../../types/gamification';
+import { shownStreakDays, type GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import {
@@ -602,7 +602,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <SafeAreaView style={styles.safe} edges={['top']}>
-        <HUD totalXp={gamification?.totalXp ?? 0} streakDays={gamification?.streakDays ?? 0}
+        <HUD totalXp={gamification?.totalXp ?? 0} streakDays={shownStreakDays(gamification)}
           hearts={hearts.count} maxHearts={5} heartsSnapshot={hearts} />
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.headerRow}>

@@ -55,26 +55,32 @@ function abrir(ligada: boolean, purchase: PurchaseOutcome = { kind: 'cancelled' 
 }
 
 describe('SubscriptionScreen com ENABLE_CONVERSION_PROMPTS', () => {
-    it('ligada: mostra a comparação verdadeira e conta a abertura da tela', async () => {
+    it('ligada: a comparação mostra só a linha de vidas, a única em que os planos diferem', async () => {
         const { contagem } = abrir(true);
-        expect(await screen.findByText('Gratuito', { includeHiddenElements: true })).toBeTruthy();
-        expect(screen.getByText('Assinante', { includeHiddenElements: true })).toBeTruthy();
-        expect(screen.getByLabelText(/^Vidas\. Gratuito: 5; errar em aula ou avaliação pode gastar uma \(revisão nunca gasta\)/)).toBeTruthy();
-        expect(screen.getByLabelText('Aulas, revisões e avaliações. Gratuito: Todas. Assinante: Todas.')).toBeTruthy();
+        expect(await screen.findByText('Errar não custa vida.')).toBeTruthy();
+        expect(screen.getByText('Aulas, revisões e avaliações continuam gratuitas.')).toBeTruthy();
+        const linha = screen.getByLabelText(/^Vidas: 5; errar em aula ou avaliação pode gastar uma \(revisão nunca gasta\); uma volta a cada \d+ min\. Com o Ilimitado: Sem limite\.$/u);
+        expect(linha).toBeTruthy();
+        expect(screen.getByText('Com o Ilimitado', { includeHiddenElements: true })).toBeTruthy();
+        expect(screen.getByText('Sem limite', { includeHiddenElements: true })).toBeTruthy();
+        // As linhas iguais nos dois lados saem.
+        expect(screen.queryByText('Aulas, revisões e avaliações', { includeHiddenElements: true })).toBeNull();
+        expect(screen.queryByText('Revisão concluída', { includeHiddenElements: true })).toBeNull();
+        expect(screen.queryByText('As aulas são as mesmas para todo mundo.')).toBeNull();
         await waitFor(() => expect(contagem()?.screen_opened).toBe(1));
     });
 
     it('ligada: conta compra iniciada e concluída', async () => {
         const entitlement = { productId: 'annual_plus', period: 'annual' as const, expiresAt: '2027-11-15T12:00:00.000Z', willRenew: true, revokedAt: null };
         const { contagem } = abrir(true, { kind: 'purchased', entitlement });
-        fireEvent.press(await screen.findByText('Assinar anual'));
+        fireEvent.press(await screen.findByText('Assinar o anual'));
         await waitFor(() => expect(contagem()?.purchase_completed).toBe(1));
         expect(contagem()?.purchase_started).toBe(1);
     });
 
     it('ligada: compra cancelada conta só o início', async () => {
         const { contagem } = abrir(true, { kind: 'cancelled' });
-        fireEvent.press(await screen.findByText('Assinar anual'));
+        fireEvent.press(await screen.findByText('Assinar o anual'));
         expect(await screen.findByText('Tudo bem — nada foi cobrado.')).toBeTruthy();
         expect(contagem()?.purchase_started).toBe(1);
         expect(contagem()?.purchase_completed).toBe(0);
@@ -83,8 +89,10 @@ describe('SubscriptionScreen com ENABLE_CONVERSION_PROMPTS', () => {
     it('desligada (contraprova): o texto da main, sem comparação e sem escrever a chave', async () => {
         const { disco } = abrir(false, { kind: 'cancelled' });
         expect(await screen.findByText('As aulas são as mesmas para todo mundo.')).toBeTruthy();
-        expect(screen.queryByText('Gratuito', { includeHiddenElements: true })).toBeNull();
-        fireEvent.press(screen.getByText('Assinar anual'));
+        expect(screen.getByText('Errar não custa vida.')).toBeTruthy();
+        expect(screen.queryByText('Com o Ilimitado', { includeHiddenElements: true })).toBeNull();
+        expect(screen.queryByText('Aulas, revisões e avaliações continuam gratuitas.')).toBeNull();
+        fireEvent.press(screen.getByText('Assinar o anual'));
         expect(await screen.findByText('Tudo bem — nada foi cobrado.')).toBeTruthy();
         expect(disco.setItem).not.toHaveBeenCalled();
     });

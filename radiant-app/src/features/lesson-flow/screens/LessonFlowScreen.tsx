@@ -1,8 +1,8 @@
 import { ContentUpdatedScreen } from '../../content/components/ContentUpdatedScreen';
 import { isLearningContentMissing } from '../../content/services/ContentAvailability';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Alert, Animated, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaInsetsContext, SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
@@ -10,12 +10,13 @@ import { LessonFlowService } from '../services/LessonFlowService';
 import { adaptLegacyBlock } from '../services/LegacyLessonAdapter';
 import { useLearningActivity } from '../hooks/useLearningActivity';
 import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
+import { statementStem } from '../renderers/TrueFalseStepRenderer';
 import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2, LearningInteractionV2 } from '../../../types/learningActivity';
-import { galaxyColors } from '../../../ui/theme';
+import { feedbackColors, galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
+import { space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
 import { TeachStepRenderer } from '../renderers/TeachStepRenderer';
 import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
@@ -24,9 +25,11 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import { categorizePendingCount } from '../renderers/CategorizeStepRenderer';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
 import { feedbackFor } from '../services/feedbackFor';
 import { COMBO_START, nextCombo, type ComboMilestone } from '../services/lessonCombo';
-import { AnswerFeedbackCard } from '../components/AnswerFeedbackCard';
+import { AnswerFeedbackSheet, revealOffset } from '../components/AnswerFeedbackSheet';
 import { ComboBadge } from '../components/ComboBadge';
 import { DialogueScene, dialogueLineLabel } from '../components/DialogueScene';
 import { KeyPointsList } from '../components/KeyPointsList';
@@ -94,6 +97,46 @@ const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choic
 let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
 const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize']);
+
+/**
+ * A resposta certa em texto, para a folha de retorno no erro. Vale também nos
+ * formatos que marcam a certa na tela: com enunciado longo, a alternativa certa
+ * fica atrás da folha (Tarefa 11). Categorizar já mostra o grupo certo em cada
+ * ficha; bancada, laboratório e caça ao risco não têm uma resposta curta e
+ * única, e o retorno autoral explica.
+ */
+export function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
+    switch (interaction.type) {
+        case 'multi-select': {
+            const { options, correctOptionIds } = interaction.payload;
+            return options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label).join('; ');
+        }
+        case 'true-false':
+            return interaction.payload.statements.map(statement => `${statementStem(statement.text)}: ${statement.isTrue ? 'certo' : 'errado'}`).join('; ');
+        case 'ordering': {
+            const { items, correctOrder } = interaction.payload;
+            return correctOrder.map(id => items.find(item => item.id === id)?.label ?? id).join('; ');
+        }
+        case 'multiple-choice':
+        case 'comparison':
+        case 'case-decision': {
+            const { options, correctOptionId } = interaction.payload;
+            return options.find(option => option.id === correctOptionId)?.label;
+        }
+        case 'matching':
+            return interaction.payload.pairs.map(pair => `${pair.left} → ${pair.right}`).join('; ');
+        case 'hotspot': {
+            const { regions, correctRegionIds } = interaction.payload;
+            return correctRegionIds.map(id => regions.find(region => region.id === id)?.label ?? id).join(', ');
+        }
+        case 'cloze': {
+            const { blanks, tokens } = interaction.payload;
+            return blanks.map(blank => tokens.find(token => token.id === blank.correctTokenId)?.label ?? '').join('; ');
+        }
+        default:
+            return undefined;
+    }
+}
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -172,7 +215,16 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // Incentivo do retorno (F3): o rodízio conta os incentivos já mostrados, e
     // `anyWrong` guarda se a sessão teve erro, para a frase de aula sem erro.
     // Um contador por tipo, para a mesma frase não voltar no mesmo marco.
-    const [retorno, setRetorno] = useState<{ celebrate: boolean; encouragement?: string }>({ celebrate: false });
+    const [retorno, setRetorno] = useState<{ celebrate: boolean; encouragement?: string; heartLost?: boolean }>({ celebrate: false });
+    // Altura medida da folha de retorno: vira folga no fim da rolagem.
+    const [sheetHeight, setSheetHeight] = useState(0);
+    const bottomInset = useContext(SafeAreaInsetsContext)?.bottom ?? 0;
+    const answerLayout = useRef({ y: 0, height: 0 });
+    // Alternativa escolhida, relativa à área de resposta; só a múltipla escolha informa.
+    const chosenLayout = useRef<{ y: number; height: number } | null>(null);
+    const scrollY = useRef(0);
+    // Estado, não ref: a janela cresce quando o rodapé sai, e a rolagem recalcula.
+    const [scrollViewport, setScrollViewport] = useState(0);
     const encouragementTurn = useRef({ sequencia: 0, retomada: 0 });
     const [perfectLine, setPerfectLine] = useState<string | null>(null);
     const lastWasWrong = useRef(false);
@@ -301,7 +353,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     }, [blockId, nodeId, tracksJourney]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
-    useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
+    useEffect(() => {
+        chosenLayout.current = null;
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+    }, [stepIndex]);
     // O passo legado continua disponível enquanto o catálogo antigo coexistir
     // com o v2. A atividade promovida, porém, não precisa fabricar esse bloco.
     const legacyStep = player.isRetry ? undefined : block?.steps[stepIndex];
@@ -355,6 +410,24 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const currentInteraction = player.currentStep?.kind === 'interaction'
         ? player.currentStep.interaction
         : null;
+    // A folha de retorno entra no lugar do rodapé. Com a altura dela medida, a
+    // rolagem leva a área de resposta, onde está a alternativa escolhida, para
+    // cima da folha, sem esconder o começo dela.
+    const showingSheet = player.showingFeedback && currentInteraction !== null;
+    useEffect(() => {
+        if (!showingSheet || sheetHeight === 0) return;
+        const { y, height } = answerLayout.current;
+        const chosen = chosenLayout.current;
+        if (chosen) {
+            const offset = revealOffset({ top: y + chosen.y, bottom: y + chosen.y + chosen.height, scrollY: scrollY.current,
+                viewportHeight: scrollViewport, sheetHeight, margin: space.s3 });
+            if (offset !== null) scrollRef.current?.scrollTo({ y: offset, animated: false });
+            return;
+        }
+        // Sem alternativas: o fim da área de resposta encosta na folha, sem esconder o começo.
+        const target = Math.min(y, y + height + space.s3 - (scrollViewport - sheetHeight));
+        scrollRef.current?.scrollTo({ y: Math.max(0, target), animated: false });
+    }, [showingSheet, sheetHeight, scrollViewport]);
     // Cena de diálogo: as falas aparecem uma por toque no botão do rodapé, que
     // fica fora da rolagem e por isso continua ao alcance com texto ampliado.
     const stepDialogue = !legacyStep && currentStep?.kind === 'presentation' ? currentStep.payload.dialogue : undefined;
@@ -392,6 +465,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         : currentInteraction && CHECKED_FAMILIES.has(currentInteraction.type)
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
+
+    // Em classificar o botão diz quantas fichas faltam; o rótulo de confirmação, que os
+    // renderizadores citam nas dicas, continua sendo "Conferir resposta".
+    const pendingTokens = !player.showingFeedback && !dialoguePending && currentInteraction?.type === 'categorize'
+        ? categorizePendingCount(currentInteraction.payload, player.value) : 0;
+    const actionLabel = pendingTokens === 1 ? 'Falta 1 ficha' : pendingTokens > 1 ? `Faltam ${pendingTokens} fichas` : confirmationLabel;
 
     const handleContinue = async () => {
         const key = JSON.stringify([blockId, nodeId]);
@@ -458,8 +537,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                     // em primeiro plano (FILA, 26), depois do erro e só quando
                     // o contador caiu de fato: assinante e revisão não ouvem.
                     if (heartTimer.current) clearTimeout(heartTimer.current);
+                    // Com retorno por item, a folha já diz "Menos 1 vida" na linha do título.
+                    const showsInSheet = perItemFeedback;
                     heartTimer.current = setTimeout(() => {
-                        setHeartLossVisible(true);
+                        if (!showsInSheet) setHeartLossVisible(true);
                         emit('heart_lost');
                         heartTimer.current = setTimeout(() => setHeartLossVisible(false), TOP_NOTICE_MS);
                     }, HEART_LOSS_DELAY_MS);
@@ -479,7 +560,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 : correct && lastWasWrong.current ? encouragementFor({ kind: 'retomada' }, turns.retomada++) : undefined;
             lastWasWrong.current = !correct;
             if (!correct) anyWrong.current = true;
-            setRetorno({ celebrate: milestone !== null, encouragement });
+            setRetorno({ celebrate: milestone !== null, encouragement, heartLost: heartLossCopy !== '' });
             if (!correct) answerShake.animateIn();
             if (comboTimer.current) clearTimeout(comboTimer.current);
             setComboMilestone(comboNow.milestone);
@@ -487,17 +568,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // Com o retorno rico, o incentivo diz o marco: a contagem não se repete no anúncio.
             const comboCopy = comboNow.milestone && !(rich && encouragement) ? `${comboNow.milestone} respostas certas seguidas. ` : '';
 
+            const result = correct ? 'Resposta correta.' : 'Resposta incorreta.';
+            // Com retorno por item, a folha recebe o foco e o leitor lê o título, a
+            // explicação e a vida perdida nela: o anúncio diz só o resultado. O
+            // marco da sequência fica, porque o selo do topo não recebe o foco.
             const message = feedbackFor(currentInteraction, player.value, correct);
-            const choice = currentInteraction.type === 'multiple-choice'
-                ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
-            const answer = currentInteraction.type === 'multiple-choice'
-                ? currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label : undefined;
-            const recap = hybrid && choice && answer
-                ? `Sua resposta: ${choice}. ${correct ? '' : `Resposta certa: ${answer}. `}` : '';
-            AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${comboCopy}${recap}${message}${heartLossCopy}`
-                + (rich && encouragement ? ` ${encouragement}` : ''),
-            );
+            AccessibilityInfo.announceForAccessibility(perItemFeedback ? `${result} ${comboCopy}`.trim()
+                : `${result} ${comboCopy}${message}${heartLossCopy}` + (rich && encouragement ? ` ${encouragement}` : ''));
         }
 
         const nextConfirmed = player.confirm();
@@ -767,7 +844,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     return (
         <View style={styles.root}>
             <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
-            <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+            {/* Sem a borda de baixo: o rodapé e a folha de retorno pintam até a borda da tela e levam o inset por dentro. */}
+            <SafeAreaView style={styles.safe} edges={['top']}>
                 <View style={styles.page}>
                     {/*
                       Uma linha só: fechar, progresso e vidas. O cabeçalho
@@ -795,134 +873,138 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
                     <ScrollView
                         ref={scrollRef}
+                        testID="lesson-scroll"
                         style={styles.scroll}
-                        contentContainerStyle={styles.scrollContent}
+                        contentContainerStyle={[styles.scrollContent, showingSheet ? { paddingBottom: space.s4 + sheetHeight } : null]}
                         showsVerticalScrollIndicator={false}
+                        onLayout={event => setScrollViewport(event.nativeEvent.layout.height)}
+                        onScroll={event => { scrollY.current = event.nativeEvent.contentOffset.y; }}
+                        scrollEventThrottle={16}
                     >
-                        <View style={styles.contentCard}>
-                            {currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
-                                <View style={styles.openingMedal}>
-                                    <JourneyMedal node={{ id: nodeId || activity.id, type: 'lesson' }}
-                                        theme={lessonTheme} state="done" pulsing={false} size={68}
-                                        accessibilityLabel="Medalha do tema da aula" />
-                                </View>
-                            ) : null}
-                            {legacyStep?.step.type === 'context' ? (
-                                <ContextStepRenderer payload={legacyStep.step.payload} />
-                            ) : null}
+                        {currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
+                            <View style={styles.openingMedal}>
+                                <JourneyMedal node={{ id: nodeId || activity.id, type: 'lesson' }}
+                                    theme={lessonTheme} state="done" pulsing={false} size={68}
+                                    accessibilityLabel="Medalha do tema da aula" />
+                            </View>
+                        ) : null}
+                        {legacyStep?.step.type === 'context' ? (
+                            <ContextStepRenderer payload={legacyStep.step.payload} />
+                        ) : null}
 
-                            {legacyStep?.step.type === 'teach' ? (
-                                <TeachStepRenderer payload={legacyStep.step.payload} />
-                            ) : null}
+                        {legacyStep?.step.type === 'teach' ? (
+                            <TeachStepRenderer payload={legacyStep.step.payload} />
+                        ) : null}
 
-                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
-                                <>
-                                    {/* Com cena, as falas vêm antes do corpo, que espera a última. */}
-                                    <ContextStepRenderer payload={{
-                                        title: currentStep.payload.title,
-                                        body: stepDialogue ? '' : currentStep.payload.body ?? '',
-                                        eyebrow: currentStep.payload.eyebrow,
-                                    }} />
-                                    {stepDialogue ? <DialogueScene dialogue={stepDialogue} visibleCount={revealedLines} /> : null}
-                                    {stepDialogue && !dialoguePending && currentStep.payload.body ? (
-                                        <Text style={styles.sceneBody}>{currentStep.payload.body}</Text>
-                                    ) : null}
-                                </>
-                            ) : null}
+                        {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
+                            <>
+                                {/* Com cena, as falas vêm antes do corpo, que espera a última. */}
+                                <ContextStepRenderer payload={{
+                                    title: currentStep.payload.title,
+                                    body: stepDialogue ? '' : currentStep.payload.body ?? '',
+                                    eyebrow: currentStep.payload.eyebrow,
+                                }} />
+                                {stepDialogue ? <DialogueScene dialogue={stepDialogue} visibleCount={revealedLines} /> : null}
+                                {stepDialogue && !dialoguePending && currentStep.payload.body ? (
+                                    <Text style={styles.sceneBody}>{currentStep.payload.body}</Text>
+                                ) : null}
+                            </>
+                        ) : null}
 
-                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'concept' ? (
-                                <>
-                                    <TeachStepRenderer payload={{
-                                        title: currentStep.payload.title,
-                                        body: currentStep.payload.body ?? '',
-                                    }} />
-                                    {currentStep.payload.keyPoints?.length ? <KeyPointsList points={currentStep.payload.keyPoints} /> : null}
-                                </>
-                            ) : null}
+                        {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'concept' ? (
+                            <>
+                                <TeachStepRenderer payload={{
+                                    title: currentStep.payload.title,
+                                    body: currentStep.payload.body ?? '',
+                                }} />
+                                {currentStep.payload.keyPoints?.length ? <KeyPointsList points={currentStep.payload.keyPoints} /> : null}
+                            </>
+                        ) : null}
 
-                            {player.isRetry ? <Text style={styles.retryLabel}>Vamos tentar novamente</Text> : null}
-                            {currentInteraction ? (
-                                // O tremor leve no erro é da área de resposta, não do cartão de retorno.
-                                <Animated.View style={answerShake.style}>
-                                    <ActivityInteractionRenderer
-                                        interaction={currentInteraction}
-                                        resolveImageSource={resolveRtgImage}
-                                        value={player.value}
-                                        confirmationLabel={confirmationLabel}
-                                        submitted={player.showingFeedback}
-                                        onChange={(value) => {
-                                            if (player.showingFeedback) return;
-                                            emit(TOKEN_FAMILIES.has(currentInteraction.type) ? 'token_drop' : 'option_tap');
-                                            player.setValue(value);
-                                        }}
-                                    />
-                                </Animated.View>
-                            ) : null}
-
-                            {currentInteraction?.help ? (
-                                <LessonHelpButton key={`${stepIndex}:${currentInteraction.id}`}
-                                    help={currentInteraction.help} locked={player.showingFeedback}
-                                    onReveal={() => { hintUsed.current = { ...hintUsed.current, [currentInteraction.id]: true }; }} />
-                            ) : null}
-
-                            {player.showingFeedback && currentInteraction ? (
-                                <AnswerFeedbackCard
-                                    rich={rich}
-                                    celebrate={retorno.celebrate}
-                                    encouragement={retorno.encouragement}
-                                    correct={player.lastFeedback?.correct === true}
-                                    message={player.lastFeedback?.message ?? ''}
-                                    chosenLabel={currentInteraction.type === 'multiple-choice'
-                                        ? currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? '' : undefined}
-                                    correctLabel={currentInteraction.type === 'multiple-choice'
-                                        ? currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? '' : undefined}
-                                    onLayout={event => scrollRef.current?.scrollTo({
-                                        y: Math.max(0, event.nativeEvent.layout.y - space.s3), animated: false,
-                                    })}
-                                />
-                            ) : null}
-
-                            {legacyStep?.step.type === 'reinforce' ? (
-                                <ReinforceStepRenderer
-                                    payload={legacyStep.step.payload}
-                                    answeredCorrectly={player.lastFeedback?.correct}
-                                    explanation={player.lastFeedback?.message}
-                                />
-                            ) : null}
-
-                            {legacyStep?.step.type === 'advance' ? (
-                                <AdvanceStepRenderer payload={legacyStep.step.payload} />
-                            ) : null}
-
-                            {/*
-                              Quando cada item já mostrou o próprio retorno (lição
-                              híbrida ou aula com várias interações), o fechamento
-                              mostra o próprio título e texto, e não repete o da
-                              última interação (achado 4 da prova de 2026-11-07).
-                            */}
-                            {currentStep.kind === 'presentation' && currentStep.role === 'closing' && stepDialogue ? (
-                                <DialogueScene dialogue={stepDialogue} visibleCount={revealedLines} />
-                            ) : null}
-                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' && !dialoguePending ? (
-                                <ReinforceStepRenderer
-                                    payload={{
-                                        title: currentStep.payload.title,
-                                        body: currentStep.payload.body ?? '',
-                                        tone: currentStep.payload.tone ?? 'neutral',
+                        {player.isRetry ? <Text style={styles.retryLabel}>Vamos tentar novamente</Text> : null}
+                        {currentInteraction ? (
+                            // O tremor leve no erro é da área de resposta, não do cartão de retorno.
+                            <Animated.View style={answerShake.style}
+                                testID="lesson-answer"
+                                onLayout={event => { answerLayout.current = event.nativeEvent.layout; }}>
+                                <ActivityInteractionRenderer
+                                    interaction={currentInteraction}
+                                    resolveImageSource={resolveRtgImage}
+                                    value={player.value}
+                                    confirmationLabel={confirmationLabel}
+                                    submitted={player.showingFeedback}
+                                    onChosenLayout={layout => { chosenLayout.current = layout; }}
+                                    onChange={(value) => {
+                                        if (player.showingFeedback) return;
+                                        emit(TOKEN_FAMILIES.has(currentInteraction.type) ? 'token_drop' : 'option_tap');
+                                        player.setValue(value);
                                     }}
-                                    answeredCorrectly={perItemFeedback ? undefined : player.lastFeedback?.correct}
-                                    explanation={perItemFeedback ? undefined : player.lastFeedback?.message}
                                 />
-                            ) : null}
-                        </View>
+                            </Animated.View>
+                        ) : null}
+
+                        {currentInteraction?.help ? (
+                            <LessonHelpButton key={`${stepIndex}:${currentInteraction.id}`}
+                                help={currentInteraction.help} locked={player.showingFeedback}
+                                onReveal={() => { hintUsed.current = { ...hintUsed.current, [currentInteraction.id]: true }; }} />
+                        ) : null}
+
+                        {legacyStep?.step.type === 'reinforce' ? (
+                            <ReinforceStepRenderer
+                                payload={legacyStep.step.payload}
+                                answeredCorrectly={player.lastFeedback?.correct}
+                                explanation={player.lastFeedback?.message}
+                            />
+                        ) : null}
+
+                        {legacyStep?.step.type === 'advance' ? (
+                            <AdvanceStepRenderer payload={legacyStep.step.payload} />
+                        ) : null}
+
+                        {/*
+                          Quando cada item já mostrou o próprio retorno (lição
+                          híbrida ou aula com várias interações), o fechamento
+                          mostra o próprio título e texto, e não repete o da
+                          última interação (achado 4 da prova de 2026-11-07).
+                        */}
+                        {currentStep.kind === 'presentation' && currentStep.role === 'closing' && stepDialogue ? (
+                            <DialogueScene dialogue={stepDialogue} visibleCount={revealedLines} />
+                        ) : null}
+                        {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' && !dialoguePending ? (
+                            <ReinforceStepRenderer
+                                payload={{
+                                    title: currentStep.payload.title,
+                                    body: currentStep.payload.body ?? '',
+                                    tone: currentStep.payload.tone ?? 'neutral',
+                                }}
+                                answeredCorrectly={perItemFeedback ? undefined : player.lastFeedback?.correct}
+                                explanation={perItemFeedback ? undefined : player.lastFeedback?.message}
+                            />
+                        ) : null}
                     </ScrollView>
 
-                    <View style={styles.footer}>
-                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
-                            accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
-                            {confirmationLabel}
-                        </AppButton>
-                    </View>
+                    {showingSheet && currentInteraction ? (
+                        <AnswerFeedbackSheet
+                            rich={rich}
+                            celebrate={retorno.celebrate}
+                            encouragement={retorno.encouragement}
+                            heartLost={retorno.heartLost}
+                            heartsLeft={{ current: hearts.count, max: MAX_HEARTS }}
+                            correct={player.lastFeedback?.correct === true}
+                            message={player.lastFeedback?.message ?? ''}
+                            correctLabel={correctAnswerText(currentInteraction)}
+                            actionLabel={confirmationLabel}
+                            onAction={() => void handleContinue()}
+                            onHeightChange={setSheetHeight}
+                        />
+                    ) : (
+                        <View testID="lesson-footer" style={[styles.footer, { paddingBottom: space.s3 + bottomInset }]}>
+                            <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}
+                                accessibilityHint={benchWaitsForGoal ? 'Alcance o alvo indicado na atividade para conferir a resposta.' : undefined}>
+                                {actionLabel}
+                            </AppButton>
+                        </View>
+                    )}
                 </View>
             </SafeAreaView>
             <HeartsSheet
@@ -974,40 +1056,20 @@ const styles = StyleSheet.create({
         flexShrink: 0,
         color: galaxyColors.textSecondary,
     },
-    headerTopRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-    closeButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 999,
-        backgroundColor: 'rgba(255,255,255,0.07)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     scroll: {
         flex: 1,
     },
     scrollContent: {
         paddingHorizontal: space.s3,
         paddingBottom: space.s4,
-        gap: space.s3,
-    },
-    openingMedal: { alignItems: 'center' },
-    contentCard: {
-        backgroundColor: semanticColors.galaxy.surface,
-        borderRadius: radius.rLg,
-        borderWidth: 1,
-        borderColor: galaxyColors.border,
-        padding: space.s4,
+        // O conteúdo do passo fica direto sobre o fundo, sem moldura (spec 2026-11-16, 7.1).
         gap: space.s4,
     },
+    openingMedal: { alignItems: 'center' },
+    // O padding de baixo soma o inset da área segura, na própria tela.
     footer: {
         paddingHorizontal: space.s3,
         paddingTop: space.s2,
-        paddingBottom: space.s3,
         backgroundColor: semanticColors.galaxy.surface,
     },
     retryLabel: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
@@ -1023,16 +1085,16 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     errorCard: {
-        backgroundColor: 'rgba(255,59,48,0.10)',
+        backgroundColor: galaxyColors.surfaceActive,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: 'rgba(255,59,48,0.25)',
+        borderColor: feedbackColors.error.fill,
         padding: space.s3,
         width: '100%',
     },
     errorText: {
         ...typography.bodyRegular,
-        color: '#FF6B6B',
+        color: galaxyColors.critical,
         textAlign: 'center',
     },
 });

@@ -2,12 +2,9 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { GamificationService } from '../../gamification/services/GamificationService';
-import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyCurriculumService } from '../../journey/services/JourneyCurriculumService';
 import { JourneyStarsService } from '../../journey/services/JourneyStarsService';
-import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import type { CurriculumTrail } from '../../journey/services/JourneyCurriculumService';
-import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import ProfileScreen from './ProfileScreen';
 
 
@@ -36,26 +33,21 @@ jest.mock('expo-router', () => ({
   __blur: () => { for (const entry of jest.requireMock('expo-router').__entries) entry.cleanup?.(); },
 }));
 jest.mock('../../gamification/services/GamificationService', () => ({ GamificationService: { getSnapshot: jest.fn() } }));
-jest.mock('../../daily-goal/services/DailyGoalService', () => ({ DailyGoalService: { getSnapshot: jest.fn(), setTier: jest.fn() } }));
 jest.mock('../../journey/services/JourneyCurriculumService', () => ({ JourneyCurriculumService: { getCurriculumTrail: jest.fn() } }));
 jest.mock('../../journey/services/JourneyStarsService', () => ({ JourneyStarsService: { getRecordStarsByLessonId: jest.fn() } }));
-jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({ SpacedRepetitionService: { getDueCount: jest.fn() } }));
 let mockMissions: { id: string; done: boolean }[] | Error = [];
 let mockFreezes = 0;
+let mockSynced = false;
 jest.mock('../../missions/services/DailyMissionsService', () => ({ DailyMissionsService: {
-  sync: () => (mockMissions instanceof Error ? Promise.reject(mockMissions) : Promise.resolve({ bonusXp: 0, missions: mockMissions })),
+  sync: () => (mockMissions instanceof Error ? Promise.reject(mockMissions) : Promise.resolve({ bonusXp: 0, missions: mockMissions }).then(result => { mockSynced = true; return result; })),
 } }));
 jest.mock('../../gamification/services/StreakFreezeService', () => ({ MAX_STREAK_FREEZES: 2, STREAK_DAYS_PER_FREEZE: 7,
   StreakFreezeService: { getFreezes: () => Promise.resolve(mockFreezes) } }));
 
 
 const gami = jest.mocked(GamificationService.getSnapshot);
-const goalRead = jest.mocked(DailyGoalService.getSnapshot);
-const goalWrite = jest.mocked(DailyGoalService.setTier);
 const curriculum = jest.mocked(JourneyCurriculumService.getCurriculumTrail);
 const stars = jest.mocked(JourneyStarsService.getRecordStarsByLessonId);
-const due = jest.mocked(SpacedRepetitionService.getDueCount);
-const goal: DailyGoalSnapshot = { goalXp: 10, earnedXpToday: 0, tierId: 'start', completedToday: 0, goalPerDay: 10, isCompleted: false, dateKey: '2026-10-29' };
 const trail: CurriculumTrail = { recommendedNodeId: 'l2', segments: [{ trackId: 't', trackTitle: 'Fundamentos', order: 1, unlocked: true, completed: false, units: [
   { id: 'old', title: 'Anterior', theme: 'radiacao', nodes: [{ id: 'old-a', unitId: 'old', type: 'lesson', title: 'Aula anterior', lessonId: 'old-a', status: 'completed' }] },
   { id: 'current', title: 'Tubo', theme: 'tubo', nodes: [
@@ -74,15 +66,12 @@ beforeEach(() => {
   jest.clearAllMocks();
   jest.useFakeTimers({ now: new Date(2026, 9, 29, 12) });
   gami.mockResolvedValue({ totalXp: 72, streakDays: 9, lastActiveDate: null });
-  goalRead.mockResolvedValue(goal);
-  goalWrite.mockResolvedValue({ ...goal, goalXp: 35, goalPerDay: 35, tierId: 'focus' });
   curriculum.mockResolvedValue(trail);
   stars.mockResolvedValue({ a: 3, b: 1 });
-  due.mockResolvedValue(0);
 });
 afterEach(() => jest.useRealTimers());
 
-it('troca missões/métricas por conquistas da unidade atual, contador independente, metas reais e XP uma vez', async () => {
+it('mostra conquistas da unidade atual, contador independente e XP uma vez', async () => {
   render(<ProfileScreen />);
   await screen.findByText('72 XP no total');
   expect(screen.getByRole('header', { name: 'Medalhas' })).toBeTruthy();
@@ -90,10 +79,9 @@ it('troca missões/métricas por conquistas da unidade atual, contador independe
   expect(screen.getByLabelText('Próxima aula. Ainda não conquistada.')).toBeTruthy();
   expect(screen.queryByText('Aula anterior')).toBeNull();
   expect(screen.queryByText('Revisão interna')).toBeNull();
-  expect(screen.getByText('Sequência registrada: 9')).toBeTruthy();
-  expect(screen.queryAllByLabelText(/atividade registrada/u)).toHaveLength(0);
-  expect(screen.getByText('0 de 10')).toBeTruthy();
-  expect(screen.getByText('Revisões pendentes: 0')).toBeTruthy();
+  expect(screen.getByLabelText('Contador de sequência: 9')).toBeTruthy();
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
+  expect(screen.getByText('1 de 2')).toBeTruthy();
   expect(screen.getAllByText(/XP no total/u)).toHaveLength(1);
   for (const old of [/Desafios de hoje/u, /^SEQUÊNCIA$/u, /^XP TOTAL$/u, /Começar · 10 XP/u, /meia-noite/u, /dias seguidos/u]) expect(screen.queryByText(old)).toBeNull();
 });
@@ -103,47 +91,53 @@ it('não apresenta zero durante leitura e libera cada seção sem esperar pela o
   gami.mockReturnValue(pending.promise);
   render(<ProfileScreen />);
   expect(screen.queryByText(/XP no total/u)).toBeNull();
-  await screen.findByText('0 de 10');
-  expect(screen.queryByText('Sequência registrada: 0')).toBeNull();
+  await screen.findByText('1 de 2');
+  expect(screen.queryByLabelText('Contador de sequência: 0')).toBeNull();
   await act(async () => pending.resolve({ totalXp: 8, streakDays: 1, lastActiveDate: null }));
   expect(screen.getByText('8 XP no total')).toBeTruthy();
 });
 
-it.each(['gamification', 'goal', 'curriculum', 'stars', 'due'] as const)('rejeição real de %s não derruba fatos de outra seção nem inventa zero', async (source) => {
-  const failures = { gamification: gami, goal: goalRead, curriculum, stars, due };
+it.each(['gamification', 'curriculum', 'stars'] as const)('rejeição real de %s não derruba fatos de outra seção nem inventa zero', async (source) => {
+  const failures = { gamification: gami, curriculum, stars };
   failures[source].mockRejectedValueOnce(new Error('read failed'));
   render(<ProfileScreen />);
   await screen.findAllByText(/indisponíve[il]/u);
   if (source === 'gamification') {
     expect(screen.queryByText(/XP no total/u)).toBeNull();
-    expect(screen.getByText('0 de 10')).toBeTruthy();
+    expect(screen.getByText('1 de 2')).toBeTruthy();
   } else expect(await screen.findByText('72 XP no total')).toBeTruthy();
-  if (source === 'goal') expect(screen.queryByText('0 de 10')).toBeNull();
   if (source === 'curriculum') expect(screen.queryByLabelText(/Ainda não conquistada/u)).toBeNull();
   if (source === 'stars') expect(screen.getByLabelText('Aula concluída. Concluída.')).toBeTruthy();
-  if (source === 'due') expect(screen.queryByText('Revisões pendentes: 0')).toBeNull();
 });
 
-it('aluno novo tem silhuetas reais e meta zero, mas default1 não marca hoje', async () => {
+it('aluno novo tem silhuetas reais, mas default1 não marca hoje', async () => {
   gami.mockResolvedValue({ totalXp: 0, streakDays: 1, lastActiveDate: null });
   curriculum.mockResolvedValue({ ...trail, segments: trail.segments.map(segment => ({ ...segment, units: segment.units.map(unit => ({ ...unit, nodes: unit.nodes.map(node => ({ ...node, status: 'available' as const })) })) })) });
   stars.mockResolvedValue({});
   render(<ProfileScreen />);
   await screen.findByText('0 XP no total');
-  expect(screen.getByText('Sequência registrada: 1')).toBeTruthy();
-  expect(screen.queryAllByLabelText(/atividade registrada/u)).toHaveLength(0);
+  expect(screen.getByLabelText('Contador de sequência: 1')).toBeTruthy();
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
   expect(screen.getAllByLabelText(/Ainda não conquistada/u)).toHaveLength(2);
-  expect(screen.getByText('0 de 10')).toBeTruthy();
+  expect(screen.getByText('0 de 2')).toBeTruthy();
   expect(screen.queryByText(/nenhuma medalha|comece para|sem atividade/iu)).toBeNull();
 });
 
-it('marca apenas a última data do serviço e não transforma contador alto em calendário', async () => {
+it('sequência viva marca só os dias da semana que a contagem sustenta, sem passar de onde ela começa', async () => {
   gami.mockResolvedValue({ totalXp: 10, streakDays: 99, lastActiveDate: '2026-10-28' });
   render(<ProfileScreen />);
   await screen.findByText('10 XP no total');
-  expect(screen.getAllByLabelText(/atividade registrada/u)).toHaveLength(1);
-  expect(screen.getByLabelText('Quarta-feira, 2026-10-28: atividade registrada')).toBeTruthy();
-  expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: sem registro disponível')).toBeTruthy();
+  expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(3);
+  expect(screen.getByLabelText('Quarta, na sequência')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, ainda sem estudo')).toBeTruthy();
+});
+
+it('sequência parada mostra 0 no contador, não a contagem guardada', async () => {
+  gami.mockResolvedValue({ totalXp: 10, streakDays: 5, standingStreakDays: 0, lastActiveDate: '2026-10-26' });
+  render(<ProfileScreen />);
+  await screen.findByText('10 XP no total');
+  expect(screen.getByLabelText('Contador de sequência: 0')).toBeTruthy();
+  expect(screen.getAllByLabelText(/na sequência/u)).toHaveLength(1);
 });
 
 // Liga semanal (ADR 2026-11-13): a entrada fica no Perfil, como as missões, e
@@ -163,27 +157,20 @@ it('com a liga ligada, o Perfil tem a entrada da liga, que leva a /league', asyn
 
 it('com a liga desligada (padrão), o Perfil não tem a entrada da liga', async () => {
   render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
+  await screen.findByText('72 XP no total');
   expect(screen.queryByTestId('league-profile-row')).toBeNull();
 });
 
-it('deixa edição em Ajustes e preserva Hoje, XP e leitura de meta no Perfil', async () => {
+it('não mostra a linha de missões, o bloco "Hoje" nem "Revisões pendentes"', async () => {
+  mockMissions = [{ id: 'aula-1', done: true }, { id: 'seguidas-5', done: false }, { id: 'meta', done: false }];
   render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
-  expect(screen.getByRole('header', { name: 'Hoje' })).toBeTruthy();
-  expect(screen.queryByRole('button', { name: /Meta diária:/u })).toBeNull();
+  await screen.findByText('72 XP no total');
+  expect(screen.queryByLabelText(/Missões de hoje/u)).toBeNull();
+  expect(screen.queryByRole('header', { name: 'Hoje' })).toBeNull();
+  expect(screen.queryByText(/Revisões pendentes|Meta diária|Ganhe \d+ XP/u)).toBeNull();
   expect(screen.queryByRole('radio')).toBeNull();
-  expect(goalWrite).not.toHaveBeenCalled();
+  mockMissions = [];
 });
-it('refoco após ajuste usa snapshot real devolvido pela fonte, sem guardar tier antigo', async () => {
-  render(<ProfileScreen />); await screen.findByText('0 de 10');
-  await act(async () => jest.requireMock('expo-router').__blur());
-  goalRead.mockResolvedValue({ ...goal, tierId: 'focus', goalXp: 35, earnedXpToday: 7, completedToday: 7, goalPerDay: 35 });
-  await act(async () => jest.requireMock('expo-router').__focus());
-  expect(screen.getByText('7 de 35')).toBeTruthy();
-  expect(goalWrite).not.toHaveBeenCalled();
-});
-
 it('reabre os serviços no novo foco e mantém configurações e rolagem única com folga', async () => {
   const first = render(<ProfileScreen />);
   await screen.findByText('72 XP no total');
@@ -196,7 +183,7 @@ it('reabre os serviços no novo foco e mantém configurações e rolagem única 
   gami.mockResolvedValue({ totalXp: 80, streakDays: 2, lastActiveDate: '2026-10-29' });
   render(<ProfileScreen />);
   await screen.findByText('80 XP no total');
-  expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: atividade registrada')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, na sequência')).toBeTruthy();
   expect(screen.queryByText(/assinatura|backup|sons e vibração|console de desenvolvimento/iu)).toBeNull();
 });
 
@@ -211,7 +198,7 @@ it('leitura velha não substitui o snapshot do novo foco', async () => {
   const oldRead = deferred<Awaited<ReturnType<typeof GamificationService.getSnapshot>>>();
   gami.mockReturnValueOnce(oldRead.promise);
   render(<ProfileScreen />);
-  await screen.findByText('0 de 10');
+  await screen.findByText('1 de 2');
   await act(async () => jest.requireMock('expo-router').__blur());
   gami.mockResolvedValue({ totalXp: 100, streakDays: 2, lastActiveDate: '2026-10-29' });
   await act(async () => jest.requireMock('expo-router').__focus());
@@ -238,25 +225,42 @@ it('estrelas ainda carregando não são anunciadas como falha nem como zero', as
   expect(screen.getByLabelText('Aula concluída. Concluída. 3 estrelas.')).toBeTruthy();
 });
 
-it('mostra o nível que sai do XP, as proteções ao lado da sequência e a entrada das missões do dia', async () => {
-  mockMissions = [{ id: 'aula-1', done: true }, { id: 'seguidas-5', done: false }, { id: 'meta', done: false }];
+it('mostra o nível que sai do XP e as proteções numa linha curta ao lado da sequência', async () => {
   mockFreezes = 1;
   render(<ProfileScreen />);
   // 72 XP: nível 3 começa em 60 e custa 60.
   expect(await screen.findByLabelText('Nível 3, Olhar atento. 12 de 60 XP para o próximo nível.')).toBeTruthy();
-  expect(await screen.findByText('Proteções de sequência: 1 de 2. Cada uma cobre um dia sem estudo. Você ganha uma a cada 7 dias de sequência.')).toBeTruthy();
-  fireEvent.press(await screen.findByLabelText('Missões de hoje. 1 de 3 concluídas. Ver.'));
-  expect(jest.requireMock('expo-router').router.push).toHaveBeenCalledWith('/missions');
-  mockMissions = [];
+  expect(await screen.findByText('1 proteção guardada')).toBeTruthy();
   mockFreezes = 0;
 });
 
-it('missões que não leem não escondem o XP nem o nível, e a entrada some', async () => {
+it('liga e decorações são linhas com o valor à direita, e o total de XP aparece uma vez', async () => {
+  const { AppConfig } = jest.requireActual('../../../config');
+  const liga = jest.replaceProperty(AppConfig, 'ENABLE_LEAGUE', true);
+  const deco = jest.replaceProperty(AppConfig, 'ENABLE_DECORATIONS', true);
+  try {
+    render(<ProfileScreen />);
+    await screen.findByText('72 XP no total');
+    expect(screen.getByText('Ver posição', { includeHiddenElements: true })).toBeTruthy();
+    expect(await screen.findByText('5 de 11', { includeHiddenElements: true })).toBeTruthy();
+    expect(screen.getAllByText(/XP no total/u)).toHaveLength(1);
+  } finally { liga.restore(); deco.restore(); await jest.requireMock('@react-native-async-storage/async-storage').clear(); }
+});
+
+it('o XP é lido depois de as missões pagarem o bônus, para o total já incluí-lo', async () => {
+  mockSynced = false;
+  let syncedAtRead: boolean | null = null;
+  gami.mockImplementation(async () => { syncedAtRead = mockSynced; return { totalXp: 77, streakDays: 1, lastActiveDate: null }; });
+  render(<ProfileScreen />);
+  expect(await screen.findByText('77 XP no total')).toBeTruthy();
+  expect(syncedAtRead).toBe(true);
+});
+
+it('missões que não leem não escondem o XP nem o nível', async () => {
   mockMissions = new Error('missions-unavailable');
   render(<ProfileScreen />);
   expect(await screen.findByText('72 XP no total')).toBeTruthy();
   expect(screen.getByText('Nível 3')).toBeTruthy();
-  expect(screen.queryByText('Missões de hoje')).toBeNull();
   mockMissions = [];
 });
 

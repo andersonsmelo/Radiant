@@ -2,6 +2,7 @@ import React from 'react';
 import { act, render, renderHook } from '@testing-library/react-native';
 
 import {
+    useReducedMotionPreference,
     useReducedMotionPreferenceState,
     type ReducedMotionPreference,
 } from '../accessibility/useReducedMotionPreference';
@@ -13,6 +14,7 @@ import {
     resolveMotionValue,
     useLossPulse,
     useLottieFrameLoop,
+    usePressDescend,
     useMedalMint,
     useResultStar,
     MotionView,
@@ -29,6 +31,7 @@ jest.mock('../useScreenFocused', () => ({
     useScreenFocused: jest.fn(() => true),
 }));
 
+const mockReduced = useReducedMotionPreference as jest.MockedFunction<typeof useReducedMotionPreference>;
 const mockMotion = useReducedMotionPreferenceState as jest.MockedFunction<typeof useReducedMotionPreferenceState>;
 const mockFocused = useScreenFocused as jest.MockedFunction<typeof useScreenFocused>;
 const setMotion = (value: ReducedMotionPreference) => mockMotion.mockReturnValue(value);
@@ -226,5 +229,47 @@ describe('resultado Medalhão', () => {
         advance(16);
         expect(readMotionStyle(view.getByTestId('medal-0')).transform).toEqual([{ scale: 1 }]);
         expectStarFinal(view);
+    });
+});
+
+describe('usePressDescend', () => {
+    type Descend = ReturnType<typeof usePressDescend>;
+    let handlers: Descend;
+    function Probe({ depth, disabled }: { depth: number; disabled?: boolean }) {
+        handlers = usePressDescend(depth, disabled);
+        return React.createElement(MotionView, { testID: 'face', style: handlers.style });
+    }
+    const y = (view: ReturnType<typeof render>) => (readMotionStyle(view.getByTestId('face')) as { transform: { translateY: number }[] }).transform[0].translateY;
+
+    beforeEach(() => { jest.useFakeTimers(); mockReduced.mockReturnValue(false); });
+    afterEach(() => { jest.useRealTimers(); });
+
+    it('desce em duration.micro e volta ao soltar', () => {
+        const view = render(React.createElement(Probe, { depth: 3 }));
+        expect(y(view)).toBe(0);
+        act(() => handlers.onPressIn());
+        act(() => { jest.advanceTimersByTime(duration.micro / 3); });
+        expect(y(view)).toBeGreaterThan(0);
+        expect(y(view)).toBeLessThan(3);
+        act(() => { jest.advanceTimersByTime(duration.micro); });
+        expect(y(view)).toBe(3);
+        act(() => handlers.onPressOut());
+        act(() => { jest.advanceTimersByTime(duration.micro * 2); });
+        expect(y(view)).toBe(0);
+    });
+
+    it('sob reduzir movimento desce de uma vez', () => {
+        mockReduced.mockReturnValue(true);
+        const view = render(React.createElement(Probe, { depth: 3 }));
+        act(() => handlers.onPressIn());
+        act(() => { jest.advanceTimersByTime(16); });
+        expect(y(view)).toBe(3);
+    });
+
+    it('desabilitado não desce', () => {
+        const view = render(React.createElement(Probe, { depth: 3, disabled: true }));
+        act(() => handlers.onPressIn());
+        act(() => { jest.advanceTimersByTime(duration.micro * 2); });
+        expect(y(view)).toBe(0);
     });
 });

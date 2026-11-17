@@ -11,10 +11,11 @@ type ListRowProps = {
   trailing?: React.ReactNode;
   onPress?: () => void;
   accessibilityLabel?: string;
+  testID?: string;
 };
 
 /** A continuous reading row; an action is the only reason it becomes a button. */
-export function ListRow({ leading, title, detail, trailing, onPress, accessibilityLabel }: ListRowProps): React.ReactElement {
+export function ListRow({ leading, title, detail, trailing, onPress, accessibilityLabel, testID }: ListRowProps): React.ReactElement {
   const { fontScale } = useWindowDimensions();
   const stacked = isLargeTextScale(fontScale);
   const content = <>
@@ -28,6 +29,7 @@ export function ListRow({ leading, title, detail, trailing, onPress, accessibili
   </>;
   const shared = {
     accessible: true,
+    testID,
     accessibilityLabel: accessibilityLabel ?? [title, detail].filter(Boolean).join('. '),
     style: [styles.row, stacked && styles.stacked],
   };

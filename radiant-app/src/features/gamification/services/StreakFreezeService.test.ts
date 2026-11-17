@@ -80,3 +80,23 @@ describe('StreakFreezeService (store)', () => {
         expect((await StreakFreezeService.advance({ streakDays: 2, lastActiveDate: '2026-11-05' }, '2026-11-06')).streakDays).toBe(3);
     });
 });
+
+describe('standingStreakDays (a sequência que vale hoje, antes de estudar)', () => {
+    const { standingStreakDays } = require('./StreakFreezeService') as typeof import('./StreakFreezeService');
+    it('estudou hoje ou ontem: vale a contagem guardada', () => {
+        expect(standingStreakDays({ streakDays: 5, lastActiveDate: '2026-11-06' }, 0, '2026-11-06')).toBe(5);
+        expect(standingStreakDays({ streakDays: 5, lastActiveDate: '2026-11-05' }, 0, '2026-11-06')).toBe(5);
+    });
+    it('um dia perdido com proteção guardada ainda vale; sem proteção, vale 0', () => {
+        expect(standingStreakDays({ streakDays: 5, lastActiveDate: '2026-11-04' }, 1, '2026-11-06')).toBe(5);
+        expect(standingStreakDays({ streakDays: 5, lastActiveDate: '2026-11-04' }, 0, '2026-11-06')).toBe(0);
+    });
+    it('parada há dias, sem data ou com data ilegível: vale 0', () => {
+        expect(standingStreakDays({ streakDays: 5, lastActiveDate: '2026-11-01' }, 2, '2026-11-06')).toBe(0);
+        expect(standingStreakDays({ streakDays: 1, lastActiveDate: null }, 0, '2026-11-06')).toBe(0);
+        expect(standingStreakDays({ streakDays: 9, lastActiveDate: '2026-02-31' }, 0, '2026-11-06')).toBe(0);
+    });
+    it('estudo "no futuro" (relógio atrasado) vale como hoje', () => {
+        expect(standingStreakDays({ streakDays: 3, lastActiveDate: '2026-11-08' }, 0, '2026-11-06')).toBe(3);
+    });
+});
