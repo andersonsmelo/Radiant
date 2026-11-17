@@ -64,6 +64,13 @@ o envio do EAS ao App Store Connect consta como concluído (`eas submit:list`).
 A build 16, de `e8e3a0e`, é anterior ao refinamento. **Não conferido:** o fim do
 processamento pela Apple e a build 17 aparecendo no TestFlight.
 
+**A build 17 não tem o texto novo da apresentação inicial.** Ela mostra "Conteúdo em
+preparação." a todo aluno novo, frase que ficou na tela desde a retirada do currículo
+antigo (`30c95b0e`). O dono aprovou, em 2026-11-17, o texto "Aqui você treina o dia a
+dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo
+certo.", trocado em `WelcomeFlowScreen.tsx` depois da build. **Pede build nova antes
+do envio à revisão.**
+
 **Feito na Apple pelo dono em 2026-11-16, com o agente conferindo pela página:**
 o App Group `group.com.ascendcreative.radiant.widgets`, ligado aos App IDs
 `com.ascendcreative.radiant` e `com.ascendcreative.radiant.widgets`; e o placar

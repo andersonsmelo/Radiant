@@ -38,14 +38,14 @@ describe('WelcomeFlowScreen — apresentação sem aulas', () => {
         expect(screen.queryByLabelText('Radiografia simulada de um fantoma')).toBeNull();
         expect(screen.queryByTestId('bench-slider-kv', { includeHiddenElements: true })).toBeNull();
         expect(screen.queryByText(/Ajuste o kV|Osso branco|Contraste no meio|Tudo cinza parecido|primeira radiografia/)).toBeNull();
-        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.')).toBeTruthy();
         expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
         fireEvent.press(screen.getByLabelText('Continuar'));
         expect(onFinish.mock.calls).toEqual([['completed', 1]]);
     });
     it('começa sem paginação e permite continuar ou pular', () => {
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.')).toBeTruthy();
         expect(screen.queryByLabelText(/Tela \d de/)).toBeNull();
         expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
         expect(screen.getByLabelText('Pular apresentação')).not.toBeDisabled();
@@ -109,7 +109,7 @@ describe('WelcomeFlowScreen — apresentação sem aulas', () => {
         const dimensions = jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({ width: 320, height: 568, scale: 2, fontScale: 3.1 });
         try {
             renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
-            const texts = [screen.getByText('Conteúdo em preparação.'), screen.getByText(LEGAL), screen.getByText(/Sem conta\. Seu progresso fica neste/), screen.getByText('Pular')];
+            const texts = [screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.'), screen.getByText(LEGAL), screen.getByText(/Sem conta\. Seu progresso fica neste/), screen.getByText('Pular')];
             for (const text of texts) {
                 const style = StyleSheet.flatten(text.props.style);
                 expect(style.lineHeight).toBeUndefined();
@@ -137,7 +137,7 @@ describe('WelcomeFlowScreen — apresentação sem aulas', () => {
             expect(style.minHeight).toBeGreaterThanOrEqual(44);
             expect(style.minWidth).toBeGreaterThanOrEqual(44);
             expect(style.position).not.toBe('absolute');
-            expect(screen.getByText('Conteúdo em preparação.').props.numberOfLines).toBeUndefined();
+            expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.').props.numberOfLines).toBeUndefined();
             expect(screen.getByText(LEGAL).props.numberOfLines).toBeUndefined();
         } finally { dimensions.mockRestore(); }
     });
@@ -168,7 +168,7 @@ describe('WelcomeFlowScreen — checkpoint real em memória', () => {
         const fallback = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} resumeCheckpointId="legacy" resumeCursorId={cursorId} onResumeFallback={fallback} />);
         await waitFor(async () => expect(await store.getCheckpointById('legacy')).toMatchObject({ cursorId: 'slide-1', totalStepCount: 1, completedStepCount: 0 }));
-        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.')).toBeTruthy();
         expect(fallback).not.toHaveBeenCalled();
     });
 

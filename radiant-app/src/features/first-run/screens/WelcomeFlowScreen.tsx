@@ -86,7 +86,7 @@ export default function WelcomeFlowScreen({
                 </View>
                 <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
                     <WelcomeSlide />
-                    <Text style={[styles.message, largeText && styles.naturalText]}>Conteúdo em preparação.</Text>
+                    <Text style={[styles.message, largeText && styles.naturalText]}>Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.</Text>
                     <Text style={[styles.notice, largeText && styles.naturalText]}>{EDUCATIONAL_NOTICE}</Text>
                     {largeText ? footer : null}
                 </ScrollView>

@@ -78,7 +78,7 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
         renderWithProviders(<SettingsScreen />);
         await waitFor(() => expect(screen.getByRole('button', { name: 'Rever a apresentação' })).toBeTruthy());
         fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
-        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.')).toBeTruthy();
         if (exit === 'concluir') {
             fireEvent.press(screen.getByLabelText('Continuar'));
         } else {
@@ -90,7 +90,7 @@ describe('Rever apresentação — consumidor real de Configuração', () => {
         expect(await AsyncStorage.getItem(KEY)).toBe(ORIGINAL_MARKER);
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
         fireEvent.press(screen.getByRole('button', { name: 'Rever a apresentação' }));
-        expect(screen.getByText('Conteúdo em preparação.')).toBeTruthy();
+        expect(screen.getByText('Aqui você treina o dia a dia do tecnólogo em radiologia: aulas curtas, situações de sala e revisão no tempo certo.')).toBeTruthy();
         expect(screen.getByLabelText('Continuar')).not.toBeDisabled();
     });
 });
