@@ -6,9 +6,11 @@ import { router } from 'expo-router';
 import { ExternalLink } from '../../../../components/external-link';
 import { AppButton } from '../../../components/ui/AppButton';
 import { LEGAL_LINKS } from '../../../config/legal';
-import { depth, galaxyColors, medalColors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { CloseIcon } from '../../../ui/components/VerdictIcons';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
+import { PlanCard } from '../components/PlanCard';
 import { formatShortDate } from '../components/SubscriptionCard';
 import { conversionService, type ConversionService } from '../../conversion/ConversionService';
 import { PlanComparison } from '../../conversion/components/PlanComparison';
@@ -49,6 +51,8 @@ function periodCopy(product: StoreProduct): string {
     return product.period === 'monthly' ? 'por mês' : 'por ano';
 }
 
+const LOADING_LABEL = 'Carregando os planos';
+
 /**
  * Tela da assinatura "Radiant Ilimitado" (spec §6). Preço e período vêm da
  * porta ou não aparecem; a Apple exige (3.1.2) renovação por extenso,
@@ -67,6 +71,7 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     // último e trazer a moeda velha de volta (revisão da PR #38).
     const ultimaCargaDeOfertas = useRef(0);
     const comparing = conversion.enabled();
+    const largeText = useLargeTextLayout();
 
     // Funil local da F8: só conta, nunca envia. Desligada, `record` não escreve.
     useEffect(() => {
@@ -211,11 +216,14 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     let body: React.ReactNode;
     if (status === null || offers === null) {
         body = (
-            <View style={styles.card} accessibilityRole="progressbar" accessibilityLabel="Carregando os planos">
-                <View style={styles.skeletonLine} />
-                <View style={[styles.skeletonLine, styles.skeletonShort]} />
-                <View style={styles.skeletonLine} />
-            </View>
+            <>
+                <View style={styles.card} accessible accessibilityRole="progressbar" accessibilityLabel={LOADING_LABEL}>
+                    <View style={styles.skeletonLine} />
+                    <View style={[styles.skeletonLine, styles.skeletonShort]} />
+                    <View style={styles.skeletonLine} />
+                </View>
+                <AppButton label={LOADING_LABEL} variant="gold" disabled />
+            </>
         );
     } else if (status.kind === 'unlimited') {
         body = (
@@ -268,53 +276,36 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                     </View>
                 ) : null}
 
-                {comparing ? <PlanComparison /> : (
-                    <View style={styles.introduction}>
-                        <Text style={styles.cardTitle}>Errar não custa vida.</Text>
-                        <Text style={styles.body}>As aulas são as mesmas para todo mundo.</Text>
-                    </View>
-                )}
+                <View style={styles.introduction}>
+                    <Text style={styles.cardTitle}>Errar não custa vida.</Text>
+                    <Text style={styles.body}>
+                        {comparing ? 'Aulas, revisões e avaliações continuam gratuitas.' : 'As aulas são as mesmas para todo mundo.'}
+                    </Text>
+                </View>
+                {comparing ? <PlanComparison /> : null}
 
-                <View style={styles.plans} accessibilityRole="radiogroup" accessibilityLabel="Escolha seu plano">
+                <View style={[styles.plans, largeText && styles.plansStacked]} accessibilityRole="radiogroup" accessibilityLabel="Escolha seu plano">
                     {offers.products.map((product) => {
                         const annual = product.period === 'annual';
-                        const selected = selectedProduct?.id === product.id;
                         const monthly = monthlyEquivalent(product);
-                        const tone = annual ? medalColors.gold : medalColors.unit;
                         return (
-                            <Pressable
-                                key={product.id}
-                                accessibilityRole="radio"
-                                accessibilityLabel={`${annual ? 'Anual' : 'Mensal'}, ${product.displayPrice} ${periodCopy(product)}${monthly ? `, ${monthly}` : ''}`}
-                                accessibilityState={{ checked: selected, disabled: busy }}
-                                disabled={busy}
-                                onPress={() => setSelectedProductId(product.id)}
-                                style={styles.plan}
-                            >
-                                {({ pressed }) => (
-                                    <>
-                                        <View style={styles.medal}>
-                                            <View pointerEvents="none" style={[styles.medalLip, { backgroundColor: tone.lip }]} />
-                                            <View style={[
-                                                styles.medalFace,
-                                                { backgroundColor: tone.face, borderColor: selected ? galaxyColors.textPrimary : tone.inner,
-                                                    transform: [{ translateY: pressed ? depth.lip - 1 : 0 }] },
-                                            ]}>
-                                                <Text style={[styles.planTitle, annual && styles.goldLabel]}>{annual ? 'Anual' : 'Mensal'}</Text>
-                                            </View>
-                                        </View>
-                                        <Text style={styles.price}>{product.displayPrice}</Text>
-                                        <Text style={styles.period}>{periodCopy(product)}</Text>
-                                        {monthly ? <Text style={styles.equivalent}>{monthly}</Text> : null}
-                                    </>
-                                )}
-                            </Pressable>
+                            <View key={product.id} style={largeText ? undefined : styles.planSlot}>
+                                <PlanCard
+                                    title={annual ? 'Anual' : 'Mensal'}
+                                    price={product.displayPrice}
+                                    detail={monthly ? `${periodCopy(product)}, ${monthly}` : periodCopy(product)}
+                                    selected={selectedProduct?.id === product.id}
+                                    tone={annual ? 'gold' : 'neutral'}
+                                    disabled={busy}
+                                    onPress={() => setSelectedProductId(product.id)}
+                                />
+                            </View>
                         );
                     })}
                 </View>
                 {selectedProduct ? (
                     <AppButton
-                        label={selectedProduct.period === 'annual' ? 'Assinar anual' : 'Assinar mensal'}
+                        label={selectedProduct.period === 'annual' ? 'Assinar o anual' : 'Assinar o mensal'}
                         variant={selectedProduct.period === 'annual' ? 'gold' : 'galaxy'}
                         loading={busy}
                         onPress={() => void purchase(selectedProduct)}
@@ -432,56 +423,13 @@ const styles = StyleSheet.create({
         gap: space.s2,
         paddingVertical: space.s2,
     },
-    plan: {
+    // Texto ampliado: os cartões empilham, pela mesma regra das outras telas.
+    plansStacked: {
+        flexDirection: 'column',
+    },
+    planSlot: {
         flex: 1,
         minWidth: 0,
-        alignItems: 'center',
-        gap: space.s1,
-    },
-    medal: {
-        width: '100%',
-        maxWidth: 128,
-        paddingBottom: depth.lip,
-    },
-    // Diâmetro aprovado de 128 pt, raio de 64 pt composto do token existente.
-    medalLip: {
-        position: 'absolute',
-        top: depth.lip,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        borderRadius: radius.rLg * 4,
-    },
-    medalFace: {
-        minHeight: 112,
-        borderRadius: radius.rLg * 4,
-        borderWidth: 3,
-        padding: space.s2,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    planTitle: {
-        ...typography.bodyStrong,
-        color: galaxyColors.textPrimary,
-        textAlign: 'center',
-    },
-    goldLabel: {
-        color: galaxyColors.background,
-    },
-    price: {
-        ...typography.h3,
-        color: galaxyColors.textPrimary,
-        textAlign: 'center',
-    },
-    period: {
-        ...typography.bodyRegular,
-        color: galaxyColors.textSecondary,
-        textAlign: 'center',
-    },
-    equivalent: {
-        ...typography.caption,
-        color: medalColors.gold.face,
-        textAlign: 'center',
     },
     notice: {
         ...typography.bodyRegular,

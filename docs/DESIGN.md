@@ -515,6 +515,22 @@ Cada missão das "Missões de hoje" é uma linha com divisória de 1 px:
   e "concluída" vem no rótulo. O botão "Continuar a trilha" (`galaxy`) fecha a
   tela e volta à trilha.
 
+### Cartão de plano
+Escolha de plano na assinatura (`PlanCard`, em `subscription/components`), com o
+relevo da alternativa: borda de 2 px, raio de 16 px, lábio de 4 pt e face que
+desce 3 pt na pressão (`usePressDescend`). Dois cartões lado a lado; com texto
+ampliado (`useLargeTextLayout`), empilhados. Mostra o plano, o preço exatamente
+como o StoreKit entrega e o detalhe ("por ano, R$ 12,49 por mês" no anual,
+quando a loja dá o preço numérico).
+- **Repouso:** face `surface`, borda `border`, lábio `backgroundAlt`.
+- **Selecionado:** face `surfaceActive`; no tom `gold` (anual), borda e lábio de
+  ouro; no `neutral` (mensal), borda Azul de Navegação e lábio da unidade.
+- **Leitor de tela:** botão de escolha (`radio`) com `selected`, lido como
+  "Anual, R$ 149,90, por ano, selecionado".
+Abaixo, um só botão nomeia o plano escolhido: "Assinar o anual" (`gold`) ou
+"Assinar o mensal" (`galaxy`). Enquanto os preços carregam, ele aparece
+desabilitado com "Carregando os planos".
+
 ### Perfil
 Cabeçalho, nível, estante, sequência, duas linhas e o total de XP, sem cartão:
 - **Estante:** a contagem "2 de 13" vem ao lado do título. A primeira fileira

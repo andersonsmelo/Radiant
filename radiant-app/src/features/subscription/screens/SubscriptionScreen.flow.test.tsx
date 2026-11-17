@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { medalColors } from '../../../ui/theme';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -78,7 +79,7 @@ describe('SubscriptionScreen — estados', () => {
         let liberar: ((value: StoreProduct[]) => void) | undefined;
         abrir(loja({ loadProducts: jest.fn(() => new Promise<StoreProduct[]>(resolve => { liberar = resolve; })) }));
 
-        expect(screen.getByLabelText('Carregando os planos')).toBeTruthy();
+        expect(screen.getByRole('progressbar', { name: 'Carregando os planos' })).toBeTruthy();
         expect(screen.queryByText(/R\$/u)).toBeNull();
 
         await act(async () => { liberar?.(produtos); });
@@ -118,11 +119,11 @@ describe('SubscriptionScreen — estados', () => {
     it('Ask to Buy avisa o pedido e mantém planos e Restaurar à mão', async () => {
         abrir(loja({ purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })) }));
 
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
 
         expect(await screen.findByText(/Pedido enviado para aprovação/u)).toBeTruthy();
         expect(screen.getAllByRole('radio')).toHaveLength(2);
-        expect(screen.getByRole('button', { name: 'Assinar anual' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
         expect(screen.getByRole('button', { name: 'Restaurar compras' })).toBeTruthy();
     });
 
@@ -141,7 +142,7 @@ describe('SubscriptionScreen — estados', () => {
                 return pararDeEscutar;
             }),
         }));
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
         expect(await screen.findByText(/Pedido enviado para aprovação/u)).toBeTruthy();
 
         currentEntitlement.mockResolvedValue(direito());
@@ -162,7 +163,7 @@ describe('SubscriptionScreen — estados', () => {
 
         renderWithProviders(<SubscriptionScreen service={service} nowMs={() => agora} />);
 
-        expect(await screen.findByRole('button', { name: 'Assinar anual' })).toBeTruthy();
+        expect(await screen.findByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
         expect(screen.queryByText(/Pedido enviado para aprovação/u)).toBeNull();
     });
 
@@ -286,7 +287,7 @@ describe('SubscriptionScreen — estados', () => {
     it('compra cancelada na folha da Apple não cobra nada e mantém os planos', async () => {
         abrir(loja());
 
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
 
         expect(await screen.findByText(/nada foi cobrado/iu)).toBeTruthy();
         expect(screen.getByText('R$ 149,90')).toBeTruthy();
@@ -295,7 +296,7 @@ describe('SubscriptionScreen — estados', () => {
     it('compra confirmada vira assinante na hora', async () => {
         abrir(loja({ purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'purchased', entitlement: direito() })) }));
 
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
 
         expect(await screen.findByText('Você é assinante')).toBeTruthy();
     });
@@ -305,7 +306,7 @@ describe('SubscriptionScreen — estados', () => {
 
         expect(await screen.findByText(/expirou em 01\/09\/2026/u)).toBeTruthy();
         expect(screen.getByText(/voltaram a 5/u)).toBeTruthy();
-        expect(screen.getByRole('button', { name: 'Assinar anual' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
     });
 
     it('o botão de fechar não tem o caractere ✕', async () => {
@@ -332,21 +333,21 @@ describe('SubscriptionScreen — T11 seleção e preço real', () => {
         const purchase = jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'cancelled' }));
         abrir(loja({ purchase }));
         const anual = await screen.findByRole('radio', { name: /Anual/u });
-        expect(anual.props.accessibilityState.checked).toBe(true);
-        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.checked).toBe(false);
+        expect(anual.props.accessibilityState.selected).toBe(true);
+        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.selected).toBe(false);
         expect(screen.getAllByRole('button', { name: /^Assinar/u })).toHaveLength(1);
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o anual' }));
         await waitFor(() => expect(purchase).toHaveBeenLastCalledWith('annual_plus'));
         await screen.findByText(/nada foi cobrado/iu);
         fireEvent.press(screen.getByRole('radio', { name: /Mensal/u }));
-        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.checked).toBe(true);
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar mensal' }));
+        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.selected).toBe(true);
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o mensal' }));
         await waitFor(() => expect(purchase).toHaveBeenLastCalledWith('monthly_plus'));
     });
 
     it('divide o número explícito pela duração anual e formata a moeda, sem ler displayPrice', async () => {
         abrir(loja({ loadProducts: jest.fn(async () => [produtos[0], { ...produtos[1], displayPrice: 'Preço localizado da Apple', price: 22.99, currencyCode: 'USD' }]) }));
-        expect(await screen.findByText('$1.92 por mês')).toBeTruthy();
+        expect(await screen.findByText('por ano, $1.92 por mês')).toBeTruthy();
         expect(screen.getByText('Preço localizado da Apple')).toBeTruthy();
     });
 
@@ -371,9 +372,9 @@ describe('SubscriptionScreen — T11 seleção e preço real', () => {
 
     it('falha de compra informa e permite tentar novamente', async () => {
         abrir(loja({ purchase: jest.fn(async () => ({ kind: 'failed' as const, message: 'network' })) }));
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
         expect(await screen.findByText(/A compra não foi concluída/u)).toBeTruthy();
-        expect(screen.getByRole('button', { name: 'Assinar anual' }).props.accessibilityState.disabled).toBe(false);
+        expect(screen.getByRole('button', { name: 'Assinar o anual' }).props.accessibilityState.disabled).toBe(false);
     });
 
     it('não mostra seleção nem compra quando a loja está indisponível', async () => {
@@ -385,7 +386,7 @@ describe('SubscriptionScreen — T11 seleção e preço real', () => {
 
     it('um único produto real continua selecionável, sem inventar o plano ausente', async () => {
         abrir(loja({ loadProducts: jest.fn(async () => [produtos[0]]) }));
-        expect(await screen.findByRole('button', { name: 'Assinar mensal' })).toBeTruthy();
+        expect(await screen.findByRole('button', { name: 'Assinar o mensal' })).toBeTruthy();
         expect(screen.getAllByRole('radio')).toHaveLength(1);
     });
 });
@@ -398,25 +399,25 @@ describe('SubscriptionScreen — T11 atualização e espera', () => {
             .mockResolvedValueOnce([{ ...produtos[1], price: 22.99, currencyCode: 'USD' }])
             .mockResolvedValue([{ ...produtos[1], displayPrice: '€36.00', price: 36, currencyCode: 'EUR' }]);
         abrir(loja({ loadProducts, onStorefrontChanged: jest.fn(listener => { avisar = listener; return () => undefined; }) }));
-        expect(await screen.findByText('$1.92 por mês')).toBeTruthy();
+        expect(await screen.findByText('por ano, $1.92 por mês')).toBeTruthy();
         await act(async () => avisar());
-        expect(await screen.findByText('€3.00 por mês')).toBeTruthy();
-        expect(screen.queryByText('$1.92 por mês')).toBeNull();
+        expect(await screen.findByText('por ano, €3.00 por mês')).toBeTruthy();
+        expect(screen.queryByText('por ano, $1.92 por mês')).toBeNull();
     });
 
     it('bloqueia seleção e nova compra enquanto aguarda a loja', async () => {
         let concluir: (result: PurchaseOutcome) => void = () => undefined;
         const purchase = jest.fn(() => new Promise<PurchaseOutcome>(resolve => { concluir = resolve; }));
         abrir(loja({ purchase }));
-        fireEvent.press(await screen.findByRole('button', { name: 'Assinar anual' }));
-        expect(screen.getByRole('button', { name: 'Assinar anual' }).props.accessibilityState.busy).toBe(true);
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar o anual' }));
+        expect(screen.getByRole('button', { name: 'Assinar o anual' }).props.accessibilityState.busy).toBe(true);
         const mensal = screen.getByRole('radio', { name: /Mensal/u });
         expect(mensal.props.accessibilityState.disabled).toBe(true);
         fireEvent.press(mensal);
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o anual' }));
         expect(purchase).toHaveBeenCalledTimes(1);
         await act(async () => concluir({ kind: 'cancelled' }));
-        expect(screen.getByRole('button', { name: 'Assinar anual' }).props.accessibilityState.busy).toBe(false);
+        expect(screen.getByRole('button', { name: 'Assinar o anual' }).props.accessibilityState.busy).toBe(false);
     });
 });
 
@@ -429,8 +430,8 @@ describe('SubscriptionScreen — T11 seleção após storefront', () => {
         fireEvent.press(await screen.findByRole('radio', { name: /Mensal/u }));
         await act(async () => avisar());
         await waitFor(() => expect(screen.getAllByText('€12.00')).toHaveLength(2));
-        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.checked).toBe(true);
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar mensal' }));
+        expect(screen.getByRole('radio', { name: /Mensal/u }).props.accessibilityState.selected).toBe(true);
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o mensal' }));
         await waitFor(() => expect(purchase).toHaveBeenCalledWith('monthly_plus'));
     });
 
@@ -442,8 +443,8 @@ describe('SubscriptionScreen — T11 seleção após storefront', () => {
         fireEvent.press(await screen.findByRole('radio', { name: /Mensal/u }));
         await act(async () => avisar());
         await waitFor(() => expect(screen.queryByRole('radio', { name: /Mensal/u })).toBeNull());
-        expect(screen.getByRole('radio', { name: /Anual/u }).props.accessibilityState.checked).toBe(true);
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar anual' }));
+        expect(screen.getByRole('radio', { name: /Anual/u }).props.accessibilityState.selected).toBe(true);
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o anual' }));
         await waitFor(() => expect(purchase).toHaveBeenCalledWith('annual_plus'));
     });
 });
@@ -463,7 +464,7 @@ describe('SubscriptionScreen — T11 storefront fora de ordem', () => {
         expect(screen.queryByRole('radio', { name: /Mensal/u })).toBeNull();
         await act(async () => { responderAntiga(produtos); });
         expect(screen.queryByRole('radio', { name: /Mensal/u })).toBeNull();
-        fireEvent.press(screen.getByRole('button', { name: 'Assinar anual' }));
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o anual' }));
         await waitFor(() => expect(purchase).toHaveBeenCalledWith('annual_plus'));
     });
 });
@@ -474,9 +475,9 @@ describe('SubscriptionScreen — T11 fix1 rótulo acessível do equivalente mens
             { ...produtos[0], price: 2.99, currencyCode: 'USD', displayPrice: '$2.99' },
             { ...produtos[1], price: 22.99, currencyCode: 'USD', displayPrice: '$22.99' },
         ]) }));
-        expect(await screen.findByRole('radio', { name: 'Anual, $22.99 por ano, $1.92 por mês' })).toBeTruthy();
-        expect(screen.getByRole('radio', { name: 'Mensal, $2.99 por mês' })).toBeTruthy();
-        expect(screen.getByText('$1.92 por mês')).toBeTruthy();
+        expect(await screen.findByRole('radio', { name: 'Anual, $22.99, por ano, $1.92 por mês' })).toBeTruthy();
+        expect(screen.getByRole('radio', { name: 'Mensal, $2.99, por mês' })).toBeTruthy();
+        expect(screen.getByText('por ano, $1.92 por mês')).toBeTruthy();
     });
 
     it.each([
@@ -486,38 +487,83 @@ describe('SubscriptionScreen — T11 fix1 rótulo acessível do equivalente mens
         { price: 22.99, currencyCode: 'invalid' },
     ])('omite equivalente no rótulo acessível sem metadados válidos: %j', async metadata => {
         abrir(loja({ loadProducts: jest.fn(async () => [produtos[0], { ...produtos[1], ...metadata }]) }));
-        expect(await screen.findByRole('radio', { name: 'Anual, R$ 149,90 por ano' })).toBeTruthy();
-        expect(screen.getByRole('radio', { name: 'Mensal, R$ 19,90 por mês' })).toBeTruthy();
+        expect(await screen.findByRole('radio', { name: 'Anual, R$ 149,90, por ano' })).toBeTruthy();
+        expect(screen.getByRole('radio', { name: 'Mensal, R$ 19,90, por mês' })).toBeTruthy();
     });
 });
 
 
-type LayoutTestNode = {
-    props: { style?: StyleProp<ViewStyle>; pointerEvents?: string };
-    parent: LayoutTestNode | null;
-    findAll(predicate: (node: LayoutTestNode) => boolean): LayoutTestNode[];
-};
+// Copiado da tela antes da Tarefa 10 (2026-11-17), sem editar: o texto legal
+// aprovado pela Apple não muda com os cartões de plano.
+const TEXTO_LEGAL_APROVADO = [
+    'A assinatura renova automaticamente pelo mesmo valor e período até ser cancelada. A cobrança acontece na sua conta da Apple ao confirmar a compra e a cada renovação, até 24 horas antes do fim do período atual.',
+    'Para gerenciar ou cancelar: Ajustes do iOS → seu nome → Assinaturas.',
+];
 
-describe('SubscriptionScreen — T11 fix2 geometria do medalhão', () => {
-    it('mantém face e lábio no raio de metade do diâmetro aprovado', async () => {
+describe('SubscriptionScreen — Tarefa 10 cartões de plano', () => {
+    const lip = () => StyleSheet.flatten(screen.getByTestId('app-button-lip').props.style).backgroundColor;
+
+    it('o anual vem selecionado, em ouro, e o botão único diz "Assinar o anual"', async () => {
         abrir(loja());
-        await screen.findByRole('radio', { name: /Anual/u });
-        for (const name of ['Mensal', 'Anual']) {
-            let face: LayoutTestNode | null = screen.getByText(name).parent;
-            while (face && StyleSheet.flatten(face.props.style)?.borderRadius === undefined) face = face.parent;
-            if (!face) throw new Error(`Face ausente no plano ${name}`);
-            let medal: LayoutTestNode | null = face.parent;
-            while (medal && StyleSheet.flatten(medal.props.style)?.maxWidth === undefined) medal = medal.parent;
-            if (!medal) throw new Error(`Medalha ausente no plano ${name}`);
-            const lip = medal.findAll(node => node.props.pointerEvents === 'none')[0];
-            if (!lip) throw new Error(`Lábio ausente no plano ${name}`);
-            const faceStyle = StyleSheet.flatten(face.props.style) ?? {};
-            const lipStyle = StyleSheet.flatten(lip.props.style) ?? {};
-            const medalStyle = StyleSheet.flatten(medal.props.style) ?? {};
-            expect(medalStyle.maxWidth).toBe(128);
-            expect(faceStyle.borderRadius).toBe(64);
-            expect(Number(faceStyle.borderRadius) * 2).toBe(medalStyle.maxWidth);
-            expect(lipStyle.borderRadius).toBe(faceStyle.borderRadius);
-        }
+        const anual = await screen.findByRole('radio', { name: /^Anual, R\$ 149,90/u });
+        expect(anual.props.accessibilityState.selected).toBe(true);
+        expect(screen.getByRole('radio', { name: /^Mensal, R\$ 19,90/u }).props.accessibilityState.selected).toBe(false);
+        expect(screen.getByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
+        expect(lip()).toBe(medalColors.gold.lip);
+    });
+
+    it('tocar no mensal troca a seleção e o rótulo do botão para "Assinar o mensal"', async () => {
+        const purchase = jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'cancelled' }));
+        abrir(loja({ purchase }));
+        fireEvent.press(await screen.findByRole('radio', { name: /^Mensal/u }));
+        expect(screen.getByRole('radio', { name: /^Mensal/u }).props.accessibilityState.selected).toBe(true);
+        expect(screen.getByRole('radio', { name: /^Anual/u }).props.accessibilityState.selected).toBe(false);
+        expect(screen.queryByRole('button', { name: 'Assinar o anual' })).toBeNull();
+        fireEvent.press(screen.getByRole('button', { name: 'Assinar o mensal' }));
+        expect(lip()).toBe(medalColors.unit.lip);
+        await waitFor(() => expect(purchase).toHaveBeenCalledWith('monthly_plus'));
+    });
+
+    it('há um único botão de assinar', async () => {
+        abrir(loja());
+        await screen.findByRole('radio', { name: /^Anual/u });
+        expect(screen.getAllByRole('radio')).toHaveLength(2);
+        expect(screen.getAllByRole('button', { name: /^Assinar/u })).toHaveLength(1);
+    });
+
+    it('o texto legal de hoje aparece inteiro, com Termos e Privacidade', async () => {
+        abrir(loja());
+        await screen.findByRole('radio', { name: /^Anual/u });
+        for (const texto of TEXTO_LEGAL_APROVADO) expect(screen.getByText(texto)).toBeTruthy();
+        expect(screen.getByRole('link', { name: 'Termos de uso' })).toBeTruthy();
+        expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
+    });
+
+    it('"Restaurar compras" continua, como botão de texto', async () => {
+        abrir(loja());
+        const restaurar = await screen.findByRole('button', { name: 'Restaurar compras' });
+        expect(restaurar.props.accessibilityState.disabled).toBe(false);
+    });
+
+    it('preço ausente mostra o estado de carregamento atual e o botão desabilitado', async () => {
+        let liberar: ((value: StoreProduct[]) => void) | undefined;
+        abrir(loja({ loadProducts: jest.fn(() => new Promise<StoreProduct[]>(resolve => { liberar = resolve; })) }));
+        expect(screen.getByRole('progressbar', { name: 'Carregando os planos' })).toBeTruthy();
+        const botao = screen.getByRole('button', { name: 'Carregando os planos' });
+        expect(botao.props.accessibilityState.disabled).toBe(true);
+        expect(screen.queryAllByRole('radio')).toHaveLength(0);
+        await act(async () => { liberar?.(produtos); });
+        expect(await screen.findByRole('button', { name: 'Assinar o anual' })).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Carregando os planos' })).toBeNull();
+    });
+
+    it('com o plano anual, o detalhe mostra o valor por mês calculado do preço do StoreKit', async () => {
+        abrir(loja({ loadProducts: jest.fn(async () => [
+            { ...produtos[0], displayPrice: '$2.99', price: 2.99, currencyCode: 'USD' },
+            { ...produtos[1], displayPrice: '$22.99', price: 22.99, currencyCode: 'USD' },
+        ]) }));
+        expect(await screen.findByRole('radio', { name: 'Anual, $22.99, por ano, $1.92 por mês' })).toBeTruthy();
+        expect(screen.getByText('por ano, $1.92 por mês')).toBeTruthy();
+        expect(screen.getByRole('radio', { name: 'Mensal, $2.99, por mês' })).toBeTruthy();
     });
 });

@@ -6,24 +6,25 @@ import { radius, space, typography } from '../../../ui/styles';
 import { planComparison } from '../planComparison';
 
 /**
- * Tabela gratuito × assinante (F8). Cada linha é um nó só para o leitor de
- * tela, lida como "Vidas. Gratuito: … Assinante: …", porque a grade de três
- * colunas não tem ordem de leitura por si.
+ * Comparação gratuito × assinante (F8), só com a linha em que os planos
+ * diferem. Cada linha é um nó só para o leitor de tela, lido como
+ * "Vidas: …. Com o Ilimitado: …", porque as duas colunas não têm ordem de
+ * leitura por si.
  */
 export function PlanComparison() {
     return (
         <View style={styles.card}>
-            <View style={styles.row} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
-                <View style={styles.labelCell} />
-                <Text style={styles.columnTitle}>Gratuito</Text>
-                <Text style={[styles.columnTitle, styles.plus]}>Assinante</Text>
-            </View>
             {planComparison().map(row => (
-                <View key={row.label} style={[styles.row, styles.divider]} accessible
-                    accessibilityLabel={`${row.label}. Gratuito: ${row.free}. Assinante: ${row.plus}.`}>
-                    <Text style={[styles.labelCell, styles.label]}>{row.label}</Text>
-                    <Text style={styles.cell}>{row.free}</Text>
-                    <Text style={[styles.cell, styles.plusCell]}>{row.plus}</Text>
+                <View key={row.label} style={styles.row} accessible
+                    accessibilityLabel={`${row.label}: ${row.free}. Com o Ilimitado: ${row.plus}.`}>
+                    <View style={styles.column}>
+                        <Text style={styles.columnTitle}>{row.label}</Text>
+                        <Text style={styles.cell}>{row.free}</Text>
+                    </View>
+                    <View style={styles.column}>
+                        <Text style={[styles.columnTitle, styles.plus]}>Com o Ilimitado</Text>
+                        <Text style={[styles.cell, styles.plusCell]}>{row.plus}</Text>
+                    </View>
                 </View>
             ))}
         </View>
@@ -37,14 +38,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: galaxyColors.border,
         padding: space.s3,
-        gap: space.s2,
     },
-    row: { flexDirection: 'row', gap: space.s2, alignItems: 'flex-start' },
-    divider: { borderTopWidth: 1, borderTopColor: galaxyColors.border, paddingTop: space.s2 },
-    labelCell: { flex: 1.1 },
-    label: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
-    columnTitle: { ...typography.caption, flex: 1, color: galaxyColors.textSecondary },
+    row: { flexDirection: 'row', gap: space.s3, alignItems: 'flex-start' },
+    column: { flex: 1, minWidth: 0, gap: space.s1 },
+    columnTitle: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
     plus: { color: medalColors.gold.face },
-    cell: { ...typography.caption, flex: 1, color: galaxyColors.textSecondary },
-    plusCell: { color: galaxyColors.textPrimary },
+    cell: { ...typography.caption, color: galaxyColors.textSecondary },
+    plusCell: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
 });

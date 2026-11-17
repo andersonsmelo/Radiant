@@ -9,7 +9,8 @@ describe('SubscriptionCard', () => {
         const onOpen = jest.fn();
         render(<SubscriptionCard status={{ kind: 'none' }} onOpen={onOpen} />);
 
-        expect(screen.getByText('Vidas ilimitadas — e só isso.')).toBeTruthy();
+        expect(screen.getByText('Errar não custa vida.')).toBeTruthy();
+        expect(screen.queryByText(/—/u)).toBeNull();
         fireEvent.press(screen.getByRole('button', { name: 'Conhecer' }));
         expect(onOpen).toHaveBeenCalledTimes(1);
     });
