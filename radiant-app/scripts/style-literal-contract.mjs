@@ -8,6 +8,9 @@ import { appRoot, ts, unwrap } from './ast-helpers.mjs';
 // `textTransform: 'uppercase'`. Comentário não existe na AST, e texto que só
 // cita uma cor não é uma cor inteira, então nenhum dos dois é acusado.
 //
+// Também acusa `...typography.label` espalhado sem desligar a caixa alta, fora
+// dos usos julgados em `LABEL_USES`.
+//
 // shortcut: a guarda só vê literal escrito no lugar. Ela não acusa tamanho de
 // texto vindo de identificador ou de conta (`fontSize: SIZE`, `fontSize: base * 1.2`),
 // cor montada por template (`#${hex}`) nem cor nomeada (`'white'`, `'black'`).
@@ -27,6 +30,16 @@ export const EXEMPT = [
   ['src/app/telemetry.tsx', 'rota da tela de desenvolvimento'],
   ['src/features/curriculum-v3/', 'ilustrações SVG das lições híbridas, com cores de desenho'],
   ['src/features/bench/exposureShader.ts', 'constantes de um shader'],
+];
+
+// `typography.label` carrega caixa alta. Espalhá-lo num estilo sem desligar a
+// caixa alta no mesmo objeto é etiqueta em caixa alta, que a tela só usa onde
+// foi julgado caso a caso (Tarefa 6, 2026-11-17). Cada linha diz o arquivo,
+// quantos usos foram julgados e por quê; um uso a mais é acusado.
+export const LABEL_USES = [
+  ['src/features/journey/components/JourneyTrail.tsx', 1, 'título da unidade na trilha: é o título, não etiqueta sobre outro título'],
+  ['src/features/journey/components/JourneyUnitNavigation.tsx', 2, 'cabeçalho e título de unidade na navegação: títulos'],
+  ['src/features/journey/components/JourneyLevelBand.tsx', 1, 'marco da faixa de nível: segundo canal do estado, além da cor'],
 ];
 
 const COLOR_WHOLE = /^\s*(?:#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})|rgba?\(.*\))\s*$/i;
@@ -63,8 +76,14 @@ export function scanStyleLiterals(sources) {
       kind,
       text: node.getText(source).slice(0, 60),
     });
+    let labelBudget = LABEL_USES.find(([allowed]) => allowed === file)?.[1] ?? 0;
     const visit = (node) => {
       if (ts.isLiteralTypeNode(node) || ts.isImportDeclaration(node)) return;
+      if (ts.isSpreadAssignment(node) && unwrap(node.expression)?.getText(source) === 'typography.label') {
+        const turnsOff = node.parent.properties.some((sibling) => ts.isPropertyAssignment(sibling) && nameOf(sibling.name) === 'textTransform'
+          && valueLiterals(sibling.initializer).every((literal) => (ts.isStringLiteral(literal) || ts.isNoSubstitutionTemplateLiteral(literal)) && literal.text !== 'uppercase'));
+        if (!turnsOff && (labelBudget -= 1) < 0) report(node, 'label');
+      }
       if ((ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) && COLOR_WHOLE.test(node.text)) report(node, 'color');
       if (ts.isTemplateExpression(node) && /^\s*rgba?\(/i.test(node.head.text)) report(node, 'color');
       const property = ts.isPropertyAssignment(node) || ts.isJsxAttribute(node) ? nameOf(node.name) : undefined;

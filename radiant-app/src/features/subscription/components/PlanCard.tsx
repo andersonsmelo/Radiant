@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { MotionPressable, usePressDescend } from '../../../ui/motion';
-import { radius, space, typography } from '../../../ui/styles';
+import { PIECE_LIP, pieceRelief, radius, space, typography } from '../../../ui/styles';
 import { galaxyColors, medalColors } from '../../../ui/theme';
 
 export type PlanCardProps = {
@@ -21,7 +21,6 @@ export type PlanCardProps = {
 };
 
 // Relevo da alternativa (`ChoiceOption`): lábio de 4 pt e face que desce 3 pt.
-const LIP = 4;
 
 /**
  * Cartão de escolha de plano da assinatura. Selecionado, a borda e o lábio
@@ -29,7 +28,7 @@ const LIP = 4;
  * ficam neutros.
  */
 export function PlanCard({ title, price, period, detail, selected, tone, onPress, disabled = false, testID }: PlanCardProps) {
-    const descend = usePressDescend(LIP - 1, disabled);
+    const descend = usePressDescend(PIECE_LIP - 1, disabled);
     const gold = tone === 'gold';
     const border = !selected ? galaxyColors.border : gold ? medalColors.gold.face : galaxyColors.navBlue;
     const lip = !selected ? galaxyColors.backgroundAlt : gold ? medalColors.gold.lip : medalColors.unit.lip;
@@ -59,8 +58,8 @@ export function PlanCard({ title, price, period, detail, selected, tone, onPress
 
 const styles = StyleSheet.create({
     // `flexGrow`, e não `flex: 1`: empilhado, dentro da rolagem, `flex: 1` zera a altura.
-    relief: { flexGrow: 1, paddingBottom: LIP },
-    lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rLg },
+    relief: { flexGrow: 1, ...pieceRelief(radius.rLg).wrap },
+    lip: pieceRelief(radius.rLg).lip,
     face: {
         flexGrow: 1,
         minHeight: 112,

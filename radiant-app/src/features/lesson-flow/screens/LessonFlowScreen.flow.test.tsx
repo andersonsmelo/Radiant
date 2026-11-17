@@ -3334,7 +3334,7 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     fireEvent.press(screen.getByLabelText('Certo: O dosímetro reduz a dose.'));
     const folha = await conferir();
     expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
-    expect(within(folha).getByText('Resposta certa: A distância reduz a dose.: certo; O dosímetro reduz a dose.: errado')).toBeTruthy();
+    expect(within(folha).getByText('Resposta certa: A distância reduz a dose: certo; O dosímetro reduz a dose: errado')).toBeTruthy();
   });
 
   it('em marcar várias, a folha diz as certas separadas por ponto e vírgula', async () => {
@@ -3520,6 +3520,9 @@ describe('correctAnswerText: resposta certa em texto', () => {
       { id: 'b', text: 'Pode pular a checagem, se houver pressa', isTrue: false },
     ]))).toBe('O avental protege: certo; Pode pular a checagem, se houver pressa: errado');
     expect(correctAnswerText(tf([{ id: 'a', text: 'A dose é ajustada', isTrue: false }]))).toBe('A dose é ajustada: errado');
+    // O ponto final da afirmação não fica antes dos dois-pontos ("dose.: certo").
+    expect(correctAnswerText(tf([{ id: 'a', text: 'A distância reduz a dose.', isTrue: true }, { id: 'b', text: 'Basta o avental…', isTrue: false }])))
+      .toBe('A distância reduz a dose: certo; Basta o avental: errado');
   });
 
   it('múltipla seleção junta os rótulos certos por "; ", sem quebrar rótulo com vírgula', () => {

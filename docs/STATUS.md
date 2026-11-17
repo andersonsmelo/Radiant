@@ -133,6 +133,14 @@ ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não mud
   em 0 foram vistos em simulador iOS no commit `3c8a4369`, sem defeito; **o cartão
   de revisão não foi visto**, porque o simulador não tinha item de revisão.
   [Evidência](evidence/2026-11-refinamento/tarefa-13-decisoes-em-aberto.md).
+- **Pendências menores, fechadas em 2026-11-17 a pedido do dono:** a resposta do
+  verdadeiro ou falso sem "dose.: certo"; a `HomeScreen` antiga com a sequência que
+  vale hoje; a guarda `style-literal-contract` acusando `...typography.label` fora
+  dos usos julgados; um só helper de relevo (`pieceRelief`) para alternativa, ficha,
+  cartão de plano e item de ordenar. Suíte em 284 suítes e 3.856 testes (Node
+  20.20.2, `jest --runInBand`, árvore da branch). A pasta de trabalho
+  `.superpowers/sdd/…` continua no disco: a PR não foi mesclada.
+  [Evidência](evidence/2026-11-refinamento/tarefa-14-pendencias-menores.md).
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05
 

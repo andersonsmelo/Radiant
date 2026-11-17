@@ -3,7 +3,7 @@ import { Animated, StyleSheet, Text, View } from 'react-native';
 import { feedbackColors, galaxyColors, medalColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { MotionPressable, useCardEnter, usePressDescend, useScalePop } from '../../../ui/motion';
-import { radius, space, typography } from '../../../ui/styles';
+import { PIECE_LIP, pieceRelief, radius, space, typography } from '../../../ui/styles';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
 
 /**
@@ -30,8 +30,7 @@ type TapChipProps = {
 };
 
 // Mesmo relevo da `ChoiceOption`: lábio de 4 pt atrás, face que desce até 1 pt do fim dele.
-const LIP = 4;
-const PRESSED_OFFSET = LIP - 1;
+const PRESSED_OFFSET = PIECE_LIP - 1;
 
 /** Botão de toque das famílias novas: alvo de 44 pt, ouro como evidência da escolha. */
 export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress, selected = false, verdict, disabled = false, role = 'button', testID }: TapChipProps) {
@@ -93,8 +92,8 @@ export const f2Styles = StyleSheet.create({
 
 const styles = StyleSheet.create({
     enter: { gap: space.s3 },
-    relief: { paddingBottom: LIP },
-    lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rMd },
+    relief: pieceRelief(radius.rMd).wrap,
+    lip: pieceRelief(radius.rMd).lip,
     chip: {
         minHeight: 44,
         minWidth: 44,

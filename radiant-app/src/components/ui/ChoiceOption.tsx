@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
 import { CheckIcon, VerdictIcon } from '../../ui/components/VerdictIcons';
 import { MotionPressable, usePressDescend } from '../../ui/motion';
-import { radius, space, typography } from '../../ui/styles';
+import { PIECE_LIP, pieceRelief, radius, space, typography } from '../../ui/styles';
 import { feedbackColors, galaxyColors, medalColors } from '../../ui/theme';
 
 export type ChoiceOptionState = 'idle' | 'selected' | 'correct' | 'incorrect' | 'dimmed';
@@ -28,9 +28,8 @@ export type ChoiceOptionProps = {
 };
 
 // Mesmo relevo do `AppButton`, com lábio de 4 pt: face na frente, lábio atrás.
-const LIP = 4;
 // A face desce até 1 pt do fim do lábio, para a borda dele continuar visível.
-const PRESSED_OFFSET = LIP - 1;
+const PRESSED_OFFSET = PIECE_LIP - 1;
 
 // Face, borda e lábio por estado; sem opacidade, para o texto manter o contraste.
 const TONES: Record<ChoiceOptionState, { face: string; border: string; lip: string; text: string }> = {
@@ -91,8 +90,8 @@ const face = {
 } as const;
 
 const styles = StyleSheet.create({
-  relief: { paddingBottom: LIP },
-  lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rLg },
+  relief: pieceRelief(radius.rLg).wrap,
+  lip: pieceRelief(radius.rLg).lip,
   face,
   // Sem `null` na lista de estilos: o utilitário de teste do Reanimated não o aceita.
   faceStacked: { ...face, flexDirection: 'column', alignItems: 'stretch' },

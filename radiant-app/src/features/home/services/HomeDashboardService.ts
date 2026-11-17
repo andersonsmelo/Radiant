@@ -1,3 +1,4 @@
+import { shownStreakDays } from '../../../types/gamification';
 import type {
   HomeCatalogLesson,
   HomeDashboardDependencies,
@@ -72,7 +73,7 @@ export class HomeDashboardService {
       greeting: resolveGreeting(this.dependencies.getDisplayName()),
       avatarInitials: resolveInitials(this.dependencies.getDisplayName()),
       dateLabel: new Intl.DateTimeFormat(this.dependencies.locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(this.dependencies.now()),
-      streakDays: gamification.streakDays,
+      streakDays: shownStreakDays(gamification),
       totalXp: gamification.totalXp,
       hearts: { current: hearts.count, maximum: hearts.maximum, unlimited: hearts.unlimited },
       dailyGoal: { completed: dailyGoal.completedToday, target: dailyGoal.goalPerDay },

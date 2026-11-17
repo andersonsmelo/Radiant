@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { appRoot } from './ast-helpers.mjs';
-import { readStyleSources, scanStyleLiterals } from './style-literal-contract.mjs';
+import { LABEL_USES, readStyleSources, scanStyleLiterals } from './style-literal-contract.mjs';
 
 const kinds = (text, file = 'src/features/fixture/Fixture.tsx') =>
   scanStyleLiterals({ [file]: text }).map((finding) => finding.kind);
@@ -30,6 +30,22 @@ for (const [name, source] of [
 ]) {
   test(`não acusa: ${name}`, () => assert.deepEqual(kinds(source), []));
 }
+
+test('acusa a caixa alta que chega por `...typography.label`, e só ela', () => {
+  assert.deepEqual(kinds('const s = { tag: { ...typography.label, color: c } };'), ['label']);
+  // Quem desliga a caixa alta no mesmo objeto usa só a métrica do papel.
+  assert.deepEqual(kinds("const s = { action: { ...typography.label, textTransform: 'none' } };"), []);
+  assert.deepEqual(kinds('const s = { tab: { fontSize: typography.label.fontSize } };'), []);
+  // Outro papel de tipografia não carrega caixa alta.
+  assert.deepEqual(kinds('const s = { t: { ...typography.caption } };'), []);
+});
+
+test('uso julgado de `typography.label` passa até a contagem registrada; o excedente é acusado', () => {
+  const [file, count] = LABEL_USES[0];
+  const spreads = (n) => `const s = { ${Array.from({ length: n }, (_, i) => `t${i}: { ...typography.label }`).join(', ')} };`;
+  assert.deepEqual(kinds(spreads(count), file), []);
+  assert.deepEqual(kinds(spreads(count + 1), file), ['label']);
+});
 
 test('não acusa arquivo isento, teste nem história', () => {
   const literal = "const s = { box: { color: '#FF0000', fontSize: 14, textTransform: 'uppercase' } };";

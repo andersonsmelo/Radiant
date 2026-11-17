@@ -461,6 +461,8 @@ itens, ele se lia como mais um item da lista. Na comparação a figura entra aci
 rótulo (`media`) e a escolhida leva a marca de seleção desenhada
 (`selectedMark`), porque ali a escolha não pode depender só de cor. O item de
 ordenar tem o mesmo lábio, parado: quem se toca são as setas.
+O lábio destas peças, da ficha, do cartão de plano e do item de ordenar sai de um
+lugar só: `pieceRelief`, em `ui/styles.ts` (4 pt). O botão tem o seu, de 5 pt.
 A marca de veredito (`VerdictIcon`, em `ui/components/VerdictIcons`) é SVG em
 três tons e decorativa; o leitor de tela recebe "certa" ou "errada" como valor
 da alternativa. O fechar (`CloseIcon`) e a marca de seleção (`CheckIcon`) saem

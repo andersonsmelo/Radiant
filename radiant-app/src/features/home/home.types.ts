@@ -41,7 +41,7 @@ export interface HomeDashboardDependencies {
   getCatalog(): Promise<{ lessons: HomeCatalogLesson[] }>;
   getNextActivity(): Promise<{ lessonId: string; nodeId: string | null; blockId: string | null } | null>;
   getDueLessonIds(): Promise<string[]>;
-  getGamification(): Promise<{ streakDays: number; totalXp: number }>;
+  getGamification(): Promise<{ streakDays: number; standingStreakDays?: number; totalXp: number }>;
   /** As vidas do cofre que a lição desconta (`heartsRepository`). */
   getHearts(): Promise<{ count: number; maximum: number; unlimited: boolean }>;
   getDailyGoal(): Promise<{ completedToday: number; goalPerDay: number }>;

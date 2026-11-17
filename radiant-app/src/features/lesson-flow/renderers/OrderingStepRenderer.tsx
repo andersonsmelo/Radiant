@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-na
 import type { OrderingPayload } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { radius, space, typography } from '../../../ui/styles';
+import { pieceRelief, radius, space, typography } from '../../../ui/styles';
 import { AppButton } from '../../../components/ui/AppButton';
 import { CheckIcon } from '../../../ui/components/VerdictIcons';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     activity: { gap: space.s3 },
     prompt: { ...typography.h3, color: galaxy.textPrimary },
     list: { gap: space.s2 },
-    // Mesmo lábio de 4 pt da `ChoiceOption`; o item não desce porque quem se toca são as setas.
-    relief: { paddingBottom: 4 },
-    lip: { position: 'absolute', top: 4, bottom: 0, left: 0, right: 0, borderRadius: radius.rLg, backgroundColor: galaxyColors.backgroundAlt },
+    // Mesmo lábio das peças de resposta (`pieceRelief`); o item não desce porque quem se toca são as setas.
+    relief: pieceRelief(radius.rLg).wrap,
+    lip: { ...pieceRelief(radius.rLg).lip, backgroundColor: galaxyColors.backgroundAlt },
     itemRow: {
         minHeight: 60,
         flexDirection: 'row',

@@ -65,8 +65,8 @@ iPhone simulado "Radiant F6", iOS, tamanho de texto normal, aulas abertas por li
 
 | Captura | O que mostra |
 | --- | --- |
-| [11-ordenar.jpg](capturas/11-ordenar.jpg) | Ordenar: itens com borda e lábio (M01, aula 2, passo 5) |
-| [12-ordem-selecionada.jpg](capturas/12-ordem-selecionada.jpg) | "Ordem selecionada" com a marca desenhada e o botão de continuar liberado |
+| [11-ordenar.jpg](capturas/11-ordenar.jpg) | Ordenar: itens com borda e lábio e "Selecionar esta ordem" como botão (M01, aula 2, passo 5; bundle de `3b0f1d3b`) |
+| [12-ordem-selecionada.jpg](capturas/12-ordem-selecionada.jpg) | "Ordem selecionada" com a marca desenhada e o botão de continuar liberado (bundle de `3b0f1d3b`) |
 | [13-parear.jpg](capturas/13-parear.jpg) | Parear: opções com a peça da aula (M01, aula 4, passo 5) |
 | [14-comparacao.jpg](capturas/14-comparacao.jpg) | Comparação: radiografia dentro da peça, escolhida com marca (M08, aula 1, passo 4) |
 | [15-perfil-sequencia-zero.jpg](capturas/15-perfil-sequencia-zero.jpg) | Perfil com "0 dias" e nenhum dia marcado; o topo da trilha mostrava "0d" |
@@ -77,7 +77,8 @@ podia ser lido como um quinto item. O dono mandou ajustar, e ele virou botão
 secundário (`AppButton`), com a marca desenhada depois de escolhido. O rótulo lido
 pelo leitor de tela continua "Selecionar esta ordem"; a dica passa a dizer "Ordem
 selecionada". A execução vermelha foi `Expected length: 0, Received length: 1` na
-contagem de `choice-option-lip`. As capturas 11 e 12 são anteriores a esse ajuste.
+contagem de `choice-option-lip`. As capturas 11 e 12 foram refeitas depois
+desse ajuste, em 2026-11-17.
 
 ## Não provado
 

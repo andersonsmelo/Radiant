@@ -118,4 +118,9 @@ describe('HomeDashboardService', () => {
 
     expect(dashboard.hearts).toEqual({ current: 0, maximum: 5, unlimited: true });
   });
+
+  it('mostra a sequência que vale hoje, não a contagem guardada de uma sequência parada', async () => {
+    const service = new HomeDashboardService(createDependencies({ getGamification: async () => ({ streakDays: 5, standingStreakDays: 0, totalXp: 120 }) }));
+    expect((await service.getDashboard()).streakDays).toBe(0);
+  });
 });

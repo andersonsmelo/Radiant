@@ -10,6 +10,7 @@ import { LessonFlowService } from '../services/LessonFlowService';
 import { adaptLegacyBlock } from '../services/LegacyLessonAdapter';
 import { useLearningActivity } from '../hooks/useLearningActivity';
 import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
+import { statementStem } from '../renderers/TrueFalseStepRenderer';
 import { resolveRtgImage } from '../../student-checkpoints/batches/rtgImages';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2, LearningInteractionV2 } from '../../../types/learningActivity';
@@ -111,7 +112,7 @@ export function correctAnswerText(interaction: LearningInteractionV2): string | 
             return options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label).join('; ');
         }
         case 'true-false':
-            return interaction.payload.statements.map(statement => `${statement.text}: ${statement.isTrue ? 'certo' : 'errado'}`).join('; ');
+            return interaction.payload.statements.map(statement => `${statementStem(statement.text)}: ${statement.isTrue ? 'certo' : 'errado'}`).join('; ');
         case 'ordering': {
             const { items, correctOrder } = interaction.payload;
             return correctOrder.map(id => items.find(item => item.id === id)?.label ?? id).join('; ');
