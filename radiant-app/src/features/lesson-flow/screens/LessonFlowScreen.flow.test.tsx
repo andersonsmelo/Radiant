@@ -544,8 +544,10 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     renderWithProviders(<LessonFlowScreen blockId="activity:fixture:cat-final" nodeId="" resumeCursorId="step-3" />);
     expect(await screen.findByText('Classifique as fichas.')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Faltam 2 fichas' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-item-Posicionar'));
     fireEvent.press(screen.getByTestId('categorize-group-Técnica'));
     expect(screen.getByRole('button', { name: 'Falta 1 ficha' })).toBeDisabled();
+    fireEvent.press(screen.getByTestId('categorize-item-Laudar'));
     fireEvent.press(screen.getByTestId('categorize-group-Clínica'));
     expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
   });

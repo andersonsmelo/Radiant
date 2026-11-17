@@ -10,6 +10,7 @@ type GroupAreaProps = {
     empty: boolean;
     onPress?: () => void;
     accessibilityLabel: string;
+    accessibilityHint?: string;
     testID?: string;
     children?: ReactNode;
 };
@@ -19,12 +20,12 @@ type GroupAreaProps = {
  * cabeçalho; as fichas colocadas ficam fora dele para continuarem alcançáveis
  * pelo leitor de tela, cada uma com o seu próprio toque.
  */
-export function GroupArea({ label, ready, empty, onPress, accessibilityLabel, testID, children }: GroupAreaProps) {
+export function GroupArea({ label, ready, empty, onPress, accessibilityLabel, accessibilityHint, testID, children }: GroupAreaProps) {
     return (
         <View testID={testID ? `${testID}-box` : undefined}
             style={[styles.box, ready ? styles.ready : styles.idle]}>
             <Pressable testID={testID} onPress={onPress} disabled={!onPress} accessibilityRole="button"
-                accessibilityLabel={accessibilityLabel} accessibilityState={{ disabled: !onPress }} style={styles.header}>
+                accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint} accessibilityState={{ disabled: !onPress }} style={styles.header}>
                 <Text style={styles.label}>{label}</Text>
                 {ready ? <Text style={styles.hint}>Toque aqui para colocar a ficha escolhida</Text> : null}
                 {empty ? <Text style={styles.empty}>Vazio</Text> : null}

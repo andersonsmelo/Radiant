@@ -116,18 +116,21 @@ describe('famílias da 1.6 no tocador', () => {
         fireEvent.press(screen.getByLabelText('Item: Laudar'));
         expect(screen.getByLabelText('Item: Laudar').props.accessibilityState.selected).toBe(true);
         fireEvent.press(screen.getByLabelText('Colocar Laudar em Clínica'));
+        fireEvent.press(screen.getByLabelText('Item: Posicionar'));
         fireEvent.press(screen.getByLabelText('Colocar Posicionar em Técnica'));
+        fireEvent.press(screen.getByLabelText('Item: Colimar'));
         fireEvent.press(screen.getByLabelText('Colocar Colimar em Clínica'));
         fireEvent.press(screen.getByLabelText('Colimar, em Clínica'));
         fireEvent.press(screen.getByLabelText('Colocar Colimar em Técnica'));
+        fireEvent.press(screen.getByLabelText('Item: Indicar'));
         fireEvent.press(screen.getByLabelText('Colocar Indicar em Clínica'));
         expect(probe(screen)).toBe(`${JSON.stringify({ i2: 'g2', i1: 'g1', i3: 'g1', i4: 'g2' })}|true`);
     });
 
     it('categorize: os botões dos grupos vêm antes dos itens pendentes, para colocar um item não mover o próximo alvo', () => {
         const tree = JSON.stringify(render(<Harness interaction={categorize} />).toJSON());
-        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeGreaterThan(-1);
-        expect(tree.indexOf('Colocar Posicionar em Técnica')).toBeLessThan(tree.indexOf('Item: Posicionar'));
+        expect(tree.indexOf('Grupo Técnica')).toBeGreaterThan(-1);
+        expect(tree.indexOf('Grupo Técnica')).toBeLessThan(tree.indexOf('Item: Posicionar'));
     });
 
     it('categorize: depois de conferir, o item no grupo errado diz qual é o certo', () => {

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
 import { VerdictIcon } from '../../ui/components/VerdictIcons';
-import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
-import { duration } from '../../ui/motion';
+import { MotionPressable, usePressDescend } from '../../ui/motion';
 import { radius, space, typography } from '../../ui/styles';
 import { feedbackColors, galaxyColors, medalColors } from '../../ui/theme';
 
@@ -39,22 +37,12 @@ const TONES: Record<ChoiceOptionState, { face: string; border: string; lip: stri
   dimmed: { face: galaxyColors.surface, border: galaxyColors.border, lip: galaxyColors.backgroundAlt, text: galaxyColors.textTertiary },
 };
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function ChoiceOption({ label, state, onPress, disabled = false, chosen, role, testID, accessibilityLabel, accessibilityHint, onLayout }: ChoiceOptionProps) {
-  const reducedMotion = useReducedMotionPreference();
-  const translateY = useSharedValue(0);
-  const animStyle = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }));
+  const descend = usePressDescend(PRESSED_OFFSET, disabled);
   const tone = TONES[state];
   const selected = chosen ?? state === 'selected';
   const verdict = state === 'correct' || state === 'incorrect' ? state : undefined;
-
-  // Sob "reduzir movimento" a face desce, mas de uma vez.
-  const moveTo = (target: number) => {
-    translateY.value = reducedMotion
-      ? target
-      : withTiming(target, { duration: duration.micro, easing: Easing.bezier(0.22, 1, 0.36, 1) });
-  };
 
   return (
     <View style={styles.relief} onLayout={onLayout}>
@@ -63,22 +51,22 @@ export function ChoiceOption({ label, state, onPress, disabled = false, chosen, 
         pointerEvents="none"
         style={[styles.lip, { backgroundColor: tone.lip }]}
       />
-      <AnimatedPressable
+      <MotionPressable
         testID={testID}
         onPress={onPress}
-        onPressIn={() => moveTo(PRESSED_OFFSET)}
-        onPressOut={() => moveTo(0)}
+        onPressIn={descend.onPressIn}
+        onPressOut={descend.onPressOut}
         disabled={disabled}
         accessibilityRole={role ?? 'button'}
         accessibilityLabel={accessibilityLabel ?? label}
         accessibilityHint={accessibilityHint}
         accessibilityState={role === 'checkbox' ? { checked: selected, disabled } : { selected, disabled }}
         accessibilityValue={verdict ? { text: verdict === 'correct' ? 'certa' : 'errada' } : undefined}
-        style={[styles.face, { backgroundColor: tone.face, borderColor: tone.border }, animStyle]}
+        style={[styles.face, { backgroundColor: tone.face, borderColor: tone.border }, descend.style]}
       >
         <Text style={[styles.label, { color: tone.text }]}>{label}</Text>
         {verdict ? <VerdictIcon verdict={verdict} testID={`verdict-icon-${verdict}`} /> : null}
-      </AnimatedPressable>
+      </MotionPressable>
     </View>
   );
 }

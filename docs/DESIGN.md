@@ -450,15 +450,18 @@ do mesmo arquivo: nenhum ✓, ✗ ou ✕ de texto serve de ícone.
 Ficha (`TapChip`, em `lesson-flow/renderers`): o toque das famílias de
 classificar, lacuna, verdadeiro ou falso e múltipla seleção, com o relevo da
 alternativa e lábio de 4 pt por baixo. Alvo de 44 pt no mínimo. A face desce
-3 pt na pressão, de uma vez. Repouso: borda `border` e lábio `backgroundAlt`;
+3 pt na pressão, pelo gancho `usePressDescend` (`ui/motion`), o mesmo da alternativa:
+em `duration.micro`, e de uma vez sob "reduzir movimento". Repouso: borda `border` e lábio `backgroundAlt`;
 escolhida: borda ouro e lábio da unidade; certa ou errada: face, borda e lábio
 de acerto ou de erro, mais a marca `VerdictIcon`.
 Área de grupo (`GroupArea`): recebe fichas e mostra o que já está dentro. Sem
-ficha escolhida, borda tracejada em `borderActive`; com ficha escolhida, borda
+ficha escolhida (nenhuma vem escolhida: só o toque do aluno escolhe, e depois de
+colocar a escolha se desfaz), borda tracejada em `borderActive`; com ficha escolhida, borda
 cheia em Azul de Navegação e a linha "Toque aqui para colocar a ficha
 escolhida". Grupo sem ficha mostra "Vazio". O alvo de toque é o cabeçalho; as
 fichas colocadas têm cada uma o seu toque, que as devolve. Com fichas pendentes
-o botão do rodapé diz "Faltam N fichas".
+o botão do rodapé diz "Faltam N fichas", na aula e na avaliação, que rodam no
+mesmo `LessonFlowScreen`.
 
 ### Folha de retorno
 Retorno da resposta na aula (`AnswerFeedbackSheet`), preso ao rodapé, no lugar

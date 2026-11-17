@@ -24,7 +24,7 @@ export function CategorizeStepRenderer({ payload, value, onChange, submitted = f
     const groupIds = new Set(payload.categories.map(category => category.id));
     const pending = payload.items.filter(item => !groupIds.has(assigned[item.id]));
     const [picked, setPicked] = useState<string | null>(null);
-    const active = pending.find(item => item.id === picked) ?? pending[0];
+    const active = pending.find(item => item.id === picked);
     const write = (next: Record<string, string>) => onChange(JSON.stringify(next));
     const put = (groupId: string) => { if (!submitted && active) { write({ ...assigned, [active.id]: groupId }); setPicked(null); } };
     const unput = (itemId: string) => {
@@ -45,7 +45,8 @@ export function CategorizeStepRenderer({ payload, value, onChange, submitted = f
                     return (
                         <GroupArea key={category.id} testID={`categorize-group-${category.label}`} label={category.label}
                             ready={Boolean(active) && !submitted} empty={inside.length === 0}
-                            accessibilityLabel={active && !submitted ? `Colocar ${active.label} em ${category.label}` : `Grupo ${category.label}`}
+                            accessibilityLabel={active && !submitted ? `Colocar ${active.label} em ${category.label}` : `Grupo ${category.label}, ${inside.length === 1 ? '1 ficha' : `${inside.length} fichas`}`}
+                            accessibilityHint={active && !submitted ? `Você confirma em ${confirmationLabel}.` : submitted ? undefined : 'Toque numa ficha primeiro'}
                             onPress={active && !submitted ? () => put(category.id) : undefined}>
                             {inside.map(item => {
                                 const right = item.categoryId === category.id;

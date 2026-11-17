@@ -31,6 +31,27 @@ comportamento já existia; guardam contra regressão na nova disposição).
 
 ## Pontos a saber
 
-- A descida da face da ficha na pressão é de uma vez (3 pt, `Pressable` com `pressed`), sem tween: `ui/motion` não tem hook de deslocamento e o visual-qa R4 barra `react-native-reanimated` direto fora das exceções. Por isso não há teste da descida (o testing-library não segura o dedo); o lábio e as cores têm.
 - Roteiro do Maestro: `.maestro/f2-formatos/m01.yaml`, `rtg-2026/m16-aula-01.yaml` e `m16-avaliacao-01.yaml` tocam `categorize-item-*` e depois `categorize-group-*`; os ids foram mantidos. Rodar em aparelho ficou para o controlador.
-- Avaliação: usa os mesmos renderizadores, então ganha área de grupo e ficha com relevo; o rótulo "Faltam N fichas" só vale na aula.
+
+## Rodada 1 de correção (2026-11-16)
+
+Vermelho, antes de corrigir (`npx jest --runInBand src/ui/__tests__/motion.test.ts .../TapChip.test.tsx .../CategorizeStepRenderer.test.tsx`):
+
+```
+TypeError: (0 , _motion.usePressDescend) is not a function
+✕ usePressDescend › desce em duration.micro e volta ao soltar
+✕ usePressDescend › sob reduzir movimento desce de uma vez
+✕ usePressDescend › desabilitado não desce
+● CategorizeStepRenderer › ao abrir, nenhuma ficha está escolhida e nenhum grupo mostra a dica
+● CategorizeStepRenderer › tocar num grupo sem ficha escolhida não muda o valor
+● CategorizeStepRenderer › depois de colocar, nenhuma ficha fica escolhida
+● TapChip › a descida só ocorre com pressão e sem disabled
+```
+
+Nasceram verdes, ditos como tais: "tocar numa ficha e depois num grupo põe a ficha dentro" (o fluxo com toque na ficha já funcionava), "o lábio acompanha os estados escolhida e errada" (o lábio já existia) e "tocar numa ficha já colocada a devolve".
+
+Mudanças: `usePressDescend` e `MotionPressable` em `ui/motion.ts`, usados por `TapChip` e `ChoiceOption` (que deixou de importar reanimated); sem escolha automática de ficha, com rótulo "Grupo X, N fichas" e dica "Toque numa ficha primeiro"; os testes que dependiam da escolha automática (`NewFamilyRenderers`, `LessonFlowScreen.flow`) agora tocam a ficha antes.
+
+Avaliação: as questões de classificar da avaliação passam pelo mesmo `LessonFlowScreen` (o `CheckpointScreen` só tem o fluxo de alternativas), então "Faltam N fichas" vale nas duas. O teste da tela não distingue aula de avaliação, e por isso o teste existente cobre o rótulo nos dois modos sem separá-los.
+
+Verde: suíte inteira em banda, 278 suítes e 3749 testes; `tsc`, `eslint`, `visual:qa:strict` e `test:reanimated-easing-contract` verdes.

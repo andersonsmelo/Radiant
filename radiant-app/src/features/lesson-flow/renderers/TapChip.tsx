@@ -1,8 +1,8 @@
 import React, { useEffect, type ReactNode } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 import { feedbackColors, galaxyColors, medalColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { useCardEnter, useScalePop } from '../../../ui/motion';
+import { MotionPressable, useCardEnter, usePressDescend, useScalePop } from '../../../ui/motion';
 import { radius, space, typography } from '../../../ui/styles';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
 
@@ -30,13 +30,13 @@ type TapChipProps = {
 };
 
 // Mesmo relevo da `ChoiceOption`: lábio de 4 pt atrás, face que desce até 1 pt do fim dele.
-// A descida é de uma vez, sem tween: `ui/motion` não tem hook de deslocamento e o visual-qa (R4) barra reanimated direto.
 const LIP = 4;
 const PRESSED_OFFSET = LIP - 1;
 
 /** Botão de toque das famílias novas: alvo de 44 pt, ouro como evidência da escolha. */
 export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress, selected = false, verdict, disabled = false, role = 'button', testID }: TapChipProps) {
     const pop = useScalePop(F2_MOTION.confirm);
+    const descend = usePressDescend(PRESSED_OFFSET, disabled);
     const { animateIn } = pop;
     useEffect(() => { if (verdict) animateIn(); }, [animateIn, verdict]);
     const tone = verdict === 'correct'
@@ -51,20 +51,21 @@ export function TapChip({ label, accessibilityLabel, accessibilityHint, onPress,
         <Animated.View style={verdict ? pop.style : undefined}>
             <View style={styles.relief}>
                 <View testID="tap-chip-lip" pointerEvents="none" style={[styles.lip, { backgroundColor: tone.lip }]} />
-                <Pressable
+                <MotionPressable
                     testID={testID}
                     onPress={disabled ? undefined : onPress}
+                    onPressIn={descend.onPressIn}
+                    onPressOut={descend.onPressOut}
                     disabled={disabled}
                     accessibilityRole={role}
                     accessibilityLabel={accessibilityLabel}
                     accessibilityHint={accessibilityHint}
                     accessibilityState={role === 'checkbox' ? { checked: selected, disabled } : { selected, disabled }}
-                    style={({ pressed }) => [styles.chip, { backgroundColor: tone.face, borderColor: tone.border, borderWidth: tone.width },
-                        pressed && !disabled && styles.pressed]}
+                    style={[styles.chip, { backgroundColor: tone.face, borderColor: tone.border, borderWidth: tone.width }, descend.style]}
                 >
                     {verdict ? <VerdictIcon verdict={verdict} size={20} testID={`verdict-icon-${verdict}`} /> : null}
                     <Text style={styles.label}>{label}</Text>
-                </Pressable>
+                </MotionPressable>
             </View>
         </Animated.View>
     );
@@ -92,7 +93,6 @@ export const f2Styles = StyleSheet.create({
 
 const styles = StyleSheet.create({
     enter: { gap: space.s3 },
-    pressed: { transform: [{ translateY: PRESSED_OFFSET }] },
     relief: { paddingBottom: LIP },
     lip: { position: 'absolute', top: LIP, bottom: 0, left: 0, right: 0, borderRadius: radius.rMd },
     chip: {
