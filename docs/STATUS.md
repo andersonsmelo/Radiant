@@ -129,7 +129,9 @@ ir para a loja, e escolheu o caminho mais amplo. A identidade Medalhão não mud
   perdeu a etiqueta "Selecionada" e ficou com a marca desenhada); e a sequência
   parada mostra 0 no topo e no perfil, pela mesma regra do widget
   (`standingStreakDays`). Suíte em 284 suítes e 3.855 testes (Node 20.20.2,
-  `jest --runInBand`, árvore da branch). **Não visto em simulador.**
+  `jest --runInBand`, árvore da branch). Ordenar, parear, comparação e o contador
+  em 0 foram vistos em simulador iOS no commit `3c8a4369`, sem defeito; **o cartão
+  de revisão não foi visto**, porque o simulador não tinha item de revisão.
   [Evidência](evidence/2026-11-refinamento/tarefa-13-decisoes-em-aberto.md).
 
 ## Trilha ampla e engajamento — delegação de 2026-11-05
