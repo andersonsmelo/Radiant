@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react-native';
+import { fireEvent, render, screen, within } from '@testing-library/react-native';
 import { Circle } from 'react-native-svg';
 import { medalColors } from '../../../ui/theme';
 import type { JourneyUnit } from '../../../types/journey';
@@ -53,4 +53,21 @@ it('carregando não produz aluno sem conquistas', () => {
   render(<MedalShelf unit={null} starsByLessonId={null} loading />);
   expect(screen.getByText('Carregando medalhas…')).toBeTruthy();
   expect(screen.queryByLabelText(/Ainda não conquistada/u)).toBeNull();
+});
+
+it('mostra "<ganhas> de <total>" e, com poucas medalhas, não oferece o caminho para ver todas', () => {
+  render(<MedalShelf unit={unit} starsByLessonId={{}} />);
+  expect(screen.getByText('1 de 4')).toBeTruthy();
+  expect(screen.queryByText(/^Ver /u)).toBeNull();
+});
+it('com mais de uma fileira, mostra a primeira e "Ver as <total>" expande no lugar; "Ver menos" recolhe', () => {
+  const many: JourneyUnit = { ...unit, nodes: Array.from({ length: 13 }, (_, i) => ({
+    id: `n${i}`, unitId: 'u', type: 'lesson' as const, lessonId: `l${i}`, title: `Aula ${i}`, status: i < 2 ? 'completed' as const : 'locked' as const })) };
+  render(<MedalShelf unit={many} starsByLessonId={{}} />);
+  expect(screen.getByText('2 de 13')).toBeTruthy();
+  expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(6);
+  fireEvent.press(screen.getByRole('button', { name: 'Ver as 13' }));
+  expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(13);
+  fireEvent.press(screen.getByRole('button', { name: 'Ver menos' }));
+  expect(screen.getAllByLabelText(/^Aula \d+\./u)).toHaveLength(6);
 });

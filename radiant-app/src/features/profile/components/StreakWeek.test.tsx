@@ -8,46 +8,50 @@ function show(lastActiveDate: string | null = null, streakDays: number | null = 
   return render(<StreakWeek lastActiveDate={lastActiveDate} streakDays={streakDays} today={date} />);
 }
 
-it.each([1, 9, 99])('contador%s sem data não fabrica atividade nem falta', count => {
+it.each([1, 9, 99])('contador%s sem data mostra o número com a chama e não fabrica atividade nem falta', count => {
   show(null, count);
-  expect(screen.getByText(`Sequência registrada: ${count}`)).toBeTruthy();
+  expect(screen.getByText(String(count))).toBeTruthy();
   expect(screen.getByLabelText(`Contador de sequência: ${count}`)).toBeTruthy();
-  expect(screen.queryAllByLabelText(/atividade registrada/u)).toHaveLength(0);
-  expect(screen.getAllByLabelText(/sem registro disponível/u)).toHaveLength(4);
-  expect(screen.getAllByLabelText(/dia futuro/u)).toHaveLength(3);
-  expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: sem registro disponível')).toBeTruthy();
-  expect(screen.getByText(/Sem registro disponível não significa/u)).toBeTruthy();
+  expect(screen.getByTestId('streak-flame', { includeHiddenElements: true })).toBeTruthy();
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
+  expect(screen.getAllByLabelText(/sem registro/u)).toHaveLength(6);
+  expect(screen.getByLabelText('Quinta, hoje, sem estudo')).toBeTruthy();
   expect(screen.queryByText(/dias seguidos|meia-noite|faltou/iu)).toBeNull();
+});
+it('dia sem registro é círculo vazio: sem "?" e sem os dois parágrafos de explicação', () => {
+  show(null, 3);
+  expect(screen.queryByText('?')).toBeNull();
+  expect(screen.queryByText(/Sem registro disponível|A semana mostra|Cada uma cobre|Você ganha uma/u)).toBeNull();
 });
 it('última data válida marca um único dia, sem retropreencher pelo contador', () => {
   show('2026-10-28', 9);
-  expect(screen.getAllByLabelText(/atividade registrada/u)).toHaveLength(1);
-  expect(screen.getByLabelText('Quarta-feira, 2026-10-28: atividade registrada')).toBeTruthy();
+  expect(screen.getAllByLabelText(/estudou/u)).toHaveLength(1);
+  expect(screen.getByLabelText('Quarta, estudou')).toBeTruthy();
 });
 it('hoje com anel só marca atividade quando lastActiveDate também é hoje', () => {
   show('2026-10-29', 1);
-  expect(screen.getByLabelText('Quinta-feira, 2026-10-29, hoje: atividade registrada')).toBeTruthy();
+  expect(screen.getByLabelText('Quinta, hoje, estudou')).toBeTruthy();
   const ring = screen.getByTestId('week-today-ring');
   expect(StyleSheet.flatten(ring.props.style).borderWidth).toBeGreaterThan(0);
 });
 it.each(['2026-10-30', '2026-10-25', '2026-02-30', '2026-13-01', '2026-10-28T12:00:00Z', 'bad', '2026-1-28'])('data%s não comprova dia desta semana', date => {
   show(date, 5);
-  expect(screen.queryAllByLabelText(/atividade registrada/u)).toHaveLength(0);
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
 });
 it('valida dia impossível que cairia nesta semana se o Date o normalizasse', () => {
   show('2026-02-30', 5, new Date(2026, 2, 2, 12));
-  expect(screen.queryAllByLabelText(/atividade registrada/u)).toHaveLength(0);
+  expect(screen.queryAllByLabelText(/estudou/u)).toHaveLength(0);
 });
 it('segunda e domingo locais continuam na semana mesmo na virada de ano', () => {
   show('2025-12-29', 8, new Date(2026, 0, 4, 0, 5));
-  expect(screen.getByLabelText('Segunda-feira, 2025-12-29: atividade registrada')).toBeTruthy();
-  expect(screen.getByLabelText('Domingo, 2026-01-04, hoje: sem registro disponível')).toBeTruthy();
-  expect(screen.queryAllByLabelText(/dia futuro/u)).toHaveLength(0);
+  expect(screen.getByLabelText('Segunda, estudou')).toBeTruthy();
+  expect(screen.getByLabelText('Domingo, hoje, sem estudo')).toBeTruthy();
+  expect(screen.getAllByLabelText(/sem registro/u)).toHaveLength(5);
 });
 it.each([null, NaN, Infinity, -1])('contador inválido%s fica indisponível, não zero', count => {
   show(null, count);
   expect(screen.getByText('Sequência indisponível')).toBeTruthy();
-  expect(screen.queryByText('Sequência registrada: 0')).toBeNull();
+  expect(screen.queryByText('0')).toBeNull();
 });
 it('carga não publica contador nem dia positivo antes da leitura', () => {
   render(<StreakWeek lastActiveDate={null} streakDays={null} today={today} loading />);
@@ -73,12 +77,16 @@ it('escala máxima troca sete colunas por duas linhas inteiras e renova texto ao
   dimensions.mockRestore();
 });
 
-it('mostra as proteções de sequência em texto simples, e só quando foram lidas', () => {
+it('as proteções aparecem numa linha curta, e só quando foram lidas', () => {
   const today = new Date(2026, 10, 6, 12);
   const view = render(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={{ stored: 1, max: 2, everyDays: 7 }} />);
-  expect(screen.getByText('Proteções de sequência: 1 de 2. Cada uma cobre um dia sem estudo. Você ganha uma a cada 7 dias de sequência.')).toBeTruthy();
+  expect(screen.getByText('1 proteção guardada')).toBeTruthy();
+  view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={{ stored: 2, max: 2, everyDays: 7 }} />);
+  expect(screen.getByText('2 proteções guardadas')).toBeTruthy();
+  view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={{ stored: 0, max: 2, everyDays: 7 }} />);
+  expect(screen.getByText('Nenhuma proteção guardada')).toBeTruthy();
   view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} freezes={null} />);
-  expect(screen.queryByText(/Proteções de sequência/)).toBeNull();
+  expect(screen.queryByText(/proteç/)).toBeNull();
   view.rerender(<StreakWeek lastActiveDate="2026-11-06" streakDays={8} today={today} loading freezes={{ stored: 1, max: 2, everyDays: 7 }} />);
-  expect(screen.queryByText(/Proteções de sequência/)).toBeNull();
+  expect(screen.queryByText(/proteç/)).toBeNull();
 });

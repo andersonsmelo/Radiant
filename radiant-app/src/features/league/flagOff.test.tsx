@@ -33,6 +33,7 @@ jest.mock('expo-router', () => ({
   },
 }));
 jest.mock('./screens/LeagueScreen', () => () => null);
+jest.mock('../../../components/ui/icon-symbol', () => ({ IconSymbol: () => null }));
 
 beforeEach(async () => {
   await AsyncStorage.clear();

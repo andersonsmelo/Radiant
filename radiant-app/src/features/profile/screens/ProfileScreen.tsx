@@ -4,15 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { MAX_STREAK_FREEZES, STREAK_DAYS_PER_FREEZE, StreakFreezeService } from '../../gamification/services/StreakFreezeService';
+import { DailyMissionsService } from '../../missions/services/DailyMissionsService';
 import { LevelBadge } from '../../gamification/components/LevelBadge';
-import { DailyMissionsService, type DailyMission } from '../../missions/services/DailyMissionsService';
-import { DailyMissionsCard } from '../../missions/components/DailyMissionsCard';
-import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyCurriculumService, type CurriculumTrail } from '../../journey/services/JourneyCurriculumService';
 import { JourneyStarsService } from '../../journey/services/JourneyStarsService';
-import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import type { GamificationSnapshot } from '../../../types/gamification';
-import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import type { JourneyUnit } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
@@ -21,7 +17,6 @@ import { space, tabBarClearance, typography } from '../../../ui/styles';
 import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
 import { MedalShelf } from '../components/MedalShelf';
 import { StreakWeek } from '../components/StreakWeek';
-import { TodayGoals } from '../components/TodayGoals';
 import { useDecorationsState } from '../../decorations/useEquippedDecorations';
 import { DecorationsProfileRow } from '../../decorations/components/DecorationsProfileRow';
 import { LeagueProfileRow } from '../../league/components/LeagueProfileRow';
@@ -43,11 +38,8 @@ export function currentUnit(trail: CurriculumTrail): JourneyUnit | null {
 export default function ProfileScreen() {
   const { fontScale } = useWindowDimensions();
   const [gamification, setGamification] = useState<Reading<GamificationSnapshot>>({ state: 'loading' });
-  const [goal, setGoal] = useState<Reading<DailyGoalSnapshot>>({ state: 'loading' });
   const [curriculum, setCurriculum] = useState<Reading<CurriculumTrail>>({ state: 'loading' });
   const [stars, setStars] = useState<Reading<Record<string, LessonStars>>>({ state: 'loading' });
-  const [due, setDue] = useState<Reading<number>>({ state: 'loading' });
-  const [missions, setMissions] = useState<Reading<DailyMission[]>>({ state: 'loading' });
   const [freezes, setFreezes] = useState<Reading<number>>({ state: 'loading' });
   const [today, setToday] = useState(() => new Date());
   const generation = useRef(0);
@@ -57,10 +49,8 @@ export default function ProfileScreen() {
     const ownGeneration = ++generation.current;
     setToday(new Date());
     setGamification({ state: 'loading' });
-    setGoal({ state: 'loading' });
     setCurriculum({ state: 'loading' });
     setStars({ state: 'loading' });
-    setDue({ state: 'loading' });
     const read = <T,>(producer: () => Promise<T>, publish: (value: Reading<T>) => void) => {
       void Promise.resolve().then(producer).then(data => {
         if (generation.current === ownGeneration) publish({ state: 'ready', data });
@@ -70,13 +60,10 @@ export default function ProfileScreen() {
     };
     // As missões pagam bônus ao serem lidas: o XP é lido depois delas, para o total já vir com o bônus.
     const synced = Promise.resolve().then(() => DailyMissionsService.sync());
-    read(() => synced.then(result => result.missions), setMissions);
     read(() => synced.then(() => undefined, () => undefined).then(() => GamificationService.getSnapshot()), setGamification);
     read(() => StreakFreezeService.getFreezes(), setFreezes);
-    read(() => DailyGoalService.getSnapshot(), setGoal);
     read(() => JourneyCurriculumService.getCurriculumTrail(), setCurriculum);
     read(() => JourneyStarsService.getRecordStarsByLessonId(), setStars);
-    read(() => SpacedRepetitionService.getDueCount(), setDue);
     return () => { generation.current++; };
   }, []));
 
@@ -88,16 +75,15 @@ export default function ProfileScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <ProfileIdentityHeader email={null} onOpenSettings={() => router.push('/settings')} decorations={decorations?.equipped ?? null} />
-        <DecorationsProfileRow state={decorations} />
         <LevelBadge xp={validXp ? totalXp : null} />
         <MedalShelf unit={curriculum.state === 'ready' ? currentUnit(curriculum.data) : null}
           starsByLessonId={stars.state === 'ready' ? stars.data : null} loading={curriculum.state === 'loading'} starsLoading={stars.state === 'loading'} />
         <StreakWeek lastActiveDate={snapshot?.lastActiveDate ?? null} streakDays={snapshot?.streakDays ?? null}
           today={today} loading={gamification.state === 'loading'} freezes={freezes.state === 'ready' ? { stored: freezes.data, max: MAX_STREAK_FREEZES, everyDays: STREAK_DAYS_PER_FREEZE } : null} />
-        <DailyMissionsCard missions={missions.state === 'ready' ? missions.data : null} onPress={() => router.push('/missions')} />
-        <LeagueProfileRow onPress={() => router.push('/league')} />
-        <TodayGoals goal={goal.state === 'ready' ? goal.data : null} dueCount={due.state === 'ready' ? due.data : null}
-          goalLoading={goal.state === 'loading'} dueLoading={due.state === 'loading'} />
+        <View>
+          <LeagueProfileRow onPress={() => router.push('/league')} />
+          <DecorationsProfileRow state={decorations} />
+        </View>
         {gamification.state !== 'loading' ? <Text key={`total-${fontScale}`} style={styles.total}>
           {validXp ? `${totalXp} XP no total` : 'XP total indisponível'}
         </Text> : null}

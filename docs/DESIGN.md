@@ -515,6 +515,21 @@ Cada missão das "Missões de hoje" é uma linha com divisória de 1 px:
   e "concluída" vem no rótulo. O botão "Continuar a trilha" (`galaxy`) fecha a
   tela e volta à trilha.
 
+### Perfil
+Cabeçalho, nível, estante, sequência, duas linhas e o total de XP, sem cartão:
+- **Estante:** a contagem "2 de 13" vem ao lado do título. A primeira fileira
+  mostra 6 medalhas; com mais, o botão de texto "Ver as 13" expande a grade no
+  próprio lugar e "Ver menos" recolhe.
+- **Sequência:** o número grande no tom de sequência do HUD, com a chama, e uma
+  linha curta com as proteções ("1 proteção guardada"). A semana mostra o dia
+  estudado com a marca de feito e hoje com o anel; dia sem registro é um círculo
+  vazio. O leitor de tela lê cada dia ("Segunda, estudou", "Quinta, hoje, sem
+  estudo", "Sexta, sem registro").
+- **Liga e decorações:** linhas no padrão `ListRow`, com o valor à direita e a
+  seta. Com a chave desligada, a linha não existe.
+- **Fora do perfil:** missões, "Hoje" e "Revisões pendentes" ficam na tela
+  inicial.
+
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
   raio de 16 px e padding de 16 px.
