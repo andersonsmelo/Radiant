@@ -81,6 +81,9 @@ para acontecer automaticamente depois da aprovação, para todos os usuários de
 - Na versão: texto promocional, descrição, novidades, keywords e notas do revisor da
   1.6; Game Center ligado; seis capturas novas no conjunto de iPhone de tela grande
   (6,5"), no lugar das antigas, que seguem na Biblioteca de Ativos.
+- **Decisões destes dias** (sequência parada em 0, relevo, texto da apresentação,
+  envio e lançamento automático, Play com o aviso de retrato):
+  [ADR](adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md).
 - **Não feito antes do envio:** ver a build 18 em aparelho, compra em sandbox e a
   troca da imagem de abertura. A captura de revisão da assinatura não foi subida: as
   assinaturas não mudaram.

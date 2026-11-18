@@ -77,6 +77,14 @@ ls src/features
 
 ### Atualização 1.6 (versão `1.6.0`, na `main` desde 2026-11-15)
 
+Em 2026-11-17 entraram o refinamento visual (PR #84) e o texto novo da apresentação
+inicial (PR #86). A `1.6.0 (18)` saiu de `abd9c7f8` e foi aprovada pela Apple em
+2026-11-18. Peças que mudaram: `src/components/ui/ChoiceOption.tsx` (alternativa com
+relevo), `src/features/lesson-flow/components/AnswerFeedbackSheet.tsx` (folha de
+retorno), `pieceRelief` em `src/ui/styles.ts`, `scripts/style-literal-contract.mjs`
+(guarda de cor, tamanho e caixa alta) e `standingStreakDays` / `shownStreakDays`
+(sequência parada mostra 0).
+
 | O que entrou | Onde | Chave |
 | --- | --- | --- |
 | Quatro formatos de interação: `cloze`, `true-false`, `categorize`, `multi-select` | `src/types/learningActivity.ts`, `src/features/lesson-flow` | nenhuma |
