@@ -4796,3 +4796,10 @@ Até as capturas serem refeitas, o `STATUS.md` dizia:
 - as capturas do Play, que são de 2026-08-03: esta máquina não tem imagem de sistema
   nem emulador Android instalados;
 
+## Saída do STATUS em 2026-11-18: estado do App Store Connect antes do envio
+
+**App Store Connect, lido na página em 2026-11-17, por volta de 15:30 UTC:** a versão
+1.6.0 existe, em "Preparar para envio", com texto promocional, descrição, novidades,
+keywords e notas do revisor da 1.6 salvos. Sem build escolhida (a 18 não tinha chegado),
+sem capturas novas e sem o placar adicionado. O contrato de apps pagos foi aceito pelo
+dono nesse dia. **Nada foi enviado à revisão.**

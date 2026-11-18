@@ -146,6 +146,97 @@ Notas: o nome do app ("Radiant") e o subtítulo não precisam se repetir nas
 keywords; termos no plural/singular são indexados de forma parecida — priorizamos
 os de maior intenção de busca.
 
+## Textos da ficha para a 1.6 (colados no App Store Connect em 2026-11-17)
+
+**Colados pelo agente na versão 1.6.0 do App Store Connect em 2026-11-17, por ordem do
+dono ("Sim, colar"):** texto promocional, descrição da App Store, novidades e keywords.
+Salvos e relidos depois de recarregar a página. **No Play nada foi colado.** O dono não
+leu o texto linha a linha: a ordem foi colar os rascunhos.
+
+- Os números "24 unidades e 157 aulas" foram remedidos antes de colar: 24 arquivos de
+  lote e 157 identificadores de aula em `student-checkpoints/batches/`.
+- **Correção feita na hora de colar:** a frase "o único benefício é ter vidas
+  ilimitadas" deixou de ser verdadeira na 1.6, porque três decorações do perfil são
+  exclusivas de assinante (`catalog.test.ts`). O texto colado diz "Os benefícios são
+  vidas ilimitadas e três decorações exclusivas para o perfil." A tela de assinatura
+  do app continua comparando só as vidas.
+- As notas para o revisor também foram trocadas para a 1.6.0 (build 18), em inglês:
+  liga pelo Game Center e o placar `radiant.liga.semanal.xp`, widgets, unidades e
+  formatos novos, lembretes, decorações com três exclusivas, e o caminho da assinatura
+  (aba Perfil, engrenagem, cartão Radiant Ilimitado).
+
+Texto original do rascunho, que **não** tinha aprovação antes da ordem de colar: O motivo: a
+descrição e as keywords em vigor são da 1.3 e da 1.4, falam de "Fundamentos", "Tórax" e
+"Abdome" e descrevem o público como "estudantes de medicina"; desde a 1.5.0 a trilha é a
+do tecnólogo. Nome e subtítulo aprovados em 2026-08-05 continuam valendo e não mudam.
+
+Os números "24 unidades e 157 aulas" vêm do `STATUS.md` (medidos em 2026-11-16).
+**Remeça antes de colar.**
+
+**Texto promocional (App Store, ≤170)** — 160 caracteres:
+
+Aulas curtas com situações de sala para quem estuda radiologia como tecnólogo. Revisão no tempo certo, sem conta e offline. No iPhone: liga da semana e widgets.
+
+**Descrição curta (Google Play, ≤80)** — 78 caracteres. A aprovada em
+2026-08-05 ("Trilha guiada de radiologia com quizzes e revisão. Offline, sem conta.")
+continua verdadeira; esta só troca o público:
+
+Aulas curtas para o tecnólogo em radiologia, com revisão. Offline e sem conta.
+
+**Keywords (App Store, ≤100)** — 97 caracteres:
+
+`radiologia,tecnólogo,técnico,raio-x,radiografia,tomografia,ultrassom,anatomia,estudo,revisão,quiz`
+
+**Descrição longa, já sem Markdown**, para colar direto. A parte comum tem
+1390 caracteres e é a do Play. A da App Store é a comum mais o bloco "Só no
+iPhone" e "Assinatura", 1970 caracteres. **No Play não entram a liga, os widgets nem
+a assinatura:** o Android não tem Game Center, o widget é só do iOS e o app não vende a
+assinatura lá.
+
+```text
+Radiant é um app para estudar radiologia do jeito que o tecnólogo trabalha: uma situação de cada vez.
+
+Cada aula é curta e parte de uma cena de sala: um pedido que não combina com o relato do paciente, uma dúvida de quem acompanha, uma imagem para comparar. Você responde, recebe o retorno na hora e segue para o próximo passo da trilha.
+
+O QUE VOCÊ ENCONTRA
+
+• Trilha com 24 unidades e 157 aulas, da identificação do paciente à radiologia odontológica e à ultrassonografia.
+• Aulas com formatos variados: múltipla escolha, lacuna, verdadeiro ou falso, classificar, ordenar, associar e comparar imagens.
+• Revisão no tempo certo: o que você estudou volta para fixar.
+• Avaliações ao longo da trilha para conferir o que ficou.
+• XP, sequência de dias, missões diárias e medalhas por unidade.
+
+FEITO PARA ESTUDAR EM QUALQUER LUGAR
+
+• Funciona offline. Sem internet, o app abre e registra o seu progresso.
+• Sem conta e sem login. Os dados de estudo ficam no seu aparelho.
+• Lembretes que acompanham o seu ritmo, com controle por tipo nos Ajustes.
+
+PARA QUEM É
+
+Estudantes de tecnologia em radiologia e técnicos que querem revisar a rotina da aquisição com método.
+
+IMPORTANTE
+
+O Radiant é um aplicativo educacional e não substitui a avaliação, o diagnóstico ou a orientação de um profissional de saúde. O conteúdo é para estudo e treino, não para uso clínico nem para decisão sobre pacientes.
+```
+
+Bloco que só a App Store recebe, no fim:
+
+```text
+SÓ NO IPHONE
+
+• Liga da semana pelo Game Center: compare o seu XP com outros estudantes. É opcional.
+• Widgets para a tela de início: sequência, meta do dia e próxima aula.
+
+ASSINATURA
+
+O Radiant Ilimitado é opcional, mensal ou anual, com renovação automática. Os benefícios são vidas ilimitadas e três decorações exclusivas para o perfil. Todo o conteúdo continua aberto para todo mundo. Você gerencia ou cancela a assinatura nos Ajustes do iPhone.
+
+Termos de Uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de Privacidade: https://saudediagnostica.com/radiant/privacidade/
+```
+
 ## Notas de versão — v1.6 (rascunho de 2026-11-16, aguarda o dono)
 
 Rascunho escrito pelo agente a partir do que entrou na `main`. **Não foi
@@ -162,6 +253,9 @@ as seis chaves ligadas; tire a linha de qualquer recurso que sair.
 - Personagens novos nas cenas, sons e animações na aula.
 - Lembretes que acompanham seu ritmo, com controle por tipo nos Ajustes.
 - Decorações para o seu perfil, conquistadas com o estudo.
+- Visual renovado na aula: retorno de acerto e erro fixo no rodapé, alternativas com
+  relevo e telas de missões, perfil e assinatura redesenhadas. (Linha acrescentada em
+  2026-11-17, depois do refinamento visual.)
 
 A descrição e as keywords abaixo e acima são as da 1.3 e 1.4, e citam
 "Fundamentos", "Tórax" e "Abdome", trilhas que saíram na 1.5.0. **Estão

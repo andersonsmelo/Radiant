@@ -147,6 +147,11 @@ o desenho de antes do Medalhão.
 | `05-conquista.png` | Resumo da aula: três estrelas, +18 XP, 5 de 5 |
 | `06-progresso.png` | Perfil com a medalha, a semana e a liga |
 
+**Subidas ao App Store Connect em 2026-11-18** pelo agente, pela extensão do Chrome: as
+seis de 6,5" no conjunto "iPhone com Face ID (tela grande)" da versão 1.6.0. O
+conjunto obrigatório de tela média usa as mesmas imagens reduzidas. As de 6,7" não
+foram subidas: a ficha não tem esse conjunto.
+
 **Como foram feitas, e no que diferem da receita antiga:**
 
 - Simuladores criados para isso: "Radiant Loja 67" (iPhone 16 Plus) e "Radiant Loja 65"

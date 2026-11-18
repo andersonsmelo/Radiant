@@ -64,6 +64,29 @@ o envio do EAS ao App Store Connect consta como concluído (`eas submit:list`).
 A build 16, de `e8e3a0e`, é anterior ao refinamento. **Não conferido:** o fim do
 processamento pela Apple e a build 17 aparecendo no TestFlight.
 
+**Build 1.6.0 (18), medido em 2026-11-17, 15:20 UTC:** disparada pelo agente por ordem
+do dono a partir de `abd9c7f8`, a `main` com o texto novo da apresentação; em compilação
+no EAS, com o envio ao App Store Connect agendado. **Não conferido:** o fim da
+compilação e do envio. A lista do que falta em cada loja está em
+[store/2026-11-17-preparo-envio-1-6.md](store/2026-11-17-preparo-envio-1-6.md).
+
+**1.6.0 (18) enviada à revisão da Apple em 2026-11-18, às 15:43 UTC**, pelo agente, por
+ordem do dono ("Sim, enviar"). Envio `87cd4e73`, com dois itens: a versão iOS 1.6.0
+(build 18) e o placar `radiant.liga.semanal.xp`. Estado lido na página logo depois:
+versão e envio em "Aguardando revisão". Lançamento configurado para acontecer
+automaticamente depois da aprovação, para todos os usuários de uma vez.
+
+- Na versão: texto promocional, descrição, novidades, keywords e notas do revisor da
+  1.6; Game Center ligado; seis capturas novas no conjunto de iPhone de tela grande
+  (6,5"), no lugar das antigas, que seguem na Biblioteca de Ativos.
+- **Não feito antes do envio:** ver a build 18 em aparelho, compra em sandbox e a
+  troca da imagem de abertura. A captura de revisão da assinatura não foi subida: as
+  assinaturas não mudaram.
+- A Apple teve interrupção no App Store Connect em 2026-11-17 (a página da versão
+  derrubava a sessão com 401 na lista de territórios); voltou no dia seguinte.
+- **Android:** build de produção 1.6.0 (código 7) concluída no EAS em 2026-11-17, a
+  partir de `abd9c7f8`. **Não enviada ao Play:** a chave de envio não está na máquina.
+
 **A build 17 não tem o texto novo da apresentação inicial.** Ela mostra "Conteúdo em
 preparação." a todo aluno novo, frase que ficou na tela desde a retirada do currículo
 antigo (`30c95b0e`). O dono aprovou, em 2026-11-17, o texto "Aqui você treina o dia a
