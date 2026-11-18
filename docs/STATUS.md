@@ -25,7 +25,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | **App Store, no ar na última consulta** | **`1.5.0 (14)` aprovada e liberada em 2026-11-11.** A Apple mandou o e-mail de aprovação às 18h44 (America/Bahia), e a consulta pública da App Store brasileira (`itunes.apple.com/lookup?id=6797078156&country=br`) mostrou a versão 1.5.0, liberada às 18h47, com as novidades aprovadas pelo dono, medido às 19h59. Envio `cf9045f1`, liberação automática para todos de uma vez. Build compilada do `6c11140`; a PR #69 entrou na `main` em `20dd593`. O agente montou a versão no App Store Connect a pedido do dono e conferiu tudo pela API interna. **A descrição da página continua a da 1.4.0** e cita "Fundamentos", "Tórax e Abdome" e estudantes de medicina. **Não verificado:** o app no aparelho pelo TestFlight e o estado interno do App Store Connect depois da aprovação; o conteúdo foi revisado só por IA. | 2026-11-11 |
 | **App Store, anterior** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
-| **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
+| **Google Play** | **Produção inativa; acesso de produção ainda não liberado.** Lido no Play Console em 2026-11-18: o teste fechado `alpha` tem a `1.3.0 (4)` no ar (publicada em 2026-07-31) e **5 testadores participando**, dos 12 que o Google exige por 14 dias antes de liberar "Solicitar a produção". A **`1.6.0 (7)` foi enviada à revisão do teste fechado em 2026-11-18** pelo agente, por ordem do dono; estado lido logo depois: "Alterações em análise". Publicação gerenciada desativada: aprovada, ela vai direto aos testadores. Há um aviso do console para declarar o status de comerciante até fevereiro de 2027. | 2026-11-18 |
 | **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). O código da API na PR #69 recebeu correções de segurança e de sincronização em 2026-11-10, sem deploy ([auditoria](evidence/2026-11-10-auditoria.md)). | 2026-10-14 |
 
 ```bash
@@ -87,7 +87,13 @@ para acontecer automaticamente depois da aprovação, para todos os usuários de
 - A Apple teve interrupção no App Store Connect em 2026-11-17 (a página da versão
   derrubava a sessão com 401 na lista de territórios); voltou no dia seguinte.
 - **Android:** build de produção 1.6.0 (código 7) concluída no EAS em 2026-11-17, a
-  partir de `abd9c7f8`. **Não enviada ao Play:** a chave de envio não está na máquina.
+  partir de `abd9c7f8`, e **enviada à revisão do teste fechado do Play em 2026-11-18**.
+  O `.aab` (124 MB) foi arrastado pelo dono no console, porque a chave de envio não
+  está na máquina; o resto foi feito pelo agente no navegador interno. A verificação
+  pré-envio apontou que o manifesto exige `android.hardware.screen.portrait`, o que
+  tira 17 aparelhos da compatibilidade; o dono mandou enviar assim, e o problema foi
+  dispensado com "Vou resolver esse problema em breve". **Corrigir na build que for à
+  produção.** Faltam 7 testadores para o relógio de 14 dias começar.
 
 **A build 17 não tem o texto novo da apresentação inicial.** Ela mostra "Conteúdo em
 preparação." a todo aluno novo, frase que ficou na tela desde a retirada do currículo

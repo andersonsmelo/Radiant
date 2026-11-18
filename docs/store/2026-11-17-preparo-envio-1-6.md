@@ -31,6 +31,13 @@ pelas assinaturas e pelo grupo, com a versão por último, e nunca "Criar novo e
 
 ## Google Play (Android)
 
+**Atualização de 2026-11-18:** o console foi lido e a `1.6.0 (7)` foi enviada à revisão
+do teste fechado `alpha`. O acesso de produção segue bloqueado: 5 de 12 testadores. O
+`.aab` de 124 MB não passa pela extensão do Chrome (limite de 10 MB) nem pelo
+navegador interno; o dono arrasta o arquivo e, se a página travar, recarregar e usar
+"Adicionar da biblioteca" recupera o pacote já enviado. A tabela abaixo é a foto de
+2026-11-17.
+
 O Play **não está em produção**: a última leitura, de 2026-08-24 e vencida, é a
 `1.3.0 (4)` em teste fechado (`alpha`). Subir a 1.6 ao Play é, na prática, o primeiro
 lançamento público do Android.

@@ -4812,3 +4812,11 @@ na 1.5.0, e nada da 1.6 foi visto em aparelho.**
 Estado lido na página logo depois:
 versão e envio em "Aguardando revisão". Lançamento configurado para acontecer
 automaticamente depois da aprovação, para todos os usuários de uma vez.
+
+## Saídas do STATUS em 2026-11-18: Play antes do envio da 1.6.0 ao teste fechado
+
+| **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
+
+- **Android:** build de produção 1.6.0 (código 7) concluída no EAS em 2026-11-17, a
+  partir de `abd9c7f8`. **Não enviada ao Play:** a chave de envio não está na máquina.
+
