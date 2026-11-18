@@ -6,6 +6,10 @@ Connect e no Play Console quem edita é o dono; o agente confere pela página.
 
 ## App Store (iOS)
 
+**Atualização de 2026-11-18:** a 1.6.0 (18) foi enviada à revisão às 15:43 UTC, com o
+placar da liga no mesmo envio e as seis capturas novas de 6,5". A tabela abaixo é a
+foto de 2026-11-17; o estado vivo está no `STATUS.md`.
+
 | Item | Estado | De quem |
 | --- | --- | --- |
 | Código na `main` | Pronto: `abd9c7f8`, com o refinamento visual e o texto novo da apresentação | — |
