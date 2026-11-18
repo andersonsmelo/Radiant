@@ -2,7 +2,7 @@
 
 > Planejamento de conteúdo em reinício (02/11/2026): público inicial de graduação tecnológica em radiologia, seguido de especializações. [Entrada única](docs/plans/2026-11-02-planejamento-conteudo-radiant.md). A retirada do conteúdo antigo chegou à loja com a 1.5.0, em 2026-11-11.
 
-> **Estado em 2026-11-16:** a loja tem a 1.5.0, com a trilha de graduação tecnológica. A `main` tem a atualização 1.6 (versão `1.6.0`): trilha com 24 unidades e 157 aulas, quatro formatos novos de interação, elenco de personagens e, atrás de chaves, sons e microinterações, liga semanal no Game Center, widgets do iOS, lembrete personalizado, decorações do perfil e convites de assinatura. O que é verdade agora está no [`docs/STATUS.md`](docs/STATUS.md).
+> **Estado em 2026-11-18:** a Apple aprovou a 1.6.0 nesse dia (lançamento automático; a chegada à loja não foi confirmada), e a 1.6.0 do Android está em revisão no teste fechado do Play, que ainda não tem produção. A 1.6 traz a trilha com 24 unidades e 157 aulas, quatro formatos novos de interação, elenco de personagens, sons e microinterações, liga semanal no Game Center, widgets do iOS, lembrete personalizado, decorações do perfil, convites de assinatura e o refinamento visual de 2026-11-17. O que é verdade agora está no [`docs/STATUS.md`](docs/STATUS.md).
 
 
 Radiant é um aplicativo mobile educacional de radiologia, local-first, com

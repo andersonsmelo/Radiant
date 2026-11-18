@@ -237,7 +237,12 @@ Termos de Uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/s
 Política de Privacidade: https://saudediagnostica.com/radiant/privacidade/
 ```
 
-## Notas de versão — v1.6 (rascunho de 2026-11-16, aguarda o dono)
+## Notas de versão — v1.6 (coladas em 2026-11-17 e 2026-11-18)
+
+**App Store:** os oito itens abaixo, com "•" no lugar de "-", foram colados na versão
+1.6.0 em 2026-11-17, e a versão foi aprovada em 2026-11-18. **Play:** no teste fechado
+foi colada, em 2026-11-18, uma versão mais curta, sem a liga e sem os widgets, que o
+Android não tem. O texto que segue é o rascunho de origem.
 
 Rascunho escrito pelo agente a partir do que entrou na `main`. **Não foi
 aprovado nem colado no App Store Connect.** Só vale se a build enviada mantiver

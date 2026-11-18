@@ -123,6 +123,18 @@ conduzida: [ADR da delegação e do merge](adr/ADR-2026-11-13-delegacao-da-atual
 | F7, personagens | [bíblia de personagens](design/2026-11-13-biblia-de-personagens.md) e [candidatos](design/2026-11-13-candidatos-de-personagens.md) | | [`evidence/2026-11-13-f7-personagens/`](evidence/2026-11-13-f7-personagens/) | |
 | F8, convites de assinatura | [ADR](adr/ADR-2026-11-15-convites-de-assinatura.md) | [plano](plans/2026-11-15-f8-conversao.md) | [`evidence/2026-11-15-f8-conversao/`](evidence/2026-11-15-f8-conversao/README.md) | |
 
+### 1.6 — refinamento visual e envio às lojas (2026-11-16 a 2026-11-18)
+
+| O quê | Onde |
+| --- | --- |
+| Desenho aprovado do refinamento | [spec](superpowers/specs/2026-11-16-refinamento-visual-1-6-design.md) |
+| Plano de 11 tarefas | [plano](plans/2026-11-16-refinamento-visual-1-6.md) |
+| Evidência, capturas e o que não foi provado | [`evidence/2026-11-refinamento/`](evidence/2026-11-refinamento/README.md) |
+| Decisões do dono e do envio | [ADR](adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md) |
+| O que estava pronto e o que faltava em cada loja | [preparo do envio](store/2026-11-17-preparo-envio-1-6.md) |
+| Textos colados na ficha | [textos da loja](store/textos-loja-pt-BR.md) |
+| Capturas da loja e como foram feitas | [assets de loja](store/ASSETS_DE_LOJA.md) |
+
 A política de privacidade ganhou a seção do Game Center e foi publicada em
 2026-11-16: [`legal/politica-de-privacidade.md`](legal/politica-de-privacidade.md)
 e [`legal/PROMPT_PUBLICACAO_PAGINAS.md`](legal/PROMPT_PUBLICACAO_PAGINAS.md).

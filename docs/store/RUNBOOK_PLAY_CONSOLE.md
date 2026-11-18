@@ -202,6 +202,27 @@ não segura o relógio — gere depois.
 
 ---
 
+## Medição de 2026-11-18 e o envio da 1.6.0
+
+Lido no console pelo agente: **5 testadores participando**, de 12; produção inativa;
+"Solicitar a produção" indisponível. A `1.6.0 (7)` foi enviada à revisão do `alpha`.
+
+O que o caminho manual exigiu, para a próxima vez:
+
+- O `.aab` da 1.6 tem 124 MB. A extensão do Chrome aceita até 10 MB e o navegador
+  interno não envia arquivos: **o dono arrasta o arquivo** em Teste fechado → Alpha →
+  Criar nova versão.
+- Depois do upload, a página "Preparar versão" parou de aceitar clique. Recarregar
+  resolveu, mas o rascunho voltou vazio; o pacote estava na biblioteca do app, e
+  **"Adicionar da biblioteca"** o recupera sem novo upload.
+- As notas vão dentro de `<pt-BR>…</pt-BR>`, com até 500 caracteres.
+- "Avançar" leva à revisão e "Salvar" só guarda; o envio é na **Visão geral da
+  publicação**, em "Enviar 1 mudança para revisão".
+- A verificação pré-envio acusou `android.hardware.screen.portrait` como recurso
+  obrigatório. Para seguir é preciso "Continuar mesmo assim" e escolher um motivo.
+
+---
+
 ## O que este runbook NÃO destrava
 
 > **Os dois bloqueios de engenharia que esta seção listava foram resolvidos em

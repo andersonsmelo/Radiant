@@ -438,6 +438,25 @@ estão na seção da 1.6, logo depois.
 Entrou em 2026-11-15, pelas PRs #71 a #78
 ([ADR](adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)). Versão `1.6.0`.
 
+**Depois, até 2026-11-18 (PRs #84 e #86), medido na `main` em `0b5f42f3`:**
+
+- **Refinamento visual.** A alternativa é `ChoiceOption`
+  (`radiant-app/src/components/ui/`), usada por múltipla escolha, parear,
+  comparação e cartão de revisão; o retorno da aula é a folha fixa
+  `AnswerFeedbackSheet` (`features/lesson-flow/components/`). O lábio das peças de
+  resposta sai de `pieceRelief`, em `src/ui/styles.ts`. `PixelHeroSplit`,
+  `AnimatedCounter` e `GalaxyStatRow` foram apagados.
+- **Guarda de estilo.** `radiant-app/scripts/style-literal-contract.mjs`, no
+  `quality`, lê a AST de `src/features` e `src/app` e acusa cor literal, `fontSize`
+  numérico, `textTransform: 'uppercase'` e `...typography.label` sem desligar a
+  caixa alta, fora dos usos listados em `LABEL_USES`.
+- **Sequência.** `standingStreakDays` (`features/gamification/services/StreakFreezeService.ts`)
+  é a regra única da sequência que vale no dia: a guardada, se estudar hoje a
+  estenderia; senão 0. `GamificationService.getSnapshot` devolve
+  `standingStreakDays` ao lado de `streakDays`, e as telas mostram
+  `shownStreakDays` (`src/types/gamification.ts`). Sincronização, decorações e
+  lembretes continuam lendo a contagem guardada.
+
 - **Trilha.** 24 unidades e 157 aulas, na ordem M01 M02 M03 **M15** M04 a M09
   **M16** M10 a M14, depois S-TC, S-RM, S-MD, S-MN, S-RT, S-IR, **S-OD** e
   **S-US** (`radiant-app/src/features/student-checkpoints/batches/index.ts`).

@@ -1995,13 +1995,18 @@ Regras de loja mudam com frequência; revalidar §4 nas datas de M0 e M4.
 4. Para as Tasks 12, 15 e 16 detalhadas, usar os blocos correspondentes do
    [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md).
 
-## 11. Atualização 1.6 (2026-11-13 a 2026-11-16) — fora das ondas deste roadmap
+## 11. Atualização 1.6 (2026-11-13 a 2026-11-18) — fora das ondas deste roadmap
 
 A 1.6 não nasceu das tasks A1 a F7. Foi pedida pelo dono em 2026-11-13 e
 conduzida em oito frentes, cada uma numa sessão e numa PR
 ([ADR](../adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)). **Estado em
-2026-11-16:** as oito frentes estão na `main` (PRs #71 a #78), a build
-`1.6.0 (16)` do iOS compilou no EAS e ainda não foi à revisão. O estado vivo, as
+2026-11-18:** as oito frentes estão na `main` (PRs #71 a #78), seguidas do
+refinamento visual (PR #84) e do texto novo da apresentação (PR #86). A
+`1.6.0 (18)` do iOS foi enviada à revisão e **aprovada pela Apple em 2026-11-18**;
+a `1.6.0 (7)` do Android foi enviada à revisão do **teste fechado** do Play no
+mesmo dia. A produção do Play segue bloqueada pela regra dos 12 testadores por 14
+dias (task F2: 5 participando). Decisões na
+[ADR de 2026-11-18](../adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md). O estado vivo, as
 pendências do dono e o índice por frente ficam no
 [`STATUS.md`](../STATUS.md) e no [`README.md`](../README.md) de `docs/`; as
 pendências executáveis, no item 8 da [`FILA.md`](../FILA.md).

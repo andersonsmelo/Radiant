@@ -536,6 +536,38 @@ defeito que se queria pegar.
   apareceu quando a PR #69 abriu. Abra a PR em rascunho cedo. E data de sequência se
   testa fora de UTC: o defeito do fuso só falhava na máquina, não no CI.
 
+### Seis lições de 2026-11-17 e 18 (refinamento, capturas e envio da 1.6 às duas lojas)
+
+- **O Finder grava `.DS_Store` na pasta que ele abre, e isso derruba o run.** Revelar
+  `docs/store/assets/` no Finder criou o arquivo no meio de um run, e o `step finish`
+  devolveu `OUT_OF_SCOPE_CHANGE`. Não revele pasta do repositório com run aberto: mande
+  o arquivo pela conversa ou revele depois do `run close`. A saída, quando acontece, é
+  fechar o run, guardar o trabalho com `git stash`, abrir outro e `git stash pop`.
+- **Emulador do Android e Gradle seguram a máquina depois de fechados.** O
+  `loop validate` estourou o prazo do `app-quality` e do `app-test` com o daemon do
+  Gradle vivo. Antes de validar: `./gradlew --stop` em `radiant-app/android`, emulador
+  desligado e carga de 1 minuto abaixo de ~5. O fechamento inteiro chega perto do limite de
+  600 s de um comando em primeiro plano: rode-o em segundo plano.
+- **Arquivo para as lojas só sobe pela extensão do Chrome, e até 10 MB.** O navegador
+  interno não envia arquivos. Captura de tela cabe; o `.aab` de 124 MB não, e quem
+  arrasta é o dono. No App Store Connect, as capturas de 6,7" entram pelo Gerenciador
+  de mídia, no grupo "iPhone com Face ID (tela grande)".
+- **O App Store Connect recusa criar versão com o contrato de apps pagos pendente,** e
+  o erro da tela não diz isso. O aceite é do dono, em Negócios. Quando a sessão cai
+  logo depois do login, leia o `read_network_requests` antes de culpar o navegador: em
+  2026-11-17 um 401 em `/iris/v1/territories` era instabilidade da Apple, e voltou no
+  dia seguinte sem mudança nenhuma aqui.
+- **No Play Console, `cmd+a` não seleciona o texto de um `textarea`, e a página trava
+  depois do upload.** Preencha com `form_input`, passando o valor inteiro, e dê uma
+  tecla real para o formulário notar a mudança. Página que não aceita clique se
+  recarrega; o pacote enviado volta por "Adicionar da biblioteca". O passo a passo está
+  no [runbook do Play](docs/store/RUNBOOK_PLAY_CONSOLE.md).
+- **Texto de loja se confere contra o código antes de colar.** A descrição dizia que o
+  único benefício da assinatura eram as vidas ilimitadas, e a 1.6 tinha acrescentado
+  três decorações exclusivas. Cada afirmação da ficha sobre o que o app faz ou cobra
+  leva um `grep` antes do "Salvar". Vale também para a nota de versão por plataforma:
+  o Android não tem liga nem widgets.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

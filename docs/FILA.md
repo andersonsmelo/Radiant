@@ -1252,8 +1252,13 @@ aparelho.
 
 ### 5. F2 — os opt-ins do closed test. **É o caminho crítico inteiro.**
 
-**Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`. **Bloqueio:**
-humano. **Dono:** dono.
+**Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`; a `1.6.0 (7)`
+está em revisão desde 2026-11-18. **Bloqueio:** humano. **Dono:** dono.
+
+> **Remedido em 2026-11-18**, pelo agente, lendo o painel do app no Play Console:
+> **5 testadores participando**, de 12; "Solicitar a produção" indisponível;
+> produção inativa. É o mesmo número de 2026-09-25: **o relógio de 14 dias segue
+> parado e faltam 7 aceites.**
 
 > **Remedido em 2026-09-25**, por capturas do Play Console, pelo dono na
 > sessão na nuvem
@@ -1314,36 +1319,46 @@ respondida hoje.**
 
 ---
 
-### 8. Atualização 1.6 — do TestFlight à revisão
+### 8. Atualização 1.6 — depois do envio
 
-**Estado:** as oito frentes na `main`; build `1.6.0 (16)` do iOS compilada no
-EAS em 2026-11-16, com as seis chaves ligadas; binário enviado ao App Store
-Connect pelo EAS nesse dia; o processamento pela Apple não foi conferido. App Group, App ID do widget e placar
-`radiant.liga.semanal.xp` criados pelo dono nesse dia. Política de privacidade
-pública atualizada. **Bloqueio:** humano. **Dono:** dono.
+**Estado em 2026-11-18:** a `1.6.0 (18)` foi **aprovada pela Apple** nesse dia, com
+o placar da liga no mesmo envio; lançamento automático, chegada à loja **não
+confirmada**. A `1.6.0 (7)` do Android foi **enviada à revisão do teste fechado**
+do Play. Decisões e como foi feito:
+[ADR](adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md) e
+[preparo do envio](store/2026-11-17-preparo-envio-1-6.md). **Bloqueio:** humano.
+**Dono:** dono, salvo onde diz AGENTE.
 
-O número das frentes da 1.6 (F1 a F8) não tem relação com as etapas F1 a F7 do
-teste fechado do Android, usadas nos outros itens desta fila.
+Falta:
 
-Falta, nesta ordem:
-
-1. Ver a build no aparelho pelo TestFlight: aulas novas, sons, liga em sandbox,
-   widgets na tela de início, notificação e decorações.
-2. Conferir a compra em sandbox com os convites de assinatura ligados.
-3. Fazer as mudanças que o dono quer antes da revisão (pedido de 2026-11-16) e
-   gerar build nova, se elas tocarem o app.
-4. Criar a versão 1.6.0 no App Store Connect, **adicionar o placar a ela**,
-   escrever as novidades e rever a descrição, que ainda é a da 1.4.0.
-5. Enviar à revisão.
-
-Roteiros: [liga](runbooks/2026-11-13-liga-game-center.md) e
-[widgets](runbooks/2026-11-15-widgets-ios.md). Detalhe em
-[`STATUS.md`](STATUS.md), seção da 1.6.
+1. **Dono:** confirmar a 1.6.0 no ar e abrir no iPhone: aulas novas, sons, liga
+   (o placar começa em 2026-11-23, 00:00 UTC), widgets, notificação e decorações.
+   **Ninguém viu a build 18 em aparelho antes do envio.**
+2. **Dono:** compra em sandbox com os convites de assinatura ligados. Também não
+   foi feita antes do envio.
+3. **Dono:** acompanhar a revisão do Play (até 7 dias, pelo console). Aprovada,
+   a 1.6.0 vai direto aos testadores do `alpha`.
+4. **AGENTE, antes da build que for à produção do Play:** marcar
+   `android.hardware.screen.portrait` como opcional no manifesto. O problema foi
+   dispensado no console com "Vou resolver esse problema em breve".
+5. **AGENTE:** conferir a fonte dos títulos no Android. Nas capturas do emulador
+   de 2026-11-17 os títulos grandes parecem sair na fonte do sistema, não na Sora.
+   Não investigado.
+6. **Dono decide, agente executa:** a imagem de abertura (segue com o Pixel
+   antigo) e se a tela de assinatura deve citar as três decorações exclusivas,
+   que a descrição da loja já cita.
+7. **Dono, declarações legais:** status de comerciante no Play (até fevereiro de
+   2027, senão os apps saem do ar) e na Apple para a União Europeia; avaliação de
+   segurança e declaração de conteúdo gerado por IA para a China continental
+   (até 2027-01-31).
 
 ```bash
-cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
-curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([r['version'] for r in json.load(sys.stdin)['results']])"
+curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([(r['version'],r['currentVersionReleaseDate']) for r in json.load(sys.stdin)['results']])"
+cd radiant-app && npx eas build:list --limit 2 --non-interactive
 ```
+
+O estado do Play só se mede abrindo o console: **Teste → Teste fechado → Alpha** e
+**Visão geral da publicação**.
 
 ## Precisa de aparelho ou janela de host
 

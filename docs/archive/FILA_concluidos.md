@@ -2329,3 +2329,40 @@ atualizado em 2026-10-19 à noite:** as PRs #52 a #62 entraram na `main`, a #61
       aguarda contrato G7; validadores/política atuais intactos. Preservar biblioteca,
       direitos e motores reutilizáveis; separar dados mistos antes da retirada.
       Sem remoção, migração, alteração do Loop ou avanço T14/T19–T22.
+
+## Saído da FILA em 2026-11-18 — item 8, do TestFlight à revisão
+
+Fechado: a `1.6.0 (18)` foi enviada à revisão em 2026-11-18 e aprovada no mesmo dia. Os
+passos 1 e 2 (aparelho e sandbox) **não** foram feitos antes do envio e seguem no item 8
+novo da fila.
+
+### 8. Atualização 1.6 — do TestFlight à revisão
+
+**Estado:** as oito frentes na `main`; build `1.6.0 (16)` do iOS compilada no
+EAS em 2026-11-16, com as seis chaves ligadas; binário enviado ao App Store
+Connect pelo EAS nesse dia; o processamento pela Apple não foi conferido. App Group, App ID do widget e placar
+`radiant.liga.semanal.xp` criados pelo dono nesse dia. Política de privacidade
+pública atualizada. **Bloqueio:** humano. **Dono:** dono.
+
+O número das frentes da 1.6 (F1 a F8) não tem relação com as etapas F1 a F7 do
+teste fechado do Android, usadas nos outros itens desta fila.
+
+Falta, nesta ordem:
+
+1. Ver a build no aparelho pelo TestFlight: aulas novas, sons, liga em sandbox,
+   widgets na tela de início, notificação e decorações.
+2. Conferir a compra em sandbox com os convites de assinatura ligados.
+3. Fazer as mudanças que o dono quer antes da revisão (pedido de 2026-11-16) e
+   gerar build nova, se elas tocarem o app.
+4. Criar a versão 1.6.0 no App Store Connect, **adicionar o placar a ela**,
+   escrever as novidades e rever a descrição, que ainda é a da 1.4.0.
+5. Enviar à revisão.
+
+Roteiros: [liga](runbooks/2026-11-13-liga-game-center.md) e
+[widgets](runbooks/2026-11-15-widgets-ios.md). Detalhe em
+[`STATUS.md`](STATUS.md), seção da 1.6.
+
+```bash
+cd radiant-app && npx eas build:list --platform ios --limit 1 --non-interactive
+curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([r['version'] for r in json.load(sys.stdin)['results']])"
+```
