@@ -4803,3 +4803,12 @@ Até as capturas serem refeitas, o `STATUS.md` dizia:
 keywords e notas do revisor da 1.6 salvos. Sem build escolhida (a 18 não tinha chegado),
 sem capturas novas e sem o placar adicionado. O contrato de apps pagos foi aceito pelo
 dono nesse dia. **Nada foi enviado à revisão.**
+
+## Saídas do STATUS em 2026-11-18: antes da aprovação da 1.6.0
+
+**A loja segue
+na 1.5.0, e nada da 1.6 foi visto em aparelho.**
+
+Estado lido na página logo depois:
+versão e envio em "Aguardando revisão". Lançamento configurado para acontecer
+automaticamente depois da aprovação, para todos os usuários de uma vez.

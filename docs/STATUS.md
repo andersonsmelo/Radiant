@@ -21,7 +21,8 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 
 | Frente | Estado | Medido em |
 | --- | --- | --- |
-| **App Store** | **`1.5.0 (14)` aprovada e liberada em 2026-11-11.** A Apple mandou o e-mail de aprovação às 18h44 (America/Bahia), e a consulta pública da App Store brasileira (`itunes.apple.com/lookup?id=6797078156&country=br`) mostrou a versão 1.5.0, liberada às 18h47, com as novidades aprovadas pelo dono, medido às 19h59. Envio `cf9045f1`, liberação automática para todos de uma vez. Build compilada do `6c11140`; a PR #69 entrou na `main` em `20dd593`. O agente montou a versão no App Store Connect a pedido do dono e conferiu tudo pela API interna. **A descrição da página continua a da 1.4.0** e cita "Fundamentos", "Tórax e Abdome" e estudantes de medicina. **Não verificado:** o app no aparelho pelo TestFlight e o estado interno do App Store Connect depois da aprovação; o conteúdo foi revisado só por IA. | 2026-11-11 |
+| **App Store, aprovada** | **`1.6.0 (18)` aprovada pela Apple em 2026-11-18**, com o placar `radiant.liga.semanal.xp` no mesmo envio (`87cd4e73`); e-mail "Review of your submission is complete" recebido pelo dono às 14:53 (America/Bahia). Lançamento automático após a aprovação. **A consulta pública da App Store brasileira ainda devolvia a 1.5.0** na tarde de 2026-11-18; a Apple avisa que pode levar até 24 horas. | 2026-11-18 |
+| **App Store, no ar na última consulta** | **`1.5.0 (14)` aprovada e liberada em 2026-11-11.** A Apple mandou o e-mail de aprovação às 18h44 (America/Bahia), e a consulta pública da App Store brasileira (`itunes.apple.com/lookup?id=6797078156&country=br`) mostrou a versão 1.5.0, liberada às 18h47, com as novidades aprovadas pelo dono, medido às 19h59. Envio `cf9045f1`, liberação automática para todos de uma vez. Build compilada do `6c11140`; a PR #69 entrou na `main` em `20dd593`. O agente montou a versão no App Store Connect a pedido do dono e conferiu tudo pela API interna. **A descrição da página continua a da 1.4.0** e cita "Fundamentos", "Tórax e Abdome" e estudantes de medicina. **Não verificado:** o app no aparelho pelo TestFlight e o estado interno do App Store Connect depois da aprovação; o conteúdo foi revisado só por IA. | 2026-11-11 |
 | **App Store, anterior** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
@@ -39,8 +40,8 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 A `main` tem as oito frentes da 1.6, mescladas em 2026-11-15 pelo controlador,
 por ordem do dono ([ADR](adr/ADR-2026-11-13-delegacao-da-atualizacao-1-6.md)).
-O CI (`quality` e `content`) passou verde depois de cada merge. **A loja segue
-na 1.5.0, e nada da 1.6 foi visto em aparelho.**
+O CI (`quality` e `content`) passou verde depois de cada merge. **A 1.6.0 (18) foi aprovada pela
+Apple em 2026-11-18; nada da 1.6 foi visto em aparelho.**
 
 | Frente | PR | O que é | Chave | Decisão e evidência |
 | --- | --- | --- | --- | --- |
@@ -72,9 +73,10 @@ compilação e do envio. A lista do que falta em cada loja está em
 
 **1.6.0 (18) enviada à revisão da Apple em 2026-11-18, às 15:43 UTC**, pelo agente, por
 ordem do dono ("Sim, enviar"). Envio `87cd4e73`, com dois itens: a versão iOS 1.6.0
-(build 18) e o placar `radiant.liga.semanal.xp`. Estado lido na página logo depois:
-versão e envio em "Aguardando revisão". Lançamento configurado para acontecer
-automaticamente depois da aprovação, para todos os usuários de uma vez.
+(build 18) e o placar `radiant.liga.semanal.xp`. **Aprovada no mesmo
+dia**, cerca de três horas depois, com os dois itens aceitos. Lançamento configurado
+para acontecer automaticamente depois da aprovação, para todos os usuários de uma vez;
+**a chegada à loja não foi confirmada** (a consulta pública ainda devolvia a 1.5.0).
 
 - Na versão: texto promocional, descrição, novidades, keywords e notas do revisor da
   1.6; Game Center ligado; seis capturas novas no conjunto de iPhone de tela grande
