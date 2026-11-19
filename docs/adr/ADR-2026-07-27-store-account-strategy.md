@@ -1,6 +1,7 @@
 # ADR — Estratégia de contas nas lojas (2026-07-27)
 
-**Status:** aceita
+**Status:** substituída em 2026-11-18 pela
+[ADR de contas de loja da empresa](ADR-2026-11-18-contas-de-loja-da-empresa.md)
 **Decisor:** Anderson (proprietário do projeto)
 **Contexto de origem:** task A1 do
 [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md)
