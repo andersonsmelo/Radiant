@@ -42,6 +42,7 @@ export function ParameterLabStepRenderer({ payload, value, onChange, submitted =
             <View style={styles.controls}>
                 <BenchControlRow
                     control={control}
+                    unitSingular={model.parameter.unitSingular}
                     value={current}
                     disabled={submitted}
                     onChange={next => {

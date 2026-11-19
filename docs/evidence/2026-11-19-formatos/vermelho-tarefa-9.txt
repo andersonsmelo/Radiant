@@ -63,3 +63,19 @@ not ok 22 - o laboratório com meta de menos de um limite usa Diminuir, um toque
     Expected values to be strictly deep-equal:
 # pass 22
 # fail 1
+
+# Rodada 1 (revisão independente), node v20.20.2
+
+## 1. diagramas do controle em modo once (mutação: mode 'loop' em decaimento-radioativo.ts)
+    ✕ decay: o diagrama existe, anda uma vez só (sem volta) e o fim difere do começo (1 ms)
+    Expected: true
+    Received: false
+Tests:       1 failed, 15 passed, 16 total
+
+## 2. meta atMost fora da grade no contrato wide (mutação: conferir só atLeast)
+  ✕ invalid-wide-shape: modelo desconhecido, partida ou limite fora da grade, meta sem limite, dicas iguais ou vazias
+## 3. singular com o valor 1 (antes da correção)
+  ● BenchControlRow › usa a unidade no singular com o valor 1, no texto, no valor acessível e na dica do passo
+  ● modelos do laboratório › labGoalText usa a forma singular com o valor 1
+    Expected: "1 camada ou mais"
+    Received: "1 camadas ou mais"

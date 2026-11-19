@@ -247,4 +247,15 @@ describe('BenchControlRow', () => {
         } finally { dimensions.mockRestore(); }
     });
 
+    it('usa a unidade no singular com o valor 1, no texto, no valor acessível e na dica do passo', () => {
+        const LAYERS: BenchControl = { id: 'kv', label: 'Camadas', unit: 'camadas', min: 0, max: 5, step: 1, initial: 0 };
+        const row = (value: number) => render(<BenchControlRow control={LAYERS} unitSingular="camada" value={value} onChange={jest.fn()} />);
+        const one = row(1);
+        expect(one.getByText('1 camada')).toBeTruthy();
+        expect(one.getByRole('adjustable').props.accessibilityValue.text).toBe('1 camada');
+        // o passo é 1: a dica fala "1 camada" mesmo com o valor em 3
+        const three = row(3);
+        expect(three.getByText('3 camadas')).toBeTruthy();
+        expect(three.getByLabelText('Aumentar Camadas').props.accessibilityHint).toBe('Soma um passo de 1 camada.');
+    });
 });

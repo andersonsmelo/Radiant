@@ -739,6 +739,8 @@ describe('contrato amplo (wide)', () => {
             expect(issuesWith(interaction => { (interaction.payload as { model: string }).model = 'refracao'; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.start = 1.2; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.goal = { atLeast: 2.2 }; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { atMost: 2.2 }; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { atMost: 9 }; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.goal = {}; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.goal = { atLeast: 3, atMost: 2 }; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = interaction.payload.hints.tooLow; })).toContain(`invalid-wide-shape:${ID}`);

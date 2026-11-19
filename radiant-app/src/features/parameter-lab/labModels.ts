@@ -5,7 +5,7 @@ export const LAB_MODEL_IDS = ['inverse-square', 'shielding', 'decay'] as const;
 export type LabModelId = (typeof LAB_MODEL_IDS)[number];
 
 type LabModel = {
-  parameter: { label: string; unit: string; min: number; max: number; step: number };
+  parameter: { label: string; unit: string; /** A unidade com o valor 1 ("1 camada"). */ unitSingular: string; min: number; max: number; step: number };
   diagramId: string;
   /** 0 no mínimo, 1 no máximo, linear. */
   progress(value: number): number;
@@ -31,19 +31,19 @@ function model(
 
 export const LAB_MODELS: Record<LabModelId, LabModel> = {
   'inverse-square': model(
-    { label: 'Distância', unit: 'm', min: 1, max: 4, step: 0.5 },
+    { label: 'Distância', unit: 'm', unitSingular: 'm', min: 1, max: 4, step: 0.5 },
     'inverso-do-quadrado',
     'Intensidade relativa',
     (d) => 100 / (d * d),
   ),
   shielding: model(
-    { label: 'Camadas semirredutoras', unit: 'camadas', min: 0, max: 5, step: 1 },
+    { label: 'Camadas semirredutoras', unit: 'camadas', unitSingular: 'camada', min: 0, max: 5, step: 1 },
     'blindagem-camadas',
     'Radiação que passa',
     (n) => 100 / 2 ** n,
   ),
   decay: model(
-    { label: 'Meias-vidas', unit: 'meias-vidas', min: 0, max: 6, step: 1 },
+    { label: 'Meias-vidas', unit: 'meias-vidas', unitSingular: 'meia-vida', min: 0, max: 6, step: 1 },
     'decaimento-radioativo',
     'Atividade restante',
     (n) => 100 / 2 ** n,
@@ -60,10 +60,13 @@ export function isOnLabGrid(id: LabModelId, value: number): boolean {
 
 const num = (x: number) => String(x).replace('.', ',');
 
-/** A meta em texto curto, com a unidade do modelo: "2 m ou mais", "até 1,5 m", "de 3 a 5 camadas". */
+/** A meta em texto curto, com a unidade do modelo: "2 m ou mais", "até 1,5 m", "de 3 a 5 camadas", "1 camada ou mais". */
 export function labGoalText(id: LabModelId, goal: { atLeast?: number; atMost?: number }): string {
-  const { unit } = LAB_MODELS[id].parameter;
+  const { unit, unitSingular } = LAB_MODELS[id].parameter;
   const { atLeast, atMost } = goal;
-  if (atLeast !== undefined && atMost !== undefined) return atLeast === atMost ? `${num(atLeast)} ${unit}` : `de ${num(atLeast)} a ${num(atMost)} ${unit}`;
-  return atLeast !== undefined ? `${num(atLeast)} ${unit} ou mais` : `até ${num(atMost as number)} ${unit}`;
+  const withUnit = (x: number) => `${num(x)} ${x === 1 ? unitSingular : unit}`;
+  if (atLeast !== undefined && atMost !== undefined) {
+    return atLeast === atMost ? withUnit(atLeast) : `de ${num(atLeast)} a ${withUnit(atMost)}`;
+  }
+  return atLeast !== undefined ? `${withUnit(atLeast)} ou mais` : `até ${withUnit(atMost as number)}`;
 }
