@@ -257,6 +257,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Anatomia seccional e introdução à TC."
     }
   },
+  "batch:rtg-2026:m28": {
+    "slug": "rtg-2026-m28",
+    "title": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
+    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve, pescoço e coluna em esquemas, e ensina a reconhecer os três planos e a altura de um corte em tomografias reais, só localizando, sem interpretar.",
+    "unitTitle": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
+    "reward": {
+      "id": "node:reward:rtg-2026:m28",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Anatomia seccional II: abdome, pelve, pescoço e coluna."
+    }
+  },
   "batch:rtg-2026:m11": {
     "slug": "rtg-2026-m11",
     "title": "Fundamentos próprios da RM",

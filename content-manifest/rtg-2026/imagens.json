@@ -79,7 +79,10 @@
     "projection": "axial",
     "region": "transição entre tórax e abdome",
     "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the axial plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
-    "usedIn": []
+    "usedIn": [
+      "m28-05",
+      "m28-06"
+    ]
   },
   {
     "id": "image:rtg-2026:m28:tc-axial-torax-01",
@@ -98,7 +101,10 @@
     "projection": "axial",
     "region": "tórax",
     "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the axial plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
-    "usedIn": []
+    "usedIn": [
+      "m28-05",
+      "m28-06"
+    ]
   },
   {
     "id": "image:rtg-2026:m28:tc-coronal-abdome-01",
@@ -117,7 +123,9 @@
     "projection": "coronal",
     "region": "abdome e pelve",
     "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the coronal plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
-    "usedIn": []
+    "usedIn": [
+      "m28-05"
+    ]
   },
   {
     "id": "image:rtg-2026:m28:tc-sagital-abdome-01",
@@ -136,6 +144,8 @@
     "projection": "sagital",
     "region": "abdome e pelve",
     "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the sagittal plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
-    "usedIn": []
+    "usedIn": [
+      "m28-05"
+    ]
   }
 ]
