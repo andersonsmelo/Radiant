@@ -7,7 +7,7 @@ import { renderRtgBatches } from './build-rtg-batches.mjs';
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
 const importedIds = Object.keys(DIAGRAMS).filter((id) => DIAGRAMS[id].art === 'imported');
-const acervo = (patch = {}) => ({ id: 'a', origem: 'acervo', sourcePage: 'https://x', author: 'Autora', license: 'CC BY 4.0', licenseUrl: 'https://y', retrievedAt: '2026-11-19', sha256Original: 'ab', ...patch });
+const acervo = (patch = {}) => ({ id: 'a', origem: 'acervo', sourcePage: 'https://x', author: 'Autora', license: 'CC BY 4.0', licenseUrl: 'https://y', retrievedAt: '2026-11-19', sha256Original: 'ab', modification: 'recolorido', ...patch });
 
 test('o registro real passa', async () => {
   assert.deepEqual(figurasErrors(await readFiguras(), importedIds), []);
@@ -26,10 +26,28 @@ test('entrada de acervo sem licença aberta reprova, com a licença do crânio t
 });
 test('entrada gerada sem conferidaPor reprova', () => {
   assert.match(figurasErrors([{ id: 'g', origem: 'gerada' }], ['g']).join('\n'), /gerada sem conferidaPor/);
-  assert.deepEqual(figurasErrors([{ id: 'g', origem: 'gerada', conferidaPor: 'dono' }], ['g']), []);
+  assert.match(figurasErrors([{ id: 'g', origem: 'gerada', conferidaPor: 'dono' }], ['g']).join('\n'), /gerada sem modification/);
+  assert.deepEqual(figurasErrors([{ id: 'g', origem: 'gerada', conferidaPor: 'dono', modification: 'ferramenta X' }], ['g']), []);
+});
+const FONTE = 'scripts/content/figuras/fontes/raio-x-movel-no-leito.svg';
+test('figura importada registrada como codigo reprova (escaparia da régua de licença)', () => {
+  assert.match(figurasErrors([{ id: 'x', origem: 'codigo' }], ['x']).join('\n'), /registrada como origem codigo/);
+  assert.deepEqual(figurasErrors([{ id: 'x', origem: 'codigo' }], []), []);
+});
+test('acervo sem modification reprova', () => {
+  assert.match(figurasErrors([acervo({ id: 'x', modification: undefined })], ['x']).join('\n'), /acervo sem modification/);
+});
+test('anatomy exige fonte versionada que exista', () => {
+  assert.match(figurasErrors([{ id: 'x', origem: 'anatomy' }], ['x']).join('\n'), /anatomy sem fonte/);
+  assert.match(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: 'docs/qualquer.svg' }], ['x']).join('\n'), /anatomy sem fonte/);
+  assert.match(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: FONTE.replace('leito', 'nao-existe') }], ['x']).join('\n'), /fonte inexistente/);
+  assert.deepEqual(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: FONTE }], ['x']), []);
+});
+test('entrada que não é objeto reprova sem derrubar o verificador', () => {
+  assert.match(figurasErrors([null], []).join('\n'), /não é um objeto/);
 });
 test('entrada que aponta para figura inexistente reprova', () => {
-  assert.match(figurasErrors([{ id: 'fantasma', origem: 'anatomy' }], []).join('\n'), /sem figura art: 'imported'/);
+  assert.match(figurasErrors([{ id: 'fantasma', origem: 'anatomy', fonte: FONTE }], []).join('\n'), /sem figura art: 'imported'/);
 });
 test('licença CC BY sem crédito na lista gerada reprova; com a lista gerada, passa', async () => {
   const figuras = [acervo()];

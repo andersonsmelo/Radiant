@@ -93,6 +93,8 @@ describe('registro de diagramas', () => {
 
   it('toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe', () => {
     expect(IMPORTED_IDS.filter((id) => !figuras.some((entry) => entry.id === id))).toEqual([]);
+    // Arte importada declarada como "codigo" escaparia da régua de licença e do crédito.
+    expect(IMPORTED_IDS.filter((id) => !['acervo', 'anatomy', 'gerada'].includes(figuras.find((entry) => entry.id === id)?.origem ?? ''))).toEqual([]);
     const importedEntries = figuras.filter((entry) => ['acervo', 'anatomy', 'gerada'].includes(entry.origem));
     expect(importedEntries.filter((entry) => !IMPORTED_IDS.includes(entry.id)).map((entry) => entry.id)).toEqual([]);
   });

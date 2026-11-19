@@ -3,7 +3,9 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { lintUnit, targetErrors } from './rtg-lesson-lint.mjs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { figureTargetsFileErrors, lintUnit, readFigureTargets, targetErrors } from './rtg-lesson-lint.mjs';
 
 const fixturePath = fileURLToPath(new URL('./fixtures/rtg-unit-fixture.json', import.meta.url));
 const script = fileURLToPath(new URL('./rtg-lesson-lint.mjs', import.meta.url));
@@ -946,4 +948,30 @@ test('alvos: a região declarada precisa estar dentro do quadro, mesmo com o cen
 test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito', () => {
   assert.deepEqual(linked(() => {}, {}), []);
   assert.deepEqual(hotspot(), []);
+});
+
+test('alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova', () => {
+  assert.ok(linked(item => { item.regions[1].alvo = 'Fonte de raios X'; }).some(error => /figure-target-duplicate.*Fonte de raios X/.test(error)));
+});
+test('alvos: o arquivo de alvos é validado sozinho', () => {
+  const ok = { nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 };
+  assert.deepEqual(figureTargetsFileErrors([ok]), []);
+  for (const [bad, pattern] of [
+    [{}, /lista não vazia/], [null, /lista não vazia/], [[], /lista não vazia/], [[null], /objeto esperado/],
+    [[ok, { ...ok }], /nome repetido: A/], [[{ ...ok, nome: ' ' }], /nome ausente/],
+    [[{ ...ok, width: 0 }], /positivos/], [[{ ...ok, height: -0.1 }], /positivos/],
+    [[{ ...ok, x: 0.9 }], /fora do quadro/], [[{ ...ok, x: 0, y: 0, width: 1, height: 1 }], /faria qualquer alvo passar/],
+    [[{ ...ok, x: '0,1' }], /devem ser números/],
+  ]) assert.match(figureTargetsFileErrors(bad).join('\n'), pattern);
+});
+test('alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo', () => {
+  const dir = mkdtempSync(`${tmpdir()}/alvos-`);
+  try {
+    writeFileSync(`${dir}/x.alvos.json`, '{ não é json');
+    assert.throws(() => readFigureTargets(dir), /x\.alvos\.json: JSON inválido/);
+    writeFileSync(`${dir}/x.alvos.json`, '{}');
+    assert.throws(() => readFigureTargets(dir), /x\.alvos\.json: .*lista não vazia/);
+    writeFileSync(`${dir}/x.alvos.json`, JSON.stringify([{ nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 }]));
+    assert.deepEqual(Object.keys(readFigureTargets(dir)), ['x']);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });

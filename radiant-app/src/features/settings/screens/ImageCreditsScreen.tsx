@@ -31,6 +31,7 @@ export default function ImageCreditsScreen(): React.ReactElement {
       </View>)}
       {RTG_FIGURE_CREDITS.map((figure, index) => <View key={figure.id} style={styles.card}>
         <Text style={styles.name}>Ilustração {index + 1}</Text>
+        <Text style={styles.detail}>{figure.alt}</Text>
         <Text style={styles.detail}>Autoria: {figure.author}</Text>
         <Text style={styles.detail}>Licença: {figure.license}</Text>
         <Text style={styles.detail}>Modificação: {figure.modification}</Text>

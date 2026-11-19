@@ -75,7 +75,7 @@ export function renderRtgBatches(inputs, images = [], figuras = []) {
 
 /** O módulo que o app importa: crédito de cada imagem e resolvedor local. Nunca devolve URL remota. */
 function renderRtgImages(images, figuras) {
-  const figureCredits = creditedFigures(figuras).map(({ id, author, license, licenseUrl, sourcePage, modification }) => ({ id, author, license, licenseUrl, sourcePage, modification }));
+  const figureCredits = creditedFigures(figuras).map(({ id, author, license, licenseUrl, sourcePage, modification }) => ({ id, alt: DIAGRAMS[id]?.alt ?? '', author, license, licenseUrl, sourcePage, modification }));
   const entries = images.map(({ id, author, license, licenseUrl, sourcePage, modification, alt, width, height, file }) => {
     const credit = JSON.stringify({ id, author, license, licenseUrl, sourcePage, modification, alt, width, height }, null, 4).slice(0, -2);
     return `  ${credit.replace(/\n/g, '\n  ')},\n    "source": require('../../../../${file.replace(/^radiant-app\//, '')}'),\n  },`;
@@ -88,7 +88,7 @@ export type RtgImageCredit = Readonly<{ id: string; author: string; license: str
 export const RTG_IMAGES: readonly RtgImageCredit[] = [${entries.length ? `\n${entries.join('\n')}\n` : ''}];
 
 /** Crédito da arte de terceiros das figuras desenhadas (registro: content-manifest/rtg-2026/figuras.json). */
-export type RtgFigureCredit = Readonly<{ id: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
+export type RtgFigureCredit = Readonly<{ id: string; alt: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
 
 export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = ${JSON.stringify(figureCredits, null, 2)};
 
@@ -145,7 +145,7 @@ export async function staleRtgFiles(files, outputDir = DEFAULT_OUTPUT) {
 async function main() {
   const args = process.argv.slice(2);
   const option = name => args.find(arg => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
-  if (args.some(arg => arg !== '--check' && !/^--(source|out)=/.test(arg))) throw new Error('usage: [--check] [--source=<dir>] [--out=<dir>]');
+  if (args.some(arg => arg !== '--check' && !/^--(source|out)=/.test(arg))) throw new Error('usage: [--check] [--source=<dir>] [--out=<dir>]  (com --source, o registro de figuras não é validado: pastas de teste não o têm)');
   const outputDir = option('out') ? path.resolve(option('out')) : DEFAULT_OUTPUT;
   const sourceBase = option('source') ? path.join(path.resolve(option('source')), '..') : null;
   const figuras = await readFiguras(sourceBase ? path.join(sourceBase, 'figuras.json') : undefined);

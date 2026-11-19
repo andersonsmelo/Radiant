@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8",
+  "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -388,23 +388,23 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                   "id": "region:rtg-2026:m25:aula-01:i4:2",
                   "label": "Maxila",
                   "x": 0.18,
-                  "y": 0.55,
+                  "y": 0.57,
                   "width": 0.1,
-                  "height": 0.1
+                  "height": 0.13
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-01:i4:3",
                   "label": "Occipital",
-                  "x": 0.68,
-                  "y": 0.5,
-                  "width": 0.1,
-                  "height": 0.14
+                  "x": 0.7,
+                  "y": 0.57,
+                  "width": 0.09,
+                  "height": 0.09
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-01:i4:4",
                   "label": "Mandíbula",
                   "x": 0.2,
-                  "y": 0.8,
+                  "y": 0.82,
                   "width": 0.2,
                   "height": 0.1
                 },
@@ -6803,7 +6803,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     },
     {
       "schemaVersion": 1,
@@ -6812,7 +6812,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     },
     {
       "schemaVersion": 1,
@@ -6821,7 +6821,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     },
     {
       "schemaVersion": 1,
@@ -6830,7 +6830,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     },
     {
       "schemaVersion": 1,
@@ -6839,7 +6839,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     },
     {
       "schemaVersion": 1,
@@ -6848,7 +6848,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a03ca62acab5d02ec1d39d9e1a633880db0dcdd17df5325905f908ee4a4a49d8"
+      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

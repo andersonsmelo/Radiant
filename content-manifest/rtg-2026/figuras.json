@@ -12,6 +12,7 @@
   },
   {
     "id": "raio-x-movel-no-leito",
-    "origem": "anatomy"
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/raio-x-movel-no-leito.svg"
   }
 ]

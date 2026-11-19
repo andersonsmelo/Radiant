@@ -10,10 +10,37 @@ import { findNationalReferences } from './rtg-national-terms.mjs';
 
 // Alvos declarados por figura (content-manifest/rtg-2026/figuras/<id>.alvos.json): { [diagramId]: [{ nome, x, y, width, height }] }.
 const FIGURES_DIR = fileURLToPath(new URL('../../content-manifest/rtg-2026/figuras/', import.meta.url));
+const MAX_TARGET_AREA = 0.25; // uma região do tamanho do quadro faria qualquer alvo da aula passar
+
+/** Erros do arquivo de alvos de uma figura, sozinho: a guarda de posição só vale se a região declarada for válida. */
+export function figureTargetsFileErrors(list) {
+  if (!Array.isArray(list) || list.length === 0) return ['esperada uma lista não vazia de { nome, x, y, width, height }'];
+  const found = [];
+  const names = new Set();
+  list.forEach((region, i) => {
+    const at = `alvo[${i}]`;
+    if (region === null || typeof region !== 'object' || Array.isArray(region)) return found.push(`${at}: objeto esperado`);
+    if (typeof region.nome !== 'string' || !region.nome.trim()) found.push(`${at}: nome ausente`);
+    else if (names.has(region.nome)) found.push(`${at}: nome repetido: ${region.nome}`);
+    else names.add(region.nome);
+    const { x, y, width, height } = region;
+    if (![x, y, width, height].every((n) => typeof n === 'number' && Number.isFinite(n))) return found.push(`${at}: x, y, width e height devem ser números`);
+    if (width <= 0 || height <= 0) found.push(`${at}: width e height devem ser positivos`);
+    else if (x < 0 || y < 0 || x + width > 1 || y + height > 1) found.push(`${at}: região fora do quadro (0 a 1)`);
+    else if (width * height > MAX_TARGET_AREA) found.push(`${at}: região com mais de ${MAX_TARGET_AREA * 100}% do quadro; ela faria qualquer alvo passar`);
+  });
+  return found;
+}
+
 export function readFigureTargets(dir = FIGURES_DIR) {
   if (!existsSync(dir)) return {};
-  return Object.fromEntries(readdirSync(dir).filter((name) => name.endsWith('.alvos.json'))
-    .map((name) => [name.replace(/\.alvos\.json$/, ''), JSON.parse(readFileSync(`${dir}/${name}`, 'utf8'))]));
+  return Object.fromEntries(readdirSync(dir).filter((name) => name.endsWith('.alvos.json')).map((name) => {
+    let list;
+    try { list = JSON.parse(readFileSync(`${dir}/${name}`, 'utf8')); } catch (error) { throw new Error(`${name}: JSON inválido: ${error.message}`); }
+    const errors = figureTargetsFileErrors(list);
+    if (errors.length) throw new Error(`${name}: ${errors.join('; ')}`);
+    return [name.replace(/\.alvos\.json$/, ''), list];
+  }));
 }
 const defaultFigureTargets = readFigureTargets();
 
@@ -25,9 +52,12 @@ const defaultFigureTargets = readFigureTargets();
 export function figureTargetErrors(where, list, declared) {
   if (!declared || !Array.isArray(list)) return [];
   const found = [];
+  const linkedNames = new Set();
   list.forEach((target, i) => {
     const at = `${where}[${i}]`;
     if (target === null || typeof target !== 'object') return;
+    if (target.alvo !== undefined && linkedNames.has(target.alvo)) found.push(`${at}: figure-target-duplicate: o alvo "${target.alvo}" já foi ligado a outro ponto desta interação`);
+    linkedNames.add(target.alvo);
     if (target.alvo === undefined) return found.push(`${at}: figure-target-unlinked: a figura declara alvos; ligue este alvo a um deles com "alvo"`);
     const region = declared.find((entry) => entry.nome === target.alvo);
     if (!region) return found.push(`${at}: figure-target-unknown: a figura não declara o alvo "${target.alvo}"`);

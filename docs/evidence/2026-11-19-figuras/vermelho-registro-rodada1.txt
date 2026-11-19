@@ -1,0 +1,42 @@
+## figura importada registrada como codigo passa (regra removida)
+not ok 5 - figura importada registrada como codigo reprova (escaparia da régua de licença)
+    The input did not match the regular expression /registrada como origem codigo/. Input:
+# fail 1
+
+## acervo sem modification passa
+not ok 6 - acervo sem modification reprova
+    The input did not match the regular expression /acervo sem modification/. Input:
+# fail 1
+
+## gerada sem modification passa
+not ok 4 - entrada gerada sem conferidaPor reprova
+    The input did not match the regular expression /gerada sem modification/. Input:
+# fail 1
+
+## anatomy sem fonte passa
+not ok 7 - anatomy exige fonte versionada que exista
+# fail 1
+
+## fonte inexistente passa
+not ok 7 - anatomy exige fonte versionada que exista
+    The input did not match the regular expression /fonte inexistente/. Input:
+# fail 1
+
+## entrada null derruba o verificador
+not ok 8 - entrada que não é objeto reprova sem derrubar o verificador
+# fail 1
+
+## jest do registro: cranio importado registrado como codigo
+  ● registro de diagramas › toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "cranio-de-perfil-ossos",
+    + ]
+Tests:       1 failed, 359 passed, 360 total
+
+## verificador do registro (figurasErrors) com o mesmo arquivo
+[
+  "figura cranio-de-perfil-ossos: figura art: 'imported' registrada como origem codigo; use acervo, anatomy ou gerada"
+]

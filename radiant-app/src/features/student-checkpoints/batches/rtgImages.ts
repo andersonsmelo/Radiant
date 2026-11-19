@@ -93,11 +93,12 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [
 ];
 
 /** Crédito da arte de terceiros das figuras desenhadas (registro: content-manifest/rtg-2026/figuras.json). */
-export type RtgFigureCredit = Readonly<{ id: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
+export type RtgFigureCredit = Readonly<{ id: string; alt: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
 
 export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   {
     "id": "cranio-de-perfil-ossos",
+    "alt": "Crânio de perfil com a face para a esquerda: ossos da calota, da base lateral e da face em cores diferentes, com as suturas entre eles.",
     "author": "LadyofHats (Mariana Ruiz Villarreal)",
     "license": "Domínio público",
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
