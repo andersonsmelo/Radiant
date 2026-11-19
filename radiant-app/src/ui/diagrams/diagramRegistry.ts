@@ -33,6 +33,15 @@ import { circulacaoDupla } from './specs/circulacao-dupla';
 import { tratoDigestivo } from './specs/trato-digestivo';
 import { sistemaUrinario } from './specs/sistema-urinario';
 import { sistemaNervoso } from './specs/sistema-nervoso';
+import { danoAoDna } from './specs/dano-ao-dna';
+import { grandezasDeDose } from './specs/grandezas-de-dose';
+import { dosimetroNoCorpo } from './specs/dosimetro-no-corpo';
+import { produtoDoseArea } from './specs/produto-dose-area';
+import { histogramaELut } from './specs/histograma-e-lut';
+import { realceESuavizacao } from './specs/realce-e-suavizacao';
+import { monitorEPadraoDeTeste } from './specs/monitor-e-padrao-de-teste';
+import { fluxoRisPacs } from './specs/fluxo-ris-pacs';
+import { compressaoDeImagem } from './specs/compressao-de-imagem';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -69,6 +78,15 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tratoDigestivo.id]: tratoDigestivo,
   [sistemaUrinario.id]: sistemaUrinario,
   [sistemaNervoso.id]: sistemaNervoso,
+  [danoAoDna.id]: danoAoDna,
+  [grandezasDeDose.id]: grandezasDeDose,
+  [dosimetroNoCorpo.id]: dosimetroNoCorpo,
+  [produtoDoseArea.id]: produtoDoseArea,
+  [histogramaELut.id]: histogramaELut,
+  [realceESuavizacao.id]: realceESuavizacao,
+  [monitorEPadraoDeTeste.id]: monitorEPadraoDeTeste,
+  [fluxoRisPacs.id]: fluxoRisPacs,
+  [compressaoDeImagem.id]: compressaoDeImagem,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
