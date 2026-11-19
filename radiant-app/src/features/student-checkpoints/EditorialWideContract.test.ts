@@ -578,6 +578,75 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('bench (fase B)', () => {
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        function benchCandidate(): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'bench', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+                prompt: 'Suba a tensão do tubo até 90 kV e veja o contraste do fantoma mudar.',
+                simulator: 'exposure', mode: 'challenge',
+                controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 60 }],
+                goal: { kind: 'reach', control: 'kv', atLeast: 90 }, phantomLabel: 'Fantoma simulado',
+                hints: { tooLow: 'Ainda falta tensão: suba o kV até o contraste aparecer.', tooHigh: 'Passou do ponto: desça o kV até o alvo.' },
+                feedbackCorrect: 'Isso mesmo: com 90 kV o feixe atravessa o fantoma e o contraste aparece.',
+                feedbackIncorrect: 'Ainda não chegou: observe a imagem enquanto muda o kV e compare com o alvo.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const benchOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'bench') throw new Error('sem bancada');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof benchOf>) => void) => {
+            const value = benchCandidate();
+            mutate(benchOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('a bancada é família do contrato amplo, e o lote com ela é válido, com proveniência da interação', () => {
+            expect(WIDE_ACTIVITY_FAMILIES).toContain('bench');
+            const value = benchCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const claims = value.claimProvenance.filter(claim => claim.claimId.startsWith(ID)).map(claim => claim.claimId);
+            expect(claims).toEqual(expect.arrayContaining([`${ID}:prompt`, `${ID}:answer`, `${ID}:feedback:correct`, `${ID}:feedback:incorrect`]));
+        });
+
+        it('mantém as chaves exatas do payload e exige texto no rótulo do controle e no do fantoma', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).tempo = 10; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.controls[0].label = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.phantomLabel = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+        });
+
+        it('invalid-wide-shape: dicas iguais ou vazias, sem controle ou com mais de dois', () => {
+            expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = interaction.payload.hints.tooLow; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.controls.splice(0); })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => {
+                interaction.payload.controls.push({ id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 }, { id: 'mas', label: 'Outra', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 });
+            })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-constant-answer: o alvo de alcance já vale no ponto de partida', () => {
+            expect(issuesWith(interaction => { if (interaction.payload.goal.kind === 'reach') interaction.payload.goal.atLeast = 60; })).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { kind: 'reach', control: 'kv', atMost: 90 }; })).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { kind: 'reach', control: 'kv', atMost: 50 }; })).toEqual([]);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+    });
+
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {
         const id = batch.sources[0].id;
         expect(issuesAfter(value => { delete (value.sources[0] as { use?: string }).use; })).toContain(`invalid-source-metadata:${id}`);

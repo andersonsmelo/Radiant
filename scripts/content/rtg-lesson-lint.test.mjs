@@ -697,3 +697,92 @@ test('visual: unidade antiga com visual mantém 110 palavras', () => {
   assert.deepEqual(withVisual(concept => { concept.body = bodyOf(100); }), []);
   expectOnly(withVisual(concept => { concept.body = bodyOf(111); }), /concept\.body: 111 palavras \(máx\. 110\)/);
 });
+
+// Formato `bench` (fase B, tarefa 10): bancada de exposição ou de colimação, com controles, alvo, fantoma e dicas por lado.
+function benchItem(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'bench', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Suba a tensão do tubo até 90 kV e veja o contraste do fantoma mudar.',
+    simulator: 'exposure', mode: 'challenge',
+    controls: [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 60 }],
+    goal: { kind: 'reach', control: 'kv', atLeast: 90 },
+    phantomLabel: 'Fantoma simulado',
+    hints: { tooLow: 'Ainda falta tensão: suba o kV até o contraste aparecer.', tooHigh: 'Passou do ponto: desça o kV até o alvo.' },
+    feedbackCorrect: 'Isso mesmo: com 90 kV o feixe atravessa o fantoma e o contraste aparece.',
+    feedbackIncorrect: 'Ainda não chegou: observe a imagem enquanto muda o kV e compare com o alvo.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc);
+}
+const collimationBench = (item) => {
+  item.simulator = 'collimation';
+  item.controls = [{ id: 'fieldWidth', label: 'Largura do campo', unit: 'cm', min: 5, max: 35, step: 1, initial: 30 }, { id: 'fieldHeight', label: 'Altura do campo', unit: 'cm', min: 5, max: 43, step: 1, initial: 40 }];
+  item.goal = { kind: 'reach', control: 'fieldWidth', atMost: 15 };
+  item.phantomLabel = 'Fantoma de tórax simulado';
+};
+test('bench: aceita exposição e colimação, nos três modos', () => {
+  assert.deepEqual(benchItem(), []);
+  assert.deepEqual(benchItem(item => { item.mode = 'explore'; }), []);
+  assert.deepEqual(benchItem(item => { item.mode = 'correct'; }), []);
+  assert.deepEqual(benchItem(collimationBench), []);
+  assert.deepEqual(benchItem(item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; item.controls.push({ id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 }); }), []);
+});
+test('bench: simulador e modo conhecidos', () => {
+  expectOnly(benchItem(item => { item.simulator = 'ultrasound'; }), /bench: simulator deve ser exposure ou collimation/);
+  expectOnly(benchItem(item => { item.mode = 'free'; }), /bench: mode deve ser explore, challenge ou correct/);
+});
+test('bench: recusa chave fora da lista, no item, no controle, no alvo e nas dicas', () => {
+  expectOnly(benchItem(item => { item.tempo = 10; }), /campo desconhecido: tempo/);
+  expectOnly(benchItem(item => { item.controls[0].passo = 10; }), /campo desconhecido: passo/);
+  expectOnly(benchItem(item => { item.goal.limite = 3; }), /campo desconhecido: limite/);
+  expectOnly(benchItem(item => { item.hints.middle = 'x'; }), /campo desconhecido: middle/);
+});
+test('bench: controles presentes, do simulador, com faixa e ponto de partida válidos', () => {
+  expectOnly(benchItem(item => { delete item.controls; }), /bench: de 1 a 2 controles/);
+  expectOnly(benchItem(item => { item.controls = []; }), /bench: de 1 a 2 controles/);
+  expectOnly(benchItem(item => { item.controls[0].id = 'fieldWidth'; item.goal.control = 'fieldWidth'; }), /controle de outro simulador/);
+  expectOnly(benchItem(item => { item.controls[0].min = 120; item.controls[0].initial = 120; }), /min deve ser menor que max/);
+  expectOnly(benchItem(item => { item.controls[0].step = 0; }), /step deve ser positivo/);
+  expectOnly(benchItem(item => { item.controls[0].initial = 130; }), /initial fora da faixa/);
+  expectOnly(benchItem(item => { item.controls[0].max = '120'; }), /min, max, step e initial devem ser números/);
+  expectOnly(benchItem(item => { item.controls[0].label = 'T'; }), /texto ausente ou curto/);
+});
+test('bench: o alvo aponta um controle da bancada, com limite dentro da faixa, e não se cumpre sozinho', () => {
+  expectOnly(benchItem(item => { delete item.goal; }), /bench: goal ausente/);
+  expectOnly(benchItem(item => { item.goal.kind = 'sum'; }), /bench: goal.kind deve ser reach ou match/);
+  expectOnly(benchItem(item => { item.goal.control = 'mas'; }), /bench: o alvo aponta um controle que a bancada não tem/);
+  expectOnly(benchItem(item => { delete item.goal.atLeast; }), /bench: o alvo precisa de atLeast ou atMost/);
+  expectOnly(benchItem(item => { item.goal.atLeast = 130; }), /bench: limite do alvo fora da faixa do controle/);
+  expectOnly(benchItem(item => { item.goal.atLeast = 60; }), /bench: o alvo já vale no ponto de partida/);
+  expectOnly(benchItem(item => { item.goal = { kind: 'reach', control: 'kv', atMost: 90 }; }), /bench: o alvo já vale no ponto de partida/);
+});
+test('bench: algum passo do controle cai dentro do alvo', () => {
+  // De 60 em passos de 10, nenhum valor fica entre 85 e 88.
+  expectOnly(benchItem(item => { item.goal = { kind: 'reach', control: 'kv', atLeast: 85, atMost: 88 }; }), /bench: nenhum passo do controle cai dentro do alvo/);
+  assert.deepEqual(benchItem(item => { item.goal = { kind: 'reach', control: 'kv', atLeast: 85, atMost: 100 }; }), []);
+});
+test('bench: o match só vale na exposição, com referência numérica e tolerância positiva', () => {
+  const match = (mutate = () => {}) => item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; mutate(item); };
+  expectOnly(benchItem(item => { collimationBench(item); match()(item); }), /bench: match só vale na exposição/);
+  expectOnly(benchItem(match(item => { delete item.goal.reference; })), /goal.reference: objeto esperado/);
+  expectOnly(benchItem(match(item => { item.goal.reference.kv = '80'; })), /goal\.reference: bench: kv e mas devem ser números/);
+  expectOnly(benchItem(match(item => { item.goal.tolerance = 0; })), /bench: tolerance deve ser um número positivo/);
+});
+test('bench: o fantoma tem de 3 a 60 caracteres', () => {
+  expectOnly(benchItem(item => { item.phantomLabel = 'Fa'; }), /texto ausente ou curto/);
+  expectOnly(benchItem(item => { item.phantomLabel = 'F'.repeat(1) + 'a'.repeat(60); }), /caracteres \(máx\. 60\)/);
+  assert.deepEqual(benchItem(item => { item.phantomLabel = 'a'.repeat(60); }), []);
+});
+test('bench: as dicas por lado têm de 25 a 260 caracteres e são distintas', () => {
+  expectOnly(benchItem(item => { item.hints.tooLow = 'Suba o kV.'; }), /texto ausente ou curto/);
+  expectOnly(benchItem(item => { item.hints.tooHigh = 'a'.repeat(261); }), /caracteres \(máx\. 260\)/);
+  expectOnly(benchItem(item => { item.hints.tooHigh = item.hints.tooLow.toUpperCase().toLowerCase(); }), /bench: hints.tooLow e hints.tooHigh iguais/);
+  expectOnly(benchItem(item => { delete item.hints; }), /bench: hints ausente/);
+});
+test('bench: texto com travessão, caixa alta ou palavra reservada reprova, como nas outras famílias', () => {
+  expectOnly(benchItem(item => { item.hints.tooLow = 'Falta tensão ainda — suba o kV com calma até chegar.'; }), /travessão com espaços/);
+  expectOnly(benchItem(item => { item.controls[0].label = 'Configuração'; }), /palavra reservada/);
+  expectOnly(benchItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});

@@ -123,6 +123,7 @@ test('o roteiro Maestro marca cada região de risco pela lista e confere', () =>
 
 /** O gerador Maestro só joga a primeira aula; a aula 02 vai à frente para exercitar o que ela tem. */
 const secondLessonFirst = () => ({ ...doc, lessons: [doc.lessons[1], doc.lessons[0], ...doc.lessons.slice(2)] });
+const thirdLessonFirst = () => ({ ...doc, lessons: [doc.lessons[2], doc.lessons[0], doc.lessons[1], ...doc.lessons.slice(3)] });
 
 test('a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há', () => {
   const { files } = renderRtgBatches([{ file: 'm01.json', doc }]);
@@ -187,6 +188,41 @@ test('o roteiro Maestro desliga o relógio se ele existir, responde cada afirma�
     "- assertVisible: 'Afirmação 6 de 6'", "    id: 'blitz-falso'",
   ]);
   assert.deepEqual(segment.filter(line => /^- tapOn: 'Conferir|^- tapOn: 'Continuar/.test(line)), ["- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'"]);
+});
+
+test('a bancada chega ao lote com os mesmos campos do contrato do app e sem chave a mais', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc }]);
+  const text = files.get('rtg-2026-m01.ts');
+  const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
+  const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
+  const bench = interactions.find(interaction => interaction.type === 'bench');
+  assert.match(bench.accessibility.label, /^Bancada: /);
+  assert.deepEqual(Object.keys(bench.payload).sort(), ['controls', 'goal', 'hints', 'mode', 'phantomLabel', 'prompt', 'simulator']);
+  assert.deepEqual(bench.payload.goal, { kind: 'reach', control: 'kv', atLeast: 90 });
+  assert.deepEqual(bench.payload.controls, [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 60 }]);
+  assert.equal(bench.feedback.correct.length > 0 && bench.feedback.incorrect.length > 0, true);
+});
+
+test('o roteiro Maestro leva a tensão até o alvo pelo botão Aumentar, um toque por passo, e confere', () => {
+  const lesson = renderRtgMaestroFlows([thirdLessonFirst()]).get('m01-aula-01.yaml').split('\n');
+  const at = lesson.findIndex(line => line === '# interaction i2 bench');
+  assert.ok(at > 0, 'sem o comentário da bancada');
+  const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible: \'Passo')));
+  // De 60 a 90 kV em passos de 10: três toques. O botão fica abaixo da imagem, então rola até ele uma vez.
+  assert.deepEqual(segment.filter(line => /^- tapOn: /.test(line)), ["- tapOn: 'Aumentar Tensão'", "- tapOn: 'Aumentar Tensão'", "- tapOn: 'Aumentar Tensão'", "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'"]);
+  assert.equal(segment.filter(line => line.startsWith('- scrollUntilVisible')).length, 1);
+});
+
+test('a bancada com alvo de menos de um limite usa Diminuir; match e passo que não chega ao limite pedem roteiro manual', () => {
+  const lessonWith = mutate => {
+    const copy = structuredClone(thirdLessonFirst());
+    mutate(copy.lessons[0].interactions[1]);
+    return renderRtgMaestroFlows([copy]).get('m01-aula-01.yaml').split('\n');
+  };
+  const down = lessonWith(item => { item.goal = { kind: 'reach', control: 'kv', atMost: 45 }; });
+  // De 60 a 45 kV em passos de 10: dois toques (50, 40), e 40 já cumpre o limite.
+  assert.deepEqual(down.filter(line => line === "- tapOn: 'Diminuir Tensão'"), ["- tapOn: 'Diminuir Tensão'", "- tapOn: 'Diminuir Tensão'"]);
+  assert.throws(() => lessonWith(item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; }), /rtg-maestro-bench-manual/);
 });
 
 test('tipo sem ramo na fábrica lança em vez de virar associação', () => {

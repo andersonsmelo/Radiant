@@ -15,7 +15,7 @@ import {
 } from '../ProductionBatch';
 import type { ProductionCatalogEntry } from '../createProductionCurriculumCatalog';
 import { diagramRef } from '../../../ui/diagrams/diagramRegistry';
-import type { EvidenceKind, LearningActivityV2, LearningInteractionV2, LearningStepV2, LessonCastId, LessonDialogueLine } from '../../../types/learningActivity';
+import type { BenchControl, BenchGoal, BenchPayload, EvidenceKind, LearningActivityV2, LearningInteractionV2, LearningStepV2, LessonCastId, LessonDialogueLine } from '../../../types/learningActivity';
 
 type RtgOption = { label: string; correct: boolean; feedback: string };
 type RtgChoiceItem = { prompt: string; options: RtgOption[]; sourceIds: string[] };
@@ -41,6 +41,8 @@ export type RtgInteractionSource = RtgInteractionBase & (
     // Fase B: rodada rápida de verdadeiro ou falso (de 6 a 8 afirmações; passa quem erra no máximo uma).
     | { type: 'blitz'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: conversa com um personagem (sem o Pixel; o paciente leva nome).
+    // Fase B: bancada de exposição ou de colimação, com os mesmos campos de `BenchPayload` (o conteudista escreve o que o app lê).
+    | { type: 'bench'; simulator: BenchPayload['simulator']; mode: BenchPayload['mode']; controls: BenchControl[]; goal: BenchGoal; phantomLabel: string; hints: BenchPayload['hints']; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'conversation'; speaker: LessonCastId; name?: string; turns: { line: string; options: { label: string; correct: boolean; reply: string }[] }[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
@@ -83,7 +85,7 @@ const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
 export const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
     cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas',
-    hotspot: 'Toque na imagem', label: 'Rotular a imagem', 'risk-hunt': 'Encontre os riscos', conversation: 'Conversa', blitz: 'Rodada rápida' } as const;
+    hotspot: 'Toque na imagem', label: 'Rotular a imagem', 'risk-hunt': 'Encontre os riscos', conversation: 'Conversa', blitz: 'Rodada rápida', bench: 'Bancada' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -267,6 +269,10 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 });
                 interaction = { ...base, type: 'conversation', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, speaker: source.speaker, ...(source.name ? { name: source.name } : {}), turns } };
+            } else if (source.type === 'bench') {
+                const { simulator, mode, controls, goal, phantomLabel, hints } = source;
+                interaction = { ...base, type: 'bench', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, simulator, mode, controls, goal, phantomLabel, hints } };
             } else if (source.type === 'matching') {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };

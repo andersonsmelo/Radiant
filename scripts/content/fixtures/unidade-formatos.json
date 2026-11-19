@@ -831,33 +831,34 @@
         },
         {
           "id": "i2",
-          "type": "categorize",
+          "type": "bench",
           "role": "practice",
-          "prompt": "Separe as medidas em proteção pessoal e proteção do ambiente.",
-          "categories": [
-            "Pessoal",
-            "Ambiente"
-          ],
-          "items": [
+          "prompt": "Suba a tensão do tubo até 90 kV e veja o contraste do fantoma mudar.",
+          "simulator": "exposure",
+          "mode": "challenge",
+          "controls": [
             {
-              "label": "Dosímetro no tórax",
-              "category": "Pessoal"
-            },
-            {
-              "label": "Aviso luminoso na porta",
-              "category": "Ambiente"
-            },
-            {
-              "label": "Avental de chumbo",
-              "category": "Pessoal"
-            },
-            {
-              "label": "Parede com blindagem",
-              "category": "Ambiente"
+              "id": "kv",
+              "label": "Tensão",
+              "unit": "kV",
+              "min": 40,
+              "max": 120,
+              "step": 10,
+              "initial": 60
             }
           ],
-          "feedbackCorrect": "Isso mesmo: umas medidas protegem quem trabalha, outras protegem o espaço.",
-          "feedbackIncorrect": "Pense em quem a medida protege: a pessoa que a veste ou a sala inteira.",
+          "goal": {
+            "kind": "reach",
+            "control": "kv",
+            "atLeast": 90
+          },
+          "phantomLabel": "Fantoma simulado",
+          "hints": {
+            "tooLow": "Ainda falta tensão: suba o kV até o contraste aparecer.",
+            "tooHigh": "Passou do ponto: desça o kV até o alvo."
+          },
+          "feedbackCorrect": "Isso mesmo: com 90 kV o feixe atravessa o fantoma e o contraste aparece.",
+          "feedbackIncorrect": "Ainda não chegou: observe a imagem enquanto muda o kV e compare com o alvo.",
           "help": "Veja se a medida acompanha a pessoa ou fica no lugar.",
           "sourceIds": [
             "iaea-ssg46-2018"

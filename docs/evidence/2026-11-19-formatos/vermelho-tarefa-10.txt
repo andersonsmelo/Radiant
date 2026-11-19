@@ -1,0 +1,78 @@
+# Vermelho da tarefa 10 (bench na aula-fonte): testes antes da implementação
+
+## node --test rtg-lesson-lint.test.mjs rtg-formatos.test.mjs (só as falhas)
+not ok 1 - a unidade sintética passa no verificador, sem nenhum erro
+  error: |-
+not ok 3 - a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem
+  error: |-
+not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  error: |-
+not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  error: |-
+  error: 'rtg-batch-unknown-type:bench'
+not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  error: |-
+not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  error: 'rtg-batch-unknown-type:bench'
+not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  error: |-
+not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+  error: 'rtg-batch-unknown-type:bench'
+not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+  error: |-
+not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+  error: 'rtg-batch-unknown-type:bench'
+not ok 12 - a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há
+  error: |-
+not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  error: 'rtg-batch-unknown-type:bench'
+not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  error: 'rtg-batch-unknown-type:bench'
+not ok 15 - a rodada rápida chega ao lote com afirmações por id, passCount de n menos 1 e o veredito em isTrue
+  error: |-
+not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  error: 'rtg-batch-unknown-type:bench'
+not ok 17 - a bancada chega ao lote com os mesmos campos do contrato do app e sem chave a mais
+  error: |-
+not ok 18 - o roteiro Maestro leva a tensão até o alvo pelo botão Aumentar, um toque por passo, e confere
+  error: 'rtg-batch-unknown-type:bench'
+not ok 19 - a bancada com alvo de menos de um limite usa Diminuir; match e passo que não chega ao limite pedem roteiro manual
+  error: 'rtg-batch-unknown-type:bench'
+not ok 130 - bench: aceita exposição e colimação, nos três modos
+  error: |-
+not ok 131 - bench: simulador e modo conhecidos
+  error: |-
+not ok 132 - bench: recusa chave fora da lista, no item, no controle, no alvo e nas dicas
+  error: |-
+not ok 133 - bench: controles presentes, do simulador, com faixa e ponto de partida válidos
+  error: |-
+not ok 134 - bench: o alvo aponta um controle da bancada, com limite dentro da faixa, e não se cumpre sozinho
+  error: |-
+not ok 135 - bench: o match só vale na exposição, com referência numérica e tolerância positiva
+  error: |-
+not ok 136 - bench: o fantoma tem de 3 a 60 caracteres
+  error: |-
+not ok 137 - bench: as dicas por lado têm de 25 a 260 caracteres e são distintas
+  error: |-
+not ok 138 - bench: texto com travessão, caixa alta ou palavra reservada reprova, como nas outras famílias
+  error: |-
+# pass 111
+# fail 27
+
+## jest EditorialWideContract (bench)
+  ● contrato amplo (wide) › bench (fase B) › a bancada é família do contrato amplo, e o lote com ela é válido, com proveniência da interação
+    Expected value: "bench"
+    Received array: ["multiple-choice", "case-decision", "ordering", "matching", "comparison", "cloze", "true-false", "categorize", "multi-select", "hotspot", …]
+  ● contrato amplo (wide) › bench (fase B) › mantém as chaves exatas do payload e exige texto no rótulo do controle e no do fantoma
+    rtg-batch-unknown-type:bench
+    > 274 |                 throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dicas iguais ou vazias, sem controle ou com mais de dois
+    rtg-batch-unknown-type:bench
+    > 274 |                 throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
+  ● contrato amplo (wide) › bench (fase B) › wide-constant-answer: o alvo de alcance já vale no ponto de partida
+    rtg-batch-unknown-type:bench
+    > 274 |                 throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
+  ● contrato amplo (wide) › bench (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+    rtg-batch-unknown-type:bench
+    > 274 |                 throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
+Tests:       5 failed, 82 skipped, 87 total

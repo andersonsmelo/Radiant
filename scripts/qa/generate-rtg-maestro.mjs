@@ -18,7 +18,7 @@ const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -95,6 +95,17 @@ function answerCommands(interaction) {
     case 'conversation':
       // Cada resposta certa, na ordem dos turnos; o turno seguinte só aparece depois da escolha.
       return payload.turns.flatMap(turn => tapId(`conversation-option-${turn.options.find(option => option.id === turn.correctOptionId).label}`));
+    case 'bench': {
+      // O alvo de alcance se cumpre pelos botões Aumentar ou Diminuir do controle, um passo por toque (BenchControlRow); o alvo é
+      // sempre alcançável, porque o limite cabe na faixa e o botão para no extremo. O `match` mede uma imagem e fica fora.
+      const { controls, goal } = payload;
+      if (goal.kind !== 'reach') throw new Error(`rtg-maestro-bench-manual:${interaction.id}`);
+      const control = controls.find(candidate => candidate.id === goal.control);
+      const up = goal.atLeast !== undefined && control.initial < goal.atLeast;
+      const gap = up ? goal.atLeast - control.initial : control.initial - goal.atMost;
+      const label = `${up ? 'Aumentar' : 'Diminuir'} ${control.label}`;
+      return [scrollTo('text', label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
+    }
     case 'label': {
       // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,
       // o ponto seguinte pede rolagem para cima. shortcut: sem medir em aparelho, trocar se a figura couber junto das fichas.
