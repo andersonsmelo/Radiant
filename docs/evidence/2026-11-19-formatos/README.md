@@ -7,6 +7,7 @@ Esta pasta guarda a evidência das tarefas da fase B da trilha dobrada (novos fo
 | 1 | Teste que percorre todas as famílias de interação; unidade sintética de formatos | `vermelho-tarefa-1.txt`: sem o `case 'multi-select'` em `isCorrectInteractionValue`, o teste reprova só em `multi-select`, na asserção de `isCompleteInteractionValue` (`isCorrect` começa chamando `isComplete`) |
 | 4 | Formato `label` (rotular pontos de uma figura) nos quatro portões, com tela, história e roteiro Maestro | `vermelho-tarefa-4.txt`: o vermelho antes da implementação e 14 defeitos específicos (sobreposição, área de 44 pt fora da figura, distratores, ordem das fichas, acerto, retorno, alvo, rótulo da figura, direção da rolagem) vistos falhando por mutação |
 | 5 | Formato `risk-hunt` (caça ao erro) nos quatro portões, com tela, história, roteiro Maestro e o diagrama `sala-com-riscos` | `vermelho-tarefa-5.txt`: o vermelho antes da implementação e 17 defeitos específicos vistos falhando por mutação (uma mutação sobreviveu e foi refeita); quadro do diagrama em [`lacos/sala-com-riscos.png`](lacos/sala-com-riscos.png), revisado como imagem |
+| 7 | Formato `conversation` (conduzir uma conversa com um personagem) nos quatro portões, com tela, história e roteiro Maestro; a unidade sintética leva a conversa na aula 02 | `vermelho-tarefa-7.txt`: o vermelho antes da implementação e 26 defeitos específicos vistos falhando por mutação (uma mutação sobreviveu, por o teste da fábrica ler o lote já serializado, e foi refeita com um teste sobre o objeto) |
 
 ## Limites conhecidos
 

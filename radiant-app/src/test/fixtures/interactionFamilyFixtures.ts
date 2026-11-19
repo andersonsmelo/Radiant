@@ -130,6 +130,21 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
         },
         correctValue: encodeInteractionIdSequence(['r1', 'r3']), wrongValue: encodeInteractionIdSequence(['r1', 'r2']),
     },
+    conversation: {
+        interaction: {
+            ...common, id: 'fx:cv', type: 'conversation', accessibility: label('conversa'),
+            payload: {
+                prompt: 'Conduza a conversa.', speaker: 'duda',
+                turns: [
+                    { id: 't1', line: 'Como eu começo?', correctOptionId: 'a1', options: [
+                        { id: 'a1', label: 'Conferindo o pedido.', reply: 'Faz sentido, vou conferir.' }, { id: 'a2', label: 'Chamando o paciente direto, sem olhar o pedido.', reply: 'Hum, certo.' }] },
+                    { id: 't2', line: 'E depois?', correctOptionId: 'b2', options: [
+                        { id: 'b1', label: 'Posicionar o aparelho sem conversar com o paciente.', reply: 'Tá bom.' }, { id: 'b2', label: 'Explicar o exame.', reply: 'Boa, ele fica mais calmo.' }] },
+                ],
+            },
+        },
+        correctValue: encodeInteractionIdSequence(['a1', 'b2']), wrongValue: encodeInteractionIdSequence(['a1', 'b1']),
+    },
     // Nasce pendente: a tarefa 9 define o contrato e troca por um exemplo completo.
     'parameter-lab': 'pending',
 };

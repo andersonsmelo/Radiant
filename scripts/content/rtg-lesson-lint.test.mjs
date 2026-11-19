@@ -508,3 +508,80 @@ test('risk-hunt: recusa chave fora da lista, na região e no item', () => {
 test('risk-hunt: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
   expectOnly(riskHunt(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
+
+// Formato `conversation` (fase B, tarefa 7): 2 ou 3 turnos, 2 ou 3 respostas por turno, uma correta, cada resposta com a reação.
+const conversationTurns = () => [
+  { line: 'Cheguei na sala e não sei onde prender o meu dosímetro individual. Onde ele fica?',
+    options: [
+      { label: 'Qualquer lugar serve, o importante é estar com você no turno.', correct: false, reply: 'Então fico tranquila e deixo no bolso.' },
+      { label: 'Prenda na altura do tronco, como o plano do setor manda.', correct: true, reply: 'Entendi, vou prender aí agora.' },
+      { label: 'Deixe guardado no armário durante todo o exame.', correct: false, reply: 'Mas eu queria conferir a leitura depois.' },
+    ] },
+  { line: 'E se eu esquecer o dosímetro em casa? Posso entrar na sala assim mesmo?',
+    options: [
+      { label: 'Avise a supervisão antes: sem dosímetro, não entre.', correct: true, reply: 'Combinado, falo com a supervisão agora.' },
+      { label: 'Entre sem ele e anote depois que esqueceu em casa.', correct: false, reply: 'Tá, então eu anoto no fim do turno.' },
+      { label: 'Pegue o de um colega só por hoje, para não atrasar.', correct: false, reply: 'Vou pedir emprestado, então.' },
+    ] },
+];
+function conversationItem(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'conversation', role: 'practice', help: old.help, sourceIds: old.sourceIds, speaker: 'duda',
+    prompt: 'Duda está no primeiro dia de estágio. Ajude-a a conduzir o turno.', turns: conversationTurns(),
+    feedbackCorrect: 'Isso mesmo: o dosímetro fica no tronco, e sem ele você avisa antes de entrar.',
+    feedbackIncorrect: 'Reveja o turno: o uso segue o plano do setor, e a falta do dosímetro se avisa antes.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc);
+}
+test('conversation: aceita 2 ou 3 turnos, com e sem name, com 2 ou 3 respostas', () => {
+  assert.deepEqual(conversationItem(), []);
+  assert.deepEqual(conversationItem(item => { item.speaker = 'paciente'; item.name = 'Sr. Álvaro'; }), []);
+  assert.deepEqual(conversationItem(item => { item.turns.push({ line: 'Mais alguma coisa antes de eu começar?',
+    options: [{ label: 'Pode começar logo, sem olhar o pedido do exame.', correct: false, reply: 'Certo, começo.' }, { label: 'Confira o pedido do exame.', correct: true, reply: 'Boa, vou conferir.' }] }); }), []);
+});
+test('conversation: o paciente exige name, e o Pixel não pode ser o interlocutor', () => {
+  expectOnly(conversationItem(item => { item.speaker = 'paciente'; }), /fala de paciente precisa de name/);
+  expectOnly(conversationItem(item => { item.speaker = 'pixel'; }), /speaker deve ser lia, caio, duda ou paciente/);
+  expectOnly(conversationItem(item => { item.speaker = 'fulano'; }), /speaker deve ser/);
+});
+test('conversation: 2 ou 3 turnos e de 2 a 3 respostas por turno', () => {
+  expectOnly(conversationItem(item => { item.turns.splice(1); }), /2 ou 3 turnos/);
+  expectOnly(conversationItem(item => { item.turns.push(...conversationTurns()); }), /2 ou 3 turnos/);
+  expectOnly(conversationItem(item => { item.turns[1].options.splice(1); }), /de 2 a 3 respostas/);
+  expectOnly(conversationItem(item => { item.turns[0].options.push({ label: 'Outra resposta possível.', correct: false, reply: 'Hum, certo.' }); }), /de 2 a 3 respostas/);
+});
+test('conversation: exatamente uma correta por turno, booleana', () => {
+  expectOnly(conversationItem(item => { item.turns[0].options[0].correct = true; }), /exatamente 1 resposta correta/);
+  expectOnly(conversationItem(item => { item.turns[0].options[1].correct = false; }), /exatamente 1 resposta correta/);
+  expectOnly(conversationItem(item => { item.turns[0].options[0].correct = 'false'; }), /correct deve ser true ou false/);
+});
+test('conversation: a correta não é a mais longa do turno', () => {
+  expectOnly(conversationItem(item => { item.turns[1].options[0].label += ' com todo o cuidado do mundo'; }), /a resposta correta é a mais longa do turno/);
+});
+test('conversation: a posição da correta varia entre os turnos', () => {
+  expectOnly(conversationItem(item => { const options = item.turns[1].options; [options[0], options[1]] = [options[1], options[0]]; }), /mesma posição em todos os turnos/);
+});
+test('conversation: limites de texto da fala, da reação e da resposta', () => {
+  expectOnly(conversationItem(item => { item.turns[0].line = 'a'.repeat(201); }), /caracteres \(máx\. 200\)/);
+  expectOnly(conversationItem(item => { item.turns[0].options[0].reply = `${'a'.repeat(201)}`; }), /caracteres \(máx\. 200\)/);
+  expectOnly(conversationItem(item => { item.turns[1].options[1].label = `${'a'.repeat(121)}`; }), /caracteres \(máx\. 120\)|a mais longa/);
+  assert.deepEqual(conversationItem(item => { item.turns[0].line = `${'a'.repeat(199)}.`; }), []);
+});
+test('conversation: respostas e reações repetidas no turno reprovam', () => {
+  expectOnly(conversationItem(item => { item.turns[1].options[1].reply = item.turns[1].options[0].reply; }), /reações repetidas/);
+  expectOnly(conversationItem(item => { item.turns[1].options[1].label = item.turns[1].options[0].label.toUpperCase().toLowerCase(); }), /respostas repetidas/);
+});
+test('conversation: recusa chave fora da lista, no item, no turno e na resposta', () => {
+  expectOnly(conversationItem(item => { item.regions = []; }), /campo desconhecido: regions/);
+  expectOnly(conversationItem(item => { item.turns[0].tom = 'alegre'; }), /campo desconhecido: tom/);
+  expectOnly(conversationItem(item => { item.turns[0].options[0].feedback = 'x'; }), /campo desconhecido: feedback/);
+});
+test('conversation: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
+  expectOnly(conversationItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});
+test('conversation: referência nacional na fala do personagem reprova', () => {
+  assert.ok(conversationItem(item => { item.turns[0].line = 'Isso segue a RDC 611, certo?'; }).some(error => /referência nacional/.test(error)));
+});

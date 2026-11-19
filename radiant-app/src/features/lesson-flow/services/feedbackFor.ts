@@ -59,6 +59,14 @@ export function feedbackFor(
             return markedFeedback(interaction.payload.options, interaction.payload.correctOptionIds, value, interaction.feedback.incorrect);
         case 'risk-hunt':
             return markedFeedback(interaction.payload.regions, interaction.payload.riskRegionIds, value, interaction.feedback.incorrect);
+        case 'conversation': {
+            // O primeiro turno errado, na ordem da conversa, diz qual resposta cabia.
+            const ids = decodeInteractionIdSequence(value);
+            const { turns } = interaction.payload;
+            const at = turns.findIndex((turn, index) => ids[index] !== turn.correctOptionId);
+            const right = turns[at]?.options.find(option => option.id === turns[at].correctOptionId)?.label;
+            return at >= 0 && filled(right) ? `${interaction.feedback.incorrect} No turno ${at + 1}, a resposta era: ${right}` : interaction.feedback.incorrect;
+        }
         case 'label': {
             // O primeiro ponto errado, na ordem dos pontos, diz qual era o rótulo certo.
             const assigned = decodeCategorizeValue(value);

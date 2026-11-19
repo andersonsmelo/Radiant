@@ -52,7 +52,7 @@ export type EditorialWideContractV1 = Readonly<{
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -69,6 +69,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     hotspot: ['prompt', 'imageRef', 'regions', 'correctRegionIds'],
     label: ['prompt', 'imageRef', 'points', 'labels'],
     'risk-hunt': ['prompt', 'imageRef', 'regions', 'riskRegionIds'],
+    conversation: ['prompt', 'speaker', 'name', 'turns'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -133,6 +134,18 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
         if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
             options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'conversation') {
+        const { speaker, name, turns } = interaction.payload;
+        const positions = turns.map(turn => turn.options.findIndex(option => option.id === turn.correctOptionId));
+        const ids = [...turns.map(turn => turn.id), ...turns.flatMap(turn => turn.options.map(option => option.id))];
+        if (turns.length < 2 || turns.length > 3 || !['lia', 'caio', 'duda', 'paciente'].includes(speaker) || (speaker === 'paciente' && !filled(name)) || new Set(ids).size !== ids.length
+            || turns.some(turn => turn.options.length < 2 || turn.options.length > 3 || positions[turns.indexOf(turn)] < 0
+                || new Set(turn.options.map(option => normalized(option.label))).size !== turn.options.length
+                || turn.options.some(option => !filled(option.reply)))) codes.push('invalid-wide-shape');
+        // A correta no mesmo lugar em todos os turnos entrega a resposta pela posição.
+        if (new Set(positions).size === 1) codes.push('wide-answer-position-bias');
+        if (turns.some(turn => longestIsCorrect(turn.options.filter(option => option.id === turn.correctOptionId).map(option => option.label),
+            turn.options.filter(option => option.id !== turn.correctOptionId).map(option => option.label)))) codes.push('wide-longest-is-correct');
     } else if (interaction.type === 'risk-hunt') {
         const { regions, riskRegionIds } = interaction.payload;
         const known = new Set(regions.map(region => region.id));
@@ -178,6 +191,7 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'hotspot': return interaction.payload.regions.map(region => region.id);
         case 'risk-hunt': return interaction.payload.regions.map(region => region.id);
         case 'label': return [...interaction.payload.points.map(point => point.id), ...interaction.payload.labels.map(entry => entry.id)];
+        case 'conversation': return interaction.payload.turns.flatMap(turn => [turn.id, ...turn.options.map(option => option.id)]);
         default: return [];
     }
 }
@@ -204,6 +218,12 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
         const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));
         interaction.payload.blanks.forEach(blank => add(blank.id, 'prompt'));
         interaction.payload.tokens.forEach(token => add(token.id, answers.has(token.id) ? 'correct-answer' : 'distractor', !answers.has(token.id)));
+    } else if (interaction.type === 'conversation') {
+        // A fala do personagem é cena; a resposta certa de cada turno é da fonte, e as outras são distratores autorais.
+        interaction.payload.turns.forEach(turn => {
+            add(turn.id, 'prompt');
+            turn.options.forEach(option => add(option.id, option.id === turn.correctOptionId ? 'correct-answer' : 'distractor', option.id !== turn.correctOptionId));
+        });
     } else if (interaction.type === 'risk-hunt') {
         // A região de risco é afirmação da fonte; a situação correta, que sobra na cena, é distrator autoral.
         const risks = new Set(interaction.payload.riskRegionIds);
@@ -294,6 +314,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                             : interaction.type === 'hotspot' ? interaction.payload.regions.map(region => region.label)
                             : interaction.type === 'label' ? interaction.payload.labels.map(entry => entry.label)
                             : interaction.type === 'risk-hunt' ? interaction.payload.regions.map(region => region.label)
+                            : interaction.type === 'conversation' ? interaction.payload.turns.flatMap(turn => [turn.line, ...turn.options.flatMap(option => [option.label, option.reply])])
                             : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')

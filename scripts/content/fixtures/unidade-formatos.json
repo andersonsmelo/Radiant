@@ -465,22 +465,55 @@
         },
         {
           "id": "i2",
-          "type": "cloze",
+          "type": "conversation",
           "role": "practice",
-          "prompt": "Complete a frase com a palavra certa.",
-          "text": "Quanto maior a distância da fonte, {{1}} é a dose recebida, e o tempo de exposição {{2}} a dose.",
-          "answers": [
-            "menor",
-            "aumenta"
+          "speaker": "duda",
+          "prompt": "Duda está no primeiro dia de estágio. Ajude-a a conduzir o turno com o dosímetro individual.",
+          "turns": [
+            {
+              "line": "Cheguei na sala e não sei onde prender o meu dosímetro individual. Onde ele fica?",
+              "options": [
+                {
+                  "label": "Qualquer lugar serve, o importante é estar com você no turno.",
+                  "correct": false,
+                  "reply": "Então fico tranquila e deixo no bolso."
+                },
+                {
+                  "label": "Prenda na altura do tronco, como o plano do setor manda.",
+                  "correct": true,
+                  "reply": "Entendi, vou prender aí agora."
+                },
+                {
+                  "label": "Deixe guardado no armário durante todo o exame.",
+                  "correct": false,
+                  "reply": "Mas eu queria conferir a leitura depois."
+                }
+              ]
+            },
+            {
+              "line": "E se eu esquecer o dosímetro em casa? Posso entrar na sala assim mesmo?",
+              "options": [
+                {
+                  "label": "Avise a supervisão antes: sem dosímetro, não entre.",
+                  "correct": true,
+                  "reply": "Combinado, falo com a supervisão agora."
+                },
+                {
+                  "label": "Entre sem ele e anote depois que esqueceu em casa.",
+                  "correct": false,
+                  "reply": "Tá, então eu anoto no fim do turno."
+                },
+                {
+                  "label": "Pegue o de um colega só por hoje, para não atrasar.",
+                  "correct": false,
+                  "reply": "Vou pedir emprestado, então."
+                }
+              ]
+            }
           ],
-          "distractors": [
-            "maior",
-            "zera",
-            "mantém"
-          ],
-          "feedbackCorrect": "Isso mesmo: mais distância reduz a dose, e mais tempo de exposição a aumenta.",
-          "feedbackIncorrect": "Releia a ideia: a dose cai com a distância e sobe com o tempo de exposição.",
-          "help": "Pense no que acontece ao se afastar da fonte.",
+          "feedbackCorrect": "Isso mesmo: o dosímetro fica no tronco, e sem ele você avisa antes de entrar.",
+          "feedbackIncorrect": "Reveja o turno: o uso segue o plano do setor, e a falta do dosímetro se avisa antes.",
+          "help": "Pense no que o plano de proteção do setor pede de cada pessoa.",
           "sourceIds": [
             "iaea-ssg46-2018"
           ]

@@ -79,7 +79,9 @@ export type InteractionType =
     | 'categorize'
     | 'multi-select'
     // Fase B: rotular pontos de uma figura.
-    | 'label';
+    | 'label'
+    // Fase B: conduzir uma conversa com um personagem.
+    | 'conversation';
 
 /**
  * Todos os tipos de interação. O `Record` faz o compilador recusar tipo novo
@@ -90,6 +92,7 @@ const INTERACTION_TYPE_FLAGS: Record<InteractionType, true> = {
     'multiple-choice': true, hotspot: true, comparison: true, matching: true, ordering: true,
     'parameter-lab': true, bench: true, 'risk-hunt': true, 'case-decision': true,
     cloze: true, 'true-false': true, categorize: true, 'multi-select': true, label: true,
+    conversation: true,
 };
 export const INTERACTION_TYPES = Object.keys(INTERACTION_TYPE_FLAGS) as readonly InteractionType[];
 
@@ -289,6 +292,19 @@ export type LabelPayload = {
     labels: { id: string; label: string }[];
 };
 
+/**
+ * Conversa conduzida: o personagem fala, o aluno escolhe a resposta de cada turno
+ * e o personagem reage com o `reply` dela, sem dizer se estava certa (o veredito
+ * vem na conferência). A resposta é a lista com o id escolhido em cada turno.
+ */
+export type ConversationPayload = {
+    prompt: string;
+    speaker: LessonCastId;
+    /** Obrigatório para o paciente, que muda a cada cena. */
+    name?: string;
+    turns: { id: string; line: string; options: { id: string; label: string; reply: string }[]; correctOptionId: string }[];
+};
+
 type InteractionBase = {
     id: string;
     /** Ao menos uma. É o que liga a evidência produzida ao domínio medido. */
@@ -317,7 +333,8 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'true-false'; payload: TrueFalsePayload })
     | (InteractionBase & { type: 'categorize'; payload: CategorizePayload })
     | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload })
-    | (InteractionBase & { type: 'label'; payload: LabelPayload });
+    | (InteractionBase & { type: 'label'; payload: LabelPayload })
+    | (InteractionBase & { type: 'conversation'; payload: ConversationPayload });
 
 /** Elenco das cenas de diálogo da trilha rtg-2026. */
 export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
@@ -649,6 +666,17 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
                 || points.some(point => !isWithinFrame({ id: '', label: '', x: point.x, y: point.y, width: 0, height: 0 }))) {
                 push(issues, path, 'invalid-label-points');
             }
+            break;
+        }
+        case 'conversation': {
+            const { speaker, name, turns } = interaction.payload;
+            const valid = (LESSON_CAST_IDS as readonly unknown[]).includes(speaker) && (speaker !== 'paciente' || isFilled(name))
+                && Array.isArray(turns) && turns.length >= 2 && new Set(turns.map(turn => turn?.id)).size === turns.length
+                && turns.every(turn => isFilled(turn?.id) && isFilled(turn.line) && Array.isArray(turn.options) && turn.options.length >= 2
+                    && new Set(turn.options.map(option => option?.id)).size === turn.options.length
+                    && turn.options.every(option => isFilled(option?.id) && isFilled(option.label) && isFilled(option.reply))
+                    && turn.options.some(option => option.id === turn.correctOptionId));
+            if (!valid) push(issues, path, 'invalid-conversation');
             break;
         }
         case 'parameter-lab': {

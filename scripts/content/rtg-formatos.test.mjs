@@ -121,6 +121,45 @@ test('o roteiro Maestro marca cada região de risco pela lista e confere', () =>
   ]);
 });
 
+/** O gerador Maestro só joga a primeira aula; a aula 02 vai à frente para exercitar o que ela tem. */
+const secondLessonFirst = () => ({ ...doc, lessons: [doc.lessons[1], doc.lessons[0], ...doc.lessons.slice(2)] });
+
+test('a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc }]);
+  const text = files.get('rtg-2026-m01.ts');
+  const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
+  const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
+  const talk = interactions.find(interaction => interaction.type === 'conversation');
+  assert.match(talk.accessibility.label, /^Conversa: /);
+  assert.equal(talk.payload.speaker, 'duda');
+  assert.equal(Object.hasOwn(talk.payload, 'name'), false);
+  assert.deepEqual(talk.payload.turns.map(turn => turn.id), [1, 2].map(n => `turn:rtg-2026:m01:aula-02:i2:${n}`));
+  assert.deepEqual(talk.payload.turns[0].options.map(option => option.id), ['1a', '1b', '1c'].map(n => `option:rtg-2026:m01:aula-02:i2:${n}`));
+  assert.deepEqual(talk.payload.turns.map(turn => turn.correctOptionId), ['option:rtg-2026:m01:aula-02:i2:1b', 'option:rtg-2026:m01:aula-02:i2:2a']);
+  assert.ok(talk.payload.turns.every(turn => turn.options.every(option => option.reply.length > 0 && !Object.hasOwn(option, 'correct'))));
+});
+
+test('a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)', () => {
+  const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+  const talkOf = source => factory.buildRtgBatch(source).batch.activities[1].steps.map(step => step.interaction).find(interaction => interaction?.type === 'conversation');
+  assert.equal(Object.hasOwn(talkOf(doc).payload, 'name'), false);
+  const patient = structuredClone(doc);
+  Object.assign(patient.lessons[1].interactions[1], { speaker: 'paciente', name: 'Sr. Álvaro' });
+  assert.equal(talkOf(patient).payload.name, 'Sr. Álvaro');
+});
+
+test('o roteiro Maestro responde cada turno da conversa pela resposta certa e confere', () => {
+  const lesson = renderRtgMaestroFlows([secondLessonFirst()]).get('m01-aula-01.yaml').split('\n');
+  const at = lesson.findIndex(line => line === '# interaction i2 conversation');
+  assert.ok(at > 0, 'sem o comentário da conversa');
+  const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible')));
+  assert.deepEqual(segment.filter(line => /^- tapOn: |^    id: /.test(line)), [
+    "    id: 'conversation-option-Prenda na altura do tronco, como o plano do setor manda\\.'",
+    "    id: 'conversation-option-Avise a supervisão antes: sem dosímetro, não entre\\.'",
+    "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'",
+  ]);
+});
+
 test('tipo sem ramo na fábrica lança em vez de virar associação', () => {
   const broken = structuredClone(doc);
   broken.lessons[0].interactions[2].type = 'tipo-que-nao-existe';

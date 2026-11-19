@@ -384,6 +384,94 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('conversation (fase B)', () => {
+        const TURNS = [
+            { line: 'Cheguei na sala e não sei onde prender o meu dosímetro individual. Onde ele fica?', options: [
+                { label: 'Qualquer lugar serve, o importante é estar com você no turno.', correct: false, reply: 'Então fico tranquila e deixo no bolso.' },
+                { label: 'Prenda na altura do tronco, como o plano do setor manda.', correct: true, reply: 'Entendi, vou prender aí agora.' },
+                { label: 'Deixe guardado no armário durante todo o exame.', correct: false, reply: 'Mas eu queria conferir a leitura depois.' }] },
+            { line: 'E se eu esquecer o dosímetro em casa? Posso entrar na sala assim mesmo?', options: [
+                { label: 'Avise a supervisão antes: sem dosímetro, não entre.', correct: true, reply: 'Combinado, falo com a supervisão agora.' },
+                { label: 'Entre sem ele e anote depois que esqueceu em casa.', correct: false, reply: 'Tá, então eu anoto no fim do turno.' },
+                { label: 'Pegue o de um colega só por hoje, para não atrasar.', correct: false, reply: 'Vou pedir emprestado, então.' }] },
+        ];
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        function talkCandidate(extra: Record<string, unknown> = {}): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'conversation', role: 'practice', help: old.help, sourceIds: old.sourceIds, speaker: 'duda', turns: TURNS, ...extra,
+                prompt: 'Duda está no primeiro dia de estágio. Ajude-a a conduzir o turno.',
+                feedbackCorrect: 'Isso mesmo: o dosímetro fica no tronco, e sem ele você avisa antes de entrar.',
+                feedbackIncorrect: 'Reveja o turno: o uso segue o plano do setor, e a falta do dosímetro se avisa antes.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const talkOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'conversation') throw new Error('sem conversation');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof talkOf>) => void, extra: Record<string, unknown> = {}) => {
+            const value = talkCandidate(extra);
+            mutate(talkOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('aceita a conversa, com o id da correta de cada turno e a proveniência de cada resposta', () => {
+            const value = talkCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const { payload } = talkOf(value);
+            expect(payload.turns).toHaveLength(2);
+            expect(payload.turns.map(turn => turn.options.findIndex(option => option.id === turn.correctOptionId))).toEqual([1, 0]);
+            const claim = (id: string) => value.claimProvenance.find(entry => entry.claimId === id);
+            expect(claim(payload.turns[0].correctOptionId)).toMatchObject({ claimKind: 'correct-answer', provenanceKind: 'source-backed' });
+            expect(claim(payload.turns[0].options[0].id)).toMatchObject({ claimKind: 'distractor', provenanceKind: 'authorial-distractor' });
+            expect(claim(payload.turns[1].id)).toMatchObject({ claimKind: 'prompt' });
+        });
+
+        it('paciente com nome passa, e o paciente sem nome e o Pixel reprovam', () => {
+            expect(issuesWith(() => undefined, { speaker: 'paciente', name: 'Sr. Álvaro' })).toEqual([]);
+            expect(issuesWith(interaction => { interaction.payload.speaker = 'paciente'; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { (interaction.payload as { speaker: string }).speaker = 'pixel'; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('mantém as chaves exatas do payload e exige texto em toda fala, resposta e reação', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).visual = 'extra'; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.turns[0].line = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.turns[0].options[0].reply = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-answer-position-bias: a correta no mesmo lugar em todos os turnos', () => {
+            expect(issuesWith(interaction => {
+                const options = interaction.payload.turns[1].options;
+                [options[0], options[1]] = [options[1], options[0]];
+            })).toEqual([`wide-answer-position-bias:${ID}`]);
+        });
+
+        it('wide-longest-is-correct: a correta de algum turno é a mais longa', () => {
+            expect(issuesWith(interaction => { interaction.payload.turns[1].options[0].label += ' com todo o cuidado do mundo, sem pressa'; })).toEqual([`wide-longest-is-correct:${ID}`]);
+        });
+
+        it('invalid-wide-shape: turnos e respostas fora de 2 a 3, correta fora das respostas, rótulos repetidos', () => {
+            expect(issuesWith(interaction => { interaction.payload.turns.splice(1); })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.turns[1].options.splice(1); })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.turns[0].correctOptionId = 'option:rtg-2026:m01:fora'; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.turns[0].options[1].label = interaction.payload.turns[0].options[0].label; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+    });
+
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {
         const id = batch.sources[0].id;
         expect(issuesAfter(value => { delete (value.sources[0] as { use?: string }).use; })).toContain(`invalid-source-metadata:${id}`);

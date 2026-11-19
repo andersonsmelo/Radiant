@@ -238,4 +238,15 @@ describe('feedbackFor: famílias da 1.6', () => {
         expect(feedbackFor(interaction, '["a"]', false)).toBe('Faltou marcar: Campo grande. O campo grande expõe tecido à toa.');
         expect(feedbackFor(interaction, '["a","c"]', true)).toBe('Isso mesmo.');
     });
+
+    it('conversation: o erro acrescenta a resposta que cabia no primeiro turno errado', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'conversation', payload: { prompt: 'Conduza.', speaker: 'duda',
+            turns: [
+                { id: 't1', line: 'Como começo?', correctOptionId: 'a2', options: [{ id: 'a1', label: 'Pela pressa.', reply: 'Hum.' }, { id: 'a2', label: 'Conferindo o pedido.', reply: 'Faz sentido.' }] },
+                { id: 't2', line: 'E o avental?', correctOptionId: 'b1', options: [{ id: 'b1', label: 'Vestir antes.', reply: 'Certo.' }, { id: 'b2', label: 'Deixar de lado.', reply: 'Tá.' }] },
+            ] } };
+        expect(feedbackFor(interaction, '["a2","b2"]', false)).toBe('Reveja o conceito. No turno 2, a resposta era: Vestir antes.');
+        expect(feedbackFor(interaction, '["a1","b2"]', false)).toBe('Reveja o conceito. No turno 1, a resposta era: Conferindo o pedido.');
+        expect(feedbackFor(interaction, '["a2","b1"]', true)).toBe('Isso mesmo.');
+    });
 });

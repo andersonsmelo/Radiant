@@ -444,4 +444,27 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCorrectInteractionValue(riskHunt, encodeInteractionIdSequence(['porta', 'campo', 'biombo']))).toBe(false);
         expect(isCorrectInteractionValue(riskHunt, encodeInteractionIdSequence(['campo', 'porta']))).toBe(true);
     });
+
+    // Fase B, tarefa 7: conversa conduzida; a resposta é o id escolhido em cada turno.
+    const conversation: LearningInteractionV2 = { ...base, type: 'conversation', payload: {
+        prompt: 'Conduza a conversa.', speaker: 'paciente', name: 'Sr. Álvaro',
+        turns: [
+            { id: 't1', line: 'Vou tomar radiação?', correctOptionId: 'o2',
+                options: [{ id: 'o1', label: 'Não vai sentir nada, fique tranquilo.', reply: 'Ah, entendi.' }, { id: 'o2', label: 'Explicar a dose baixa.', reply: 'Isso me acalma.' }] },
+            { id: 't2', line: 'Posso ficar com o relógio?', correctOptionId: 'p1',
+                options: [{ id: 'p1', label: 'Tirar o relógio.', reply: 'Tá bom, tiro.' }, { id: 'p2', label: 'Pode ficar.', reply: 'Que bom.' }] },
+        ],
+    } };
+
+    it('conversation: completa com um id válido por turno, e acerta só com todos iguais ao correto', () => {
+        expect(isCompleteInteractionValue(conversation, encodeInteractionIdSequence(['o2']))).toBe(false);
+        expect(isCompleteInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p1', 'o1']))).toBe(false);
+        expect(isCompleteInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'o1']))).toBe(false);
+        expect(isCompleteInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p2']))).toBe(true);
+        expect(isCompleteInteractionValue(conversation, undefined)).toBe(false);
+        expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o1', 'p1']))).toBe(false);
+        expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p2']))).toBe(false);
+        expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p1']))).toBe(true);
+        expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2']))).toBe(false);
+    });
 });

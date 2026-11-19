@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'];
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'];
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
@@ -188,6 +188,36 @@ export function lintUnit(doc, { images = [] } = {}) {
       distractors.forEach((word, i) => text(`${where}.distractors[${i}]`, word, { min: 2, max: 40 }));
       const shown = [...(Array.isArray(item.points) ? item.points.map((point) => point?.label) : []), ...distractors];
       if (new Set(shown.map(norm)).size !== shown.length) err(where, 'label: rótulo repetido entre pontos e distratores');
+    } else if (item.type === 'conversation') {
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'speaker', 'name', 'turns']));
+      // O Pixel é o guia de estudo, não um interlocutor; o paciente muda a cada cena e leva nome fictício.
+      if (!SPEAKERS.includes(item.speaker) || item.speaker === 'pixel') err(where, 'conversation: speaker deve ser lia, caio, duda ou paciente');
+      if (item.name !== undefined) text(`${where}.name`, item.name, { max: 40, caps: false });
+      else if (item.speaker === 'paciente') err(where, 'conversation: fala de paciente precisa de name fictício');
+      const turns = Array.isArray(item.turns) ? item.turns : [];
+      if (turns.length < 2 || turns.length > 3) return err(where, 'conversation: 2 ou 3 turnos');
+      const places = [];
+      turns.forEach((turn, t) => {
+        const tw = `${where}.turns[${t}]`;
+        errors.push(...keyErrors(tw, turn, ['line', 'options']));
+        text(`${tw}.line`, turn?.line, { max: 200 });
+        const options = Array.isArray(turn?.options) ? turn.options : [];
+        if (options.length < 2 || options.length > 3) return err(tw, 'de 2 a 3 respostas');
+        options.forEach((option, o) => {
+          errors.push(...keyErrors(`${tw}.options[${o}]`, option, ['label', 'correct', 'reply']));
+          text(`${tw}.options[${o}].label`, option?.label, { max: 120 });
+          text(`${tw}.options[${o}].reply`, option?.reply, { max: 200 });
+        });
+        if (options.some((option) => typeof option?.correct !== 'boolean')) return err(tw, 'correct deve ser true ou false em cada resposta');
+        const right = options.filter((option) => option.correct === true);
+        if (right.length !== 1) return err(tw, 'exatamente 1 resposta correta');
+        // A reação é cena, e não veredito: duas respostas com a mesma reação não deixam o aluno ver a diferença.
+        if (new Set(options.map((option) => norm(option.label))).size !== options.length) err(tw, 'respostas repetidas');
+        if (new Set(options.map((option) => norm(option.reply))).size !== options.length) err(tw, 'reações repetidas: cada resposta tem a reação própria');
+        if (right[0].label.length > Math.max(...options.filter((option) => !option.correct).map((option) => option.label.length))) err(tw, 'a resposta correta é a mais longa do turno');
+        places.push(options.findIndex((option) => option.correct));
+      });
+      if (places.length === turns.length && new Set(places).size === 1) err(where, 'conversation: a resposta correta está na mesma posição em todos os turnos; varie');
     } else if (item.type === 'cloze') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const distractors = Array.isArray(item.distractors) ? item.distractors : [];

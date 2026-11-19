@@ -18,7 +18,7 @@ const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -83,6 +83,9 @@ function answerCommands(interaction) {
     case 'risk-hunt':
       // As mesmas caixas da lista que acompanha a figura (RiskHuntStepRenderer).
       return payload.regions.filter(region => payload.riskRegionIds.includes(region.id)).flatMap(region => tapId(`risk-hunt-${region.label}`));
+    case 'conversation':
+      // Cada resposta certa, na ordem dos turnos; o turno seguinte só aparece depois da escolha.
+      return payload.turns.flatMap(turn => tapId(`conversation-option-${turn.options.find(option => option.id === turn.correctOptionId).label}`));
     case 'label': {
       // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,
       // o ponto seguinte pede rolagem para cima. shortcut: sem medir em aparelho, trocar se a figura couber junto das fichas.

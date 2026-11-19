@@ -3038,6 +3038,55 @@ describe('LessonFlowScreen — famílias da 1.6', () => {
   });
 });
 
+/**
+ * Fase B, tarefa 7: a conversa passa pelo mesmo tocador. O botão do rodapé confere
+ * ("Conferir resposta", e não "Continuar"), a vida é cobrada uma vez na conferência
+ * errada e nunca antes, e o acerto não cobra.
+ */
+describe('LessonFlowScreen — conversa (fase B)', () => {
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const activity: LearningActivityV2 = {
+    id: 'activity:fb:conversa', competencyIds: ['competency:fb'], provenance: { contentVersion: 'fb-v1', sourceIds: ['source:fb'] },
+    steps: [
+      { kind: 'presentation', id: 'fb-hook', role: 'hook', payload: { title: 'Plantão com a Duda' } },
+      { kind: 'presentation', id: 'fb-concept', role: 'concept', payload: { title: 'Conversa de plantão' } },
+      { kind: 'interaction', interaction: { id: 'fb-talk', type: 'conversation', competencyIds: ['competency:fb'], evidenceKind: 'guided-practice',
+        completionRule: 'confirmed', criticalSafety: false, accessibility: { label: 'Conversa: plantão' },
+        feedback: { correct: 'Isso mesmo: o pedido vem primeiro.', incorrect: 'Releia: o pedido vem primeiro.' },
+        payload: { prompt: 'Ajude a Duda a começar o plantão.', speaker: 'duda', turns: [
+          { id: 't1', line: 'Por onde eu começo?', correctOptionId: 'a2', options: [
+            { id: 'a1', label: 'Chamando o paciente sem olhar o pedido.', reply: 'Hum, certo.' }, { id: 'a2', label: 'Conferindo o pedido.', reply: 'Faz sentido.' }] },
+          { id: 't2', line: 'E depois?', correctOptionId: 'b1', options: [
+            { id: 'b1', label: 'Explicar o exame.', reply: 'Boa, ele fica calmo.' }, { id: 'b2', label: 'Posicionar o aparelho em silêncio.', reply: 'Tá bom.' }] },
+        ] } } },
+      { kind: 'presentation', id: 'fb-closing', role: 'closing', payload: { title: 'Fechamento do plantão' } },
+    ],
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activity);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+  });
+
+  it.each([[true], [false]])('responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=%s)', async correct => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:conversa" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Ajude a Duda a começar o plantão.')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('conversation-option-Conferindo o pedido.'));
+    expect(screen.queryByText('Continuar')).toBeNull();
+    fireEvent.press(screen.getByTestId(correct ? 'conversation-option-Explicar o exame.' : 'conversation-option-Posicionar o aparelho em silêncio.'));
+    expect(hearts.spend).not.toHaveBeenCalled();
+    expect(screen.queryByText('Continuar')).toBeNull();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(correct ? 'Isso mesmo: o pedido vem primeiro.' : /Releia: o pedido vem primeiro\./)).toBeTruthy();
+    await waitFor(() => expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1));
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining(correct ? 'Resposta correta.' : 'Resposta incorreta.'));
+  });
+});
+
 // F3 da 1.6 (ADR 2026-11-15): o mapa único de retorno, com a chave
 // ENABLE_RICH_FEEDBACK ligada e desligada. Mede o que a aula PEDE ao tocador.
 describe('F3 — retorno rico da aula', () => {

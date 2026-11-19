@@ -158,7 +158,7 @@ describe('ActivityRendererRegistry', () => {
         expect(getByText(/jogo-que-nao-existe/)).toBeTruthy();
     });
 
-    it('declara os treze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular e a caça ao erro', () => {
+    it('declara os catorze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro e a conversa', () => {
         expect(isInteractionTypeRegistered('case-decision')).toBe(true);
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
         expect(isInteractionTypeRegistered('hotspot')).toBe(true);
@@ -171,7 +171,8 @@ describe('ActivityRendererRegistry', () => {
         expect(REGISTERED_INTERACTION_TYPES).toContain('bench');
         expect(isInteractionTypeRegistered('label')).toBe(true);
         expect(isInteractionTypeRegistered('risk-hunt')).toBe(true);
-        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(13);
+        expect(isInteractionTypeRegistered('conversation')).toBe(true);
+        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(14);
     });
 
     it('renderiza a bancada pelo registro: enunciado, fantoma e o JSON inicial no onChange', () => {
