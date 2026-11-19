@@ -11,6 +11,9 @@ import { precessaoRm } from './specs/precessao-rm';
 import { ecoUltrassom } from './specs/eco-ultrassom';
 import { detectorConvertendo } from './specs/detector-convertendo';
 import { compressaoMama } from './specs/compressao-mama';
+import { inversoDoQuadrado } from './specs/inverso-do-quadrado';
+import { blindagemCamadas } from './specs/blindagem-camadas';
+import { decaimentoRadioativo } from './specs/decaimento-radioativo';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -25,6 +28,9 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [ecoUltrassom.id]: ecoUltrassom,
   [detectorConvertendo.id]: detectorConvertendo,
   [compressaoMama.id]: compressaoMama,
+  [inversoDoQuadrado.id]: inversoDoQuadrado,
+  [blindagemCamadas.id]: blindagemCamadas,
+  [decaimentoRadioativo.id]: decaimentoRadioativo,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);

@@ -1,0 +1,6 @@
+    ✕ translate em once chega a dx no progresso 1 e não dá a volta
+    Expected: 40
+    Received: 0
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   40

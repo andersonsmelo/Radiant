@@ -1,8 +1,13 @@
 import type { DiagramLayer, DiagramSpec, LayerState } from './diagramTypes';
 
-/** Fração 0..1 do ciclo da camada: dente de serra (`loop`) ou triângulo (`pingpong`). */
+/**
+ * Fração 0..1 do ciclo da camada: dente de serra (`loop`), triângulo (`pingpong`)
+ * ou, em `once`, o próprio progresso sem dar a volta. `once` é para diagrama
+ * dirigido por um controle: no valor máximo (progresso 1) o `loop` voltaria ao começo.
+ */
 function fractionAt(motion: NonNullable<DiagramLayer['motion']>, progress: number): number {
   'worklet';
+  if (motion.mode === 'once') return Math.min(1, Math.max(0, progress + (motion.phase ?? 0)));
   const t = (((progress + (motion.phase ?? 0)) % 1) + 1) % 1;
   return motion.mode === 'pingpong' ? 1 - Math.abs(2 * t - 1) : t;
 }

@@ -14,7 +14,7 @@ export type LayerMotion =
 export type DiagramLayer = {
   /** Miolo de um `<svg>` nas coordenadas `0..width`, `0..height`. */
   svg: string;
-  motion?: LayerMotion & { mode: 'loop' | 'pingpong'; phase?: number };
+  motion?: LayerMotion & { mode: 'loop' | 'pingpong' | 'once'; phase?: number };
 };
 
 export type DiagramSpec = {

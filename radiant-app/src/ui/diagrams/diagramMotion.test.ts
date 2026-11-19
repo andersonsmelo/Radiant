@@ -16,6 +16,15 @@ describe('layerStateAt', () => {
     expect(layerStateAt(m, 1).translateX).toBe(0);
   });
 
+  it('translate em once chega a dx no progresso 1 e não dá a volta', () => {
+    const m = motion({ kind: 'translate', dx: 40, dy: 0, mode: 'once' });
+    expect(layerStateAt(m, 0).translateX).toBeCloseTo(0);
+    expect(layerStateAt(m, 0.5).translateX).toBeCloseTo(20);
+    expect(layerStateAt(m, 1).translateX).toBeCloseTo(40);
+    expect(layerStateAt(m, 1.4).translateX).toBeCloseTo(40);
+    expect(layerStateAt(m, -0.2).translateX).toBeCloseTo(0);
+  });
+
   it('translate em pingpong passa por dx em 0,5 e volta', () => {
     const m = motion({ kind: 'translate', dx: 40, dy: 0, mode: 'pingpong' });
     expect(layerStateAt(m, 0).translateX).toBe(0);
