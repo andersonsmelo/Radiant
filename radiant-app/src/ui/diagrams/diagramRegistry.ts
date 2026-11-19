@@ -42,6 +42,9 @@ import { realceESuavizacao } from './specs/realce-e-suavizacao';
 import { monitorEPadraoDeTeste } from './specs/monitor-e-padrao-de-teste';
 import { fluxoRisPacs } from './specs/fluxo-ris-pacs';
 import { compressaoDeImagem } from './specs/compressao-de-imagem';
+import { radiografiaRoteiro } from './specs/radiografia-roteiro';
+import { artefatosDeObjeto } from './specs/artefatos-de-objeto';
+import { artefatosDoDetector } from './specs/artefatos-do-detector';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -87,6 +90,9 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [monitorEPadraoDeTeste.id]: monitorEPadraoDeTeste,
   [fluxoRisPacs.id]: fluxoRisPacs,
   [compressaoDeImagem.id]: compressaoDeImagem,
+  [radiografiaRoteiro.id]: radiografiaRoteiro,
+  [artefatosDeObjeto.id]: artefatosDeObjeto,
+  [artefatosDoDetector.id]: artefatosDoDetector,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
