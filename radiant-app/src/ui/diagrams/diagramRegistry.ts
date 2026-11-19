@@ -74,6 +74,7 @@ import { nivelDeReferencia } from './specs/nivel-de-referencia';
 import { cadeiaDeCustodia } from './specs/cadeia-de-custodia';
 import { fluxoDePesquisa } from './specs/fluxo-de-pesquisa';
 import { radiografiaDeObjeto } from './specs/radiografia-de-objeto';
+import { radiografiaVeterinaria } from './specs/radiografia-veterinaria';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -151,6 +152,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [cadeiaDeCustodia.id]: cadeiaDeCustodia,
   [fluxoDePesquisa.id]: fluxoDePesquisa,
   [radiografiaDeObjeto.id]: radiografiaDeObjeto,
+  [radiografiaVeterinaria.id]: radiografiaVeterinaria,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
