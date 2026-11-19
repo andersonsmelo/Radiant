@@ -1,0 +1,2267 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m17",
+    "code": "M17",
+    "title": "Segurança do paciente na sala",
+    "summary": "Você leva a segurança para dentro da sala de exame: identificação quando a conferência falha, quedas e transferências, limpeza entre pacientes e sinais de alerta, sempre reconhecendo, parando e chamando a equipe."
+  },
+  "sources": [
+    {
+      "id": "esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+      "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-19",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
+    },
+    {
+      "id": "vic-quedas-hospital",
+      "title": "Falls (older people in hospital)",
+      "publisher": "Departamento de Saúde do governo de Victoria, Austrália",
+      "url": "https://health.vic.gov.au/older-people-in-hospital/falls-mobility-and-self-care/falls",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para perigos do ambiente, freios travados e chamada de ajuda, sem reprodução de texto."
+    },
+    {
+      "id": "ott-emergencia-radiologia-2011",
+      "title": "Patients’ Instability, Emergency Response, and Outcomes in the Radiology Department",
+      "publisher": "American Journal of Critical Care (2011), via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3667404",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para os gatilhos de chamada e a chamada por qualquer pessoa, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-movimento-paciente-dor-2023",
+      "title": "Radiographers’ decision-making processes in the movement of pain-afflicted adult trauma patients in planar diagnostic imaging",
+      "publisher": "Via PubMed Central (2023)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10500107/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para explicar o procedimento ao paciente e para os recursos de transferência, sem reprodução de texto."
+    },
+    {
+      "id": "openstax-transferencia-2023",
+      "title": "Clinical Nursing Skills, 9.3 Transferring Patients",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/clinical-nursing-skills/pages/9-3-transferring-patients",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Material CC BY-NC-SA 4.0 usado só para consulta de fatos: número de cuidadores e pedido de mais pessoal, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "bcit-transferencias-2015",
+      "title": "Clinical Procedures for Safer Patient Care, 3.7 Patient Transfers",
+      "publisher": "British Columbia Institute of Technology (BCIT), via eCampusOntario Pressbooks",
+      "url": "https://ecampusontario.pressbooks.pub/clinicalskills/chapter/3-7-transfers-and-ambulation/",
+      "accessedAt": "2026-11-19",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: BCIT (2015). Consultado para dois identificadores, número de pessoas, explicação, tubos no lugar, freios e conforto; síntese original, sem endosso."
+    },
+    {
+      "id": "odeh-superficies-radiologia-2023",
+      "title": "Radiology Department: A Potential Source of Multidrug-Resistant Microorganisms: A Cross-Sectional Study at Tertiary Hospital",
+      "publisher": "Odeh, Abatli e Qadi, Canadian Journal of Infectious Diseases and Medical Microbiology (2023), via Europe PMC (PMC10749721)",
+      "url": "https://europepmc.org/article/PMC/PMC10749721",
+      "accessedAt": "2026-11-19",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: Odeh, Abatli e Qadi (2023). Consultado para teclados e maçanetas como superfícies tocadas pelas mãos; síntese original, sem endosso."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m17-01",
+      "code": "M17.01",
+      "title": "Quando a identificação falha",
+      "objective": "Hoje você vai conseguir parar e chamar a equipe quando a conferência de identidade não fecha, ou quando o paciente não pode responder.",
+      "competency": "Agir quando pulseira, pedido e fala do paciente não bastam para confirmar quem é, ou quando o paciente não pode responder.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de tomografia simulada",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Seu Jorge chegou de maca, sonolento. A pulseira confere com a folha, mas ele só murmura quando eu o chamo."
+          },
+          {
+            "speaker": "duda",
+            "text": "Então já sabemos quem é, não? O nome na pulseira é o mesmo do pedido."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quando a pessoa não responde, o que da conferência fica faltando?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quando a pessoa não confirma",
+        "body": "A conferência de rotina pede que a pessoa diga nome completo e data de nascimento, e que você compare com a pulseira. Ela depende da resposta. Quando a pessoa está sonolenta, não responde ou está sem pulseira, a conferência não se completa. O nome na placa do leito não a substitui, porque a placa pode estar errada. O serviço define como confirmar nesses casos: você para, descreve o que falta e chama a equipe. E a identidade é conferida antes de cada procedimento, não só na recepção.",
+        "keyPoints": [
+          "Sem resposta ou sem pulseira, a conferência não está completa.",
+          "O serviço define como confirmar quem não responde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na recepção simulada, duas pacientes se chamam Lima de sobrenome e esperam lado a lado. Qual conferência separa uma da outra?",
+          "options": [
+            {
+              "label": "Chamar “Dona Lima” e ver quem levanta primeiro da cadeira",
+              "correct": false,
+              "feedback": "Quem levanta primeiro pode ser a outra Lima: chamar só pelo sobrenome não separa as duas."
+            },
+            {
+              "label": "Pedir nome completo e data de nascimento de cada uma e comparar com a pulseira",
+              "correct": true,
+              "feedback": "Os dois dados, comparados com a pulseira de cada uma, separam as duas pacientes."
+            },
+            {
+              "label": "Chamar a que chegou primeiro, porque a fila segue a ordem de chegada",
+              "correct": false,
+              "feedback": "A ordem de chegada não identifica ninguém: a conferência é feita com os dados da pessoa."
+            },
+            {
+              "label": "Perguntar a uma delas qual é o sobrenome da outra, para confirmar",
+              "correct": false,
+              "feedback": "Uma paciente não confirma a identidade da outra: cada uma é conferida pelos próprios dados."
+            }
+          ],
+          "help": "Pense nos dados que só aquela pessoa pode dizer sobre si mesma.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro fontes que entram na conferência de identidade, tocando na ficha e no ponto da cena.",
+          "diagramId": "conferencia-de-identidade",
+          "points": [
+            {
+              "label": "Pulseira no punho",
+              "x": 0.419,
+              "y": 0.6,
+              "where": "sobre o braço do paciente deitado, a faixa azul curta"
+            },
+            {
+              "label": "Pedido impresso",
+              "x": 0.637,
+              "y": 0.542,
+              "where": "na mão do profissional de pé, uma folha com linhas"
+            },
+            {
+              "label": "Registro na tela",
+              "x": 0.909,
+              "y": 0.421,
+              "where": "alto, à direita, o painel azul em cima de um suporte"
+            },
+            {
+              "label": "Fala do paciente",
+              "x": 0.156,
+              "y": 0.575,
+              "where": "à esquerda, a cabeça redonda apoiada na maca"
+            }
+          ],
+          "distractors": [
+            "Placa acima do leito"
+          ],
+          "feedbackCorrect": "Isso mesmo: pulseira, pedido, tela e a fala do paciente se comparam, e a placa do leito não entra.",
+          "feedbackIncorrect": "Alguma ficha está no lugar errado: refaça, lembrando o que cada fonte traz sobre a pessoa.",
+          "help": "Comece pelo que está preso ao próprio paciente.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "duda",
+          "prompt": "Duda está com você na sala. Ajude-a a decidir o que fazer com Seu Jorge, que chegou sonolento e não responde ao nome.",
+          "turns": [
+            {
+              "line": "Seu Jorge está sonolento e só murmura. A pulseira confere com a folha. Posso começar o exame?",
+              "options": [
+                {
+                  "label": "Pode, a pulseira e a folha já dizem quem ele é.",
+                  "correct": false,
+                  "reply": "Então vou levá-lo para a mesa agora."
+                },
+                {
+                  "label": "Pode, desde que ele murmure algo quando você o chamar pelo nome.",
+                  "correct": false,
+                  "reply": "Vou chamá-lo pelo nome e ver se ele murmura."
+                },
+                {
+                  "label": "Ainda não: falta a resposta dele, vamos pedir apoio.",
+                  "correct": true,
+                  "reply": "Combinado, aviso a equipe e espero a orientação."
+                }
+              ]
+            },
+            {
+              "line": "A acompanhante diz: “É ele sim, o Jorge, pode fazer o exame”. O que dizemos a ela?",
+              "options": [
+                {
+                  "label": "Agradecer e dizer que a equipe confirma a identidade.",
+                  "correct": true,
+                  "reply": "Tudo bem, esperamos a equipe."
+                },
+                {
+                  "label": "Aceitar a palavra dela e começar, já que ela conhece bem o paciente.",
+                  "correct": false,
+                  "reply": "Vamos começar o exame agora, então."
+                },
+                {
+                  "label": "Pedir que ela escreva o nome dele na folha do pedido e assine.",
+                  "correct": false,
+                  "reply": "Pego uma caneta para ela escrever, então."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: sem a resposta do paciente, você para e a equipe confirma do jeito que o serviço define.",
+          "feedbackIncorrect": "Reveja os turnos: quando a conferência não fecha, a palavra de terceiros não a substitui e a equipe é chamada.",
+          "help": "Pense em quem decide como confirmar a identidade quando o paciente não responde.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada situação de chegada no grupo certo.",
+          "categories": [
+            "Conferir e seguir",
+            "Parar e pedir apoio"
+          ],
+          "items": [
+            {
+              "label": "Paciente diz nome e nascimento que batem com a pulseira",
+              "category": "Conferir e seguir"
+            },
+            {
+              "label": "Paciente conferido na recepção, prestes a iniciar o exame",
+              "category": "Conferir e seguir"
+            },
+            {
+              "label": "Paciente sonolento, que não consegue responder",
+              "category": "Parar e pedir apoio"
+            },
+            {
+              "label": "Punho do paciente sem pulseira",
+              "category": "Parar e pedir apoio"
+            },
+            {
+              "label": "Pulseira com o sobrenome escrito diferente do pedido",
+              "category": "Parar e pedir apoio"
+            }
+          ],
+          "feedbackCorrect": "Você separou a conferência que fecha daquela que precisa da equipe.",
+          "feedbackIncorrect": "Pergunte de cada situação: os dois lados da conferência estão completos, ou falta algo?",
+          "help": "Observe se a pessoa responde e se a pulseira existe e concorda.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Uma paciente adormecida chega de maca à ressonância simulada. Julgue cada afirmação sobre a conferência.",
+          "statements": [
+            {
+              "text": "A pulseira conferida com a folha já completa a conferência, mesmo sem a resposta dela.",
+              "correct": false,
+              "feedback": "Falta a parte que depende da paciente: sem ela, você descreve o que falta e chama a equipe."
+            },
+            {
+              "text": "Faltando a resposta da paciente, você descreve o que falta e chama a equipe.",
+              "correct": true,
+              "feedback": "Descrever e pedir apoio é a atitude certa quando a conferência não se completa."
+            },
+            {
+              "text": "O cartão com o nome preso à maca vale como prova de quem está deitada.",
+              "correct": false,
+              "feedback": "O nome na maca ou no leito pode estar errado: ele não substitui a conferência com a pessoa e a pulseira."
+            },
+            {
+              "text": "Mesmo já conferida antes, a paciente é conferida de novo antes do procedimento.",
+              "correct": true,
+              "feedback": "A confirmação vale antes de cada procedimento, e não só na primeira recepção."
+            }
+          ],
+          "feedbackCorrect": "Você tratou a conferência incompleta como motivo de parar, e não de adivinhar.",
+          "feedbackIncorrect": "Releia o conceito: a conferência só fecha com a pessoa e a pulseira, e a dúvida vai para a equipe.",
+          "help": "Pergunte de cada frase se ela completa a conferência ou só parece completar.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "bcit-transferencias-2015"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe quando a conferência não fecha",
+        "body": "Agora você reconhece quando a pessoa não responde ou está sem pulseira, sabe que placa e palavra de terceiros não substituem a conferência e chama a equipe em vez de supor.",
+        "line": {
+          "speaker": "lia",
+          "text": "Parar para confirmar custa um minuto. Supor pode custar muito mais."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O acompanhante de Seu Jorge diz: “É ele, pode fazer”. Seu Jorge está dormindo e sem pulseira. O que cabe a você?",
+          "options": [
+            {
+              "label": "Começar, porque quem o conhece afirmou a identidade",
+              "correct": false,
+              "feedback": "A palavra de quem acompanha não completa a conferência quando falta pulseira e resposta."
+            },
+            {
+              "label": "Escrever o nome dele na pulseira com a ajuda do acompanhante",
+              "correct": false,
+              "feedback": "Criar ou corrigir identificação por conta própria não cabe ao estudante."
+            },
+            {
+              "label": "Parar e avisar a equipe que falta a pulseira e a resposta dele",
+              "correct": true,
+              "feedback": "Descrever o que falta e pedir apoio é a conduta quando a conferência não se completa."
+            },
+            {
+              "label": "Esperar o paciente acordar sozinho antes de qualquer aviso",
+              "correct": false,
+              "feedback": "Esperar sem avisar deixa a dúvida aberta: a equipe precisa saber agora."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Em qual destas situações a conferência de identidade fecha e você pode seguir?",
+          "options": [
+            {
+              "label": "Dona Marta dorme, e a pulseira dela confere com o pedido",
+              "correct": false,
+              "feedback": "Sem a resposta dela, a conferência fica pela metade, mesmo com a pulseira certa."
+            },
+            {
+              "label": "A acompanhante diz o nome, e Seu Jorge está sem pulseira",
+              "correct": false,
+              "feedback": "A palavra de terceiros não substitui a pulseira nem a resposta do paciente."
+            },
+            {
+              "label": "Seu Jorge diz nome e nascimento, e os dois batem com a pulseira",
+              "correct": true,
+              "feedback": "Os dois dados, ditos por ele e iguais aos da pulseira, fecham a conferência."
+            },
+            {
+              "label": "A placa acima do leito traz o mesmo nome que o pedido",
+              "correct": false,
+              "feedback": "A placa pode estar errada e não confere a identidade de ninguém."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "bcit-transferencias-2015"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se o paciente não responde, a conferência não está…",
+          "item": {
+            "prompt": "Seu Jorge não responde ao ser chamado. Qual é o próximo passo?",
+            "options": [
+              {
+                "label": "Seguir, pois a pulseira já tem o nome certo",
+                "correct": false,
+                "feedback": "Pulseira certa sem resposta deixa a conferência pela metade."
+              },
+              {
+                "label": "Avisar a equipe de que ele não responde e aguardar a orientação",
+                "correct": true,
+                "feedback": "Descrever o que falta e esperar a orientação é a conduta que fecha a dúvida."
+              },
+              {
+                "label": "Perguntar ao paciente ao lado se ele conhece o Seu Jorge",
+                "correct": false,
+                "feedback": "Outro paciente não confirma identidade de ninguém."
+              },
+              {
+                "label": "Conferir a placa acima do leito e seguir",
+                "correct": false,
+                "feedback": "A placa pode estar errada e não substitui a conferência."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra sala, a pulseira de uma paciente está ilegível, e ela responde bem. O que você faz?",
+            "options": [
+              {
+                "label": "Anotar o nome que ela diz num papel e seguir com o exame",
+                "correct": false,
+                "feedback": "Seguir só com a fala dela deixa a pulseira sem conferir."
+              },
+              {
+                "label": "Seguir com o exame, pois ela respondeu bem e isso basta",
+                "correct": false,
+                "feedback": "A resposta é só uma parte: a pulseira também precisa ser conferida."
+              },
+              {
+                "label": "Pedir à Duda que adivinhe a letra apagada da pulseira",
+                "correct": false,
+                "feedback": "Adivinhar a letra é supor, e não conferir."
+              },
+              {
+                "label": "Parar e avisar a equipe sobre a pulseira ilegível",
+                "correct": true,
+                "feedback": "Uma pulseira ilegível não permite a comparação: descreva e peça apoio."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m17-02",
+      "code": "M17.02",
+      "title": "Antes que alguém caia",
+      "objective": "Hoje você vai conseguir reconhecer o que favorece uma queda na sala e corrigir o que cabe a você antes de mover o paciente.",
+      "competency": "Reconhecer na sala o que favorece queda e corrigir o que cabe ao estudante antes de mover o paciente.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exame, antes da transferência",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Dona Marta vai passar da maca para a mesa. Eu ia pedir que ela se levantasse logo."
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma. Olhe a sala antes de olhar para ela. O que está solto, escorregando ou esticado?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Uma queda quase sempre começa antes de a pessoa se mexer. Onde estão os sinais?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Olhe a sala antes de mover",
+        "body": "Queda no hospital nasce da mistura entre a pessoa e o ambiente. Do lado do ambiente, são perigos a bagunça, tubos e líquidos no chão, o equipamento que precisa de reparo e as rodas sem freio travado. Antes de mover, você olha a sala e corrige o que cabe a você: trava a roda e tira o obstáculo. Soro, sonda e dreno precisam estar no lugar, ou podem se soltar no movimento: se uma linha está esticada, você chama a equipe. Na cena desta aula, a roda travada tem o bloco do freio pousado sobre ela.",
+        "keyPoints": [
+          "Perigo no ambiente se corrige antes de mover.",
+          "Linha, sonda e dreno ficam com a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Dona Marta chega à sala trazida de outro setor. Qual conferência da aula anterior continua valendo antes de qualquer procedimento?",
+          "options": [
+            {
+              "label": "Conferir o nome na placa que está acima do leito",
+              "correct": false,
+              "feedback": "A placa pode estar errada, e por isso ela não vale como conferência."
+            },
+            {
+              "label": "Comparar nome e nascimento ditos por ela com a pulseira",
+              "correct": true,
+              "feedback": "Os dois dados, ditos pela pessoa, comparados com a pulseira: é a conferência que se repete."
+            },
+            {
+              "label": "Confiar na conferência feita na recepção e seguir",
+              "correct": false,
+              "feedback": "Conferir antes de cada procedimento é regra: a recepção sozinha não basta."
+            },
+            {
+              "label": "Pedir à acompanhante que diga o nome e seguir",
+              "correct": false,
+              "feedback": "A fala da acompanhante não substitui a conferência com a paciente e a pulseira."
+            }
+          ],
+          "help": "Lembre o que se compara e com quem.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada situação da sala: algo que você corrige agora ou que pede a equipe.",
+          "categories": [
+            "Eu corrijo agora",
+            "Chamo a equipe"
+          ],
+          "items": [
+            {
+              "label": "Roda da maca sem freio, perto da mesa",
+              "category": "Eu corrijo agora"
+            },
+            {
+              "label": "Cadeira parada entre a maca e a mesa",
+              "category": "Eu corrijo agora"
+            },
+            {
+              "label": "Líquido derramado no piso ao lado da mesa",
+              "category": "Eu corrijo agora"
+            },
+            {
+              "label": "Dreno preso à grade da maca",
+              "category": "Chamo a equipe"
+            },
+            {
+              "label": "Bolsa de sonda caída no chão, ainda ligada",
+              "category": "Chamo a equipe"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que é do ambiente do que envolve tubos ligados ao paciente.",
+          "feedbackIncorrect": "Pergunte de cada item: é algo da sala que você arruma, ou algo ligado ao paciente?",
+          "help": "O que está ligado ao corpo do paciente não é seu para mexer.",
+          "sourceIds": [
+            "vic-quedas-hospital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "As rodas da maca ficam {{1}}, e a linha de soro esticada pede que você chame a {{2}}.",
+          "answers": [
+            "travadas",
+            "equipe"
+          ],
+          "distractors": [
+            "soltas",
+            "paciente",
+            "sala"
+          ],
+          "feedbackCorrect": "Isso mesmo: roda travada você resolve, e a linha de soro fica com a equipe.",
+          "feedbackIncorrect": "Pense no que mantém a maca no lugar e em quem cuida das linhas do paciente.",
+          "help": "Uma parte é seu cuidado, a outra é de quem cuida das linhas.",
+          "sourceIds": [
+            "vic-quedas-hospital",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "risk-hunt",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "A maca está ao lado da mesa. Toque em todas as situações que favorecem uma queda ou um puxão.",
+          "diagramId": "transferencia-maca-mesa",
+          "regions": [
+            {
+              "label": "Roda da maca com o bloco azul pousado",
+              "x": 0.044,
+              "y": 0.763,
+              "width": 0.1,
+              "height": 0.2,
+              "risk": false,
+              "feedback": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia."
+            },
+            {
+              "label": "Roda da maca com o bloco erguido",
+              "x": 0.375,
+              "y": 0.763,
+              "width": 0.1,
+              "height": 0.2,
+              "risk": true,
+              "feedback": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela."
+            },
+            {
+              "label": "Prancha encostada no pedestal da mesa",
+              "x": 0.734,
+              "y": 0.646,
+              "width": 0.12,
+              "height": 0.25,
+              "risk": false,
+              "feedback": "Encostada no pedestal, fora da passagem e fora do chão, a prancha não atrapalha: ela só entra se o serviço a usar."
+            },
+            {
+              "label": "Linha do soro esticada até a paciente",
+              "x": 0.602,
+              "y": 0.371,
+              "width": 0.14,
+              "height": 0.1,
+              "risk": true,
+              "feedback": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha."
+            }
+          ],
+          "feedbackCorrect": "Você achou os dois pontos de risco e deixou de fora o que está em ordem.",
+          "feedbackIncorrect": "Releia a cena: algum risco ficou de fora, ou algo em ordem foi marcado.",
+          "help": "Procure o que pode se mover sob o peso e o que pode se soltar do corpo.",
+          "sourceIds": [
+            "vic-quedas-hospital",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Seu Jorge, de maca, vai passar para a mesa de tomografia. Marque todas as ações que cabem a você antes de qualquer movimento.",
+          "options": [
+            {
+              "label": "Pedir que ele se levante sozinho, para ganhar tempo",
+              "correct": false,
+              "feedback": "Levantar sozinho aumenta o risco: o movimento só começa com a equipe."
+            },
+            {
+              "label": "Soltar o soro do braço dele para facilitar a passagem",
+              "correct": false,
+              "feedback": "Soltar o acesso não cabe ao estudante: a linha fica com a equipe."
+            },
+            {
+              "label": "Travar as rodas da maca antes de qualquer apoio",
+              "correct": true,
+              "feedback": "Rodas travadas mantêm a maca no lugar quando ele se apoia."
+            },
+            {
+              "label": "Começar a passagem antes de a equipe chegar",
+              "correct": false,
+              "feedback": "A passagem começa com a equipe presente: sozinho, o movimento fica sem apoio."
+            },
+            {
+              "label": "Tirar do chão o que estiver no caminho",
+              "correct": true,
+              "feedback": "Tirar obstáculos e pontos de tropeço é o seu cuidado com o ambiente."
+            },
+            {
+              "label": "Avisar a equipe se a linha de soro estiver esticada",
+              "correct": true,
+              "feedback": "A linha esticada pode puxar o acesso, e quem cuida dela é a equipe."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o cuidado com o ambiente e deixou a linha e o movimento com a equipe.",
+          "feedbackIncorrect": "Releia o conceito: você arruma o ambiente, e a linha do paciente e o movimento ficam com a equipe.",
+          "help": "Separe o que é da sala do que é do paciente.",
+          "sourceIds": [
+            "vic-quedas-hospital",
+            "bcit-transferencias-2015"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você olha a sala antes de mover",
+        "body": "Agora você reconhece rodas soltas, obstáculos, líquidos no chão e linhas esticadas, corrige o que cabe a você e chama a equipe quando o risco envolve o que está ligado ao paciente.",
+        "line": {
+          "speaker": "caio",
+          "text": "A queda mais fácil de evitar é a que a sala deixaria acontecer."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Há uma cadeira entre a maca e a mesa e um pano molhado no piso. O que você faz antes de mover a paciente?",
+          "options": [
+            {
+              "label": "Pede que a paciente passe por cima, com cuidado",
+              "correct": false,
+              "feedback": "Pedir cuidado não tira o obstáculo nem o líquido do caminho."
+            },
+            {
+              "label": "Seguir, pois a equipe já está pronta no local",
+              "correct": false,
+              "feedback": "A pressa da equipe não torna o caminho seguro: obstáculos saem antes do movimento."
+            },
+            {
+              "label": "Posiciona a cadeira de lado, sem mexer no piso molhado",
+              "correct": false,
+              "feedback": "O piso molhado também é perigo: ele precisa ser resolvido junto."
+            },
+            {
+              "label": "Tira a cadeira e seca o piso antes de qualquer movimento",
+              "correct": true,
+              "feedback": "Obstáculo e líquido são perigos do ambiente que você corrige antes de mover."
+            }
+          ],
+          "sourceIds": [
+            "vic-quedas-hospital"
+          ]
+        },
+        {
+          "prompt": "A maca está encostada na mesa, com uma roda solta. Qual é o risco e o seu cuidado?",
+          "options": [
+            {
+              "label": "A maca pode escorregar, e você trava a roda antes do apoio",
+              "correct": true,
+              "feedback": "Roda solta deixa a maca se afastar: travar antes de qualquer apoio é o cuidado."
+            },
+            {
+              "label": "Não há risco, pois a maca está encostada na mesa",
+              "correct": false,
+              "feedback": "Encostada não é presa: a maca ainda pode escorregar com o peso."
+            },
+            {
+              "label": "O risco é do soro, e a roda só precisa ser avisada depois",
+              "correct": false,
+              "feedback": "A roda é uma parte do ambiente que você corrige antes de mover."
+            },
+            {
+              "label": "A roda só preocupa quando a maca anda pelo corredor",
+              "correct": false,
+              "feedback": "A roda solta é risco também quando a maca está parada, perto da mesa."
+            }
+          ],
+          "sourceIds": [
+            "vic-quedas-hospital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de mover o paciente, eu olho primeiro a…",
+          "item": {
+            "prompt": "Qual destes é um perigo do ambiente que você corrige antes de mover a paciente?",
+            "options": [
+              {
+                "label": "Um objeto no caminho entre a maca e a mesa",
+                "correct": true,
+                "feedback": "Obstáculo no caminho é perigo do ambiente e se tira antes de mover."
+              },
+              {
+                "label": "O soro conectado ao braço dela, que já está ligado",
+                "correct": false,
+                "feedback": "O soro faz parte do cuidado: você não o retira, e pede apoio se estiver esticado."
+              },
+              {
+                "label": "A pulseira no punho da paciente, já conferida",
+                "correct": false,
+                "feedback": "A pulseira é identificação, não um perigo de queda."
+              },
+              {
+                "label": "O nome escrito no pedido do exame, na folha",
+                "correct": false,
+                "feedback": "O nome no pedido não é perigo de queda."
+              }
+            ],
+            "sourceIds": [
+              "vic-quedas-hospital"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na sala de raios X, o paciente vai da cadeira de rodas para a mesa. Qual cuidado vale também aqui?",
+            "options": [
+              {
+                "label": "Deixar a cadeira com as rodas soltas, para ele se apoiar",
+                "correct": false,
+                "feedback": "Roda solta faz a cadeira se afastar justo quando ele se apoia."
+              },
+              {
+                "label": "Travar as rodas da cadeira antes de ele se apoiar nela",
+                "correct": true,
+                "feedback": "Equipamento com freio, travado, é cuidado que vale para cadeira e maca."
+              },
+              {
+                "label": "Pedir que ele passe sozinho, para ganhar tempo",
+                "correct": false,
+                "feedback": "Passar sozinho aumenta o risco: a equipe participa."
+              },
+              {
+                "label": "Mover a cadeira só depois de ele já estar na mesa",
+                "correct": false,
+                "feedback": "Mover depois não ajuda: a cadeira precisa estar firme antes do apoio."
+              }
+            ],
+            "sourceIds": [
+              "vic-quedas-hospital"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m17-03",
+      "code": "M17.03",
+      "title": "Passar da maca para a mesa",
+      "objective": "Hoje você vai conseguir ordenar uma transferência feita em equipe, cuidando das rodas, das linhas e do acesso.",
+      "competency": "Ordenar uma transferência em equipe, cuidando de rodas, sonda, dreno e acesso, sem mover o paciente sozinho.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de tomografia, hora da transferência",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje a equipe é você, o Caio e a Duda. Eu só observo."
+          },
+          {
+            "speaker": "caio",
+            "text": "Dona Marta tem soro no braço e quer ajudar a se mexer. Quem conta o movimento?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Antes de contar: o que cada um confere, e em que ordem?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Transferência é trabalho de equipe",
+        "body": "Passar da maca para a mesa é trabalho de equipe: o serviço define o método e quantas pessoas. Na ordem ensinada nesta aula: explicar à pessoa o que vai acontecer e combinar o sinal, travar as rodas da maca, conferir com a equipe que soro e sonda estão no lugar e fora do caminho, deslizar em conjunto no sinal e, ao fim, conferir o conforto da pessoa. A prancha, quando usada, faz a ponte entre maca e mesa.",
+        "keyPoints": [
+          "Nunca sozinho: a equipe faz o movimento.",
+          "Rodas travadas e linhas no lugar antes do deslize."
+        ],
+        "visual": "transferencia-maca-mesa"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual situação da cena pode soltar o acesso do braço quando a pessoa se mexe?",
+          "options": [
+            {
+              "label": "Uma roda travada da maca encostada na mesa",
+              "correct": false,
+              "feedback": "A roda travada mantém a maca no lugar: não mexe no acesso."
+            },
+            {
+              "label": "A linha de soro esticada até o braço",
+              "correct": true,
+              "feedback": "A linha esticada pode soltar o acesso, e por isso a equipe a ajusta antes do movimento."
+            },
+            {
+              "label": "A prancha de transferência guardada no pedestal",
+              "correct": false,
+              "feedback": "A prancha guardada não está ligada à pessoa e não mexe no acesso."
+            },
+            {
+              "label": "A grade lateral abaixada da maca, ao lado da paciente",
+              "correct": false,
+              "feedback": "A grade lateral não está ligada ao acesso do braço."
+            }
+          ],
+          "help": "Lembre o que, na cena da aula anterior, você levou à equipe.",
+          "sourceIds": [
+            "vic-quedas-hospital",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os passos da transferência da maca para a mesa, na ordem ensinada nesta aula.",
+          "items": [
+            "Explicar à pessoa o que vai acontecer e combinar o sinal com a equipe",
+            "Travar as rodas da maca",
+            "Conferir com a equipe que soro e sonda estão no lugar e fora do caminho",
+            "Deslizar a pessoa em conjunto, no sinal combinado",
+            "Ajeitar a pessoa na mesa e conferir o conforto dela"
+          ],
+          "feedbackCorrect": "Você montou a sequência: combinar, travar, conferir as linhas, deslizar e cuidar do conforto.",
+          "feedbackIncorrect": "Reveja a sequência: o deslize só vem depois de combinar, travar as rodas e conferir as linhas.",
+          "help": "O deslize é o passo que só pode vir quando tudo o resto está pronto.",
+          "sourceIds": [
+            "bcit-transferencias-2015",
+            "openstax-transferencia-2023",
+            "pmc-movimento-paciente-dor-2023"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "A equipe está pronta para o deslize. Toque na roda da maca que ainda não está travada.",
+          "diagramId": "transferencia-maca-mesa",
+          "regions": [
+            {
+              "label": "Roda sob a cabeceira da maca",
+              "x": 0.044,
+              "y": 0.763,
+              "width": 0.1,
+              "height": 0.2
+            },
+            {
+              "label": "Roda do lado dos pés da maca",
+              "x": 0.375,
+              "y": 0.763,
+              "width": 0.1,
+              "height": 0.2,
+              "correct": true
+            },
+            {
+              "label": "Vão entre maca e mesa",
+              "x": 0.463,
+              "y": 0.533,
+              "width": 0.08,
+              "height": 0.15
+            },
+            {
+              "label": "Prancha de transferência",
+              "x": 0.734,
+              "y": 0.646,
+              "width": 0.12,
+              "height": 0.25
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: essa roda está com o bloco erguido, ou seja, solta, e precisa ser travada.",
+          "feedbackIncorrect": "Compare as duas rodas: uma tem o bloco pousado, e a outra, não.",
+          "help": "Compare como o bloco aparece em cada roda.",
+          "sourceIds": [
+            "vic-quedas-hospital",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "A equipe está pronta, e você vai começar o deslize de Dona Marta para a mesa. Você vê que a linha do soro está esticada entre o suporte e o braço dela. Ninguém falou sobre isso. O Caio está do outro lado da maca.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Deslizar logo, antes que a paciente perceba a linha",
+              "correct": false,
+              "feedback": "Deslizar com a linha esticada pode soltar o acesso, e não cabe a você decidir seguir assim."
+            },
+            {
+              "label": "Soltar a linha do braço de Dona Marta para facilitar",
+              "correct": false,
+              "feedback": "Soltar o acesso não cabe ao estudante: a linha fica com a equipe."
+            },
+            {
+              "label": "Pedir à paciente que segure a linha com a mão livre",
+              "correct": false,
+              "feedback": "Passar a tarefa à paciente não resolve o risco e mantém a linha esticada."
+            },
+            {
+              "label": "Pedir uma pausa e avisar a equipe sobre a linha esticada",
+              "correct": true,
+              "feedback": "Pausar e avisar deixa quem cuida da linha ajustá-la antes do deslize."
+            }
+          ],
+          "help": "Quem resolve a linha do soro, e o que se faz antes de deslizar?",
+          "sourceIds": [
+            "bcit-transferencias-2015",
+            "openstax-transferencia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Dona Marta já está na mesa e o exame acabou. Julgue cada afirmação sobre a volta para a maca.",
+          "statements": [
+            {
+              "text": "Na volta para a maca, as rodas da maca precisam estar travadas de novo.",
+              "correct": true,
+              "feedback": "A maca deve estar firme também na volta, antes de a pessoa se apoiar."
+            },
+            {
+              "text": "Como a pessoa já passou uma vez, o segundo deslize dispensa explicar o que vai acontecer.",
+              "correct": false,
+              "feedback": "Explicar antes de cada movimento vale também na volta: a pessoa precisa saber o que vem."
+            },
+            {
+              "text": "Se faltar gente na equipe, o estudante faz o deslize sozinho para não atrasar o exame.",
+              "correct": false,
+              "feedback": "Transferência é feita em equipe: faltando gente, o movimento espera e o apoio é pedido."
+            },
+            {
+              "text": "Faltando pessoa ou material do método do serviço, a transferência espera e a equipe é chamada.",
+              "correct": true,
+              "feedback": "Esperar e pedir apoio evita o movimento improvisado, que é o que machuca."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o cuidado e o trabalho em equipe também na volta.",
+          "feedbackIncorrect": "Releia o conceito: a regra da ida vale na volta, e transferência nunca é de uma pessoa só.",
+          "help": "O que valeu na ida também vale na volta?",
+          "sourceIds": [
+            "bcit-transferencias-2015",
+            "openstax-transferencia-2023",
+            "pmc-movimento-paciente-dor-2023"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe a ordem da transferência",
+        "body": "Agora você ordena a transferência em equipe, trava as rodas, confere com a equipe as linhas antes do deslize e pede uma pausa quando a equipe ou o material não estão prontos.",
+        "line": {
+          "speaker": "lia",
+          "text": "A pressa não faz parte de nenhum passo da transferência."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quando a transferência deve esperar e a equipe ser chamada?",
+          "options": [
+            {
+              "label": "Quando o serviço pede mais pessoas do que as presentes",
+              "correct": true,
+              "feedback": "O método do serviço define quantas pessoas: faltando gente, espera-se."
+            },
+            {
+              "label": "Quando a paciente pergunta quanto tempo vai demorar",
+              "correct": false,
+              "feedback": "Uma pergunta da paciente não impede a transferência: você responde com calma."
+            },
+            {
+              "label": "Quando as rodas da maca já estão firmes e travadas",
+              "correct": false,
+              "feedback": "Rodas firmes são condição para seguir, não motivo para esperar."
+            },
+            {
+              "label": "Quando a paciente já foi conferida e explicada",
+              "correct": false,
+              "feedback": "Conferir e explicar vêm antes do movimento e permitem seguir."
+            }
+          ],
+          "sourceIds": [
+            "openstax-transferencia-2023",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "prompt": "O deslize terminou e a paciente está na mesa. Qual é o último passo da transferência?",
+          "options": [
+            {
+              "label": "Afastar a maca e chamar logo o próximo paciente",
+              "correct": false,
+              "feedback": "Chamar o próximo antes de cuidar dela pula o último passo da transferência."
+            },
+            {
+              "label": "Repetir o deslize para conferir se ele deu certo",
+              "correct": false,
+              "feedback": "Repetir o movimento expõe a pessoa a mais esforço sem motivo."
+            },
+            {
+              "label": "Pedir que ela mesma se ajeite como puder na mesa",
+              "correct": false,
+              "feedback": "Deixar o ajuste com ela tira da equipe o cuidado com a posição e o conforto."
+            },
+            {
+              "label": "Ajeitar a paciente e conferir se ela está confortável",
+              "correct": true,
+              "feedback": "Ajeitar e conferir o conforto fecha a transferência antes do exame."
+            }
+          ],
+          "sourceIds": [
+            "bcit-transferencias-2015"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes do deslize, eu travo as… e confiro as…",
+          "item": {
+            "prompt": "Qual passo vem primeiro na transferência, na ordem ensinada nesta aula?",
+            "options": [
+              {
+                "label": "Deslizar a pessoa em conjunto, no sinal combinado",
+                "correct": false,
+                "feedback": "O deslize é o passo do meio, depois de combinar e de preparar as rodas e linhas."
+              },
+              {
+                "label": "Conferir o conforto da pessoa ao fim do deslize",
+                "correct": false,
+                "feedback": "Esse é o último passo, e não o primeiro."
+              },
+              {
+                "label": "Explicar o que vai acontecer e combinar o sinal",
+                "correct": true,
+                "feedback": "Primeiro a pessoa e a equipe combinam o que vai acontecer."
+              },
+              {
+                "label": "Travar as rodas e conferir as linhas com a equipe",
+                "correct": false,
+                "feedback": "Isso vem depois da explicação e do combinado."
+              }
+            ],
+            "sourceIds": [
+              "bcit-transferencias-2015",
+              "pmc-movimento-paciente-dor-2023"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa sala de raios X, o paciente passa da maca para a mesa com a prancha de transferência. Qual cuidado vale também aqui?",
+            "options": [
+              {
+                "label": "Usar a prancha sozinho, pois ela substitui a equipe",
+                "correct": false,
+                "feedback": "A prancha ajuda no deslize, mas não substitui a equipe."
+              },
+              {
+                "label": "Pular o travamento das rodas, pois a prancha segura a maca",
+                "correct": false,
+                "feedback": "A prancha não trava a maca: as rodas continuam sendo travadas."
+              },
+              {
+                "label": "Seguir o método do serviço, com a equipe e as rodas travadas",
+                "correct": true,
+                "feedback": "O serviço define o método, e equipe e rodas travadas valem com a prancha."
+              },
+              {
+                "label": "Deixar a linha do soro esticada, pois a prancha desliza rápido",
+                "correct": false,
+                "feedback": "A linha esticada continua podendo soltar o acesso, com ou sem prancha."
+              }
+            ],
+            "sourceIds": [
+              "bcit-transferencias-2015",
+              "openstax-transferencia-2023"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m17-04",
+      "code": "M17.04",
+      "title": "Limpar entre um paciente e outro",
+      "objective": "Hoje você vai conseguir apontar as superfícies da sala que a limpeza entre pacientes alcança.",
+      "competency": "Apontar as superfícies de contato da sala e agir segundo o princípio da limpeza entre pacientes, com produto e tempo definidos pelo serviço.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, entre dois pacientes",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A paciente já saiu. Eu limpo a mesa e pronto, né?"
+          },
+          {
+            "speaker": "caio",
+            "text": "A mesa é só uma. Pense em tudo o que a mão dela, ou a sua, tocou."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quais lugares da sala passam de mão em mão, de um paciente para o outro?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Limpar o que passou de mão em mão",
+        "body": "Entre um paciente e o seguinte, as superfícies são limpas em todo atendimento, e não só quando há sujeira à vista. Apoio de queixo, suporte de tórax, marcadores, tubo e receptor podem se contaminar e levar microrganismos ao próximo paciente. Maçaneta e teclado do comando, que as suas mãos tocam depois do paciente, também entram na rotina. O serviço define o produto e o tempo de ação: você segue o protocolo, e não o cheiro ou a pressa.",
+        "keyPoints": [
+          "Limpa-se entre todos os pacientes, e não só quando há sujeira.",
+          "O serviço define o produto e o tempo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "A prancha de transferência tocou a paciente da transferência anterior. Antes de ser usada no próximo paciente, o que ela pede?",
+          "options": [
+            {
+              "label": "Nada, pois a prancha só desliza e não tem contato",
+              "correct": false,
+              "feedback": "A prancha encosta na pessoa: o contato com ela entra na rotina de limpeza."
+            },
+            {
+              "label": "Ser limpa como as outras superfícies de contato, como o serviço define",
+              "correct": true,
+              "feedback": "Superfície que tocou o paciente entra na limpeza entre pacientes, do jeito que o serviço define."
+            },
+            {
+              "label": "Ser virada de lado, para o paciente seguinte usar a outra face",
+              "correct": false,
+              "feedback": "Virar a prancha não remove nada: a limpeza é que faz isso."
+            },
+            {
+              "label": "Esperar o fim do turno para a limpeza de todas as superfícies",
+              "correct": false,
+              "feedback": "Esperar o fim do turno deixa a superfície passar de um paciente a outro."
+            }
+          ],
+          "help": "Pense no que acontece com o que o paciente encosta.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Seu Jorge fez uma radiografia em pé, segurando-se com as mãos, e depois outra deitado. Toque nas duas superfícies em que ele se apoiou e que a limpeza precisa alcançar.",
+          "diagramId": "pontos-de-contato-da-sala",
+          "regions": [
+            {
+              "label": "Maçaneta da porta",
+              "x": 0.069,
+              "y": 0.573,
+              "width": 0.1,
+              "height": 0.12
+            },
+            {
+              "label": "Apoio do receptor vertical",
+              "x": 0.328,
+              "y": 0.357,
+              "width": 0.12,
+              "height": 0.12,
+              "correct": true
+            },
+            {
+              "label": "Mesa de exame",
+              "x": 0.447,
+              "y": 0.654,
+              "width": 0.3,
+              "height": 0.1,
+              "correct": true
+            },
+            {
+              "label": "Manopla do tubo",
+              "x": 0.652,
+              "y": 0.108,
+              "width": 0.08,
+              "height": 0.1
+            },
+            {
+              "label": "Teclado do comando",
+              "x": 0.811,
+              "y": 0.646,
+              "width": 0.14,
+              "height": 0.1
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o apoio do receptor e a mesa receberam o contato direto dele e entram na limpeza.",
+          "feedbackIncorrect": "Procure onde as mãos dele ficaram em pé e onde o corpo ficou apoiado deitado.",
+          "help": "Siga o caminho dele na sala: primeiro em pé, depois deitado.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada superfície: quem costuma tocá-la durante o atendimento.",
+          "categories": [
+            "Tocada pelo paciente",
+            "Tocada por quem opera"
+          ],
+          "items": [
+            {
+              "label": "Mesa de exame",
+              "category": "Tocada pelo paciente"
+            },
+            {
+              "label": "Barra de apoio do receptor vertical",
+              "category": "Tocada pelo paciente"
+            },
+            {
+              "label": "Apoio de queixo",
+              "category": "Tocada pelo paciente"
+            },
+            {
+              "label": "Teclado do comando",
+              "category": "Tocada por quem opera"
+            },
+            {
+              "label": "Manopla do tubo de raios X",
+              "category": "Tocada por quem opera"
+            }
+          ],
+          "feedbackCorrect": "Você separou o contato direto do contato que vem das mãos de quem opera.",
+          "feedbackIncorrect": "Pergunte de cada peça: quem toca nela durante o exame, o paciente ou quem opera?",
+          "help": "Imagine onde a mão do paciente e a sua ficam.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "odeh-superficies-radiologia-2023"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Marque todas as ações da limpeza da sala entre um paciente e o seguinte.",
+          "options": [
+            {
+              "label": "Limpar só quando houver sujeira visível",
+              "correct": false,
+              "feedback": "A limpeza vale para todos os pacientes, e a sujeira nem sempre é visível."
+            },
+            {
+              "label": "Limpar a mesa e os apoios que o paciente tocou",
+              "correct": true,
+              "feedback": "As superfícies de contato do paciente são o centro da limpeza."
+            },
+            {
+              "label": "Escolher o produto pelo cheiro mais forte",
+              "correct": false,
+              "feedback": "O produto vem do protocolo do serviço, e não do cheiro."
+            },
+            {
+              "label": "Incluir maçaneta e teclado, que as mãos tocam",
+              "correct": true,
+              "feedback": "As mãos levam contato para esses lugares, e eles entram na rotina."
+            },
+            {
+              "label": "Pular a limpeza se o paciente parecia saudável",
+              "correct": false,
+              "feedback": "A aparência não diz o que a superfície carrega: a limpeza vale para todos."
+            },
+            {
+              "label": "Usar o produto e o tempo que o serviço define",
+              "correct": true,
+              "feedback": "Produto e tempo de ação são definidos pelo serviço, e você segue o protocolo."
+            }
+          ],
+          "feedbackCorrect": "Você marcou as superfícies e o protocolo, e deixou de fora a pressa e a aparência.",
+          "feedbackIncorrect": "Releia o conceito: limpa-se entre todos, nas superfícies de contato, com produto e tempo do serviço.",
+          "help": "Pense no que vale para qualquer paciente, e em quem define o produto.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "odeh-superficies-radiologia-2023"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Numa sala de ultrassom, o transdutor foi usado em vários pacientes. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "O transdutor entra na limpeza e desinfecção depois de cada exame.",
+              "correct": true,
+              "feedback": "O transdutor encosta no paciente, e por isso é limpo depois de cada exame."
+            },
+            {
+              "text": "Um frasco de gel usado em vários pacientes não carrega contaminação, porque o gel é limpo.",
+              "correct": false,
+              "feedback": "Gel de uso em vários pacientes pode transmitir infecção: ele também entra no cuidado."
+            },
+            {
+              "text": "O serviço define o produto e o tempo de ação para o transdutor.",
+              "correct": true,
+              "feedback": "Como nas demais superfícies, o protocolo do serviço define produto e tempo."
+            }
+          ],
+          "feedbackCorrect": "Você levou o princípio da limpeza entre pacientes para um equipamento novo.",
+          "feedbackIncorrect": "Releia o conceito: o contato com o paciente pede limpeza entre um e outro, com o protocolo do serviço.",
+          "help": "O princípio é o mesmo da mesa: contato, limpeza, protocolo.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe o que a limpeza alcança",
+        "body": "Agora você aponta as superfícies de contato, inclusive as que as suas mãos tocam, limpa entre todos os pacientes e segue o produto e o tempo que o serviço define.",
+        "line": {
+          "speaker": "caio",
+          "text": "A sala limpa é a que o próximo paciente nem percebe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Você posicionou Seu Jorge e depois digitou no teclado do comando. Antes do próximo paciente, o teclado entra na limpeza?",
+          "options": [
+            {
+              "label": "Não, porque o paciente nunca encostou no teclado",
+              "correct": false,
+              "feedback": "As suas mãos tocaram o paciente e depois o teclado: o contato chega até ele."
+            },
+            {
+              "label": "Sim, porque as mãos levam o contato até ele",
+              "correct": true,
+              "feedback": "O teclado é tocado pelas mãos depois do paciente, e por isso entra na rotina."
+            },
+            {
+              "label": "Só no fim do turno, junto com o resto da sala",
+              "correct": false,
+              "feedback": "Esperar o fim do turno deixa o contato passar de um paciente a outro."
+            },
+            {
+              "label": "Só se houver sujeira visível sobre as teclas",
+              "correct": false,
+              "feedback": "A sujeira nem sempre é visível, e a limpeza não depende dela."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "odeh-superficies-radiologia-2023"
+          ]
+        },
+        {
+          "prompt": "A Duda quer usar o produto que sobrou de outra sala e secar a mesa logo, para ganhar tempo. O que você sugere?",
+          "options": [
+            {
+              "label": "Aceitar, pois qualquer produto serve se a mesa ficar seca",
+              "correct": false,
+              "feedback": "Produto e tempo são definidos pelo serviço: secar logo pode encurtar o tempo de ação."
+            },
+            {
+              "label": "Usar mais produto, para compensar o pouco tempo",
+              "correct": false,
+              "feedback": "Mais produto não substitui o tempo de ação que o serviço define."
+            },
+            {
+              "label": "Deixar a mesa sem limpar até a próxima manhã",
+              "correct": false,
+              "feedback": "Deixar sem limpar passa o contato de um paciente a outro."
+            },
+            {
+              "label": "Seguir o produto e o tempo do protocolo do serviço",
+              "correct": true,
+              "feedback": "O protocolo do serviço define produto e tempo, e na dúvida se pede apoio."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a limpeza entre pacientes vale para…",
+          "item": {
+            "prompt": "Qual destas superfícies entra na limpeza entre um paciente e outro?",
+            "options": [
+              {
+                "label": "A mesa em que o paciente se deitou",
+                "correct": true,
+                "feedback": "Ela recebeu o corpo do paciente, e a limpeza a alcança."
+              },
+              {
+                "label": "Somente o piso do corredor",
+                "correct": false,
+                "feedback": "O piso do corredor não é superfície de contato do atendimento."
+              },
+              {
+                "label": "Somente o teto da sala",
+                "correct": false,
+                "feedback": "O teto não é tocado por pacientes nem por quem opera."
+              },
+              {
+                "label": "Nenhuma, se o paciente estava vestido",
+                "correct": false,
+                "feedback": "A roupa não elimina o contato, e a limpeza vale para todos."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na tomografia simulada, o paciente deitou na mesa e apoiou a cabeça no suporte. Antes do próximo, o que entra na limpeza?",
+            "options": [
+              {
+                "label": "Só o lençol, que vai ser trocado de qualquer jeito",
+                "correct": false,
+                "feedback": "Trocar o lençol não limpa a mesa nem o suporte em que ele encostou."
+              },
+              {
+                "label": "A mesa e o suporte de cabeça, pelo protocolo",
+                "correct": true,
+                "feedback": "Superfície que recebeu o paciente entra na limpeza, do jeito que o serviço define."
+              },
+              {
+                "label": "Nada, porque o exame durou só poucos minutos",
+                "correct": false,
+                "feedback": "A limpeza vale entre todos os pacientes, qualquer que seja a duração do exame."
+              },
+              {
+                "label": "Só o suporte, se o paciente parecia suado",
+                "correct": false,
+                "feedback": "A aparência não diz o que a superfície carrega: a mesa também entra."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m17-05",
+      "code": "M17.05",
+      "title": "Sinais de alerta na sala",
+      "objective": "Hoje você vai conseguir reconhecer um sinal de alerta, parar o exame, chamar ajuda e saber onde está cada recurso da sala.",
+      "competency": "Reconhecer mudança importante no paciente, parar, chamar ajuda pelo canal do serviço e localizar os recursos de emergência da sala.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando da tomografia",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Durante o exame, Seu Jorge parou de responder pelo interfone."
+          },
+          {
+            "speaker": "caio",
+            "text": "Da sala de comando você vê pouco do rosto dele. O que mais mostra que algo mudou?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "E, se precisar de ajuda, você sabe onde está cada coisa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Reconhecer, parar e chamar",
+        "body": "Alguns sinais pedem a chamada da equipe na hora: perder a consciência ou cair de repente, convulsão, falta de ar nova, mudança na cor da pele, como palidez, e sangramento sem controle. Você reconhece, para o exame e chama: não mede nem trata. Em muitos serviços, qualquer pessoa presente pode acionar a equipe pelo número divulgado. Conheça a sala antes de precisar: porta de saída, botão de chamada, telefone e números de emergência afixados, saída de oxigênio e carrinho de emergência. Oxigênio e carrinho são usados pela equipe.",
+        "keyPoints": [
+          "Qualquer sinal de alerta: parar e chamar.",
+          "Você sabe onde ficam os recursos; quem os usa é a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Dona Marta, na maca, fica mole de repente e não responde ao ser chamada. Qual princípio da unidade vale agora?",
+          "options": [
+            {
+              "label": "Seguir o exame, pois a pulseira já confere",
+              "correct": false,
+              "feedback": "A pulseira conferida não responde ao que mudou agora no estado dela."
+            },
+            {
+              "label": "Parar, descrever o que viu e chamar a equipe",
+              "correct": true,
+              "feedback": "Parar, descrever e chamar a equipe é a atitude que vale diante do que não cabe a você resolver."
+            },
+            {
+              "label": "Levantar a paciente para ver se ela responde",
+              "correct": false,
+              "feedback": "Mover a paciente sozinha não cabe ao estudante e pode aumentar o risco."
+            },
+            {
+              "label": "Esperar alguns minutos para ver se passa",
+              "correct": false,
+              "feedback": "Esperar sem chamar atrasa o apoio que a paciente precisa."
+            }
+          ],
+          "help": "Lembre o que você fez quando a conferência não fechava.",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule onde ficam os cinco recursos da parede da sala, tocando na ficha e no ponto.",
+          "diagramId": "itens-de-emergencia-da-sala",
+          "points": [
+            {
+              "label": "Porta de saída",
+              "x": 0.119,
+              "y": 0.575,
+              "where": "à esquerda, a abertura alta com seta amarela acima"
+            },
+            {
+              "label": "Carrinho de emergência",
+              "x": 0.375,
+              "y": 0.708,
+              "where": "no chão, o móvel com gavetas e rodas, peça azul em cima"
+            },
+            {
+              "label": "Saída de oxigênio",
+              "x": 0.587,
+              "y": 0.612,
+              "where": "na parede, o painel quadrado com um círculo azul no meio"
+            },
+            {
+              "label": "Botão de chamada",
+              "x": 0.769,
+              "y": 0.408,
+              "where": "no alto, o disco amarelo com um cordão que pende"
+            },
+            {
+              "label": "Telefone",
+              "x": 0.906,
+              "y": 0.68,
+              "where": "à direita, o aparelho de teclas numéricas na parede"
+            }
+          ],
+          "distractors": [
+            "Extintor"
+          ],
+          "feedbackCorrect": "Isso mesmo: você sabe onde chamar ajuda e onde ficam os recursos que a equipe usa.",
+          "feedbackIncorrect": "Alguma ficha está no lugar errado: confira o que cada recurso parece e para que serve.",
+          "help": "Lembre para que serve cada recurso e como ele costuma ser na parede de um hospital.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "ott-emergencia-radiologia-2011",
+            "vic-quedas-hospital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre os sinais de alerta e a chamada de ajuda.",
+          "statements": [
+            {
+              "text": "Pedir ajuda pelo número divulgado não é tarefa só do médico.",
+              "correct": true,
+              "feedback": "Onde o número é divulgado a todos, quem está na sala pode chamar a equipe."
+            },
+            {
+              "text": "Se o paciente parece desmaiar, espere alguns minutos para ver se passa.",
+              "correct": false,
+              "feedback": "Esperar atrasa o apoio: o sinal de alerta pede a chamada na hora."
+            },
+            {
+              "text": "Perder a consciência de repente é um sinal que pede a chamada da equipe.",
+              "correct": true,
+              "feedback": "Perda de consciência é um sinal de alerta que pede a chamada."
+            },
+            {
+              "text": "O estudante usa o carrinho de emergência para tratar o paciente.",
+              "correct": false,
+              "feedback": "O carrinho é da equipe: você reconhece, para e chama, e não trata."
+            },
+            {
+              "text": "Você mede os sinais e decide se o exame continua.",
+              "correct": false,
+              "feedback": "Medir e decidir sobre o exame é da equipe, e não do estudante."
+            },
+            {
+              "text": "Mudança súbita na cor da pele é um sinal para avisar a equipe.",
+              "correct": true,
+              "feedback": "A mudança de cor é um dos sinais que pedem a chamada."
+            },
+            {
+              "text": "Sangramento sem controle é um sinal que pede a chamada da equipe.",
+              "correct": true,
+              "feedback": "Sangramento que não para está entre os sinais que pedem a chamada na hora."
+            },
+            {
+              "text": "Falta de ar nova é um incômodo comum que dispensa aviso.",
+              "correct": false,
+              "feedback": "Falta de ar nova é um sinal que pede a chamada."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que pede a chamada do que não cabe ao estudante.",
+          "feedbackIncorrect": "Reveja as afirmações: cada retorno explica o que pede a chamada e o que fica com a equipe.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011",
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "safety",
+          "criticalSafety": true,
+          "speaker": "caio",
+          "prompt": "Na tomografia simulada, Seu Jorge fica mole de repente e para de responder ao interfone. Converse com o Caio, que está com você no comando.",
+          "turns": [
+            {
+              "line": "Seu Jorge ficou mole e não responde mais. Faltam só uns segundos de aquisição. O que a gente faz?",
+              "options": [
+                {
+                  "label": "Termino a série, são só uns segundos, e depois olho ele.",
+                  "correct": false,
+                  "reply": "Então espero a série acabar aqui do seu lado."
+                },
+                {
+                  "label": "Paro o exame agora e chamamos a equipe.",
+                  "correct": true,
+                  "reply": "Estou parando. Você liga pelo número do serviço?"
+                },
+                {
+                  "label": "Entro e levanto ele na mesa para ver se reage.",
+                  "correct": false,
+                  "reply": "Vou com você, então. Ajudo a sentar ele."
+                }
+              ]
+            },
+            {
+              "line": "A equipe atendeu. O que você conta para eles?",
+              "options": [
+                {
+                  "label": "Que ele teve um desmaio por pressão baixa.",
+                  "correct": false,
+                  "reply": "Vou repetir isso para eles, então."
+                },
+                {
+                  "label": "Que vamos esperar ele melhorar e ligamos de novo.",
+                  "correct": false,
+                  "reply": "Então desligo e a gente aguarda."
+                },
+                {
+                  "label": "O que vi, quando começou e em que sala estamos.",
+                  "correct": true,
+                  "reply": "Tá, vou dizer que foi agora, na sala dois."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você parou, chamou a equipe e descreveu o que viu, sem dar nome ao quadro.",
+          "feedbackIncorrect": "Reveja os turnos: o sinal pede parar e chamar, e o relato descreve o que você viu, sem diagnóstico.",
+          "help": "Quem decide se o exame continua, e o que você sabe de fato sobre o que aconteceu?",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Em outra sala, uma paciente senta na mesa, fica pálida e diz que vai desmaiar. Marque todas as ações que cabem a você.",
+          "options": [
+            {
+              "label": "Dar um copo de água e esperar passar",
+              "correct": false,
+              "feedback": "Dar água não cabe ao estudante, e esperar atrasa a chamada."
+            },
+            {
+              "label": "Chamar a equipe pelo canal do serviço",
+              "correct": true,
+              "feedback": "A chamada é a conduta quando há sinal de alerta."
+            },
+            {
+              "label": "Seguir o exame, se ela disser que está melhor",
+              "correct": false,
+              "feedback": "Quem decide se o exame continua é a equipe."
+            },
+            {
+              "label": "Ficar com a paciente à vista, sem deixá-la sozinha",
+              "correct": true,
+              "feedback": "Manter a paciente à vista enquanto a ajuda chega é parte do cuidado."
+            },
+            {
+              "label": "Medir a pressão e decidir se o exame continua",
+              "correct": false,
+              "feedback": "Medir e decidir é da equipe, e não do estudante."
+            },
+            {
+              "label": "Contar à equipe o que viu e quando começou",
+              "correct": true,
+              "feedback": "O relato do que foi visto e quando começou ajuda quem vai atender."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o papel do estudante: reconhecer, ficar à vista e chamar.",
+          "feedbackIncorrect": "Releia o conceito: você reconhece, para e chama, e a avaliação e a decisão ficam com a equipe.",
+          "help": "Separe o que ajuda a equipe a chegar do que é decisão clínica.",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe parar e chamar",
+        "body": "Agora você reconhece um sinal de alerta, para o exame, chama ajuda pelo canal do serviço, fica com a pessoa e sabe onde estão os recursos que a equipe usa.",
+        "line": {
+          "speaker": "lia",
+          "text": "Saber onde está cada coisa ajuda você a chamar a ajuda certa mais rápido."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma paciente tem uma convulsão sobre a mesa de raios X. Qual é a sua primeira ação?",
+          "options": [
+            {
+              "label": "Segurar a paciente com força para que ela pare de se mexer",
+              "correct": false,
+              "feedback": "Segurar à força não cabe ao estudante: quem conduz o atendimento é a equipe."
+            },
+            {
+              "label": "Terminar o exame enquanto ela está parada",
+              "correct": false,
+              "feedback": "Seguir com o exame não cabe a você: a convulsão pede a chamada."
+            },
+            {
+              "label": "Chamar a equipe pelo canal do serviço e ficar à vista",
+              "correct": true,
+              "feedback": "Chamar a equipe e ficar à vista é a conduta do estudante nesse sinal."
+            },
+            {
+              "label": "Procurar a cartela de medicamentos no carrinho",
+              "correct": false,
+              "feedback": "Medicar não cabe ao estudante, e o carrinho é da equipe."
+            }
+          ],
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "prompt": "Neste serviço simulado, o número da equipe de emergência é divulgado para todos. Quem pode ligar quando um paciente perde a consciência na sala?",
+          "options": [
+            {
+              "label": "Qualquer pessoa presente, pelo número divulgado",
+              "correct": true,
+              "feedback": "Com o número divulgado a todos, qualquer pessoa presente pode chamar a equipe."
+            },
+            {
+              "label": "Só o médico responsável pelo exame que está em andamento",
+              "correct": false,
+              "feedback": "A chamada não é exclusiva do médico."
+            },
+            {
+              "label": "Só o tecnólogo mais antigo da sala de exames, por hierarquia",
+              "correct": false,
+              "feedback": "A chamada não depende do tempo de trabalho."
+            },
+            {
+              "label": "Só quem sabe usar o carrinho de emergência da sala",
+              "correct": false,
+              "feedback": "Quem chama não precisa saber usar o carrinho."
+            }
+          ],
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: diante de um sinal de alerta, eu paro e…",
+          "item": {
+            "prompt": "Qual destas ações cabe ao estudante diante de um sinal de alerta?",
+            "options": [
+              {
+                "label": "Chamar a equipe pelo canal do serviço",
+                "correct": true,
+                "feedback": "Chamar a equipe é o que cabe a você diante de um sinal de alerta."
+              },
+              {
+                "label": "Decidir se o exame continua",
+                "correct": false,
+                "feedback": "Decidir é da equipe, e não do estudante."
+              },
+              {
+                "label": "Usar o carrinho de emergência",
+                "correct": false,
+                "feedback": "O carrinho de emergência é da equipe, e não do estudante."
+              },
+              {
+                "label": "Medir os sinais do paciente para classificar o quadro",
+                "correct": false,
+                "feedback": "Medir e classificar é conduta clínica, e fica com a equipe."
+              }
+            ],
+            "sourceIds": [
+              "ott-emergencia-radiologia-2011"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na ressonância simulada, uma criança acompanhada da mãe fica de repente muito pálida e quieta. O que você faz?",
+            "options": [
+              {
+                "label": "Espera a mãe falar algo para então decidir",
+                "correct": false,
+                "feedback": "Esperar atrasa o aviso: o sinal é seu de reconhecer."
+              },
+              {
+                "label": "Pede à mãe que dê um líquido à criança",
+                "correct": false,
+                "feedback": "Dar líquido não cabe a você, e atrasa a chamada."
+              },
+              {
+                "label": "Para o exame e chama a equipe pelo canal do serviço",
+                "correct": true,
+                "feedback": "Mudança de cor e de comportamento é sinal de alerta: pare e chame."
+              },
+              {
+                "label": "Segue o exame, pois ela é uma criança tranquila",
+                "correct": false,
+                "feedback": "Seguir não cabe a você: o sinal pede parar e chamar."
+              }
+            ],
+            "sourceIds": [
+              "ott-emergencia-radiologia-2011"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m17-06",
+      "code": "M17.06",
+      "title": "Um turno seguro",
+      "objective": "Hoje você vai conseguir juntar identificação, transferência, limpeza e sinais de alerta numa sala nova.",
+      "competency": "Integrar conferência, ambiente, transferência, limpeza e sinais de alerta num turno inédito, reconhecendo, parando e chamando.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Plantão simulado, sala nova",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje a sala é nova para vocês. Vou deixar o turno correr."
+          },
+          {
+            "speaker": "caio",
+            "text": "O primeiro paciente chega em dez minutos. Olhem a sala antes de olhar a fila."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Qual pergunta de cada aula vem com você para dentro da sala?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cinco cuidados, uma atitude",
+        "body": "Um turno seguro junta o que você viu nesta unidade. Com a sala olhada e arrumada no que cabe a você, a pessoa chega: confere-se quem ela é, passa-se à mesa em equipe, e você acompanha atento aos sinais de alerta. Entre um paciente e o seguinte, as superfícies são limpas como o serviço define. Em qualquer ponto, se algo não fecha ou aparece um sinal, a atitude é a mesma: reconhecer, parar e chamar. A decisão clínica é da equipe.",
+        "keyPoints": [
+          "Olhar a sala, conferir, transferir em equipe, acompanhar, limpar.",
+          "Reconhecer, parar e chamar, em qualquer fase."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Dona Marta, na maca, fica pálida enquanto você prepara a sala. O que vem primeiro?",
+          "options": [
+            {
+              "label": "Terminar de arrumar a sala antes de olhar para ela",
+              "correct": false,
+              "feedback": "Arrumar a sala não pode vir antes do sinal de alerta."
+            },
+            {
+              "label": "Pedir a ela que se deite melhor e esperar",
+              "correct": false,
+              "feedback": "Esperar sem chamar atrasa o apoio."
+            },
+            {
+              "label": "Chamar a equipe pelo canal do serviço e ficar à vista",
+              "correct": true,
+              "feedback": "Reconhecer o sinal, chamar a equipe e ficar à vista é o que cabe a você."
+            },
+            {
+              "label": "Medir os sinais dela e decidir sobre o exame",
+              "correct": false,
+              "feedback": "Medir e decidir é da equipe, e não do estudante."
+            }
+          ],
+          "help": "Lembre o que a aula anterior pede diante de um sinal.",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Nesta sala nova, Seu Jorge perde a consciência na mesa. Toque nos dois recursos da parede que servem para você chamar a equipe.",
+          "diagramId": "itens-de-emergencia-da-sala",
+          "regions": [
+            {
+              "label": "Porta de saída",
+              "x": 0.034,
+              "y": 0.325,
+              "width": 0.17,
+              "height": 0.5
+            },
+            {
+              "label": "Carrinho de emergência",
+              "x": 0.25,
+              "y": 0.523,
+              "width": 0.25,
+              "height": 0.37
+            },
+            {
+              "label": "Saída de oxigênio",
+              "x": 0.537,
+              "y": 0.542,
+              "width": 0.1,
+              "height": 0.14
+            },
+            {
+              "label": "Botão de chamada",
+              "x": 0.724,
+              "y": 0.333,
+              "width": 0.09,
+              "height": 0.15,
+              "correct": true
+            },
+            {
+              "label": "Telefone da parede",
+              "x": 0.851,
+              "y": 0.573,
+              "width": 0.11,
+              "height": 0.22,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: botão de chamada e telefone servem para chamar; carrinho e oxigênio ficam com a equipe.",
+          "feedbackIncorrect": "Separe o que serve para chamar alguém do que a equipe usa quando chega.",
+          "help": "Qual recurso o estudante usa, e qual fica para quem atende?",
+          "sourceIds": [
+            "ott-emergencia-radiologia-2011",
+            "esr-efrs-seguranca-2019",
+            "bcit-transferencias-2015"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "name": "Dona Marta",
+          "prompt": "Dona Marta acabou o exame na mesa e está com pressa. Conduza a conversa com segurança.",
+          "turns": [
+            {
+              "line": "Já terminou? Eu desço sozinha, não precisa chamar ninguém.",
+              "options": [
+                {
+                  "label": "Tudo bem, a senhora conhece o próprio corpo, desça com todo o cuidado.",
+                  "correct": false,
+                  "reply": "Então eu desço agora mesmo."
+                },
+                {
+                  "label": "Vamos esperar a equipe, e as rodas da maca ficam travadas.",
+                  "correct": true,
+                  "reply": "Está bem, eu espero, mas estou com um pouco de pressa."
+                },
+                {
+                  "label": "Se a senhora tem pressa, eu a seguro pelo braço e ajudo a descer.",
+                  "correct": false,
+                  "reply": "Ótimo, então me ajude a descer."
+                }
+              ]
+            },
+            {
+              "line": "Sabe, estou meio tonta agora.",
+              "options": [
+                {
+                  "label": "Vou chamar a equipe agora, e a senhora não fica sozinha.",
+                  "correct": true,
+                  "reply": "Obrigada, não quero ficar sozinha."
+                },
+                {
+                  "label": "Deve ser a pressa: se descer devagar, passa.",
+                  "correct": false,
+                  "reply": "Então desço devagar."
+                },
+                {
+                  "label": "A senhora pode medir a pressão no aparelho ali, para ver.",
+                  "correct": false,
+                  "reply": "Vou lá medir, então."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: a transferência é com a equipe, e a tontura é um sinal para chamar e ficar presente.",
+          "feedbackIncorrect": "Reveja os turnos: nem a pressa da paciente muda a equipe, e a tontura pede a chamada, e não uma medida sua.",
+          "help": "Quem faz a transferência, e o que você faz diante de um mal-estar novo?",
+          "sourceIds": [
+            "bcit-transferencias-2015",
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as etapas do turno, na ordem ensinada nesta aula, da sala antes do paciente até a sala pronta de novo.",
+          "items": [
+            "Olhar a sala e corrigir o que cabe a você, como rodas e caminho",
+            "Conferir quem é a pessoa, comparando os dados com a pulseira",
+            "Transferir a pessoa para a mesa em equipe, com as linhas conferidas",
+            "Acompanhar a pessoa durante o exame, atento aos sinais de alerta",
+            "Limpar as superfícies de contato, como o serviço define"
+          ],
+          "feedbackCorrect": "Você montou o turno: sala, conferência, transferência, acompanhamento e limpeza.",
+          "feedbackIncorrect": "Reveja a ordem: a sala é olhada antes do paciente, e a limpeza fecha o turno antes do seguinte.",
+          "help": "Pense no que precisa estar pronto antes de a pessoa chegar.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "bcit-transferencias-2015",
+            "vic-quedas-hospital",
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "O turno está atrasado, e a sala está cheia. Julgue cada afirmação sobre o que se mantém.",
+          "statements": [
+            {
+              "text": "Se o turno atrasa muito, a limpeza entre pacientes pode esperar o fim do dia de trabalho, para recuperar o tempo.",
+              "correct": false,
+              "feedback": "A limpeza vale entre todos os pacientes: o atraso não a transfere para o fim do dia."
+            },
+            {
+              "text": "Um sinal de alerta em qualquer fase pede a mesma atitude: parar e chamar.",
+              "correct": true,
+              "feedback": "A atitude de reconhecer, parar e chamar vale em qualquer fase do turno."
+            },
+            {
+              "text": "Com a equipe ocupada, o estudante espera o apoio e não decide sobre o exame.",
+              "correct": true,
+              "feedback": "Quem decide é a equipe: o estudante espera o apoio e fica com a pessoa."
+            },
+            {
+              "text": "A identidade é conferida antes de cada procedimento, mesmo com o turno atrasado.",
+              "correct": true,
+              "feedback": "A conferência antes de cada procedimento não depende do horário."
+            }
+          ],
+          "feedbackCorrect": "Você manteve os cuidados mesmo com a pressa, e deixou as decisões com a equipe.",
+          "feedbackIncorrect": "Releia o conceito: a pressa não muda os cuidados, e a decisão clínica é da equipe.",
+          "help": "A pressa muda alguma etapa do turno?",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "ott-emergencia-radiologia-2011"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você junta os cuidados num turno",
+        "body": "Agora você olha a sala, confere a identidade, passa a pessoa à mesa em equipe, acompanha com atenção, limpa entre pacientes e, diante de qualquer sinal, reconhece, para e chama.",
+        "line": {
+          "speaker": "lia",
+          "text": "Um turno seguro é feito de pequenas paradas no momento certo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual atitude vale para quase tudo nesta unidade, quando algo não fecha ou muda?",
+          "options": [
+            {
+              "label": "Resolver sozinho, para não atrasar o turno",
+              "correct": false,
+              "feedback": "Resolver sozinho não cabe ao estudante e esconde o problema."
+            },
+            {
+              "label": "Esperar o paciente reclamar antes de avisar",
+              "correct": false,
+              "feedback": "Esperar a queixa atrasa o aviso."
+            },
+            {
+              "label": "Anotar para o fim do turno e seguir",
+              "correct": false,
+              "feedback": "Anotar para depois deixa o risco aberto agora."
+            },
+            {
+              "label": "Parar, descrever o que viu e chamar a equipe",
+              "correct": true,
+              "feedback": "Parar, descrever e chamar a equipe vale para identidade, queda, limpeza e sinais de alerta."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019",
+            "ott-emergencia-radiologia-2011"
+          ]
+        },
+        {
+          "prompt": "Ao entrar numa sala nova, o que você faz antes de o paciente chegar?",
+          "options": [
+            {
+              "label": "Espera o paciente chegar para ver o que há na sala",
+              "correct": false,
+              "feedback": "Esperar o paciente deixa os perigos da sala para depois do movimento."
+            },
+            {
+              "label": "Olha a sala e corrige o que cabe a você",
+              "correct": true,
+              "feedback": "Olhar a sala antes do paciente permite corrigir os perigos do ambiente."
+            },
+            {
+              "label": "Começa a chamar a fila para ganhar tempo",
+              "correct": false,
+              "feedback": "Chamar a fila antes de olhar a sala deixa os perigos do ambiente para depois."
+            },
+            {
+              "label": "Confere a pulseira de quem ainda não chegou",
+              "correct": false,
+              "feedback": "Sem o paciente, não há pulseira para conferir."
+            }
+          ],
+          "sourceIds": [
+            "vic-quedas-hospital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: em qualquer fase do turno, diante de um sinal, eu…",
+          "item": {
+            "prompt": "O turno está atrasado, e a paciente fica tonta. O que você faz?",
+            "options": [
+              {
+                "label": "Segue o exame para recuperar o tempo",
+                "correct": false,
+                "feedback": "O atraso não muda a conduta diante de um sinal."
+              },
+              {
+                "label": "Chama a equipe e fica com a paciente",
+                "correct": true,
+                "feedback": "Reconhecer, chamar e ficar à vista é a conduta do estudante."
+              },
+              {
+                "label": "Mede os sinais e decide por conta própria",
+                "correct": false,
+                "feedback": "Medir e decidir é da equipe, e não do estudante."
+              },
+              {
+                "label": "Pede que a paciente se levante para ver se melhora",
+                "correct": false,
+                "feedback": "Levantar a paciente sozinha pode aumentar o risco."
+              }
+            ],
+            "sourceIds": [
+              "ott-emergencia-radiologia-2011"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra sala, o paciente chega sem pulseira, e a maca está sem freio. Qual é a sua conduta?",
+            "options": [
+              {
+                "label": "Seguir com o exame, pois o paciente parece saudável",
+                "correct": false,
+                "feedback": "A aparência não substitui a conferência nem o freio."
+              },
+              {
+                "label": "Trava a roda e avisa a equipe sobre a pulseira ausente",
+                "correct": true,
+                "feedback": "Corrigir o que cabe a você e avisar sobre o que falta é a atitude do turno seguro."
+              },
+              {
+                "label": "Escrever o nome na pulseira e seguir",
+                "correct": false,
+                "feedback": "Criar identificação por conta própria não cabe ao estudante."
+              },
+              {
+                "label": "Pedir que o paciente se levante para ganhar tempo",
+                "correct": false,
+                "feedback": "Isso aumenta o risco de queda."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019",
+              "vic-quedas-hospital"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

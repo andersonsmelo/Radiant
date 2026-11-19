@@ -15,6 +15,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Entrar na profissão e cuidar."
     }
   },
+  "batch:rtg-2026:m17": {
+    "slug": "rtg-2026-m17",
+    "title": "Segurança do paciente na sala",
+    "description": "Você leva a segurança para dentro da sala de exame: identificação quando a conferência falha, quedas e transferências, limpeza entre pacientes e sinais de alerta, sempre reconhecendo, parando e chamando a equipe.",
+    "unitTitle": "Segurança do paciente na sala",
+    "reward": {
+      "id": "node:reward:rtg-2026:m17",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Segurança do paciente na sala."
+    }
+  },
   "batch:rtg-2026:m02": {
     "slug": "rtg-2026-m02",
     "title": "Corpo, orientação e linguagem",

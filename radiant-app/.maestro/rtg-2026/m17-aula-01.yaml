@@ -1,0 +1,182 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M17: aula 01 até o resumo'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn. LessonFlowScreen não recusa nó bloqueado e a aula 01 não tem unlockRule,
+# então a unidade abre numa instalação limpa, mesmo que a trilha a mostre atrás do cadeado. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am17%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am17%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m17:aula-01:i1:b'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m17:aula-01:i1:b'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, sobre o braço do paciente deitado, a faixa azul curta, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, sobre o braço do paciente deitado, a faixa azul curta, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Pulseira no punho'
+- tapOn:
+    id: 'label-chip-Pulseira no punho'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, na mão do profissional de pé, uma folha com linhas, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, na mão do profissional de pé, uma folha com linhas, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Pedido impresso'
+- tapOn:
+    id: 'label-chip-Pedido impresso'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, alto, à direita, o painel azul em cima de um suporte, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, alto, à direita, o painel azul em cima de um suporte, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Registro na tela'
+- tapOn:
+    id: 'label-chip-Registro na tela'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, à esquerda, a cabeça redonda apoiada na maca, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, à esquerda, a cabeça redonda apoiada na maca, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Fala do paciente'
+- tapOn:
+    id: 'label-chip-Fala do paciente'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 conversation
+- scrollUntilVisible:
+    element:
+      id: 'conversation-option-Ainda não: falta a resposta dele, vamos pedir apoio\.'
+- tapOn:
+    id: 'conversation-option-Ainda não: falta a resposta dele, vamos pedir apoio\.'
+- scrollUntilVisible:
+    element:
+      id: 'conversation-option-Agradecer e dizer que a equipe confirma a identidade\.'
+- tapOn:
+    id: 'conversation-option-Agradecer e dizer que a equipe confirma a identidade\.'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Pulseira com o sobrenome escrito diferente do pedido'
+- tapOn:
+    id: 'categorize-item-Pulseira com o sobrenome escrito diferente do pedido'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Parar e pedir apoio'
+- tapOn:
+    id: 'categorize-group-Parar e pedir apoio'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Punho do paciente sem pulseira'
+- tapOn:
+    id: 'categorize-item-Punho do paciente sem pulseira'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Parar e pedir apoio'
+- tapOn:
+    id: 'categorize-group-Parar e pedir apoio'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Paciente conferido na recepção, prestes a iniciar o exame'
+- tapOn:
+    id: 'categorize-item-Paciente conferido na recepção, prestes a iniciar o exame'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Conferir e seguir'
+- tapOn:
+    id: 'categorize-group-Conferir e seguir'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Paciente diz nome e nascimento que batem com a pulseira'
+- tapOn:
+    id: 'categorize-item-Paciente diz nome e nascimento que batem com a pulseira'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Conferir e seguir'
+- tapOn:
+    id: 'categorize-group-Conferir e seguir'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Paciente sonolento, que não consegue responder'
+- tapOn:
+    id: 'categorize-item-Paciente sonolento, que não consegue responder'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Parar e pedir apoio'
+- tapOn:
+    id: 'categorize-group-Parar e pedir apoio'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'

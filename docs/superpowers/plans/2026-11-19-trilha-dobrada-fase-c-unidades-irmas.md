@@ -133,8 +133,13 @@ trata do que pode ferir o paciente ali.
 | 02 | Antes que alguém caia | Reconhecer na sala o que favorece queda e corrigir antes de mover o paciente | `transferencia-maca-mesa` (novo) | `risk-hunt`, `categorize`, MC |
 | 03 | Passar da maca para a mesa | Ordenar uma transferência em equipe, cuidando de sonda, dreno e acesso | `transferencia-maca-mesa` | `ordering`, `hotspot`, MC |
 | 04 | Limpar entre um paciente e outro | Apontar as superfícies de contato da sala e a ordem da limpeza | `pontos-de-contato-da-sala` (novo) | `hotspot` ou `label`, `multi-select`, MC |
-| 05 | Sinais de alerta na sala | Reconhecer mudança no estado do paciente, parar, chamar ajuda e saber onde está cada recurso | `itens-de-emergencia-da-sala` (novo) | `label`, `blitz`, decisão de caso, MC |
-| 06 | Um turno seguro | Integrar as cinco aulas numa sala nova | `sala-com-riscos` | `risk-hunt`, `conversation`, MC |
+| 05 | Sinais de alerta na sala | Reconhecer mudança no estado do paciente, parar, chamar ajuda e saber onde está cada recurso | `itens-de-emergencia-da-sala` (novo) | `label`, `blitz`, `conversation`, MC |
+| 06 | Um turno seguro | Integrar as cinco aulas numa sala nova | `itens-de-emergencia-da-sala` | `hotspot`, `conversation`, MC |
+
+Mudança na revisão (2026-11-19): a aula 06 pedia `sala-com-riscos`, que cobra proteção
+radiológica antes de a M04 ensiná-la; trocou de figura. A aula 05 trocou a decisão de
+caso por uma conversa, porque o texto alternativo do diagrama entregava o rótulo e o
+conceito ficou sem `visual`.
 
 Limite próprio: o estudante reconhece, para e chama; não avalia sinais vitais como
 conduta, não medica, não decide sozinho se o exame continua.
