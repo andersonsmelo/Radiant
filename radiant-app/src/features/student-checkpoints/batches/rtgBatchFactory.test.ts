@@ -169,6 +169,32 @@ describe('validador de atividade: diálogo, pontos-chave e ajuda', () => {
         }
     });
 
+    it('o visual do conceito chega ao passo de conceito e só a ele, e o lote com visual promove', () => {
+        const withVisual = fixture();
+        withVisual.lessons[0].concept.visual = 'colimador-abrindo';
+        const built = buildRtgBatch(withVisual).batch;
+        const [hook, concept] = built.activities[0].steps;
+        const closing = built.activities[0].steps.at(-1)!;
+        if (hook.kind !== 'presentation' || concept.kind !== 'presentation' || closing.kind !== 'presentation') throw new Error('passos fora de ordem');
+        expect(concept.payload.visual).toBe('colimador-abrindo');
+        expect('visual' in hook.payload).toBe(false);
+        expect('visual' in closing.payload).toBe(false);
+        // Aula sem visual: a chave nem existe (o lote gerado não muda).
+        const [, plain] = batch.activities[0].steps;
+        expect(plain.kind === 'presentation' && 'visual' in plain.payload).toBe(false);
+        expect(validatePromotedProductionBatch(built)).toEqual([]);
+    });
+
+    it('a validação recusa visual que não seja texto preenchido', () => {
+        for (const bad of ['', '  ', 7, null]) {
+            const activity = copy();
+            const concept = activity.steps[1];
+            if (concept.kind !== 'presentation') throw new Error('o segundo passo é o conceito');
+            (concept.payload as Record<string, unknown>).visual = bad;
+            expect(rules(activity)).toEqual([`${concept.id}|invalid-visual`]);
+        }
+    });
+
     it('recusa ajuda em branco', () => {
         const activity = copy();
         const interaction = interactionsOf(activity.steps)[0];

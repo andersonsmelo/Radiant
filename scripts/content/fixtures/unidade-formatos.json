@@ -793,7 +793,8 @@
         "keyPoints": [
           "Conferir vem antes de usar.",
           "Dano se avisa, não se esconde."
-        ]
+        ],
+        "visual": "colimador-abrindo"
       },
       "interactions": [
         {

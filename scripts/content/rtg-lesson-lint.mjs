@@ -16,6 +16,10 @@ const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hots
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
 const { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap } = loadAppContract('features/lesson-flow/renderers/hotspotTouch.ts');
+// As 24 unidades publicadas antes da fase B: o corpo do conceito delas segue com 110 palavras mesmo com `visual`.
+// Escritas por extenso, e não lidas da fábrica: a lista da fábrica cresce, esta não.
+const LEGACY_UNITS = ['m01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+  's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us'];
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
@@ -306,7 +310,12 @@ export function lintUnit(doc, { images = [] } = {}) {
     });
     text(`${w}.concept.title`, lesson.concept?.title, { max: 60 });
     text(`${w}.concept.body`, lesson.concept?.body, { min: 120 });
-    if (words(lesson.concept?.body) > 110) err(`${w}.concept.body`, `${words(lesson.concept.body)} palavras (máx. 110)`);
+    if (lesson.concept && typeof lesson.concept === 'object') errors.push(...keyErrors(`${w}.concept`, lesson.concept, ['title', 'body', 'keyPoints', 'visual']));
+    // Com diagrama, o corpo cede espaço a ele: 80 palavras nas unidades novas.
+    const visual = lesson.concept?.visual;
+    if (visual !== undefined && !(typeof visual === 'string' && Object.hasOwn(DIAGRAMS, visual))) err(`${w}.concept.visual`, `diagrama fora do registro: ${visual}`);
+    const bodyLimit = visual !== undefined && !LEGACY_UNITS.includes(unit.id) ? 80 : 110;
+    if (words(lesson.concept?.body) > bodyLimit) err(`${w}.concept.body`, `${words(lesson.concept.body)} palavras (máx. ${bodyLimit}${bodyLimit === 80 ? ' com visual' : ''})`);
     if (!Array.isArray(lesson.concept?.keyPoints) || lesson.concept.keyPoints.length < 2 || lesson.concept.keyPoints.length > 3) err(`${w}.concept.keyPoints`, 'de 2 a 3 pontos');
     text(`${w}.closing.title`, lesson.closing?.title, { max: 60 });
     text(`${w}.closing.body`, lesson.closing?.body, { min: 40, max: 320 });

@@ -370,6 +370,8 @@ export type PresentationPayload = {
     dialogue?: LessonDialogue;
     /** Dois ou três pontos curtos que resumem o conceito. */
     keyPoints?: string[];
+    /** Só no conceito: identificador de um diagrama em código (`DIAGRAM_IDS`), entre o corpo e os pontos-chave. */
+    visual?: string;
 };
 
 export type LearningStepV2 =
@@ -813,6 +815,9 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             const keyPoints = step.payload?.keyPoints;
             if (keyPoints !== undefined && (!Array.isArray(keyPoints) || keyPoints.length === 0 || !keyPoints.every(isFilled))) {
                 push(issues, stepId, 'invalid-key-points');
+            }
+            if (step.payload?.visual !== undefined && !isFilled(step.payload.visual)) {
+                push(issues, stepId, 'invalid-visual');
             }
         } else {
             validateInteraction(issues, step.interaction);

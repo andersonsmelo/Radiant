@@ -2680,6 +2680,24 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
     fireEvent.press(await screen.findByText('Concluir e voltar'));
   }
 
+  it('o conceito com visual desenha o diagrama entre o corpo e os pontos-chave, e o leitor de tela lê a descrição dele', async () => {
+    const aula = aulaAmpla();
+    const concept = aula.steps[1];
+    if (concept.kind !== 'presentation') throw new Error('o segundo passo é o conceito');
+    concept.payload.visual = 'colimador-abrindo';
+    mockedLessonFlowService.getActivityById.mockReturnValue(aula);
+    await abrir();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('O pedido orienta o exame');
+    const figura = screen.getByLabelText(/^Colimador: duas lâminas/);
+    expect(figura.props.accessibilityRole).toBe('image');
+    const ordem = screen.toJSON() ? JSON.stringify(screen.toJSON()) : '';
+    expect(ordem.indexOf('Ele diz o que examinar')).toBeLessThan(ordem.indexOf('diagram-frame'));
+    expect(ordem.indexOf('diagram-frame')).toBeLessThan(ordem.indexOf('lesson-key-points'));
+  });
+
   it('(d) a cena de abertura revela uma fala por toque, na ordem, com o nome de quem fala, e o botão continua ao alcance', async () => {
     await abrir();
 

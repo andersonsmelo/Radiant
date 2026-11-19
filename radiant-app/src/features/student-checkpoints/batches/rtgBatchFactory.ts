@@ -45,7 +45,7 @@ export type RtgInteractionSource = RtgInteractionBase & (
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
-    concept: { title: string; body: string; keyPoints: string[] };
+    concept: { title: string; body: string; keyPoints: string[]; visual?: string };
     interactions: RtgInteractionSource[];
     closing: { title: string; body: string; line?: LessonDialogueLine };
     checkpoint: RtgChoiceItem[];
@@ -286,6 +286,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
             } },
             { kind: 'presentation', id: id('step', slug, 'conceito'), role: 'concept', payload: {
                 title: lesson.concept.title, body: lesson.concept.body, keyPoints: lesson.concept.keyPoints,
+                ...(lesson.concept.visual !== undefined ? { visual: lesson.concept.visual } : {}),
             } },
             ...interactionSteps,
             { kind: 'presentation', id: id('step', slug, 'fecho'), role: 'closing', payload: {

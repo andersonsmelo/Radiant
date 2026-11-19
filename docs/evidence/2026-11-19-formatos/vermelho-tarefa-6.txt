@@ -1,0 +1,92 @@
+# Vermelho da tarefa 6 (visual no conceito): testes antes da implementação
+## node --test scripts/content/rtg-lesson-lint.test.mjs (só as linhas com falha)
+# Subtest: visual: um diagrama do registro passa; id fora do registro reprova
+not ok 106 - visual: um diagrama do registro passa; id fora do registro reprova
+  error: 'o defeito passou sem erro'
+  expected: true
+  actual: false
+# Subtest: visual: chave do conceito fora de title, body, keyPoints e visual reprova
+not ok 107 - visual: chave do conceito fora de title, body, keyPoints e visual reprova
+  error: 'o defeito passou sem erro'
+  expected: true
+  actual: false
+# Subtest: visual: o limite de 80 palavras vale para unidade nova e só com visual
+not ok 108 - visual: o limite de 80 palavras vale para unidade nova e só com visual
+  error: 'o defeito passou sem erro'
+  expected: true
+  actual: false
+# Subtest: visual: unidade antiga com visual mantém 110 palavras
+ok 109 - visual: unidade antiga com visual mantém 110 palavras
+# pass 106
+# fail 3
+
+## jest rtgBatchFactory + ConceptVisual
+FAIL src/features/lesson-flow/components/ConceptVisual.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module './ConceptVisual' from 'src/features/lesson-flow/components/ConceptVisual.test.tsx'
+
+    However, Jest was able to find:
+    	'./ConceptVisual.test.tsx'
+
+    You might want to include a file extension in your import, or update your 'moduleFileExtensions', which is currently ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'].
+
+    See https://jestjs.io/docs/configuration#modulefileextensions-arraystring
+
+      1 | import React from 'react';
+      2 | import { render } from '@testing-library/react-native';
+    > 3 | import { ConceptVisual } from './ConceptVisual';
+        | ^
+      4 | import { DIAGRAMS } from '../../../ui/diagrams/diagramRegistry';
+      5 | import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
+      6 | import { useScreenFocused } from '../../../ui/useScreenFocused';
+
+
+FAIL src/features/student-checkpoints/batches/rtgBatchFactory.test.ts
+  ● validador de atividade: diálogo, pontos-chave e ajuda › o visual do conceito chega ao passo de conceito e só a ele, e o lote com visual promove
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "colimador-abrindo"
+    Received: undefined
+
+      177 |         const closing = built.activities[0].steps.at(-1)!;
+      178 |         if (hook.kind !== 'presentation' || concept.kind !== 'presentation' || closing.kind !== 'presentation') throw new Error('passos fora de ordem');
+    > 179 |         expect(concept.payload.visual).toBe('colimador-abrindo');
+          |                                        ^
+      180 |         expect('visual' in hook.payload).toBe(false);
+      181 |         expect('visual' in closing.payload).toBe(false);
+      182 |         // Aula sem visual: a chave nem existe (o lote gerado não muda).
+
+
+  ● validador de atividade: diálogo, pontos-chave e ajuda › a validação recusa visual que não seja texto preenchido
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 1
+
+    - Array [
+    -   "step:rtg-2026:m01:aula-01:conceito|invalid-visual",
+    - ]
+    + Array []
+
+      192 |             if (concept.kind !== 'presentation') throw new Error('o segundo passo é o conceito');
+      193 |             (concept.payload as Record<string, unknown>).visual = bad;
+    > 194 |             expect(rules(activity)).toEqual([`${concept.id}|invalid-visual`]);
+          |                                     ^
+      195 |         }
+      196 |     });
+      197 |
+
+
+Test Suites: 2 failed, 2 total
+Tests:       2 failed, 15 passed, 17 total
+Snapshots:   0 total
+Time:        0.615 s, estimated 1 s
+Ran all test suites matching /src\/features\/student-checkpoints\/batches\/rtgBatchFactory.test.ts|src\/features\/lesson-flow\/components\/ConceptVisual.test.tsx/i.
+
+## Tela sem a linha de ConceptVisual no LessonFlowScreen (retirada à mão, depois restaurada)
+  ● Frente C — aula ampla com diálogo, retorno, sequência e pista › o conceito com visual desenha o diagrama entre o corpo e os pontos-chave, e o leitor de tela lê a descrição dele
+    Unable to find an element with accessibility label: /^Colimador: duas lâminas/
+Tests:       1 failed, 151 skipped, 152 total

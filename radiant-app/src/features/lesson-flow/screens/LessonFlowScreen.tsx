@@ -32,6 +32,7 @@ import { COMBO_START, nextCombo, type ComboMilestone } from '../services/lessonC
 import { AnswerFeedbackSheet, revealOffset } from '../components/AnswerFeedbackSheet';
 import { ComboBadge } from '../components/ComboBadge';
 import { DialogueScene, dialogueLineLabel } from '../components/DialogueScene';
+import { ConceptVisual } from '../components/ConceptVisual';
 import { KeyPointsList } from '../components/KeyPointsList';
 import { LessonHelpButton } from '../components/LessonHelpButton';
 import { useShakeError } from '../../../ui/motion';
@@ -930,6 +931,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                     title: currentStep.payload.title,
                                     body: currentStep.payload.body ?? '',
                                 }} />
+                                {currentStep.payload.visual ? <ConceptVisual id={currentStep.payload.visual} /> : null}
                                 {currentStep.payload.keyPoints?.length ? <KeyPointsList points={currentStep.payload.keyPoints} /> : null}
                             </>
                         ) : null}

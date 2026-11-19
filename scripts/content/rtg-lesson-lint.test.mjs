@@ -665,3 +665,35 @@ test('blitz: recusa chave fora da lista, no item e na afirmação', () => {
 test('blitz: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
   expectOnly(blitzItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
+
+// `visual` no conceito (fase B, tarefa 6): um diagrama do registro; unidade nova com visual tem corpo de até 80 palavras.
+const withVisual = (mutate = () => {}, { unit = 'm01' } = {}) => {
+  const doc = fixture();
+  if (unit !== 'm01') {
+    doc.unit.id = unit;
+    doc.lessons.forEach((lesson, i) => { lesson.id = `${unit}-0${i + 1}`; });
+  }
+  doc.lessons[0].concept.visual = 'colimador-abrindo';
+  mutate(doc.lessons[0].concept);
+  return lintUnit(doc);
+};
+const bodyOf = (n) => Array.from({ length: n }, (_, i) => (i === 0 ? 'Conferir' : 'palavra')).join(' ');
+test('visual: um diagrama do registro passa; id fora do registro reprova', () => {
+  assert.deepEqual(withVisual(), []);
+  expectOnly(withVisual(concept => { concept.visual = 'diagrama-que-nao-existe'; }), /concept\.visual: diagrama fora do registro: diagrama-que-nao-existe/);
+  expectOnly(withVisual(concept => { concept.visual = ''; }), /concept\.visual: diagrama fora do registro/);
+});
+test('visual: chave do conceito fora de title, body, keyPoints e visual reprova', () => {
+  expectOnly(withVisual(concept => { concept.visuall = 'colimador-abrindo'; }), /concept: campo desconhecido: visuall/);
+  expectOnly(defect(doc => { doc.lessons[0].concept.imagem = 'x'; }), /concept: campo desconhecido: imagem/);
+});
+test('visual: o limite de 80 palavras vale para unidade nova e só com visual', () => {
+  assert.deepEqual(withVisual(concept => { concept.body = bodyOf(80); }, { unit: 'm17' }), []);
+  expectOnly(withVisual(concept => { concept.body = bodyOf(81); }, { unit: 'm17' }), /concept\.body: 81 palavras \(máx\. 80 com visual\)/);
+  // Sem visual, a unidade nova mantém 110.
+  assert.deepEqual(defect(doc => { doc.unit.id = 'm17'; doc.lessons.forEach((l, i) => { l.id = `m17-0${i + 1}`; }); doc.lessons[0].concept.body = bodyOf(100); }), []);
+});
+test('visual: unidade antiga com visual mantém 110 palavras', () => {
+  assert.deepEqual(withVisual(concept => { concept.body = bodyOf(100); }), []);
+  expectOnly(withVisual(concept => { concept.body = bodyOf(111); }), /concept\.body: 111 palavras \(máx\. 110\)/);
+});
