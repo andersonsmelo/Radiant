@@ -1360,6 +1360,29 @@ cd radiant-app && npx eas build:list --limit 2 --non-interactive
 O estado do Play só se mede abrindo o console: **Teste → Teste fechado → Alpha** e
 **Visão geral da publicação**.
 
+### 9. Contas de loja da empresa — aberto em 2026-11-18
+
+**Estado em 2026-11-18:** o dono decidiu passar as duas contas para a empresa
+(LTDA ou SLU, site `saudediagnostica.com`), convertendo cada uma no lugar
+([ADR](adr/ADR-2026-11-18-contas-de-loja-da-empresa.md)). Nada foi feito nos
+consoles ainda. **Bloqueio:** humano. **Dono:** dono, salvo a tarefa 6.
+
+O passo a passo está no
+[plano](superpowers/plans/2026-11-18-contas-de-loja-pj.md), nesta ordem:
+
+1. **Dono:** D-U-N-S da empresa, com a mesma razão social do CNPJ.
+2. **Dono:** e-mail no domínio da empresa, banco no CNPJ e orientação do
+   contador.
+3. **Dono:** converter a conta do Play e esperar 72 h. Depois, ler no painel se
+   o teste fechado ainda é exigido. Se não for, o item 5 deixa de bloquear a
+   produção do Android.
+4. **Dono:** perguntar por escrito ao suporte da Apple antes de pedir a
+   conversão.
+5. **Dono:** contrato, banco e formulários fiscais na Apple depois da
+   conversão.
+6. **AGENTE:** política de privacidade, página de suporte e STATUS com a
+   empresa, num run próprio.
+
 ## Precisa de aparelho ou janela de host
 
 **B5 Android**, **C4** (flows em device físico), **C5** (TalkBack no Android),
