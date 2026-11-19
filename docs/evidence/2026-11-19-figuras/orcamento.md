@@ -104,3 +104,7 @@ O plano escreveu a regra antes da medição: "se a projeção passar de 8 MiB de
 - Vídeo do laço no Android, porque nenhuma aula anima o leito.
 - O toque nos alvos sobre a arte nova e o movimento reduzido no Android. O argumento `radiantReduceMotion` só vale no iOS.
 - O gate `npm run quality`, que fica com o controlador.
+
+## iOS, segunda tentativa (2026-11-19, 18h35)
+
+Com cerca de 11 GiB livres no disco, o roteiro gerado `radiant-app/.maestro/figuras/m25-aula-01.yaml` rodou até o fim no simulador de iPhone e gravou as duas capturas do crânio com os alvos remarcados: `capturas/ios-cranio-passo4.jpg` (rotular) e `capturas/ios-cranio-passo6.jpg` (tocar em regiões). Visto nas imagens: a arte nova aparece, e os pontos e as regiões caem sobre os ossos. Defeito visto no passo 6: nas regiões baixas (occipital e mandíbula) o número da região aparece cortado, porque a etiqueta não cabe na altura da região. O roteiro da M25-05 (leito) não chegou a rodar: a sessão foi interrompida para o reinício do Mac. Não visto no iOS depois da remarcação: o leito.
