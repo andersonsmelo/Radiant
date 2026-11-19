@@ -1,0 +1,21 @@
+## Vermelho 1: conversor ingênuo (devolve o SVG de entrada sem achatar)
+not ok 1 - classe CSS vira atributo de apresentação
+not ok 2 - rgba() vira hex mais opacidade
+not ok 3 - regra com seletor de pai mantém a cor do filho (o defeito do piloto)
+not ok 4 - gradiente fica na camada que o usa, e só nela
+not ok 5 - filter sai e o relatório lista a perda
+not ok 6 - sem Chrome o aviso diz o que fazer
+# pass 0
+# fail 6
+# skipped 0
+
+## Vermelho 2: defeito do piloto (apagar a classe do pai antes de ler o filho)
+not ok 1 - classe CSS vira atributo de apresentação
+not ok 2 - rgba() vira hex mais opacidade
+not ok 3 - regra com seletor de pai mantém a cor do filho (o defeito do piloto)
+ok 4 - gradiente fica na camada que o usa, e só nela
+not ok 5 - filter sai e o relatório lista a perda
+ok 6 - sem Chrome o aviso diz o que fazer # SKIP Chrome presente: o teste vale só sem ele
+# pass 1
+# fail 4
+# skipped 1
