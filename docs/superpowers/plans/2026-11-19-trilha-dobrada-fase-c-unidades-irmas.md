@@ -308,7 +308,7 @@ M07; suspeita de fratura é "não mover, pedir apoio".
 | m21 | `grandezas-de-dose` | parado | Três painéis lado a lado: energia depositada num bloco de tecido; o mesmo bloco com dois tipos de radiação pesando diferente; um corpo com órgãos de pesos diferentes |
 | m21 | `dosimetro-no-corpo` | parado | Profissional de frente com avental: dosímetro no tórax, dosímetro de anel na mão, dosímetro perto do olho, e um dosímetro de referência guardado num quadro fora da sala |
 | m21 | `produto-dose-area` | parado | Tubo e colimador com a câmara de medição na saída; dois campos, um pequeno e um grande, e o paciente mais abaixo |
-| m22 | `histograma-e-lut` | parado | Histograma em barras com três regiões (fora do corpo, anatomia, colimação) e a faixa de interesse marcada; ao lado, a curva de conversão |
+| m22 | `histograma-e-lut` | parado | Histograma em barras com três regiões (colimação, anatomia, fora do corpo) e a faixa de interesse marcada; ao lado, a curva de conversão |
 | m22 | `realce-e-suavizacao` | parado | Três perfis de uma borda empilhados: original, realçado com ultrapassagem nos dois lados, suavizado com a rampa mais larga |
 | m22 | `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, um quadrado quase preto dentro do preto e um quase branco dentro do branco, pares de linhas; uma janela ao fundo refletindo na tela |
 | m22 | `fluxo-ris-pacs` | parado | Blocos ligados por setas: cadastro e pedido, lista de trabalho, equipamento, arquivo de imagens, estação de visualização |
