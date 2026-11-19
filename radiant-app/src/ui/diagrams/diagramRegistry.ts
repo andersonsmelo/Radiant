@@ -54,6 +54,12 @@ import { corteAbdomeSuperior } from './specs/corte-abdome-superior';
 import { cortePelve } from './specs/corte-pelve';
 import { cortePescoco } from './specs/corte-pescoco';
 import { colunaSagitalEAxial } from './specs/coluna-sagital-e-axial';
+import { contrasteNoCorpo } from './specs/contraste-no-corpo';
+import { fluoroscopiaCadeia } from './specs/fluoroscopia-cadeia';
+import { fluoroscopiaPulsada } from './specs/fluoroscopia-pulsada';
+import { salaDeFluoroscopiaEspalhada } from './specs/sala-de-fluoroscopia-espalhada';
+import { contencaoPediatrica } from './specs/contencao-pediatrica';
+import { idosoApoiosERiscos } from './specs/idoso-apoios-e-riscos';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -111,6 +117,12 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [cortePelve.id]: cortePelve,
   [cortePescoco.id]: cortePescoco,
   [colunaSagitalEAxial.id]: colunaSagitalEAxial,
+  [contrasteNoCorpo.id]: contrasteNoCorpo,
+  [fluoroscopiaCadeia.id]: fluoroscopiaCadeia,
+  [fluoroscopiaPulsada.id]: fluoroscopiaPulsada,
+  [salaDeFluoroscopiaEspalhada.id]: salaDeFluoroscopiaEspalhada,
+  [contencaoPediatrica.id]: contencaoPediatrica,
+  [idosoApoiosERiscos.id]: idosoApoiosERiscos,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
