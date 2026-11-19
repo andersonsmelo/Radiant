@@ -108,9 +108,10 @@ relatório: [2026-11-06](../superpowers/handoffs/2026-11-06-trilha-ampla-relator
 **Atualização de 2026-11-18 — trilha dobrada (1.7).** Fora das ondas A a H, por pedido
 do dono: dobrar a trilha, tirar lei brasileira e diversificar a entrega, em cinco fases
 ([desenho](../superpowers/specs/2026-11-18-trilha-dobrada-design.md)). **Fase A (base
-internacional): feita na branch `claude/trilha-dobrada` em 2026-11-18, sem merge.** Fases
-B (formatos), C (unidades irmãs), D (conversão) e E (integração): não iniciadas. Estado
-no [`STATUS.md`](../STATUS.md).
+internacional): feita na branch `claude/trilha-dobrada` em 2026-11-18, sem merge (PR
+#89). Fase B (formatos): feita na branch `claude/trilha-dobrada-fase-b` em 2026-11-19,
+empilhada na A, sem merge (PR #90).** Fases C (unidades irmãs), D (conversão) e E
+(integração): não iniciadas. Estado no [`STATUS.md`](../STATUS.md).
 
 ## 3. Estratégia
 
