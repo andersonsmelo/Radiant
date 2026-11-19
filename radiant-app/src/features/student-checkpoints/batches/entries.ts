@@ -59,6 +59,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Células, tecidos e funções."
     }
   },
+  "batch:rtg-2026:m20": {
+    "slug": "rtg-2026-m20",
+    "title": "Sistemas do corpo em funcionamento",
+    "description": "Como respiração, circulação, digestão, eliminação e comando do corpo funcionam, no que importa para quem adquire a imagem, sem ensinar doença nem escolher conduta.",
+    "unitTitle": "Sistemas do corpo em funcionamento",
+    "reward": {
+      "id": "node:reward:rtg-2026:m20",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Sistemas do corpo em funcionamento."
+    }
+  },
   "batch:rtg-2026:m04": {
     "slug": "rtg-2026-m04",
     "title": "Radiação, interação e proteção",
