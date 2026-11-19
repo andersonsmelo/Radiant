@@ -5,6 +5,7 @@
 // Sai com 1 se houver erro. Sem dependências. Confere forma, não verdade.
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
 const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select'];
@@ -31,7 +32,7 @@ export function lintUnit(doc, { images = [] } = {}) {
 
   if (doc.schemaVersion !== 1) err('raiz', 'schemaVersion deve ser 1');
   const unit = doc.unit ?? {};
-  if (!/^(m\d{2}|s-[a-z]{2})$/.test(unit.id ?? '')) err('unit.id', 'use m01..m14 ou s-tc, s-rm, s-md, s-mn, s-rt, s-ir');
+  if (!/^(m\d{2}|s-[a-z]{2})$/.test(unit.id ?? '')) err('unit.id', 'use m seguido de dois dígitos, ou s- seguido de duas letras');
   text('unit.title', unit.title, { max: 60 });
   text('unit.summary', unit.summary, { min: 30, max: 220 });
 
@@ -234,6 +235,15 @@ export function lintUnit(doc, { images = [] } = {}) {
   if (checkpointPositions.reduce((sum, count) => sum + count, 0) >= 4) checkpointPositions.forEach((count, i) => {
     if (count === 0) err('unidade', `nos itens de conferência a correta nunca cai na posição ${i + 1}; o contrato do lote exige as quatro posições`);
   });
+  // Base internacional (guia, regra 1.4). Varre o documento inteiro, e não só os campos que as
+  // outras réguas leem: campo novo no formato nasce coberto. Identificador e endereço não são texto de aula.
+  const NOT_TEXT = new Set(['id', 'sourceIds', 'url', 'imageId']);
+  const national = (where, value) => {
+    if (typeof value === 'string') findNationalReferences(value).forEach((found) => err(where, `referência nacional "${found}"; use base internacional (guia, regra 1.4)`));
+    else if (Array.isArray(value)) value.forEach((item, i) => national(`${where}[${i}]`, item));
+    else if (value && typeof value === 'object') Object.entries(value).forEach(([key, item]) => NOT_TEXT.has(key) || national(`${where}.${key}`, item));
+  };
+  national('unit', doc.unit); national('sources', doc.sources); national('lessons', doc.lessons);
   return errors;
 }
 

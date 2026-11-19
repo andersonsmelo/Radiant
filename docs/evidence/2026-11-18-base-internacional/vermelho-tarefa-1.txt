@@ -1,0 +1,27 @@
+# Vermelho da tarefa 1 (2026-11-18)
+
+## 1. Antes de o módulo existir: node --test scripts/content/rtg-national-terms.test.mjs
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 347.732083
+
+## 2. Redação legal sem número, antes de a régua cobri-la (37 passam, 6 falham)
+not ok 24 - barra: Retome o que a lei exige do consentimento.
+not ok 25 - barra: Protocolos alinhados à legislação e ao fabricante.
+not ok 26 - barra: A Política Nacional de Humanização orienta.
+not ok 27 - barra: Apenas à autoridade sanitária, em visita.
+not ok 28 - barra: A vigilância sanitária pede o registro.
+not ok 29 - barra: Siga as instruções normativas.
+# pass 37
+# fail 6
+
+## 3. Régua ainda não ligada no verificador: node --test scripts/content/rtg-lesson-lint.test.mjs
+not ok 40 - referência nacional reprova no conceito
+not ok 41 - referência nacional reprova no retorno de uma alternativa da conferência
+not ok 42 - referência nacional reprova no título de uma fonte
+not ok 43 - referência nacional reprova em campo que nenhuma outra régua lê
+# pass 40
+# fail 4
