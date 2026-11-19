@@ -37,6 +37,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Corpo, orientação e linguagem."
     }
   },
+  "batch:rtg-2026:m18": {
+    "slug": "rtg-2026-m18",
+    "title": "Esqueleto, articulações e marcos de superfície",
+    "description": "Os nomes do esqueleto que o posicionamento pressupõe: grupos axial e apendicular, osso longo, regiões da coluna, articulações e marcos de superfície do tronco e da pelve, sempre avisando o paciente antes de tocar.",
+    "unitTitle": "Esqueleto, articulações e marcos de superfície",
+    "reward": {
+      "id": "node:reward:rtg-2026:m18",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Esqueleto, articulações e marcos de superfície."
+    }
+  },
   "batch:rtg-2026:m03": {
     "slug": "rtg-2026-m03",
     "title": "Bases quantitativas e físicas",
