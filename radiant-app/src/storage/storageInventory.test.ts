@@ -65,6 +65,7 @@ const NOT_STORAGE = new Map([
     ['market', 'dimensão de telemetria'],
     ['RADIANT_CHECKPOINT_PERF ', 'prefixo de linha de log de desempenho'],
     ['competency:legacy:', 'prefixo de identificador de competência'],
+    ['diagram:', 'prefixo de `imageRef` quando a figura é um diagrama em código (ui/diagrams)'],
     ['boolean — só indica existência do token, não o valor', 'descrição de campo sanitizado'],
 ]);
 
