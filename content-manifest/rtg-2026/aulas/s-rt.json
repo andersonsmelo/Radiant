@@ -8,18 +8,36 @@
   },
   "sources": [
     {
-      "id": "cnen-ansn-6-10",
-      "title": "Norma ANSN 6.10: requisitos de segurança e proteção radiológica para serviços de radioterapia (Resolução CNEN 277/21)",
-      "publisher": "CNEN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-6/ansn-6-10-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-radioterapia.pdf",
-      "accessedAt": "2026-11-07",
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos (arts. 24 a 27, 35, 36, 41, 42, 61 e 62 e deveres do titular), sem reprodução de texto."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: sala de tratamento, fonte selada, identificação, garantia da qualidade, auditoria e eventos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "inca-radioterapia",
       "title": "Radioterapia",
-      "publisher": "INCA, Ministério da Saúde",
+      "publisher": "Instituto Nacional de Câncer (INCA)",
       "url": "https://www.gov.br/inca/pt-br/assuntos/cancer/tratamento/radioterapia",
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
@@ -126,7 +144,7 @@
       },
       "concept": {
         "title": "Cada função, uma parte do cuidado",
-        "body": "Na radioterapia, o radio-oncologista consulta e define o tipo e o tempo do tratamento. A física médica calcula a dose e controla a qualidade dos aparelhos. Técnicos e tecnólogos posicionam o paciente e operam o aparelho. A enfermagem orienta os cuidados. A norma ANSN 6.10 não permite acompanhante na sala de tratamento e exige observar e falar com o paciente a partir do comando. Você, estudante, não avalia nem minimiza o que o paciente conta. Sintoma relatado, dúvida sobre resultado ou vontade de faltar: escute, pare e leve à equipe.",
+        "body": "Na radioterapia, o radio-oncologista consulta e define o tipo e o tempo do tratamento. A física médica calcula a dose e controla a qualidade dos aparelhos. Técnicos e tecnólogos posicionam o paciente e operam o aparelho. A enfermagem orienta os cuidados. Com o feixe ligado, ninguém além do paciente fica na sala de tratamento, e a equipe o vê e fala com ele a partir do comando, por câmera e interfone. Você, estudante, não avalia nem minimiza o que o paciente conta. Sintoma relatado, dúvida sobre resultado ou vontade de faltar: escute, pare e leve à equipe.",
         "keyPoints": [
           "Definir, calcular e posicionar são funções diferentes.",
           "O paciente fica só na sala, visto e ouvido pelo comando.",
@@ -194,7 +212,7 @@
           "help": "Busque o verbo que descreve cada função antes de ligar os pares.",
           "sourceIds": [
             "inca-radioterapia",
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -207,10 +225,10 @@
             {
               "label": "Diz que a filha pode entrar até o feixe ser ligado",
               "correct": false,
-              "feedback": "A norma não abre essa exceção: acompanhante não fica na sala de tratamento. Retome o que a ANSN 6.10 determina."
+              "feedback": "Com o feixe ligado, só o paciente fica na sala, e quem entra antes é decisão do técnico. Retome a regra da sala de tratamento."
             },
             {
-              "label": "Explica que acompanhante não entra e chama o técnico",
+              "label": "Diz que só o paciente fica e chama o técnico",
               "correct": true,
               "feedback": "Isso. A regra existe, e o medo dela merece atenção de quem conduz a sessão: o técnico explica como ela é vista e ouvida."
             },
@@ -227,7 +245,7 @@
           ],
           "help": "Separe o que é regra do setor do que é acolher o medo, e pense em quem conduz a sessão.",
           "sourceIds": [
-            "cnen-ansn-6-10",
+            "iaea-ssg46-2018",
             "inca-radioterapia"
           ]
         },
@@ -336,12 +354,12 @@
           ]
         },
         {
-          "prompt": "Durante a aplicação, a paciente fica sozinha na sala. O que a norma ANSN 6.10 exige para a equipe acompanhá-la?",
+          "prompt": "Durante a aplicação, a paciente fica sozinha na sala. O que a equipe precisa ter para acompanhá-la?",
           "options": [
             {
               "label": "Um acompanhante treinado dentro da sala",
               "correct": false,
-              "feedback": "A norma não permite acompanhante na sala de tratamento. Retome de onde a equipe acompanha a paciente."
+              "feedback": "Com o feixe ligado, só a paciente fica na sala. Retome de onde a equipe acompanha a paciente."
             },
             {
               "label": "Um técnico ao lado da mesa durante o feixe",
@@ -351,7 +369,7 @@
             {
               "label": "Observar e falar com ela pelo comando",
               "correct": true,
-              "feedback": "Isso. A norma exige dispositivos para observar a paciente e falar com ela a partir da sala de comando."
+              "feedback": "Isso. A equipe precisa de dispositivos para observar a paciente e falar com ela a partir da sala de comando."
             },
             {
               "label": "Uma visita da enfermagem a cada fração",
@@ -360,7 +378,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -578,19 +596,19 @@
           ],
           "help": "Pense em para que serve o intertravamento e em quem conduz a sessão.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
           "id": "i5",
           "type": "multiple-choice",
           "role": "transfer",
-          "prompt": "Numa visita, você vê uma sala de teleterapia com fonte selada. O prédio fica sem energia durante uma aplicação. O que a norma exige da fonte?",
+          "prompt": "Numa visita, você vê uma sala de teleterapia com fonte selada. O prédio fica sem energia durante uma aplicação. O que deve acontecer com a fonte?",
           "options": [
             {
               "label": "Permanecer exposta até a fração terminar",
               "correct": false,
-              "feedback": "A fonte não pode ficar exposta numa falta de energia. Retome o que a norma pede ao cabeçote."
+              "feedback": "A fonte não pode ficar exposta numa falta de energia. Retome o que o cabeçote blindado faz."
             },
             {
               "label": "Ser retirada da sala pela equipe de plantão",
@@ -605,12 +623,12 @@
             {
               "label": "Ser recolhida por completo ao cabeçote",
               "correct": true,
-              "feedback": "Isso. A norma exige o recolhimento ao cabeçote blindado, como também na porta aberta e no botão de emergência."
+              "feedback": "Isso. Sem energia, a fonte volta sozinha ao cabeçote blindado e só sai por reativação no painel, como a irradiação também é interrompida na porta aberta e no botão de emergência."
             }
           ],
           "help": "Pense no que a blindagem do aparelho faz quando não há feixe.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -652,17 +670,17 @@
           ]
         },
         {
-          "prompt": "Um botão de emergência é acionado dentro da sala. O que a norma prevê para a irradiação?",
+          "prompt": "Um botão de emergência é acionado dentro da sala. O que deve acontecer com a irradiação?",
           "options": [
             {
               "label": "Continua até o fim da fração programada",
               "correct": false,
-              "feedback": "Um dispositivo de segurança acionado não espera a fração. Retome o que a norma manda."
+              "feedback": "Um dispositivo de segurança acionado não espera a fração. Retome o que o botão de emergência faz."
             },
             {
               "label": "Diminui a taxa e dispara um alarme no comando",
               "correct": false,
-              "feedback": "A norma não fala em diminuir: a irradiação é interrompida. Confira de novo."
+              "feedback": "O botão não diminui a taxa: a irradiação é interrompida. Confira de novo."
             },
             {
               "label": "Para e recomeça sozinha depois de um minuto",
@@ -676,7 +694,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -708,7 +726,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -1061,7 +1079,7 @@
               {
                 "label": "A família pode entrar, porque não há feixe externo",
                 "correct": false,
-                "feedback": "A norma não permite acompanhante nas salas de tratamento. Retome como é feito o acompanhamento."
+                "feedback": "Com a aplicação em curso, só o paciente fica na sala de tratamento. Retome como é feito o acompanhamento."
               },
               {
                 "label": "A equipe o vê e o ouve, e ele pode falar com ela",
@@ -1072,7 +1090,7 @@
             "sourceIds": [
               "radiologyinfo-brachy",
               "inca-radioterapia",
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -1166,7 +1184,7 @@
           "help": "Pergunte o que não faria sentido alinhar sem ter feito antes.",
           "sourceIds": [
             "radiologyinfo-ebt",
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1750,7 +1768,7 @@
       },
       "concept": {
         "title": "Nomes e finalidades, sem conta",
-        "body": "Sobre a tomografia de simulação, tumor e estruturas normais são contornados. No Brasil, a norma ANSN 6.10 pede que o plano, em sistema computadorizado, seja feito pelo especialista em física médica ou sob sua supervisão, com segunda assinatura, a dupla conferência. Guias estrangeiros citam o dosimetrista e, em IMRT, a verificação do plano pela física no aparelho, com fantoma. Só então começam as aplicações. GTV é o que se vê, palpa ou mostra na imagem. CTV soma margem para doença microscópica. PTV soma margem para incertezas. Órgão de risco é tecido normal cuja sensibilidade pesa no plano. A dose aparece em gray (Gy), dividida em frações. Sem conta para paciente.",
+        "body": "Sobre a tomografia de simulação, tumor e estruturas normais são contornados. O plano, feito em sistema computadorizado, é trabalho da física médica ou sai sob sua supervisão, e uma segunda pessoa o confere: a dupla conferência. Em muitos serviços, o dosimetrista ajuda no plano; em IMRT, a física verifica o plano no aparelho, com fantoma. Só então começam as aplicações. GTV é o que se vê, palpa ou mostra na imagem. CTV soma margem para doença microscópica. PTV soma margem para incertezas. Órgão de risco é tecido normal cuja sensibilidade pesa no plano. A dose aparece em gray (Gy), dividida em frações. Sem conta para paciente.",
         "keyPoints": [
           "Do GTV ao PTV, cada volume acrescenta uma margem com um motivo.",
           "O plano passa por conferência antes da primeira aplicação.",
@@ -1838,7 +1856,7 @@
           "sourceIds": [
             "radiologyinfo-ebt",
             "radiologyinfo-linac",
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1872,7 +1890,7 @@
           ],
           "help": "Pergunte quem pode dizer qual registro vale.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2034,7 +2052,7 @@
             ],
             "sourceIds": [
               "inca-radioterapia",
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -2070,10 +2088,10 @@
       },
       "concept": {
         "title": "Controles têm ritmo, e falha tem caminho",
-        "body": "Você vai ouvir: conformada tridimensional, IMRT e VMAT. Na IMRT, a intensidade do feixe é modulada. Na VMAT, forma de IMRT, as lâminas mudam com o gantry em rotação. Indicar a técnica é do radio-oncologista. Na norma ANSN 6.10: testes diários de segurança em toda fonte, dose absorvida na água mensal em teleterapia, monitoração do cabeçote de fonte selada ao menos anual, auditoria externa ao menos a cada dois anos. Teste fora do aceito: pare e avise. Defeito no sistema de segurança deve impedir acionar a fonte até o conserto. Incidente com tratamento diferente do planejado: investigar, relatar à ANSN em até 30 dias e informar o paciente por escrito.",
+        "body": "Técnicas: conformada tridimensional, IMRT e VMAT. Na IMRT, a intensidade do feixe é modulada. Na VMAT, as lâminas mudam com o gantry em rotação. Indicar a técnica é do radio-oncologista. O programa de qualidade do serviço define a frequência de cada teste: teste de segurança da fonte, dose absorvida na água em teleterapia, integridade do cabeçote de fonte selada e auditoria independente. Teste fora do aceito: pare e avise. Defeito de segurança ou desvio grande tira o equipamento de uso até o conserto e a liberação pela física. Tratamento diferente do planejado: registrar, investigar e comunicar pelo sistema; evento significativo vai ao regulador, e o paciente é informado.",
         "keyPoints": [
           "Nomes de técnicas são vocabulário: indicar não é papel do estudante.",
-          "Diário, mensal, anual e auditoria: controles em camadas.",
+          "Teste de segurança, dose, fonte e auditoria: controles em camadas.",
           "Teste fora do aceito: pare e avise técnico e física."
         ]
       },
@@ -2114,30 +2132,30 @@
           "id": "i2",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada controle ao ritmo ensinado nesta aula.",
+          "prompt": "Ligue cada controle ao que ele confere.",
           "pairs": [
             {
               "left": "Teste de segurança de toda fonte",
-              "right": "Diário"
+              "right": "Confirma, antes de tratar, que as proteções respondem"
             },
             {
               "left": "Dose absorvida na água em teleterapia",
-              "right": "Mensal"
+              "right": "Mede o que o feixe entrega ao paciente"
             },
             {
               "left": "Monitoração do cabeçote de fonte selada",
-              "right": "Ao menos uma vez por ano"
+              "right": "Confere se o invólucro está íntegro e blindado"
             },
             {
               "left": "Auditoria externa e independente",
-              "right": "Ao menos a cada dois anos"
+              "right": "Avaliação feita por quem não trabalha no serviço"
             }
           ],
-          "feedbackCorrect": "Essas são as camadas: o que se confere todo dia, o que tem ciclo mais longo e o olhar de fora.",
-          "feedbackIncorrect": "Retome o conceito: o que protege toda sessão é diário, e o olhar de fora é o de ciclo mais longo.",
-          "help": "Comece pelo controle mais frequente e pelo menos frequente.",
+          "feedbackCorrect": "Essas são as camadas: o que protege toda sessão, o que confere a dose, o que cuida da fonte e o olhar de fora.",
+          "feedbackIncorrect": "Retome o conceito: cada controle existe para conferir uma coisa, e a frequência é a do programa de qualidade do serviço.",
+          "help": "Comece pelo controle que protege toda sessão e pelo que vem de fora.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2196,14 +2214,14 @@
               "feedback": "O resultado de ontem não responde pelo aparelho hoje. Retome o que um teste que falhou pede."
             },
             {
-              "label": "Diz o resultado ao técnico e à física e aguarda",
+              "label": "Avisa o técnico e a física e aguarda",
               "correct": true,
               "feedback": "Isso. Teste que falhou significa parar e avisar. O que fazer com o aparelho é decisão de quem responde por ele."
             }
           ],
           "help": "Pense no que o teste de hoje diz, e quem responde por isso.",
           "sourceIds": [
-            "cnen-ansn-6-10",
+            "iaea-ssg46-2018",
             "radiologyinfo-linac"
           ]
         },
@@ -2237,7 +2255,7 @@
           ],
           "help": "Separe o que você sabe do que você só não lembra de ter visto.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -2279,31 +2297,32 @@
           ]
         },
         {
-          "prompt": "Um incidente fez um tratamento sair diferente do planejado. O que a norma ANSN 6.10 exige do serviço depois disso?",
+          "prompt": "Um incidente fez um tratamento sair diferente do planejado. O que se espera do serviço depois disso?",
           "options": [
             {
-              "label": "Investigar e relatar à ANSN em até 30 dias",
+              "label": "Investigar e comunicar o desvio",
               "correct": true,
-              "feedback": "Isso. Há investigação e relatório à ANSN em até 30 dias da identificação, com informação escrita ao paciente e ao médico solicitante."
+              "feedback": "Isso. Registra-se, investiga-se e comunica-se pelo sistema do serviço, e evento significativo vai ao regulador pelas regras locais, com o paciente informado."
             },
             {
               "label": "Apagar o registro e repetir a fração",
               "correct": false,
-              "feedback": "Apagar registro é o oposto do que a norma pede. Retome o caminho de um desvio."
+              "feedback": "Apagar registro é o oposto do que se espera. Retome o caminho de um desvio."
             },
             {
               "label": "Comunicar só na próxima auditoria externa",
               "correct": false,
-              "feedback": "A norma pede investigação imediata e tem um prazo próprio. Confira de novo."
+              "feedback": "Esperar a auditoria deixa o desvio sem investigação agora. Confira de novo."
             },
             {
               "label": "Não contar nada ao paciente, para poupá-lo",
               "correct": false,
-              "feedback": "A norma exige informar o paciente por escrito. Retome o que ela manda."
+              "feedback": "O paciente afetado deve ser informado. Retome o que se espera do serviço."
             }
           ],
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         }
       ],
@@ -2335,7 +2354,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2346,17 +2365,17 @@
               {
                 "label": "Os outros botões bastam até a manutenção",
                 "correct": false,
-                "feedback": "A norma quer sistemas em que um defeito impeça acionar a fonte até o conserto. Retome a regra."
+                "feedback": "O equipamento com defeito de segurança sai de uso até o conserto. Retome a regra."
               },
               {
                 "label": "A anotação basta até a auditoria externa",
                 "correct": false,
-                "feedback": "A auditoria é periódica, e o defeito é de agora. Confira de novo o que a norma diz."
+                "feedback": "A auditoria é periódica, e o defeito é de agora. Confira de novo o que a aula sustenta."
               },
               {
-                "label": "Defeito de segurança impede uso até o conserto",
+                "label": "Fica sem uso até o conserto",
                 "correct": true,
-                "feedback": "Isso. A norma pede sistemas de segurança em que um defeito impeça acionar a fonte até o conserto. Cabe à equipe conduzir."
+                "feedback": "Isso. Defeito de segurança ou desvio grande tira o equipamento de uso até o conserto e a liberação pela física. Cabe à equipe conduzir."
               },
               {
                 "label": "A porta fechada compensa o botão com defeito",
@@ -2365,13 +2384,13 @@
               }
             ],
             "sourceIds": [
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         }
       },
       "diagramIdeas": [
-        "Quatro faixas de tempo: diário, mensal, anual e dois anos, com um controle em cada uma",
+        "Quatro camadas de controle: segurança da fonte, dose, integridade do cabeçote e auditoria independente, com a frequência definida pelo serviço",
         "Caminho do teste que falhou: parar, avisar, aguardar a decisão da equipe"
       ]
     },
@@ -2401,7 +2420,7 @@
       },
       "concept": {
         "title": "Cinco pontos e uma fala em ordem",
-        "body": "Nesta aula, cinco pontos são conferidos antes de cada aplicação: identidade, plano, posição, acessórios e relato do paciente. A norma ANSN 6.10 exige a fotografia do paciente nos documentos do tratamento e no painel de controle. Se algo não bate, comunique na ordem ensinada aqui: pare; chame quem conduz a sessão; diga o fato que viu, sem interpretar; diga onde o dado apareceu; espere a resposta da equipe. Técnico, física médica e radio-oncologista resolvem. Você não corrige registro nem escolhe entre dois dados. Os profissionais expostos informam ao supervisor de proteção radiológica os eventos que possam influir na exposição ou no risco de acidente.",
+        "body": "Nesta aula, cinco pontos são conferidos antes de cada aplicação: identidade, plano, posição, acessórios e relato do paciente. O serviço identifica o paciente por mais de um método independente, como nome, data de nascimento e a foto do cadastro, quando houver. Se algo não bate, comunique na ordem ensinada aqui: pare; chame quem conduz a sessão; diga o fato que viu, sem interpretar; diga onde o dado apareceu; espere a resposta da equipe. A equipe resolve. Você não corrige registro nem escolhe entre dois dados. Quem trabalha na sala avisa quem responde pela proteção radiológica do serviço sobre qualquer evento que possa influir na exposição ou no risco.",
         "keyPoints": [
           "Identidade, plano, posição, acessórios e relato: os cinco pontos.",
           "Fale o fato e onde ele apareceu, sem concluir.",
@@ -2438,7 +2457,8 @@
           ],
           "help": "Volte ao caminho de um teste que falha, na aula anterior.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2468,7 +2488,7 @@
           "feedbackIncorrect": "Retome os cinco pontos do conceito: pergunte, em cada situação, o que exatamente não concorda.",
           "help": "Em cada situação, pergunte: o que não está igual, a pessoa, o número, o lugar ou o objeto?",
           "sourceIds": [
-            "cnen-ansn-6-10",
+            "iaea-ssg46-2018",
             "radiologyinfo-ebt"
           ]
         },
@@ -2488,7 +2508,7 @@
           "feedbackIncorrect": "Retome o conceito: primeiro você para e chama, a resposta da equipe é o último passo, e o fato vem antes do lugar onde apareceu.",
           "help": "Comece e termine pelos dois passos em que você não fala.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2522,7 +2542,8 @@
           ],
           "help": "Pense no ponto de conferência atingido e no momento em que o técnico precisa saber.",
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018",
+            "who-identificacao-paciente-2007"
           ]
         },
         {
@@ -2555,7 +2576,7 @@
           ],
           "help": "Pergunte quem está em condições de agir agora, e o que falta para essa pessoa saber.",
           "sourceIds": [
-            "cnen-ansn-6-10",
+            "iaea-ssg46-2018",
             "inca-radioterapia"
           ]
         }
@@ -2594,7 +2615,8 @@
             }
           ],
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018",
+            "who-identificacao-paciente-2007"
           ]
         },
         {
@@ -2606,7 +2628,7 @@
               "feedback": "Essa fala já traz uma explicação que você não tem como confirmar. Retome: diga o que viu."
             },
             {
-              "label": "A foto do painel não parece a do paciente",
+              "label": "A foto não parece a do paciente",
               "correct": true,
               "feedback": "Isso. A fala diz o que você viu e onde apareceu, e deixa a conclusão com a equipe."
             },
@@ -2622,7 +2644,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-ansn-6-10"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -2654,7 +2676,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2684,7 +2706,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-ansn-6-10"
+              "iaea-ssg46-2018"
             ]
           }
         }
