@@ -13,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import appContract from './load-app-contract.cjs';
 import { lintUnit } from './rtg-lesson-lint.mjs';
+import { creditedFigures, figurasErrors, readFiguras } from './rtg-figuras.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const DEFAULT_SOURCE = path.join(root, 'content-manifest/rtg-2026/aulas');
@@ -26,6 +27,7 @@ const GENERATED = /^(rtg-2026-.+|index|entries)\.ts$/;
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const { createProductionCurriculumCatalog } = appContract.loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
 const { isValidLicensedImage } = appContract.loadAppContract('features/student-checkpoints/EditorialWideContract.ts');
+const { DIAGRAMS } = appContract.loadAppContract('ui/diagrams/diagramRegistry.ts');
 const constantName = unit => `RTG_2026_${unit.toUpperCase().replace(/-/g, '_')}`;
 
 /**
@@ -33,7 +35,7 @@ const constantName = unit => `RTG_2026_${unit.toUpperCase().replace(/-/g, '_')}`
  * gravar. Reprova a unidade inteira diante de qualquer erro do verificador ou
  * do contrato; nunca gera lote parcial.
  */
-export function renderRtgBatches(inputs, images = []) {
+export function renderRtgBatches(inputs, images = [], figuras = []) {
   const order = Array.from(factory.RTG_UNIT_ORDER);
   // Todo o cadastro vai para o app e para os créditos: o contrato só vê as imagens usadas.
   for (const image of images) if (!isValidLicensedImage(image)) throw new Error(`rtg-image-invalid:${image.id}`);
@@ -66,13 +68,14 @@ export function renderRtgBatches(inputs, images = []) {
     builds.map(({ unit }) => `\n  ${constantName(unit)},`).join('')}${builds.length ? '\n' : ''}];\n`);
   files.set('entries.ts', `${HEADER}import type { ProductionCatalogEntry } from '../createProductionCurriculumCatalog';\n\n/** Textos de apresentação de cada unidade, por batchId. */\nexport const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEntry['presentation']>> = ${
     JSON.stringify(Object.fromEntries(builds.map(({ batch, presentation }) => [batch.batchId, presentation])), null, 2)};\n`);
-  files.set('rtgImages.ts', renderRtgImages(images));
+  files.set('rtgImages.ts', renderRtgImages(images, figuras));
   return { files, units: builds.map(({ unit, batch }) => ({ unit, batchId: batch.batchId, lessons: batch.activities.length,
     checkpointItems: batch.checkpoint.items.length, materialSha256: batch.materialSha256 })) };
 }
 
 /** O módulo que o app importa: crédito de cada imagem e resolvedor local. Nunca devolve URL remota. */
-function renderRtgImages(images) {
+function renderRtgImages(images, figuras) {
+  const figureCredits = creditedFigures(figuras).map(({ id, author, license, licenseUrl, sourcePage, modification }) => ({ id, author, license, licenseUrl, sourcePage, modification }));
   const entries = images.map(({ id, author, license, licenseUrl, sourcePage, modification, alt, width, height, file }) => {
     const credit = JSON.stringify({ id, author, license, licenseUrl, sourcePage, modification, alt, width, height }, null, 4).slice(0, -2);
     return `  ${credit.replace(/\n/g, '\n  ')},\n    "source": require('../../../../${file.replace(/^radiant-app\//, '')}'),\n  },`;
@@ -83,6 +86,11 @@ import type { ResolvedInteractionImage } from '../../lesson-flow/renderers/Inter
 export type RtgImageCredit = Readonly<{ id: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string; alt: string; width: number; height: number; source: ImageSourcePropType }>;
 
 export const RTG_IMAGES: readonly RtgImageCredit[] = [${entries.length ? `\n${entries.join('\n')}\n` : ''}];
+
+/** Crédito da arte de terceiros das figuras desenhadas (registro: content-manifest/rtg-2026/figuras.json). */
+export type RtgFigureCredit = Readonly<{ id: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
+
+export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = ${JSON.stringify(figureCredits, null, 2)};
 
 export function resolveRtgImage(ref: string): ResolvedInteractionImage | null {
   const image = RTG_IMAGES.find(entry => entry.id === ref);
@@ -139,8 +147,13 @@ async function main() {
   const option = name => args.find(arg => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
   if (args.some(arg => arg !== '--check' && !/^--(source|out)=/.test(arg))) throw new Error('usage: [--check] [--source=<dir>] [--out=<dir>]');
   const outputDir = option('out') ? path.resolve(option('out')) : DEFAULT_OUTPUT;
+  const sourceBase = option('source') ? path.join(path.resolve(option('source')), '..') : null;
+  const figuras = await readFiguras(sourceBase ? path.join(sourceBase, 'figuras.json') : undefined);
+  const importedIds = Object.keys(DIAGRAMS).filter(id => DIAGRAMS[id].art === 'imported');
+  const figuraErrors = figurasErrors(figuras, importedIds);
+  if (!sourceBase && figuraErrors.length) throw new Error(`rtg-figuras:\n${figuraErrors.map(error => `  - ${error}`).join('\n')}`);
   const { files, units } = renderRtgBatches(await readRtgSources(option('source') ? path.resolve(option('source')) : DEFAULT_SOURCE),
-    await readRtgImages(option('source') ? path.join(path.resolve(option('source')), '..', 'imagens.json') : DEFAULT_IMAGES));
+    await readRtgImages(option('source') ? path.join(sourceBase, 'imagens.json') : DEFAULT_IMAGES), figuras);
   if (args.includes('--check')) {
     const stale = await staleRtgFiles(files, outputDir);
     if (stale.length) throw new Error(`rtg-generated-stale: rode node scripts/content/build-rtg-batches.mjs\n${stale.map(name => `  - ${name}`).join('\n')}`);

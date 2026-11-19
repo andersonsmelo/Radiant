@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { parse } from 'react-native-svg';
 import { galaxyColors, hudIconTones, pixelColors } from '../theme';
 import { diagramSvgAt, motionKeysError } from './diagramMotion';
@@ -84,8 +86,15 @@ describe('registro de diagramas', () => {
     }
   });
 
-  it('a arte importada é só a que foi medida no piloto', () => {
-    expect(IMPORTED_IDS.sort()).toEqual(['cranio-de-perfil-ossos', 'raio-x-movel-no-leito']);
+  // Registro de origem (content-manifest/rtg-2026/figuras.json): a arte importada não entra sem proveniência.
+  const figuras: { id: string; origem: string }[] = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '../../../../content-manifest/rtg-2026/figuras.json'), 'utf8'),
+  );
+
+  it('toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe', () => {
+    expect(IMPORTED_IDS.filter((id) => !figuras.some((entry) => entry.id === id))).toEqual([]);
+    const importedEntries = figuras.filter((entry) => ['acervo', 'anatomy', 'gerada'].includes(entry.origem));
+    expect(importedEntries.filter((entry) => !IMPORTED_IDS.includes(entry.id)).map((entry) => entry.id)).toEqual([]);
   });
 
   it.each(IMPORTED_IDS)('%s (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora', (id) => {

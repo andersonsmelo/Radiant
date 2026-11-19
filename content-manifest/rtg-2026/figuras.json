@@ -1,0 +1,17 @@
+[
+  {
+    "id": "cranio-de-perfil-ossos",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6",
+    "modification": "Removidos rótulos e linhas de chamada; recolorido para a paleta do app; fundo escuro; recorte do quadro."
+  },
+  {
+    "id": "raio-x-movel-no-leito",
+    "origem": "anatomy"
+  }
+]

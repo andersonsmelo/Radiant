@@ -92,6 +92,20 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [
   },
 ];
 
+/** Crédito da arte de terceiros das figuras desenhadas (registro: content-manifest/rtg-2026/figuras.json). */
+export type RtgFigureCredit = Readonly<{ id: string; author: string; license: string; licenseUrl: string; sourcePage: string; modification: string }>;
+
+export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
+  {
+    "id": "cranio-de-perfil-ossos",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg",
+    "modification": "Removidos rótulos e linhas de chamada; recolorido para a paleta do app; fundo escuro; recorte do quadro."
+  }
+];
+
 export function resolveRtgImage(ref: string): ResolvedInteractionImage | null {
   const image = RTG_IMAGES.find(entry => entry.id === ref);
   return image ? { source: image.source, width: image.width, height: image.height, alt: image.alt } : null;
