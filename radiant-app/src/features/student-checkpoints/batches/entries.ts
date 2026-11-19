@@ -169,6 +169,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Musculoesquelético e posicionamento."
     }
   },
+  "batch:rtg-2026:m24": {
+    "slug": "rtg-2026-m24",
+    "title": "Membro inferior, pelve e coluna",
+    "description": "Desce ao osso: grupos do pé e ossos do tornozelo, partes do joelho, do fêmur proximal, da pelve e de uma vértebra, e a leitura da região pedida com a atitude de pedir apoio.",
+    "unitTitle": "Membro inferior, pelve e coluna",
+    "reward": {
+      "id": "node:reward:rtg-2026:m24",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Membro inferior, pelve e coluna."
+    }
+  },
   "batch:rtg-2026:m08": {
     "slug": "rtg-2026-m08",
     "title": "Tórax, abdome e cabeça",
