@@ -1,0 +1,263 @@
+# Vermelho da tarefa 7 (conversation), antes da implementação (node v20.20.2)
+
+## jest (suítes tocadas)
+  ● ActivityRendererRegistry › declara os catorze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro e a conversa
+  ● ConversationStepRenderer › a escolha feita não se desfaz: só o turno atual aceita resposta
+  ● ConversationStepRenderer › a expressão do personagem vem do momento: pergunta preocupa o paciente, e a reação segue o retorno certo ou errado
+  ● ConversationStepRenderer › a fala nova é anunciada: a reação e a próxima fala, na ordem da tela
+  ● ConversationStepRenderer › a reação não julga: o texto é o reply, sem ícone nem palavra de veredito antes de conferir
+  ● ConversationStepRenderer › abre com a fala do personagem num nó "Nome: texto" e só as respostas do primeiro turno
+  ● ConversationStepRenderer › depois de conferir, cada fala do aluno diz certo ou errado com ícone e texto, e as opções não aceitam toque
+  ● ConversationStepRenderer › escolher registra a fala do aluno, mostra a reação do personagem e abre o turno seguinte
+  ● ConversationStepRenderer › submitted sem resposta do turno atual deixa as opções desativadas
+  ● InteractionAnswerValue: famílias da 1.6 › conversation: completa com um id válido por turno, e acerta só com todos iguais ao correto
+  ● contrato amplo (wide) › conversation (fase B) › aceita a conversa, com o id da correta de cada turno e a proveniência de cada resposta
+  ● contrato amplo (wide) › conversation (fase B) › invalid-wide-shape: turnos e respostas fora de 2 a 3, correta fora das respostas, rótulos repetidos
+  ● contrato amplo (wide) › conversation (fase B) › mantém as chaves exatas do payload e exige texto em toda fala, resposta e reação
+  ● contrato amplo (wide) › conversation (fase B) › paciente com nome passa, e o paciente sem nome e o Pixel reprovam
+  ● contrato amplo (wide) › conversation (fase B) › wide-answer-position-bias: a correta no mesmo lugar em todos os turnos
+  ● contrato amplo (wide) › conversation (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+  ● contrato amplo (wide) › conversation (fase B) › wide-longest-is-correct: a correta de algum turno é a mais longa
+  ● famílias de interação › conversation: tela, validação, acerto, erro e retornos
+  ● feedbackFor: famílias da 1.6 › conversation: o erro acrescenta a resposta que cabia no primeiro turno errado
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 6 failed, 22 passed, 28 total
+  Tests:       19 failed, 455 passed, 474 total
+
+## jest LessonFlowScreen (conversa)
+  ● LessonFlowScreen — conversa (fase B) › responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=false)
+  ● LessonFlowScreen — conversa (fase B) › responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=true)
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 145 skipped, 147 total
+
+## node --test rtg-lesson-lint.test.mjs rtg-formatos.test.mjs
+  not ok 1 - a unidade sintética passa no verificador, sem nenhum erro
+  not ok 3 - a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem
+  not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+  not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+  not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+  not ok 12 - a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há
+  not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  not ok 98 - conversation: aceita 2 ou 3 turnos, com e sem name, com 2 ou 3 respostas
+  not ok 99 - conversation: o paciente exige name, e o Pixel não pode ser o interlocutor
+  not ok 100 - conversation: 2 ou 3 turnos e de 2 a 3 respostas por turno
+  not ok 101 - conversation: exatamente uma correta por turno, booleana
+  not ok 102 - conversation: a correta não é a mais longa do turno
+  not ok 103 - conversation: a posição da correta varia entre os turnos
+  not ok 104 - conversation: limites de texto da fala, da reação e da resposta
+  not ok 105 - conversation: respostas e reações repetidas no turno reprovam
+  not ok 106 - conversation: recusa chave fora da lista, no item, no turno e na resposta
+  not ok 107 - conversation: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  # tests 108
+  # pass 85
+  # fail 23
+
+## Defeito: completa aceita mais ids do que turnos
+  ● InteractionAnswerValue: famílias da 1.6 › conversation: completa com um id válido por turno, e acerta só com todos iguais ao correto
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 47 passed, 48 total
+
+## Defeito: acerto aceita o conjunto se algum turno estiver certo (some no lugar de every)
+  ● InteractionAnswerValue: famílias da 1.6 › conversation: completa com um id válido por turno, e acerta só com todos iguais ao correto
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 47 passed, 48 total
+
+## Defeito: retorno aponta o último turno errado, não o primeiro
+  ● feedbackFor: famílias da 1.6 › conversation: o erro acrescenta a resposta que cabia no primeiro turno errado
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 26 passed, 27 total
+
+## Defeito: retorno do erro não traz a resposta que cabia
+  ● feedbackFor: famílias da 1.6 › conversation: o erro acrescenta a resposta que cabia no primeiro turno errado
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 26 passed, 27 total
+
+## Defeito: contrato wide não confere o viés de posição da correta
+  ● contrato amplo (wide) › conversation (fase B) › wide-answer-position-bias: a correta no mesmo lugar em todos os turnos
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 73 passed, 74 total
+
+## Defeito: contrato wide não confere a correta mais longa
+  ● contrato amplo (wide) › conversation (fase B) › wide-longest-is-correct: a correta de algum turno é a mais longa
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 73 passed, 74 total
+
+## Defeito: contrato wide aceita o Pixel como interlocutor
+  ● contrato amplo (wide) › conversation (fase B) › paciente com nome passa, e o paciente sem nome e o Pixel reprovam
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 73 passed, 74 total
+
+## Defeito: contrato wide aceita paciente sem nome
+  ● contrato amplo (wide) › conversation (fase B) › paciente com nome passa, e o paciente sem nome e o Pixel reprovam
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 73 passed, 74 total
+
+## Defeito: contrato wide marca toda resposta como correta na proveniência
+  ● contrato amplo (wide) › conversation (fase B) › aceita a conversa, com o id da correta de cada turno e a proveniência de cada resposta
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 73 passed, 74 total
+
+## Defeito: verificador aceita a correta mais longa do turno
+  not ok 87 - conversation: a correta não é a mais longa do turno
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: verificador aceita a correta na mesma posição em todos os turnos
+  not ok 88 - conversation: a posição da correta varia entre os turnos
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: verificador aceita o Pixel como interlocutor
+  not ok 84 - conversation: o paciente exige name, e o Pixel não pode ser o interlocutor
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: verificador aceita paciente sem name
+  not ok 84 - conversation: o paciente exige name, e o Pixel não pode ser o interlocutor
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: verificador aceita reações repetidas no turno
+  not ok 90 - conversation: respostas e reações repetidas no turno reprovam
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: verificador não limita a fala a 200 caracteres
+  not ok 89 - conversation: limites de texto da fala, da reação e da resposta
+  # tests 93
+  # pass 92
+  # fail 1
+
+## Defeito: fábrica resolve a correta como a primeira resposta
+  not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+  not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+  not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+  not ok 12 - a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há
+  not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  # tests 15
+  # pass 4
+  # fail 11
+
+## Defeito: fábrica deixa a chave name vazia no payload
+  not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  # tests 15
+  # pass 14
+  # fail 1
+
+## Defeito: Maestro responde a primeira resposta em vez da correta
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  # tests 15
+  # pass 14
+  # fail 1
+
+## Defeito: Maestro não toca em Conferir resposta na conversa
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  # tests 15
+  # pass 14
+  # fail 1
+
+## Defeito: rodapé da aula não confere a conversa (CHECKED_FAMILIES)
+  ● LessonFlowScreen — conversa (fase B) › responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=false)
+  ● LessonFlowScreen — conversa (fase B) › responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=true)
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 145 skipped, 147 total
+
+## Defeito: resposta certa em texto some da folha de retorno
+  ● famílias de interação › conversation: tela, validação, acerto, erro e retornos
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 16 passed, 17 total
+
+## Defeito: tipo sem renderer registrado
+  ● ActivityRendererRegistry › declara os catorze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro e a conversa
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 13 passed, 14 total
+
+## Defeito: fala nova não é anunciada
+  ● ConversationStepRenderer › a fala nova é anunciada: a reação e a próxima fala, na ordem da tela
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 9 passed, 10 total
+
+## Defeito: veredito aparece antes de conferir
+  ● ConversationStepRenderer › a reação não julga: o texto é o reply, sem ícone nem palavra de veredito antes de conferir
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 9 passed, 10 total
+
+## Defeito: expressão da reação ignora a resposta (sempre acerto)
+  ● ConversationStepRenderer › a expressão do personagem vem do momento: pergunta preocupa o paciente, e a reação segue o retorno certo ou errado
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 9 passed, 10 total
+
+## Defeito: retrato lido pelo leitor de tela além da fala
+  ● ConversationStepRenderer › o retrato é decorativo: o leitor de tela lê só o nó da fala
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 9 passed, 10 total
+
+## Defeito: turno seguinte aparece antes da escolha
+  ● ConversationStepRenderer › a expressão do personagem vem do momento: pergunta preocupa o paciente, e a reação segue o retorno certo ou errado
+  ● ConversationStepRenderer › abre com a fala do personagem num nó "Nome: texto" e só as respostas do primeiro turno
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 8 passed, 10 total
+
+
+# Rodada 1 (revisão independente): vermelho dos consertos, com a produção revertida ao estado anterior
+
+## jest conversa
+  ● ConversationStepRenderer › antes de conferir, a reação usa a expressão de fala, igual para resposta certa e errada; o rosto não antecipa o veredito
+  ● ConversationStepRenderer › dois toques no mesmo desenho gravam só o primeiro turno
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 10 passed, 12 total
+
+## node lint
+  not ok 123 - blitz: a alternância perfeita do começo ao fim reprova
+  not ok 124 - conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa
+  # tests 124
+  # pass 122
+  # fail 2
+

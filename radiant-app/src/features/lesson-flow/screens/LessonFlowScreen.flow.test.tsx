@@ -2466,7 +2466,7 @@ describe('T04 — abertura, retorno e botão apto', () => {
     if (type === 'bench' && correct) {
       for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
     }
-    const confirm = type === 'bench' || type === 'multiple-choice' ? 'Conferir resposta' : 'Continuar';
+    const confirm = type === 'bench' || type === 'multiple-choice' || type === 'hotspot' ? 'Conferir resposta' : 'Continuar';
     await esperarBotaoApto(confirm);
     fireEvent.press(screen.getByRole('button', { name: confirm }));
     const feedback = await screen.findByTestId('lesson-item-feedback');
@@ -2679,6 +2679,24 @@ describe('Frente C — aula ampla com diálogo, retorno, sequência e pista', ()
     fireEvent.press(screen.getByText('Continuar'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
   }
+
+  it('o conceito com visual desenha o diagrama entre o corpo e os pontos-chave, e o leitor de tela lê a descrição dele', async () => {
+    const aula = aulaAmpla();
+    const concept = aula.steps[1];
+    if (concept.kind !== 'presentation') throw new Error('o segundo passo é o conceito');
+    concept.payload.visual = 'colimador-abrindo';
+    mockedLessonFlowService.getActivityById.mockReturnValue(aula);
+    await abrir();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('O pedido orienta o exame');
+    const figura = screen.getByLabelText(/^Colimador: duas lâminas/);
+    expect(figura.props.accessibilityRole).toBe('image');
+    const ordem = screen.toJSON() ? JSON.stringify(screen.toJSON()) : '';
+    expect(ordem.indexOf('Ele diz o que examinar')).toBeLessThan(ordem.indexOf('diagram-frame'));
+    expect(ordem.indexOf('diagram-frame')).toBeLessThan(ordem.indexOf('lesson-key-points'));
+  });
 
   it('(d) a cena de abertura revela uma fala por toque, na ordem, com o nome de quem fala, e o botão continua ao alcance', async () => {
     await abrir();
@@ -3035,6 +3053,147 @@ describe('LessonFlowScreen — famílias da 1.6', () => {
     expect(screen.getByText('Afirmação 1 de 2')).toBeTruthy();
     expect(hearts.spend).not.toHaveBeenCalled();
     await playToEnd();
+  });
+});
+
+/**
+ * Fase B, tarefa 7: a conversa passa pelo mesmo tocador. O botão do rodapé confere
+ * ("Conferir resposta", e não "Continuar"), a vida é cobrada uma vez na conferência
+ * errada e nunca antes, e o acerto não cobra.
+ */
+describe('LessonFlowScreen — conversa (fase B)', () => {
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const activity: LearningActivityV2 = {
+    id: 'activity:fb:conversa', competencyIds: ['competency:fb'], provenance: { contentVersion: 'fb-v1', sourceIds: ['source:fb'] },
+    steps: [
+      { kind: 'presentation', id: 'fb-hook', role: 'hook', payload: { title: 'Plantão com a Duda' } },
+      { kind: 'presentation', id: 'fb-concept', role: 'concept', payload: { title: 'Conversa de plantão' } },
+      { kind: 'interaction', interaction: { id: 'fb-talk', type: 'conversation', competencyIds: ['competency:fb'], evidenceKind: 'guided-practice',
+        completionRule: 'confirmed', criticalSafety: false, accessibility: { label: 'Conversa: plantão' },
+        feedback: { correct: 'Isso mesmo: o pedido vem primeiro.', incorrect: 'Releia: o pedido vem primeiro.' },
+        payload: { prompt: 'Ajude a Duda a começar o plantão.', speaker: 'duda', turns: [
+          { id: 't1', line: 'Por onde eu começo?', correctOptionId: 'a2', options: [
+            { id: 'a1', label: 'Chamando o paciente sem olhar o pedido.', reply: 'Hum, certo.' }, { id: 'a2', label: 'Conferindo o pedido.', reply: 'Faz sentido.' }] },
+          { id: 't2', line: 'E depois?', correctOptionId: 'b1', options: [
+            { id: 'b1', label: 'Explicar o exame.', reply: 'Boa, ele fica calmo.' }, { id: 'b2', label: 'Posicionar o aparelho em silêncio.', reply: 'Tá bom.' }] },
+        ] } } },
+      { kind: 'presentation', id: 'fb-closing', role: 'closing', payload: { title: 'Fechamento do plantão' } },
+    ],
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activity);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+  });
+
+  it.each([[true], [false]])('responder os dois turnos só libera "Conferir resposta"; a vida cobra uma vez se errou (acerto=%s)', async correct => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:conversa" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Ajude a Duda a começar o plantão.')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('conversation-option-Conferindo o pedido.'));
+    expect(screen.queryByText('Continuar')).toBeNull();
+    fireEvent.press(screen.getByTestId(correct ? 'conversation-option-Explicar o exame.' : 'conversation-option-Posicionar o aparelho em silêncio.'));
+    expect(hearts.spend).not.toHaveBeenCalled();
+    expect(screen.queryByText('Continuar')).toBeNull();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(correct ? 'Isso mesmo: o pedido vem primeiro.' : /Releia: o pedido vem primeiro\./)).toBeTruthy();
+    await waitFor(() => expect(hearts.spend).toHaveBeenCalledTimes(correct ? 0 : 1));
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining(correct ? 'Resposta correta.' : 'Resposta incorreta.'));
+  });
+});
+
+/**
+ * Fase B, tarefa 8: a rodada rápida nunca tira vida. Só ela é exceção: o mesmo
+ * erro num `true-false` continua cobrando uma vida, e a rodada não é barrada
+ * por falta de vidas.
+ */
+describe('LessonFlowScreen — rodada rápida (fase B)', () => {
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const common = { competencyIds: ['competency:fb'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
+    criticalSafety: false, accessibility: { label: 'Item da fase B' }, feedback: { correct: 'Rodada concluída com acerto.', incorrect: 'Rodada não concluída.' } };
+  const statements = [
+    { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Longe da fonte, menos dose.' },
+    { id: 's2', text: 'O dosímetro reduz a dose.', isTrue: false, explanation: 'O dosímetro só mede a dose.' },
+    { id: 's3', text: 'O avental cobre o tronco.', isTrue: true, explanation: 'O avental protege o tronco.' },
+    { id: 's4', text: 'Mais tempo reduz a dose.', isTrue: false, explanation: 'Mais tempo aumenta a dose.' },
+  ];
+  const activityOf = (interaction: LearningInteractionV2): LearningActivityV2 => ({
+    id: 'activity:fb:rodada', competencyIds: ['competency:fb'], provenance: { contentVersion: 'fb-v1', sourceIds: ['source:fb'] },
+    steps: [
+      { kind: 'presentation', id: 'fb-hook', role: 'hook', payload: { title: 'Rodada do plantão' } },
+      { kind: 'presentation', id: 'fb-concept', role: 'concept', payload: { title: 'Proteção em três ideias' } },
+      { kind: 'interaction', interaction },
+      { kind: 'presentation', id: 'fb-closing', role: 'closing', payload: { title: 'Fechamento da rodada' } },
+    ],
+  });
+  const blitz = { ...common, id: 'fb-blitz', type: 'blitz', payload: { prompt: 'Responda a rodada do plantão.', statements, passCount: 3 } } as LearningInteractionV2;
+  const trueFalse = { ...common, id: 'fb-tf', type: 'true-false', payload: { prompt: 'Julgue as afirmações do plantão.', statements } } as LearningInteractionV2;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers();
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+  });
+  afterEach(() => { jest.useRealTimers(); });
+
+  /** Toca as quatro afirmações, esperando a marca de cada uma passar. */
+  async function playBlitz(answers: boolean[]) {
+    expect(await screen.findByText('Responda a rodada do plantão.')).toBeTruthy();
+    for (const [index, answer] of answers.entries()) {
+      fireEvent.press(await screen.findByTestId(answer ? 'blitz-verdadeiro' : 'blitz-falso'));
+      // O relógio da rodada é do sistema de tempo falso: o avanço de 900 ms da marca passa sem espera real.
+      if (index < answers.length - 1) act(() => { jest.advanceTimersByTime(900); });
+    }
+  }
+
+  it('resposta errada na rodada rápida não cobra vida, e o botão do rodapé confere', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await playBlitz([false, true, false, true]);
+    expect(hearts.spend).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(/Você acertou 0 de 4; para passar eram 3\./)).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining('Resposta incorreta.'));
+    expect(announceForAccessibility.mock.calls.some(([text]) => /vida/.test(String(text)))).toBe(false);
+  });
+
+  it('a mesma resposta errada num certo ou errado continua cobrando uma vida', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(trueFalse));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Julgue as afirmações do plantão.')).toBeTruthy();
+    for (const label of ['Errado', 'Certo', 'Errado', 'Certo']) {
+      fireEvent.press(screen.getByLabelText(new RegExp(`^${label}: `)));
+    }
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await waitFor(() => expect(hearts.spend).toHaveBeenCalledTimes(1));
+  });
+
+  it('a rodada acertada confere, não cobra vida e fecha a aula', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await playBlitz([true, false, true, false]);
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText('Rodada concluída com acerto.')).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
+  });
+
+  it('sem vidas, a rodada rápida é barrada como os outros tipos, mas o erro nunca cobra', async () => {
+    const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null };
+    hearts.getSnapshot.mockResolvedValue(vazia);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await act(async () => {});
+    await playBlitz([false, false, false, false]);
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
   });
 });
 
@@ -3441,9 +3600,9 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
       { id: 'a', label: 'Região A', x: 0, y: 0, width: 0.3, height: 0.3 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.3, height: 0.3 },
       { id: 'c', label: 'Região C', x: 0.6, y: 0, width: 0.3, height: 0.3 },
     ], correctRegionIds: ['a', 'c'] } } as LearningInteractionV2;
-  async function seguir() {
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true));
-    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+  async function seguir(botao = 'Continuar') {
+    await waitFor(() => expect(screen.getByRole('button', { name: botao }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: botao }));
     return screen.findByTestId('lesson-item-feedback');
   }
 
@@ -3460,7 +3619,8 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     abrir(regiao);
     await screen.findByText('Escolha a região.');
     fireEvent.press(screen.getByRole('button', { name: 'Selecionar Região B na lista' }));
-    const folha = await seguir();
+    // O hotspot confere a resposta, como a escolha (fase B): o botão é "Conferir resposta".
+    const folha = await seguir('Conferir resposta');
     expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: Região A, Região C')).toBeTruthy();
   });

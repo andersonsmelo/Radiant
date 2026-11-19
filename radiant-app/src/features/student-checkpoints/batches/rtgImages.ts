@@ -34,5 +34,5 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [
 
 export function resolveRtgImage(ref: string): ResolvedInteractionImage | null {
   const image = RTG_IMAGES.find(entry => entry.id === ref);
-  return image ? { source: image.source, width: image.width, height: image.height } : null;
+  return image ? { source: image.source, width: image.width, height: image.height, alt: image.alt } : null;
 }

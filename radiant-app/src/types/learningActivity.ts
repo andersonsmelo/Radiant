@@ -16,6 +16,7 @@
 
 import { ILLUSTRATION_THEMES, type IllustrationTheme } from '../ui/illustrations/illustrationPlayback';
 import type { ExposureInput } from '../features/bench/exposureModel';
+import { LAB_MODEL_IDS, isOnLabGrid, type LabModelId } from '../features/parameter-lab/labModels';
 
 export type ValidationIssue = {
     path: string;
@@ -77,7 +78,25 @@ export type InteractionType =
     | 'cloze'
     | 'true-false'
     | 'categorize'
-    | 'multi-select';
+    | 'multi-select'
+    // Fase B: rotular pontos de uma figura.
+    | 'label'
+    // Fase B: conduzir uma conversa com um personagem e rodada rápida de verdadeiro ou falso.
+    | 'conversation'
+    | 'blitz';
+
+/**
+ * Todos os tipos de interação. O `Record` faz o compilador recusar tipo novo
+ * que não entre aqui (e tipo que saia da união), para o teste de famílias
+ * percorrer sempre o conjunto inteiro.
+ */
+const INTERACTION_TYPE_FLAGS: Record<InteractionType, true> = {
+    'multiple-choice': true, hotspot: true, comparison: true, matching: true, ordering: true,
+    'parameter-lab': true, bench: true, 'risk-hunt': true, 'case-decision': true,
+    cloze: true, 'true-false': true, categorize: true, 'multi-select': true, label: true,
+    conversation: true, blitz: true,
+};
+export const INTERACTION_TYPES = Object.keys(INTERACTION_TYPE_FLAGS) as readonly InteractionType[];
 
 export type InteractionFeedback = {
     correct: string;
@@ -148,10 +167,18 @@ export type OrderingPayload = {
     correctOrder: string[];
 };
 
+/**
+ * O aluno move o controle de um modelo registrado (`labModels.ts`) e vê o efeito
+ * no desenho e nas leituras. A resposta é o valor do controle; acerta quem para
+ * dentro da meta. `start` e os limites da meta caem na grade do modelo.
+ */
 export type ParameterLabPayload = {
     prompt: string;
-    parameters: { id: string; label: string; min: number; max: number; step: number }[];
-    expectedOutcome: string;
+    model: LabModelId;
+    start: number;
+    goal: { atLeast?: number; atMost?: number };
+    /** Para que lado o aluno errou: valor baixo demais ou alto demais. */
+    hints: { tooLow: string; tooHigh: string };
 };
 
 /** Os simuladores da bancada: exposição (kV e mAs) e colimação (o campo). */
@@ -208,10 +235,16 @@ export type BenchPayload = {
     hints: { tooLow: string; tooHigh: string };
 };
 
+/**
+ * Marcar todas as regiões de risco de uma cena. Cada região leva a explicação do
+ * que mostra (risco ou situação correta). A resposta é a lista de ids marcados.
+ */
 export type RiskHuntPayload = {
     prompt: string;
+    /** Identificador da imagem licenciada, ou `diagram:<id>`. */
     imageRef: string;
-    risks: NormalizedRegion[];
+    regions: (NormalizedRegion & { explanation: string })[];
+    riskRegionIds: string[];
 };
 
 export type CaseDecisionPayload = {
@@ -256,6 +289,44 @@ export type MultiSelectPayload = {
     correctOptionIds: string[];
 };
 
+/**
+ * Rotular pontos numa figura. A resposta é `{ [pointId]: labelId }`. `labels` vem
+ * na ordem de exibição, já embaralhada pelo gerador, e pode ter até dois rótulos
+ * a mais que os pontos (distratores).
+ */
+export type LabelPayload = {
+    prompt: string;
+    /** Identificador da imagem licenciada, ou `diagram:<id>`. */
+    imageRef: string;
+    /** `where` descreve a posição ou a forma sem nomear a parte: é o que o leitor de tela ouve no ponto. */
+    points: { id: string; x: number; y: number; where: string; correctLabelId: string }[];
+    labels: { id: string; label: string }[];
+};
+
+/**
+ * Conversa conduzida: o personagem fala, o aluno escolhe a resposta de cada turno
+ * e o personagem reage com o `reply` dela, sem dizer se estava certa (o veredito
+ * vem na conferência). A resposta é a lista com o id escolhido em cada turno.
+ */
+export type ConversationPayload = {
+    prompt: string;
+    speaker: LessonCastId;
+    /** Obrigatório para o paciente, que muda a cada cena. */
+    name?: string;
+    turns: { id: string; line: string; options: { id: string; label: string; reply: string }[]; correctOptionId: string }[];
+};
+
+/**
+ * Rodada rápida: afirmações verdadeiras ou falsas, uma por vez, com tempo por
+ * afirmação que o aluno pode desligar. Passa quem acerta `passCount` ou mais; o
+ * erro nunca tira vida. A resposta é a lista de `true`, `false` ou `null` (tempo esgotado).
+ */
+export type BlitzPayload = {
+    prompt: string;
+    statements: { id: string; text: string; isTrue: boolean; explanation: string }[];
+    passCount: number;
+};
+
 type InteractionBase = {
     id: string;
     /** Ao menos uma. É o que liga a evidência produzida ao domínio medido. */
@@ -283,7 +354,10 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'cloze'; payload: ClozePayload })
     | (InteractionBase & { type: 'true-false'; payload: TrueFalsePayload })
     | (InteractionBase & { type: 'categorize'; payload: CategorizePayload })
-    | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload });
+    | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload })
+    | (InteractionBase & { type: 'label'; payload: LabelPayload })
+    | (InteractionBase & { type: 'conversation'; payload: ConversationPayload })
+    | (InteractionBase & { type: 'blitz'; payload: BlitzPayload });
 
 /** Elenco das cenas de diálogo da trilha rtg-2026. */
 export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
@@ -305,6 +379,8 @@ export type PresentationPayload = {
     dialogue?: LessonDialogue;
     /** Dois ou três pontos curtos que resumem o conceito. */
     keyPoints?: string[];
+    /** Só no conceito: identificador de um diagrama em código (`DIAGRAM_IDS`), entre o corpo e os pontos-chave. */
+    visual?: string;
 };
 
 export type LearningStepV2 =
@@ -521,11 +597,18 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             break;
         }
         case 'risk-hunt': {
-            const risks = interaction.payload.risks ?? [];
-            if (risks.length === 0) {
+            const regions = interaction.payload.regions ?? [];
+            const risks = interaction.payload.riskRegionIds ?? [];
+            if (regions.length === 0) {
                 push(issues, path, 'missing-regions');
             }
-            validateRegions(issues, path, risks);
+            validateRegions(issues, path, regions);
+            const regionIds = new Set(regions.map((region) => region.id));
+            // Todas de risco, ou nenhuma, deixa a resposta constante: a conta é a do multi-select.
+            if (regionIds.size !== regions.length || regions.some((region) => !isFilled(region.id) || !isFilled(region.label) || !isFilled(region.explanation))
+                || risks.length < 1 || risks.length >= regions.length || new Set(risks).size !== risks.length || risks.some((id) => !regionIds.has(id))) {
+                push(issues, path, 'invalid-risk-regions');
+            }
             break;
         }
         case 'matching':
@@ -597,13 +680,60 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             }
             break;
         }
-        case 'parameter-lab': {
-            const parameters = interaction.payload.parameters ?? [];
-            if (parameters.length === 0 || parameters.some((parameter) => parameter.min >= parameter.max)) {
-                push(issues, path, 'invalid-parameters');
+        case 'label': {
+            const { points, labels } = interaction.payload;
+            const labelIds = new Set((labels ?? []).map(entry => entry?.id));
+            const answers = (points ?? []).map(point => point?.correctLabelId);
+            if (!Array.isArray(points) || points.length < 2 || !Array.isArray(labels) || labelIds.size !== labels.length
+                || labels.some(entry => !isFilled(entry?.id) || !isFilled(entry?.label))
+                || new Set(points.map(point => point?.id)).size !== points.length || points.some(point => !isFilled(point?.id))
+                || answers.some(id => !labelIds.has(id)) || new Set(answers).size !== answers.length
+                || points.some(point => !isFilled(point?.where))
+                || points.some(point => !isWithinFrame({ id: '', label: '', x: point.x, y: point.y, width: 0, height: 0 }))) {
+                push(issues, path, 'invalid-label-points');
             }
-            if (!isFilled(interaction.payload.expectedOutcome)) {
-                push(issues, path, 'missing-expected-outcome');
+            break;
+        }
+        case 'conversation': {
+            const { speaker, name, turns } = interaction.payload;
+            const valid = (LESSON_CAST_IDS as readonly unknown[]).includes(speaker) && (speaker !== 'paciente' || isFilled(name))
+                && Array.isArray(turns) && turns.length >= 2 && new Set(turns.map(turn => turn?.id)).size === turns.length
+                && turns.every(turn => isFilled(turn?.id) && isFilled(turn.line) && Array.isArray(turn.options) && turn.options.length >= 2
+                    && new Set(turn.options.map(option => option?.id)).size === turn.options.length
+                    && turn.options.every(option => isFilled(option?.id) && isFilled(option.label) && isFilled(option.reply))
+                    && turn.options.some(option => option.id === turn.correctOptionId));
+            if (!valid) push(issues, path, 'invalid-conversation');
+            break;
+        }
+        case 'blitz': {
+            const { statements, passCount } = interaction.payload;
+            if (!Array.isArray(statements) || statements.length < 2
+                || statements.some(statement => !isFilled(statement?.id) || !isFilled(statement?.text)
+                    || typeof statement.isTrue !== 'boolean' || !isFilled(statement.explanation))
+                || new Set(statements.map(statement => statement.id)).size !== statements.length
+                || !Number.isInteger(passCount) || passCount < 1 || passCount > statements.length) {
+                push(issues, path, 'invalid-blitz');
+            }
+            break;
+        }
+        case 'parameter-lab': {
+            const { model, start, goal, hints } = interaction.payload;
+            const known = (LAB_MODEL_IDS as readonly unknown[]).includes(model);
+            if (!known) {
+                push(issues, path, 'invalid-lab-model');
+                break;
+            }
+            // `start` e os limites fora da grade não se alcançam pelos botões nem pelo deslizante.
+            if (!isOnLabGrid(model, start)) {
+                push(issues, path, 'invalid-lab-start');
+            }
+            const limits = [goal?.atLeast, goal?.atMost].filter((limit) => limit !== undefined);
+            if (limits.length === 0 || limits.some((limit) => !isOnLabGrid(model, limit as number))
+                || (goal.atLeast !== undefined && goal.atMost !== undefined && goal.atLeast > goal.atMost)) {
+                push(issues, path, 'invalid-lab-goal');
+            }
+            if (!isFilled(hints?.tooLow) || !isFilled(hints?.tooHigh)) {
+                push(issues, path, 'missing-hints');
             }
             break;
         }
@@ -705,6 +835,9 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             const keyPoints = step.payload?.keyPoints;
             if (keyPoints !== undefined && (!Array.isArray(keyPoints) || keyPoints.length === 0 || !keyPoints.every(isFilled))) {
                 push(issues, stepId, 'invalid-key-points');
+            }
+            if (step.payload?.visual !== undefined && (step.role !== 'concept' || !isFilled(step.payload.visual))) {
+                push(issues, stepId, 'invalid-visual');
             }
         } else {
             validateInteraction(issues, step.interaction);

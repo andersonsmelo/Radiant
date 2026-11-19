@@ -20,6 +20,12 @@ function tidy(value: number): number {
   return Math.round(value * 1e6) / 1e6;
 }
 
+/** O valor com vírgula decimal e as casas do passo ou, se forem mais, as do próprio valor (até 6, sem zeros à direita): "1,5 m", "2,5 mAs". */
+export function formatBenchValue(value: number, step: number): string {
+  const places = (n: number) => (String(n).split('.')[1] ?? '').length;
+  return String(Number(value.toFixed(Math.min(6, Math.max(places(step), places(Number(value.toFixed(6)))))))).replace('.', ',');
+}
+
 function stepOf(control: BenchControl): number {
   return control.step > 0 ? control.step : 1;
 }
@@ -50,12 +56,15 @@ function stepped(value: number, direction: 1 | -1, control: BenchControl): numbe
  */
 export function BenchControlRow({
   control,
+  unitSingular,
   value,
   onChange,
   onPreview,
   disabled = false,
 }: {
   control: BenchControl;
+  /** A unidade com o valor 1 ("1 camada"); sem ela, `control.unit` serve para todo valor. */
+  unitSingular?: string;
   value: number;
   onChange: (next: number) => void;
   /** O valor bruto durante o arrasto, e `null` ao soltar. Opcional. */
@@ -65,7 +74,8 @@ export function BenchControlRow({
   const [live, setLive] = useState<number | null>(null);
   const largeText = useLargeTextLayout();
 
-  const text = `${value} ${control.unit}`;
+  const unitFor = (n: number) => (n === 1 && unitSingular ? unitSingular : control.unit);
+  const text = `${formatBenchValue(value, stepOf(control))} ${unitFor(value)}`;
   const atMin = value <= control.min;
   const atMax = value >= control.max;
 
@@ -110,7 +120,7 @@ export function BenchControlRow({
           disabled={disabled || atMin}
           accessibilityRole="button"
           accessibilityLabel={`Diminuir ${control.label}`}
-          accessibilityHint={`Tira um passo de ${stepOf(control)} ${control.unit}.`}
+          accessibilityHint={`Tira um passo de ${formatBenchValue(stepOf(control), stepOf(control))} ${unitFor(stepOf(control))}.`}
           accessibilityState={{ disabled: disabled || atMin }}
           style={[styles.button, largeText && styles.buttonLarge, (disabled || atMin) && styles.buttonOff]}
         >
@@ -149,7 +159,7 @@ export function BenchControlRow({
           disabled={disabled || atMax}
           accessibilityRole="button"
           accessibilityLabel={`Aumentar ${control.label}`}
-          accessibilityHint={`Soma um passo de ${stepOf(control)} ${control.unit}.`}
+          accessibilityHint={`Soma um passo de ${formatBenchValue(stepOf(control), stepOf(control))} ${unitFor(stepOf(control))}.`}
           accessibilityState={{ disabled: disabled || atMax }}
           style={[styles.button, largeText && styles.buttonLarge, (disabled || atMax) && styles.buttonOff]}
         >

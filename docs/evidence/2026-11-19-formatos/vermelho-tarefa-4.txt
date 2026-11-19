@@ -1,0 +1,224 @@
+# Vermelho da tarefa 4 (label), antes da implementação (node v20.20.2)
+
+## jest (6 suítes tocadas)
+  ● ActivityRendererRegistry › declara os doze tipos com renderer, incluindo Q6, as quatro famílias da 1.6 e o rotular
+  ● InteractionAnswerValue: famílias da 1.6 › label: completa com todo ponto rotulado e nenhum rótulo repetido, e acerta só com todos no rótulo certo
+  ● LabelStepRenderer › a ficha colocada sai do banco, e tocar no ponto rotulado a devolve
+  ● LabelStepRenderer › a figura leva o rótulo da interação, e não a descrição do diagrama, que entrega as partes
+  ● LabelStepRenderer › depois de conferir, cada ponto diz certo ou errado com ícone, o rótulo certo e não aceita toque
+  ● LabelStepRenderer › está registrado e mostra um ponto numerado por alvo e uma ficha por rótulo, inclusive o distrator
+  ● LabelStepRenderer › ficha e depois ponto rotula; ponto e depois ficha também
+  ● LabelStepRenderer › o ponto tem papel de botão e alvo de 44 pt centrado no ponto, dentro da figura
+  ● famílias de interação › FEEDBACK_IS_SPECIFIC e FEEDBACK_IS_GENERIC cobrem exatamente os tipos completos
+  ● feedbackFor: famílias da 1.6 › label: o erro acrescenta o rótulo certo do primeiro ponto errado, na ordem dos pontos
+FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+FAIL src/features/lesson-flow/renderers/LabelStepRenderer.test.tsx
+FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+Test Suites: 6 failed, 6 total
+Tests:       10 failed, 95 passed, 105 total
+
+## node --test rtg-lesson-lint.test.mjs rtg-formatos.test.mjs
+not ok 1 - a unidade sintética passa no verificador, sem nenhum erro
+not ok 3 - a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem
+not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+not ok 71 - label: aceita figura por diagramId e por imageId registrada
+not ok 72 - label: exige exatamente um de imageId e diagramId, existente no registro
+not ok 73 - label: de 3 a 6 pontos
+not ok 74 - label: o ponto não tem largura nem altura
+not ok 75 - label: ponto dentro do quadro, a cada eixo
+not ok 76 - label: a área de toque de 44 pt, centrada no ponto, tem de caber na figura
+not ok 77 - label: as áreas de toque dos pontos não se sobrepõem
+not ok 78 - label: rótulos únicos entre pontos e distratores, de 2 a 40 caracteres
+not ok 79 - label: de 0 a 2 distratores, em lista
+not ok 80 - label: recusa chave fora da lista, no ponto e no item
+not ok 81 - label: retorno de erro igual ao de acerto reprova, como nas outras famílias
+# tests 81
+# pass 62
+# fail 19
+
+# Defeitos específicos, vistos falhando (mutação no código, arquivo restaurado em seguida)
+
+## Defeito: régua de sobreposição do ponto desligada
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (touchRectsOverlap(a.rect, b.rect)) found.push` por `if (false && touchRectsOverlap(a.rect, b.rect)) found.push`
+- saída (reprovações):
+  not ok 67 - label: as áreas de toque dos pontos não se sobrepõem
+
+## Defeito: área de toque de 44 pt pode sair da figura
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (!touchRectInside(rect, frame)) add(at,` por `if (false && !touchRectInside(rect, frame)) add(at,`
+- saída (reprovações):
+  not ok 66 - label: a área de toque de 44 pt, centrada no ponto, tem de caber na figura
+
+## Defeito: mais de dois distratores passam
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `distractors.length > 2) return err(where, 'label: de 0 a 2 distratores')` por `distractors.length > 9) return err(where, 'label: de 0 a 2 distratores')`
+- saída (reprovações):
+  not ok 69 - label: de 0 a 2 distratores, em lista
+
+## Defeito: rótulo de distrator igual ao de ponto passa
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (new Set(shown.map(norm)).size !== shown.length) err(where, 'label: rótulo repetido ent` por ``
+- saída (reprovações):
+  not ok 68 - label: rótulos únicos entre pontos e distratores, de 2 a 40 caracteres
+
+## Defeito: ponto aceita width e height
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `{ allowed: ['label', 'x', 'y'], ratio: figure(where, item) }` por `{ allowed: ['label', 'x', 'y', 'width', 'height'], ratio: figure(where, item) }`
+- saída (reprovações):
+  not ok 64 - label: o ponto não tem largura nem altura
+
+## Defeito: fábrica não cuida da ordem das fichas (devolve a embaralhada da semente)
+- arquivo: radiant-app/src/features/student-checkpoints/batches/rtgBatchFactory.ts
+- troca: `if (shown.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() !== an` por `if (shown.length) return attempt === 0 && labels.length ? [...labels] : shown;`
+- saída (reprovações):
+  ● contrato amplo (wide) › label (fase B) › aceita rótulo sobre diagrama, com a figura em imageRef, e as fichas nunca na ordem dos pontos
+  ● contrato amplo (wide) › label (fase B) › invalid-wide-shape: ficha repetida, ficha certa fora do banco, rótulo duplicado e distratores demais
+  ● contrato amplo (wide) › label (fase B) › mantém as chaves exatas do payload e exige texto em todo rótulo
+  ● contrato amplo (wide) › label (fase B) › o gerador nunca abre as fichas na ordem dos pontos: 3 pontos e 0 distratores
+  ● contrato amplo (wide) › label (fase B) › o gerador nunca abre as fichas na ordem dos pontos: 3 pontos e 2 distratores
+  ● contrato amplo (wide) › label (fase B) › o gerador nunca abre as fichas na ordem dos pontos: 4 pontos e 1 distratores
+  ● contrato amplo (wide) › label (fase B) › o gerador nunca abre as fichas na ordem dos pontos: 6 pontos e 2 distratores
+  ● contrato amplo (wide) › label (fase B) › wide-answer-position-bias: as fichas certas na ordem dos pontos entregam a resposta
+  ● contrato amplo (wide) › label (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+  not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+
+## Defeito: contrato wide não confere o viés de posição das fichas
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `=== answers.join()) codes.push('wide-answer-position-bias');` por `=== 'nunca') codes.push('wide-answer-position-bias');`
+- saída (reprovações):
+  ● contrato amplo (wide) › label (fase B) › wide-answer-position-bias: as fichas certas na ordem dos pontos entregam a resposta
+
+## Defeito: contrato wide aceita ficha certa repetida em dois pontos
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `|| answers.some(id => !known.has(id)) || new Set(answers).size !== answers.length) codes.p` por `|| answers.some(id => !known.has(id))) codes.push('invalid-wide-shape');`
+- saída (reprovações):
+  ● contrato amplo (wide) › label (fase B) › invalid-wide-shape: ficha repetida, ficha certa fora do banco, rótulo duplicado e distratores demais
+
+## Defeito: acerto olha só o primeiro ponto
+- arquivo: radiant-app/src/features/lesson-flow/renderers/InteractionAnswerValue.ts
+- troca: `return interaction.payload.points.every(point => assigned[point.id] === point.correctLabel` por `return interaction.payload.points.slice(0, 1).every(point => assigned[point.id] === point.`
+- saída (reprovações):
+  ● InteractionAnswerValue: famílias da 1.6 › label: completa com todo ponto rotulado e nenhum rótulo repetido, e acerta só com todos no rótulo certo
+  ● LabelStepRenderer › depois de conferir, cada ponto diz certo ou errado com ícone, o rótulo certo e não aceita toque
+
+## Defeito: completa aceita o mesmo rótulo em dois pontos
+- arquivo: radiant-app/src/features/lesson-flow/renderers/InteractionAnswerValue.ts
+- troca: `return isDistinctSubset(interaction.payload.points.map(point => assigned[point.id] ?? ''),` por `return interaction.payload.points.every(point => interaction.payload.labels.some(entry => `
+- saída (reprovações):
+  ● InteractionAnswerValue: famílias da 1.6 › label: completa com todo ponto rotulado e nenhum rótulo repetido, e acerta só com todos no rótulo certo
+
+## Defeito: retorno do erro aponta o último ponto errado, não o primeiro
+- arquivo: radiant-app/src/features/lesson-flow/services/feedbackFor.ts
+- troca: `const at = points.findIndex(point => assigned[point.id] !== point.correctLabelId);` por `const at = points.map(point => assigned[point.id] !== point.correctLabelId).lastIndexOf(tr`
+- saída (reprovações):
+  ● feedbackFor: famílias da 1.6 › label: o erro acrescenta o rótulo certo do primeiro ponto errado, na ordem dos pontos
+
+## Defeito: alvo do ponto com menos de 44 pt (marcador de 28 pt sem ampliar)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `const { left, top, width, height } = touchRect(point, frame);
+    return { left, top, widt` por `const { left, top } = touchRect(point, frame);
+    return { left: left + 8, top: top + 8, `
+- saída (reprovações):
+  ● LabelStepRenderer › o ponto tem papel de botão e alvo de 44 pt centrado no ponto, dentro da figura
+
+## Defeito: tocar no ponto rotulado não devolve a ficha
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `if (assigned[pointId]) {
+            const { [pointId]: returned, ...rest } = assigned;
+  ` por `if (assigned[pointId]) {
+            setFocus(null);
+        } else if`
+- saída (reprovações):
+  ● LabelStepRenderer › a ficha colocada sai do banco, e tocar no ponto rotulado a devolve
+
+## Defeito: diagrama usa a descrição própria no lugar do rótulo da interação
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `alt={accessibilityLabel}` por ``
+- saída (reprovações):
+  ● LabelStepRenderer › a figura leva o rótulo da interação, e não a descrição do diagrama, que entrega as partes
+
+## Defeito: Maestro rola para baixo até o ponto (sem direction: UP)
+- arquivo: scripts/qa/generate-rtg-maestro.mjs
+- troca: `return [scrollTo('text', name, 'UP'),` por `return [scrollTo('text', name),`
+- saída (reprovações):
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+
+
+# Rodada 1 (correções da revisão): defeitos específicos, vistos falhando por mutação
+
+## Defeito: where pode nomear uma das partes
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `plain(point.where).includes(plain(other.label)))) err(` por `false)) err(`
+- saída (reprovações):
+  not ok 66 - label: where não nomeia a parte, a do próprio ponto nem a de outro, sem acento e sem caixa
+
+## Defeito: where pode repetir entre pontos
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (new Set(points.map((point) => norm(point?.where))).size !== points.length) err(` por `if (false) err(`
+- saída (reprovações):
+  not ok 67 - label: where repetido entre os pontos reprova
+
+## Defeito: where pode faltar ou ser curto
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `{ min: 8, max: 60 }` por `{ min: 0, max: 600 }`
+- saída (reprovações):
+  not ok 65 - label: where é obrigatório, de 8 a 60 caracteres, e entra na lista de chaves
+
+## Defeito: contrato wide aceita ponto sem where
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `|| points.some(point => !filled(point.where))` por ``
+- saída (reprovações):
+  ● contrato amplo (wide) › label (fase B) › invalid-wide-shape: ponto sem where
+
+## Defeito: ficha na mão e ponto rotulado: descarta a escolha e esvazia o ponto
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `if (assigned[pointId] && focus?.kind === 'label') {` por `if (false) {`
+- saída (reprovações):
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+  ● LabelStepRenderer › com uma ficha na mão, tocar num ponto já rotulado troca: o ponto fica com a nova, a antiga volta ao banco e o foco zera
+
+## Defeito: gravar o rótulo não anuncia
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `AccessibilityInfo.announceForAccessibility(`Ponto` por `void (`Ponto`
+- saída (reprovações):
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+
+## Defeito: dica da ficha ignora o foco
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `focusedPoint ? `Põe esta ficha` por `false ? `Põe esta ficha`
+- saída (reprovações):
+  ● LabelStepRenderer › a dica da ficha depende do foco: com um ponto escolhido, diz que o toque põe a ficha nele
+
+## Defeito: rótulo falado do ponto sem where
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `const spoken = `Ponto ${index + 1}, ${point.where},` por `const spoken = `Ponto ${index + 1},`
+- saída (reprovações):
+  ● LabelStepRenderer › a dica da ficha depende do foco: com um ponto escolhido, diz que o toque põe a ficha nele
+  ● LabelStepRenderer › a ficha colocada sai do banco, e tocar no ponto rotulado a devolve
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+  ● LabelStepRenderer › com uma ficha na mão, tocar num ponto já rotulado troca: o ponto fica com a nova, a antiga volta ao banco e o foco zera
+  ● LabelStepRenderer › depois de conferir, cada ponto diz certo ou errado com ícone, o rótulo certo e não aceita toque
+  ● LabelStepRenderer › está registrado e mostra um ponto numerado por alvo e uma ficha por rótulo, inclusive o distrator
+  ● LabelStepRenderer › ficha e depois ponto rotula; ponto e depois ficha também
+  ● LabelStepRenderer › o ponto tem papel de botão e alvo de 44 pt centrado no ponto, dentro da figura
+
+## Defeito: Maestro toca o ponto sem o where
+- arquivo: scripts/qa/generate-rtg-maestro.mjs
+- troca: `const name = `Ponto ${index + 1}, ${point.where}, sem rótulo`;` por `const name = `Ponto ${index + 1}, sem rótulo`;`
+- saída (reprovações):
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+

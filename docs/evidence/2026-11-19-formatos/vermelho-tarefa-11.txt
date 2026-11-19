@@ -1,0 +1,8 @@
+## Guarda de style= e aspas simples (controlador, tarefa 11)
+Defeito injetado: style="fill:white" num <rect> de eco-ultrassom.ts
+    ✕ eco-ultrassom: sem texto, imagem, script nem link e só com cores da paleta
+    expect(received).not.toMatch(expected)
+      70 |       expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject)|href/i);
+    > 72 |       expect(layer.svg).not.toMatch(/\sstyle=|='/);
+      at toMatch (src/ui/diagrams/diagramRegistry.test.ts:72:29)
+Tests:       1 failed, 50 passed, 51 total

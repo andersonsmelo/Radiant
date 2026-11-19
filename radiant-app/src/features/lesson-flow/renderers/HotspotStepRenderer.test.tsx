@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
 import { Path } from 'react-native-svg';
 import { galaxyColors } from '../../../ui/theme';
@@ -35,7 +35,7 @@ describe('HotspotStepRenderer', () => {
         expect(onSelect).toHaveBeenNthCalledWith(2, 'detector');
     });
 
-    it('expõe seleção por estado e mantém cada alvo com ao menos 44 pt', () => {
+    it('expõe seleção por estado e mantém cada alvo com ao menos 44 pt, centrado na região', () => {
         const { getByLabelText } = render(
             <HotspotStepRenderer
                 payload={payload}
@@ -48,8 +48,11 @@ describe('HotspotStepRenderer', () => {
         const target = getByLabelText('Selecionar Detector plano na imagem');
         const textAlternative = getByLabelText('Selecionar Detector plano na lista');
         expect(target.props.accessibilityState.selected).toBe(true);
-        expect(StyleSheet.flatten(target.props.style).minWidth).toBeGreaterThanOrEqual(44);
-        expect(StyleSheet.flatten(target.props.style).minHeight).toBeGreaterThanOrEqual(44);
+        // Figura de 280 x 210 pt: a região do detector tem 207 x 46 pt e já passa de 44; a da fonte, 90 x 59 pt.
+        fireEvent(screen.getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+        const source = screen.getByLabelText('Selecionar Fonte de raios X na imagem');
+        expect(source.props.hitSlop).toEqual({ left: 0, right: 0, top: 0, bottom: 0 });
+        expect(StyleSheet.flatten(target.props.style).minWidth).toBeUndefined();
         expect(StyleSheet.flatten(textAlternative.props.style).minHeight).toBeGreaterThanOrEqual(44);
     });
 
@@ -95,6 +98,16 @@ describe('HotspotStepRenderer', () => {
         const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
         expect(region.alignItems).toBe('flex-start');
         expect(region.justifyContent).toBe('flex-start');
-        expect(region.minWidth).toBeGreaterThanOrEqual(44);
+    });
+
+    it('uma região menor que 44 pt ganha folga igual nos dois lados, e o rótulo da interação vale para o diagrama', () => {
+        const small = { ...payload, imageRef: 'diagram:tubo-raios-x', regions: [{ id: 'a', label: 'Parte pequena', x: 0.5, y: 0.5, width: 0.1, height: 0.1 }, payload.regions[1]], correctRegionIds: ['a'] };
+        const { getByLabelText, getByTestId } = render(
+            <HotspotStepRenderer payload={small} accessibilityLabel="Toque na imagem: Onde fica a parte?" onSelect={jest.fn()} />,
+        );
+        fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+        // 0,1 x 280 = 28 pt de largura e 21 pt de altura: faltam 16 e 23 pt, metade para cada lado.
+        expect(getByLabelText('Selecionar Parte pequena na imagem').props.hitSlop).toEqual({ left: 8, right: 8, top: 11.5, bottom: 11.5 });
+        expect(getByLabelText('Toque na imagem: Onde fica a parte?')).toBeTruthy();
     });
 });

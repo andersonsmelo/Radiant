@@ -319,11 +319,17 @@ qualquer erro reprova a geração inteira; não existe lote parcial.
 
 **O que `wide` aceita** (`EditorialWideContract.ts`):
 
-- de 3 a 8 interações por atividade, em nove famílias: `multiple-choice`,
-  `case-decision`, `ordering`, `matching`, `comparison` e, desde a 1.6
-  (2026-11-15), `cloze`, `true-false`, `categorize` e `multi-select`
-  ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)). `hotspot` e
-  `bench` ficam fora, porque dependem de ativo que esta etapa não tem;
+- de 3 a 8 interações por atividade, em 16 famílias (`WIDE_ACTIVITY_FAMILIES`):
+  `multiple-choice`, `case-decision`, `ordering`, `matching`, `comparison`, desde a
+  1.6 (2026-11-15) `cloze`, `true-false`, `categorize` e `multi-select`
+  ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)) e, na fase B da trilha
+  dobrada (2026-11-19, na branch `claude/trilha-dobrada-fase-b`, sem merge),
+  `hotspot`, `label`, `risk-hunt`, `conversation`, `blitz`, `bench` e
+  `parameter-lab` ([ADR](adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md)). A
+  figura de `hotspot`, `label` e `risk-hunt` é imagem licenciada ou diagrama do
+  catálogo (`imageRef`: o id da imagem ou `diagram:<id>`). A forma de cada formato
+  na aula-fonte e as réguas do verificador estão na seção 3b do
+  [guia de autoria](content/2026-11-05-guia-de-autoria-rtg-2026.md);
 - fonte com `use: 'cc-by-4.0' | 'factual-reference'`, mais `publisher`, `url`
   https, `accessedAt` e `licenseNote`. Não há hash do corpo recuperado: a fonte de
   consulta sustenta o fato, e a redação é própria;

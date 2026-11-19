@@ -1,4 +1,7 @@
 import { AUTHORED_EVIDENCE_KINDS, type LearningActivityV2, type LearningInteractionV2 } from '../../types/learningActivity';
+import { DIAGRAMS, parseDiagramRef } from '../../ui/diagrams/diagramRegistry';
+import { encodeBenchValue, isCorrectInteractionValue } from '../lesson-flow/renderers/InteractionAnswerValue';
+import { LAB_MODEL_IDS, isOnLabGrid } from '../parameter-lab/labModels';
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 
 /**
@@ -46,12 +49,12 @@ export type EditorialWideContractV1 = Readonly<{
     namespace: 'rtg-2026';
     /** Um par de itens por competência, para depois de uma conferência reprovada. */
     recovery: readonly EditorialWideRecoveryV1[];
-    /** Só as imagens que alguma comparação desta unidade usa. */
+    /** Só as imagens que alguma comparação, hotspot, rotular ou caça ao erro desta unidade usa. */
     images?: readonly EditorialLicensedImageV1[];
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -65,6 +68,13 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     'true-false': ['prompt', 'statements'],
     categorize: ['prompt', 'categories', 'items'],
     'multi-select': ['prompt', 'options', 'correctOptionIds'],
+    hotspot: ['prompt', 'imageRef', 'regions', 'correctRegionIds'],
+    label: ['prompt', 'imageRef', 'points', 'labels'],
+    'risk-hunt': ['prompt', 'imageRef', 'regions', 'riskRegionIds'],
+    conversation: ['prompt', 'speaker', 'name', 'turns'],
+    blitz: ['prompt', 'statements', 'passCount'],
+    bench: ['prompt', 'simulator', 'mode', 'controls', 'goal', 'phantomLabel', 'hints'],
+    'parameter-lab': ['prompt', 'model', 'start', 'goal', 'hints'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -129,6 +139,70 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
         if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
             options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'blitz') {
+        const { statements, passCount } = interaction.payload;
+        const truths = statements.filter(statement => statement.isTrue).length;
+        if (statements.length < 6 || statements.length > 8 || passCount !== statements.length - 1
+            || new Set(statements.map(statement => statement.id)).size !== statements.length
+            || new Set(statements.map(statement => normalized(statement.text))).size !== statements.length
+            || statements.some(statement => !filled(statement.explanation))
+            || new Set(statements.map(statement => normalized(statement.explanation))).size !== statements.length) codes.push('invalid-wide-shape');
+        // Quase todas verdadeiras (ou falsas) deixa a resposta constante: a rodada se acerta sem ler.
+        if (truths < 2 || truths > statements.length - 2) codes.push('wide-constant-answer');
+        // Três iguais seguidas no começo entregam o padrão da rodada.
+        if ((statements.length >= 3 && statements.slice(0, 3).every(statement => statement.isTrue === statements[0].isTrue))
+            || statements.every((statement, index) => index === 0 || statement.isTrue !== statements[index - 1].isTrue)) codes.push('wide-answer-position-bias');
+    } else if (interaction.type === 'bench') {
+        const { controls, goal, hints } = interaction.payload;
+        const target = goal.kind === 'reach' ? controls.find(control => control.id === goal.control) : undefined;
+        if (controls.length < 1 || controls.length > 2 || new Set(controls.map(control => control.id)).size !== controls.length
+            || !filled(hints?.tooLow) || !filled(hints?.tooHigh) || normalized(hints.tooLow) === normalized(hints.tooHigh)) codes.push('invalid-wide-shape');
+        // Sem mexer em nada o aluno já cumpriria o alvo: a bancada se responderia sozinha.
+        if (goal.kind === 'reach' && target && (goal.atLeast === undefined || target.initial >= goal.atLeast)
+            && (goal.atMost === undefined || target.initial <= goal.atMost)) codes.push('wide-constant-answer');
+        // O `match` só tem imagem de referência no desafio, e também não pode se cumprir sozinho.
+        if (goal.kind === 'match' && interaction.payload.mode !== 'challenge') codes.push('invalid-wide-shape');
+        else if (goal.kind === 'match' && isCorrectInteractionValue(interaction, encodeBenchValue(Object.fromEntries(controls.map(control => [control.id, control.initial]))))) codes.push('wide-constant-answer');
+    } else if (interaction.type === 'parameter-lab') {
+        const { model, start, goal, hints } = interaction.payload;
+        const known = (LAB_MODEL_IDS as readonly unknown[]).includes(model);
+        const limits = [goal?.atLeast, goal?.atMost].filter((limit): limit is number => limit !== undefined);
+        if (!known || !isOnLabGrid(model, start) || limits.length === 0 || limits.some(limit => !isOnLabGrid(model, limit))
+            || (goal.atLeast !== undefined && goal.atMost !== undefined && goal.atLeast > goal.atMost)
+            || !filled(hints?.tooLow) || !filled(hints?.tooHigh) || normalized(hints.tooLow) === normalized(hints.tooHigh)) codes.push('invalid-wide-shape');
+        // Sem mexer em nada o aluno já cumpriria a meta: o laboratório se responderia sozinho.
+        else if ((goal.atLeast === undefined || start >= goal.atLeast) && (goal.atMost === undefined || start <= goal.atMost)) codes.push('wide-constant-answer');
+    } else if (interaction.type === 'conversation') {
+        const { speaker, name, turns } = interaction.payload;
+        const positions = turns.map(turn => turn.options.findIndex(option => option.id === turn.correctOptionId));
+        const ids = [...turns.map(turn => turn.id), ...turns.flatMap(turn => turn.options.map(option => option.id))];
+        if (turns.length < 2 || turns.length > 3 || !['lia', 'caio', 'duda', 'paciente'].includes(speaker) || (speaker === 'paciente' && !filled(name)) || new Set(ids).size !== ids.length
+            || turns.some(turn => turn.options.length < 2 || turn.options.length > 3 || positions[turns.indexOf(turn)] < 0
+                || new Set(turn.options.map(option => normalized(option.label))).size !== turn.options.length
+                || turn.options.some(option => !filled(option.reply)))) codes.push('invalid-wide-shape');
+        // A correta no mesmo lugar em todos os turnos entrega a resposta pela posição.
+        if (new Set(positions).size === 1) codes.push('wide-answer-position-bias');
+        if (turns.some(turn => longestIsCorrect(turn.options.filter(option => option.id === turn.correctOptionId).map(option => option.label),
+            turn.options.filter(option => option.id !== turn.correctOptionId).map(option => option.label)))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'risk-hunt') {
+        const { regions, riskRegionIds } = interaction.payload;
+        const known = new Set(regions.map(region => region.id));
+        if (regions.length < 4 || regions.length > 6 || known.size !== regions.length || new Set(regions.map(region => normalized(region.label))).size !== regions.length
+            || regions.some(region => !filled(region.explanation)) || new Set(regions.map(region => normalized(region.explanation))).size !== regions.length
+            || riskRegionIds.some(id => !known.has(id)) || new Set(riskRegionIds).size !== riskRegionIds.length) codes.push('invalid-wide-shape');
+        // Todas de risco, ou menos de duas: a resposta se deduz sem olhar a cena.
+        if (riskRegionIds.length < 2 || riskRegionIds.length > regions.length - 1) codes.push('wide-constant-answer');
+        // Os riscos todos no topo da lista entregam a resposta pela posição.
+        else if (regions.slice(0, riskRegionIds.length).every(region => riskRegionIds.includes(region.id))) codes.push('wide-answer-position-bias');
+    } else if (interaction.type === 'label') {
+        const { points, labels } = interaction.payload;
+        const answers = points.map(point => point.correctLabelId);
+        const known = new Set(labels.map(entry => entry.id));
+        if (points.length < 3 || points.length > 6 || labels.length < points.length || labels.length > points.length + 2
+            || known.size !== labels.length || new Set(labels.map(entry => normalized(entry.label))).size !== labels.length
+            || points.some(point => !filled(point.where)) || answers.some(id => !known.has(id)) || new Set(answers).size !== answers.length) codes.push('invalid-wide-shape');
+        // As fichas certas, na ordem em que aparecem, não podem repetir a ordem dos pontos.
+        if (labels.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() === answers.join()) codes.push('wide-answer-position-bias');
     } else {
         return codes;
     }
@@ -154,6 +228,11 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'true-false': return interaction.payload.statements.map(statement => statement.id);
         case 'categorize': return [...interaction.payload.categories.map(category => category.id), ...interaction.payload.items.map(item => item.id)];
         case 'multi-select': return interaction.payload.options.map(option => option.id);
+        case 'hotspot': return interaction.payload.regions.map(region => region.id);
+        case 'risk-hunt': return interaction.payload.regions.map(region => region.id);
+        case 'label': return [...interaction.payload.points.map(point => point.id), ...interaction.payload.labels.map(entry => entry.id)];
+        case 'blitz': return interaction.payload.statements.map(statement => statement.id);
+        case 'conversation': return interaction.payload.turns.flatMap(turn => [turn.id, ...turn.options.map(option => option.id)]);
         default: return [];
     }
 }
@@ -171,7 +250,7 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
     } else if (interaction.type === 'multi-select') {
         const correct = new Set(interaction.payload.correctOptionIds);
         interaction.payload.options.forEach(option => add(option.id, correct.has(option.id) ? 'correct-answer' : 'distractor', !correct.has(option.id)));
-    } else if (interaction.type === 'true-false') {
+    } else if (interaction.type === 'true-false' || interaction.type === 'blitz') {
         // A afirmação errada é redação do autor, como o distrator; só a certa cita a fonte.
         interaction.payload.statements.forEach(statement => add(statement.id, statement.isTrue ? 'prompt' : 'distractor', !statement.isTrue));
         add(`${interaction.id}:answer`, 'correct-answer');
@@ -180,6 +259,21 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
         const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));
         interaction.payload.blanks.forEach(blank => add(blank.id, 'prompt'));
         interaction.payload.tokens.forEach(token => add(token.id, answers.has(token.id) ? 'correct-answer' : 'distractor', !answers.has(token.id)));
+    } else if (interaction.type === 'conversation') {
+        // A fala do personagem é cena; a resposta certa de cada turno é da fonte, e as outras são distratores autorais.
+        interaction.payload.turns.forEach(turn => {
+            add(turn.id, 'prompt');
+            turn.options.forEach(option => add(option.id, option.id === turn.correctOptionId ? 'correct-answer' : 'distractor', option.id !== turn.correctOptionId));
+        });
+    } else if (interaction.type === 'risk-hunt') {
+        // A região de risco é afirmação da fonte; a situação correta, que sobra na cena, é distrator autoral.
+        const risks = new Set(interaction.payload.riskRegionIds);
+        interaction.payload.regions.forEach(region => add(region.id, risks.has(region.id) ? 'correct-answer' : 'distractor', !risks.has(region.id)));
+    } else if (interaction.type === 'label') {
+        // O texto de cada ficha certa é da fonte; a que sobra no banco é distrator autoral.
+        const answers = new Set(interaction.payload.points.map(point => point.correctLabelId));
+        interaction.payload.points.forEach(point => add(point.id, 'prompt'));
+        interaction.payload.labels.forEach(entry => add(entry.id, answers.has(entry.id) ? 'correct-answer' : 'distractor', !answers.has(entry.id)));
     } else {
         wideResponseIds(interaction).forEach(id => add(id, 'prompt'));
         add(`${interaction.id}:answer`, 'correct-answer');
@@ -233,6 +327,10 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
         identity(activity.id);
         const interactions = activity.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
         activity.steps.forEach(step => identity(step.kind === 'interaction' ? step.interaction.id : step.id));
+        // O diagrama do conceito mora no app, como o das figuras de interação.
+        activity.steps.forEach(step => {
+            if (step.kind === 'presentation' && step.role === 'concept' && step.payload.visual !== undefined && !Object.hasOwn(DIAGRAMS, step.payload.visual)) add('unregistered-diagram', step.id);
+        });
         if (interactions.length < WIDE_MIN_INTERACTIONS || interactions.length > WIDE_MAX_INTERACTIONS) add('invalid-wide-interaction-count', activity.id);
         if (!competency(activity.competencyIds) || !sources(activity.provenance.sourceIds)) add('invalid-activity-contract', activity.id);
         for (const interaction of interactions) {
@@ -246,12 +344,24 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                 interaction.payload.options.forEach(option => { if (option.imageRef) usedImages.add(option.imageRef); });
                 if (interaction.payload.options.some(option => !option.imageRef || !registeredImages.has(option.imageRef))) add('unregistered-licensed-image', interaction.id);
             }
+            if (interaction.type === 'hotspot' || interaction.type === 'label' || interaction.type === 'risk-hunt') {
+                const { imageRef } = interaction.payload;
+                const diagramId = parseDiagramRef(imageRef);
+                // Diagrama mora no app; imagem licenciada precisa estar no cadastro da unidade e conta como usada.
+                if (diagramId !== null) { if (!Object.hasOwn(DIAGRAMS, diagramId)) add('unregistered-diagram', interaction.id); }
+                else { usedImages.add(imageRef); if (!registeredImages.has(imageRef)) add('unregistered-licensed-image', interaction.id); }
+            }
             const labels: unknown[] = interaction.type === 'ordering' ? interaction.payload.items.map(item => item.label)
                 : interaction.type === 'matching' ? interaction.payload.pairs.flatMap(pair => [pair.left, pair.right])
                     : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison'
                         || interaction.type === 'multi-select' ? interaction.payload.options.map(option => option.label)
                         : interaction.type === 'cloze' ? interaction.payload.tokens.map(token => token.label)
-                            : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
+                            : interaction.type === 'hotspot' ? interaction.payload.regions.map(region => region.label)
+                            : interaction.type === 'label' ? interaction.payload.labels.map(entry => entry.label)
+                            : interaction.type === 'risk-hunt' ? interaction.payload.regions.map(region => region.label)
+                            : interaction.type === 'conversation' ? interaction.payload.turns.flatMap(turn => [turn.line, ...turn.options.flatMap(option => [option.label, option.reply])])
+                            : interaction.type === 'bench' ? [...interaction.payload.controls.map(control => control.label), interaction.payload.phantomLabel]
+                            : interaction.type === 'true-false' || interaction.type === 'blitz' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')
                 && interaction.payload.options.some(option => option.imageRef !== undefined);
