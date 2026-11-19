@@ -1,0 +1,40 @@
+FAIL src/ui/diagrams/diagramRegistry.test.ts (9.297 s)
+  paleta dos diagramas
+    ✓ bg copia o token de origem (6 ms)
+    ✓ fill copia o token de origem
+    ✓ line copia o token de origem
+    ✓ muted copia o token de origem
+    ✓ accent copia o token de origem (1 ms)
+    ✓ beam copia o token de origem
+    ✓ electron copia o token de origem
+    ✓ traço line tem 3:1 contra o fundo (1 ms)
+    ✓ traço muted tem 3:1 contra o fundo
+    ✓ traço accent tem 3:1 contra o fundo (1 ms)
+    ✓ traço beam tem 3:1 contra o fundo
+    ✓ traço electron tem 3:1 contra o fundo
+  registro de diagramas
+    ✓ guarda ao menos os dois diagramas de semente
+    ✓ tubo-raios-x: id, quadro e alt válidos (1 ms)
+    ✓ colimador-abrindo: id, quadro e alt válidos (1 ms)
+    ✕ tubo-raios-x: sem texto, imagem, script nem link e só com cores da paleta (1 ms)
+    ✓ colimador-abrindo: sem texto, imagem, script nem link e só com cores da paleta (1 ms)
+    ✓ tubo-raios-x: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1 (1 ms)
+    ✓ colimador-abrindo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1 (1 ms)
+    ✓ o colimador tem laço, e o tubo é parado
+    ✓ diagramRef e parseDiagramRef são inversas
+  ● registro de diagramas › tubo-raios-x: sem texto, imagem, script nem link e só com cores da paleta
+    expect(received).not.toMatch(expected)
+    Expected pattern: not /<(text|image|script)|href/i
+    Received string:      "<text x=\"1\" y=\"1\">ânodo</text><polygon points=\"219,104 190,236 252,236\" fill=\"#FFC21A\" fill-opacity=\"0.3\" stroke=\"#FFC21A\" stroke-width=\"2\" stroke-linejoin=\"round\"/>"
+      67 |     const palette = new Set(Object.values(P).map((c) => c.toLowerCase()));
+      68 |     for (const layer of DIAGRAMS[id].layers) {
+    > 69 |       expect(layer.svg).not.toMatch(/<(text|image|script)|href/i);
+         |                             ^
+      70 |       for (const color of layer.svg.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(/g) ?? []) {
+      71 |         expect(palette.has(color.toLowerCase())).toBe(true);
+      72 |       }
+      at toMatch (src/ui/diagrams/diagramRegistry.test.ts:69:29)
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 20 passed, 21 total
+Snapshots:   0 total
+Time:        17.108 s

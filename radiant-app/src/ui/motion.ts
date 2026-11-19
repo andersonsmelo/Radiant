@@ -4,7 +4,7 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { createElement, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Animated, Easing, Pressable } from 'react-native';
 import {
     default as Reanimated,
@@ -28,6 +28,8 @@ import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
 import { useScreenFocused } from './useScreenFocused';
 import { galaxyColors, hudIconTones } from './theme';
+import { layerStateAt } from './diagrams/diagramMotion';
+import type { DiagramLayer } from './diagrams/diagramTypes';
 
 // ============================================================================
 // DURATION TOKENS (milliseconds)
@@ -1011,4 +1013,96 @@ export function useTrailMomentStyles(
         cta: ctaStyle,
         holding: wantsMotion && (!ready || startedKey !== runKey),
     };
+}
+
+// ============================================================================
+// LAÇOS DOS DIAGRAMAS EM CÓDIGO (ui/diagrams)
+// ============================================================================
+
+/**
+ * Relógio linear de 0 a 1, em `periodMs`, para os laços dos diagramas. Parado
+ * (em 0) com "reduzir movimento", enquanto a preferência não responde, sem
+ * `periodMs` e quando `playing` é falso; pausa fora de foco, como
+ * `useLottieFrameLoop`.
+ */
+export function useLoopProgress(periodMs: number | undefined, playing: boolean): DerivedValue<number> {
+    const motion = useReducedMotionPreferenceState();
+    const focused = useScreenFocused();
+    const reduced = motion.reducedMotionEnabled || !motion.resolved;
+    const period = periodMs ?? 0;
+    const still = !playing || reduced || !(period > 0);
+    const running = !still && focused;
+    const clock = useSharedValue(0);
+
+    useEffect(() => {
+        if (still) {
+            cancelAnimation(clock);
+            clock.value = 0;
+            return undefined;
+        }
+        if (!running) {
+            cancelAnimation(clock);
+            return undefined;
+        }
+        const from = clock.value % 1;
+        clock.value = from;
+        clock.value = withSequence(
+            withTiming(1, { duration: (1 - from) * period, easing: ReanimatedEasing.linear }),
+            withRepeat(
+                withSequence(
+                    withTiming(0, { duration: 0 }),
+                    withTiming(1, { duration: period, easing: ReanimatedEasing.linear }),
+                ),
+                -1,
+                false,
+            ),
+        );
+        return () => cancelAnimation(clock);
+    }, [still, running, clock, period]);
+
+    return useDerivedValue(() => clock.value);
+}
+
+/**
+ * Uma camada de diagrama (um `SvgXml` por camada) movida pelo relógio. A camada
+ * ocupa o quadro todo, então a origem do giro e a translação saem em
+ * porcentagem do quadro, a mesma proporção das unidades do desenho.
+ */
+export function DiagramLayerMotion({
+    motion,
+    progress,
+    width,
+    height,
+    children,
+}: {
+    motion: DiagramLayer['motion'];
+    progress: DerivedValue<number>;
+    width: number;
+    height: number;
+    children: ReactNode;
+}) {
+    const origin =
+        motion && (motion.kind === 'rotate' || motion.kind === 'scale')
+            ? `${(motion.cx / width) * 100}% ${(motion.cy / height) * 100}%`
+            : '50% 50%';
+    const style = useAnimatedStyle(() => {
+        const s = layerStateAt(motion, progress.value);
+        return {
+            opacity: s.opacity,
+            transform: [
+                { translateX: `${(s.translateX / width) * 100}%` },
+                { translateY: `${(s.translateY / height) * 100}%` },
+                { rotate: `${s.rotateDeg}deg` },
+                { scale: s.scale },
+            ],
+        };
+    });
+    return createElement(
+        Reanimated.View,
+        {
+            pointerEvents: 'none',
+            style: [{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, transformOrigin: origin }, style],
+        },
+        children,
+    );
 }
