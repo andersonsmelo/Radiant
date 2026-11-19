@@ -17,8 +17,16 @@ export type DiagramLayer = {
   /**
    * `range` [a, b]: a camada só anda no trecho a..b da fração do ciclo e fica parada fora dele.
    * Encadeia fases com um relógio só: o braço desce até 0,5 e espera; o feixe acende de 0,9 a 1.
+   * `keys` [fração do ciclo, fração do movimento]: curva por trechos (acende, segura, apaga) no lugar da
+   * rampa linear; frações crescentes de 0 a 1. `ease: 'inOut'` suaviza cada trecho (ou a rampa, sem `keys`).
    */
-  motion?: LayerMotion & { mode: 'loop' | 'pingpong' | 'once'; phase?: number; range?: [number, number] };
+  motion?: LayerMotion & {
+    mode: 'loop' | 'pingpong' | 'once';
+    phase?: number;
+    range?: [number, number];
+    keys?: (readonly [at: number, value: number])[];
+    ease?: 'linear' | 'inOut';
+  };
 };
 
 export type DiagramSpec = {

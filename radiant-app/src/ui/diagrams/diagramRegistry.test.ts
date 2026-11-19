@@ -1,6 +1,6 @@
 import { parse } from 'react-native-svg';
 import { galaxyColors, hudIconTones, pixelColors } from '../theme';
-import { diagramSvgAt } from './diagramMotion';
+import { diagramSvgAt, motionKeysError } from './diagramMotion';
 import { P } from './diagramPalette';
 import { DIAGRAMS, DIAGRAM_IDS, diagramRef, parseDiagramRef } from './diagramRegistry';
 
@@ -116,6 +116,10 @@ describe('registro de diagramas', () => {
       // O parser que o aparelho usa: não pode lançar nem devolver nulo.
       expect(parse(xml)).not.toBeNull();
     }
+  });
+
+  it.each(DIAGRAM_IDS)('%s: keys do movimento em ordem crescente e de 0 a 1', (id) => {
+    for (const layer of DIAGRAMS[id].layers) expect(motionKeysError(layer.motion)).toBeNull();
   });
 
   it('o colimador tem laço, e o tubo e a sala com riscos são parados', () => {
