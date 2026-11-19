@@ -26,15 +26,6 @@
       "licenseNote": "Página institucional para pacientes; consultada para as etapas do exame, o papel da câmara gama e as orientações de saída, com redação própria."
     },
     {
-      "id": "cnen-norma-3-05",
-      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
-      "publisher": "CNEN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para os arts. 2º, 12, 13, 14, 15, 19, 20, 32, 35, 43, 54 e 60, sem reprodução de texto."
-    },
-    {
       "id": "cdc-contaminacao-exposicao",
       "title": "Radiation Contamination Versus Exposure",
       "publisher": "CDC",
@@ -42,15 +33,6 @@
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Página institucional do governo dos Estados Unidos; consultada para a distinção entre exposição e contaminação, com redação própria."
-    },
-    {
-      "id": "inca-radioterapia",
-      "title": "Radioterapia",
-      "publisher": "INCA, Ministério da Saúde",
-      "url": "https://www.gov.br/inca/pt-br/assuntos/cancer/tratamento/radioterapia",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Página institucional; consultada para finalidade, tipos, equipe, marcações e rotina das aplicações, com redação própria."
     },
     {
       "id": "radiologyinfo-teleterapia",
@@ -89,15 +71,6 @@
       "licenseNote": "Página institucional para pacientes; consultada para equipamentos da sala, fluoroscopia, contraste e papéis no procedimento, com redação própria."
     },
     {
-      "id": "anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa (texto compilado, cópia hospedada pelo CBR)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para os arts. 23, 43, 51, 65 e 66, sem reprodução de texto."
-    },
-    {
       "id": "kjp-seguranca-radiacao",
       "title": "Radiation safety for pain physicians: principles and recommendations",
       "publisher": "The Korean Journal of Pain, 2022;35(2):129-139 (PubMed Central)",
@@ -107,13 +80,22 @@
       "licenseNote": "Artigo de acesso aberto com licença CC BY-NC 4.0; consultado para fatos sobre espalhamento, barreiras e distância em fluoroscopia, com redação própria."
     },
     {
-      "id": "planalto-lei-7394",
-      "title": "Lei nº 7.394, de 29 de outubro de 1985",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7394.htm",
-      "accessedAt": "2026-11-06",
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o art. 1º (técnicas abrangidas pela profissão), sem reprodução de texto."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     }
   ],
   "lessons": [
@@ -232,7 +214,7 @@
           "help": "Pergunte a cada etapa o que precisa ter acontecido antes dela.",
           "sourceIds": [
             "radiologyinfo-medicina-nuclear",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -449,7 +431,7 @@
         "lines": [
           {
             "speaker": "caio",
-            "text": "Antes de sair, passo o monitor nas mãos, no jaleco e na bancada. Todo dia. E anoto o resultado."
+            "text": "Antes de sair, passo o monitor nas mãos, no jaleco e na bancada. Faço isso ao sair da área controlada e a cada suspeita. E anoto o resultado."
           },
           {
             "speaker": "duda",
@@ -463,10 +445,10 @@
       },
       "concept": {
         "title": "Exposição não é contaminação",
-        "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear o radiofármaco costuma ser uma solução injetável: uma gota fora do lugar já é contaminação. Por isso a norma ANSN 3.05 exige luvas descartáveis e jaleco de manga longa de quem manipula, sala de espera exclusiva para o paciente injetado e monitoração diária, e a cada suspeita, de corpo, roupas e superfícies, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o supervisor de proteção radiológica.",
+        "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear, uma gota de radiofármaco fora do lugar já é contaminação. Por isso, segundo a orientação internacional, o serviço usa luvas descartáveis e jaleco de manga longa, reserva espera separada ao paciente injetado e monitora corpo, roupas e superfícies ao sair da área controlada e a cada suspeita, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o supervisor de proteção radiológica.",
         "keyPoints": [
           "Exposição: energia que chega. Contaminação: material fora do lugar.",
-          "Monitoração diária e a cada suspeita, sempre registrada.",
+          "Monitoração sistemática, ao sair da área controlada e a cada suspeita; sempre registrada.",
           "Suspeitou? Não toque, avise e chame o supervisor de proteção radiológica."
         ]
       },
@@ -495,13 +477,13 @@
             {
               "label": "No paciente, que passa a emitir",
               "correct": true,
-              "feedback": "Isso. Por isso o paciente injetado tem sala de espera e sanitário exclusivos no serviço."
+              "feedback": "Isso. Por isso o paciente injetado costuma ter espera e sanitário separados no serviço."
             }
           ],
           "help": "Lembre o que mudou em relação à radiografia: o sinal passou a sair de onde?",
           "sourceIds": [
             "nibib-medicina-nuclear",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -531,7 +513,7 @@
           "feedbackIncorrect": "Retome o conceito: uma medida impede o contato, outra verifica, outra guarda a informação e outra separa pessoas.",
           "help": "Pergunte a cada medida: você impede, verifica, guarda ou separa?",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -598,7 +580,7 @@
           ],
           "help": "Você não sabe o que é o líquido. Pense em quem tem instrumento e autoridade para verificar.",
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
             "cdc-contaminacao-exposicao"
           ]
         },
@@ -606,7 +588,7 @@
           "id": "i5",
           "type": "multiple-choice",
           "role": "transfer",
-          "prompt": "No quarto de um paciente internado para terapia com radiofármaco, a norma manda cobrir com plástico impermeável os objetos que podem ser contaminados. Que ideia da aula explica a medida?",
+          "prompt": "No quarto de um paciente internado para terapia com radiofármaco, o serviço costuma forrar o piso e a cama com material absorvente de face plástica. Que ideia da aula explica a medida?",
           "options": [
             {
               "label": "O plástico bloqueia a radiação gama do paciente",
@@ -619,19 +601,19 @@
               "feedback": "Nada na superfície muda a atividade do material. Confira de novo o que a barreira evita."
             },
             {
-              "label": "Uma barreira impede o material de ficar no objeto",
+              "label": "Uma barreira impede o material de ficar no piso",
               "correct": true,
-              "feedback": "Isso. O plástico recebe o material no lugar do objeto e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente."
+              "feedback": "Isso. O material absorvente recebe o respingo no lugar do piso e da cama e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente."
             },
             {
               "label": "O plástico dispensa a monitoração do quarto",
               "correct": false,
-              "feedback": "A monitoração continua obrigatória depois da saída do paciente. A barreira só facilita a remoção."
+              "feedback": "A monitoração continua necessária depois da saída do paciente. A barreira só facilita a remoção."
             }
           ],
           "help": "Decida primeiro se a medida mira a energia que chega ou o material que se deposita.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -645,20 +627,20 @@
       },
       "checkpoint": [
         {
-          "prompt": "Caio terminou o turno sem nenhum incidente. Pela norma do setor, ele ainda precisa monitorar mãos, jaleco e bancada?",
+          "prompt": "Caio terminou o turno sem nenhum incidente. Pela rotina do setor, ele ainda precisa monitorar mãos, jaleco e bancada?",
           "options": [
             {
               "label": "Não: a monitoração só vale quando há suspeita",
               "correct": false,
-              "feedback": "A suspeita é um dos gatilhos, não o único. Retome a frequência que a aula ensinou."
+              "feedback": "A suspeita é um dos gatilhos, não o único. Retome a rotina que a aula ensinou."
             },
             {
-              "label": "Sim: é diária e registrada, mesmo sem incidente",
+              "label": "Sim: ao sair da área, com registro, mesmo sem incidente",
               "correct": true,
-              "feedback": "Isso. A monitoração de corpo, roupas e superfícies é feita todo dia e também a cada suspeita, sempre com registro."
+              "feedback": "Isso. A monitoração de corpo, roupas e superfícies é sistemática, ao sair da área controlada, e também a cada suspeita, sempre com registro."
             },
             {
-              "label": "Não: o dosímetro mensal já cobre a contaminação",
+              "label": "Não: o dosímetro individual já cobre a contaminação",
               "correct": false,
               "feedback": "O dosímetro acompanha a dose do trabalhador; não procura material em superfícies. São medidas diferentes."
             },
@@ -669,7 +651,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -697,7 +679,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -735,7 +717,7 @@
         },
         "transfer": {
           "item": {
-            "prompt": "Uma embalagem com fontes radioativas chega ao serviço. No recebimento, a norma manda inspecionar a integridade e monitorar a superfície externa, com registro. O que essa monitoração procura?",
+            "prompt": "Uma embalagem com fontes radioativas chega danificada ao serviço. No recebimento, o serviço monitora a superfície externa dela. O que essa monitoração procura?",
             "options": [
               {
                 "label": "A dose que cada paciente vai receber no dia",
@@ -759,7 +741,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -808,7 +790,7 @@
           "id": "i1",
           "type": "multiple-choice",
           "role": "prerequisite",
-          "prompt": "Nos exames de imagem que você estudou até aqui, como a norma sanitária trata a dose de radiação no paciente?",
+          "prompt": "Nos exames de imagem que você estudou até aqui, como a proteção radiológica trata a dose de radiação no paciente?",
           "options": [
             {
               "label": "A maior possível, para a imagem ficar mais nítida",
@@ -833,7 +815,7 @@
           ],
           "help": "Lembre o princípio da otimização: a dose do exame serve a qual finalidade?",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -863,7 +845,6 @@
           "feedbackIncorrect": "Retome o conceito: quem decide o tratamento não é quem calcula, e quem calcula não é quem posiciona.",
           "help": "Comece por quem prescreve; depois ache quem transforma a prescrição em cálculo.",
           "sourceIds": [
-            "inca-radioterapia",
             "radiologyinfo-teleterapia"
           ]
         },
@@ -896,7 +877,6 @@
           ],
           "help": "A ficha já diz o que se espera do tratamento. Procure a finalidade que combina com isso.",
           "sourceIds": [
-            "inca-radioterapia",
             "radiologyinfo-teleterapia"
           ]
         },
@@ -931,8 +911,7 @@
           ],
           "help": "Pense para que servem as marcas e em quem responde pela posição antes do feixe.",
           "sourceIds": [
-            "nci-radioterapia-externa",
-            "inca-radioterapia"
+            "nci-radioterapia-externa"
           ]
         },
         {
@@ -964,7 +943,7 @@
           ],
           "help": "Observe quantos profissionais aparecem na rotina e o que cada um faz com a dose.",
           "sourceIds": [
-            "inca-radioterapia"
+            "nci-radioterapia-externa"
           ]
         }
       ],
@@ -1002,7 +981,7 @@
             }
           ],
           "sourceIds": [
-            "inca-radioterapia"
+            "nci-radioterapia-externa"
           ]
         },
         {
@@ -1030,7 +1009,6 @@
             }
           ],
           "sourceIds": [
-            "inca-radioterapia",
             "radiologyinfo-teleterapia"
           ]
         }
@@ -1063,7 +1041,7 @@
               }
             ],
             "sourceIds": [
-              "inca-radioterapia"
+              "nci-radioterapia-externa"
             ]
           }
         },
@@ -1093,7 +1071,7 @@
               }
             ],
             "sourceIds": [
-              "inca-radioterapia"
+              "nci-radioterapia-externa"
             ]
           }
         }
@@ -1585,7 +1563,7 @@
           ],
           "help": "Quem controla o feixe precisa de qual informação neste instante?",
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "kjp-seguranca-radiacao"
           ]
         },
@@ -1620,7 +1598,7 @@
           "help": "O que mudou foi a sala. Verifique se a origem da radiação que chega à equipe mudou.",
           "sourceIds": [
             "kjp-seguranca-radiacao",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -1687,7 +1665,7 @@
           ],
           "sourceIds": [
             "kjp-seguranca-radiacao",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -1720,7 +1698,7 @@
             ],
             "sourceIds": [
               "kjp-seguranca-radiacao",
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -1786,7 +1764,7 @@
       },
       "concept": {
         "title": "Três perguntas para qualquer setor",
-        "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O profissional responsável pelo setor e o supervisor de proteção radiológica. A Lei 7.394/1985, que regula a profissão de técnico em radiologia, inclui as técnicas radioterápica e de medicina nuclear, mas, como estudante, você não administra radiofármaco, não planeja nem entrega dose e não faz ato invasivo.",
+        "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O responsável pelo setor e o supervisor de proteção radiológica. O alcance da atuação do técnico ou tecnólogo varia entre países e serviços; o serviço define o que cada um faz. Como estudante, sob supervisão, você não administra radiofármaco, não planeja nem entrega dose nem faz ato invasivo.",
         "keyPoints": [
           "Onde está a fonte: no paciente, no aparelho ou no tubo?",
           "O que se confere antes: registro, posição ou barreiras?",
@@ -1854,9 +1832,8 @@
           "help": "Comece pela modalidade em que o paciente recebe um material antes da imagem.",
           "sourceIds": [
             "nibib-medicina-nuclear",
-            "inca-radioterapia",
-            "radiologyinfo-angiografia",
-            "planalto-lei-7394"
+            "radiologyinfo-teleterapia",
+            "radiologyinfo-angiografia"
           ]
         },
         {
@@ -1924,7 +1901,7 @@
           ],
           "help": "Separe duas coisas: o que a tarefa exige de quem a executa e o que cabe a você na simulação.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1957,7 +1934,7 @@
           "help": "Faça a pergunta da fonte duas vezes, uma para cada parte do equipamento.",
           "sourceIds": [
             "nibib-medicina-nuclear",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -2024,7 +2001,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
             "cdc-contaminacao-exposicao"
           ]
         }
@@ -2057,8 +2034,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022",
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2079,7 +2055,7 @@
               {
                 "label": "O serviço de medicina nuclear",
                 "correct": true,
-                "feedback": "Isso. A fonte é o radiofármaco no paciente, e a norma mantém esse procedimento sob responsabilidade do serviço de medicina nuclear, mesmo fora das instalações dele."
+                "feedback": "Isso. A fonte é o radiofármaco no paciente, e a proteção radiológica desse procedimento fica com o serviço de medicina nuclear, mesmo fora das instalações dele."
               },
               {
                 "label": "O setor de radiografia geral",
@@ -2088,7 +2064,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018"
             ]
           }
         }

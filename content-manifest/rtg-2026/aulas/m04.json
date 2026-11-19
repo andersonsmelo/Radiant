@@ -7,8 +7,9 @@
     "summary": "Da produção dos raios X ao detector, passando pelas interações com a matéria, pelos efeitos biológicos e pelos princípios de proteção, até a decisão de parar e chamar a equipe."
   },
   "sources": [
-    { "id": "anvisa-rdc-611-2022", "title": "RDC nº 611, de 9 de março de 2022", "publisher": "Anvisa (texto compilado, cópia hospedada pelo CBR)", "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Ato normativo federal; consultado para fatos (arts. 21 a 23, 37, 43 a 60, 65 a 69, 78 a 81), sem reprodução de texto." },
-    { "id": "cnen-norma-3-01", "title": "Norma ANSN 3.01 (antiga CNEN NN 3.01): Requisitos Básicos de Radioproteção e Segurança Radiológica de Fontes de Radiação, Resolução CNEN 344/25", "publisher": "CNEN", "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-01-requisitos-basicos-de-radioprotecao-e-seguranca-radiologica-de-fontes-de-radiacao.pdf", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Ato normativo federal; consultado para definições (art. 6º) e arts. 45, 47, 51 a 54 e 89, sem reprodução de texto." },
+    { "id": "iaea-gsr-part3-2014", "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)", "publisher": "International Atomic Energy Agency (IAEA)", "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto." },
+    { "id": "iaea-ssg46-2018", "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)", "publisher": "International Atomic Energy Agency (IAEA)", "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto." },
+    { "id": "icrpaedia-dose-limits", "title": "Dose limits (ICRPaedia)", "publisher": "International Commission on Radiological Protection (ICRP)", "url": "https://icrpaedia.org/Dose_limits", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Valores dos limites de dose e a exclusão da exposição médica; consulta para fatos, sem reprodução de texto." },
     { "id": "icrpaedia-principios", "title": "Fundamental Principles of Radiological Protection", "publisher": "ICRP (ICRPaedia)", "url": "https://icrpaedia.org/Fundamental_Principles_of_Radiological_Protection", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da ICRP; consultada para fatos, com redação própria." },
     { "id": "icrpaedia-efeitos", "title": "Effects of Exposure", "publisher": "ICRP (ICRPaedia)", "url": "https://icrpaedia.org/Effects_of_Exposure", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da ICRP; consultada para fatos, com redação própria." },
     { "id": "icrpaedia-categorias", "title": "Exposure Categories and Situations", "publisher": "ICRP (ICRPaedia)", "url": "https://icrpaedia.org/Exposure_Categories_and_Situations", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Página institucional da ICRP; consultada para fatos, com redação própria." },
@@ -259,16 +260,16 @@
             { "label": "Avisa o Caio para não disparar e chama a Duda", "correct": true, "feedback": "Isso. Você descreve o que viu antes da exposição. Na sala só fica quem é necessário, e protegido do espalhamento." },
             { "label": "Entra na sala e fica ao lado dela no disparo", "correct": false, "feedback": "Assim seriam duas pessoas expostas sem necessidade. Retome quem precisa estar na sala." },
             { "label": "Deixa a Duda apenas dar um passo para trás", "correct": false, "feedback": "Um passo não substitui sair da sala nem a proteção exigida. O espalhamento sai em todas as direções." } ],
-          "help": "Pergunte quem precisa estar na sala no momento da exposição.", "sourceIds": ["anvisa-rdc-611-2022"] },
+          "help": "Pergunte quem precisa estar na sala no momento da exposição.", "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Radiografia com equipamento móvel num leito de enfermaria simulada. Há outro leito ocupado ao lado, que não pode ser removido, e um visitante parado perto da porta. O técnico responsável prepara o equipamento e pergunta a você, estagiário, o que observou no ambiente.",
           "prompt": "O que você descreve à equipe antes do disparo?",
           "options": [
-            { "label": "O leito vizinho sem barreira e o visitante próximo", "correct": true, "feedback": "Isso. Você descreve e a equipe decide: a norma pede barreira ou distância para os demais pacientes e distância para o público." },
+            { "label": "O leito vizinho sem barreira e o visitante próximo", "correct": true, "feedback": "Isso. Você descreve e a equipe decide: a proteção pede barreira ou distância para os demais pacientes e distância para o público." },
             { "label": "Nada: o feixe aponta só para o paciente do exame", "correct": false, "feedback": "O feixe primário aponta para o paciente, mas o espalhamento sai em todas as direções." },
             { "label": "Que o visitante pode ajudar a segurar o detector", "correct": false, "feedback": "Isso colocaria uma pessoa do público junto ao feixe. Segurar o receptor com as mãos durante a exposição é proibido." },
             { "label": "Que basta o paciente vizinho virar de costas", "correct": false, "feedback": "Virar de costas não é barreira. Retome o que protege quem não pode sair do ambiente." } ],
-          "help": "Olhe para quem está no ambiente e não faz parte do exame.", "sourceIds": ["anvisa-rdc-611-2022"] }
+          "help": "Olhe para quem está no ambiente e não faz parte do exame.", "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "closing": { "title": "Prever antes de expor",
         "body": "Agora você consegue prever, num modelo, como espessura, campo e grade mudam a atenuação e o espalhamento. E sabe que a radiação espalhada não fica só na imagem: ela também alcança quem está por perto.",
@@ -329,7 +330,7 @@
             { "label": "Descrever à equipe o que você observou", "correct": false, "feedback": "Descrever o que viu é o que se espera do estudante, não uma decisão clínica." },
             { "label": "Avisar antes de um disparo inseguro", "correct": false, "feedback": "Avisar a equipe protege as pessoas e faz parte do seu papel. Retome o que só a equipe clínica decide." },
             { "label": "Explicar um conceito em termos gerais", "correct": false, "feedback": "Explicar o conceito geral cabe a você. O que não cabe é decidir ou responder sobre o caso de alguém." } ],
-          "help": "Procure a ação que decide algo sobre o cuidado de uma pessoa.", "sourceIds": ["icrpaedia-efeitos", "anvisa-rdc-611-2022"] },
+          "help": "Procure a ação que decide algo sobre o cuidado de uma pessoa.", "sourceIds": ["iaea-ssg46-2018", "iaea-gsr-part3-2014"] },
         { "id": "i2", "type": "matching", "role": "practice",
           "prompt": "Ligue cada termo à descrição ou ao exemplo que corresponde a ele.",
           "pairs": [
@@ -339,7 +340,7 @@
             { "left": "Câncer", "right": "Exemplo de efeito estocástico" } ],
           "feedbackCorrect": "Distinção feita: limiar e gravidade de um lado, probabilidade sem limiar do outro.",
           "feedbackIncorrect": "Retome a pergunta que separa os dois: existe uma dose abaixo da qual o efeito não aparece?",
-          "help": "Um dos tipos fala de quão grave; o outro fala de quão provável.", "sourceIds": ["cnen-norma-3-01", "icrpaedia-efeitos"] },
+          "help": "Um dos tipos fala de quão grave; o outro fala de quão provável.", "sourceIds": ["icrpaedia-efeitos"] },
         { "id": "i3", "type": "multiple-choice", "role": "practice",
           "prompt": "Num texto de estudo, lê-se: 'abaixo de certa dose o efeito não aparece; acima dela, quanto maior a dose, mais grave'. Que tipo de efeito o texto descreve?",
           "options": [
@@ -347,7 +348,7 @@
             { "label": "Efeito hereditário, por passar aos descendentes", "correct": false, "feedback": "Efeitos hereditários entram no grupo dos estocásticos e não têm limiar." },
             { "label": "Reação tecidual, por ter limiar e gravidade", "correct": true, "feedback": "Isso. Limiar de dose e gravidade crescente definem a reação tecidual." },
             { "label": "Efeito Compton, por envolver espalhamento", "correct": false, "feedback": "Compton é interação física do fóton com a matéria, não um efeito biológico." } ],
-          "help": "Procure no texto as palavras que indicam limiar e gravidade.", "sourceIds": ["cnen-norma-3-01"] },
+          "help": "Procure no texto as palavras que indicam limiar e gravidade.", "sourceIds": ["icrpaedia-efeitos"] },
         { "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
           "context": "Dona Marta, paciente simulada, aguarda uma radiografia de tórax. Ela conta que uma vizinha falou que raio X dá câncer e pergunta a você, estagiário, se ela vai ficar doente por causa do exame de hoje. O técnico responsável está na sala ao lado.",
           "prompt": "Qual resposta respeita o seu limite como estudante?",
@@ -356,7 +357,7 @@
             { "label": "Acolher a dúvida e chamar o técnico para responder", "correct": true, "feedback": "Isso. Você acolhe, não prevê nada sobre ela e leva a pergunta a quem responde pelo exame." },
             { "label": "Estimar a chance dela pelo número de exames feitos", "correct": false, "feedback": "Calcular risco individual não é papel do estudante. Retome o que a aula diz sobre populações." },
             { "label": "Dizer que a vizinha tem razão e sugerir cancelar", "correct": false, "feedback": "Assustar e sugerir cancelamento é interferir numa decisão clínica que não é sua." } ],
-          "help": "Pergunte: esta resposta é conceito geral ou previsão sobre a Dona Marta?", "sourceIds": ["icrpaedia-efeitos", "anvisa-rdc-611-2022"] },
+          "help": "Pergunte: esta resposta é conceito geral ou previsão sobre a Dona Marta?", "sourceIds": ["icrpaedia-efeitos", "iaea-ssg46-2018"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Numa roda de estudo, um colega mostra um relato didático de procedimento intervencionista longo, com fluoroscopia por muito tempo sobre a mesma região da pele. Dias depois, o paciente fictício apresentou vermelhidão no local. O colega diz que isso é 'azar', como qualquer efeito da radiação.",
           "prompt": "Que conceito da aula combina com o efeito descrito no relato?",
@@ -365,7 +366,7 @@
             { "label": "Efeito hereditário: surgiu dias depois", "correct": false, "feedback": "Hereditário diz respeito a descendentes, não ao tempo que o efeito leva para aparecer." },
             { "label": "Nenhum efeito da radiação: não houve dor", "correct": false, "feedback": "Dor não é o critério. Retome o exemplo de reação tecidual citado na aula." },
             { "label": "Reação tecidual: ligada a dose alta no local", "correct": true, "feedback": "Isso. Lesão de pele por dose alta é reação tecidual. Essas reações são raras, mas podem ocorrer em procedimentos médicos complexos." } ],
-          "help": "Veja se o relato fala de chance ou de dose acumulada num mesmo lugar.", "sourceIds": ["icrpaedia-efeitos", "cnen-norma-3-01"] }
+          "help": "Veja se o relato fala de chance ou de dose acumulada num mesmo lugar.", "sourceIds": ["icrpaedia-efeitos"] }
       ],
       "closing": { "title": "Efeito e risco, cada um no seu lugar",
         "body": "Agora você consegue distinguir reação tecidual de efeito estocástico e explicar que risco fala de probabilidade em populações. Diante de uma pergunta sobre um caso, você acolhe e chama a equipe.",
@@ -377,7 +378,7 @@
             { "label": "A gravidade aumenta conforme a dose sobe", "correct": false, "feedback": "No efeito estocástico, o que muda com a dose é a probabilidade, não a gravidade." },
             { "label": "Aparece sempre poucas horas após a exposição", "correct": false, "feedback": "A definição não fala em prazo fixo, e 'sempre' contraria a ideia de probabilidade." },
             { "label": "A probabilidade cresce com a dose, sem limiar", "correct": true, "feedback": "Isso. Probabilidade em função da dose, sem limiar e com gravidade independente da dose." } ],
-          "sourceIds": ["cnen-norma-3-01"] },
+          "sourceIds": ["icrpaedia-efeitos"] },
         { "prompt": "Um folheto diz: 'para fins de proteção, assume-se que doses pequenas trazem um pequeno aumento de risco'. O que essa frase permite afirmar?",
           "options": [
             { "label": "Que cada exame causa um caso de câncer", "correct": false, "feedback": "A frase fala de um pequeno aumento de risco, não de um resultado certo." },
@@ -394,14 +395,14 @@
               { "label": "Efeito fotoelétrico", "correct": false, "feedback": "Esse é um efeito físico de interação do fóton, estudado duas aulas atrás." },
               { "label": "Reação tecidual", "correct": true, "feedback": "Isso. Também chamada de efeito determinístico." },
               { "label": "Efeito hereditário", "correct": false, "feedback": "Efeitos hereditários pertencem ao grupo dos estocásticos." } ],
-            "sourceIds": ["cnen-norma-3-01"] } },
+            "sourceIds": ["icrpaedia-efeitos"] } },
         "transfer": { "item": { "prompt": "Na recepção simulada, um familiar pergunta a você quantos exames a mãe dele 'pode fazer por ano sem adoecer'. O que você faz?",
           "options": [
             { "label": "Informa um número seguro de exames por ano", "correct": false, "feedback": "Não existe esse número para dar, e fixar um seria previsão individual." },
             { "label": "Explica que não cabe a você e chama a equipe", "correct": true, "feedback": "Isso. A dúvida é legítima e deve chegar a quem responde pelo cuidado dela." },
             { "label": "Diz que exames de imagem nunca trazem risco", "correct": false, "feedback": "A aula mostra que se assume um pequeno risco mesmo em doses pequenas." },
             { "label": "Recomenda trocar o exame por outro método", "correct": false, "feedback": "Escolher exame é decisão clínica, fora do seu papel." } ],
-          "sourceIds": ["icrpaedia-efeitos", "anvisa-rdc-611-2022"] } }
+          "sourceIds": ["icrpaedia-efeitos", "iaea-ssg46-2018"] } }
       },
       "diagramIdeas": ["Dois gráficos qualitativos lado a lado: gravidade com limiar e probabilidade sem limiar", "Quadro de frases 'posso dizer' e 'levo à equipe' para perguntas de pacientes"]
     },
@@ -416,8 +417,8 @@
         { "speaker": "lia", "text": "Antes de responder, pense: o paciente está na sala pelo mesmo motivo que você?" } ] },
       "concept": {
         "title": "Três princípios e quem responde",
-        "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A RDC 611 soma a prevenção de acidentes e aponta o responsável legal como principal responsável por aplicá-la; ele designa o supervisor de proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro e informa qualquer evento que aumente o risco.",
-        "keyPoints": ["Limite de dose não se aplica ao paciente; justificação e otimização, sim.", "A RDC 611 remete aos limites da CNEN (norma 3.01): em dose efetiva, 20 mSv por ano para o trabalhador e 1 mSv por ano para o público.", "O responsável legal responde pelo serviço; cada membro da equipe informa riscos."] },
+        "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A prevenção de acidentes completa o conjunto. A direção do serviço é a principal responsável por aplicá-lo: dá os recursos e designa o supervisor de proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro (troca a cada 1 a 3 meses, conforme o serviço) e informa qualquer evento que aumente o risco.",
+        "keyPoints": ["Limite de dose não se aplica ao paciente; justificação e otimização, sim.", "Limites de dose efetiva (ICRP 103 e IAEA GSR Part 3): trabalhador, 20 mSv por ano em média de 5 anos, sem passar de 50 mSv num único ano; público, 1 mSv por ano.", "A direção do serviço responde por ele; cada membro da equipe informa riscos."] },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
           "prompt": "Na aula anterior, você viu como doses pequenas são tratadas para fins de proteção. Como?",
@@ -436,22 +437,22 @@
             { "left": "Prevenção de acidentes", "right": "O que pode dar errado e como evitar?" } ],
           "feedbackCorrect": "Cada princípio com a sua pergunta: se vale a pena, se está no mínimo razoável, se respeita o limite e se o imprevisto foi pensado.",
           "feedbackIncorrect": "Retome um por um: qual pergunta trata de benefício, qual trata de reduzir a dose e qual trata de um teto para pessoas?",
-          "help": "Só um dos princípios fala de um teto numérico para pessoas.", "sourceIds": ["icrpaedia-principios", "anvisa-rdc-611-2022"] },
+          "help": "Só um dos princípios fala de um teto numérico para pessoas.", "sourceIds": ["icrpaedia-principios", "iaea-gsr-part3-2014"] },
         { "id": "i3", "type": "ordering", "role": "practice",
           "prompt": "Ordene o uso do dosímetro individual num dia de serviço simulado.",
           "items": ["Retirar o seu dosímetro do quadro, em área livre", "Posicioná-lo como o laboratório de monitoração orienta", "Usá-lo durante o turno e enquanto estiver em área controlada", "Devolvê-lo ao quadro, junto ao dosímetro padrão"],
           "feedbackCorrect": "Rotina certa: retirar, posicionar conforme a orientação, usar durante o turno e devolver ao quadro.",
           "feedbackIncorrect": "Confira de novo: o dosímetro sai do quadro antes do turno e volta para junto do dosímetro padrão quando não está em uso.",
-          "help": "Pense no começo e no fim do dia: onde o dosímetro fica quando não está com você?", "sourceIds": ["anvisa-rdc-611-2022"] },
+          "help": "Pense no começo e no fim do dia: onde o dosímetro fica quando não está com você?", "sourceIds": ["iaea-gsr-part3-2014", "iaea-ssg46-2018"] },
         { "id": "i4", "type": "case-decision", "role": "practice",
-          "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como supervisor de proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo a RDC 611.",
-          "prompt": "Qual separação de responsabilidades está de acordo com a norma?",
+          "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como supervisor de proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo os princípios de proteção.",
+          "prompt": "Qual separação de responsabilidades está de acordo com a boa prática de proteção?",
           "options": [
-            { "label": "Recursos e designação: responsável legal. Informar o defeito: o técnico", "correct": true, "feedback": "Isso. O responsável legal assegura recursos e designa o supervisor; cada membro da equipe informa de imediato o que pode aumentar o risco." },
+            { "label": "Recursos e designação: a direção do serviço. Informar o defeito: o técnico", "correct": true, "feedback": "Isso. A direção do serviço assegura recursos e designa o supervisor; cada membro da equipe informa de imediato o que pode aumentar o risco." },
             { "label": "Recursos e designação: o técnico. Informar o defeito: o paciente", "correct": false, "feedback": "Prover recursos e designar funções não é atribuição do técnico, e o aviso não depende do paciente." },
             { "label": "Recursos: o paciente. Designação e defeito: o estagiário do plantão", "correct": false, "feedback": "Nem paciente nem estagiário respondem pela estrutura do serviço. Retome quem é o principal responsável." },
-            { "label": "Tudo cabe ao supervisor, e o restante da equipe só aguarda ordens", "correct": false, "feedback": "O supervisor é designado pelo responsável legal, e cada membro da equipe tem o dever de informar eventos." } ],
-          "help": "Pergunte quem tem poder para prover recursos e quem está perto o bastante para notar o defeito.", "sourceIds": ["anvisa-rdc-611-2022"] },
+            { "label": "Tudo cabe ao supervisor, e o restante da equipe só aguarda ordens", "correct": false, "feedback": "O supervisor é designado pela direção do serviço, e cada membro da equipe tem o dever de informar eventos." } ],
+          "help": "Pergunte quem tem poder para prover recursos e quem está perto o bastante para notar o defeito.", "sourceIds": ["iaea-gsr-part3-2014"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Seu Jorge, paciente simulado, faz uma radiografia. A filha dele, adulta, fica na sala para ajudá-lo a manter a posição, com vestimenta de proteção. Caio opera o equipamento da cabine. Na sala de espera, do outro lado da parede, uma pessoa aguarda a vez.",
           "prompt": "Como se classificam as exposições das quatro pessoas desse cenário?",
@@ -460,26 +461,26 @@
             { "label": "Todos: médica, pois o exame é um procedimento de saúde", "correct": false, "feedback": "A categoria depende do motivo de cada pessoa estar exposta, não do tipo de procedimento." },
             { "label": "Seu Jorge e a filha: médica. Caio: ocupacional. Sala de espera: público", "correct": true, "feedback": "Isso. Paciente e acompanhante voluntário são exposição médica; quem trabalha é ocupacional; quem aguarda é público." },
             { "label": "Seu Jorge: médica. Filha e sala de espera: público. Caio: ocupacional", "correct": false, "feedback": "Quase. A filha colabora de forma voluntária no apoio ao paciente, e isso é tratado como exposição médica." } ],
-          "help": "Pergunte a cada pessoa: por que você está perto da radiação?", "sourceIds": ["cnen-norma-3-01", "icrpaedia-categorias"] }
+          "help": "Pergunte a cada pessoa: por que você está perto da radiação?", "sourceIds": ["icrpaedia-categorias", "iaea-gsr-part3-2014"] }
       ],
       "closing": { "title": "Quem responde pelo quê",
         "body": "Agora você consegue separar os princípios, dizer a quem o limite de dose se aplica e apontar quem responde por recursos, designações e avisos. E sabe classificar uma exposição como médica, ocupacional ou do público.",
         "line": { "speaker": "caio", "text": "Dosímetro no quadro, dúvida na mesa da equipe. É assim que o plantão funciona." } },
       "checkpoint": [
-        { "prompt": "Duda pergunta qual é o limite anual de dose para o paciente. O que as normas estabelecem?",
+        { "prompt": "Duda pergunta qual é o limite anual de dose para o paciente. O que a proteção radiológica estabelece?",
           "options": [
-            { "label": "O mesmo limite do trabalhador, de 20 mSv", "correct": false, "feedback": "Esse valor é o limite anual de dose efetiva do indivíduo ocupacionalmente exposto, não do paciente." },
+            { "label": "O mesmo limite do trabalhador, de 20 mSv", "correct": false, "feedback": "Esse valor é o limite do trabalhador (média de 5 anos), não do paciente." },
             { "label": "O mesmo limite do público, de 1 mSv", "correct": false, "feedback": "Esse valor vale para o indivíduo do público. O paciente está em outra categoria de exposição." },
             { "label": "Um limite definido pelo técnico em cada exame", "correct": false, "feedback": "O técnico não define limite de dose. Retome quais princípios valem para o paciente." },
             { "label": "Não há limite: valem justificação e otimização", "correct": true, "feedback": "Isso. Os limites de dose não se aplicam à exposição médica de pacientes; a exposição precisa ser justificada e otimizada." } ],
-          "sourceIds": ["cnen-norma-3-01", "icrpaedia-principios"] },
-        { "prompt": "Uma técnica do serviço simulado descobre que está grávida. Pela RDC 611, qual é o primeiro passo dela?",
+          "sourceIds": ["iaea-gsr-part3-2014", "icrpaedia-dose-limits"] },
+        { "prompt": "Uma técnica do serviço simulado descobre que está grávida. Qual é o primeiro passo dela?",
           "options": [
-            { "label": "Notificar o responsável legal do serviço", "correct": true, "feedback": "Isso. A notificação permite rever as condições de trabalho para proteger o embrião ou feto." },
+            { "label": "Notificar a direção do serviço", "correct": true, "feedback": "Isso. Avisar não é motivo de afastamento: permite ao serviço adaptar as condições de trabalho para proteger o embrião ou feto." },
             { "label": "Parar de usar o dosímetro até o parto", "correct": false, "feedback": "A monitoração individual continua sendo exigida de quem trabalha exposto." },
             { "label": "Seguir a rotina sem avisar ninguém", "correct": false, "feedback": "Sem a notificação, o serviço não consegue adequar as condições de trabalho." },
-            { "label": "Pedir a uma colega que use o dosímetro dela", "correct": false, "feedback": "Cada dosímetro é de um único usuário. Retome o que a norma pede primeiro." } ],
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+            { "label": "Pedir a uma colega que use o dosímetro dela", "correct": false, "feedback": "Cada dosímetro é de um único usuário. Retome o que o serviço precisa saber primeiro." } ],
+          "sourceIds": ["iaea-gsr-part3-2014"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: a exposição precisa trazer mais benefício que dano. Esse é o princípio da…",
@@ -489,16 +490,16 @@
               { "label": "Limitação de dose", "correct": false, "feedback": "A limitação trata de um teto para trabalhadores e público." },
               { "label": "Monitoração individual", "correct": false, "feedback": "Monitoração é uma medida de vigilância, não um dos princípios." },
               { "label": "Justificação", "correct": true, "feedback": "Isso. Sem benefício que supere o dano, a exposição não se justifica." } ],
-            "sourceIds": ["icrpaedia-principios", "cnen-norma-3-01"] } },
+            "sourceIds": ["icrpaedia-principios"] } },
         "transfer": { "item": { "prompt": "No serviço simulado, você nota que o dosímetro de um colega passou o fim de semana no bolso de um jaleco dentro da sala de exames. O que você faz?",
           "options": [
-            { "label": "Guarda no quadro e não comenta, para evitar atrito", "correct": false, "feedback": "Calar esconde um dado que pode distorcer a leitura do mês. Retome o dever de informar." },
+            { "label": "Guarda no quadro e não comenta, para evitar atrito", "correct": false, "feedback": "Calar esconde um dado que pode distorcer a leitura do período. Retome o dever de informar." },
             { "label": "Usa o dosímetro dele no lugar do seu na semana", "correct": false, "feedback": "Cada dosímetro pertence a um único usuário e não pode ser trocado." },
             { "label": "Informa o responsável, sem mexer no registro", "correct": true, "feedback": "Isso. Você descreve o que viu a quem responde pela guarda dos dosímetros e não altera nenhum registro." },
             { "label": "Anota por conta própria dose zero no controle", "correct": false, "feedback": "Alterar registro por conta própria nunca é a ação certa. Quem avalia é a equipe responsável." } ],
-          "sourceIds": ["anvisa-rdc-611-2022"] } }
+          "sourceIds": ["iaea-gsr-part3-2014", "iaea-ssg46-2018"] } }
       },
-      "diagramIdeas": ["Mapa de três colunas (médica, ocupacional, público) com os personagens de uma sala de exame", "Linha de responsabilidades: responsável legal, supervisor de proteção radiológica e equipe"]
+      "diagramIdeas": ["Mapa de três colunas (médica, ocupacional, público) com os personagens de uma sala de exame", "Linha de responsabilidades: direção do serviço, supervisor de proteção radiológica e equipe"]
     },
     {
       "id": "m04-06", "code": "M04.06", "title": "Uma decisão de proteção",
@@ -511,23 +512,23 @@
         { "speaker": "lia", "text": "Então descreva o que você vê antes de qualquer disparo. Qual é a primeira coisa que você procura na sala?" } ] },
       "concept": {
         "title": "Parar, descrever, chamar",
-        "body": "Reconhecer a ação insegura vem antes da exposição. Ajudam três ideias: menos tempo, mais distância e blindagem. Dobrar a distância de uma fonte pontual reduz a dose a um quarto. Pela RDC 611, o acompanhante só fica na sala se for imprescindível para conter, confortar ou ajudar: voluntário, com vestimenta de proteção, nunca gestante nem menor de 18 anos. O serviço deve ter imobilização mecânica. Ninguém segura o receptor de imagem com as mãos durante a exposição. Antes do disparo, a aula segue esta ordem: quem fica na sala, proteção de quem fica, cabine, último olhar pelo visor. Na dúvida, você para, descreve o que viu e chama a equipe.",
-        "keyPoints": ["Tempo, distância e blindagem.", "Acompanhante: só se imprescindível, voluntário e protegido.", "Na dúvida: parar, descrever e chamar a equipe."] },
+        "body": "Reconhecer a ação insegura vem antes da exposição. Ajudam tempo, distância e blindagem: dobrar a distância de uma fonte pontual reduz a dose a um quarto. O acompanhante só fica na sala se for imprescindível: adulto que aceita ajudar, orientado sobre o risco, com vestimenta de proteção e que não esteja gestante. Criança é evitada sempre que houver outra pessoa; a regra do serviço define o resto. O serviço tem imobilização mecânica, e, fora da radiografia odontológica intraoral, ninguém segura o receptor com as mãos. Antes do disparo: quem fica, proteção, cabine, último olhar pelo visor. Na dúvida, pare, descreva o que viu e chame a equipe.",
+        "keyPoints": ["Tempo, distância e blindagem.", "Acompanhante: só se imprescindível; adulto voluntário, orientado, protegido e não gestante.", "Na dúvida: parar, descrever e chamar a equipe."] },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
           "prompt": "Na aula anterior, a quem você atribuiu a tarefa de informar um evento que pode aumentar o risco?",
           "options": [
-            { "label": "Apenas ao responsável legal do serviço", "correct": false, "feedback": "Ele é o principal responsável, mas não é o único que precisa avisar." },
-            { "label": "Apenas ao paciente que notou o problema", "correct": false, "feedback": "O paciente pode avisar, mas o dever descrito na norma é da equipe." },
+            { "label": "Apenas à direção do serviço", "correct": false, "feedback": "Ela é a principal responsável, mas não é a única que precisa avisar." },
+            { "label": "Apenas ao paciente que notou o problema", "correct": false, "feedback": "O paciente pode avisar, mas o dever de informar é da equipe." },
             { "label": "A cada membro da equipe que o percebe", "correct": true, "feedback": "Isso. Quem percebe informa de imediato, e é o que você vai praticar hoje." },
-            { "label": "Apenas à autoridade sanitária, em visita", "correct": false, "feedback": "A fiscalização não substitui o aviso imediato dentro do serviço." } ],
-          "help": "Lembre de quem está perto o bastante para notar primeiro.", "sourceIds": ["anvisa-rdc-611-2022"] },
+            { "label": "Apenas a um fiscal externo, em visita", "correct": false, "feedback": "A fiscalização não substitui o aviso imediato dentro do serviço." } ],
+          "help": "Lembre de quem está perto o bastante para notar primeiro.", "sourceIds": ["iaea-gsr-part3-2014"] },
         { "id": "i2", "type": "ordering", "role": "practice",
           "prompt": "Ordene as verificações antes de um disparo, na sequência ensinada nesta aula.",
           "items": ["Confirmar quem precisa mesmo ficar na sala", "Conferir a vestimenta de proteção de quem fica", "Ir para a cabine de comando", "Observar o paciente e a sala pelo visor"],
-          "feedbackCorrect": "Sequência da aula: primeiro as pessoas, depois a proteção delas, depois a sua posição e, por fim, um último olhar. A RDC 611 traz as exigências; a ordem é um roteiro de estudo.",
+          "feedbackCorrect": "Sequência da aula: primeiro as pessoas, depois a proteção delas, depois a sua posição e, por fim, um último olhar. A proteção das pessoas é exigência do serviço; a ordem é um roteiro de estudo.",
           "feedbackIncorrect": "Confira de novo: não faz sentido conferir a proteção antes de saber quem fica, nem olhar pelo visor antes de estar na cabine.",
-          "help": "Comece pelas pessoas e termine pelo último olhar antes da exposição.", "sourceIds": ["anvisa-rdc-611-2022"] },
+          "help": "Comece pelas pessoas e termine pelo último olhar antes da exposição.", "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i3", "type": "matching", "role": "practice",
           "prompt": "Ligue cada situação à medida de proteção que responde a ela.",
           "pairs": [
@@ -537,16 +538,16 @@
             { "left": "Paciente que não mantém a posição", "right": "Meios de imobilização mecânica do serviço" } ],
           "feedbackCorrect": "Cada situação com a sua medida: distância, tempo, blindagem e imobilização mecânica.",
           "feedbackIncorrect": "Retome a pergunta de cada linha: a medida afasta você, encurta a exposição, coloca material no caminho ou mantém o paciente parado?",
-          "help": "Três das medidas protegem quem está perto; uma evita que alguém precise segurar o paciente.", "sourceIds": ["cdc-alara", "radiopaedia-inverso-quadrado", "anvisa-rdc-611-2022"] },
+          "help": "Três das medidas protegem quem está perto; uma evita que alguém precise segurar o paciente.", "sourceIds": ["cdc-alara", "radiopaedia-inverso-quadrado", "iaea-ssg46-2018"] },
         { "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
           "context": "Plantão simulado. Uma criança de 4 anos não para quieta para a radiografia. A mãe, visivelmente grávida, se oferece para segurá-la na mesa. Um colega apressado diz: 'Deixa ela segurar, é rapidinho'. O técnico responsável foi buscar o detector na sala ao lado.",
           "prompt": "Qual é a sua ação agora, como estudante?",
           "options": [
-            { "label": "Deixar a mãe segurar, já que será rápido", "correct": false, "feedback": "Rapidez não muda a regra: gestante não pode atuar como acompanhante durante a exposição." },
+            { "label": "Deixar a mãe segurar, já que será rápido", "correct": false, "feedback": "Rapidez não muda a conduta: quem ajuda a segurar não deve estar gestante, e a equipe ainda não decidiu." },
             { "label": "Segurar a criança você mesmo, sem avisar", "correct": false, "feedback": "Você se exporia sem que a equipe decidisse. Retome o que fazer diante de dúvida." },
             { "label": "Pedir à mãe que segure só o detector", "correct": false, "feedback": "Segurar o receptor com as mãos durante a exposição é proibido, e ela continuaria exposta." },
             { "label": "Parar, avisar o técnico e descrever a situação", "correct": true, "feedback": "Isso. Você interrompe o atalho e leva os fatos ao técnico: criança agitada e mãe grávida oferecendo contenção. A decisão é da equipe." } ],
-          "help": "Procure no caso quem não pode ficar na sala durante a exposição.", "sourceIds": ["anvisa-rdc-611-2022"] },
+          "help": "Procure no caso quem deve ser evitado como acompanhante na exposição.", "sourceIds": ["iaea-ssg46-2018", "iaea-gsr-part3-2014"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Centro cirúrgico simulado. Um equipamento móvel vai ser usado, e você acompanha o técnico. Um profissional da equipe cirúrgica, sem vestimenta de proteção, apoia a mão sobre o campo, perto do paciente, e diz que não vai sair dali. O técnico ainda ajusta o equipamento e não viu.",
           "prompt": "O que você faz antes de qualquer exposição?",
@@ -555,7 +556,7 @@
             { "label": "Avisa o técnico agora sobre o que você observou", "correct": true, "feedback": "Isso. Você descreve o que viu: uma pessoa sem proteção com a mão perto do feixe. O técnico e a equipe decidem o próximo passo." },
             { "label": "Pede ao profissional que assine um termo de risco", "correct": false, "feedback": "Um papel não substitui a proteção, e essa negociação não cabe ao estudante." },
             { "label": "Aciona você mesmo o disparo, para encurtar o tempo", "correct": false, "feedback": "Estudante não dispara por conta própria, menos ainda com alguém desprotegido junto ao campo." } ],
-          "help": "Compare o que você vê com o que a norma pede de quem fica perto do feixe.", "sourceIds": ["anvisa-rdc-611-2022"] }
+          "help": "Compare o que você vê com o que se espera de quem fica perto do feixe.", "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "closing": { "title": "Parar também é técnica",
         "body": "Agora você consegue reconhecer uma ação insegura antes da exposição, lembrar de tempo, distância e blindagem e acionar a equipe com uma descrição clara do que viu, sem improvisar.",
@@ -563,18 +564,18 @@
       "checkpoint": [
         { "prompt": "Na sala simulada, qual destas cenas pede que você pare e chame a equipe antes do disparo?",
           "options": [
-            { "label": "Criança contida pelo irmão de 16 anos", "correct": true, "feedback": "Isso. Menor de 18 anos não pode atuar como acompanhante durante a exposição. Você para, descreve o que viu e a equipe decide." },
+            { "label": "Criança contida pelo irmão de 16 anos", "correct": true, "feedback": "Isso. Acompanhante é adulto orientado e protegido; criança é evitada quando há outra pessoa. Você para, descreve o que viu e a equipe decide." },
             { "label": "Técnico observando o paciente pelo visor", "correct": false, "feedback": "Essa é a posição esperada do operador: na cabine, com o paciente à vista." },
             { "label": "Paciente sozinho na sala, de porta fechada", "correct": false, "feedback": "Acesso restrito e só o paciente na sala é a condição esperada, não um alerta." },
             { "label": "Criança contida por imobilizador mecânico", "correct": false, "feedback": "O serviço dispõe de imobilização mecânica justamente para que ninguém precise segurar o paciente." } ],
-          "sourceIds": ["anvisa-rdc-611-2022"] },
-        { "prompt": "Um pai adulto precisa ficar na sala para confortar o filho durante a radiografia simulada. Pela RDC 611, o que é obrigatório para ele durante a exposição?",
+          "sourceIds": ["iaea-ssg46-2018", "iaea-gsr-part3-2014"] },
+        { "prompt": "Um pai adulto precisa ficar na sala para confortar o filho durante a radiografia simulada. Qual cuidado é indispensável para ele durante a exposição?",
           "options": [
             { "label": "Usar um dosímetro individual do serviço", "correct": false, "feedback": "O dosímetro é exigido de quem trabalha exposto, não do acompanhante." },
             { "label": "Usar vestimenta de proteção adequada", "correct": true, "feedback": "Isso. O acompanhante usa equipamento de proteção individual compatível com o procedimento." },
             { "label": "Segurar o receptor de imagem com as mãos", "correct": false, "feedback": "Isso é proibido. O papel dele é confortar a criança, não sustentar o receptor." },
             { "label": "Assinar o registro do exame pelo técnico", "correct": false, "feedback": "Registro do exame é atribuição da equipe, não do acompanhante." } ],
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018", "iaea-gsr-part3-2014"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: diante de uma ação insegura, o estudante para, descreve o que viu e…",
@@ -584,14 +585,14 @@
               { "label": "Dispara para não atrasar", "correct": false, "feedback": "Disparar encerra a chance de proteger alguém. Retome a sequência da aula." },
               { "label": "Chama a equipe", "correct": true, "feedback": "Isso. Parar, descrever e chamar a equipe, que decide o que fazer." },
               { "label": "Libera a sala ao público", "correct": false, "feedback": "O acesso à sala é restrito a quem é necessário ao procedimento." } ],
-            "sourceIds": ["anvisa-rdc-611-2022"] } },
+            "sourceIds": ["iaea-ssg46-2018"] } },
         "transfer": { "item": { "prompt": "Numa sala de radiografia simulada, um familiar se oferece para segurar o receptor de imagem com as mãos atrás do paciente. O que você faz?",
           "options": [
-            { "label": "Para e avisa o técnico: isso é proibido", "correct": true, "feedback": "Isso. Segurar o receptor com as mãos durante a exposição é proibido, salvo em técnicas odontológicas intraorais; a equipe busca outro meio de apoio." },
+            { "label": "Para e avisa o técnico: isso é proibido", "correct": true, "feedback": "Isso. Fora da radiografia odontológica intraoral, ninguém segura o receptor com as mãos durante a exposição; a equipe busca outro meio de apoio." },
             { "label": "Aceita, desde que ele use luvas comuns", "correct": false, "feedback": "Luvas comuns não são blindagem, e a proibição continua valendo." },
             { "label": "Aceita, se o disparo for bem curto", "correct": false, "feedback": "A duração não torna a prática permitida." },
             { "label": "Segura você mesmo, para poupar o familiar", "correct": false, "feedback": "A proibição vale para qualquer pessoa, inclusive para você." } ],
-          "sourceIds": ["anvisa-rdc-611-2022"] } }
+          "sourceIds": ["iaea-ssg46-2018"] } }
       },
       "diagramIdeas": ["Planta simples da sala com posições seguras e inseguras marcadas antes do disparo", "Faixa de três passos: parar, descrever, chamar a equipe"]
     }

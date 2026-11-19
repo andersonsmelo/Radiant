@@ -1,102 +1,19 @@
 {
   "schemaVersion": 1,
-  "unit": {
-    "id": "m14",
-    "code": "M14",
-    "title": "Qualidade, gestão e integração",
-    "summary": "Você fecha o núcleo praticando o que sustenta um serviço confiável: testes e registros de qualidade, dados protegidos, fluxo justo, leitura crítica, destino dos resíduos e decisões em casos novos."
-  },
+  "unit": { "id": "m14", "code": "M14", "title": "Qualidade, gestão e integração", "summary": "Você fecha o núcleo praticando o que sustenta um serviço confiável: testes e registros de qualidade, dados protegidos, fluxo justo, leitura crítica, destino dos resíduos e decisões em casos novos." },
   "sources": [
-    {
-      "id": "anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa (cópia compilada no site do Colégio Brasileiro de Radiologia)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para os arts. 3º (testes de aceitação e de constância), 4º, 5º, 17, 23, 24, 27, 28, 31, 33, 35, 37, 38, 40, 41, 43, 44 e 72, sem reprodução de texto."
-    },
-    {
-      "id": "iaea-hhc-handbook-ch19",
-      "title": "Diagnostic Radiology Physics: A Handbook for Teachers and Students, capítulo 19: Quality Management (conjunto de slides)",
-      "publisher": "IAEA Human Health Campus (capítulo de P. Hiles, D. McLean e S. Christofides; slides de E. Berry)",
-      "url": "https://humanhealth.iaea.org/HHW/MedicalPhysics/TheMedicalPhysicist/Studentscorner/HandbookforTeachersandStudents/Chapter_19.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Material didático da IAEA; consultado para as definições de garantia e de controle de qualidade, testes de aceitação e de rotina, registros, ação corretiva e análise de rejeição, sem reprodução de texto."
-    },
-    {
-      "id": "lgpd-lei-13709-2018",
-      "title": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais)",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o art. 5º, II (dado sensível), o art. 6º (finalidade, necessidade, qualidade dos dados e segurança), o art. 18, III (correção) e o art. 46 (medidas de segurança), sem reprodução de texto."
-    },
-    {
-      "id": "ms-identificacao-paciente",
-      "title": "Protocolo de Identificação do Paciente (Programa Nacional de Segurança do Paciente)",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz (2013)",
-      "url": "https://www.gov.br/saude/pt-br/composicao/saes/seguranca-do-paciente/protocolos-de-seguranca-do-paciente/protocolo-de-identificacao-do-paciente",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Protocolo do Programa Nacional de Segurança do Paciente; consultado para o mínimo de dois identificadores e a conferência antes do cuidado, sem reprodução de texto."
-    },
-    {
-      "id": "ms-pnh-folheto-2013",
-      "title": "Política Nacional de Humanização: PNH (folheto, 1ª edição, 1ª reimpressão, 2013)",
-      "publisher": "Ministério da Saúde, Secretaria de Atenção à Saúde",
-      "url": "https://bvsms.saude.gov.br/bvs/publicacoes/politica_nacional_humanizacao_pnh_folheto.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Publicação institucional; consultada para as diretrizes de acolhimento (prioridade por vulnerabilidade, gravidade e risco), ambiência e defesa dos direitos dos usuários, sem reprodução de texto."
-    },
-    {
-      "id": "lei-10048-2000",
-      "title": "Lei nº 10.048, de 8 de novembro de 2000 (atendimento prioritário), com a redação da Lei nº 14.626/2023",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/l10048.htm",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para a lista de pessoas com atendimento prioritário (art. 1º) e o art. 2º, sem reprodução de texto."
-    },
-    {
-      "id": "marti-bonmati-2021-evidencia",
-      "title": "Evidence levels in radiology: the insights into imaging approach (Martí-Bonmatí L., Insights into Imaging, 2021;12:45)",
-      "publisher": "Insights into Imaging (SpringerOpen), via PubMed Central",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8026783/",
-      "accessedAt": "2026-11-06",
-      "use": "cc-by-4.0",
-      "licenseNote": "CC BY 4.0. Atribuição: Martí-Bonmatí L. (2021). Síntese e atividades originais em português; não é tradução; sem endosso do autor."
-    },
-    {
-      "id": "icmje-conflitos-interesse",
-      "title": "Recommendations: Disclosure of Financial and Non-Financial Relationships and Activities, and Conflicts of Interest",
-      "publisher": "International Committee of Medical Journal Editors (ICMJE)",
-      "url": "https://www.icmje.org/recommendations/browse/roles-and-responsibilities/author-responsibilities--conflicts-of-interest.html",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Página institucional; consultada para o papel da declaração de vínculos financeiros e de patrocínio na leitura de um estudo, sem reprodução de texto."
-    },
-    {
-      "id": "anvisa-rdc-222-2018",
-      "title": "RDC nº 222, de 28 de março de 2018 (boas práticas de gerenciamento dos resíduos de serviços de saúde)",
-      "publisher": "Anvisa (cópia na Biblioteca Virtual em Saúde do Ministério da Saúde)",
-      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2018/rdc0222_28_03_2018.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para as definições do art. 3º, os arts. 5º, 6º, 11, 33, 66, 67, 72 a 79 e 86 a 89 e os Anexos I e II (grupos A a E), sem reprodução de texto."
-    },
-    {
-      "id": "radiologyinfo-seguranca-rm",
-      "title": "Magnetic Resonance Imaging (MRI) Safety",
-      "publisher": "RadiologyInfo.org (RSNA e ACR)",
-      "url": "https://www.radiologyinfo.org/en/info/safety-mr",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Página de orientação ao paciente; consultada para fatos sobre triagem, metal próximo aos olhos, implantes e doença renal antes do contraste, sem reprodução de texto."
-    }
+    { "id": "iaea-hhc-handbook-ch19", "title": "Diagnostic Radiology Physics: A Handbook for Teachers and Students, capítulo 19: Quality Management (conjunto de slides)", "publisher": "IAEA Human Health Campus (capítulo de P. Hiles, D. McLean e S. Christofides; slides de E. Berry)", "url": "https://humanhealth.iaea.org/HHW/MedicalPhysics/TheMedicalPhysicist/Studentscorner/HandbookforTeachersandStudents/Chapter_19.pdf", "accessedAt": "2026-11-06", "use": "factual-reference", "licenseNote": "Material didático da IAEA; consultado para as definições de garantia e de controle de qualidade, testes de aceitação e de rotina, registros, ação corretiva e análise de rejeição, sem reprodução de texto." },
+    { "id": "marti-bonmati-2021-evidencia", "title": "Evidence levels in radiology: the insights into imaging approach (Martí-Bonmatí L., Insights into Imaging, 2021;12:45)", "publisher": "Insights into Imaging (SpringerOpen), via PubMed Central", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8026783/", "accessedAt": "2026-11-06", "use": "cc-by-4.0", "licenseNote": "CC BY 4.0. Atribuição: Martí-Bonmatí L. (2021). Síntese e atividades originais em português; não é tradução; sem endosso do autor." },
+    { "id": "icmje-conflitos-interesse", "title": "Recommendations: Disclosure of Financial and Non-Financial Relationships and Activities, and Conflicts of Interest", "publisher": "International Committee of Medical Journal Editors (ICMJE)", "url": "https://www.icmje.org/recommendations/browse/roles-and-responsibilities/author-responsibilities--conflicts-of-interest.html", "accessedAt": "2026-11-06", "use": "factual-reference", "licenseNote": "Página institucional; consultada para o papel da declaração de vínculos financeiros e de patrocínio na leitura de um estudo, sem reprodução de texto." },
+    { "id": "radiologyinfo-seguranca-rm", "title": "Magnetic Resonance Imaging (MRI) Safety", "publisher": "RadiologyInfo.org (RSNA e ACR)", "url": "https://www.radiologyinfo.org/en/info/safety-mr", "accessedAt": "2026-11-06", "use": "factual-reference", "licenseNote": "Página de orientação ao paciente; consultada para fatos sobre triagem, metal próximo aos olhos, implantes e doença renal antes do contraste, sem reprodução de texto." },
+    { "id": "iaea-ssg46-2018", "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)", "publisher": "International Atomic Energy Agency (IAEA)", "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto." },
+    { "id": "who-etat-2005", "title": "Emergency Triage Assessment and Treatment (ETAT): manual for participants", "publisher": "World Health Organization (WHO)", "url": "https://www.afro.who.int/sites/default/files/2017-06/participant_manual.pdf", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Triagem: sinais de emergência, de prioridade e fila (contexto pediátrico); consulta para fatos, sem reprodução de texto." },
+    { "id": "who-identificacao-paciente-2007", "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)", "publisher": "WHO Collaborating Centre for Patient Safety Solutions", "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto." },
+    { "id": "who-residuos-saude-2014", "title": "Safe management of wastes from health-care activities, 2nd edition", "publisher": "World Health Organization (WHO)", "url": "https://iris.who.int/handle/10665/85349", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Princípios de segregação na origem e rejeito radioativo; consulta para fatos, sem reprodução de texto." },
+    { "id": "who-residuos-saude-ficha-2024", "title": "Health-care waste (ficha informativa, 24 de outubro de 2024)", "publisher": "World Health Organization (WHO)", "url": "https://www.who.int/news-room/fact-sheets/detail/health-care-waste", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Tipos de resíduo de serviços de saúde e proporção perigosa; consulta para fatos, sem reprodução de texto." },
+    { "id": "who-residuos-saude-modulo-18", "title": "Training modules in health care waste management, Module 18: Management of chemical, cytotoxic, pharmaceutical and radioactive wastes", "publisher": "World Health Organization (WHO)", "url": "https://cdn.who.int/media/docs/default-source/wash-documents/wash-in-hcf/training-modules-in-health-care-waste-management/module-18---management-of-chemical-cytotoxic-pharmaceutical-and-radioactive-wastes.pdf?sfvrsn=c2ac154f_2", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Rotulagem e armazenamento de rejeito radioativo; consulta para fatos, sem reprodução de texto." },
+    { "id": "who-residuos-saude-resumo-2017", "title": "Safe management of wastes from health-care activities: a summary (WHO/FWC/WSH/17.05)", "publisher": "World Health Organization (WHO)", "url": "https://iris.who.int/server/api/core/bitstreams/abf64164-1d6c-4dbb-b269-5e92b7c2b887/content", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Esquema OMS de segregação e coleta (tabela 3.1) e armazenamento de rejeito radioativo; consulta para fatos, sem reprodução de texto." },
+    { "id": "wma-declaracao-lisboa", "title": "WMA Declaration of Lisbon on the Rights of the Patient", "publisher": "World Medical Association (WMA)", "url": "https://www.wma.net/policies-post/wma-declaration-of-lisbon-on-the-rights-of-the-patient/", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Direitos à informação, ao consentimento, à confidencialidade e à dignidade; consulta para fatos, sem reprodução de texto." }
   ],
   "lessons": [
     {
@@ -116,7 +33,7 @@
       },
       "concept": {
         "title": "Quatro peças de um programa",
-        "body": "A RDC 611/2022 exige de todo serviço de radiologia um Programa de Garantia da Qualidade. Nele, quatro peças se completam. A rotina é o procedimento escrito que a equipe segue. O teste mede o equipamento e compara com o padrão: o de aceitação vem depois da instalação, o de constância se repete ao longo do uso. O registro guarda cada resultado, arquivado no serviço. Se o resultado sai do padrão, você avisa a supervisão, e a equipe responsável faz a ação corretiva: investigar a causa, corrigir e anotar. Depois do ajuste, o teste é refeito. Controle de qualidade é a parte que mede e compara. Garantia é o conjunto.",
+        "body": "Todo serviço que usa radiação em medicina precisa de um programa de garantia da qualidade. Nele, quatro peças se completam. A rotina é o procedimento escrito que a equipe segue. O teste mede o equipamento e compara com o padrão: o de aceitação vem depois da instalação, o de constância se repete ao longo do uso, na frequência que o serviço define. O registro guarda cada resultado, arquivado no serviço. Se sai do padrão, você avisa a supervisão, e a equipe responsável faz a ação corretiva: investigar a causa, corrigir e anotar. Depois do ajuste, o teste é refeito. Controle é a parte que mede; garantia é o conjunto.",
         "keyPoints": [
           "Rotina orienta, teste mede, registro comprova, ação corretiva trata a causa.",
           "Aceitação: depois da instalação. Constância: ao longo do uso.",
@@ -136,7 +53,7 @@
             { "label": "Menos dose no total, pois a segunda sai mais rápida.", "correct": false, "feedback": "Rapidez não reduz dose: a segunda aquisição se soma à primeira." }
           ],
           "help": "Pense no que a pessoa recebe a cada vez que o equipamento é acionado.",
-          "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+          "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
         },
         {
           "id": "i2",
@@ -152,7 +69,7 @@
           "feedbackCorrect": "Você separou as quatro peças: a rotina orienta, o teste mede, o registro comprova e a ação corretiva trata a causa.",
           "feedbackIncorrect": "Confira de novo: pergunte de cada peça se ela diz como fazer, se mede, se guarda o resultado ou se resolve um problema.",
           "help": "Pergunte de cada peça: ela vem antes, durante ou depois da medida?",
-          "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+          "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
         },
         {
           "id": "i3",
@@ -169,7 +86,7 @@
           "feedbackCorrect": "Você seguiu o ciclo: medir, comparar, registrar e avisar, corrigir a causa e medir de novo para confirmar.",
           "feedbackIncorrect": "Retome a sequência do conceito: o teste vem antes da comparação, o aviso vem antes da correção, e o ciclo fecha com um novo teste.",
           "help": "O ciclo começa e termina com a mesma atividade.",
-          "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+          "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
         },
         {
           "id": "i4",
@@ -185,7 +102,7 @@
             { "label": "Ajusto a técnica por conta própria, para compensar.", "correct": false, "feedback": "Compensar na técnica muda o exame sem tratar a causa, e essa decisão não é sua na simulação." }
           ],
           "help": "O que o resultado do teste diz sobre o equipamento, seja qual for a aparência da imagem?",
-          "sourceIds": ["anvisa-rdc-611-2022"]
+          "sourceIds": ["iaea-ssg46-2018"]
         },
         {
           "id": "i5",
@@ -199,7 +116,7 @@
             { "label": "Atender primeiro e testar quando a agenda esvaziar.", "correct": false, "feedback": "Atender antes de testar expõe pessoas a um equipamento cujo desempenho ainda não foi conferido." }
           ],
           "help": "O equipamento de hoje é o mesmo de antes da manutenção?",
-          "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+          "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
         }
       ],
       "closing": {
@@ -216,17 +133,17 @@
             { "label": "A ação corretiva do equipamento.", "correct": false, "feedback": "Ação corretiva responde a um resultado fora do padrão, e aqui nem se conhece o resultado. Confira de novo." },
             { "label": "O teste de aceitação da sala.", "correct": false, "feedback": "O teste de aceitação acontece depois da instalação, não a cada dia de uso." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+          "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
         },
         {
           "prompt": "Um mamógrafo acaba de ser instalado na sala da simulação e ainda não atendeu ninguém. Que teste confirma, antes do uso, que ele entrega o desempenho declarado pelo fabricante?",
           "options": [
             { "label": "O teste de constância.", "correct": false, "feedback": "O teste de constância acompanha o equipamento ao longo do uso. Retome qual teste vem logo depois da instalação." },
-            { "label": "O teste de aceitação.", "correct": true, "feedback": "O teste de aceitação vem depois da montagem na sala e confere o equipamento com o que o fabricante declarou e com a norma." },
+            { "label": "O teste de aceitação.", "correct": true, "feedback": "O teste de aceitação vem depois da montagem na sala e confere o equipamento com o que o fabricante declarou e com os requisitos aplicáveis." },
             { "label": "A conferência diária.", "correct": false, "feedback": "A conferência diária é uma rotina de uso, e este equipamento ainda não começou a ser usado. Confira de novo." },
             { "label": "A manutenção corretiva.", "correct": false, "feedback": "Manutenção corretiva conserta um defeito encontrado; ela não é um teste de desempenho." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022"]
+          "sourceIds": ["iaea-ssg46-2018"]
         }
       ],
       "recovery": {
@@ -240,7 +157,7 @@
               { "label": "Apagar a anotação, para não causar alarme.", "correct": false, "feedback": "Apagar o registro esconde a informação de que a equipe precisa para corrigir a causa." },
               { "label": "Trocar de equipamento, sem avisar ninguém.", "correct": false, "feedback": "Mudar de sala protege o próximo exame, mas o problema fica sem dono. Confira de novo quem precisa saber." }
             ],
-            "sourceIds": ["anvisa-rdc-611-2022"]
+            "sourceIds": ["iaea-ssg46-2018"]
           }
         },
         "transfer": {
@@ -252,7 +169,7 @@
               { "label": "A ação corretiva.", "correct": false, "feedback": "Ação corretiva trata a causa de um resultado fora do padrão, e o caderno só guarda resultados." },
               { "label": "O registro dos testes.", "correct": true, "feedback": "O caderno é o registro: ele comprova que a conferência foi feita e permite comparar um dia com o outro." }
             ],
-            "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+            "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
           }
         }
       },
@@ -278,7 +195,7 @@
       },
       "concept": {
         "title": "Conferir, parar, levar a quem resolve",
-        "body": "Registro confiável é o que bate com a pessoa. Antes do cuidado, confira ao menos dois identificadores, como nome completo e data de nascimento, entre a pessoa, o pedido e a tela. Se algo diverge, pare antes da aquisição, descreva o que viu e peça apoio à equipe. Você não corrige o registro por conta própria: altera quem o serviço autoriza. Pela LGPD, dado de saúde é sensível, os dados devem ser exatos e atualizados, e o serviço adota medidas contra acesso não autorizado. Por isso a inconsistência se resolve com quem participa do atendimento, no canal do serviço, sem foto de tela, grupo de mensagens ou corredor.",
+        "body": "Registro confiável é o que bate com a pessoa e traz dados exatos e atualizados: dado que mudou vai a quem atualiza o cadastro. Antes do cuidado, confira ao menos dois identificadores, como nome completo e data de nascimento, entre a pessoa, o pedido e a tela. Se algo diverge, pare antes da aquisição, descreva o que viu e peça apoio à equipe. Você não corrige o registro por conta própria: altera quem o serviço autoriza. A informação do paciente é confidencial: circula só entre quem participa do atendimento e precisa dela. Por isso a inconsistência se resolve no canal do serviço, sem foto de tela nem grupo de mensagens.",
         "keyPoints": [
           "Dois identificadores, conferidos antes do cuidado.",
           "Divergência: parar, descrever, pedir apoio.",
@@ -298,7 +215,7 @@
             { "label": "O tipo de exame, perguntando se ela veio fazer a tomografia.", "correct": false, "feedback": "Duas pessoas podem ter o mesmo exame marcado. O exame não identifica ninguém." }
           ],
           "help": "Quantas informações sobre a pessoa precisam coincidir, e de que tipo?",
-          "sourceIds": ["ms-identificacao-paciente"]
+          "sourceIds": ["who-identificacao-paciente-2007"]
         },
         {
           "id": "i2",
@@ -313,7 +230,7 @@
             { "label": "Escolho na lista outra Marta com dados parecidos.", "correct": false, "feedback": "Outro registro parecido pode ser de outra pessoa. Escolher por semelhança cria o erro que a conferência evita." }
           ],
           "help": "A paciente confirmou os dados dela. Isso diz quem pode alterar o registro do serviço?",
-          "sourceIds": ["ms-identificacao-paciente", "anvisa-rdc-611-2022", "lgpd-lei-13709-2018"]
+          "sourceIds": ["who-identificacao-paciente-2007", "iaea-ssg46-2018", "wma-declaracao-lisboa"]
         },
         {
           "id": "i3",
@@ -329,7 +246,7 @@
           "feedbackCorrect": "Você ligou cada situação a um cuidado: parar na divergência, mostrar sem copiar, restringir o acesso e manter o cadastro atualizado.",
           "feedbackIncorrect": "Confira de novo: em cada situação, pergunte se o risco é seguir com dado errado, copiar o dado, abrir a quem não participa ou manter dado antigo.",
           "help": "Em cada situação, o que pode dar errado com o dado: ficar incorreto, sair do sistema ou chegar a quem não precisa?",
-          "sourceIds": ["lgpd-lei-13709-2018", "ms-identificacao-paciente"]
+          "sourceIds": ["wma-declaracao-lisboa", "who-identificacao-paciente-2007"]
         },
         {
           "id": "i4",
@@ -345,7 +262,7 @@
             { "label": "Enviar como está e avisar quando o laudo ficar pronto.", "correct": false, "feedback": "Enviar assim põe o exame de uma pessoa no histórico de outra. Confira de novo o que precisa acontecer antes do envio." }
           ],
           "help": "Duas pessoas são afetadas por esse registro. O que impede que o erro siga adiante?",
-          "sourceIds": ["anvisa-rdc-611-2022", "lgpd-lei-13709-2018"]
+          "sourceIds": ["iaea-ssg46-2018", "wma-declaracao-lisboa"]
         },
         {
           "id": "i5",
@@ -359,7 +276,7 @@
             { "label": "Pedir que ela mostre o documento ou diga a data em voz baixa.", "correct": true, "feedback": "É a pessoa que informa o próprio dado, a atendente compara com o cadastro, e a data não passa para quem está na fila." }
           ],
           "help": "A conferência precisa acontecer. O que pode mudar é quem ouve.",
-          "sourceIds": ["ms-identificacao-paciente", "lgpd-lei-13709-2018"]
+          "sourceIds": ["who-identificacao-paciente-2007", "wma-declaracao-lisboa"]
         }
       ],
       "closing": {
@@ -376,7 +293,7 @@
             { "label": "Peço à paciente que corrija a etiqueta à mão.", "correct": false, "feedback": "A paciente confirma os dados dela, mas não é ela quem corrige os documentos do serviço." },
             { "label": "Paro e mostro a divergência à equipe.", "correct": true, "feedback": "Você parou antes do exame e levou a quem pode verificar se o questionário pertence mesmo a essa pessoa." }
           ],
-          "sourceIds": ["ms-identificacao-paciente", "anvisa-rdc-611-2022"]
+          "sourceIds": ["who-identificacao-paciente-2007", "iaea-ssg46-2018"]
         },
         {
           "prompt": "Um colega de turma, que não participa da simulação, pede por mensagem o nome e o exame de uma paciente simulada “para conferir uma coisa”. Qual resposta protege o dado?",
@@ -386,7 +303,7 @@
             { "label": "Mandar uma foto da tela, pedindo que ele guarde sigilo.", "correct": false, "feedback": "A foto tira o dado do sistema, e um pedido de sigilo não o traz de volta. Confira de novo o canal certo." },
             { "label": "Mandar os dados, já que ele é aluno da mesma turma.", "correct": false, "feedback": "Ser da mesma turma não é participar daquele atendimento." }
           ],
-          "sourceIds": ["lgpd-lei-13709-2018"]
+          "sourceIds": ["wma-declaracao-lisboa"]
         }
       ],
       "recovery": {
@@ -400,7 +317,7 @@
               { "label": "Sigo, pois é só uma troca de números.", "correct": false, "feedback": "Um ano errado pode ligar o exame à pessoa errada. Confira de novo o que fazer quando algo não bate." },
               { "label": "Anoto a data certa num papel à parte.", "correct": false, "feedback": "Um papel solto cria um terceiro registro, fora do sistema, e o pedido continua errado." }
             ],
-            "sourceIds": ["ms-identificacao-paciente", "lgpd-lei-13709-2018"]
+            "sourceIds": ["who-identificacao-paciente-2007", "wma-declaracao-lisboa"]
           }
         },
         "transfer": {
@@ -412,7 +329,7 @@
               { "label": "Entrego à supervisão, sem ler nem copiar.", "correct": true, "feedback": "Você tirou o dado de circulação e o devolveu a quem responde por ele, sem acessar o que não precisava." },
               { "label": "Fotografo e pergunto no grupo de quem é a folha.", "correct": false, "feedback": "A foto no grupo multiplica a exposição que a folha esquecida já causava." }
             ],
-            "sourceIds": ["lgpd-lei-13709-2018"]
+            "sourceIds": ["wma-declaracao-lisboa"]
           }
         }
       },
@@ -438,10 +355,10 @@
       },
       "concept": {
         "title": "Ordem justa tem critério e explicação",
-        "body": "Quando há menos salas ou menos tempo do que pessoas, a ordem de chegada não basta. A Política Nacional de Humanização orienta atender com prioridades definidas pela avaliação de vulnerabilidade, gravidade e risco, feita pela equipe. A Lei 10.048/2000 garante atendimento prioritário em repartições públicas e concessionárias de serviços públicos, entre outros, a pessoas com deficiência, idosas a partir de 60 anos, gestantes, lactantes e pessoas com criança de colo ou mobilidade reduzida. Restrições do serviço também contam: sala parada, preparo marcado. Na simulação, você levanta as restrições, identifica urgências e prioridades, propõe a ordem à supervisão com os motivos e explica a espera a quem aguarda, sem expor ninguém.",
+        "body": "Quando faltam salas ou tempo, a ordem de chegada não basta. A prioridade segue a condição de quem espera: urgência clínica e risco, avaliados pela equipe, vêm primeiro. Sinais de emergência pedem atendimento imediato, sinais de prioridade passam à frente na fila, e quem não tem nenhum espera a vez. Fragilidade e necessidade de apoio, como idade avançada, gestação ou mobilidade reduzida, também pesam, do modo que o serviço e as regras locais definem; em muitos lugares, certos grupos têm prioridade garantida. A seleção segue critério clínico, sem discriminação. Na simulação, você levanta as restrições, propõe a ordem à supervisão com os motivos e explica a espera sem expor ninguém.",
         "keyPoints": [
           "Gravidade e risco são avaliados pela equipe, não por você.",
-          "Prioridade legal é direito, não favor.",
+          "Prioridade vem da condição da pessoa, não de favor.",
           "Quem espera merece o motivo, sem dados de outra pessoa."
         ]
       },
@@ -458,7 +375,7 @@
             { "label": "Os dados de saúde da pessoa que passou na frente.", "correct": true, "feedback": "O motivo do atendimento de outra pessoa é dado sensível dela. A explicação fica no critério, não no caso." }
           ],
           "help": "Qual dessas informações pertence a outra pessoa?",
-          "sourceIds": ["lgpd-lei-13709-2018", "ms-pnh-folheto-2013"]
+          "sourceIds": ["wma-declaracao-lisboa"]
         },
         {
           "id": "i2",
@@ -467,14 +384,14 @@
           "prompt": "Associe cada dado da manhã simulada, num hospital público, ao tipo de critério que ele representa.",
           "pairs": [
             { "left": "Sala 2 parada para manutenção", "right": "Restrição do serviço" },
-            { "left": "Pessoa de 72 anos na sala de espera", "right": "Prioridade garantida por lei" },
+            { "left": "Pessoa de 72 anos que precisa de apoio para andar", "right": "Fragilidade e necessidade de apoio" },
             { "left": "Caso que a equipe classificou como urgente", "right": "Gravidade e risco avaliados pela equipe" },
             { "left": "Chegou às 7h10, sem outra condição", "right": "Ordem de chegada" }
           ],
-          "feedbackCorrect": "Você separou os quatro tipos de dado que entram numa ordem justificada: restrição, prioridade legal, avaliação da equipe e chegada.",
-          "feedbackIncorrect": "Confira de novo: pergunte de cada dado se ele vem do serviço, da lei, da avaliação da equipe ou do relógio.",
+          "feedbackCorrect": "Você separou os quatro tipos de dado que entram numa ordem justificada: restrição, fragilidade e apoio, avaliação da equipe e chegada.",
+          "feedbackIncorrect": "Confira de novo: pergunte de cada dado se ele vem do serviço, da fragilidade da pessoa, da avaliação da equipe ou do relógio.",
           "help": "Pergunte de onde vem cada dado, e não a quem ele beneficia.",
-          "sourceIds": ["ms-pnh-folheto-2013", "lei-10048-2000"]
+          "sourceIds": ["who-etat-2005", "wma-declaracao-lisboa"]
         },
         {
           "id": "i3",
@@ -483,14 +400,14 @@
           "prompt": "Ordene os passos para reorganizar a manhã simulada, na ordem ensinada nesta aula.",
           "items": [
             "Levantar as restrições: salas, horários e preparos",
-            "Identificar urgências da equipe e prioridades legais",
+            "Identificar urgências e fragilidades, avaliadas pela equipe",
             "Propor a ordem à supervisão, com o motivo de cada escolha",
             "Explicar a espera a quem aguarda, sem expor ninguém"
           ],
           "feedbackCorrect": "Primeiro os fatos, depois os critérios, depois a proposta a quem decide e, por fim, a explicação a quem espera.",
           "feedbackIncorrect": "Retome o conceito: não se propõe uma ordem antes de conhecer as restrições, nem se explica a espera antes de a supervisão decidir.",
           "help": "O que você precisa saber antes de propor? E quem precisa concordar antes de você explicar?",
-          "sourceIds": ["ms-pnh-folheto-2013", "lei-10048-2000"]
+          "sourceIds": ["who-etat-2005", "wma-declaracao-lisboa"]
         },
         {
           "id": "i4",
@@ -505,7 +422,7 @@
             { "label": "“Não sei dizer. Eu só chamo o nome que aparece na tela. Aguarde ali.”", "correct": false, "feedback": "Mandar aguardar sem explicar deixa Dona Marta sem o motivo a que ela tem direito." }
           ],
           "help": "Dona Marta precisa do critério. De que ela não precisa?",
-          "sourceIds": ["ms-pnh-folheto-2013", "lgpd-lei-13709-2018"]
+          "sourceIds": ["wma-declaracao-lisboa"]
         },
         {
           "id": "i5",
@@ -514,18 +431,18 @@
           "context": "Simulação de ressonância num hospital público, fim da tarde. Um exame demorou, e sobrou tempo para duas das três pessoas que aguardam. A primeira tem exame que a médica da equipe marcou como urgente. A segunda tem 81 anos. A terceira chegou antes das outras e tem exame de rotina. A supervisora pede a sua proposta.",
           "prompt": "O que você leva à supervisora para ela decidir quem será remarcado?",
           "options": [
-            { "label": "A ordem de chegada, que é o critério mais simples de explicar.", "correct": false, "feedback": "A chegada é um dos dados, mas sozinha ignora a urgência marcada e a prioridade legal. Retome os tipos de critério." },
-            { "label": "A urgência marcada, a prioridade legal e a ordem de chegada.", "correct": true, "feedback": "Você reuniu os três dados, cada um com o seu motivo, e deixou a decisão com quem responde pelo fluxo." },
+            { "label": "A ordem de chegada, que é o critério mais simples de explicar.", "correct": false, "feedback": "A chegada é um dos dados, mas sozinha ignora a urgência marcada e a fragilidade da pessoa. Retome os tipos de critério." },
+            { "label": "A urgência marcada, a fragilidade da pessoa e a ordem de chegada.", "correct": true, "feedback": "Você reuniu os três dados, cada um com o seu motivo, e deixou a decisão com quem responde pelo fluxo." },
             { "label": "A sugestão de remarcar quem parecer menos incomodado com isso.", "correct": false, "feedback": "Paciência não é critério: quem reclama menos acabaria sempre por último. Confira de novo o que justifica uma ordem." },
             { "label": "Nada: você define a ordem e avisa as três pessoas na espera.", "correct": false, "feedback": "Definir sozinho tira da supervisão uma decisão que é dela na simulação." }
           ],
           "help": "Quantos critérios diferentes aparecem neste caso, e quem decide entre eles?",
-          "sourceIds": ["ms-pnh-folheto-2013", "lei-10048-2000"]
+          "sourceIds": ["who-etat-2005", "wma-declaracao-lisboa"]
         }
       ],
       "closing": {
         "title": "Fila justa se explica",
-        "body": "Agora você consegue levantar as restrições de um fluxo, reconhecer urgência avaliada pela equipe e prioridade legal, propor uma ordem com motivos à supervisão e explicar a espera sem expor o caso de ninguém.",
+        "body": "Agora você consegue levantar as restrições de um fluxo, reconhecer urgência avaliada pela equipe e fragilidade que pede apoio, propor uma ordem com motivos à supervisão e explicar a espera sem expor o caso de ninguém.",
         "line": { "speaker": "paciente", "name": "Dona Marta", "text": "Agora entendi. Esperar sabendo o motivo é outra coisa." }
       },
       "checkpoint": [
@@ -535,19 +452,19 @@
             { "label": "Ela é conhecida de alguém que trabalha no setor.", "correct": false, "feedback": "Conhecer alguém do setor é favor, não critério. Retome de onde vêm as prioridades." },
             { "label": "Ela foi a que reclamou mais alto no balcão.", "correct": false, "feedback": "Atender quem reclama mais ensina que a ordem se ganha no grito. Confira de novo os critérios da aula." },
             { "label": "A equipe avaliou o caso dela como urgente.", "correct": true, "feedback": "Gravidade e risco, avaliados pela equipe, são critério reconhecido para definir prioridade." },
-            { "label": "Ela parece estar com mais pressa do que os outros.", "correct": false, "feedback": "Pressa aparente é impressão sua, não avaliação da equipe nem direito previsto em lei." }
+            { "label": "Ela parece estar com mais pressa do que os outros.", "correct": false, "feedback": "Pressa aparente é impressão sua, não avaliação da equipe nem critério do serviço." }
           ],
-          "sourceIds": ["ms-pnh-folheto-2013"]
+          "sourceIds": ["who-etat-2005", "wma-declaracao-lisboa"]
         },
         {
-          "prompt": "Num hospital público simulado, uma mulher com uma criança de colo chega ao balcão do setor de imagem e pergunta se entra na fila comum. O que a Lei 10.048/2000 garante a ela?",
+          "prompt": "Num serviço simulado, uma pessoa de 84 anos, que anda com dificuldade e não tem sinal de urgência, chega ao balcão do setor de imagem e pergunta se entra na fila comum. O que orienta a resposta?",
           "options": [
-            { "label": "O mesmo lugar na fila que teria sem a criança.", "correct": false, "feedback": "A lei trata essa situação de modo diferente da fila comum. Retome a lista de quem tem prioridade." },
-            { "label": "Atendimento prioritário, por estar com criança de colo.", "correct": true, "feedback": "Pessoas com criança de colo estão entre as que a lei lista para atendimento prioritário." },
-            { "label": "Prioridade só se a criança for a paciente do exame.", "correct": false, "feedback": "A lei fala em pessoa com criança de colo, sem exigir que a criança seja a atendida. Confira de novo." },
-            { "label": "Atendimento só depois de todos os idosos presentes na fila.", "correct": false, "feedback": "A lei lista as duas situações lado a lado, sem pôr quem está com criança de colo atrás das pessoas idosas." }
+            { "label": "Só a fila comum: sem urgência, vale a ordem de chegada.", "correct": false, "feedback": "Sem sinal de urgência ainda há outros critérios. Retome o que a fragilidade e a necessidade de apoio acrescentam." },
+            { "label": "A fragilidade dela entra na ordem, avaliada pela equipe.", "correct": true, "feedback": "Fragilidade e necessidade de apoio pesam na ordem, e quem avalia e propõe é a equipe, com o motivo explicado." },
+            { "label": "Ela mesma decide onde quer ficar na fila de espera.", "correct": false, "feedback": "A pessoa informa sua necessidade, mas a ordem é proposta pela equipe. Confira de novo quem decide." },
+            { "label": "Você mesmo a põe na frente, sem falar com a equipe.", "correct": false, "feedback": "A ordem é proposta pela equipe à supervisão, não decidida por você." }
           ],
-          "sourceIds": ["lei-10048-2000"]
+          "sourceIds": ["wma-declaracao-lisboa"]
         }
       ],
       "recovery": {
@@ -561,7 +478,7 @@
               { "label": "Que ele deveria ter chegado mais cedo ao setor.", "correct": false, "feedback": "Culpar quem espera não explica a ordem. Confira de novo qual foi o critério usado." },
               { "label": "Que a ordem é assunto interno e ele não pode perguntar isso.", "correct": false, "feedback": "Perguntar é direito dele. O que fica reservado é o caso da outra pessoa, não o critério." }
             ],
-            "sourceIds": ["ms-pnh-folheto-2013", "lgpd-lei-13709-2018"]
+            "sourceIds": ["wma-declaracao-lisboa"]
           }
         },
         "transfer": {
@@ -571,14 +488,14 @@
               { "label": "Quem mora mais perto e poderia voltar em outro dia da semana.", "correct": false, "feedback": "Morar perto não é critério de prioridade, e supor que alguém pode voltar é decidir por ele. Retome o primeiro passo." },
               { "label": "Quem está mais calmo e reclama menos da espera.", "correct": false, "feedback": "Calma não é critério: quem não reclama acabaria sempre remarcado. Confira de novo o que entra na proposta." },
               { "label": "Quais exames você considera menos importantes.", "correct": false, "feedback": "Julgar a importância de um exame é avaliação clínica, que não cabe a você na simulação." },
-              { "label": "As restrições e quem tem urgência ou prioridade legal.", "correct": true, "feedback": "Você começou pelos fatos e pelos critérios reconhecidos, que são a base de qualquer proposta de ordem." }
+              { "label": "As restrições e quem tem urgência ou fragilidade.", "correct": true, "feedback": "Você começou pelos fatos e pelos critérios reconhecidos, que são a base de qualquer proposta de ordem." }
             ],
-            "sourceIds": ["ms-pnh-folheto-2013", "lei-10048-2000"]
+            "sourceIds": ["who-etat-2005", "wma-declaracao-lisboa"]
           }
         }
       },
       "diagramIdeas": [
-        "Quadro da manhã com três colunas: restrições do serviço, critérios (avaliação da equipe, prioridade legal, chegada) e ordem proposta.",
+        "Quadro da manhã com três colunas: restrições do serviço, critérios (avaliação da equipe, fragilidade e apoio, chegada) e ordem proposta.",
         "Balão de fala em duas versões: a que explica o critério e a que expõe o caso de outra pessoa, esta riscada."
       ]
     },
@@ -599,7 +516,7 @@
       },
       "concept": {
         "title": "Quatro perguntas para qualquer texto",
-        "body": "Diante de um texto técnico, faça quatro perguntas, nesta ordem. Fonte: quem escreveu e onde foi publicado? Evidência: que tipo de estudo sustenta a afirmação? Revisões sistemáticas e vários ensaios bem conduzidos pesam mais do que séries pequenas e opiniões. Incerteza: o texto mostra limites, vieses ou resultados que não combinam entre estudos? Tudo isso reduz a confiança. Interesse: quem afirma ganha com a venda? Vínculo financeiro declarado não torna o resultado falso, mas permite ao leitor julgar. Folheto de fabricante é ponto de partida para buscar estudo independente. A RDC 611/2022 pede protocolos alinhados à legislação, às instruções do fabricante e a evidências científicas atualizadas.",
+        "body": "Diante de um texto técnico, faça quatro perguntas, nesta ordem. Fonte: quem escreveu e onde foi publicado? Evidência: que tipo de estudo sustenta a afirmação? Revisões sistemáticas e vários ensaios bem conduzidos pesam mais do que séries pequenas e opiniões. Incerteza: o texto mostra limites, vieses ou resultados que não combinam entre estudos? Tudo isso reduz a confiança. Interesse: quem afirma ganha com a venda? Vínculo financeiro declarado não torna o resultado falso, mas permite ao leitor julgar. Folheto de fabricante é ponto de partida para buscar estudo independente. Os protocolos do serviço devem se apoiar nas instruções do fabricante e em evidências científicas atualizadas.",
         "keyPoints": [
           "Fonte, evidência, incerteza e interesse, nessa ordem.",
           "O tipo de estudo muda o peso da afirmação.",
@@ -619,7 +536,7 @@
             { "label": "A palavra do fabricante do aparelho.", "correct": false, "feedback": "O fabricante declara o desempenho esperado; quem comprova o teste do dia é o serviço." }
           ],
           "help": "Qual das quatro peças do programa existe para ser consultada depois?",
-          "sourceIds": ["anvisa-rdc-611-2022"]
+          "sourceIds": ["iaea-hhc-handbook-ch19"]
         },
         {
           "id": "i2",
@@ -666,7 +583,7 @@
             { "label": "Trocar “40%” por “quase metade”, para a frase soar mais cautelosa.", "correct": false, "feedback": "Mudar o número não cria evidência, e ainda altera o que a fonte disse. Confira de novo como tratar a frase." }
           ],
           "help": "O folheto responde a alguma das quatro perguntas além da primeira?",
-          "sourceIds": ["icmje-conflitos-interesse", "marti-bonmati-2021-evidencia", "anvisa-rdc-611-2022"]
+          "sourceIds": ["icmje-conflitos-interesse", "marti-bonmati-2021-evidencia"]
         },
         {
           "id": "i5",
@@ -714,10 +631,10 @@
         "guided": {
           "hook": "Complete a frase: antes de aceitar uma afirmação, eu pergunto quem escreveu, o que a sustenta, quanta certeza há e quem…",
           "item": {
-            "prompt": "Um site de vendas afirma que um avental “bloqueia toda a radiação”. Não cita estudo, norma nem medida. Que pergunta mostra primeiro a fragilidade dessa frase?",
+            "prompt": "Um site de vendas afirma que um avental “bloqueia toda a radiação”. Não cita estudo, diretriz nem medida. Que pergunta mostra primeiro a fragilidade dessa frase?",
             "options": [
               { "label": "O site tem aparência profissional e atual?", "correct": false, "feedback": "Aparência não sustenta afirmação nenhuma. Retome as quatro perguntas da frase que você completou." },
-              { "label": "Que evidência sustenta essa afirmação?", "correct": true, "feedback": "Sem estudo, norma ou medida, a frase é só a palavra de quem vende, e isso aparece assim que se pergunta pela evidência." },
+              { "label": "Que evidência sustenta essa afirmação?", "correct": true, "feedback": "Sem estudo, diretriz ou medida, a frase é só a palavra de quem vende, e isso aparece assim que se pergunta pela evidência." },
               { "label": "Em quantas cores o avental é vendido?", "correct": false, "feedback": "A cor não diz nada sobre proteção. Confira de novo o que dá peso a uma afirmação." },
               { "label": "Quantas pessoas curtiram essa página?", "correct": false, "feedback": "Popularidade mede alcance, não verdade." }
             ],
@@ -733,7 +650,7 @@
               { "label": "Pela diretriz, conferindo as referências que ela lista.", "correct": true, "feedback": "A diretriz tem autoria identificada e mostra em que estudos se apoia, o que permite conferir cada afirmação." },
               { "label": "Por qualquer um, já que os três falam do mesmo tema técnico.", "correct": false, "feedback": "Falar do mesmo tema não dá o mesmo peso: fonte e evidência mudam de um material para o outro." }
             ],
-            "sourceIds": ["marti-bonmati-2021-evidencia", "anvisa-rdc-611-2022"]
+            "sourceIds": ["marti-bonmati-2021-evidencia"]
           }
         }
       },
@@ -753,16 +670,16 @@
         "setting": "Sala de exames com contraste, fim do procedimento",
         "lines": [
           { "speaker": "duda", "text": "Acabou o procedimento. Agulha, luva, embalagem, frasco... vai tudo no mesmo saco, né?" },
-          { "speaker": "caio", "text": "Cada material tem um grupo, e o grupo decide o coletor. A separação é na hora, aqui mesmo." },
+          { "speaker": "caio", "text": "Cada material tem uma categoria, e a categoria decide o coletor. A separação é na hora, aqui mesmo." },
           { "speaker": "pixel", "text": "E onde está escrito para onde vai cada coisa neste serviço?" }
         ]
       },
       "concept": {
-        "title": "Cinco grupos e um plano",
-        "body": "A RDC 222/2018 da Anvisa exige de todo serviço gerador um Plano de Gerenciamento de Resíduos de Serviços de Saúde, o PGRSS. O manejo segue etapas: separar, acondicionar, identificar, transportar, armazenar e destinar. A separação acontece no momento e no local em que o resíduo surge, por grupo. A: risco biológico. B: químico, como reveladores e fixadores. C: rejeito radioativo, que segue o plano de proteção radiológica e as normas da CNEN. D: comum. E: perfurocortante, em recipiente rígido, trocado ao atingir três quartos da capacidade. O plano do serviço indica coletor, destino e registro de cada material. Na dúvida, pergunte antes de descartar.",
+        "title": "Categorias de resíduo e um plano",
+        "body": "Todo serviço de saúde precisa de um plano de resíduos. O manejo segue etapas: separar, acondicionar, identificar, transportar, armazenar e destinar. A separação é feita por quem gera o resíduo, no momento e no local em que ele surge. As principais categorias são: comum; infectante e patológico, com risco biológico; perfurocortante, em recipiente rígido recolhido ao atingir três quartos da capacidade; químico, como reveladores e fixadores; farmacêutico; e radioativo, rotulado com o radionuclídeo e guardado atrás de blindagem até decair. A cor do coletor varia de um país para outro. O plano do serviço indica coletor, destino e registro de cada material. Na dúvida, pergunte antes de descartar.",
         "keyPoints": [
-          "Separar na hora e no local, por grupo.",
-          "A biológico, B químico, C radioativo, D comum, E perfurocortante.",
+          "Separar na hora e no local, por categoria.",
+          "Comum, infectante, perfurocortante, químico, farmacêutico e radioativo.",
           "O plano do serviço define coletor, destino e registro."
         ]
       },
@@ -779,23 +696,23 @@
             { "label": "O registro dos testes.", "correct": false, "feedback": "O registro guarda o que foi feito; quem diz como fazer é outra peça." }
           ],
           "help": "Qual peça é um texto que se consulta antes de agir?",
-          "sourceIds": ["anvisa-rdc-611-2022"]
+          "sourceIds": ["iaea-ssg46-2018"]
         },
         {
           "id": "i2",
           "type": "matching",
           "role": "practice",
-          "prompt": "Associe cada material da simulação ao grupo de resíduo da RDC 222/2018.",
+          "prompt": "Associe cada material da simulação à categoria de resíduo da OMS.",
           "pairs": [
-            { "left": "Agulha usada na punção", "right": "Grupo E, perfurocortante" },
-            { "left": "Fixador usado de uma processadora de filmes", "right": "Grupo B, químico" },
-            { "left": "Papel da área administrativa", "right": "Grupo D, comum" },
-            { "left": "Frasco com sobra de material radioativo", "right": "Grupo C, rejeito radioativo" }
+            { "left": "Agulha usada na punção", "right": "Perfurocortante, recipiente rígido" },
+            { "left": "Fixador usado de uma processadora de filmes", "right": "Químico, coletor próprio" },
+            { "left": "Papel da área administrativa", "right": "Resíduo comum" },
+            { "left": "Frasco com sobra de material radioativo", "right": "Radioativo, rotulado e guardado para decaimento" }
           ],
           "feedbackCorrect": "Você classificou pelo risco de cada material: o que fura, o que é químico, o que é radioativo e o que não traz nenhum desses riscos.",
           "feedbackIncorrect": "Confira de novo: pergunte de cada material se ele fura ou corta, se é produto químico, se contém material radioativo ou se é como lixo de casa.",
-          "help": "O grupo vem do risco que o material traz, não do lugar onde ele foi usado.",
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "help": "A categoria vem do risco que o material traz, não do lugar onde ele foi usado.",
+          "sourceIds": ["who-residuos-saude-ficha-2024"]
         },
         {
           "id": "i3",
@@ -803,16 +720,16 @@
           "role": "practice",
           "prompt": "Ordene as etapas do manejo de um resíduo, na ordem ensinada nesta aula.",
           "items": [
-            "Separar por grupo, no momento e local da geração",
-            "Acondicionar no coletor ou saco do grupo",
+            "Separar por categoria, no momento e local da geração",
+            "Acondicionar no coletor ou saco da categoria",
             "Identificar o coletor com o símbolo do risco",
             "Transportar e armazenar dentro do serviço",
             "Encaminhar ao destino final adequado"
           ],
-          "feedbackCorrect": "Separar, acondicionar, identificar, transportar e armazenar, destinar: é a sequência que o plano do serviço descreve para cada grupo.",
+          "feedbackCorrect": "Separar, acondicionar, identificar, transportar e armazenar, destinar: é a sequência que o plano do serviço descreve para cada categoria.",
           "feedbackIncorrect": "Retome o conceito: tudo começa pela separação na origem, e o destino final é a última etapa.",
           "help": "A primeira etapa acontece na sala onde o resíduo surge; a última, fora do serviço.",
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "sourceIds": ["who-residuos-saude-2014"]
         },
         {
           "id": "i4",
@@ -823,12 +740,12 @@
           "prompt": "O que você faz diante do coletor cheio?",
           "options": [
             { "label": "Empurro o conteúdo com cuidado, para a agulha caber.", "correct": false, "feedback": "Empurrar o conteúdo põe a sua mão no caminho das agulhas já descartadas. Retome quando o coletor deve ser trocado." },
-            { "label": "Sugiro reencapar a agulha e deixá-la na bancada até o fim do turno.", "correct": false, "feedback": "O reencape manual de agulhas é vedado pela RDC 222/2018, e a agulha na bancada continua oferecendo risco. Confira de novo." },
+            { "label": "Sugiro reencapar a agulha e deixá-la na bancada até o fim do turno.", "correct": false, "feedback": "Reencapar agulha é causa comum de ferimento, e a agulha na bancada continua oferecendo risco. Confira de novo." },
             { "label": "Aviso Caio, sem forçar o coletor, e peço um coletor novo à equipe.", "correct": true, "feedback": "Coletor que chegou a três quartos é trocado, não comprimido, e a agulha vai sem reencape para o coletor novo." },
             { "label": "Sugiro o saco de resíduo comum, com a agulha bem lá no fundo.", "correct": false, "feedback": "No saco comum a agulha pode ferir quem recolhe o resíduo. Perfurocortante só vai em recipiente rígido." }
           ],
           "help": "O que a linha de três quartos no coletor está dizendo?",
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "sourceIds": ["who-residuos-saude-resumo-2017", "who-residuos-saude-2014"]
         },
         {
           "id": "i5",
@@ -843,65 +760,65 @@
             { "label": "Devolvo ao armário, para alguém resolver quando puder.", "correct": false, "feedback": "Guardar de volta adia o problema: o avental continua sem uso e sem destino definido." }
           ],
           "help": "O material não está entre os exemplos da aula. Onde o serviço guarda essa resposta?",
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "sourceIds": ["who-residuos-saude-2014"]
         }
       ],
       "closing": {
         "title": "O exame termina no coletor certo",
-        "body": "Agora você consegue separar um material no momento em que ele vira resíduo, reconhecer o grupo e procurar no plano do serviço o coletor, o destino e o registro, perguntando antes de descartar o que não conhece.",
+        "body": "Agora você consegue separar um material no momento em que ele vira resíduo, reconhecer a categoria e procurar no plano do serviço o coletor, o destino e o registro, perguntando antes de descartar o que não conhece.",
         "line": { "speaker": "caio", "text": "Qualidade também é o que sai da sala depois do exame." }
       },
       "checkpoint": [
         {
-          "prompt": "Na simulação, sobrou uma luva de procedimento que não teve contato com sangue nem com outro líquido do corpo. Pela classificação da RDC 222/2018, em que grupo ela entra?",
+          "prompt": "Na simulação, sobrou uma luva de procedimento que não teve contato com sangue nem com outro líquido do corpo. Pela segregação da OMS, em que categoria ela entra?",
           "options": [
-            { "label": "Grupo A, risco biológico.", "correct": false, "feedback": "O grupo A reúne resíduos com possível presença de agentes biológicos, e esta luva não tocou sangue nem líquidos do corpo. Retome os grupos." },
-            { "label": "Grupo D, resíduo comum.", "correct": true, "feedback": "Sem risco biológico, químico ou radiológico, a luva entra no grupo D, e o plano do serviço indica o coletor." },
-            { "label": "Grupo E, perfurocortante.", "correct": false, "feedback": "O grupo E é do que fura ou corta, e uma luva não faz nem uma coisa nem outra. Confira de novo." },
-            { "label": "Grupo B, risco químico.", "correct": false, "feedback": "O grupo B é de produtos químicos, como reveladores e fixadores. A luva limpa não traz esse risco." }
+            { "label": "Infectante, risco biológico.", "correct": false, "feedback": "A categoria infectante reúne resíduos com possível presença de agentes biológicos, e esta luva não tocou sangue nem líquidos do corpo. Retome as categorias." },
+            { "label": "Resíduo comum.", "correct": true, "feedback": "Sem risco biológico, químico ou radiológico, a luva entra no resíduo comum, e o plano do serviço indica o coletor." },
+            { "label": "Perfurocortante.", "correct": false, "feedback": "A categoria perfurocortante é do que fura ou corta, e uma luva não faz nem uma coisa nem outra. Confira de novo." },
+            { "label": "Químico.", "correct": false, "feedback": "A categoria química é de produtos químicos, como reveladores e fixadores. A luva limpa não traz esse risco." }
           ],
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "sourceIds": ["who-residuos-saude-ficha-2024"]
         },
         {
-          "prompt": "Um setor de medicina nuclear simulado gera um frasco com sobra de material radioativo. O que orienta o manejo desse rejeito, segundo a RDC 222/2018?",
+          "prompt": "Um setor de medicina nuclear simulado gera um frasco com sobra de material radioativo. O que orienta o manejo desse rejeito, segundo as orientações da OMS e da IAEA?",
           "options": [
-            { "label": "Só o costume de quem trabalha há mais tempo no setor.", "correct": false, "feedback": "Costume não é documento: o manejo do rejeito radioativo está escrito. Retome o que a aula disse sobre o grupo C." },
-            { "label": "As regras do resíduo comum, depois de um dia de espera.", "correct": false, "feedback": "Tempo de espera, sozinho, não libera rejeito radioativo como resíduo comum. Confira de novo quais documentos valem." },
-            { "label": "O plano de proteção radiológica e as normas da CNEN.", "correct": true, "feedback": "O grupo C segue o plano de proteção radiológica do serviço e as normas da CNEN, além do plano de resíduos." },
+            { "label": "Só o costume de quem trabalha há mais tempo no setor.", "correct": false, "feedback": "Costume não é documento: o manejo do rejeito radioativo está escrito. Retome o que a aula disse sobre a categoria radioativa." },
+            { "label": "O descarte imediato no lixo comum, por ser pouca quantidade.", "correct": false, "feedback": "Pouca quantidade não dispensa o manejo: rejeito radioativo não vai ao lixo comum. Confira de novo quais documentos valem." },
+            { "label": "O plano de proteção radiológica do serviço.", "correct": true, "feedback": "O rejeito radioativo é rotulado, guardado atrás de blindagem até decair e segue o plano de proteção radiológica do serviço, além do plano de resíduos." },
             { "label": "O manual do fabricante do coletor de perfurocortantes.", "correct": false, "feedback": "O manual do coletor trata de agulhas e lâminas, não do risco radiológico do rejeito." }
           ],
-          "sourceIds": ["anvisa-rdc-222-2018"]
+          "sourceIds": ["who-residuos-saude-modulo-18", "who-residuos-saude-resumo-2017", "iaea-ssg46-2018"]
         }
       ],
       "recovery": {
         "guided": {
           "hook": "Complete a frase: eu separo o resíduo no momento e no local em que ele…",
           "item": {
-            "prompt": "Ao fim de um procedimento simulado, ficam na bandeja uma agulha, uma embalagem de papel limpa e uma gaze. Quando esses materiais devem ser separados por grupo?",
+            "prompt": "Ao fim de um procedimento simulado, ficam na bandeja uma agulha, uma embalagem de papel limpa e uma gaze. Quando esses materiais devem ser separados por categoria?",
             "options": [
               { "label": "No fim do turno, quando o saco de resíduos estiver cheio.", "correct": false, "feedback": "Até o fim do turno, a agulha fica misturada ao resto e pode ferir alguém. Retome a frase que você completou." },
               { "label": "No abrigo externo, pela equipe da limpeza.", "correct": false, "feedback": "Deixar para o abrigo passa o risco adiante, a quem não viu o que foi usado. Confira de novo onde a separação acontece." },
-              { "label": "Só quando a vigilância sanitária inspecionar.", "correct": false, "feedback": "A separação é parte do trabalho de todo dia, não um preparo para inspeção." },
+              { "label": "Só quando houver uma auditoria no serviço.", "correct": false, "feedback": "A separação é parte do trabalho de todo dia, não um preparo para inspeção." },
               { "label": "Na hora, na própria sala, cada um no seu coletor.", "correct": true, "feedback": "A separação acontece no momento e no local da geração, por quem sabe o que cada material é." }
             ],
-            "sourceIds": ["anvisa-rdc-222-2018"]
+            "sourceIds": ["who-residuos-saude-2014"]
           }
         },
         "transfer": {
           "item": {
-            "prompt": "Em outra simulação, um serviço antigo ainda revela filmes, e sobra fixador usado na processadora. Qual atitude segue a RDC 222/2018?",
+            "prompt": "Em outra simulação, um serviço antigo ainda revela filmes, e sobra fixador usado na processadora. Qual atitude segue o princípio de segregação da OMS?",
             "options": [
-              { "label": "Tratar como resíduo químico, pelo plano do serviço.", "correct": true, "feedback": "Fixador é resíduo do grupo B: segue para recuperação da prata ou para tratamento antes do destino final, como o plano descreve." },
-              { "label": "Despejar na pia, deixando bastante água corrente escoar.", "correct": false, "feedback": "Diluir não trata o produto químico: ele só chega ao esgoto em maior volume. Retome o grupo dos fixadores." },
-              { "label": "Misturar ao revelador e pôr no resíduo comum.", "correct": false, "feedback": "Misturar dois produtos químicos não os torna resíduo comum. Confira de novo o grupo a que pertencem." },
+              { "label": "Tratar como resíduo químico, pelo plano do serviço.", "correct": true, "feedback": "Fixador é resíduo químico: o plano do serviço define o tratamento, e ele não vai ao esgoto nem ao lixo comum." },
+              { "label": "Despejar na pia, deixando bastante água corrente escoar.", "correct": false, "feedback": "Diluir não trata o produto químico: ele só chega ao esgoto em maior volume. Retome a categoria dos fixadores." },
+              { "label": "Misturar ao revelador e pôr no resíduo comum.", "correct": false, "feedback": "Misturar dois produtos químicos não os torna resíduo comum. Confira de novo a categoria a que pertencem." },
               { "label": "Guardar em garrafas sem rótulo no depósito.", "correct": false, "feedback": "Sem identificação, ninguém sabe o que há na garrafa nem que risco ela traz." }
             ],
-            "sourceIds": ["anvisa-rdc-222-2018"]
+            "sourceIds": ["who-residuos-saude-modulo-18"]
           }
         }
       },
       "diagramIdeas": [
-        "Cinco coletores lado a lado, A a E, cada um com o tipo de risco e um exemplo de material da radiologia.",
+        "Um coletor por categoria, lado a lado, cada um com o tipo de risco e um exemplo de material da radiologia.",
         "Trilha do resíduo em seis passos: separar, acondicionar, identificar, transportar, armazenar e destinar, com a sala de exames no primeiro."
       ]
     },
@@ -923,10 +840,7 @@
       "concept": {
         "title": "Três perguntas para qualquer caso",
         "body": "Os casos desta missão misturam o que você praticou no núcleo, e três perguntas organizam qualquer um deles. Quem é a pessoa? Dois identificadores conferidos antes do cuidado. O que mudou ou não bate? Informação nova, registro divergente, resultado fora do padrão e material sem destino claro pedem pausa. De quem é a decisão? Indicar exame, liberar implante, definir urgência e corrigir registro cabem à equipe habilitada. A sua parte é parar, descrever o que viu e pedir apoio, protegendo os dados e sem expor ninguém a radiação desnecessária. Daqui em diante, os itens não trazem pista de resposta: use as três perguntas.",
-        "keyPoints": [
-          "Quem é a pessoa? O que não bate? De quem é a decisão?",
-          "Diante de dúvida: parar, descrever, pedir apoio."
-        ]
+        "keyPoints": ["Quem é a pessoa? O que não bate? De quem é a decisão?", "Diante de dúvida: parar, descrever, pedir apoio."]
       },
       "interactions": [
         {
@@ -937,11 +851,11 @@
           "options": [
             { "label": "A você, se conhecer bem o equipamento da sala.", "correct": false, "feedback": "Conhecer o equipamento é parte da técnica; indicar exame é outra decisão. Retome a divisão de papéis." },
             { "label": "Ao paciente, que conhece os próprios sintomas.", "correct": false, "feedback": "O relato do paciente informa a decisão, mas não a substitui. Confira de novo quem solicita o exame." },
-            { "label": "Ao profissional habilitado que solicita o exame.", "correct": true, "feedback": "Nenhum procedimento radiológico é feito sem a solicitação de um profissional legalmente habilitado." },
+            { "label": "Ao profissional habilitado que solicita o exame.", "correct": true, "feedback": "O exame parte da solicitação de um profissional habilitado, conforme as regras do serviço." },
             { "label": "A quem estiver com a agenda mais livre no setor.", "correct": false, "feedback": "Agenda livre organiza o horário, não a indicação do exame." }
           ],
           "help": "Volte à terceira pergunta da missão.",
-          "sourceIds": ["anvisa-rdc-611-2022"]
+          "sourceIds": ["iaea-ssg46-2018"]
         },
         {
           "id": "i2",
@@ -967,12 +881,12 @@
             { "left": "Nome na tela diferente do nome no pedido", "right": "Conferir os identificadores e parar na divergência" },
             { "left": "Teste diário do equipamento fora do padrão", "right": "Registrar e avisar a supervisão antes de usar" },
             { "left": "Acompanhante quer ficar na sala de raios X", "right": "Só se for imprescindível, com proteção, e a equipe decide" },
-            { "left": "Agulha usada e embalagem limpa na bancada", "right": "Separar por grupo, na hora, no coletor certo" }
+            { "left": "Agulha usada e embalagem limpa na bancada", "right": "Separar por categoria, na hora, no coletor certo" }
           ],
           "feedbackCorrect": "Você reconheceu quatro critérios do núcleo: identificação, qualidade, proteção de quem acompanha e destino dos resíduos.",
           "feedbackIncorrect": "Confira de novo: pergunte se a situação fala de quem é a pessoa, do equipamento, de alguém exposto sem ser paciente ou do que sobrou do exame.",
           "help": "Use as três perguntas da missão em cada situação antes de ligar os pares.",
-          "sourceIds": ["ms-identificacao-paciente", "anvisa-rdc-611-2022", "anvisa-rdc-222-2018"]
+          "sourceIds": ["who-identificacao-paciente-2007", "iaea-ssg46-2018", "who-residuos-saude-2014"]
         },
         {
           "id": "i4",
@@ -988,7 +902,7 @@
             { "label": "Não exponho e chamo Caio para conferir o pedido.", "correct": true, "feedback": "Você parou antes da exposição e levou a divergência entre o pedido e o relato a quem pode confirmá-la." }
           ],
           "help": "Use as três perguntas da missão antes de escolher.",
-          "sourceIds": ["anvisa-rdc-611-2022", "ms-identificacao-paciente"]
+          "sourceIds": ["iaea-ssg46-2018", "who-identificacao-paciente-2007"]
         },
         {
           "id": "i5",
@@ -1003,7 +917,7 @@
             { "label": "Sugerir à filha que o exame seja feito sem o contraste.", "correct": false, "feedback": "Decidir sobre o contraste é conduta clínica, que cabe à equipe e não a você." }
           ],
           "help": "Use as três perguntas da missão antes de decidir.",
-          "sourceIds": ["radiologyinfo-seguranca-rm", "lgpd-lei-13709-2018"]
+          "sourceIds": ["radiologyinfo-seguranca-rm", "wma-declaracao-lisboa"]
         }
       ],
       "closing": {
@@ -1020,17 +934,17 @@
             { "label": "Escolho qualquer um e peço que corrijam depois que o exame terminar.", "correct": false, "feedback": "Corrigir depois significa gravar primeiro no lugar errado." },
             { "label": "Crio um registro novo com o nome dela e sigo com a aquisição.", "correct": false, "feedback": "Um terceiro registro aumenta a confusão em vez de resolver qual dos dois é o dela." }
           ],
-          "sourceIds": ["ms-identificacao-paciente", "anvisa-rdc-611-2022"]
+          "sourceIds": ["who-identificacao-paciente-2007", "iaea-ssg46-2018"]
         },
         {
           "prompt": "Plantão simulado, fim do turno. Um colega pede que você fotografe com o celular a imagem de um exame na tela, “para mandar mais rápido ao médico”. O sistema do serviço está funcionando. O que você responde?",
           "options": [
             { "label": "Fotografo, cobrindo o nome com o dedo.", "correct": false, "feedback": "Cobrir o nome não muda o fato de que a imagem sai do sistema para um celular pessoal." },
             { "label": "Fotografo e apago logo depois do envio.", "correct": false, "feedback": "Apagar do seu aparelho não apaga a cópia que já foi enviada." },
-            { "label": "Não fotografo: o envio é pelo sistema do serviço.", "correct": true, "feedback": "O sistema é o canal que protege o dado. E a RDC 611/2022 proíbe fotografar exame para usar a foto como registro ou como imagem para laudo ou diagnóstico." },
+            { "label": "Não fotografo: o envio é pelo sistema do serviço.", "correct": true, "feedback": "O sistema é o canal que protege o dado: a imagem e os dados do paciente ficam nele, com acesso só de quem participa do atendimento." },
             { "label": "Fotografo, mas só se o médico pedir por mensagem antes.", "correct": false, "feedback": "Um pedido por mensagem não transforma o celular em canal do serviço." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022", "lgpd-lei-13709-2018"]
+          "sourceIds": ["wma-declaracao-lisboa"]
         }
       ],
       "recovery": {
@@ -1044,19 +958,19 @@
               { "label": "Sigo atendendo e comento no fim do turno.", "correct": false, "feedback": "Até o fim do turno, outras pessoas seriam expostas com o problema presente. Confira de novo quando avisar." },
               { "label": "Paro o uso, registro o que vi e aviso a supervisão.", "correct": true, "feedback": "Você descreveu o erro e a imagem com faixas e levou a decisão sobre o equipamento a quem responde por ele." }
             ],
-            "sourceIds": ["anvisa-rdc-611-2022", "iaea-hhc-handbook-ch19"]
+            "sourceIds": ["iaea-ssg46-2018", "iaea-hhc-handbook-ch19"]
           }
         },
         "transfer": {
           "item": {
             "prompt": "Plantão simulado num hospital público, mamografia. Uma senhora de 67 anos, com mobilidade reduzida, chegou depois de duas pessoas mais jovens. As três têm exame de rotina. Uma das jovens reclama da ordem que você propôs. Que justificativa você apresenta à supervisora?",
             "options": [
-              { "label": "A prioridade legal dela, por idade e mobilidade reduzida.", "correct": true, "feedback": "Idade a partir de 60 anos e mobilidade reduzida estão entre as situações que a Lei 10.048/2000 lista para atendimento prioritário." },
+              { "label": "A fragilidade dela, pela idade e mobilidade reduzida.", "correct": true, "feedback": "Idade avançada e mobilidade reduzida são fragilidades que a equipe considera ao propor a ordem." },
               { "label": "A simpatia dela com a equipe durante toda a espera.", "correct": false, "feedback": "Simpatia não é critério: a ordem ficaria à mercê de quem agrada mais." },
               { "label": "A suposição de que o exame dela deve ser o mais grave dos três.", "correct": false, "feedback": "Os três exames são de rotina, e avaliar gravidade não cabe a você." },
               { "label": "A vontade de evitar discussão na sala de espera.", "correct": false, "feedback": "Evitar discussão não justifica ordem nenhuma; o que justifica é o critério." }
             ],
-            "sourceIds": ["lei-10048-2000"]
+            "sourceIds": ["wma-declaracao-lisboa"]
           }
         }
       },
