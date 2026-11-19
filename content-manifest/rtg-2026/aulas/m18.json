@@ -152,7 +152,7 @@
       },
       "concept": {
         "title": "Eixo e membros",
-        "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece numa cor e os membros em outra.",
+        "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece em tons de azul e os membros, em âmbar.",
         "keyPoints": [
           "Axial: crânio, coluna e caixa torácica.",
           "Apendicular: membros e cinturas.",
@@ -244,32 +244,28 @@
           "regions": [
             {
               "label": "Crânio",
-              "x": 0.4437,
-              "y": 0.0334,
-              "width": 0.1125,
-              "height": 0.1667
+              "x": 0.424,
+              "y": 0.046,
+              "width": 0.083,
+              "height": 0.122,
+              "alvo": "Crânio"
             },
             {
               "label": "Caixa torácica",
-              "x": 0.4063,
-              "y": 0.2708,
-              "width": 0.1875,
-              "height": 0.125
-            },
-            {
-              "label": "Coluna lombar",
-              "x": 0.46,
-              "y": 0.4917,
-              "width": 0.08,
-              "height": 0.125
+              "x": 0.393,
+              "y": 0.285,
+              "width": 0.147,
+              "height": 0.145,
+              "alvo": "Caixa torácica"
             },
             {
               "label": "Osso do quadril",
-              "x": 0.51,
-              "y": 0.75,
-              "width": 0.08,
-              "height": 0.0833,
-              "correct": true
+              "x": 0.469,
+              "y": 0.542,
+              "width": 0.082,
+              "height": 0.109,
+              "correct": true,
+              "alvo": "Osso do quadril esquerdo"
             }
           ],
           "feedbackCorrect": "Isso: o osso do quadril faz parte da cintura pélvica e prende o membro inferior ao esqueleto axial.",
@@ -1227,45 +1223,43 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+          "prompt": "Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
           "diagramId": "articulacao-sinovial",
           "points": [
             {
               "label": "Osso",
-              "x": 0.5,
-              "y": 0.15,
-              "where": "no alto, o bloco que desce e se alarga"
+              "x": 0.46,
+              "y": 0.16,
+              "where": "no alto, o bloco claro com poros que desce e se alarga",
+              "alvo": "Osso"
             },
             {
               "label": "Cápsula articular",
-              "x": 0.2656,
-              "y": 0.4583,
-              "where": "à esquerda, a faixa branca que envolve o espaço"
+              "x": 0.205,
+              "y": 0.52,
+              "where": "à esquerda, a faixa azul viva que envolve o espaço",
+              "alvo": "Cápsula articular"
             },
             {
               "label": "Cartilagem articular",
-              "x": 0.4313,
-              "y": 0.5292,
-              "where": "faixa clara que cobre a ponta de baixo"
+              "x": 0.55,
+              "y": 0.47,
+              "where": "a faixa ciano que cobre a ponta de baixo",
+              "alvo": "Cartilagem articular"
             },
             {
               "label": "Cavidade articular",
-              "x": 0.6,
-              "y": 0.4917,
-              "where": "o espaço escuro entre as pontas, à direita"
-            },
-            {
-              "label": "Ligamento",
-              "x": 0.7719,
-              "y": 0.4792,
-              "where": "à direita, por fora de tudo, a faixa cinza curva"
+              "x": 0.37,
+              "y": 0.535,
+              "where": "o espaço azul-petróleo entre as pontas",
+              "alvo": "Cavidade articular"
             }
           ],
           "distractors": [
             "Tendão"
           ],
           "feedbackCorrect": "Isso: cada ficha está sobre a parte certa da articulação sinovial.",
-          "feedbackIncorrect": "Alguma ficha está no ponto errado: o ligamento fica por fora, e a cavidade, entre as pontas dos ossos.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: a cápsula envolve o espaço por fora, e a cavidade fica entre as pontas dos ossos.",
           "help": "Comece pelo osso, no alto, e desça até as pontas.",
           "sourceIds": [
             "openstax-ap-9-4"

@@ -546,38 +546,36 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
+          "prompt": "Rotule quatro referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
           "diagramId": "linhas-do-cranio",
           "points": [
             {
               "label": "Linha orbitomeatal",
-              "x": 0.0875,
-              "y": 0.392,
-              "where": "no perfil, a mais alta das duas linhas, na ponta da frente"
+              "x": 0.1438,
+              "y": 0.4825,
+              "where": "no perfil, a mais alta das duas linhas, na ponta da frente",
+              "alvo": "Linha orbitomeatal"
             },
             {
               "label": "Linha infraorbitomeatal",
-              "x": 0.25,
-              "y": 0.454,
-              "where": "no perfil, a mais baixa das duas linhas, junto à bochecha"
-            },
-            {
-              "label": "Meato acústico externo",
-              "x": 0.4125,
-              "y": 0.458,
-              "where": "no perfil, o pequeno anel onde as duas linhas terminam"
+              "x": 0.3031,
+              "y": 0.5733,
+              "where": "no perfil, a mais baixa das duas, no trecho de trás",
+              "alvo": "Linha infraorbitomeatal"
             },
             {
               "label": "Linha interpupilar",
-              "x": 0.906,
-              "y": 0.408,
-              "where": "na vista de frente, a linha horizontal pelos dois olhos"
+              "x": 0.8803,
+              "y": 0.4813,
+              "where": "na vista de frente, a linha horizontal pelas duas órbitas",
+              "alvo": "Linha interpupilar"
             },
             {
               "label": "Plano sagital mediano",
-              "x": 0.7875,
-              "y": 0.125,
-              "where": "na vista de frente, a linha tracejada vertical no alto"
+              "x": 0.8038,
+              "y": 0.2083,
+              "where": "na vista de frente, a linha tracejada vertical no alto",
+              "alvo": "Plano sagital mediano"
             }
           ],
           "distractors": [

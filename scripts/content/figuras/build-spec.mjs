@@ -119,7 +119,106 @@ ${layers.join('\n')}
 `;
 }
 
+/** Molde das figuras de acervo paradas (fase 1): uma camada de arte, mais camadas de código em `extra`. */
+function importada({ id, name, header, alt, transform, nota, extra = [] }) {
+  return (o) => {
+    const art = clean(o.layers[0].svg);
+    const layers = [{ note: nota, svg: transform ? `<g transform="${transform(o)}">${art}</g>` : art }, ...extra];
+    const items = layers.map(({ note, svg }) => `    {\n${note ? `      // ${note}\n` : ''}      svg: ${JSON.stringify(svg)},\n    },`);
+    return `import type { DiagramSpec } from '../diagramTypes';
+
+${header}
+export const ${name}: DiagramSpec = {
+  id: '${id}',
+  alt: '${alt}',
+  width: 320,
+  height: 240,
+  art: 'imported',
+  layers: [
+${items.join('\n')}
+  ],
+};
+`;
+  };
+}
+
+// Enquadra a caixa [x, y, w, h] do desenho no quadro 320x240, centrada, com 10 de margem.
+const caixa = ([bx, by, bw, bh]) => {
+  const s = Math.min(300 / bw, 220 / bh);
+  return `translate(${r((320 - bw * s) / 2 - bx * s)} ${r((240 - bh * s) / 2 - by * s)}) scale(${r(s)})`;
+};
+
+// Linhas de referência do linhas-do-cranio, em código, sobre pontos medidos na arte já no quadro 320x240.
+const P = { canto: [41.5, 114], infra: [36.5, 123.8], meato: [106.5, 139.8], y: 115.5, orbD: 232.7, orbE: 281.7, xMedia: 257.2, topo: 30.8, base: 209.2 };
+const casing = (d) => `<path d="${d}" fill="none" stroke="#171920" stroke-width="4.6" stroke-linecap="round"/>`;
+const linha = (a, b, c) => `${casing(`M${a[0]},${a[1]} L${b[0]},${b[1]}`)}<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/>`;
+const ponto = (p, c) => `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${c}" stroke="#171920" stroke-width="1.2"/>`;
+const yTopo = Math.max(4, P.topo - 10), yBase = Math.min(236, P.base + 8);
+const LINHAS_CRANIO = [
+  { note: 'Linha orbitomeatal (âmbar): do meato acústico externo ao canto externo do olho (margem lateral da órbita).', svg: `${linha(P.meato, P.canto, '#ffc21a')}${ponto(P.meato, '#ffc21a')}${ponto(P.canto, '#ffc21a')}` },
+  { note: 'Linha infraorbitomeatal (ciano): do mesmo meato à margem inferior da órbita.', svg: `${linha(P.meato, P.infra, '#5eeaf7')}${ponto(P.infra, '#5eeaf7')}` },
+  { note: 'Linha interpupilar (azul): pelo centro das duas órbitas, na vista de frente.', svg: `${linha([r(P.orbD - 8), P.y], [r(P.orbE + 8), P.y], '#4a9eff')}${ponto([P.orbD, P.y], '#4a9eff')}${ponto([P.orbE, P.y], '#4a9eff')}` },
+  { note: 'Plano sagital mediano (cinza claro tracejado): vertical pela linha média, visto de lado como linha.', svg: `${casing(`M${P.xMedia},${yTopo} L${P.xMedia},${yBase}`)}<line x1="${P.xMedia}" y1="${yTopo}" x2="${P.xMedia}" y2="${yBase}" stroke="#e6e8ee" stroke-width="2.2" stroke-dasharray="7 5" stroke-linecap="round"/>` },
+];
+
+const ACERVO = 'Arte importada (art: \'imported\'), gerada por script a partir do acervo; não editar à mão.';
+
 export const FIGURES = {
+  'esqueleto-axial-apendicular': {
+    file: 'esqueleto-axial-apendicular.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'esqueleto-axial-apendicular',
+      name: 'esqueletoAxialApendicular',
+      header: `// ${ACERVO}
+// Obra: "Human skeleton front - no labels" (Mikael Häggström, derivada da arte de LadyofHats),
+// Wikimedia Commons, domínio público. Sem rótulos, recolorida para a paleta do app e achatada
+// para atributos de apresentação (sem <style>, classe ou filtro). Quadro 320x240, parado.
+// Corte do crânio ao joelho (pés e pernas ficam fora, para as cinturas valerem área de toque);
+// esqueleto de frente, lado direito do paciente à esquerda de quem vê.
+// Cores: axial em azul (crânio #4A9EFF, costelas e esterno mais claros, coluna, sacro e cóccix
+// mais fundos); apendicular em âmbar (cinturas, membros e patelas).`,
+      alt: 'Esqueleto humano de frente, do crânio aos joelhos: crânio, costelas, esterno e coluna em tons de azul; ombros, braços, quadris e coxas em âmbar.',
+      // Corte do crânio ao joelho: y de 14 a 612 do original, x centrado no meio do esqueleto (59 a 404), 8 de margem no topo.
+      transform: () => {
+        const s = 224 / (612 - 14);
+        return `translate(${r(160 - ((59 + 404) / 2) * s)} ${r(8 - 14 * s)}) scale(${r(s)})`;
+      },
+    }),
+  },
+  'articulacao-sinovial': {
+    file: 'articulacao-sinovial.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'articulacao-sinovial',
+      name: 'articulacaoSinovial',
+      header: `// ${ACERVO}
+// Obra: "Normal joint" (Servier Medical Art, kit SMART-Bones, CC BY 4.0), vetores copiados do pptx do kit,
+// sem rótulos, recolorida para a paleta do app e achatada para atributos de apresentação.
+// Cores: osso cinza claro com poros mais escuros, cartilagem ciano, cavidade e líquido azul-petróleo,
+// membrana sinovial azul médio, cápsula azul vivo por fora. Sem ligamento na arte.`,
+      alt: 'Articulação em corte frontal: dois ossos com pontas lisas, espaço escuro entre elas, camada que o envolve por fora.',
+    }),
+  },
+  'linhas-do-cranio': {
+    file: 'linhas-do-cranio.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'linhas-do-cranio',
+      name: 'linhasDoCranio',
+      header: `// Arte importada (art: 'imported') mais linhas de referência em código; gerada por script, não editar à mão.
+// Cabeça: "Human skull side bones" e "Human skull front bones" (LadyofHats, Mariana Ruiz Villarreal), Wikimedia
+// Commons, domínio público; sem rótulos nem linhas de chamada, recoloridas em tons neutros. Fonte versionada:
+// scripts/content/figuras/fontes/linhas-do-cranio.svg. Quadro 320x240, parado. Perfil à esquerda (face para a
+// esquerda) e frente à direita (o lado direito do paciente fica à esquerda de quem vê). As linhas são código,
+// cada uma de uma cor, e passam pelos pontos da arte: meato acústico externo ${P.meato}, canto externo (margem
+// lateral da órbita) ${P.canto}, margem inferior da órbita ${P.infra}; centros das órbitas ${P.orbD} e ${P.orbE} em y ${P.y};
+// linha média x ${P.xMedia}.`,
+      alt: 'Crânio de perfil com duas linhas do meato acústico à órbita; crânio de frente com uma linha horizontal pelas órbitas e uma vertical tracejada.',
+      nota: 'Perfil e frente: a cabeça (crânio) sem linhas, em tom neutro.',
+      extra: LINHAS_CRANIO,
+    }),
+  },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',

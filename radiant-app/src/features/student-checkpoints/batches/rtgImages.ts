@@ -104,6 +104,33 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg",
     "modification": "Removidos rótulos e linhas de chamada; recolorido para a paleta do app; fundo escuro; recorte do quadro."
+  },
+  {
+    "id": "esqueleto-axial-apendicular",
+    "alt": "Esqueleto humano de frente, do crânio aos joelhos: crânio, costelas, esterno e coluna em tons de azul; ombros, braços, quadris e coxas em âmbar.",
+    "author": "Mikael Häggström (derivada de Human skeleton front, de LadyofHats / Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_-_no_labels.svg",
+    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 74 detalhes menores que 2,5 unidades descartados e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
+  },
+  {
+    "id": "articulacao-sinovial",
+    "alt": "Articulação em corte frontal: dois ossos com pontas lisas, espaço escuro entre elas, camada que o envolve por fora.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/normal-joint/",
+    "modification": "Vetores de uma única figura, \"Normal joint\" (slide 29 do pptx SMART-Bones, https://smart.servier.com/smart_image/normal-joint/), convertidos para SVG; removidos textos; recolorido para a paleta do app; fundo transparente; escala 0,62 e corte do quadro 320x240 (ossos saem do quadro). Sem ligamento: a faixa do ligamento colateral da figura Knee (2), frontal view, do mesmo kit, foi testada e descartada."
+  },
+  {
+    "id": "linhas-do-cranio",
+    "alt": "Crânio de perfil com duas linhas do meato acústico à órbita; crânio de frente com uma linha horizontal pelas órbitas e uma vertical tracejada.",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg",
+    "modification": "Vista de frente: removidos fundo branco, rótulos e linhas de chamada de \"Human skull front bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg, sha256 acima); vista de perfil: \"Human skull side bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg, mesma autora, domínio público; original com sha256 05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6, já limpo em fontes/cranio-de-perfil-ossos.svg). Os dois crânios foram recoloridos em tons neutros (sem as cores dos ossos), compostos lado a lado no quadro 320x240 e achatados para atributos de apresentação. As linhas orbitomeatal, infraorbitomeatal, interpupilar e o plano sagital mediano são código do projeto, numa camada própria por cima da arte."
   }
 ];
 

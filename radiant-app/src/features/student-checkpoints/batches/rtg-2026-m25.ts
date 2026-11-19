@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e",
+  "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -606,7 +606,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente."
+              "label": "Rotular a imagem: Rotule quatro referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente."
             },
             "help": "As duas linhas do perfil terminam no mesmo ponto; veja de onde cada uma parte.",
             "type": "label",
@@ -615,43 +615,36 @@ export const RTG_2026_M25: ProductionBatchV1 = {
               "incorrect": "Alguma referência ficou fora do lugar: lembre de onde cada linha parte e o que ela une."
             },
             "payload": {
-              "prompt": "Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
+              "prompt": "Rotule quatro referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
               "imageRef": "diagram:linhas-do-cranio",
               "points": [
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:1",
-                  "x": 0.0875,
-                  "y": 0.392,
+                  "x": 0.1438,
+                  "y": 0.4825,
                   "where": "no perfil, a mais alta das duas linhas, na ponta da frente",
                   "correctLabelId": "label:rtg-2026:m25:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:2",
-                  "x": 0.25,
-                  "y": 0.454,
-                  "where": "no perfil, a mais baixa das duas linhas, junto à bochecha",
+                  "x": 0.3031,
+                  "y": 0.5733,
+                  "where": "no perfil, a mais baixa das duas, no trecho de trás",
                   "correctLabelId": "label:rtg-2026:m25:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:3",
-                  "x": 0.4125,
-                  "y": 0.458,
-                  "where": "no perfil, o pequeno anel onde as duas linhas terminam",
+                  "x": 0.8803,
+                  "y": 0.4813,
+                  "where": "na vista de frente, a linha horizontal pelas duas órbitas",
                   "correctLabelId": "label:rtg-2026:m25:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:4",
-                  "x": 0.906,
-                  "y": 0.408,
-                  "where": "na vista de frente, a linha horizontal pelos dois olhos",
-                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-02:i2:5",
-                  "x": 0.7875,
-                  "y": 0.125,
+                  "x": 0.8038,
+                  "y": 0.2083,
                   "where": "na vista de frente, a linha tracejada vertical no alto",
-                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:5"
+                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:4"
                 }
               ],
               "labels": [
@@ -660,24 +653,20 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                   "label": "Linha orbitomeatal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-02:i2:6",
-                  "label": "Plano coronal"
-                },
-                {
                   "id": "label:rtg-2026:m25:aula-02:i2:2",
                   "label": "Linha infraorbitomeatal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-02:i2:5",
+                  "id": "label:rtg-2026:m25:aula-02:i2:4",
                   "label": "Plano sagital mediano"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-02:i2:4",
-                  "label": "Linha interpupilar"
+                  "id": "label:rtg-2026:m25:aula-02:i2:5",
+                  "label": "Plano coronal"
                 },
                 {
                   "id": "label:rtg-2026:m25:aula-02:i2:3",
-                  "label": "Meato acústico externo"
+                  "label": "Linha interpupilar"
                 }
               ]
             }
@@ -3470,15 +3459,6 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m25:aula-02:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-02:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -3488,22 +3468,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:6",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-02:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:5",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3519,6 +3484,12 @@ export const RTG_2026_M25: ProductionBatchV1 = {
         "source:rtg-2026:m25:r101-cranio",
         "source:rtg-2026:m25:wiki-orbitomeatal"
       ]
+    },
+    {
+      "claimId": "label:rtg-2026:m25:aula-02:i2:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "label:rtg-2026:m25:aula-02:i2:3",
@@ -6803,7 +6774,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     },
     {
       "schemaVersion": 1,
@@ -6812,7 +6783,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     },
     {
       "schemaVersion": 1,
@@ -6821,7 +6792,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     },
     {
       "schemaVersion": 1,
@@ -6830,7 +6801,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     },
     {
       "schemaVersion": 1,
@@ -6839,7 +6810,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     },
     {
       "schemaVersion": 1,
@@ -6848,7 +6819,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "152a04b2ed25fcb69c679d9d60d33129de00104df273ed7c70095d08857d9923"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

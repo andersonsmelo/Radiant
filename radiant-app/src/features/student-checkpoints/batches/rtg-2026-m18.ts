@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb",
+  "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -184,7 +184,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Eixo e membros",
-            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece numa cor e os membros em outra.",
+            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece em tons de azul e os membros, em âmbar.",
             "keyPoints": [
               "Axial: crânio, coluna e caixa torácica.",
               "Apendicular: membros e cinturas.",
@@ -332,38 +332,30 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:1",
                   "label": "Crânio",
-                  "x": 0.4437,
-                  "y": 0.0334,
-                  "width": 0.1125,
-                  "height": 0.1667
+                  "x": 0.424,
+                  "y": 0.046,
+                  "width": 0.083,
+                  "height": 0.122
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:2",
                   "label": "Caixa torácica",
-                  "x": 0.4063,
-                  "y": 0.2708,
-                  "width": 0.1875,
-                  "height": 0.125
+                  "x": 0.393,
+                  "y": 0.285,
+                  "width": 0.147,
+                  "height": 0.145
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:3",
-                  "label": "Coluna lombar",
-                  "x": 0.46,
-                  "y": 0.4917,
-                  "width": 0.08,
-                  "height": 0.125
-                },
-                {
-                  "id": "region:rtg-2026:m18:aula-01:i3:4",
                   "label": "Osso do quadril",
-                  "x": 0.51,
-                  "y": 0.75,
-                  "width": 0.08,
-                  "height": 0.0833
+                  "x": 0.469,
+                  "y": 0.542,
+                  "width": 0.082,
+                  "height": 0.109
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m18:aula-01:i3:4"
+                "region:rtg-2026:m18:aula-01:i3:3"
               ]
             }
           }
@@ -1328,52 +1320,45 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
+              "label": "Rotular a imagem: Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
             },
             "help": "Comece pelo osso, no alto, e desça até as pontas.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada ficha está sobre a parte certa da articulação sinovial.",
-              "incorrect": "Alguma ficha está no ponto errado: o ligamento fica por fora, e a cavidade, entre as pontas dos ossos."
+              "incorrect": "Alguma ficha está no ponto errado: a cápsula envolve o espaço por fora, e a cavidade fica entre as pontas dos ossos."
             },
             "payload": {
-              "prompt": "Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+              "prompt": "Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
               "imageRef": "diagram:articulacao-sinovial",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:1",
-                  "x": 0.5,
-                  "y": 0.15,
-                  "where": "no alto, o bloco que desce e se alarga",
+                  "x": 0.46,
+                  "y": 0.16,
+                  "where": "no alto, o bloco claro com poros que desce e se alarga",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:2",
-                  "x": 0.2656,
-                  "y": 0.4583,
-                  "where": "à esquerda, a faixa branca que envolve o espaço",
+                  "x": 0.205,
+                  "y": 0.52,
+                  "where": "à esquerda, a faixa azul viva que envolve o espaço",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:3",
-                  "x": 0.4313,
-                  "y": 0.5292,
-                  "where": "faixa clara que cobre a ponta de baixo",
+                  "x": 0.55,
+                  "y": 0.47,
+                  "where": "a faixa ciano que cobre a ponta de baixo",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:4",
-                  "x": 0.6,
-                  "y": 0.4917,
-                  "where": "o espaço escuro entre as pontas, à direita",
+                  "x": 0.37,
+                  "y": 0.535,
+                  "where": "o espaço azul-petróleo entre as pontas",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-04:i2:5",
-                  "x": 0.7719,
-                  "y": 0.4792,
-                  "where": "à direita, por fora de tudo, a faixa cinza curva",
-                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:5"
                 }
               ],
               "labels": [
@@ -1390,15 +1375,11 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "label": "Cavidade articular"
                 },
                 {
-                  "id": "label:rtg-2026:m18:aula-04:i2:5",
-                  "label": "Ligamento"
-                },
-                {
                   "id": "label:rtg-2026:m18:aula-04:i2:1",
                   "label": "Osso"
                 },
                 {
-                  "id": "label:rtg-2026:m18:aula-04:i2:6",
+                  "id": "label:rtg-2026:m18:aula-04:i2:5",
                   "label": "Tendão"
                 }
               ]
@@ -2954,15 +2935,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m18:aula-01:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-1",
-        "source:rtg-2026:m18:openstax-ap-8-3"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m18:aula-01:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4608,14 +4580,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4640,14 +4604,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4656,7 +4612,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:6",
+      "claimId": "label:rtg-2026:m18:aula-04:i2:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -6831,7 +6787,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     },
     {
       "schemaVersion": 1,
@@ -6840,7 +6796,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     },
     {
       "schemaVersion": 1,
@@ -6849,7 +6805,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     },
     {
       "schemaVersion": 1,
@@ -6858,7 +6814,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     },
     {
       "schemaVersion": 1,
@@ -6867,7 +6823,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     },
     {
       "schemaVersion": 1,
@@ -6876,7 +6832,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
