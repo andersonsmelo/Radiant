@@ -125,6 +125,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Formação da imagem digital."
     }
   },
+  "batch:rtg-2026:m22": {
+    "slug": "rtg-2026-m22",
+    "title": "Processamento, exibição e informática da imagem",
+    "description": "O que o sistema faz com a imagem antes de mostrá-la, como o monitor a exibe e por onde o exame viaja, até a cópia e a parada do sistema, sempre com o limite do estudante: olhar, relatar e seguir a rotina.",
+    "unitTitle": "Processamento, exibição e informática da imagem",
+    "reward": {
+      "id": "node:reward:rtg-2026:m22",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Processamento, exibição e informática da imagem."
+    }
+  },
   "batch:rtg-2026:m06": {
     "slug": "rtg-2026-m06",
     "title": "Geometria, técnica e qualidade",
