@@ -224,6 +224,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade A condição do paciente na aquisição."
     }
   },
+  "batch:rtg-2026:m27": {
+    "slug": "rtg-2026-m27",
+    "title": "Criança, idoso e gestante na aquisição",
+    "description": "Como a sala muda para três públicos: a criança, que pede conversa, apoio leve e campo ajustado; a pessoa idosa, que pede fala, pele e chão cuidados; e a gestante, cujo exame a equipe decidiu.",
+    "unitTitle": "Criança, idoso e gestante na aquisição",
+    "reward": {
+      "id": "node:reward:rtg-2026:m27",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Criança, idoso e gestante na aquisição."
+    }
+  },
   "batch:rtg-2026:m10": {
     "slug": "rtg-2026-m10",
     "title": "Anatomia seccional e introdução à TC",
