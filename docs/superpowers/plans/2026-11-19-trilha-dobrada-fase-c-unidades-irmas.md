@@ -322,13 +322,118 @@ M07; suspeita de fratura é "não mover, pedir apoio".
 | m24 | `pelve-de-frente` | parado | Pelve de frente: ílio, ísquio e púbis em cores diferentes, sacro, articulações sacroilíacas, sínfise púbica e forames obturados |
 | m24 | `vertebra-tipica` | parado | Vértebra lombar vista de cima: corpo, pedículos, lâminas, processos transversos, processo espinhoso e forame vertebral |
 
-## Lotes 3 a 6
+## Lote 3: m25, m26, m27, m28
+
+Aberto em 2026-11-19. O dono respondeu "Radiografias reais" à pergunta sobre usar
+imagem de acervo aberto neste lote. Ordem na trilha depois do lote: …, m08, **m25**,
+m09, **m26**, m16, **m27**, m10, **m28**, m11, e o resto como está.
+
+**Como a radiografia real entra.** Pelo procedimento de 2026-11-06 (prompt de
+continuidade, seção "Imagens radiográficas"): só Wikimedia Commons, só CC0 ou CC BY
+lida na página do arquivo, sem identificação de paciente, com projeção e região ditas
+na descrição; arquivo reduzido a 1200 px e cerca de 150 KB, registrado em
+`content-manifest/rtg-2026/imagens.json`. O item só afirma o que a descrição do acervo
+sustenta. Por isso a imagem real serve aqui para reconhecer projeção, plano, nível e
+orientação (`comparison`), e o rótulo de anatomia fina continua em diagrama: um modelo
+de IA não é fonte para dizer onde está uma estrutura numa radiografia.
+
+### M25 — Crânio, face, exame no leito e trauma (irmã da M08)
+
+A M08.04 ensina násio, PA e perfil do crânio em texto; a M08.05, o tórax em AP no
+leito. A M25 dá os ossos e as linhas de referência da cabeça e trata do exame fora da
+sala e no trauma.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Ossos do crânio e da face | Nomear os ossos vistos de perfil | `cranio-de-perfil-ossos` (novo) | `label`, `categorize`, MC |
+| 02 | Linhas e planos da cabeça | Nomear as linhas de referência usadas para alinhar a cabeça | `linhas-do-cranio` (novo) | `label`, `matching`, MC |
+| 03 | De frente ou de perfil | Reconhecer a projeção numa radiografia de crânio | radiografias reais de crânio | `comparison`, `true-false`, MC |
+| 04 | Seios da face e órbitas | Localizar os quatro grupos de seios e as órbitas | `seios-da-face` (novo) | `label`, `cloze`, MC |
+| 05 | O aparelho móvel no leito | Organizar o exame no leito: aviso, distância, alinhamento e quem fica | `raio-x-movel-no-leito` (novo) | `risk-hunt`, `ordering`, MC |
+| 06 | Trauma: a imagem sem mover | Trabalhar com colar e prancha no lugar e com a equipe no comando | `trauma-raio-horizontal` (novo) | `hotspot`, `conversation`, MC |
+
+Limite próprio: a aula não escolhe incidência nem ângulo; colar, prancha e imobilização
+não saem pela mão do estudante; nenhuma leitura de fratura.
+
+### M26 — Exames contrastados e fluoroscopia (irmã da M09)
+
+A M09 ensina preparo, triagem, cuidado e intercorrência com contraste. A M26 ensina o
+equipamento de fluoroscopia e o que cada estudo contrastado percorre.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Dois meios, dois caminhos | Distinguir contraste de bário e iodado e o caminho de cada um no corpo | `contraste-no-corpo` (novo); radiografia real com contraste, se houver com licença | `visual`, `categorize`, MC |
+| 02 | A cadeia da fluoroscopia | Nomear tubo, receptor, monitor e pedal e dizer o que cada um faz | `fluoroscopia-cadeia` (novo) | `label`, `ordering`, MC |
+| 03 | Pulsar e reter a imagem | Explicar como pulso, última imagem retida e tempo de pedal mudam a exposição | `fluoroscopia-pulsada` (novo, laço) | `visual`, `true-false`, `blitz`, MC |
+| 04 | Onde ficar na sala | Achar os pontos de mais radiação espalhada e as barreiras | `sala-de-fluoroscopia-espalhada` (novo), `inverso-do-quadrado` | `risk-hunt`, `parameter-lab`, MC |
+| 05 | O tubo digestivo com contraste | Ordenar o percurso de cada estudo e o que cabe ao estudante preparar | `trato-digestivo` | `hotspot`, `ordering`, MC |
+| 06 | O trato urinário e a equipe | Seguir as fases de um estudo urinário e comunicar o que vê | `sistema-urinario` | `hotspot`, `conversation`, MC |
+
+Limite próprio: o estudante não prescreve, não escolhe, não prepara dose nem administra
+contraste; preparo é "o protocolo do serviço define"; nenhuma leitura de achado.
+
+### M27 — Criança, idoso e gestante na aquisição (irmã da M16)
+
+A M16 ensina a adaptar diante de dor, falta de ar, gestação possível e isolamento. A
+M27 trata de três públicos cujo cuidado muda a sala inteira.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Falar com a criança e com quem a acompanha | Ajustar a explicação à idade e combinar o papel do acompanhante | `contencao-pediatrica` (novo) | `hotspot`, `conversation`, MC |
+| 02 | Segurar e imobilizar | Dizer quem pode segurar, com que proteção, e quando o apoio basta | `contencao-pediatrica` | `risk-hunt`, `categorize`, MC |
+| 03 | Campo pequeno, tempo curto | Ajustar o campo ao corpo da criança e reconhecer o campo grande demais | `colimacao-pediatrica` (novo); radiografias reais de mão de criança e de adulto, se houver com licença | `hotspot`, `comparison` ou `true-false`, MC |
+| 04 | O paciente idoso | Reconhecer pele frágil, audição, visão e equilíbrio como parte do posicionamento | `idoso-apoios-e-riscos` (novo) | `risk-hunt`, `multi-select`, MC |
+| 05 | A gestante com exame indicado | Dizer o que muda na sala quando a equipe decidiu fazer o exame | `gestante-campo-e-feixe` (novo) | `visual`, `cloze`, `blitz`, MC |
+| 06 | Três pacientes, três adaptações | Integrar as cinco aulas | `idoso-apoios-e-riscos` ou `colimacao-pediatrica` | `hotspot`, `conversation`, MC |
+
+Limite próprio: quem decide fazer, adiar ou trocar o exame é a equipe; proteção de
+contato é "o serviço define"; nenhuma conta de dose; contenção nunca é força.
+
+### M28 — Anatomia seccional II: abdome, pelve, pescoço e coluna (irmã da M10)
+
+A M10 ensina a navegar por cortes e localiza coração, fígado, rins, aorta e cava. A M28
+completa o mapa: abdome superior, pelve, pescoço e coluna, e os três planos.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Abdome superior em corte | Localizar fígado, baço, estômago, pâncreas, rins e grandes vasos num corte | `corte-abdome-superior` (novo) | `label`, `matching`, MC |
+| 02 | Pelve em corte | Localizar bexiga, reto, cabeças do fêmur e ossos da pelve num corte | `corte-pelve` (novo) | `label`, `cloze`, MC |
+| 03 | Pescoço em corte | Localizar via aérea, esôfago, tireoide, vasos e vértebra num corte | `corte-pescoco` (novo) | `label`, `categorize`, MC |
+| 04 | A coluna em dois planos | Relacionar corpo, disco e canal vertebral no plano sagital e no axial | `coluna-sagital-e-axial` (novo), `vertebra-tipica` | `label`, `matching`, MC |
+| 05 | Três planos, um corpo | Reconhecer axial, coronal e sagital em imagens reais | tomografias reais nos três planos | `comparison`, `true-false`, MC |
+| 06 | Em que altura estou | Dizer a altura de um corte pelas estruturas de referência | tomografias reais em níveis diferentes; `corte-abdome-superior` | `comparison` ou `hotspot`, `conversation`, MC |
+
+Limite próprio: localizar não é interpretar; nenhum item nomeia achado; órgão que varia
+com o sexo só como "neste esquema".
+
+### Diagramas novos do lote 3 (17)
+
+| Unidade | id | Tipo | O que mostra |
+| --- | --- | --- | --- |
+| m25 | `cranio-de-perfil-ossos` | parado | Crânio de perfil com frontal, parietal, temporal, occipital, esfenoide, maxila e mandíbula em cores diferentes |
+| m25 | `linhas-do-cranio` | parado | Cabeça de perfil com as linhas orbitomeatal e infraorbitomeatal, e de frente com a linha interpupilar e o plano sagital mediano |
+| m25 | `seios-da-face` | parado | Face de frente com os seios frontais, etmoidais e maxilares e as órbitas; ao lado, perfil com o seio esfenoidal |
+| m25 | `raio-x-movel-no-leito` | parado | Leito com paciente sentado, aparelho móvel, detector atrás das costas, operador afastado com avental, outro leito ao lado e uma pessoa perto demais |
+| m25 | `trauma-raio-horizontal` | parado | Paciente deitado em prancha com colar cervical, tubo de lado com raio horizontal, detector em pé do outro lado |
+| m26 | `contraste-no-corpo` | parado | Dois troncos lado a lado: num, o tubo digestivo preenchido; no outro, rins, ureteres e bexiga preenchidos |
+| m26 | `fluoroscopia-cadeia` | parado | Mesa de fluoroscopia de lado: tubo sob a mesa, paciente, receptor acima, monitor e pedal |
+| m26 | `fluoroscopia-pulsada` | laço | Linha do tempo com o feixe contínuo em cima e em pulsos embaixo, e um quadro que fica na tela entre os pulsos |
+| m26 | `sala-de-fluoroscopia-espalhada` | parado | Sala vista de lado: a radiação espalhada sai do paciente, mais forte do lado do tubo; operador com avental e protetor de tireoide, saiote na mesa, biombo |
+| m27 | `contencao-pediatrica` | parado | Criança deitada na mesa com apoios e faixa, acompanhante de avental segurando fora do feixe, outra pessoa sem proteção perto |
+| m27 | `colimacao-pediatrica` | parado | A mesma criança duas vezes: campo de luz cobrindo o corpo todo e campo ajustado à região |
+| m27 | `idoso-apoios-e-riscos` | parado | Idoso junto ao receptor vertical: barra de apoio, banco, degrau, tapete solto, andador longe |
+| m27 | `gestante-campo-e-feixe` | parado | Gestante de perfil junto ao receptor: campo ajustado longe do abdome e, tracejado, um campo aberto que o alcança |
+| m28 | `corte-abdome-superior` | parado | Corte axial esquemático na altura do fígado: fígado, estômago, baço, pâncreas, rins, aorta, veia cava, vértebra |
+| m28 | `corte-pelve` | parado | Corte axial esquemático da pelve: bexiga, reto, cabeças do fêmur nos acetábulos, ossos da pelve, sacro ou cóccix |
+| m28 | `corte-pescoco` | parado | Corte axial esquemático do pescoço: traqueia, esôfago, tireoide, carótidas, jugulares, vértebra e medula |
+| m28 | `coluna-sagital-e-axial` | parado | Coluna lombar em corte sagital (corpos, discos, canal) ao lado de um corte axial na altura de um disco |
+
+## Lotes 4 a 6
 
 A composição segue a tabela da seção 8.1 da especificação, na ordem da trilha:
 
 | Lote | Unidades |
 | --- | --- |
-| 3 | m25, m26, m27, m28 |
 | 4 | m29, m30, m31, m32 |
 | 5 | s-ta, s-ra, s-mi, s-pt |
 | 6 | s-rp, s-hd, s-oc, s-ud |
