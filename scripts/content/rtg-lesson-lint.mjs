@@ -8,7 +8,9 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
-// Alvos declarados por figura (content-manifest/rtg-2026/figuras/<id>.alvos.json): { [diagramId]: [{ nome, x, y, width, height }] }.
+// Alvos declarados por figura (content-manifest/rtg-2026/figuras/<id>.alvos.json): { [diagramId]: [{ nome, x, y, width, height, rotulos? }] }.
+// `rotulos` (opcional): textos que a aula pode mostrar para aquela estrutura além do `nome`, quando descreve a região por forma ou posição.
+const fold = (s) => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 const FIGURES_DIR = fileURLToPath(new URL('../../content-manifest/rtg-2026/figuras/', import.meta.url));
 const MAX_TARGET_AREA = 0.25; // uma região do tamanho do quadro faria qualquer alvo da aula passar
 
@@ -23,11 +25,26 @@ export function figureTargetsFileErrors(list) {
     if (typeof region.nome !== 'string' || !region.nome.trim()) found.push(`${at}: nome ausente`);
     else if (names.has(region.nome)) found.push(`${at}: nome repetido: ${region.nome}`);
     else names.add(region.nome);
+    if (region.rotulos !== undefined && (!Array.isArray(region.rotulos) || region.rotulos.length === 0 || region.rotulos.some((r) => typeof r !== 'string' || !r.trim()))) found.push(`${at}: rotulos deve ser uma lista de textos não vazios`);
     const { x, y, width, height } = region;
     if (![x, y, width, height].every((n) => typeof n === 'number' && Number.isFinite(n))) return found.push(`${at}: x, y, width e height devem ser números`);
     if (width <= 0 || height <= 0) found.push(`${at}: width e height devem ser positivos`);
     else if (x < 0 || y < 0 || x + width > 1 || y + height > 1) found.push(`${at}: região fora do quadro (0 a 1)`);
     else if (width * height > MAX_TARGET_AREA) found.push(`${at}: região com mais de ${MAX_TARGET_AREA * 100}% do quadro; ela faria qualquer alvo passar`);
+  });
+  // Um texto aceito por dois alvos da mesma figura deixaria o rótulo ligar-se a qualquer um deles.
+  const owner = new Map();
+  list.forEach((region, i) => {
+    if (region === null || typeof region !== 'object') return;
+    const own = new Set();
+    for (const text of [region.nome, ...(Array.isArray(region.rotulos) ? region.rotulos : [])]) {
+      if (typeof text !== 'string' || !text.trim()) continue;
+      const key = fold(text);
+      if (own.has(key)) continue;
+      own.add(key);
+      if (owner.has(key) && owner.get(key) !== i) found.push(`alvo[${i}]: rotulos repete "${text}", já aceito pelo alvo[${owner.get(key)}]`);
+      else owner.set(key, i);
+    }
   });
   return found;
 }
@@ -63,6 +80,9 @@ export function figureTargetErrors(where, list, declared) {
     if (!region) return found.push(`${at}: figure-target-unknown: a figura não declara o alvo "${target.alvo}"`);
     if (![region.x, region.y, region.width, region.height].every(Number.isFinite) || region.x < 0 || region.y < 0 || region.x + region.width > 1 || region.y + region.height > 1) {
       return found.push(`${at}: figure-target-frame: a região declarada de "${region.nome}" não cabe no quadro (0 a 1)`);
+    }
+    if (typeof target.label === 'string' && ![region.nome, ...(region.rotulos ?? [])].some((accepted) => fold(accepted) === fold(target.label))) {
+      found.push(`${at}: figure-target-label-mismatch: a aula mostra "${target.label}" neste alvo, mas ele aponta para "${region.nome}"; troque o rótulo ou o alvo, ou declare o texto em "rotulos" do arquivo de alvos`);
     }
     const cx = target.x + (target.width ?? 0) / 2;
     const cy = target.y + (target.height ?? 0) / 2;

@@ -2,6 +2,8 @@
 
 Tarefa 6 do plano `docs/superpowers/plans/2026-11-19-troca-das-figuras.md`. Tudo medido em 2026-11-19, num Mac com Apple Silicon, em Node 20.20.2.
 
+**Estado em 2026-11-19 (revisão final).** Este documento mede o piloto com as duas figuras. A cena do leito saiu do app depois das medições, porque não tem dois dos cinco alvos que a M25.05 cobra (pessoa sem avental junto à cabeceira e leito vizinho); a aula voltou à figura antiga e a cena volta refeita na fase 2. As medições abaixo continuam válidas como medição, e a cena guardada do piloto está fora do repositório, em `.superpowers/sdd/2026-11-19-amostra-figuras/equipamento/`. As capturas do leito (seção 5) mostram a arte do piloto com os alvos antigos sobre objetos que ela não desenha: servem como prova de peso e de tempo, não de alvos corretos. A prova dos alvos da M25.05 sobre a figura restaurada é `alvos-leito-restaurado.png`.
+
 ## 1. Bundle JS (Hermes), medido
 
 Comando, nas duas árvores: `EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 CI=1 npx expo export --platform <ios|android> --output-dir $TMPDIR/...`, rodado em `radiant-app/`. "Antes" é uma worktree destacada em `6e68b3e2`, anterior ao piloto, com `node_modules` ligado por link simbólico ao da worktree de trabalho. "Depois" é `f8ed69d1`, a HEAD de `claude/figuras-base`, que já traz `cranio-de-perfil-ossos` e `raio-x-movel-no-leito` importadas. O arquivo medido é o único `.hbc` em `_expo/static/js/<plataforma>/`. O tamanho comprimido vem de `gzip -9 -c | wc -c`.
@@ -25,7 +27,7 @@ Mistura do plano: 24 de acervo, 22 de cena `anatomy` e 26 em código. Referênci
 
 | | Conta | Bytes | MiB |
 | --- | --- | ---: | ---: |
-| Figuras, cru | 24 × 77.013 + 22 × 231.713 + 26 × 3.536 | 7.037.934 | 6,71 |
+| Figuras, cru (total, não o acréscimo: o acréscimo ao bundle é 19,85 − 13,38 = 6,47 MiB) | 24 × 77.013 + 22 × 231.713 + 26 × 3.536 | 7.037.934 | 6,71 |
 | Bundle inteiro, cru | 14.028.989 (antes) − 72 × 3.536 (as versões em código que saem) + 7.037.934 | 20.812.331 | 19,85 |
 | Figuras, gzip | 24 × 32.236 + 22 × 45.123 + 26 × 1.291 | 1.799.936 | 1,72 |
 | Bundle inteiro, gzip | 4.777.463 − 72 × 1.291 + 1.799.936 | 6.484.447 | 6,18 |
@@ -34,15 +36,15 @@ O gzip por arquivo é uma aproximação: o bundle comprimido de uma vez divide o
 
 **Incerteza.** São só duas amostras, e o peso depende quase inteiramente delas:
 
-- se as 46 importadas pesassem como o crânio, as figuras somariam 3,5 MiB;
-- se pesassem como o leito, somariam 10,3 MiB;
-- no teto de 240 KiB por figura, que o teste já impõe, somariam cerca de 11,1 MiB.
+- se as 46 importadas pesassem como o crânio, as figuras somariam 3,5 MiB (total das 72 figuras, não acréscimo);
+- se pesassem como o leito, somariam 10,3 MiB (total);
+- no teto de 240 KiB por figura, que o teste já impõe, somariam 10,9 MiB (46 × 245.760 + 26 × 3.536 = 11.396.896 bytes; total).
 
 O fator que mais pesa é a anatomia. O tórax do acervo tem 189 KiB no original, e 24 figuras desse porte, com as 22 cenas como o leito, já passam de 8 MiB só em figuras.
 
 ## 3. Teto no teste
 
-`radiant-app/src/ui/diagrams/diagramRegistry.test.ts` ganhou o teste "a soma do SVG de todas as figuras importadas cabe no orçamento do plano". O teto é `(24 × 75.211 + 22 × 225.380) × 1,2 = 8.116.109` bytes de SVG, com 75.211 e 225.380 medidos como a soma de `layer.svg.length` de cada figura. A soma de hoje é 300.591. A execução vermelha, com o teto baixado a 300.000, está em `vermelho-teto.txt` (`Expected: <= 300000`, `Received: 300591`). Depois de restaurado, o arquivo passou com 361 de 361.
+`radiant-app/src/ui/diagrams/diagramRegistry.test.ts` ganhou o teste "a soma do SVG de todas as figuras importadas cabe no orçamento do plano". O teto é `(24 × 75.211 + 22 × 225.380) × 1,2 = 8.116.109` bytes de SVG, com 75.211 e 225.380 medidos como a soma de `layer.svg.length` de cada figura. A soma medida com as duas figuras era 300.591; com a cena do leito fora do app (2026-11-19), a soma é a do crânio, 75.211, e o teto é um orçamento, não uma contagem. A execução vermelha, com o teto baixado a 300.000, está em `vermelho-teto.txt` (`Expected: <= 300000`, `Received: 300591`). Depois de restaurado, o arquivo passou com 361 de 361.
 
 ## 4. Android: tempo até o leito aparecer
 
@@ -70,7 +72,7 @@ O leito não anima em nenhuma aula: a figura tocável fica parada no quadro de p
 
 Todas foram feitas no Android, pelos roteiros gerados, com as cópias temporárias da seção 7, e reduzidas com `sips -Z 720`:
 
-- `capturas/android-leito-passo6.png`: M25.05, passo 6 de 8. A arte aparece inteira, com os cinco alvos por cima;
+- `capturas/android-leito-passo6.png`: M25.05, passo 6 de 8. A arte nova do piloto aparece inteira, com os cinco alvos antigos por cima, sobre objetos que ela não desenha (dois dos cinco alvos não existem na cena); por isso a cena saiu do app;
 - `capturas/android-cranio-passo4.png`: M25.01, passo 4 de 8, com os seis pontos numerados sobre os ossos;
 - `capturas/android-cranio-passo6.png`: M25.01, passo 6 de 8, com os alvos do toque;
 - `capturas/android-leito-passo6-uiautomator.xml` e `capturas/android-cranio-passo6-uiautomator.xml`: as árvores de `uiautomator dump --compressed`. Na do leito, a figura aparece como um nó com o `content-desc` da instrução, e os alvos também aparecem, por exemplo "Tubo alinhado com o detector".

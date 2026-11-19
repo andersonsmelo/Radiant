@@ -35,8 +35,10 @@ function fractionAt(motion: NonNullable<DiagramLayer['motion']>, progress: numbe
   return keys[keys.length - 1][1];
 }
 
-/** Erro de `keys` (ordem estrita, tempo e valor de 0 a 1, ao menos duas), ou null. O registro chama isto. */
+/** Erro de `range` (0 <= a < b <= 1) ou de `keys` (ordem estrita, tempo e valor de 0 a 1, ao menos duas), ou null. O registro chama isto. */
 export function motionKeysError(motion: DiagramLayer['motion']): string | null {
+  const range = motion?.range;
+  if (range && !(range[0] >= 0 && range[0] < range[1] && range[1] <= 1)) return 'range fora de 0 <= a < b <= 1';
   const keys = motion?.keys;
   if (!keys) return null;
   if (keys.length < 2) return 'keys precisa de ao menos duas chaves';

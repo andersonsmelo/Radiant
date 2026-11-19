@@ -103,8 +103,10 @@ test('dropBackground tira o rect de fundo da raiz, e só com a opção', { skip 
 
 test('os specs do piloto saem idênticos quando regenerados da fonte versionada', { skip }, async () => {
   const { readFileSync } = await import('node:fs');
-  const { FIGURES, buildSpec } = await import('./build-spec.mjs');
-  for (const id of Object.keys(FIGURES)) {
+  const { figurasComFonte, buildSpec } = await import('./build-spec.mjs');
+  const ids = figurasComFonte();
+  assert.ok(ids.includes('cranio-de-perfil-ossos'), 'o crânio tem fonte versionada');
+  for (const id of ids) {
     const { file, text } = buildSpec(id);
     const committed = readFileSync(new URL(`../../../radiant-app/src/ui/diagrams/specs/${file}`, import.meta.url), 'utf8');
     assert.equal(text, committed, `${file} difere do que o script gera`);

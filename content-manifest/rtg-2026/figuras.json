@@ -9,10 +9,5 @@
     "retrievedAt": "2026-11-19",
     "sha256Original": "05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6",
     "modification": "Removidos rótulos e linhas de chamada; recolorido para a paleta do app; fundo escuro; recorte do quadro."
-  },
-  {
-    "id": "raio-x-movel-no-leito",
-    "origem": "anatomy",
-    "fonte": "scripts/content/figuras/fontes/raio-x-movel-no-leito.svg"
   }
 ]

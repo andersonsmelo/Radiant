@@ -2,7 +2,7 @@
 // Uso: node scripts/content/figuras/build-spec.mjs [id...]   (sem id: todos)
 // Os specs em radiant-app/src/ui/diagrams/specs/ são saída deste script: não se editam à mão.
 // Figura nova entra em FIGURES com o que só ela sabe (camadas, movimento, texto do cabeçalho).
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { convertSvg, gradientMap, ownDefs } from './convert.mjs';
@@ -128,6 +128,9 @@ export const FIGURES = {
   },
 };
 
+/** Ids com fonte versionada em fontes/: só essas se regeneram (a cena do leito saiu do app em 2026-11-19 e volta na fase 2). */
+export const figurasComFonte = () => Object.keys(FIGURES).filter((id) => existsSync(path.join(here, 'fontes', `${id}.svg`)));
+
 /** Texto do spec da figura, e o relatório da conversão (perdas) junto. */
 export function buildSpec(id) {
   const fig = FIGURES[id];
@@ -137,7 +140,7 @@ export function buildSpec(id) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  for (const id of process.argv.length > 2 ? process.argv.slice(2) : Object.keys(FIGURES)) {
+  for (const id of process.argv.length > 2 ? process.argv.slice(2) : figurasComFonte()) {
     const { file, text, report } = buildSpec(id);
     writeFileSync(path.join(SPECS_DIR, file), text);
     console.log(file, (Buffer.byteLength(text) / 1024).toFixed(1), 'KiB; filtros removidos:', report.filters.length, JSON.stringify(report.filters));

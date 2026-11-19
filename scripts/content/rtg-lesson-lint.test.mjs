@@ -975,3 +975,51 @@ test('alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arqui
     assert.deepEqual(Object.keys(readFigureTargets(dir)), ['x']);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+// Revisão final de 2026-11-19: o `alvo` precisa corresponder ao rótulo que a aula mostra.
+test('alvos: figure-target-label-mismatch quando duas regiões trocam de alvo e de lugar mas o rótulo fica', () => {
+  const trocaDeAlvo = item => {
+    const [a, b] = [item.regions[1], item.regions[2]];
+    for (const key of ['x', 'y', 'width', 'height', 'alvo']) [a[key], b[key]] = [b[key], a[key]];
+  };
+  const errors = linked(trocaDeAlvo);
+  assert.deepEqual(errors.filter(error => /off-region|unknown|duplicate|unlinked|frame/.test(error)), [], 'a troca mantém posição e alvo válidos; só o rótulo denuncia');
+  expectOnly(errors, /figure-target-label-mismatch/);
+  assert.match(errors.join('\n'), /"Detector plano".*"Paciente"/);
+  assert.match(errors.join('\n'), /"Paciente".*"Detector plano"/);
+});
+test('alvos: `rotulos` aceita um rótulo descritivo, e só ele', () => {
+  const comRotulos = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map(r => (r.nome === 'Detector plano' ? { ...r, rotulos: ['Placa atrás do paciente'] } : r)) };
+  assert.deepEqual(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }, comRotulos), []);
+  expectOnly(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }), /figure-target-label-mismatch/);
+  expectOnly(linked(item => { item.regions[1].label = 'Placa na frente'; }, comRotulos), /figure-target-label-mismatch/);
+});
+test('alvos: `rotulos` é validado no arquivo de alvos', () => {
+  const ok = { nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 };
+  const other = { nome: 'B', x: 0.5, y: 0.5, width: 0.2, height: 0.2 };
+  assert.deepEqual(figureTargetsFileErrors([{ ...ok, rotulos: ['Peça de cima'] }, other]), []);
+  for (const [bad, pattern] of [
+    [[{ ...ok, rotulos: [] }], /rotulos deve ser uma lista/], [[{ ...ok, rotulos: 'x' }], /rotulos deve ser uma lista/],
+    [[{ ...ok, rotulos: [' '] }], /rotulos deve ser uma lista/], [[{ ...ok, rotulos: [3] }], /rotulos deve ser uma lista/],
+    [[{ ...ok, rotulos: ['Peça'] }, { ...other, rotulos: ['peça'] }], /rotulos repete "peça"/],
+    [[{ ...ok, rotulos: ['b'] }, other], /rotulos repete "B"/],
+  ]) assert.match(figureTargetsFileErrors(bad).join('\n'), pattern);
+});
+test('alvos: na M25 real, trocar Occipital e Parietal (ponto) ou Maxila e Temporal (região) reprova', async () => {
+  const { readRtgImages } = await import('./build-rtg-batches.mjs');
+  const images = await readRtgImages();
+  const m25 = () => JSON.parse(readFileSync(fileURLToPath(new URL('../../content-manifest/rtg-2026/aulas/m25.json', import.meta.url)), 'utf8'));
+  const mismatches = doc => lintUnit(doc, { images }).filter(error => /figure-target/.test(error));
+  assert.deepEqual(mismatches(m25()), []);
+  const swap = (list, a, b) => {
+    const [pa, pb] = [a, b].map(name => list.find(entry => entry.label === name));
+    for (const key of ['x', 'y', 'width', 'height', 'alvo']) [pa[key], pb[key]] = [pb[key], pa[key]];
+  };
+  const find = (doc, id) => doc.lessons.flatMap(lesson => lesson.interactions).find(item => item.id === id && item.diagramId === 'cranio-de-perfil-ossos');
+  const pontos = m25();
+  swap(find(pontos, 'i2').points, 'Occipital', 'Parietal');
+  assert.match(mismatches(pontos).join('\n'), /figure-target-label-mismatch.*"Occipital".*"Parietal"/);
+  const regioes = m25();
+  swap(find(regioes, 'i4').regions, 'Maxila', 'Temporal');
+  assert.match(mismatches(regioes).join('\n'), /figure-target-label-mismatch.*"Maxila".*"Temporal"/);
+});

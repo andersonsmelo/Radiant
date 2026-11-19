@@ -49,17 +49,17 @@ test('figura que não aparece em aula nenhuma reprova, e não gera roteiro vazio
   assert.throws(() => renderFigureFlows([m25], images, ['figura-que-nao-existe']), /figuras-sem-passo:figura-que-nao-existe/);
 });
 
-test('figura em laço usada como visual do conceito ganha roteiro de 8 s com o movimento ligado', () => {
+test('figura em laço (colimador-abrindo, periodMs; o leito novo foi retirado do app) usada como visual do conceito ganha roteiro de 8 s com o movimento ligado', () => {
   const doc = structuredClone(m25);
-  doc.lessons[0].concept.visual = 'raio-x-movel-no-leito';
-  const files = renderFigureFlows([doc], images, ['raio-x-movel-no-leito']);
+  doc.lessons[0].concept.visual = 'colimador-abrindo';
+  const files = renderFigureFlows([doc], images, ['colimador-abrindo']);
   const laco = files.get('m25-aula-01-laco.yaml');
   assert.ok(laco, 'm25-aula-01-laco.yaml');
   assert.match(laco, /radiantReduceMotion: '0'/);
   const rows = lines(laco);
   const passo2 = rows.indexOf("- assertVisible: 'Passo 2 de 8'");
   assert.deepEqual(rows.slice(passo2 + 1, passo2 + 5), [
-    "- startRecording: 'figura-raio-x-movel-no-leito-m25-aula-01-laco'",
+    "- startRecording: 'figura-colimador-abrindo-m25-aula-01-laco'",
     '- waitForAnimationToEnd:', '    timeout: 8000', '- stopRecording',
   ]);
   // O laço não gera captura parada do mesmo passo no roteiro de movimento reduzido.
