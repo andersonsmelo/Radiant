@@ -28,6 +28,11 @@ import { ossoLongo } from './specs/osso-longo';
 import { colunaRegioes } from './specs/coluna-regioes';
 import { articulacaoSinovial } from './specs/articulacao-sinovial';
 import { marcosDeSuperficie } from './specs/marcos-de-superficie';
+import { respiracaoDiafragma } from './specs/respiracao-diafragma';
+import { circulacaoDupla } from './specs/circulacao-dupla';
+import { tratoDigestivo } from './specs/trato-digestivo';
+import { sistemaUrinario } from './specs/sistema-urinario';
+import { sistemaNervoso } from './specs/sistema-nervoso';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -59,6 +64,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [colunaRegioes.id]: colunaRegioes,
   [articulacaoSinovial.id]: articulacaoSinovial,
   [marcosDeSuperficie.id]: marcosDeSuperficie,
+  [respiracaoDiafragma.id]: respiracaoDiafragma,
+  [circulacaoDupla.id]: circulacaoDupla,
+  [tratoDigestivo.id]: tratoDigestivo,
+  [sistemaUrinario.id]: sistemaUrinario,
+  [sistemaNervoso.id]: sistemaNervoso,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
