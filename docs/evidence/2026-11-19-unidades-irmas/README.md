@@ -61,6 +61,77 @@ Limites do lote 2:
   seção K.6.1.1; a nota está no fim do parecer.
 - M23: "não culpar" na análise de rejeição é limite da unidade, não frase de fonte.
 
+## Lote 3
+
+Na branch `claude/trilha-dobrada-fase-c-lote-3`.
+
+| Unidade | Irmã de | Parecer | Correções na revisão | Texto ou formato antigo | Aulas com passo visual | Famílias |
+| --- | --- | --- | --- | --- | --- | --- |
+| M25 Crânio, face e exames no leito | M08 | [m25.md](m25.md) | 20 | 50,0% | 6 de 6 | 9 |
+| M26 Exames contrastados e fluoroscopia | M09 | [m26.md](m26.md) | 16 | 50,0% | 6 de 6 | 11 |
+| M27 Criança, idoso e gestante na aquisição | M16 | [m27.md](m27.md) | 17 | 50,0% | 6 de 6 | 9 |
+| M28 Anatomia seccional II | M10 | [m28.md](m28.md) | 17 | 47,9% | 6 de 6 | 10 |
+
+Gates do lote 3, medidos em 2026-11-19: app, saída 0, 297 suítes e 4.281 testes;
+conteúdo e roteiros, 407 de 408 (a mesma falha de ambiente); lotes gerados e roteiros
+do Maestro de m25 a m28 conferidos com `--check`. A primeira execução do gate reprovou
+no contrato de texto: a licença "CC BY 3.0" em `rtgImages.ts` conta como rótulo em
+maiúsculas; a linha de base ganhou um teto de uma ocorrência para esse arquivo. O run
+do Loop foi fechado sem `loop validate`, pelo mesmo motivo do lote 1.
+
+Imagens reais (decisão do dono em 2026-11-19, "Radiografias reais"), todas do Wikimedia
+Commons, registradas em `content-manifest/rtg-2026/imagens.json`:
+
+| Imagem | Licença | Usada em | O que os itens afirmam |
+| --- | --- | --- | --- |
+| Crânio de perfil (Tomáš Vendiš; licença dupla GFDL ou CC BY 3.0, usada a CC BY 3.0) | CC BY 3.0 | m25-03 | projeção de perfil, lado para onde a face aponta, marcador de lado |
+| Tomografia axial, corte 13 (Mikael Häggström) | CC0 | m28-05, m28-06 | plano; é o corte mais alto dos dois |
+| Tomografia axial, corte 33 (mesmo exame) | CC0 | m28-05, m28-06 | plano; é o corte mais baixo dos dois |
+| Tomografia coronal (mesmo exame) | CC0 | m28-05 | plano |
+| Tomografia sagital (mesmo exame) | CC0 | m28-05 | plano |
+
+As axiais e a coronal foram recortadas para tirar o quadro de localização e as marcas
+do visualizador. A ordem dos dois cortes axiais foi estabelecida pelo revisor pela
+linha de referência do quadro de localização nos arquivos originais. Não se achou, com
+licença CC0 ou CC BY: crânio de frente (só CC BY-SA), exame com bário, urografia e mão
+de criança e de adulto (o servidor do acervo recusou os downloads por mais de uma
+hora, e uma das candidatas tem licença fora da autorização). Por isso a M25.03 não
+compara duas radiografias reais, e a M26.01 e a M27.03 usam só os diagramas.
+
+Dezessete diagramas novos, conferidos por imagem pelo controlador. Simplificações e
+limites conhecidos do lote 3:
+
+- `corte-abdome-superior`: o pâncreas inteiro aparece num só corte.
+- `corte-pelve`: o púbis aparece no corte das cabeças do fêmur; o espaço entre bexiga
+  e reto fica vazio de propósito.
+- `coluna-sagital-e-axial`: o corte axial está ampliado em relação ao sagital.
+- `trauma-raio-horizontal`: o paciente é visto pela cabeceira, em corte no pescoço; é
+  correto, mas abstrato, e o texto da aula explica a vista.
+- `sala-de-fluoroscopia-espalhada`: o operador está no fim da mesa porque a vista é
+  lateral; nenhum item depende disso.
+- `fluoroscopia-pulsada`: a imagem retida aparece só como monitor sempre aceso.
+- `contraste-no-corpo`: as cores são convenção do desenho; faltam fígado, duodeno e
+  uretra.
+- `cranio-de-perfil-ossos`: parietal e maxila repetem o amarelo; do esfenoide só a asa
+  maior.
+- `colimacao-pediatrica` e `gestante-campo-e-feixe` foram refeitos uma vez (campo
+  ajustado largo demais; silhueta que parecia um joelho).
+
+Limites do lote 3:
+
+- M25: fontes fracas (dois guias de estudo entre seis); a distância no leito tem um
+  artigo revisado por pares como segunda fonte, e o avental ficou como "a proteção que
+  o serviço define". A ordem dos cinco passos no leito é sequência ensinada na aula,
+  não frase de fonte.
+- M26: "o pedal aciona o feixe" tem apoio indireto de uma fonte; quatro páginas de
+  referência foram conferidas por amostragem.
+- M27: os limites da imobilização pediátrica apoiam-se numa só fonte, e o texto remete
+  ao protocolo do serviço; proteção de contato é "o serviço define".
+- M28: três relações da pelve foram conferidas pelo controlador no OpenStax (nota no
+  fim do parecer).
+- Revisão por IA, não por profissional de radiologia; nada foi visto em simulador ou
+  aparelho.
+
 ## Gates do lote 1
 
 | Gate | Comando | Resultado |
