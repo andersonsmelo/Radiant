@@ -221,13 +221,113 @@ serviço define".
 | m20 | `sistema-urinario` | parado | Dois rins, dois ureteres, bexiga e uretra, em contorno de tronco |
 | m20 | `sistema-nervoso` | parado | Silhueta com encéfalo e medula numa cor e nervos saindo para o tronco e os membros em outra |
 
-## Lotes 2 a 6
+## Lote 2: m21, m22, m23, m24
+
+Aberto em 2026-11-19, com o ok do dono ("Sim, lote 2"). Ordem na trilha depois do lote:
+…, m04, **m21**, m05, **m22**, m06, **m23**, m07, **m24**, m08, e o resto como está.
+Piloto: **m21**.
+
+### M21 — Radiobiologia e dosimetria (irmã da M04)
+
+A M04 ensina interações, efeitos com e sem limiar, os três princípios e os limites. A
+M15 ensina por que tecidos respondem diferente. A M21 mostra o que acontece na célula,
+as grandezas que medem dose e como a dose da equipe é acompanhada.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Do fóton ao DNA | Distinguir ação direta e indireta e quebra simples e dupla do DNA | `dano-ao-dna` (novo) | `label`, `ordering`, MC |
+| 02 | Três grandezas de dose | Dizer o que dose absorvida, equivalente e efetiva respondem, com as unidades | `grandezas-de-dose` (novo) | `visual`, `matching`, `categorize`, MC |
+| 03 | O dosímetro pessoal | Dizer onde cada dosímetro fica, o que ele mede e o que não fazer com ele | `dosimetro-no-corpo` (novo) | `label`, `true-false`, MC |
+| 04 | O que o equipamento informa | Ler o produto dose-área como indicador do equipamento, sem tratá-lo como dose do paciente | `produto-dose-area` (novo) | `visual`, `cloze`, `blitz`, MC |
+| 05 | Distância e blindagem em números | Prever o efeito de dobrar a distância e de somar camadas de blindagem | `inverso-do-quadrado`, `blindagem-camadas` | `parameter-lab` (dois), MC |
+| 06 | Ler um registro de dose ocupacional | Reconhecer leitura fora do habitual, parar e levar ao responsável pela proteção | `dosimetro-no-corpo` | `hotspot`, `conversation`, MC |
+
+Limite próprio: nenhuma conta de dose de paciente; nenhum prognóstico; valor numérico só
+o que a ICRP 103 ou a IAEA dão em página lida; onde usar o dosímetro com avental é "o
+serviço define".
+
+### M22 — Processamento, exibição e informática da imagem (irmã da M05)
+
+A M05 ensina a cadeia do detector ao arquivo, pixel e matriz, as três dimensões de
+qualidade, janela e os níveis do DICOM. A M22 abre o processamento, o monitor e o
+caminho da informação.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Histograma e curva de apresentação | Explicar como o sistema acha a faixa de interesse e o que acontece quando ele erra o campo | `histograma-e-lut` (novo) | `label`, `true-false`, MC |
+| 02 | Realçar e suavizar | Distinguir realce de borda e suavização e o preço de cada um | `realce-e-suavizacao` (novo) | `visual`, `categorize`, `matching`, MC |
+| 03 | O monitor | Conferir um padrão de teste e reconhecer luz ambiente e sujeira como problema | `monitor-e-padrao-de-teste` (novo) | `hotspot`, `multi-select`, MC |
+| 04 | O caminho do pedido | Ordenar o percurso do pedido à imagem arquivada e dizer onde nasce uma troca de dados | `fluxo-ris-pacs` (novo) | `label`, `ordering`, MC |
+| 05 | Comprimir e copiar | Distinguir compressão com e sem perda e cuidar da identificação ao exportar | `compressao-de-imagem` (novo) | `visual`, `cloze`, `blitz`, MC |
+| 06 | Quando o sistema para | Seguir a contingência do serviço sem improvisar identificação | `fluxo-ris-pacs` | `hotspot`, `conversation`, MC |
+
+Limite próprio: o estudante não corrige cadastro nem une estudos sozinho; taxa de
+compressão e rotina de contingência são "o serviço define"; nenhum item julga achado
+clínico pela imagem.
+
+### M23 — Leitura crítica da imagem: artefatos, repetição e correção (irmã da M06)
+
+A M06 ensina geometria, parâmetros, colimação, movimento e critérios. A M23 treina o
+olhar: um roteiro de leitura, os artefatos mais comuns e o que fazer com uma imagem
+rejeitada. As "radiografias" são esquemas desenhados, não imagens reais.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Um roteiro de leitura | Percorrer identificação, marcador, cobertura, posição, exposição e artefato sempre na mesma ordem | `radiografia-roteiro` (novo) | `label`, `ordering`, MC |
+| 02 | O que não é do paciente | Achar numa imagem os objetos que deveriam ter saído antes da exposição | `artefatos-de-objeto` (novo) | `risk-hunt`, `categorize`, MC |
+| 03 | Marcas do equipamento | Distinguir linha morta, corte de grade e imagem residual | `artefatos-do-detector` (novo) | `label`, `matching`, MC |
+| 04 | Clara, escura ou ruidosa | Ligar pouca e muita exposição ao que se vê, na bancada | bancada de exposição | `bench`, `true-false`, MC |
+| 05 | Cortou ou sobrou campo | Ajustar o campo à região e reconhecer anatomia cortada | bancada de colimação, `radiografia-roteiro` | `bench`, `hotspot`, MC |
+| 06 | Repetir ou não | Registrar a causa de uma rejeição e decidir com a equipe | `artefatos-de-objeto` | `hotspot`, `conversation`, `blitz`, MC |
+
+Limite próprio: qualidade técnica não é diagnóstico; a decisão de repetir é da equipe;
+nenhum valor de índice de exposição como regra geral.
+
+### M24 — Membro inferior, pelve e coluna (irmã da M07)
+
+A M07 liga marcos a incidências introdutórias e a critérios. A M18 dá os nomes gerais do
+esqueleto. A M24 desce ao osso: as partes que o critério de cada incidência cita.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Pé e tornozelo | Nomear os grupos de ossos do pé e os ossos do tornozelo | `ossos-do-pe` (novo) | `label`, `categorize`, MC |
+| 02 | Joelho | Nomear as partes do fêmur distal, da tíbia proximal, a fíbula e a patela | `joelho-frente-e-perfil` (novo) | `label`, `matching`, MC |
+| 03 | Fêmur proximal e quadril | Nomear cabeça, colo, trocânteres e acetábulo | `femur-proximal-e-quadril` (novo) | `label`, `cloze`, MC |
+| 04 | A pelve por partes | Nomear ílio, ísquio, púbis, sacro e as articulações da pelve | `pelve-de-frente` (novo) | `label`, `hotspot`, MC |
+| 05 | Uma vértebra de perto | Nomear as partes de uma vértebra e dizer em que as regiões diferem | `vertebra-tipica` (novo) | `label`, `categorize`, `blitz`, MC |
+| 06 | Do pedido à região | Dizer que estruturas uma região pedida inclui e pedir apoio diante de limitação | `pelve-de-frente` ou `joelho-frente-e-perfil` | `hotspot`, `conversation`, MC |
+
+Limite próprio: a aula não escolhe incidência nem ângulo; não repete os critérios da
+M07; suspeita de fratura é "não mover, pedir apoio".
+
+### Diagramas novos do lote 2 (17)
+
+| Unidade | id | Tipo | O que mostra |
+| --- | --- | --- | --- |
+| m21 | `dano-ao-dna` | parado | Trecho de DNA com um fóton atingindo a fita (ação direta), outro atingindo a água ao lado e gerando um radical que chega à fita (indireta), uma quebra simples e uma quebra dupla |
+| m21 | `grandezas-de-dose` | parado | Três painéis lado a lado: energia depositada num bloco de tecido; o mesmo bloco com dois tipos de radiação pesando diferente; um corpo com órgãos de pesos diferentes |
+| m21 | `dosimetro-no-corpo` | parado | Profissional de frente com avental: dosímetro no tórax, dosímetro de anel na mão, dosímetro perto do olho, e um dosímetro de referência guardado num quadro fora da sala |
+| m21 | `produto-dose-area` | parado | Tubo e colimador com a câmara de medição na saída; dois campos, um pequeno e um grande, e o paciente mais abaixo |
+| m22 | `histograma-e-lut` | parado | Histograma em barras com três regiões (colimação, anatomia, fora do corpo) e a faixa de interesse marcada; ao lado, a curva de conversão |
+| m22 | `realce-e-suavizacao` | parado | Três perfis de uma borda empilhados: original, realçado com ultrapassagem nos dois lados, suavizado com a rampa mais larga |
+| m22 | `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, um quadrado quase preto dentro do preto e um quase branco dentro do branco, pares de linhas; uma janela ao fundo refletindo na tela |
+| m22 | `fluxo-ris-pacs` | parado | Blocos ligados por setas: cadastro e pedido, lista de trabalho, equipamento, arquivo de imagens, estação de visualização |
+| m22 | `compressao-de-imagem` | parado | A mesma grade de pixels três vezes: original, comprimida sem perda (idêntica) e comprimida com perda forte (blocos visíveis) |
+| m23 | `radiografia-roteiro` | parado | Esquema de radiografia de tórax em tons de cinza: etiqueta de identificação num canto, marcador de lado, bordas de colimação, campos pulmonares, coluna e costelas |
+| m23 | `artefatos-de-objeto` | parado | O mesmo esquema de tórax com colar, botão de roupa, eletrodo com fio e trança de cabelo sobre a imagem |
+| m23 | `artefatos-do-detector` | parado | Esquema de radiografia com uma linha fina vertical sem sinal, uma faixa lateral mais clara que escurece para o centro (corte de grade) e o contorno fraco de outra anatomia (imagem residual) |
+| m24 | `ossos-do-pe` | parado | Pé visto de cima: falanges, metatarsos e tarso em cores diferentes, com calcâneo e tálus destacados |
+| m24 | `joelho-frente-e-perfil` | parado | Joelho de frente e de perfil lado a lado: fêmur distal com côndilos, tíbia com platô, fíbula e patela |
+| m24 | `femur-proximal-e-quadril` | parado | Quadril de frente: acetábulo, cabeça, colo, trocânter maior, trocânter menor e diáfise do fêmur |
+| m24 | `pelve-de-frente` | parado | Pelve de frente: ílio, ísquio e púbis em cores diferentes, sacro, articulações sacroilíacas, sínfise púbica e forames obturados |
+| m24 | `vertebra-tipica` | parado | Vértebra lombar vista de cima: corpo, pedículos, lâminas, processos transversos, processo espinhoso e forame vertebral |
+
+## Lotes 3 a 6
 
 A composição segue a tabela da seção 8.1 da especificação, na ordem da trilha:
 
 | Lote | Unidades |
 | --- | --- |
-| 2 | m21, m22, m23, m24 |
 | 3 | m25, m26, m27, m28 |
 | 4 | m29, m30, m31, m32 |
 | 5 | s-ta, s-ra, s-mi, s-pt |
@@ -235,7 +335,7 @@ A composição segue a tabela da seção 8.1 da especificação, na ordem da tri
 
 A lista aula a aula de cada lote é a tarefa 1 dele e entra neste arquivo quando o lote
 abre, depois da leitura da unidade atual. Foi decisão do controlador não escrever as
-132 aulas restantes de uma vez: a lista depende do que o piloto do lote 1 ensinar sobre
+aulas restantes de uma vez: a lista depende do que o piloto do lote 1 ensinar sobre
 quantos diagramas uma unidade pede e quanto um autor consegue em uma passada.
 A partir do lote 3 as unidades pedem radiografia real (crânio, face, contrastados,
 seccional); a busca de imagem CC0 ou CC BY entra como tarefa própria do lote, pela

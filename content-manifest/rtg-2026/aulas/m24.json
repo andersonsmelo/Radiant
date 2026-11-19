@@ -1,0 +1,2206 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m24",
+    "code": "M24",
+    "title": "Membro inferior, pelve e coluna",
+    "summary": "Desce ao osso: grupos do pé e ossos do tornozelo, partes do joelho, do fêmur proximal, da pelve e de uma vértebra, e a leitura da região pedida com a atitude de pedir apoio."
+  },
+  "sources": [
+    {
+      "id": "openstax-ap2e-membro-inferior",
+      "title": "Anatomy and Physiology 2e, 8.4 Bones of the Lower Limb",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado para fatos anatômicos, redação própria, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-pelve",
+      "title": "Anatomy and Physiology 2e, 8.3 The Pelvic Girdle and Pelvis",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado para fatos anatômicos, redação própria, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-coluna",
+      "title": "Anatomy and Physiology 2e, 7.3 The Vertebral Column",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado para fatos anatômicos, redação própria, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "openstax-ap2e-articulacoes",
+      "title": "Anatomy and Physiology 2e, 9.6 Anatomy of Selected Synovial Joints",
+      "publisher": "OpenStax (Rice University)",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-6-anatomy-of-selected-synovial-joints",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro didático aberto (CC BY-NC-SA 4.0); consultado para fatos anatômicos, redação própria, sem reprodução de texto ou figuras."
+    },
+    {
+      "id": "medlineplus-fratura",
+      "title": "Broken bone (first aid)",
+      "publisher": "MedlinePlus (National Library of Medicine)",
+      "url": "https://medlineplus.gov/ency/article/000001.htm",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional de primeiros socorros; consultada para fatos, redação própria, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m24-01",
+      "code": "M24.01",
+      "title": "Pé e tornozelo",
+      "objective": "Hoje você vai conseguir nomear os três grupos de ossos do pé e os ossos que formam o tornozelo.",
+      "competency": "Nomear os grupos de ossos do pé (tarsais, metatarsais, falanges) e os ossos do tornozelo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Peguei um pé de modelo para estudar e fiquei perdida: são tantos ossinhos que parece um quebra-cabeça."
+          },
+          {
+            "speaker": "caio",
+            "text": "Quebra-cabeça com três pedaços grandes: atrás, no meio e nas pontas. Cada pedaço tem nome e um número de ossos."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quantos ossos você acha que cabem num pé só? E qual deles encaixa no tornozelo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três grupos de ossos no pé",
+        "body": "O pé tem 26 ossos em três grupos. Atrás ficam sete tarsais: calcâneo, o osso do calcanhar e o maior do pé; tálus; navicular, à frente do tálus; cuboide, à frente do calcâneo; e três cuneiformes. No meio, cinco metatarsais, numerados de 1 a 5 a partir do lado medial. Nas pontas, catorze falanges: duas no hálux e três em cada um dos outros dedos. O tornozelo reúne o tálus e as extremidades distais da tíbia e da fíbula; os maléolos seguram o tálus pelos lados.",
+        "keyPoints": [
+          "Sete tarsais, cinco metatarsais e catorze falanges: 26 ossos.",
+          "O tálus se encaixa entre a tíbia e a fíbula, no tornozelo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M18. Os ossos do pé, como os dos outros membros, entram em qual grupo do esqueleto?",
+          "options": [
+            {
+              "label": "No axial, junto com a coluna",
+              "correct": false,
+              "feedback": "O axial é o eixo do corpo: crânio, coluna e caixa torácica. O pé fica na ponta do membro, não nesse eixo."
+            },
+            {
+              "label": "No apendicular, o grupo dos membros",
+              "correct": true,
+              "feedback": "Isso: o pé é parte do membro inferior, então seus ossos são do esqueleto apendicular."
+            },
+            {
+              "label": "No axial, porque sustentam o corpo em pé",
+              "correct": false,
+              "feedback": "Sustentar peso não define o grupo. O critério é ser eixo (axial) ou membro e cintura (apendicular)."
+            },
+            {
+              "label": "Em nenhum: ossos do pé formam um grupo à parte",
+              "correct": false,
+              "feedback": "Todo osso do esqueleto cabe no axial ou no apendicular, inclusive os do pé."
+            }
+          ],
+          "help": "Pense se o pé é eixo do corpo ou parte de um membro.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco partes do pé direito visto de cima, tocando na ficha e no ponto. O calcanhar fica à esquerda e os dedos à direita.",
+          "diagramId": "ossos-do-pe",
+          "points": [
+            {
+              "label": "Calcâneo",
+              "x": 0.085,
+              "y": 0.537,
+              "where": "no extremo esquerdo, o maior osso branco"
+            },
+            {
+              "label": "Tálus",
+              "x": 0.244,
+              "y": 0.423,
+              "where": "acima e à frente do maior osso, peça arredondada"
+            },
+            {
+              "label": "Cuboide",
+              "x": 0.404,
+              "y": 0.607,
+              "where": "embaixo no meio, peça quase quadrada em branco"
+            },
+            {
+              "label": "Metatarsais",
+              "x": 0.61,
+              "y": 0.467,
+              "where": "as cinco hastes azuis compridas, no meio do pé"
+            },
+            {
+              "label": "Falanges",
+              "x": 0.788,
+              "y": 0.555,
+              "where": "as peças amarelas em fila, na ponta do quarto dedo"
+            }
+          ],
+          "distractors": [
+            "Patela"
+          ],
+          "feedbackCorrect": "Isso mesmo: atrás ficam os tarsais, no meio os metatarsais e nas pontas as falanges.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: releia a posição de cada grupo do pé, de trás para a frente.",
+          "help": "Comece pelo grande osso do calcanhar, no lado esquerdo da figura.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada osso no grupo do pé a que ele pertence.",
+          "categories": [
+            "Tarsais",
+            "Metatarsais",
+            "Falanges"
+          ],
+          "items": [
+            {
+              "label": "Tálus, que se encaixa no tornozelo",
+              "category": "Tarsais"
+            },
+            {
+              "label": "Haste do meio do pé, numerada de 1 a 5",
+              "category": "Metatarsais"
+            },
+            {
+              "label": "Os dois ossos do hálux",
+              "category": "Falanges"
+            },
+            {
+              "label": "Cuboide, à frente do calcâneo",
+              "category": "Tarsais"
+            },
+            {
+              "label": "Osso comprido do meio do pé que leva ao hálux",
+              "category": "Metatarsais"
+            },
+            {
+              "label": "Osso do meio de um dos outros quatro dedos",
+              "category": "Falanges"
+            }
+          ],
+          "feedbackCorrect": "Você separou os ossos de trás, os do meio e os das pontas do pé.",
+          "feedbackIncorrect": "Pergunte de cada osso onde ele fica: atrás, no meio do pé ou nos dedos.",
+          "help": "Os metatarsais são numerados; as falanges são os ossos dos dedos.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase sobre o tornozelo com as palavras do banco.",
+          "text": "O tornozelo reúne o {{1}}, que se encaixa entre as extremidades da tíbia e da {{2}}.",
+          "answers": [
+            "tálus",
+            "fíbula"
+          ],
+          "distractors": [
+            "calcâneo",
+            "patela",
+            "falange"
+          ],
+          "feedbackCorrect": "Isso: o tálus fica entre a tíbia e a fíbula, e os maléolos o seguram pelos lados.",
+          "feedbackIncorrect": "Releia o conceito: o osso do pé que forma o tornozelo não é o do calcanhar, e o outro osso da perna não é o do joelho.",
+          "help": "Pense no osso do pé que fica entre os dois maléolos.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "openstax-ap2e-articulacoes"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Duda monta um pé de modelo e conta os ossos em voz alta. Julgue cada afirmação dela.",
+          "statements": [
+            {
+              "text": "O pé tem 7 tarsais, 5 metatarsais e 14 falanges.",
+              "correct": true,
+              "feedback": "Certo: sete mais cinco mais catorze dá 26 ossos em cada pé."
+            },
+            {
+              "text": "O hálux tem três falanges, como os outros dedos.",
+              "correct": false,
+              "feedback": "Errado: o hálux tem duas falanges, a proximal e a distal; os outros quatro dedos têm três."
+            },
+            {
+              "text": "O navicular fica à frente do tálus.",
+              "correct": true,
+              "feedback": "Certo: o navicular vem logo à frente do tálus, no meio do tarso."
+            },
+            {
+              "text": "O calcâneo é o menor osso do tarso.",
+              "correct": false,
+              "feedback": "Errado: o calcâneo, o osso do calcanhar, é o maior osso do pé."
+            }
+          ],
+          "feedbackCorrect": "Você conferiu a contagem e a posição de cada osso.",
+          "feedbackIncorrect": "Releia o conceito: os números de cada grupo e a ordem dos tarsais estão lá.",
+          "help": "Some os três grupos e lembre quantos dedos têm duas ou três falanges.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia o pé e o tornozelo",
+        "body": "Agora você sabe dizer que o pé tem tarsais, metatarsais e falanges, quantos ossos há em cada grupo e que o tálus forma o tornozelo com a tíbia e a fíbula.",
+        "line": {
+          "speaker": "caio",
+          "text": "Pé de modelo na mão, você já sabe onde cada pedaço fica."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quantas falanges há, no total, em um pé?",
+          "options": [
+            {
+              "label": "Catorze, sendo duas no hálux",
+              "correct": true,
+              "feedback": "Isso: duas no hálux e três em cada um dos outros quatro dedos somam catorze."
+            },
+            {
+              "label": "Quinze, três em cada dedo",
+              "correct": false,
+              "feedback": "Três em cada dedo daria quinze, mas o hálux tem só duas falanges."
+            },
+            {
+              "label": "Dez, duas em cada dedo",
+              "correct": false,
+              "feedback": "Só o hálux tem duas; os outros quatro dedos têm três falanges cada."
+            },
+            {
+              "label": "Dezesseis, quatro em cada dedo",
+              "correct": false,
+              "feedback": "Nenhum dedo tem quatro falanges: são duas no hálux e três nos outros."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "prompt": "Qual destes ossos pertence ao grupo dos tarsais?",
+          "options": [
+            {
+              "label": "Falange proximal do hálux",
+              "correct": false,
+              "feedback": "A falange proximal do hálux é um osso do dedo, do grupo das falanges."
+            },
+            {
+              "label": "Primeiro metatarsal",
+              "correct": false,
+              "feedback": "O primeiro metatarsal é um dos cinco ossos do meio do pé, não um tarsal."
+            },
+            {
+              "label": "Navicular",
+              "correct": true,
+              "feedback": "Isso: o navicular é um dos sete tarsais, à frente do tálus."
+            },
+            {
+              "label": "Patela",
+              "correct": false,
+              "feedback": "A patela é um osso do joelho, não do pé."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no meio do pé ficam os ossos numerados de 1 a 5, os...",
+          "item": {
+            "prompt": "Que grupo de ossos forma a parte do meio do pé, numerados de 1 a 5 a partir do lado medial?",
+            "options": [
+              {
+                "label": "Tarsais",
+                "correct": false,
+                "feedback": "Os tarsais são sete e ficam atrás, no calcanhar e no tornozelo."
+              },
+              {
+                "label": "Falanges",
+                "correct": false,
+                "feedback": "As falanges ficam nos dedos, nas pontas do pé."
+              },
+              {
+                "label": "Cuneiformes",
+                "correct": false,
+                "feedback": "Os cuneiformes são três tarsais, não os cinco ossos do meio do pé."
+              },
+              {
+                "label": "Metatarsais",
+                "correct": true,
+                "feedback": "Isso: são cinco metatarsais, numerados a partir do lado medial."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa figura fictícia, Caio aponta o osso grande do calcanhar. Que osso é esse?",
+            "options": [
+              {
+                "label": "O calcâneo",
+                "correct": true,
+                "feedback": "Isso: o calcâneo é o osso do calcanhar e o maior do pé."
+              },
+              {
+                "label": "O tálus",
+                "correct": false,
+                "feedback": "O tálus é o osso que se encaixa no tornozelo, acima do calcanhar."
+              },
+              {
+                "label": "O navicular",
+                "correct": false,
+                "feedback": "O navicular fica à frente do tálus, no meio do tarso."
+              },
+              {
+                "label": "O cuboide",
+                "correct": false,
+                "feedback": "O cuboide fica à frente do calcâneo, na lateral do pé."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m24-02",
+      "code": "M24.02",
+      "title": "Joelho",
+      "objective": "Hoje você vai conseguir nomear as partes do fêmur, da tíbia, da fíbula e da patela que formam o joelho.",
+      "competency": "Nomear as partes do fêmur distal, da tíbia proximal, da fíbula e da patela que formam o joelho.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Bati o joelho na quina da mesa. Dói embaixo da bolinha da frente."
+          },
+          {
+            "speaker": "caio",
+            "text": "A bolinha tem nome, e as pontas dos ossos em volta também. Vale conhecer cada uma."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que ossos se encontram no joelho, e que parte de cada um você já saberia apontar?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quem se encontra no joelho",
+        "body": "O fêmur termina em dois côndilos, medial e lateral, com um sulco na frente onde a patela desliza. Embaixo, os côndilos da tíbia formam uma superfície plana, com a eminência intercondilar entre eles; logo abaixo, na frente, a tuberosidade da tíbia recebe o tendão da patela. A cabeça da fíbula se apoia sob o côndilo lateral da tíbia. A patela fica no tendão do quadríceps. Com dor forte ou deformidade, não mova o joelho: descreva e peça apoio.",
+        "keyPoints": [
+          "Fêmur: côndilos e sulco da patela. Tíbia: côndilos, eminência e tuberosidade.",
+          "A cabeça da fíbula se apoia na tíbia; a patela fica no tendão do quadríceps."
+        ],
+        "visual": "joelho-frente-e-perfil"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. No tornozelo, a tíbia e a fíbula seguram qual osso do pé entre os maléolos?",
+          "options": [
+            {
+              "label": "O calcâneo",
+              "correct": false,
+              "feedback": "O calcâneo fica abaixo, no calcanhar, e não se encaixa entre os maléolos."
+            },
+            {
+              "label": "O navicular",
+              "correct": false,
+              "feedback": "O navicular fica à frente do tálus, no meio do tarso."
+            },
+            {
+              "label": "O tálus",
+              "correct": true,
+              "feedback": "Isso: o tálus se encaixa entre as pontas da tíbia e da fíbula, no tornozelo."
+            },
+            {
+              "label": "O cuboide",
+              "correct": false,
+              "feedback": "O cuboide fica à frente do calcâneo, na lateral do pé."
+            }
+          ],
+          "help": "Pense no osso do tarso que fica mais acima, sobre o calcâneo.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule quatro partes do joelho direito, tocando na ficha e no ponto. A vista da esquerda é de frente e a da direita, de perfil.",
+          "diagramId": "joelho-frente-e-perfil",
+          "points": [
+            {
+              "label": "Côndilo lateral do fêmur",
+              "x": 0.154,
+              "y": 0.446,
+              "where": "de frente, a saliência redonda à esquerda, embaixo do fêmur"
+            },
+            {
+              "label": "Côndilos da tíbia",
+              "x": 0.326,
+              "y": 0.559,
+              "where": "de frente, a superfície larga e plana no alto da tíbia"
+            },
+            {
+              "label": "Cabeça da fíbula",
+              "x": 0.116,
+              "y": 0.663,
+              "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia"
+            },
+            {
+              "label": "Patela",
+              "x": 0.888,
+              "y": 0.392,
+              "where": "de perfil, o oval azul na frente do fêmur"
+            }
+          ],
+          "distractors": [
+            "Maléolo lateral"
+          ],
+          "feedbackCorrect": "Isso mesmo: você achou as pontas do fêmur e da tíbia, a cabeça da fíbula e a patela.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: separe o que é ponta do fêmur, ponta da tíbia, osso fino e osso da frente.",
+          "help": "Lembre qual osso fica na frente, no tendão do quadríceps.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte do joelho à sua descrição.",
+          "pairs": [
+            {
+              "left": "Eminência intercondilar",
+              "right": "Elevação entre os côndilos da tíbia, onde se prendem dois ligamentos"
+            },
+            {
+              "left": "Tuberosidade da tíbia",
+              "right": "Saliência da frente da tíbia, onde se prende o tendão da patela"
+            },
+            {
+              "left": "Sulco patelar",
+              "right": "Sulco da frente do fêmur, entre os côndilos, em que a patela desliza"
+            },
+            {
+              "left": "Cabeça da fíbula",
+              "right": "Ponta de cima da fíbula, apoiada no côndilo lateral da tíbia"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada parte ao osso e ao lugar certos.",
+          "feedbackIncorrect": "Confira de que osso é cada parte e o que se prende ou desliza nela.",
+          "help": "Duas partes são da tíbia, uma do fêmur e uma da fíbula.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Seu Jorge, paciente simulado, caiu da escada. O joelho direito está inchado e deformado, e a dor é forte. O pedido é de joelho. Duda sugere dobrá-lo só um pouco, para a patela aparecer melhor.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Não mover a perna, descrever o que vê e pedir apoio",
+              "correct": true,
+              "feedback": "Isso: com dor forte e deformidade, você não move o membro, descreve o que vê e pede apoio à equipe."
+            },
+            {
+              "label": "Dobrar o joelho devagar e parar só se a dor aumentar",
+              "correct": false,
+              "feedback": "Dobrar o joelho pode piorar uma lesão. Diante da suspeita de fratura, o movimento não é decisão sua."
+            },
+            {
+              "label": "Pedir que ele mesmo estique e dobre a perna para testar",
+              "correct": false,
+              "feedback": "Testar o movimento é o que não se faz com suspeita de fratura. Você para e chama a equipe."
+            },
+            {
+              "label": "Segurar o joelho com firmeza enquanto Duda ajusta a posição",
+              "correct": false,
+              "feedback": "Segurar e reposicionar é mover o membro. Mesmo com cuidado, quem decide isso é a equipe."
+            }
+          ],
+          "help": "Dor forte com deformidade pede que você pare antes de tudo.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "medlineplus-fratura"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Na bancada, Duda separa as peças de um joelho de modelo. Marque todas as estruturas que pertencem à tíbia.",
+          "options": [
+            {
+              "label": "Côndilo lateral, na ponta de baixo do fêmur",
+              "correct": false,
+              "feedback": "O côndilo lateral é do fêmur; a tíbia tem os próprios côndilos, mais embaixo."
+            },
+            {
+              "label": "Côndilos, a superfície plana do alto",
+              "correct": true,
+              "feedback": "Os côndilos da tíbia formam a superfície plana que recebe os côndilos do fêmur."
+            },
+            {
+              "label": "Cabeça, a ponta de cima do osso fino",
+              "correct": false,
+              "feedback": "Essa cabeça é da fíbula, que se apoia na tíbia mas é outro osso."
+            },
+            {
+              "label": "Eminência intercondilar, entre os côndilos",
+              "correct": true,
+              "feedback": "A eminência intercondilar sobe entre os côndilos da tíbia."
+            },
+            {
+              "label": "Sulco da frente, onde a patela desliza",
+              "correct": false,
+              "feedback": "O sulco em que a patela desliza fica no fêmur, não na tíbia."
+            },
+            {
+              "label": "Tuberosidade, onde se prende o tendão da patela",
+              "correct": true,
+              "feedback": "A tuberosidade da tíbia é a saliência da frente onde o tendão da patela se prende."
+            }
+          ],
+          "feedbackCorrect": "Você marcou as três partes da tíbia e deixou de fora as dos outros ossos.",
+          "feedbackIncorrect": "Releia o conceito: côndilo lateral e sulco da patela são do fêmur, e a cabeça com osso fino é da fíbula.",
+          "help": "Procure o que fica no alto da tíbia, entre os côndilos e na frente.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia as partes do joelho",
+        "body": "Agora você sabe apontar côndilos do fêmur e da tíbia, a eminência intercondilar, a cabeça da fíbula e a patela, e sabe que, com dor forte, o membro não se move: você descreve e pede apoio.",
+        "line": {
+          "speaker": "lia",
+          "text": "Boa. Nomear a parte certa é metade de entender o que o pedido pede."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que osso fica dentro do tendão do quadríceps, na frente do joelho?",
+          "options": [
+            {
+              "label": "A fíbula, o osso fino ao lado da tíbia",
+              "correct": false,
+              "feedback": "A fíbula fica ao lado da tíbia, do lado de fora da perna, e não no tendão."
+            },
+            {
+              "label": "A patela, o maior osso sesamoide",
+              "correct": true,
+              "feedback": "Isso: a patela é um osso sesamoide dentro do tendão do quadríceps."
+            },
+            {
+              "label": "O tálus, o osso do tornozelo, no pé",
+              "correct": false,
+              "feedback": "O tálus é do pé, no tornozelo."
+            },
+            {
+              "label": "O calcâneo, o osso do calcanhar, no pé",
+              "correct": false,
+              "feedback": "O calcâneo é o osso do calcanhar, no pé."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "prompt": "A cabeça da fíbula se apoia em qual parte da tíbia?",
+          "options": [
+            {
+              "label": "Na eminência intercondilar, no centro",
+              "correct": false,
+              "feedback": "A eminência intercondilar fica entre os côndilos, no centro, e não recebe a fíbula."
+            },
+            {
+              "label": "Na tuberosidade, na frente da tíbia",
+              "correct": false,
+              "feedback": "A tuberosidade é a saliência da frente, onde se prende o tendão da patela."
+            },
+            {
+              "label": "No maléolo medial, no tornozelo",
+              "correct": false,
+              "feedback": "O maléolo medial é a ponta de baixo da tíbia, no tornozelo."
+            },
+            {
+              "label": "Na parte de baixo do côndilo lateral",
+              "correct": true,
+              "feedback": "Isso: a cabeça da fíbula se apoia sob o côndilo lateral da tíbia."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o fêmur termina em dois côndilos, o medial e o...",
+          "item": {
+            "prompt": "Quais são os dois côndilos do fêmur?",
+            "options": [
+              {
+                "label": "O medial e o lateral",
+                "correct": true,
+                "feedback": "Isso: um côndilo fica do lado medial e o outro, do lado lateral."
+              },
+              {
+                "label": "O anterior e o posterior",
+                "correct": false,
+                "feedback": "Os côndilos ficam lado a lado, e não um à frente do outro."
+              },
+              {
+                "label": "O proximal e o distal",
+                "correct": false,
+                "feedback": "Proximal e distal descrevem a distância do tronco, não os dois côndilos."
+              },
+              {
+                "label": "O superior e o inferior",
+                "correct": false,
+                "feedback": "Os dois côndilos estão na ponta de baixo, lado a lado."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num modelo de perna, Duda aponta a saliência da frente da tíbia, logo abaixo do joelho, onde se prende o tendão da patela. Que parte é essa?",
+            "options": [
+              {
+                "label": "A cabeça da fíbula",
+                "correct": false,
+                "feedback": "A cabeça da fíbula fica do lado de fora, mais atrás, e não na frente."
+              },
+              {
+                "label": "A eminência intercondilar",
+                "correct": false,
+                "feedback": "A eminência fica entre os côndilos, em cima, e não na frente da tíbia."
+              },
+              {
+                "label": "A tuberosidade da tíbia",
+                "correct": true,
+                "feedback": "Isso: é nela que o tendão da patela se prende."
+              },
+              {
+                "label": "O côndilo lateral do fêmur",
+                "correct": false,
+                "feedback": "O côndilo lateral é do fêmur, acima da articulação."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m24-03",
+      "code": "M24.03",
+      "title": "Fêmur proximal e quadril",
+      "objective": "Hoje você vai conseguir nomear cabeça, colo, trocânteres e acetábulo.",
+      "competency": "Nomear cabeça, colo, trocânteres e diáfise do fêmur e o acetábulo, onde a cabeça se encaixa.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Meu neto disse que o quadril é uma bola dentro de um copo. É isso mesmo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Dá para pensar assim. Só que bola e copo têm nome, e o fêmur ainda tem duas saliências."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que parte é a bola, que parte é o copo, e onde ficam as duas saliências?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "A bola, o copo e as duas saliências",
+        "body": "No quadril, a cabeça do fêmur, redonda, encaixa no acetábulo, o encaixe profundo do osso do quadril. Abaixo da cabeça fica o colo, a parte estreita. Na lateral, acima da base do colo, está o trocânter maior; na face medial, logo abaixo do colo, o trocânter menor. Depois vem a diáfise, o tubo do osso. Na ordem ensinada nesta aula, de cima para baixo na face medial: cabeça, colo, trocânter menor, diáfise. O quadril é uma articulação do tipo bola e soquete, com movimento em vários eixos. Com suspeita de fratura, não mova nem gire o membro: peça apoio.",
+        "keyPoints": [
+          "Cabeça no acetábulo; colo estreito logo abaixo dela.",
+          "Trocânter maior na lateral; trocânter menor na face medial, abaixo do colo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Em que osso fica a eminência intercondilar, entre os côndilos?",
+          "options": [
+            {
+              "label": "No fêmur",
+              "correct": false,
+              "feedback": "O fêmur tem a fossa intercondilar atrás, mas a eminência é da tíbia."
+            },
+            {
+              "label": "Na patela",
+              "correct": false,
+              "feedback": "A patela é o osso da frente, no tendão do quadríceps, e não tem côndilos."
+            },
+            {
+              "label": "Na fíbula",
+              "correct": false,
+              "feedback": "A fíbula tem a cabeça, que se apoia na tíbia, mas não a eminência."
+            },
+            {
+              "label": "Na tíbia",
+              "correct": true,
+              "feedback": "Isso: a eminência intercondilar sobe entre os côndilos da tíbia."
+            }
+          ],
+          "help": "Lembre qual osso tem a superfície plana que recebe o fêmur.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
+          "diagramId": "femur-proximal-e-quadril",
+          "points": [
+            {
+              "label": "Acetábulo",
+              "x": 0.632,
+              "y": 0.138,
+              "where": "no alto, o arco azul que cobre a parte redonda do fêmur"
+            },
+            {
+              "label": "Cabeça do fêmur",
+              "x": 0.672,
+              "y": 0.359,
+              "where": "a parte redonda de cima, encaixada sob o arco azul"
+            },
+            {
+              "label": "Colo do fêmur",
+              "x": 0.506,
+              "y": 0.446,
+              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo"
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.325,
+              "y": 0.433,
+              "where": "a saliência larga à esquerda, do lado de fora do osso"
+            },
+            {
+              "label": "Trocânter menor",
+              "x": 0.538,
+              "y": 0.675,
+              "where": "a saliência pequena à direita, abaixo do estreitamento"
+            },
+            {
+              "label": "Diáfise do fêmur",
+              "x": 0.472,
+              "y": 0.888,
+              "where": "o tubo longo que desce, na parte de baixo da figura"
+            }
+          ],
+          "distractors": [
+            "Eminência intercondilar"
+          ],
+          "feedbackCorrect": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro.",
+          "help": "Comece pelo que encaixa no arco azul, no alto.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase sobre o encaixe do quadril com as palavras do banco.",
+          "text": "No quadril, a {{1}} do fêmur encaixa no {{2}}, uma cavidade profunda do osso do quadril.",
+          "answers": [
+            "cabeça",
+            "acetábulo"
+          ],
+          "distractors": [
+            "colo",
+            "trocânter",
+            "côndilo"
+          ],
+          "feedbackCorrect": "Isso: a cabeça do fêmur encaixa no acetábulo, formando a articulação do quadril.",
+          "feedbackIncorrect": "Releia o conceito: a parte redonda do fêmur é a que encaixa, e a cavidade é do osso do quadril, não do joelho.",
+          "help": "Qual parte do fêmur é redonda e qual estrutura do quadril é a cavidade?",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "openstax-ap2e-articulacoes"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene, na ordem ensinada nesta aula, de cima para baixo na face medial do fêmur.",
+          "items": [
+            "Cabeça do fêmur",
+            "Colo do fêmur",
+            "Trocânter menor",
+            "Diáfise do fêmur"
+          ],
+          "feedbackCorrect": "Isso: cabeça, colo, trocânter menor e depois o tubo da diáfise.",
+          "feedbackIncorrect": "Releia a ordem do conceito: o colo vem logo abaixo da cabeça, e o trocânter menor, logo abaixo do colo.",
+          "help": "Comece pelo que encaixa no acetábulo e desça pelo osso.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Dona Marta caiu e sente dor forte no quadril. Duda faz afirmações ao se preparar. Julgue cada uma.",
+          "statements": [
+            {
+              "text": "Suspeita de fratura no quadril: não girar o membro e pedir apoio.",
+              "correct": true,
+              "feedback": "Certo: com suspeita de fratura você não gira nem move o membro, e pede apoio à equipe."
+            },
+            {
+              "text": "O trocânter menor fica na lateral do fêmur, acima do colo.",
+              "correct": false,
+              "feedback": "Errado: o trocânter menor fica na face medial, logo abaixo do colo; o da lateral é o maior."
+            },
+            {
+              "text": "O colo do fêmur fica logo abaixo da cabeça.",
+              "correct": true,
+              "feedback": "Certo: o colo é a parte estreita logo abaixo da cabeça do fêmur."
+            },
+            {
+              "text": "O acetábulo é uma saliência da ponta do fêmur.",
+              "correct": false,
+              "feedback": "Errado: o acetábulo é a cavidade do osso do quadril, e não parte do fêmur."
+            }
+          ],
+          "feedbackCorrect": "Você uniu a anatomia ao cuidado: nomeou as partes e manteve o membro parado.",
+          "feedbackIncorrect": "Releia o conceito e lembre: diante de suspeita de fratura, você não move o membro.",
+          "help": "Uma das afirmações é sobre conduta, e as outras sobre posição.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "medlineplus-fratura"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia o fêmur proximal",
+        "body": "Agora você sabe dizer que a cabeça do fêmur encaixa no acetábulo, que o colo vem abaixo dela e onde ficam os trocânteres maior e menor. Com suspeita de fratura, você não gira o membro e pede apoio.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bola, copo e duas saliências: agora o quadril tem endereço certo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O trocânter menor fica em qual face do fêmur?",
+          "options": [
+            {
+              "label": "Na lateral, acima da base do colo",
+              "correct": false,
+              "feedback": "Essa é a posição do trocânter maior, a saliência da lateral."
+            },
+            {
+              "label": "Na face da frente, junto ao joelho",
+              "correct": false,
+              "feedback": "Junto ao joelho ficam os côndilos e o sulco da patela, não os trocânteres."
+            },
+            {
+              "label": "Na face medial, logo abaixo do colo",
+              "correct": true,
+              "feedback": "Isso: o trocânter menor é a pequena saliência medial, abaixo do colo."
+            },
+            {
+              "label": "Dentro do acetábulo",
+              "correct": false,
+              "feedback": "Dentro do acetábulo encaixa a cabeça do fêmur, não um trocânter."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "prompt": "Como se descreve o tipo da articulação do quadril, com a cabeça do fêmur num encaixe profundo?",
+          "options": [
+            {
+              "label": "Bola e soquete, com movimento em vários eixos",
+              "correct": true,
+              "feedback": "Isso: o quadril é uma articulação bola e soquete, com movimento em vários eixos."
+            },
+            {
+              "label": "Dobradiça, com movimento em um só eixo",
+              "correct": false,
+              "feedback": "A dobradiça, como o tornozelo, dobra em um eixo só; o quadril se move em vários."
+            },
+            {
+              "label": "Fibrosa, sem movimento",
+              "correct": false,
+              "feedback": "Na fibrosa o tecido fibroso une os ossos, como nas suturas do crânio; o quadril se move muito."
+            },
+            {
+              "label": "Cartilagínea, que se move pouco",
+              "correct": false,
+              "feedback": "A cartilagínea, como a sínfise púbica, se move pouco; o quadril tem movimento amplo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-articulacoes"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a saliência grande da lateral do fêmur é o trocânter...",
+          "item": {
+            "prompt": "Qual trocânter fica na lateral do fêmur, acima da base do colo?",
+            "options": [
+              {
+                "label": "Nenhum: os dois ficam na face medial",
+                "correct": false,
+                "feedback": "Só o trocânter menor fica na face medial; o maior fica na lateral."
+              },
+              {
+                "label": "O trocânter maior",
+                "correct": true,
+                "feedback": "Isso: o trocânter maior é a saliência da lateral, acima da base do colo."
+              },
+              {
+                "label": "O trocânter menor",
+                "correct": false,
+                "feedback": "O menor fica na face medial, logo abaixo do colo."
+              },
+              {
+                "label": "A tuberosidade da tíbia",
+                "correct": false,
+                "feedback": "A tuberosidade é da tíbia, na frente do joelho, e não do fêmur."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num modelo, Duda aponta a parte redonda do fêmur que fica dentro do osso do quadril. Que parte é essa?",
+            "options": [
+              {
+                "label": "O trocânter maior",
+                "correct": false,
+                "feedback": "O trocânter maior é a saliência da lateral, fora do encaixe."
+              },
+              {
+                "label": "O colo do fêmur",
+                "correct": false,
+                "feedback": "O colo é a parte estreita abaixo da cabeça, e não a parte redonda."
+              },
+              {
+                "label": "A diáfise do fêmur",
+                "correct": false,
+                "feedback": "A diáfise é o tubo do meio do osso, longe do quadril."
+              },
+              {
+                "label": "A cabeça do fêmur",
+                "correct": true,
+                "feedback": "Isso: a cabeça é a parte redonda que encaixa no acetábulo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m24-04",
+      "code": "M24.04",
+      "title": "A pelve por partes",
+      "objective": "Hoje você vai conseguir nomear ílio, ísquio, púbis e sacro e as articulações que unem a pelve.",
+      "competency": "Nomear as partes do osso do quadril, o sacro e as articulações sacroilíaca e sínfise púbica.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Em cada lado da pelve há um único osso do quadril, mas ele nasce de três. Quem arrisca os nomes?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Ílio é o da cintura. Os outros dois eu embolo, e ainda não sei o que prende a pelve à coluna."
+          },
+          {
+            "speaker": "caio",
+            "text": "Hoje a gente separa as três partes e olha o que une cada lado ao sacro e ao outro lado."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Onde fica cada parte, e que articulações unem a pelve?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três partes, um osso, duas uniões",
+        "body": "Cada osso do quadril reúne três partes, fundidas no fim da adolescência. O ílio é a parte larga, em leque, no alto. O ísquio forma a parte de trás e de baixo, onde o corpo se apoia sentado. O púbis fica na frente e se une ao do outro lado na sínfise púbica. As três se encontram no acetábulo. O forame obturado é a abertura entre o ísquio e o púbis. O sacro fica entre os dois ossos do quadril e se une a cada ílio na articulação sacroilíaca, pouco móvel.",
+        "keyPoints": [
+          "Ílio no alto, ísquio atrás e embaixo, púbis na frente.",
+          "Sacroilíaca une sacro e ílio; sínfise púbica une os dois púbis."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Em qual estrutura do osso do quadril a cabeça do fêmur se encaixa?",
+          "options": [
+            {
+              "label": "No acetábulo",
+              "correct": true,
+              "feedback": "Isso: a cabeça do fêmur encaixa no acetábulo, formando a articulação do quadril."
+            },
+            {
+              "label": "No forame obturado",
+              "correct": false,
+              "feedback": "O forame obturado é uma abertura do osso do quadril; a cabeça do fêmur não entra nele."
+            },
+            {
+              "label": "Na sínfise púbica",
+              "correct": false,
+              "feedback": "A sínfise é a união dos dois púbis, na frente, e não um encaixe do fêmur."
+            },
+            {
+              "label": "Na articulação sacroilíaca",
+              "correct": false,
+              "feedback": "A sacroilíaca une o sacro ao ílio, e não recebe o fêmur."
+            }
+          ],
+          "help": "Pense na cavidade em forma de copo do osso do quadril.",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+          "diagramId": "pelve-de-frente",
+          "points": [
+            {
+              "label": "Ílio",
+              "x": 0.219,
+              "y": 0.254,
+              "where": "à esquerda da figura, a asa larga e azul, no alto"
+            },
+            {
+              "label": "Sacro",
+              "x": 0.475,
+              "y": 0.375,
+              "where": "no centro, o osso triangular com quatro pares de furos"
+            },
+            {
+              "label": "Articulação sacroilíaca",
+              "x": 0.644,
+              "y": 0.384,
+              "where": "à direita, a linha entre o osso central e a asa azul"
+            },
+            {
+              "label": "Sínfise púbica",
+              "x": 0.5,
+              "y": 0.779,
+              "where": "embaixo, na linha média, a linha entre as peças amarelas"
+            },
+            {
+              "label": "Acetábulo",
+              "x": 0.231,
+              "y": 0.618,
+              "where": "à esquerda, o arco branco aberto embaixo, como um copo"
+            }
+          ],
+          "distractors": [
+            "Cabeça do fêmur"
+          ],
+          "feedbackCorrect": "Isso mesmo: você achou o ílio, o sacro, as duas uniões e o encaixe do fêmur.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: separe o que é osso, o que é união entre ossos e o que é encaixe.",
+          "help": "Comece pelo osso do meio, com os furinhos em pares.",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque na abertura entre o ísquio e o púbis, do lado esquerdo do paciente.",
+          "diagramId": "pelve-de-frente",
+          "regions": [
+            {
+              "label": "Sacro",
+              "x": 0.4,
+              "y": 0.258,
+              "width": 0.15,
+              "height": 0.233
+            },
+            {
+              "label": "Sacroilíaca, à direita da figura",
+              "x": 0.581,
+              "y": 0.25,
+              "width": 0.125,
+              "height": 0.267
+            },
+            {
+              "label": "Forame obturado, à direita da figura",
+              "x": 0.619,
+              "y": 0.692,
+              "width": 0.088,
+              "height": 0.167,
+              "correct": true
+            },
+            {
+              "label": "Forame obturado, à esquerda da figura",
+              "x": 0.293,
+              "y": 0.692,
+              "width": 0.088,
+              "height": 0.167
+            }
+          ],
+          "feedbackCorrect": "Isso: é o forame obturado, e o lado esquerdo do paciente aparece à direita de quem olha a pelve de frente.",
+          "feedbackIncorrect": "Confira a abertura e o lado: o forame obturado fica entre o ísquio e o púbis, e a esquerda do paciente fica à direita da figura.",
+          "help": "Na vista de frente, o paciente está virado para você. De que lado da figura fica a esquerda dele?",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte da pelve à sua descrição.",
+          "pairs": [
+            {
+              "left": "Ílio",
+              "right": "Parte larga, em forma de leque, no alto do osso do quadril"
+            },
+            {
+              "left": "Ísquio",
+              "right": "Parte de trás e de baixo, onde o corpo se apoia sentado"
+            },
+            {
+              "left": "Púbis",
+              "right": "Parte da frente, que se une ao do outro lado"
+            },
+            {
+              "left": "Sacro",
+              "right": "Osso entre os dois ossos do quadril, preso à coluna"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada parte ao lugar certo da pelve.",
+          "feedbackIncorrect": "Confira a posição de cada parte: alto, atrás e embaixo, frente, e o osso do meio.",
+          "help": "O osso do meio não faz parte do osso do quadril.",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Duda monta uma pelve de modelo e descreve o que vê. Julgue cada afirmação dela.",
+          "statements": [
+            {
+              "text": "A sacroilíaca une o sacro ao ílio, de cada lado.",
+              "correct": true,
+              "feedback": "Certo: a articulação sacroilíaca une o sacro ao ílio e é pouco móvel."
+            },
+            {
+              "text": "A sínfise púbica une o sacro a cada ílio, de cada lado.",
+              "correct": false,
+              "feedback": "Errado: a sínfise púbica une os dois púbis, na frente; quem une sacro e ílio é a sacroilíaca."
+            },
+            {
+              "text": "O ísquio forma a parte de trás e de baixo do quadril.",
+              "correct": true,
+              "feedback": "Certo: o ísquio é a parte de trás e de baixo, onde o corpo se apoia sentado."
+            },
+            {
+              "text": "O forame obturado fica entre o ísquio e o púbis.",
+              "correct": true,
+              "feedback": "Certo: o forame obturado é a abertura entre o ísquio e o púbis."
+            }
+          ],
+          "feedbackCorrect": "Você separou as duas uniões e a posição de cada parte.",
+          "feedbackIncorrect": "Releia o conceito: cada união liga duas partes específicas, e o forame fica entre ísquio e púbis.",
+          "help": "Pergunte de cada união quais ossos ela liga.",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia a pelve por partes",
+        "body": "Agora você sabe dizer onde ficam ílio, ísquio e púbis, que o sacro se une a cada ílio pela sacroilíaca e que os dois púbis se unem na sínfise púbica.",
+        "line": {
+          "speaker": "caio",
+          "text": "Três partes, um osso, duas uniões: a pelve deixou de ser um bloco só."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que articulação une o sacro ao ílio, de cada lado?",
+          "options": [
+            {
+              "label": "A sínfise púbica, na frente",
+              "correct": false,
+              "feedback": "A sínfise púbica une os dois púbis, e não o sacro ao ílio."
+            },
+            {
+              "label": "A articulação do quadril, com o fêmur",
+              "correct": false,
+              "feedback": "A articulação do quadril une o fêmur ao acetábulo, fora do sacro."
+            },
+            {
+              "label": "A articulação com as costelas",
+              "correct": false,
+              "feedback": "As costelas se articulam com as vértebras torácicas, bem acima da pelve."
+            },
+            {
+              "label": "A sacroilíaca, pouco móvel",
+              "correct": true,
+              "feedback": "Isso: a articulação sacroilíaca une o sacro ao ílio e se move pouco."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "prompt": "A sínfise púbica une quais ossos?",
+          "options": [
+            {
+              "label": "Os dois ísquios, atrás e embaixo",
+              "correct": false,
+              "feedback": "Os ísquios ficam atrás e embaixo, e não formam a sínfise."
+            },
+            {
+              "label": "Os dois púbis, na frente do corpo",
+              "correct": true,
+              "feedback": "Isso: a sínfise púbica une os dois púbis, na linha média, na frente."
+            },
+            {
+              "label": "O sacro e o ílio, na parte de trás",
+              "correct": false,
+              "feedback": "Sacro e ílio se unem na sacroilíaca, bem atrás."
+            },
+            {
+              "label": "Os dois ílios, na parte de cima",
+              "correct": false,
+              "feedback": "Os dois ílios ficam em cima e se ligam ao sacro, não entre si."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o osso do quadril é feito de ísquio, púbis e...",
+          "item": {
+            "prompt": "Que parte do osso do quadril é larga, em forma de leque, no alto?",
+            "options": [
+              {
+                "label": "O púbis",
+                "correct": false,
+                "feedback": "O púbis fica na frente e se une ao do outro lado."
+              },
+              {
+                "label": "O ísquio",
+                "correct": false,
+                "feedback": "O ísquio fica atrás e embaixo, onde o corpo se apoia sentado."
+              },
+              {
+                "label": "O ílio",
+                "correct": true,
+                "feedback": "Isso: o ílio é a parte larga e em leque do osso do quadril."
+              },
+              {
+                "label": "O sacro",
+                "correct": false,
+                "feedback": "O sacro é um osso à parte, entre os dois ossos do quadril."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-pelve"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num modelo, Duda gira a pelve e mostra a parte de trás e de baixo, onde o corpo se apoia ao sentar. Que parte é essa?",
+            "options": [
+              {
+                "label": "O ísquio",
+                "correct": true,
+                "feedback": "Isso: o ísquio é a parte de trás e de baixo, de apoio ao sentar."
+              },
+              {
+                "label": "O púbis",
+                "correct": false,
+                "feedback": "O púbis fica na frente do osso do quadril."
+              },
+              {
+                "label": "O ílio",
+                "correct": false,
+                "feedback": "O ílio é a parte larga, no alto."
+              },
+              {
+                "label": "O sacro",
+                "correct": false,
+                "feedback": "O sacro fica no centro, ligado à coluna, entre os dois ossos do quadril."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-pelve"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m24-05",
+      "code": "M24.05",
+      "title": "Uma vértebra de perto",
+      "objective": "Hoje você vai conseguir nomear as partes de uma vértebra e dizer em que as regiões da coluna diferem.",
+      "competency": "Nomear as partes de uma vértebra e relacionar cada região da coluna a uma característica da vértebra.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "No modelo, cada vértebra parece um anel com espinhos. Mas eu não sei o nome de cada pedaço."
+          },
+          {
+            "speaker": "caio",
+            "text": "Pegue esta lombar e olhe de cima: um bloco na frente, um anel atrás e três hastes saindo do anel."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que cada parte faz, e o que muda de uma região da coluna para outra?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O corpo, o arco e os processos",
+        "body": "A vértebra tem o corpo, a parte da frente que suporta o peso, e o arco, atrás, com dois pedículos junto ao corpo e duas lâminas que o fecham. O furo entre corpo e arco é o forame vertebral; os forames alinhados formam o canal da medula espinal. Os processos transversos saem para os lados, e o espinhoso aponta para trás. Cervicais têm corpo pequeno e forame no processo transverso. Torácicas têm facetas para as costelas e espinhoso longo, inclinado para baixo. Lombares têm os maiores corpos e espinhoso curto.",
+        "keyPoints": [
+          "Corpo na frente, arco atrás; processo espinhoso para trás.",
+          "Cervical: corpo pequeno, forame transverso. Torácica: facetas de costela. Lombar: maior corpo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Qual parte do osso do quadril apoia o corpo quando a pessoa está sentada?",
+          "options": [
+            {
+              "label": "O ílio",
+              "correct": false,
+              "feedback": "O ílio é a parte larga, em leque, no alto do osso do quadril."
+            },
+            {
+              "label": "O ísquio",
+              "correct": true,
+              "feedback": "Isso: o ísquio é a parte de trás e de baixo do osso do quadril, de apoio ao sentar."
+            },
+            {
+              "label": "O púbis",
+              "correct": false,
+              "feedback": "O púbis fica na frente e se une ao do outro lado, na sínfise."
+            },
+            {
+              "label": "O sacro",
+              "correct": false,
+              "feedback": "O sacro é o osso do meio, preso à coluna, e não parte do osso do quadril."
+            }
+          ],
+          "help": "Lembre a parte de trás e de baixo do osso do quadril.",
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura.",
+          "diagramId": "vertebra-tipica",
+          "points": [
+            {
+              "label": "Corpo vertebral",
+              "x": 0.5,
+              "y": 0.234,
+              "where": "no alto da figura, o bloco grande e arredondado"
+            },
+            {
+              "label": "Forame vertebral",
+              "x": 0.5,
+              "y": 0.517,
+              "where": "o espaço escuro no centro, cercado pelo anel de osso"
+            },
+            {
+              "label": "Pedículo",
+              "x": 0.341,
+              "y": 0.484,
+              "where": "à esquerda do furo, o bloco curto ligado ao bloco grande"
+            },
+            {
+              "label": "Processo transverso",
+              "x": 0.785,
+              "y": 0.5,
+              "where": "a haste comprida que sai para o lado direito da figura"
+            },
+            {
+              "label": "Processo espinhoso",
+              "x": 0.5,
+              "y": 0.884,
+              "where": "a haste que desce na parte de baixo, para trás"
+            }
+          ],
+          "distractors": [
+            "Disco intervertebral"
+          ],
+          "feedbackCorrect": "Isso mesmo: o corpo na frente, o forame no centro e as hastes para os lados e para trás.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: o corpo é a parte da frente, e o resto forma o anel atrás dele.",
+          "help": "Comece pelo bloco grande do alto, que suporta o peso.",
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada característica na região da coluna em que ela aparece.",
+          "categories": [
+            "Cervical",
+            "Torácica",
+            "Lombar"
+          ],
+          "items": [
+            {
+              "label": "Abertura no processo transverso",
+              "category": "Cervical"
+            },
+            {
+              "label": "Faceta para articular com a costela",
+              "category": "Torácica"
+            },
+            {
+              "label": "Corpo entre os maiores da coluna",
+              "category": "Lombar"
+            },
+            {
+              "label": "Corpo entre os menores da coluna",
+              "category": "Cervical"
+            },
+            {
+              "label": "Processo espinhoso longo, inclinado para baixo",
+              "category": "Torácica"
+            },
+            {
+              "label": "Processo espinhoso curto, sem faceta de costela",
+              "category": "Lombar"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada característica à região em que ela aparece.",
+          "feedbackIncorrect": "Pergunte de cada característica: tem a ver com costela, com o forame do processo transverso ou com o tamanho do corpo?",
+          "help": "Costelas se prendem às vértebras do tórax.",
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre a vértebra.",
+          "statements": [
+            {
+              "text": "O corpo da vértebra é a parte da frente, que suporta o peso.",
+              "correct": true,
+              "feedback": "O corpo fica na frente do anel e é a parte que suporta o peso."
+            },
+            {
+              "text": "O processo espinhoso aponta para a frente do corpo.",
+              "correct": false,
+              "feedback": "O processo espinhoso aponta para trás, no meio das costas."
+            },
+            {
+              "text": "Os forames vertebrais alinhados formam o canal da medula espinal.",
+              "correct": true,
+              "feedback": "Alinhados, os forames de todas as vértebras formam o canal que contém a medula."
+            },
+            {
+              "text": "Os processos transversos saem para os lados do arco.",
+              "correct": true,
+              "feedback": "Os dois processos transversos saem para os lados e servem de apoio a músculos."
+            },
+            {
+              "text": "O forame no processo transverso é típico das vértebras lombares.",
+              "correct": false,
+              "feedback": "Esse forame é típico das cervicais; as lombares têm o maior corpo e não têm faceta de costela."
+            },
+            {
+              "text": "As facetas para as costelas são típicas das vértebras torácicas.",
+              "correct": true,
+              "feedback": "Cada vértebra torácica tem facetas para articular com as costelas."
+            },
+            {
+              "text": "As vértebras lombares têm os menores corpos da coluna.",
+              "correct": false,
+              "feedback": "É o contrário: as lombares têm os maiores corpos, porque suportam mais peso."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que é de cada parte e de cada região, no ritmo da rodada.",
+          "feedbackIncorrect": "Reveja as afirmações: o retorno de cada uma explica a parte ou a região certa.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "caio",
+          "prompt": "Caio traz uma vértebra de modelo sem etiqueta. Ajude-o a descobrir de que região ela é.",
+          "turns": [
+            {
+              "line": "Esta tem um furo em cada processo transverso. Isso aponta para qual região?",
+              "options": [
+                {
+                  "label": "Para a lombar, de corpo grande.",
+                  "correct": false,
+                  "reply": "Hum, lombar. Mas o corpo desta nem é tão grande assim."
+                },
+                {
+                  "label": "Para a cervical.",
+                  "correct": true,
+                  "reply": "Cervical, então. Vou anotar na etiqueta com lápis."
+                },
+                {
+                  "label": "Para a torácica, ligada às costelas.",
+                  "correct": false,
+                  "reply": "Torácica? Aí eu esperaria facetas, e não vi nenhuma."
+                }
+              ]
+            },
+            {
+              "line": "Outra vértebra tem facetas para costelas e o espinhoso é longo, inclinado para baixo. E essa?",
+              "options": [
+                {
+                  "label": "É torácica.",
+                  "correct": true,
+                  "reply": "Torácica. Faz sentido, é a região das costelas."
+                },
+                {
+                  "label": "É cervical, por ser pequena e leve.",
+                  "correct": false,
+                  "reply": "Cervical? Mas ela tem as facetas, e isso me confunde."
+                },
+                {
+                  "label": "É lombar, por causa do espinhoso.",
+                  "correct": false,
+                  "reply": "Lombar? O espinhoso da lombar é curto, não é? Fiquei na dúvida."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: forame no processo transverso aponta para a cervical, e facetas de costela, para a torácica.",
+          "feedbackIncorrect": "Revise: forame transverso é da cervical, facetas de costela e espinhoso longo são da torácica.",
+          "help": "Associe cada característica à região em que ela aparece.",
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê uma vértebra de perto",
+        "body": "Agora você sabe nomear corpo, forame, pedículo e processos transversos e espinhoso, e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quem reconhece as partes de uma vértebra reconhece a coluna inteira."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma vértebra de modelo tem facetas no corpo e no processo transverso para articular com costelas. De que região ela é?",
+          "options": [
+            {
+              "label": "Torácica",
+              "correct": true,
+              "feedback": "Isso: as facetas para costelas são típicas das vértebras torácicas."
+            },
+            {
+              "label": "Cervical",
+              "correct": false,
+              "feedback": "As cervicais se reconhecem pelo forame no processo transverso, não pelas facetas de costela."
+            },
+            {
+              "label": "Lombar",
+              "correct": false,
+              "feedback": "As lombares têm o maior corpo e não têm facetas de costela."
+            },
+            {
+              "label": "Sacral",
+              "correct": false,
+              "feedback": "O sacro tem vértebras fundidas num osso só, e não vértebras soltas com facetas."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        },
+        {
+          "prompt": "Que estrutura percorre o canal formado pelos forames vertebrais alinhados?",
+          "options": [
+            {
+              "label": "O disco intervertebral",
+              "correct": false,
+              "feedback": "O disco fica entre os corpos das vértebras, e não dentro do canal."
+            },
+            {
+              "label": "A costela",
+              "correct": false,
+              "feedback": "A costela se articula com a vértebra torácica por fora, sem percorrer o canal."
+            },
+            {
+              "label": "A medula espinal",
+              "correct": true,
+              "feedback": "Isso: o canal formado pelos forames alinhados contém a medula espinal."
+            },
+            {
+              "label": "O tendão do quadríceps",
+              "correct": false,
+              "feedback": "O tendão do quadríceps é do joelho, bem longe da coluna."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o bloco da frente da vértebra, que suporta o peso, é o...",
+          "item": {
+            "prompt": "Que parte da vértebra fica na frente e suporta o peso?",
+            "options": [
+              {
+                "label": "O processo espinhoso",
+                "correct": false,
+                "feedback": "O espinhoso aponta para trás e não é a parte que suporta o peso."
+              },
+              {
+                "label": "O forame vertebral",
+                "correct": false,
+                "feedback": "O forame é o furo por onde passa o canal da medula, e não um osso."
+              },
+              {
+                "label": "O processo transverso",
+                "correct": false,
+                "feedback": "Os transversos saem para os lados e servem de apoio a músculos."
+              },
+              {
+                "label": "O corpo vertebral",
+                "correct": true,
+                "feedback": "Isso: o corpo é a parte da frente e suporta o peso."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-coluna"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na bancada, Duda mostra uma vértebra de corpo muito volumoso, sem faceta de costela e sem forame no processo transverso. De que região é, mais provavelmente?",
+            "options": [
+              {
+                "label": "Cervical",
+                "correct": false,
+                "feedback": "A cervical teria o forame no processo transverso, que esta vértebra não tem."
+              },
+              {
+                "label": "Lombar",
+                "correct": true,
+                "feedback": "Isso: corpo muito volumoso e nenhuma faceta de costela são sinais de vértebra lombar."
+              },
+              {
+                "label": "Torácica",
+                "correct": false,
+                "feedback": "A torácica teria facetas para costelas, que esta vértebra não tem."
+              },
+              {
+                "label": "Cóccix",
+                "correct": false,
+                "feedback": "O cóccix é feito de vértebras pequenas e fundidas, não de um corpo volumoso."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-coluna"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m24-06",
+      "code": "M24.06",
+      "title": "Do pedido à região",
+      "objective": "Hoje você vai conseguir dizer que ossos uma região pedida reúne e pedir apoio quando o paciente não tolera a movimentação.",
+      "competency": "Dizer que estruturas ósseas uma região pedida inclui e pedir apoio diante de dor forte ou suspeita de fratura.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "O pedido de hoje diz só joelho direito. Que ossos entram nessa palavra?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Fêmur e tíbia, eu acho. E a patela? E a fíbula? Não sei até onde a região vai."
+          },
+          {
+            "speaker": "caio",
+            "text": "E tem o paciente. Com dor forte, o plano muda, e quem decide como é a equipe."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que ossos a palavra reúne, e quando você para e chama apoio?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "A palavra do pedido reúne ossos",
+        "body": "O nome da região diz que ossos entram nela. A articulação do joelho reúne o fêmur, a tíbia e a patela; a fíbula fica ao lado. A pelve reúne os dois ossos do quadril, o sacro e o cóccix. Se o paciente simulado tem dor forte ou suspeita de fratura, você não move o membro: para, descreve o que vê e pede apoio à equipe. A figura mostra o joelho de frente e de perfil.",
+        "keyPoints": [
+          "Joelho: fêmur, tíbia e patela. Pelve: ossos do quadril, sacro e cóccix.",
+          "Dor forte ou suspeita de fratura: não mover, descrever e pedir apoio."
+        ],
+        "visual": "joelho-frente-e-perfil"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Que parte da vértebra aponta para trás, no meio das costas?",
+          "options": [
+            {
+              "label": "O corpo vertebral",
+              "correct": false,
+              "feedback": "O corpo fica na frente e suporta o peso, no lado oposto ao das costas."
+            },
+            {
+              "label": "O processo transverso",
+              "correct": false,
+              "feedback": "Os processos transversos saem para os lados, e não para trás."
+            },
+            {
+              "label": "O processo espinhoso",
+              "correct": true,
+              "feedback": "Isso: o processo espinhoso aponta para trás, no meio das costas."
+            },
+            {
+              "label": "O forame vertebral",
+              "correct": false,
+              "feedback": "O forame é o furo central, e não uma parte que aponta para fora."
+            }
+          ],
+          "help": "Pense na parte que se sente como bolinhas ao longo da coluna.",
+          "sourceIds": [
+            "openstax-ap2e-coluna"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "O pedido é joelho direito. Na vista de frente, toque no osso que fica ao lado do joelho, fora da articulação.",
+          "diagramId": "joelho-frente-e-perfil",
+          "regions": [
+            {
+              "label": "Côndilo lateral do fêmur, de frente",
+              "x": 0.088,
+              "y": 0.367,
+              "width": 0.131,
+              "height": 0.158
+            },
+            {
+              "label": "Cabeça da fíbula, de frente",
+              "x": 0.075,
+              "y": 0.6,
+              "width": 0.081,
+              "height": 0.125,
+              "correct": true
+            },
+            {
+              "label": "Côndilos da tíbia, de frente",
+              "x": 0.244,
+              "y": 0.5,
+              "width": 0.163,
+              "height": 0.117
+            },
+            {
+              "label": "Patela, de perfil",
+              "x": 0.846,
+              "y": 0.283,
+              "width": 0.08,
+              "height": 0.217
+            },
+            {
+              "label": "Tíbia, de perfil",
+              "x": 0.694,
+              "y": 0.708,
+              "width": 0.125,
+              "height": 0.233
+            }
+          ],
+          "feedbackCorrect": "Isso: a fíbula fica ao lado da tíbia e não forma a articulação do joelho, que reúne fêmur, tíbia e patela.",
+          "feedbackIncorrect": "Essa estrutura forma a articulação do joelho: procure o osso fino ao lado da tíbia, que fica fora dela.",
+          "help": "Lembre os três ossos que formam o joelho e procure o que sobra.",
+          "sourceIds": [
+            "openstax-ap2e-articulacoes",
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada região de um pedido fictício aos ossos que ela reúne.",
+          "pairs": [
+            {
+              "left": "Pé",
+              "right": "Tarsais, metatarsais e falanges"
+            },
+            {
+              "left": "Joelho",
+              "right": "Fêmur, tíbia e patela"
+            },
+            {
+              "left": "Pelve",
+              "right": "Dois ossos do quadril, sacro e cóccix"
+            },
+            {
+              "left": "Tornozelo",
+              "right": "Tálus com a tíbia e a fíbula"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada região aos ossos que a palavra do pedido inclui.",
+          "feedbackIncorrect": "Confira cada região: pé tem três grupos, joelho tem a patela, pelve tem o sacro e tornozelo tem o tálus.",
+          "help": "Duas regiões têm o osso do pé ou da perna em comum; veja qual osso só uma delas tem.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "openstax-ap2e-pelve",
+            "openstax-ap2e-articulacoes"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "safety",
+          "criticalSafety": true,
+          "speaker": "paciente",
+          "name": "Seu Jorge",
+          "prompt": "Seu Jorge, paciente simulado, caiu e sente dor forte no joelho direito. Conduza a conversa com cuidado.",
+          "turns": [
+            {
+              "line": "Não consigo mexer a perna, dói demais. O pedido é do joelho: você vai ter que dobrar, não é?",
+              "options": [
+                {
+                  "label": "Vou dobrar bem devagar, e o senhor me avisa quando doer.",
+                  "correct": false,
+                  "reply": "Tá, mas já aviso que só de pensar em dobrar dói."
+                },
+                {
+                  "label": "Não vou mexer a perna. Chamo a supervisão agora.",
+                  "correct": true,
+                  "reply": "Fico mais tranquilo. Tá bom, eu espero aqui."
+                },
+                {
+                  "label": "Tente dobrar sozinho; se não der, a gente segue assim mesmo.",
+                  "correct": false,
+                  "reply": "Tá, eu tento, mas não prometo nada."
+                }
+              ]
+            },
+            {
+              "line": "A supervisão vai querer saber o que você viu. O que vai dizer a ela?",
+              "options": [
+                {
+                  "label": "Descrevo a queixa e o que vejo, sem concluir.",
+                  "correct": true,
+                  "reply": "Entendi. Eu confirmo o que contei, então."
+                },
+                {
+                  "label": "Digo que é fratura, para a equipe se preparar.",
+                  "correct": false,
+                  "reply": "Fratura? Nossa, não sei se é isso. Só sei que dói muito."
+                },
+                {
+                  "label": "Digo que é só torção e que dá para esperar um pouco.",
+                  "correct": false,
+                  "reply": "Torção? Espero que seja, porque a dor está forte."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: com dor forte você não move o membro, descreve o que vê e deixa a decisão com a equipe.",
+          "feedbackIncorrect": "Reveja a conversa: com dor forte ou suspeita de fratura, você para, descreve sem concluir e pede apoio.",
+          "help": "Pense no que você pode decidir sozinho diante de dor forte.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "medlineplus-fratura"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Duda e Caio revisam o que fazer ao receber pedidos. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "O pedido de pelve reúne os ossos do quadril, o sacro e o cóccix.",
+              "correct": true,
+              "feedback": "Certo: a pelve reúne os dois ossos do quadril, o sacro e o cóccix."
+            },
+            {
+              "text": "O pedido de joelho não inclui a patela.",
+              "correct": false,
+              "feedback": "Errado: a patela faz parte da articulação do joelho, junto com o fêmur e a tíbia."
+            },
+            {
+              "text": "Com dor forte, você descreve o que vê e pede apoio à equipe.",
+              "correct": true,
+              "feedback": "Certo: diante de dor forte você para, descreve o que vê e pede apoio."
+            },
+            {
+              "text": "Com dor forte, você escolhe sozinho como adaptar o posicionamento.",
+              "correct": false,
+              "feedback": "Errado: a adaptação é combinada com a equipe, e não escolhida por quem está em formação."
+            }
+          ],
+          "feedbackCorrect": "Você uniu o que cada região reúne ao cuidado de pedir apoio.",
+          "feedbackIncorrect": "Releia o conceito: o nome da região define os ossos, e diante de dor forte a decisão é da equipe.",
+          "help": "Duas afirmações são de anatomia e duas são de conduta.",
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior",
+            "openstax-ap2e-pelve",
+            "medlineplus-fratura"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê a região do pedido",
+        "body": "Agora você sabe dizer que o joelho reúne fêmur, tíbia e patela, que a pelve reúne os ossos do quadril, o sacro e o cóccix, e que com dor forte você não move o membro e pede apoio.",
+        "line": {
+          "speaker": "lia",
+          "text": "Ler a região e saber parar: as duas coisas fazem parte do trabalho."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O pedido fictício é de pé. Que grupo de ossos ocupa a parte de trás do pé?",
+          "options": [
+            {
+              "label": "Os metatarsais",
+              "correct": false,
+              "feedback": "Os metatarsais ficam no meio do pé, numerados de 1 a 5."
+            },
+            {
+              "label": "Os tarsais",
+              "correct": true,
+              "feedback": "Isso: os sete tarsais ficam atrás, do calcanhar ao tornozelo."
+            },
+            {
+              "label": "As falanges",
+              "correct": false,
+              "feedback": "As falanges ficam nos dedos, nas pontas do pé."
+            },
+            {
+              "label": "Os côndilos",
+              "correct": false,
+              "feedback": "Côndilos são pontas de fêmur e tíbia, no joelho, e não grupo de ossos do pé."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-membro-inferior"
+          ]
+        },
+        {
+          "prompt": "A pelve reúne, além dos ossos do quadril, quais outros ossos?",
+          "options": [
+            {
+              "label": "Os dois fêmures",
+              "correct": false,
+              "feedback": "Os fêmures são ossos da coxa e se encaixam no acetábulo, mas não fazem parte da pelve."
+            },
+            {
+              "label": "As vértebras lombares inteiras",
+              "correct": false,
+              "feedback": "As lombares são da coluna, acima do sacro, e não parte da pelve."
+            },
+            {
+              "label": "As duas patelas",
+              "correct": false,
+              "feedback": "As patelas são do joelho, bem longe da pelve."
+            },
+            {
+              "label": "O sacro e o cóccix",
+              "correct": true,
+              "feedback": "Isso: sacro e cóccix, além dos dois ossos do quadril, formam a pelve."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap2e-pelve"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se o paciente sente dor forte, eu paro, descrevo o que vejo e...",
+          "item": {
+            "prompt": "O que você faz depois de parar e descrever o que vê, quando o paciente tem dor forte?",
+            "options": [
+              {
+                "label": "Peço apoio à equipe",
+                "correct": true,
+                "feedback": "Isso: depois de parar e descrever, você pede apoio, e a decisão é da equipe."
+              },
+              {
+                "label": "Movo o membro devagar",
+                "correct": false,
+                "feedback": "Mover o membro com dor forte pode piorar a lesão, e a decisão não é sua."
+              },
+              {
+                "label": "Escolho uma adaptação sozinho",
+                "correct": false,
+                "feedback": "A adaptação é combinada com a equipe, e não escolhida por quem está em formação."
+              },
+              {
+                "label": "Libero o paciente sem a imagem",
+                "correct": false,
+                "feedback": "Liberar o paciente por conta própria não resolve; o pedido é levado à equipe."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior",
+              "medlineplus-fratura"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Dona Marta, paciente simulada, tem pedido de tornozelo. Que ossos essa região reúne?",
+            "options": [
+              {
+                "label": "A patela e a eminência intercondilar",
+                "correct": false,
+                "feedback": "Patela e eminência intercondilar são do joelho, não do tornozelo."
+              },
+              {
+                "label": "O sacro e os dois ossos do quadril",
+                "correct": false,
+                "feedback": "Essas são as estruturas da pelve, e não do tornozelo."
+              },
+              {
+                "label": "O tálus, com a tíbia e a fíbula",
+                "correct": true,
+                "feedback": "Isso: o tornozelo reúne o tálus e as extremidades distais da tíbia e da fíbula."
+              },
+              {
+                "label": "Os metatarsais e as falanges do pé",
+                "correct": false,
+                "feedback": "Esses são ossos do meio e das pontas do pé, e não formam o tornozelo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap2e-membro-inferior"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

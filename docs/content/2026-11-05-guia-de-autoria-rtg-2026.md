@@ -200,7 +200,7 @@ Valem para os sete: `prompt` de 20 a 300 caracteres, `help` de 15 a 200,
 
 `hotspot`, `label` e `risk-hunt` mostram uma figura. Use **exatamente um** de
 `imageId` (imagem licenciada de `content-manifest/rtg-2026/imagens.json`, com licença
-CC0 ou CC BY conferida) ou `diagramId` (um dos 34 diagramas da tabela abaixo). Os dois
+CC0 ou CC BY conferida) ou `diagramId` (um dos 51 diagramas da tabela abaixo). Os dois
 juntos, ou nenhum, reprovam; id fora do acervo ou do catálogo também.
 
 **Régua de toque.** Todo alvo (ponto ou região) tem uma área de toque de 44 pt:
@@ -211,7 +211,7 @@ outro alvo** (dois alvos nunca ficam colados; encostar na borda não conta como
 sobreposição). A régua antiga do plano, "0,16 entre centros", foi trocada por esta;
 vale o verificador.
 
-Numa figura 4:3, como os 34 diagramas (280 × 210 pt na régua), 44 pt são 0,157 da
+Numa figura 4:3, como os 51 diagramas (280 × 210 pt na régua), 44 pt são 0,157 da
 largura e 0,21 da altura. Na prática:
 
 - **ponto** (`label`): `x` de 0,08 a 0,92 e `y` de 0,11 a 0,89; dois pontos só ficam
@@ -275,8 +275,25 @@ texto dentro: o rótulo vem do conteúdo.
 | `trato-digestivo` | parado | Tronco de frente com esôfago, estômago, fígado, pâncreas, o intestino delgado enovelado no centro e o intestino grosso em moldura ao redor. |
 | `sistema-urinario` | parado | Tronco de frente com os dois rins ao lado da coluna, os dois ureteres descendo até a bexiga na pelve e a uretra saindo da bexiga. |
 | `sistema-nervoso` | parado | Corpo de frente até as coxas: o encéfalo e a medula espinal numa cor, e nervos de outra cor saindo da medula para os braços, o tronco e as pernas. |
+| `dano-ao-dna` | parado | Trecho de DNA em escada: um fóton atinge a fita; outro atinge uma molécula de água, que lança um radical até a fita. A fita tem uma quebra simples e uma dupla. |
+| `grandezas-de-dose` | parado | Três painéis: bloco de tecido sob um feixe; o bloco com um fóton fino e uma partícula grossa de dano maior; um corpo com órgãos de intensidades diferentes. |
+| `dosimetro-no-corpo` | parado | Profissional de avental, de frente: crachá no tórax, anel no dedo da mão estendida, dosímetro junto ao olho; num canto, quadro de parede com um dosímetro. |
+| `produto-dose-area` | parado | Tubo com colimador e uma placa fina na saída; dois feixes do mesmo foco, um estreito e um largo, chegam ao paciente deitado; o largo cobre mais da placa. |
+| `histograma-e-lut` | parado | Histograma com um pico estreito em cada ponta e um grupo largo no meio, coberto por uma faixa azul; ao lado, uma curva em S de conversão. |
+| `realce-e-suavizacao` | parado | Três perfis empilhados de uma mesma borda: degrau com rampa curta, degrau com ultrapassagem antes e depois da borda, e degrau com rampa larga e suave. |
+| `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, dois quadrados com quadradinhos, pares de linhas; janela ao lado e seu reflexo no canto da tela. |
+| `fluxo-ris-pacs` | parado | Cinco blocos ligados por setas em serpentina: prancheta, lista, tubo de raios X com mesa, cilindro de armazenamento e monitor com imagem. |
+| `compressao-de-imagem` | parado | Imagem de 8 por 8 pixels, um disco, três vezes: original, igual sem perda e em blocos grosseiros com perda; acima, barras longa, média e curta. |
+| `radiografia-roteiro` | parado | Esquema de radiografia de tórax em PA: pulmões escuros, coluna, coração, costelas e diafragma, com etiqueta, marcador de lado e margens claras no filme. |
+| `artefatos-de-objeto` | parado | Esquema de radiografia de tórax em PA com quatro objetos densos sobrepostos ao corpo, além de pulmões, coração, costelas e clavículas. |
+| `artefatos-do-detector` | parado | Esquema de radiografia de tórax em PA com três marcas estranhas à anatomia sobre a imagem, além de pulmões, coração, costelas e diafragma. |
+| `ossos-do-pe` | parado | Pé direito visto de cima e deitado: calcanhar à esquerda, dedos à direita, lado do hálux em cima. Tarso, metatarsos e falanges em três cores. |
+| `joelho-frente-e-perfil` | parado | Joelho direito em duas vistas: de frente à esquerda, com o lado de fora do joelho à esquerda; de perfil à direita, com a frente para a direita. |
+| `femur-proximal-e-quadril` | parado | Quadril direito de frente: osso do quadril em cima e à direita, cabeça do fêmur no encaixe, colo inclinado e a diáfise descendo; lado de fora à esquerda. |
+| `pelve-de-frente` | parado | Pelve de frente, lado direito do paciente à esquerda: dois ossos do quadril com três partes em cores diferentes, o sacro no meio e a última lombar acima. |
+| `vertebra-tipica` | parado | Vértebra lombar vista de cima, frente do corpo para o alto: corpo grande na frente, um anel de osso atrás em volta de um furo e três processos saindo do anel. |
 
-Os 18 últimos entraram com o lote 1 da fase C (m17 a m20), em 2026-11-19. Azul e amarelo em `circulacao-dupla` são sangue pobre e rico em oxigênio. Em `osso-longo` a figura não distingue a ponta proximal da distal.
+De `conferencia-de-identidade` a `sistema-nervoso` (18) entraram com o lote 1 da fase C (m17 a m20), e os 17 seguintes com o lote 2 (m21 a m24), em 2026-11-19. `radiografia-roteiro`, `artefatos-de-objeto` e `artefatos-do-detector` são esquemas desenhados de uma radiografia de tórax, não imagens reais: escreva "no esquema". Azul e amarelo em `circulacao-dupla` são sangue pobre e rico em oxigênio. Em `osso-longo` a figura não distingue a ponta proximal da distal.
 
 ### `hotspot` (tocar na região)
 

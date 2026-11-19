@@ -103,6 +103,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Radiação, interação e proteção."
     }
   },
+  "batch:rtg-2026:m21": {
+    "slug": "rtg-2026-m21",
+    "title": "Radiobiologia e dosimetria",
+    "description": "Do fóton ao DNA, das três grandezas de dose ao dosímetro pessoal e ao indicador do equipamento, e da distância e blindagem em números à leitura de um registro de dose que destoa.",
+    "unitTitle": "Radiobiologia e dosimetria",
+    "reward": {
+      "id": "node:reward:rtg-2026:m21",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Radiobiologia e dosimetria."
+    }
+  },
   "batch:rtg-2026:m05": {
     "slug": "rtg-2026-m05",
     "title": "Formação da imagem digital",
@@ -112,6 +123,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m05",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Formação da imagem digital."
+    }
+  },
+  "batch:rtg-2026:m22": {
+    "slug": "rtg-2026-m22",
+    "title": "Processamento, exibição e informática da imagem",
+    "description": "O que o sistema faz com a imagem antes de mostrá-la, como o monitor a exibe e por onde o exame viaja, até a cópia e a parada do sistema, sempre com o limite do estudante: olhar, relatar e seguir a rotina.",
+    "unitTitle": "Processamento, exibição e informática da imagem",
+    "reward": {
+      "id": "node:reward:rtg-2026:m22",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Processamento, exibição e informática da imagem."
     }
   },
   "batch:rtg-2026:m06": {
@@ -125,6 +147,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Geometria, técnica e qualidade."
     }
   },
+  "batch:rtg-2026:m23": {
+    "slug": "rtg-2026-m23",
+    "title": "Leitura crítica da imagem: artefatos, repetição e correção",
+    "description": "Um roteiro de leitura de esquemas de tórax, artefatos de objeto e de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas, sem diagnosticar.",
+    "unitTitle": "Leitura crítica da imagem: artefatos, repetição e correção",
+    "reward": {
+      "id": "node:reward:rtg-2026:m23",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Leitura crítica da imagem: artefatos, repetição e correção."
+    }
+  },
   "batch:rtg-2026:m07": {
     "slug": "rtg-2026-m07",
     "title": "Musculoesquelético e posicionamento",
@@ -134,6 +167,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m07",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Musculoesquelético e posicionamento."
+    }
+  },
+  "batch:rtg-2026:m24": {
+    "slug": "rtg-2026-m24",
+    "title": "Membro inferior, pelve e coluna",
+    "description": "Desce ao osso: grupos do pé e ossos do tornozelo, partes do joelho, do fêmur proximal, da pelve e de uma vértebra, e a leitura da região pedida com a atitude de pedir apoio.",
+    "unitTitle": "Membro inferior, pelve e coluna",
+    "reward": {
+      "id": "node:reward:rtg-2026:m24",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Membro inferior, pelve e coluna."
     }
   },
   "batch:rtg-2026:m08": {

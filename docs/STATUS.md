@@ -36,7 +36,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Trilha dobrada (1.7) — fases A, B e lote 1 da C em branches, medido em 2026-11-19
+## Trilha dobrada (1.7) — fases A, B e lotes 1 e 2 da C em branches, medido em 2026-11-19
 
 O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
 unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
@@ -84,7 +84,22 @@ parados. Gate do app: 4.179 testes, saída 0; testes de conteúdo e de roteiros 
 [Plano](superpowers/plans/2026-11-19-trilha-dobrada-fase-c-unidades-irmas.md),
 [evidência](evidence/2026-11-19-unidades-irmas/README.md). PR #91, em rascunho. **Nada
 foi visto em simulador ou aparelho; os diagramas foram conferidos em quadros parados.**
-Faltam cinco lotes (20 unidades, 128 aulas).
+Faltavam cinco lotes.
+
+**Fase C, lote 2, na branch `claude/trilha-dobrada-fase-c-lote-2`, empilhada no lote 1,
+sem merge (medido em 2026-11-19):** mais quatro unidades irmãs, 24 aulas: M21
+(radiobiologia e dosimetria, depois da M04), M22 (processamento, exibição e
+informática da imagem, depois da M05), M23 (leitura crítica da imagem, depois da M06)
+e M24 (membro inferior, pelve e coluna, depois da M07). O catálogo ganhou 17 diagramas
+e tem 51; três deles são esquemas desenhados de radiografia de tórax, não imagens
+reais. O inventário mede 32 unidades e 205 aulas; as quatro novas têm de 47,9% a 50,0%
+de passos de texto ou formato antigo, passo visual em 6 de 6 aulas e 10 ou 11 famílias
+de interação. São as primeiras unidades a usar o laboratório de parâmetros (M21) e a
+bancada (M23). Cada unidade tem parecer de revisão independente por IA (70 correções
+ao todo). Gate do app: 4.230 testes, saída 0; testes de conteúdo e de roteiros 407 de
+408 (a mesma falha de ambiente).
+[Evidência](evidence/2026-11-19-unidades-irmas/README.md). PR #93, em rascunho. **Nada
+foi visto em simulador ou aparelho.** Faltam quatro lotes (16 unidades, 104 aulas).
 
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
