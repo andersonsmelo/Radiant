@@ -68,6 +68,8 @@ describe('registro de diagramas', () => {
     const palette = new Set(Object.values(P).map((c) => c.toLowerCase()));
     for (const layer of DIAGRAMS[id].layers) {
       expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject)|href/i);
+      // A régua de cor só lê atributo com aspas duplas: `style=` e aspas simples passariam por ela.
+      expect(layer.svg).not.toMatch(/\sstyle=|='/);
       for (const color of layer.svg.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(/g) ?? []) {
         expect(palette.has(color.toLowerCase())).toBe(true);
       }
