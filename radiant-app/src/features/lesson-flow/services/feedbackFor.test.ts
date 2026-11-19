@@ -219,7 +219,7 @@ describe('feedbackFor: famílias da 1.6', () => {
 
     it('label: o erro acrescenta o rótulo certo do primeiro ponto errado, na ordem dos pontos', () => {
         const interaction: LearningInteractionV2 = { ...base, type: 'label', payload: { prompt: 'Rotule.', imageRef: 'diagram:tubo-raios-x',
-            points: [{ id: 'p1', x: 0.3, y: 0.4, correctLabelId: 'l1' }, { id: 'p2', x: 0.7, y: 0.4, correctLabelId: 'l2' }, { id: 'p3', x: 0.7, y: 0.7, correctLabelId: 'l3' }],
+            points: [{ id: 'p1', x: 0.3, y: 0.4, where: 'posição 1 da figura', correctLabelId: 'l1' }, { id: 'p2', x: 0.7, y: 0.4, where: 'posição 2 da figura', correctLabelId: 'l2' }, { id: 'p3', x: 0.7, y: 0.7, where: 'posição 3 da figura', correctLabelId: 'l3' }],
             labels: [{ id: 'l3', label: 'Janela' }, { id: 'l1', label: 'Cátodo' }, { id: 'l2', label: 'Ânodo' }] } };
         expect(feedbackFor(interaction, JSON.stringify({ p1: 'l1', p2: 'l3', p3: 'l2' }), false)).toBe('Reveja o conceito. Ponto 2 é Ânodo.');
         expect(feedbackFor(interaction, JSON.stringify({ p1: 'l2', p2: 'l1', p3: 'l3' }), false)).toBe('Reveja o conceito. Ponto 1 é Cátodo.');

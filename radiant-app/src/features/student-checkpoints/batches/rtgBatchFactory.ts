@@ -36,7 +36,7 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: figura por imagem licenciada ou diagrama em código (exatamente um), e regiões em coordenadas 0 a 1.
     | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number; where: string }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'risk-hunt'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; risk: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: rodada rápida de verdadeiro ou falso (de 6 a 8 afirmações; passa quem erra no máximo uma).
     | { type: 'blitz'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
@@ -241,7 +241,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 interaction = { ...base, type: 'hotspot', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, imageRef, regions, correctRegionIds: regions.filter((_, index) => source.regions[index].correct).map(region => region.id) } };
             } else if (source.type === 'label') {
-                const points = source.points.map((point, index) => ({ id: id('point', slug, source.id, String(index + 1)), x: point.x, y: point.y }));
+                const points = source.points.map((point, index) => ({ id: id('point', slug, source.id, String(index + 1)), x: point.x, y: point.y, where: point.where }));
                 const labels = [...source.points.map(point => point.label), ...(source.distractors ?? [])]
                     .map((text, index) => ({ id: id('label', slug, source.id, String(index + 1)), label: text }));
                 const answers = points.map((_, index) => labels[index].id);

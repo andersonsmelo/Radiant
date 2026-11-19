@@ -67,9 +67,11 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                             disabled={submitted}
                             // Alvo de 44 pt centrado na região: a parte visível continua sendo a região.
                             hitSlop={touchSlop(region, frame)}
+                            // Fora da árvore de acessibilidade: a lista abaixo é o caminho completo do leitor de tela, e o toque aqui continua valendo.
+                            accessible={false}
+                            accessibilityElementsHidden
+                            importantForAccessibility="no-hide-descendants"
                             accessibilityRole="checkbox"
-                            accessibilityLabel={`${region.label}, na imagem${spokenState(region.id)}`}
-                            accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Marca ou desmarca. Você confirma em ${confirmationLabel}.`}
                             accessibilityState={{ checked: on, ...(submitted ? { disabled: true } : {}) }}
                             style={[styles.region, place(region), on && styles.regionOn]}
                         >
@@ -90,8 +92,8 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                 {payload.regions.map(region => (
                     <TapChip key={region.id} role="checkbox" testID={`risk-hunt-${region.label}`} label={`${region.label}${note(region.id)}`}
                         selected={chosen.includes(region.id)} disabled={submitted} onPress={() => toggle(region.id)}
-                        accessibilityLabel={`${region.label}, na lista${spokenState(region.id)}`}
-                        accessibilityHint={submitted ? undefined : `Equivale a tocar a região na imagem. Você confirma em ${confirmationLabel}.`}
+                        accessibilityLabel={`${region.label}${spokenState(region.id)}`}
+                        accessibilityHint={submitted ? undefined : `Marca ou desmarca. Você confirma em ${confirmationLabel}.`}
                         verdict={verdictOf(region.id)} />
                 ))}
             </View>

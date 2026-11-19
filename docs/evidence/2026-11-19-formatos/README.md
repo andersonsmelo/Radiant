@@ -14,6 +14,9 @@ Esta pasta guarda a evidência das tarefas da fase B da trilha dobrada (novos fo
 
 - O gerador de roteiros Maestro só é exercitado para os tipos da aula-fonte presentes na unidade sintética (`comparison` fica de fora, por exigir imagem).
 - `validateInteraction` não acusa tipo sem `case`: o teste de famílias só pega payload malformado do exemplo.
+- Os textos que o gerador Maestro repete à mão (rótulo falado do ponto, ids das fichas) não estão amarrados aos da tela por teste (tarefas 4 e 5).
+- A rolagem do `label` no roteiro Maestro (`direction: UP` até o ponto) não foi medida em aparelho.
+- Figura que não resolve (diagrama ou imagem fora do registro) deixa a interação sem saída no tocador, no `label`, no `hotspot` e no `risk-hunt`.
 - As réguas do `hotspot` (3 a 6 alvos, área de toque de 44 pt centrada, sem sobreposição, `width` e `height` obrigatórios) vivem só no verificador `.mjs`; o contrato `wide` não as espelha, então um lote escrito à mão, sem passar pelo verificador, escapa delas.
 
 ## Tarefa 11: laços de animação (2026-11-19)

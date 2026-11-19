@@ -146,22 +146,26 @@
             {
               "label": "Cátodo com filamento",
               "x": 0.28,
-              "y": 0.44
+              "y": 0.44,
+              "where": "à esquerda, a espiral dentro da capa"
             },
             {
               "label": "Ânodo",
               "x": 0.72,
-              "y": 0.44
+              "y": 0.44,
+              "where": "à direita, o bloco inclinado atingido pelos elétrons"
             },
             {
               "label": "Janela de saída",
               "x": 0.68,
-              "y": 0.71
+              "y": 0.71,
+              "where": "embaixo à direita, a abertura no vidro"
             },
             {
               "label": "Ampola de vidro",
               "x": 0.375,
-              "y": 0.71
+              "y": 0.71,
+              "where": "a parede curva que envolve todo o conjunto"
             }
           ],
           "distractors": [
@@ -192,7 +196,16 @@
               "feedback": "A porta aberta com a lâmpada acesa expõe o corredor à radiação espalhada: a porta fica fechada na exposição."
             },
             {
-              "label": "Campo de luz grande demais",
+              "label": "Operador atrás do biombo",
+              "x": 0.7,
+              "y": 0.43,
+              "width": 0.17,
+              "height": 0.47,
+              "risk": false,
+              "feedback": "Atrás do biombo o operador fica protegido do espalhamento e acompanha o paciente pelo vidro."
+            },
+            {
+              "label": "Campo de luz sobre o paciente inteiro",
               "x": 0.18,
               "y": 0.26,
               "width": 0.33,
@@ -201,22 +214,13 @@
               "feedback": "Um campo que cobre o paciente inteiro expõe tecido sem necessidade: o campo se fecha até a região de interesse."
             },
             {
-              "label": "Acompanhante sem avental",
+              "label": "Acompanhante ao lado da mesa",
               "x": 0.56,
               "y": 0.45,
               "width": 0.1,
               "height": 0.45,
               "risk": true,
               "feedback": "Quem fica ao lado da mesa na exposição recebe radiação espalhada: sem necessidade, sai da sala ou se protege."
-            },
-            {
-              "label": "Operador atrás do biombo",
-              "x": 0.7,
-              "y": 0.43,
-              "width": 0.17,
-              "height": 0.47,
-              "risk": false,
-              "feedback": "Atrás do biombo o operador fica protegido do espalhamento e acompanha o paciente pelo vidro."
             },
             {
               "label": "Avental no suporte",

@@ -166,3 +166,26 @@ not ok 94 - risk-hunt: retorno de erro igual ao de acerto reprova, como nas outr
 - saída (reprovações):
   not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
 
+
+# Rodada 1 (correções da revisão): defeitos específicos, vistos falhando por mutação
+
+## Defeito: verificador aceita os riscos todos no topo da lista
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `else if (regions.slice(0, risks).every((region) => region.risk)) err(` por `else if (false) err(`
+- saída (reprovações):
+  not ok 82 - risk-hunt: os riscos todos no topo da lista entregam a resposta pela posição
+
+## Defeito: contrato wide aceita os riscos todos no topo da lista
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `else if (regions.slice(0, riskRegionIds.length).every(region => riskRegionIds.includes(reg` por ``
+- saída (reprovações):
+  ● contrato amplo (wide) › risk-hunt (fase B) › wide-answer-position-bias: os riscos todos no topo da lista entregam a resposta
+
+## Defeito: região sobre a figura volta à árvore de acessibilidade (leitura dupla)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `accessible={false}
+                            accessibilityElementsHidden
+               ` por ``
+- saída (reprovações):
+  ● RiskHuntStepRenderer › cada região é um checkbox sobre a figura e na lista, com o rótulo, e o contador começa em zero
+

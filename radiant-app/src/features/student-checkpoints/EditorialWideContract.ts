@@ -167,13 +167,15 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
             || riskRegionIds.some(id => !known.has(id)) || new Set(riskRegionIds).size !== riskRegionIds.length) codes.push('invalid-wide-shape');
         // Todas de risco, ou menos de duas: a resposta se deduz sem olhar a cena.
         if (riskRegionIds.length < 2 || riskRegionIds.length > regions.length - 1) codes.push('wide-constant-answer');
+        // Os riscos todos no topo da lista entregam a resposta pela posição.
+        else if (regions.slice(0, riskRegionIds.length).every(region => riskRegionIds.includes(region.id))) codes.push('wide-answer-position-bias');
     } else if (interaction.type === 'label') {
         const { points, labels } = interaction.payload;
         const answers = points.map(point => point.correctLabelId);
         const known = new Set(labels.map(entry => entry.id));
         if (points.length < 3 || points.length > 6 || labels.length < points.length || labels.length > points.length + 2
             || known.size !== labels.length || new Set(labels.map(entry => normalized(entry.label))).size !== labels.length
-            || answers.some(id => !known.has(id)) || new Set(answers).size !== answers.length) codes.push('invalid-wide-shape');
+            || points.some(point => !filled(point.where)) || answers.some(id => !known.has(id)) || new Set(answers).size !== answers.length) codes.push('invalid-wide-shape');
         // As fichas certas, na ordem em que aparecem, não podem repetir a ordem dos pontos.
         if (labels.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() === answers.join()) codes.push('wide-answer-position-bias');
     } else {

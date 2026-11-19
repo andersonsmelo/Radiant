@@ -228,8 +228,8 @@ describe('contrato amplo (wide)', () => {
 
     describe('label (fase B)', () => {
         const POINTS = [
-            { label: 'Cátodo com filamento', x: 0.28, y: 0.44 }, { label: 'Ânodo', x: 0.72, y: 0.44 },
-            { label: 'Janela de saída', x: 0.68, y: 0.71 }, { label: 'Ampola de vidro', x: 0.375, y: 0.71 },
+            { label: 'Cátodo com filamento', x: 0.28, y: 0.44, where: 'à esquerda, a espiral dentro da capa' }, { label: 'Ânodo', x: 0.72, y: 0.44, where: 'à direita, o bloco inclinado atingido pelos elétrons' },
+            { label: 'Janela de saída', x: 0.68, y: 0.71, where: 'embaixo à direita, a abertura no vidro' }, { label: 'Ampola de vidro', x: 0.375, y: 0.71, where: 'a parede curva que envolve todo o conjunto' },
         ];
         function labelCandidate(): EditorialWideCandidateV1 {
             const doc = JSON.parse(JSON.stringify(source));
@@ -269,7 +269,7 @@ describe('contrato amplo (wide)', () => {
             expect(payload.labels).toHaveLength(5);
             const correct = new Set(payload.points.map(point => point.correctLabelId));
             expect(payload.labels.filter(entry => correct.has(entry.id)).map(entry => entry.id)).not.toEqual(payload.points.map(point => point.correctLabelId));
-            expect(payload.points.every(point => Object.keys(point).sort().join() === 'correctLabelId,id,x,y')).toBe(true);
+            expect(payload.points.every(point => Object.keys(point).sort().join() === 'correctLabelId,id,where,x,y')).toBe(true);
         });
 
         it('mantém as chaves exatas do payload e exige texto em todo rótulo', () => {
@@ -295,6 +295,10 @@ describe('contrato amplo (wide)', () => {
             expect(issuesWith(interaction => { interaction.payload.points.splice(2); })).toContain(`invalid-wide-shape:${ID}`);
         });
 
+        it('invalid-wide-shape: ponto sem where', () => {
+            expect(issuesWith(interaction => { interaction.payload.points[0].where = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
         it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
             expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
         });
@@ -314,9 +318,9 @@ describe('contrato amplo (wide)', () => {
     describe('risk-hunt (fase B)', () => {
         const REGIONS = [
             { label: 'Porta da sala aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.82, risk: true, feedback: 'A porta aberta com a lâmpada acesa expõe o corredor.' },
-            { label: 'Campo de luz grande demais', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente expõe tecido à toa.' },
-            { label: 'Acompanhante sem avental', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa recebe radiação espalhada.' },
             { label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, risk: false, feedback: 'Atrás do biombo o operador fica protegido.' },
+            { label: 'Campo de luz sobre o paciente inteiro', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente expõe tecido à toa.' },
+            { label: 'Acompanhante ao lado da mesa', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa recebe radiação espalhada.' },
             { label: 'Avental no suporte', x: 0.85, y: 0.17, width: 0.11, height: 0.24, risk: false, feedback: 'O avental guardado no suporte não expõe ninguém.' },
         ];
         const ID = 'interaction:rtg-2026:m01:aula-01:i2';
@@ -355,7 +359,7 @@ describe('contrato amplo (wide)', () => {
             expect(payload.imageRef).toBe('diagram:sala-com-riscos');
             expect(payload.regions).toHaveLength(5);
             expect(payload.regions.every(region => region.explanation.length > 0)).toBe(true);
-            expect(payload.riskRegionIds).toEqual(payload.regions.slice(0, 3).map(region => region.id));
+            expect(payload.riskRegionIds).toEqual(payload.regions.filter(region => ['Porta da sala aberta', 'Campo de luz sobre o paciente inteiro', 'Acompanhante ao lado da mesa'].includes(region.label)).map(region => region.id));
             expect(value.wide.images).toBeUndefined();
         });
 
@@ -377,6 +381,13 @@ describe('contrato amplo (wide)', () => {
             expect(issuesWith(interaction => { interaction.payload.regions[1].explanation = ' '; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.regions[1].explanation = interaction.payload.regions[0].explanation; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.riskRegionIds[0] = 'region:rtg-2026:m01:fora'; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-answer-position-bias: os riscos todos no topo da lista entregam a resposta', () => {
+            expect(issuesWith(interaction => {
+                const risks = new Set(interaction.payload.riskRegionIds);
+                interaction.payload.regions = [...interaction.payload.regions.filter(region => risks.has(region.id)), ...interaction.payload.regions.filter(region => !risks.has(region.id))];
+            })).toEqual([`wide-answer-position-bias:${ID}`]);
         });
 
         it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {

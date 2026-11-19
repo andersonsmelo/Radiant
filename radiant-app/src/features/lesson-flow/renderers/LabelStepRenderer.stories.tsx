@@ -8,10 +8,10 @@ const payload = {
     prompt: 'Rotule as quatro partes do tubo de raios X.',
     imageRef: 'diagram:tubo-raios-x',
     points: [
-        { id: 'p1', x: 0.28, y: 0.44, correctLabelId: 'catodo' },
-        { id: 'p2', x: 0.72, y: 0.44, correctLabelId: 'anodo' },
-        { id: 'p3', x: 0.68, y: 0.71, correctLabelId: 'janela' },
-        { id: 'p4', x: 0.375, y: 0.71, correctLabelId: 'ampola' },
+        { id: 'p1', x: 0.28, y: 0.44, where: 'à esquerda, a espiral dentro da capa', correctLabelId: 'catodo' },
+        { id: 'p2', x: 0.72, y: 0.44, where: 'à direita, o bloco inclinado atingido pelos elétrons', correctLabelId: 'anodo' },
+        { id: 'p3', x: 0.68, y: 0.71, where: 'embaixo à direita, a abertura no vidro', correctLabelId: 'janela' },
+        { id: 'p4', x: 0.375, y: 0.71, where: 'a parede curva que envolve todo o conjunto', correctLabelId: 'ampola' },
     ],
     labels: [
         { id: 'janela', label: 'Janela de saída' }, { id: 'fio', label: 'Fio de aterramento' }, { id: 'catodo', label: 'Cátodo com filamento' },

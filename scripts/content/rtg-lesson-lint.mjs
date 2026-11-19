@@ -176,13 +176,22 @@ export function lintUnit(doc, { images = [] } = {}) {
       else if (regions.length >= 4 && regions.length <= 6) {
         const risks = regions.filter((region) => region.risk).length;
         if (risks < 2 || risks > regions.length - 1) err(where, `risk-hunt: de 2 a ${regions.length - 1} regiões de risco; todas viram resposta constante`);
+        else if (regions.slice(0, risks).every((region) => region.risk)) err(where, 'risk-hunt: os riscos estão todos no topo da lista; intercale');
       }
       regions.forEach((region, i) => text(`${where}.regions[${i}].feedback`, region?.feedback, { min: 25, max: 260 }));
       if (new Set(regions.map((region) => norm(region?.feedback))).size !== regions.length) err(where, 'risk-hunt: retornos repetidos: cada região explica a própria situação');
     } else if (item.type === 'label') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'points', 'distractors']));
       // Ponto sem tamanho: o retângulo de toque de 44 pt é centrado nele.
-      targets(`${where}.points`, item.points, { allowed: ['label', 'x', 'y'], ratio: figure(where, item) });
+      targets(`${where}.points`, item.points, { allowed: ['label', 'x', 'y', 'where'], ratio: figure(where, item) });
+      // `where` é o que o leitor de tela ouve no lugar da figura: posição ou forma, sem nomear nenhuma parte.
+      const plain = (value) => norm(value).normalize('NFD').replace(/\p{M}/gu, '');
+      const points = Array.isArray(item.points) ? item.points : [];
+      points.forEach((point, i) => {
+        text(`${where}.points[${i}].where`, point?.where, { min: 8, max: 60 });
+        if (typeof point?.where === 'string' && points.some((other) => typeof other?.label === 'string' && plain(other.label).length >= 2 && plain(point.where).includes(plain(other.label)))) err(`${where}.points[${i}]`, 'label: where nomeia uma das partes; descreva só a posição ou a forma');
+      });
+      if (new Set(points.map((point) => norm(point?.where))).size !== points.length) err(where, 'label: where repetido entre os pontos');
       const distractors = item.distractors === undefined ? [] : item.distractors;
       if (!Array.isArray(distractors) || distractors.length > 2) return err(where, 'label: de 0 a 2 distratores');
       distractors.forEach((word, i) => text(`${where}.distractors[${i}]`, word, { min: 2, max: 40 }));

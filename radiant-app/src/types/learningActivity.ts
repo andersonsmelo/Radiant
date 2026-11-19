@@ -289,7 +289,8 @@ export type LabelPayload = {
     prompt: string;
     /** Identificador da imagem licenciada, ou `diagram:<id>`. */
     imageRef: string;
-    points: { id: string; x: number; y: number; correctLabelId: string }[];
+    /** `where` descreve a posição ou a forma sem nomear a parte: é o que o leitor de tela ouve no ponto. */
+    points: { id: string; x: number; y: number; where: string; correctLabelId: string }[];
     labels: { id: string; label: string }[];
 };
 
@@ -676,6 +677,7 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
                 || labels.some(entry => !isFilled(entry?.id) || !isFilled(entry?.label))
                 || new Set(points.map(point => point?.id)).size !== points.length || points.some(point => !isFilled(point?.id))
                 || answers.some(id => !labelIds.has(id)) || new Set(answers).size !== answers.length
+                || points.some(point => !isFilled(point?.where))
                 || points.some(point => !isWithinFrame({ id: '', label: '', x: point.x, y: point.y, width: 0, height: 0 }))) {
                 push(issues, path, 'invalid-label-points');
             }

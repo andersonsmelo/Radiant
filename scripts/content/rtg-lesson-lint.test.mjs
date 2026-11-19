@@ -370,10 +370,10 @@ test('hotspot: diagramId não é texto de aula para a varredura de referência n
 
 // Formato `label` (fase B, tarefa 4): pontos sem tamanho sobre a figura, rótulos e até dois distratores.
 const labelPoints = () => [
-  { label: 'Cátodo com filamento', x: 0.28, y: 0.44 },
-  { label: 'Ânodo', x: 0.72, y: 0.44 },
-  { label: 'Janela de saída', x: 0.68, y: 0.71 },
-  { label: 'Ampola de vidro', x: 0.375, y: 0.71 },
+  { label: 'Cátodo com filamento', x: 0.28, y: 0.44, where: 'à esquerda, a espiral dentro da capa' },
+  { label: 'Ânodo', x: 0.72, y: 0.44, where: 'à direita, o bloco inclinado atingido pelos elétrons' },
+  { label: 'Janela de saída', x: 0.68, y: 0.71, where: 'embaixo à direita, a abertura no vidro' },
+  { label: 'Ampola de vidro', x: 0.375, y: 0.71, where: 'a parede curva que envolve todo o conjunto' },
 ];
 function labelItem(mutate = () => {}) {
   const doc = fixture();
@@ -398,12 +398,26 @@ test('label: exige exatamente um de imageId e diagramId, existente no registro',
 });
 test('label: de 3 a 6 pontos', () => {
   expectOnly(labelItem(item => { item.points.splice(2); }), /de 3 a 6 alvos/);
-  const six = n => ({ label: `Parte ${n}`, x: 0.1 + (n % 3) * 0.3, y: 0.15 + Math.floor(n / 3) * 0.3 });
+  const six = n => ({ label: `Parte ${n}`, where: `posição ${n} na figura`, x: 0.1 + (n % 3) * 0.3, y: 0.15 + Math.floor(n / 3) * 0.3 });
   assert.deepEqual(labelItem(item => { item.points = [0, 1, 2, 3, 4, 5].map(six); }), []);
   expectOnly(labelItem(item => { item.points = [0, 1, 2, 3, 4, 5, 6].map(six); }), /de 3 a 6 alvos/);
 });
 test('label: o ponto não tem largura nem altura', () => {
   expectOnly(labelItem(item => { Object.assign(item.points[1], { width: 0.1, height: 0.1 }); }), /campo desconhecido: width|campo desconhecido: height/);
+});
+test('label: where é obrigatório, de 8 a 60 caracteres, e entra na lista de chaves', () => {
+  expectOnly(labelItem(item => { delete item.points[1].where; }), /texto ausente ou curto/);
+  expectOnly(labelItem(item => { item.points[1].where = 'à direita'; item.points[1].where = 'curto'; }), /texto ausente ou curto/);
+  expectOnly(labelItem(item => { item.points[1].where = 'à direita, o bloco inclinado atingido pelos elétrons, que fica ao lado do vidro'; }), /caracteres \(máx\. 60\)/);
+});
+test('label: where não nomeia a parte, a do próprio ponto nem a de outro, sem acento e sem caixa', () => {
+  expectOnly(labelItem(item => { item.points[1].where = 'à direita, o ÂNODO da imagem'; }), /where nomeia uma das partes/);
+  expectOnly(labelItem(item => { item.points[1].where = 'à direita, perto da janela de saida'; }), /where nomeia uma das partes/);
+  expectOnly(labelItem(item => { item.points[1].where = 'à direita, o catodo com filamento'; }), /where nomeia uma das partes/);
+});
+test('label: where repetido entre os pontos reprova', () => {
+  expectOnly(labelItem(item => { item.points[2].where = item.points[1].where.toUpperCase(); }), /where repetido|texto todo em caixa alta/);
+  expectOnly(labelItem(item => { item.points[2].where = item.points[1].where; }), /where repetido/);
 });
 test('label: ponto dentro do quadro, a cada eixo', () => {
   expectOnly(labelItem(item => { item.points[1].x = 1.2; }), /alvo fora do quadro|sai da figura/);
@@ -443,9 +457,9 @@ test('label: retorno de erro igual ao de acerto reprova, como nas outras famíli
 // Formato `risk-hunt` (fase B, tarefa 5): regiões com tamanho sobre a figura, algumas de risco, cada uma com a explicação.
 const riskRegions = () => [
   { label: 'Porta da sala aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.82, risk: true, feedback: 'A porta aberta com a lâmpada acesa expõe o corredor à radiação espalhada.' },
-  { label: 'Campo de luz grande demais', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente inteiro expõe tecido sem necessidade.' },
-  { label: 'Acompanhante sem avental', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa na exposição recebe radiação espalhada.' },
   { label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, risk: false, feedback: 'Atrás do biombo o operador fica protegido do espalhamento.' },
+  { label: 'Campo de luz sobre o paciente inteiro', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente inteiro expõe tecido sem necessidade.' },
+  { label: 'Acompanhante ao lado da mesa', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa na exposição recebe radiação espalhada.' },
   { label: 'Avental no suporte', x: 0.85, y: 0.17, width: 0.11, height: 0.24, risk: false, feedback: 'O avental guardado no suporte não expõe ninguém.' },
 ];
 function riskHunt(mutate = () => {}) {
@@ -470,12 +484,12 @@ test('risk-hunt: exige exatamente um de imageId e diagramId, existente no regist
 });
 test('risk-hunt: de 4 a 6 regiões', () => {
   expectOnly(riskHunt(item => { item.regions.pop(); item.regions.pop(); }), /de 4 a 6 alvos|de 2 a \d+ regiões de risco/);
-  expectOnly(riskHunt(item => { item.regions.pop(); item.regions[0].risk = false; item.regions[1].risk = false; }), /de 2 a \d+ regiões de risco/);
+  expectOnly(riskHunt(item => { item.regions.pop(); item.regions[0].risk = false; item.regions[2].risk = false; }), /de 2 a \d+ regiões de risco/);
   const extra = n => ({ label: `Região extra ${n}`, x: 0.3 + n * 0.1, y: 0.7, width: 0.09, height: 0.2, risk: false, feedback: `Esta situação extra ${n} está correta e não expõe ninguém.` });
   expectOnly(riskHunt(item => { item.regions.push(extra(0), extra(1)); }), /de 4 a 6 alvos/);
 });
 test('risk-hunt: toda região tem width e height; ponto não vale', () => {
-  expectOnly(riskHunt(item => { item.regions[3] = { label: 'Operador atrás do biombo', x: 0.7, y: 0.5, risk: false, feedback: 'Atrás do biombo o operador fica protegido.' }; }), /alvo sem width e height/);
+  expectOnly(riskHunt(item => { item.regions[3] = { label: 'Acompanhante ao lado da mesa', x: 0.56, y: 0.5, risk: true, feedback: 'Quem fica ao lado da mesa recebe radiação espalhada.' }; }), /alvo sem width e height/);
 });
 test('risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura', () => {
   expectOnly(riskHunt(item => { item.regions[4].x = 0.95; }), /alvo fora do quadro|sai da figura/);
@@ -488,9 +502,14 @@ test('risk-hunt: as áreas de toque das regiões não se sobrepõem', () => {
 test('risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco', () => {
   expectOnly(riskHunt(item => { item.regions[0].risk = 'true'; }), /risk deve ser true ou false/);
   expectOnly(riskHunt(item => { delete item.regions[1].risk; }), /risk deve ser true ou false/);
-  expectOnly(riskHunt(item => { item.regions[0].risk = false; item.regions[1].risk = false; }), /de 2 a 4 regiões de risco/);
-  expectOnly(riskHunt(item => { item.regions[3].risk = true; item.regions[4].risk = true; }), /de 2 a 4 regiões de risco/);
-  assert.deepEqual(riskHunt(item => { item.regions[3].risk = true; }), []);
+  expectOnly(riskHunt(item => { item.regions[0].risk = false; item.regions[2].risk = false; }), /de 2 a 4 regiões de risco/);
+  expectOnly(riskHunt(item => { item.regions[1].risk = true; item.regions[4].risk = true; }), /de 2 a 4 regiões de risco/);
+  assert.deepEqual(riskHunt(item => { item.regions[4].risk = true; }), []);
+});
+test('risk-hunt: os riscos todos no topo da lista entregam a resposta pela posição', () => {
+  const top = item => { item.regions = [2, 3, 0, 1, 4].map(i => item.regions[i]); };
+  expectOnly(riskHunt(top), /os riscos estão todos no topo da lista; intercale/);
+  assert.deepEqual(riskHunt(item => { top(item); [item.regions[0], item.regions[3]] = [item.regions[3], item.regions[0]]; }), []);
 });
 test('risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete', () => {
   expectOnly(riskHunt(item => { item.regions[0].feedback = 'Curto.'; }), /texto ausente ou curto/);

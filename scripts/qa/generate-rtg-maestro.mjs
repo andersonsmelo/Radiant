@@ -100,7 +100,7 @@ function answerCommands(interaction) {
       // o ponto seguinte pede rolagem para cima. shortcut: sem medir em aparelho, trocar se a figura couber junto das fichas.
       const names = new Map(payload.labels.map(entry => [entry.id, entry.label]));
       return payload.points.flatMap((point, index) => {
-        const name = `Ponto ${index + 1}, sem rótulo`;
+        const name = `Ponto ${index + 1}, ${point.where}, sem rótulo`;
         return [scrollTo('text', name, 'UP'), text(name), ...tapId(`label-chip-${names.get(point.correctLabelId)}`)];
       });
     }

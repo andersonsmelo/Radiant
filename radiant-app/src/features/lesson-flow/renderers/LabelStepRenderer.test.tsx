@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { AccessibilityInfo, StyleSheet } from 'react-native';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
 import { ActivityInteractionRenderer } from './ActivityRendererRegistry';
@@ -18,9 +18,9 @@ const label: LearningInteractionV2 = {
     payload: {
         prompt: 'Rotule as partes do tubo.', imageRef: 'diagram:tubo-raios-x',
         points: [
-            { id: 'p1', x: 0.28, y: 0.44, correctLabelId: 'l-catodo' },
-            { id: 'p2', x: 0.72, y: 0.44, correctLabelId: 'l-anodo' },
-            { id: 'p3', x: 0.68, y: 0.71, correctLabelId: 'l-janela' },
+            { id: 'p1', x: 0.28, y: 0.44, where: 'à esquerda', correctLabelId: 'l-catodo' },
+            { id: 'p2', x: 0.72, y: 0.44, where: 'à direita', correctLabelId: 'l-anodo' },
+            { id: 'p3', x: 0.68, y: 0.71, where: 'embaixo', correctLabelId: 'l-janela' },
         ],
         labels: [{ id: 'l-janela', label: 'Janela' }, { id: 'l-fio', label: 'Fio' }, { id: 'l-catodo', label: 'Cátodo' }, { id: 'l-anodo', label: 'Ânodo' }],
     },
@@ -40,8 +40,8 @@ const measure = () => fireEvent(screen.getByTestId('interaction-figure'), 'layou
 describe('LabelStepRenderer', () => {
     it('está registrado e mostra um ponto numerado por alvo e uma ficha por rótulo, inclusive o distrator', () => {
         render(<Harness />);
-        expect(screen.getByLabelText('Ponto 1, sem rótulo')).toBeTruthy();
-        expect(screen.getByLabelText('Ponto 3, sem rótulo')).toBeTruthy();
+        expect(screen.getByLabelText('Ponto 1, à esquerda, sem rótulo')).toBeTruthy();
+        expect(screen.getByLabelText('Ponto 3, embaixo, sem rótulo')).toBeTruthy();
         for (const name of ['Janela', 'Fio', 'Cátodo', 'Ânodo']) expect(screen.getByTestId(`label-chip-${name}`)).toBeTruthy();
     });
 
@@ -49,13 +49,13 @@ describe('LabelStepRenderer', () => {
         render(<Harness />);
         fireEvent.press(screen.getByTestId('label-chip-Cátodo'));
         expect(screen.getByTestId('label-chip-Cátodo').props.accessibilityState.selected).toBe(true);
-        fireEvent.press(screen.getByLabelText('Ponto 1, sem rótulo'));
+        fireEvent.press(screen.getByLabelText('Ponto 1, à esquerda, sem rótulo'));
         expect(probe()).toBe('{"p1":"l-catodo"}|false');
-        fireEvent.press(screen.getByLabelText('Ponto 2, sem rótulo'));
-        expect(screen.getByLabelText('Ponto 2, sem rótulo').props.accessibilityState.selected).toBe(true);
+        fireEvent.press(screen.getByLabelText('Ponto 2, à direita, sem rótulo'));
+        expect(screen.getByLabelText('Ponto 2, à direita, sem rótulo').props.accessibilityState.selected).toBe(true);
         fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
         expect(probe()).toBe('{"p1":"l-catodo","p2":"l-anodo"}|false');
-        fireEvent.press(screen.getByLabelText('Ponto 3, sem rótulo'));
+        fireEvent.press(screen.getByLabelText('Ponto 3, embaixo, sem rótulo'));
         fireEvent.press(screen.getByTestId('label-chip-Janela'));
         expect(probe()).toBe('{"p1":"l-catodo","p2":"l-anodo","p3":"l-janela"}|true');
     });
@@ -63,17 +63,17 @@ describe('LabelStepRenderer', () => {
     it('a ficha colocada sai do banco, e tocar no ponto rotulado a devolve', () => {
         render(<Harness initial='{"p2":"l-anodo"}' />);
         expect(screen.queryByTestId('label-chip-Ânodo')).toBeNull();
-        expect(screen.getByLabelText('Ponto 2, rótulo Ânodo')).toBeTruthy();
-        fireEvent.press(screen.getByLabelText('Ponto 2, rótulo Ânodo'));
+        expect(screen.getByLabelText('Ponto 2, à direita, rótulo Ânodo')).toBeTruthy();
+        fireEvent.press(screen.getByLabelText('Ponto 2, à direita, rótulo Ânodo'));
         expect(probe()).toBe('{}|false');
-        expect(screen.getByLabelText('Ponto 2, sem rótulo')).toBeTruthy();
+        expect(screen.getByLabelText('Ponto 2, à direita, sem rótulo')).toBeTruthy();
         expect(screen.getByTestId('label-chip-Ânodo').props.accessibilityState.selected).toBe(true);
     });
 
     it('o ponto tem papel de botão e alvo de 44 pt centrado no ponto, dentro da figura', () => {
         render(<Harness />);
         measure();
-        const point = screen.getByLabelText('Ponto 2, sem rótulo');
+        const point = screen.getByLabelText('Ponto 2, à direita, sem rótulo');
         expect(point.props.accessibilityRole).toBe('button');
         const style = StyleSheet.flatten(point.props.style);
         expect(style.width).toBe(44);
@@ -84,8 +84,8 @@ describe('LabelStepRenderer', () => {
 
     it('depois de conferir, cada ponto diz certo ou errado com ícone, o rótulo certo e não aceita toque', () => {
         render(<Harness submitted initial='{"p1":"l-catodo","p2":"l-fio","p3":"l-janela"}' />);
-        expect(screen.getByLabelText('Ponto 1, rótulo Cátodo, certo')).toBeTruthy();
-        const wrong = screen.getByLabelText('Ponto 2, rótulo Fio, errado; o rótulo certo é Ânodo');
+        expect(screen.getByLabelText('Ponto 1, à esquerda, rótulo Cátodo, certo')).toBeTruthy();
+        const wrong = screen.getByLabelText('Ponto 2, à direita, rótulo Fio, errado; o rótulo certo é Ânodo');
         expect(wrong.props.accessibilityState.disabled).toBe(true);
         expect(screen.getAllByTestId('label-point-verdict-correct', { includeHiddenElements: true })).toHaveLength(2);
         expect(screen.getAllByTestId('label-point-verdict-incorrect', { includeHiddenElements: true })).toHaveLength(1);
@@ -97,5 +97,44 @@ describe('LabelStepRenderer', () => {
     it('a figura leva o rótulo da interação, e não a descrição do diagrama, que entrega as partes', () => {
         render(<Harness />);
         expect(screen.getByLabelText('Rotular a imagem: tubo')).toBeTruthy();
+    });
+
+    it('com uma ficha na mão, tocar num ponto já rotulado troca: o ponto fica com a nova, a antiga volta ao banco e o foco zera', () => {
+        render(<Harness initial='{"p2":"l-anodo"}' />);
+        fireEvent.press(screen.getByTestId('label-chip-Cátodo'));
+        fireEvent.press(screen.getByLabelText('Ponto 2, à direita, rótulo Ânodo'));
+        expect(probe()).toBe('{"p2":"l-catodo"}|false');
+        expect(screen.getByLabelText('Ponto 2, à direita, rótulo Cátodo')).toBeTruthy();
+        expect(screen.queryByTestId('label-chip-Cátodo')).toBeNull();
+        expect(screen.getByTestId('label-chip-Ânodo').props.accessibilityState.selected).toBe(false);
+        // Foco zerado: tocar noutro ponto agora só o escolhe, e não leva ficha nenhuma.
+        fireEvent.press(screen.getByLabelText('Ponto 1, à esquerda, sem rótulo'));
+        expect(probe()).toBe('{"p2":"l-catodo"}|false');
+        expect(screen.getByLabelText('Ponto 1, à esquerda, sem rótulo').props.accessibilityState.selected).toBe(true);
+        // A ficha que voltou ao banco serve ao ponto escolhido, e a troca repete.
+        fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
+        expect(probe()).toBe('{"p2":"l-catodo","p1":"l-anodo"}|false');
+    });
+
+    it('anuncia o rótulo gravado, nas duas ordens de toque e na troca', () => {
+        const announce = jest.spyOn(AccessibilityInfo, 'announceForAccessibility').mockImplementation(() => undefined);
+        render(<Harness />);
+        fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
+        fireEvent.press(screen.getByLabelText('Ponto 2, à direita, sem rótulo'));
+        expect(announce).toHaveBeenLastCalledWith('Ponto 2: Ânodo');
+        fireEvent.press(screen.getByLabelText('Ponto 1, à esquerda, sem rótulo'));
+        fireEvent.press(screen.getByTestId('label-chip-Cátodo'));
+        expect(announce).toHaveBeenLastCalledWith('Ponto 1: Cátodo');
+        fireEvent.press(screen.getByTestId('label-chip-Fio'));
+        fireEvent.press(screen.getByLabelText('Ponto 2, à direita, rótulo Ânodo'));
+        expect(announce).toHaveBeenLastCalledWith('Ponto 2: Fio');
+        announce.mockRestore();
+    });
+
+    it('a dica da ficha depende do foco: com um ponto escolhido, diz que o toque põe a ficha nele', () => {
+        render(<Harness />);
+        expect(screen.getByTestId('label-chip-Fio').props.accessibilityHint).toMatch(/depois toque no ponto/);
+        fireEvent.press(screen.getByLabelText('Ponto 3, embaixo, sem rótulo'));
+        expect(screen.getByTestId('label-chip-Fio').props.accessibilityHint).toMatch(/Põe esta ficha no ponto 3/);
     });
 });

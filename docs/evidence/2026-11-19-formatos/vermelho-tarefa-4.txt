@@ -157,3 +157,68 @@ not ok 81 - label: retorno de erro igual ao de acerto reprova, como nas outras f
 - saída (reprovações):
   not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
 
+
+# Rodada 1 (correções da revisão): defeitos específicos, vistos falhando por mutação
+
+## Defeito: where pode nomear uma das partes
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `plain(point.where).includes(plain(other.label)))) err(` por `false)) err(`
+- saída (reprovações):
+  not ok 66 - label: where não nomeia a parte, a do próprio ponto nem a de outro, sem acento e sem caixa
+
+## Defeito: where pode repetir entre pontos
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (new Set(points.map((point) => norm(point?.where))).size !== points.length) err(` por `if (false) err(`
+- saída (reprovações):
+  not ok 67 - label: where repetido entre os pontos reprova
+
+## Defeito: where pode faltar ou ser curto
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `{ min: 8, max: 60 }` por `{ min: 0, max: 600 }`
+- saída (reprovações):
+  not ok 65 - label: where é obrigatório, de 8 a 60 caracteres, e entra na lista de chaves
+
+## Defeito: contrato wide aceita ponto sem where
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `|| points.some(point => !filled(point.where))` por ``
+- saída (reprovações):
+  ● contrato amplo (wide) › label (fase B) › invalid-wide-shape: ponto sem where
+
+## Defeito: ficha na mão e ponto rotulado: descarta a escolha e esvazia o ponto
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `if (assigned[pointId] && focus?.kind === 'label') {` por `if (false) {`
+- saída (reprovações):
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+  ● LabelStepRenderer › com uma ficha na mão, tocar num ponto já rotulado troca: o ponto fica com a nova, a antiga volta ao banco e o foco zera
+
+## Defeito: gravar o rótulo não anuncia
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `AccessibilityInfo.announceForAccessibility(`Ponto` por `void (`Ponto`
+- saída (reprovações):
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+
+## Defeito: dica da ficha ignora o foco
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `focusedPoint ? `Põe esta ficha` por `false ? `Põe esta ficha`
+- saída (reprovações):
+  ● LabelStepRenderer › a dica da ficha depende do foco: com um ponto escolhido, diz que o toque põe a ficha nele
+
+## Defeito: rótulo falado do ponto sem where
+- arquivo: radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx
+- troca: `const spoken = `Ponto ${index + 1}, ${point.where},` por `const spoken = `Ponto ${index + 1},`
+- saída (reprovações):
+  ● LabelStepRenderer › a dica da ficha depende do foco: com um ponto escolhido, diz que o toque põe a ficha nele
+  ● LabelStepRenderer › a ficha colocada sai do banco, e tocar no ponto rotulado a devolve
+  ● LabelStepRenderer › anuncia o rótulo gravado, nas duas ordens de toque e na troca
+  ● LabelStepRenderer › com uma ficha na mão, tocar num ponto já rotulado troca: o ponto fica com a nova, a antiga volta ao banco e o foco zera
+  ● LabelStepRenderer › depois de conferir, cada ponto diz certo ou errado com ícone, o rótulo certo e não aceita toque
+  ● LabelStepRenderer › está registrado e mostra um ponto numerado por alvo e uma ficha por rótulo, inclusive o distrator
+  ● LabelStepRenderer › ficha e depois ponto rotula; ponto e depois ficha também
+  ● LabelStepRenderer › o ponto tem papel de botão e alvo de 44 pt centrado no ponto, dentro da figura
+
+## Defeito: Maestro toca o ponto sem o where
+- arquivo: scripts/qa/generate-rtg-maestro.mjs
+- troca: `const name = `Ponto ${index + 1}, ${point.where}, sem rótulo`;` por `const name = `Ponto ${index + 1}, sem rótulo`;`
+- saída (reprovações):
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+

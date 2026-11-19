@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { LabelPayload } from '../../../types/learningActivity';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
@@ -42,23 +42,31 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
     const placed = new Set(Object.values(assigned));
     const bank = payload.labels.filter(entry => !placed.has(entry.id));
     const write = (next: Record<string, string>) => onChange(JSON.stringify(next));
+    // Grava o rótulo no ponto e o anuncia: quem ouve não vê a ficha cair no lugar.
+    const put = (pointId: string, labelId: string) => {
+        write({ ...assigned, [pointId]: labelId });
+        AccessibilityInfo.announceForAccessibility(`Ponto ${payload.points.findIndex(point => point.id === pointId) + 1}: ${textOf(labelId)}`);
+        setFocus(null);
+    };
+    const focusedPoint = focus?.kind === 'point' ? payload.points.findIndex(point => point.id === focus.id) + 1 : 0;
 
     const pressPoint = (pointId: string) => {
         if (submitted) return;
-        if (assigned[pointId]) {
+        if (assigned[pointId] && focus?.kind === 'label') {
+            // Troca: a ficha nova entra e a antiga volta ao banco, que é o que sobra fora do mapa.
+            put(pointId, focus.id);
+        } else if (assigned[pointId]) {
             const { [pointId]: returned, ...rest } = assigned;
             write(rest);
             setFocus({ kind: 'label', id: returned });
         } else if (focus?.kind === 'label') {
-            write({ ...assigned, [pointId]: focus.id });
-            setFocus(null);
+            put(pointId, focus.id);
         } else setFocus(focus?.id === pointId ? null : { kind: 'point', id: pointId });
     };
     const pressChip = (labelId: string) => {
         if (submitted) return;
         if (focus?.kind === 'point') {
-            write({ ...assigned, [focus.id]: labelId });
-            setFocus(null);
+            put(focus.id, labelId);
         } else setFocus(focus?.id === labelId ? null : { kind: 'label', id: labelId });
     };
     const verdictOf = (pointId: string, correctLabelId: string) => (submitted ? (assigned[pointId] === correctLabelId ? 'correct' : 'incorrect') : undefined);
@@ -77,7 +85,7 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                     const verdict = verdictOf(point.id, point.correctLabelId);
                     const current = assigned[point.id];
                     const selected = focus?.kind === 'point' && focus.id === point.id;
-                    const spoken = `Ponto ${index + 1}, ${current ? `rótulo ${textOf(current)}` : 'sem rótulo'}`
+                    const spoken = `Ponto ${index + 1}, ${point.where}, ${current ? `rótulo ${textOf(current)}` : 'sem rótulo'}`
                         + (verdict === 'correct' ? ', certo' : verdict === 'incorrect' ? `, errado; o rótulo certo é ${textOf(point.correctLabelId)}` : '');
                     return (
                         <Pressable
@@ -115,7 +123,7 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                         {bank.map(entry => (
                             <TapChip key={entry.id} testID={`label-chip-${entry.label}`} label={entry.label} selected={focus?.kind === 'label' && focus.id === entry.id}
                                 accessibilityLabel={`Rótulo ${entry.label}`}
-                                accessibilityHint={`Escolhe esta ficha; depois toque no ponto. Você confirma em ${confirmationLabel}.`}
+                                accessibilityHint={focusedPoint ? `Põe esta ficha no ponto ${focusedPoint}. Você confirma em ${confirmationLabel}.` : `Escolhe esta ficha; depois toque no ponto. Você confirma em ${confirmationLabel}.`}
                                 onPress={() => pressChip(entry.id)} />
                         ))}
                     </View>

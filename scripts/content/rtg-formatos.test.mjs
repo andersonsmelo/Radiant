@@ -77,7 +77,7 @@ test('o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e i
   assert.deepEqual(label.payload.points.map(point => text2.get(point.correctLabelId)), ['Cátodo com filamento', 'Ânodo', 'Janela de saída', 'Ampola de vidro']);
   const correct = new Set(label.payload.points.map(point => point.correctLabelId));
   assert.notDeepEqual(label.payload.labels.filter(entry => correct.has(entry.id)).map(entry => entry.id), label.payload.points.map(point => point.correctLabelId));
-  assert.deepEqual(label.payload.points.map(point => Object.keys(point).sort().join()), Array(4).fill('correctLabelId,id,x,y'));
+  assert.deepEqual(label.payload.points.map(point => Object.keys(point).sort().join()), Array(4).fill('correctLabelId,id,where,x,y'));
 });
 
 test('o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto', () => {
@@ -87,10 +87,10 @@ test('o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima at
   const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible')));
   const tapped = segment.filter(line => /^- tapOn: |^    id: /.test(line));
   assert.deepEqual(tapped, [
-    "- tapOn: 'Ponto 1, sem rótulo'", "    id: 'label-chip-Cátodo com filamento'",
-    "- tapOn: 'Ponto 2, sem rótulo'", "    id: 'label-chip-Ânodo'",
-    "- tapOn: 'Ponto 3, sem rótulo'", "    id: 'label-chip-Janela de saída'",
-    "- tapOn: 'Ponto 4, sem rótulo'", "    id: 'label-chip-Ampola de vidro'",
+    "- tapOn: 'Ponto 1, à esquerda, a espiral dentro da capa, sem rótulo'", "    id: 'label-chip-Cátodo com filamento'",
+    "- tapOn: 'Ponto 2, à direita, o bloco inclinado atingido pelos elétrons, sem rótulo'", "    id: 'label-chip-Ânodo'",
+    "- tapOn: 'Ponto 3, embaixo à direita, a abertura no vidro, sem rótulo'", "    id: 'label-chip-Janela de saída'",
+    "- tapOn: 'Ponto 4, a parede curva que envolve todo o conjunto, sem rótulo'", "    id: 'label-chip-Ampola de vidro'",
     "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'",
   ]);
   assert.equal(segment.filter(line => line === '    direction: UP').length, 4);
@@ -106,7 +106,7 @@ test('a caça ao erro sobre diagrama chega ao lote com regiões que levam a expl
   assert.equal(hunt.criticalSafety, true);
   assert.match(hunt.accessibility.label, /^Encontre os riscos: /);
   assert.deepEqual(hunt.payload.regions.map(region => region.id), [1, 2, 3, 4, 5].map(n => `region:rtg-2026:m01:aula-01:i4:${n}`));
-  assert.deepEqual(hunt.payload.riskRegionIds, hunt.payload.regions.slice(0, 3).map(region => region.id));
+  assert.deepEqual(hunt.payload.riskRegionIds, hunt.payload.regions.filter(region => ['Porta da sala aberta', 'Campo de luz sobre o paciente inteiro', 'Acompanhante ao lado da mesa'].includes(region.label)).map(region => region.id));
   assert.ok(hunt.payload.regions.every(region => region.explanation.length >= 25 && !Object.hasOwn(region, 'risk') && !Object.hasOwn(region, 'feedback')));
 });
 
@@ -116,7 +116,7 @@ test('o roteiro Maestro marca cada região de risco pela lista e confere', () =>
   assert.ok(at > 0, 'sem o comentário da caça ao erro');
   const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible')));
   assert.deepEqual(segment.filter(line => /^- tapOn: |^    id: /.test(line)), [
-    "    id: 'risk-hunt-Porta da sala aberta'", "    id: 'risk-hunt-Campo de luz grande demais'", "    id: 'risk-hunt-Acompanhante sem avental'",
+    "    id: 'risk-hunt-Porta da sala aberta'", "    id: 'risk-hunt-Campo de luz sobre o paciente inteiro'", "    id: 'risk-hunt-Acompanhante ao lado da mesa'",
     "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'",
   ]);
 });

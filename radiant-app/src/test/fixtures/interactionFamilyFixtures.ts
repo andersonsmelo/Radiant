@@ -110,7 +110,7 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
             ...common, id: 'fx:lb', type: 'label', accessibility: label('rotular'),
             payload: {
                 prompt: 'Rotule os pontos.', imageRef: 'diagram:tubo-raios-x',
-                points: [{ id: 'pt1', x: 0.3, y: 0.4, correctLabelId: 'la' }, { id: 'pt2', x: 0.7, y: 0.4, correctLabelId: 'lb' }],
+                points: [{ id: 'pt1', x: 0.3, y: 0.4, where: 'posição 1 da figura', correctLabelId: 'la' }, { id: 'pt2', x: 0.7, y: 0.4, where: 'posição 2 da figura', correctLabelId: 'lb' }],
                 labels: [{ id: 'lc', label: 'Terceiro' }, { id: 'la', label: 'Primeiro' }, { id: 'lb', label: 'Segundo' }],
             },
         },
