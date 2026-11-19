@@ -119,6 +119,26 @@ describe('feedbackFor', () => {
         });
     });
 
+    describe('parameter-lab', () => {
+        const lab = (hints: { tooLow: string; tooHigh: string }): LearningInteractionV2 => ({
+            ...base,
+            type: 'parameter-lab',
+            payload: { prompt: 'Ajuste.', model: 'shielding', start: 0, goal: { atLeast: 2, atMost: 3 }, hints },
+        });
+        const hints = { tooLow: 'Poucas camadas: ainda passa muita radiação.', tooHigh: 'Camadas demais para esta meta.' };
+
+        it('o erro devolve a dica do lado em que o aluno parou', () => {
+            expect(feedbackFor(lab(hints), '1', false)).toBe(hints.tooLow);
+            expect(feedbackFor(lab(hints), '5', false)).toBe(hints.tooHigh);
+        });
+
+        it('o acerto usa feedback.correct; dica em branco ou valor fora do contrato cai em feedback.incorrect', () => {
+            expect(feedbackFor(lab(hints), '2', true)).toBe('Isso mesmo.');
+            expect(feedbackFor(lab({ tooLow: ' ', tooHigh: hints.tooHigh }), '1', false)).toBe('Reveja o conceito.');
+            expect(feedbackFor(lab(hints), undefined, false)).toBe('Reveja o conceito.');
+        });
+    });
+
     describe('qualquer outro erro', () => {
         it('devolve feedback.incorrect em hotspot, ordering e matching', () => {
             const hotspot: LearningInteractionV2 = {

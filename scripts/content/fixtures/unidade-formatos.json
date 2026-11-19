@@ -1181,28 +1181,20 @@
         },
         {
           "id": "i3",
-          "type": "true-false",
+          "type": "parameter-lab",
           "role": "practice",
-          "prompt": "Julgue cada afirmação sobre os cuidados com o protetor de tireoide.",
-          "statements": [
-            {
-              "text": "Conferir o material antes do turno evita falha escondida.",
-              "correct": true,
-              "feedback": "Conferir antes do turno revela dano que só apareceria durante o uso."
-            },
-            {
-              "text": "Um material rachado pode seguir em uso até o fim do dia.",
-              "correct": false,
-              "feedback": "Material com dano visível sai de uso e a supervisão é avisada."
-            },
-            {
-              "text": "Registrar o uso ajuda a acompanhar o desgaste do material.",
-              "correct": true,
-              "feedback": "O registro mostra quanto o material foi usado e quando precisa de revisão."
-            }
-          ],
-          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe a risco.",
-          "feedbackIncorrect": "Revise as afirmações: cada uma tem a própria explicação no retorno.",
+          "prompt": "Afaste a fonte até a intensidade cair a um quarto da inicial.",
+          "model": "inverse-square",
+          "start": 1,
+          "goal": {
+            "atLeast": 2
+          },
+          "hints": {
+            "tooLow": "Ainda perto demais: afaste mais a fonte do ponto de medida.",
+            "tooHigh": "Afastou além do necessário: aproxime um pouco a fonte."
+          },
+          "feedbackCorrect": "Isso mesmo: dobrando a distância, a intensidade cai a um quarto.",
+          "feedbackIncorrect": "Ainda não chegou: observe a leitura enquanto muda a distância.",
           "help": "Leia cada afirmação com calma antes de julgar.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"

@@ -57,3 +57,13 @@ export function isOnLabGrid(id: LabModelId, value: number): boolean {
   const steps = (value - min) / step;
   return Math.abs(steps - Math.round(steps)) < 1e-9;
 }
+
+const num = (x: number) => String(x).replace('.', ',');
+
+/** A meta em texto curto, com a unidade do modelo: "2 m ou mais", "até 1,5 m", "de 3 a 5 camadas". */
+export function labGoalText(id: LabModelId, goal: { atLeast?: number; atMost?: number }): string {
+  const { unit } = LAB_MODELS[id].parameter;
+  const { atLeast, atMost } = goal;
+  if (atLeast !== undefined && atMost !== undefined) return atLeast === atMost ? `${num(atLeast)} ${unit}` : `de ${num(atLeast)} a ${num(atMost)} ${unit}`;
+  return atLeast !== undefined ? `${num(atLeast)} ${unit} ou mais` : `até ${num(atMost as number)} ${unit}`;
+}

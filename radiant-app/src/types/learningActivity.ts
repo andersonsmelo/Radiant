@@ -16,6 +16,7 @@
 
 import { ILLUSTRATION_THEMES, type IllustrationTheme } from '../ui/illustrations/illustrationPlayback';
 import type { ExposureInput } from '../features/bench/exposureModel';
+import { LAB_MODEL_IDS, isOnLabGrid, type LabModelId } from '../features/parameter-lab/labModels';
 
 export type ValidationIssue = {
     path: string;
@@ -166,10 +167,18 @@ export type OrderingPayload = {
     correctOrder: string[];
 };
 
+/**
+ * O aluno move o controle de um modelo registrado (`labModels.ts`) e vê o efeito
+ * no desenho e nas leituras. A resposta é o valor do controle; acerta quem para
+ * dentro da meta. `start` e os limites da meta caem na grade do modelo.
+ */
 export type ParameterLabPayload = {
     prompt: string;
-    parameters: { id: string; label: string; min: number; max: number; step: number }[];
-    expectedOutcome: string;
+    model: LabModelId;
+    start: number;
+    goal: { atLeast?: number; atMost?: number };
+    /** Para que lado o aluno errou: valor baixo demais ou alto demais. */
+    hints: { tooLow: string; tooHigh: string };
 };
 
 /** Os simuladores da bancada: exposição (kV e mAs) e colimação (o campo). */
@@ -708,12 +717,23 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             break;
         }
         case 'parameter-lab': {
-            const parameters = interaction.payload.parameters ?? [];
-            if (parameters.length === 0 || parameters.some((parameter) => parameter.min >= parameter.max)) {
-                push(issues, path, 'invalid-parameters');
+            const { model, start, goal, hints } = interaction.payload;
+            const known = (LAB_MODEL_IDS as readonly unknown[]).includes(model);
+            if (!known) {
+                push(issues, path, 'invalid-lab-model');
+                break;
             }
-            if (!isFilled(interaction.payload.expectedOutcome)) {
-                push(issues, path, 'missing-expected-outcome');
+            // `start` e os limites fora da grade não se alcançam pelos botões nem pelo deslizante.
+            if (!isOnLabGrid(model, start)) {
+                push(issues, path, 'invalid-lab-start');
+            }
+            const limits = [goal?.atLeast, goal?.atMost].filter((limit) => limit !== undefined);
+            if (limits.length === 0 || limits.some((limit) => !isOnLabGrid(model, limit as number))
+                || (goal.atLeast !== undefined && goal.atMost !== undefined && goal.atLeast > goal.atMost)) {
+                push(issues, path, 'invalid-lab-goal');
+            }
+            if (!isFilled(hints?.tooLow) || !isFilled(hints?.tooHigh)) {
+                push(issues, path, 'missing-hints');
             }
             break;
         }

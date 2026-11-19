@@ -1,6 +1,7 @@
 import type { BenchControl, LearningInteractionV2 } from '../../../types/learningActivity';
 import { isExposureReference } from '../../../types/learningActivity';
 import { exposureModel, subjectContrast } from '../../bench/exposureModel';
+import { isOnLabGrid } from '../../parameter-lab/labModels';
 
 /**
  * O contrato do player transporta uma resposta como `string`. Interações com
@@ -135,6 +136,22 @@ export function benchDirection(
     return kv < goal.reference.kv ? 'tooLow' : 'tooHigh';
 }
 
+/** O valor do controle do laboratório, ou `null` se não for um número na grade do modelo. */
+function labValue(interaction: Extract<LearningInteractionV2, { type: 'parameter-lab' }>, value: string | undefined): number | null {
+    const parsed = value === undefined || value.trim() === '' ? Number.NaN : Number(value);
+    return isOnLabGrid(interaction.payload.model, parsed) ? parsed : null;
+}
+
+/** Para que lado o aluno do laboratório parou: abaixo ou acima da meta. Dentro dela, e fora do contrato, é `ok`. */
+export function labDirection(interaction: LearningInteractionV2, value: string | undefined): 'ok' | 'tooLow' | 'tooHigh' {
+    if (interaction.type !== 'parameter-lab') return 'ok';
+    const current = labValue(interaction, value);
+    const { atLeast, atMost } = interaction.payload.goal;
+    if (current === null) return 'ok';
+    if (atLeast !== undefined && current < atLeast) return 'tooLow';
+    return atMost !== undefined && current > atMost ? 'tooHigh' : 'ok';
+}
+
 function isExactPermutation(actual: string[], expected: string[]): boolean {
     if (actual.length !== expected.length || new Set(actual).size !== actual.length) {
         return false;
@@ -203,6 +220,8 @@ export function isCompleteInteractionValue(
             );
         case 'bench':
             return parseBenchObject(value) !== null;
+        case 'parameter-lab':
+            return labValue(interaction, value) !== null;
         case 'cloze': {
             // Uma posição por lacuna; '' é lacuna vazia.
             const ids = decodeInteractionIdSequence(value);
@@ -267,6 +286,8 @@ export function isCorrectInteractionValue(
             );
         case 'bench':
             return isBenchGoalMet(interaction, value);
+        case 'parameter-lab':
+            return labDirection(interaction, value) === 'ok';
         case 'cloze':
             return decodeInteractionIdSequence(value).every((id, index) => id === interaction.payload.blanks[index]?.correctTokenId);
         case 'true-false':

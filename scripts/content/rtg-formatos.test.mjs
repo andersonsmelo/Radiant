@@ -123,6 +123,7 @@ test('o roteiro Maestro marca cada região de risco pela lista e confere', () =>
 
 /** O gerador Maestro só joga a primeira aula; a aula 02 vai à frente para exercitar o que ela tem. */
 const secondLessonFirst = () => ({ ...doc, lessons: [doc.lessons[1], doc.lessons[0], ...doc.lessons.slice(2)] });
+const fourthLessonFirst = () => ({ ...doc, lessons: [doc.lessons[3], doc.lessons[0], doc.lessons[1], doc.lessons[2], ...doc.lessons.slice(4)] });
 const thirdLessonFirst = () => ({ ...doc, lessons: [doc.lessons[2], doc.lessons[0], doc.lessons[1], ...doc.lessons.slice(3)] });
 
 test('a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há', () => {
@@ -223,6 +224,38 @@ test('a bancada com alvo de menos de um limite usa Diminuir; match e passo que n
   // De 60 a 45 kV em passos de 10: dois toques (50, 40), e 40 já cumpre o limite.
   assert.deepEqual(down.filter(line => line === "- tapOn: 'Diminuir Tensão'"), ["- tapOn: 'Diminuir Tensão'", "- tapOn: 'Diminuir Tensão'"]);
   assert.throws(() => lessonWith(item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; }), /rtg-maestro-bench-manual/);
+});
+
+test('o laboratório chega ao lote com os mesmos campos do contrato do app e sem chave a mais', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc }]);
+  const text = files.get('rtg-2026-m01.ts');
+  const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
+  const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
+  const lab = interactions.find(interaction => interaction.type === 'parameter-lab');
+  assert.match(lab.accessibility.label, /^Ajuste o controle: /);
+  assert.deepEqual(Object.keys(lab.payload).sort(), ['goal', 'hints', 'model', 'prompt', 'start']);
+  assert.equal(lab.payload.model, 'inverse-square');
+  assert.equal(lab.payload.start, 1);
+  assert.deepEqual(lab.payload.goal, { atLeast: 2 });
+  assert.equal(lab.feedback.correct.length > 0 && lab.feedback.incorrect.length > 0, true);
+});
+
+test('o roteiro Maestro leva a distância até a meta pelo botão Aumentar, um toque por passo, e confere', () => {
+  const lesson = renderRtgMaestroFlows([fourthLessonFirst()]).get('m01-aula-01.yaml').split('\n');
+  const at = lesson.findIndex(line => line === '# interaction i3 parameter-lab');
+  assert.ok(at > 0, 'sem o comentário do laboratório');
+  const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible: \'Passo')));
+  // De 1 a 2 m em passos de 0,5: dois toques. O botão fica abaixo do desenho, então rola até ele uma vez.
+  assert.deepEqual(segment.filter(line => /^- tapOn: /.test(line)), ["- tapOn: 'Aumentar Distância'", "- tapOn: 'Aumentar Distância'", "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'"]);
+  assert.equal(segment.filter(line => line.startsWith('- scrollUntilVisible')).length, 1);
+});
+
+test('o laboratório com meta de menos de um limite usa Diminuir, um toque por passo', () => {
+  const copy = structuredClone(fourthLessonFirst());
+  Object.assign(copy.lessons[0].interactions[2], { start: 3, goal: { atMost: 1.5 } });
+  const lesson = renderRtgMaestroFlows([copy]).get('m01-aula-01.yaml').split('\n');
+  // De 3 a 1,5 m em passos de 0,5: três toques.
+  assert.deepEqual(lesson.filter(line => line === "- tapOn: 'Diminuir Distância'"), Array(3).fill("- tapOn: 'Diminuir Distância'"));
 });
 
 test('tipo sem ramo na fábrica lança em vez de virar associação', () => {

@@ -9,6 +9,7 @@ import {
     encodeInteractionIdSequence,
     isCompleteInteractionValue,
     isCorrectInteractionValue,
+    labDirection,
 } from './InteractionAnswerValue';
 
 const base = {
@@ -500,5 +501,48 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCorrectInteractionValue(blitz, '[true,null,true,null]')).toBe(false);
         expect(isCorrectInteractionValue(blitz, '[true,false,null,false]')).toBe(true);
         expect(isCorrectInteractionValue(blitz, '[true,false,true]')).toBe(false);
+    });
+
+    describe('parameter-lab', () => {
+        const lab = (goal: { atLeast?: number; atMost?: number }, model: 'inverse-square' | 'shielding' = 'inverse-square', start = 1): LearningInteractionV2 => ({
+            ...base,
+            type: 'parameter-lab',
+            payload: { prompt: 'Afaste a fonte.', model, start, goal, hints: { tooLow: 'Mais longe.', tooHigh: 'Mais perto.' } },
+        });
+        const atLeast2 = lab({ atLeast: 2 });
+        const faixa = lab({ atLeast: 3, atMost: 5 }, 'shielding', 0);
+
+        it('só completa com número na grade do modelo: texto, vazio, fora da faixa e fora do passo não valem', () => {
+            for (const value of [undefined, '', 'abc', '2 m', 'NaN', 'Infinity', '0.5', '4.5', '1.2', '5']) {
+                expect(isCompleteInteractionValue(atLeast2, value)).toBe(false);
+            }
+            for (const value of ['1', '1.5', '2', '3.5', '4']) expect(isCompleteInteractionValue(atLeast2, value)).toBe(true);
+        });
+
+        it('acerta dentro da meta, nos limites inclusive, e erra fora dela', () => {
+            expect(isCorrectInteractionValue(atLeast2, '1.5')).toBe(false);
+            expect(isCorrectInteractionValue(atLeast2, '2')).toBe(true);
+            expect(isCorrectInteractionValue(atLeast2, '4')).toBe(true);
+            expect(isCorrectInteractionValue(faixa, '2')).toBe(false);
+            expect(isCorrectInteractionValue(faixa, '3')).toBe(true);
+            expect(isCorrectInteractionValue(faixa, '5')).toBe(true);
+            expect(isCorrectInteractionValue(faixa, '6')).toBe(false);
+            // valor fora da grade não acerta, mesmo que caia dentro dos limites
+            expect(isCorrectInteractionValue(atLeast2, '2.2')).toBe(false);
+            expect(isCorrectInteractionValue(atLeast2, undefined)).toBe(false);
+        });
+
+        it('labDirection: abaixo do limite é tooLow, acima é tooHigh, dentro é ok', () => {
+            expect(labDirection(atLeast2, '1')).toBe('tooLow');
+            expect(labDirection(atLeast2, '2')).toBe('ok');
+            expect(labDirection(faixa, '1')).toBe('tooLow');
+            expect(labDirection(faixa, '4')).toBe('ok');
+            expect(labDirection(lab({ atLeast: 2, atMost: 3 }, 'shielding', 0), '5')).toBe('tooHigh');
+            // fora da grade é fora do contrato: sem lado a indicar
+            expect(labDirection(faixa, '6')).toBe('ok');
+            expect(labDirection(lab({ atMost: 1.5 }), '3')).toBe('tooHigh');
+            expect(labDirection(atLeast2, undefined)).toBe('ok');
+            expect(labDirection(atLeast2, 'lixo')).toBe('ok');
+        });
     });
 });

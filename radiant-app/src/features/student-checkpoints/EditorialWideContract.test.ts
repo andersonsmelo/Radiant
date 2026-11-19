@@ -651,6 +651,72 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('parameter-lab (fase B)', () => {
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        function labCandidate(): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'parameter-lab', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+                prompt: 'Afaste a fonte até a intensidade cair a um quarto.',
+                model: 'inverse-square', start: 1, goal: { atLeast: 2 },
+                hints: { tooLow: 'Ainda perto demais: afaste mais a fonte.', tooHigh: 'Afastou além do necessário: aproxime um pouco.' },
+                feedbackCorrect: 'Isso mesmo: dobrando a distância, a intensidade cai a um quarto.',
+                feedbackIncorrect: 'Ainda não chegou: observe a leitura enquanto muda a distância.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const labOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'parameter-lab') throw new Error('sem laboratório');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof labOf>) => void) => {
+            const value = labCandidate();
+            mutate(labOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('o laboratório é família do contrato amplo, e o lote com ele é válido, com proveniência da interação', () => {
+            expect(WIDE_ACTIVITY_FAMILIES).toContain('parameter-lab');
+            const value = labCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const claims = value.claimProvenance.filter(claim => claim.claimId.startsWith(ID)).map(claim => claim.claimId);
+            expect(claims).toEqual(expect.arrayContaining([`${ID}:prompt`, `${ID}:answer`, `${ID}:feedback:correct`, `${ID}:feedback:incorrect`]));
+        });
+
+        it('mantém as chaves exatas do payload', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).tempo = 10; })).toContain(`unsupported-wide-payload:${ID}`);
+        });
+
+        it('invalid-wide-shape: modelo desconhecido, partida ou limite fora da grade, meta sem limite, dicas iguais ou vazias', () => {
+            expect(issuesWith(interaction => { (interaction.payload as { model: string }).model = 'refracao'; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.start = 1.2; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { atLeast: 2.2 }; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = {}; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { atLeast: 3, atMost: 2 }; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = interaction.payload.hints.tooLow; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-constant-answer: a meta já vale no ponto de partida', () => {
+            expect(issuesWith(interaction => { interaction.payload.goal = { atLeast: 1 }; })).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.goal = { atMost: 2 }; })).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.start = 4; interaction.payload.goal = { atMost: 2 }; })).toEqual([]);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+    });
+
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {
         const id = batch.sources[0].id;
         expect(issuesAfter(value => { delete (value.sources[0] as { use?: string }).use; })).toContain(`invalid-source-metadata:${id}`);

@@ -22,7 +22,7 @@ const regions = [
     { id: 'r2', label: 'Região dois', x: 0.5, y: 0.5, width: 0.3, height: 0.3 },
 ];
 
-export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFamilyFixture | 'pending'> = {
+export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFamilyFixture> = {
     'multiple-choice': {
         interaction: { ...common, id: 'fx:mc', type: 'multiple-choice', accessibility: label('escolha'), payload: { prompt: 'Qual é a certa?', options, correctOptionId: 'a' } },
         correctValue: 'a', wrongValue: 'b',
@@ -160,6 +160,14 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
         },
         correctValue: JSON.stringify([true, false, true, false]), wrongValue: JSON.stringify([false, true, true, null]),
     },
-    // Nasce pendente: a tarefa 9 define o contrato e troca por um exemplo completo.
-    'parameter-lab': 'pending',
+    'parameter-lab': {
+        interaction: {
+            ...common, id: 'fx:pl', type: 'parameter-lab', accessibility: label('laboratório de parâmetros'),
+            payload: {
+                prompt: 'Afaste a fonte até a intensidade cair a um quarto.', model: 'inverse-square', start: 1, goal: { atLeast: 2 },
+                hints: { tooLow: 'Ainda está perto demais: afaste mais.', tooHigh: 'Afastou além da conta.' },
+            },
+        },
+        correctValue: '2', wrongValue: '1.5',
+    },
 };

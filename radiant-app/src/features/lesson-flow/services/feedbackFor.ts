@@ -1,5 +1,5 @@
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
-import { benchDirection, decodeBlitzValue, decodeCategorizeValue, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
+import { benchDirection, labDirection, decodeBlitzValue, decodeCategorizeValue, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
 
 function filled(text: string | undefined): text is string {
     return typeof text === 'string' && text.trim().length > 0;
@@ -24,7 +24,7 @@ function markedFeedback(entries: { id: string; label: string; explanation?: stri
 /**
  * O texto do retorno depois de "Conferir". O acerto sempre usa `feedback.correct`.
  * No erro, quanto mais específico o que o conteudista escreveu, melhor:
- * - bancada: a dica do lado em que o aluno errou (`hints.tooLow`/`hints.tooHigh`);
+ * - bancada e laboratório: a dica do lado em que o aluno errou (`hints.tooLow`/`hints.tooHigh`);
  * - escolha: a `explanation` da alternativa marcada;
  * - qualquer outro caso, ou dica/explicação ausente: `feedback.incorrect`.
  */
@@ -45,6 +45,11 @@ export function feedbackFor(
                 : direction === 'tooHigh'
                     ? interaction.payload.hints?.tooHigh
                     : undefined;
+            return filled(hint) ? hint : interaction.feedback.incorrect;
+        }
+        case 'parameter-lab': {
+            const direction = labDirection(interaction, value);
+            const hint = direction === 'tooLow' ? interaction.payload.hints?.tooLow : direction === 'tooHigh' ? interaction.payload.hints?.tooHigh : undefined;
             return filled(hint) ? hint : interaction.feedback.incorrect;
         }
         case 'multiple-choice':

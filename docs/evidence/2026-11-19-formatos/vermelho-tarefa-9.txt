@@ -4,3 +4,62 @@
     Expected precision:    2
     Expected difference: < 0.005
     Received difference:   40
+
+# Vermelho da tarefa 9 (parameter-lab), antes da implementação (node v20.20.2)
+
+## jest (6 suítes tocadas: resposta, retorno, registro, famílias, modelo, tela)
+  ● famílias de interação › parameter-lab: tela, validação, acerto, erro e retornos
+  ● ParameterLabStepRenderer › mostra o enunciado, o valor de partida e a leitura em texto, sem responder sozinho
+  ● ParameterLabStepRenderer › o botão Aumentar sobe um passo, grava o valor como texto, atualiza a leitura e anuncia
+  ● ParameterLabStepRenderer › volta ao valor de partida depois de mexer: a resposta existe, e erra
+  ● ParameterLabStepRenderer › retoma o valor guardado
+  ● ParameterLabStepRenderer › o controle é ajustável e tem os botões com rótulo; depois de conferir, não aceita toque
+  ● ParameterLabStepRenderer › as leituras são região viva e o diagrama é decorativo para o leitor de tela
+  ● ActivityRendererRegistry › declara os dezesseis tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro, a conversa, a rodada rápida e o laboratório de parâmetros
+  ● feedbackFor › parameter-lab › o erro devolve a dica do lado em que o aluno parou
+  ● InteractionAnswerValue: famílias da 1.6 › parameter-lab › só completa com número na grade do modelo: texto, vazio, fora da faixa e fora do passo não valem
+  ● InteractionAnswerValue: famílias da 1.6 › parameter-lab › acerta dentro da meta, nos limites inclusive, e erra fora dela
+  ● InteractionAnswerValue: famílias da 1.6 › parameter-lab › labDirection: abaixo do limite é tooLow, acima é tooHigh, dentro é ok
+  ● modelos do laboratório › labGoalText: valor, faixa e limite aberto, com vírgula decimal e a unidade do modelo
+  (motivos: labDirection e labGoalText "is not a function"; parameter-lab ausente do registro; ParameterLabStepRenderer sem tela;
+   isCorrectInteractionValue devolvendo false no default; feedbackFor devolvendo feedback.incorrect em vez da dica do lado)
+
+## contrato wide, depois de a fábrica aceitar o tipo e antes do contrato (5 reprovações, todas "parameter-lab" fora de WIDE_ACTIVITY_FAMILIES)
+  ✕ o laboratório é família do contrato amplo, e o lote com ele é válido, com proveniência da interação
+  ✕ mantém as chaves exatas do payload
+  ✕ invalid-wide-shape: modelo desconhecido, partida ou limite fora da grade, meta sem limite, dicas iguais ou vazias
+  ✕ wide-constant-answer: a meta já vale no ponto de partida
+  ✕ wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+
+## verificador (node --test), antes da regra: 5 reprovações
+not ok - parameter-lab: aceita os três modelos, com meta aberta de um lado ou faixa
+not ok - parameter-lab: modelo registrado e chaves exatas
+not ok - parameter-lab: partida e limites na grade do modelo
+not ok - parameter-lab: a meta tem ao menos um limite, na ordem certa, e não se cumpre sozinha
+not ok - parameter-lab: as dicas por lado têm de 25 a 260 caracteres e são distintas
+
+## gerador Maestro, antes do ramo: 2 reprovações
+  error: 'rtg-maestro-unsupported-family:parameter-lab'
+
+## defeitos específicos vistos falhando por mutação (cada um desfeito em seguida)
+### validação do app sem a regra atLeast > atMost
+      ✕ recusa meta sem limite, com limite fora da grade ou com os limites trocados (2 ms)
+    - Expected  - 3
+    + Received  + 1
+Tests:       1 failed, 90 skipped, 4 passed, 95 total
+### contrato wide sem wide-constant-answer do laboratório
+      ✕ wide-constant-answer: a meta já vale no ponto de partida (10 ms)
+    Expected value: "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 88 skipped, 4 passed, 93 total
+### verificador sem a regra da meta que já vale na partida
+not ok 123 - parameter-lab: a meta tem ao menos um limite, na ordem certa, e não se cumpre sozinha
+  error: 'o defeito passou sem erro'
+# pass 128
+# fail 1
+### gerador Maestro que sempre aperta Aumentar
+not ok 22 - o laboratório com meta de menos de um limite usa Diminuir, um toque por passo
+  error: |-
+    Expected values to be strictly deep-equal:
+# pass 22
+# fail 1

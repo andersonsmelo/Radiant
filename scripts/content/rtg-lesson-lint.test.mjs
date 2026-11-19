@@ -787,6 +787,56 @@ test('bench: texto com travessão, caixa alta ou palavra reservada reprova, como
   expectOnly(benchItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
 
+// Formato `parameter-lab` (fase B, tarefa 9): controle sobre um modelo registrado, com meta numérica e dicas por lado.
+function labItem(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'parameter-lab', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Afaste a fonte até a intensidade cair a um quarto da inicial.',
+    model: 'inverse-square', start: 1, goal: { atLeast: 2 },
+    hints: { tooLow: 'Ainda perto demais: afaste mais a fonte do ponto.', tooHigh: 'Afastou além do necessário: aproxime um pouco a fonte.' },
+    feedbackCorrect: 'Isso mesmo: dobrando a distância, a intensidade cai a um quarto.',
+    feedbackIncorrect: 'Ainda não chegou: observe a leitura enquanto muda a distância.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc);
+}
+test('parameter-lab: aceita os três modelos, com meta aberta de um lado ou faixa', () => {
+  assert.deepEqual(labItem(), []);
+  assert.deepEqual(labItem(item => { item.start = 3; item.goal = { atMost: 1.5 }; }), []);
+  assert.deepEqual(labItem(item => { item.model = 'shielding'; item.start = 0; item.goal = { atLeast: 3, atMost: 5 }; }), []);
+  assert.deepEqual(labItem(item => { item.model = 'decay'; item.start = 0; item.goal = { atLeast: 3, atMost: 3 }; }), []);
+});
+test('parameter-lab: modelo registrado e chaves exatas', () => {
+  expectOnly(labItem(item => { item.model = 'refracao'; }), /parameter-lab: model deve ser inverse-square, shielding ou decay/);
+  expectOnly(labItem(item => { delete item.model; }), /parameter-lab: model deve ser inverse-square, shielding ou decay/);
+  expectOnly(labItem(item => { item.tempo = 10; }), /campo desconhecido: tempo/);
+  expectOnly(labItem(item => { item.goal.limite = 3; }), /campo desconhecido: limite/);
+  expectOnly(labItem(item => { item.hints.middle = 'x'; }), /campo desconhecido: middle/);
+});
+test('parameter-lab: partida e limites na grade do modelo', () => {
+  expectOnly(labItem(item => { item.start = 1.2; }), /parameter-lab: start fora da grade do modelo/);
+  expectOnly(labItem(item => { item.start = 9; }), /parameter-lab: start fora da grade do modelo/);
+  expectOnly(labItem(item => { item.start = '1'; }), /parameter-lab: start fora da grade do modelo/);
+  expectOnly(labItem(item => { item.goal = { atLeast: 2.2 }; }), /parameter-lab: limite da meta fora da grade do modelo/);
+  expectOnly(labItem(item => { item.goal = { atMost: 9 }; }), /parameter-lab: limite da meta fora da grade do modelo/);
+});
+test('parameter-lab: a meta tem ao menos um limite, na ordem certa, e não se cumpre sozinha', () => {
+  expectOnly(labItem(item => { item.goal = {}; }), /parameter-lab: a meta precisa de atLeast ou atMost/);
+  expectOnly(labItem(item => { delete item.goal; }), /parameter-lab: a meta precisa de atLeast ou atMost/);
+  expectOnly(labItem(item => { item.start = 2; item.goal = { atLeast: 3, atMost: 2.5 }; }), /parameter-lab: atLeast maior que atMost/);
+  expectOnly(labItem(item => { item.goal = { atLeast: 1 }; }), /parameter-lab: a meta já vale no ponto de partida/);
+  expectOnly(labItem(item => { item.goal = { atMost: 2 }; }), /parameter-lab: a meta já vale no ponto de partida/);
+});
+test('parameter-lab: as dicas por lado têm de 25 a 260 caracteres e são distintas', () => {
+  expectOnly(labItem(item => { item.hints.tooLow = 'Mais longe.'; }), /texto ausente ou curto/);
+  expectOnly(labItem(item => { item.hints.tooHigh = 'a'.repeat(261); }), /caracteres \(máx\. 260\)/);
+  expectOnly(labItem(item => { item.hints.tooHigh = item.hints.tooLow.toUpperCase().toLowerCase(); }), /parameter-lab: hints.tooLow e hints.tooHigh iguais/);
+  expectOnly(labItem(item => { delete item.hints; }), /parameter-lab: hints ausente/);
+  expectOnly(labItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});
+
 // Régua da múltipla escolha por aula: a revisão espaçada só mostra múltipla escolha, então sem uma
 // as cartas da aula nunca são limpas (docs/evidence/2026-11-19-formatos/medicao-revisao-espacada.md).
 const NO_MULTIPLE_CHOICE = /a aula precisa de ao menos uma múltipla escolha: sem ela, as cartas de revisão da aula nunca são limpas/;

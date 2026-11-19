@@ -139,8 +139,10 @@ describe('validateLearningActivity', () => {
                 id: 'interaction:lab-1',
                 payload: {
                     prompt: 'Ajuste e preveja o resultado.',
-                    parameters: [{ id: 'kvp', label: 'kVp', min: 40, max: 120, step: 5 }],
-                    expectedOutcome: 'contraste-menor',
+                    model: 'inverse-square',
+                    start: 1,
+                    goal: { atLeast: 2 },
+                    hints: { tooLow: 'Mais longe.', tooHigh: 'Mais perto.' },
                 },
             } as Partial<LearningInteractionV2>),
             multipleChoice({
@@ -600,6 +602,50 @@ describe('validateLearningActivity', () => {
                 expect(rulesFor(issuesFor(bench({ simulator: undefined })), 'interaction:bench-1'))
                     .toEqual(['invalid-simulator']);
             });
+        });
+    });
+
+    describe('interação parameter-lab', () => {
+        const lab = (payload: Record<string, unknown> = {}) => {
+            const interaction = multipleChoice({
+                type: 'parameter-lab',
+                id: 'interaction:lab-9',
+                payload: {
+                    prompt: 'Afaste a fonte.', model: 'inverse-square', start: 1, goal: { atLeast: 2 },
+                    hints: { tooLow: 'Mais longe.', tooHigh: 'Mais perto.' }, ...payload,
+                },
+            } as Partial<LearningInteractionV2>);
+            return rulesFor(validateLearningActivity(activity({ steps: [presentation('step:hook', 'hook'), interactionStep(interaction), presentation('step:closing', 'closing')] })), 'interaction:lab-9');
+        };
+
+        it('aceita um laboratório íntegro, com meta aberta de um lado ou faixa', () => {
+            expect(lab()).toEqual([]);
+            expect(lab({ goal: { atMost: 1.5 }, start: 3 })).toEqual([]);
+            expect(lab({ model: 'shielding', start: 0, goal: { atLeast: 3, atMost: 5 } })).toEqual([]);
+        });
+
+        it('recusa modelo desconhecido, e só por ele', () => {
+            expect(lab({ model: 'refracao' })).toEqual(['invalid-lab-model']);
+            expect(lab({ model: undefined })).toEqual(['invalid-lab-model']);
+        });
+
+        it('recusa ponto de partida fora da grade do modelo', () => {
+            expect(lab({ start: 1.2 })).toEqual(['invalid-lab-start']);
+            expect(lab({ start: 9 })).toEqual(['invalid-lab-start']);
+            expect(lab({ start: 'um' })).toEqual(['invalid-lab-start']);
+        });
+
+        it('recusa meta sem limite, com limite fora da grade ou com os limites trocados', () => {
+            expect(lab({ goal: {} })).toEqual(['invalid-lab-goal']);
+            expect(lab({ goal: { atLeast: 2.2 } })).toEqual(['invalid-lab-goal']);
+            expect(lab({ goal: { atMost: 9 } })).toEqual(['invalid-lab-goal']);
+            expect(lab({ goal: { atLeast: 3, atMost: 2 } })).toEqual(['invalid-lab-goal']);
+            expect(lab({ goal: undefined })).toEqual(['invalid-lab-goal']);
+        });
+
+        it('recusa dica vazia ou ausente', () => {
+            expect(lab({ hints: { tooLow: ' ', tooHigh: 'Mais perto.' } })).toEqual(['missing-hints']);
+            expect(lab({ hints: undefined })).toEqual(['missing-hints']);
         });
     });
 

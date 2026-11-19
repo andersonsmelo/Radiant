@@ -16,9 +16,10 @@ import { readRtgImages, readRtgSources } from '../content/build-rtg-batches.mjs'
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+const { LAB_MODELS } = appContract.loadAppContract('features/parameter-lab/labModels.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -105,6 +106,16 @@ function answerCommands(interaction) {
       const gap = up ? goal.atLeast - control.initial : control.initial - goal.atMost;
       const label = `${up ? 'Aumentar' : 'Diminuir'} ${control.label}`;
       return [scrollTo('text', label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
+    }
+    case 'parameter-lab': {
+      // Como na bancada: um passo por toque nos botões Aumentar ou Diminuir. Partida e limites caem na grade do modelo
+      // (o verificador confere), então o botão chega à meta, e a meta nunca vale na partida.
+      const { label, step } = LAB_MODELS[payload.model].parameter;
+      const { start, goal } = payload;
+      const up = goal.atLeast !== undefined && start < goal.atLeast;
+      const gap = up ? goal.atLeast - start : start - goal.atMost;
+      const button = `${up ? 'Aumentar' : 'Diminuir'} ${label}`;
+      return [scrollTo('text', button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
     }
     case 'label': {
       // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,

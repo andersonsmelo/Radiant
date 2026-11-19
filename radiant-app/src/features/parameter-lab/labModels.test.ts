@@ -1,4 +1,4 @@
-import { LAB_MODEL_IDS, LAB_MODELS, isOnLabGrid, type LabModelId } from './labModels';
+import { LAB_MODEL_IDS, LAB_MODELS, isOnLabGrid, labGoalText, type LabModelId } from './labModels';
 
 const readout = (id: LabModelId, v: number) => LAB_MODELS[id].readouts(v).map((r) => `${r.label}: ${r.value}`);
 
@@ -61,5 +61,12 @@ describe('modelos do laboratório', () => {
     expect(isOnLabGrid('decay', Number.NaN)).toBe(false);
     // erro de ponto flutuante tolerado
     expect(isOnLabGrid('inverse-square', 1 + 0.1 * 5 + 1e-12)).toBe(true);
+  });
+
+  it('labGoalText: valor, faixa e limite aberto, com vírgula decimal e a unidade do modelo', () => {
+    expect(labGoalText('inverse-square', { atLeast: 2 })).toBe('2 m ou mais');
+    expect(labGoalText('inverse-square', { atMost: 1.5 })).toBe('até 1,5 m');
+    expect(labGoalText('shielding', { atLeast: 3, atMost: 5 })).toBe('de 3 a 5 camadas');
+    expect(labGoalText('decay', { atLeast: 4, atMost: 4 })).toBe('4 meias-vidas');
   });
 });

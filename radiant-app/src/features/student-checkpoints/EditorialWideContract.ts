@@ -1,5 +1,6 @@
 import { AUTHORED_EVIDENCE_KINDS, type LearningActivityV2, type LearningInteractionV2 } from '../../types/learningActivity';
 import { DIAGRAMS, parseDiagramRef } from '../../ui/diagrams/diagramRegistry';
+import { LAB_MODEL_IDS, isOnLabGrid } from '../parameter-lab/labModels';
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 
 /**
@@ -52,7 +53,7 @@ export type EditorialWideContractV1 = Readonly<{
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -72,6 +73,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     conversation: ['prompt', 'speaker', 'name', 'turns'],
     blitz: ['prompt', 'statements', 'passCount'],
     bench: ['prompt', 'simulator', 'mode', 'controls', 'goal', 'phantomLabel', 'hints'],
+    'parameter-lab': ['prompt', 'model', 'start', 'goal', 'hints'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -157,6 +159,15 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         // Sem mexer em nada o aluno já cumpriria o alvo: a bancada se responderia sozinha.
         if (goal.kind === 'reach' && target && (goal.atLeast === undefined || target.initial >= goal.atLeast)
             && (goal.atMost === undefined || target.initial <= goal.atMost)) codes.push('wide-constant-answer');
+    } else if (interaction.type === 'parameter-lab') {
+        const { model, start, goal, hints } = interaction.payload;
+        const known = (LAB_MODEL_IDS as readonly unknown[]).includes(model);
+        const limits = [goal?.atLeast, goal?.atMost].filter((limit): limit is number => limit !== undefined);
+        if (!known || !isOnLabGrid(model, start) || limits.length === 0 || limits.some(limit => !isOnLabGrid(model, limit))
+            || (goal.atLeast !== undefined && goal.atMost !== undefined && goal.atLeast > goal.atMost)
+            || !filled(hints?.tooLow) || !filled(hints?.tooHigh) || normalized(hints.tooLow) === normalized(hints.tooHigh)) codes.push('invalid-wide-shape');
+        // Sem mexer em nada o aluno já cumpriria a meta: o laboratório se responderia sozinho.
+        else if ((goal.atLeast === undefined || start >= goal.atLeast) && (goal.atMost === undefined || start <= goal.atMost)) codes.push('wide-constant-answer');
     } else if (interaction.type === 'conversation') {
         const { speaker, name, turns } = interaction.payload;
         const positions = turns.map(turn => turn.options.findIndex(option => option.id === turn.correctOptionId));

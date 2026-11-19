@@ -9,13 +9,14 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab'];
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench'];
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
 const { BENCH_SIMULATOR_CONTROLS } = loadAppContract('types/learningActivity.ts');
+const { LAB_MODEL_IDS, isOnLabGrid } = loadAppContract('features/parameter-lab/labModels.ts');
 const { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap } = loadAppContract('features/lesson-flow/renderers/hotspotTouch.ts');
 // As 24 unidades publicadas antes da fase B: o corpo do conceito delas segue com 110 palavras mesmo com `visual`.
 // Escritas por extenso, e não lidas da fábrica: a lista da fábrica cresce, esta não.
@@ -222,6 +223,30 @@ export function lintUnit(doc, { images = [] } = {}) {
       }
     } else err(where, 'bench: goal.kind deve ser reach ou match');
   };
+  // Laboratório de parâmetros: as garantias de `validateInteraction` (invalid-lab-*, missing-hints) e do contrato `wide`
+  // (meta que não se cumpre sozinha), na voz do conteudista.
+  const lab = (where, item) => {
+    const known = LAB_MODEL_IDS.includes(item.model);
+    if (!known) err(where, `parameter-lab: model deve ser ${LAB_MODEL_IDS.join(', ').replace(/, ([^,]*)$/, ' ou $1')}`);
+    if (item.hints === undefined || item.hints === null || typeof item.hints !== 'object') err(where, 'parameter-lab: hints ausente');
+    else {
+      errors.push(...keyErrors(`${where}.hints`, item.hints, ['tooLow', 'tooHigh']));
+      text(`${where}.hints.tooLow`, item.hints.tooLow, { min: 25, max: 260 });
+      text(`${where}.hints.tooHigh`, item.hints.tooHigh, { min: 25, max: 260 });
+      if (norm(item.hints.tooLow) === norm(item.hints.tooHigh)) err(where, 'parameter-lab: hints.tooLow e hints.tooHigh iguais; cada lado do erro tem a dica própria');
+    }
+    const goal = item.goal;
+    const limits = goal && typeof goal === 'object' ? [goal.atLeast, goal.atMost].filter((limit) => limit !== undefined) : [];
+    if (goal && typeof goal === 'object') errors.push(...keyErrors(`${where}.goal`, goal, ['atLeast', 'atMost']));
+    if (limits.length === 0) err(where, 'parameter-lab: a meta precisa de atLeast ou atMost');
+    if (!known) return;
+    const onGrid = (value) => typeof value === 'number' && isOnLabGrid(item.model, value);
+    if (!onGrid(item.start)) err(where, 'parameter-lab: start fora da grade do modelo');
+    if (limits.some((limit) => !onGrid(limit))) err(where, 'parameter-lab: limite da meta fora da grade do modelo');
+    else if (limits.length === 2 && goal.atLeast > goal.atMost) err(where, 'parameter-lab: atLeast maior que atMost');
+    // Sem mexer em nada o aluno já cumpriria a meta, e o laboratório se responderia sozinho.
+    else if (limits.length && onGrid(item.start) && (goal.atLeast === undefined || item.start >= goal.atLeast) && (goal.atMost === undefined || item.start <= goal.atMost)) err(where, 'parameter-lab: a meta já vale no ponto de partida; o laboratório se responderia sozinho');
+  };
   const newFamily = (where, item) => {
     if (norm(item.feedbackCorrect) === norm(item.feedbackIncorrect)) err(where, 'retorno de erro igual ao de acerto; o erro precisa de explicação própria');
     if (item.type === 'hotspot') {
@@ -264,6 +289,9 @@ export function lintUnit(doc, { images = [] } = {}) {
     } else if (item.type === 'bench') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'simulator', 'mode', 'controls', 'goal', 'phantomLabel', 'hints']));
       bench(where, item);
+    } else if (item.type === 'parameter-lab') {
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'model', 'start', 'goal', 'hints']));
+      lab(where, item);
     } else if (item.type === 'conversation') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'speaker', 'name', 'turns']));
       // O Pixel é o guia de estudo, não um interlocutor; o paciente muda a cada cena e leva nome fictício.
