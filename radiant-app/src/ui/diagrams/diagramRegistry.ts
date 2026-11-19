@@ -67,6 +67,10 @@ import { linhasDoCranio } from './specs/linhas-do-cranio';
 import { seiosDaFace } from './specs/seios-da-face';
 import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
 import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
+import { cicloDeTestes } from './specs/ciclo-de-testes';
+import { testeDeFeixe } from './specs/teste-de-feixe';
+import { coincidenciaDeCampo } from './specs/coincidencia-de-campo';
+import { nivelDeReferencia } from './specs/nivel-de-referencia';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -137,6 +141,10 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [seiosDaFace.id]: seiosDaFace,
   [raioXMovelNoLeito.id]: raioXMovelNoLeito,
   [traumaRaioHorizontal.id]: traumaRaioHorizontal,
+  [cicloDeTestes.id]: cicloDeTestes,
+  [testeDeFeixe.id]: testeDeFeixe,
+  [coincidenciaDeCampo.id]: coincidenciaDeCampo,
+  [nivelDeReferencia.id]: nivelDeReferencia,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
