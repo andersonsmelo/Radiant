@@ -6,7 +6,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m01",
-  "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55",
+  "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72",
   "trackId": "track:rtg-2026:m01",
   "unitId": "unit:rtg-2026:m01",
   "contentVersion": "rtg-2026-m01-v1",
@@ -20,31 +20,13 @@ export const RTG_2026_M01: ProductionBatchV1 = {
   ],
   "sources": [
     {
-      "id": "source:rtg-2026:m01:lei-7394-1985",
-      "title": "Lei nº 7.394, de 29 de outubro de 1985",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7394.htm",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m01:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para fatos sobre a regulamentação da profissão, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m01:lei-12842-2013",
-      "title": "Lei nº 12.842, de 10 de julho de 2013",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12842.htm",
-      "accessedAt": "2026-11-05",
-      "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o art. 4º, VII (laudo de exames de imagem) e § 7º, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-      "title": "Diretrizes Curriculares Nacionais dos Cursos Superiores de Tecnologia em Radiologia: documento base",
-      "publisher": "Conselho Nacional de Técnicos em Radiologia (CONTER), Coordenação Nacional de Educação, 2018",
-      "url": "https://conter.gov.br/wp-content/uploads/2024/07/DCNsTecnologo.pdf",
-      "accessedAt": "2026-11-05",
-      "use": "factual-reference",
-      "licenseNote": "Documento institucional do CONTER, sem força de norma; consultado para a descrição das atividades do tecnólogo na aquisição de imagens, sem reprodução de texto."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m01:esr-efrs-seguranca-2019",
@@ -56,22 +38,22 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     },
     {
-      "id": "source:rtg-2026:m01:ms-protocolo-identificacao-2013",
-      "title": "Protocolo de Identificação do Paciente",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz (2013)",
-      "url": "https://portaldeboaspraticas.iff.fiocruz.br/biblioteca/anexo-02-protocolo-de-identificacao-do-paciente/",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m01:who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo do Programa Nacional de Segurança do Paciente; consultado para o mínimo de dois identificadores, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-      "title": "Higiene das mãos: segundos que salvam vidas",
-      "publisher": "Anvisa",
-      "url": "https://www.gov.br/anvisa/pt-br/assuntos/noticias-anvisa/2021/higiene-das-maos-segundos-que-salvam-vidas",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m01:who-higiene-maos-2009",
+      "title": "WHO Guidelines on Hand Hygiene in Health Care (First Global Patient Safety Challenge)",
+      "publisher": "World Health Organization (WHO)",
+      "url": "https://iris.who.int/server/api/core/bitstreams/b7cdc469-d662-4958-adfd-949a750e5ad9/content",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Página institucional; consultada para os cinco momentos da higiene das mãos, sem reprodução de texto."
+      "licenseNote": "Os cinco momentos da higiene das mãos; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m01:oms-higiene-maos-2025",
@@ -101,22 +83,13 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "licenseNote": "Página de orientação ao paciente; consultada para fatos sobre triagem, implantes e objetos metálicos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m01:lgpd-lei-13709-2018",
-      "title": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais)",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m01:wma-declaracao-lisboa",
+      "title": "WMA Declaration of Lisbon on the Rights of the Patient",
+      "publisher": "World Medical Association (WMA)",
+      "url": "https://www.wma.net/policies-post/wma-declaration-of-lisbon-on-the-rights-of-the-patient/",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o art. 5º, II (dado sensível) e o art. 6º (finalidade e necessidade), sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m01:ms-prc-1-2017",
-      "title": "Portaria de Consolidação nº 1, de 28 de setembro de 2017, Título I (direitos e deveres dos usuários da saúde; origem: Portaria nº 1.820/2009)",
-      "publisher": "Ministério da Saúde",
-      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2017/prc0001_03_10_2017.html",
-      "accessedAt": "2026-11-05",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal que consolidou o texto da Portaria nº 1.820/2009; consultado para os direitos a acolhimento, nome, informação, consentimento, sigilo e acompanhante (arts. 4º a 6º), sem reprodução de texto."
+      "licenseNote": "Direitos à informação, ao consentimento, à confidencialidade e à dignidade; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -129,9 +102,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m01-v1",
         "sourceIds": [
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:lei-7394-1985",
-          "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-          "source:rtg-2026:m01:lei-12842-2013"
+          "source:rtg-2026:m01:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -167,7 +138,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três tipos de situação",
-            "body": "No serviço de imagem, o tecnólogo em radiologia realiza os procedimentos de aquisição: opera o equipamento, posiciona, confere a qualidade técnica e orienta o paciente e o acompanhante durante o exame. Indicar o exame, interpretar a imagem e emitir o laudo são decisões clínicas: a Lei 12.842/2013 põe o laudo dos exames de imagem entre as atividades privativas do médico. Existe ainda uma terceira situação, a dúvida. Quando a orientação não está clara ou algo não confere, você descreve o que viu e pede apoio antes de seguir. Nesta trilha, você atua como estudante em simulação supervisionada.",
+            "body": "No serviço de imagem, o tecnólogo realiza a aquisição: opera o equipamento, posiciona, confere a qualidade técnica e orienta o paciente e o acompanhante. Indicar o exame, interpretar a imagem e emitir o laudo são decisões clínicas: quem interpreta e lauda é quem a regra do serviço habilita para isso, e o estudante nunca interpreta nem dá resultado. Quem faz o quê, a equipe local define. Existe ainda uma terceira situação, a dúvida. Quando a orientação não está clara ou algo não confere, você descreve o que viu e pede apoio antes de seguir. Nesta trilha, você atua como estudante em simulação supervisionada.",
             "keyPoints": [
               "Tarefa técnica: adquirir a imagem com qualidade e orientar o paciente.",
               "Decisão clínica: indicar, interpretar e laudar não são tarefas da aquisição.",
@@ -313,11 +284,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                   "id": "statement:rtg-2026:m01:aula-01:i3:1",
                   "text": "A resposta “pela imagem, parece que não tem nada quebrado” está dentro do seu papel.",
                   "isTrue": false,
-                  "explanation": "Errado: dizer o que a imagem mostra é interpretar, e a interpretação pertence ao laudo médico."
+                  "explanation": "Errado: dizer o que a imagem mostra é interpretar, e a interpretação pertence a quem o serviço habilita a laudar."
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-01:i3:2",
-                  "text": "Dizer que quem avalia é o médico e que o resultado vem no laudo orienta sem interpretar.",
+                  "text": "Dizer que o serviço designa quem avalia e que o resultado vem no laudo orienta sem interpretar.",
                   "isTrue": true,
                   "explanation": "Certo: você orientou a paciente sem interpretar, dizendo quem avalia e onde o resultado aparece."
                 },
@@ -461,7 +432,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m01-v1",
         "sourceIds": [
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+          "source:rtg-2026:m01:who-identificacao-paciente-2007"
         ]
       },
       "steps": [
@@ -497,7 +468,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Perguntar, comparar, explicar",
-            "body": "Antes de qualquer etapa, confirme com quem você está falando. Peça que a pessoa diga os próprios dados, como nome completo e data de nascimento, e compare com a pulseira ou a ficha. O protocolo do Ministério da Saúde pede pelo menos dois identificadores. Dizer um nome e esperar um sim induz a resposta: quem ouviu mal pode concordar. Lugar na fila, sala ou leito não identificam ninguém. Se algum dado divergir, pare e peça apoio. Com a identidade confirmada, explique a etapa em palavras do dia a dia e peça que a pessoa conte ou mostre o que vai fazer. Aqui, ficha e pulseira são sempre fictícias.",
+            "body": "Antes de qualquer etapa, confirme com quem você está falando. Peça que a pessoa diga os próprios dados e compare com a pulseira ou a ficha. A OMS recomenda dois identificadores, como nome e data de nascimento, nunca o quarto. Dizer um nome e esperar um sim induz a resposta: quem ouviu mal pode concordar. Lugar na fila, sala ou leito não identificam ninguém. Se algum dado divergir, pare e peça apoio. Com a identidade confirmada, explique a etapa em palavras do dia a dia e peça que a pessoa conte ou mostre o que vai fazer. Aqui, ficha e pulseira são sempre fictícias.",
             "keyPoints": [
               "A pessoa diz os dados; você compara com o registro.",
               "Pelo menos dois identificadores, nunca a sala ou a fila.",
@@ -788,7 +759,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m01-v1",
         "sourceIds": [
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+          "source:rtg-2026:m01:who-higiene-maos-2009",
           "source:rtg-2026:m01:oms-higiene-maos-2025"
         ]
       },
@@ -1454,8 +1425,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m01-v1",
         "sourceIds": [
           "source:rtg-2026:m01:radiologyinfo-seguranca-rm",
-          "source:rtg-2026:m01:ms-prc-1-2017",
-          "source:rtg-2026:m01:lgpd-lei-13709-2018",
+          "source:rtg-2026:m01:wma-declaracao-lisboa",
           "source:rtg-2026:m01:esr-efrs-seguranca-2019"
         ]
       },
@@ -1492,7 +1462,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Respeito em três gestos",
-            "body": "Acolher é receber a pessoa pelo nome, explicar o que vai acontecer e ouvir. A Carta dos Direitos dos Usuários da Saúde garante atendimento acolhedor, identificação pelo nome, e não por número ou doença, informação clara sobre os exames e acompanhante de livre escolha em consultas e exames. O consentimento é livre e esclarecido: a pessoa pode perguntar, recusar e mudar de ideia. Diante de uma recusa, você para e chama a equipe. Pela LGPD, dado de saúde é dado pessoal sensível. Por isso, a boa prática dos serviços é usar só o necessário para a tarefa, não comentar casos em corredores e não fotografar telas, fichas ou imagens.",
+            "body": "Acolher é receber a pessoa pelo nome, explicar o que vai acontecer e ouvir. A Declaração de Lisboa, da Associação Médica Mundial, reconhece a dignidade, a informação compreensível e o decidir por si. Na sala: chamar a pessoa do modo do serviço, sem dizer o exame. O consentimento é livre e esclarecido: a pessoa pode perguntar, recusar ou mudar de ideia. Diante de uma recusa, pare e chame a equipe. Informação que identifica o paciente é confidencial: só é revelada com consentimento explícito ou quando as regras locais exigem; entre profissionais, só a quem precisa saber para cuidar. Não comente casos em corredores nem fotografe telas ou fichas.",
             "keyPoints": [
               "Chamar pelo nome, explicar e ouvir.",
               "Consentir inclui poder recusar: recusa pede pausa e apoio.",
@@ -1563,8 +1533,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "help": "Qual chamada um estranho na sala de espera poderia ouvir sem aprender nada sobre a saúde da pessoa?",
             "type": "true-false",
             "feedback": {
-              "correct": "Você reconheceu que chamar pelo nome respeita a pessoa, enquanto exame, característica física ou motivo expõem o atendimento a todos.",
-              "incorrect": "Retome o direito ao nome e ao sigilo: a chamada usa só o nome, e os dados se conferem depois, com a pessoa, na sala."
+              "correct": "Você reconheceu que chamar do modo do serviço, sem exame nem motivo, protege a pessoa, enquanto exame, característica física ou motivo expõem o atendimento a todos.",
+              "incorrect": "Retome o cuidado com a privacidade: a chamada não revela exame nem motivo, e os dados se conferem depois, com a pessoa, na sala."
             },
             "payload": {
               "prompt": "A sala de espera simulada está cheia. Julgue cada forma de chamar a próxima pessoa quanto ao respeito e ao sigilo.",
@@ -1577,9 +1547,9 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-05:i2:2",
-                  "text": "Chamar pelo nome, sem citar exame nem motivo, respeita a pessoa e o sigilo.",
+                  "text": "Chamar do modo do serviço, sem dizer exame nem motivo, protege a privacidade.",
                   "isTrue": true,
-                  "explanation": "Certo: o nome identifica a pessoa sem revelar nada do atendimento, e os dados se conferem depois, na sala."
+                  "explanation": "Certo: o modo de chamar identifica a pessoa sem revelar nada do atendimento, e os dados se conferem depois, na sala."
                 },
                 {
                   "id": "statement:rtg-2026:m01:aula-05:i2:3",
@@ -1591,7 +1561,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                   "id": "statement:rtg-2026:m01:aula-05:i2:4",
                   "text": "Chamar pelo motivo do atendimento é um jeito respeitoso de chamar a pessoa.",
                   "isTrue": false,
-                  "explanation": "Errado: o motivo revela informação de saúde à sala inteira. Dado de saúde é dado pessoal sensível, e só se usa o necessário."
+                  "explanation": "Errado: o motivo revela informação de saúde à sala inteira. É informação de saúde, e só se usa o necessário."
                 }
               ]
             }
@@ -1613,8 +1583,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "help": "Em cada situação, o que a pessoa está pedindo: companhia, informação, sigilo ou poder dizer não?",
             "type": "matching",
             "feedback": {
-              "correct": "Você ligou cada situação a um direito: acompanhante, informação clara, sigilo das informações e consentimento, que inclui recusar.",
-              "incorrect": "Confira de novo: em cada situação, pergunte qual direito está em jogo, se companhia, informação, sigilo ou a liberdade de recusar."
+              "correct": "Você ligou cada situação a um cuidado: acompanhante, informação clara, sigilo das informações e consentimento, que inclui recusar.",
+              "incorrect": "Confira de novo: em cada situação, pergunte qual cuidado está em jogo, se companhia, informação, sigilo ou a liberdade de recusar."
             },
             "payload": {
               "prompt": "Associe cada situação da simulação ao gesto de respeito que ela pede.",
@@ -1622,7 +1592,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
                 {
                   "id": "pair:rtg-2026:m01:aula-05:i3:1",
                   "left": "Paciente pede que a filha venha junto ao setor",
-                  "right": "Acompanhante é direito; a equipe orienta onde ela fica"
+                  "right": "A companhia ajuda; a equipe orienta se e onde ela fica"
                 },
                 {
                   "id": "pair:rtg-2026:m01:aula-05:i3:2",
@@ -1780,12 +1750,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m01-v1",
         "sourceIds": [
-          "source:rtg-2026:m01:lgpd-lei-13709-2018",
+          "source:rtg-2026:m01:wma-declaracao-lisboa",
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-          "source:rtg-2026:m01:ms-protocolo-identificacao-2013",
+          "source:rtg-2026:m01:who-higiene-maos-2009",
+          "source:rtg-2026:m01:who-identificacao-paciente-2007",
           "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-          "source:rtg-2026:m01:ms-prc-1-2017",
           "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
         ]
       },
@@ -2144,7 +2113,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+          "source:rtg-2026:m01:iaea-ssg46-2018",
           "source:rtg-2026:m01:esr-efrs-seguranca-2019"
         ]
       },
@@ -2245,7 +2214,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+          "source:rtg-2026:m01:who-identificacao-paciente-2007"
         ]
       },
       {
@@ -2278,7 +2247,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+          "source:rtg-2026:m01:who-higiene-maos-2009"
         ]
       },
       {
@@ -2410,8 +2379,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m01:lgpd-lei-13709-2018",
-          "source:rtg-2026:m01:ms-prc-1-2017"
+          "source:rtg-2026:m01:wma-declaracao-lisboa"
         ]
       },
       {
@@ -2444,7 +2412,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m01:ms-prc-1-2017",
+          "source:rtg-2026:m01:wma-declaracao-lisboa",
           "source:rtg-2026:m01:esr-efrs-seguranca-2019"
         ]
       },
@@ -2512,7 +2480,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+          "source:rtg-2026:m01:who-higiene-maos-2009"
         ]
       }
     ]
@@ -2585,9 +2553,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2596,9 +2562,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2607,9 +2571,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2618,9 +2580,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2629,9 +2589,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2640,9 +2598,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2651,9 +2607,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2662,9 +2616,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2673,9 +2625,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2684,9 +2634,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2695,9 +2643,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2706,9 +2652,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2717,8 +2661,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2732,8 +2675,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2753,8 +2695,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2762,8 +2703,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2771,8 +2711,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2830,8 +2769,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2845,8 +2783,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2866,8 +2803,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2875,8 +2811,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lei-12842-2013",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2885,9 +2820,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2896,9 +2829,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2907,9 +2838,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:lei-7394-1985",
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
-        "source:rtg-2026:m01:lei-12842-2013"
+        "source:rtg-2026:m01:iaea-ssg46-2018"
       ]
     },
     {
@@ -2917,7 +2846,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2932,7 +2861,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2953,7 +2882,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -2962,7 +2891,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3071,7 +3000,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3080,7 +3009,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3107,7 +3036,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3116,7 +3045,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+        "source:rtg-2026:m01:iaea-ssg46-2018",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3250,7 +3179,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3259,7 +3188,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3268,7 +3197,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3277,7 +3206,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3286,7 +3215,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3295,7 +3224,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3304,7 +3233,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3313,7 +3242,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3322,7 +3251,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3349,7 +3278,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3358,7 +3287,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3367,7 +3296,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3436,7 +3365,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3445,7 +3374,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3454,7 +3383,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3513,7 +3442,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3534,7 +3463,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3549,7 +3478,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3558,7 +3487,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3567,7 +3496,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3576,7 +3505,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3603,7 +3532,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3612,7 +3541,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -3720,7 +3649,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3729,7 +3658,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3738,7 +3667,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3747,7 +3676,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3756,7 +3685,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3765,7 +3694,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3774,7 +3703,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3783,7 +3712,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3792,7 +3721,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3801,7 +3730,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3810,7 +3739,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3819,7 +3748,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3828,7 +3757,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3837,7 +3766,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3846,7 +3775,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3855,7 +3784,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3864,7 +3793,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3873,7 +3802,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3882,7 +3811,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3891,7 +3820,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -3901,7 +3830,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:oms-higiene-maos-2025",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3922,7 +3851,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:oms-higiene-maos-2025",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3937,7 +3866,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:oms-higiene-maos-2025",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3946,7 +3875,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:oms-higiene-maos-2025",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3955,7 +3884,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3970,7 +3899,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -3985,7 +3914,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4000,7 +3929,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4009,7 +3938,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4018,7 +3947,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:oms-higiene-maos-2025"
       ]
     },
@@ -4028,7 +3957,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:oms-higiene-maos-2025"
       ]
     },
@@ -4038,7 +3967,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
         "source:rtg-2026:m01:oms-higiene-maos-2025"
       ]
     },
@@ -4047,7 +3976,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4073,7 +4002,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4081,7 +4010,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4089,7 +4018,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4147,7 +4076,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4155,7 +4084,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4181,7 +4110,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4189,7 +4118,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4198,7 +4127,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4225,7 +4154,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4234,7 +4163,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4243,7 +4172,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -4848,8 +4777,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4863,8 +4791,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4884,8 +4811,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4893,8 +4819,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4902,8 +4827,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4911,8 +4835,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4920,8 +4843,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4929,8 +4851,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4938,8 +4859,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4947,8 +4867,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4956,8 +4875,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4965,8 +4883,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4974,8 +4891,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4983,8 +4899,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -4992,8 +4907,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5001,8 +4915,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5016,8 +4929,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5025,8 +4937,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5046,8 +4957,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5055,8 +4965,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5064,7 +4973,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5079,7 +4988,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5100,7 +5009,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5109,7 +5018,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5119,8 +5028,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm",
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5130,8 +5038,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm",
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5141,8 +5048,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm",
-        "source:rtg-2026:m01:ms-prc-1-2017",
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5151,8 +5057,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5172,8 +5077,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5187,8 +5091,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5196,8 +5099,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5205,7 +5107,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5214,7 +5116,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5241,7 +5143,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5250,7 +5152,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5259,8 +5161,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5280,8 +5181,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5295,8 +5195,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5304,8 +5203,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5313,7 +5211,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5327,7 +5225,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5347,7 +5245,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5355,7 +5253,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5363,7 +5261,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5371,7 +5269,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5397,7 +5295,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5405,7 +5303,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5414,8 +5312,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5424,8 +5322,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5434,8 +5332,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5444,8 +5342,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5454,8 +5352,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5464,8 +5362,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5474,8 +5372,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5484,8 +5382,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5494,8 +5392,8 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5505,7 +5403,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5515,7 +5413,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5525,7 +5423,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5535,7 +5433,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5545,7 +5443,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5555,7 +5453,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5565,7 +5463,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5575,7 +5473,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5585,7 +5483,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5595,7 +5493,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017"
+        "source:rtg-2026:m01:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5726,12 +5624,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017",
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
       ]
     },
@@ -5740,12 +5637,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017",
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
       ]
     },
@@ -5754,12 +5650,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:lgpd-lei-13709-2018",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m01:who-higiene-maos-2009",
+        "source:rtg-2026:m01:who-identificacao-paciente-2007",
         "source:rtg-2026:m01:radiologyinfo-seguranca-radiacao",
-        "source:rtg-2026:m01:ms-prc-1-2017",
         "source:rtg-2026:m01:radiologyinfo-seguranca-rm"
       ]
     },
@@ -5819,7 +5714,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -5828,7 +5723,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -5855,7 +5750,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -5864,7 +5759,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+        "source:rtg-2026:m01:who-higiene-maos-2009"
       ]
     },
     {
@@ -5873,7 +5768,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5888,7 +5783,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5909,7 +5804,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5918,7 +5813,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m01:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5926,7 +5821,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5953,7 +5848,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5962,7 +5857,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     },
@@ -5971,7 +5866,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m01:ms-prc-1-2017",
+        "source:rtg-2026:m01:wma-declaracao-lisboa",
         "source:rtg-2026:m01:esr-efrs-seguranca-2019"
       ]
     }
@@ -6046,7 +5941,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m01:conter-dcn-tecnologo-2018",
+            "source:rtg-2026:m01:iaea-ssg46-2018",
             "source:rtg-2026:m01:esr-efrs-seguranca-2019"
           ]
         }
@@ -6085,7 +5980,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-            "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+            "source:rtg-2026:m01:who-identificacao-paciente-2007"
           ]
         },
         "transfer": {
@@ -6155,7 +6050,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+            "source:rtg-2026:m01:who-higiene-maos-2009"
           ]
         },
         "transfer": {
@@ -6189,7 +6084,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-            "source:rtg-2026:m01:anvisa-higiene-maos-2021"
+            "source:rtg-2026:m01:who-higiene-maos-2009"
           ]
         }
       },
@@ -6296,8 +6191,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m01:lgpd-lei-13709-2018",
-            "source:rtg-2026:m01:ms-prc-1-2017"
+            "source:rtg-2026:m01:wma-declaracao-lisboa"
           ]
         },
         "transfer": {
@@ -6305,7 +6199,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m01:aula-05"
           ],
-          "prompt": "Em outra simulação, um adolescente chega para uma radiografia e pede, em voz baixa, que você o chame pelo nome social, que consta na ficha fictícia. Como você o chama?",
+          "prompt": "Em outra simulação, um adolescente chega para uma radiografia e diz, em voz baixa, como prefere ser chamado, e esse nome de uso consta na ficha fictícia, junto com os dados de identificação. Como você o chama?",
           "options": [
             {
               "id": "option:rtg-2026:m01:aula-05:rt:a",
@@ -6313,7 +6207,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:m01:aula-05:rt:b",
-              "label": "Pelo nome social, como ele pediu."
+              "label": "Pelo nome que ele pediu."
             },
             {
               "id": "option:rtg-2026:m01:aula-05:rt:c",
@@ -6326,11 +6220,11 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:m01:aula-05:rt:b",
           "feedback": {
-            "correct": "Você usou o nome de preferência registrado na ficha, como a Carta dos Direitos dos Usuários assegura.",
+            "correct": "Você respeitou o nome que ele pediu. A identidade segue conferida pelos dados da ficha.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m01:ms-prc-1-2017"
+            "source:rtg-2026:m01:wma-declaracao-lisboa"
           ]
         }
       },
@@ -6368,7 +6262,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m01:esr-efrs-seguranca-2019",
-            "source:rtg-2026:m01:ms-protocolo-identificacao-2013"
+            "source:rtg-2026:m01:who-identificacao-paciente-2007"
           ]
         },
         "transfer": {
@@ -6401,7 +6295,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m01:ms-prc-1-2017",
+            "source:rtg-2026:m01:wma-declaracao-lisboa",
             "source:rtg-2026:m01:esr-efrs-seguranca-2019"
           ]
         }
@@ -6422,7 +6316,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     },
     {
       "schemaVersion": 1,
@@ -6431,7 +6325,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     },
     {
       "schemaVersion": 1,
@@ -6440,7 +6334,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     },
     {
       "schemaVersion": 1,
@@ -6449,7 +6343,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     },
     {
       "schemaVersion": 1,
@@ -6458,7 +6352,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     },
     {
       "schemaVersion": 1,
@@ -6467,7 +6361,7 @@ export const RTG_2026_M01: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "27a448b1d177b3ba363bf82762c032674ba32b6126b584358f0e7237d26aef55"
+      "materialSha256": "8d02c53fcae40d7bf8c1fb7e7cd974dd0c920cec3d10f1ff690a767b36861a72"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

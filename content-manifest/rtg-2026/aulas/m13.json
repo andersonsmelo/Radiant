@@ -423,7 +423,7 @@
       "id": "m13-02",
       "code": "M13.02",
       "title": "Proteção e rastreio em MN",
-      "objective": "Hoje você vai conseguir diferenciar exposição de contaminação e dizer quando parar e chamar o supervisor de proteção radiológica.",
+      "objective": "Hoje você vai conseguir diferenciar exposição de contaminação e dizer quando parar e chamar o responsável pela proteção radiológica.",
       "competency": "Reconhecer contaminação, registro e necessidade de apoio em medicina nuclear.",
       "minutes": 5,
       "scene": {
@@ -445,11 +445,11 @@
       },
       "concept": {
         "title": "Exposição não é contaminação",
-        "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear, uma gota de radiofármaco fora do lugar já é contaminação. Por isso, segundo a orientação internacional, o serviço usa luvas descartáveis e jaleco de manga longa, reserva espera separada ao paciente injetado e monitora corpo, roupas e superfícies ao sair da área controlada e a cada suspeita, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o supervisor de proteção radiológica.",
+        "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear, uma gota de radiofármaco fora do lugar já é contaminação. Por isso, segundo a orientação internacional, o serviço usa luvas descartáveis e jaleco de manga longa, reserva espera separada ao paciente injetado e monitora corpo, roupas e superfícies ao sair da área controlada e a cada suspeita, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o responsável pela proteção radiológica.",
         "keyPoints": [
           "Exposição: energia que chega. Contaminação: material fora do lugar.",
           "Monitoração sistemática, ao sair da área controlada e a cada suspeita; sempre registrada.",
-          "Suspeitou? Não toque, avise e chame o supervisor de proteção radiológica."
+          "Suspeitou? Não toque, avise e chame o responsável pela proteção radiológica."
         ]
       },
       "interactions": [
@@ -526,7 +526,7 @@
             {
               "label": "Exposição: a energia chegou, o material não",
               "correct": true,
-              "feedback": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao supervisor de proteção radiológica."
+              "feedback": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao responsável pela proteção radiológica."
             },
             {
               "label": "Contaminação externa: a radiação gruda na roupa",
@@ -563,9 +563,9 @@
               "feedback": "Enxugar pode espalhar o material e contaminar você. Retome: estudante não limpa; para e chama."
             },
             {
-              "label": "Não toca, avisa quem se aproxima e chama o supervisor",
+              "label": "Não toca, avisa quem se aproxima e chama o responsável",
               "correct": true,
-              "feedback": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o supervisor de proteção radiológica, que monitora e decide."
+              "feedback": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o responsável pela proteção radiológica, que monitora e decide."
             },
             {
               "label": "Passa ao lado com cuidado e segue o roteiro do dia",
@@ -575,7 +575,7 @@
             {
               "label": "Pede à funcionária que lave o piso com bastante água",
               "correct": false,
-              "feedback": "Lavar espalha o material e expõe a colega. A suspeita vai primeiro ao supervisor de proteção radiológica."
+              "feedback": "Lavar espalha o material e expõe a colega. A suspeita vai primeiro ao responsável pela proteção radiológica."
             }
           ],
           "help": "Você não sabe o que é o líquido. Pense em quem tem instrumento e autoridade para verificar.",
@@ -619,7 +619,7 @@
       ],
       "closing": {
         "title": "Energia que chega, material que fica",
-        "body": "Agora você consegue separar exposição de contaminação, reconhecer as medidas do setor (barreira, monitoração e registro) e agir diante de uma suspeita: não tocar, avisar e chamar o supervisor de proteção radiológica.",
+        "body": "Agora você consegue separar exposição de contaminação, reconhecer as medidas do setor (barreira, monitoração e registro) e agir diante de uma suspeita: não tocar, avisar e chamar o responsável pela proteção radiológica.",
         "line": {
           "speaker": "lia",
           "text": "Registrar não é burocracia: é o que permite a alguém refazer o caminho do material depois."
@@ -673,9 +673,9 @@
               "feedback": "Quantidade pequena também é contaminação, e sem aviso não há registro nem verificação. Retome a conduta do estudante."
             },
             {
-              "label": "Parar e avisar o supervisor de proteção radiológica",
+              "label": "Parar e avisar o responsável pela proteção radiológica",
               "correct": true,
-              "feedback": "Isso. É uma suspeita de contaminação: quem verifica e orienta é o supervisor, com o monitor adequado."
+              "feedback": "Isso. É uma suspeita de contaminação: quem verifica e orienta é o responsável, com o monitor adequado."
             }
           ],
           "sourceIds": [
@@ -1764,7 +1764,7 @@
       },
       "concept": {
         "title": "Três perguntas para qualquer setor",
-        "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O responsável pelo setor e o supervisor de proteção radiológica. O alcance da atuação do técnico ou tecnólogo varia entre países e serviços; o serviço define o que cada um faz. Como estudante, sob supervisão, você não administra radiofármaco, não planeja nem entrega dose nem faz ato invasivo.",
+        "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O responsável pelo setor e o responsável pela proteção radiológica. O alcance da atuação do técnico ou tecnólogo varia entre países e serviços; o serviço define o que cada um faz. Como estudante, sob supervisão, você não administra radiofármaco, não planeja nem entrega dose nem faz ato invasivo.",
         "keyPoints": [
           "Onde está a fonte: no paciente, no aparelho ou no tubo?",
           "O que se confere antes: registro, posição ou barreiras?",
@@ -1977,7 +1977,7 @@
           ]
         },
         {
-          "prompt": "Em qual destas situações a suspeita é de contaminação, e o apoio a chamar é o supervisor de proteção radiológica?",
+          "prompt": "Em qual destas situações a suspeita é de contaminação, e o apoio a chamar é o responsável pela proteção radiológica?",
           "options": [
             {
               "label": "Máscara de radioterapia folgada no rosto da paciente",
@@ -1987,7 +1987,7 @@
             {
               "label": "Líquido no chão perto da bancada de radiofármacos",
               "correct": true,
-              "feedback": "Isso. Material possivelmente radioativo fora do lugar: não tocar, avisar quem se aproxima e chamar o supervisor."
+              "feedback": "Isso. Material possivelmente radioativo fora do lugar: não tocar, avisar quem se aproxima e chamar o responsável."
             },
             {
               "label": "Paciente ansioso antes da tomografia de simulação",

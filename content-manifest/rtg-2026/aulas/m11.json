@@ -35,13 +35,13 @@
       "licenseNote": "Página educativa do MagLab; consultada para os componentes, o ímã supercondutor e os números do campo, sem reprodução de texto."
     },
     {
-      "id": "anvisa-in-97-2021",
-      "title": "Instrução Normativa IN nº 97, de 27 de maio de 2021",
-      "publisher": "Anvisa",
-      "url": "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000097&seqAto=000&valorAno=2021&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true",
-      "accessedAt": "2026-11-06",
+      "id": "acr-manual-mr-safety-2024",
+      "title": "ACR Manual on MR Safety (2024)",
+      "publisher": "American College of Radiology (ACR)",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/Clinical/Radiology-Safety/Manual-on-MR-Safety.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado no sistema de legislação da Anvisa para zonas, sinalização, detecção de metais, comunicação e proteção auditiva, sem reprodução de texto."
+      "licenseNote": "Zonas de segurança em RM, porta da sala do ímã, acompanhantes, proteção auditiva e gestantes; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "shah-aran-2023-seguranca-rm",
@@ -198,7 +198,7 @@
           "feedbackIncorrect": "Alguma zona trocou de lugar. Retome a sequência: do acesso livre até a sala do equipamento, a restrição só aumenta.",
           "help": "Caminhe mentalmente do corredor público até o ímã: o que muda a cada passo?",
           "sourceIds": [
-            "anvisa-in-97-2021",
+            "acr-manual-mr-safety-2024",
             "shah-aran-2023-seguranca-rm"
           ]
         },
@@ -219,7 +219,7 @@
           "help": "Pense no que cada etapa precisa já ter em mãos para acontecer.",
           "sourceIds": [
             "shah-aran-2023-seguranca-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -254,7 +254,7 @@
           "help": "Compare o que ela marcou no papel com o que acabou de contar.",
           "sourceIds": [
             "fda-rm-beneficios-riscos",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -288,7 +288,7 @@
           "help": "A triagem vale só para o paciente? Pense no que o campo faz com aço.",
           "sourceIds": [
             "fda-rm-beneficios-riscos",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         }
       ],
@@ -328,7 +328,7 @@
           "sourceIds": [
             "fda-rm-beneficios-riscos",
             "nibib-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -420,7 +420,7 @@
             ],
             "sourceIds": [
               "fda-rm-beneficios-riscos",
-              "anvisa-in-97-2021"
+              "acr-manual-mr-safety-2024"
             ]
           }
         }
@@ -592,7 +592,7 @@
           "sourceIds": [
             "fda-rm-beneficios-riscos",
             "nibib-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -1836,7 +1836,7 @@
           "sourceIds": [
             "shah-aran-2023-seguranca-rm",
             "baker-2024-queimaduras-rf",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -1871,7 +1871,7 @@
           "sourceIds": [
             "baker-2024-queimaduras-rf",
             "nibib-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -1907,7 +1907,7 @@
           "sourceIds": [
             "fda-rm-beneficios-riscos",
             "nibib-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         },
         {
@@ -1941,7 +1941,7 @@
           "help": "Compare três coisas: o pedido, a tela e onde a bobina está montada.",
           "sourceIds": [
             "shah-aran-2023-seguranca-rm",
-            "anvisa-in-97-2021"
+            "acr-manual-mr-safety-2024"
           ]
         }
       ],
@@ -2040,7 +2040,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-in-97-2021",
+              "acr-manual-mr-safety-2024",
               "fda-rm-beneficios-riscos"
             ]
           }
@@ -2072,7 +2072,7 @@
             ],
             "sourceIds": [
               "fda-rm-beneficios-riscos",
-              "anvisa-in-97-2021"
+              "acr-manual-mr-safety-2024"
             ]
           }
         }

@@ -6,7 +6,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m09",
-  "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097",
+  "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53",
   "trackId": "track:rtg-2026:m09",
   "unitId": "unit:rtg-2026:m09",
   "contentVersion": "rtg-2026-m09-v1",
@@ -56,58 +56,49 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "licenseNote": "CC BY 4.0. Atribuição: Roditi, Khan e colaboradores, ESUR Contrast Media Safety Committee (2022). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     },
     {
-      "id": "source:rtg-2026:m09:cfm-parecer-17-2019",
-      "title": "Parecer CFM nº 17/2019 (Processo-Consulta CFM nº 19/2018): indicação e prescrição de exames com uso de contraste",
-      "publisher": "Conselho Federal de Medicina (cópia no site do Colégio Brasileiro de Radiologia)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/Parecer-CFM-de-2019-no-17_Uso-de-contraste.pdf",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m09:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Parecer de conselho profissional; consultado para a responsabilidade por indicação, dose, via e prescrição e para a supervisão médica da administração, sem reprodução de texto."
+      "licenseNote": "Responsabilidade do médico radiologista pela justificação e pela proteção do paciente no exame (parágrafos 3.154 a 3.157); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m09:anvisa-rdc-36-2013",
-      "title": "RDC nº 36, de 25 de julho de 2013",
-      "publisher": "Anvisa (Biblioteca Virtual em Saúde do Ministério da Saúde)",
-      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2013/rdc0036_25_07_2013.html",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para o Núcleo de Segurança do Paciente e a notificação de eventos adversos (arts. 3º, 7º, 9º e 10), sem reprodução de texto."
+      "id": "source:rtg-2026:m09:esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+      "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     },
     {
-      "id": "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-      "title": "Protocolo de Identificação do Paciente",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
-      "url": "https://portaldeboaspraticas.iff.fiocruz.br/biblioteca/anexo-02-protocolo-de-identificacao-do-paciente/",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m09:who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo do Programa Nacional de Segurança do Paciente; consultado para o mínimo de dois identificadores conferidos antes do cuidado, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m09:lei-13146-2015",
-      "title": "Lei nº 13.146, de 6 de julho de 2015 (Lei Brasileira de Inclusão da Pessoa com Deficiência)",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m09:onu-crpd-2006",
+      "title": "Convention on the Rights of Persons with Disabilities",
+      "publisher": "United Nations",
+      "url": "https://www.un.org/disabilities/documents/convention/convoptprot-e.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para os arts. 3º (barreiras e comunicação), 12 (consentimento), 24 e 25 (acesso e acessibilidade em saúde), sem reprodução de texto."
+      "licenseNote": "Artigos 9, 21 e 25 (acessibilidade, informação em formatos acessíveis, saúde); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m09:decreto-5626-2005",
-      "title": "Decreto nº 5.626, de 22 de dezembro de 2005",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/decreto/d5626.htm",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m09:wma-declaracao-lisboa",
+      "title": "WMA Declaration of Lisbon on the Rights of the Patient",
+      "publisher": "World Medical Association (WMA)",
+      "url": "https://www.wma.net/policies-post/wma-declaration-of-lisbon-on-the-rights-of-the-patient/",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Decreto federal; consultado para o art. 25, IX (atendimento por profissionais capacitados em Libras ou em sua tradução e interpretação), sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m09:lei-10436-2002",
-      "title": "Lei nº 10.436, de 24 de abril de 2002",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10436.htm",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o reconhecimento da Libras (art. 1º) e o atendimento adequado em serviços de saúde (art. 3º), sem reprodução de texto."
+      "licenseNote": "Direitos à informação e ao consentimento; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -119,10 +110,10 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m09-v1",
         "sourceIds": [
-          "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+          "source:rtg-2026:m09:who-identificacao-paciente-2007",
           "source:rtg-2026:m09:radiologyinfo-tc",
           "source:rtg-2026:m09:radiologyinfo-contraste",
-          "source:rtg-2026:m09:cfm-parecer-17-2019",
+          "source:rtg-2026:m09:iaea-gsr-part3-2014",
           "source:rtg-2026:m09:acr-manual-contraste-2026"
         ]
       },
@@ -432,7 +423,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m09-v1",
         "sourceIds": [
           "source:rtg-2026:m09:radiologyinfo-contraste",
-          "source:rtg-2026:m09:cfm-parecer-17-2019"
+          "source:rtg-2026:m09:iaea-gsr-part3-2014",
+          "source:rtg-2026:m09:esr-efrs-seguranca-2019"
         ]
       },
       "steps": [
@@ -473,7 +465,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O que o contraste faz e quem decide",
-            "body": "Meio de contraste é uma substância que muda, por um tempo, o modo como uma estrutura aparece no exame. Iodo e bário atenuam mais os raios X: o bário destaca o tubo digestivo, e o iodo, vasos e órgãos. O gadolínio é usado na ressonância magnética, e as microbolhas, na ultrassonografia. Contraste não emite radiação nem é corante permanente. Pode ser dado por via oral, retal ou pela veia. Pelo parecer 17/2019 do CFM, indicar, definir dose e via e prescrever cabem ao médico do serviço de radiologia, e a administração ocorre sob supervisão médica. Nesta trilha, você não prescreve, não escolhe nem administra.",
+            "body": "Meio de contraste é uma substância que muda, por um tempo, o modo como uma estrutura aparece no exame. Iodo e bário atenuam mais os raios X: o bário destaca o tubo digestivo, e o iodo, vasos e órgãos. O gadolínio é usado na ressonância magnética, e as microbolhas, na ultrassonografia. Contraste não emite radiação nem é corante permanente. Pode ser dado por via oral, retal ou pela veia. O médico responsável justifica o exame. Quem indica, prescreve e administra o contraste segue o protocolo do serviço e a prática local; você não prescreve, não escolhe e não administra.",
             "keyPoints": [
               "Contraste destaca uma estrutura por um tempo; não emite radiação.",
               "Indicação, dose, via e prescrição: médico do serviço de radiologia.",
@@ -585,36 +577,36 @@ export const RTG_2026_M09: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: O pedido de Seu Jorge diz “tomografia com contraste”. Segundo o parecer do CFM citado na aula, quem define se o contraste será usado e o prescreve?"
+              "label": "Múltipla escolha: O pedido de Seu Jorge diz “tomografia com contraste”. Segundo a aula, quem é o responsável por justificar o exame?"
             },
-            "help": "Separe quem pede o exame, quem agenda, quem opera e quem responde pela prescrição.",
+            "help": "Separe quem agenda, quem opera, quem é estudante e quem responde pela justificação.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Pelo parecer 17/2019 do CFM, indicação, dose, via e prescrição cabem ao médico do serviço de radiologia.",
+              "correct": "O médico responsável justifica o exame; indicar, prescrever e administrar o contraste segue o protocolo do serviço e a prática local.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "O pedido de Seu Jorge diz “tomografia com contraste”. Segundo o parecer do CFM citado na aula, quem define se o contraste será usado e o prescreve?",
+              "prompt": "O pedido de Seu Jorge diz “tomografia com contraste”. Segundo a aula, quem é o responsável por justificar o exame?",
               "options": [
                 {
                   "id": "option:rtg-2026:m09:aula-02:i3:a",
                   "label": "O tecnólogo que opera o equipamento.",
-                  "explanation": "Operar o equipamento é tarefa técnica. Retome: indicação e prescrição são decisões médicas."
+                  "explanation": "Operar o equipamento é tarefa técnica. Retome: a justificação cabe ao médico responsável."
                 },
                 {
                   "id": "option:rtg-2026:m09:aula-02:i3:b",
                   "label": "A recepção, ao agendar o horário do exame.",
-                  "explanation": "A agenda registra o que foi definido, não define. Confira de novo de quem é a prescrição."
+                  "explanation": "A agenda registra o que foi definido, não define. Confira de novo quem justifica o exame."
                 },
                 {
                   "id": "option:rtg-2026:m09:aula-02:i3:c",
-                  "label": "O médico que pediu o exame, sozinho.",
-                  "explanation": "O solicitante informa os dados clínicos e pode expor suas razões, mas o parecer põe a decisão final no serviço de radiologia."
+                  "label": "O estudante, se achar que o contraste ajuda.",
+                  "explanation": "O estudante não prescreve nem escolhe contraste. Retome o seu papel."
                 },
                 {
                   "id": "option:rtg-2026:m09:aula-02:i3:d",
-                  "label": "O médico do serviço de radiologia.",
-                  "explanation": "Pelo parecer 17/2019 do CFM, indicação, dose, via e prescrição cabem ao médico do serviço de radiologia."
+                  "label": "O médico responsável pelo exame.",
+                  "explanation": "O médico responsável justifica o exame; indicar, prescrever e administrar o contraste segue o protocolo do serviço e a prática local."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m09:aula-02:i3:d"
@@ -1060,8 +1052,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m09-v1",
         "sourceIds": [
           "source:rtg-2026:m09:acr-manual-contraste-2026",
-          "source:rtg-2026:m09:cfm-parecer-17-2019",
-          "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+          "source:rtg-2026:m09:esr-efrs-seguranca-2019",
+          "source:rtg-2026:m09:who-identificacao-paciente-2007",
           "source:rtg-2026:m09:radiologyinfo-contraste",
           "source:rtg-2026:m09:esur-extravasamento-2022"
         ]
@@ -1381,10 +1373,9 @@ export const RTG_2026_M09: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m09-v1",
         "sourceIds": [
           "source:rtg-2026:m09:acr-manual-contraste-2026",
-          "source:rtg-2026:m09:anvisa-rdc-36-2013",
+          "source:rtg-2026:m09:esr-efrs-seguranca-2019",
           "source:rtg-2026:m09:radiologyinfo-contraste",
-          "source:rtg-2026:m09:esur-extravasamento-2022",
-          "source:rtg-2026:m09:cfm-parecer-17-2019"
+          "source:rtg-2026:m09:esur-extravasamento-2022"
         ]
       },
       "steps": [
@@ -1425,7 +1416,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Parar, chamar, ficar, relatar",
-            "body": "Depois do contraste, alguns sinais pedem ação imediata: placas ou coceira na pele, inchaço no rosto, espirros e nariz entupido, rouquidão, aperto na garganta, chiado, falta de ar, tontura, suor frio, vômito que não passa, dor ou inchaço no local do acesso. Não dá para saber de início se um sinal vai progredir, então todo sinal é avisado. Você não classifica nem medica. Na ordem ensinada nesta aula: parar e avisar quem injeta, chamar a equipe pelo canal do serviço, ficar com a pessoa e relatar o que viu e quando começou. Depois, o ocorrido é registrado e segue para o Núcleo de Segurança do Paciente.",
+            "body": "Depois do contraste, alguns sinais pedem ação imediata: placas ou coceira na pele, inchaço no rosto, espirros e nariz entupido, rouquidão, aperto na garganta, chiado, falta de ar, tontura, suor frio, vômito que não passa, dor ou inchaço no local do acesso. Não dá para saber de início se um sinal vai progredir, então todo sinal é avisado. Você não classifica nem medica. Na ordem ensinada nesta aula: parar e avisar quem injeta, chamar a equipe pelo canal do serviço, ficar com a pessoa e relatar o que viu e quando começou. Depois, o ocorrido é registrado e segue o fluxo de segurança do paciente do serviço.",
             "keyPoints": [
               "Sinal novo após o contraste, mesmo leve, é avisado na hora.",
               "Parar, chamar, ficar e relatar: nessa ordem.",
@@ -1703,12 +1694,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m09-v1",
         "sourceIds": [
-          "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-          "source:rtg-2026:m09:lei-13146-2015",
-          "source:rtg-2026:m09:decreto-5626-2005",
-          "source:rtg-2026:m09:lei-10436-2002",
+          "source:rtg-2026:m09:who-identificacao-paciente-2007",
+          "source:rtg-2026:m09:onu-crpd-2006",
           "source:rtg-2026:m09:acr-manual-contraste-2026",
-          "source:rtg-2026:m09:esur-extravasamento-2022"
+          "source:rtg-2026:m09:esur-extravasamento-2022",
+          "source:rtg-2026:m09:wma-declaracao-lisboa"
         ]
       },
       "steps": [
@@ -1749,7 +1739,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A barreira muda o caminho, não a conferência",
-            "body": "A Lei Brasileira de Inclusão chama de barreira o que limita a participação da pessoa: no espaço, na comunicação, na atitude. Ela garante acesso aos serviços de saúde e às informações pela forma de comunicação que a pessoa usa, como Libras, Braille ou texto ampliado, e exige consentimento livre e esclarecido. Na prática, você fala com a pessoa, não só com quem a acompanha, e busca o recurso certo: intérprete, leitura em voz alta, escrita. Identidade, triagem, explicação e o combinado de avisar continuam obrigatórios. Se a barreira impede uma dessas conferências, você para e pede apoio. Sem triagem compreendida, o exame com contraste não segue.",
+            "body": "Barreira é o que limita a participação da pessoa: no espaço, na comunicação, na atitude. A Convenção da ONU sobre os Direitos das Pessoas com Deficiência pede informação nos formatos que a pessoa usa, como língua de sinais, Braille ou texto ampliado. A Declaração de Lisboa da WMA pede consentimento livre e esclarecido. Você fala com a pessoa, não só com quem a acompanha, e busca o recurso certo: intérprete, leitura em voz alta, escrita. Identidade, triagem, explicação e o combinado de avisar continuam obrigatórios. Se a barreira impede uma dessas conferências, você para e pede apoio. Sem triagem compreendida, o exame com contraste não segue.",
             "keyPoints": [
               "Fale com a pessoa e use a forma de comunicação dela.",
               "Identidade, triagem, explicação e combinado de avisar não são dispensados.",
@@ -1828,8 +1818,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m09:aula-06:i2:1",
-                  "left": "Pessoa surda que usa Libras",
-                  "right": "Intérprete ou profissional capacitado em Libras"
+                  "left": "Pessoa surda que usa língua de sinais",
+                  "right": "Intérprete de língua de sinais"
                 },
                 {
                   "id": "pair:rtg-2026:m09:aula-06:i2:2",
@@ -1870,7 +1860,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Dona Marta é surda e usa Libras. A filha adolescente responde sozinha ao questionário de triagem do contraste: “ela não tem nada, pode marcar tudo não”. Dona Marta acompanha com os olhos, sem saber o que está sendo perguntado.",
+              "context": "Dona Marta é surda e usa língua de sinais. A filha adolescente responde sozinha ao questionário de triagem do contraste: “ela não tem nada, pode marcar tudo não”. Dona Marta acompanha com os olhos, sem saber o que está sendo perguntado.",
               "prompt": "O que você faz com as respostas da filha?",
               "options": [
                 {
@@ -1886,11 +1876,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m09:aula-06:i3:c",
                   "label": "Fala mais alto e bem devagar, olhando para a paciente.",
-                  "explanation": "Volume não resolve: ela usa Libras. Retome a forma de comunicação que a pessoa usa."
+                  "explanation": "Volume não resolve: ela usa língua de sinais. Retome a forma de comunicação que a pessoa usa."
                 },
                 {
                   "id": "option:rtg-2026:m09:aula-06:i3:d",
-                  "label": "Dirige as perguntas a ela e pede apoio em Libras.",
+                  "label": "Dirige as perguntas a ela e pede intérprete.",
                   "explanation": "Você devolveu a triagem à paciente e buscou o recurso de comunicação, antes de seguir."
                 }
               ],
@@ -1918,7 +1908,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Seu Jorge tem dificuldade para falar depois de um derrame e tem contraste na veia prescrito. Pelo manual do ACR, o extravasamento é mais comum em quem não consegue se comunicar bem. A equipe se prepara para iniciar, e ninguém combinou com ele como avisar dor no braço.",
+              "context": "Seu Jorge tem dificuldade para falar depois de um derrame e tem contraste na veia prescrito. Pelas diretrizes de contraste, o extravasamento é mais comum em quem não consegue se comunicar bem. A equipe se prepara para iniciar, e ninguém combinou com ele como avisar dor no braço.",
               "prompt": "O que você faz antes da injeção?",
               "options": [
                 {
@@ -1976,7 +1966,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m09:aula-06:i5:b",
                   "label": "Segue, pois a assinatura já está no papel.",
-                  "explanation": "O papel assinado não garante que ele entendeu. Retome o que a lei exige do consentimento."
+                  "explanation": "O papel assinado não garante que ele entendeu. Retome o que torna o consentimento esclarecido."
                 },
                 {
                   "id": "option:rtg-2026:m09:aula-06:i5:c",
@@ -2136,7 +2126,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:m09:aula-02:c2:c",
-            "label": "Que a dose está na prescrição médica."
+            "label": "Que está na prescrição ou no protocolo."
           },
           {
             "id": "option:rtg-2026:m09:aula-02:c2:d",
@@ -2145,11 +2135,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m09:aula-02:c2:c",
         "feedback": {
-          "correct": "Dose e via vêm da prescrição médica. Você apontou onde a resposta está, sem inventá-la.",
+          "correct": "Dose e via vêm da prescrição ou do protocolo do serviço. Você apontou onde a resposta está, sem inventá-la.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m09:cfm-parecer-17-2019"
+          "source:rtg-2026:m09:esr-efrs-seguranca-2019"
         ]
       },
       {
@@ -2382,8 +2372,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-          "source:rtg-2026:m09:lei-13146-2015"
+          "source:rtg-2026:m09:who-identificacao-paciente-2007",
+          "source:rtg-2026:m09:onu-crpd-2006"
         ]
       },
       {
@@ -2416,7 +2406,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m09:lei-13146-2015"
+          "source:rtg-2026:m09:onu-crpd-2006"
         ]
       }
     ]
@@ -2439,7 +2429,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2459,7 +2449,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2473,7 +2463,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2481,7 +2471,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2561,7 +2551,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2570,7 +2560,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2597,7 +2587,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2606,7 +2596,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2669,7 +2659,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2683,7 +2673,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2703,7 +2693,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2711,7 +2701,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2719,10 +2709,10 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-tc",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2731,10 +2721,10 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-tc",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -2743,10 +2733,10 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-tc",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -3013,8 +3003,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3022,8 +3011,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3031,8 +3019,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3040,8 +3027,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3049,8 +3035,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3058,8 +3043,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3067,8 +3051,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3076,8 +3059,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
     {
@@ -3085,7 +3067,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3111,7 +3094,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3119,7 +3103,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3127,7 +3112,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3135,7 +3121,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3143,7 +3129,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3169,7 +3155,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3177,7 +3163,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3236,7 +3222,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3245,7 +3232,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3254,7 +3242,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3312,7 +3301,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3332,7 +3321,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3346,7 +3335,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3354,7 +3343,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -3412,7 +3401,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
@@ -3427,7 +3416,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
@@ -3448,7 +3437,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
@@ -3457,7 +3446,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
+        "source:rtg-2026:m09:iaea-gsr-part3-2014",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
     },
@@ -3981,7 +3970,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4008,7 +3997,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4017,7 +4006,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4026,7 +4015,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4034,7 +4023,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4044,7 +4033,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4054,7 +4043,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4064,7 +4053,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4074,7 +4063,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4084,7 +4073,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4094,7 +4083,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4104,7 +4093,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4114,7 +4103,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste"
       ]
@@ -4205,7 +4194,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4214,7 +4203,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4241,7 +4230,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4250,7 +4239,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4313,8 +4302,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-contraste",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
@@ -4325,8 +4314,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-contraste",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
@@ -4337,8 +4326,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:cfm-parecer-17-2019",
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
         "source:rtg-2026:m09:radiologyinfo-contraste",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
@@ -4607,7 +4596,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4616,7 +4605,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4625,7 +4614,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4634,7 +4623,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4643,7 +4632,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4652,7 +4641,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4661,7 +4650,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4670,7 +4659,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4679,7 +4668,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4823,7 +4812,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4833,7 +4822,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4861,7 +4850,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4871,7 +4860,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -4880,10 +4869,9 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
     {
@@ -4892,10 +4880,9 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
     {
@@ -4904,10 +4891,9 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:radiologyinfo-contraste",
-        "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:cfm-parecer-17-2019"
+        "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
     {
@@ -5065,7 +5051,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
@@ -5086,7 +5072,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
@@ -5101,7 +5087,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
@@ -5110,7 +5096,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:anvisa-rdc-36-2013",
+        "source:rtg-2026:m09:esr-efrs-seguranca-2019",
         "source:rtg-2026:m09:esur-extravasamento-2022"
       ]
     },
@@ -5119,7 +5105,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5133,7 +5119,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5153,7 +5139,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5161,7 +5147,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5169,9 +5155,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5179,9 +5163,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5189,9 +5171,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5199,9 +5179,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5209,9 +5187,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5219,9 +5195,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5229,9 +5203,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5239,9 +5211,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5249,8 +5219,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -5277,8 +5246,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -5287,8 +5255,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -5297,8 +5264,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026"
       ]
     },
@@ -5309,7 +5275,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5331,7 +5297,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5347,7 +5313,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5357,7 +5323,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m09:acr-manual-contraste-2026",
         "source:rtg-2026:m09:esur-extravasamento-2022",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5365,7 +5331,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:wma-declaracao-lisboa",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5373,7 +5340,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:wma-declaracao-lisboa",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5399,7 +5367,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:wma-declaracao-lisboa",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5407,7 +5376,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:wma-declaracao-lisboa",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5415,12 +5385,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:esur-extravasamento-2022"
+        "source:rtg-2026:m09:esur-extravasamento-2022",
+        "source:rtg-2026:m09:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5428,12 +5397,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:esur-extravasamento-2022"
+        "source:rtg-2026:m09:esur-extravasamento-2022",
+        "source:rtg-2026:m09:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5441,12 +5409,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015",
-        "source:rtg-2026:m09:decreto-5626-2005",
-        "source:rtg-2026:m09:lei-10436-2002",
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006",
         "source:rtg-2026:m09:acr-manual-contraste-2026",
-        "source:rtg-2026:m09:esur-extravasamento-2022"
+        "source:rtg-2026:m09:esur-extravasamento-2022",
+        "source:rtg-2026:m09:wma-declaracao-lisboa"
       ]
     },
     {
@@ -5454,8 +5421,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5463,8 +5430,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5490,8 +5457,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5499,8 +5466,8 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:ms-protocolo-identificacao-2013",
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:who-identificacao-paciente-2007",
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5508,7 +5475,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5528,7 +5495,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5542,7 +5509,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5550,7 +5517,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5558,7 +5525,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5572,7 +5539,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5592,7 +5559,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5600,7 +5567,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m09:lei-13146-2015"
+        "source:rtg-2026:m09:onu-crpd-2006"
       ]
     },
     {
@@ -5798,7 +5765,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m09:cfm-parecer-17-2019",
+            "source:rtg-2026:m09:iaea-gsr-part3-2014",
             "source:rtg-2026:m09:radiologyinfo-contraste"
           ]
         }
@@ -6006,11 +5973,11 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:m09:aula-05:rt:c",
           "feedback": {
-            "correct": "O registro leva o evento ao Núcleo de Segurança do Paciente, que monitora e notifica eventos adversos.",
+            "correct": "O registro leva o evento ao sistema de segurança do paciente do serviço, que o analisa para aprender e comunica à autoridade o que as regras locais pedirem.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m09:anvisa-rdc-36-2013",
+            "source:rtg-2026:m09:esr-efrs-seguranca-2019",
             "source:rtg-2026:m09:esur-extravasamento-2022"
           ]
         }
@@ -6048,7 +6015,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m09:lei-13146-2015"
+            "source:rtg-2026:m09:onu-crpd-2006"
           ]
         },
         "transfer": {
@@ -6056,7 +6023,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m09:aula-06"
           ],
-          "prompt": "Num exame com contraste, um paciente estrangeiro não fala português e veio sozinho. Você não consegue fazer as perguntas da triagem, e a agenda está cheia. O que você faz?",
+          "prompt": "Num exame com contraste, um paciente estrangeiro não fala a língua do serviço e veio sozinho. Você não consegue fazer as perguntas da triagem, e a agenda está cheia. O que você faz?",
           "options": [
             {
               "id": "option:rtg-2026:m09:aula-06:rt:a",
@@ -6102,7 +6069,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     },
     {
       "schemaVersion": 1,
@@ -6111,7 +6078,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     },
     {
       "schemaVersion": 1,
@@ -6120,7 +6087,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     },
     {
       "schemaVersion": 1,
@@ -6129,7 +6096,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     },
     {
       "schemaVersion": 1,
@@ -6138,7 +6105,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     },
     {
       "schemaVersion": 1,
@@ -6147,7 +6114,7 @@ export const RTG_2026_M09: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4e89798fcecd4ad60f966ff28a240aecaa3cb55322e5e4c4dce133df49fca097"
+      "materialSha256": "cd4e18313e988731cb6709dd33d9f46447575927ea9ff6fad2562c66833ebb53"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

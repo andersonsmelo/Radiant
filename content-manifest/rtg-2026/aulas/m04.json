@@ -417,7 +417,7 @@
         { "speaker": "lia", "text": "Antes de responder, pense: o paciente está na sala pelo mesmo motivo que você?" } ] },
       "concept": {
         "title": "Três princípios e quem responde",
-        "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A prevenção de acidentes completa o conjunto. A direção do serviço é a principal responsável por aplicá-lo: dá os recursos e designa o supervisor de proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro (troca a cada 1 a 3 meses, conforme o serviço) e informa qualquer evento que aumente o risco.",
+        "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A prevenção de acidentes completa o conjunto. A direção do serviço é a principal responsável por aplicá-lo: dá os recursos e designa o responsável pela proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro (troca a cada 1 a 3 meses, conforme o serviço) e informa qualquer evento que aumente o risco.",
         "keyPoints": ["Limite de dose não se aplica ao paciente; justificação e otimização, sim.", "Limites de dose efetiva (ICRP 103 e IAEA GSR Part 3): trabalhador, 20 mSv por ano em média de 5 anos, sem passar de 50 mSv num único ano; público, 1 mSv por ano.", "A direção do serviço responde por ele; cada membro da equipe informa riscos."] },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
@@ -445,13 +445,13 @@
           "feedbackIncorrect": "Confira de novo: o dosímetro sai do quadro antes do turno e volta para junto do dosímetro padrão quando não está em uso.",
           "help": "Pense no começo e no fim do dia: onde o dosímetro fica quando não está com você?", "sourceIds": ["iaea-gsr-part3-2014", "iaea-ssg46-2018"] },
         { "id": "i4", "type": "case-decision", "role": "practice",
-          "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como supervisor de proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo os princípios de proteção.",
+          "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como responsável pela proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo os princípios de proteção.",
           "prompt": "Qual separação de responsabilidades está de acordo com a boa prática de proteção?",
           "options": [
-            { "label": "Recursos e designação: a direção do serviço. Informar o defeito: o técnico", "correct": true, "feedback": "Isso. A direção do serviço assegura recursos e designa o supervisor; cada membro da equipe informa de imediato o que pode aumentar o risco." },
+            { "label": "Recursos e designação: a direção do serviço. Informar o defeito: o técnico", "correct": true, "feedback": "Isso. A direção do serviço assegura recursos e designa o responsável; cada membro da equipe informa de imediato o que pode aumentar o risco." },
             { "label": "Recursos e designação: o técnico. Informar o defeito: o paciente", "correct": false, "feedback": "Prover recursos e designar funções não é atribuição do técnico, e o aviso não depende do paciente." },
             { "label": "Recursos: o paciente. Designação e defeito: o estagiário do plantão", "correct": false, "feedback": "Nem paciente nem estagiário respondem pela estrutura do serviço. Retome quem é o principal responsável." },
-            { "label": "Tudo cabe ao supervisor, e o restante da equipe só aguarda ordens", "correct": false, "feedback": "O supervisor é designado pela direção do serviço, e cada membro da equipe tem o dever de informar eventos." } ],
+            { "label": "Tudo cabe ao responsável, e o restante da equipe só aguarda ordens", "correct": false, "feedback": "O responsável é designado pela direção do serviço, e cada membro da equipe tem o dever de informar eventos." } ],
           "help": "Pergunte quem tem poder para prover recursos e quem está perto o bastante para notar o defeito.", "sourceIds": ["iaea-gsr-part3-2014"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Seu Jorge, paciente simulado, faz uma radiografia. A filha dele, adulta, fica na sala para ajudá-lo a manter a posição, com vestimenta de proteção. Caio opera o equipamento da cabine. Na sala de espera, do outro lado da parede, uma pessoa aguarda a vez.",
@@ -499,7 +499,7 @@
             { "label": "Anota por conta própria dose zero no controle", "correct": false, "feedback": "Alterar registro por conta própria nunca é a ação certa. Quem avalia é a equipe responsável." } ],
           "sourceIds": ["iaea-gsr-part3-2014", "iaea-ssg46-2018"] } }
       },
-      "diagramIdeas": ["Mapa de três colunas (médica, ocupacional, público) com os personagens de uma sala de exame", "Linha de responsabilidades: direção do serviço, supervisor de proteção radiológica e equipe"]
+      "diagramIdeas": ["Mapa de três colunas (médica, ocupacional, público) com os personagens de uma sala de exame", "Linha de responsabilidades: direção do serviço, responsável pela proteção radiológica e equipe"]
     },
     {
       "id": "m04-06", "code": "M04.06", "title": "Uma decisão de proteção",

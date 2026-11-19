@@ -6,7 +6,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-md",
-  "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0",
+  "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3",
   "trackId": "track:rtg-2026:s-md",
   "unitId": "unit:rtg-2026:s-md",
   "contentVersion": "rtg-2026-s-md-v1",
@@ -24,38 +24,11 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
     {
       "id": "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
       "title": "Atualização em mamografia para técnicos e tecnólogos em radiologia, 3ª edição revista e atualizada (2023)",
-      "publisher": "Instituto Nacional de Câncer (INCA), Ministério da Saúde",
+      "publisher": "Instituto Nacional de Câncer (INCA)",
       "url": "https://ninho.inca.gov.br/jspui/bitstream/123456789/15417/1/3a%20edicao_Atualizacao%20em%20mamografia.pdf",
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Publicação institucional sob CC BY-NC-SA 4.0; lidas as páginas de anatomia, equipamento, acolhimento, técnica, proteção e qualidade, só para fatos, sem reprodução de texto nem de figuras."
-    },
-    {
-      "id": "source:rtg-2026:s-md:anvisa-in-92-2021",
-      "title": "Instrução Normativa nº 92, de 27 de maio de 2021 (republicada em 6 de julho de 2022)",
-      "publisher": "Anvisa",
-      "url": "https://ses.sp.bvs.br/wp-content/uploads/2022/07/U_IN-MS-ANVISA-92-REP_270521.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal, lido na íntegra em cópia da BVS da SES-SP, inclusive os Anexos I e II; consultado para fatos, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:s-md:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal, em cópia compilada no site do CBR; lidos os trechos sobre avisos da sala, aviso de gravidez e presença de acompanhante (arts. 53 e 56), sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-      "title": "Parecer sobre sistema de compressão dos mamógrafos: testes de controle de qualidade e compressão clínica (4 de outubro de 2022)",
-      "publisher": "Colégio Brasileiro de Radiologia, Comissão Nacional de Mamografia",
-      "url": "https://cbr.org.br/wp-content/uploads/2022/11/Parecer-sobre-compressao-das-mamas-durante-a-mamografia.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Parecer institucional lido na íntegra; consultado para efeitos da compressão, sentido do teste de força e compressão firme e tolerável, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:s-md:iscd-official-positions-adult",
@@ -83,6 +56,33 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Página de orientação ao paciente; consultada para preparo, tomossíntese e detecção auxiliada por computador, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
+      "title": "Quality Assurance Programme for Digital Mammography (IAEA Human Health Series No. 17)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1482_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Testes diários, semanais, mensais e de compressão em mamografia digital; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-md:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-md:wma-declaracao-lisboa",
+      "title": "WMA Declaration of Lisbon on the Rights of the Patient",
+      "publisher": "World Medical Association (WMA)",
+      "url": "https://www.wma.net/policies-post/wma-declaration-of-lisbon-on-the-rights-of-the-patient/",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Direitos à informação, ao consentimento, à confidencialidade e à dignidade; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -95,7 +95,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-md-v1",
         "sourceIds": [
           "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-          "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+          "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
         ]
       },
       "steps": [
@@ -410,9 +410,8 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-md-v1",
         "sourceIds": [
-          "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-          "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-          "source:rtg-2026:s-md:anvisa-in-92-2021"
+          "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
         ]
       },
       "steps": [
@@ -448,7 +447,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Relações, não receitas",
-            "body": "Efeito anódico: mais fótons do lado do cátodo, junto ao tórax. O filtro retira fótons de baixa energia; a bandeja uniformiza a espessura. Menos espessura, menos exposição e dose; compressão insuficiente alonga a exposição e traz borrão. Baixar o kV para ganhar contraste exige mais mAs e dose. Dose glandular média é indicador de qualidade, testado em PMMA, não conta para uma pessoa. Os 150 a 200 N são, para o CBR, força máxima do modo automático, em teste, não alvo clínico. Bandeja danificada ou controle automático parado inabilitam o uso: pare e avise. Na exposição, todos atrás do vidro plumbífero. Avaliação diária da imagem: equipe própria, treinada e habilitada.",
+            "body": "Efeito anódico: mais fótons do lado do cátodo, junto ao tórax. O filtro retira fótons de baixa energia; a bandeja uniformiza a espessura. Menos espessura, menos exposição e dose; compressão insuficiente alonga a exposição e traz borrão. Baixar o kV para ganhar contraste exige mais mAs e dose. Dose glandular média é indicador de qualidade, testado em PMMA, não conta para uma pessoa. Os 150 a 200 N são a faixa testada da força máxima da compressão motorizada, não alvo clínico. Bandeja rachada ou controle automático parado: pare e avise. Na exposição, todos atrás do vidro plumbífero. Avaliação diária da imagem: equipe do próprio serviço, treinada.",
             "keyPoints": [
               "Menos espessura, menos exposição e menos dose.",
               "Menos kV para ganhar contraste pede mais mAs e mais dose.",
@@ -612,7 +611,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
             "help": "A questão é a imagem ou a condição do equipamento?",
             "type": "case-decision",
             "feedback": {
-              "correct": "A norma lista bandeja danificada entre as condições que inabilitam o uso. Você para e comunica.",
+              "correct": "A lista de verificação de segurança do mamógrafo inclui rachaduras na bandeja de compressão. Você para e comunica.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -627,7 +626,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-md:aula-02:i4:b",
                   "label": "Não usar a bandeja e avisar o responsável",
-                  "explanation": "A norma lista bandeja danificada entre as condições que inabilitam o uso. Você para e comunica."
+                  "explanation": "A lista de verificação de segurança do mamógrafo inclui rachaduras na bandeja de compressão. Você para e comunica."
                 },
                 {
                   "id": "option:rtg-2026:s-md:aula-02:i4:c",
@@ -1106,7 +1105,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-md:aula-04:i1:b",
-                  "label": "Porque a norma proíbe tocar com os dedos",
+                  "label": "Porque a regra do serviço proíbe tocar com os dedos",
                   "explanation": "A aula não citou essa proibição. O motivo é técnico: o que a ponta do dedo faz com a pele."
                 },
                 {
@@ -1960,7 +1959,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-md:iscd-official-positions-adult",
           "source:rtg-2026:s-md:radiologyinfo-dxa",
-          "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-md:iaea-gsr-part3-2014"
         ]
       },
       "steps": [
@@ -2653,7 +2652,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-          "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+          "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
         ]
       },
       {
@@ -2661,7 +2660,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-md:aula-02"
         ],
-        "prompt": "Um colega afirma: 'Toda mama tem de ser comprimida entre 150 N e 200 N, é a norma.' Pelo parecer do CBR visto nesta aula, o que é esse intervalo?",
+        "prompt": "Um colega afirma: 'Toda mama tem de ser comprimida entre 150 N e 200 N, é a regra.' Pelo que esta aula mostra do teste do equipamento, o que é esse intervalo?",
         "options": [
           {
             "id": "option:rtg-2026:s-md:aula-02:c1:a",
@@ -2682,12 +2681,11 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-md:aula-02:c1:b",
         "feedback": {
-          "correct": "Para o CBR, é o máximo do sistema automático, conferido em teste. Na clínica, a força varia com a mama e a tolerância.",
+          "correct": "É o máximo do sistema motorizado, conferido em teste. Na clínica, a força varia com a mama e a tolerância.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-          "source:rtg-2026:s-md:anvisa-in-92-2021"
+          "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
         ]
       },
       {
@@ -3141,7 +3139,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3156,7 +3154,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3177,7 +3175,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3186,7 +3184,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3331,7 +3329,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3352,7 +3350,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3367,7 +3365,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3376,7 +3374,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3384,7 +3382,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3393,7 +3391,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3420,7 +3418,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3429,7 +3427,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3439,7 +3437,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3448,7 +3446,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3457,7 +3455,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3516,7 +3514,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3525,7 +3523,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3552,7 +3550,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3561,7 +3559,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3570,7 +3568,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3591,7 +3589,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3606,7 +3604,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3615,7 +3613,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3623,7 +3621,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:wma-declaracao-lisboa"
       ]
     },
     {
@@ -3637,7 +3635,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:wma-declaracao-lisboa"
       ]
     },
     {
@@ -3657,7 +3655,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:wma-declaracao-lisboa"
       ]
     },
     {
@@ -3665,7 +3663,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:wma-declaracao-lisboa"
       ]
     },
     {
@@ -3673,7 +3671,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3700,7 +3698,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3709,7 +3707,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3718,7 +3716,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3778,8 +3776,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3788,8 +3785,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3798,8 +3794,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3808,8 +3803,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3818,8 +3812,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3828,8 +3821,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3838,8 +3830,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3848,8 +3839,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3857,7 +3847,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3872,7 +3862,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3893,7 +3883,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3902,7 +3892,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -3911,8 +3901,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3932,8 +3921,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3947,8 +3935,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3956,8 +3943,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021",
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3965,9 +3951,8 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
     {
@@ -3975,9 +3960,8 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
     {
@@ -3985,9 +3969,8 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023"
       ]
     },
     {
@@ -3995,8 +3978,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4010,8 +3992,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4031,8 +4012,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4040,8 +4020,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022",
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4099,7 +4078,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4107,7 +4086,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4133,7 +4112,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4141,7 +4120,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4149,7 +4128,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4175,7 +4154,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4183,7 +4162,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -4191,7 +4170,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-md:anvisa-in-92-2021"
+        "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -6252,7 +6231,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6261,7 +6240,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6270,7 +6249,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6279,7 +6258,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6288,7 +6267,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6297,7 +6276,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6306,7 +6285,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6315,7 +6294,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6497,7 +6476,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-md:iscd-official-positions-adult",
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6507,7 +6486,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-md:iscd-official-positions-adult",
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6517,7 +6496,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-md:iscd-official-positions-adult",
         "source:rtg-2026:s-md:radiologyinfo-dxa",
-        "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-md:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7304,7 +7283,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:s-md:inca-atualizacao-mamografia-2023",
-            "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-md:iaea-gsr-part3-2014"
           ]
         },
         "transfer": {
@@ -7333,11 +7312,11 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-md:aula-01:rt:b",
           "feedback": {
-            "correct": "A norma admite um paciente de cada vez na sala, e isso também preserva quem está em atendimento.",
+            "correct": "O serviço mantém um paciente de cada vez na sala, e isso também preserva a privacidade de quem está em atendimento.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-md:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-md:wma-declaracao-lisboa"
           ]
         }
       },
@@ -7374,7 +7353,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-md:cbr-parecer-compressao-2022"
+            "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
           ]
         },
         "transfer": {
@@ -7382,7 +7361,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-md:aula-02"
           ],
-          "prompt": "Ao fim de um turno de estágio, você lê que o teste de qualidade da imagem é diário. Quem a norma admite para fazê-lo dentro do serviço?",
+          "prompt": "Ao fim de um turno de estágio, você lê que o teste de qualidade da imagem é diário. Quem o programa de qualidade admite para fazê-lo dentro do serviço?",
           "options": [
             {
               "id": "option:rtg-2026:s-md:aula-02:rt:a",
@@ -7398,16 +7377,16 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:s-md:aula-02:rt:d",
-              "label": "Profissional do serviço, treinado e habilitado"
+              "label": "Profissional do serviço, treinado para isso"
             }
           ],
           "correctOptionId": "option:rtg-2026:s-md:aula-02:rt:d",
           "feedback": {
-            "correct": "A norma permite a equipe própria quando ela é treinada e legalmente habilitada para isso.",
+            "correct": "Os testes frequentes ficam com o pessoal local, em geral tecnólogos treinados para eles.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-md:anvisa-in-92-2021"
+            "source:rtg-2026:s-md:iaea-hhs17-qa-mamografia-digital"
           ]
         }
       },
@@ -7848,7 +7827,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     },
     {
       "schemaVersion": 1,
@@ -7857,7 +7836,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     },
     {
       "schemaVersion": 1,
@@ -7866,7 +7845,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     },
     {
       "schemaVersion": 1,
@@ -7875,7 +7854,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     },
     {
       "schemaVersion": 1,
@@ -7884,7 +7863,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     },
     {
       "schemaVersion": 1,
@@ -7893,7 +7872,7 @@ export const RTG_2026_S_MD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "aa29aae4b18943bbf2e6e2cb9d2129bf5b5347ac6e7bdfb175031b0cd39cf4b0"
+      "materialSha256": "6612f764966bfa928f25fad94065e8a226f134a81b4faf4f79e800134f4b7fe3"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

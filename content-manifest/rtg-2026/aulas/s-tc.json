@@ -80,15 +80,6 @@
       "licenseNote": "Licença CC BY-NC-SA 4.0 declarada na página; só consulta de fatos, com redação própria."
     },
     {
-      "id": "anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022 (cópia hospedada pelo CBR)",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; lidos os arts. 2º (XII), 23, 37, 38, 44, 53, 56 e 57, sem reprodução de texto."
-    },
-    {
       "id": "mccollough-2011-ctdi",
       "title": "CT Dose Index and Patient Dose: They Are Not the Same Thing",
       "publisher": "Radiology, via PubMed Central",
@@ -123,6 +114,24 @@
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Licença CC BY declarada na página; só consulta de fatos, com redação própria."
+    },
+    {
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     }
   ],
   "lessons": [
@@ -152,7 +161,7 @@
       },
       "concept": {
         "title": "Lado, plano, número e as regras da sala",
-        "body": "Três leituras voltam aqui. Lado: o observador fica ao pé da mesa, e o lado direito do paciente aparece à esquerda da tela. Plano: coronal e sagital saem dos dados axiais, sem nova exposição. Número: pulmão entre -950 e -650 HU, gordura perto de -100, tecido mole entre 25 e 50, conforme o órgão, osso, centenas de HU ou mais. A sala tem regras na RDC 611/2022: um paciente por vez; acompanhante só se imprescindível, nunca gestante ou menor de 18 anos; suspeita de gravidez informada antes do exame. Se algo não fecha, nesta ordem: parar, descrever sem interpretar, levar à equipe e seguir só com a orientação recebida.",
+        "body": "Lado: o observador fica ao pé da mesa, e o lado direito do paciente aparece à esquerda da tela. Plano: coronal e sagital saem dos dados axiais, sem nova exposição. Número: pulmão entre -950 e -650 HU, gordura perto de -100, tecido mole entre 25 e 50, conforme o órgão, osso, centenas de HU ou mais. A sala tem regras do serviço: um paciente por vez; acompanhante só se imprescindível, e então adulto que aceita ajudar, orientado, protegido, não gestante; criança é evitada se houver outro adulto; suspeita de gravidez informada antes. Se algo não fecha: parar, descrever sem interpretar, levar à equipe e seguir só com a orientação recebida.",
         "keyPoints": [
           "Lado direito do paciente à esquerda da tela.",
           "Coronal e sagital saem dos dados axiais, sem nova exposição.",
@@ -237,7 +246,7 @@
           "feedbackIncorrect": "Confira de novo: nada avança antes de parar, e seguir em frente é sempre o último passo, depois da orientação.",
           "help": "Pense no que evita que o erro siga adiante e no que precisa existir antes de a equipe ajudar.",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -270,7 +279,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-gsr-part3-2014",
             "radiologyinfo-tc-torax"
           ],
           "help": "O que a regra da sala pede a quem tem essa suspeita, e para quem a informação precisa ir?"
@@ -305,7 +314,7 @@
           ],
           "sourceIds": [
             "burbridge-mah-tc",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "Compare as letras com a convenção da série axial e pense em quem pode verificar a divergência."
         }
@@ -320,31 +329,31 @@
       },
       "checkpoint": [
         {
-          "prompt": "Seu Alceu, paciente simulado, pede que o neto de 16 anos fique na sala para acalmá-lo durante o exame. O que a RDC 611/2022 diz sobre esse papel?",
+          "prompt": "Seu Alceu, paciente simulado, pede que o neto de 8 anos fique na sala para acalmá-lo durante o exame. A filha adulta dele também está ali. O que você faz?",
           "options": [
             {
-              "label": "Ele pode ficar, desde que use vestimenta de proteção",
+              "label": "Deixo ficar, desde que use vestimenta de proteção",
               "correct": false,
-              "feedback": "A vestimenta é obrigatória para o acompanhante permitido, mas não libera quem a norma proíbe. Retome quem não pode."
+              "feedback": "A vestimenta protege, mas não muda quem deve ser evitado no papel. Retome quem pode acompanhar."
             },
             {
-              "label": "Ele pode ficar, se for a primeira vez dele",
+              "label": "Aceito, por ser a primeira vez dele",
               "correct": false,
-              "feedback": "Repetir o papel de forma regular é vedado, mas a idade já o impede aqui, mesmo sendo a primeira vez."
+              "feedback": "Primeira vez não muda nada: criança é evitada nesse papel sempre que houver outra pessoa."
             },
             {
-              "label": "Ele não pode, por ser menor de 18 anos",
+              "label": "Evito o neto e levo o pedido à equipe",
               "correct": true,
-              "feedback": "Certo. A norma proíbe esse papel a gestantes e a menores de 18 anos. Leve o pedido à equipe, que vê outra forma de ajudar."
+              "feedback": "Certo. Criança é evitada nesse papel sempre que houver outra pessoa. A equipe vê se um adulto que aceita ajudar pode ficar, ou outra forma."
             },
             {
-              "label": "Ele pode ficar, por ser parente do paciente",
+              "label": "Libero, por ser parente do paciente",
               "correct": false,
-              "feedback": "O parentesco não muda a regra. A norma olha para a idade e para a gestação de quem acompanha."
+              "feedback": "O parentesco não muda o cuidado. Quem acompanha é um adulto que aceita ajudar, orientado e protegido."
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -420,12 +429,12 @@
               {
                 "label": "Ele fica, se sentar longe do gantry",
                 "correct": false,
-                "feedback": "A distância não libera a presença. A regra é sobre quantos pacientes podem estar na sala."
+                "feedback": "A distância não libera a presença. A questão é quem fica na sala durante o exame."
               },
               {
                 "label": "Ele não fica: aviso a equipe",
                 "correct": true,
-                "feedback": "Isso. A norma manda afixar na sala que só pode permanecer um paciente de cada vez. Avise a equipe para organizar a espera."
+                "feedback": "Isso. Outro paciente é tratado como público e espera fora da sala, onde o serviço definir. Avise a equipe para organizar a espera."
               },
               {
                 "label": "Ele fica, se a exposição for curta",
@@ -434,7 +443,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -616,11 +625,11 @@
             {
               "label": "Sigo e confiro depois se a imagem ficou boa",
               "correct": false,
-              "feedback": "Uma imagem boa não substitui o teste. Retome o que a norma pede: informar a circunstância de imediato."
+              "feedback": "Uma imagem boa não substitui o teste. Retome o que se espera: informar a circunstância de imediato."
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "Quem no serviço precisa saber disso, e quando?"
         }
@@ -920,7 +929,7 @@
           "sourceIds": [
             "radiopaedia-ctdi",
             "mccollough-2011-ctdi",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "O índice descreve o paciente ou o equipamento? E quem responde a Seu Jorge?"
         },
@@ -992,7 +1001,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "statpearls-tc-fisica"
           ]
         },
@@ -1252,7 +1261,7 @@
           ],
           "sourceIds": [
             "statpearls-tc-fisica",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "O que você sabe de fato sobre a falta, e quem decide como resolver?"
         },
@@ -1848,7 +1857,7 @@
           "feedbackIncorrect": "Confira de novo: sem ler o pedido, nada pode ser comparado, e a equipe recebe a divergência depois da comparação.",
           "help": "O que você precisa ter em mãos antes de comparar?",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1913,7 +1922,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "radiopaedia-ctdi",
             "burbridge-mah-tc"
           ],
@@ -1949,7 +1958,7 @@
           ],
           "sourceIds": [
             "statpearls-contraste-iv",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "Compare o arquivo com o protocolo e pense em quem pode explicar a diferença."
         }
@@ -1964,31 +1973,31 @@
       },
       "checkpoint": [
         {
-          "prompt": "Um colega diz que sabe os protocolos de cabeça e que escrever é perda de tempo. O que a RDC 611/2022 pede?",
+          "prompt": "Um colega diz que sabe os protocolos de cabeça e que escrever é perda de tempo. O que o serviço precisa ter?",
           "options": [
             {
               "label": "Protocolos só na memória dos mais experientes",
               "correct": false,
-              "feedback": "A norma pede o contrário: tudo por escrito e ao alcance da equipe."
+              "feedback": "É o contrário: tudo por escrito e ao alcance da equipe."
             },
             {
-              "label": "Protocolos guardados só com o responsável legal",
+              "label": "Protocolos guardados só com a direção do serviço",
               "correct": false,
-              "feedback": "Ele responde por eles, mas a equipe toda precisa ter acesso fácil. Retome esse ponto."
+              "feedback": "A direção responde por eles, mas a equipe toda precisa ter acesso fácil. Retome esse ponto."
             },
             {
               "label": "Protocolos escritos, atualizados e acessíveis",
               "correct": true,
-              "feedback": "Certo. Eles precisam estar em linguagem acessível, atualizados e em local de fácil acesso a toda a equipe."
+              "feedback": "Certo. Os procedimentos ficam escritos, atualizados e ao alcance de toda a equipe."
             },
             {
               "label": "Protocolos só para os exames com contraste",
               "correct": false,
-              "feedback": "A norma vale para todas as atividades executadas pelo serviço, não só para essas."
+              "feedback": "Vale para todos os exames do serviço, não só para esses."
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2049,7 +2058,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2065,7 +2074,7 @@
               {
                 "label": "Levo a diferença à supervisão, sem acusar",
                 "correct": true,
-                "feedback": "Isso. A norma pede trabalho conforme os protocolos e informação do que possa afetar a qualidade. A supervisão esclarece."
+                "feedback": "Isso. O trabalho segue os protocolos escritos do serviço, e o que pode afetar a qualidade se informa. A supervisão esclarece."
               },
               {
                 "label": "Altero a folha para combinar com o colega",
@@ -2079,7 +2088,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -2230,7 +2239,7 @@
             {
               "label": "Sigo, porque anel não afeta a segurança do exame",
               "correct": false,
-              "feedback": "O anel pode afetar a qualidade, e isso a norma manda informar. Pare e leve as séries à supervisão."
+              "feedback": "O anel pode afetar a qualidade, e isso se informa. Pare e leve as séries à supervisão."
             },
             {
               "label": "Recalibro os detectores pelo menu do console",
@@ -2250,7 +2259,7 @@
           ],
           "sourceIds": [
             "statpearls-tc-fisica",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "O padrão se repete em pacientes diferentes. Isso aponta para quem, e quem precisa saber?"
         },
@@ -2486,7 +2495,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ],
           "help": "Pense no que repetir causa, e em quem responde por isso."
         },
@@ -2505,7 +2514,7 @@
           "feedbackIncorrect": "Confira de novo: só dá para apontar a origem depois de saber o que difere, e a equipe recebe a justificativa pronta.",
           "help": "O que precisa estar pronto antes de você apontar uma origem?",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2642,7 +2651,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "statpearls-tc-fisica"
           ]
         },
@@ -2734,7 +2743,8 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018",
+              "iaea-gsr-part3-2014"
             ]
           }
         }

@@ -6,7 +6,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m12",
-  "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343",
+  "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914",
   "trackId": "track:rtg-2026:m12",
   "unitId": "unit:rtg-2026:m12",
   "contentVersion": "rtg-2026-m12-v1",
@@ -38,33 +38,6 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "licenseNote": "Página de orientação ao paciente; consultada para fatos sobre preparo, relato ao profissional, compressão, imobilidade, incidências de rotina e quem interpreta, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-      "title": "Parecer sobre sistema de compressão dos mamógrafos: testes de controle de qualidade e compressão clínica (4 de outubro de 2022)",
-      "publisher": "Colégio Brasileiro de Radiologia, Comissão Nacional de Mamografia",
-      "url": "https://cbr.org.br/wp-content/uploads/2022/11/Parecer-sobre-compressao-das-mamas-durante-a-mamografia.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Parecer institucional; consultado para fatos sobre efeitos da compressão, compressão firme e tolerável, atenção à pessoa e testes diários, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m12:anvisa-in-92-2021",
-      "title": "Instrução Normativa nº 92, de 27 de maio de 2021 (republicada em 6 de julho de 2022)",
-      "publisher": "Anvisa",
-      "url": "https://ses.sp.bvs.br/wp-content/uploads/2022/07/U_IN-MS-ANVISA-92-REP_270521.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal, lido em cópia da republicação mantida pela BVS da SES-SP; consultados os arts. 2º, 6º e 7º, sem reprodução de texto. A tabela do Anexo I não pôde ser lida e não é citada."
-    },
-    {
-      "id": "source:rtg-2026:m12:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos (arts. 17, 23, 24, 38 e 53), sem reprodução de texto."
-    },
-    {
       "id": "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
       "title": "Diagnostic Radiology Physics: A Handbook for Teachers and Students, capítulo 9, Mammography (slides)",
       "publisher": "IAEA, Human Health Campus",
@@ -94,7 +67,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
     {
       "id": "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
       "title": "Atualização em mamografia para técnicos e tecnólogos em radiologia, 3ª edição revista e atualizada (2023)",
-      "publisher": "Instituto Nacional de Câncer (INCA), Ministério da Saúde",
+      "publisher": "Instituto Nacional de Câncer (INCA)",
       "url": "https://ninho.inca.gov.br/jspui/bitstream/123456789/15417/1/3a%20edicao_Atualizacao%20em%20mamografia.pdf",
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
@@ -117,6 +90,33 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Posições oficiais da sociedade; consultadas para regiões de medida (L1 a L4, fêmur proximal, antebraço), artefatos, acompanhamento no mesmo aparelho e registro de limitações técnicas, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+      "title": "Quality Assurance Programme for Digital Mammography (IAEA Human Health Series No. 17)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1482_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Testes diários, semanais, mensais e de compressão em mamografia digital; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m12:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m12:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -129,9 +129,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m12-v1",
         "sourceIds": [
           "source:rtg-2026:m12:radiologyinfo-mammography",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
           "source:rtg-2026:m12:nci-seer-breast-anatomy",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022",
+          "source:rtg-2026:m12:iaea-gsr-part3-2014",
           "source:rtg-2026:m12:popli-2014-breast-positioning"
         ]
       },
@@ -447,9 +447,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m12-v1",
         "sourceIds": [
           "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-          "source:rtg-2026:m12:anvisa-in-92-2021",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -766,8 +765,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
           "source:rtg-2026:m12:popli-2014-breast-positioning",
           "source:rtg-2026:m12:sweeney-2018-cc-criteria",
           "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1077,9 +1076,10 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m12:popli-2014-breast-positioning",
           "source:rtg-2026:m12:radiologyinfo-mammography",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
           "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022"
+          "source:rtg-2026:m12:iaea-ssg46-2018",
+          "source:rtg-2026:m12:iaea-gsr-part3-2014"
         ]
       },
       "steps": [
@@ -1389,7 +1389,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m12:radiologyinfo-dxa",
           "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022"
+          "source:rtg-2026:m12:iaea-ssg46-2018",
+          "source:rtg-2026:m12:iaea-gsr-part3-2014"
         ]
       },
       "steps": [
@@ -1703,8 +1704,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m12-v1",
         "sourceIds": [
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022",
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018",
           "source:rtg-2026:m12:popli-2014-breast-positioning",
           "source:rtg-2026:m12:radiologyinfo-dxa",
           "source:rtg-2026:m12:iscd-official-positions-adult-2023"
@@ -2082,7 +2083,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m12:radiologyinfo-mammography",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
         ]
       },
       {
@@ -2116,7 +2117,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
         ]
       },
       {
@@ -2145,11 +2146,12 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m12:aula-02:c2:c",
         "feedback": {
-          "correct": "A grade faz parte da cadeia, e a norma sanitária não admite o uso sem ela fora da ampliação. Você não contorna: para e comunica.",
+          "correct": "A grade faz parte da cadeia de imagem, e o serviço só usa o equipamento completo e conferido. Você não contorna: para e comunica.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m12:anvisa-in-92-2021"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018"
         ]
       },
       {
@@ -2251,8 +2253,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m12:anvisa-rdc-611-2022",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018",
+          "source:rtg-2026:m12:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2285,7 +2288,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m12:anvisa-rdc-611-2022"
+          "source:rtg-2026:m12:iaea-ssg46-2018",
+          "source:rtg-2026:m12:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2419,8 +2423,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m12:popli-2014-breast-positioning",
-          "source:rtg-2026:m12:anvisa-rdc-611-2022",
-          "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+          "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+          "source:rtg-2026:m12:iaea-ssg46-2018"
         ]
       }
     ]
@@ -2444,7 +2448,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2459,7 +2463,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2480,7 +2484,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2489,7 +2493,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2561,7 +2565,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2570,7 +2574,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2579,7 +2583,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2588,7 +2592,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2597,7 +2601,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2606,7 +2610,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2615,7 +2619,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2624,7 +2628,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2633,7 +2637,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:radiologyinfo-mammography"
       ]
     },
@@ -2642,8 +2646,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2663,8 +2667,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2678,8 +2682,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2687,8 +2691,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -2751,9 +2755,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:nci-seer-breast-anatomy",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014",
         "source:rtg-2026:m12:popli-2014-breast-positioning"
       ]
     },
@@ -2763,9 +2767,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:nci-seer-breast-anatomy",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014",
         "source:rtg-2026:m12:popli-2014-breast-positioning"
       ]
     },
@@ -2775,9 +2779,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:nci-seer-breast-anatomy",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014",
         "source:rtg-2026:m12:popli-2014-breast-positioning"
       ]
     },
@@ -2837,7 +2841,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2846,7 +2850,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2873,7 +2877,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2882,7 +2886,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2891,7 +2895,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2912,7 +2916,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2927,7 +2931,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2936,7 +2940,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -2995,7 +2999,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3022,7 +3026,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3031,7 +3035,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3040,7 +3044,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3049,7 +3053,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3058,7 +3062,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3067,7 +3071,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3076,7 +3080,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3085,7 +3089,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3094,7 +3098,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3103,7 +3107,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3112,7 +3116,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3121,7 +3125,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3130,7 +3134,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3139,7 +3143,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3148,7 +3152,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3157,7 +3161,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3166,7 +3170,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3175,7 +3179,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3184,7 +3188,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3193,7 +3197,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3201,8 +3205,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3210,8 +3214,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3237,8 +3241,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3246,8 +3250,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3256,7 +3260,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3277,7 +3281,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3292,7 +3296,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3301,7 +3305,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3310,9 +3314,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3321,9 +3324,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3332,9 +3334,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-in-92-2021",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3343,7 +3344,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3358,7 +3359,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3379,7 +3380,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3388,7 +3389,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:iaea-hhc-handbook-ch09",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -3396,7 +3397,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3416,7 +3418,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3430,7 +3433,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3438,7 +3442,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-in-92-2021"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3735,8 +3740,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3763,8 +3768,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3773,8 +3778,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3783,8 +3788,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3854,8 +3859,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:sweeney-2018-cc-criteria",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3867,8 +3872,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:sweeney-2018-cc-criteria",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -3880,8 +3885,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:sweeney-2018-cc-criteria",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -4161,7 +4166,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4172,7 +4177,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4183,7 +4188,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4194,7 +4199,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4205,7 +4210,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4216,7 +4221,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4227,7 +4232,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4238,7 +4243,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023"
       ]
     },
@@ -4247,8 +4252,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4256,8 +4262,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4265,8 +4272,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4274,8 +4282,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4283,8 +4292,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4292,8 +4302,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4301,8 +4312,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4310,8 +4322,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:radiologyinfo-mammography"
+        "source:rtg-2026:m12:radiologyinfo-mammography",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4320,7 +4333,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4335,7 +4349,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4356,7 +4371,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4365,7 +4381,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4373,8 +4390,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4400,8 +4418,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4409,8 +4428,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4418,8 +4438,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4429,9 +4450,10 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4441,9 +4463,10 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4453,9 +4476,10 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-mammography",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
         "source:rtg-2026:m12:inca-atualizacao-mamografia-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4463,8 +4487,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4472,8 +4497,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4499,8 +4525,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4508,8 +4535,9 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4517,7 +4545,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4531,7 +4560,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4551,7 +4581,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4559,7 +4590,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4567,7 +4599,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4593,7 +4626,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4601,7 +4635,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4609,7 +4644,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4863,7 +4899,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4873,7 +4910,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4901,7 +4939,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4911,7 +4950,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4975,7 +5015,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4985,7 +5026,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4995,7 +5037,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018",
+        "source:rtg-2026:m12:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5211,8 +5254,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5238,8 +5281,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5247,8 +5290,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5256,8 +5299,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5267,7 +5310,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5277,7 +5320,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5287,7 +5330,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5297,7 +5340,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5307,7 +5350,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5317,7 +5360,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5327,7 +5370,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5337,7 +5380,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
       ]
     },
     {
@@ -5345,8 +5388,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5354,8 +5397,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5363,8 +5406,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5372,8 +5415,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5381,8 +5424,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5390,8 +5433,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5399,8 +5442,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5408,8 +5451,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5417,8 +5460,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:iscd-official-positions-adult-2023"
+        "source:rtg-2026:m12:iscd-official-positions-adult-2023",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5428,7 +5471,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5450,7 +5493,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5466,7 +5509,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5476,7 +5519,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5538,8 +5581,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023"
@@ -5550,8 +5593,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023"
@@ -5562,8 +5605,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018",
         "source:rtg-2026:m12:popli-2014-breast-positioning",
         "source:rtg-2026:m12:radiologyinfo-dxa",
         "source:rtg-2026:m12:iscd-official-positions-adult-2023"
@@ -5629,8 +5672,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5639,8 +5682,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5667,8 +5710,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5677,8 +5720,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m12:popli-2014-breast-positioning",
-        "source:rtg-2026:m12:anvisa-rdc-611-2022",
-        "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+        "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital",
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5740,7 +5783,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5760,7 +5803,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5774,7 +5817,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     },
     {
@@ -5782,7 +5825,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m12:anvisa-rdc-611-2022"
+        "source:rtg-2026:m12:iaea-ssg46-2018"
       ]
     }
   ],
@@ -5824,7 +5867,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m12:radiologyinfo-mammography",
-            "source:rtg-2026:m12:cbr-parecer-compressao-2022"
+            "source:rtg-2026:m12:iaea-hhs17-qa-mamografia-digital"
           ]
         },
         "transfer": {
@@ -6036,7 +6079,8 @@ export const RTG_2026_M12: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m12:anvisa-rdc-611-2022"
+            "source:rtg-2026:m12:iaea-ssg46-2018",
+            "source:rtg-2026:m12:iaea-gsr-part3-2014"
           ]
         },
         "transfer": {
@@ -6212,7 +6256,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m12:anvisa-rdc-611-2022"
+            "source:rtg-2026:m12:iaea-ssg46-2018"
           ]
         }
       }
@@ -6232,7 +6276,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     },
     {
       "schemaVersion": 1,
@@ -6241,7 +6285,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     },
     {
       "schemaVersion": 1,
@@ -6250,7 +6294,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     },
     {
       "schemaVersion": 1,
@@ -6259,7 +6303,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     },
     {
       "schemaVersion": 1,
@@ -6268,7 +6312,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     },
     {
       "schemaVersion": 1,
@@ -6277,7 +6321,7 @@ export const RTG_2026_M12: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "f14f854dcfcc068630bef2b533362e2545f5e35ab3a8677078d12a1e2c97d343"
+      "materialSha256": "28cf7e3462f2248be925c6dc49e4d7e22e4a2cacd58161fc35140b66ce491914"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

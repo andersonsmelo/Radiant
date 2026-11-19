@@ -6,7 +6,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m11",
-  "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7",
+  "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51",
   "trackId": "track:rtg-2026:m11",
   "unitId": "unit:rtg-2026:m11",
   "contentVersion": "rtg-2026-m11-v1",
@@ -47,13 +47,13 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "licenseNote": "Página educativa do MagLab; consultada para os componentes, o ímã supercondutor e os números do campo, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m11:anvisa-in-97-2021",
-      "title": "Instrução Normativa IN nº 97, de 27 de maio de 2021",
-      "publisher": "Anvisa",
-      "url": "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000097&seqAto=000&valorAno=2021&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m11:acr-manual-mr-safety-2024",
+      "title": "ACR Manual on MR Safety (2024)",
+      "publisher": "American College of Radiology (ACR)",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/Clinical/Radiology-Safety/Manual-on-MR-Safety.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado no sistema de legislação da Anvisa para zonas, sinalização, detecção de metais, comunicação e proteção auditiva, sem reprodução de texto."
+      "licenseNote": "Zonas de segurança em RM, porta da sala do ímã, acompanhantes, proteção auditiva e gestantes; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
@@ -121,7 +121,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m11:fda-rm-beneficios-riscos",
           "source:rtg-2026:m11:nibib-rm",
-          "source:rtg-2026:m11:anvisa-in-97-2021",
+          "source:rtg-2026:m11:acr-manual-mr-safety-2024",
           "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
         ]
       },
@@ -444,7 +444,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
           "source:rtg-2026:m11:maglab-rm-visita",
           "source:rtg-2026:m11:nibib-rm",
           "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-          "source:rtg-2026:m11:anvisa-in-97-2021"
+          "source:rtg-2026:m11:acr-manual-mr-safety-2024"
         ]
       },
       "steps": [
@@ -1694,7 +1694,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
           "source:rtg-2026:m11:fda-rm-beneficios-riscos",
           "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
           "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-          "source:rtg-2026:m11:anvisa-in-97-2021",
+          "source:rtg-2026:m11:acr-manual-mr-safety-2024",
           "source:rtg-2026:m11:nibib-rm"
         ]
       },
@@ -2040,7 +2040,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m11:fda-rm-beneficios-riscos",
           "source:rtg-2026:m11:nibib-rm",
-          "source:rtg-2026:m11:anvisa-in-97-2021"
+          "source:rtg-2026:m11:acr-manual-mr-safety-2024"
         ]
       },
       {
@@ -2485,7 +2485,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2494,7 +2494,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2503,7 +2503,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2512,7 +2512,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2521,7 +2521,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2530,7 +2530,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2539,7 +2539,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2548,7 +2548,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2558,7 +2558,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2567,7 +2567,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2576,7 +2576,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2585,7 +2585,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2594,7 +2594,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2603,7 +2603,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2612,7 +2612,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2621,7 +2621,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2630,7 +2630,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2639,7 +2639,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2648,7 +2648,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2675,7 +2675,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2684,7 +2684,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2693,7 +2693,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2720,7 +2720,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2729,7 +2729,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2738,7 +2738,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2748,7 +2748,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2759,7 +2759,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2770,7 +2770,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -2781,7 +2781,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2797,7 +2797,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2819,7 +2819,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2829,7 +2829,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2942,7 +2942,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2963,7 +2963,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2978,7 +2978,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -2987,7 +2987,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3169,7 +3169,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3191,7 +3191,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3207,7 +3207,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3217,7 +3217,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3278,7 +3278,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:maglab-rm-visita",
         "source:rtg-2026:m11:nibib-rm",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3289,7 +3289,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:maglab-rm-visita",
         "source:rtg-2026:m11:nibib-rm",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -3300,7 +3300,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:maglab-rm-visita",
         "source:rtg-2026:m11:nibib-rm",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5139,7 +5139,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5149,7 +5149,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5159,7 +5159,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5169,7 +5169,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5179,7 +5179,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5189,7 +5189,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5199,7 +5199,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5209,7 +5209,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5219,7 +5219,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5229,7 +5229,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5251,7 +5251,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5267,7 +5267,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5277,7 +5277,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5287,7 +5287,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5297,7 +5297,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5325,7 +5325,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5335,7 +5335,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:nibib-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5344,7 +5344,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5371,7 +5371,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5380,7 +5380,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5389,7 +5389,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5400,7 +5400,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:nibib-rm"
       ]
     },
@@ -5412,7 +5412,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:nibib-rm"
       ]
     },
@@ -5424,7 +5424,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
         "source:rtg-2026:m11:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:m11:baker-2024-queimaduras-rf",
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:nibib-rm"
       ]
     },
@@ -5537,7 +5537,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos"
       ]
     },
@@ -5558,7 +5558,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos"
       ]
     },
@@ -5573,7 +5573,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos"
       ]
     },
@@ -5582,7 +5582,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m11:anvisa-in-97-2021",
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024",
         "source:rtg-2026:m11:fda-rm-beneficios-riscos"
       ]
     },
@@ -5592,7 +5592,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5607,7 +5607,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5628,7 +5628,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -5637,7 +5637,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-        "source:rtg-2026:m11:anvisa-in-97-2021"
+        "source:rtg-2026:m11:acr-manual-mr-safety-2024"
       ]
     }
   ],
@@ -5713,7 +5713,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-            "source:rtg-2026:m11:anvisa-in-97-2021"
+            "source:rtg-2026:m11:acr-manual-mr-safety-2024"
           ]
         }
       },
@@ -6031,7 +6031,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m11:anvisa-in-97-2021",
+            "source:rtg-2026:m11:acr-manual-mr-safety-2024",
             "source:rtg-2026:m11:fda-rm-beneficios-riscos"
           ]
         },
@@ -6066,7 +6066,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m11:fda-rm-beneficios-riscos",
-            "source:rtg-2026:m11:anvisa-in-97-2021"
+            "source:rtg-2026:m11:acr-manual-mr-safety-2024"
           ]
         }
       }
@@ -6086,7 +6086,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     },
     {
       "schemaVersion": 1,
@@ -6095,7 +6095,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     },
     {
       "schemaVersion": 1,
@@ -6104,7 +6104,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     },
     {
       "schemaVersion": 1,
@@ -6113,7 +6113,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     },
     {
       "schemaVersion": 1,
@@ -6122,7 +6122,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     },
     {
       "schemaVersion": 1,
@@ -6131,7 +6131,7 @@ export const RTG_2026_M11: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "deec6cdb07a37fc0db174015c47d1061e5b996b2130e2b04889be256efeec7a7"
+      "materialSha256": "ab6ff1e1a08e98d9a83998b23c586a3404631d5c2adbe506f9c1275b41357f51"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

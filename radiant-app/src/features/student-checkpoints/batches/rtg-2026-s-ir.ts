@@ -6,7 +6,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-ir",
-  "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4",
+  "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa",
   "trackId": "track:rtg-2026:s-ir",
   "unitId": "unit:rtg-2026:s-ir",
   "contentVersion": "rtg-2026-s-ir-v1",
@@ -22,22 +22,13 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
   ],
   "sources": [
     {
-      "id": "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022 (texto compilado)",
-      "publisher": "Anvisa, cópia no site do Colégio Brasileiro de Radiologia",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-07",
+      "id": "source:rtg-2026:s-ir:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:s-ir:anvisa-in-91-2021",
-      "title": "Instrução Normativa nº 91, de 27 de maio de 2021 (republicada no DOU de 06/07/2022): fluoroscopia e radiologia intervencionista",
-      "publisher": "Anvisa, cópia na BVS da SES-SP",
-      "url": "https://ses.sp.bvs.br/wp-content/uploads/2022/07/U_IN-MS-ANVISA-91-REP_270521.pdf",
-      "accessedAt": "2026-11-07",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto. O Anexo I é imagem e não foi usado."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:s-ir:radiologyinfo-angiografia",
@@ -91,7 +82,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8977205",
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
-      "licenseNote": "Artigo em acesso aberto; consulta de fatos, redação própria. Fonte estrangeira: não é norma brasileira."
+      "licenseNote": "Artigo em acesso aberto; consulta de fatos, redação própria."
     },
     {
       "id": "source:rtg-2026:s-ir:pmc-kerma-pka",
@@ -109,7 +100,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "url": "https://www.bsir.org/media/resources/NPSA_RCR_checklist_RCR_2010.pdf",
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
-      "licenseNote": "Documento britânico; consulta de fatos, redação própria. Não é regra brasileira: cada serviço define a sua lista."
+      "licenseNote": "Documento de colégio profissional; consulta de fatos, redação própria. Cada serviço define a sua lista."
     },
     {
       "id": "source:rtg-2026:s-ir:rpt-patchdsa-2025",
@@ -445,9 +436,8 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-ir-v1",
         "sourceIds": [
           "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-          "source:rtg-2026:s-ir:anvisa-in-91-2021",
-          "source:rtg-2026:s-ir:rpt-patchdsa-2025",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018",
+          "source:rtg-2026:s-ir:rpt-patchdsa-2025"
         ]
       },
       "steps": [
@@ -457,7 +447,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Imagem e equipamento",
-            "body": "Hoje você vai conseguir diferenciar fluoroscopia e modo cine e dizer o que sinais, alarme e painel precisam indicar.",
+            "body": "Hoje você vai conseguir diferenciar fluoroscopia e modo de aquisição de imagens e dizer o que sinais, alarme e painel precisam indicar.",
             "dialogue": {
               "setting": "Sala intervencionista de simulação, sem paciente",
               "lines": [
@@ -483,9 +473,9 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O que a sala mostra e avisa",
-            "body": "Fluoroscopia converte raios X em vídeo para guiar o procedimento. O modo cine registra imagens, e a IN 91 pede sinal sonoro e luminoso na sala quando acionado. Angiografia por subtração digital subtrai a imagem sem contraste das imagens com contraste, destacando vasos. Imagens desalinhadas geram artefatos; refazê-las pede mais contraste e radiação. Na emissão de raios X, há sinal luminoso no painel e na sala; em equipamento fixo, também fora da porta. O dispositivo de tempo soma a fluoroscopia: ao fim do tempo pré-selecionado, um alarme sonoro toca, durante a emissão, até o reajuste ou reinício. O equipamento deve indicar claramente parâmetros como tensão, corrente e tempo acumulado.",
+            "body": "Fluoroscopia converte raios X em vídeo para guiar o procedimento. O modo de aquisição de imagens grava a sequência, com taxa de dose maior que a da fluoroscopia. Angiografia por subtração digital subtrai a imagem sem contraste das imagens com contraste, destacando vasos. Imagens desalinhadas geram artefatos; refazê-las pede mais contraste e radiação. Enquanto há radiação sendo produzida, uma luz de aviso fica acesa na entrada da área controlada. O dispositivo de tempo soma a fluoroscopia: ao fim de um intervalo pré-definido, tipicamente 5 minutos, um alarme sonoro toca. O equipamento mostra tensão, corrente e tempo; na fluoroscopia, também o produto kerma-área e o kerma de referência acumulado.",
             "keyPoints": [
-              "Fluoroscopia guia; cine registra; subtração destaca vasos.",
+              "Fluoroscopia guia; aquisição grava; subtração destaca vasos.",
               "Sinal e alarme informam: você descreve e leva à supervisão.",
               "Na formação, operar só sob supervisão direta de profissional habilitado."
             ]
@@ -549,36 +539,36 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Num roteiro de estudo, um equipamento fixo está emitindo raios X. Segundo a IN 91, onde você espera ver sinal luminoso indicando a emissão?"
+              "label": "Múltipla escolha: Num roteiro de estudo, a sala está produzindo raios X. Segundo a fonte da aula, onde você espera ver uma luz de aviso acesa?"
             },
-            "help": "Pense em quem precisa saber que há emissão, não só em quem opera.",
+            "help": "Pense em quem precisa saber que há emissão antes de abrir a porta.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. Em equipamento fixo, a emissão é indicada no painel, dentro da sala e do lado de fora da porta.",
+              "correct": "Isso. A luz de aviso na entrada da área controlada fica acesa enquanto há radiação sendo produzida, para evitar entrada sem querer.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Num roteiro de estudo, um equipamento fixo está emitindo raios X. Segundo a IN 91, onde você espera ver sinal luminoso indicando a emissão?",
+              "prompt": "Num roteiro de estudo, a sala está produzindo raios X. Segundo a fonte da aula, onde você espera ver uma luz de aviso acesa?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i2:a",
-                  "label": "Só no painel de controle da sala",
-                  "explanation": "O painel é um dos lugares, mas quem está na sala e quem chega também precisa saber. Retome o que a norma pede."
+                  "label": "No carrinho de materiais da sala",
+                  "explanation": "O carrinho guarda materiais e não avisa quem chega. Retome o que a fonte diz sobre a entrada."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i2:b",
-                  "label": "No painel, na sala e fora da porta",
-                  "explanation": "Isso. Em equipamento fixo, a emissão é indicada no painel, dentro da sala e do lado de fora da porta."
+                  "label": "Na entrada da área controlada",
+                  "explanation": "Isso. A luz de aviso na entrada da área controlada fica acesa enquanto há radiação sendo produzida, para evitar entrada sem querer."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i2:c",
-                  "label": "Só do lado de fora da porta",
-                  "explanation": "O sinal externo avisa quem chega, e quem está dentro também precisa saber. Confira de novo a norma."
+                  "label": "Na mesa de exame do paciente",
+                  "explanation": "A mesa não avisa quem chega à porta. Confira de novo o conceito."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i2:d",
-                  "label": "Só no monitor de imagem da sala",
-                  "explanation": "O monitor mostra a imagem, e a norma fala de sinal luminoso em outros lugares. Retome o conceito."
+                  "label": "No monitor de imagem da sala",
+                  "explanation": "O monitor mostra a imagem e não avisa quem está chegando. Retome o conceito."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-02:i2:b"
@@ -646,11 +636,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "accessibility": {
               "label": "Associação: Ligue cada termo da sala ao que ele faz ou indica."
             },
-            "help": "Procure primeiro o termo que guarda imagens.",
+            "help": "Procure primeiro o termo que grava imagens.",
             "type": "matching",
             "feedback": {
-              "correct": "Isso. Guiar, registrar, avisar do tempo e informar: quatro papéis diferentes.",
-              "incorrect": "Retome o conceito. Um termo é vídeo ao vivo, outro é registro, outro avisa do tempo e outro informa valores."
+              "correct": "Isso. Guiar, gravar, avisar do tempo e informar: quatro papéis diferentes.",
+              "incorrect": "Retome o conceito. Um termo é vídeo ao vivo, outro é gravação, outro avisa do tempo e outro informa valores."
             },
             "payload": {
               "prompt": "Ligue cada termo da sala ao que ele faz ou indica.",
@@ -662,18 +652,18 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 },
                 {
                   "id": "pair:rtg-2026:s-ir:aula-02:i4:2",
-                  "left": "Modo cine",
-                  "right": "Registra imagens, com sinal sonoro e luminoso na sala"
+                  "left": "Modo de aquisição",
+                  "right": "Grava a sequência, com mais dose"
                 },
                 {
                   "id": "pair:rtg-2026:s-ir:aula-02:i4:3",
                   "left": "Dispositivo de tempo",
-                  "right": "Alarma ao fim do tempo pré-selecionado"
+                  "right": "Alarma ao fim do intervalo pré-definido"
                 },
                 {
                   "id": "pair:rtg-2026:s-ir:aula-02:i4:4",
                   "left": "Painel do equipamento",
-                  "right": "Indica tensão, corrente e tempo"
+                  "right": "Indica tensão, corrente, tempo, produto kerma-área e kerma acumulado"
                 }
               ]
             }
@@ -695,11 +685,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "Quem precisa saber disso agora, e o que essa pessoa precisa ouvir?",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. A IN 91 pede essas indicações, e em equipamento vendido depois dela a falta no painel inabilita o uso. Quem avalia é o serviço.",
+              "correct": "Isso. Essas indicações fazem parte do que se espera de um equipamento de fluoroscopia. Quem avalia a falta, e se o equipamento segue em uso, é o serviço.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Em visita técnica a outro serviço, você acompanha a preparação de uma sala de simulação com um aparelho de marca diferente. Olhando o painel, você não encontra indicação de tensão, corrente nem tempo. A supervisora está conversando do outro lado da sala.",
+              "context": "Em visita técnica a outro serviço, você acompanha a preparação de uma sala de simulação com um aparelho de marca diferente. Olhando o painel, você não encontra indicação de tensão, corrente, tempo de fluoroscopia nem do produto kerma-área. A supervisora está conversando do outro lado da sala.",
               "prompt": "Qual é a sua atitude?",
               "options": [
                 {
@@ -710,7 +700,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i5:b",
                   "label": "Conclui que nessa marca é normal e segue",
-                  "explanation": "A IN 91 pede essas indicações, e a marca não dispensa isso. Confira de novo o que o equipamento deve indicar."
+                  "explanation": "A fonte espera essas indicações num equipamento de fluoroscopia, e a marca não dispensa isso. Confira de novo o que o equipamento deve mostrar."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i5:c",
@@ -720,7 +710,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-02:i5:d",
                   "label": "Descreve à supervisora o que não aparece",
-                  "explanation": "Isso. A IN 91 pede essas indicações, e em equipamento vendido depois dela a falta no painel inabilita o uso. Quem avalia é o serviço."
+                  "explanation": "Isso. Essas indicações fazem parte do que se espera de um equipamento de fluoroscopia. Quem avalia a falta, e se o equipamento segue em uso, é o serviço."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-02:i5:d"
@@ -733,7 +723,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Modos com função própria",
-            "body": "Agora você consegue dizer para que servem fluoroscopia e cine, reconhecer os sinais e o alarme da sala e o que o equipamento deve indicar. Se faltar uma indicação, você descreve e leva à supervisão.",
+            "body": "Agora você consegue dizer para que servem fluoroscopia e modo de aquisição, reconhecer os sinais e o alarme da sala e o que o equipamento deve indicar. Se faltar uma indicação, você descreve e leva à supervisão.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -755,7 +745,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-ir-v1",
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-ir:iaea-ssg46-2018",
           "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
           "source:rtg-2026:s-ir:rcr-lista-verificacao"
         ]
@@ -793,10 +783,10 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Conhecer pelo nome, conferir pela lista",
-            "body": "O cateter é um tubo plástico longo e fino. A bainha é um tubo colocado na artéria de acesso. O fio-guia tem sua posição conferida na fluoroscopia. O cateter-balão tem um pequeno balão na ponta. O stent é uma malha que entra recolhida num cateter e se expande contra a parede do vaso. Um dispositivo de fechamento pode selar o orifício na artéria. Você reconhece esses itens e não os manuseia em paciente. A sala é área controlada: acesso só para os necessários, só o indispensável, luz vermelha na porta. A IN 91 inabilita o uso sem anteparos ou visores e cortinas plumbíferas, ou com dois equipamentos na sala.",
+            "body": "O cateter é um tubo plástico longo e fino. A bainha é um tubo colocado na artéria de acesso. O fio-guia tem sua posição conferida na fluoroscopia. O cateter-balão tem um pequeno balão na ponta. O stent é uma malha que entra recolhida num cateter e se expande contra a parede do vaso. Um dispositivo de fechamento sela o orifício. Você reconhece esses itens; não os manuseia em paciente. A sala é área controlada: acesso restrito a quem o procedimento precisa, com símbolo de radiação e luz de aviso. Cortinas plumbíferas e protetores móveis protegem a equipe. O anteparo suspenso protege olhos e tireoide sem tirar a visão do paciente.",
             "keyPoints": [
-              "A lista britânica pede equipamento disponível e dentro da validade.",
-              "Luz vermelha acesa: entrada proibida.",
+              "A lista da fonte pede equipamento disponível e dentro da validade.",
+              "Luz de aviso acesa: há radiação, não entre sem necessidade.",
               "Reconhecer e conferir é a sua parte; manusear em paciente, não."
             ]
           }
@@ -817,7 +807,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "Pense em quem o procedimento realmente precisa ter dentro da sala.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. A RDC 611 reserva o acesso a eles e ao acompanhante, só quando estritamente necessário.",
+              "correct": "Isso. O acesso é restrito a eles; visitante só entra em exceção, acompanhado por quem conhece as medidas de proteção.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -831,7 +821,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i1:b",
                   "label": "Qualquer acompanhante que queira ficar junto",
-                  "explanation": "Acompanhante só entra quando estritamente necessário. Confira de novo a regra."
+                  "explanation": "Visitante só entra em exceção, acompanhado por alguém da equipe. Confira de novo a regra."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i1:c",
@@ -841,7 +831,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i1:d",
                   "label": "Os profissionais necessários e o paciente",
-                  "explanation": "Isso. A RDC 611 reserva o acesso a eles e ao acompanhante, só quando estritamente necessário."
+                  "explanation": "Isso. O acesso é restrito a eles; visitante só entra em exceção, acompanhado por quem conhece as medidas de proteção."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-03:i1:d"
@@ -905,16 +895,16 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Você chega à sala de simulação para buscar a lista e vê a luz vermelha acima da porta acesa. O que esse sinal significa?"
+              "label": "Múltipla escolha: Você chega à sala de simulação para buscar a lista e vê a luz de aviso acima da porta acesa. O que esse sinal significa?"
             },
             "help": "Pense em quem esse sinal protege, e de quê.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. A RDC 611 liga a luz vermelha à possibilidade de exposição, e a entrada fica proibida enquanto ela estiver acesa.",
+              "correct": "Isso. A luz de aviso fica acesa enquanto há radiação sendo produzida, e a entrada é só de quem o procedimento precisa.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Você chega à sala de simulação para buscar a lista e vê a luz vermelha acima da porta acesa. O que esse sinal significa?",
+              "prompt": "Você chega à sala de simulação para buscar a lista e vê a luz de aviso acima da porta acesa. O que esse sinal significa?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i3:a",
@@ -923,8 +913,8 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i3:b",
-                  "label": "Entrada proibida: pode haver exposição",
-                  "explanation": "Isso. A RDC 611 liga a luz vermelha à possibilidade de exposição, e a entrada fica proibida enquanto ela estiver acesa."
+                  "label": "Há radiação: não entre agora",
+                  "explanation": "Isso. A luz de aviso fica acesa enquanto há radiação sendo produzida, e a entrada é só de quem o procedimento precisa."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i3:c",
@@ -1005,17 +995,17 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "Dois critérios valem aqui: o sinal da porta e quem é necessário.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Com a luz acesa, a entrada é proibida, e o acesso é só de quem o procedimento precisa. A equipe decide o restante.",
+              "correct": "Isso. Com a luz acesa, há radiação na sala, e o acesso é só de quem o procedimento precisa. A equipe decide o restante.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Num estágio de observação, a representante de um fornecedor aparece no corredor com um catálogo. A luz vermelha da sala está acesa, e ela pergunta se pode entrar rapidinho para falar com o médico, já que trouxe avental.",
+              "context": "Num estágio de observação, a representante de um fornecedor aparece no corredor com um catálogo. A luz de aviso da sala está acesa, e ela pergunta se pode entrar rapidinho para falar com o médico, já que trouxe avental.",
               "prompt": "Qual resposta segue o que você estudou?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i5:a",
                   "label": "Não a leva para dentro e avisa a equipe",
-                  "explanation": "Isso. Com a luz acesa, a entrada é proibida, e o acesso é só de quem o procedimento precisa. A equipe decide o restante."
+                  "explanation": "Isso. Com a luz acesa, há radiação na sala, e o acesso é só de quem o procedimento precisa. A equipe decide o restante."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-03:i5:b",
@@ -1043,7 +1033,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "A lista e a sala conferidas",
-            "body": "Agora você consegue reconhecer bainha, cateter-balão, stent e dispositivo de fechamento, conferir validade e checar sinais e barreiras da sala. O que não bate, você mantém como está e leva à equipe.",
+            "body": "Agora você consegue reconhecer bainha, cateter-balão, stent e dispositivo de fechamento, conferir validade e checar sinais e dispositivos de proteção da sala. O que não bate, você mantém como está e leva à equipe.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1067,7 +1057,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
           "source:rtg-2026:s-ir:rcr-lista-verificacao",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1103,7 +1093,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Duas proteções andam juntas",
-            "body": "Contra infecção, a equipe usa os métodos do protocolo do serviço. Nesta simulação, você não toca no campo estéril: se duvidar, para e avisa. Contra radiação, a RDC 611 pede proteção contra o espalhado de ao menos 0,25 mm equivalente de chumbo, e a IN 91, teste semestral dos equipamentos de proteção individual, com laudo. Avental só frontal não protege quem fica de costas. O protetor de tireoide fica ajustado; os óculos, com pouca folga; o anteparo suspenso, perto do paciente. Num modelo simples, dobrar a distância reduz sua dose a um quarto. O dosímetro é pessoal, trocado por mês; com suspeita de exposição acidental, vai à leitura urgente.",
+            "body": "Contra infecção, siga o protocolo do serviço. Na simulação, você não toca no campo estéril: se duvidar, para e avisa. Contra radiação, o serviço escolhe a vestimenta: a equivalência em chumbo vem na etiqueta, e a integridade é checada por imagem periodicamente. Avental só frontal não protege quem fica de costas. O protetor de tireoide fica ajustado; os óculos, com pouca folga; o anteparo, perto do paciente. Num modelo simples, dobrar a distância reduz sua dose a um quarto. O dosímetro é pessoal, de um único usuário; o serviço define a troca, em geral de 1 a 3 meses. Com suspeita de exposição acidental, avise o responsável de proteção.",
             "keyPoints": [
               "Dúvida sobre campo estéril ou contaminação: pare, não mexa e avise.",
               "Barreira não é só vestir: ajuste e integridade contam.",
@@ -1330,7 +1320,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-04:i5:b",
                   "label": "Entra sem dosímetro, só para observar",
-                  "explanation": "A RDC 611 liga o dosímetro à permanência em área controlada de quem trabalha ali. Confira de novo a regra."
+                  "explanation": "A monitoração individual vale para quem trabalha em área controlada, e o serviço define como você segue. Confira de novo a regra."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-04:i5:c",
@@ -1339,7 +1329,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-04:i5:d",
-                  "label": "Não entra e conta à supervisora o que houve",
+                  "label": "Não entra e avisa a supervisora",
                   "explanation": "Isso. Cada dosímetro tem um único usuário. A supervisora define como você segue no estágio."
                 }
               ],
@@ -1353,7 +1343,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Proteger e avisar",
-            "body": "Agora você consegue separar proteção contra infecção de proteção radiológica, citar o cuidado de cada barreira e usar o dosímetro como a norma pede. Na dúvida sobre campo ou contaminação, você para, não mexe e avisa.",
+            "body": "Agora você consegue separar proteção contra infecção de proteção radiológica, citar o cuidado de cada barreira e usar o dosímetro como o serviço pede. Na dúvida sobre campo ou contaminação, você para, não mexe e avisa.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1378,7 +1368,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "source:rtg-2026:s-ir:radiologyinfo-angiografia",
           "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
           "source:rtg-2026:s-ir:radiologyinfo-contraste",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1415,7 +1405,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Ouvir, anotar e levar à equipe",
-            "body": "No preparo, RadiologyInfo lista o que o paciente informa: medicamentos, alergias, em especial a contraste iodado, doenças e possível gravidez. Ele retira joias, próteses dentárias removíveis, óculos e objetos metálicos. Com contraste iodado, a fonte cita calor e gosto metálico por alguns minutos. Reações graves são muito incomuns, mas podem surgir coceira, urticária, náusea, falta de ar ou inchaço; erupção pode vir horas ou dias depois. Na fonte americana, o médico faz a incisão, o tecnólogo obtém as imagens e o radiologista analisa e assina o laudo. No Brasil, o serviço define as funções por protocolo. Você não escolhe nem administra contraste ou medicamento. Sinal novo: chame a equipe.",
+            "body": "No preparo, RadiologyInfo lista o que o paciente informa: medicamentos, alergias, em especial a contraste iodado, doenças e possível gravidez. Ele retira joias, próteses dentárias removíveis, óculos e objetos metálicos. Com contraste iodado, a fonte cita calor e gosto metálico por alguns minutos. Reações graves são muito incomuns, mas podem surgir coceira, urticária, náusea, falta de ar ou inchaço; erupção pode vir horas ou dias depois. Na fonte, o médico faz a incisão, o tecnólogo obtém as imagens e o radiologista analisa e assina o laudo. No seu serviço, o protocolo local define as funções. Você não escolhe nem administra contraste ou medicamento. Sinal novo: chame a equipe.",
             "keyPoints": [
               "Informação do paciente vai para a ficha e para a equipe.",
               "Você não decide se um sinal é simples: chame a equipe.",
@@ -1481,7 +1471,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada pessoa ao que a fonte americana e esta aula atribuem a ela."
+              "label": "Associação: Ligue cada pessoa ao que a fonte e esta aula atribuem a ela."
             },
             "help": "Procure primeiro a linha que descreve o trabalho com as imagens prontas.",
             "type": "matching",
@@ -1490,7 +1480,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
               "incorrect": "Retome o conceito. Comece pelo seu próprio papel, que não inclui nenhum ato no paciente."
             },
             "payload": {
-              "prompt": "Ligue cada pessoa ao que a fonte americana e esta aula atribuem a ela.",
+              "prompt": "Ligue cada pessoa ao que a fonte e esta aula atribuem a ela.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:s-ir:aula-05:i2:1",
@@ -1628,7 +1618,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "A pressa muda de quem é a função?",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Cada ato cabe a quem é legalmente habilitado, conforme o protocolo. Levar o pedido à supervisão mantém a segurança.",
+              "correct": "Isso. Cada ato cabe a quem o serviço habilita para ele, conforme o protocolo. Levar o pedido à supervisão mantém a segurança.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1643,7 +1633,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-05:i5:b",
                   "label": "Não faz e leva o pedido à supervisora",
-                  "explanation": "Isso. Cada ato cabe a quem é legalmente habilitado, conforme o protocolo. Levar o pedido à supervisão mantém a segurança."
+                  "explanation": "Isso. Cada ato cabe a quem o serviço habilita para ele, conforme o protocolo. Levar o pedido à supervisão mantém a segurança."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-05:i5:c",
@@ -1690,7 +1680,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-ir:openstax-vias-circulatorias",
           "source:rtg-2026:s-ir:rcr-lista-verificacao",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1726,7 +1716,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A pausa que protege",
-            "body": "A lista britânica do Royal College of Radiologists tem três fases: entrada, pausa e saída. Cada passo foi pensado para durar menos de um minuto; alguém que participa lê, e a equipe não avança sem resolver. Antes da lista do dia há reunião da equipe; no fim, nova conversa. Cada serviço adapta a sua lista. A RDC 611 pede protocolos escritos, atualizados e de fácil acesso, conhecidos por toda a equipe, e registros dos procedimentos. Posição na mesa e lado do paciente vêm do pedido e do protocolo: você confere, não decide. Divergência: pare, descreva e leve à equipe. Fotografar a tela para usar como registro é proibido.",
+            "body": "A lista do Royal College of Radiologists tem três fases: entrada, pausa e saída. Cada passo dura menos de um minuto; alguém que participa lê, e a equipe não avança sem resolver. Antes da lista do dia há reunião da equipe; no fim, nova conversa. Cada serviço adapta a sua lista. O serviço mantém protocolos documentados, revisados e conhecidos por toda a equipe, e registra os procedimentos. Posição na mesa e lado do paciente vêm do pedido e do protocolo: você confere, não decide. Divergência: pare, descreva e leve à equipe. Não fotografe a tela: a foto expõe dados do paciente, e o registro é o do sistema do serviço.",
             "keyPoints": [
               "Entrada, pausa e saída: não se avança com item aberto.",
               "Lado é sempre o do paciente, conforme o pedido.",
@@ -1792,7 +1782,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Ordenação: Na ordem ensinada nesta aula, coloque os momentos da lista britânica de verificação."
+              "label": "Ordenação: Na ordem ensinada nesta aula, coloque os momentos da lista de verificação da fonte."
             },
             "help": "Separe primeiro o que acontece uma vez por dia do que acontece para cada paciente.",
             "type": "ordering",
@@ -1801,7 +1791,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
               "incorrect": "Retome o conceito. As três fases são de cada paciente; os outros dois momentos são do dia todo."
             },
             "payload": {
-              "prompt": "Na ordem ensinada nesta aula, coloque os momentos da lista britânica de verificação.",
+              "prompt": "Na ordem ensinada nesta aula, coloque os momentos da lista de verificação da fonte.",
               "items": [
                 {
                   "id": "item:rtg-2026:s-ir:aula-06:i2:3",
@@ -1945,7 +1935,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "Um problema do sistema se resolve com um atalho seu?",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. A RDC 611 proíbe usar foto como registro, e a falha do sistema vai para quem responde por ele.",
+              "correct": "Isso. Não fotografe a tela: a foto expõe dados do paciente, e o registro é o do sistema do serviço. A falha do sistema vai para quem responde por ele.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1955,7 +1945,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-06:i5:a",
                   "label": "Tira a foto e apaga depois de anexar",
-                  "explanation": "Apagar depois não muda o que foi feito. Retome o que a RDC 611 proíbe sobre fotografar imagens."
+                  "explanation": "Apagar depois não muda o que foi feito, e a foto já expôs dados do paciente. Retome o que a aula diz sobre foto de tela."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-06:i5:b",
@@ -1970,7 +1960,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-06:i5:d",
                   "label": "Não fotografa e relata a falha à equipe",
-                  "explanation": "Isso. A RDC 611 proíbe usar foto como registro, e a falha do sistema vai para quem responde por ele."
+                  "explanation": "Isso. Não fotografe a tela: a foto expõe dados do paciente, e o registro é o do sistema do serviço. A falha do sistema vai para quem responde por ele."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-06:i5:d"
@@ -2005,10 +1995,9 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-ir-v1",
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-in-91-2021",
+          "source:rtg-2026:s-ir:iaea-ssg46-2018",
           "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
-          "source:rtg-2026:s-ir:pmc-kerma-pka",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:pmc-kerma-pka"
         ]
       },
       "steps": [
@@ -2044,7 +2033,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Ler, reconhecer e relatar",
-            "body": "A RDC 611 pede a exposição mínima necessária. Quem opera usa os recursos; você reconhece. Na fonte: colimar reduz a área irradiada e o espalhamento; ampliar aumenta a exposição e o espalhamento; o modo pulsado usa menos quadros e menos tempo irradiando; o de baixa dose, menos radiação. No painel: kerma no ar de referência, acumulado num ponto fixo em relação ao arco em C, e produto kerma-área, somado em todo o feixe, em Gy·cm². Nenhum mede diretamente o pico na pele. Você lê e registra como o serviço pede, sem julgar. A IN 91 pede imagem semestral de teste comparada à de referência. Teste reprovado: pare e relate.",
+            "body": "A otimização busca a menor exposição compatível com uma imagem adequada. Quem opera usa os recursos; você reconhece. Colimar reduz a área irradiada e o espalhamento; ampliar aumenta a exposição e o espalhamento; o modo pulsado usa menos quadros e menos tempo irradiando; o de baixa dose, menos radiação. No painel: kerma no ar de referência, acumulado num ponto fixo em relação ao arco em C, e produto kerma-área, somado em todo o feixe, em Gy·cm². Nenhum mede diretamente o pico na pele. Você lê e registra como o serviço pede. O serviço define testes de constância: imagem comparada à de referência, dentro da tolerância. Teste reprovado: pare e relate.",
             "keyPoints": [
               "Indicadores são vocabulário e registro; a avaliação é de quem responde por ela.",
               "Alarme de tempo acumulado de fluoroscopia: avise quem conduz, sem reiniciar.",
@@ -2092,7 +2081,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-07:i1:d",
                   "label": "O tempo de troca do dosímetro",
-                  "explanation": "A troca do dosímetro segue outra rotina, a mensal. Retome o dispositivo da aula."
+                  "explanation": "A troca do dosímetro segue outra rotina, definida pelo serviço. Retome o dispositivo da aula."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-07:i1:b"
@@ -2208,11 +2197,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "help": "De quem é a decisão sobre usar o equipamento amanhã?",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Falha de teste é para relatar. Se houver nível de restrição, o responsável legal decide sobre a suspensão do uso.",
+              "correct": "Isso. Falha de teste é para relatar. Se a medida sair da tolerância, quem responde pelo serviço decide se o uso segue ou é suspenso.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Numa aula de controle de qualidade, a imagem semestral da ferramenta de teste, feita com a técnica da imagem de referência, fica visivelmente pior que a referência. O colega diz que é a tela, que o equipamento vem funcionando bem e que amanhã há procedimentos marcados.",
+              "context": "Numa aula de controle de qualidade, a imagem periódica da ferramenta de teste, feita com a técnica da imagem de referência, fica visivelmente pior que a referência. O colega diz que é a tela, que o equipamento vem funcionando bem e que amanhã há procedimentos marcados.",
               "prompt": "Qual é a ação certa para você?",
               "options": [
                 {
@@ -2233,7 +2222,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-07:i4:d",
                   "label": "Para o teste e relata o que viu à supervisão",
-                  "explanation": "Isso. Falha de teste é para relatar. Se houver nível de restrição, o responsável legal decide sobre a suspensão do uso."
+                  "explanation": "Isso. Falha de teste é para relatar. Se a medida sair da tolerância, quem responde pelo serviço decide se o uso segue ou é suspenso."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-ir:aula-07:i4:d"
@@ -2271,7 +2260,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-ir:aula-07:i5:b",
                   "label": "Espera o alarme parar sozinho",
-                  "explanation": "Ele continua enquanto houver emissão e até ser reiniciado. Confira de novo o que a norma descreve."
+                  "explanation": "Esperar não avisa quem conduz o procedimento. Retome o que o alarme pede de você."
                 },
                 {
                   "id": "option:rtg-2026:s-ir:aula-07:i5:c",
@@ -2317,8 +2306,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-ir-v1",
         "sourceIds": [
           "source:rtg-2026:s-ir:rcr-lista-verificacao",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-          "source:rtg-2026:s-ir:anvisa-in-91-2021"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -2373,7 +2361,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Na aula de protocolos, você viu as fases da lista britânica para cada paciente. Qual opção traz as três na ordem?"
+              "label": "Múltipla escolha: Na aula de protocolos, você viu as fases da lista de verificação para cada paciente. Qual opção traz as três na ordem?"
             },
             "help": "Pense no que acontece com cada paciente ao longo do procedimento.",
             "type": "multiple-choice",
@@ -2382,7 +2370,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Na aula de protocolos, você viu as fases da lista britânica para cada paciente. Qual opção traz as três na ordem?",
+              "prompt": "Na aula de protocolos, você viu as fases da lista de verificação para cada paciente. Qual opção traz as três na ordem?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-ir:aula-08:i1:a",
@@ -2492,12 +2480,12 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
                 {
                   "id": "pair:rtg-2026:s-ir:aula-08:i3:2",
                   "left": "Acesso à sala",
-                  "right": "Luz vermelha e avisos na porta"
+                  "right": "Luz de aviso e sinalização na porta"
                 },
                 {
                   "id": "pair:rtg-2026:s-ir:aula-08:i3:3",
                   "left": "Avental e protetor de tireoide",
-                  "right": "Laudo técnico de integridade"
+                  "right": "Registro da inspeção de integridade"
                 },
                 {
                   "id": "pair:rtg-2026:s-ir:aula-08:i3:4",
@@ -2700,32 +2688,32 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-02"
         ],
-        "prompt": "A IN 91 pede sinais sonoro e luminoso perceptíveis dentro da sala para indicar o acionamento de qual modo?",
+        "prompt": "Durante a angiografia, a equipe quer gravar a sequência com taxa de dose maior que a da fluoroscopia. Segundo a aula, qual modo faz isso?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-02:c1:a",
-            "label": "Modo de ajuste da mesa"
+            "label": "Modo de ajuste de altura da mesa"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-02:c1:b",
-            "label": "Modo de espera do monitor"
+            "label": "Modo de espera do monitor de vídeo"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-02:c1:c",
-            "label": "Modo de transporte do aparelho"
+            "label": "Modo de transporte do aparelho pela sala"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-02:c1:d",
-            "label": "Modo cine, de registro"
+            "label": "Modo de aquisição de imagens"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-02:c1:d",
         "feedback": {
-          "correct": "Isso. Quando o cine está acionado, quem está na sala precisa perceber o sinal.",
+          "correct": "Isso. O modo de aquisição de imagens grava a sequência, com taxa de dose maior que a da fluoroscopia.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-in-91-2021"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2733,7 +2721,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-02"
         ],
-        "prompt": "Durante uma demonstração de fluoroscopia, um alarme sonoro toca na sala. Segundo a IN 91, o que esse alarme indica?",
+        "prompt": "Durante uma demonstração de fluoroscopia, um alarme sonoro toca na sala. Segundo a fonte da aula, o que esse alarme indica?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-02:c2:a",
@@ -2741,7 +2729,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-ir:aula-02:c2:b",
-            "label": "Fim do tempo pré-selecionado"
+            "label": "Fim do intervalo"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-02:c2:c",
@@ -2754,11 +2742,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-02:c2:b",
         "feedback": {
-          "correct": "Isso. O dispositivo soma o tempo de fluoroscopia e avisa quando o tempo pré-selecionado termina.",
+          "correct": "Isso. O dispositivo soma o tempo de fluoroscopia e avisa quando o intervalo pré-definido termina.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-in-91-2021"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2799,19 +2787,19 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-03"
         ],
-        "prompt": "Segundo a IN 91, qual destas condições inabilita o uso do equipamento de intervencionista?",
+        "prompt": "Segundo a aula, qual destes dispositivos da sala protege olhos e tireoide da equipe sem tirar o contato visual com o paciente?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-03:c2:a",
-            "label": "Monitor de sinais vitais ligado"
+            "label": "Monitor de sinais vitais"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-03:c2:b",
-            "label": "Dois monitores de imagem na sala"
+            "label": "Cortina de tecido comum"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-03:c2:c",
-            "label": "Dois equipamentos na mesma sala"
+            "label": "Anteparo suspenso no teto"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-03:c2:d",
@@ -2820,11 +2808,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-03:c2:c",
         "feedback": {
-          "correct": "Isso. Mais de um equipamento instalado na mesma sala está entre as condições que inabilitam o uso.",
+          "correct": "Isso. O anteparo suspenso protege olhos e tireoide e mantém a equipe vendo o paciente.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-in-91-2021"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2832,32 +2820,32 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-04"
         ],
-        "prompt": "Segundo a IN 91, com que periodicidade os equipamentos de proteção individual do serviço de intervencionista devem ser testados?",
+        "prompt": "Segundo a fonte da aula, como o serviço confirma, de tempos em tempos, que um avental de proteção ainda protege?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-04:c1:a",
-            "label": "A cada dez anos"
+            "label": "Pela cor e pela idade do tecido"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c1:b",
-            "label": "A cada semestre"
+            "label": "Por exame de imagem periódico"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c1:c",
-            "label": "Só se rasgarem"
+            "label": "Só quando aparece um rasgo à vista"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c1:d",
-            "label": "A cada plantão"
+            "label": "Perguntando a quem usou no plantão"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-04:c1:b",
         "feedback": {
-          "correct": "Isso. O teste é semestral e gera laudo técnico de integridade.",
+          "correct": "Isso. O exame periódico, por fluoroscopia ou radiografia, confirma a integridade da blindagem.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-in-91-2021"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2865,32 +2853,32 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-04"
         ],
-        "prompt": "Num cenário simulado, há suspeita de exposição acidental de um colega. Segundo a RDC 611, o que acontece com o dosímetro dele?",
+        "prompt": "Num cenário simulado, um colega relata suspeita de exposição acidental. Qual é a atitude certa?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-04:c2:a",
-            "label": "Espera a troca do fim do mês"
+            "label": "Espera a troca de rotina do dosímetro dele"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c2:b",
-            "label": "Passa a ser usado por uma outra pessoa"
+            "label": "Passa o dosímetro dele a outra pessoa da equipe"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c2:c",
-            "label": "É zerado na própria sala de exames"
+            "label": "Zera o dosímetro na própria sala"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-04:c2:d",
-            "label": "Vai à leitura em caráter de urgência"
+            "label": "Avisa o responsável pela proteção radiológica"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-04:c2:d",
         "feedback": {
-          "correct": "Isso. Com a suspeita, o dosímetro segue ao serviço de monitoração para leitura urgente.",
+          "correct": "Isso. A suspeita é avisada logo, para que o responsável pela proteção radiológica investigue e decida os passos, inclusive a leitura do dosímetro.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2991,7 +2979,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:s-ir:rcr-lista-verificacao",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -2999,7 +2987,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-ir:aula-06"
         ],
-        "prompt": "Segundo a RDC 611, como devem estar os protocolos e procedimentos do serviço?",
+        "prompt": "Segundo a fonte da aula, como o serviço mantém os seus protocolos e procedimentos?",
         "options": [
           {
             "id": "option:rtg-2026:s-ir:aula-06:c2:a",
@@ -3007,7 +2995,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-ir:aula-06:c2:b",
-            "label": "Escritos, atualizados e de fácil acesso"
+            "label": "Documentados e revisados periodicamente"
           },
           {
             "id": "option:rtg-2026:s-ir:aula-06:c2:c",
@@ -3020,11 +3008,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-ir:aula-06:c2:b",
         "feedback": {
-          "correct": "Isso. Por escrito, em linguagem acessível e ao alcance de toda a equipe.",
+          "correct": "Isso. Documentar e revisar mantém o protocolo atual, e a equipe precisa conhecê-lo para segui-lo.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -3090,8 +3078,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:pmc-kerma-pka",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:pmc-kerma-pka"
         ]
       },
       {
@@ -3125,7 +3112,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:s-ir:rcr-lista-verificacao",
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-ir:iaea-ssg46-2018"
         ]
       },
       {
@@ -3158,7 +3145,6 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
           "source:rtg-2026:s-ir:radiologyinfo-angioplastia"
         ]
       }
@@ -3756,7 +3742,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3770,7 +3756,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3790,7 +3776,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3798,7 +3784,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3857,7 +3843,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3866,7 +3852,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3875,7 +3861,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3884,7 +3870,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3893,7 +3879,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3902,7 +3888,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3911,7 +3897,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3920,7 +3906,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3928,8 +3914,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3955,8 +3940,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3964,8 +3948,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3973,8 +3956,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -3983,9 +3965,8 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:rpt-patchdsa-2025",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
+        "source:rtg-2026:s-ir:rpt-patchdsa-2025"
       ]
     },
     {
@@ -3994,9 +3975,8 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:rpt-patchdsa-2025",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
+        "source:rtg-2026:s-ir:rpt-patchdsa-2025"
       ]
     },
     {
@@ -4005,9 +3985,8 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:rpt-patchdsa-2025",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
+        "source:rtg-2026:s-ir:rpt-patchdsa-2025"
       ]
     },
     {
@@ -4015,7 +3994,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4041,7 +4020,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4049,7 +4028,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4057,7 +4036,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4065,7 +4044,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4079,7 +4058,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4099,7 +4078,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4107,7 +4086,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4115,7 +4094,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4135,7 +4114,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4149,7 +4128,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4157,7 +4136,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4215,7 +4194,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4241,7 +4220,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4249,7 +4228,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4257,7 +4236,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4329,7 +4308,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4343,7 +4322,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4363,7 +4342,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4371,7 +4350,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4379,8 +4358,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4400,8 +4378,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4415,8 +4392,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4424,8 +4400,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4433,7 +4408,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4441,7 +4416,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4467,7 +4442,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4475,7 +4450,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4483,7 +4458,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
@@ -4493,7 +4468,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
@@ -4503,7 +4478,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
@@ -4563,7 +4538,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4583,7 +4558,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4597,7 +4572,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4605,7 +4580,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4663,7 +4638,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4677,7 +4652,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4697,7 +4672,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4705,7 +4680,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4877,8 +4852,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4886,8 +4860,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4913,8 +4886,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4922,8 +4894,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -4931,7 +4902,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4957,7 +4928,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4965,7 +4936,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4973,7 +4944,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4983,7 +4954,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -4993,7 +4964,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5003,7 +4974,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5011,7 +4982,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5025,7 +4996,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5045,7 +5016,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5053,7 +5024,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5061,7 +5032,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5087,7 +5058,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5095,7 +5066,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5103,7 +5074,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5111,8 +5082,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5132,8 +5102,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5147,8 +5116,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5156,8 +5124,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5165,7 +5132,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5173,7 +5140,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5199,7 +5166,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5207,7 +5174,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -5391,8 +5358,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5412,8 +5378,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5427,8 +5392,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5436,8 +5400,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5445,7 +5408,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5459,7 +5422,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5479,7 +5442,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5487,7 +5450,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5498,7 +5461,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5509,7 +5472,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5520,7 +5483,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
         "source:rtg-2026:s-ir:radiologyinfo-angiografia",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia",
         "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5632,8 +5595,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5659,8 +5621,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5668,8 +5629,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5677,8 +5637,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:radiologyinfo-contraste",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:radiologyinfo-contraste"
       ]
     },
     {
@@ -5909,7 +5868,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5924,7 +5883,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5945,7 +5904,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5954,7 +5913,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5962,7 +5921,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5988,7 +5947,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -5996,7 +5955,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6004,7 +5963,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6014,7 +5973,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:openstax-vias-circulatorias",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6024,7 +5983,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:openstax-vias-circulatorias",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6034,7 +5993,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-ir:openstax-vias-circulatorias",
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6043,7 +6002,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6070,7 +6029,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6079,7 +6038,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6088,7 +6047,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6096,7 +6055,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6110,7 +6069,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6130,7 +6089,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6138,7 +6097,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6246,7 +6205,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6260,7 +6219,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6280,7 +6239,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6288,7 +6247,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6410,8 +6369,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6437,8 +6395,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6446,8 +6403,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6455,8 +6411,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6464,8 +6419,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6485,8 +6439,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6500,8 +6453,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6509,8 +6461,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -6518,10 +6469,9 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6529,10 +6479,9 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6540,10 +6489,9 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:kjp-seguranca-radiacao",
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6601,8 +6549,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6622,8 +6569,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6637,8 +6583,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6646,8 +6591,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:pmc-kerma-pka",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:pmc-kerma-pka"
       ]
     },
     {
@@ -6805,8 +6749,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6814,8 +6757,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6823,8 +6765,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6832,8 +6773,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6841,8 +6781,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6850,8 +6789,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6859,8 +6797,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6868,8 +6805,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6877,8 +6813,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -6886,8 +6821,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6896,8 +6830,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6906,8 +6839,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6916,8 +6848,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6926,8 +6857,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6936,8 +6866,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6946,8 +6875,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -6956,8 +6884,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
+        "source:rtg-2026:s-ir:iaea-ssg46-2018",
         "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
@@ -7016,8 +6943,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -7025,8 +6951,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -7052,8 +6977,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -7061,8 +6985,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:rcr-lista-verificacao"
       ]
     },
     {
@@ -7071,8 +6994,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7081,8 +7003,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7091,8 +7012,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
-        "source:rtg-2026:s-ir:anvisa-in-91-2021"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7101,7 +7021,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7116,7 +7036,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7137,7 +7057,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7146,7 +7066,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-ir:rcr-lista-verificacao",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7154,7 +7074,6 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia"
       ]
     },
@@ -7181,7 +7100,6 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia"
       ]
     },
@@ -7190,7 +7108,6 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia"
       ]
     },
@@ -7199,7 +7116,6 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022",
         "source:rtg-2026:s-ir:radiologyinfo-angioplastia"
       ]
     },
@@ -7258,8 +7174,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7267,8 +7182,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7294,8 +7208,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     },
     {
@@ -7303,8 +7216,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-ir:anvisa-in-91-2021",
-        "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-ir:iaea-ssg46-2018"
       ]
     }
   ],
@@ -7384,38 +7296,38 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       },
       {
         "competencyId": "competency:rtg-2026:s-ir:aula-02",
-        "hook": "Complete a frase: o equipamento deve indicar claramente parâmetros como tensão, corrente e…",
+        "hook": "Complete a frase: o equipamento de fluoroscopia mostra o produto kerma-área, o kerma de referência acumulado e…",
         "guided": {
           "id": "recovery-item:rtg-2026:s-ir:aula-02:guiada",
           "competencyIds": [
             "competency:rtg-2026:s-ir:aula-02"
           ],
-          "prompt": "Além de tensão e corrente, que parâmetro o equipamento deve indicar claramente?",
+          "prompt": "Além do produto kerma-área e do kerma de referência acumulado, que indicações o equipamento de fluoroscopia mostra?",
           "options": [
             {
               "id": "option:rtg-2026:s-ir:aula-02:rg:a",
-              "label": "O peso do paciente"
+              "label": "O peso e a altura do paciente"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-02:rg:b",
-              "label": "A validade do contraste"
+              "label": "A validade do contraste usado"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-02:rg:c",
-              "label": "O tempo acumulado"
+              "label": "Tensão, corrente e tempo"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-02:rg:d",
-              "label": "A temperatura da sala"
+              "label": "A temperatura e a umidade da sala"
             }
           ],
           "correctOptionId": "option:rtg-2026:s-ir:aula-02:rg:c",
           "feedback": {
-            "correct": "Isso. Tensão, corrente e tempo acumulado estão entre os parâmetros que devem estar indicados.",
+            "correct": "Isso. Tensão, corrente e tempo, além do produto kerma-área e do kerma acumulado, são as indicações que o equipamento mostra.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:anvisa-in-91-2021"
+            "source:rtg-2026:s-ir:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -7493,32 +7405,32 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-ir:aula-03"
           ],
-          "prompt": "Na vistoria simulada, você nota um aparelho sem uso guardado num canto da sala de procedimentos. Qual regra da aula se aplica ao que você vai descrever à equipe?",
+          "prompt": "Na vistoria simulada, você nota que a entrada da sala não tem nenhuma sinalização de área controlada. Qual regra da aula se aplica ao que você vai descrever à equipe?",
           "options": [
             {
               "id": "option:rtg-2026:s-ir:aula-03:rt:a",
-              "label": "A sala aceita qualquer material guardado"
+              "label": "Sala sem aviso na porta é aceitável"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-03:rt:b",
-              "label": "A sala dispõe só do que é indispensável"
+              "label": "A entrada deve ter sinalização clara"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-03:rt:c",
-              "label": "Aparelho desligado nunca é problema"
+              "label": "Basta fechar a porta e não comentar"
             },
             {
               "id": "option:rtg-2026:s-ir:aula-03:rt:d",
-              "label": "Basta cobrir o aparelho com um lençol"
+              "label": "Cabe a você colocar um aviso por conta própria"
             }
           ],
           "correctOptionId": "option:rtg-2026:s-ir:aula-03:rt:b",
           "feedback": {
-            "correct": "Isso. Você descreve o que viu, e a equipe resolve. A remoção não é uma decisão sua.",
+            "correct": "Isso. Você descreve o que viu, e a equipe resolve. Providenciar o aviso não é uma decisão sua.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-ir:iaea-ssg46-2018"
           ]
         }
       },
@@ -7555,8 +7467,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:rcr-lista-verificacao",
-            "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-ir:rcr-lista-verificacao"
           ]
         },
         "transfer": {
@@ -7585,11 +7496,11 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-ir:aula-04:rt:a",
           "feedback": {
-            "correct": "Isso. Em dúvida sobre contaminação, você interrompe e descreve o que houve para a equipe orientar.",
+            "correct": "Isso. Em dúvida sobre contaminação, você para, não toca e avisa a equipe; o protocolo do serviço define a limpeza.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-ir:rcr-lista-verificacao"
           ]
         }
       },
@@ -7626,8 +7537,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:radiologyinfo-contraste",
-            "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-ir:radiologyinfo-contraste"
           ]
         },
         "transfer": {
@@ -7666,13 +7576,13 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       },
       {
         "competencyId": "competency:rtg-2026:s-ir:aula-06",
-        "hook": "Complete a frase: as três fases da lista britânica para cada paciente são entrada, pausa e…",
+        "hook": "Complete a frase: as três fases da lista da fonte para cada paciente são entrada, pausa e…",
         "guided": {
           "id": "recovery-item:rtg-2026:s-ir:aula-06:guiada",
           "competencyIds": [
             "competency:rtg-2026:s-ir:aula-06"
           ],
-          "prompt": "Qual é a terceira fase da lista britânica ensinada nesta aula?",
+          "prompt": "Qual é a terceira fase da lista da fonte ensinada nesta aula?",
           "options": [
             {
               "id": "option:rtg-2026:s-ir:aula-06:rg:a",
@@ -7845,7 +7755,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-ir:aula-08"
           ],
-          "prompt": "Num treino com outro grupo, o avental separado para você está com um laudo de integridade fora do semestre e um rasgo perto da gola. O que você faz?",
+          "prompt": "Num treino com outro grupo, o avental separado para você está sem registro de inspeção de integridade em dia e com um rasgo perto da gola. O que você faz?",
           "options": [
             {
               "id": "option:rtg-2026:s-ir:aula-08:rt:a",
@@ -7861,7 +7771,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:s-ir:aula-08:rt:d",
-              "label": "Atualiza a data do laudo com a sua caneta"
+              "label": "Atualiza a data do registro com a sua caneta"
             }
           ],
           "correctOptionId": "option:rtg-2026:s-ir:aula-08:rt:a",
@@ -7870,8 +7780,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-ir:anvisa-in-91-2021",
-            "source:rtg-2026:s-ir:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-ir:iaea-ssg46-2018"
           ]
         }
       }
@@ -7891,7 +7800,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     },
     {
       "schemaVersion": 1,
@@ -7900,7 +7809,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     },
     {
       "schemaVersion": 1,
@@ -7909,7 +7818,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     },
     {
       "schemaVersion": 1,
@@ -7918,7 +7827,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     },
     {
       "schemaVersion": 1,
@@ -7927,7 +7836,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     },
     {
       "schemaVersion": 1,
@@ -7936,7 +7845,7 @@ export const RTG_2026_S_IR: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "2c91805fa69bdb0efe1e6f4fab4678e314a336210f2c215381945a7eb9d0d7e4"
+      "materialSha256": "8f76b366e0a65f54e86a23d3ca93450dba769b89da0da6146cc5c6264e33cdaa"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

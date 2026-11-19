@@ -188,13 +188,13 @@
       "licenseNote": "Publicação institucional da Comissão Europeia; consultada para os critérios de inspiração e de simetria do tórax em PA, sem reprodução de texto."
     },
     {
-      "id": "ms-protocolo-identificacao-2013",
-      "title": "Protocolo de Identificação do Paciente (Anexo 02, Programa Nacional de Segurança do Paciente)",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz, em cópia do portal Proqualis",
-      "url": "https://proqualis.fiocruz.br/sites/proqualis.fiocruz.br/files/Protocolo%20de%20Identifica%C3%A7%C3%A3o%20do%20Paciente.pdf",
-      "accessedAt": "2026-11-06",
+      "id": "who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo público do Programa Nacional de Segurança do Paciente; consultado para fatos de identificação, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     }
   ],
   "lessons": [
@@ -1877,7 +1877,7 @@
           "help": "Na identificação ativa, quem fornece a informação é o paciente, não você.",
           "sourceIds": [
             "esr-efrs-seguranca-2019",
-            "ms-protocolo-identificacao-2013"
+            "who-identificacao-paciente-2007"
           ]
         },
         {
@@ -1961,7 +1961,7 @@
           "help": "Um dos dois identificadores não confere. Pense em quem pode esclarecer isso antes de o exame começar.",
           "sourceIds": [
             "esr-efrs-seguranca-2019",
-            "ms-protocolo-identificacao-2013"
+            "who-identificacao-paciente-2007"
           ]
         },
         {
