@@ -301,6 +301,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Panorama de MN, RT e intervencionista."
     }
   },
+  "batch:rtg-2026:m31": {
+    "slug": "rtg-2026-m31",
+    "title": "Outros campos: veterinária, forense e pesquisa",
+    "description": "A mesma técnica a serviço de outros fins: o exame de um animal, a imagem como evidência, a pesquisa com participantes e a radiografia de objetos, e o que muda no papel de quem adquire.",
+    "unitTitle": "Outros campos: veterinária, forense e pesquisa",
+    "reward": {
+      "id": "node:reward:rtg-2026:m31",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Outros campos: veterinária, forense e pesquisa."
+    }
+  },
   "batch:rtg-2026:m14": {
     "slug": "rtg-2026-m14",
     "title": "Qualidade, gestão e integração",
