@@ -20,6 +20,8 @@ export function findChrome() {
   return CANDIDATES.find((c) => c && existsSync(c)) ?? null;
 }
 
+const TIMEOUT_MS = Number(process.env.CHROME_TIMEOUT_MS) || 120_000;
+
 const PAGE = String.raw`
 const PROPS = { 'fill': 'rgb(0, 0, 0)', 'fill-opacity': '1', 'fill-rule': 'nonzero', 'stroke': 'none', 'stroke-width': '1px',
   'stroke-opacity': '1', 'stroke-linecap': 'butt', 'stroke-linejoin': 'miter', 'stroke-dasharray': 'none', 'stroke-dashoffset': '0px', 'stroke-miterlimit': '4' };
@@ -113,10 +115,15 @@ export function convertSvg(text, { strokeScale = 1, dropBackground = false, spli
     const args = ['--headless=new', '--disable-gpu', '--no-first-run', `--user-data-dir=${path.join(dir, 'perfil')}`, '--dump-dom', `file://${htmlPath}`];
     let dom;
     try {
-      dom = execFileSync(chrome, args, { maxBuffer: 64 << 20, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+      dom = execFileSync(chrome, args, { maxBuffer: 64 << 20, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: TIMEOUT_MS });
     } catch (e) {
-      // O Chrome pode sair com status 2 ao encerrar mesmo depois de despejar o DOM: vale o que saiu.
-      dom = e.stdout ?? '';
+      if (e.code === 'ETIMEDOUT') throw new Error(`O Chrome passou de ${TIMEOUT_MS / 1000} s sem terminar a conversão (travado?)`);
+      // Caso conhecido: o Chrome sai com status 2 ao encerrar mesmo depois de despejar o DOM inteiro.
+      // Qualquer outro status é erro; o status 2 só vale se o resultado veio completo.
+      if (e.status !== 2 || !/<pre id="out">[\s\S]*<\/pre>/.test(e.stdout ?? '')) {
+        throw new Error(`O Chrome falhou (status ${e.status}, sinal ${e.signal}): ${String(e.stderr ?? '').slice(-500)}`);
+      }
+      dom = e.stdout;
     }
     const m = dom.match(/<pre id="out">([\s\S]*?)<\/pre>/);
     if (!m) throw new Error('A página do conversor não devolveu resultado: ' + dom.slice(0, 500));

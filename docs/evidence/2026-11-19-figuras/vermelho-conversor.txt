@@ -8,14 +8,75 @@ not ok 6 - sem Chrome o aviso diz o que fazer
 # pass 0
 # fail 6
 # skipped 0
+## Vermelho 2 (substituído na rodada 1): defeito do piloto isolado
 
-## Vermelho 2: defeito do piloto (apagar a classe do pai antes de ler o filho)
+### apagar a classe do pai depois de ler o próprio estilo e antes do filho (o defeito do piloto)  (todo.push([el, set, keep]);  ->  todo.push([el, set, keep]); el.removeAttribute('class');)
+not ok 3 - regra com seletor de pai mantém a cor do filho (o defeito do piloto)
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 12
+# fail 2
+
+### strokeScale ignorado  (* strokeScale)  ->  * 1))
+not ok 7 - strokeScale multiplica o traço de non-scaling-stroke
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 12
+# fail 2
+
+### CSS não resolvido (lê o atributo em vez do estilo computado)  (let v = cs.getPropertyValue(p);  ->  let v = el.getAttribute(p) ?? d;)
 not ok 1 - classe CSS vira atributo de apresentação
 not ok 2 - rgba() vira hex mais opacidade
 not ok 3 - regra com seletor de pai mantém a cor do filho (o defeito do piloto)
-ok 4 - gradiente fica na camada que o usa, e só nela
-not ok 5 - filter sai e o relatório lista a perda
-ok 6 - sem Chrome o aviso diz o que fazer # SKIP Chrome presente: o teste vale só sem ele
-# pass 1
-# fail 4
-# skipped 1
+not ok 7 - strokeScale multiplica o traço de non-scaling-stroke
+not ok 8 - variável CSS vira cor resolvida
+not ok 11 - @keyframes é neutralizado: vale o estado parado, não o primeiro quadro
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 7
+# fail 7
+
+### transform em CSS ignorado  (if (cs.transform && cs.transform !== 'none'  ->  if (false && cs.transform)
+not ok 9 - transform em CSS vira o atributo matrix
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 12
+# fail 2
+
+### stop-color de CSS ignorado  (if (tag === 'stop') {  ->  if (false) {)
+not ok 10 - stop-color vindo de regra CSS vai para o atributo do stop
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 12
+# fail 2
+
+### animação não desligada  (animation:none!important;  ->  )
+not ok 11 - @keyframes é neutralizado: vale o estado parado, não o primeiro quadro
+not ok 15 - os specs do piloto saem idênticos quando regenerados da fonte versionada
+# pass 12
+# fail 2
+
+### comentário e prólogo mantidos  (/<\?xml[^>]*>|<!--[\s\S]*?-->/g  ->  /$^/g)
+not ok 13 - comentário e prólogo XML não chegam ao resultado
+# pass 0
+# fail 1
+
+### dropBackground ignorado  (if (cfg.dropBackground)  ->  if (false))
+not ok 14 - dropBackground tira o rect de fundo da raiz, e só com a opção
+# pass 0
+# fail 1
+
+### display:none mantido  (cs.display === 'none' ||  ->  )  [asserção fortalecida: cor do elemento escondido]
+not ok 12 - display:none sai do resultado
+# pass 0
+# fail 1
+
+### qualquer status aceito (Chrome com status 1 e DOM completo)  (e.status !== 2 ||   ->  )
+not ok 6 - outro status, mesmo com resultado completo, é erro e traz o stderr
+# pass 6
+# fail 1
+
+### resultado cortado aceito no status 2  (|| !/<pre id="out">[\s\S]*<\/pre>/.test(e.stdout ?? '')  ->  )
+not ok 5 - status 2 com resultado cortado é erro
+# pass 6
+# fail 1
+
+### sem prazo de execução  (, timeout: TIMEOUT_MS  ->  )
+not ok 7 - Chrome travado estoura o prazo com erro claro
+# pass 6
+# fail 1

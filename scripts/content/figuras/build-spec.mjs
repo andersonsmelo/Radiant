@@ -98,7 +98,7 @@ function leito(o) {
   return `import type { DiagramSpec } from '../diagramTypes';
 
 // Arte importada (art: 'imported'), gerada por script a partir da amostra da skill \`anatomy\`
-// (isométrica, .superpowers/sdd/2026-11-19-amostra-figuras/equipamento/build.mjs); não editar à mão.
+// (isométrica), versionada em scripts/content/figuras/fontes/raio-x-movel-no-leito.svg; não editar à mão.
 // O CSS da skill (classes, variáveis, vector-effect, filtro de sombra e @keyframes) foi achatado
 // para atributos de apresentação; o ciclo de 7 s virou cinco camadas com movimento e \`range\`.
 // Quadro 320x240. Paciente sentado no leito com a cabeceira elevada e o detector atrás das

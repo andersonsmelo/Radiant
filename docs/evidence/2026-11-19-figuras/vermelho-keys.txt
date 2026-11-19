@@ -103,3 +103,42 @@ Tests:       4 failed, 17 passed, 21 total
 Snapshots:   0 total
 Time:        2.253 s
 Ran all test suites matching /src\/ui\/diagrams\/diagramMotion.test.ts/i.
+
+## Rodada 1: vermelho por mutação específica (código restaurado depois de cada uma)
+
+### ease ignorado dentro de keys  (smoothstep(local) : local  ->  local : local)
+    ✕ ease inOut vale por trecho de keys: smoothstep em cada um e nós preservados (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### ease ignorado na rampa sem keys  (? smoothstep(r) : r;  ->  ? r : r;)
+    ✕ ease inOut: smoothstep da rampa, com valor numérico (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### ordem não estrita  (t <= keys[i - 1][0]  ->  t < keys[i - 1][0])
+      ✕ recusa tempo repetido (ordem estrita) (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem a checagem de tempo negativo  (t >= 0 &&   ->  )
+      ✕ recusa tempo negativo (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem a checagem de valor negativo  (v >= 0 &&   ->  )
+      ✕ recusa valor fora de 0 a 1 (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem o teto do valor  ( && v <= 1  ->  )
+      ✕ recusa valor acima de 1 (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem o teto do tempo  (t <= 1 &&   ->  )
+      ✕ recusa tempo fora de 0 a 1
+Tests:       1 failed, 29 passed, 30 total
+
+### NaN passa (comparação invertida)  (!(t >= 0 && t <= 1 && v >= 0 && v <= 1)  ->  (t < 0 || t > 1 || v < 0 || v > 1))
+      ✕ recusa NaN (2 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### mínimo de duas chaves removido  (keys.length < 2) return 'keys  ->  keys.length < 0) return 'keys)
+      ✕ recusa um ponto só (1 ms)
+      ✕ recusa lista vazia
+Tests:       2 failed, 28 passed, 30 total
