@@ -57,8 +57,8 @@ aparelho.** PR #89, em rascunho.
 2026-11-19):** a aula-fonte passa a aceitar `hotspot`, `label`, `risk-hunt`,
 `parameter-lab`, `conversation`, `blitz`, `bench` e o `visual` do conceito, cada um
 com tela, regra de acerto, verificador, gerador e roteiro do Maestro. São 16 tipos de
-interação e um catálogo de 16 diagramas em código (12 laços, 3 dirigidos por controle,
-1 parado). O verificador ganhou a régua "toda aula tem ao menos uma múltipla escolha".
+interação e um catálogo de 16 diagramas em código (11 laços, 3 dirigidos por controle,
+2 parados). O verificador ganhou a régua "toda aula tem ao menos uma múltipla escolha".
 Os 24 lotes gerados não mudaram: nenhuma aula publicada usa formato novo ainda.
 Gate do app: 297 suítes, 4.118 testes, saída 0; testes de conteúdo 407 de 408 (a
 falha, `register-source`, é da worktree, que não tem o arquivo local do livro piloto).

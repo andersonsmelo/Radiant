@@ -49,6 +49,20 @@ fixou isso. Este registro guarda as decisões que mudam contrato ou comportament
    sem nenhuma deixa cinco cartas de revisão que nunca são limpas. A M05.06, já
    publicada sem múltipla escolha, fica isenta.
 
+## Onde a entrega difere da especificação
+
+- **Laços:** a especificação pedia de 12 a 16. O catálogo tem 16 diagramas, dos quais
+  11 rodam sozinhos em laço, 3 são dirigidos pelo controle do `parameter-lab`
+  (distância, blindagem e decaimento, que como `visual` de conceito aparecem parados)
+  e 2 são parados (`tubo-raios-x` e `sala-com-riscos`). São 14 com movimento, e 11 no
+  sentido estrito de laço.
+- **Meta 2 (menos texto):** o inventário não conta como passo de texto o conceito que
+  tem `visual`, embora ele ainda tenha até 80 palavras. Com `visual` em todo conceito,
+  a meta cai 12,5 pontos só por isso. É a leitura do controlador de "passo de texto"; o
+  dono pode pedir a conta mais estrita, que é uma linha em `scripts/content/rtg-inventory.mjs`.
+- **Roteiros do Maestro:** o gerador cobre os formatos novos, menos a bancada com alvo
+  de igualar uma referência (`match`).
+
 ## Medição da revisão espaçada (o que volta ao dono)
 
 A especificação mandava medir o armazenamento da revisão com a trilha dobrada antes de
