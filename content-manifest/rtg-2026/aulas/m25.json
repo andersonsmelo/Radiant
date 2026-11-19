@@ -1,0 +1,2301 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m25",
+    "code": "M25",
+    "title": "Crânio, face, exame no leito e trauma",
+    "summary": "Nomeia os ossos, as linhas de referência e os seios da cabeça, ensina a distinguir o crânio de frente do de perfil e organiza o exame no leito e em trauma, com a equipe no comando."
+  },
+  "sources": [
+    {
+      "id": "openstax-ap-cranio",
+      "title": "Anatomy and Physiology: The Skull (section 7.2)",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology/pages/7-2-the-skull",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto com licença restritiva (CC BY-NC-SA); consultado para fatos, sem reprodução de texto nem de figuras."
+    },
+    {
+      "id": "r101-cranio",
+      "title": "Skull X-Ray Positioning",
+      "publisher": "Radiography 101",
+      "url": "https://radiography101.org/articles/skull-xray-positioning",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de ensino de radiografia, aberta; consultada para linhas, planos e critérios de alinhamento, sem reprodução de texto."
+    },
+    {
+      "id": "wiki-orbitomeatal",
+      "title": "Orbitomeatal line",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Orbitomeatal_line",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página aberta usada só para confirmar a definição da linha orbitomeatal, junto de fonte de ensino; sem reprodução de texto."
+    },
+    {
+      "id": "r101-movel",
+      "title": "Mobile and Portable Radiography",
+      "publisher": "Radiography 101",
+      "url": "https://radiography101.org/articles/mobile-portable-radiography",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de ensino, aberta; consultada para preparo, distância, quem fica e aviso no exame no leito, sem reprodução de texto."
+    },
+    {
+      "id": "futureradtech-trauma",
+      "title": "Chapter 12: Trauma Radiography",
+      "publisher": "Future Rad Tech",
+      "url": "https://futureradtech.pages.dev/chapter12.html",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Material de estudo aberto; consultado para colar, prancha, feixe horizontal e aviso antes da exposição, sem reprodução de texto."
+    },
+    {
+      "id": "exam-prep-trauma",
+      "title": "Trauma, Mobile, Surgical and Special Populations",
+      "publisher": "Open Exam Prep",
+      "url": "https://open-exam-prep.com/study-guides/arrt-radiography/contrast-trauma-mobile/trauma-mobile-surgical-special",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Guia de estudo aberto; consultado para trauma e exame no leito, sem reprodução de texto."
+    },
+    {
+      "id": "wiki-seios",
+      "title": "Paranasal sinuses",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Paranasal_sinuses",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página aberta usada só para a posição dos seios em relação aos olhos, junto do OpenStax; sem reprodução de texto."
+    },
+    {
+      "id": "pmc-espalhamento-movel",
+      "title": "Spatial Scattering Radiation to the Radiological Technologist during Medical Mobile Radiography (Bioengineering, 2023)",
+      "publisher": "Bioengineering (MDPI), via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9952711/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto (CC BY 4.0); consultado para a queda da radiação espalhada com a distância no exame no leito, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m25-01",
+      "code": "M25.01",
+      "title": "Ossos do crânio e da face",
+      "objective": "Hoje você vai conseguir nomear os ossos do crânio vistos de perfil e separar a caixa craniana da face.",
+      "competency": "Nomear sete ossos do crânio visto de perfil e separar os da caixa craniana dos da face.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório de anatomia",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Peguei um crânio de modelo e, de lado, não sei dizer onde um osso termina e o outro começa."
+          },
+          {
+            "speaker": "caio",
+            "text": "De perfil dá para nomear uns sete ossos. Cada um tem o seu território na lateral."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal começar pela calota, que cobre o cérebro, e descer até a face?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Os ossos do crânio de perfil",
+        "body": "De perfil, a caixa craniana mostra o frontal, na testa; o parietal, que forma a maior parte do alto da lateral; o temporal, na parte de baixo da lateral; e o occipital, atrás. O esfenoide aparece pela asa maior, à frente do temporal e, neste esquema, atrás da órbita. Na face ficam a maxila, que segura os dentes de cima; o zigomático, o osso da bochecha; e a mandíbula, que segura os de baixo e tem um ramo que sobe atrás.",
+        "keyPoints": [
+          "Caixa craniana: frontal, parietal, temporal, occipital e esfenoide.",
+          "Face: maxila, zigomático e mandíbula.",
+          "Do esfenoide, de perfil, vê-se a asa maior."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M08. Qual é o único osso do crânio que se move?",
+          "options": [
+            {
+              "label": "A maxila",
+              "correct": false,
+              "feedback": "A maxila é fixa: ela segura os dentes de cima e faz parte da face imóvel."
+            },
+            {
+              "label": "O temporal",
+              "correct": false,
+              "feedback": "O temporal é fixo e faz parte da caixa craniana, no lado da cabeça."
+            },
+            {
+              "label": "A mandíbula",
+              "correct": true,
+              "feedback": "Isso: a mandíbula é o osso móvel do crânio, e por isso ela abre e fecha a boca."
+            },
+            {
+              "label": "O occipital",
+              "correct": false,
+              "feedback": "O occipital é fixo e fecha a caixa craniana atrás."
+            }
+          ],
+          "help": "Pense em qual osso acompanha o movimento da boca.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule seis ossos do crânio visto de perfil, com a face voltada para a esquerda, tocando na ficha e no ponto.",
+          "diagramId": "cranio-de-perfil-ossos",
+          "points": [
+            {
+              "label": "Frontal",
+              "x": 0.325,
+              "y": 0.242,
+              "where": "na frente do alto, acima do furo do olho"
+            },
+            {
+              "label": "Parietal",
+              "x": 0.594,
+              "y": 0.2,
+              "where": "no meio do alto da calota, a área mais larga"
+            },
+            {
+              "label": "Occipital",
+              "x": 0.84,
+              "y": 0.417,
+              "where": "na parte de trás, a curva que fecha o crânio"
+            },
+            {
+              "label": "Temporal",
+              "x": 0.6375,
+              "y": 0.4625,
+              "where": "abaixo do alto da calota, junto ao orifício do ouvido"
+            },
+            {
+              "label": "Maxila",
+              "x": 0.2656,
+              "y": 0.6,
+              "where": "abaixo do furo do olho, a peça que segura os dentes de cima"
+            },
+            {
+              "label": "Mandíbula",
+              "x": 0.4219,
+              "y": 0.8167,
+              "where": "embaixo, a peça escura que segura os dentes de baixo"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: cada osso ocupa o seu território na lateral, da testa ao queixo.",
+          "feedbackIncorrect": "Algum osso ficou fora do lugar: releia a posição de cada um, do alto da calota até os dentes.",
+          "help": "Percorra a figura de cima para baixo e da frente para trás.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada osso no grupo a que ele pertence.",
+          "categories": [
+            "Caixa craniana",
+            "Face"
+          ],
+          "items": [
+            {
+              "label": "Parietal",
+              "category": "Caixa craniana"
+            },
+            {
+              "label": "Maxila",
+              "category": "Face"
+            },
+            {
+              "label": "Temporal",
+              "category": "Caixa craniana"
+            },
+            {
+              "label": "Zigomático",
+              "category": "Face"
+            },
+            {
+              "label": "Esfenoide",
+              "category": "Caixa craniana"
+            },
+            {
+              "label": "Mandíbula",
+              "category": "Face"
+            }
+          ],
+          "feedbackCorrect": "Você separou os ossos que cobrem o cérebro dos que formam a face.",
+          "feedbackIncorrect": "Pergunte de cada osso se ele cobre o cérebro ou forma a bochecha, a mandíbula e a região dos dentes.",
+          "help": "Os ossos da face são os que seguram os dentes, a bochecha e o queixo.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Duda quer apontar os dois ossos que seguram os dentes. Toque nos dois.",
+          "diagramId": "cranio-de-perfil-ossos",
+          "regions": [
+            {
+              "label": "Frontal",
+              "x": 0.2625,
+              "y": 0.15,
+              "width": 0.125,
+              "height": 0.1833
+            },
+            {
+              "label": "Maxila",
+              "x": 0.2188,
+              "y": 0.5333,
+              "width": 0.0938,
+              "height": 0.1333,
+              "correct": true
+            },
+            {
+              "label": "Occipital",
+              "x": 0.8,
+              "y": 0.3083,
+              "width": 0.0813,
+              "height": 0.2167
+            },
+            {
+              "label": "Mandíbula",
+              "x": 0.3125,
+              "y": 0.7583,
+              "width": 0.2188,
+              "height": 0.1167,
+              "correct": true
+            },
+            {
+              "label": "Temporal",
+              "x": 0.575,
+              "y": 0.3917,
+              "width": 0.125,
+              "height": 0.1417
+            }
+          ],
+          "feedbackCorrect": "Isso: a maxila segura os dentes de cima e a mandíbula, os de baixo.",
+          "feedbackIncorrect": "Esses ossos não seguram dentes: procure o osso de cima e o de baixo que têm uma fileira de dentes.",
+          "help": "Procure uma fileira de dentes em cima e outra embaixo.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Duda monta um crânio de modelo e faz afirmações. Julgue cada uma.",
+          "statements": [
+            {
+              "text": "De perfil, o esfenoide aparece pela asa maior, à frente do temporal.",
+              "correct": true,
+              "feedback": "Certo: a parte do esfenoide que se vê bem na lateral do crânio é a asa maior, à frente do temporal."
+            },
+            {
+              "text": "O parietal fica na parte de baixo da lateral, abaixo do temporal.",
+              "correct": false,
+              "feedback": "Errado: o parietal forma o alto da lateral, e o temporal fica embaixo dele."
+            },
+            {
+              "text": "O zigomático, o osso da bochecha, é um osso da face.",
+              "correct": true,
+              "feedback": "Certo: o zigomático forma a bochecha e pertence à face, e não à caixa craniana."
+            },
+            {
+              "text": "A mandíbula é um osso da face e segura os dentes de baixo.",
+              "correct": true,
+              "feedback": "Certo: a mandíbula é da face e segura os dentes de baixo."
+            }
+          ],
+          "feedbackCorrect": "Você separou os ossos certos e os trocados no modelo.",
+          "feedbackIncorrect": "Releia o conceito: cada osso tem um lugar e um grupo, e alguns foram trocados.",
+          "help": "Pergunte onde o osso fica na lateral e se ele cobre o cérebro.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Sete ossos, dois grupos",
+        "body": "Você nomeia os ossos do crânio visto de perfil e separa a caixa craniana da face.",
+        "line": {
+          "speaker": "lia",
+          "text": "Agora a lateral do crânio tem nome, osso por osso."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual osso forma a parte de trás da caixa craniana, de perfil?",
+          "options": [
+            {
+              "label": "O occipital",
+              "correct": true,
+              "feedback": "Isso: o occipital fecha a caixa craniana atrás."
+            },
+            {
+              "label": "O frontal",
+              "correct": false,
+              "feedback": "O frontal fica na testa, na frente da caixa craniana."
+            },
+            {
+              "label": "O zigomático",
+              "correct": false,
+              "feedback": "O zigomático é da face, na bochecha."
+            },
+            {
+              "label": "A mandíbula",
+              "correct": false,
+              "feedback": "A mandíbula é o osso móvel da face, embaixo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "prompt": "Qual destes ossos pertence à face?",
+          "options": [
+            {
+              "label": "O temporal",
+              "correct": false,
+              "feedback": "O temporal é da caixa craniana, na parte de baixo da lateral."
+            },
+            {
+              "label": "A maxila",
+              "correct": true,
+              "feedback": "Isso: a maxila segura os dentes de cima e é da face."
+            },
+            {
+              "label": "O esfenoide",
+              "correct": false,
+              "feedback": "O esfenoide é da caixa craniana; de perfil ele aparece pela asa maior."
+            },
+            {
+              "label": "O parietal",
+              "correct": false,
+              "feedback": "O parietal é da caixa craniana, no alto da lateral."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o osso que forma a testa é o...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Qual osso forma a testa?",
+            "options": [
+              {
+                "label": "O occipital",
+                "correct": false,
+                "feedback": "O occipital fica atrás, e não na testa."
+              },
+              {
+                "label": "O temporal",
+                "correct": false,
+                "feedback": "O temporal fica na lateral, embaixo."
+              },
+              {
+                "label": "A maxila",
+                "correct": false,
+                "feedback": "A maxila é da face e segura os dentes de cima."
+              },
+              {
+                "label": "O frontal",
+                "correct": true,
+                "feedback": "Isso: o frontal forma a testa, na frente da caixa craniana."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "openstax-ap-cranio"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Caio tira a mandíbula do modelo. Qual osso passa a ser o que segura os dentes que sobraram?",
+            "options": [
+              {
+                "label": "O frontal",
+                "correct": false,
+                "feedback": "O frontal cobre o cérebro e não segura dentes."
+              },
+              {
+                "label": "A maxila",
+                "correct": true,
+                "feedback": "Isso: sem a mandíbula, os dentes de cima, presos à maxila, são os que ficam."
+              },
+              {
+                "label": "O zigomático",
+                "correct": false,
+                "feedback": "O zigomático forma a bochecha e não segura dentes."
+              },
+              {
+                "label": "O parietal",
+                "correct": false,
+                "feedback": "O parietal fica no alto da calota e não segura dentes."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "openstax-ap-cranio"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m25-02",
+      "code": "M25.02",
+      "title": "Linhas e planos da cabeça",
+      "objective": "Hoje você vai conseguir nomear as linhas e os planos de referência usados para alinhar a cabeça.",
+      "competency": "Nomear as linhas orbitomeatal, infraorbitomeatal e interpupilar e o plano sagital mediano e dizer para que cada uma serve.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de posicionamento simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O manequim está com a cabeça meio torta e eu não sei por onde me guiar."
+          },
+          {
+            "speaker": "caio",
+            "text": "Na cabeça há linhas imaginárias que organizam tudo. Cada uma responde a uma pergunta."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quais perguntas? Vamos descobrir linha por linha."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quatro referências para alinhar a cabeça",
+        "body": "A linha orbitomeatal vai do canto externo do olho ao centro do meato acústico externo. A infraorbitomeatal parte da margem inferior da órbita e chega ao mesmo meato. A linha interpupilar liga as duas pupilas. O plano sagital mediano divide a cabeça em direita e esquerda. Segundo a referência, no perfil o plano sagital fica paralelo ao receptor e a interpupilar, perpendicular, o que confere que a cabeça não está inclinada; no PA, a orbitomeatal fica perpendicular. No perfil, a infraorbitomeatal se ajusta flexionando ou estendendo a cabeça.",
+        "keyPoints": [
+          "Orbitomeatal: do canto externo do olho ao meato.",
+          "Infraorbitomeatal: da margem inferior da órbita ao meato.",
+          "Interpupilar liga as pupilas; o plano sagital mediano separa direita e esquerda."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Que osso forma a maior parte do alto da lateral da caixa craniana, de perfil?",
+          "options": [
+            {
+              "label": "O temporal",
+              "correct": false,
+              "feedback": "O temporal fica abaixo, na parte de baixo da lateral."
+            },
+            {
+              "label": "O occipital",
+              "correct": false,
+              "feedback": "O occipital fica atrás, e não no alto da lateral."
+            },
+            {
+              "label": "O frontal",
+              "correct": false,
+              "feedback": "O frontal forma a testa, na frente."
+            },
+            {
+              "label": "O parietal",
+              "correct": true,
+              "feedback": "Isso: o parietal forma a maior parte do alto da lateral."
+            }
+          ],
+          "help": "Ele fica acima do temporal.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
+          "diagramId": "linhas-do-cranio",
+          "points": [
+            {
+              "label": "Linha orbitomeatal",
+              "x": 0.0875,
+              "y": 0.392,
+              "where": "no perfil, a mais alta das duas linhas, na ponta da frente"
+            },
+            {
+              "label": "Linha infraorbitomeatal",
+              "x": 0.25,
+              "y": 0.454,
+              "where": "no perfil, a mais baixa das duas linhas, junto à bochecha"
+            },
+            {
+              "label": "Meato acústico externo",
+              "x": 0.4125,
+              "y": 0.458,
+              "where": "no perfil, o pequeno anel onde as duas linhas terminam"
+            },
+            {
+              "label": "Linha interpupilar",
+              "x": 0.906,
+              "y": 0.408,
+              "where": "na vista de frente, a linha horizontal pelos dois olhos"
+            },
+            {
+              "label": "Plano sagital mediano",
+              "x": 0.7875,
+              "y": 0.125,
+              "where": "na vista de frente, a linha tracejada vertical no alto"
+            }
+          ],
+          "distractors": [
+            "Plano coronal"
+          ],
+          "feedbackCorrect": "Isso mesmo: duas linhas partem do mesmo meato, uma une as pupilas e um plano divide a cabeça ao meio.",
+          "feedbackIncorrect": "Alguma referência ficou fora do lugar: lembre de onde cada linha parte e o que ela une.",
+          "help": "As duas linhas do perfil terminam no mesmo ponto; veja de onde cada uma parte.",
+          "sourceIds": [
+            "r101-cranio",
+            "wiki-orbitomeatal"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada referência da cabeça ao que a referência descreve sobre o seu uso.",
+          "pairs": [
+            {
+              "left": "Linha interpupilar",
+              "right": "No perfil, fica perpendicular ao receptor"
+            },
+            {
+              "left": "Plano sagital mediano",
+              "right": "No perfil, fica paralelo ao receptor"
+            },
+            {
+              "left": "Linha orbitomeatal",
+              "right": "No PA, fica perpendicular ao receptor"
+            },
+            {
+              "left": "Linha infraorbitomeatal",
+              "right": "No perfil, se ajusta flexionando ou estendendo a cabeça"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada referência ao seu uso no alinhamento.",
+          "feedbackIncorrect": "Releia o conceito: cada referência fica perpendicular, paralela ou ajustada de um jeito próprio.",
+          "help": "Comece pela referência que liga as pupilas.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre as linhas da cabeça.",
+          "statements": [
+            {
+              "text": "As linhas orbitomeatal e infraorbitomeatal terminam no mesmo ponto, o meato.",
+              "correct": true,
+              "feedback": "Certo: as duas partem de pontos diferentes perto do olho e chegam ao mesmo meato."
+            },
+            {
+              "text": "A linha interpupilar liga o canto externo do olho ao meato acústico externo.",
+              "correct": false,
+              "feedback": "Errado: quem liga o canto externo do olho ao meato é a orbitomeatal; a interpupilar liga as pupilas."
+            },
+            {
+              "text": "O plano sagital mediano separa a metade direita da metade esquerda da cabeça.",
+              "correct": true,
+              "feedback": "Certo: é o plano que divide a cabeça em direita e esquerda."
+            },
+            {
+              "text": "A linha orbitomeatal parte da margem inferior da órbita.",
+              "correct": false,
+              "feedback": "Errado: a que parte da margem inferior da órbita é a infraorbitomeatal; a orbitomeatal parte do canto externo do olho."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que cada linha une e o que cada plano divide.",
+          "feedbackIncorrect": "Reveja de onde cada linha parte e onde termina.",
+          "help": "Pense em onde cada linha começa e onde termina.",
+          "sourceIds": [
+            "r101-cranio",
+            "wiki-orbitomeatal"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "caio",
+          "prompt": "Caio alinha a cabeça do manequim para um perfil e pede sua ajuda para conferir.",
+          "turns": [
+            {
+              "line": "A cabeça do manequim parece inclinada para o ombro. Qual referência eu confiro primeiro?",
+              "options": [
+                {
+                  "label": "O plano sagital mediano, que no perfil fica perpendicular ao receptor.",
+                  "correct": false,
+                  "reply": "Hum, então olho por esse plano. Vou conferir."
+                },
+                {
+                  "label": "A linha interpupilar, que no perfil fica perpendicular.",
+                  "correct": true,
+                  "reply": "Entendi, olho a linha que liga as pupilas."
+                },
+                {
+                  "label": "A linha orbitomeatal, que no perfil fica perpendicular ao receptor.",
+                  "correct": false,
+                  "reply": "Tá, então vou pela linha do canto do olho."
+                }
+              ]
+            },
+            {
+              "line": "Inclinação conferida. E que referência precisa ficar paralela ao receptor no perfil?",
+              "options": [
+                {
+                  "label": "O plano sagital mediano, paralelo ao receptor.",
+                  "correct": true,
+                  "reply": "Combinado, confiro o plano que divide a cabeça ao meio."
+                },
+                {
+                  "label": "A linha interpupilar de novo, agora paralela ao receptor.",
+                  "correct": false,
+                  "reply": "Então eu giro a cabeça até a linha ficar paralela."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: a interpupilar perpendicular confere a inclinação, e o plano sagital mediano fica paralelo ao receptor.",
+          "feedbackIncorrect": "Reveja as duas conferências: no perfil, uma referência fica perpendicular ao receptor e a outra, paralela.",
+          "help": "Uma referência confere a inclinação; a outra é o plano que fica paralelo.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Referências que organizam a cabeça",
+        "body": "Você nomeia as linhas e os planos de referência da cabeça e diz de onde cada linha parte e para que ela serve.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quem nomeia as referências alinha a cabeça sem adivinhar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que linha vai do canto externo do olho ao centro do meato acústico externo?",
+          "options": [
+            {
+              "label": "A linha interpupilar",
+              "correct": false,
+              "feedback": "A interpupilar liga as duas pupilas e não chega ao meato."
+            },
+            {
+              "label": "A linha infraorbitomeatal",
+              "correct": false,
+              "feedback": "A infraorbitomeatal parte da margem inferior da órbita, e não do canto externo."
+            },
+            {
+              "label": "A linha orbitomeatal",
+              "correct": true,
+              "feedback": "Isso: ela parte do canto externo do olho e chega ao meato."
+            },
+            {
+              "label": "O plano sagital mediano",
+              "correct": false,
+              "feedback": "O plano sagital mediano divide a cabeça em direita e esquerda e não é uma linha entre dois pontos."
+            }
+          ],
+          "sourceIds": [
+            "r101-cranio",
+            "wiki-orbitomeatal"
+          ]
+        },
+        {
+          "prompt": "Que referência liga as duas pupilas?",
+          "options": [
+            {
+              "label": "A linha orbitomeatal",
+              "correct": false,
+              "feedback": "A orbitomeatal vai do canto externo do olho ao meato."
+            },
+            {
+              "label": "O plano sagital mediano",
+              "correct": false,
+              "feedback": "O plano sagital mediano divide a cabeça ao meio e não liga as pupilas."
+            },
+            {
+              "label": "A linha infraorbitomeatal",
+              "correct": false,
+              "feedback": "A infraorbitomeatal vai da margem inferior da órbita ao meato."
+            },
+            {
+              "label": "A linha interpupilar",
+              "correct": true,
+              "feedback": "Isso: a interpupilar liga as duas pupilas."
+            }
+          ],
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o plano que divide a cabeça em direita e esquerda é o...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Que plano divide a cabeça em metade direita e metade esquerda?",
+            "options": [
+              {
+                "label": "O plano sagital mediano",
+                "correct": true,
+                "feedback": "Isso: o plano sagital mediano separa direita e esquerda."
+              },
+              {
+                "label": "O plano coronal",
+                "correct": false,
+                "feedback": "O plano coronal separa frente e trás."
+              },
+              {
+                "label": "O plano axial",
+                "correct": false,
+                "feedback": "O plano axial separa cima e baixo."
+              },
+              {
+                "label": "A linha interpupilar",
+                "correct": false,
+                "feedback": "A interpupilar liga as pupilas e é uma linha, e não um plano."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-cranio"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Caio descreve uma linha que parte da margem inferior da órbita e chega ao meato. De que linha ele fala?",
+            "options": [
+              {
+                "label": "Da orbitomeatal",
+                "correct": false,
+                "feedback": "A orbitomeatal parte do canto externo do olho."
+              },
+              {
+                "label": "Da interpupilar",
+                "correct": false,
+                "feedback": "A interpupilar liga as pupilas e não chega ao meato."
+              },
+              {
+                "label": "Da infraorbitomeatal",
+                "correct": true,
+                "feedback": "Isso: a infraorbitomeatal parte da margem inferior da órbita."
+              },
+              {
+                "label": "Do plano sagital mediano",
+                "correct": false,
+                "feedback": "O plano sagital mediano divide a cabeça e não é uma linha."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-cranio",
+              "wiki-orbitomeatal"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m25-03",
+      "code": "M25.03",
+      "title": "De frente ou de perfil",
+      "objective": "Hoje você vai conseguir reconhecer se uma radiografia de crânio está de frente ou de perfil e conferir o alinhamento do perfil.",
+      "competency": "Reconhecer a projeção de uma radiografia de crânio e conferir, por descrição, a inclinação e a rotação no perfil.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de revisão de imagens",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Chegou uma radiografia de crânio sem a projeção anotada. Como eu sei se foi de frente ou de lado?"
+          },
+          {
+            "speaker": "caio",
+            "text": "A própria cabeça conta, se você souber o que procurar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos achar a pista que muda de uma projeção para a outra."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Pistas de frente e de perfil",
+        "body": "De frente, no PA, o crânio aparece simétrico: a linha média fica no centro e as margens laterais das órbitas ficam à mesma distância das bordas do crânio. De perfil, a face fica voltada para um lado e as duas metades se sobrepõem. Para conferir o perfil, olhe dois pares: os tetos das órbitas, o limite de cima de cada olho, sobrepostos indicam cabeça sem inclinação; os ramos da mandíbula sobrepostos indicam cabeça sem rotação. Par duplicado, um ao lado do outro, aponta o erro daquele par. Você descreve o que vê e leva à supervisão, sem interpretar a imagem.",
+        "keyPoints": [
+          "PA: simétrico, linha média no centro, órbitas à mesma distância das bordas.",
+          "Perfil: face voltada para um lado, metades sobrepostas.",
+          "Tetos das órbitas sobrepostos: sem inclinação. Ramos da mandíbula sobrepostos: sem rotação."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. No perfil, que referência da cabeça fica paralela ao receptor?",
+          "options": [
+            {
+              "label": "O plano sagital mediano",
+              "correct": true,
+              "feedback": "Isso: no perfil, o plano sagital mediano fica paralelo ao receptor."
+            },
+            {
+              "label": "A linha interpupilar",
+              "correct": false,
+              "feedback": "No perfil, a interpupilar fica perpendicular ao receptor, e não paralela."
+            },
+            {
+              "label": "A linha orbitomeatal",
+              "correct": false,
+              "feedback": "A orbitomeatal é a que fica perpendicular ao receptor no PA."
+            },
+            {
+              "label": "O plano coronal",
+              "correct": false,
+              "feedback": "O plano coronal não é uma das referências de alinhamento da aula anterior."
+            }
+          ],
+          "help": "É o plano que divide a cabeça em direita e esquerda.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Esta radiografia de crânio está de perfil. Toque na metade da imagem para a qual a face está voltada.",
+          "imageId": "image:rtg-2026:m25:cranio-perfil-01",
+          "regions": [
+            {
+              "label": "Metade esquerda da imagem",
+              "x": 0,
+              "y": 0.04,
+              "width": 0.46,
+              "height": 0.74,
+              "correct": true
+            },
+            {
+              "label": "Metade direita da imagem",
+              "x": 0.54,
+              "y": 0.04,
+              "width": 0.46,
+              "height": 0.74
+            },
+            {
+              "label": "Marcador de lado, canto inferior direito",
+              "x": 0.83,
+              "y": 0.81,
+              "width": 0.16,
+              "height": 0.16
+            }
+          ],
+          "feedbackCorrect": "Isso: neste perfil a face está voltada para a metade esquerda da imagem.",
+          "feedbackIncorrect": "Procure para onde a face aponta: no perfil a cabeça aparece de lado, com a face voltada para uma das metades.",
+          "help": "Pense para que lado olharia uma pessoa vista de perfil.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada pista de uma radiografia de crânio na projeção que ela sugere.",
+          "categories": [
+            "Crânio de perfil",
+            "Crânio de frente (PA)"
+          ],
+          "items": [
+            {
+              "label": "Face voltada para um lado da imagem",
+              "category": "Crânio de perfil"
+            },
+            {
+              "label": "Linha média no centro, metades simétricas",
+              "category": "Crânio de frente (PA)"
+            },
+            {
+              "label": "Duas metades do crânio sobrepostas",
+              "category": "Crânio de perfil"
+            },
+            {
+              "label": "Margens laterais das órbitas à mesma distância das bordas",
+              "category": "Crânio de frente (PA)"
+            },
+            {
+              "label": "Ramos da mandíbula um sobre o outro",
+              "category": "Crânio de perfil"
+            }
+          ],
+          "feedbackCorrect": "Você separou as pistas de cada projeção: sobreposição de um lado, simetria do outro.",
+          "feedbackIncorrect": "Pergunte de cada pista se ela mostra metades sobrepostas ou metades simétricas ao redor do centro.",
+          "help": "De lado as metades se sobrepõem; de frente, ficam uma de cada lado do centro.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a conferência de um crânio de perfil.",
+          "statements": [
+            {
+              "text": "Tetos das órbitas sobrepostos indicam cabeça sem inclinação.",
+              "correct": true,
+              "feedback": "Certo: com os tetos das órbitas sobrepostos, a cabeça não está inclinada."
+            },
+            {
+              "text": "Ramos da mandíbula sobrepostos indicam cabeça rodada.",
+              "correct": false,
+              "feedback": "Errado: ramos sobrepostos indicam cabeça sem rotação; duplicados, apontam rotação."
+            },
+            {
+              "text": "Ramos da mandíbula sobrepostos indicam cabeça sem rotação.",
+              "correct": true,
+              "feedback": "Certo: ramos da mandíbula sobrepostos indicam que a cabeça não está rodada."
+            },
+            {
+              "text": "Tetos das órbitas sobrepostos indicam cabeça rodada.",
+              "correct": false,
+              "feedback": "Errado: os tetos das órbitas sobrepostos mostram ausência de inclinação, e não rotação."
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada par sobreposto ao que ele confere.",
+          "feedbackIncorrect": "Releia o conceito: o par das órbitas confere a inclinação e o par da mandíbula, a rotação.",
+          "help": "Um par confere a inclinação e o outro, a rotação.",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "cloze",
+          "role": "transfer",
+          "prompt": "Complete a descrição de uma imagem de crânio de perfil.",
+          "text": "Os tetos das órbitas se sobrepõem, mas os ramos da mandíbula aparecem duplicados: a cabeça está {{1}}.",
+          "answers": [
+            "rodada"
+          ],
+          "distractors": [
+            "inclinada",
+            "elevada",
+            "recuada"
+          ],
+          "feedbackCorrect": "Isso: ramos da mandíbula duplicados apontam rotação, mesmo com as órbitas sobrepostas.",
+          "feedbackIncorrect": "Veja qual par está separado: o da mandíbula confere a rotação, e o das órbitas, a inclinação.",
+          "help": "Qual par está separado, o das órbitas ou o da mandíbula?",
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Frente, perfil e alinhamento",
+        "body": "Você reconhece uma radiografia de crânio de frente ou de perfil e confere, por descrição, a inclinação e a rotação do perfil.",
+        "line": {
+          "speaker": "caio",
+          "text": "Descreveu, levou à supervisão: a leitura fica com quem pode ler."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma radiografia de crânio mostra as duas metades sobrepostas e a face voltada para um lado. Que projeção ela sugere?",
+          "options": [
+            {
+              "label": "De frente, em PA",
+              "correct": false,
+              "feedback": "De frente, as metades ficam simétricas, uma de cada lado da linha média."
+            },
+            {
+              "label": "De perfil, de lado a lado",
+              "correct": true,
+              "feedback": "Isso: metades sobrepostas e face de lado sugerem o perfil."
+            },
+            {
+              "label": "De frente, com a cabeça rodada",
+              "correct": false,
+              "feedback": "Um PA rodado perde a simetria, mas não sobrepõe as duas metades nem deixa a face de lado."
+            },
+            {
+              "label": "Não dá para dizer sem a anotação",
+              "correct": false,
+              "feedback": "Dá para sugerir a projeção pela própria imagem: sobreposição indica perfil."
+            }
+          ],
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        },
+        {
+          "prompt": "Num perfil descrito, os tetos das órbitas aparecem duplicados, um acima do outro. O que isso indica?",
+          "options": [
+            {
+              "label": "Cabeça sem rotação",
+              "correct": false,
+              "feedback": "Quem confere a rotação é o par dos ramos da mandíbula, e não o das órbitas."
+            },
+            {
+              "label": "Cabeça rodada",
+              "correct": false,
+              "feedback": "A rotação aparece nos ramos da mandíbula duplicados, e não nos tetos das órbitas."
+            },
+            {
+              "label": "Cabeça inclinada",
+              "correct": true,
+              "feedback": "Isso: tetos das órbitas fora de sobreposição apontam inclinação da cabeça."
+            },
+            {
+              "label": "Cabeça sem inclinação",
+              "correct": false,
+              "feedback": "Sem inclinação, os tetos das órbitas ficariam sobrepostos, um sobre o outro."
+            }
+          ],
+          "sourceIds": [
+            "r101-cranio"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: tetos das órbitas sobrepostos indicam...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Num perfil descrito, os tetos das órbitas aparecem sobrepostos. O que isso indica?",
+            "options": [
+              {
+                "label": "Cabeça sem rotação",
+                "correct": false,
+                "feedback": "A rotação se confere pelos ramos da mandíbula, e não pelas órbitas."
+              },
+              {
+                "label": "Cabeça sem inclinação",
+                "correct": true,
+                "feedback": "Isso: tetos das órbitas sobrepostos indicam cabeça sem inclinação."
+              },
+              {
+                "label": "Cabeça rodada",
+                "correct": false,
+                "feedback": "Rodada seria com os ramos da mandíbula duplicados."
+              },
+              {
+                "label": "Cabeça fletida",
+                "correct": false,
+                "feedback": "Flexão não é o que o par das órbitas confere nesta aula."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-cranio"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Chega a descrição de uma imagem: linha média no centro e as duas órbitas simétricas. Que projeção ela sugere?",
+            "options": [
+              {
+                "label": "De frente, em PA",
+                "correct": true,
+                "feedback": "Isso: linha média no centro e metades simétricas sugerem a vista de frente."
+              },
+              {
+                "label": "De perfil, com a face de lado",
+                "correct": false,
+                "feedback": "No perfil a face fica voltada para um lado e as metades se sobrepõem."
+              },
+              {
+                "label": "De perfil, com a cabeça inclinada",
+                "correct": false,
+                "feedback": "A inclinação é uma conferência do perfil e não deixa a imagem simétrica."
+              },
+              {
+                "label": "De perfil, com a cabeça rodada",
+                "correct": false,
+                "feedback": "A rotação é uma conferência do perfil e não gera simetria em torno do centro."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-cranio"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m25-04",
+      "code": "M25.04",
+      "title": "Seios da face e órbitas",
+      "objective": "Hoje você vai conseguir localizar os quatro grupos de seios da face e as órbitas.",
+      "competency": "Localizar os seios frontal, etmoidal, maxilar e esfenoidal e a órbita num esquema.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Quando um pedido fala em seios da face, eu nem sei onde olhar."
+          },
+          {
+            "speaker": "caio",
+            "text": "São quatro grupos, e cada um tem o nome do osso onde mora ou do lugar onde fica."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Dá para montar o mapa pela posição, da frente para trás."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quatro grupos de seios",
+        "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do osso etmoide, entre o nariz e a parede de dentro de cada órbita: de frente, ficam entre os olhos. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos, e é o mais posterior. A órbita é o encaixe ósseo do olho.",
+        "keyPoints": [
+          "Frontal, etmoidal, maxilar e esfenoidal.",
+          "Frontal acima dos olhos; esfenoidal atrás deles, o mais posterior.",
+          "Maxilares: abaixo das órbitas, os maiores."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula 1. Que osso da face segura os dentes de cima?",
+          "options": [
+            {
+              "label": "O frontal",
+              "correct": false,
+              "feedback": "O frontal forma a testa e é da caixa craniana."
+            },
+            {
+              "label": "A maxila",
+              "correct": true,
+              "feedback": "Isso: a maxila segura os dentes de cima e leva o nome do seio que fica nela."
+            },
+            {
+              "label": "A mandíbula",
+              "correct": false,
+              "feedback": "A mandíbula segura os dentes de baixo."
+            },
+            {
+              "label": "O zigomático",
+              "correct": false,
+              "feedback": "O zigomático forma a bochecha e não segura dentes."
+            }
+          ],
+          "help": "É o osso de cima, que não se move.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil.",
+          "diagramId": "seios-da-face",
+          "points": [
+            {
+              "label": "Seio frontal",
+              "x": 0.25,
+              "y": 0.25,
+              "where": "de frente, o par de lóbulos no alto, acima dos olhos"
+            },
+            {
+              "label": "Seio etmoidal",
+              "x": 0.25,
+              "y": 0.466,
+              "where": "de frente, as câmaras em fileira entre os círculos grandes"
+            },
+            {
+              "label": "Seio maxilar",
+              "x": 0.131,
+              "y": 0.683,
+              "where": "na vista de frente, a massa à esquerda, sob o círculo grande"
+            },
+            {
+              "label": "Seio esfenoidal",
+              "x": 0.8313,
+              "y": 0.479,
+              "where": "no perfil, o bloco cinza sob a curva em U, atrás da fileira"
+            },
+            {
+              "label": "Órbita",
+              "x": 0.6625,
+              "y": 0.433,
+              "where": "no perfil, o círculo cinza na frente do rosto"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você achou os quatro grupos de seios e o encaixe do olho.",
+          "feedbackIncorrect": "Algum ponto ficou fora do lugar: releia onde cada grupo fica, da frente para trás.",
+          "help": "Comece pelo que fica no alto e acima dos olhos.",
+          "sourceIds": [
+            "openstax-ap-cranio",
+            "wiki-seios"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "O seio {{1}} fica acima dos olhos e o seio {{2}} é o maior dos quatro.",
+          "answers": [
+            "frontal",
+            "maxilar"
+          ],
+          "distractors": [
+            "etmoidal",
+            "esfenoidal"
+          ],
+          "feedbackCorrect": "Isso: o frontal fica acima dos olhos, no osso frontal, e o maxilar, abaixo das órbitas, é o maior.",
+          "feedbackIncorrect": "Pense no grupo que fica no osso da testa e no que fica abaixo das órbitas, o maior dos quatro.",
+          "help": "Um fica acima das sobrancelhas e o outro, abaixo das órbitas.",
+          "sourceIds": [
+            "openstax-ap-cranio",
+            "wiki-seios"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os seios da face.",
+          "statements": [
+            {
+              "text": "O seio esfenoidal fica na linha média, dentro do corpo do esfenoide.",
+              "correct": true,
+              "feedback": "Certo: ele fica no meio, dentro do corpo do esfenoide, atrás dos olhos."
+            },
+            {
+              "text": "Os seios maxilares são os menores dos quatro grupos de seios.",
+              "correct": false,
+              "feedback": "Errado: os maxilares, abaixo das órbitas, são os maiores dos quatro."
+            },
+            {
+              "text": "Os seios etmoidais são várias câmaras pequenas de cada lado do etmoide.",
+              "correct": true,
+              "feedback": "Certo: o etmoidal é um conjunto de câmaras pequenas, e não uma câmara única."
+            },
+            {
+              "text": "O seio frontal fica dentro do osso maxilar, abaixo das órbitas.",
+              "correct": false,
+              "feedback": "Errado: o seio frontal fica no osso frontal, acima das sobrancelhas."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que é certo do que foi trocado entre os grupos.",
+          "feedbackIncorrect": "Releia o conceito: cada grupo tem um osso, uma posição e um tamanho.",
+          "help": "Pense em qual osso e em qual posição cada grupo está.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "hotspot",
+          "role": "transfer",
+          "prompt": "Um pedido de seios da face fala no maior dos quatro grupos de seios. Duda quer ver onde ele fica: toque num deles na vista de frente.",
+          "diagramId": "seios-da-face",
+          "regions": [
+            {
+              "label": "Seio frontal",
+              "x": 0.1938,
+              "y": 0.1667,
+              "width": 0.1125,
+              "height": 0.1667
+            },
+            {
+              "label": "Seio etmoidal",
+              "x": 0.2062,
+              "y": 0.3917,
+              "width": 0.0875,
+              "height": 0.15
+            },
+            {
+              "label": "Seio maxilar",
+              "x": 0.0813,
+              "y": 0.6083,
+              "width": 0.1,
+              "height": 0.15,
+              "correct": true
+            },
+            {
+              "label": "Seio esfenoidal",
+              "x": 0.7813,
+              "y": 0.425,
+              "width": 0.1,
+              "height": 0.1083
+            }
+          ],
+          "feedbackCorrect": "Isso: os maxilares ficam abaixo das órbitas e são os maiores dos quatro grupos.",
+          "feedbackIncorrect": "Esse grupo não é o maior dos quatro: retome qual grupo é o maior e onde ele fica em relação às órbitas.",
+          "help": "Retome qual dos quatro grupos o conceito chama de maior.",
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O mapa dos seios",
+        "body": "Você localiza os seios frontal, etmoidal, maxilar e esfenoidal e a órbita num esquema, da frente para trás.",
+        "line": {
+          "speaker": "lia",
+          "text": "Localizar o seio já ajuda a entender o que o pedido cobre."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual grupo de seios fica dentro do osso frontal, acima das sobrancelhas?",
+          "options": [
+            {
+              "label": "Os seios etmoidais",
+              "correct": false,
+              "feedback": "Os etmoidais ficam de cada lado do etmoide, e não acima das sobrancelhas."
+            },
+            {
+              "label": "Os seios maxilares",
+              "correct": false,
+              "feedback": "Os maxilares ficam abaixo das órbitas."
+            },
+            {
+              "label": "O seio esfenoidal",
+              "correct": false,
+              "feedback": "O esfenoidal fica atrás dos olhos, dentro do corpo do esfenoide."
+            },
+            {
+              "label": "O seio frontal",
+              "correct": true,
+              "feedback": "Isso: o seio frontal fica dentro do osso frontal."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        },
+        {
+          "prompt": "A órbita é o encaixe ósseo de qual estrutura?",
+          "options": [
+            {
+              "label": "Do olho",
+              "correct": true,
+              "feedback": "Isso: a órbita é o encaixe ósseo do olho."
+            },
+            {
+              "label": "Do ouvido",
+              "correct": false,
+              "feedback": "O ouvido se abre no meato acústico externo, e não numa órbita."
+            },
+            {
+              "label": "Do nariz",
+              "correct": false,
+              "feedback": "O nariz tem a abertura própria; a órbita é a do olho."
+            },
+            {
+              "label": "Da língua",
+              "correct": false,
+              "feedback": "A língua fica na boca, sem relação com a órbita."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-cranio"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o seio que fica atrás dos olhos, na linha média, está dentro do osso...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "O seio esfenoidal fica dentro de qual osso?",
+            "options": [
+              {
+                "label": "Do frontal",
+                "correct": false,
+                "feedback": "O frontal guarda o seio frontal."
+              },
+              {
+                "label": "Do etmoide",
+                "correct": false,
+                "feedback": "O etmoide guarda as câmaras etmoidais."
+              },
+              {
+                "label": "Do esfenoide",
+                "correct": true,
+                "feedback": "Isso: o seio esfenoidal fica dentro do corpo do esfenoide."
+              },
+              {
+                "label": "Da maxila",
+                "correct": false,
+                "feedback": "A maxila guarda o seio maxilar."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "openstax-ap-cranio"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "No esquema de frente, as câmaras em fileira, entre as duas órbitas, junto à linha média, são de qual grupo?",
+            "options": [
+              {
+                "label": "Etmoidal",
+                "correct": true,
+                "feedback": "Isso: as câmaras pequenas em fileira, perto da linha média, são as etmoidais."
+              },
+              {
+                "label": "Frontal",
+                "correct": false,
+                "feedback": "O frontal fica acima das órbitas."
+              },
+              {
+                "label": "Maxilar",
+                "correct": false,
+                "feedback": "O maxilar fica abaixo das órbitas."
+              },
+              {
+                "label": "Esfenoidal",
+                "correct": false,
+                "feedback": "O esfenoidal fica na linha média, atrás dos olhos, dentro do esfenoide."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "openstax-ap-cranio",
+              "wiki-seios"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m25-05",
+      "code": "M25.05",
+      "title": "O aparelho móvel no leito",
+      "objective": "Hoje você vai conseguir organizar o exame no leito: quem se afasta, o alinhamento, onde você fica e o aviso antes da exposição.",
+      "competency": "Organizar o exame com aparelho móvel: afastar quem não precisa ficar, alinhar o tubo e o detector, fechar o campo, afastar-se e avisar.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Enfermaria simulada",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Com licença, esse aparelho vem até o leito do meu vizinho? Eu não posso sair daqui."
+          },
+          {
+            "speaker": "caio",
+            "text": "Vem, e sem sala nem parede de proteção. Aqui, a proteção depende da rotina de quem faz o exame."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Por onde começar quando o exame vai até o paciente?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "No leito, você organiza a proteção",
+        "body": "No leito não há sala nem parede de proteção. Primeiro, peça que visitantes e equipe sem função se afastem; quem precisa ficar perto usa a proteção que o serviço define. Quem não pode sair fica o mais longe possível, com o feixe apontado para outro lado. Depois, ponha o detector atrás do paciente e alinhe o tubo. Feche o campo na região pedida. Afaste-se do aparelho e do feixe, com a proteção que o serviço define: cerca de 2 m é uma distância comum, e a regra é do serviço. Por fim, confira que ninguém está no feixe e avise a exposição.",
+        "keyPoints": [
+          "Afastar quem não precisa ficar; proteger quem não pode sair.",
+          "Detector atrás do paciente, alinhado com o tubo.",
+          "Conferir que ninguém está no feixe e só então avisar."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M08. No tórax em AP feito no leito, como fica o paciente que não consegue ficar de pé?",
+          "options": [
+            {
+              "label": "Deitado de bruços, com o peito encostado no receptor",
+              "correct": false,
+              "feedback": "De bruços o peito ficaria no receptor, como no PA; no AP as costas é que o encostam."
+            },
+            {
+              "label": "De pé, apoiado, com os braços erguidos acima da cabeça",
+              "correct": false,
+              "feedback": "De pé o paciente não consegue ficar; os braços erguidos são do perfil."
+            },
+            {
+              "label": "Sentado o mais ereto possível, com as costas no receptor",
+              "correct": true,
+              "feedback": "Isso: sentado o mais ereto que a condição permite, com as costas no receptor."
+            },
+            {
+              "label": "Deitado de lado, com o feixe cruzando de lado a lado",
+              "correct": false,
+              "feedback": "De lado a lado é o trajeto do perfil, e não do AP."
+            }
+          ],
+          "help": "Pense no que o paciente consegue fazer e onde ficam as costas.",
+          "sourceIds": [
+            "r101-movel",
+            "exam-prep-trauma"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Antes da exposição no leito, classifique cada pessoa pelo que o conceito indica.",
+          "categories": [
+            "Se afasta da área",
+            "Fica, com proteção"
+          ],
+          "items": [
+            {
+              "label": "Visitante da família do paciente",
+              "category": "Se afasta da área"
+            },
+            {
+              "label": "Profissional de passagem, sem tarefa no exame",
+              "category": "Se afasta da área"
+            },
+            {
+              "label": "Profissional que precisa ficar perto do leito",
+              "category": "Fica, com proteção"
+            },
+            {
+              "label": "Paciente do leito vizinho, que não pode sair",
+              "category": "Fica, com proteção"
+            }
+          ],
+          "feedbackCorrect": "Você separou quem se afasta de quem fica protegido: o serviço define a proteção de cada um.",
+          "feedbackIncorrect": "Pergunte de cada pessoa se ela tem função ou se não pode sair: só quem fica precisa de proteção.",
+          "help": "Quem tem função ou não pode sair fica; os demais se afastam.",
+          "sourceIds": [
+            "r101-movel"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene as etapas do exame no leito, na ordem ensinada nesta aula.",
+          "items": [
+            "Pedir que visitantes e equipe sem função se afastem",
+            "Pôr o detector atrás do paciente e alinhar o tubo",
+            "Fechar o campo na região pedida",
+            "Afastar-se do aparelho e do feixe, com proteção",
+            "Conferir que ninguém está no feixe e avisar a exposição"
+          ],
+          "feedbackCorrect": "Na ordem: afastar quem sobra, alinhar, fechar o campo, afastar-se e só então avisar a exposição.",
+          "feedbackIncorrect": "Releia o conceito: a conferência e o aviso são os últimos passos, e o campo se fecha antes de você se afastar.",
+          "help": "O aviso vem depois de conferir que ninguém está no feixe.",
+          "sourceIds": [
+            "r101-movel"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "risk-hunt",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Toque em todas as situações de risco que você vê no leito, na hora da exposição.",
+          "diagramId": "raio-x-movel-no-leito",
+          "regions": [
+            {
+              "label": "Tubo alinhado com o detector",
+              "x": 0.2825,
+              "y": 0.475,
+              "width": 0.085,
+              "height": 0.1,
+              "risk": false,
+              "feedback": "O tubo aponta para a região pedida e para o detector atrás do paciente: esse é o arranjo esperado, e não um risco."
+            },
+            {
+              "label": "Pessoa sem avental junto à cabeceira",
+              "x": 0.7063,
+              "y": 0.45,
+              "width": 0.0875,
+              "height": 0.4833,
+              "risk": true,
+              "feedback": "Ela está perto do paciente, sem proteção, e o tracejado mostra a radiação espalhada chegando até ela. Sem função no exame, ela se afasta antes da exposição."
+            },
+            {
+              "label": "Operador de avental atrás do aparelho",
+              "x": 0.0437,
+              "y": 0.45,
+              "width": 0.0875,
+              "height": 0.4833,
+              "risk": false,
+              "feedback": "Longe do aparelho e do feixe, com a proteção que o serviço define, é onde o operador fica; cerca de 2 m é comum, e a regra é do serviço."
+            },
+            {
+              "label": "Leito vizinho, no sentido do feixe",
+              "x": 0.8438,
+              "y": 0.6583,
+              "width": 0.15,
+              "height": 0.1667,
+              "risk": true,
+              "feedback": "Quem está no leito vizinho não pode sair: pede-se apoio da equipe, com distância, feixe para outro lado e barreira se o serviço definir."
+            },
+            {
+              "label": "Detector atrás do paciente",
+              "x": 0.5412,
+              "y": 0.5667,
+              "width": 0.08,
+              "height": 0.1667,
+              "risk": false,
+              "feedback": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você achou quem está perto demais ou no sentido do feixe e deixou de fora o arranjo correto.",
+          "feedbackIncorrect": "Releia a cena: ficou de fora quem está perto demais ou no sentido do feixe, ou uma parte do arranjo correto foi marcada.",
+          "help": "Procure quem está perto do paciente sem necessidade ou na direção para onde o feixe aponta.",
+          "sourceIds": [
+            "r101-movel",
+            "pmc-espalhamento-movel"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Seu Jorge",
+          "prompt": "Seu Jorge está no leito ao lado e a filha dele está junto. Conduza a conversa antes do exame do vizinho.",
+          "turns": [
+            {
+              "line": "Vão fazer a radiografia do leito ao lado e eu não posso sair daqui. O que muda para mim?",
+              "options": [
+                {
+                  "label": "Fique tranquilo, o feixe nunca chega até o leito do lado, em nenhum caso.",
+                  "correct": false,
+                  "reply": "Ah, então não preciso me preocupar com nada."
+                },
+                {
+                  "label": "Peço apoio da equipe: feixe para o outro lado, e o senhor longe.",
+                  "correct": true,
+                  "reply": "Entendi, então vão cuidar da posição do aparelho."
+                },
+                {
+                  "label": "O senhor vai receber a mesma coisa que o vizinho, sem diferença alguma.",
+                  "correct": false,
+                  "reply": "Hum, isso me deixa preocupado, e agora?"
+                }
+              ]
+            },
+            {
+              "line": "Minha filha está aqui comigo. Ela precisa sair também?",
+              "options": [
+                {
+                  "label": "Sim, peço que ela se afaste e aviso quando acabar.",
+                  "correct": true,
+                  "reply": "Está bem, ela espera lá fora até o aviso."
+                },
+                {
+                  "label": "Não, ela pode ficar ao seu lado, é só virar de costas para o aparelho.",
+                  "correct": false,
+                  "reply": "Então ela fica aqui, de costas para o aparelho."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você explicou o cuidado com quem não pode sair e pediu que quem não precisa ficar se afastasse.",
+          "feedbackIncorrect": "Reveja a conversa: quem não pode sair é protegido com apoio da equipe, e quem não tem função se afasta.",
+          "help": "Quem não pode sair e quem não tem função recebem cuidados diferentes.",
+          "sourceIds": [
+            "r101-movel"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Do leito ao aviso",
+        "body": "Você organiza o exame no leito: afasta quem não precisa ficar, protege quem não pode sair, alinha, fecha o campo, se afasta e avisa antes de expor.",
+        "line": {
+          "speaker": "caio",
+          "text": "Sem sala, a rotina é a sua barreira."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Antes de expor no leito, o que você confere por último?",
+          "options": [
+            {
+              "label": "Que o campo esteja o mais aberto possível",
+              "correct": false,
+              "feedback": "Campo aberto expõe mais tecido sem necessidade; o campo é fechado na região pedida."
+            },
+            {
+              "label": "Que o detector esteja ainda na bolsa de transporte",
+              "correct": false,
+              "feedback": "O detector precisa estar atrás do paciente, e não guardado na bolsa."
+            },
+            {
+              "label": "Que ninguém está no feixe, e então avisa",
+              "correct": true,
+              "feedback": "Isso: a última conferência é que o feixe esteja livre, e então vem o aviso."
+            },
+            {
+              "label": "Que os visitantes estejam em volta do leito",
+              "correct": false,
+              "feedback": "Visitantes sem função se afastam, e não se aproximam do leito."
+            }
+          ],
+          "sourceIds": [
+            "r101-movel"
+          ]
+        },
+        {
+          "prompt": "Onde o operador fica durante a exposição no leito?",
+          "options": [
+            {
+              "label": "Longe do aparelho e fora do feixe",
+              "correct": true,
+              "feedback": "Isso: longe do aparelho e fora do feixe, com a proteção e a distância que o serviço define."
+            },
+            {
+              "label": "Ao lado do tubo, para ver o campo de perto",
+              "correct": false,
+              "feedback": "Ao lado do tubo o operador fica perto da fonte, o contrário do que a aula ensina."
+            },
+            {
+              "label": "Atrás do detector, para segurá-lo no lugar",
+              "correct": false,
+              "feedback": "Atrás do detector o operador ficaria no sentido do feixe."
+            },
+            {
+              "label": "Junto à cama, com a mão no ombro do paciente",
+              "correct": false,
+              "feedback": "Junto à cama o operador fica perto do feixe e do espalhamento."
+            }
+          ],
+          "sourceIds": [
+            "r101-movel",
+            "pmc-espalhamento-movel"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem não precisa ficar perto do leito...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "O que você pede aos visitantes antes de expor no leito?",
+            "options": [
+              {
+                "label": "Que segurem o detector no lugar",
+                "correct": false,
+                "feedback": "Segurar o detector expõe quem segura; é o que se evita."
+              },
+              {
+                "label": "Que se afastem da área durante a exposição",
+                "correct": true,
+                "feedback": "Isso: quem não tem função se afasta durante a exposição."
+              },
+              {
+                "label": "Que fiquem ao lado do tubo",
+                "correct": false,
+                "feedback": "Ao lado do tubo é um lugar de mais exposição."
+              },
+              {
+                "label": "Que se posicionem atrás do detector",
+                "correct": false,
+                "feedback": "Atrás do detector é o sentido do feixe."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-movel"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "No leito ao lado há um paciente que não pode sair. O que o estudante faz?",
+            "options": [
+              {
+                "label": "Nada, pois o paciente vizinho não corre risco",
+                "correct": false,
+                "feedback": "Quem não pode sair precisa de cuidado: distância e feixe desviado."
+              },
+              {
+                "label": "Pede que ele se vire de costas para o tubo",
+                "correct": false,
+                "feedback": "Virar de costas não está entre as medidas da aula: distância, feixe para outro lado e barreira se o serviço definir."
+              },
+              {
+                "label": "Apressa o exame sem avisar a equipe do leito",
+                "correct": false,
+                "feedback": "A pressa não protege, e a equipe precisa ser avisada."
+              },
+              {
+                "label": "Pede apoio da equipe: feixe desviado e ele longe",
+                "correct": true,
+                "feedback": "Isso: o feixe vai para outro lado, ele fica o mais longe possível, e a equipe decide o resto."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "r101-movel"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m25-06",
+      "code": "M25.06",
+      "title": "Trauma: a imagem sem mover",
+      "objective": "Hoje você vai conseguir preparar a imagem com o colar e a prancha no lugar, deixando a equipe no comando.",
+      "competency": "Descrever o arranjo com feixe horizontal em trauma, manter colar e prancha no lugar e comunicar com a equipe antes de expor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de trauma simulada",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Chegou um paciente de trauma, na prancha e com colar cervical. A equipe coordena o cuidado."
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu ajudo a virar o paciente, para a imagem sair melhor?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Antes de mexer em qualquer coisa, pergunte quem decide."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Qual é o seu papel nessa cena, Duda?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Mover o equipamento, e não o paciente",
+        "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, encostado ao ombro. A figura mostra a cena vista pela cabeceira, em corte na altura do pescoço: o anel em volta dele é o colar, sobre a prancha. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
+        "keyPoints": [
+          "A equipe decide quando mexer no paciente.",
+          "Colar e prancha ficam no lugar.",
+          "Mova o tubo e o detector, e não o paciente."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Como o paciente de um leito vizinho, que não pode sair, é protegido?",
+          "options": [
+            {
+              "label": "Ele recebe um aviso e vira de costas para o tubo",
+              "correct": false,
+              "feedback": "Virar de costas não está entre as medidas da aula; o cuidado é de distância e de direção do feixe."
+            },
+            {
+              "label": "O vizinho sai da sala por conta própria, sem apoio",
+              "correct": false,
+              "feedback": "Quem não pode sair não é tirado por conta própria; o cuidado vem da equipe."
+            },
+            {
+              "label": "Nada muda, pois o feixe é pequeno demais para ele",
+              "correct": false,
+              "feedback": "Quem não pode sair precisa de cuidado: o feixe vai para outro lado e ele fica o mais longe possível."
+            },
+            {
+              "label": "Feixe para outro lado e ele o mais longe possível",
+              "correct": true,
+              "feedback": "Isso: feixe para outro lado e a maior distância possível, com o apoio da equipe."
+            }
+          ],
+          "help": "Pense em direção do feixe e distância.",
+          "sourceIds": [
+            "r101-movel"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
+          "diagramId": "trauma-raio-horizontal",
+          "regions": [
+            {
+              "label": "Colar cervical",
+              "x": 0.425,
+              "y": 0.3917,
+              "width": 0.15,
+              "height": 0.2
+            },
+            {
+              "label": "Tubo",
+              "x": 0.075,
+              "y": 0.4417,
+              "width": 0.125,
+              "height": 0.1
+            },
+            {
+              "label": "Feixe horizontal",
+              "x": 0.2562,
+              "y": 0.45,
+              "width": 0.125,
+              "height": 0.0833
+            },
+            {
+              "label": "Detector em pé",
+              "x": 0.6563,
+              "y": 0.2917,
+              "width": 0.0813,
+              "height": 0.3333,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso: o detector fica em pé, do lado oposto ao tubo, e recebe o feixe horizontal.",
+          "feedbackIncorrect": "Essa parte não recebe o feixe depois do pescoço: procure o que fica em pé, do outro lado do paciente.",
+          "help": "O feixe sai do tubo; veja o que o espera do outro lado.",
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte do arranjo de trauma ao que acontece com ela.",
+          "pairs": [
+            {
+              "left": "Colar cervical",
+              "right": "Fica no lugar até a equipe decidir"
+            },
+            {
+              "left": "Prancha",
+              "right": "Continua sob o paciente durante a imagem"
+            },
+            {
+              "left": "Tubo",
+              "right": "Fica de um lado, com o feixe na horizontal"
+            },
+            {
+              "left": "Detector em pé",
+              "right": "Fica do lado oposto, recebendo o feixe"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada parte ao seu papel: o paciente fica parado e o equipamento é que se move.",
+          "feedbackIncorrect": "Releia o conceito: colar e prancha ficam no lugar, e o tubo e o detector é que se arranjam.",
+          "help": "O que fica parado e o que se move?",
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "safety",
+          "criticalSafety": true,
+          "speaker": "duda",
+          "prompt": "Duda está ansiosa na sala de trauma. Conduza a conversa com cuidado.",
+          "turns": [
+            {
+              "line": "O paciente está de colar, e a imagem pode sair melhor sem ele. Eu tiro?",
+              "options": [
+                {
+                  "label": "Tire só um instante e recoloque logo, antes da exposição.",
+                  "correct": false,
+                  "reply": "Tá, então tiro rapidinho e já recoloco."
+                },
+                {
+                  "label": "Não: o colar fica, e a equipe decide sobre ele.",
+                  "correct": true,
+                  "reply": "Entendi, o colar fica onde está."
+                },
+                {
+                  "label": "Afrouxe um pouco, só para o pescoço aparecer melhor.",
+                  "correct": false,
+                  "reply": "Ok, então afrouxo só um pouquinho."
+                }
+              ]
+            },
+            {
+              "line": "E se a posição atrapalhar o detector? Eu viro o paciente um pouco?",
+              "options": [
+                {
+                  "label": "Viro devagar, só um pouco, e a equipe vê depois, para ganhar tempo.",
+                  "correct": false,
+                  "reply": "Está bem, viro devagar, então."
+                },
+                {
+                  "label": "Peço que ele mesmo ajeite a posição, se ele conseguir fazer isso.",
+                  "correct": false,
+                  "reply": "Hum, então peço a ele que se mexa."
+                },
+                {
+                  "label": "Não viramos: avisamos a equipe e movemos o tubo e o detector.",
+                  "correct": true,
+                  "reply": "Combinado, chamo a equipe e movo o equipamento."
+                }
+              ]
+            },
+            {
+              "line": "E antes de expor, o que a gente faz?",
+              "options": [
+                {
+                  "label": "Avisamos em voz alta, para sair quem não precisa ficar.",
+                  "correct": true,
+                  "reply": "Ok, falo em voz alta para a sala toda."
+                },
+                {
+                  "label": "Expomos logo, a equipe está em volta de qualquer jeito.",
+                  "correct": false,
+                  "reply": "Então exponho agora mesmo."
+                },
+                {
+                  "label": "Esperamos silêncio total, sem avisar ninguém.",
+                  "correct": false,
+                  "reply": "Hum, então aguardo todo mundo calar."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: colar e posição ficam com a equipe, e você move o equipamento e avisa antes de expor.",
+          "feedbackIncorrect": "Reveja os três pontos: o colar, o paciente e o aviso são decididos com a equipe, e não por conta própria.",
+          "help": "Em trauma, quem decide mexer no paciente é a equipe.",
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "categorize",
+          "role": "transfer",
+          "prompt": "Classifique cada ação de uma sala de trauma: é sua, na simulação supervisionada, ou é da equipe?",
+          "categories": [
+            "Cabe ao estudante",
+            "Cabe à equipe"
+          ],
+          "items": [
+            {
+              "label": "Avisar em voz alta antes da exposição",
+              "category": "Cabe ao estudante"
+            },
+            {
+              "label": "Preparar o tubo e o detector, com o paciente parado",
+              "category": "Cabe ao estudante"
+            },
+            {
+              "label": "Retirar o colar cervical",
+              "category": "Cabe à equipe"
+            },
+            {
+              "label": "Decidir quando o paciente pode ser movido",
+              "category": "Cabe à equipe"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que prepara a imagem do que decide sobre o paciente.",
+          "feedbackIncorrect": "Pergunte de cada ação se ela prepara a imagem ou decide sobre o corpo do paciente.",
+          "help": "Quem decide sobre o corpo do paciente não é o estudante.",
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Imagem sem mover",
+        "body": "Você prepara o arranjo de feixe horizontal sem mover o paciente, mantém colar e prancha no lugar e avisa antes de expor, com a equipe no comando.",
+        "line": {
+          "speaker": "lia",
+          "text": "Em trauma, o paciente fica parado e a equipe, no comando."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Em trauma, com colar cervical e prancha, o que você faz com o colar?",
+          "options": [
+            {
+              "label": "Retira só durante a exposição e recoloca",
+              "correct": false,
+              "feedback": "Retirar o colar, mesmo por pouco tempo, não é decisão do estudante."
+            },
+            {
+              "label": "Mantém no lugar; a equipe decide se ele sai",
+              "correct": true,
+              "feedback": "Isso: o colar fica no lugar e quem decide sobre ele é a equipe."
+            },
+            {
+              "label": "Afrouxa para a imagem sair com mais nitidez",
+              "correct": false,
+              "feedback": "Afrouxar também mexe no colar, o que cabe à equipe."
+            },
+            {
+              "label": "Retira se o paciente parecer calmo",
+              "correct": false,
+              "feedback": "O estado calmo do paciente não autoriza o estudante a tirar o colar."
+            }
+          ],
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        },
+        {
+          "prompt": "Para fazer a imagem sem virar o paciente, como fica o arranjo?",
+          "options": [
+            {
+              "label": "Paciente virado de lado, tubo sobre ele e detector sob a prancha",
+              "correct": false,
+              "feedback": "Virar o paciente é o que o arranjo horizontal evita."
+            },
+            {
+              "label": "Tubo no teto e detector em pé ao lado da cabeça",
+              "correct": false,
+              "feedback": "Com o tubo no teto o feixe não é horizontal, e o detector em pé não o receberia."
+            },
+            {
+              "label": "Paciente de pé, com o detector atrás das costas",
+              "correct": false,
+              "feedback": "Em trauma o paciente fica na prancha, e não de pé."
+            },
+            {
+              "label": "Tubo de um lado, na horizontal, e detector em pé do outro",
+              "correct": true,
+              "feedback": "Isso: o equipamento é que se arranja em volta do paciente parado."
+            }
+          ],
+          "sourceIds": [
+            "futureradtech-trauma",
+            "exam-prep-trauma"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem decide quando o paciente de trauma é movido é...",
+          "item": {
+            "id": "g",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "Quem decide quando o paciente de trauma pode ser movido?",
+            "options": [
+              {
+                "label": "O estudante, se o paciente parecer estável",
+                "correct": false,
+                "feedback": "O estudante não decide sobre mover o paciente."
+              },
+              {
+                "label": "O próprio paciente, se disser que consegue",
+                "correct": false,
+                "feedback": "O paciente de trauma não decide sozinho se pode ser movido."
+              },
+              {
+                "label": "A equipe que coordena o cuidado",
+                "correct": true,
+                "feedback": "Isso: a equipe decide quando o paciente pode ser movido."
+              },
+              {
+                "label": "Quem estiver mais perto da prancha",
+                "correct": false,
+                "feedback": "A proximidade da prancha não dá a decisão."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "futureradtech-trauma"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "id": "t",
+            "type": "multiple-choice",
+            "role": null,
+            "prompt": "O detector em pé está do lado oposto ao tubo, mas o paciente está pouco fora do alinhamento. O que você move?",
+            "options": [
+              {
+                "label": "O equipamento, e não o paciente",
+                "correct": true,
+                "feedback": "Isso: ajusta-se o equipamento, com o paciente parado."
+              },
+              {
+                "label": "O paciente, só um pouco",
+                "correct": false,
+                "feedback": "Mover o paciente depende da decisão da equipe."
+              },
+              {
+                "label": "O colar, para ajeitar a cabeça",
+                "correct": false,
+                "feedback": "O colar fica no lugar: quem decide sobre ele é a equipe."
+              },
+              {
+                "label": "A prancha, para alinhar melhor",
+                "correct": false,
+                "feedback": "A prancha fica sob o paciente durante a imagem."
+              }
+            ],
+            "help": "",
+            "sourceIds": [
+              "futureradtech-trauma",
+              "exam-prep-trauma"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

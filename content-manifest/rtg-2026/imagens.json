@@ -58,7 +58,9 @@
     "projection": "lateral (perfil)",
     "region": "crânio",
     "descriptionFromSource": "x-ray image of skull (lat.)",
-    "usedIn": []
+    "usedIn": [
+      "m25-03"
+    ]
   },
   {
     "id": "image:rtg-2026:m28:tc-axial-abdome-figado-01",

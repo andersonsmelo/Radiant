@@ -191,6 +191,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Tórax, abdome e cabeça."
     }
   },
+  "batch:rtg-2026:m25": {
+    "slug": "rtg-2026-m25",
+    "title": "Crânio, face, exame no leito e trauma",
+    "description": "Nomeia os ossos, as linhas de referência e os seios da cabeça, ensina a distinguir o crânio de frente do de perfil e organiza o exame no leito e em trauma, com a equipe no comando.",
+    "unitTitle": "Crânio, face, exame no leito e trauma",
+    "reward": {
+      "id": "node:reward:rtg-2026:m25",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Crânio, face, exame no leito e trauma."
+    }
+  },
   "batch:rtg-2026:m09": {
     "slug": "rtg-2026-m09",
     "title": "Preparo, contraste e cuidado ampliado",
