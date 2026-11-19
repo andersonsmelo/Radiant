@@ -19,7 +19,7 @@
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "retrievedAt": "2026-11-19",
     "sha256Original": "c8d5c3f208deac302ab3f7d70c0f499719c53de865f47df264d21f9e298cbc72",
-    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 74 detalhes menores que 2,5 unidades descartados e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
+    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 78 detalhes menores que 2,5 unidades descartados (nenhum osso inteiro; esterno e todos os caminhos do original incluídos) e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
   },
   {
     "id": "articulacao-sinovial",

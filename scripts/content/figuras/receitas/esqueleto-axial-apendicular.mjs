@@ -12,6 +12,7 @@ const inner = t.slice(s0, s1).replace(/<\/g>\s*$/, '');
 const re = /<(\/?)(\w+)([^>]*?)(\/?)>/g; let m, depth = 0, start = -1; const groups = [];
 while ((m = re.exec(inner))) {
   const [all, close, tag, , self] = m;
+  if (tag === 'path' && depth === 0) { groups.push(all); continue; }
   if (tag !== 'g') continue;
   if (close) { depth--; if (depth === 0) groups.push(inner.slice(start, m.index + all.length)); }
   else { if (depth === 0) start = m.index; if (!self) depth++; else if (depth === 0) groups.push(all); }
@@ -20,7 +21,8 @@ const BLUE = '#4A9EFF', BLUE_SPINE = '#2F7FE8', BLUE_RIB = '#8CC4FF', AMBER = '#
 const baseOf = (id) => {
   if (id === 'Skull') return BLUE;
   if (['CervicalVertebrae', 'ThoracicVertebrae', 'LumbarVertebrae', 'Sacrum', 'Coccyx', 'g801'].includes(id)) return BLUE_SPINE;
-  if (['Manubrium', 'g845', 'g1609'].includes(id)) return BLUE_RIB;
+  if (['Manubrium', 'g845', 'g1609', 'Sternum', 'path639', 'path1607', 'path1115', ...[381, 383, 385, 387, 389, 391, 393, 395, 397, 399, 401, 403, 405, 407, 413, 415].map((n) => 'path' + n)].includes(id)) return BLUE_RIB;
+  if (['path417', 'path791', 'path793', 'path797', 'path799'].includes(id)) return BLUE_SPINE;
   return AMBER;
 };
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
@@ -79,4 +81,4 @@ for (const g of groups) {
   body += `<g id="${id}">${o}</g>\n`;
 }
 writeFileSync(out, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 435.687 841.89">\n${body}</svg>\n`);
-console.log('grupos', groups.length, groups.map((g) => /id="([^"]+)"/.exec(g)[1]).join(' '), '\ncaminhos', paths, 'desconhecidos', [...unknown]);
+console.log('grupos', groups.length, groups.map((g) => /id="([^"]+)"/.exec(g)[1]).join(' '), '\ncaminhos', paths, 'descartados', dropped, 'desconhecidos', [...unknown]);

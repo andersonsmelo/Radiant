@@ -197,7 +197,7 @@ export const FIGURES = {
 // sem rótulos, recolorida para a paleta do app e achatada para atributos de apresentação.
 // Cores: osso cinza claro com poros mais escuros, cartilagem ciano, cavidade e líquido azul-petróleo,
 // membrana sinovial azul médio, cápsula azul vivo por fora. Sem ligamento na arte.`,
-      alt: 'Articulação em corte frontal: dois ossos com pontas lisas, espaço escuro entre elas, camada que o envolve por fora.',
+      alt: 'Articulação em corte: dois ossos com pontas lisas, espaço azul-escuro entre elas, camada que o envolve por fora.',
     }),
   },
   'linhas-do-cranio': {

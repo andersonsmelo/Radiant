@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6",
+  "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -184,7 +184,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Eixo e membros",
-            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece em tons de azul e os membros, em âmbar.",
+            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece em tons de azul e os membros, com as cinturas, em âmbar.",
             "keyPoints": [
               "Axial: crânio, coluna e caixa torácica.",
               "Apendicular: membros e cinturas.",
@@ -323,7 +323,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso: o osso do quadril faz parte da cintura pélvica e prende o membro inferior ao esqueleto axial.",
-              "incorrect": "Essa região é do eixo do corpo e não prende o membro. Procure o osso que fica entre a coluna e a coxa, do lado esquerdo do paciente."
+              "incorrect": "Essa região é do eixo do corpo ou do próprio membro, e não prende o membro ao esqueleto axial. Procure o osso entre a coluna e a coxa, do lado esquerdo do paciente."
             },
             "payload": {
               "prompt": "Toque no osso que prende o membro inferior ao esqueleto axial, do lado esquerdo do paciente.",
@@ -348,10 +348,18 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:3",
                   "label": "Osso do quadril",
-                  "x": 0.469,
-                  "y": 0.542,
-                  "width": 0.082,
-                  "height": 0.109
+                  "x": 0.5,
+                  "y": 0.52,
+                  "width": 0.08,
+                  "height": 0.1
+                },
+                {
+                  "id": "region:rtg-2026:m18:aula-01:i3:4",
+                  "label": "Fêmur esquerdo",
+                  "x": 0.48,
+                  "y": 0.74,
+                  "width": 0.08,
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
@@ -1349,8 +1357,8 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:3",
                   "x": 0.55,
-                  "y": 0.47,
-                  "where": "a faixa ciano que cobre a ponta de baixo",
+                  "y": 0.509,
+                  "where": "a faixa ciano sob a ponta de cima",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:3"
                 },
                 {
@@ -2935,6 +2943,15 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m18:aula-01:i3:3",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m18:openstax-ap-7-1",
+        "source:rtg-2026:m18:openstax-ap-8-3"
+      ]
+    },
+    {
+      "claimId": "region:rtg-2026:m18:aula-01:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6787,7 +6804,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     },
     {
       "schemaVersion": 1,
@@ -6796,7 +6813,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     },
     {
       "schemaVersion": 1,
@@ -6805,7 +6822,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     },
     {
       "schemaVersion": 1,
@@ -6814,7 +6831,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     },
     {
       "schemaVersion": 1,
@@ -6823,7 +6840,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     },
     {
       "schemaVersion": 1,
@@ -6832,7 +6849,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5d2c11b9d774cd0248eafa2cf5477e0adcd48b89252dd2485a4f52193ffc76f6"
+      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

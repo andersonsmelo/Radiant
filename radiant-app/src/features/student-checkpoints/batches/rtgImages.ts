@@ -112,11 +112,11 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "license": "Domínio público",
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_-_no_labels.svg",
-    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 74 detalhes menores que 2,5 unidades descartados e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
+    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 78 detalhes menores que 2,5 unidades descartados (nenhum osso inteiro; esterno e todos os caminhos do original incluídos) e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
   },
   {
     "id": "articulacao-sinovial",
-    "alt": "Articulação em corte frontal: dois ossos com pontas lisas, espaço escuro entre elas, camada que o envolve por fora.",
+    "alt": "Articulação em corte: dois ossos com pontas lisas, espaço azul-escuro entre elas, camada que o envolve por fora.",
     "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",

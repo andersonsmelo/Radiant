@@ -7,7 +7,7 @@ import type { DiagramSpec } from '../diagramTypes';
 // membrana sinovial azul médio, cápsula azul vivo por fora. Sem ligamento na arte.
 export const articulacaoSinovial: DiagramSpec = {
   id: 'articulacao-sinovial',
-  alt: 'Articulação em corte frontal: dois ossos com pontas lisas, espaço escuro entre elas, camada que o envolve por fora.',
+  alt: 'Articulação em corte: dois ossos com pontas lisas, espaço azul-escuro entre elas, camada que o envolve por fora.',
   width: 320,
   height: 240,
   art: 'imported',

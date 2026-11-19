@@ -2,7 +2,7 @@
   { "nome": "Crânio", "x": 0.424, "y": 0.046, "width": 0.083, "height": 0.122 },
   { "nome": "Caixa torácica", "x": 0.393, "y": 0.285, "width": 0.147, "height": 0.145 },
   { "nome": "Coluna lombar", "x": 0.426, "y": 0.453, "width": 0.08, "height": 0.086 },
-  { "nome": "Osso do quadril esquerdo", "rotulos": ["Osso do quadril"], "x": 0.469, "y": 0.542, "width": 0.082, "height": 0.109 },
+  { "nome": "Osso do quadril esquerdo", "rotulos": ["Osso do quadril"], "x": 0.5, "y": 0.542, "width": 0.051, "height": 0.109 },
   { "nome": "Osso do quadril direito", "x": 0.382, "y": 0.542, "width": 0.082, "height": 0.109 },
   { "nome": "Úmero esquerdo", "x": 0.547, "y": 0.3, "width": 0.08, "height": 0.164 },
   { "nome": "Úmero direito", "x": 0.302, "y": 0.3, "width": 0.08, "height": 0.164 },
