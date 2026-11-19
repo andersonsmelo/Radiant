@@ -3,9 +3,11 @@ import { Image, Text } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { InteractionFigure } from './InteractionFigure';
 import { diagramRef, DIAGRAMS } from '../../../ui/diagrams/diagramRegistry';
+import { diagramSvgAt } from '../../../ui/diagrams/diagramMotion';
 
+let mockReducedMotion = true;
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
-    useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: true, resolved: true }),
+    useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: mockReducedMotion, resolved: true }),
 }));
 jest.mock('../../../ui/useScreenFocused', () => ({ useScreenFocused: () => true }));
 
@@ -33,6 +35,18 @@ describe('InteractionFigure', () => {
         expect(getByLabelText(DIAGRAM.alt)).toBeTruthy();
         expect(getByTestId('diagram-frame')).toBeTruthy();
         expect(getByTestId('interaction-figure').props.style).toEqual(expect.arrayContaining([expect.objectContaining({ aspectRatio: DIAGRAM.width / DIAGRAM.height })]));
+    });
+
+    it('diagrama em laço fica parado no quadro de pôster mesmo com movimento ligado: os alvos de toque não acompanham movimento', () => {
+        mockReducedMotion = false;
+        try {
+            const loop = Object.values(DIAGRAMS).find(spec => spec.periodMs && spec.layers.some(layer => layer.motion?.kind === 'translate'))!;
+            const view = render(<InteractionFigure imageRef={diagramRef(loop.id)} />);
+            expect(view.queryAllByTestId('diagram-layer')).toHaveLength(0);
+            expect(view.getByTestId('diagram-still').props.xml).toBe(diagramSvgAt(loop, loop.posterAt ?? 0));
+        } finally {
+            mockReducedMotion = true;
+        }
     });
 
     it('diagrama com alt passada: a alt passada vale', () => {

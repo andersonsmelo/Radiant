@@ -200,7 +200,7 @@ Valem para os sete: `prompt` de 20 a 300 caracteres, `help` de 15 a 200,
 
 `hotspot`, `label` e `risk-hunt` mostram uma figura. Use **exatamente um** de
 `imageId` (imagem licenciada de `content-manifest/rtg-2026/imagens.json`, com licença
-CC0 ou CC BY conferida) ou `diagramId` (um dos 16 diagramas da tabela abaixo). Os dois
+CC0 ou CC BY conferida) ou `diagramId` (um dos 34 diagramas da tabela abaixo). Os dois
 juntos, ou nenhum, reprovam; id fora do acervo ou do catálogo também.
 
 **Régua de toque.** Todo alvo (ponto ou região) tem uma área de toque de 44 pt:
@@ -211,7 +211,7 @@ outro alvo** (dois alvos nunca ficam colados; encostar na borda não conta como
 sobreposição). A régua antiga do plano, "0,16 entre centros", foi trocada por esta;
 vale o verificador.
 
-Numa figura 4:3, como os 16 diagramas (280 × 210 pt na régua), 44 pt são 0,157 da
+Numa figura 4:3, como os 34 diagramas (280 × 210 pt na régua), 44 pt são 0,157 da
 largura e 0,21 da altura. Na prática:
 
 - **ponto** (`label`): `x` de 0,08 a 0,92 e `y` de 0,11 a 0,89; dois pontos só ficam
@@ -229,8 +229,8 @@ própria interação, e não o `alt` do acervo nem o do catálogo, para a descri
 entregar a resposta; a informação de posição chega ao leitor de tela pelos rótulos dos
 alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. Só o
 `visual` do conceito lê o `alt` do catálogo: confira que ele não entrega a resposta de
-nenhuma interação da aula. Os alvos não acompanham movimento: para `hotspot`, `label` e
-`risk-hunt`, prefira diagrama parado.
+nenhuma interação da aula. Em `hotspot`, `label` e `risk-hunt` um diagrama em laço aparece parado, no
+quadro de pôster (desde 2026-11-19): escreva o item para esse quadro.
 
 ### Catálogo de diagramas
 
@@ -257,6 +257,26 @@ texto dentro: o rótulo vem do conteúdo.
 | `inverso-do-quadrado` | dirigido | Fonte emite um feixe em cone; o detector se afasta e a área iluminada por ele cresce. Modelo `inverse-square`. |
 | `blindagem-camadas` | dirigido | Feixe atravessa placas de blindagem; a cada placa a intensidade cai à metade. Modelo `shielding`. |
 | `decaimento-radioativo` | dirigido | Sessenta e quatro átomos; a cada meia-vida, metade dos que restavam apaga. Modelo `decay`. |
+| `conferencia-de-identidade` | parado | Paciente deitado numa maca com pulseira no punho; um profissional de pé segura a folha do pedido, e ao lado há uma tela de computador. |
+| `transferencia-maca-mesa` | parado | Vista lateral: maca ao lado da mesa de exame com um vão entre elas, paciente deitado, suporte de soro com a linha até o braço e uma prancha encostada. |
+| `pontos-de-contato-da-sala` | parado | Sala de exame de frente: porta com maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo de raios X no teto e a mesa do comando com teclado. |
+| `itens-de-emergencia-da-sala` | parado | Parede de uma sala de exame: porta de saída com placa, carrinho de emergência com gavetas, saída de oxigênio, botão de chamada com cordão e telefone. |
+| `circuito-do-gerador` | parado | Circuito do gerador: fonte alternada, transformador com secundário de mais espiras, ponte de diodos e tubo; abaixo, um transformador menor liga o filamento. |
+| `retificacao-de-onda` | parado | Três traçados de tensão empilhados: onda alternada, onda retificada que cai a zero a cada meio ciclo e tensão quase constante com ondulação pequena. |
+| `anodo-giratorio` | laço | Disco do ânodo girando visto de frente; o feixe de elétrons bate sempre no mesmo ponto da pista em anel, e dali sai o feixe de raios X. |
+| `espectro-de-raios-x` | parado | Gráfico sem números: curva larga que sobe e cai até zero na energia máxima, dois picos estreitos sobre ela e, à esquerda, a parte baixa cortada. |
+| `esqueleto-axial-apendicular` | parado | Esqueleto de frente, da cabeça ao meio das coxas: crânio, coluna, costelas e esterno numa cor; cinturas e membros em outra cor. |
+| `osso-longo` | parado | Osso longo deitado, em corte: duas pontas largas de osso esponjoso, uma faixa clara perto de cada ponta e o tubo do meio com cavidade. |
+| `coluna-regioes` | parado | Coluna vertebral de perfil, com a frente do corpo à esquerda: cinco regiões em cores alternadas e quatro curvas em S duplo. |
+| `articulacao-sinovial` | parado | Articulação em corte: dois ossos com cartilagem nas pontas, espaço com líquido entre eles, cápsula envolvendo e um ligamento por fora. |
+| `marcos-de-superficie` | parado | Tronco e pelve de frente: contorno do corpo, ossos em traço fraco por baixo e pontos sobre os relevos ósseos que se palpam pela pele. |
+| `respiracao-diafragma` | laço | Tórax de frente com traqueia, dois pulmões, costelas e o diafragma em cúpula: os pulmões crescem enquanto o diafragma desce, e depois tudo volta. |
+| `circulacao-dupla` | laço | Coração de quatro câmaras com uma volta pequena até os pulmões e outra grande até o corpo; pontos azuis e amarelos correm pelas voltas. |
+| `trato-digestivo` | parado | Tronco de frente com esôfago, estômago, fígado, pâncreas, o intestino delgado enovelado no centro e o intestino grosso em moldura ao redor. |
+| `sistema-urinario` | parado | Tronco de frente com os dois rins ao lado da coluna, os dois ureteres descendo até a bexiga na pelve e a uretra saindo da bexiga. |
+| `sistema-nervoso` | parado | Corpo de frente até as coxas: o encéfalo e a medula espinal numa cor, e nervos de outra cor saindo da medula para os braços, o tronco e as pernas. |
+
+Os 18 últimos entraram com o lote 1 da fase C (m17 a m20), em 2026-11-19. Azul e amarelo em `circulacao-dupla` são sangue pobre e rico em oxigênio. Em `osso-longo` a figura não distingue a ponta proximal da distal.
 
 ### `hotspot` (tocar na região)
 

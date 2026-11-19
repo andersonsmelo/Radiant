@@ -16,7 +16,7 @@ const track = (unit: string) => `track:rtg-2026:${unit}`;
 
 /** As 20 trilhas publicadas na 1.5.0, na ordem em que estavam (medido em 2026-11-13). */
 const LEGACY_1_5_0 = [
-    'm01', 'm02', 'm03', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12', 'm13', 'm14',
+    'm01', 'm02', 'm18', 'm03', 'm19', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12', 'm13', 'm14',
     's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir',
 ].map(track);
 
@@ -70,10 +70,12 @@ describe('trilha ampliada da 1.6 e o progresso da 1.5.0', () => {
     /** Trilhas da 1.5.0 que passaram a ter uma unidade nova logo antes. */
     const insertedBefore = new Set(LEGACY_1_5_0.filter(id => !LEGACY_1_5_0.includes(ids[ids.indexOf(id) - 1] ?? id)));
 
-    it('m15 vem depois de M03, m16 depois de M09, e s-od e s-us no fim', () => {
-        expect(ids).toEqual(['m01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+    // A 1.7 insere uma unidade irmã logo depois de cada unidade (fase C da trilha
+    // dobrada); a lista cresce a cada irmã admitida.
+    it('m15 vem depois de M03, m16 depois de M09, s-od e s-us no fim, e cada irmã logo depois da sua unidade', () => {
+        expect(ids).toEqual(['m01', 'm17', 'm02', 'm18', 'm03', 'm19', 'm15', 'm20', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
             's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us'].map(track));
-        expect([...insertedBefore]).toEqual([track('m04'), track('m10')]);
+        expect([...insertedBefore]).toEqual([track('m02'), track('m04'), track('m10')]);
     });
 
     it('nenhum aluno da 1.5.0 perde acesso ao que fez nem é levado de volta pela Home', () => {
@@ -87,6 +89,20 @@ describe('trilha ampliada da 1.6 e o progresso da 1.5.0', () => {
         expect(access.get(track('m15'))).toBe(true);
         expect(access.get(track('m16'))).toBe(false);
         expect(resolveActiveTrackId([...tracks], completed, started)).toBe(track('m07'));
+    });
+
+    it('a irmã é obrigatória: quem concluiu M01 sem abrir M02 passa pela m17, e quem já abriu M02 segue nela', () => {
+        const done = new Set([track('m01')]);
+        const atBoundary = new Map(resolveTrackAccess([...tracks], done, done).map(entry => [entry.trackId, entry.unlocked]));
+        expect(resolveActiveTrackId([...tracks], done, done)).toBe(track('m17'));
+        expect(atBoundary.get(track('m17'))).toBe(true);
+        expect(atBoundary.get(track('m02'))).toBe(false);
+
+        const started = new Set([track('m01'), track('m02')]);
+        const ahead = new Map(resolveTrackAccess([...tracks], done, started).map(entry => [entry.trackId, entry.unlocked]));
+        expect(resolveActiveTrackId([...tracks], done, started)).toBe(track('m02'));
+        expect(ahead.get(track('m02'))).toBe(true);
+        expect(ahead.get(track('m17'))).toBe(true);
     });
 
     it('o aluno novo percorre na ordem da ementa e só abre N com N−1 concluída', () => {
