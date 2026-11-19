@@ -76,3 +76,13 @@ not ok 138 - bench: texto com travessão, caixa alta ou palavra reservada reprov
     rtg-batch-unknown-type:bench
     > 274 |                 throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
 Tests:       5 failed, 82 skipped, 87 total
+
+## Régua da múltipla escolha por aula: verificador sem a regra (linha retirada à mão, depois restaurada)
+not ok 120 - aula sem múltipla escolha reprova, e o caso com decisão não conta como uma
+  error: 'o defeito passou sem erro'
+  actual: false
+not ok 122 - M05.06, publicada sem múltipla escolha, é a única isenta
+  error: 'o defeito passou sem erro'
+  actual: false
+# pass 120
+# fail 2

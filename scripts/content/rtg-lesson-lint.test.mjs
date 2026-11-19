@@ -786,3 +786,28 @@ test('bench: texto com travessão, caixa alta ou palavra reservada reprova, como
   expectOnly(benchItem(item => { item.controls[0].label = 'Configuração'; }), /palavra reservada/);
   expectOnly(benchItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
+
+// Régua da múltipla escolha por aula: a revisão espaçada só mostra múltipla escolha, então sem uma
+// as cartas da aula nunca são limpas (docs/evidence/2026-11-19-formatos/medicao-revisao-espacada.md).
+const NO_MULTIPLE_CHOICE = /a aula precisa de ao menos uma múltipla escolha: sem ela, as cartas de revisão da aula nunca são limpas/;
+const asCaseDecision = (item) => {
+  item.type = 'case-decision';
+  item.context = 'No setor de radiologia, antes de o turno começar, a equipe confere o material de proteção e os registros do dia.';
+};
+test('aula sem múltipla escolha reprova, e o caso com decisão não conta como uma', () => {
+  const errors = defect(doc => { doc.lessons[0].interactions.filter(item => item.type === 'multiple-choice').forEach(asCaseDecision); });
+  expectOnly(errors, /^lessons\[0\]\(m01-01\)\.interactions: a aula precisa de ao menos uma múltipla escolha/);
+  assert.equal(errors.length, 1);
+  assert.match(errors[0], NO_MULTIPLE_CHOICE);
+});
+test('uma só múltipla escolha basta', () => {
+  assert.deepEqual(defect(doc => { doc.lessons[0].interactions.filter(item => item.type === 'multiple-choice').slice(1).forEach(asCaseDecision); }), []);
+});
+test('M05.06, publicada sem múltipla escolha, é a única isenta', () => {
+  const m05 = () => JSON.parse(readFileSync(fileURLToPath(new URL('../../content-manifest/rtg-2026/aulas/m05.json', import.meta.url)), 'utf8'));
+  assert.deepEqual(lintUnit(m05()), []);
+  const doc = m05();
+  doc.lessons[4].interactions.filter(item => item.type === 'multiple-choice').forEach(asCaseDecision);
+  const errors = lintUnit(doc);
+  expectOnly(errors, /^lessons\[4\]\(m05-05\)\.interactions: a aula precisa de ao menos uma múltipla escolha/);
+});

@@ -21,6 +21,8 @@ const { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap } =
 // Escritas por extenso, e não lidas da fábrica: a lista da fábrica cresce, esta não.
 const LEGACY_UNITS = ['m01', 'm02', 'm03', 'm15', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
   's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us'];
+// M05.06 já foi publicada sem múltipla escolha; mexer nela muda um lote gerado, e a fase D decide aula a aula.
+const NO_MULTIPLE_CHOICE_OK = ['m05-06'];
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
@@ -385,6 +387,7 @@ export function lintUnit(doc, { images = [] } = {}) {
     if (interactions.length !== 5) err(`${w}.interactions`, `são ${interactions.length}; devem ser 5`);
     const types = interactions.map((i) => i.type);
     if (new Set(types).size < 3) err(`${w}.interactions`, 'use ao menos 3 tipos diferentes na aula');
+    if (interactions.length && !types.includes('multiple-choice') && !NO_MULTIPLE_CHOICE_OK.includes(lesson.id)) err(`${w}.interactions`, 'a aula precisa de ao menos uma múltipla escolha: sem ela, as cartas de revisão da aula nunca são limpas');
     const interactionIds = new Set();
     interactions.forEach((it, ii) => {
       const iw = `${w}.interactions[${ii}]`;
