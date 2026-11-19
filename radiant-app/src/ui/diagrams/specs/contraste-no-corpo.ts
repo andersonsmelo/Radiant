@@ -13,7 +13,7 @@ const bean = (cx: number, cy: number, sx: number) =>
 
 export const contrasteNoCorpo: DiagramSpec = {
   id: 'contraste-no-corpo',
-  alt: 'Dois troncos de frente: um com o tubo digestivo preenchido de contraste amarelo, outro com rins, ureteres e bexiga preenchidos de contraste azul.',
+  alt: 'Dois troncos de frente: um com o tubo digestivo preenchido em amarelo, outro com rins, ureteres e bexiga preenchidos em azul.',
   width: 320,
   height: 240,
   layers: [

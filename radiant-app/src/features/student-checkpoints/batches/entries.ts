@@ -202,6 +202,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Preparo, contraste e cuidado ampliado."
     }
   },
+  "batch:rtg-2026:m26": {
+    "slug": "rtg-2026-m26",
+    "title": "Exames contrastados e fluoroscopia",
+    "description": "Você segue o caminho do bário e do iodado no corpo, nomeia a cadeia da fluoroscopia, vê como pulso e imagem retida mudam a exposição, aprende onde ficar na sala e acompanha os estudos digestivo e urinário.",
+    "unitTitle": "Exames contrastados e fluoroscopia",
+    "reward": {
+      "id": "node:reward:rtg-2026:m26",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Exames contrastados e fluoroscopia."
+    }
+  },
   "batch:rtg-2026:m16": {
     "slug": "rtg-2026-m16",
     "title": "A condição do paciente na aquisição",
