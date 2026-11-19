@@ -1,0 +1,19 @@
+# Vermelho do lote 1A: guarda figure-target-missing-file removida do verificador (2026-11-19)
+# node --test scripts/content/rtg-lesson-lint.test.mjs
+not ok 140 - alvos: figure-target-missing-file quando a figura é arte importada e não tem arquivo de alvos
+  ---
+  duration_ms: 4.083125
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:953:1'
+  failureType: 'testCodeFailure'
+  error: 'o defeito passou sem erro'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    expectOnly (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:26:10)
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:955:3)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+# pass 146
+# fail 1

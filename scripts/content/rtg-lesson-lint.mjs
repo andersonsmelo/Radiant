@@ -245,6 +245,8 @@ export function lintUnit(doc, { images = [], figureTargets = defaultFigureTarget
   // Alvos tocáveis numa figura: `targetErrors` (geometria), o vínculo com a figura e o texto do rótulo.
   const targets = (where, list, options, item) => {
     targetErrors(where, list, options).forEach((message) => errors.push(message));
+    // Arte importada sem arquivo de alvos deixaria o toque solto da figura: o vínculo com a região só vale se ela for declarada.
+    if (item?.diagramId !== undefined && DIAGRAMS[item.diagramId]?.art === 'imported' && !Object.hasOwn(figureTargets, item.diagramId)) errors.push(`${where}: figure-target-missing-file: a figura ${item.diagramId} é arte importada e precisa de content-manifest/rtg-2026/figuras/${item.diagramId}.alvos.json`);
     if (item?.diagramId !== undefined && Object.hasOwn(figureTargets, item.diagramId)) figureTargetErrors(where, list, figureTargets[item.diagramId]).forEach((message) => errors.push(message));
     if (Array.isArray(list)) list.forEach((target, i) => text(`${where}[${i}].label`, target?.label, { min: 2, max: 40 }));
   };

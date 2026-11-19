@@ -950,6 +950,13 @@ test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continu
   assert.deepEqual(hotspot(), []);
 });
 
+test('alvos: figure-target-missing-file quando a figura é arte importada e não tem arquivo de alvos', () => {
+  const importada = (figureTargets) => linked(item => { item.diagramId = 'cranio-de-perfil-ossos'; }, figureTargets);
+  expectOnly(importada({}), /figure-target-missing-file.*cranio-de-perfil-ossos/);
+  // Com o arquivo declarado, o defeito some; a região de outra figura não vale.
+  assert.ok(!importada({ 'cranio-de-perfil-ossos': FIGURE_TARGETS['tubo-raios-x'] }).some(error => /missing-file/.test(error)));
+  assert.ok(importada({ 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'] }).some(error => /missing-file/.test(error)));
+});
 test('alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova', () => {
   assert.ok(linked(item => { item.regions[1].alvo = 'Fonte de raios X'; }).some(error => /figure-target-duplicate.*Fonte de raios X/.test(error)));
 });
