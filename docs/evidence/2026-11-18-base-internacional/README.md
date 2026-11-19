@@ -73,6 +73,13 @@ que o verificador automático não acusava. Foram 63 correções aplicadas no to
 ## Limites desta evidência
 
 - Nada foi visto em aparelho nem no simulador.
+- **O run do Loop desta fase (`run-1795050074958-86281247`) foi fechado sem validação
+  aprovada.** Em duas tentativas, 14 dos 15 validadores passaram e o `app-test` estourou
+  o prazo de 180 s (221 s na primeira). Rodado sozinho, com a máquina calma, o mesmo
+  comando passa em 167 s (3.849 testes); logo depois do `app-quality`, que leva 158 s
+  e também roda o jest, ele não cabe no prazo. O gate do app rodado direto
+  (`EXPO_NO_DOTENV=1 CI=1 npm run quality`, Node 20) passou: 283 suítes, 3.849 testes.
+  O CI da PR #89 passou nas duas verificações. O prazo do validador é decisão do dono.
 - O verificador não acusa alternativa correta mais longa por pouco, texto corrompido
   nem retorno trocado: esses três tipos só apareceram na revisão humana do diff.
 - As revisões leram o diff e abriram as fontes novas por amostra; não releram as aulas
