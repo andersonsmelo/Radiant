@@ -1,4 +1,4 @@
-import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop } from './hotspotTouch';
+import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox } from './hotspotTouch';
 
 const frame = (width: number, height: number) => ({ width: TOUCH_FIGURE_WIDTH_PT, height: (TOUCH_FIGURE_WIDTH_PT * height) / width });
 
@@ -37,5 +37,29 @@ describe('hotspotTouch', () => {
 
     it('encostar na borda não sobrepõe', () => {
         expect(touchRectsOverlap({ left: 0, top: 0, width: 44, height: 44 }, { left: 44, top: 0, width: 44, height: 44 })).toBe(false);
+    });
+});
+
+describe('badgeBox', () => {
+    const quadro = { width: 280, height: 210 };
+    // Régua mínima do verificador: 0,08 de largura e de altura. Uma na borda de baixo (mandíbula) e outra na borda direita.
+    const regioes = [
+        { x: 0.3, y: 0.92, width: 0.4, height: 0.08 },
+        { x: 0.92, y: 0.4, width: 0.08, height: 0.4 },
+        { x: 0.1, y: 0.1, width: 0.08, height: 0.08 },
+    ];
+
+    it.each(regioes)('o selo cabe inteiro no quadro e toca a região %#', region => {
+        const box = badgeBox(region, quadro);
+        expect(box.left).toBeGreaterThanOrEqual(0);
+        expect(box.top).toBeGreaterThanOrEqual(0);
+        expect(box.left + box.width).toBeLessThanOrEqual(quadro.width);
+        expect(box.top + box.height).toBeLessThanOrEqual(quadro.height);
+        // Continua ancorado na região, não solto pela figura.
+        const left = region.x * quadro.width, top = region.y * quadro.height;
+        expect(box.left).toBeLessThanOrEqual(left + region.width * quadro.width);
+        expect(box.top).toBeLessThanOrEqual(top + region.height * quadro.height);
+        expect(box.left + box.width).toBeGreaterThanOrEqual(left);
+        expect(box.top + box.height).toBeGreaterThanOrEqual(top);
     });
 });

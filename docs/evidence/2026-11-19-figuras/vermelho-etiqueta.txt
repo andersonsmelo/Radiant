@@ -1,0 +1,51 @@
+FAIL src/features/lesson-flow/renderers/hotspotTouch.test.ts
+  hotspotTouch
+    ✓ amplia em torno do centro até 44 pt por eixo e não encolhe região grande (1 ms)
+    ✓ o hitSlop é a diferença entre o retângulo de toque e a região, igual nos dois lados
+    ✓ recusa duas regiões baixas com centros a 0,17 na vertical, que a régua euclidiana antiga deixava passar
+    ✓ recusa a região de x 0,92 e largura 0,08, cujo toque sai da figura
+    ✓ encostar na borda não sobrepõe
+  badgeBox
+    ✕ o selo cabe inteiro no quadro e toca a região 0 (1 ms)
+    ✕ o selo cabe inteiro no quadro e toca a região 1 (1 ms)
+    ✓ o selo cabe inteiro no quadro e toca a região 2
+
+  ● badgeBox › o selo cabe inteiro no quadro e toca a região 0
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 210
+    Received:    227.20000000000002
+
+      55 |         expect(box.top).toBeGreaterThanOrEqual(0);
+      56 |         expect(box.left + box.width).toBeLessThanOrEqual(quadro.width);
+    > 57 |         expect(box.top + box.height).toBeLessThanOrEqual(quadro.height);
+         |                                      ^
+      58 |         // Continua ancorado na região, não solto pela figura.
+      59 |         const left = region.x * quadro.width, top = region.y * quadro.height;
+      60 |         expect(box.left).toBeLessThanOrEqual(left + region.width * quadro.width);
+
+      at toBeLessThanOrEqual (src/features/lesson-flow/renderers/hotspotTouch.test.ts:57:38)
+
+  ● badgeBox › o selo cabe inteiro no quadro e toca a região 1
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 280
+    Received:    303.6
+
+      54 |         expect(box.left).toBeGreaterThanOrEqual(0);
+      55 |         expect(box.top).toBeGreaterThanOrEqual(0);
+    > 56 |         expect(box.left + box.width).toBeLessThanOrEqual(quadro.width);
+         |                                      ^
+      57 |         expect(box.top + box.height).toBeLessThanOrEqual(quadro.height);
+      58 |         // Continua ancorado na região, não solto pela figura.
+      59 |         const left = region.x * quadro.width, top = region.y * quadro.height;
+
+      at toBeLessThanOrEqual (src/features/lesson-flow/renderers/hotspotTouch.test.ts:56:38)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 6 passed, 8 total
+Snapshots:   0 total
+Time:        0.898 s
+Ran all test suites matching /src\/features\/lesson-flow\/renderers\/hotspotTouch.test.ts/i.

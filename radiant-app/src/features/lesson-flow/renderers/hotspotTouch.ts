@@ -37,3 +37,28 @@ export function touchRectInside(rect: TouchRect, frame: { width: number; height:
     const eps = 1e-9;
     return rect.left >= -eps && rect.top >= -eps && rect.left + rect.width <= frame.width + eps && rect.top + rect.height <= frame.height + eps;
 }
+
+/** Selo do número (ou da marca) sobre a região, em pontos. */
+export const BADGE_SIZE = { width: 36, height: 24 };
+
+/** Borda da região, em pontos: o selo absoluto parte de dentro dela. */
+const REGION_BORDER = 2;
+
+/**
+ * Onde o selo fica no quadro (em pontos): no canto da região, empurrado para dentro do quadro.
+ * Região baixa ou na borda não o corta: ele pode passar da região, nunca do quadro.
+ * `offset` é a posição relativa à região, para o selo absoluto dentro dela.
+ */
+export function badgeBox(region: TouchTarget, frame: { width: number; height: number }) {
+    const regionLeft = region.x * frame.width;
+    const regionTop = region.y * frame.height;
+    const left = Math.max(0, Math.min(regionLeft, frame.width - BADGE_SIZE.width));
+    const top = Math.max(0, Math.min(regionTop, frame.height - BADGE_SIZE.height));
+    return { left, top, ...BADGE_SIZE, offset: { left: left - regionLeft - REGION_BORDER, top: top - regionTop - REGION_BORDER } };
+}
+
+/** Estilo do selo absoluto dentro da região, já mantido dentro do quadro. */
+export function badgeStyle(region: TouchTarget, frame: { width: number; height: number }) {
+    const { offset, width, height } = badgeBox(region, frame);
+    return { position: 'absolute' as const, ...offset, width, height };
+}
