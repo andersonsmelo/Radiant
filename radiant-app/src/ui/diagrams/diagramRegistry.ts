@@ -50,6 +50,10 @@ import { joelhoFrenteEPerfil } from './specs/joelho-frente-e-perfil';
 import { femurProximalEQuadril } from './specs/femur-proximal-e-quadril';
 import { pelveDeFrente } from './specs/pelve-de-frente';
 import { vertebraTipica } from './specs/vertebra-tipica';
+import { corteAbdomeSuperior } from './specs/corte-abdome-superior';
+import { cortePelve } from './specs/corte-pelve';
+import { cortePescoco } from './specs/corte-pescoco';
+import { colunaSagitalEAxial } from './specs/coluna-sagital-e-axial';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -103,6 +107,10 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [femurProximalEQuadril.id]: femurProximalEQuadril,
   [pelveDeFrente.id]: pelveDeFrente,
   [vertebraTipica.id]: vertebraTipica,
+  [corteAbdomeSuperior.id]: corteAbdomeSuperior,
+  [cortePelve.id]: cortePelve,
+  [cortePescoco.id]: cortePescoco,
+  [colunaSagitalEAxial.id]: colunaSagitalEAxial,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
