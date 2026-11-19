@@ -36,7 +36,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Trilha dobrada (1.7) — fases A, B e lotes 1 a 4 da C em branches, medido em 2026-11-19
+## Trilha dobrada (1.7) — fases A, B e lotes 1 a 4 da C em branches; figuras em troca, medido em 2026-11-19
 
 O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
 unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
@@ -133,7 +133,30 @@ aulas e 9 ou 10 famílias de interação. Cada unidade tem parecer de revisão i
 por IA (68 correções ao todo). Gate do app: 4.335 testes, saída 0; testes de conteúdo e
 de roteiros 407 de 408 (a mesma falha de ambiente).
 [Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
-simulador ou aparelho.** Faltam dois lotes, as oito irmãs das especializações.
+simulador ou aparelho.** Faltavam dois lotes, as oito irmãs das especializações.
+
+**Figuras reprovadas e em troca (2026-11-19).** O dono viu as figuras em código e as
+reprovou. O lote 5 da fase C parou antes de qualquer aula ser escrita. Por uma amostra e
+um piloto no app, ele escolheu um método por tipo: acervo aberto para anatomia e a skill
+`anatomy` para equipamento e cena
+([ADR](adr/ADR-2026-11-19-figuras-por-tipo.md),
+[plano](superpowers/plans/2026-11-19-troca-das-figuras.md)). A base técnica (fase 0 do
+plano) está na branch `claude/figuras-base`, sobre o lote 4, sem merge: movimento com
+fases e curva, conversor de arte versionado, registro de origem e crédito das figuras,
+regra do verificador que prende cada área de toque à estrutura que nomeia, gerador de
+roteiros de prova e orçamento de peso. Duas figuras já estão na arte nova: o crânio de
+perfil (acervo, domínio público) e o raio X móvel no leito (`anatomy`). Medido em
+2026-11-19: o bundle JS passou de 13,38 para 13,67 MiB com as duas, e a projeção para
+as 72 figuras usadas é de 6,71 MiB a mais, numa faixa de 3,5 a 10,3 MiB; no emulador
+Android o leito aparece menos de 0,3 s depois do toque
+([orçamento](evidence/2026-11-19-figuras/orcamento.md)). **Visto rodando: as duas
+figuras no simulador de iPhone (piloto) e no emulador Android. Não visto: aparelho
+físico, a cena do leito animando numa aula real, e as 70 figuras restantes.** Três
+defeitos dos roteiros de prova no Android ficaram pendentes (o roteiro que fecha o menu
+do dev client e a rolagem dos grupos de classificar); a prova usou contornos
+temporários. As PRs #89 a #95 seguem com a arte antiga. Esperam o dono: o método para
+gráficos, fluxos e esquemas de radiografia, o destino da pilha de PRs e a retomada dos
+lotes 5 e 6.
 
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
