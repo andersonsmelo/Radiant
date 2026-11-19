@@ -48,3 +48,28 @@ Limites: ninguém viu os laços em movimento, em simulador ou aparelho. A revis�
 feita sobre quadros parados, e o desenho da tela é o do `DiagramView`, que os testes
 modelam mas não executam. A guarda nova de `style=` e aspas simples foi vista
 falhando (`vermelho-tarefa-11.txt`).
+
+## Fechamento da fase B (2026-11-19)
+
+Medido no topo da branch `claude/trilha-dobrada-fase-b`, commit `f2589998`, Node 20.20.2:
+
+| O que | Comando | Resultado |
+| --- | --- | --- |
+| Gate do app | `cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npm run quality` | saída 0; 4.123 testes do jest, todos verdes |
+| Testes de conteúdo e de roteiros | `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs` | 407 de 408 antes da onda final; a falha, `register-source`, é da worktree, que não tem o arquivo local do livro piloto, e não entra na lista do CI |
+| Lotes gerados | `node scripts/content/build-rtg-batches.mjs --check` | saída 0; os 24 `materialSha256` iguais aos de antes da fase |
+| Verificador nas 24 unidades | `node scripts/content/rtg-lesson-lint.mjs <arquivo>` | 24 de 24 |
+| Identidade contra a `main` | `uv run python docs/evidence/2026-11-18-base-internacional/compara-identidade.py origin/main` | 24 unidades; 105 itens de segurança antes e depois |
+| Contrato de documentação | `node scripts/qa/docs-contract.mjs` | passa |
+
+Revisão: cada tarefa teve revisão independente lendo o código (Opus nas tarefas de
+tela e de motor, Sonnet nas demais) e uma rodada de conserto; a branch inteira teve uma
+revisão final de integração, sem achado crítico, e uma onda de consertos. Os consertos
+da onda final foram conferidos pelo gate e pelo CI, sem nova revisão independente.
+
+**Run do Loop fechado sem validação aprovada.** O run `run-1795062294841-34e9559c` foi
+aberto antes da primeira edição e fechado de `editing` para `closed`, sem
+`loop validate`: o validador `app-test` leva 167 s sozinho e tem prazo de 180 s, e
+estoura quando roda depois do `app-quality` (medido duas vezes na fase A, em
+2026-11-18). O gate desta fase é o comando da tabela e o CI da PR #90. Subir o prazo em
+`.loop/project.yaml` é decisão do dono. Nenhuma memória do Loop foi gravada.
