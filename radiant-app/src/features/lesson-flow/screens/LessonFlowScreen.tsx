@@ -92,7 +92,7 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
 const HEART_LOSS_DELAY_MS = 320;
 
 /** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
-const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation']);
+const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz']);
 // Rodízio da frase de aula sem erro entre as aulas da mesma abertura do app (F3).
 let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
@@ -137,6 +137,8 @@ export function correctAnswerText(interaction: LearningInteractionV2): string | 
             const { points, labels } = interaction.payload;
             return points.map((point, index) => `${index + 1}: ${labels.find(entry => entry.id === point.correctLabelId)?.label ?? ''}`).join('; ');
         }
+        case 'blitz':
+            return interaction.payload.statements.map(statement => `${statementStem(statement.text)}: ${statement.isTrue ? 'verdadeiro' : 'falso'}`).join('; ');
         case 'conversation':
             return interaction.payload.turns.map(turn => turn.options.find(option => option.id === turn.correctOptionId)?.label ?? '').join('; ');
         case 'cloze': {
@@ -503,7 +505,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         // Sem vidas, o bloqueio vem antes de responder um item que custa vida.
         // Depois do feedback de um débito, seguir é livre: a última vida perdida
         // no último retorno conclui a lição (ADR de 2026-10-18, régua e última vida).
-        const costsHeart = !isReview && (!hybrid || player.isRetry);
+        // A rodada rápida nunca tira vida: o tempo e o ritmo dela já são a pressão.
+        const costsHeart = !isReview && (!hybrid || player.isRetry) && currentInteraction?.type !== 'blitz';
         if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
             setHeartsSheetInvites(false);
             setHeartsSheetVisible(true);

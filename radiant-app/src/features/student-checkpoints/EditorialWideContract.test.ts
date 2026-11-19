@@ -472,6 +472,101 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('blitz (fase B)', () => {
+        const STATEMENTS = [
+            { text: 'Quanto maior a distância da fonte, menor é a dose recebida.', correct: true, feedback: 'Longe da fonte a dose cai, porque a radiação se espalha por uma área maior.' },
+            { text: 'O dosímetro individual reduz a dose que a pessoa recebe.', correct: false, feedback: 'O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem.' },
+            { text: 'O avental de chumbo protege o tronco da radiação espalhada.', correct: true, feedback: 'O avental cobre o tronco e atenua a radiação que se espalha na sala.' },
+            { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
+            { text: 'Material com rachadura sai de uso e a supervisão é avisada.', correct: true, feedback: 'Material danificado não protege direito e o aviso evita que o problema se esconda.' },
+            { text: 'Registrar o uso do dosímetro é opcional em turnos curtos.', correct: false, feedback: 'O registro vale em todo turno, porque mostra o uso e o desgaste do material.' },
+        ];
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        function blitzCandidate(): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'blitz', role: 'practice', help: old.help, sourceIds: old.sourceIds, statements: STATEMENTS,
+                prompt: 'Responda verdadeiro ou falso a cada afirmação sobre a proteção no turno.',
+                feedbackCorrect: 'Isso mesmo: você separou o que protege do que expõe, no ritmo da rodada.',
+                feedbackIncorrect: 'Reveja as afirmações: cada uma tem a própria explicação no retorno.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const blitzOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'blitz') throw new Error('sem blitz');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof blitzOf>) => void) => {
+            const value = blitzCandidate();
+            mutate(blitzOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('aceita a rodada com passCount de n menos 1 e a proveniência de cada afirmação', () => {
+            const value = blitzCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const { payload } = blitzOf(value);
+            expect(payload.statements).toHaveLength(6);
+            expect(payload.passCount).toBe(5);
+            const claim = (id: string) => value.claimProvenance.find(entry => entry.claimId === id);
+            expect(claim(payload.statements[0].id)).toMatchObject({ claimKind: 'prompt', provenanceKind: 'source-backed' });
+            expect(claim(payload.statements[1].id)).toMatchObject({ claimKind: 'distractor', provenanceKind: 'authorial-distractor' });
+        });
+
+        it('mantém as chaves exatas do payload e exige texto em toda afirmação', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).tempo = 10; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.statements[0].text = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+        });
+
+        it('invalid-wide-shape: de 6 a 8 afirmações, passCount fora de n menos 1, texto ou explicação repetidos ou vazios', () => {
+            expect(issuesWith(interaction => { interaction.payload.statements.splice(5); interaction.payload.passCount = 4; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.passCount = 4; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.passCount = 6; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.statements[1].text = interaction.payload.statements[0].text; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.statements[1].explanation = interaction.payload.statements[0].explanation; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.statements[1].explanation = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        /** Quais afirmações são verdadeiras; a proveniência acompanha (verdadeira cita a fonte, falsa é distrator autoral), para só a forma reprovar. */
+        const issuesWithTruths = (truths: number[]) => {
+            const value = blitzCandidate();
+            const { payload } = blitzOf(value);
+            const sourceIds = value.claimProvenance.find(claim => claim.claimId === payload.statements[0].id)!.sourceIds;
+            payload.statements.forEach((statement, index) => {
+                statement.isTrue = truths.includes(index);
+                Object.assign(value.claimProvenance.find(claim => claim.claimId === statement.id)!, statement.isTrue
+                    ? { claimKind: 'prompt', provenanceKind: 'source-backed', sourceIds } : { claimKind: 'distractor', provenanceKind: 'authorial-distractor', sourceIds: [] });
+            });
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('wide-constant-answer: menos de duas verdadeiras ou menos de duas falsas', () => {
+            expect(issuesWithTruths([1])).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWithTruths([0, 2, 3, 4, 5])).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWithTruths([0, 3])).toEqual([]);
+            expect(issuesWithTruths([0, 1, 3, 5])).toEqual([]);
+        });
+
+        it('wide-answer-position-bias: as três primeiras afirmações com a mesma resposta', () => {
+            expect(issuesWithTruths([0, 1, 2, 4])).toEqual([`wide-answer-position-bias:${ID}`]);
+            expect(issuesWithTruths([3, 4, 5])).toEqual([`wide-answer-position-bias:${ID}`]);
+            expect(issuesWithTruths([1, 3, 4, 5])).toEqual([]);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+    });
+
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {
         const id = batch.sources[0].id;
         expect(issuesAfter(value => { delete (value.sources[0] as { use?: string }).use; })).toContain(`invalid-source-metadata:${id}`);

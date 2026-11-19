@@ -161,6 +161,16 @@ export function decodeTrueFalseValue(value: string | undefined): boolean[] {
     }
 }
 
+/** Respostas da rodada rápida, na ordem das afirmações: `true`, `false` ou `null` (tempo esgotado); `[]` para valor inválido. */
+export function decodeBlitzValue(value: string | undefined): (boolean | null)[] {
+    try {
+        const parsed: unknown = value ? JSON.parse(value) : [];
+        return Array.isArray(parsed) && parsed.every(item => item === null || typeof item === 'boolean') ? parsed as (boolean | null)[] : [];
+    } catch {
+        return [];
+    }
+}
+
 function isDistinctSubset(actual: string[], allowed: string[]): boolean {
     const allowedIds = new Set(allowed);
     return new Set(actual).size === actual.length && actual.every(id => allowedIds.has(id));
@@ -214,6 +224,8 @@ export function isCompleteInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length > 0 && isDistinctSubset(ids, interaction.payload.regions.map(region => region.id));
         }
+        case 'blitz':
+            return decodeBlitzValue(value).length === interaction.payload.statements.length;
         case 'conversation': {
             // Um id válido por turno: a conversa só fecha com todos os turnos respondidos.
             const ids = decodeInteractionIdSequence(value);
@@ -271,6 +283,11 @@ export function isCorrectInteractionValue(
         case 'risk-hunt': {
             const ids = decodeInteractionIdSequence(value);
             return ids.length === interaction.payload.riskRegionIds.length && interaction.payload.riskRegionIds.every(id => ids.includes(id));
+        }
+        case 'blitz': {
+            // O tempo esgotado (`null`) nunca é acerto.
+            const given = decodeBlitzValue(value);
+            return interaction.payload.statements.filter((statement, index) => given[index] === statement.isTrue).length >= interaction.payload.passCount;
         }
         case 'conversation': {
             const ids = decodeInteractionIdSequence(value);

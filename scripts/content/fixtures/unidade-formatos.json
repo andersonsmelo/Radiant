@@ -520,29 +520,44 @@
         },
         {
           "id": "i3",
-          "type": "true-false",
+          "type": "blitz",
           "role": "practice",
-          "prompt": "Julgue cada afirmação sobre os cuidados com o dosímetro individual.",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre a proteção no turno.",
           "statements": [
             {
-              "text": "Conferir o material antes do turno evita falha escondida.",
+              "text": "Quanto maior a distância da fonte, menor é a dose recebida.",
               "correct": true,
-              "feedback": "Conferir antes do turno revela dano que só apareceria durante o uso."
+              "feedback": "Longe da fonte a dose cai, porque a radiação se espalha por uma área maior."
             },
             {
-              "text": "Um material rachado pode seguir em uso até o fim do dia.",
+              "text": "O dosímetro individual reduz a dose que a pessoa recebe.",
               "correct": false,
-              "feedback": "Material com dano visível sai de uso e a supervisão é avisada."
+              "feedback": "O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem."
             },
             {
-              "text": "Registrar o uso ajuda a acompanhar o desgaste do material.",
+              "text": "O avental de chumbo protege o tronco da radiação espalhada.",
               "correct": true,
-              "feedback": "O registro mostra quanto o material foi usado e quando precisa de revisão."
+              "feedback": "O avental cobre o tronco e atenua a radiação que se espalha na sala."
+            },
+            {
+              "text": "Quanto mais tempo na sala durante a exposição, menor é a dose.",
+              "correct": false,
+              "feedback": "Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose."
+            },
+            {
+              "text": "Material com rachadura sai de uso e a supervisão é avisada.",
+              "correct": true,
+              "feedback": "Material danificado não protege direito e o aviso evita que o problema se esconda."
+            },
+            {
+              "text": "Registrar o uso do dosímetro é opcional em turnos curtos.",
+              "correct": false,
+              "feedback": "O registro vale em todo turno, porque mostra o uso e o desgaste do material."
             }
           ],
-          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe a risco.",
-          "feedbackIncorrect": "Revise as afirmações: cada uma tem a própria explicação no retorno.",
-          "help": "Leia cada afirmação com calma antes de julgar.",
+          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe, no ritmo da rodada.",
+          "feedbackIncorrect": "Reveja as afirmações: cada uma tem a própria explicação no retorno.",
+          "help": "Leia com calma: o relógio pode ser desligado no botão Sem tempo.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
           ]

@@ -145,6 +145,21 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
         },
         correctValue: encodeInteractionIdSequence(['a1', 'b2']), wrongValue: encodeInteractionIdSequence(['a1', 'b1']),
     },
+    blitz: {
+        interaction: {
+            ...common, id: 'fx:bz', type: 'blitz', accessibility: label('rodada rápida'),
+            payload: {
+                prompt: 'Responda a rodada.', passCount: 3,
+                statements: [
+                    { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Longe da fonte, menos dose.' },
+                    { id: 's2', text: 'O dosímetro reduz a dose.', isTrue: false, explanation: 'O dosímetro só mede a dose.' },
+                    { id: 's3', text: 'O avental cobre o tronco.', isTrue: true, explanation: 'O avental protege o tronco.' },
+                    { id: 's4', text: 'Mais tempo na sala reduz a dose.', isTrue: false, explanation: 'Mais tempo aumenta a dose.' },
+                ],
+            },
+        },
+        correctValue: JSON.stringify([true, false, true, false]), wrongValue: JSON.stringify([false, true, true, null]),
+    },
     // Nasce pendente: a tarefa 9 define o contrato e troca por um exemplo completo.
     'parameter-lab': 'pending',
 };

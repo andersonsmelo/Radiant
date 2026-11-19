@@ -3,6 +3,7 @@ import * as exposure from '../../bench/exposureModel';
 import {
     benchDirection,
     decodeBenchValue,
+    decodeBlitzValue,
     decodeInteractionIdSequence,
     encodeBenchValue,
     encodeInteractionIdSequence,
@@ -466,5 +467,38 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p2']))).toBe(false);
         expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2', 'p1']))).toBe(true);
         expect(isCorrectInteractionValue(conversation, encodeInteractionIdSequence(['o2']))).toBe(false);
+    });
+
+    // Fase B, tarefa 8: rodada rápida; a resposta é `true`, `false` ou `null` (tempo esgotado), na ordem.
+    const blitz: LearningInteractionV2 = { ...base, type: 'blitz', payload: {
+        prompt: 'Rodada rápida.', passCount: 3,
+        statements: [
+            { id: 's1', text: 'Um.', isTrue: true, explanation: 'Um é certa.' }, { id: 's2', text: 'Dois.', isTrue: false, explanation: 'Dois é errada.' },
+            { id: 's3', text: 'Três.', isTrue: true, explanation: 'Três é certa.' }, { id: 's4', text: 'Quatro.', isTrue: false, explanation: 'Quatro é errada.' },
+        ],
+    } };
+
+    it('decodeBlitzValue: lista de verdadeiro, falso ou nulo; qualquer outra coisa vira lista vazia', () => {
+        expect(decodeBlitzValue('[true,false,null]')).toEqual([true, false, null]);
+        expect(decodeBlitzValue(undefined)).toEqual([]);
+        expect(decodeBlitzValue('[true,"sim"]')).toEqual([]);
+        expect(decodeBlitzValue('[true,1]')).toEqual([]);
+        expect(decodeBlitzValue('{"a":true}')).toEqual([]);
+        expect(decodeBlitzValue('não é json')).toEqual([]);
+    });
+
+    it('blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais', () => {
+        expect(isCompleteInteractionValue(blitz, '[true,false,true]')).toBe(false);
+        expect(isCompleteInteractionValue(blitz, '[true,false,true,false,true]')).toBe(false);
+        expect(isCompleteInteractionValue(blitz, '[true,false,true,"x"]')).toBe(false);
+        expect(isCompleteInteractionValue(blitz, '[null,null,null,null]')).toBe(true);
+        // 4 de 4 e 3 de 4 passam; 2 de 4 não
+        expect(isCorrectInteractionValue(blitz, '[true,false,true,false]')).toBe(true);
+        expect(isCorrectInteractionValue(blitz, '[true,false,true,true]')).toBe(true);
+        expect(isCorrectInteractionValue(blitz, '[true,false,false,true]')).toBe(false);
+        // tempo esgotado não é acerto, nem de falso nem de verdadeiro
+        expect(isCorrectInteractionValue(blitz, '[true,null,true,null]')).toBe(false);
+        expect(isCorrectInteractionValue(blitz, '[true,false,null,false]')).toBe(true);
+        expect(isCorrectInteractionValue(blitz, '[true,false,true]')).toBe(false);
     });
 });

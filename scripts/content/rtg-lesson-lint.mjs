@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz'];
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'];
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
@@ -238,6 +238,20 @@ export function lintUnit(doc, { images = [] } = {}) {
       if (!statements.some((st) => st.correct) || !statements.some((st) => !st.correct)) err(where, 'true-false: ao menos uma afirmação certa e ao menos uma errada');
       else if (longer(statements.filter((st) => st.correct).map((st) => st.text), statements.filter((st) => !st.correct).map((st) => st.text))) err(where, 'true-false: a afirmação certa é mais longa que 1,2× a maior errada');
       if (new Set(statements.map((st) => norm(st.text))).size !== statements.length || new Set(statements.map((st) => norm(st.feedback))).size !== statements.length) err(where, 'true-false: afirmação ou retorno repetido');
+    } else if (item.type === 'blitz') {
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'statements']));
+      const statements = Array.isArray(item.statements) ? item.statements : [];
+      if (statements.length < 6 || statements.length > 8) return err(where, 'blitz: de 6 a 8 afirmações');
+      if (statements.some((st) => typeof st?.correct !== 'boolean')) return err(where, 'blitz: correct deve ser true ou false em cada afirmação');
+      statements.forEach((st, i) => {
+        errors.push(...keyErrors(`${where}.statements[${i}]`, st, ['text', 'correct', 'feedback']));
+        text(`${where}.statements[${i}].text`, st.text, { min: 15, max: 110 });
+        text(`${where}.statements[${i}].feedback`, st.feedback, { min: 25, max: 260 });
+      });
+      const truths = statements.filter((st) => st.correct).length;
+      if (truths < 2 || truths > statements.length - 2) err(where, `blitz: de 2 a ${statements.length - 2} afirmações verdadeiras; com menos, ou mais, a rodada se acerta sem ler`);
+      if (statements.slice(0, 3).every((st) => st.correct === statements[0].correct)) err(where, 'blitz: as três primeiras afirmações têm a mesma resposta; intercale');
+      if (new Set(statements.map((st) => norm(st.text))).size !== statements.length || new Set(statements.map((st) => norm(st.feedback))).size !== statements.length) err(where, 'blitz: afirmação ou retorno repetido');
     } else if (item.type === 'categorize') {
       const categories = Array.isArray(item.categories) ? item.categories : [];
       const items = Array.isArray(item.items) ? item.items : [];

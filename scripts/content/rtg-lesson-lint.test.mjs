@@ -585,3 +585,64 @@ test('conversation: retorno de erro igual ao de acerto reprova, como nas outras 
 test('conversation: referência nacional na fala do personagem reprova', () => {
   assert.ok(conversationItem(item => { item.turns[0].line = 'Isso segue a RDC 611, certo?'; }).some(error => /referência nacional/.test(error)));
 });
+
+// Formato `blitz` (fase B, tarefa 8): de 6 a 8 afirmações de até 110 caracteres, de 2 a n-2 verdadeiras, sem três iguais no começo.
+const blitzStatements = () => [
+  { text: 'Quanto maior a distância da fonte, menor é a dose recebida.', correct: true, feedback: 'Longe da fonte a dose cai, porque a radiação se espalha por uma área maior.' },
+  { text: 'O dosímetro individual reduz a dose que a pessoa recebe.', correct: false, feedback: 'O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem.' },
+  { text: 'O avental de chumbo protege o tronco da radiação espalhada.', correct: true, feedback: 'O avental cobre o tronco e atenua a radiação que se espalha na sala.' },
+  { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
+  { text: 'Material com rachadura sai de uso e a supervisão é avisada.', correct: true, feedback: 'Material danificado não protege direito e o aviso evita que o problema se esconda.' },
+  { text: 'Registrar o uso do dosímetro é opcional em turnos curtos.', correct: false, feedback: 'O registro vale em todo turno, porque mostra o uso e o desgaste do material.' },
+];
+function blitzItem(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'blitz', role: 'practice', help: old.help, sourceIds: old.sourceIds, statements: blitzStatements(),
+    prompt: 'Responda verdadeiro ou falso a cada afirmação sobre a proteção no turno.',
+    feedbackCorrect: 'Isso mesmo: você separou o que protege do que expõe, no ritmo da rodada.',
+    feedbackIncorrect: 'Reveja as afirmações: cada uma tem a própria explicação no retorno.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc);
+}
+const extraStatement = (n, correct) => ({ text: `Afirmação extra número ${n} sobre o turno.`, correct, feedback: `Retorno próprio e distinto da afirmação extra ${n}.` });
+test('blitz: aceita de 6 a 8 afirmações', () => {
+  assert.deepEqual(blitzItem(), []);
+  assert.deepEqual(blitzItem(item => { item.statements.push(extraStatement(7, false), extraStatement(8, true)); }), []);
+});
+test('blitz: de 6 a 8 afirmações, e correct booleano', () => {
+  expectOnly(blitzItem(item => { item.statements.splice(5); }), /de 6 a 8 afirmações/);
+  expectOnly(blitzItem(item => { item.statements.push(extraStatement(7, false), extraStatement(8, true), extraStatement(9, false)); }), /de 6 a 8 afirmações/);
+  expectOnly(blitzItem(item => { item.statements[0].correct = 'true'; }), /correct deve ser true ou false/);
+});
+test('blitz: de 2 a n-2 verdadeiras', () => {
+  expectOnly(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = i === 1; }); }), /de 2 a 4 afirmações verdadeiras/);
+  expectOnly(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = i !== 1; }); }), /de 2 a 4 afirmações verdadeiras/);
+  expectOnly(blitzItem(item => { item.statements.forEach((st) => { st.correct = false; }); }), /de 2 a 4 afirmações verdadeiras|mesma resposta/);
+  // 2 e 4 de 6 ainda passam
+  assert.deepEqual(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = [0, 3].includes(i); }); }), []);
+  assert.deepEqual(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = [0, 1, 3, 5].includes(i); }); }), []);
+});
+test('blitz: três iguais seguidas no começo reprovam, e duas não', () => {
+  expectOnly(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = [0, 1, 2].includes(i) ? true : i === 3; }); }), /três primeiras afirmações têm a mesma resposta/);
+  assert.deepEqual(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = [0, 1, 3].includes(i) || i === 5; }); }), []);
+});
+test('blitz: texto de 15 a 110 caracteres e retorno de 25 a 260', () => {
+  expectOnly(blitzItem(item => { item.statements[0].text = `${'a'.repeat(110)}.`; }), /caracteres \(máx\. 110\)/);
+  expectOnly(blitzItem(item => { item.statements[0].text = 'Curta demais.'; }), /texto ausente ou curto/);
+  assert.deepEqual(blitzItem(item => { item.statements[0].text = `${'a'.repeat(109)}.`; }), []);
+  expectOnly(blitzItem(item => { item.statements[0].feedback = 'Muito curto.'; }), /texto ausente ou curto/);
+});
+test('blitz: afirmação ou retorno repetido reprova', () => {
+  expectOnly(blitzItem(item => { item.statements[1].text = item.statements[0].text.toUpperCase().toLowerCase(); }), /afirmação ou retorno repetido/);
+  expectOnly(blitzItem(item => { item.statements[1].feedback = item.statements[0].feedback; }), /afirmação ou retorno repetido/);
+});
+test('blitz: recusa chave fora da lista, no item e na afirmação', () => {
+  expectOnly(blitzItem(item => { item.passCount = 5; }), /campo desconhecido: passCount/);
+  expectOnly(blitzItem(item => { item.statements[0].tempo = 10; }), /campo desconhecido: tempo/);
+});
+test('blitz: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
+  expectOnly(blitzItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});

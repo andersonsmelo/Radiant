@@ -12,6 +12,7 @@ import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { OrderingStepRenderer } from './OrderingStepRenderer';
 import { CategorizeStepRenderer } from './CategorizeStepRenderer';
 import { ClozeStepRenderer } from './ClozeStepRenderer';
+import { BlitzStepRenderer } from './BlitzStepRenderer';
 import { ConversationStepRenderer } from './ConversationStepRenderer';
 import { LabelStepRenderer } from './LabelStepRenderer';
 import { RiskHuntStepRenderer } from './RiskHuntStepRenderer';
@@ -165,6 +166,7 @@ function NewFamilyInteraction({ interaction, value, onChange, submitted, confirm
         case 'risk-hunt': return <RiskHuntStepRenderer payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
         case 'label': return <LabelStepRenderer key={interaction.id} payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
         case 'conversation': return <ConversationStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
+        case 'blitz': return <BlitzStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
         default: return <UnsupportedInteraction interaction={interaction} />;
     }
 }
@@ -184,6 +186,7 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     label: NewFamilyInteraction,
     'risk-hunt': NewFamilyInteraction,
     conversation: NewFamilyInteraction,
+    blitz: NewFamilyInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

@@ -38,6 +38,8 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'risk-hunt'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; risk: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: rodada rápida de verdadeiro ou falso (de 6 a 8 afirmações; passa quem erra no máximo uma).
+    | { type: 'blitz'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: conversa com um personagem (sem o Pixel; o paciente leva nome).
     | { type: 'conversation'; speaker: LessonCastId; name?: string; turns: { line: string; options: { label: string; correct: boolean; reply: string }[] }[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
@@ -81,7 +83,7 @@ const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
 export const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
     cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas',
-    hotspot: 'Toque na imagem', label: 'Rotular a imagem', 'risk-hunt': 'Encontre os riscos', conversation: 'Conversa' } as const;
+    hotspot: 'Toque na imagem', label: 'Rotular a imagem', 'risk-hunt': 'Encontre os riscos', conversation: 'Conversa', blitz: 'Rodada rápida' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -252,6 +254,11 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
                 interaction = { ...base, type: 'risk-hunt', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, imageRef, regions, riskRegionIds: regions.filter((_, index) => source.regions[index].risk).map(region => region.id) } };
+            } else if (source.type === 'blitz') {
+                const statements = source.statements.map((statement, index) => ({
+                    id: id('statement', slug, source.id, String(index + 1)), text: statement.text, isTrue: statement.correct, explanation: statement.feedback }));
+                interaction = { ...base, type: 'blitz', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, statements, passCount: statements.length - 1 } };
             } else if (source.type === 'conversation') {
                 const turns = source.turns.map((turn, turnIndex) => {
                     const options = turn.options.map((option, index) => ({ id: id('option', slug, source.id, `${turnIndex + 1}${LETTERS[index]}`), label: option.label, reply: option.reply }));

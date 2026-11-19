@@ -1,5 +1,5 @@
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
-import { benchDirection, decodeCategorizeValue, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
+import { benchDirection, decodeBlitzValue, decodeCategorizeValue, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
 
 function filled(text: string | undefined): text is string {
     return typeof text === 'string' && text.trim().length > 0;
@@ -59,6 +59,14 @@ export function feedbackFor(
             return markedFeedback(interaction.payload.options, interaction.payload.correctOptionIds, value, interaction.feedback.incorrect);
         case 'risk-hunt':
             return markedFeedback(interaction.payload.regions, interaction.payload.riskRegionIds, value, interaction.feedback.incorrect);
+        case 'blitz': {
+            // Cada afirmação já mostrou a própria explicação ao ser respondida; aqui entram a contagem e a primeira que escapou.
+            const given = decodeBlitzValue(value);
+            const { statements, passCount } = interaction.payload;
+            const hits = statements.filter((statement, index) => given[index] === statement.isTrue).length;
+            const missed = statements.find((statement, index) => given[index] !== statement.isTrue);
+            return `Você acertou ${hits} de ${statements.length}; para passar eram ${passCount}.${filled(missed?.explanation) ? ` ${missed.explanation}` : ''}`;
+        }
         case 'conversation': {
             // O primeiro turno errado, na ordem da conversa, diz qual resposta cabia.
             const ids = decodeInteractionIdSequence(value);

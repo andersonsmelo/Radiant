@@ -1,0 +1,326 @@
+# Vermelho da tarefa 8 (blitz), antes da implementação (node v20.20.2)
+
+## jest (suítes tocadas)
+  ● ActivityRendererRegistry › declara os quinze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro, a conversa e a rodada rápida
+  ● BlitzStepRenderer › "Sem tempo" desliga o relógio pelo resto da rodada, nas afirmações seguintes também
+  ● BlitzStepRenderer › a barra de tempo desce a cada segundo, com valor e texto, e o tempo esgotado conta como não respondida
+  ● BlitzStepRenderer › a última afirmação deixa a marca na tela, completa a resposta e não corre mais relógio
+  ● BlitzStepRenderer › com "reduzir movimento" o relógio não existe, e o avanço continua sozinho
+  ● BlitzStepRenderer › com leitor de tela o relógio não existe, o avanço é pelo botão Próxima e a marca é anunciada
+  ● BlitzStepRenderer › depois de conferir, não há botões de resposta e a última marca fica
+  ● BlitzStepRenderer › enquanto a preferência de movimento ou o leitor de tela não respondem, o relógio não começa
+  ● BlitzStepRenderer › mostra uma afirmação por vez, com Verdadeiro e Falso, e a contagem de seguidas zerada
+  ● BlitzStepRenderer › o erro mostra a marca de erro com ícone e texto e zera a contagem; o acerto seguinte recomeça em 1
+  ● BlitzStepRenderer › o toque registra a resposta, mostra a marca de acerto com ícone e texto, e a próxima entra depois de 900 ms
+  ● BlitzStepRenderer › um toque durante a marca não conta: a resposta é uma por afirmação
+  ● InteractionAnswerValue: famílias da 1.6 › blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais
+  ● InteractionAnswerValue: famílias da 1.6 › decodeBlitzValue: lista de verdadeiro, falso ou nulo; qualquer outra coisa vira lista vazia
+  ● contrato amplo (wide) › blitz (fase B) › aceita a rodada com passCount de n menos 1 e a proveniência de cada afirmação
+  ● contrato amplo (wide) › blitz (fase B) › invalid-wide-shape: de 6 a 8 afirmações, passCount fora de n menos 1, texto ou explicação repetidos ou vazios
+  ● contrato amplo (wide) › blitz (fase B) › mantém as chaves exatas do payload e exige texto em toda afirmação
+  ● contrato amplo (wide) › blitz (fase B) › wide-answer-position-bias: as três primeiras afirmações com a mesma resposta
+  ● contrato amplo (wide) › blitz (fase B) › wide-constant-answer: menos de duas verdadeiras ou menos de duas falsas
+  ● contrato amplo (wide) › blitz (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+  ● famílias de interação › blitz: tela, validação, acerto, erro e retornos
+  ● feedbackFor: famílias da 1.6 › blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 6 failed, 23 passed, 29 total
+  Tests:       22 failed, 474 passed, 496 total
+
+## jest LessonFlowScreen (rodada rápida)
+  ● LessonFlowScreen — rodada rápida (fase B) › a rodada acertada confere, não cobra vida e fecha a aula
+  ● LessonFlowScreen — rodada rápida (fase B) › resposta errada na rodada rápida não cobra vida, e o botão do rodapé confere
+  ● LessonFlowScreen — rodada rápida (fase B) › sem vidas, a rodada rápida não é barrada e o erro continua sem cobrar
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       3 failed, 147 skipped, 1 passed, 151 total
+
+## node --test rtg-lesson-lint.test.mjs rtg-formatos.test.mjs
+  not ok 1 - a unidade sintética passa no verificador, sem nenhum erro
+  not ok 3 - a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem
+  not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+  not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+  not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+  not ok 12 - a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há
+  not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  not ok 15 - a rodada rápida chega ao lote com afirmações por id, passCount de n menos 1 e o veredito em isTrue
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  not ok 111 - blitz: aceita de 6 a 8 afirmações
+  not ok 112 - blitz: de 6 a 8 afirmações, e correct booleano
+  not ok 113 - blitz: de 2 a n-2 verdadeiras
+  not ok 114 - blitz: três iguais seguidas no começo reprovam, e duas não
+  not ok 115 - blitz: texto de 15 a 110 caracteres e retorno de 25 a 260
+  not ok 116 - blitz: afirmação ou retorno repetido reprova
+  not ok 117 - blitz: recusa chave fora da lista, no item e na afirmação
+  not ok 118 - blitz: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  # tests 118
+  # pass 95
+  # fail 23
+
+## Defeito: decodificador aceita item que não é verdadeiro, falso ou nulo
+  ● InteractionAnswerValue: famílias da 1.6 › blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais
+  ● InteractionAnswerValue: famílias da 1.6 › decodeBlitzValue: lista de verdadeiro, falso ou nulo; qualquer outra coisa vira lista vazia
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 48 passed, 50 total
+
+## Defeito: completa aceita mais respostas do que afirmações
+  ● InteractionAnswerValue: famílias da 1.6 › blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 49 passed, 50 total
+
+## Defeito: o tempo esgotado (null) conta como acerto de afirmação falsa
+  ● InteractionAnswerValue: famílias da 1.6 › blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 49 passed, 50 total
+
+## Defeito: passa só com acertos acima de passCount (> no lugar de >=)
+  ● InteractionAnswerValue: famílias da 1.6 › blitz: completa com todas as afirmações respondidas (o nulo conta), e acerta com acertos de passCount ou mais
+  FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 49 passed, 50 total
+
+## Defeito: retorno traz a explicação da última que errou, não da primeira
+  ● feedbackFor: famílias da 1.6 › blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 27 passed, 28 total
+
+## Defeito: retorno não conta o tempo esgotado como afirmação que escapou
+  ● feedbackFor: famílias da 1.6 › blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 27 passed, 28 total
+
+## Defeito: retorno não diz quantas acertou
+  ● feedbackFor: famílias da 1.6 › blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 27 passed, 28 total
+
+## Defeito: contrato wide aceita passCount que não seja n menos 1
+  ● contrato amplo (wide) › blitz (fase B) › invalid-wide-shape: de 6 a 8 afirmações, passCount fora de n menos 1, texto ou explicação repetidos ou vazios
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 79 passed, 80 total
+
+## Defeito: contrato wide aceita rodada com uma só verdadeira
+  ● contrato amplo (wide) › blitz (fase B) › wide-constant-answer: menos de duas verdadeiras ou menos de duas falsas
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 79 passed, 80 total
+
+## Defeito: contrato wide não confere as três primeiras iguais
+  ● contrato amplo (wide) › blitz (fase B) › wide-answer-position-bias: as três primeiras afirmações com a mesma resposta
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 79 passed, 80 total
+
+## Defeito: contrato wide trata a afirmação falsa como da fonte (sem distrator)
+  ● contrato amplo (wide) › blitz (fase B) › aceita a rodada com passCount de n menos 1 e a proveniência de cada afirmação
+  ● contrato amplo (wide) › blitz (fase B) › wide-answer-position-bias: as três primeiras afirmações com a mesma resposta
+  ● contrato amplo (wide) › blitz (fase B) › wide-constant-answer: menos de duas verdadeiras ou menos de duas falsas
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       3 failed, 77 passed, 80 total
+
+## Defeito: verificador aceita menos de 6 afirmações
+  not ok 95 - blitz: de 6 a 8 afirmações, e correct booleano
+  # tests 101
+  # pass 100
+  # fail 1
+
+## Defeito: verificador aceita rodada quase toda verdadeira
+  not ok 96 - blitz: de 2 a n-2 verdadeiras
+  # tests 101
+  # pass 100
+  # fail 1
+
+## Defeito: verificador aceita três iguais no começo
+  not ok 97 - blitz: três iguais seguidas no começo reprovam, e duas não
+  # tests 101
+  # pass 100
+  # fail 1
+
+## Defeito: verificador aceita afirmação de mais de 110 caracteres
+  not ok 98 - blitz: texto de 15 a 110 caracteres e retorno de 25 a 260
+  # tests 101
+  # pass 100
+  # fail 1
+
+## Defeito: verificador aceita afirmação repetida
+  not ok 99 - blitz: afirmação ou retorno repetido reprova
+  # tests 101
+  # pass 100
+  # fail 1
+
+## Defeito: fábrica põe passCount igual a n
+  not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+  not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+  not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+  not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+  not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+  not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+  not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+  not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+  not ok 12 - a conversa chega ao lote com turnos, respostas com reação e a correta por id, sem name quando não há
+  not ok 13 - a fábrica só leva name ao payload quando a aula-fonte o traz (chave ausente, não undefined)
+  not ok 14 - o roteiro Maestro responde cada turno da conversa pela resposta certa e confere
+  not ok 15 - a rodada rápida chega ao lote com afirmações por id, passCount de n menos 1 e o veredito em isTrue
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  # tests 17
+  # pass 4
+  # fail 13
+
+## Defeito: fábrica deixa o rótulo da família sem a rodada rápida
+  not ok 15 - a rodada rápida chega ao lote com afirmações por id, passCount de n menos 1 e o veredito em isTrue
+  # tests 17
+  # pass 16
+  # fail 1
+
+## Defeito: Maestro não desliga o relógio quando ele existe
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  # tests 17
+  # pass 16
+  # fail 1
+
+## Defeito: Maestro troca verdadeiro por falso
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  # tests 17
+  # pass 16
+  # fail 1
+
+## Defeito: Maestro não toca em Conferir resposta na rodada
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  # tests 17
+  # pass 16
+  # fail 1
+
+## Defeito: rodada rápida tira vida (sem a exceção do blitz)
+  ● LessonFlowScreen — rodada rápida (fase B) › resposta errada na rodada rápida não cobra vida, e o botão do rodapé confere
+  ● LessonFlowScreen — rodada rápida (fase B) › sem vidas, a rodada rápida não é barrada e o erro continua sem cobrar
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 147 skipped, 2 passed, 151 total
+
+## Defeito: ninguém tira vida (exceção larga demais, vale para todo tipo)
+  ● LessonFlowScreen — rodada rápida (fase B) › a mesma resposta errada num certo ou errado continua cobrando uma vida
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 147 skipped, 3 passed, 151 total
+
+## Defeito: rodapé não confere a rodada (CHECKED_FAMILIES)
+  ● LessonFlowScreen — rodada rápida (fase B) › a rodada acertada confere, não cobra vida e fecha a aula
+  ● LessonFlowScreen — rodada rápida (fase B) › resposta errada na rodada rápida não cobra vida, e o botão do rodapé confere
+  ● LessonFlowScreen — rodada rápida (fase B) › sem vidas, a rodada rápida não é barrada e o erro continua sem cobrar
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       3 failed, 147 skipped, 1 passed, 151 total
+
+## Defeito: resposta certa em texto some da folha de retorno
+  ● famílias de interação › blitz: tela, validação, acerto, erro e retornos
+  FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 17 passed, 18 total
+
+## Defeito: tipo sem renderer registrado
+  ● ActivityRendererRegistry › declara os quinze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular, a caça ao erro, a conversa e a rodada rápida
+  FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 13 passed, 14 total
+
+## Defeito: relógio liga com leitor de tela
+  ● BlitzStepRenderer › com leitor de tela o relógio não existe, o avanço é pelo botão Próxima e a marca é anunciada
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: relógio ignora reduzir movimento
+  ● BlitzStepRenderer › com "reduzir movimento" o relógio não existe, e o avanço continua sozinho
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: relógio começa antes de a preferência de movimento resolver
+  ● BlitzStepRenderer › enquanto a preferência de movimento ou o leitor de tela não respondem, o relógio não começa
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: relógio começa antes de o leitor de tela responder
+  ● BlitzStepRenderer › enquanto a preferência de movimento ou o leitor de tela não respondem, o relógio não começa
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: avanço automático da marca cai de 900 para 100 ms
+  ● BlitzStepRenderer › o toque registra a resposta, mostra a marca de acerto com ícone e texto, e a próxima entra depois de 900 ms
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: tempo esgotado entra como falso, não como nulo
+  ● BlitzStepRenderer › a barra de tempo desce a cada segundo, com valor e texto, e o tempo esgotado conta como não respondida
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: Sem tempo não desliga o relógio
+  ● BlitzStepRenderer › "Sem tempo" desliga o relógio pelo resto da rodada, nas afirmações seguintes também
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: com leitor de tela a marca avança sozinha
+  ● BlitzStepRenderer › com leitor de tela o relógio não existe, o avanço é pelo botão Próxima e a marca é anunciada
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: contagem soma todos os acertos em vez dos seguidos
+  ● BlitzStepRenderer › depois de conferir, não há botões de resposta e a última marca fica
+  ● BlitzStepRenderer › o erro mostra a marca de erro com ícone e texto e zera a contagem; o acerto seguinte recomeça em 1
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 10 passed, 12 total
+
+## Defeito: marca de certo ou errado sem ícone
+  ● BlitzStepRenderer › a barra de tempo desce a cada segundo, com valor e texto, e o tempo esgotado conta como não respondida
+  ● BlitzStepRenderer › o erro mostra a marca de erro com ícone e texto e zera a contagem; o acerto seguinte recomeça em 1
+  ● BlitzStepRenderer › o toque registra a resposta, mostra a marca de acerto com ícone e texto, e a próxima entra depois de 900 ms
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       3 failed, 9 passed, 12 total
+
+## Defeito: resposta não é anunciada
+  ● BlitzStepRenderer › com leitor de tela o relógio não existe, o avanço é pelo botão Próxima e a marca é anunciada
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 11 passed, 12 total
+
+## Defeito: fábrica inverte o veredito das afirmações
+  not ok 15 - a rodada rápida chega ao lote com afirmações por id, passCount de n menos 1 e o veredito em isTrue
+  not ok 16 - o roteiro Maestro desliga o relógio se ele existir, responde cada afirmação pela resposta certa e confere
+  # tests 17
+  # pass 15
+  # fail 2
+

@@ -80,8 +80,9 @@ export type InteractionType =
     | 'multi-select'
     // Fase B: rotular pontos de uma figura.
     | 'label'
-    // Fase B: conduzir uma conversa com um personagem.
-    | 'conversation';
+    // Fase B: conduzir uma conversa com um personagem e rodada rápida de verdadeiro ou falso.
+    | 'conversation'
+    | 'blitz';
 
 /**
  * Todos os tipos de interação. O `Record` faz o compilador recusar tipo novo
@@ -92,7 +93,7 @@ const INTERACTION_TYPE_FLAGS: Record<InteractionType, true> = {
     'multiple-choice': true, hotspot: true, comparison: true, matching: true, ordering: true,
     'parameter-lab': true, bench: true, 'risk-hunt': true, 'case-decision': true,
     cloze: true, 'true-false': true, categorize: true, 'multi-select': true, label: true,
-    conversation: true,
+    conversation: true, blitz: true,
 };
 export const INTERACTION_TYPES = Object.keys(INTERACTION_TYPE_FLAGS) as readonly InteractionType[];
 
@@ -305,6 +306,17 @@ export type ConversationPayload = {
     turns: { id: string; line: string; options: { id: string; label: string; reply: string }[]; correctOptionId: string }[];
 };
 
+/**
+ * Rodada rápida: afirmações verdadeiras ou falsas, uma por vez, com tempo por
+ * afirmação que o aluno pode desligar. Passa quem acerta `passCount` ou mais; o
+ * erro nunca tira vida. A resposta é a lista de `true`, `false` ou `null` (tempo esgotado).
+ */
+export type BlitzPayload = {
+    prompt: string;
+    statements: { id: string; text: string; isTrue: boolean; explanation: string }[];
+    passCount: number;
+};
+
 type InteractionBase = {
     id: string;
     /** Ao menos uma. É o que liga a evidência produzida ao domínio medido. */
@@ -334,7 +346,8 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'categorize'; payload: CategorizePayload })
     | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload })
     | (InteractionBase & { type: 'label'; payload: LabelPayload })
-    | (InteractionBase & { type: 'conversation'; payload: ConversationPayload });
+    | (InteractionBase & { type: 'conversation'; payload: ConversationPayload })
+    | (InteractionBase & { type: 'blitz'; payload: BlitzPayload });
 
 /** Elenco das cenas de diálogo da trilha rtg-2026. */
 export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
@@ -677,6 +690,17 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
                     && turn.options.every(option => isFilled(option?.id) && isFilled(option.label) && isFilled(option.reply))
                     && turn.options.some(option => option.id === turn.correctOptionId));
             if (!valid) push(issues, path, 'invalid-conversation');
+            break;
+        }
+        case 'blitz': {
+            const { statements, passCount } = interaction.payload;
+            if (!Array.isArray(statements) || statements.length < 2
+                || statements.some(statement => !isFilled(statement?.id) || !isFilled(statement?.text)
+                    || typeof statement.isTrue !== 'boolean' || !isFilled(statement.explanation))
+                || new Set(statements.map(statement => statement.id)).size !== statements.length
+                || !Number.isInteger(passCount) || passCount < 1 || passCount > statements.length) {
+                push(issues, path, 'invalid-blitz');
+            }
             break;
         }
         case 'parameter-lab': {

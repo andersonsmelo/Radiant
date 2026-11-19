@@ -52,7 +52,7 @@ export type EditorialWideContractV1 = Readonly<{
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -70,6 +70,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     label: ['prompt', 'imageRef', 'points', 'labels'],
     'risk-hunt': ['prompt', 'imageRef', 'regions', 'riskRegionIds'],
     conversation: ['prompt', 'speaker', 'name', 'turns'],
+    blitz: ['prompt', 'statements', 'passCount'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -134,6 +135,18 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
         if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
             options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'blitz') {
+        const { statements, passCount } = interaction.payload;
+        const truths = statements.filter(statement => statement.isTrue).length;
+        if (statements.length < 6 || statements.length > 8 || passCount !== statements.length - 1
+            || new Set(statements.map(statement => statement.id)).size !== statements.length
+            || new Set(statements.map(statement => normalized(statement.text))).size !== statements.length
+            || statements.some(statement => !filled(statement.explanation))
+            || new Set(statements.map(statement => normalized(statement.explanation))).size !== statements.length) codes.push('invalid-wide-shape');
+        // Quase todas verdadeiras (ou falsas) deixa a resposta constante: a rodada se acerta sem ler.
+        if (truths < 2 || truths > statements.length - 2) codes.push('wide-constant-answer');
+        // Três iguais seguidas no começo entregam o padrão da rodada.
+        if (statements.length >= 3 && statements.slice(0, 3).every(statement => statement.isTrue === statements[0].isTrue)) codes.push('wide-answer-position-bias');
     } else if (interaction.type === 'conversation') {
         const { speaker, name, turns } = interaction.payload;
         const positions = turns.map(turn => turn.options.findIndex(option => option.id === turn.correctOptionId));
@@ -191,6 +204,7 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'hotspot': return interaction.payload.regions.map(region => region.id);
         case 'risk-hunt': return interaction.payload.regions.map(region => region.id);
         case 'label': return [...interaction.payload.points.map(point => point.id), ...interaction.payload.labels.map(entry => entry.id)];
+        case 'blitz': return interaction.payload.statements.map(statement => statement.id);
         case 'conversation': return interaction.payload.turns.flatMap(turn => [turn.id, ...turn.options.map(option => option.id)]);
         default: return [];
     }
@@ -209,7 +223,7 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
     } else if (interaction.type === 'multi-select') {
         const correct = new Set(interaction.payload.correctOptionIds);
         interaction.payload.options.forEach(option => add(option.id, correct.has(option.id) ? 'correct-answer' : 'distractor', !correct.has(option.id)));
-    } else if (interaction.type === 'true-false') {
+    } else if (interaction.type === 'true-false' || interaction.type === 'blitz') {
         // A afirmação errada é redação do autor, como o distrator; só a certa cita a fonte.
         interaction.payload.statements.forEach(statement => add(statement.id, statement.isTrue ? 'prompt' : 'distractor', !statement.isTrue));
         add(`${interaction.id}:answer`, 'correct-answer');
@@ -315,7 +329,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                             : interaction.type === 'label' ? interaction.payload.labels.map(entry => entry.label)
                             : interaction.type === 'risk-hunt' ? interaction.payload.regions.map(region => region.label)
                             : interaction.type === 'conversation' ? interaction.payload.turns.flatMap(turn => [turn.line, ...turn.options.flatMap(option => [option.label, option.reply])])
-                            : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
+                            : interaction.type === 'true-false' || interaction.type === 'blitz' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')
                 && interaction.payload.options.some(option => option.imageRef !== undefined);

@@ -3087,6 +3087,99 @@ describe('LessonFlowScreen — conversa (fase B)', () => {
   });
 });
 
+/**
+ * Fase B, tarefa 8: a rodada rápida nunca tira vida. Só ela é exceção: o mesmo
+ * erro num `true-false` continua cobrando uma vida, e a rodada não é barrada
+ * por falta de vidas.
+ */
+describe('LessonFlowScreen — rodada rápida (fase B)', () => {
+  const hearts = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const common = { competencyIds: ['competency:fb'], evidenceKind: 'guided-practice' as const, completionRule: 'confirmed' as const,
+    criticalSafety: false, accessibility: { label: 'Item da fase B' }, feedback: { correct: 'Rodada concluída com acerto.', incorrect: 'Rodada não concluída.' } };
+  const statements = [
+    { id: 's1', text: 'A distância reduz a dose.', isTrue: true, explanation: 'Longe da fonte, menos dose.' },
+    { id: 's2', text: 'O dosímetro reduz a dose.', isTrue: false, explanation: 'O dosímetro só mede a dose.' },
+    { id: 's3', text: 'O avental cobre o tronco.', isTrue: true, explanation: 'O avental protege o tronco.' },
+    { id: 's4', text: 'Mais tempo reduz a dose.', isTrue: false, explanation: 'Mais tempo aumenta a dose.' },
+  ];
+  const activityOf = (interaction: LearningInteractionV2): LearningActivityV2 => ({
+    id: 'activity:fb:rodada', competencyIds: ['competency:fb'], provenance: { contentVersion: 'fb-v1', sourceIds: ['source:fb'] },
+    steps: [
+      { kind: 'presentation', id: 'fb-hook', role: 'hook', payload: { title: 'Rodada do plantão' } },
+      { kind: 'presentation', id: 'fb-concept', role: 'concept', payload: { title: 'Proteção em três ideias' } },
+      { kind: 'interaction', interaction },
+      { kind: 'presentation', id: 'fb-closing', role: 'closing', payload: { title: 'Fechamento da rodada' } },
+    ],
+  });
+  const blitz = { ...common, id: 'fb-blitz', type: 'blitz', payload: { prompt: 'Responda a rodada do plantão.', statements, passCount: 3 } } as LearningInteractionV2;
+  const trueFalse = { ...common, id: 'fb-tf', type: 'true-false', payload: { prompt: 'Julgue as afirmações do plantão.', statements } } as LearningInteractionV2;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers();
+    hearts.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    hearts.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+  });
+  afterEach(() => { jest.useRealTimers(); });
+
+  /** Toca as quatro afirmações, esperando a marca de cada uma passar. */
+  async function playBlitz(answers: boolean[]) {
+    expect(await screen.findByText('Responda a rodada do plantão.')).toBeTruthy();
+    for (const [index, answer] of answers.entries()) {
+      fireEvent.press(await screen.findByTestId(answer ? 'blitz-verdadeiro' : 'blitz-falso'));
+      // O relógio da rodada é do sistema de tempo falso: o avanço de 900 ms da marca passa sem espera real.
+      if (index < answers.length - 1) act(() => { jest.advanceTimersByTime(900); });
+    }
+  }
+
+  it('resposta errada na rodada rápida não cobra vida, e o botão do rodapé confere', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await playBlitz([false, true, false, true]);
+    expect(hearts.spend).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(/Você acertou 0 de 4; para passar eram 3\./)).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining('Resposta incorreta.'));
+    expect(announceForAccessibility.mock.calls.some(([text]) => /vida/.test(String(text)))).toBe(false);
+  });
+
+  it('a mesma resposta errada num certo ou errado continua cobrando uma vida', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(trueFalse));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    expect(await screen.findByText('Julgue as afirmações do plantão.')).toBeTruthy();
+    for (const label of ['Errado', 'Certo', 'Errado', 'Certo']) {
+      fireEvent.press(screen.getByLabelText(new RegExp(`^${label}: `)));
+    }
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await waitFor(() => expect(hearts.spend).toHaveBeenCalledTimes(1));
+  });
+
+  it('a rodada acertada confere, não cobra vida e fecha a aula', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await playBlitz([true, false, true, false]);
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText('Rodada concluída com acerto.')).toBeTruthy();
+    expect(hearts.spend).not.toHaveBeenCalled();
+  });
+
+  it('sem vidas, a rodada rápida não é barrada e o erro continua sem cobrar', async () => {
+    const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null };
+    hearts.getSnapshot.mockResolvedValue(vazia);
+    mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
+    renderWithProviders(<LessonFlowScreen blockId="activity:fb:rodada" nodeId="" resumeCursorId="step-3" />);
+    await act(async () => {});
+    await playBlitz([false, false, false, false]);
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByText(/Você acertou 2 de 4; para passar eram 3\./)).toBeTruthy();
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(hearts.spend).not.toHaveBeenCalled();
+  });
+});
+
 // F3 da 1.6 (ADR 2026-11-15): o mapa único de retorno, com a chave
 // ENABLE_RICH_FEEDBACK ligada e desligada. Mede o que a aula PEDE ao tocador.
 describe('F3 — retorno rico da aula', () => {

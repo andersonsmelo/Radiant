@@ -18,7 +18,7 @@ const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -83,6 +83,15 @@ function answerCommands(interaction) {
     case 'risk-hunt':
       // As mesmas caixas da lista que acompanha a figura (RiskHuntStepRenderer).
       return payload.regions.filter(region => payload.riskRegionIds.includes(region.id)).flatMap(region => tapId(`risk-hunt-${region.label}`));
+    case 'blitz':
+      // O relógio nasce ligado, salvo com "reduzir movimento" (o launchApp do roteiro o liga) ou leitor de tela; sem ele não há botão. O avanço é sozinho.
+      return [
+        `- runFlow:\n    when:\n      visible: ${quote('Sem tempo')}\n    commands:\n      - tapOn: ${quote('Sem tempo')}`,
+        ...payload.statements.flatMap((statement, index) => [
+          ...(index ? [`- assertVisible: ${quote(`Afirmação ${index + 1} de ${payload.statements.length}`)}`] : []),
+          ...tapId(statement.isTrue ? 'blitz-verdadeiro' : 'blitz-falso'),
+        ]),
+      ];
     case 'conversation':
       // Cada resposta certa, na ordem dos turnos; o turno seguinte só aparece depois da escolha.
       return payload.turns.flatMap(turn => tapId(`conversation-option-${turn.options.find(option => option.id === turn.correctOptionId).label}`));

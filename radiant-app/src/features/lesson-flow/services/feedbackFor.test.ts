@@ -249,4 +249,17 @@ describe('feedbackFor: famílias da 1.6', () => {
         expect(feedbackFor(interaction, '["a1","b2"]', false)).toBe('Reveja o conceito. No turno 1, a resposta era: Conferindo o pedido.');
         expect(feedbackFor(interaction, '["a2","b1"]', true)).toBe('Isso mesmo.');
     });
+
+    it('blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)', () => {
+        const statements = [
+            { id: 's1', text: 'Um.', isTrue: true, explanation: 'Um é certa porque a fonte diz.' },
+            { id: 's2', text: 'Dois.', isTrue: false, explanation: 'Dois é errada: o dosímetro não protege.' },
+            { id: 's3', text: 'Três.', isTrue: true, explanation: 'Três é certa: cobre o tronco.' },
+            { id: 's4', text: 'Quatro.', isTrue: false, explanation: 'Quatro é errada.' },
+        ];
+        const interaction: LearningInteractionV2 = { ...base, type: 'blitz', payload: { prompt: 'Rodada.', passCount: 3, statements } };
+        expect(feedbackFor(interaction, '[true,true,true,true]', false)).toBe('Você acertou 2 de 4; para passar eram 3. Dois é errada: o dosímetro não protege.');
+        expect(feedbackFor(interaction, '[null,false,false,false]', false)).toBe('Você acertou 2 de 4; para passar eram 3. Um é certa porque a fonte diz.');
+        expect(feedbackFor(interaction, '[true,false,true,true]', true)).toBe('Isso mesmo.');
+    });
 });
