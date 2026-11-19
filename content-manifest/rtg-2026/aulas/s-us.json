@@ -53,13 +53,13 @@
    "licenseNote": "Página educacional; consultada para fatos, sem reprodução de texto."
   },
   {
-   "id": "lei-12842-2013",
-   "title": "Lei nº 12.842, de 10 de julho de 2013",
-   "publisher": "Presidência da República, Planalto",
-   "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12842.htm",
-   "accessedAt": "2026-11-13",
-   "use": "factual-reference",
-   "licenseNote": "Ato normativo federal; consultado para o art. 4º, VII e § 7º, sem reprodução de texto."
+   "id": "esr-efrs-seguranca-2019",
+   "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+   "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+   "accessedAt": "2026-11-05",
+   "use": "cc-by-4.0",
+   "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
   }
  ],
  "lessons": [
@@ -1679,8 +1679,8 @@
    "id": "s-us-06",
    "code": "S-US.06",
    "title": "Onde o tecnólogo entra",
-   "objective": "Hoje você vai conseguir separar preparo de sala, equipamento e paciente do que a lei e o serviço definem, como a emissão do laudo.",
-   "competency": "Separar preparo de sala, equipamento e paciente da execução e do laudo, conforme a fonte.",
+   "objective": "Hoje você vai conseguir separar o apoio que vale em qualquer serviço do que você pergunta à supervisão e do que nunca é do estudante.",
+   "competency": "Separar o apoio que o estudante pode dar do alcance que a supervisão informa e da interpretação, que não é dele.",
    "minutes": 5,
    "scene": {
     "setting": "Sala de ultrassonografia (simulação)",
@@ -1691,21 +1691,21 @@
      },
      {
       "speaker": "lia",
-      "text": "Entender a física não habilita ninguém. Quem executa e quem emite o laudo a lei e o serviço definem."
+      "text": "Entender a física não habilita ninguém. Quem prepara, quem faz a varredura e quem assina o laudo muda de serviço para serviço."
      },
      {
       "speaker": "pixel",
-      "text": "Que parte você pode afirmar com apoio em lei, e o que fica para perguntar à equipe?"
+      "text": "O que vale em qualquer sala, e o que você pergunta antes de agir?"
      }
     ]
    },
    "concept": {
-    "title": "O que a fonte sustenta",
-    "body": "Este curso não qualifica ninguém. O que está lido em fonte: a Lei 12.842/2013 diz que a emissão de laudo dos exames endoscópicos e de imagem é atividade privativa do médico, e manda aplicar a lei de modo a resguardar as competências do técnico e do tecnólogo de radiologia. Quem executa a varredura em cada serviço é definido pela lei e pelo serviço: aqui não se afirma. Nesta simulação supervisionada, o preparo é apoio: orientar o paciente sobre roupa e joias e organizar a sala. Na dúvida, descreva e pergunte à equipe.",
+    "title": "Seu papel na equipe",
+    "body": "O alcance de quem atua no ultrassom varia entre serviços. Na maioria dos países, o tecnólogo executa o exame e o médico radiologista o interpreta; quem faz a varredura e quem assina o laudo o serviço e as regras locais definem, com tarefas divididas em equipe. Por isso você pergunta e segue a regra do lugar. Vale em qualquer lugar: preparar sala e equipamento, limpar o transdutor, acolher e identificar o paciente, registrar e apoiar quem executa. Nunca é do estudante: interpretar, dar resultado ao paciente ou decidir conduta. Na dúvida, descreva e pergunte.",
     "keyPoints": [
-     "Laudo de exame de imagem: privativo do médico, pela Lei 12.842/2013.",
-     "Quem executa o exame: a lei e o serviço definem.",
-     "Na dúvida, descreva e peça apoio à equipe."
+     "O alcance de cada papel (preparar, executar, laudar) varia por serviço; pergunte e siga a regra local.",
+     "Em qualquer lugar, o estudante apoia: sala, transdutor limpo, acolhimento e registro.",
+     "Interpretar, dar resultado e decidir conduta nunca são do estudante."
     ]
    },
    "interactions": [
@@ -1749,19 +1749,19 @@
      "prompt": "Julgue cada afirmação sobre o que a fonte sustenta.",
      "statements": [
       {
-       "text": "Pela Lei 12.842/2013, a emissão de laudo de exames de imagem é privativa do médico.",
+       "text": "Quem prepara, executa e assina o laudo varia conforme o serviço e as regras locais.",
        "correct": true,
-       "feedback": "Certo: é o inciso VII do artigo 4º da lei."
+       "feedback": "Certo: por isso o aluno pergunta e segue a regra do lugar onde está."
       },
       {
-       "text": "A mesma lei manda resguardar as competências do técnico e do tecnólogo de radiologia.",
+       "text": "Em qualquer serviço, o estudante pode apoiar o preparo da sala e a limpeza do transdutor.",
        "correct": true,
-       "feedback": "Certo: o parágrafo 7º do artigo 4º manda aplicá-la dessa forma."
+       "feedback": "Certo: preparo, limpeza, acolhimento e registro valem em qualquer lugar."
       },
       {
        "text": "Entender a física do ultrassom já define quem executa o exame num serviço.",
        "correct": false,
-       "feedback": "Errado: quem executa é definido pela lei e pelo serviço, não pelo conteúdo do curso."
+       "feedback": "Errado: quem executa o exame depende do serviço, não do conteúdo do curso; pergunte à supervisão."
       },
       {
        "text": "Ao notar algo na imagem, o aluno pode registrar a interpretação por conta própria.",
@@ -1769,11 +1769,11 @@
        "feedback": "Errado: a interpretação é do laudo; descreva o que viu e peça apoio à equipe."
       }
      ],
-     "feedbackCorrect": "Você apoiou cada afirmação na lei lida ou no limite do curso.",
-     "feedbackIncorrect": "Retome: laudo é do médico pela lei; execução, a lei e o serviço definem.",
-     "help": "A afirmação vem da lei lida ou de uma suposição?",
+     "feedbackCorrect": "Você separou o que varia por serviço do que vale em qualquer sala.",
+     "feedbackIncorrect": "Retome: o alcance varia por serviço; interpretar nunca é do estudante.",
+     "help": "A afirmação vale em qualquer lugar ou depende do serviço?",
      "sourceIds": [
-      "lei-12842-2013"
+      "esr-efrs-seguranca-2019"
      ]
     },
     {
@@ -1783,8 +1783,8 @@
      "prompt": "Classifique cada item no grupo que a fonte ou o limite do curso sustenta.",
      "categories": [
       "Apoio de preparo",
-      "Privativo do médico",
-      "Lei e serviço definem"
+      "Nunca é do estudante",
+      "Pergunte ao serviço"
      ],
      "items": [
       {
@@ -1796,25 +1796,24 @@
        "category": "Apoio de preparo"
       },
       {
-       "label": "Emitir o laudo do exame de imagem",
-       "category": "Privativo do médico"
+       "label": "Interpretar a imagem por conta própria",
+       "category": "Nunca é do estudante"
       },
       {
        "label": "Definir quem faz a varredura em cada clínica",
-       "category": "Lei e serviço definem"
+       "category": "Pergunte ao serviço"
       },
       {
        "label": "Decidir se um aluno já pode executar o exame",
-       "category": "Lei e serviço definem"
+       "category": "Pergunte ao serviço"
       }
      ],
-     "feedbackCorrect": "Você separou o apoio, o que a lei reserva ao médico e o que a lei e o serviço definem.",
-     "feedbackIncorrect": "Pergunte de cada item: é apoio de preparo, é a emissão do laudo ou depende da lei e do serviço?",
-     "help": "Cada item é apoio, laudo ou decisão do serviço?",
+     "feedbackCorrect": "Você separou o apoio, a interpretação que não é sua e o que você pergunta ao serviço.",
+     "feedbackIncorrect": "Pergunte de cada item: é apoio de preparo, nunca é do estudante ou você pergunta ao serviço?",
+     "help": "Cada item é apoio, interpretação ou algo a perguntar à supervisão?",
      "sourceIds": [
-      "lei-12842-2013",
-      "radiologyinfo-us",
-      "nibib-us"
+      "esr-efrs-seguranca-2019",
+      "radiologyinfo-us"
      ]
     },
     {
@@ -1827,12 +1826,12 @@
       {
        "label": "Dizer que está tudo normal, para tranquilizá-la",
        "correct": false,
-       "feedback": "Qualquer parecer informal faz as vezes do laudo, que cabe ao médico."
+       "feedback": "Qualquer parecer informal faz as vezes do laudo, que não é seu."
       },
       {
-       "label": "Explicar que o médico emite o laudo e chamar a equipe",
+       "label": "Explicar que o resultado vem da equipe e chamar a equipe",
        "correct": true,
-       "feedback": "O laudo é do médico; a equipe orienta a paciente."
+       "feedback": "Interpretar e dar resultado não é do estudante; a equipe orienta a paciente."
       },
       {
        "label": "Descrever o que parece uma alteração na imagem",
@@ -1845,9 +1844,9 @@
        "feedback": "Silêncio seco também não acolhe; explique e acione a equipe."
       }
      ],
-     "help": "Quem emite o laudo, pela lei lida?",
+     "help": "Quem interpreta e dá o resultado?",
      "sourceIds": [
-      "lei-12842-2013"
+      "esr-efrs-seguranca-2019"
      ],
      "criticalSafety": true
     },
@@ -1870,7 +1869,7 @@
       {
        "label": "Pergunta à equipe antes de qualquer execução",
        "correct": true,
-       "feedback": "A lei e o serviço definem; na dúvida, pergunte."
+       "feedback": "Na dúvida, pergunte à supervisão o que cabe a você."
       },
       {
        "label": "Espera sem falar nada até ser chamado",
@@ -1878,15 +1877,15 @@
        "feedback": "Silêncio deixa a dúvida aberta; descreva e peça apoio."
       }
      ],
-     "help": "Quem define a execução no serviço?",
+     "help": "A quem você pergunta o que cabe a você?",
      "sourceIds": [
-      "lei-12842-2013"
+      "esr-efrs-seguranca-2019"
      ]
     }
    ],
    "closing": {
     "title": "O que fica para a equipe",
-    "body": "Você separa o apoio de preparo do que a lei reserva ao médico, a emissão do laudo, e do que a lei e o serviço definem. O curso não qualifica ninguém; na dúvida, você descreve e pergunta à equipe.",
+    "body": "Você separa o apoio que vale em qualquer sala do que pergunta à supervisão e do que nunca é do estudante, interpretar e dar resultado. O curso não qualifica ninguém; na dúvida, você descreve e pergunta à equipe.",
     "line": {
      "speaker": "lia",
      "text": "Saber onde termina o seu papel faz parte de aprender bem."
@@ -1894,65 +1893,65 @@
    },
    "checkpoint": [
     {
-     "prompt": "Segundo a Lei 12.842/2013, a emissão de laudo de exames de imagem é...",
+     "prompt": "Num serviço novo, que tarefa é apoio do estudante em qualquer lugar, seguindo o protocolo do serviço?",
      "options": [
       {
-       "label": "Atividade livre a qualquer pessoa",
+       "label": "Interpretar a imagem para o paciente",
        "correct": false,
-       "feedback": "A lei a reserva ao médico."
+       "feedback": "Interpretar e dar resultado nunca são do estudante."
       },
       {
-       "label": "Atividade do tecnólogo em qualquer serviço",
+       "label": "Decidir a conduta do caso",
        "correct": false,
-       "feedback": "A lei reserva o laudo ao médico."
+       "feedback": "Conduta não é do estudante em nenhum serviço."
       },
       {
-       "label": "Atividade do paciente",
+       "label": "Executar a varredura sozinho",
        "correct": false,
-       "feedback": "Não é o paciente quem emite."
+       "feedback": "Quem executa depende do serviço; pergunte antes."
       },
       {
-       "label": "Atividade privativa do médico",
+       "label": "Limpar o transdutor e preparar a sala",
        "correct": true,
-       "feedback": "É o inciso VII do artigo 4º."
+       "feedback": "Preparo e limpeza, pelo protocolo do serviço, são apoio em qualquer lugar."
       }
      ],
      "sourceIds": [
-      "lei-12842-2013"
+      "esr-efrs-seguranca-2019"
      ]
     },
     {
-     "prompt": "Pelo que esta aula sustenta, quem define quem executa a varredura num serviço?",
+     "prompt": "Um estudante chega a um serviço onde quem faz a varredura não é quem fazia no serviço anterior. O que ele faz primeiro?",
      "options": [
       {
-       "label": "O aluno, por conta própria",
+       "label": "Repetir o que fazia no serviço anterior",
        "correct": false,
-       "feedback": "O aluno não se autoriza a executar por conta própria."
+       "feedback": "Cada serviço tem a sua divisão; o que valia antes pode não valer aqui."
       },
       {
-       "label": "A lei e o serviço",
+       "label": "Perguntar à supervisão o que cabe a ele ali",
        "correct": true,
-       "feedback": "A aula não afirma quem executa: isso a lei e o serviço definem."
+       "feedback": "A supervisão diz o que cabe ao estudante naquele serviço."
       },
       {
-       "label": "O fabricante do aparelho",
+       "label": "Seguir o que um colega estudante faz",
        "correct": false,
-       "feedback": "A definição não é do fabricante."
+       "feedback": "O colega também é estudante e não responde pelo serviço."
       },
       {
-       "label": "O próprio paciente",
+       "label": "Decidir pelo que parecer mais simples",
        "correct": false,
-       "feedback": "Não cabe ao paciente definir isso."
+       "feedback": "A facilidade da tarefa não define o que cabe ao estudante."
       }
      ],
      "sourceIds": [
-      "lei-12842-2013"
+      "esr-efrs-seguranca-2019"
      ]
     }
    ],
    "recovery": {
     "guided": {
-     "hook": "Complete a frase: o laudo do exame de imagem é emitido pelo ____.",
+     "hook": "Complete a frase: na dúvida sobre quem faz a varredura, você ____ à supervisão.",
      "item": {
       "prompt": "Em dúvida sobre o que cabe a você num exame, qual é a ação certa?",
       "options": [
@@ -1978,33 +1977,33 @@
        }
       ],
       "sourceIds": [
-       "lei-12842-2013"
+       "esr-efrs-seguranca-2019"
       ]
      }
     },
     "transfer": {
      "item": {
-      "prompt": "Qual item é apoio de preparo, e não laudo?",
+      "prompt": "Qual item é apoio de preparo, e não interpretação?",
       "options": [
        {
         "label": "Lembrar o paciente de tirar joias",
         "correct": true,
-        "feedback": "É apoio de preparo, anterior à execução e ao laudo."
+        "feedback": "É apoio de preparo, anterior à execução."
        },
        {
-        "label": "Emitir o laudo do exame",
+        "label": "Interpretar a imagem e assinar o laudo",
         "correct": false,
-        "feedback": "A emissão do laudo é privativa do médico pela Lei 12.842/2013."
+        "feedback": "Interpretar e laudar não é apoio do estudante."
        },
        {
         "label": "Decidir se o aluno executa o exame",
         "correct": false,
-        "feedback": "Isso depende da lei e do serviço."
+        "feedback": "Isso depende do serviço, não do estudante."
        },
        {
         "label": "Interpretar a imagem para o paciente",
         "correct": false,
-        "feedback": "A interpretação é do laudo."
+        "feedback": "A interpretação não é do estudante."
        }
       ],
       "sourceIds": [

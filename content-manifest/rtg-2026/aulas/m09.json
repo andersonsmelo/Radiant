@@ -44,58 +44,49 @@
       "licenseNote": "CC BY 4.0. Atribuição: Roditi, Khan e colaboradores, ESUR Contrast Media Safety Committee (2022). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     },
     {
-      "id": "cfm-parecer-17-2019",
-      "title": "Parecer CFM nº 17/2019 (Processo-Consulta CFM nº 19/2018): indicação e prescrição de exames com uso de contraste",
-      "publisher": "Conselho Federal de Medicina (cópia no site do Colégio Brasileiro de Radiologia)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/Parecer-CFM-de-2019-no-17_Uso-de-contraste.pdf",
-      "accessedAt": "2026-11-06",
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Parecer de conselho profissional; consultado para a responsabilidade por indicação, dose, via e prescrição e para a supervisão médica da administração, sem reprodução de texto."
+      "licenseNote": "Responsabilidade do médico radiologista pela justificação e pela proteção do paciente no exame (parágrafos 3.154 a 3.157); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "anvisa-rdc-36-2013",
-      "title": "RDC nº 36, de 25 de julho de 2013",
-      "publisher": "Anvisa (Biblioteca Virtual em Saúde do Ministério da Saúde)",
-      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2013/rdc0036_25_07_2013.html",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para o Núcleo de Segurança do Paciente e a notificação de eventos adversos (arts. 3º, 7º, 9º e 10), sem reprodução de texto."
+      "id": "esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+      "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     },
     {
-      "id": "ms-protocolo-identificacao-2013",
-      "title": "Protocolo de Identificação do Paciente",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
-      "url": "https://portaldeboaspraticas.iff.fiocruz.br/biblioteca/anexo-02-protocolo-de-identificacao-do-paciente/",
-      "accessedAt": "2026-11-06",
+      "id": "who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo do Programa Nacional de Segurança do Paciente; consultado para o mínimo de dois identificadores conferidos antes do cuidado, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "lei-13146-2015",
-      "title": "Lei nº 13.146, de 6 de julho de 2015 (Lei Brasileira de Inclusão da Pessoa com Deficiência)",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
-      "accessedAt": "2026-11-06",
+      "id": "onu-crpd-2006",
+      "title": "Convention on the Rights of Persons with Disabilities",
+      "publisher": "United Nations",
+      "url": "https://www.un.org/disabilities/documents/convention/convoptprot-e.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para os arts. 3º (barreiras e comunicação), 12 (consentimento), 24 e 25 (acesso e acessibilidade em saúde), sem reprodução de texto."
+      "licenseNote": "Artigos 9, 21 e 25 (acessibilidade, informação em formatos acessíveis, saúde); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "decreto-5626-2005",
-      "title": "Decreto nº 5.626, de 22 de dezembro de 2005",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/decreto/d5626.htm",
-      "accessedAt": "2026-11-06",
+      "id": "wma-declaracao-lisboa",
+      "title": "WMA Declaration of Lisbon on the Rights of the Patient",
+      "publisher": "World Medical Association (WMA)",
+      "url": "https://www.wma.net/policies-post/wma-declaration-of-lisbon-on-the-rights-of-the-patient/",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Decreto federal; consultado para o art. 25, IX (atendimento por profissionais capacitados em Libras ou em sua tradução e interpretação), sem reprodução de texto."
-    },
-    {
-      "id": "lei-10436-2002",
-      "title": "Lei nº 10.436, de 24 de abril de 2002",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10436.htm",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o reconhecimento da Libras (art. 1º) e o atendimento adequado em serviços de saúde (art. 3º), sem reprodução de texto."
+      "licenseNote": "Direitos à informação e ao consentimento; consulta para fatos, sem reprodução de texto."
     }
   ],
   "lessons": [
@@ -136,7 +127,7 @@
             { "label": "Olhar se o rosto parece com o de uma foto antiga dele.", "correct": false, "feedback": "Semelhança de rosto não é conferência. Retome os dois identificadores comparados com o registro." }
           ],
           "help": "Pense em quem fala os dados e em quantos dados você compara.",
-          "sourceIds": ["ms-protocolo-identificacao-2013"]
+          "sourceIds": ["who-identificacao-paciente-2007"]
         },
         {
           "id": "i2",
@@ -167,7 +158,7 @@
             { "label": "Pergunta à paciente qual via ela prefere.", "correct": false, "feedback": "A via não é escolha da paciente nem sua: ela vem da prescrição. Retome a quem cabe completar a ficha." }
           ],
           "help": "A ficha está completa para começar? Pense em quem pode completá-la com segurança.",
-          "sourceIds": ["cfm-parecer-17-2019", "acr-manual-contraste-2026"]
+          "sourceIds": ["iaea-gsr-part3-2014", "acr-manual-contraste-2026"]
         },
         {
           "id": "i4",
@@ -197,7 +188,7 @@
             { "label": "Pergunta a ela qual dos dois prefere.", "correct": false, "feedback": "A paciente não define se há contraste. Retome a quem cabe essa prescrição." }
           ],
           "help": "Dois registros discordam. O que você faria diante de um campo vazio?",
-          "sourceIds": ["cfm-parecer-17-2019"]
+          "sourceIds": ["iaea-gsr-part3-2014"]
         }
       ],
       "closing": {
@@ -277,7 +268,7 @@
       },
       "concept": {
         "title": "O que o contraste faz e quem decide",
-        "body": "Meio de contraste é uma substância que muda, por um tempo, o modo como uma estrutura aparece no exame. Iodo e bário atenuam mais os raios X: o bário destaca o tubo digestivo, e o iodo, vasos e órgãos. O gadolínio é usado na ressonância magnética, e as microbolhas, na ultrassonografia. Contraste não emite radiação nem é corante permanente. Pode ser dado por via oral, retal ou pela veia. Pelo parecer 17/2019 do CFM, indicar, definir dose e via e prescrever cabem ao médico do serviço de radiologia, e a administração ocorre sob supervisão médica. Nesta trilha, você não prescreve, não escolhe nem administra.",
+        "body": "Meio de contraste é uma substância que muda, por um tempo, o modo como uma estrutura aparece no exame. Iodo e bário atenuam mais os raios X: o bário destaca o tubo digestivo, e o iodo, vasos e órgãos. O gadolínio é usado na ressonância magnética, e as microbolhas, na ultrassonografia. Contraste não emite radiação nem é corante permanente. Pode ser dado por via oral, retal ou pela veia. O médico responsável justifica o exame. Quem indica, prescreve e administra o contraste segue o protocolo do serviço e a prática local; você não prescreve, não escolhe e não administra.",
         "keyPoints": [
           "Contraste destaca uma estrutura por um tempo; não emite radiação.",
           "Indicação, dose, via e prescrição: médico do serviço de radiologia.",
@@ -313,21 +304,21 @@
           "feedbackCorrect": "Você ligou cada contraste ao exame em que ele aparece. Saber isso ajuda a ler o protocolo, não a escolher o contraste.",
           "feedbackIncorrect": "Confira de novo: dois deles agem sobre os raios X, um pertence à ressonância e um à ultrassonografia.",
           "help": "Comece pelos que atenuam raios X e veja qual deles fica no tubo digestivo.",
-          "sourceIds": ["radiologyinfo-contraste", "cfm-parecer-17-2019"]
+          "sourceIds": ["radiologyinfo-contraste"]
         },
         {
           "id": "i3",
           "type": "multiple-choice",
           "role": "practice",
-          "prompt": "O pedido de Seu Jorge diz “tomografia com contraste”. Segundo o parecer do CFM citado na aula, quem define se o contraste será usado e o prescreve?",
+          "prompt": "O pedido de Seu Jorge diz “tomografia com contraste”. Segundo a aula, quem é o responsável por justificar o exame?",
           "options": [
-            { "label": "O tecnólogo que opera o equipamento.", "correct": false, "feedback": "Operar o equipamento é tarefa técnica. Retome: indicação e prescrição são decisões médicas." },
-            { "label": "A recepção, ao agendar o horário do exame.", "correct": false, "feedback": "A agenda registra o que foi definido, não define. Confira de novo de quem é a prescrição." },
-            { "label": "O médico que pediu o exame, sozinho.", "correct": false, "feedback": "O solicitante informa os dados clínicos e pode expor suas razões, mas o parecer põe a decisão final no serviço de radiologia." },
-            { "label": "O médico do serviço de radiologia.", "correct": true, "feedback": "Pelo parecer 17/2019 do CFM, indicação, dose, via e prescrição cabem ao médico do serviço de radiologia." }
+            { "label": "O tecnólogo que opera o equipamento.", "correct": false, "feedback": "Operar o equipamento é tarefa técnica. Retome: a justificação cabe ao médico responsável." },
+            { "label": "A recepção, ao agendar o horário do exame.", "correct": false, "feedback": "A agenda registra o que foi definido, não define. Confira de novo quem justifica o exame." },
+            { "label": "O estudante, se achar que o contraste ajuda.", "correct": false, "feedback": "O estudante não prescreve nem escolhe contraste. Retome o seu papel." },
+            { "label": "O médico responsável pelo exame.", "correct": true, "feedback": "O médico responsável justifica o exame; indicar, prescrever e administrar o contraste segue o protocolo do serviço e a prática local." }
           ],
-          "help": "Separe quem pede o exame, quem agenda, quem opera e quem responde pela prescrição.",
-          "sourceIds": ["cfm-parecer-17-2019"]
+          "help": "Separe quem agenda, quem opera, quem é estudante e quem responde pela justificação.",
+          "sourceIds": ["iaea-gsr-part3-2014", "esr-efrs-seguranca-2019"]
         },
         {
           "id": "i4",
@@ -343,7 +334,7 @@
             { "label": "Faz o que foi pedido, pois há prescrição.", "correct": false, "feedback": "A prescrição vale para quem é habilitado e designado, sob supervisão. Ela não transfere a tarefa a um estudante." }
           ],
           "help": "Pergunte-se: preparar e conectar fazem parte de administrar?",
-          "sourceIds": ["cfm-parecer-17-2019"]
+          "sourceIds": ["esr-efrs-seguranca-2019"]
         },
         {
           "id": "i5",
@@ -379,12 +370,12 @@
         {
           "prompt": "No estágio simulado, uma colega pergunta a você qual volume de contraste deve ir na seringa para o próximo paciente. O que cabe a você responder?",
           "options": [
-            { "label": "O volume que viu ser usado no paciente anterior.", "correct": false, "feedback": "Repetir o volume de outro paciente é definir dose. Retome de quem é essa decisão." },
-            { "label": "Um volume menor, para ficar do lado seguro.", "correct": false, "feedback": "Reduzir por conta própria também é definir dose. Confira de novo a quem cabe a prescrição." },
-            { "label": "Que a dose está na prescrição médica.", "correct": true, "feedback": "Dose e via vêm da prescrição médica. Você apontou onde a resposta está, sem inventá-la." },
+            { "label": "O volume que viu ser usado no paciente anterior.", "correct": false, "feedback": "Repetir o volume de outro paciente é definir dose. Retome onde essa decisão está." },
+            { "label": "Um volume menor, para ficar do lado seguro.", "correct": false, "feedback": "Reduzir por conta própria também é definir dose. Confira de novo onde a dose é definida." },
+            { "label": "Que está na prescrição ou no protocolo.", "correct": true, "feedback": "Dose e via vêm da prescrição ou do protocolo do serviço. Você apontou onde a resposta está, sem inventá-la." },
             { "label": "O volume indicado no rótulo do frasco.", "correct": false, "feedback": "O rótulo descreve o produto, não a dose daquele paciente. Retome onde a dose é definida." }
           ],
-          "sourceIds": ["cfm-parecer-17-2019"]
+          "sourceIds": ["esr-efrs-seguranca-2019"]
         }
       ],
       "recovery": {
@@ -408,9 +399,9 @@
               { "label": "Que meia dose costuma bastar para a imagem.", "correct": false, "feedback": "Opinar sobre a dose é entrar na prescrição. Retome de quem é essa decisão." },
               { "label": "Que a dose é definida pelo médico do serviço.", "correct": true, "feedback": "Você não opinou sobre a dose: disse de quem é a decisão e pode levar a dúvida à equipe." },
               { "label": "Que vai pedir ao colega para injetar menos.", "correct": false, "feedback": "Combinar outra dose com o colega muda a prescrição sem o médico. Confira de novo a quem levar a dúvida." },
-              { "label": "Que na ressonância a dose não tem importância.", "correct": false, "feedback": "Dose importa em qualquer modalidade, e não é assunto seu definir. Retome o parecer citado na aula." }
+              { "label": "Que na ressonância a dose não tem importância.", "correct": false, "feedback": "Dose importa em qualquer modalidade, e não é assunto seu definir. Retome de quem é essa decisão." }
             ],
-            "sourceIds": ["cfm-parecer-17-2019", "radiologyinfo-contraste"]
+            "sourceIds": ["iaea-gsr-part3-2014", "radiologyinfo-contraste"]
           }
         }
       },
@@ -618,7 +609,7 @@
             { "label": "Ter sido avaliadas pela equipe responsável.", "correct": true, "feedback": "As respostas chegam à equipe e são avaliadas antes da administração. É o primeiro ponto do “antes”." }
           ],
           "help": "Para quem a triagem é feita?",
-          "sourceIds": ["acr-manual-contraste-2026", "cfm-parecer-17-2019"]
+          "sourceIds": ["acr-manual-contraste-2026", "esr-efrs-seguranca-2019"]
         },
         {
           "id": "i2",
@@ -635,7 +626,7 @@
           "feedbackCorrect": "Você montou os três tempos: identidade, triagem e explicação antes; observação durante; observação, orientação e registro depois.",
           "feedbackIncorrect": "Confira de novo: separe o que acontece antes da injeção, o que acontece durante e o que fica para depois.",
           "help": "Separe os cuidados em antes, durante e depois. No “antes”, o que precisa estar certo para o resto valer?",
-          "sourceIds": ["ms-protocolo-identificacao-2013", "acr-manual-contraste-2026", "radiologyinfo-contraste"]
+          "sourceIds": ["who-identificacao-paciente-2007", "acr-manual-contraste-2026", "radiologyinfo-contraste"]
         },
         {
           "id": "i3",
@@ -667,7 +658,7 @@
             { "label": "Pede que ele espere, sem explicar o motivo.", "correct": false, "feedback": "Sem explicação, ele tende a sair. Retome: explicar faz parte do cuidado, e a decisão sobre a saída é da equipe." }
           ],
           "help": "O protocolo pede um tempo. Quem pode decidir algo diferente dele?",
-          "sourceIds": ["acr-manual-contraste-2026", "cfm-parecer-17-2019"]
+          "sourceIds": ["acr-manual-contraste-2026", "esr-efrs-seguranca-2019"]
         },
         {
           "id": "i5",
@@ -761,7 +752,7 @@
       },
       "concept": {
         "title": "Parar, chamar, ficar, relatar",
-        "body": "Depois do contraste, alguns sinais pedem ação imediata: placas ou coceira na pele, inchaço no rosto, espirros e nariz entupido, rouquidão, aperto na garganta, chiado, falta de ar, tontura, suor frio, vômito que não passa, dor ou inchaço no local do acesso. Não dá para saber de início se um sinal vai progredir, então todo sinal é avisado. Você não classifica nem medica. Na ordem ensinada nesta aula: parar e avisar quem injeta, chamar a equipe pelo canal do serviço, ficar com a pessoa e relatar o que viu e quando começou. Depois, o ocorrido é registrado e segue para o Núcleo de Segurança do Paciente.",
+        "body": "Depois do contraste, alguns sinais pedem ação imediata: placas ou coceira na pele, inchaço no rosto, espirros e nariz entupido, rouquidão, aperto na garganta, chiado, falta de ar, tontura, suor frio, vômito que não passa, dor ou inchaço no local do acesso. Não dá para saber de início se um sinal vai progredir, então todo sinal é avisado. Você não classifica nem medica. Na ordem ensinada nesta aula: parar e avisar quem injeta, chamar a equipe pelo canal do serviço, ficar com a pessoa e relatar o que viu e quando começou. Depois, o ocorrido é registrado e segue o fluxo de segurança do paciente do serviço.",
         "keyPoints": [
           "Sinal novo após o contraste, mesmo leve, é avisado na hora.",
           "Parar, chamar, ficar e relatar: nessa ordem.",
@@ -798,7 +789,7 @@
           "feedbackCorrect": "Parar, chamar, ficar, relatar e, por fim, registrar. A ajuda chega mais cedo porque você não esperou para ter certeza.",
           "feedbackIncorrect": "Confira de novo: o que interrompe vem primeiro, o pedido de ajuda vem logo em seguida, e o registro fica para o fim.",
           "help": "O registro pode esperar a equipe chegar? E o pedido de ajuda?",
-          "sourceIds": ["acr-manual-contraste-2026", "anvisa-rdc-36-2013"]
+          "sourceIds": ["acr-manual-contraste-2026", "esr-efrs-seguranca-2019"]
         },
         {
           "id": "i3",
@@ -845,7 +836,7 @@
             { "label": "Anota o horário e avisa no fim do turno.", "correct": false, "feedback": "Anotar e esperar deixa um sinal progredir sem avaliação. Retome: todo sinal é avisado na hora." }
           ],
           "help": "Rouquidão depois do contraste está na lista da aula? O que a lista pede?",
-          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste", "cfm-parecer-17-2019"]
+          "sourceIds": ["acr-manual-contraste-2026", "radiologyinfo-contraste", "esr-efrs-seguranca-2019"]
         }
       ],
       "closing": {
@@ -895,10 +886,10 @@
             "options": [
               { "label": "O caso é comentado só entre quem estava lá.", "correct": false, "feedback": "Comentário informal não deixa rastro para o serviço aprender. Retome o destino do registro." },
               { "label": "O paciente decide se o caso deve ficar anotado no prontuário.", "correct": false, "feedback": "O registro do evento não depende de pedido do paciente. Confira de novo o fluxo ensinado." },
-              { "label": "O ocorrido é registrado e segue o fluxo do serviço.", "correct": true, "feedback": "O registro leva o evento ao Núcleo de Segurança do Paciente, que monitora e notifica eventos adversos." },
+              { "label": "O ocorrido é registrado e segue o fluxo do serviço.", "correct": true, "feedback": "O registro leva o evento ao sistema de segurança do paciente do serviço, que o analisa para aprender e comunica à autoridade o que as regras locais pedirem." },
               { "label": "Só eventos com internação são registrados.", "correct": false, "feedback": "A aula não põe essa condição. Retome: o ocorrido é registrado e segue o fluxo do serviço." }
             ],
-            "sourceIds": ["anvisa-rdc-36-2013", "esur-extravasamento-2022"]
+            "sourceIds": ["esr-efrs-seguranca-2019", "esur-extravasamento-2022"]
           }
         }
       },
@@ -925,7 +916,7 @@
       },
       "concept": {
         "title": "A barreira muda o caminho, não a conferência",
-        "body": "A Lei Brasileira de Inclusão chama de barreira o que limita a participação da pessoa: no espaço, na comunicação, na atitude. Ela garante acesso aos serviços de saúde e às informações pela forma de comunicação que a pessoa usa, como Libras, Braille ou texto ampliado, e exige consentimento livre e esclarecido. Na prática, você fala com a pessoa, não só com quem a acompanha, e busca o recurso certo: intérprete, leitura em voz alta, escrita. Identidade, triagem, explicação e o combinado de avisar continuam obrigatórios. Se a barreira impede uma dessas conferências, você para e pede apoio. Sem triagem compreendida, o exame com contraste não segue.",
+        "body": "Barreira é o que limita a participação da pessoa: no espaço, na comunicação, na atitude. A Convenção da ONU sobre os Direitos das Pessoas com Deficiência pede informação nos formatos que a pessoa usa, como língua de sinais, Braille ou texto ampliado. A Declaração de Lisboa da WMA pede consentimento livre e esclarecido. Você fala com a pessoa, não só com quem a acompanha, e busca o recurso certo: intérprete, leitura em voz alta, escrita. Identidade, triagem, explicação e o combinado de avisar continuam obrigatórios. Se a barreira impede uma dessas conferências, você para e pede apoio. Sem triagem compreendida, o exame com contraste não segue.",
         "keyPoints": [
           "Fale com a pessoa e use a forma de comunicação dela.",
           "Identidade, triagem, explicação e combinado de avisar não são dispensados.",
@@ -945,7 +936,7 @@
             { "label": "A cor da pulseira com a cor da ficha.", "correct": false, "feedback": "Cor não identifica ninguém. Retome os dois identificadores." }
           ],
           "help": "Quantos dados, e comparados com o quê?",
-          "sourceIds": ["ms-protocolo-identificacao-2013"]
+          "sourceIds": ["who-identificacao-paciente-2007"]
         },
         {
           "id": "i2",
@@ -953,7 +944,7 @@
           "role": "practice",
           "prompt": "Associe cada situação ao recurso que mantém a pessoa informada e participante.",
           "pairs": [
-            { "left": "Pessoa surda que usa Libras", "right": "Intérprete ou profissional capacitado em Libras" },
+            { "left": "Pessoa surda que usa língua de sinais", "right": "Intérprete de língua de sinais" },
             { "left": "Pessoa com baixa visão", "right": "Texto ampliado ou leitura em voz alta do termo" },
             { "left": "Pessoa em cadeira de rodas", "right": "Caminho livre e apoio da equipe na transferência" },
             { "left": "Pessoa que lê com dificuldade", "right": "Explicação em fala simples, conferindo o entendimento" }
@@ -961,29 +952,29 @@
           "feedbackCorrect": "Você escolheu, para cada barreira, o recurso que leva a informação até a pessoa sem tirar dela a decisão.",
           "feedbackIncorrect": "Confira de novo: pergunte qual é a barreira (ouvir, ver, deslocar-se ou ler) e que recurso a contorna.",
           "help": "Identifique primeiro onde a comunicação ou o acesso trava.",
-          "sourceIds": ["lei-13146-2015", "decreto-5626-2005", "lei-10436-2002"]
+          "sourceIds": ["onu-crpd-2006"]
         },
         {
           "id": "i3",
           "type": "case-decision",
           "role": "practice",
-          "context": "Dona Marta é surda e usa Libras. A filha adolescente responde sozinha ao questionário de triagem do contraste: “ela não tem nada, pode marcar tudo não”. Dona Marta acompanha com os olhos, sem saber o que está sendo perguntado.",
+          "context": "Dona Marta é surda e usa língua de sinais. A filha adolescente responde sozinha ao questionário de triagem do contraste: “ela não tem nada, pode marcar tudo não”. Dona Marta acompanha com os olhos, sem saber o que está sendo perguntado.",
           "prompt": "O que você faz com as respostas da filha?",
           "options": [
             { "label": "Aceita as respostas, pois a filha a conhece bem.", "correct": false, "feedback": "A filha pode não saber de tudo, e a mãe não foi ouvida. Retome: a triagem é respondida pela pessoa." },
             { "label": "Marca “não” em tudo, para não atrasar.", "correct": false, "feedback": "Marcar sem perguntar inventa respostas. Confira de novo o que a triagem exige." },
-            { "label": "Fala mais alto e bem devagar, olhando para a paciente.", "correct": false, "feedback": "Volume não resolve: ela usa Libras. Retome a forma de comunicação que a pessoa usa." },
-            { "label": "Dirige as perguntas a ela e pede apoio em Libras.", "correct": true, "feedback": "Você devolveu a triagem à paciente e buscou o recurso de comunicação, antes de seguir." }
+            { "label": "Fala mais alto e bem devagar, olhando para a paciente.", "correct": false, "feedback": "Volume não resolve: ela usa língua de sinais. Retome a forma de comunicação que a pessoa usa." },
+            { "label": "Dirige as perguntas a ela e pede intérprete.", "correct": true, "feedback": "Você devolveu a triagem à paciente e buscou o recurso de comunicação, antes de seguir." }
           ],
           "help": "Quem conhece a história de saúde dela? E como a pergunta chega até essa pessoa?",
-          "sourceIds": ["lei-13146-2015", "decreto-5626-2005", "acr-manual-contraste-2026"]
+          "sourceIds": ["onu-crpd-2006", "acr-manual-contraste-2026"]
         },
         {
           "id": "i4",
           "type": "case-decision",
           "role": "safety",
           "criticalSafety": true,
-          "context": "Seu Jorge tem dificuldade para falar depois de um derrame e tem contraste na veia prescrito. Pelo manual do ACR, o extravasamento é mais comum em quem não consegue se comunicar bem. A equipe se prepara para iniciar, e ninguém combinou com ele como avisar dor no braço.",
+          "context": "Seu Jorge tem dificuldade para falar depois de um derrame e tem contraste na veia prescrito. Pelas diretrizes de contraste, o extravasamento é mais comum em quem não consegue se comunicar bem. A equipe se prepara para iniciar, e ninguém combinou com ele como avisar dor no braço.",
           "prompt": "O que você faz antes da injeção?",
           "options": [
             { "label": "Segue, pois o injetor tem alarme de pressão.", "correct": false, "feedback": "O alarme não substitui o aviso da pessoa. Retome: o combinado de avisar faz parte do “antes”." },
@@ -992,7 +983,7 @@
             { "label": "Dispensa a explicação, já que ele não fala.", "correct": false, "feedback": "Dificuldade de falar não é dificuldade de entender. Retome: a explicação continua obrigatória." }
           ],
           "help": "O aviso de dor depende da fala? De que outro jeito ele pode ser dado?",
-          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022", "lei-13146-2015"]
+          "sourceIds": ["acr-manual-contraste-2026", "esur-extravasamento-2022", "onu-crpd-2006"]
         },
         {
           "id": "i5",
@@ -1001,12 +992,12 @@
           "prompt": "Seu Jorge tem baixa visão. Ao conferir a pasta, você nota que ele assinou o termo de consentimento do contraste, mas comenta que não conseguiu ler nada do que estava escrito. O que você faz?",
           "options": [
             { "label": "Avisa a equipe, para que o termo seja lido com ele.", "correct": true, "feedback": "Assinatura sem entendimento não é consentimento esclarecido. Você levou a falha a quem pode refazer a explicação." },
-            { "label": "Segue, pois a assinatura já está no papel.", "correct": false, "feedback": "O papel assinado não garante que ele entendeu. Retome o que a lei exige do consentimento." },
+            { "label": "Segue, pois a assinatura já está no papel.", "correct": false, "feedback": "O papel assinado não garante que ele entendeu. Retome o que torna o consentimento esclarecido." },
             { "label": "Resume o termo de cabeça e segue o exame.", "correct": false, "feedback": "Um resumo seu pode deixar de fora o que importa. Confira de novo a quem cabe refazer a explicação." },
             { "label": "Pede que a acompanhante leia e assine no lugar dele.", "correct": false, "feedback": "Trocar a assinatura tira dele a decisão. Retome: a informação precisa chegar à pessoa." }
           ],
           "help": "O que torna um consentimento “esclarecido”?",
-          "sourceIds": ["lei-13146-2015"]
+          "sourceIds": ["wma-declaracao-lisboa", "onu-crpd-2006"]
         }
       ],
       "closing": {
@@ -1023,7 +1014,7 @@
             { "label": "Corrige a pulseira com a data do papel.", "correct": false, "feedback": "Corrigir o registro por conta própria apaga a pista do erro. Confira de novo a quem levar a diferença." },
             { "label": "Pergunta à acompanhante qual data vale.", "correct": false, "feedback": "A acompanhante pode ajudar a equipe, mas não encerra a divergência. Retome a ação diante de dado que não confere." }
           ],
-          "sourceIds": ["ms-protocolo-identificacao-2013", "lei-13146-2015"]
+          "sourceIds": ["who-identificacao-paciente-2007", "onu-crpd-2006"]
         },
         {
           "prompt": "Dona Marta tem baixa visão e não consegue ler a folha de orientações para depois do exame. O que garante que a informação chegue a ela?",
@@ -1033,7 +1024,7 @@
             { "label": "Ler a folha com ela e conferir o que entendeu.", "correct": true, "feedback": "Você levou a orientação pela via que ela usa e verificou o entendimento antes da saída." },
             { "label": "Pular as orientações, só desta vez.", "correct": false, "feedback": "As orientações de saída não são dispensadas. Retome: a barreira muda o caminho, não a conferência." }
           ],
-          "sourceIds": ["lei-13146-2015"]
+          "sourceIds": ["onu-crpd-2006"]
         }
       ],
       "recovery": {
@@ -1047,12 +1038,12 @@
               { "label": "À recepção, que já tem o cadastro.", "correct": false, "feedback": "O cadastro não traz as respostas da triagem. Confira de novo quem as fornece." },
               { "label": "A ninguém: usa as respostas do último exame.", "correct": false, "feedback": "Respostas antigas podem ter mudado. Retome: quem responde é a pessoa, agora." }
             ],
-            "sourceIds": ["lei-13146-2015"]
+            "sourceIds": ["onu-crpd-2006"]
           }
         },
         "transfer": {
           "item": {
-            "prompt": "Num exame com contraste, um paciente estrangeiro não fala português e veio sozinho. Você não consegue fazer as perguntas da triagem, e a agenda está cheia. O que você faz?",
+            "prompt": "Num exame com contraste, um paciente estrangeiro não fala a língua do serviço e veio sozinho. Você não consegue fazer as perguntas da triagem, e a agenda está cheia. O que você faz?",
             "options": [
               { "label": "Marca as respostas pelo que parece mais provável.", "correct": false, "feedback": "Resposta presumida não é triagem. Retome o que fazer quando a conferência não se completa." },
               { "label": "Faz o exame sem contraste, por segurança.", "correct": false, "feedback": "Mudar o exame é decisão médica. Confira de novo o seu papel." },
