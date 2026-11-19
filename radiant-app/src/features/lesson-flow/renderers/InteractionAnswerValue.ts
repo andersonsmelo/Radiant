@@ -210,6 +210,10 @@ export function isCompleteInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length > 0 && isDistinctSubset(ids, interaction.payload.options.map(option => option.id));
         }
+        case 'risk-hunt': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length > 0 && isDistinctSubset(ids, interaction.payload.regions.map(region => region.id));
+        }
         case 'label': {
             // Mapa ponto → rótulo: todo ponto rotulado, com rótulo do banco e sem repetir.
             const assigned = decodeCategorizeValue(value);
@@ -257,6 +261,10 @@ export function isCorrectInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length === interaction.payload.correctOptionIds.length
                 && interaction.payload.correctOptionIds.every(id => ids.includes(id));
+        }
+        case 'risk-hunt': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length === interaction.payload.riskRegionIds.length && interaction.payload.riskRegionIds.every(id => ids.includes(id));
         }
         case 'label': {
             const assigned = decodeCategorizeValue(value);

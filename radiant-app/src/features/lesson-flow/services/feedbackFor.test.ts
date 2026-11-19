@@ -225,4 +225,17 @@ describe('feedbackFor: famílias da 1.6', () => {
         expect(feedbackFor(interaction, JSON.stringify({ p1: 'l2', p2: 'l1', p3: 'l3' }), false)).toBe('Reveja o conceito. Ponto 1 é Cátodo.');
         expect(feedbackFor(interaction, JSON.stringify({ p1: 'l1', p2: 'l2', p3: 'l3' }), true)).toBe('Isso mesmo.');
     });
+
+    it('risk-hunt: o erro diz o que faltou e o que sobrou, com a explicação da primeira divergência na ordem da cena', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'risk-hunt', payload: { prompt: 'Marque os riscos.', imageRef: 'diagram:sala-com-riscos',
+            riskRegionIds: ['a', 'c'], regions: [
+                { id: 'a', label: 'Porta aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.8, explanation: 'A porta aberta expõe o corredor.' },
+                { id: 'b', label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, explanation: 'O biombo protege o operador.' },
+                { id: 'c', label: 'Campo grande', x: 0.18, y: 0.26, width: 0.33, height: 0.4, explanation: 'O campo grande expõe tecido à toa.' },
+            ] } };
+        expect(feedbackFor(interaction, '["a","b"]', false))
+            .toBe('Faltou marcar: Campo grande. Marcou a mais: Operador atrás do biombo. O biombo protege o operador.');
+        expect(feedbackFor(interaction, '["a"]', false)).toBe('Faltou marcar: Campo grande. O campo grande expõe tecido à toa.');
+        expect(feedbackFor(interaction, '["a","c"]', true)).toBe('Isso mesmo.');
+    });
 });

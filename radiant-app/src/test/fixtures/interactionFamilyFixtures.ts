@@ -116,7 +116,20 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
         },
         correctValue: JSON.stringify({ pt1: 'la', pt2: 'lb' }), wrongValue: JSON.stringify({ pt1: 'lb', pt2: 'la' }),
     },
-    // Nascem pendentes: as tarefas 9 e 10 definem o contrato e trocam por um exemplo completo.
+    'risk-hunt': {
+        interaction: {
+            ...common, id: 'fx:rh', type: 'risk-hunt', accessibility: label('caça ao erro'),
+            payload: {
+                prompt: 'Marque todos os riscos.', imageRef: 'diagram:sala-com-riscos',
+                regions: [
+                    { ...regions[0], explanation: 'Este é um risco.' }, { ...regions[1], explanation: 'Esta situação está correta.' },
+                    { id: 'r3', label: 'Região três', x: 0.1, y: 0.6, width: 0.3, height: 0.3, explanation: 'Este também é um risco.' },
+                ],
+                riskRegionIds: ['r1', 'r3'],
+            },
+        },
+        correctValue: encodeInteractionIdSequence(['r1', 'r3']), wrongValue: encodeInteractionIdSequence(['r1', 'r2']),
+    },
+    // Nasce pendente: a tarefa 9 define o contrato e troca por um exemplo completo.
     'parameter-lab': 'pending',
-    'risk-hunt': 'pending',
 };

@@ -6,6 +6,22 @@ function filled(text: string | undefined): text is string {
 }
 
 /**
+ * Retorno de quem marca um conjunto: o que faltou marcar e o que sobrou, e a
+ * explicação da primeira divergência na ordem da tela; sem ela, o retorno de
+ * erro autoral.
+ */
+function markedFeedback(entries: { id: string; label: string; explanation?: string }[], correctIds: string[], value: string | undefined, fallback: string): string {
+    const chosen = new Set(decodeInteractionIdSequence(value));
+    const correct = new Set(correctIds);
+    const missing = entries.filter(entry => correct.has(entry.id) && !chosen.has(entry.id));
+    const extra = entries.filter(entry => !correct.has(entry.id) && chosen.has(entry.id));
+    const list = (found: typeof entries) => found.map(entry => entry.label).join('; ');
+    const first = entries.find(entry => missing.includes(entry) || extra.includes(entry));
+    return [missing.length ? `Faltou marcar: ${list(missing)}.` : '', extra.length ? `Marcou a mais: ${list(extra)}.` : '',
+        filled(first?.explanation) ? first.explanation : fallback].filter(Boolean).join(' ');
+}
+
+/**
  * O texto do retorno depois de "Conferir". O acerto sempre usa `feedback.correct`.
  * No erro, quanto mais específico o que o conteudista escreveu, melhor:
  * - bancada: a dica do lado em que o aluno errou (`hints.tooLow`/`hints.tooHigh`);
@@ -39,18 +55,10 @@ export function feedbackFor(
         }
         // true-false: cada afirmação já mostrou e anunciou a própria explicação; o
         // retorno final usa o de erro autoral, para não repetir o que foi lido.
-        case 'multi-select': {
-            const chosen = new Set(decodeInteractionIdSequence(value));
-            const correct = new Set(interaction.payload.correctOptionIds);
-            const { options } = interaction.payload;
-            const missing = options.filter(option => correct.has(option.id) && !chosen.has(option.id));
-            const extra = options.filter(option => !correct.has(option.id) && chosen.has(option.id));
-            const list = (entries: typeof options) => entries.map(option => option.label).join('; ');
-            // A explicação é da primeira divergência na ordem da tela; sem ela, o retorno de erro autoral.
-            const first = options.find(option => missing.includes(option) || extra.includes(option));
-            return [missing.length ? `Faltou marcar: ${list(missing)}.` : '', extra.length ? `Marcou a mais: ${list(extra)}.` : '',
-                filled(first?.explanation) ? first.explanation : interaction.feedback.incorrect].filter(Boolean).join(' ');
-        }
+        case 'multi-select':
+            return markedFeedback(interaction.payload.options, interaction.payload.correctOptionIds, value, interaction.feedback.incorrect);
+        case 'risk-hunt':
+            return markedFeedback(interaction.payload.regions, interaction.payload.riskRegionIds, value, interaction.feedback.incorrect);
         case 'label': {
             // O primeiro ponto errado, na ordem dos pontos, diz qual era o rótulo certo.
             const assigned = decodeCategorizeValue(value);

@@ -311,6 +311,79 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('risk-hunt (fase B)', () => {
+        const REGIONS = [
+            { label: 'Porta da sala aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.82, risk: true, feedback: 'A porta aberta com a lâmpada acesa expõe o corredor.' },
+            { label: 'Campo de luz grande demais', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente expõe tecido à toa.' },
+            { label: 'Acompanhante sem avental', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa recebe radiação espalhada.' },
+            { label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, risk: false, feedback: 'Atrás do biombo o operador fica protegido.' },
+            { label: 'Avental no suporte', x: 0.85, y: 0.17, width: 0.11, height: 0.24, risk: false, feedback: 'O avental guardado no suporte não expõe ninguém.' },
+        ];
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        function riskCandidate(): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'risk-hunt', role: 'safety', criticalSafety: true, help: old.help, sourceIds: old.sourceIds, diagramId: 'sala-com-riscos',
+                regions: REGIONS, prompt: 'Toque em todas as situações de risco da sala.',
+                feedbackCorrect: 'Isso mesmo: você achou os riscos e deixou o que está certo.', feedbackIncorrect: 'Releia a cena: algum risco ficou de fora.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const riskOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'risk-hunt') throw new Error('sem risk-hunt');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof riskOf>) => void) => {
+            const value = riskCandidate();
+            mutate(riskOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('aceita caça ao erro sobre diagrama, com a explicação em cada região e os riscos por id', () => {
+            const value = riskCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const { payload } = riskOf(value);
+            expect(payload.imageRef).toBe('diagram:sala-com-riscos');
+            expect(payload.regions).toHaveLength(5);
+            expect(payload.regions.every(region => region.explanation.length > 0)).toBe(true);
+            expect(payload.riskRegionIds).toEqual(payload.regions.slice(0, 3).map(region => region.id));
+            expect(value.wide.images).toBeUndefined();
+        });
+
+        it('mantém as chaves exatas do payload, exige texto e figura registrada', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).visual = 'extra'; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.regions[0].label = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.imageRef = 'diagram:nao-existe'; })).toContain(`unregistered-diagram:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.imageRef = 'https://example.org/sem-ativo.png'; })).toContain(`unregistered-licensed-image:${ID}`);
+        });
+
+        it('wide-constant-answer: todas as regiões de risco, ou menos de duas', () => {
+            expect(issuesWith(interaction => { interaction.payload.riskRegionIds = interaction.payload.regions.map(region => region.id); })).toContain(`wide-constant-answer:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.riskRegionIds = interaction.payload.riskRegionIds.slice(0, 1); })).toContain(`wide-constant-answer:${ID}`);
+        });
+
+        it('invalid-wide-shape: região a menos, rótulo duplicado, explicação vazia ou repetida, risco fora das regiões', () => {
+            expect(issuesWith(interaction => { interaction.payload.regions.splice(3); interaction.payload.riskRegionIds.splice(3); })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.regions[1].label = interaction.payload.regions[0].label; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.regions[1].explanation = ' '; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.regions[1].explanation = interaction.payload.regions[0].explanation; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.riskRegionIds[0] = 'region:rtg-2026:m01:fora'; })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+    });
+
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {
         const id = batch.sources[0].id;
         expect(issuesAfter(value => { delete (value.sources[0] as { use?: string }).use; })).toContain(`invalid-source-metadata:${id}`);

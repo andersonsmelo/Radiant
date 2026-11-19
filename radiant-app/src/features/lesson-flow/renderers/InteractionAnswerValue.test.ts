@@ -422,4 +422,26 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCorrectInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'l-fio' }))).toBe(false);
         expect(isCorrectInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'l-janela' }))).toBe(true);
     });
+
+    // Fase B, tarefa 5: caça ao erro; a resposta é a lista de ids das regiões marcadas.
+    const riskHunt: LearningInteractionV2 = { ...base, type: 'risk-hunt', payload: {
+        prompt: 'Marque os riscos.', imageRef: 'diagram:sala-com-riscos',
+        regions: [
+            { id: 'porta', label: 'Porta', x: 0.02, y: 0.08, width: 0.15, height: 0.8, explanation: 'Porta aberta.' },
+            { id: 'campo', label: 'Campo', x: 0.18, y: 0.26, width: 0.33, height: 0.4, explanation: 'Campo grande.' },
+            { id: 'biombo', label: 'Biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, explanation: 'Biombo protege.' },
+            { id: 'avental', label: 'Avental', x: 0.85, y: 0.17, width: 0.11, height: 0.24, explanation: 'Avental guardado.' },
+        ],
+        riskRegionIds: ['porta', 'campo'],
+    } };
+
+    it('risk-hunt: completa com ao menos uma região marcada, e acerta só com o conjunto exato de riscos', () => {
+        expect(isCompleteInteractionValue(riskHunt, '[]')).toBe(false);
+        expect(isCompleteInteractionValue(riskHunt, encodeInteractionIdSequence(['porta', 'fora']))).toBe(false);
+        expect(isCompleteInteractionValue(riskHunt, encodeInteractionIdSequence(['porta', 'porta']))).toBe(false);
+        expect(isCompleteInteractionValue(riskHunt, encodeInteractionIdSequence(['biombo']))).toBe(true);
+        expect(isCorrectInteractionValue(riskHunt, encodeInteractionIdSequence(['porta']))).toBe(false);
+        expect(isCorrectInteractionValue(riskHunt, encodeInteractionIdSequence(['porta', 'campo', 'biombo']))).toBe(false);
+        expect(isCorrectInteractionValue(riskHunt, encodeInteractionIdSequence(['campo', 'porta']))).toBe(true);
+    });
 });

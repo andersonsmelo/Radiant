@@ -11,6 +11,7 @@ import { precessaoRm } from './specs/precessao-rm';
 import { ecoUltrassom } from './specs/eco-ultrassom';
 import { detectorConvertendo } from './specs/detector-convertendo';
 import { compressaoMama } from './specs/compressao-mama';
+import { salaComRiscos } from './specs/sala-com-riscos';
 import { inversoDoQuadrado } from './specs/inverso-do-quadrado';
 import { blindagemCamadas } from './specs/blindagem-camadas';
 import { decaimentoRadioativo } from './specs/decaimento-radioativo';
@@ -28,6 +29,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [ecoUltrassom.id]: ecoUltrassom,
   [detectorConvertendo.id]: detectorConvertendo,
   [compressaoMama.id]: compressaoMama,
+  [salaComRiscos.id]: salaComRiscos,
   [inversoDoQuadrado.id]: inversoDoQuadrado,
   [blindagemCamadas.id]: blindagemCamadas,
   [decaimentoRadioativo.id]: decaimentoRadioativo,

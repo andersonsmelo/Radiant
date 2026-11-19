@@ -222,10 +222,16 @@ export type BenchPayload = {
     hints: { tooLow: string; tooHigh: string };
 };
 
+/**
+ * Marcar todas as regiões de risco de uma cena. Cada região leva a explicação do
+ * que mostra (risco ou situação correta). A resposta é a lista de ids marcados.
+ */
 export type RiskHuntPayload = {
     prompt: string;
+    /** Identificador da imagem licenciada, ou `diagram:<id>`. */
     imageRef: string;
-    risks: NormalizedRegion[];
+    regions: (NormalizedRegion & { explanation: string })[];
+    riskRegionIds: string[];
 };
 
 export type CaseDecisionPayload = {
@@ -549,11 +555,18 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             break;
         }
         case 'risk-hunt': {
-            const risks = interaction.payload.risks ?? [];
-            if (risks.length === 0) {
+            const regions = interaction.payload.regions ?? [];
+            const risks = interaction.payload.riskRegionIds ?? [];
+            if (regions.length === 0) {
                 push(issues, path, 'missing-regions');
             }
-            validateRegions(issues, path, risks);
+            validateRegions(issues, path, regions);
+            const regionIds = new Set(regions.map((region) => region.id));
+            // Todas de risco, ou nenhuma, deixa a resposta constante: a conta é a do multi-select.
+            if (regionIds.size !== regions.length || regions.some((region) => !isFilled(region.id) || !isFilled(region.label) || !isFilled(region.explanation))
+                || risks.length < 1 || risks.length >= regions.length || new Set(risks).size !== risks.length || risks.some((id) => !regionIds.has(id))) {
+                push(issues, path, 'invalid-risk-regions');
+            }
             break;
         }
         case 'matching':

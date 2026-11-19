@@ -149,7 +149,11 @@ describe('validateLearningActivity', () => {
                 payload: {
                     prompt: 'Encontre os riscos na sala.',
                     imageRef: 'media:unidade-1:sala',
-                    risks: [{ id: 'porta', label: 'Porta aberta', x: 0.5, y: 0.5, width: 0.2, height: 0.2 }],
+                    regions: [
+                        { id: 'porta', label: 'Porta aberta', x: 0.5, y: 0.5, width: 0.2, height: 0.2, explanation: 'A porta aberta expõe o corredor.' },
+                        { id: 'biombo', label: 'Biombo', x: 0.1, y: 0.1, width: 0.2, height: 0.2, explanation: 'O biombo protege o operador.' },
+                    ],
+                    riskRegionIds: ['porta'],
                 },
             } as Partial<LearningInteractionV2>),
             multipleChoice({

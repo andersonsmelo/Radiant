@@ -439,3 +439,72 @@ test('label: recusa chave fora da lista, no ponto e no item', () => {
 test('label: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
   expectOnly(labelItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
+
+// Formato `risk-hunt` (fase B, tarefa 5): regiões com tamanho sobre a figura, algumas de risco, cada uma com a explicação.
+const riskRegions = () => [
+  { label: 'Porta da sala aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.82, risk: true, feedback: 'A porta aberta com a lâmpada acesa expõe o corredor à radiação espalhada.' },
+  { label: 'Campo de luz grande demais', x: 0.18, y: 0.26, width: 0.33, height: 0.4, risk: true, feedback: 'Um campo que cobre o paciente inteiro expõe tecido sem necessidade.' },
+  { label: 'Acompanhante sem avental', x: 0.56, y: 0.45, width: 0.1, height: 0.45, risk: true, feedback: 'Quem fica ao lado da mesa na exposição recebe radiação espalhada.' },
+  { label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, risk: false, feedback: 'Atrás do biombo o operador fica protegido do espalhamento.' },
+  { label: 'Avental no suporte', x: 0.85, y: 0.17, width: 0.11, height: 0.24, risk: false, feedback: 'O avental guardado no suporte não expõe ninguém.' },
+];
+function riskHunt(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[3];
+  doc.lessons[0].interactions[3] = {
+    id: old.id, type: 'risk-hunt', role: 'safety', criticalSafety: true, help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Toque em todas as situações de risco que você vê na sala de raios X.', diagramId: 'sala-com-riscos', regions: riskRegions(),
+    feedbackCorrect: 'Isso mesmo: você achou os riscos e deixou de fora o que está certo.',
+    feedbackIncorrect: 'Releia a cena: alguma situação de risco ficou de fora, ou uma correta foi marcada.',
+  };
+  mutate(doc.lessons[0].interactions[3]);
+  return lintUnit(doc, { images: IMAGES });
+}
+test('risk-hunt: aceita figura por diagramId e por imageId registrada', () => {
+  assert.deepEqual(riskHunt(), []);
+  assert.deepEqual(riskHunt(item => { delete item.diagramId; item.imageId = 'image:rtg-2026:m01:a'; }), []);
+});
+test('risk-hunt: exige exatamente um de imageId e diagramId, existente no registro', () => {
+  expectOnly(riskHunt(item => { item.imageId = 'image:rtg-2026:m01:a'; }), /exatamente um de imageId e diagramId/);
+  expectOnly(riskHunt(item => { item.diagramId = 'nao-existe'; }), /diagrama fora do registro: nao-existe/);
+});
+test('risk-hunt: de 4 a 6 regiões', () => {
+  expectOnly(riskHunt(item => { item.regions.pop(); item.regions.pop(); }), /de 4 a 6 alvos|de 2 a \d+ regiões de risco/);
+  expectOnly(riskHunt(item => { item.regions.pop(); item.regions[0].risk = false; item.regions[1].risk = false; }), /de 2 a \d+ regiões de risco/);
+  const extra = n => ({ label: `Região extra ${n}`, x: 0.3 + n * 0.1, y: 0.7, width: 0.09, height: 0.2, risk: false, feedback: `Esta situação extra ${n} está correta e não expõe ninguém.` });
+  expectOnly(riskHunt(item => { item.regions.push(extra(0), extra(1)); }), /de 4 a 6 alvos/);
+});
+test('risk-hunt: toda região tem width e height; ponto não vale', () => {
+  expectOnly(riskHunt(item => { item.regions[3] = { label: 'Operador atrás do biombo', x: 0.7, y: 0.5, risk: false, feedback: 'Atrás do biombo o operador fica protegido.' }; }), /alvo sem width e height/);
+});
+test('risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura', () => {
+  expectOnly(riskHunt(item => { item.regions[4].x = 0.95; }), /alvo fora do quadro|sai da figura/);
+  expectOnly(riskHunt(item => { Object.assign(item.regions[4], { x: 0.9, width: 0.09 }); }), /sai da figura/);
+});
+test('risk-hunt: as áreas de toque das regiões não se sobrepõem', () => {
+  expectOnly(riskHunt(item => { Object.assign(item.regions[3], { x: 0.5, width: 0.1 }); }), /alvos muito próximos/);
+  expectOnly(riskHunt(item => { Object.assign(item.regions[4], { x: 0.68, y: 0.5 }); }), /alvos muito próximos/);
+});
+test('risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco', () => {
+  expectOnly(riskHunt(item => { item.regions[0].risk = 'true'; }), /risk deve ser true ou false/);
+  expectOnly(riskHunt(item => { delete item.regions[1].risk; }), /risk deve ser true ou false/);
+  expectOnly(riskHunt(item => { item.regions[0].risk = false; item.regions[1].risk = false; }), /de 2 a 4 regiões de risco/);
+  expectOnly(riskHunt(item => { item.regions[3].risk = true; item.regions[4].risk = true; }), /de 2 a 4 regiões de risco/);
+  assert.deepEqual(riskHunt(item => { item.regions[3].risk = true; }), []);
+});
+test('risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete', () => {
+  expectOnly(riskHunt(item => { item.regions[0].feedback = 'Curto.'; }), /texto ausente ou curto/);
+  expectOnly(riskHunt(item => { item.regions[1].feedback = item.regions[0].feedback; }), /retornos repetidos/);
+});
+test('risk-hunt: rótulos únicos, de 2 a 40 caracteres', () => {
+  expectOnly(riskHunt(item => { item.regions[1].label = 'porta da sala aberta'; }), /rótulo repetido/);
+  expectOnly(riskHunt(item => { item.regions[1].label = 'C'; }), /texto ausente ou curto/);
+  expectOnly(riskHunt(item => { item.regions[1].label = 'Um rótulo de região muito mais longo que o limite'; }), /caracteres \(máx\. 40\)/);
+});
+test('risk-hunt: recusa chave fora da lista, na região e no item', () => {
+  expectOnly(riskHunt(item => { item.regions[1].cor = 'vermelho'; }), /campo desconhecido: cor/);
+  expectOnly(riskHunt(item => { item.points = []; }), /campo desconhecido: points/);
+});
+test('risk-hunt: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
+  expectOnly(riskHunt(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});

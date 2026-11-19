@@ -12,12 +12,12 @@ import { REGISTERED_INTERACTION_TYPES } from './ActivityRendererRegistry';
 import { isCompleteInteractionValue, isCorrectInteractionValue } from './InteractionAnswerValue';
 
 /** Sem exemplo completo ainda. A tarefa 9 esvazia esta lista. */
-const PENDING_FAMILIES: readonly InteractionType[] = ['parameter-lab', 'risk-hunt'];
+const PENDING_FAMILIES: readonly InteractionType[] = ['parameter-lab'];
 /** Sem resposta curta e única: a bancada tem o retorno autoral, e a categorização mostra o grupo certo em cada ficha (ver `correctAnswerText`). */
 const WITHOUT_ANSWER_TEXT: readonly InteractionType[] = ['bench', 'categorize'];
 
 /** Os tipos com retorno específico em `feedbackFor`; o `wrongValue` deles precisa produzir texto diferente do retorno autoral. */
-const FEEDBACK_IS_SPECIFIC: readonly InteractionType[] = ['bench', 'multiple-choice', 'comparison', 'case-decision', 'multi-select', 'label'];
+const FEEDBACK_IS_SPECIFIC: readonly InteractionType[] = ['bench', 'multiple-choice', 'comparison', 'case-decision', 'multi-select', 'label', 'risk-hunt'];
 /** Os que caem no `default` de `feedbackFor` (retorno autoral de erro). Tipo novo com ramo próprio sai daqui. */
 const FEEDBACK_IS_GENERIC: readonly InteractionType[] = ['hotspot', 'matching', 'ordering', 'cloze', 'true-false', 'categorize'];
 

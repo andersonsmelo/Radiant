@@ -96,6 +96,31 @@ test('o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima at
   assert.equal(segment.filter(line => line === '    direction: UP').length, 4);
 });
 
+test('a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id', () => {
+  const { files } = renderRtgBatches([{ file: 'm01.json', doc }]);
+  const text = files.get('rtg-2026-m01.ts');
+  const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
+  const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
+  const hunt = interactions.find(interaction => interaction.type === 'risk-hunt');
+  assert.equal(hunt.payload.imageRef, 'diagram:sala-com-riscos');
+  assert.equal(hunt.criticalSafety, true);
+  assert.match(hunt.accessibility.label, /^Encontre os riscos: /);
+  assert.deepEqual(hunt.payload.regions.map(region => region.id), [1, 2, 3, 4, 5].map(n => `region:rtg-2026:m01:aula-01:i4:${n}`));
+  assert.deepEqual(hunt.payload.riskRegionIds, hunt.payload.regions.slice(0, 3).map(region => region.id));
+  assert.ok(hunt.payload.regions.every(region => region.explanation.length >= 25 && !Object.hasOwn(region, 'risk') && !Object.hasOwn(region, 'feedback')));
+});
+
+test('o roteiro Maestro marca cada região de risco pela lista e confere', () => {
+  const lesson = renderRtgMaestroFlows([doc]).get('m01-aula-01.yaml').split('\n');
+  const at = lesson.findIndex(line => line === '# interaction i4 risk-hunt');
+  assert.ok(at > 0, 'sem o comentário da caça ao erro');
+  const segment = lesson.slice(at, lesson.findIndex((line, n) => n > at && line.startsWith('- assertVisible')));
+  assert.deepEqual(segment.filter(line => /^- tapOn: |^    id: /.test(line)), [
+    "    id: 'risk-hunt-Porta da sala aberta'", "    id: 'risk-hunt-Campo de luz grande demais'", "    id: 'risk-hunt-Acompanhante sem avental'",
+    "- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'",
+  ]);
+});
+
 test('tipo sem ramo na fábrica lança em vez de virar associação', () => {
   const broken = structuredClone(doc);
   broken.lessons[0].interactions[2].type = 'tipo-que-nao-existe';

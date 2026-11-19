@@ -47,12 +47,12 @@ export type EditorialWideContractV1 = Readonly<{
     namespace: 'rtg-2026';
     /** Um par de itens por competência, para depois de uma conferência reprovada. */
     recovery: readonly EditorialWideRecoveryV1[];
-    /** Só as imagens que alguma comparação, hotspot ou rotular desta unidade usa. */
+    /** Só as imagens que alguma comparação, hotspot, rotular ou caça ao erro desta unidade usa. */
     images?: readonly EditorialLicensedImageV1[];
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -68,6 +68,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     'multi-select': ['prompt', 'options', 'correctOptionIds'],
     hotspot: ['prompt', 'imageRef', 'regions', 'correctRegionIds'],
     label: ['prompt', 'imageRef', 'points', 'labels'],
+    'risk-hunt': ['prompt', 'imageRef', 'regions', 'riskRegionIds'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -132,6 +133,14 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
         if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
             options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'risk-hunt') {
+        const { regions, riskRegionIds } = interaction.payload;
+        const known = new Set(regions.map(region => region.id));
+        if (regions.length < 4 || regions.length > 6 || known.size !== regions.length || new Set(regions.map(region => normalized(region.label))).size !== regions.length
+            || regions.some(region => !filled(region.explanation)) || new Set(regions.map(region => normalized(region.explanation))).size !== regions.length
+            || riskRegionIds.some(id => !known.has(id)) || new Set(riskRegionIds).size !== riskRegionIds.length) codes.push('invalid-wide-shape');
+        // Todas de risco, ou menos de duas: a resposta se deduz sem olhar a cena.
+        if (riskRegionIds.length < 2 || riskRegionIds.length > regions.length - 1) codes.push('wide-constant-answer');
     } else if (interaction.type === 'label') {
         const { points, labels } = interaction.payload;
         const answers = points.map(point => point.correctLabelId);
@@ -167,6 +176,7 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'categorize': return [...interaction.payload.categories.map(category => category.id), ...interaction.payload.items.map(item => item.id)];
         case 'multi-select': return interaction.payload.options.map(option => option.id);
         case 'hotspot': return interaction.payload.regions.map(region => region.id);
+        case 'risk-hunt': return interaction.payload.regions.map(region => region.id);
         case 'label': return [...interaction.payload.points.map(point => point.id), ...interaction.payload.labels.map(entry => entry.id)];
         default: return [];
     }
@@ -194,6 +204,10 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
         const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));
         interaction.payload.blanks.forEach(blank => add(blank.id, 'prompt'));
         interaction.payload.tokens.forEach(token => add(token.id, answers.has(token.id) ? 'correct-answer' : 'distractor', !answers.has(token.id)));
+    } else if (interaction.type === 'risk-hunt') {
+        // A região de risco é afirmação da fonte; a situação correta, que sobra na cena, é distrator autoral.
+        const risks = new Set(interaction.payload.riskRegionIds);
+        interaction.payload.regions.forEach(region => add(region.id, risks.has(region.id) ? 'correct-answer' : 'distractor', !risks.has(region.id)));
     } else if (interaction.type === 'label') {
         // O texto de cada ficha certa é da fonte; a que sobra no banco é distrator autoral.
         const answers = new Set(interaction.payload.points.map(point => point.correctLabelId));
@@ -265,7 +279,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                 interaction.payload.options.forEach(option => { if (option.imageRef) usedImages.add(option.imageRef); });
                 if (interaction.payload.options.some(option => !option.imageRef || !registeredImages.has(option.imageRef))) add('unregistered-licensed-image', interaction.id);
             }
-            if (interaction.type === 'hotspot' || interaction.type === 'label') {
+            if (interaction.type === 'hotspot' || interaction.type === 'label' || interaction.type === 'risk-hunt') {
                 const { imageRef } = interaction.payload;
                 const diagramId = parseDiagramRef(imageRef);
                 // Diagrama mora no app; imagem licenciada precisa estar no cadastro da unidade e conta como usada.
@@ -279,6 +293,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                         : interaction.type === 'cloze' ? interaction.payload.tokens.map(token => token.label)
                             : interaction.type === 'hotspot' ? interaction.payload.regions.map(region => region.label)
                             : interaction.type === 'label' ? interaction.payload.labels.map(entry => entry.label)
+                            : interaction.type === 'risk-hunt' ? interaction.payload.regions.map(region => region.label)
                             : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')

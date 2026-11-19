@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'];
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'];
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
@@ -168,6 +168,17 @@ export function lintUnit(doc, { images = [] } = {}) {
       const right = regions.filter((region) => region?.correct === true).length;
       if (right < 1 || right > 2) err(where, 'hotspot: de 1 a 2 regiões certas');
       else if (regions.length - right < 2) err(where, 'hotspot: ao menos 2 regiões erradas');
+    } else if (item.type === 'risk-hunt') {
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']));
+      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'risk', 'feedback'], min: 4, max: 6, sized: true, ratio: figure(where, item) });
+      const regions = Array.isArray(item.regions) ? item.regions : [];
+      if (regions.some((region) => typeof region?.risk !== 'boolean')) err(where, 'risk-hunt: risk deve ser true ou false em toda região');
+      else if (regions.length >= 4 && regions.length <= 6) {
+        const risks = regions.filter((region) => region.risk).length;
+        if (risks < 2 || risks > regions.length - 1) err(where, `risk-hunt: de 2 a ${regions.length - 1} regiões de risco; todas viram resposta constante`);
+      }
+      regions.forEach((region, i) => text(`${where}.regions[${i}].feedback`, region?.feedback, { min: 25, max: 260 }));
+      if (new Set(regions.map((region) => norm(region?.feedback))).size !== regions.length) err(where, 'risk-hunt: retornos repetidos: cada região explica a própria situação');
     } else if (item.type === 'label') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'points', 'distractors']));
       // Ponto sem tamanho: o retângulo de toque de 44 pt é centrado nele.

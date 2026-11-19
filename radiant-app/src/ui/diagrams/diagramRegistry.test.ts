@@ -91,9 +91,10 @@ describe('registro de diagramas', () => {
     }
   });
 
-  it('o colimador tem laço, e o tubo é parado', () => {
+  it('o colimador tem laço, e o tubo e a sala com riscos são parados', () => {
     expect(DIAGRAMS['colimador-abrindo'].periodMs).toBeGreaterThan(0);
     expect(DIAGRAMS['tubo-raios-x'].periodMs).toBeUndefined();
+    expect(DIAGRAMS['sala-com-riscos'].periodMs).toBeUndefined();
   });
 
   it('diagramRef e parseDiagramRef são inversas', () => {

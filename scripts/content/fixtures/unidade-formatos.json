@@ -176,37 +176,64 @@
         },
         {
           "id": "i4",
-          "type": "case-decision",
+          "type": "risk-hunt",
           "role": "safety",
           "criticalSafety": true,
-          "context": "Durante o turno, você percebe que o avental de chumbo está com uma rachadura visível e ninguém sabe dizer desde quando.",
-          "prompt": "Diante do dano do avental de chumbo, o que você faz agora?",
-          "options": [
+          "prompt": "Toque em todas as situações de risco que você vê na sala de raios X.",
+          "diagramId": "sala-com-riscos",
+          "regions": [
             {
-              "label": "Seguir usando sem contar a ninguém",
-              "correct": false,
-              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              "label": "Porta da sala aberta",
+              "x": 0.02,
+              "y": 0.08,
+              "width": 0.15,
+              "height": 0.82,
+              "risk": true,
+              "feedback": "A porta aberta com a lâmpada acesa expõe o corredor à radiação espalhada: a porta fica fechada na exposição."
             },
             {
-              "label": "Tirar de uso e avisar a supervisão",
-              "correct": true,
-              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              "label": "Campo de luz grande demais",
+              "x": 0.18,
+              "y": 0.26,
+              "width": 0.33,
+              "height": 0.4,
+              "risk": true,
+              "feedback": "Um campo que cobre o paciente inteiro expõe tecido sem necessidade: o campo se fecha até a região de interesse."
             },
             {
-              "label": "Esconder o dano com fita",
-              "correct": false,
-              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+              "label": "Acompanhante sem avental",
+              "x": 0.56,
+              "y": 0.45,
+              "width": 0.1,
+              "height": 0.45,
+              "risk": true,
+              "feedback": "Quem fica ao lado da mesa na exposição recebe radiação espalhada: sem necessidade, sai da sala ou se protege."
             },
             {
-              "label": "Esperar o problema sumir sozinho",
-              "correct": false,
-              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+              "label": "Operador atrás do biombo",
+              "x": 0.7,
+              "y": 0.43,
+              "width": 0.17,
+              "height": 0.47,
+              "risk": false,
+              "feedback": "Atrás do biombo o operador fica protegido do espalhamento e acompanha o paciente pelo vidro."
+            },
+            {
+              "label": "Avental no suporte",
+              "x": 0.85,
+              "y": 0.17,
+              "width": 0.11,
+              "height": 0.24,
+              "risk": false,
+              "feedback": "O avental guardado no suporte não expõe ninguém: o cuidado é pendurá-lo para não dobrar nem rachar."
             }
           ],
+          "feedbackCorrect": "Isso mesmo: você achou os riscos da sala e deixou de fora o que está certo.",
+          "feedbackIncorrect": "Releia a cena: algum risco ficou de fora, ou uma situação correta foi marcada.",
+          "help": "Procure quem ou o que fica ao alcance do feixe e do espalhamento durante a exposição.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
-          ],
-          "help": "Material danificado não se resolve sozinho nem em silêncio."
+          ]
         },
         {
           "id": "i5",
