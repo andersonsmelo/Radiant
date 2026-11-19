@@ -892,3 +892,58 @@ test('conversation: reação com palavra de veredito reprova, por palavra inteir
   }
   assert.deepEqual(conversationItem(item => { item.turns[0].options[0].reply = 'Então fico mais tranquila, incerta e correndo.'; }), []);
 });
+
+// Alvos presos à figura: o `alvo` da aula nomeia uma região declarada em figuras/<id>.alvos.json.
+const FIGURE_TARGETS = { 'tubo-raios-x': [
+  { nome: 'Fonte de raios X', x: 0.05, y: 0.05, width: 0.3, height: 0.3 },
+  { nome: 'Detector plano', x: 0.55, y: 0.05, width: 0.3, height: 0.3 },
+  { nome: 'Paciente', x: 0.05, y: 0.55, width: 0.3, height: 0.3 },
+  { nome: 'Colimador', x: 0.55, y: 0.55, width: 0.3, height: 0.3 },
+] };
+function linked(mutate = () => {}, figureTargets = FIGURE_TARGETS) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'tubo-raios-x',
+    regions: hotspotRegions().map(region => ({ ...region, alvo: region.label })),
+    feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.',
+    feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc, { images: IMAGES, figureTargets });
+}
+test('alvos: região da aula com o centro dentro da região declarada passa', () => {
+  assert.deepEqual(linked(), []);
+});
+test('alvos: figure-target-off-region quando o centro do alvo da aula cai fora da região declarada', () => {
+  expectOnly(linked(item => { Object.assign(item.regions[1], { x: 0.3, y: 0.5 }); }), /figure-target-off-region.*Detector plano/);
+});
+test('alvos: label com ponto fora da região declarada reprova, dentro passa', () => {
+  const label = (x, y) => {
+    const doc = fixture();
+    const old = doc.lessons[0].interactions[1];
+    doc.lessons[0].interactions[1] = { id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+      prompt: 'Rotule as partes do tubo de raios X.', diagramId: 'tubo-raios-x',
+      points: [['Fonte de raios X', 0.2, 0.2, 'no canto de cima, à esquerda'], ['Detector plano', x, y, 'no canto de cima, à direita'], ['Paciente', 0.2, 0.7, 'no canto de baixo, à esquerda']]
+        .map(([name, px, py, where]) => ({ label: name, alvo: name, x: px, y: py, where })),
+      feedbackCorrect: 'Isso mesmo: cada parte no seu lugar.', feedbackIncorrect: 'Alguma parte ficou fora do lugar: releia a posição.' };
+    return lintUnit(doc, { images: IMAGES, figureTargets: FIGURE_TARGETS });
+  };
+  assert.deepEqual(label(0.7, 0.2), []);
+  expectOnly(label(0.84, 0.417), /figure-target-off-region.*Detector plano/);
+});
+test('alvos: figure-target-unknown para alvo que a figura não declara', () => {
+  expectOnly(linked(item => { item.regions[3].alvo = 'Occipital'; }), /figure-target-unknown.*Occipital/);
+});
+test('alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem alvo', () => {
+  expectOnly(linked(item => { delete item.regions[2].alvo; }), /figure-target-unlinked/);
+});
+test('alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela', () => {
+  const fora = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map((r, i) => (i === 1 ? { ...r, x: 0.9 } : r)) };
+  expectOnly(linked(() => {}, fora), /figure-target-frame.*Detector plano/);
+});
+test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito', () => {
+  assert.deepEqual(linked(() => {}, {}), []);
+  assert.deepEqual(hotspot(), []);
+});

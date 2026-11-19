@@ -3,10 +3,45 @@
 // docs/content/2026-11-05-guia-de-autoria-rtg-2026.md.
 // Uso: node scripts/content/rtg-lesson-lint.mjs <arquivo.json>...
 // Sai com 1 se houver erro. Sem dependências. Confere forma, não verdade.
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
+
+// Alvos declarados por figura (content-manifest/rtg-2026/figuras/<id>.alvos.json): { [diagramId]: [{ nome, x, y, width, height }] }.
+const FIGURES_DIR = fileURLToPath(new URL('../../content-manifest/rtg-2026/figuras/', import.meta.url));
+export function readFigureTargets(dir = FIGURES_DIR) {
+  if (!existsSync(dir)) return {};
+  return Object.fromEntries(readdirSync(dir).filter((name) => name.endsWith('.alvos.json'))
+    .map((name) => [name.replace(/\.alvos\.json$/, ''), JSON.parse(readFileSync(`${dir}/${name}`, 'utf8'))]));
+}
+const defaultFigureTargets = readFigureTargets();
+
+/**
+ * Alvo da aula preso à região que a figura declara. `alvo` nomeia a região; o centro do alvo da aula (o ponto, ou o centro
+ * da região de toque) precisa cair dentro dela, e a região declarada precisa caber no quadro (0 a 1).
+ * Só vale para figura que tem arquivo de alvos: sem ele, nada é cobrado.
+ */
+export function figureTargetErrors(where, list, declared) {
+  if (!declared || !Array.isArray(list)) return [];
+  const found = [];
+  list.forEach((target, i) => {
+    const at = `${where}[${i}]`;
+    if (target === null || typeof target !== 'object') return;
+    if (target.alvo === undefined) return found.push(`${at}: figure-target-unlinked: a figura declara alvos; ligue este alvo a um deles com "alvo"`);
+    const region = declared.find((entry) => entry.nome === target.alvo);
+    if (!region) return found.push(`${at}: figure-target-unknown: a figura não declara o alvo "${target.alvo}"`);
+    if (![region.x, region.y, region.width, region.height].every(Number.isFinite) || region.x < 0 || region.y < 0 || region.x + region.width > 1 || region.y + region.height > 1) {
+      return found.push(`${at}: figure-target-frame: a região declarada de "${region.nome}" não cabe no quadro (0 a 1)`);
+    }
+    const cx = target.x + (target.width ?? 0) / 2;
+    const cy = target.y + (target.height ?? 0) / 2;
+    if (!(cx >= region.x && cx <= region.x + region.width && cy >= region.y && cy <= region.y + region.height)) {
+      found.push(`${at}: figure-target-off-region: o centro de "${target.alvo}" (${cx.toFixed(3)}; ${cy.toFixed(3)}) está fora da região declarada pela figura`);
+    }
+  });
+  return found;
+}
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
 export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab'];
@@ -70,7 +105,7 @@ export function targetErrors(where, list, { allowed = ['label', 'x', 'y', 'width
   return found;
 }
 
-export function lintUnit(doc, { images = [] } = {}) {
+export function lintUnit(doc, { images = [], figureTargets = defaultFigureTargets } = {}) {
   if (doc === null || typeof doc !== 'object' || Array.isArray(doc)) return ['raiz: o arquivo deve conter um objeto JSON'];
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
@@ -157,9 +192,10 @@ export function lintUnit(doc, { images = [] } = {}) {
     if (!image) return void err(where, `imagem fora do registro: ${item.imageId}`);
     return image.width > 0 && image.height > 0 ? { width: image.width, height: image.height } : void err(where, `imagem sem largura e altura no cadastro: ${item.imageId}`);
   };
-  // Alvos tocáveis numa figura: `targetErrors` (geometria) e o texto do rótulo.
-  const targets = (where, list, options) => {
+  // Alvos tocáveis numa figura: `targetErrors` (geometria), o vínculo com a figura e o texto do rótulo.
+  const targets = (where, list, options, item) => {
     targetErrors(where, list, options).forEach((message) => errors.push(message));
+    if (item?.diagramId !== undefined && Object.hasOwn(figureTargets, item.diagramId)) figureTargetErrors(where, list, figureTargets[item.diagramId]).forEach((message) => errors.push(message));
     if (Array.isArray(list)) list.forEach((target, i) => text(`${where}[${i}].label`, target?.label, { min: 2, max: 40 }));
   };
 
@@ -260,7 +296,7 @@ export function lintUnit(doc, { images = [] } = {}) {
     if (norm(item.feedbackCorrect) === norm(item.feedbackIncorrect)) err(where, 'retorno de erro igual ao de acerto; o erro precisa de explicação própria');
     if (item.type === 'hotspot') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']));
-      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'correct'], sized: true, ratio: figure(where, item) });
+      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'correct', 'alvo'], sized: true, ratio: figure(where, item) }, item);
       const regions = Array.isArray(item.regions) ? item.regions : [];
       if (regions.some((region) => region?.correct !== undefined && region.correct !== true)) err(where, 'hotspot: correct, quando existe, é true');
       const right = regions.filter((region) => region?.correct === true).length;
@@ -268,7 +304,7 @@ export function lintUnit(doc, { images = [] } = {}) {
       else if (regions.length - right < 2) err(where, 'hotspot: ao menos 2 regiões erradas');
     } else if (item.type === 'risk-hunt') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']));
-      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'risk', 'feedback'], min: 4, max: 6, sized: true, ratio: figure(where, item) });
+      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'risk', 'feedback', 'alvo'], min: 4, max: 6, sized: true, ratio: figure(where, item) }, item);
       const regions = Array.isArray(item.regions) ? item.regions : [];
       if (regions.some((region) => typeof region?.risk !== 'boolean')) err(where, 'risk-hunt: risk deve ser true ou false em toda região');
       else if (regions.length >= 4 && regions.length <= 6) {
@@ -281,7 +317,7 @@ export function lintUnit(doc, { images = [] } = {}) {
     } else if (item.type === 'label') {
       errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'points', 'distractors']));
       // Ponto sem tamanho: o retângulo de toque de 44 pt é centrado nele.
-      targets(`${where}.points`, item.points, { allowed: ['label', 'x', 'y', 'where'], ratio: figure(where, item) });
+      targets(`${where}.points`, item.points, { allowed: ['label', 'x', 'y', 'where', 'alvo'], ratio: figure(where, item) }, item);
       // `where` é o que o leitor de tela ouve no lugar da figura: posição ou forma, sem nomear nenhuma parte.
       const plain = (value) => norm(value).normalize('NFD').replace(/\p{M}/gu, '');
       const points = Array.isArray(item.points) ? item.points : [];

@@ -1,0 +1,43 @@
+## 1. sem a regra: o campo alvo nem existe no verificador
+   1     +   'lessons[0](m01-01).interactions[1].points[0]: campo desconhecido: alvo',
+   1     +   'lessons[0](m01-01).interactions[1].points[1]: campo desconhecido: alvo',
+   1     +   'lessons[0](m01-01).interactions[1].points[2]: campo desconhecido: alvo'
+   6     +   'lessons[0](m01-01).interactions[1].regions[0]: campo desconhecido: alvo',
+   6     +   'lessons[0](m01-01).interactions[1].regions[1]: campo desconhecido: alvo',
+   5     +   'lessons[0](m01-01).interactions[1].regions[2]: campo desconhecido: alvo',
+   6     +   'lessons[0](m01-01).interactions[1].regions[3]: campo desconhecido: alvo'
+   1     0: 'lessons[0](m01-01).interactions[1].points[0]: campo desconhecido: alvo'
+   6     0: 'lessons[0](m01-01).interactions[1].regions[0]: campo desconhecido: alvo'
+   1     1: 'lessons[0](m01-01).interactions[1].points[1]: campo desconhecido: alvo'
+   6     1: 'lessons[0](m01-01).interactions[1].regions[1]: campo desconhecido: alvo'
+   1     2: 'lessons[0](m01-01).interactions[1].points[2]: campo desconhecido: alvo'
+
+## 2. sem a checagem de posicao (centro dentro da regiao declarada)
+not ok 134 - alvos: figure-target-off-region quando o centro do alvo da aula cai fora da região declarada
+not ok 135 - alvos: label com ponto fora da região declarada reprova, dentro passa
+# pass 137
+# fail 2
+
+## 3. sem a checagem de quadro da regiao declarada
+not ok 138 - alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela
+# pass 138
+# fail 1
+
+## 4. sem figure-target-unknown
+not ok 136 - alvos: figure-target-unknown para alvo que a figura não declara
+# pass 138
+# fail 1
+
+## 5. sem figure-target-unlinked
+not ok 137 - alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem alvo
+# pass 138
+# fail 1
+
+## 6. M25.01 real: alvo ligado, coordenadas antigas
+REPROVADO content-manifest/rtg-2026/aulas/m25.json (6 erros)
+  - lessons[0](m25-01).interactions[1].points[2]: figure-target-off-region: o centro de "Occipital" (0.840; 0.417) está fora da região declarada pela figura
+  - lessons[0](m25-01).interactions[1].points[3]: figure-target-off-region: o centro de "Temporal" (0.637; 0.463) está fora da região declarada pela figura
+  - lessons[0](m25-01).interactions[1].points[5]: figure-target-off-region: o centro de "Mandíbula" (0.422; 0.817) está fora da região declarada pela figura
+  - lessons[0](m25-01).interactions[3].regions[2]: figure-target-off-region: o centro de "Occipital" (0.841; 0.417) está fora da região declarada pela figura
+  - lessons[0](m25-01).interactions[3].regions[3]: figure-target-off-region: o centro de "Mandíbula" (0.422; 0.817) está fora da região declarada pela figura
+  - lessons[0](m25-01).interactions[3].regions[4]: figure-target-off-region: o centro de "Temporal" (0.637; 0.463) está fora da região declarada pela figura
