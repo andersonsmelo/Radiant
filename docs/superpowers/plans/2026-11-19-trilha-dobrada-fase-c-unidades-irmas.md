@@ -428,13 +428,116 @@ com o sexo só como "neste esquema".
 | m28 | `corte-pescoco` | parado | Corte axial esquemático do pescoço: traqueia, esôfago, tireoide, carótidas, jugulares, vértebra e medula |
 | m28 | `coluna-sagital-e-axial` | parado | Coluna lombar em corte sagital (corpos, discos, canal) ao lado de um corte axial na altura de um disco |
 
-## Lotes 4 a 6
+## Lote 4 — M29 a M32
+
+Aberto em 2026-11-19 com o "Sim, lote 4" do dono. Ordem na trilha depois do lote: …,
+m10, m28, m11, **m29**, m12, **m30**, m13, **m31**, m14, **m32**, e as especializações
+como estão. Este lote não usa imagem real nova: os diagramas bastam para o que as aulas
+cobram, e a busca no acervo custou mais de uma hora de recusas no lote 3.
+
+### M29 — Sequências, contraste e artefatos básicos de RM (irmã da M11)
+
+A M11 ensina segurança, campo e RF, sinal e relaxação, ponderação e bobina. A M29 ensina
+a reconhecer, numa imagem esquemática, o que cada ajuste do protocolo muda. A `s-rm`
+aprofunda física e parâmetros; a M29 não entra em frequência de Larmor nem espaço k.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Duas curvas, dois tecidos | Distinguir recuperação T1 e decaimento T2 em dois tecidos | `relaxacao-t1-t2` (novo) | `label`, `matching`, MC |
+| 02 | Os dois relógios: TR e TE | Dizer o que TR e TE marcam numa linha do tempo | `linha-do-tempo-tr-te` (novo, laço) | `visual`, `ordering`, `true-false`, MC |
+| 03 | Reconhecer a ponderação | Reconhecer T1, T2 e uma imagem com líquido suprimido pelo brilho do líquido e da gordura | `ponderacoes-no-encefalo` (novo) | `hotspot`, `categorize`, MC |
+| 04 | Apagar a gordura | Dizer o que a supressão de gordura muda e o que a atrapalha | `supressao-de-gordura` (novo) | `hotspot`, `cloze`, MC |
+| 05 | Três artefatos comuns | Reconhecer movimento, metal e dobra e a quem avisar | `artefatos-de-rm` (novo) | `label`, `categorize`, `blitz`, MC |
+| 06 | Dentro do túnel | Preparar o paciente para ruído, tempo e imobilidade e comunicar o que vê | `artefatos-de-rm` ou `linha-do-tempo-tr-te` | `hotspot`, `conversation`, MC |
+
+Limite próprio: o estudante não escolhe sequência nem altera parâmetro; nenhuma leitura
+de achado; a triagem de segurança é da M11 e não é repetida; metal na imagem é sempre
+"pare e avise".
+
+### M30 — Densitometria óssea e composição corporal (irmã da M12)
+
+A M12.05 apresenta a densitometria numa aula. A M30 abre o método: os dois feixes, as
+regiões medidas, a posição que se repete e o que estraga a medida. A `s-md` aprofunda
+instrumentação e qualidade; a M30 não ensina precisão do serviço.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Dois feixes, duas energias | Nomear fonte, braço detector e mesa e dizer por que há duas energias | `dxa-dois-feixes` (novo) | `label`, `true-false`, MC |
+| 02 | Onde se mede | Localizar as regiões medidas na coluna lombar e no fêmur proximal | `dxa-regioes-de-interesse` (novo) | `label`, `matching`, MC |
+| 03 | Posicionar para repetir | Ordenar o posicionamento de coluna e de fêmur e dizer para que serve cada apoio | `dxa-posicionamento` (novo) | `hotspot`, `ordering`, MC |
+| 04 | O que estraga a medida | Achar o que não deveria estar na imagem e dizer a quem avisar | `dxa-interferencias` (novo) | `risk-hunt`, `multi-select`, MC |
+| 05 | Corpo inteiro e composição | Dizer em que três componentes o exame de corpo inteiro divide o corpo e por regiões | `corpo-inteiro-composicao` (novo) | `label`, `categorize`, MC |
+| 06 | Comparar com o exame anterior | Reconhecer o que precisa ser igual para dois exames serem comparáveis | `dxa-posicionamento` ou `dxa-regioes-de-interesse` | `hotspot`, `conversation`, MC |
+
+Limite próprio: nenhum item interpreta resultado, classifica osso ou nomeia diagnóstico;
+índices aparecem só como "o laudo traz"; o estudante não decide repetir nem excluir
+região.
+
+### M31 — Outros campos: veterinária, forense e pesquisa (irmã da M13)
+
+A M13 dá o panorama de medicina nuclear, radioterapia e intervencionista. A M31 mostra
+campos em que a mesma técnica serve a outro fim, e o que muda no papel de quem adquire.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | O paciente que não colabora | Reconhecer o que muda no exame de um animal: contenção, equipe e tutor | `radiografia-veterinaria` (novo) | `hotspot`, `conversation`, MC |
+| 02 | Proteger quem segura | Aplicar distância, apoio e proteção quando alguém precisa ficar na sala | `radiografia-veterinaria` | `risk-hunt`, `categorize`, MC |
+| 03 | A cadeia de custódia | Ordenar os elos que mantêm um material rastreável | `cadeia-de-custodia` (novo) | `label`, `ordering`, MC |
+| 04 | Imagem forense: registrar sem interpretar | Distinguir o que quem adquire registra do que o perito conclui | `cadeia-de-custodia` | `hotspot`, `true-false`, MC |
+| 05 | Imagem em pesquisa | Seguir o percurso de um estudo: protocolo aprovado, consentimento, aquisição e dado sem identificação | `fluxo-de-pesquisa` (novo) | `label`, `cloze`, MC |
+| 06 | Objetos, obras e peças | Reconhecer a radiografia de objetos e a área isolada em torno dela | `radiografia-de-objeto` (novo) | `hotspot`, `blitz`, MC |
+
+Limite próprio: sedação e conduta com o animal são do veterinário; conclusão forense é
+do perito; nenhuma norma de país; o estudante não age sozinho em nenhum dos campos e
+não promete resultado ao tutor.
+
+### M32 — Controle de qualidade de equipamentos e níveis de referência (irmã da M14)
+
+A M14.01 distingue rotina, teste, registro e ação corretiva. A M32 mostra o que se testa
+num equipamento de raios X e para que servem os níveis de referência.
+
+| Aula | Título | O aluno passa a conseguir | Figura | Formatos pedidos |
+| --- | --- | --- | --- | --- |
+| 01 | Aceitar, acompanhar, consertar | Distinguir teste de aceitação, de constância e depois de manutenção | `ciclo-de-testes` (novo) | `label`, `categorize`, MC |
+| 02 | Testar o feixe | Associar tensão, tempo, rendimento e filtração ao que cada teste verifica | `teste-de-feixe` (novo) | `label`, `matching`, MC |
+| 03 | A luz e o feixe coincidem? | Reconhecer o desalinhamento entre campo de luz e campo de radiação | `coincidencia-de-campo` (novo) | `hotspot`, `true-false`, MC |
+| 04 | O detector e o monitor | Reconhecer falha de uniformidade e ler um padrão de teste | `artefatos-do-detector`, `monitor-e-padrao-de-teste` | `hotspot`, `multi-select`, MC |
+| 05 | Níveis de referência | Dizer o que é e o que não é um nível de referência de diagnóstico | `nivel-de-referencia` (novo) | `label`, `true-false`, `blitz`, MC |
+| 06 | Quando o teste falha | Registrar, tirar de uso pela regra do serviço e avisar | `ciclo-de-testes` | `hotspot`, `conversation`, MC |
+
+Limite próprio: o estudante não ajusta equipamento, não libera sala e não executa teste
+sozinho; nenhuma tolerância numérica de norma de país; nível de referência não é limite
+de dose nem se aplica a um paciente; princípios citam ICRP e IAEA.
+
+### Diagramas novos do lote 4 (18)
+
+| Unidade | id | Tipo | O que mostra |
+| --- | --- | --- | --- |
+| m29 | `relaxacao-t1-t2` | parado | Dois gráficos lado a lado: recuperação subindo até um patamar e decaimento caindo, cada um com duas curvas de tecidos diferentes |
+| m29 | `linha-do-tempo-tr-te` | laço | Linha do tempo com pulso, eco e o pulso seguinte; uma chave curta do pulso ao eco e outra longa de pulso a pulso |
+| m29 | `ponderacoes-no-encefalo` | parado | O mesmo corte axial esquemático da cabeça três vezes: líquido escuro, líquido claro e líquido apagado com o tecido em volta mantido |
+| m29 | `supressao-de-gordura` | parado | O mesmo corte esquemático duas vezes: camada de gordura clara e a mesma camada escura, com uma mancha de falha perto de um objeto |
+| m29 | `artefatos-de-rm` | parado | Três cortes esquemáticos: cópias fantasmas na direção de fase, vazio de sinal com distorção e a parte de fora dobrada para dentro |
+| m30 | `dxa-dois-feixes` | parado | Mesa de densitometria de lado: fonte sob a mesa, paciente deitado, braço detector acima, feixe estreito de duas cores |
+| m30 | `dxa-regioes-de-interesse` | parado | Coluna lombar de frente com quatro caixas sobre as vértebras e, ao lado, fêmur proximal com caixas no colo, no trocanter e no total |
+| m30 | `dxa-posicionamento` | parado | Duas cenas: deitado com as pernas sobre um bloco; e pernas estendidas com o pé girado para dentro preso a um posicionador |
+| m30 | `dxa-interferencias` | parado | Esquema de imagem de coluna com um objeto metálico, um botão, a caixa de região fora da vértebra e a coluna torta em relação à mesa |
+| m30 | `corpo-inteiro-composicao` | parado | Silhueta de corpo inteiro deitado, com linhas dividindo cabeça, braços, tronco e pernas, e três faixas de cor ao lado |
+| m31 | `radiografia-veterinaria` | parado | Cão deitado de lado na mesa, com sacos de areia e calha; uma pessoa de avental segura à distância, o tutor perto demais, o tubo acima |
+| m31 | `cadeia-de-custodia` | parado | Cinco blocos ligados por setas: invólucro lacrado com etiqueta, entrega com assinatura, aquisição da imagem, registro e armário trancado |
+| m31 | `fluxo-de-pesquisa` | parado | Cinco blocos ligados por setas: protocolo com selo de aprovação, termo assinado, aquisição, arquivo com o nome coberto e armazenamento |
+| m31 | `radiografia-de-objeto` | parado | Tubo, um quadro num cavalete e detector atrás; área isolada com cordão e sinal de aviso, pessoa fora da área |
+| m32 | `ciclo-de-testes` | parado | Linha do tempo: marco grande na instalação, marcos pequenos regulares, uma chave de manutenção seguida de um marco médio |
+| m32 | `teste-de-feixe` | parado | Tubo, colimador, lâminas de filtro empilhadas no caminho do feixe e um medidor sobre a mesa ligado a um mostrador |
+| m32 | `coincidencia-de-campo` | parado | Retângulo do campo de luz com marcadores nos cantos e o retângulo do campo de radiação deslocado para um lado |
+| m32 | `nivel-de-referencia` | parado | Barras ordenadas da dose típica de muitas salas, uma linha horizontal a três quartos e algumas barras acima dela |
+
+## Lotes 5 e 6
 
 A composição segue a tabela da seção 8.1 da especificação, na ordem da trilha:
 
 | Lote | Unidades |
 | --- | --- |
-| 4 | m29, m30, m31, m32 |
 | 5 | s-ta, s-ra, s-mi, s-pt |
 | 6 | s-rp, s-hd, s-oc, s-ud |
 

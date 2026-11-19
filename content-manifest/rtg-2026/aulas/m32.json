@@ -1,0 +1,2302 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m32",
+    "code": "M32",
+    "title": "Controle de qualidade de equipamentos e níveis de referência",
+    "summary": "Mostra o que se testa num equipamento de raios X (feixe, alinhamento, detector, monitor), o que fazer quando um teste falha e para que serve, e para que não serve, um nível de referência."
+  },
+  "sources": [
+    {
+      "id": "acpsem-2024-qa-radiografia-digital",
+      "title": "ACPSEM position paper: recommendations for a digital general X-ray quality assurance program",
+      "publisher": "Physical and Engineering Sciences in Medicine (PMC)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11408574/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "aapm-tg150-testes-de-detector",
+      "title": "Evaluation of cassette-based digital radiography detectors using standardized image quality metrics: AAPM TG-150 Draft Image Detector Tests",
+      "publisher": "Journal of Applied Clinical Medical Physics (PMC)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874089/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "icrp-135-niveis-de-referencia",
+      "title": "ICRP Publication 135: Diagnostic Reference Levels in Medical Imaging",
+      "publisher": "ICRP",
+      "url": "https://www.icrp.org/publication.asp?id=icrp+publication+135",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional aberta (resumo e pontos-chave); consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "icrpaedia-sistema-de-protecao-2",
+      "title": "System of radiation protection module 2",
+      "publisher": "ICRPaedia, ICRP",
+      "url": "https://icrpaedia.org/System_of_radiation_protection_module_2",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional aberta; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-nrd-radiografia-torax-abdome",
+      "title": "Typical and Local Diagnostic Reference Levels for Chest and Abdomen Radiography Examinations in Dubai Health Sector",
+      "publisher": "PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11766229/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "jacmp-2026-camada-semirredutora",
+      "title": "Beam quality assessment: Evaluating aluminum purity's effects",
+      "publisher": "Journal of Applied Clinical Medical Physics (PMC)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12758990/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto (CC BY 4.0); consultado para a definição e a medida da camada semirredutora, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-kap-definicao",
+      "title": "Reference air kerma and kerma-area product as estimators of peak skin dose for fluoroscopically guided interventions",
+      "publisher": "PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3145218/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para a definição do produto dose-área, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m32-01",
+      "code": "M32.01",
+      "title": "Aceitar, acompanhar, consertar",
+      "objective": "Hoje você vai conseguir dizer que pergunta cada teste da vida do equipamento responde: aceitação, constância e depois de manutenção.",
+      "competency": "Distinguir o teste de aceitação, o de constância e o de depois de manutenção pela pergunta que cada um responde.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X com um equipamento recém-instalado",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Chegou o equipamento novo da sala 2. A agenda de amanhã já tem gente para ele."
+          },
+          {
+            "speaker": "lia",
+            "text": "Ele ainda precisa passar por testes antes do primeiro paciente. E os testes não acabam na instalação."
+          },
+          {
+            "speaker": "duda",
+            "text": "Mas se foi testado uma vez, por que repetir? Eu repetiria só se algo quebrasse."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três momentos, três perguntas",
+        "body": "Na linha do tempo, o marco grande é o teste de aceitação, antes do uso: confere se o equipamento instalado entrega o que foi especificado e é seguro. Antes do primeiro paciente também se fixam os valores de referência. Os marcos pequenos são os testes de constância: repetem as medidas e comparam com a referência. A chave marca uma manutenção, e o marco médio depois dela é o teste que confirma se o problema foi resolvido.",
+        "keyPoints": [
+          "Aceitação: antes do uso, quando também se fixa a referência.",
+          "Constância: repete a medida e compara com a referência.",
+          "Depois da manutenção: confirma se o problema foi resolvido."
+        ],
+        "visual": "ciclo-de-testes"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M14.01. Um resultado de teste saiu fora do padrão do serviço. Quem faz a ação corretiva?",
+          "options": [
+            {
+              "label": "Quem fez o teste, ajustando o equipamento até o valor voltar",
+              "correct": false,
+              "feedback": "Ajustar até o número voltar esconde a causa, e quem testa não corrige: avisa."
+            },
+            {
+              "label": "Quem estiver na sala, anotando na planilha um valor melhor",
+              "correct": false,
+              "feedback": "Anotar um valor que não foi medido falsifica o registro e não resolve nada."
+            },
+            {
+              "label": "A equipe responsável, que investiga a causa e corrige",
+              "correct": true,
+              "feedback": "Isso: a ação corretiva trata a causa, e quem a faz é a equipe responsável."
+            },
+            {
+              "label": "Ninguém: o teste da próxima vez compensa o desvio",
+              "correct": false,
+              "feedback": "O desvio não some sozinho: sem ação corretiva, ele segue valendo nos exames."
+            }
+          ],
+          "help": "Quem trata a causa de um resultado fora do padrão?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule quatro momentos da linha do tempo do equipamento, tocando na ficha e no ponto.",
+          "diagramId": "ciclo-de-testes",
+          "points": [
+            {
+              "label": "Aceitação",
+              "x": 0.15,
+              "y": 0.54,
+              "where": "à esquerda, o círculo amarelo grande com um visto"
+            },
+            {
+              "label": "Constância",
+              "x": 0.325,
+              "y": 0.54,
+              "where": "o primeiro ponto azul pequeno depois do círculo grande"
+            },
+            {
+              "label": "Manutenção",
+              "x": 0.71,
+              "y": 0.27,
+              "where": "no alto à direita, a ferramenta de aperto sobre a linha"
+            },
+            {
+              "label": "Depois da manutenção",
+              "x": 0.82,
+              "y": 0.54,
+              "where": "no fim da linha, o círculo ciano de tamanho médio"
+            }
+          ],
+          "distractors": [
+            "Descarte do equipamento"
+          ],
+          "feedbackCorrect": "Isso mesmo: o marco grande abre a vida do equipamento, os pequenos o acompanham e o ciano vem depois do conserto.",
+          "feedbackIncorrect": "Algum nome está no lugar errado: o tamanho do marco acompanha o tamanho da pergunta, e o ciano vem depois da ferramenta.",
+          "help": "Comece pelo marco que abre a linha, antes de qualquer paciente.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Em qual momento cada situação pede um teste? Classifique cada uma.",
+          "categories": [
+            "Aceitação",
+            "Constância",
+            "Depois da manutenção"
+          ],
+          "items": [
+            {
+              "label": "Equipamento instalado, ainda sem paciente",
+              "category": "Aceitação"
+            },
+            {
+              "label": "Valores de referência a fixar antes do primeiro uso",
+              "category": "Aceitação"
+            },
+            {
+              "label": "Repetição das mesmas medidas a cada período",
+              "category": "Constância"
+            },
+            {
+              "label": "Comparar o valor de hoje com o de referência",
+              "category": "Constância"
+            },
+            {
+              "label": "Detector recalibrado pela assistência técnica",
+              "category": "Depois da manutenção"
+            },
+            {
+              "label": "Falha corrigida, e o serviço quer ver se resolveu",
+              "category": "Depois da manutenção"
+            }
+          ],
+          "feedbackCorrect": "Você separou o teste que abre a vida do equipamento, o que a acompanha e o que confere o conserto.",
+          "feedbackIncorrect": "Pergunte de cada situação: o equipamento é novo, está em uso comum ou acabou de ser consertado?",
+          "help": "Veja o que cada situação quer saber: se entrega o prometido, se mudou ou se o conserto resolveu.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "aapm-tg150-testes-de-detector"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os testes ao longo da vida do equipamento.",
+          "statements": [
+            {
+              "text": "O teste de constância compara a medida de agora com os valores de referência.",
+              "correct": true,
+              "feedback": "Certo: sem referência não há com o que comparar, e é dela que a constância parte."
+            },
+            {
+              "text": "Quem passou na aceitação fica dispensado dos testes seguintes.",
+              "correct": false,
+              "feedback": "Errado: o desempenho pode mudar com o uso, e por isso as medidas se repetem."
+            },
+            {
+              "text": "Depois de uma manutenção, um teste confirma se o problema foi resolvido.",
+              "correct": true,
+              "feedback": "Certo: o conserto só fecha quando o teste mostra que o problema não está mais lá."
+            },
+            {
+              "text": "Quem acompanha o teste pode ajustar o equipamento para o valor voltar.",
+              "correct": false,
+              "feedback": "Errado: ajustar é da equipe responsável, e quem acompanha anota e avisa."
+            }
+          ],
+          "feedbackCorrect": "Você separou quando cada teste entra e quem faz o quê.",
+          "feedbackIncorrect": "Releia o conceito: cada teste responde a uma pergunta, e o estudante não ajusta o equipamento.",
+          "help": "Pense na pergunta que cada teste responde.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Simulação, setor de radiografia. O valor medido hoje no teste de constância está igual ao da semana passada, mas bem longe do valor de referência. O colega diz que, igual ao da semana passada, está bom.",
+          "prompt": "Qual é a sua leitura?",
+          "options": [
+            {
+              "label": "A comparação que vale é com a referência: descrevo e aviso a equipe",
+              "correct": true,
+              "feedback": "Isso: a constância compara com a referência, e um valor longe dela vai à equipe responsável."
+            },
+            {
+              "label": "Igual ao da semana passada basta: registro e sigo o turno",
+              "correct": false,
+              "feedback": "O resultado da semana passada pode já estar longe da referência, e a constância compara com ela."
+            },
+            {
+              "label": "Refaço o teste até o valor se aproximar da referência",
+              "correct": false,
+              "feedback": "Repetir até o número servir esconde o desvio e não trata a causa."
+            },
+            {
+              "label": "Ajusto o equipamento até o valor chegar na referência",
+              "correct": false,
+              "feedback": "Ajustar o equipamento não cabe ao estudante: descreve-se o desvio e a equipe trata."
+            }
+          ],
+          "help": "Com o que a constância compara o valor de agora?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer a pergunta de cada teste: a aceitação confere o equipamento novo antes do uso, quando também se fixa a referência, a constância compara com ela e o teste depois da manutenção confirma o conserto.",
+        "line": {
+          "speaker": "lia",
+          "text": "Aceitar, acompanhar, consertar: três momentos, e uma referência que liga os três."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um serviço quer saber se o desempenho de um equipamento mudou desde que foi aceito. Que tipo de teste responde a isso?",
+          "options": [
+            {
+              "label": "O de aceitação, repetido a cada turno",
+              "correct": false,
+              "feedback": "A aceitação abre a vida do equipamento, e não se refaz a cada turno."
+            },
+            {
+              "label": "O de constância, comparado com a referência",
+              "correct": true,
+              "feedback": "Isso: a constância repete a medida e compara com a referência fixada no começo."
+            },
+            {
+              "label": "O de depois da manutenção, feito todo mês",
+              "correct": false,
+              "feedback": "Esse teste segue um conserto, e não um calendário de acompanhamento."
+            },
+            {
+              "label": "Nenhum: sem queixa, o desempenho se presume igual",
+              "correct": false,
+              "feedback": "Presumir não é medir: o desempenho só se acompanha com testes."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "prompt": "A assistência acabou de recalibrar o detector de uma sala da simulação. Que pergunta o teste feito agora responde?",
+          "options": [
+            {
+              "label": "O equipamento é novo e seguro para a primeira vez?",
+              "correct": false,
+              "feedback": "Essa pergunta é da aceitação, que vem antes do primeiro uso."
+            },
+            {
+              "label": "O valor de referência precisa ser trocado por outro?",
+              "correct": false,
+              "feedback": "Trocar a referência não é a pergunta do teste: ele compara e confere."
+            },
+            {
+              "label": "A planilha de registros está completa?",
+              "correct": false,
+              "feedback": "A planilha guarda os resultados, mas não é isso que o teste mede."
+            },
+            {
+              "label": "O problema que levou ao chamado foi resolvido?",
+              "correct": true,
+              "feedback": "Isso: o teste depois da manutenção confirma se o problema foi resolvido."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "aapm-tg150-testes-de-detector"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: os valores de referência se fixam antes do…",
+          "item": {
+            "prompt": "De qual momento saem os valores de referência que os testes seguintes usam?",
+            "options": [
+              {
+                "label": "Do começo, antes do primeiro uso",
+                "correct": true,
+                "feedback": "Isso: antes do primeiro paciente se fixam as medidas com as quais o resto é comparado."
+              },
+              {
+                "label": "Da constância, na semana mais recente",
+                "correct": false,
+                "feedback": "A constância usa a referência, e não a cria."
+              },
+              {
+                "label": "Da manutenção, quando a assistência sai",
+                "correct": false,
+                "feedback": "A manutenção pode exigir novo teste, mas a referência nasce antes."
+              },
+              {
+                "label": "Do registro mais antigo da planilha, qualquer que seja",
+                "correct": false,
+                "feedback": "A referência vem de um teste, e não de uma linha qualquer da planilha."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na mamografia da simulação, a equipe repete todo mês as mesmas medidas e compara com as do primeiro dia. Que teste é esse?",
+            "options": [
+              {
+                "label": "Aceitação",
+                "correct": false,
+                "feedback": "A aceitação é feita uma vez, antes do uso."
+              },
+              {
+                "label": "Teste de depois da manutenção",
+                "correct": false,
+                "feedback": "Esse teste segue um conserto, e não um calendário mensal."
+              },
+              {
+                "label": "Constância",
+                "correct": true,
+                "feedback": "Isso: repetir as mesmas medidas e comparar com a referência é a constância."
+              },
+              {
+                "label": "Ação corretiva",
+                "correct": false,
+                "feedback": "A ação corretiva trata uma causa, e aqui não há desvio ainda."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m32-02",
+      "code": "M32.02",
+      "title": "Testar o feixe",
+      "objective": "Hoje você vai conseguir dizer o que os testes de tensão, de tempo, de rendimento e de filtração verificam no feixe.",
+      "competency": "Associar tensão, tempo, rendimento e filtração ao que cada teste verifica no feixe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, com a física médica",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje o físico médico vem medir o feixe da sala 2. Vamos acompanhar e anotar."
+          },
+          {
+            "speaker": "duda",
+            "text": "Medir o feixe? O painel já mostra os valores que a gente escolhe."
+          },
+          {
+            "speaker": "caio",
+            "text": "O painel mostra o que foi pedido. O teste conta o que saiu do tubo de verdade."
+          }
+        ]
+      },
+      "concept": {
+        "title": "O pedido e o que o tubo entrega",
+        "body": "No esquema, o feixe desce do tubo, passa por lâminas de filtro e chega a um medidor sobre a mesa, ligado a um mostrador. O teste compara o pedido com o entregue. Tensão: a entregue deve bater com a selecionada. Tempo: o medido deve bater com o indicado. Rendimento: a radiação emitida para uma carga fixa. Filtração: a camada semirredutora, espessura de alumínio que reduz a leitura à metade, mostra se ela basta. As lâminas, somadas ao feixe, servem para achá-la. Pouca filtração expõe mais o paciente.",
+        "keyPoints": [
+          "O painel mostra o pedido; o medidor, o que o tubo entregou.",
+          "Tensão, tempo, rendimento e filtração: um teste para cada.",
+          "Quem mede é o físico médico ou quem o serviço designa."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M21.05. Neste esquema simplificado, o que uma camada semirredutora faz com o feixe que passa por ela?",
+          "options": [
+            {
+              "label": "Deixa passar metade do que chegava",
+              "correct": true,
+              "feedback": "Isso: cada camada semirredutora deixa passar metade, neste esquema."
+            },
+            {
+              "label": "Deixa passar um quarto do que chegava",
+              "correct": false,
+              "feedback": "Um quarto é o que sobra depois de duas camadas, e não de uma."
+            },
+            {
+              "label": "Deixa passar tudo, sem mudar o feixe",
+              "correct": false,
+              "feedback": "Sem atenuar nada, a camada não serviria para medir a filtração."
+            },
+            {
+              "label": "Bloqueia o feixe por completo",
+              "correct": false,
+              "feedback": "Uma camada só reduz o feixe à metade, e não o elimina."
+            }
+          ],
+          "help": "Quanto sobra depois de uma camada, neste esquema?",
+          "sourceIds": [
+            "jacmp-2026-camada-semirredutora"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as peças do esquema do teste de feixe, tocando na ficha e no ponto.",
+          "diagramId": "teste-de-feixe",
+          "points": [
+            {
+              "label": "Tubo de raios X",
+              "x": 0.5,
+              "y": 0.12,
+              "where": "no alto, a caixa com um ponto amarelo dentro"
+            },
+            {
+              "label": "Colimador",
+              "x": 0.5,
+              "y": 0.34,
+              "where": "logo abaixo da caixa de cima, de onde o feixe se abre"
+            },
+            {
+              "label": "Lâminas de filtro",
+              "x": 0.5,
+              "y": 0.58,
+              "where": "no meio do caminho do feixe, três faixas finas num suporte"
+            },
+            {
+              "label": "Medidor",
+              "x": 0.5,
+              "y": 0.8,
+              "where": "sobre a mesa, o aparelho baixo que o feixe atinge"
+            },
+            {
+              "label": "Mostrador",
+              "x": 0.825,
+              "y": 0.65,
+              "where": "à direita, a tela com três barras de alturas diferentes"
+            }
+          ],
+          "distractors": [
+            "Receptor de imagem"
+          ],
+          "feedbackCorrect": "Isso mesmo: o feixe sai do tubo, passa pelas lâminas e chega ao medidor, que fala com o mostrador.",
+          "feedbackIncorrect": "Siga o caminho do feixe de cima para baixo: o que o emite, o que o abre, o que o atenua e o que o lê.",
+          "help": "Comece pelo alto e desça acompanhando o feixe.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada teste do feixe ao que ele verifica.",
+          "pairs": [
+            {
+              "left": "Teste de tensão",
+              "right": "A tensão entregue bate com a selecionada"
+            },
+            {
+              "left": "Teste de tempo",
+              "right": "O tempo medido bate com o indicado"
+            },
+            {
+              "left": "Teste de rendimento",
+              "right": "A radiação emitida para uma carga fixa"
+            },
+            {
+              "left": "Teste de filtração",
+              "right": "A camada semirredutora, que mostra se a filtração basta"
+            }
+          ],
+          "feedbackCorrect": "Cada teste liga um parâmetro do pedido ao que o tubo de fato entrega.",
+          "feedbackIncorrect": "Releia o conceito: tensão e tempo comparam o entregue com o pedido, rendimento mede a radiação emitida e filtração usa a camada semirredutora.",
+          "help": "Duas associações comparam o entregue com o pedido; as outras duas olham o feixe em si.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "jacmp-2026-camada-semirredutora"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Julgue cada afirmação sobre o seu papel no teste de feixe.",
+          "statements": [
+            {
+              "text": "O painel mostra o que foi pedido, e o medidor, o que o tubo entregou.",
+              "correct": true,
+              "feedback": "Certo: são duas leituras diferentes, e o teste existe para compará-las."
+            },
+            {
+              "text": "Se o painel mostra o valor esperado, o teste de tensão pode ser dispensado.",
+              "correct": false,
+              "feedback": "Errado: o painel mostra o pedido, e só a medida mostra o que saiu do tubo."
+            },
+            {
+              "text": "O estudante acompanha o teste e anota o que o serviço pede.",
+              "correct": true,
+              "feedback": "Certo: acompanhar e registrar cabe ao estudante, e a medida é de quem o serviço designa."
+            },
+            {
+              "text": "O estudante pode mudar o ajuste do tubo até o medidor marcar o esperado.",
+              "correct": false,
+              "feedback": "Errado: ajustar o equipamento não cabe ao estudante; ele descreve o que vê e avisa."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que se mede do que se ajusta, e quem faz cada coisa.",
+          "feedbackIncorrect": "Releia o conceito: o painel não substitui a medida, e o estudante não ajusta o equipamento.",
+          "help": "Pergunte quem mede e quem ajusta.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "cloze",
+          "role": "transfer",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "Na sala 5, o painel mostra o que foi {{1}}, e o medidor sobre a mesa lê o que o tubo {{2}}.",
+          "answers": [
+            "pedido",
+            "entregou"
+          ],
+          "distractors": [
+            "armazenou",
+            "calibrou",
+            "desligou"
+          ],
+          "feedbackCorrect": "Isso: o painel traz o pedido, e o medidor traz o que saiu do tubo.",
+          "feedbackIncorrect": "Pense no que cada leitura mostra: o painel guarda o que se escolheu, e o medidor, o que o tubo fez.",
+          "help": "Uma leitura é o que se escolheu; a outra, o que aconteceu.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer o que cada teste do feixe verifica, e por que o painel não substitui a medida. Medir e ajustar é da física médica ou de quem o serviço designa.",
+        "line": {
+          "speaker": "caio",
+          "text": "O painel diz o que a gente pediu. A medida diz o que o tubo fez."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que teste responde se o tempo de exposição que o aparelho cumpre bate com o tempo indicado?",
+          "options": [
+            {
+              "label": "O de tempo",
+              "correct": true,
+              "feedback": "Isso: o teste de tempo compara o tempo medido com o indicado."
+            },
+            {
+              "label": "O de tensão",
+              "correct": false,
+              "feedback": "A tensão compara a entregue com a selecionada, e não o tempo."
+            },
+            {
+              "label": "O de rendimento",
+              "correct": false,
+              "feedback": "O rendimento mede a radiação emitida para uma carga fixa."
+            },
+            {
+              "label": "O de filtração",
+              "correct": false,
+              "feedback": "A filtração usa a camada semirredutora, e não o tempo."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "prompt": "Um colega diz que, com o painel mostrando o valor certo, o teste de filtração é dispensável. O que você responde?",
+          "options": [
+            {
+              "label": "Tem razão: o painel já resume tudo que o feixe tem",
+              "correct": false,
+              "feedback": "O painel mostra o pedido, e não resume o feixe."
+            },
+            {
+              "label": "A filtração só importa para a imagem, e não para o paciente",
+              "correct": false,
+              "feedback": "Pouca filtração pode expor mais o paciente, e não só mudar a imagem."
+            },
+            {
+              "label": "O painel não mostra a filtração, só a medida mostra",
+              "correct": true,
+              "feedback": "Isso: a filtração não aparece no painel, e pouca filtração expõe mais o paciente."
+            },
+            {
+              "label": "Só vale se o equipamento for novo",
+              "correct": false,
+              "feedback": "A filtração se acompanha ao longo da vida do equipamento, e não só no começo."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o painel mostra o que foi pedido, e o medidor mostra…",
+          "item": {
+            "prompt": "O que o medidor sobre a mesa mostra, neste esquema?",
+            "options": [
+              {
+                "label": "O que o painel pediu",
+                "correct": false,
+                "feedback": "Isso é o painel; o medidor lê o feixe, e não o pedido."
+              },
+              {
+                "label": "O que o tubo entregou",
+                "correct": true,
+                "feedback": "Isso: o medidor lê o feixe que chegou até ele."
+              },
+              {
+                "label": "O que o paciente recebeu",
+                "correct": false,
+                "feedback": "No esquema não há paciente; o medidor lê o feixe sobre a mesa."
+              },
+              {
+                "label": "O que o colimador escolheu",
+                "correct": false,
+                "feedback": "O colimador limita o campo, e o medidor lê a radiação que chega."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra sala da simulação, o físico médico mede a camada semirredutora do feixe. Que pergunta esse teste ajuda a responder?",
+            "options": [
+              {
+                "label": "Se o painel mostra o tempo certo",
+                "correct": false,
+                "feedback": "O tempo tem o próprio teste; a camada semirredutora fala da filtração."
+              },
+              {
+                "label": "Se o detector tem uma linha com defeito",
+                "correct": false,
+                "feedback": "Linha de detector aparece num teste de uniformidade, e não no feixe."
+              },
+              {
+                "label": "Se o paciente está bem posicionado",
+                "correct": false,
+                "feedback": "Posição de paciente não é o que a camada semirredutora mede."
+              },
+              {
+                "label": "Se a filtração do feixe basta",
+                "correct": true,
+                "feedback": "Isso: a camada semirredutora mostra se a filtração do feixe basta."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital",
+              "jacmp-2026-camada-semirredutora"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m32-03",
+      "code": "M32.03",
+      "title": "A luz e o feixe coincidem?",
+      "objective": "Hoje você vai conseguir reconhecer quando o campo de luz e o campo de radiação não coincidem, e a quem avisar.",
+      "competency": "Reconhecer o desalinhamento entre o campo de luz e o campo de radiação e levá-lo à equipe responsável.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, teste do colimador",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Veja o retângulo de luz sobre o receptor: é a área que a equipe pretende irradiar."
+          },
+          {
+            "speaker": "duda",
+            "text": "E se o feixe cair um pouco para o lado? Ninguém vai notar a olho."
+          },
+          {
+            "speaker": "caio",
+            "text": "É por isso que existe o teste de alinhamento: luz e radiação precisam cair no mesmo lugar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Luz e radiação no mesmo lugar",
+        "body": "O campo de luz mostra a área que se pretende irradiar. O campo de radiação é a área que o feixe de fato atinge. O teste de alinhamento confere se os dois, e o receptor, estão alinhados. No esquema, o contorno amarelo é o campo de luz, o retângulo azul é o de radiação, e marcadores brancos mostram os cantos e o centro da luz. Com o feixe deslocado, uma faixa fica iluminada sem radiação, e tecido pode ficar fora da imagem; outra é irradiada fora da luz, sem necessidade. O estudante descreve o que vê e avisa a equipe.",
+        "keyPoints": [
+          "Campo de luz: onde se pretende irradiar.",
+          "Campo de radiação: onde o feixe atinge.",
+          "Desalinhamento: descrever e avisar, sem ajustar."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, os testes de feixe compararam o pedido com algo. Com o quê?",
+          "options": [
+            {
+              "label": "Com o que a imagem mostrou no monitor",
+              "correct": false,
+              "feedback": "A imagem não é o que o teste do feixe mede."
+            },
+            {
+              "label": "Com o que o paciente sentiu",
+              "correct": false,
+              "feedback": "Sensação do paciente não é o que um medidor lê."
+            },
+            {
+              "label": "Com o que o tubo entregou, medido",
+              "correct": true,
+              "feedback": "Isso: o teste compara o que foi pedido com o que o tubo entrega."
+            },
+            {
+              "label": "Com o que o fabricante escreveu no manual",
+              "correct": false,
+              "feedback": "O manual pode dar a especificação, mas o teste compara com a medida."
+            }
+          ],
+          "help": "O medidor sobre a mesa lê algo. O quê?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "O campo de radiação saiu deslocado do campo de luz. Toque na faixa em que a luz mostra a área, mas a radiação não chega.",
+          "diagramId": "coincidencia-de-campo",
+          "regions": [
+            {
+              "label": "Faixa amarelada à esquerda",
+              "x": 0.2813,
+              "y": 0.4583,
+              "width": 0.1,
+              "height": 0.2083,
+              "correct": true
+            },
+            {
+              "label": "Área escura no alto à direita",
+              "x": 0.74,
+              "y": 0.15,
+              "width": 0.14,
+              "height": 0.14
+            },
+            {
+              "label": "Área azul no centro",
+              "x": 0.5125,
+              "y": 0.4833,
+              "width": 0.1625,
+              "height": 0.2
+            },
+            {
+              "label": "Faixa azul à direita",
+              "x": 0.7219,
+              "y": 0.4167,
+              "width": 0.0969,
+              "height": 0.25
+            },
+            {
+              "label": "Área escura embaixo à esquerda",
+              "x": 0.18,
+              "y": 0.765,
+              "width": 0.17,
+              "height": 0.09
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: ali a luz indica área a irradiar, e o feixe não chega.",
+          "feedbackIncorrect": "Essa parte não é a certa: procure onde há luz e falta o feixe, e não onde há feixe sem luz.",
+          "help": "Compare, faixa por faixa, onde há luz e onde há radiação.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o que o esquema mostra.",
+          "statements": [
+            {
+              "text": "O campo de luz mostra a área que se pretende irradiar.",
+              "correct": true,
+              "feedback": "Certo: é a referência da equipe para saber onde o feixe deveria cair."
+            },
+            {
+              "text": "Com o campo de radiação deslocado, parte da região pedida pode ficar sem radiação.",
+              "correct": true,
+              "feedback": "Certo: onde a luz mostra área e o feixe não chega, tecido pode ficar fora da imagem."
+            },
+            {
+              "text": "Desalinhamento só preocupa se o campo de luz for menor que o receptor de imagem.",
+              "correct": false,
+              "feedback": "Errado: o deslocamento já separa luz e radiação, qualquer que seja o tamanho do campo."
+            },
+            {
+              "text": "No esquema, o feixe atinge uma faixa que a luz não mostra.",
+              "correct": true,
+              "feedback": "Certo: à direita, a radiação cai fora do contorno amarelo, onde ninguém esperava."
+            }
+          ],
+          "feedbackCorrect": "Você leu o esquema: luz e radiação separadas mudam o que é atingido.",
+          "feedbackIncorrect": "Releia o conceito: o campo de luz é o pretendido, e o de radiação é o que o feixe atinge.",
+          "help": "Compare, no esquema, o contorno amarelo com o retângulo azul.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Diante do desalinhamento, classifique cada ação: é do estudante ou da equipe responsável?",
+          "categories": [
+            "É do estudante",
+            "É da equipe responsável"
+          ],
+          "items": [
+            {
+              "label": "Descrever que lado e que faixa não coincidem",
+              "category": "É do estudante"
+            },
+            {
+              "label": "Avisar a supervisão do que foi visto",
+              "category": "É do estudante"
+            },
+            {
+              "label": "Registrar como o serviço manda",
+              "category": "É do estudante"
+            },
+            {
+              "label": "Ajustar o colimador até as bordas coincidirem",
+              "category": "É da equipe responsável"
+            },
+            {
+              "label": "Investigar a causa do desvio",
+              "category": "É da equipe responsável"
+            },
+            {
+              "label": "Decidir se a sala segue em uso",
+              "category": "É da equipe responsável"
+            }
+          ],
+          "feedbackCorrect": "Você deixou com o estudante descrever, avisar e registrar, e com a equipe, ajustar, investigar e decidir.",
+          "feedbackIncorrect": "Pergunte de cada ação: ela descreve o que se viu ou mexe no equipamento e decide sobre a sala?",
+          "help": "O estudante observa e leva adiante; mexer e decidir é de outra pessoa.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "duda",
+          "prompt": "Em outra sala da simulação, Duda olha com você a imagem de um teste de alinhamento. Ajude-a a ler e a agir.",
+          "turns": [
+            {
+              "line": "As marcas dos cantos da luz ficaram num lugar, e o retângulo exposto saiu mais para baixo delas. O que isso quer dizer?",
+              "options": [
+                {
+                  "label": "O feixe caiu fora do que a luz mostrava: os dois não coincidem.",
+                  "correct": true,
+                  "reply": "Então embaixo foi irradiado o que a luz não mostrava, e em cima faltou radiação."
+                },
+                {
+                  "label": "Nada: o retângulo exposto costuma sair um pouco maior que a luz mesmo.",
+                  "correct": false,
+                  "reply": "Hum, mas ele não ficou maior. Ele foi parar mais para baixo."
+                },
+                {
+                  "label": "É falha do detector, porque a imagem de teste deveria ficar toda lisa.",
+                  "correct": false,
+                  "reply": "Mas não vejo linha nem mancha, só o retângulo fora do lugar."
+                }
+              ]
+            },
+            {
+              "line": "E agora? A próxima pessoa da agenda entra nesta sala daqui a pouco.",
+              "options": [
+                {
+                  "label": "Seguimos a agenda: um deslocamento pequeno assim não muda o exame.",
+                  "correct": false,
+                  "reply": "Mas a parte de baixo foi irradiada sem ninguém ver na luz."
+                },
+                {
+                  "label": "Registro o que vi e aviso a supervisão antes de a pessoa entrar.",
+                  "correct": true,
+                  "reply": "Vou junto, e levo a imagem do teste para mostrar."
+                },
+                {
+                  "label": "Ajusto o colimador rapidinho, antes de a pessoa entrar na sala.",
+                  "correct": false,
+                  "reply": "Mas eu nunca mexi nesse ajuste. Você sabe fazer?"
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você leu o deslocamento como luz e feixe fora de lugar, e levou o achado à supervisão sem mexer no equipamento.",
+          "feedbackIncorrect": "Reveja os turnos: retângulo exposto fora das marcas é desalinhamento, e o estudante registra e avisa, sem ajustar.",
+          "help": "Compare onde a luz estava com onde o feixe chegou, e pense em quem mexe no equipamento.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue reconhecer, no esquema, que luz e radiação não coincidem: uma faixa fica iluminada sem radiação, e outra é irradiada fora da luz. Descreve, avisa e deixa o ajuste com a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "A luz promete uma área. O teste confere se o feixe cumpre a promessa."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No teste de alinhamento, o que o campo de luz representa?",
+          "options": [
+            {
+              "label": "A área que o feixe de fato atingiu",
+              "correct": false,
+              "feedback": "Essa é a do campo de radiação, que o teste compara com a luz."
+            },
+            {
+              "label": "A área do detector que guarda a imagem",
+              "correct": false,
+              "feedback": "O receptor é outra peça, e o teste confere se está alinhado."
+            },
+            {
+              "label": "A área que se pretende irradiar",
+              "correct": true,
+              "feedback": "Isso: é a referência da equipe para onde o feixe deveria cair."
+            },
+            {
+              "label": "A dose que o paciente recebe",
+              "correct": false,
+              "feedback": "Campo de luz é uma área, e não uma dose."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "prompt": "No esquema, o campo de radiação está deslocado em relação ao de luz. Que consequência combina com o que se vê?",
+          "options": [
+            {
+              "label": "Parte da região pedida pode ficar sem radiação, e parte cai fora da luz",
+              "correct": true,
+              "feedback": "Isso: o deslocamento deixa uma faixa só iluminada e outra só irradiada."
+            },
+            {
+              "label": "A imagem sai sempre melhor, porque o campo se alarga e cobre mais",
+              "correct": false,
+              "feedback": "O campo não cresce: ele se desloca, e tecido pode ficar fora da imagem."
+            },
+            {
+              "label": "Nada muda, porque os dois campos têm exatamente o mesmo tamanho",
+              "correct": false,
+              "feedback": "O mesmo tamanho não basta: deslocado, o feixe cai em outro lugar."
+            },
+            {
+              "label": "A radiação espalhada deixa de existir na sala durante a exposição",
+              "correct": false,
+              "feedback": "O deslocamento não elimina o espalhamento, e não é essa a consequência."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o campo de luz mostra a área que se pretende…",
+          "item": {
+            "prompt": "Que campo mostra onde o feixe de fato atinge?",
+            "options": [
+              {
+                "label": "O campo de luz",
+                "correct": false,
+                "feedback": "O campo de luz é o pretendido, e não onde o feixe caiu."
+              },
+              {
+                "label": "O campo de radiação",
+                "correct": true,
+                "feedback": "Isso: é a área que o feixe de fato atinge."
+              },
+              {
+                "label": "O marcador de canto",
+                "correct": false,
+                "feedback": "O marcador só mostra o canto do campo de luz."
+              },
+              {
+                "label": "O receptor de imagem",
+                "correct": false,
+                "feedback": "O receptor guarda a imagem, e não mede onde o feixe caiu."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra sala da simulação, o técnico nota que o feixe parece cair mais para um lado que a luz. O que ele faz?",
+            "options": [
+              {
+                "label": "Gira o colimador até a luz coincidir",
+                "correct": false,
+                "feedback": "Ajustar o colimador não cabe ao estudante."
+              },
+              {
+                "label": "Abre mais o campo para garantir",
+                "correct": false,
+                "feedback": "Abrir o campo expõe tecido sem necessidade e esconde o desvio."
+              },
+              {
+                "label": "Segue atendendo, porque a luz parece certa",
+                "correct": false,
+                "feedback": "A luz pode parecer certa e o feixe cair em outro lugar: é isso que se avisa."
+              },
+              {
+                "label": "Descreve o que viu e avisa a equipe responsável",
+                "correct": true,
+                "feedback": "Isso: observar e avisar é o papel do estudante, e o ajuste é da equipe."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m32-04",
+      "code": "M32.04",
+      "title": "O detector e o monitor",
+      "objective": "Hoje você vai conseguir reconhecer o que quebra a uniformidade numa imagem de teste do detector e conferir o padrão do monitor, sem calibrar.",
+      "competency": "Reconhecer uma falha de uniformidade do detector e conferir um padrão de teste do monitor, relatando sem calibrar.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, rotina de teste",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Vou fazer o teste do detector: um feixe uniforme, sem paciente na frente."
+          },
+          {
+            "speaker": "duda",
+            "text": "Sem paciente? Vai sair uma imagem vazia."
+          },
+          {
+            "speaker": "caio",
+            "text": "Vazia, mas lisa. A graça é essa: o que não for liso é problema do equipamento."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Imagem lisa e padrão legível",
+        "body": "O teste de uniformidade expõe o detector a um feixe uniforme, sem paciente: no máximo uma placa lisa, igual em toda parte, fica no caminho. A imagem deve ser lisa, parecida em toda parte; linha, faixa ou mancha não é anatomia, e uma não uniformidade pode imitar ou esconder um achado clínico. O resultado se compara ao de referência. No monitor, o padrão de teste confere se os extremos do cinza se distinguem, se o preto e o branco se separam sem borrão e se o texto fica legível, sob luz adequada. Você observa e relata; calibrar é de quem o serviço designa.",
+        "keyPoints": [
+          "Uniformidade: feixe uniforme, sem paciente, imagem lisa.",
+          "Marca que sobra na imagem lisa vem do equipamento.",
+          "Monitor: observe o padrão, relate, não calibre."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o campo de radiação saiu deslocado do de luz. Quem ajusta o colimador?",
+          "options": [
+            {
+              "label": "O estudante, até as bordas coincidirem",
+              "correct": false,
+              "feedback": "Ajustar o colimador não cabe ao estudante, que descreve o que vê."
+            },
+            {
+              "label": "A equipe responsável pelo equipamento",
+              "correct": true,
+              "feedback": "Isso: o estudante descreve e avisa, e o ajuste é da equipe responsável."
+            },
+            {
+              "label": "O paciente, mudando de posição",
+              "correct": false,
+              "feedback": "Mudar de posição não corrige onde o feixe cai."
+            },
+            {
+              "label": "Ninguém: o recorte da imagem resolve depois",
+              "correct": false,
+              "feedback": "Recortar a imagem não muda onde o feixe já caiu."
+            }
+          ],
+          "help": "Quem mexe no equipamento, e quem só observa e avisa?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Este esquema de tórax tem três marcas do equipamento. Num teste de uniformidade, sem paciente, a anatomia não aparece. Toque na região que é do corpo, e não do equipamento.",
+          "diagramId": "artefatos-do-detector",
+          "regions": [
+            {
+              "label": "Linha fina no alto à direita",
+              "x": 0.7415,
+              "y": 0.06,
+              "width": 0.08,
+              "height": 0.2
+            },
+            {
+              "label": "Bandas claras na lateral esquerda",
+              "x": 0.138,
+              "y": 0.042,
+              "width": 0.09,
+              "height": 0.917
+            },
+            {
+              "label": "Área escura no meio, à direita",
+              "x": 0.609,
+              "y": 0.292,
+              "width": 0.125,
+              "height": 0.25,
+              "correct": true
+            },
+            {
+              "label": "Contorno fraco embaixo à direita",
+              "x": 0.584,
+              "y": 0.671,
+              "width": 0.169,
+              "height": 0.308
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: essa área é pulmão, e sem paciente ela não aparece; as outras marcas não vêm do corpo.",
+          "feedbackIncorrect": "Essa marca não depende do corpo: procure a região que só existe porque há um paciente.",
+          "help": "O que existe só quando há um corpo no caminho do feixe?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "aapm-tg150-testes-de-detector"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque tudo o que combina com um teste de uniformidade do detector.",
+          "options": [
+            {
+              "label": "Deixar uma chave ou outro objeto sobre o detector durante a exposição",
+              "correct": false,
+              "feedback": "Com objeto no caminho, a imagem deixa de ser lisa por causa dele, e o teste perde o sentido."
+            },
+            {
+              "label": "Expor o detector a um feixe uniforme, sem paciente",
+              "correct": true,
+              "feedback": "O teste precisa de um feixe igual em toda parte, para a imagem ser lisa se o detector estiver bem."
+            },
+            {
+              "label": "Esperar uma imagem lisa, parecida em toda parte",
+              "correct": true,
+              "feedback": "Uma imagem de exposição uniforme deve ser muito parecida em toda a área."
+            },
+            {
+              "label": "Apagar a imagem se houver uma faixa, para não registrar",
+              "correct": false,
+              "feedback": "Apagar esconde a falha: a faixa se descreve, se registra e se leva à equipe."
+            },
+            {
+              "label": "Comparar o resultado com o de referência",
+              "correct": true,
+              "feedback": "Comparar com a referência mostra se o detector mudou desde o começo."
+            },
+            {
+              "label": "Regular o detector quando aparecer uma mancha",
+              "correct": false,
+              "feedback": "Regular o detector não cabe ao estudante: ele descreve a mancha e avisa."
+            }
+          ],
+          "feedbackCorrect": "Você marcou as três ideias do teste e deixou de fora o que o estragaria ou foge do seu papel.",
+          "feedbackIncorrect": "Releia o conceito: o feixe é uniforme e sem paciente, a imagem deve ser lisa, compara-se com a referência e o estudante não regula nada.",
+          "help": "Pense no que o teste precisa para uma falha aparecer, e no que não cabe ao estudante.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "aapm-tg150-testes-de-detector"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "safety",
+          "criticalSafety": true,
+          "speaker": "caio",
+          "prompt": "Caio faz a rotina de testes com você. Ajude-o a conduzir o relato.",
+          "turns": [
+            {
+              "line": "Na imagem de uniformidade, uma faixa mais clara cruza uma lateral. Eu aposto que é só poeira. O que a gente faz?",
+              "options": [
+                {
+                  "label": "Descrevo onde está a faixa e aviso o físico médico.",
+                  "correct": true,
+                  "reply": "Anoto a lateral e a forma da faixa, e vou atrás do físico médico agora."
+                },
+                {
+                  "label": "Limpo o detector com um pano e refaço a imagem logo em seguida.",
+                  "correct": false,
+                  "reply": "Pego o pano então, e vemos se a faixa sai na imagem seguinte."
+                },
+                {
+                  "label": "Apago a imagem: com poeira no detector, o teste nem vale.",
+                  "correct": false,
+                  "reply": "Apago, então, e a gente segue sem anotar nada sobre isso."
+                }
+              ]
+            },
+            {
+              "line": "No padrão do monitor, as bordas entre o preto e o branco estão borradas. Posso passar uma imagem mesmo assim?",
+              "options": [
+                {
+                  "label": "Ajusto o brilho do monitor até o borrão desaparecer da tela.",
+                  "correct": false,
+                  "reply": "Vou mexer no brilho agora, então, e ver se melhora."
+                },
+                {
+                  "label": "Leio assim e compenso com a janela da imagem na estação.",
+                  "correct": false,
+                  "reply": "Tá, vou ler assim e ir ajustando a janela conforme precisar."
+                },
+                {
+                  "label": "Descrevo o que vi e aviso quem o serviço designou.",
+                  "correct": true,
+                  "reply": "Anoto o borrão nas bordas e chamo quem o serviço indicou para o monitor."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você descreveu e avisou nos dois casos, sem limpar, apagar nem calibrar.",
+          "feedbackIncorrect": "Reveja os turnos: nem a faixa nem o borrão se resolvem sozinho; descreva o que viu e avise.",
+          "help": "Nos dois casos, o que o estudante faz é descrever e avisar.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Em outra sala da simulação, julgue cada afirmação sobre o padrão de teste do monitor.",
+          "statements": [
+            {
+              "text": "O padrão confere se o preto e o branco se separam sem borrão entre eles.",
+              "correct": true,
+              "feedback": "Certo: transições borradas entre preto e branco são um achado do padrão."
+            },
+            {
+              "text": "O texto do padrão deve ficar legível na tela.",
+              "correct": true,
+              "feedback": "Certo: texto ilegível mostra que o monitor não está mostrando o que deveria."
+            },
+            {
+              "text": "Se o padrão não passar, o estudante calibra o monitor na hora.",
+              "correct": false,
+              "feedback": "Errado: calibrar é de quem o serviço designa, e o estudante observa e relata."
+            },
+            {
+              "text": "Se o quadradinho quase preto some no fundo preto, o padrão não passou.",
+              "correct": true,
+              "feedback": "Certo: o padrão confere se os extremos do cinza se distinguem, e ali o tom escuro sumiu."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o monitor sob observação, sem calibrar nada.",
+          "feedbackIncorrect": "Releia o conceito: o padrão confere extremos, bordas e texto, e a calibração é de outra pessoa.",
+          "help": "O que o padrão confere, e quem calibra?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer que, sem objeto, a imagem do detector deve ser lisa, e que o que sobra nela vem do equipamento. No monitor, observa o padrão, relata o que não passa e deixa a calibração com quem o serviço designa.",
+        "line": {
+          "speaker": "lia",
+          "text": "Imagem lisa, padrão legível. O que fugir disso, você descreve e leva adiante."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O que a imagem de um teste de uniformidade do detector deveria mostrar?",
+          "options": [
+            {
+              "label": "Os pulmões e as costelas de um paciente padrão",
+              "correct": false,
+              "feedback": "No teste não há paciente, e a anatomia não aparece."
+            },
+            {
+              "label": "Uma faixa clara a cada coluna de pixels",
+              "correct": false,
+              "feedback": "Faixas são falha, e não o esperado de um detector sem defeito."
+            },
+            {
+              "label": "Um degradê do centro para as bordas",
+              "correct": false,
+              "feedback": "Um degradê seria uma falha de uniformidade, e não a imagem esperada."
+            },
+            {
+              "label": "Uma imagem lisa, parecida em toda a área",
+              "correct": true,
+              "feedback": "Isso: sem objeto no caminho, a imagem deve ser muito parecida em toda parte."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital",
+            "aapm-tg150-testes-de-detector"
+          ]
+        },
+        {
+          "prompt": "Por que uma faixa clara numa imagem de uniformidade merece atenção, mesmo sem paciente?",
+          "options": [
+            {
+              "label": "Porque o teste só vale se a imagem final ficar bonita",
+              "correct": false,
+              "feedback": "O teste procura falhas, e não beleza."
+            },
+            {
+              "label": "Porque pode imitar ou esconder um achado clínico",
+              "correct": true,
+              "feedback": "Isso: a mesma marca numa imagem de paciente atrapalharia a leitura."
+            },
+            {
+              "label": "Porque a faixa aumenta a dose do paciente seguinte",
+              "correct": false,
+              "feedback": "A faixa é uma falha de imagem, e não altera a dose do próximo exame."
+            },
+            {
+              "label": "Porque sem paciente nenhuma marca importa de verdade",
+              "correct": false,
+              "feedback": "Justamente sem paciente, uma marca mostra que o equipamento tem um problema."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no teste de uniformidade, o detector é exposto sem…",
+          "item": {
+            "prompt": "O que pode ficar no caminho do feixe no teste de uniformidade?",
+            "options": [
+              {
+                "label": "No máximo uma placa lisa, igual em toda parte",
+                "correct": true,
+                "feedback": "Isso: com o feixe uniforme, uma imagem lisa é o esperado de um detector sem falha."
+              },
+              {
+                "label": "Um paciente simulado em posição padrão",
+                "correct": false,
+                "feedback": "Com paciente, a imagem mostraria a anatomia, e não a uniformidade."
+              },
+              {
+                "label": "Um objeto metálico, para comparar",
+                "correct": false,
+                "feedback": "Um objeto criaria uma marca que o teste não procura."
+              },
+              {
+                "label": "Uma luva de chumbo sobre o centro",
+                "correct": false,
+                "feedback": "Uma peça que cobre só o centro barra o feixe ali e estraga a uniformidade."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital",
+              "aapm-tg150-testes-de-detector"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "A física médica compara a imagem de uniformidade de hoje com a de referência. Para que serve essa comparação?",
+            "options": [
+              {
+                "label": "Escolher a técnica do próximo paciente",
+                "correct": false,
+                "feedback": "A técnica de paciente não sai de um teste de equipamento."
+              },
+              {
+                "label": "Dispensar o teste de constância seguinte",
+                "correct": false,
+                "feedback": "A comparação faz parte da constância, e não a substitui."
+              },
+              {
+                "label": "Mostrar se o detector mudou desde a referência",
+                "correct": true,
+                "feedback": "Isso: comparar com a referência revela o que mudou ao longo do tempo."
+              },
+              {
+                "label": "Decidir qual detector é o mais bonito",
+                "correct": false,
+                "feedback": "O teste procura mudança, e não aparência."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital",
+              "aapm-tg150-testes-de-detector"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m32-05",
+      "code": "M32.05",
+      "title": "Níveis de referência",
+      "objective": "Hoje você vai conseguir dizer o que um nível de referência de diagnóstico é, e o que ele não é.",
+      "competency": "Dizer o que é e o que não é um nível de referência de diagnóstico, e com que valor ele se compara.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de reunião do serviço, com o físico médico",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "O serviço comparou o valor típico de cada sala para o mesmo exame. Veja o gráfico."
+          },
+          {
+            "speaker": "duda",
+            "text": "Então a barra mais alta é a sala que erra? E o paciente que ficou acima da linha?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma, Duda. Vamos ver o que esse gráfico responde e o que ele não responde."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Um valor para comparar salas",
+        "body": "Um nível de referência de diagnóstico ajuda a otimizar a proteção na exposição médica. Compara-se com ele o valor típico, a mediana, de uma sala ou serviço para um exame padrão, e nunca a dose de um paciente. Ele não é limite de dose e não separa prática boa de ruim. Num levantamento de radiografia, o valor típico de cada serviço foi a mediana do produto dose-área. No esquema, a linha deixa três quartos das salas abaixo dela, e acima dela se investigam as causas.",
+        "keyPoints": [
+          "Compara o valor típico de uma sala, e não a dose de um paciente.",
+          "Não é limite de dose.",
+          "Acima da linha: investigar as causas, sem culpar."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M21.04. Que indicador do equipamento multiplica a radiação do feixe pela área do campo?",
+          "options": [
+            {
+              "label": "O dosímetro de referência",
+              "correct": false,
+              "feedback": "O dosímetro de referência mede a radiação de fundo, e não o campo."
+            },
+            {
+              "label": "A camada semirredutora",
+              "correct": false,
+              "feedback": "A camada semirredutora fala da filtração, e não da área do campo."
+            },
+            {
+              "label": "O valor de pixel",
+              "correct": false,
+              "feedback": "O valor de pixel pertence à imagem, e não ao feixe."
+            },
+            {
+              "label": "O produto dose-área",
+              "correct": true,
+              "feedback": "Isso: é o indicador do equipamento que combina a radiação do feixe com a área do campo."
+            }
+          ],
+          "help": "Qual indicador do equipamento usa a área do campo na conta?",
+          "sourceIds": [
+            "pmc-kap-definicao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule o gráfico: cada barra é o valor típico de uma sala. Toque na ficha e no ponto.",
+          "diagramId": "nivel-de-referencia",
+          "points": [
+            {
+              "label": "Nível de referência",
+              "x": 0.344,
+              "y": 0.325,
+              "where": "a linha tracejada que cruza o gráfico na horizontal"
+            },
+            {
+              "label": "Salas acima do nível",
+              "x": 0.808,
+              "y": 0.215,
+              "where": "as três barras amarelas, à direita"
+            },
+            {
+              "label": "Salas abaixo do nível",
+              "x": 0.511,
+              "y": 0.6625,
+              "where": "as barras azuis do meio, sob a linha tracejada"
+            },
+            {
+              "label": "Menor valor típico",
+              "x": 0.2125,
+              "y": 0.767,
+              "where": "a primeira barra à esquerda, a mais curta"
+            }
+          ],
+          "distractors": [
+            "Limite de dose",
+            "Dose de um paciente"
+          ],
+          "feedbackCorrect": "Isso mesmo: a linha é o nível, e as barras são salas, e não pacientes nem um limite.",
+          "feedbackIncorrect": "Algum nome está no lugar errado: a linha é um nível de comparação, e cada barra é uma sala.",
+          "help": "Comece pela linha tracejada e pela cor das barras que passam dela.",
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "pmc-nrd-radiografia-torax-abdome"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o nível de referência.",
+          "statements": [
+            {
+              "text": "O nível de referência é um limite de dose que nenhuma sala pode passar.",
+              "correct": false,
+              "feedback": "Errado: ele não é limite de dose; é um nível para investigar e otimizar."
+            },
+            {
+              "text": "O valor comparado é o valor típico de uma sala para um exame padrão.",
+              "correct": true,
+              "feedback": "Certo: compara-se a mediana da sala ou do serviço, e não um valor de paciente."
+            },
+            {
+              "text": "Ele serve para julgar se a dose de um paciente foi adequada.",
+              "correct": false,
+              "feedback": "Errado: o nível não se aplica a um paciente individual."
+            },
+            {
+              "text": "Uma sala acima da linha é sinal para investigar as causas.",
+              "correct": true,
+              "feedback": "Certo: acima da linha, a equipe investiga o que explica o valor, sem concluir que há erro."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o nível como comparação entre salas, e não como limite nem como juízo sobre um paciente.",
+          "feedbackIncorrect": "Releia o conceito: o nível compara o valor típico de salas, não é limite de dose e não vale para um paciente.",
+          "help": "O que se compara com a linha: um paciente ou uma sala?",
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "icrpaedia-sistema-de-protecao-2"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre o nível de referência.",
+          "statements": [
+            {
+              "text": "O nível de referência ajuda a otimizar a proteção na exposição médica.",
+              "correct": true,
+              "feedback": "Ele é uma ferramenta para ajudar a otimizar a proteção, e não um fim em si."
+            },
+            {
+              "text": "Cada paciente deve receber uma dose abaixo do nível de referência.",
+              "correct": false,
+              "feedback": "O nível não se aplica a um paciente: ele compara o valor típico de salas."
+            },
+            {
+              "text": "Neste esquema, a linha deixa três quartos das salas abaixo dela.",
+              "correct": true,
+              "feedback": "Nove das doze barras ficam abaixo da linha: três quartos do conjunto."
+            },
+            {
+              "text": "Estar abaixo da linha prova que o serviço trabalha bem.",
+              "correct": false,
+              "feedback": "O nível não separa prática boa de ruim: abaixo da linha não é atestado de qualidade."
+            },
+            {
+              "text": "A linha serve para decidir se um paciente repete o exame.",
+              "correct": false,
+              "feedback": "A linha é do serviço e não decide nada sobre um exame individual."
+            },
+            {
+              "text": "Acima da linha, o serviço investiga as causas da diferença.",
+              "correct": true,
+              "feedback": "O nível funciona como nível de investigação: acima dele, procuram-se as causas."
+            },
+            {
+              "text": "O valor de cada sala vem da mediana de muitos exames, e não de um só.",
+              "correct": true,
+              "feedback": "A mediana de muitos exames resiste a poucos valores muito altos ou muito baixos."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou o que o nível é do que ele não é, no ritmo da rodada.",
+          "feedbackIncorrect": "Reveja as afirmações: o nível compara salas, não limita dose e não vale para um paciente.",
+          "help": "Leia cada afirmação com calma: ela fala de salas ou de um paciente?",
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "pmc-nrd-radiografia-torax-abdome"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "duda",
+          "prompt": "Duda viu o gráfico do serviço e voltou cheia de dúvidas. Ajude-a a conduzir a conversa.",
+          "turns": [
+            {
+              "line": "A minha sala ficou acima da linha neste exame. Então estou fazendo algo errado?",
+              "options": [
+                {
+                  "label": "Não necessariamente: acima da linha, a equipe investiga as causas.",
+                  "correct": true,
+                  "reply": "Ah, então a ideia é descobrir o que explica o valor, e não apontar culpado."
+                },
+                {
+                  "label": "Sim: acima da linha a sala passou do limite e precisa parar de funcionar.",
+                  "correct": false,
+                  "reply": "Nossa, então devo avisar que a sala está proibida de funcionar?"
+                },
+                {
+                  "label": "Não: a linha vale só para pacientes de tamanho grande, e não para a sua sala.",
+                  "correct": false,
+                  "reply": "Hum, então a linha tem a ver com o tamanho de quem é atendido?"
+                }
+              ]
+            },
+            {
+              "line": "Uma familiar perguntou se a dose do paciente de hoje passou do nível. O que eu digo?",
+              "options": [
+                {
+                  "label": "Que passou, porque a sala inteira está acima da linha neste exame.",
+                  "correct": false,
+                  "reply": "Vou dizer isso a ela, então, que o valor do paciente passou."
+                },
+                {
+                  "label": "Que o nível não vale para um paciente e a equipe responde a ela.",
+                  "correct": true,
+                  "reply": "Entendi: o nível é do serviço, e eu levo a pergunta dela para a equipe."
+                },
+                {
+                  "label": "Que não passou, porque o paciente de hoje é de tamanho padrão e pronto.",
+                  "correct": false,
+                  "reply": "Posso garantir isso a ela só pelo tamanho do paciente, então?"
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: acima da linha se investiga, e o nível não responde por um paciente.",
+          "feedbackIncorrect": "Reveja os turnos: o nível não é limite, não prova erro e não se aplica a um paciente.",
+          "help": "Pense no que o nível compara e no que ele não consegue dizer.",
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "icrpaedia-sistema-de-protecao-2"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue dizer que o nível de referência ajuda a otimizar a proteção comparando o valor típico de uma sala com o de outras, e que não é limite de dose nem se aplica a um paciente. Acima da linha, a equipe investiga.",
+        "line": {
+          "speaker": "lia",
+          "text": "A linha compara salas. Ela não diz nada sobre o paciente de hoje."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Com que valor se compara um nível de referência de diagnóstico?",
+          "options": [
+            {
+              "label": "Com o valor típico de uma sala, para um exame padrão",
+              "correct": true,
+              "feedback": "Isso: compara-se a mediana de uma sala ou serviço, e não um valor de paciente."
+            },
+            {
+              "label": "Com a maior dose já medida num paciente do serviço",
+              "correct": false,
+              "feedback": "O nível não parte do maior valor, e sim do valor típico."
+            },
+            {
+              "label": "Com a dose de cada paciente atendido pela sala",
+              "correct": false,
+              "feedback": "O nível não se aplica a um paciente individual."
+            },
+            {
+              "label": "Com o limite de dose do trabalhador do serviço",
+              "correct": false,
+              "feedback": "O limite de dose do trabalhador é outra coisa, e não entra aqui."
+            }
+          ],
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "pmc-nrd-radiografia-torax-abdome"
+          ]
+        },
+        {
+          "prompt": "Um colega diz que o nível de referência é o limite de dose do paciente. O que você responde?",
+          "options": [
+            {
+              "label": "É sim, mas só vale para exames de crianças e jovens",
+              "correct": false,
+              "feedback": "Ele não é limite, em nenhuma idade."
+            },
+            {
+              "label": "É sim, e a sala que passar dele sai de uso",
+              "correct": false,
+              "feedback": "Mesmo acima da linha, ele não é limite nem tira a sala de uso por si."
+            },
+            {
+              "label": "Não é nada: serve só para enfeitar o relatório",
+              "correct": false,
+              "feedback": "O nível tem função: ajuda a otimizar a proteção."
+            },
+            {
+              "label": "Não é limite: é um nível de investigação entre salas",
+              "correct": true,
+              "feedback": "Isso: o nível ajuda a otimizar, e a dose do paciente fica fora dele."
+            }
+          ],
+          "sourceIds": [
+            "icrp-135-niveis-de-referencia",
+            "icrpaedia-sistema-de-protecao-2"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o nível de referência não é um limite de…",
+          "item": {
+            "prompt": "O que um nível de referência não é?",
+            "options": [
+              {
+                "label": "Uma ferramenta de otimização",
+                "correct": false,
+                "feedback": "Ele é, sim, uma ferramenta para ajudar a otimizar a proteção."
+              },
+              {
+                "label": "Um limite de dose",
+                "correct": true,
+                "feedback": "Isso: ele ajuda a investigar e otimizar, e não limita a dose."
+              },
+              {
+                "label": "Um valor para comparar salas",
+                "correct": false,
+                "feedback": "Comparar o valor típico de salas é a função dele."
+              },
+              {
+                "label": "Um nível de investigação",
+                "correct": false,
+                "feedback": "Ele funciona como nível de investigação: acima dele, procuram-se as causas."
+              }
+            ],
+            "sourceIds": [
+              "icrp-135-niveis-de-referencia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na tomografia da simulação, o valor típico da sala fica acima da linha do serviço. Qual é a leitura adequada?",
+            "options": [
+              {
+                "label": "A sala passou de um limite e deve parar",
+                "correct": false,
+                "feedback": "O nível não é limite de dose."
+              },
+              {
+                "label": "Todos os pacientes da sala receberam dose indevida",
+                "correct": false,
+                "feedback": "O nível não fala de pacientes individuais."
+              },
+              {
+                "label": "É sinal para a equipe investigar as causas, sem prova de erro",
+                "correct": true,
+                "feedback": "Isso: acima da linha investiga-se, e não se conclui sozinho que há erro."
+              },
+              {
+                "label": "O estudante deve ajustar o equipamento para baixar a linha",
+                "correct": false,
+                "feedback": "A linha não se baixa mexendo no equipamento, e o estudante não ajusta nada."
+              }
+            ],
+            "sourceIds": [
+              "icrp-135-niveis-de-referencia",
+              "pmc-nrd-radiografia-torax-abdome"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m32-06",
+      "code": "M32.06",
+      "title": "Quando o teste falha",
+      "objective": "Hoje você vai conseguir registrar um teste fora do padrão, avisar a equipe e seguir a regra do serviço, sem mexer no equipamento.",
+      "competency": "Registrar um teste que saiu do padrão, avisar a equipe e seguir a regra do serviço, sem ajustar o equipamento nem liberar a sala.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, início do turno",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "O teste de constância de hoje deu um valor fora do que a planilha indica. A primeira pessoa da agenda já chegou."
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu refaço o teste até dar certo e a gente atende no horário?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Pense no que cada um aqui pode decidir, e no que só você pode contar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Registrar, avisar, seguir a regra",
+        "body": "Quando um teste sai do padrão, você anota o que viu, no registro que o serviço pede: qual teste, o valor medido, o de referência e a data. Em seguida avisa a supervisão ou o responsável pelo equipamento. O serviço define se e quando o equipamento sai de uso, e quem decide isso: o estudante não libera a sala nem ajusta o equipamento. A equipe investiga a causa, e a assistência corrige. Depois do conserto o teste é refeito, e o resultado também entra no registro. Se algo parecer duvidoso, pare e peça apoio.",
+        "keyPoints": [
+          "Anote o que viu e avise; o conserto é da equipe.",
+          "O serviço define se o equipamento sai de uso.",
+          "Refazer o teste depois do conserto fecha o ciclo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula do feixe. O painel pediu um valor, mas o medidor mostrou outro. O que isso sugere?",
+          "options": [
+            {
+              "label": "O medidor sempre erra um pouco, e vale só o painel",
+              "correct": false,
+              "feedback": "O painel mostra o pedido, e a medida mostra o que saiu."
+            },
+            {
+              "label": "O tubo entregou algo diferente do pedido, e a equipe deve saber",
+              "correct": true,
+              "feedback": "Isso: o teste existe para comparar pedido e entrega, e a diferença vai à equipe."
+            },
+            {
+              "label": "O paciente seguinte vai receber a média dos dois valores",
+              "correct": false,
+              "feedback": "Não existe média entre pedido e entrega: o que importa é o que o tubo entrega."
+            },
+            {
+              "label": "Nada: valores diferentes são normais e não se registram",
+              "correct": false,
+              "feedback": "Diferença entre pedido e entrega é justamente o que o teste procura e registra."
+            }
+          ],
+          "help": "O que o teste compara: o painel e o quê?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "A assistência usou a chave de boca hoje para consertar o equipamento. Toque no marco do teste que confirma se o conserto resolveu o problema.",
+          "diagramId": "ciclo-de-testes",
+          "regions": [
+            {
+              "label": "Círculo amarelo grande",
+              "x": 0.0875,
+              "y": 0.4583,
+              "width": 0.125,
+              "height": 0.1667
+            },
+            {
+              "label": "Círculo azul pequeno",
+              "x": 0.2844,
+              "y": 0.4875,
+              "width": 0.0813,
+              "height": 0.1083
+            },
+            {
+              "label": "Chave de boca",
+              "x": 0.6563,
+              "y": 0.1833,
+              "width": 0.1062,
+              "height": 0.1667
+            },
+            {
+              "label": "Círculo ciano médio",
+              "x": 0.775,
+              "y": 0.4833,
+              "width": 0.0875,
+              "height": 0.1167,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o marco que vem depois da chave é o teste que confere se o problema foi resolvido.",
+          "feedbackIncorrect": "Essa parte não é o teste do conserto: procure o marco que vem depois da chave de boca.",
+          "help": "Procure o marco que vem logo depois do conserto, na linha do tempo.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque o que entra no registro de um teste fora do padrão.",
+          "options": [
+            {
+              "label": "Um valor ajustado para ficar dentro do padrão",
+              "correct": false,
+              "feedback": "Registrar um valor que não foi medido falsifica o registro, e o desvio some do mapa."
+            },
+            {
+              "label": "Qual teste foi feito e quando",
+              "correct": true,
+              "feedback": "Sem o teste e a data, a equipe não consegue situar o desvio no tempo."
+            },
+            {
+              "label": "O valor medido e o valor de referência",
+              "correct": true,
+              "feedback": "Com os dois valores, a equipe vê o tamanho do desvio."
+            },
+            {
+              "label": "A causa que você acha mais provável, escrita como certa",
+              "correct": false,
+              "feedback": "A causa é investigada pela equipe; palpite escrito como fato atrapalha."
+            },
+            {
+              "label": "O que você viu e a quem avisou",
+              "correct": true,
+              "feedback": "Registrar o aviso mostra que o desvio chegou a quem decide."
+            },
+            {
+              "label": "O teste refeito depois do conserto, quando houver",
+              "correct": true,
+              "feedback": "O teste refeito fecha o ciclo e mostra se o problema foi resolvido."
+            }
+          ],
+          "feedbackCorrect": "Você registrou o que foi medido, visto e avisado, e deixou de fora o que seria invenção ou palpite.",
+          "feedbackIncorrect": "Releia o conceito: o registro leva o que foi feito e visto, e não valores ajustados nem causas supostas.",
+          "help": "O que um registro precisa para a equipe entender o desvio, sem inventar nada?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "safety",
+          "criticalSafety": true,
+          "speaker": "caio",
+          "prompt": "Caio e você estão com um teste fora do padrão e uma pessoa à espera. Ajude-o a conduzir.",
+          "turns": [
+            {
+              "line": "A supervisora saiu e não atende o telefone. A pessoa da primeira hora já chegou. Posso chamá-la?",
+              "options": [
+                {
+                  "label": "Chame: sem a supervisora aqui, quem decide somos nós dois mesmo.",
+                  "correct": false,
+                  "reply": "Tá bem, então eu chamo e a gente segue o horário."
+                },
+                {
+                  "label": "Antes, procuramos quem responde pela sala na ausência dela.",
+                  "correct": true,
+                  "reply": "Faz sentido: deve ter alguém indicado. Vou ver na escala do serviço."
+                },
+                {
+                  "label": "Refaça o teste até o valor entrar no padrão, e aí chame.",
+                  "correct": false,
+                  "reply": "Posso repetir até dar um valor melhor, então?"
+                }
+              ]
+            },
+            {
+              "line": "A supervisora pediu que a assistência venha. O que eu escrevo no registro?",
+              "options": [
+                {
+                  "label": "Só o valor que deveria ter dado, para a planilha ficar limpa.",
+                  "correct": false,
+                  "reply": "Escrevo o valor esperado, então, e deixo o outro de lado."
+                },
+                {
+                  "label": "Que o teste passou na segunda tentativa, e mais nada.",
+                  "correct": false,
+                  "reply": "Escrevo que passou na repetição, então, e fecho a planilha."
+                },
+                {
+                  "label": "O teste, o valor, a referência, a data e quem foi avisado.",
+                  "correct": true,
+                  "reply": "Anoto tudo isso agora, e deixo espaço para o teste depois do conserto."
+                }
+              ]
+            },
+            {
+              "line": "A assistência já consertou. O equipamento já pode atender?",
+              "options": [
+                {
+                  "label": "Sim, desde que o equipamento pareça normal a olho nu, como antes.",
+                  "correct": false,
+                  "reply": "Então vou chamar a primeira pessoa, já que parece normal."
+                },
+                {
+                  "label": "Só depois do teste de confirmação e da decisão do serviço.",
+                  "correct": true,
+                  "reply": "Combinado: eu espero o teste e a decisão de quem o serviço indicou."
+                },
+                {
+                  "label": "Sim, porque a assistência técnica já esteve aqui e saiu.",
+                  "correct": false,
+                  "reply": "Então vou liberar a sala, já que a assistência veio."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: buscar quem responde pela sala, registrar o que foi medido e esperar o teste de confirmação e a decisão do serviço.",
+          "feedbackIncorrect": "Reveja os turnos: o estudante não repete até passar, não registra valor inventado e não libera a sala.",
+          "help": "Nos três momentos, quem decide sobre a sala não é o estudante.",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Em outro setor da simulação, julgue cada afirmação sobre um teste que falhou.",
+          "statements": [
+            {
+              "text": "Se o valor parecer próximo do padrão, o estudante pode liberar a sala.",
+              "correct": false,
+              "feedback": "Errado: liberar a sala é decisão de quem o serviço designa, qualquer que seja a aparência do valor."
+            },
+            {
+              "text": "Depois do conserto, o teste é refeito e o resultado entra no registro.",
+              "correct": true,
+              "feedback": "Certo: o teste refeito mostra se o problema foi resolvido, e fica no registro."
+            },
+            {
+              "text": "Quem decide se o equipamento sai de uso é quem o serviço designa.",
+              "correct": true,
+              "feedback": "Certo: o serviço define a regra e quem a aplica, e o estudante avisa."
+            },
+            {
+              "text": "Uma colega pode apagar um valor fora do padrão, porque foi só um dia ruim.",
+              "correct": false,
+              "feedback": "Errado: o valor fica no registro, e quem o analisa é a equipe, e não a pessoa que o mediu."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que é do estudante, do serviço e da equipe, num setor novo.",
+          "feedbackIncorrect": "Releia o conceito: o estudante anota e avisa, e quem decide sobre a sala é quem o serviço designa.",
+          "help": "O que o estudante pode fazer, e o que só a equipe decide?",
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você consegue registrar um teste fora do padrão com o que foi medido, visto e avisado, e seguir a regra do serviço. Liberar a sala e ajustar o equipamento ficam com quem o serviço designa, e o teste refeito fecha o ciclo.",
+        "line": {
+          "speaker": "lia",
+          "text": "Anotar, avisar e esperar a decisão: assim o teste cumpre a função de proteger."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Depois do conserto de um equipamento da simulação, o que fecha o ciclo da falha no registro?",
+          "options": [
+            {
+              "label": "A conversa de corredor com a assistência",
+              "correct": false,
+              "feedback": "Uma conversa não substitui o registro do que foi confirmado."
+            },
+            {
+              "label": "O teste refeito, com o resultado anotado",
+              "correct": true,
+              "feedback": "Isso: o teste refeito mostra se o problema foi resolvido, e o resultado fica no registro."
+            },
+            {
+              "label": "A decisão do estudante de que está bom",
+              "correct": false,
+              "feedback": "A decisão não é do estudante, e olhar não substitui o teste."
+            },
+            {
+              "label": "A troca do valor de referência pelo novo valor",
+              "correct": false,
+              "feedback": "Trocar a referência para o valor caber esconde o desvio."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        },
+        {
+          "prompt": "Quem decide se um equipamento com teste fora do padrão sai de uso?",
+          "options": [
+            {
+              "label": "O estudante que fez o teste",
+              "correct": false,
+              "feedback": "O estudante observa, registra e avisa, e não decide."
+            },
+            {
+              "label": "O paciente que está esperando",
+              "correct": false,
+              "feedback": "Quem espera não decide sobre o equipamento."
+            },
+            {
+              "label": "Quem o serviço designa, seguindo a regra do serviço",
+              "correct": true,
+              "feedback": "Isso: a decisão e a regra são do serviço, e o estudante avisa."
+            },
+            {
+              "label": "Quem estiver com a agenda mais cheia naquele turno",
+              "correct": false,
+              "feedback": "A pressão da agenda não define a decisão: a regra do serviço define."
+            }
+          ],
+          "sourceIds": [
+            "acpsem-2024-qa-radiografia-digital"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: no registro, o valor que entra é o que foi…",
+          "item": {
+            "prompt": "O teste de hoje deu um valor fora do padrão. Que valor você anota no registro?",
+            "options": [
+              {
+                "label": "O esperado, para a planilha fechar",
+                "correct": false,
+                "feedback": "Anotar o esperado apaga o desvio que a equipe precisa ver."
+              },
+              {
+                "label": "A média entre o medido e o esperado",
+                "correct": false,
+                "feedback": "Uma média não foi medida por ninguém e esconde o tamanho do desvio."
+              },
+              {
+                "label": "O medido, ao lado do de referência",
+                "correct": true,
+                "feedback": "Isso: com o medido e a referência lado a lado, a equipe vê o desvio."
+              },
+              {
+                "label": "Nenhum, até a assistência chegar",
+                "correct": false,
+                "feedback": "Sem anotação, o desvio some até que alguém o meça de novo."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega propõe apagar da planilha o valor fora do padrão, porque foi só um dia ruim. O que você responde?",
+            "options": [
+              {
+                "label": "Tudo bem, desde que você me avise antes",
+                "correct": false,
+                "feedback": "Avisar antes não torna correto apagar um resultado medido."
+              },
+              {
+                "label": "Apague, mas anote a causa que você acha mais provável",
+                "correct": false,
+                "feedback": "Apagar o valor tira da equipe a informação de que ela precisa."
+              },
+              {
+                "label": "Deixe como está até o fim do mês e decida depois",
+                "correct": false,
+                "feedback": "Esperar não muda a regra: o valor não se apaga, e a equipe é avisada."
+              },
+              {
+                "label": "O valor fica no registro, e a equipe analisa",
+                "correct": true,
+                "feedback": "Isso: o registro mostra o que foi medido, e a análise é da equipe."
+              }
+            ],
+            "sourceIds": [
+              "acpsem-2024-qa-radiografia-digital"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

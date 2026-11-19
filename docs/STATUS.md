@@ -36,7 +36,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Trilha dobrada (1.7) — fases A, B e lotes 1 a 3 da C em branches, medido em 2026-11-19
+## Trilha dobrada (1.7) — fases A, B e lotes 1 a 4 da C em branches, medido em 2026-11-19
 
 O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
 unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
@@ -119,7 +119,21 @@ roteiros 407 de 408 (a mesma falha de ambiente). A linha de base do contrato de 
 ganhou um teto para `rtgImages.ts`, porque a licença "CC BY 3.0" conta como rótulo em
 maiúsculas.
 [Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
-simulador ou aparelho.** Faltam três lotes (12 unidades, 80 aulas).
+simulador ou aparelho.** Faltavam três lotes.
+
+**Fase C, lote 4, na branch `claude/trilha-dobrada-fase-c-lote-4`, empilhada no lote 3,
+sem merge (medido em 2026-11-19):** as quatro últimas unidades irmãs do núcleo, 24
+aulas: M29 (sequências, contraste e artefatos básicos de RM, depois da M11), M30
+(densitometria óssea e composição corporal, depois da M12), M31 (outros campos:
+veterinária, forense e pesquisa, depois da M13) e M32 (controle de qualidade de
+equipamentos e níveis de referência, depois da M14). O catálogo ganhou 18 diagramas e
+tem 86. Este lote não tem imagem real nova. O inventário mede 40 unidades e 253 aulas;
+as quatro novas têm 50,0% de passos de texto ou formato antigo, passo visual em 6 de 6
+aulas e 9 ou 10 famílias de interação. Cada unidade tem parecer de revisão independente
+por IA (68 correções ao todo). Gate do app: 4.335 testes, saída 0; testes de conteúdo e
+de roteiros 407 de 408 (a mesma falha de ambiente).
+[Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
+simulador ou aparelho.** Faltam dois lotes, as oito irmãs das especializações.
 
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de

@@ -1,0 +1,2331 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m31",
+    "code": "M31",
+    "title": "Outros campos: veterinária, forense e pesquisa",
+    "summary": "A mesma técnica a serviço de outros fins: o exame de um animal, a imagem como evidência, a pesquisa com participantes e a radiografia de objetos, e o que muda no papel de quem adquire."
+  },
+  "sources": [
+    {
+      "id": "hps-segurar",
+      "title": "Ask the Experts: holding patients during veterinary x-ray examinations",
+      "publisher": "Health Physics Society",
+      "url": "https://hps.org/publicinformation/ate/q8775/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de sociedade profissional que resume recomendações dos EUA; consultada só para princípios físicos de proteção de quem segura (contenção mecânica ou sedação primeiro, avental e luvas, nenhuma parte do corpo no feixe útil), com redação própria. Regras de quem pode segurar não foram tomadas como universais."
+    },
+    {
+      "id": "dvm360-basico",
+      "title": "Radiation safety basics",
+      "publisher": "dvm360",
+      "url": "https://dvm360.com/view/radiation-safety-basics",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de divulgação profissional; consultado para apoios no lugar de mãos, proteção pessoal e distância, com redação própria."
+    },
+    {
+      "id": "vpn-seguranca",
+      "title": "Ensuring radiation safety in the practice",
+      "publisher": "Veterinary Practice News",
+      "url": "https://www.veterinarypracticenews.com/?p=45872",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de divulgação profissional; consultado para sedação e técnicas sem mãos, com redação própria."
+    },
+    {
+      "id": "idexx-posicionamento",
+      "title": "Avoid common pitfalls in veterinary imaging",
+      "publisher": "IDEXX",
+      "url": "https://www.idexx.com/en/veterinary/diagnostic-imaging-telemedicine-consultants/avoid-common-pitfalls-in-veterinary-imaging/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de serviço de diagnóstico veterinário; consultada para calhas, espumas, sacos de areia e fitas como apoios, para o movimento como causa frequente de repetição e para os apoios reduzirem a contenção manual, com redação própria."
+    },
+    {
+      "id": "swgde-integridade",
+      "title": "Best Practices for Maintaining the Integrity of Digital and Multimedia Evidence (SWGDE 17-I-001)",
+      "publisher": "SWGDE",
+      "url": "https://www.swgde.org/documents/published-complete-listing/17-i-001-best-practices-for-maintaining-the-integrity-of-imagery",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Documento de boas práticas de livre acesso; consultado para cadeia de custódia, original sem alteração e acesso limitado, com redação própria."
+    },
+    {
+      "id": "review-forense-2025",
+      "title": "Revisão sistemática sobre imagem forense (Diagnostics, 2025, PMC12154265)",
+      "publisher": "Diagnostics, via PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12154265",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto lido pelo texto completo do Europe PMC; consultado para imagem como registro de evidência e risco à admissibilidade quando faltam protocolos, com redação própria."
+    },
+    {
+      "id": "helsinki-wma",
+      "title": "WMA Declaration of Helsinki: ethical principles for medical research involving human participants",
+      "publisher": "World Medical Association",
+      "url": "https://www.wma.net/policies-post/wma-declaration-of-helsinki/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Declaração internacional de livre acesso; consultada para aprovação do protocolo por comitê de ética, participação voluntária e proteção da privacidade, com redação própria."
+    },
+    {
+      "id": "who-erc",
+      "title": "Research Ethics Review Committee: informed consent templates",
+      "publisher": "Organização Mundial da Saúde",
+      "url": "https://www.who.int/groups/research-ethics-review-committee/guidelines-on-submitting-research-proposals-for-ethics-review/templates-for-informed-consent-forms",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para a revisão ética de pesquisas com participantes humanos e a estrutura do termo de consentimento, com redação própria."
+    },
+    {
+      "id": "art-test-raiosx",
+      "title": "X-ray imaging: an old but gold technique for art analysis",
+      "publisher": "Art-Test",
+      "url": "https://www.art-test.com/en/xray-imaging-an-old-by-gold-technique-for-art-analysis-let-discover-it-together/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de laboratório de análise de arte; consultada para densidade, absorção e camadas escondidas em pinturas, com redação própria."
+    },
+    {
+      "id": "wiki-patrimonio",
+      "title": "Cultural property radiography",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Cultural_property_radiography",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Fonte enciclopédica complementar, nunca única de fato de segurança; consultada para o uso em pinturas e para a proteção da equipe, com redação própria."
+    },
+    {
+      "id": "weeklysafety-ind",
+      "title": "Industrial radiography",
+      "publisher": "Weekly Safety",
+      "url": "https://weeklysafety.com/blog/industrial-radiography",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de segurança do trabalho; consultada para isolamento e esvaziamento da área controlada, sinais de aviso e queda da intensidade com a distância, com redação própria."
+    },
+    {
+      "id": "wiki-cadeia-custodia",
+      "title": "Chain of custody",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Chain_of_custody",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Fonte enciclopédica complementar; consultada para a definição da cadeia de custódia (quem teve, por quanto tempo, transferências assinadas, guarda segura) e para a cadeia rompida pôr a evidência em dúvida, com redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m31-01",
+      "code": "M31.01",
+      "title": "O paciente que não colabora",
+      "objective": "Hoje você vai conseguir dizer o que muda no exame de um animal e a quem cabe cada decisão.",
+      "competency": "Reconhecer o que muda na radiografia de um animal: apoios no lugar de mãos, tutor fora do feixe e decisões do veterinário.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia veterinária",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Um cão não entende \"fique parado\". Como a equipe consegue a imagem sem ninguém segurar o Thor o tempo todo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Com apoios. E repare: sedar ou conter o animal é decisão do veterinário, não nossa."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Hoje: o que segura o Thor no lugar, e o que cabe a cada pessoa da sala?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quando o paciente não entende o pedido",
+        "body": "Um animal não entende o pedido de ficar parado, e o movimento borra a imagem, uma causa frequente de repetição. Por isso a equipe prefere apoios: saco de areia sobre as patas, calha de espuma sob o tronco, fita, como a equipe indicar. Eles mantêm o animal no lugar sem que uma pessoa fique junto do feixe. Quando o animal está agitado ou com dor, o veterinário decide sobre sedação e sobre o modo de conter. O estudante, sob supervisão, avisa a equipe e acolhe o tutor. Ele nunca promete ao tutor que o resultado ficará bom.",
+        "keyPoints": [
+          "Apoios no lugar de mãos: o animal fica parado sem alguém junto do feixe.",
+          "Sedação e contenção são decisão do veterinário.",
+          "O estudante avisa e acolhe o tutor; não promete resultado."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M04 você viu quando alguém pode ficar na sala durante a exposição. Qual era a condição?",
+          "options": [
+            {
+              "label": "Quando a pessoa pede e promete ficar quieta",
+              "correct": false,
+              "feedback": "Prometer não resolve: a presença só vale quando é necessária ao exame."
+            },
+            {
+              "label": "Quando a sala está livre de outros pacientes",
+              "correct": false,
+              "feedback": "Outros pacientes não são o critério; o critério é a necessidade da presença."
+            },
+            {
+              "label": "Quando a presença é imprescindível ao exame",
+              "correct": true,
+              "feedback": "Isso: só fica na sala quem é necessário ao exame."
+            },
+            {
+              "label": "Quando a pessoa já fez o mesmo exame antes",
+              "correct": false,
+              "feedback": "Já ter feito o exame não torna a presença necessária."
+            }
+          ],
+          "help": "Pense em quem a sala realmente precisa durante a exposição.",
+          "sourceIds": [
+            "hps-segurar"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Para que ninguém fique junto do feixe, a equipe pôs apoios no cão. Toque no apoio que sustenta o tronco dele de lado.",
+          "diagramId": "radiografia-veterinaria",
+          "regions": [
+            {
+              "label": "Pessoa sem avental ao lado da mesa",
+              "x": 0.2062,
+              "y": 0.45,
+              "width": 0.1062,
+              "height": 0.3417
+            },
+            {
+              "label": "Mãos da pessoa de avental",
+              "x": 0.8313,
+              "y": 0.4833,
+              "width": 0.0938,
+              "height": 0.1167
+            },
+            {
+              "label": "Calha de espuma",
+              "x": 0.35,
+              "y": 0.5417,
+              "width": 0.3063,
+              "height": 0.1167,
+              "correct": true
+            },
+            {
+              "label": "Tubo de raios X",
+              "x": 0.5234,
+              "y": 0.0917,
+              "width": 0.1406,
+              "height": 0.1167
+            }
+          ],
+          "feedbackCorrect": "Isso: a calha de espuma sustenta o tronco e dispensa uma pessoa junto do feixe.",
+          "feedbackIncorrect": "Essa região não é um apoio: procure o que fica sob o tronco do cão, no lugar de uma mão.",
+          "help": "Procure o que encosta no corpo do cão e não é uma pessoa.",
+          "sourceIds": [
+            "dvm360-basico",
+            "idexx-posicionamento"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "prompt": "Dona Vera é a tutora do Thor e está aflita na porta da sala. Conduza a conversa sem prometer o que cabe à equipe.",
+          "turns": [
+            {
+              "line": "Posso ficar segurando o Thor? Ele fica mais calmo comigo.",
+              "options": [
+                {
+                  "label": "Pode, a senhora fica ao lado dele o tempo todo, só sem avental.",
+                  "correct": false,
+                  "reply": "Então fico bem pertinho dele, sem problema."
+                },
+                {
+                  "label": "Entendo. O veterinário decide como ele fica parado; aviso a equipe.",
+                  "correct": true,
+                  "reply": "Está bem. Eu espero onde me disserem?"
+                },
+                {
+                  "label": "Não, a senhora só atrapalha aqui. Espere lá fora e pronto, por favor.",
+                  "correct": false,
+                  "reply": "Nossa, eu só queria ajudar o meu cachorro."
+                }
+              ]
+            },
+            {
+              "line": "Você garante que a imagem sai boa de primeira?",
+              "options": [
+                {
+                  "label": "Garanto, esse aparelho quase nunca falha, pode ficar tranquila.",
+                  "correct": false,
+                  "reply": "Que alívio, então já posso ficar tranquila."
+                },
+                {
+                  "label": "Isso não é comigo, pergunte para outra pessoa da clínica, por favor.",
+                  "correct": false,
+                  "reply": "Mas com quem eu falo, então?"
+                },
+                {
+                  "label": "Não prometo resultado; a equipe faz o possível e orienta a senhora.",
+                  "correct": true,
+                  "reply": "Tudo bem, só queria entender como funciona."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: você acolheu a tutora, deixou a contenção com o veterinário e não prometeu resultado.",
+          "feedbackIncorrect": "Reveja a conversa: contenção e sedação são do veterinário, e o estudante não promete resultado ao tutor.",
+          "help": "Quem decide como o animal fica parado, e o que um estudante pode prometer?",
+          "sourceIds": [
+            "vpn-seguranca",
+            "hps-segurar"
+          ],
+          "name": "Dona Vera"
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o exame de um animal.",
+          "statements": [
+            {
+              "text": "Os apoios mantêm o animal no lugar sem uma pessoa junto do feixe.",
+              "correct": true,
+              "feedback": "Certo: saco de areia e calha seguram a posição, e ninguém precisa ficar perto do feixe."
+            },
+            {
+              "text": "O estudante decide se um animal agitado recebe sedação.",
+              "correct": false,
+              "feedback": "Errado: a sedação é decisão do veterinário; o estudante avisa a equipe sobre a agitação."
+            },
+            {
+              "text": "Depois de uma imagem tremida, o estudante garante ao tutor que a próxima sai boa.",
+              "correct": false,
+              "feedback": "Errado: o estudante não promete resultado; quem orienta o tutor é a equipe."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que os apoios fazem do que cabe ao veterinário e ao estudante.",
+          "feedbackIncorrect": "Releia o conceito: apoios seguram o animal, a sedação é do veterinário e resultado não se promete.",
+          "help": "Pergunte de cada frase: de quem é essa decisão?",
+          "sourceIds": [
+            "dvm360-basico",
+            "idexx-posicionamento",
+            "vpn-seguranca"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Uma gata assustada chega para a radiografia. Marque tudo o que cabe a você, como estudante.",
+          "options": [
+            {
+              "label": "Decidir se ela recebe um calmante",
+              "correct": false,
+              "feedback": "A sedação é decisão do veterinário; o estudante não decide nem oferece calmante."
+            },
+            {
+              "label": "Avisar o veterinário de que ela está agitada",
+              "correct": true,
+              "feedback": "Avisar a equipe é o que cabe ao estudante: o veterinário decide o que fazer com a gata."
+            },
+            {
+              "label": "Prometer ao tutor que ela vai ficar bem",
+              "correct": false,
+              "feedback": "O estudante não promete resultado nem estado do animal ao tutor."
+            },
+            {
+              "label": "Ajudar a pôr os apoios que a equipe indicar",
+              "correct": true,
+              "feedback": "Os apoios mantêm a gata no lugar; o estudante os põe como a equipe indicar, sob supervisão."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que cabe ao estudante e deixou a decisão e a promessa de fora.",
+          "feedbackIncorrect": "Revise: o estudante avisa e ajuda nos apoios, e deixa sedação e promessas de fora.",
+          "help": "O que é decisão do veterinário, e o que é ajuda sob supervisão?",
+          "sourceIds": [
+            "vpn-seguranca",
+            "dvm360-basico"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe o que muda com o animal",
+        "body": "Agora você consegue apontar os apoios que dispensam as mãos, dizer que sedação e contenção são do veterinário e conversar com o tutor sem prometer resultado.",
+        "line": {
+          "speaker": "lia",
+          "text": "Com o animal, o apoio vem antes da mão. E a decisão é do veterinário."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um cão agitado não fica na posição. Quem decide se ele recebe sedação?",
+          "options": [
+            {
+              "label": "O veterinário responsável pelo animal",
+              "correct": true,
+              "feedback": "Isso: a sedação é decisão do veterinário."
+            },
+            {
+              "label": "O estudante, que está ao lado da mesa",
+              "correct": false,
+              "feedback": "O estudante avisa a equipe, mas não decide sobre sedação."
+            },
+            {
+              "label": "O tutor, que conhece bem o animal",
+              "correct": false,
+              "feedback": "O tutor dá informações, mas a decisão clínica não é dele."
+            },
+            {
+              "label": "O tecnólogo que opera o aparelho",
+              "correct": false,
+              "feedback": "Operar o aparelho não inclui decidir sobre sedação."
+            }
+          ],
+          "sourceIds": [
+            "vpn-seguranca"
+          ]
+        },
+        {
+          "prompt": "Por que a equipe prefere apoios a segurar o animal com as mãos?",
+          "options": [
+            {
+              "label": "Porque assim a imagem sai sempre sem tremer",
+              "correct": false,
+              "feedback": "Os apoios reduzem o movimento, mas não garantem sempre uma imagem sem tremor."
+            },
+            {
+              "label": "Porque o animal fica parado sem ninguém junto do feixe",
+              "correct": true,
+              "feedback": "Isso: os apoios dispensam uma pessoa perto do feixe."
+            },
+            {
+              "label": "Porque o animal não sente nada nos apoios",
+              "correct": false,
+              "feedback": "Os apoios não servem para anestesiar; servem para manter a posição."
+            },
+            {
+              "label": "Porque o tutor assim não precisa vir à clínica",
+              "correct": false,
+              "feedback": "O tutor continua presente; o motivo dos apoios é outro."
+            }
+          ],
+          "sourceIds": [
+            "dvm360-basico",
+            "idexx-posicionamento"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem decide a sedação de um animal agitado é...",
+          "item": {
+            "prompt": "Um gato se debate na mesa. A quem cabe decidir o que fazer com ele?",
+            "options": [
+              {
+                "label": "Ao tutor, que o conhece melhor",
+                "correct": false,
+                "feedback": "O tutor informa, mas não decide a conduta clínica."
+              },
+              {
+                "label": "Ao estudante, que está mais perto",
+                "correct": false,
+                "feedback": "O estudante avisa a equipe; a decisão não é dele."
+              },
+              {
+                "label": "Ao veterinário responsável",
+                "correct": true,
+                "feedback": "Isso: a conduta com o animal é do veterinário."
+              },
+              {
+                "label": "Ao colega que chegou primeiro",
+                "correct": false,
+                "feedback": "Chegar primeiro não dá a decisão clínica a ninguém."
+              }
+            ],
+            "sourceIds": [
+              "vpn-seguranca"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num outro serviço, uma tutora pede que você garanta que o exame do cachorro dela não vai falhar. O que cabe a você?",
+            "options": [
+              {
+                "label": "Garantir o resultado, só para acalmá-la melhor",
+                "correct": false,
+                "feedback": "Garantir resultado é prometer o que o estudante não controla."
+              },
+              {
+                "label": "Dizer que, se falhar, a culpa será do próprio cão",
+                "correct": false,
+                "feedback": "Culpar o animal não acolhe a tutora nem informa nada."
+              },
+              {
+                "label": "Evitar a conversa e sair da sala sem dizer nada",
+                "correct": false,
+                "feedback": "Sair sem dizer nada deixa a tutora sem acolhimento."
+              },
+              {
+                "label": "Acolher e dizer que não promete; a equipe orienta",
+                "correct": true,
+                "feedback": "Isso: acolher sem prometer resultado é o papel do estudante."
+              }
+            ],
+            "sourceIds": [
+              "vpn-seguranca"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m31-02",
+      "code": "M31.02",
+      "title": "Proteger quem segura",
+      "objective": "Hoje você vai conseguir dizer quem pode ficar perto do animal durante a exposição e como essa pessoa se protege.",
+      "competency": "Aplicar distância, apoio e proteção ao animal quando alguém precisa ficar na sala.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia veterinária",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O Thor está com os apoios, mas a Dona Vera quer ficar junto dele. Ela pode?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Só fica quem é necessário. E quem vai segurar, o serviço indica e protege."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Olhe a cena inteira: quem está perto do feixe, quem está longe e quem está de avental?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quem segura e como se protege",
+        "body": "Primeiro se tenta o exame sem ninguém segurando: apoios e, quando o veterinário decide, sedação. Se alguém ainda precisa segurar, o serviço define quem pode ficar e com que proteção. Quem segura usa avental e luvas e mantém mãos e corpo fora do feixe útil. Ninguém segura o cassete com a mão, nem de luva. Quem não é necessário à exposição, como o tutor quando os apoios bastam, aguarda fora da sala, longe da radiação espalhada. Em dúvida, o estudante para e chama a equipe.",
+        "keyPoints": [
+          "Apoios primeiro; o serviço define quem pode ficar e segurar.",
+          "Quem segura usa avental e luvas e mantém mãos e corpo fora do feixe útil.",
+          "Quem não é necessário aguarda fora da sala, longe do espalhamento."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que a equipe usa para o animal ficar parado sem uma pessoa junto do feixe?",
+          "options": [
+            {
+              "label": "O tutor, segurando bem de perto",
+              "correct": false,
+              "feedback": "O tutor perto do feixe é justamente o que os apoios evitam."
+            },
+            {
+              "label": "Apoios, como saco de areia e calha",
+              "correct": true,
+              "feedback": "Isso: os apoios mantêm o animal no lugar sem alguém junto do feixe."
+            },
+            {
+              "label": "Um calmante escolhido pelo estudante",
+              "correct": false,
+              "feedback": "Sedação é decisão do veterinário, nunca do estudante."
+            },
+            {
+              "label": "Um colega sem avental, por um instante",
+              "correct": false,
+              "feedback": "Um colega sem proteção junto do feixe é o que os apoios dispensam."
+            }
+          ],
+          "help": "Lembre o que segura o Thor no lugar sem mãos.",
+          "sourceIds": [
+            "dvm360-basico",
+            "idexx-posicionamento"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Duas pessoas da cena estão sem avental. Toque na que está mais exposta à radiação espalhada.",
+          "diagramId": "radiografia-veterinaria",
+          "regions": [
+            {
+              "label": "Pessoa sem avental junto à porta",
+              "x": 0.0375,
+              "y": 0.45,
+              "width": 0.1,
+              "height": 0.3417
+            },
+            {
+              "label": "Pessoa sem avental ao lado da mesa",
+              "x": 0.2062,
+              "y": 0.45,
+              "width": 0.1062,
+              "height": 0.3417,
+              "correct": true
+            },
+            {
+              "label": "Mãos da pessoa de avental",
+              "x": 0.8313,
+              "y": 0.4833,
+              "width": 0.0938,
+              "height": 0.1167
+            },
+            {
+              "label": "Calha de espuma",
+              "x": 0.35,
+              "y": 0.5417,
+              "width": 0.3063,
+              "height": 0.1167
+            }
+          ],
+          "feedbackCorrect": "Isso: junto da mesa e sem avental, ela recebe radiação espalhada; quem está na porta fica longe do animal.",
+          "feedbackIncorrect": "Essa região não é a mais exposta: procure quem está sem avental e mais perto do animal.",
+          "help": "Compare a distância das duas pessoas sem avental até o animal.",
+          "sourceIds": [
+            "dvm360-basico",
+            "hps-segurar"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada pessoa pelas condições que a aula ensinou para segurar o animal.",
+          "categories": [
+            "Pode segurar",
+            "Não segura"
+          ],
+          "items": [
+            {
+              "label": "Colega que o serviço indicou, de avental e luvas",
+              "category": "Pode segurar"
+            },
+            {
+              "label": "Colega sem avental nem luvas",
+              "category": "Não segura"
+            },
+            {
+              "label": "Tutor, quando os apoios já bastam",
+              "category": "Não segura"
+            },
+            {
+              "label": "Colega de luvas que apoiaria o cassete com a mão",
+              "category": "Não segura"
+            },
+            {
+              "label": "Colega indicado, protegido e com as mãos fora do feixe",
+              "category": "Pode segurar"
+            }
+          ],
+          "feedbackCorrect": "Você aplicou as condições: indicado pelo serviço, protegido e com mãos e corpo fora do feixe útil.",
+          "feedbackIncorrect": "Releia as condições: quem segura é necessário, foi indicado, usa avental e luvas e não põe a mão no feixe nem no cassete.",
+          "help": "Verifique de cada pessoa: é necessária, está protegida e fica fora do feixe?",
+          "sourceIds": [
+            "hps-segurar",
+            "dvm360-basico"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "Quem precisa segurar o animal usa avental e {{1}} e mantém mãos e corpo {{2}} do feixe útil.",
+          "answers": [
+            "luvas",
+            "fora"
+          ],
+          "distractors": [
+            "óculos",
+            "dentro",
+            "perto"
+          ],
+          "feedbackCorrect": "Isso: avental e luvas, com mãos e corpo fora do feixe útil.",
+          "feedbackIncorrect": "Pense na proteção das mãos e no lugar do corpo: nada de quem segura pode ficar no feixe útil.",
+          "help": "Que proteção cobre as mãos, e onde o corpo deve ficar em relação ao feixe?",
+          "sourceIds": [
+            "hps-segurar",
+            "dvm360-basico"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Uma gata assustada vai ser radiografada e a tutora se oferece para ajudar. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "Primeiro se tentam apoios, e a sedação cabe ao veterinário decidir.",
+              "correct": true,
+              "feedback": "Certo: apoios vêm antes, e sedação é decisão do veterinário."
+            },
+            {
+              "text": "A tutora pode ficar ao lado da mesa durante a exposição, se prometer não se mexer.",
+              "correct": false,
+              "feedback": "Errado: quem não é necessário ao exame aguarda fora da sala, longe do espalhamento."
+            },
+            {
+              "text": "Se alguém precisar segurar a gata, mãos e corpo ficam fora do feixe útil.",
+              "correct": true,
+              "feedback": "Certo: nenhuma parte do corpo de quem segura entra no feixe útil."
+            },
+            {
+              "text": "Quem segura pode apoiar o cassete com a mão, se estiver de luva.",
+              "correct": false,
+              "feedback": "Errado: ninguém segura o cassete com a mão, nem de luva."
+            }
+          ],
+          "feedbackCorrect": "Você aplicou a regra de quem segura a um animal novo.",
+          "feedbackIncorrect": "Reveja a aula: apoios primeiro, quem não é necessário sai, e o feixe útil fica livre de qualquer parte do corpo.",
+          "help": "Pergunte de cada frase: alguém entra no feixe ou fica perto sem necessidade?",
+          "sourceIds": [
+            "hps-segurar",
+            "dvm360-basico"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe quem segura e quem sai",
+        "body": "Agora você consegue dizer quem pode segurar um animal, como essa pessoa se protege e onde o tutor aguarda.",
+        "line": {
+          "speaker": "caio",
+          "text": "Primeiro o apoio, depois a mão. E a mão fica fora do feixe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quem pode segurar o animal quando os apoios não bastam?",
+          "options": [
+            {
+              "label": "Qualquer pessoa presente que se ofereça",
+              "correct": false,
+              "feedback": "Oferecer-se não basta: a pessoa precisa preencher as condições."
+            },
+            {
+              "label": "A tutora, por conhecer o animal",
+              "correct": false,
+              "feedback": "Conhecer o animal não a torna a pessoa indicada e protegida."
+            },
+            {
+              "label": "Um colega protegido que o serviço indicou",
+              "correct": true,
+              "feedback": "Isso: quem segura é indicado pelo serviço e usa avental e luvas."
+            },
+            {
+              "label": "Um colega de luvas, com a mão no cassete",
+              "correct": false,
+              "feedback": "Ninguém segura o cassete com a mão, nem de luva."
+            }
+          ],
+          "sourceIds": [
+            "hps-segurar",
+            "dvm360-basico"
+          ]
+        },
+        {
+          "prompt": "Onde o tutor aguarda durante a exposição, pelo que a aula ensinou?",
+          "options": [
+            {
+              "label": "Ao lado da mesa, atrás do animal",
+              "correct": false,
+              "feedback": "Ao lado da mesa ele recebe radiação espalhada sem necessidade."
+            },
+            {
+              "label": "Na porta aberta, olhando o exame",
+              "correct": false,
+              "feedback": "Na porta ele continua perto e a porta aberta não protege."
+            },
+            {
+              "label": "Junto ao tubo, para ver o campo de luz",
+              "correct": false,
+              "feedback": "Junto ao tubo ele fica ainda mais perto da fonte."
+            },
+            {
+              "label": "Fora da sala, longe da radiação espalhada",
+              "correct": true,
+              "feedback": "Isso: quem não é necessário aguarda fora da sala."
+            }
+          ],
+          "sourceIds": [
+            "hps-segurar",
+            "dvm360-basico"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: as mãos de quem segura ficam sempre...",
+          "item": {
+            "prompt": "Em relação ao feixe útil, onde ficam as mãos de quem segura o animal?",
+            "options": [
+              {
+                "label": "Dentro dele, por poucos segundos",
+                "correct": false,
+                "feedback": "Nem poucos segundos: o feixe útil fica livre de mãos."
+              },
+              {
+                "label": "Fora dele, sempre",
+                "correct": true,
+                "feedback": "Isso: mãos e corpo ficam fora do feixe útil."
+              },
+              {
+                "label": "Na borda dele, de luva",
+                "correct": false,
+                "feedback": "De luva ou não, a borda do feixe é perto demais."
+              },
+              {
+                "label": "Dentro dele, sobre o cassete",
+                "correct": false,
+                "feedback": "Ninguém segura o cassete com a mão, nem de luva."
+              }
+            ],
+            "sourceIds": [
+              "hps-segurar",
+              "dvm360-basico"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num atendimento de um coelho, um colega sem avental se oferece para segurá-lo \"só um instante\". O que você faz?",
+            "options": [
+              {
+                "label": "Para, avisa a equipe e deixa que ela indique quem segura",
+                "correct": true,
+                "feedback": "Isso: o estudante para e chama a equipe diante da dúvida."
+              },
+              {
+                "label": "Aceita, porque é só um instante e o coelho é pequeno",
+                "correct": false,
+                "feedback": "Um instante sem proteção ainda expõe a pessoa."
+              },
+              {
+                "label": "Empresta o seu avental e se afasta para o lado da porta",
+                "correct": false,
+                "feedback": "Mexer na proteção por conta própria não resolve a regra de quem segura."
+              },
+              {
+                "label": "Pede ao tutor que segure, que é bem mais rápido assim",
+                "correct": false,
+                "feedback": "O tutor não é a pessoa indicada e protegida."
+              }
+            ],
+            "sourceIds": [
+              "hps-segurar"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m31-03",
+      "code": "M31.03",
+      "title": "A cadeia de custódia",
+      "objective": "Hoje você vai conseguir ordenar os elos que mantêm um objeto rastreável e nomear cada um no esquema.",
+      "competency": "Ordenar os elos que mantêm um material rastreável.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Serviço de imagem, caso forense simulado",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Chegou um objeto lacrado da equipe forense para radiografar. Antes de abrir qualquer coisa, olhe a etiqueta."
+          },
+          {
+            "speaker": "duda",
+            "text": "Por que tanta cerimônia? É só uma radiografia."
+          },
+          {
+            "speaker": "lia",
+            "text": "A imagem só serve se der para mostrar por onde o objeto passou: quem teve a mão nele, e quando."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Por onde o material passou",
+        "body": "Em casos forenses a imagem pode virar evidência, e só serve se der para mostrar por onde o material passou. Cadeia de custódia é o registro contínuo de quem teve o material, quando e para quê, com a assinatura de quem recebe a cada passagem. Neste esquema, na ordem ensinada nesta aula: o objeto chega lacrado e com etiqueta; a entrega é assinada por quem recebe; a imagem é adquirida; o que foi feito é registrado; o material e a imagem original ficam guardados, trancados e com acesso limitado. Um elo faltando põe tudo em dúvida. O serviço define os detalhes.",
+        "keyPoints": [
+          "Cadeia de custódia: registro contínuo de quem teve o material.",
+          "Neste esquema: lacre, entrega assinada, imagem, registro e guarda.",
+          "Lacre rompido ou elo faltando: pare e avise a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual era a regra sobre o cassete durante a exposição?",
+          "options": [
+            {
+              "label": "Pode ser segurado com a mão, se houver luva",
+              "correct": false,
+              "feedback": "Nem de luva: ninguém segura o cassete com a mão."
+            },
+            {
+              "label": "Pode ser segurado só pelo tutor, de longe",
+              "correct": false,
+              "feedback": "O tutor aguarda fora; ninguém segura o cassete com a mão."
+            },
+            {
+              "label": "Ninguém o segura com a mão, nem de luva",
+              "correct": true,
+              "feedback": "Isso: a mão de quem segura não vai ao cassete."
+            },
+            {
+              "label": "Deve ser segurado pelo estudante, de avental",
+              "correct": false,
+              "feedback": "O estudante também não segura o cassete com a mão."
+            }
+          ],
+          "help": "Lembre o que vale para a mão e o cassete.",
+          "sourceIds": [
+            "dvm360-basico"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule os cinco elos da cadeia de custódia, tocando na ficha e no ponto.",
+          "diagramId": "cadeia-de-custodia",
+          "points": [
+            {
+              "label": "Invólucro lacrado",
+              "x": 0.175,
+              "y": 0.2917,
+              "where": "no alto à esquerda, o pacote fechado com uma etiqueta"
+            },
+            {
+              "label": "Entrega assinada",
+              "x": 0.5,
+              "y": 0.2917,
+              "where": "no alto ao centro, a folha na prancheta entre duas mãos"
+            },
+            {
+              "label": "Aquisição da imagem",
+              "x": 0.825,
+              "y": 0.2917,
+              "where": "no alto à direita, o tubo sobre uma base"
+            },
+            {
+              "label": "Livro de registro",
+              "x": 0.825,
+              "y": 0.7083,
+              "where": "embaixo à direita, as páginas abertas com um marcador"
+            },
+            {
+              "label": "Armário trancado",
+              "x": 0.5,
+              "y": 0.7083,
+              "where": "embaixo ao centro, a porta fechada com um cadeado"
+            }
+          ],
+          "distractors": [
+            "Conclusão do caso"
+          ],
+          "feedbackCorrect": "Isso: cinco elos, do lacre ao armário, cada um deixa um rastro de quem teve o material.",
+          "feedbackIncorrect": "Algum elo está no lugar errado: releia o que cada bloco guarda do caminho do material.",
+          "help": "Comece pelo que chega fechado e termine pelo que fica guardado.",
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene os elos da cadeia de custódia, na ordem ensinada nesta aula.",
+          "items": [
+            "O objeto chega lacrado e com etiqueta",
+            "A entrega é assinada por quem recebe",
+            "A imagem é adquirida",
+            "O que foi feito é registrado",
+            "O material e a imagem ficam guardados e trancados"
+          ],
+          "feedbackCorrect": "Isso: do lacre à guarda, cada passo deixa um rastro do caminho do material.",
+          "feedbackIncorrect": "Releia a sequência da aula: o objeto chega, a entrega é assinada, a imagem é adquirida, tudo é registrado e guardado.",
+          "help": "O que deve existir antes de a imagem ser adquirida, e o que vem depois dela?",
+          "sourceIds": [
+            "swgde-integridade",
+            "wiki-cadeia-custodia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a cadeia de custódia.",
+          "statements": [
+            {
+              "text": "A cadeia de custódia registra quem teve o material, quando e para quê.",
+              "correct": true,
+              "feedback": "Certo: é o registro contínuo de quem teve o material, quando e com que finalidade."
+            },
+            {
+              "text": "Um lacre rompido sem anotação pode ser ajeitado, e o trabalho segue.",
+              "correct": false,
+              "feedback": "Errado: lacre rompido sem anotação põe a rastreabilidade em dúvida; o estudante para e avisa a equipe."
+            },
+            {
+              "text": "A imagem original deve ficar guardada sem alteração.",
+              "correct": true,
+              "feedback": "Certo: o original fica intacto, e qualquer trabalho se faz em cópia."
+            },
+            {
+              "text": "Basta guardar a imagem, não importa quem pode abri-la.",
+              "correct": false,
+              "feedback": "Errado: o acesso à imagem e ao material é limitado a quem precisa."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que mantém o material rastreável do que o enfraquece.",
+          "feedbackIncorrect": "Reveja a aula: registro contínuo, original sem alteração e acesso limitado.",
+          "help": "Pergunte de cada frase: isso mostra ou apaga o caminho do material?",
+          "sourceIds": [
+            "swgde-integridade",
+            "wiki-cadeia-custodia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "caio",
+          "prompt": "Caio recebeu um objeto cuja etiqueta está solta. Ajude-o a decidir o que fazer.",
+          "turns": [
+            {
+              "line": "A etiqueta do objeto descolou, mas o lacre parece inteiro. Posso colar de novo e seguir?",
+              "options": [
+                {
+                  "label": "Cola a etiqueta de novo e segue, já que o lacre está inteiro.",
+                  "correct": false,
+                  "reply": "Tá, então eu colo e sigo com o exame."
+                },
+                {
+                  "label": "Não mexa: descreva o que vê e avise a equipe forense.",
+                  "correct": true,
+                  "reply": "Combinado, descrevo e ligo para a equipe."
+                },
+                {
+                  "label": "Tira a etiqueta solta e faz outra com o que você lembra dela.",
+                  "correct": false,
+                  "reply": "Tá, então faço outra de memória."
+                }
+              ]
+            },
+            {
+              "line": "A equipe forense veio buscar a imagem. O que eu faço antes de entregar?",
+              "options": [
+                {
+                  "label": "Registra a entrega: quem recebe, quando e o que levou.",
+                  "correct": true,
+                  "reply": "Anoto agora, então, antes de entregar."
+                },
+                {
+                  "label": "Entrega logo e anota depois, se sobrar algum tempo no fim.",
+                  "correct": false,
+                  "reply": "Então eu entrego e vejo o registro mais tarde."
+                },
+                {
+                  "label": "Entrega sem registro nenhum, porque a equipe já sabe quem é.",
+                  "correct": false,
+                  "reply": "Tá, entrego direto, sem anotar nada."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: etiqueta solta se descreve e se avisa, e toda entrega é registrada.",
+          "feedbackIncorrect": "Reveja a aula: o estudante não conserta lacre nem etiqueta, e toda entrega entra no registro.",
+          "help": "O que mantém o caminho do material visível?",
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você acompanha o caminho do material",
+        "body": "Agora você consegue nomear e ordenar os elos que mantêm um objeto rastreável e sabe parar e avisar quando um deles falha.",
+        "line": {
+          "speaker": "lia",
+          "text": "Lacre, assinatura, imagem, registro e guarda: nenhum elo some sem aviso."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O objeto chegou com o lacre rompido e sem anotação. Qual é a sua conduta?",
+          "options": [
+            {
+              "label": "Fechar o lacre de novo e seguir com o exame normal",
+              "correct": false,
+              "feedback": "Refazer o lacre por conta própria apaga o rastro do que aconteceu."
+            },
+            {
+              "label": "Não seguir, descrever o que vê e avisar a equipe",
+              "correct": true,
+              "feedback": "Isso: o estudante para, descreve e avisa."
+            },
+            {
+              "label": "Seguir e anotar o problema só no fim do exame todo",
+              "correct": false,
+              "feedback": "Seguir com o lacre rompido já compromete a rastreabilidade."
+            },
+            {
+              "label": "Trocar o invólucro por um novo antes de começar",
+              "correct": false,
+              "feedback": "Trocar o invólucro apaga a evidência de como o objeto chegou."
+            }
+          ],
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        },
+        {
+          "prompt": "Qual elo vem logo depois de a imagem ser adquirida, na ordem da aula?",
+          "options": [
+            {
+              "label": "A entrega assinada",
+              "correct": false,
+              "feedback": "A entrega assinada vem antes da aquisição."
+            },
+            {
+              "label": "O lacre com etiqueta",
+              "correct": false,
+              "feedback": "O lacre vem no início, na chegada do objeto."
+            },
+            {
+              "label": "O registro do que foi feito",
+              "correct": true,
+              "feedback": "Isso: depois da imagem, registra-se o que foi feito."
+            },
+            {
+              "label": "A conclusão da equipe forense",
+              "correct": false,
+              "feedback": "A conclusão não é um elo de quem adquire a imagem."
+            }
+          ],
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a cadeia de custódia é o registro contínuo de quem teve o material, quando e...",
+          "item": {
+            "prompt": "Para que serve registrar quem teve o material e quando?",
+            "options": [
+              {
+                "label": "Para acelerar o exame de imagem",
+                "correct": false,
+                "feedback": "O registro não acelera o exame; ele mostra o caminho do material."
+              },
+              {
+                "label": "Para mostrar por onde o material passou",
+                "correct": true,
+                "feedback": "Isso: o registro permite mostrar o caminho do material."
+              },
+              {
+                "label": "Para dispensar o lacre e a etiqueta",
+                "correct": false,
+                "feedback": "O registro não dispensa lacre nem etiqueta; um elo completa o outro."
+              },
+              {
+                "label": "Para escolher qual técnica usar",
+                "correct": false,
+                "feedback": "A escolha de técnica não depende da cadeia de custódia."
+              }
+            ],
+            "sourceIds": [
+              "swgde-integridade",
+              "wiki-cadeia-custodia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um laboratório recebe um frasco lacrado para imagem e perde o registro da entrega. O que isso afeta?",
+            "options": [
+              {
+                "label": "A nitidez da imagem do frasco na tela do comando",
+                "correct": false,
+                "feedback": "O registro não muda a nitidez; muda o que se pode mostrar do caminho."
+              },
+              {
+                "label": "O tempo de exposição que o frasco vai receber",
+                "correct": false,
+                "feedback": "O tempo de exposição não depende do registro da entrega."
+              },
+              {
+                "label": "A rastreabilidade: não se mostra quem teve o frasco",
+                "correct": true,
+                "feedback": "Isso: sem o registro, o caminho do frasco fica em dúvida."
+              },
+              {
+                "label": "A cor do frasco como ela aparece na imagem final",
+                "correct": false,
+                "feedback": "A cor da imagem não tem relação com o registro da entrega."
+              }
+            ],
+            "sourceIds": [
+              "swgde-integridade",
+              "wiki-cadeia-custodia"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m31-04",
+      "code": "M31.04",
+      "title": "Imagem forense: registrar sem interpretar",
+      "objective": "Hoje você vai conseguir separar o que quem adquire a imagem registra do que a equipe forense conclui.",
+      "competency": "Distinguir o que quem adquire registra e preserva do que a equipe forense conclui.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Serviço de imagem, caso forense simulado",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A imagem do objeto apareceu e dá para ver uma rachadura. Posso dizer ao agente que foi uma batida?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Pare aí. Você viu uma imagem; dizer o que causou a marca é outra tarefa."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Hoje: o que você registra e preserva, e o que fica com a equipe que responde pela perícia?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Registrar e preservar, sem concluir",
+        "body": "Quem adquire a imagem registra e preserva: anota data, hora, quem entregou o material e o que foi feito, e guarda o original sem alterar. Não interpreta nem conclui sobre causa, autoria ou data do que viu. A conclusão é da equipe que responde pela perícia, que pode reunir esta imagem a outros dados. Se alguém pergunta o que a imagem mostra, o estudante diz que o registro segue para a equipe e não comenta o achado. A imagem preservada permite que a equipe a reveja depois.",
+        "keyPoints": [
+          "Quem adquire registra e preserva; não interpreta.",
+          "Causa, autoria e data do achado são conclusões da equipe forense.",
+          "Perguntaram o que a imagem mostra: o registro segue para a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual elo vem logo antes de a imagem ser adquirida?",
+          "options": [
+            {
+              "label": "O registro do que foi feito",
+              "correct": false,
+              "feedback": "O registro vem depois da aquisição."
+            },
+            {
+              "label": "A guarda no armário trancado",
+              "correct": false,
+              "feedback": "A guarda é o último elo da cadeia."
+            },
+            {
+              "label": "O objeto sendo devolvido à equipe",
+              "correct": false,
+              "feedback": "A devolução não é um elo antes da aquisição."
+            },
+            {
+              "label": "A entrega assinada por quem recebe",
+              "correct": true,
+              "feedback": "Isso: a entrega assinada vem logo antes da imagem."
+            }
+          ],
+          "help": "Siga os elos do lacre até a imagem.",
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque nos dois passos que vêm depois da imagem: onde quem adquire anota o que fez e onde guarda o resultado.",
+          "diagramId": "cadeia-de-custodia",
+          "regions": [
+            {
+              "label": "Invólucro lacrado",
+              "x": 0.0563,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833
+            },
+            {
+              "label": "Livro de registro",
+              "x": 0.7063,
+              "y": 0.5667,
+              "width": 0.2375,
+              "height": 0.2833,
+              "correct": true
+            },
+            {
+              "label": "Aparelho de imagem",
+              "x": 0.7063,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833
+            },
+            {
+              "label": "Armário com cadeado",
+              "x": 0.3812,
+              "y": 0.5667,
+              "width": 0.2375,
+              "height": 0.2833,
+              "correct": true
+            },
+            {
+              "label": "Prancheta assinada",
+              "x": 0.3812,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833
+            }
+          ],
+          "feedbackCorrect": "Isso: o registro e o armário são onde se anota o que foi feito e se guarda o resultado.",
+          "feedbackIncorrect": "Essa região vem antes ou durante a imagem: procure o que deixa rastro escrito e guardado depois dela.",
+          "help": "Quais passos acontecem depois que a imagem já existe?",
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre quem adquire uma imagem forense.",
+          "statements": [
+            {
+              "text": "Quem adquire a imagem anota data, hora e quem entregou o material.",
+              "correct": true,
+              "feedback": "Certo: esses dados fazem parte do registro de quem adquire a imagem."
+            },
+            {
+              "text": "Se a imagem mostra uma rachadura, o estudante informa ao agente a causa dela.",
+              "correct": false,
+              "feedback": "Errado: a causa é uma conclusão da equipe forense, não de quem adquire."
+            },
+            {
+              "text": "O estudante pode retocar o original da imagem para o achado aparecer melhor.",
+              "correct": false,
+              "feedback": "Errado: o original fica guardado sem alteração, e qualquer trabalho se faz em cópia."
+            },
+            {
+              "text": "A conclusão sobre o que a imagem significa para o caso é da equipe forense.",
+              "correct": true,
+              "feedback": "Certo: quem adquire registra e preserva, e a equipe forense conclui."
+            }
+          ],
+          "feedbackCorrect": "Você separou registrar de concluir.",
+          "feedbackIncorrect": "Releia o conceito: quem adquire registra e preserva, e a conclusão é da equipe forense.",
+          "help": "Pergunte de cada frase: isso é registrar ou concluir?",
+          "sourceIds": [
+            "swgde-integridade",
+            "review-forense-2025"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada tarefa no grupo certo.",
+          "categories": [
+            "Cabe a quem adquire",
+            "Cabe à equipe forense"
+          ],
+          "items": [
+            {
+              "label": "Anotar o horário em que a imagem foi feita",
+              "category": "Cabe a quem adquire"
+            },
+            {
+              "label": "Guardar o original sem alterar",
+              "category": "Cabe a quem adquire"
+            },
+            {
+              "label": "Dizer o que causou a marca no objeto",
+              "category": "Cabe à equipe forense"
+            },
+            {
+              "label": "Afirmar a quem o objeto pertence",
+              "category": "Cabe à equipe forense"
+            },
+            {
+              "label": "Passar o registro a quem responde pela perícia",
+              "category": "Cabe a quem adquire"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que se registra e preserva do que se conclui.",
+          "feedbackIncorrect": "Pergunte de cada tarefa: ela anota e guarda, ou tira uma conclusão do que a imagem mostra?",
+          "help": "Quem anota e guarda, e quem conclui?",
+          "sourceIds": [
+            "swgde-integridade",
+            "review-forense-2025"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "duda",
+          "prompt": "Alguém da equipe de investigação pergunta a Duda o que a imagem mostra. Ajude-a a responder.",
+          "turns": [
+            {
+              "line": "Ele quer saber se a marca na peça é antiga ou recente. Eu digo o que me parece?",
+              "options": [
+                {
+                  "label": "Diga o que parece à primeira vista, ele só quer uma ideia geral do caso.",
+                  "correct": false,
+                  "reply": "Tá, então digo o que me parece."
+                },
+                {
+                  "label": "Diga que você registra, e que a conclusão é da equipe forense.",
+                  "correct": true,
+                  "reply": "Entendi, aviso que a conclusão é da equipe."
+                },
+                {
+                  "label": "Diga que depende do contraste da imagem e peça outro exame agora.",
+                  "correct": false,
+                  "reply": "Tá, então peço outro exame para ele."
+                }
+              ]
+            },
+            {
+              "line": "Agora ele pediu uma cópia da imagem para levar embora.",
+              "options": [
+                {
+                  "label": "Dê a cópia, é só um arquivo.",
+                  "correct": false,
+                  "reply": "Então eu copio e entrego agora."
+                },
+                {
+                  "label": "Edite a cópia para ficar mais nítida e entregue.",
+                  "correct": false,
+                  "reply": "Então eu mexo na cópia antes de entregar."
+                },
+                {
+                  "label": "Peça que a equipe autorize e registre a entrega.",
+                  "correct": true,
+                  "reply": "Combinado, falo com a equipe e anoto a entrega."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: você registrou, não concluiu, e a entrega da cópia passou pela equipe e pelo registro.",
+          "feedbackIncorrect": "Reveja a aula: o estudante não comenta o achado e toda entrega é registrada.",
+          "help": "O que quem adquire pode dizer, e como uma entrega fica registrada?",
+          "sourceIds": [
+            "swgde-integridade",
+            "review-forense-2025"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você registra e deixa a conclusão",
+        "body": "Agora você consegue separar o que quem adquire a imagem registra e guarda do que a equipe forense conclui, e responde sem comentar o achado.",
+        "line": {
+          "speaker": "lia",
+          "text": "A sua parte é registrar bem e preservar. A conclusão é de quem responde pela perícia."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quem conclui sobre a causa de uma marca vista numa imagem forense?",
+          "options": [
+            {
+              "label": "O estudante, que adquiriu a imagem",
+              "correct": false,
+              "feedback": "Quem adquire registra e preserva; não conclui."
+            },
+            {
+              "label": "O tecnólogo, por ter operado o aparelho",
+              "correct": false,
+              "feedback": "Operar o aparelho não dá a conclusão sobre o caso."
+            },
+            {
+              "label": "O agente que trouxe o material",
+              "correct": false,
+              "feedback": "Trazer o material não é analisá-lo; a conclusão é da equipe forense."
+            },
+            {
+              "label": "A equipe forense que responde pela perícia",
+              "correct": true,
+              "feedback": "Isso: a conclusão sobre o caso é da equipe forense."
+            }
+          ],
+          "sourceIds": [
+            "swgde-integridade",
+            "review-forense-2025"
+          ]
+        },
+        {
+          "prompt": "O que se faz com a imagem original depois do registro?",
+          "options": [
+            {
+              "label": "Guarda sem alterar, com acesso limitado",
+              "correct": true,
+              "feedback": "Isso: o original fica intacto e com acesso limitado."
+            },
+            {
+              "label": "Retoca para destacar o achado",
+              "correct": false,
+              "feedback": "Retocar o original o altera; o trabalho se faz em cópia."
+            },
+            {
+              "label": "Entrega a qualquer pessoa que peça",
+              "correct": false,
+              "feedback": "O acesso é limitado a quem precisa."
+            },
+            {
+              "label": "Apaga depois de anotar o que se viu",
+              "correct": false,
+              "feedback": "Apagar o original destrói a evidência que a equipe pode rever."
+            }
+          ],
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem adquire a imagem registra e...",
+          "item": {
+            "prompt": "Qual destas tarefas cabe a quem adquire a imagem forense?",
+            "options": [
+              {
+                "label": "Dizer o que causou a marca no objeto",
+                "correct": false,
+                "feedback": "Dizer a causa é conclusão da equipe forense."
+              },
+              {
+                "label": "Afirmar a quem o objeto pertence",
+                "correct": false,
+                "feedback": "Dizer a quem pertence é conclusão da equipe forense."
+              },
+              {
+                "label": "Anotar quem entregou o material e quando",
+                "correct": true,
+                "feedback": "Isso: anotar entrega e horário é registro, tarefa de quem adquire."
+              },
+              {
+                "label": "Avaliar se a marca é antiga ou recente",
+                "correct": false,
+                "feedback": "Avaliar a idade da marca é interpretar o achado."
+              }
+            ],
+            "sourceIds": [
+              "swgde-integridade"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num caso, o estudante nota algo estranho na imagem. O que cabe a ele?",
+            "options": [
+              {
+                "label": "Concluir o que a marca significa e informar o agente",
+                "correct": false,
+                "feedback": "Concluir sobre o que vê não cabe a quem adquire."
+              },
+              {
+                "label": "Registrar, preservar e avisar a equipe, sem concluir",
+                "correct": true,
+                "feedback": "Isso: registra, preserva e avisa, sem concluir."
+              },
+              {
+                "label": "Apagar a imagem para refazê-la do zero depois",
+                "correct": false,
+                "feedback": "Apagar o original destrói o registro; refazer depende da equipe."
+              },
+              {
+                "label": "Retocar a imagem até a marca estranha sumir dela",
+                "correct": false,
+                "feedback": "Retocar o original o altera e apaga o achado."
+              }
+            ],
+            "sourceIds": [
+              "swgde-integridade",
+              "review-forense-2025"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m31-05",
+      "code": "M31.05",
+      "title": "Imagem em pesquisa",
+      "objective": "Hoje você vai conseguir seguir o percurso de um estudo, do protocolo aprovado ao dado sem nome.",
+      "competency": "Seguir o percurso de um estudo: protocolo aprovado, consentimento, aquisição e dado sem identificação.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Centro de pesquisa em imagem",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Hoje chega o voluntário de um estudo. O scanner é o mesmo da rotina, não é?"
+          },
+          {
+            "speaker": "caio",
+            "text": "O aparelho é o mesmo. O que muda é tudo o que vem antes e depois da imagem."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Siga o percurso: o que precisa existir antes de o primeiro participante entrar na sala?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O percurso de um estudo",
+        "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, a ficha do dado leva o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
+        "keyPoints": [
+          "O comitê de ética aprova o protocolo antes do estudo.",
+          "O participante consente de forma voluntária.",
+          "O estudante não recruta e não muda o protocolo."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que a equipe forense faz que quem adquire a imagem não faz?",
+          "options": [
+            {
+              "label": "Conclui sobre o caso",
+              "correct": true,
+              "feedback": "Isso: a conclusão é da equipe forense."
+            },
+            {
+              "label": "Anota o horário da aquisição",
+              "correct": false,
+              "feedback": "Anotar o horário é tarefa de quem adquire."
+            },
+            {
+              "label": "Guarda o original sem alterar",
+              "correct": false,
+              "feedback": "Guardar o original é tarefa de quem adquire."
+            },
+            {
+              "label": "Registra quem entregou o material",
+              "correct": false,
+              "feedback": "Registrar a entrega é tarefa de quem adquire."
+            }
+          ],
+          "help": "Lembre quem conclui e quem só registra.",
+          "sourceIds": [
+            "swgde-integridade"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule os cinco passos do percurso de um estudo, tocando na ficha e no ponto.",
+          "diagramId": "fluxo-de-pesquisa",
+          "points": [
+            {
+              "label": "Aprovação do comitê",
+              "x": 0.175,
+              "y": 0.2917,
+              "where": "no alto à esquerda, o papel com um selo de visto"
+            },
+            {
+              "label": "Consentimento assinado",
+              "x": 0.5,
+              "y": 0.2917,
+              "where": "no alto ao centro, a folha com uma caneta ao lado"
+            },
+            {
+              "label": "Aquisição da imagem",
+              "x": 0.825,
+              "y": 0.2917,
+              "where": "no alto à direita, o anel com a mesa à frente"
+            },
+            {
+              "label": "Ficha com o nome coberto",
+              "x": 0.825,
+              "y": 0.7083,
+              "where": "embaixo à direita, a folha com uma tarja no alto"
+            },
+            {
+              "label": "Arquivo trancado",
+              "x": 0.5,
+              "y": 0.7083,
+              "where": "embaixo ao centro, o cilindro com um cadeado"
+            }
+          ],
+          "distractors": [
+            "Convite ao participante"
+          ],
+          "feedbackCorrect": "Isso: da aprovação ao arquivo, cada passo protege o participante.",
+          "feedbackIncorrect": "Algum passo está no lugar errado: releia o percurso, da aprovação ao arquivo.",
+          "help": "Comece pelo que precisa existir antes de qualquer imagem.",
+          "sourceIds": [
+            "helsinki-wma",
+            "who-erc"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "Antes de qualquer imagem, o {{1}} de ética aprova o protocolo e o participante dá o seu {{2}}.",
+          "answers": [
+            "comitê",
+            "consentimento"
+          ],
+          "distractors": [
+            "diagnóstico",
+            "laudo",
+            "sorteio"
+          ],
+          "feedbackCorrect": "Isso: o comitê de ética aprova o protocolo, e o participante consente.",
+          "feedbackIncorrect": "Pense em quem aprova o protocolo e no que o participante dá de forma voluntária antes da imagem.",
+          "help": "Quem aprova o protocolo, e o que o participante concede?",
+          "sourceIds": [
+            "helsinki-wma",
+            "who-erc"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada tarefa do estudo no grupo certo.",
+          "categories": [
+            "Equipe de pesquisa",
+            "Estudante"
+          ],
+          "items": [
+            {
+              "label": "Convidar pessoas para participar",
+              "category": "Equipe de pesquisa"
+            },
+            {
+              "label": "Levar ao comitê uma mudança no protocolo",
+              "category": "Equipe de pesquisa"
+            },
+            {
+              "label": "Seguir o protocolo na aquisição",
+              "category": "Estudante"
+            },
+            {
+              "label": "Avisar diante de uma dúvida sobre o estudo",
+              "category": "Estudante"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que a equipe de pesquisa decide do que o estudante faz.",
+          "feedbackIncorrect": "Pergunte de cada tarefa: ela decide o estudo ou executa o que já foi aprovado?",
+          "help": "Quem decide sobre o estudo, e quem executa o que foi aprovado?",
+          "sourceIds": [
+            "helsinki-wma"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "prompt": "Seu Otávio é voluntário de um estudo e pergunta sobre os dados dele. Conduza a conversa sem ir além do seu papel.",
+          "turns": [
+            {
+              "line": "Meu nome vai aparecer nos resultados?",
+              "options": [
+                {
+                  "label": "Pode ficar tranquilo, o seu nome nunca aparece em lugar nenhum.",
+                  "correct": false,
+                  "reply": "Ah, então não preciso me preocupar com nada."
+                },
+                {
+                  "label": "Aparece, sim, em todas as fichas do estudo, sem nenhuma exceção.",
+                  "correct": false,
+                  "reply": "Poxa, não sabia que ia aparecer assim."
+                },
+                {
+                  "label": "O estudo protege sua privacidade; a equipe de pesquisa explica.",
+                  "correct": true,
+                  "reply": "Entendi. Posso perguntar a ela, então?"
+                }
+              ]
+            },
+            {
+              "line": "Posso entrar em outro estudo que vi no cartaz?",
+              "options": [
+                {
+                  "label": "Pode sim, eu mesmo faço a sua inscrição agora mesmo, é simples.",
+                  "correct": false,
+                  "reply": "Que bom, então já pode me inscrever."
+                },
+                {
+                  "label": "Isso a equipe de pesquisa combina; aviso que o senhor perguntou.",
+                  "correct": true,
+                  "reply": "Combinado, aguardo o retorno da equipe."
+                },
+                {
+                  "label": "Melhor não, esse outro estudo não vale a pena nenhuma, de verdade.",
+                  "correct": false,
+                  "reply": "Hum, nem conheço o outro estudo direito."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: você tranquilizou sem prometer o que cabe à equipe e não recrutou ninguém.",
+          "feedbackIncorrect": "Reveja a aula: o estudante não recruta, não muda nada e leva a dúvida à equipe de pesquisa.",
+          "help": "O que o estudante pode dizer, e o que passa para a equipe?",
+          "sourceIds": [
+            "helsinki-wma",
+            "who-erc"
+          ],
+          "name": "Seu Otávio"
+        }
+      ],
+      "closing": {
+        "title": "Você segue o percurso do estudo",
+        "body": "Agora você consegue seguir o percurso de um estudo, do protocolo aprovado ao arquivo, e sabe que recrutar e mudar o protocolo não cabem ao estudante.",
+        "line": {
+          "speaker": "lia",
+          "text": "Primeiro o comitê e o consentimento, depois a imagem. E a privacidade vai até o fim."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual destes vem antes da aquisição da imagem num estudo?",
+          "options": [
+            {
+              "label": "A aprovação do protocolo por um comitê de ética",
+              "correct": true,
+              "feedback": "Isso: o comitê aprova o protocolo antes do estudo."
+            },
+            {
+              "label": "A publicação dos resultados do estudo no fim",
+              "correct": false,
+              "feedback": "A publicação vem muito depois da aquisição."
+            },
+            {
+              "label": "O arquivamento do dado sem nome no sistema",
+              "correct": false,
+              "feedback": "O arquivamento vem depois da aquisição."
+            },
+            {
+              "label": "A mudança do protocolo feita pelo estudante",
+              "correct": false,
+              "feedback": "O estudante nunca muda o protocolo."
+            }
+          ],
+          "sourceIds": [
+            "helsinki-wma",
+            "who-erc"
+          ]
+        },
+        {
+          "prompt": "Uma participante pergunta se pode mudar um passo do exame. Qual é o papel do estudante?",
+          "options": [
+            {
+              "label": "Mudar o passo, se ela pedir com muito jeito",
+              "correct": false,
+              "feedback": "O estudante nunca muda o protocolo, nem a pedido."
+            },
+            {
+              "label": "Recusar o pedido sem dar nenhuma explicação",
+              "correct": false,
+              "feedback": "Recusar sem explicar não acolhe a participante."
+            },
+            {
+              "label": "Perguntar ao colega mais antigo e depois mudar",
+              "correct": false,
+              "feedback": "O colega mais antigo também não muda o protocolo; mudança passa pela equipe de pesquisa e pelo comitê."
+            },
+            {
+              "label": "Avisar a equipe de pesquisa, sem mudar o protocolo",
+              "correct": true,
+              "feedback": "Isso: o estudante leva a pergunta à equipe e segue o protocolo."
+            }
+          ],
+          "sourceIds": [
+            "helsinki-wma"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o participante entra no estudo por meio do seu...",
+          "item": {
+            "prompt": "O que o participante dá, de forma voluntária, antes da aquisição?",
+            "options": [
+              {
+                "label": "Um diagnóstico para o estudo",
+                "correct": false,
+                "feedback": "Diagnóstico não é o que o participante dá ao entrar num estudo."
+              },
+              {
+                "label": "Um laudo da imagem anterior",
+                "correct": false,
+                "feedback": "Um laudo não substitui o consentimento."
+              },
+              {
+                "label": "O consentimento para participar do estudo",
+                "correct": true,
+                "feedback": "Isso: a participação é voluntária e vem com o consentimento."
+              },
+              {
+                "label": "Uma indicação de outros participantes",
+                "correct": false,
+                "feedback": "Indicar outros participantes não é o consentimento."
+              }
+            ],
+            "sourceIds": [
+              "helsinki-wma",
+              "who-erc"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa pesquisa em outro serviço, o dado de um participante aparece com o nome completo numa lista aberta. O que cabe ao estudante?",
+            "options": [
+              {
+                "label": "Copiar a lista para conferir os nomes",
+                "correct": false,
+                "feedback": "Copiar a lista espalha a identificação que deveria estar protegida."
+              },
+              {
+                "label": "Corrigir a lista por conta própria",
+                "correct": false,
+                "feedback": "O estudante não altera registros por conta própria."
+              },
+              {
+                "label": "Comentar com o participante na recepção",
+                "correct": false,
+                "feedback": "Comentar com terceiros espalha o problema."
+              },
+              {
+                "label": "Não divulgar e avisar a equipe de pesquisa",
+                "correct": true,
+                "feedback": "Isso: não divulga a lista e leva o problema à equipe."
+              }
+            ],
+            "sourceIds": [
+              "helsinki-wma"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m31-06",
+      "code": "M31.06",
+      "title": "Objetos, obras e peças",
+      "objective": "Hoje você vai conseguir reconhecer a radiografia de objetos e a área isolada em torno dela.",
+      "competency": "Reconhecer a radiografia de objetos e a área isolada em torno dela.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Ateliê de conservação",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Radiografar um quadro? Eu achava que raios X era coisa de hospital."
+          },
+          {
+            "speaker": "caio",
+            "text": "A ideia é a mesma, e o paciente é uma tela. O que mais muda é a área em volta."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Olhe a área da radiografia: quem pode estar dentro dela quando o feixe liga?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Outro alvo, a mesma ideia",
+        "body": "A radiografia de objetos usa a mesma ideia do corpo: o material mais denso absorve mais raios X e aparece diferente do menos denso. Num quadro, a imagem pode mostrar desenhos e camadas escondidas sob a tinta. Como ninguém deve receber radiação sem necessidade, a área em volta é isolada com cordão e sinal de aviso, e esvaziada antes da exposição. Só opera quem é treinado para isso, e de fora da área, no painel de comando do esquema, porque a intensidade cai com a distância. O estudante não decide limites nem opera: acompanha sob supervisão e avisa se alguém entra.",
+        "keyPoints": [
+          "Mesma técnica, outro alvo: material mais denso absorve mais.",
+          "Cordão e sinal marcam a área, esvaziada antes da exposição.",
+          "Quem opera fica fora da área; o estudante avisa se alguém entra."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M13 você viu que a sala intervencionista é área controlada. Quem entra nela?",
+          "options": [
+            {
+              "label": "Todos os que estão no setor naquele momento",
+              "correct": false,
+              "feedback": "Estar no setor não é o critério; o critério é a necessidade."
+            },
+            {
+              "label": "Só quem é necessário ao procedimento",
+              "correct": true,
+              "feedback": "Isso: em área controlada entra quem é necessário."
+            },
+            {
+              "label": "Só quem tem o avental mais novo",
+              "correct": false,
+              "feedback": "A idade do avental não define quem entra."
+            },
+            {
+              "label": "Quem chegar primeiro à porta",
+              "correct": false,
+              "feedback": "Chegar primeiro não torna a presença necessária."
+            }
+          ],
+          "help": "Pense no critério de quem pode estar presente durante a exposição.",
+          "sourceIds": [
+            "hps-segurar",
+            "weeklysafety-ind"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque nas duas coisas da cena que avisam e delimitam a área isolada.",
+          "diagramId": "radiografia-de-objeto",
+          "regions": [
+            {
+              "label": "Tubo de raios X",
+              "x": 0.0313,
+              "y": 0.375,
+              "width": 0.15,
+              "height": 0.1167
+            },
+            {
+              "label": "Triângulo de aviso",
+              "x": 0.5625,
+              "y": 0.3917,
+              "width": 0.1125,
+              "height": 0.1333,
+              "correct": true
+            },
+            {
+              "label": "Quadro no cavalete",
+              "x": 0.2375,
+              "y": 0.2917,
+              "width": 0.0875,
+              "height": 0.3
+            },
+            {
+              "label": "Cordão entre os postes",
+              "x": 0.6,
+              "y": 0.6667,
+              "width": 0.1875,
+              "height": 0.1667,
+              "correct": true
+            },
+            {
+              "label": "Detector atrás do quadro",
+              "x": 0.4033,
+              "y": 0.2583,
+              "width": 0.081,
+              "height": 0.3667
+            },
+            {
+              "label": "Pessoa ao lado do painel",
+              "x": 0.875,
+              "y": 0.45,
+              "width": 0.0875,
+              "height": 0.3417
+            }
+          ],
+          "feedbackCorrect": "Isso: o cordão e o triângulo de aviso marcam a área que fica isolada durante a exposição.",
+          "feedbackIncorrect": "Essa região faz parte do exame ou da equipe, mas não marca o limite: procure o que avisa e delimita.",
+          "help": "Procure o que alerta quem se aproxima e o que desenha o limite no chão.",
+          "sourceIds": [
+            "weeklysafety-ind"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre a radiografia de objetos.",
+          "statements": [
+            {
+              "text": "A radiografia de um quadro pode mostrar camadas escondidas sob a tinta.",
+              "correct": true,
+              "feedback": "Certo: a imagem pode revelar alterações e camadas sob a superfície da tinta."
+            },
+            {
+              "text": "Com o objeto no feixe, quem opera fica dentro da área isolada.",
+              "correct": false,
+              "feedback": "Errado: quem opera fica fora da área, junto ao painel de comando."
+            },
+            {
+              "text": "O cordão e o sinal de aviso marcam a área que fica isolada na exposição.",
+              "correct": true,
+              "feedback": "Certo: o cordão e o sinal de aviso delimitam a área isolada."
+            },
+            {
+              "text": "Quanto mais longe da fonte, menor é a intensidade da radiação.",
+              "correct": true,
+              "feedback": "Certo: a intensidade cai com a distância, e por isso o operador fica longe."
+            },
+            {
+              "text": "O estudante decide sozinho quando o cordão pode ser retirado.",
+              "correct": false,
+              "feedback": "Errado: o estudante não decide limites; quem define é a equipe responsável pelo serviço."
+            },
+            {
+              "text": "Materiais de densidades diferentes absorvem raios X de modos diferentes.",
+              "correct": true,
+              "feedback": "Certo: por isso o material mais denso aparece diferente do menos denso na imagem."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que a técnica mostra do que protege a área, no ritmo da rodada.",
+          "feedbackIncorrect": "Reveja o conceito: a imagem mostra camadas, a área é isolada e quem opera fica fora.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "art-test-raiosx",
+            "wiki-patrimonio",
+            "weeklysafety-ind"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "O quadro está no feixe e a exposição vai começar. Marque tudo o que o esquema usa para evitar que alguém se exponha.",
+          "options": [
+            {
+              "label": "Uma pessoa dentro da área para segurar o quadro",
+              "correct": false,
+              "feedback": "Ninguém fica dentro da área na exposição; o cavalete dispensa uma pessoa segurando."
+            },
+            {
+              "label": "Cordão em volta da área isolada",
+              "correct": true,
+              "feedback": "O cordão delimita a área isolada, e a área é esvaziada antes da exposição."
+            },
+            {
+              "label": "Sinal de aviso visível para quem se aproxima",
+              "correct": true,
+              "feedback": "O sinal de aviso alerta quem se aproxima da área isolada."
+            },
+            {
+              "label": "Painel de comando dentro da área, junto ao quadro",
+              "correct": false,
+              "feedback": "O painel fica fora da área: quem opera se afasta, porque a intensidade cai com a distância."
+            },
+            {
+              "label": "Operador fora da área, junto ao painel de comando",
+              "correct": true,
+              "feedback": "Quem opera fica fora da área isolada e comanda a exposição de longe."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que isola a área e deixou de fora o que a expõe.",
+          "feedbackIncorrect": "Revise: a área é isolada com cordão e sinal, esvaziada, e quem opera fica fora dela.",
+          "help": "Quem e o que ficam dentro da área, e quem fica fora dela?",
+          "sourceIds": [
+            "weeklysafety-ind"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "caio",
+          "prompt": "Um visitante do ateliê quer entrar na área para ver a peça de perto, com o cordão posto. Ajude Caio a conduzir.",
+          "turns": [
+            {
+              "line": "Um visitante quer entrar na área para ver a peça de perto. Posso deixar só um minuto?",
+              "options": [
+                {
+                  "label": "Deixe entrar, só um minuto assim não faz diferença nenhuma aqui.",
+                  "correct": false,
+                  "reply": "Tá, então eu deixo ele entrar um minutinho."
+                },
+                {
+                  "label": "Não: a área é isolada; chame a supervisão e peça que aguarde fora.",
+                  "correct": true,
+                  "reply": "Combinado, chamo a supervisão e peço que ele espere."
+                },
+                {
+                  "label": "Abra o cordão e peça que ele fique atrás do detector, bem de lado.",
+                  "correct": false,
+                  "reply": "Tá, então eu abro o cordão e posiciono ele ali."
+                }
+              ]
+            },
+            {
+              "line": "Ele também quer saber quanta radiação o quadro recebe. Digo um número?",
+              "options": [
+                {
+                  "label": "Diga um número qualquer, só para ele ficar sossegado de uma vez.",
+                  "correct": false,
+                  "reply": "Então eu invento um número e fico tranquilo."
+                },
+                {
+                  "label": "Diga que o quadro não recebe nada, porque ele é só um objeto.",
+                  "correct": false,
+                  "reply": "Então eu digo que não recebe nada."
+                },
+                {
+                  "label": "Não invente: diga que a equipe explica, e anote a pergunta.",
+                  "correct": true,
+                  "reply": "Combinado, não invento e anoto a pergunta."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: a área continua isolada, a dúvida vai para a equipe e nenhum número é inventado.",
+          "feedbackIncorrect": "Reveja a aula: ninguém entra na área isolada, e o estudante leva as dúvidas à equipe responsável.",
+          "help": "Quem decide sobre a área, e o que o estudante diz ao visitante?",
+          "sourceIds": [
+            "weeklysafety-ind",
+            "wiki-patrimonio"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você reconhece a área isolada",
+        "body": "Agora você consegue dizer o que a radiografia de objetos mostra, reconhecer o cordão e o sinal que isolam a área e saber onde fica quem opera.",
+        "line": {
+          "speaker": "lia",
+          "text": "Outro alvo, a mesma regra: a área fica isolada, e quem opera fica longe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Durante a exposição do quadro, onde fica quem opera o aparelho?",
+          "options": [
+            {
+              "label": "Ao lado do cavalete, para vigiar a peça",
+              "correct": false,
+              "feedback": "Ao lado do cavalete a pessoa estaria dentro da área isolada."
+            },
+            {
+              "label": "Fora da área isolada, junto ao painel de comando",
+              "correct": true,
+              "feedback": "Isso: quem opera comanda de fora da área."
+            },
+            {
+              "label": "Atrás do detector, dentro da área",
+              "correct": false,
+              "feedback": "Atrás do detector ainda é dentro da área isolada."
+            },
+            {
+              "label": "Junto ao tubo, para ajustar durante a exposição",
+              "correct": false,
+              "feedback": "Junto ao tubo é o ponto mais próximo da fonte."
+            }
+          ],
+          "sourceIds": [
+            "weeklysafety-ind"
+          ]
+        },
+        {
+          "prompt": "Qual é a função do cordão com o sinal de aviso?",
+          "options": [
+            {
+              "label": "Segurar o quadro firme no cavalete durante a exposição",
+              "correct": false,
+              "feedback": "O cordão não sustenta o quadro; ele marca a área."
+            },
+            {
+              "label": "Ampliar o campo de luz sobre a peça do quadro",
+              "correct": false,
+              "feedback": "O cordão não tem relação com o campo de luz."
+            },
+            {
+              "label": "Marcar a área isolada e avisar quem se aproxima",
+              "correct": true,
+              "feedback": "Isso: cordão e sinal delimitam a área e alertam quem chega perto."
+            },
+            {
+              "label": "Registrar quem passou pela área durante o dia",
+              "correct": false,
+              "feedback": "O cordão não registra nada: ele marca a área e avisa quem se aproxima."
+            }
+          ],
+          "sourceIds": [
+            "weeklysafety-ind"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a intensidade da radiação cai com...",
+          "item": {
+            "prompt": "O que acontece com a intensidade da radiação quando alguém se afasta da fonte?",
+            "options": [
+              {
+                "label": "Cai, e por isso quem opera fica longe do feixe",
+                "correct": true,
+                "feedback": "Isso: a intensidade cai com a distância."
+              },
+              {
+                "label": "Sobe, por isso o cordão fica perto do feixe",
+                "correct": false,
+                "feedback": "A intensidade não sobe com a distância; ela cai."
+              },
+              {
+                "label": "Fica igual, e só o tempo importa",
+                "correct": false,
+                "feedback": "A distância muda a intensidade; o tempo é outro fator."
+              },
+              {
+                "label": "Some de uma vez, a partir de um ponto",
+                "correct": false,
+                "feedback": "A intensidade cai com a distância, sem sumir de uma vez."
+              }
+            ],
+            "sourceIds": [
+              "weeklysafety-ind"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma estátua de pedra será radiografada num ateliê. Qual ideia desta aula vale também?",
+            "options": [
+              {
+                "label": "Estátua não precisa de nenhuma área isolada em volta",
+                "correct": false,
+                "feedback": "O objeto não muda a regra: a área em volta é isolada."
+              },
+              {
+                "label": "Quem opera fica ao lado da estátua, junto dela",
+                "correct": false,
+                "feedback": "Ao lado da estátua quem opera estaria dentro da área isolada."
+              },
+              {
+                "label": "O estudante decide sozinho onde pôr o cordão",
+                "correct": false,
+                "feedback": "O estudante não decide limites; a equipe responsável define."
+              },
+              {
+                "label": "A área em volta é isolada, e quem opera fica fora",
+                "correct": true,
+                "feedback": "Isso: a mesma regra vale para outro objeto."
+              }
+            ],
+            "sourceIds": [
+              "weeklysafety-ind",
+              "art-test-raiosx"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

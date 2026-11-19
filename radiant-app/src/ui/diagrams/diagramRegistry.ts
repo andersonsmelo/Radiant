@@ -67,6 +67,24 @@ import { linhasDoCranio } from './specs/linhas-do-cranio';
 import { seiosDaFace } from './specs/seios-da-face';
 import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
 import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
+import { cicloDeTestes } from './specs/ciclo-de-testes';
+import { testeDeFeixe } from './specs/teste-de-feixe';
+import { coincidenciaDeCampo } from './specs/coincidencia-de-campo';
+import { nivelDeReferencia } from './specs/nivel-de-referencia';
+import { cadeiaDeCustodia } from './specs/cadeia-de-custodia';
+import { fluxoDePesquisa } from './specs/fluxo-de-pesquisa';
+import { radiografiaDeObjeto } from './specs/radiografia-de-objeto';
+import { radiografiaVeterinaria } from './specs/radiografia-veterinaria';
+import { relaxacaoT1T2 } from './specs/relaxacao-t1-t2';
+import { linhaDoTempoTrTe } from './specs/linha-do-tempo-tr-te';
+import { ponderacoesNoEncefalo } from './specs/ponderacoes-no-encefalo';
+import { supressaoDeGordura } from './specs/supressao-de-gordura';
+import { artefatosDeRm } from './specs/artefatos-de-rm';
+import { dxaDoisFeixes } from './specs/dxa-dois-feixes';
+import { dxaRegioesDeInteresse } from './specs/dxa-regioes-de-interesse';
+import { dxaPosicionamento } from './specs/dxa-posicionamento';
+import { dxaInterferencias } from './specs/dxa-interferencias';
+import { corpoInteiroComposicao } from './specs/corpo-inteiro-composicao';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -137,6 +155,24 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [seiosDaFace.id]: seiosDaFace,
   [raioXMovelNoLeito.id]: raioXMovelNoLeito,
   [traumaRaioHorizontal.id]: traumaRaioHorizontal,
+  [cicloDeTestes.id]: cicloDeTestes,
+  [testeDeFeixe.id]: testeDeFeixe,
+  [coincidenciaDeCampo.id]: coincidenciaDeCampo,
+  [nivelDeReferencia.id]: nivelDeReferencia,
+  [cadeiaDeCustodia.id]: cadeiaDeCustodia,
+  [fluxoDePesquisa.id]: fluxoDePesquisa,
+  [radiografiaDeObjeto.id]: radiografiaDeObjeto,
+  [radiografiaVeterinaria.id]: radiografiaVeterinaria,
+  [relaxacaoT1T2.id]: relaxacaoT1T2,
+  [linhaDoTempoTrTe.id]: linhaDoTempoTrTe,
+  [ponderacoesNoEncefalo.id]: ponderacoesNoEncefalo,
+  [supressaoDeGordura.id]: supressaoDeGordura,
+  [artefatosDeRm.id]: artefatosDeRm,
+  [dxaDoisFeixes.id]: dxaDoisFeixes,
+  [dxaRegioesDeInteresse.id]: dxaRegioesDeInteresse,
+  [dxaPosicionamento.id]: dxaPosicionamento,
+  [dxaInterferencias.id]: dxaInterferencias,
+  [corpoInteiroComposicao.id]: corpoInteiroComposicao,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
