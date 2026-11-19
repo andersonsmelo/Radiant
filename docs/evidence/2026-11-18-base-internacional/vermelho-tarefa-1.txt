@@ -1,0 +1,51 @@
+# Vermelho da tarefa 1 (2026-11-18)
+
+## 1. Antes de o módulo existir: node --test scripts/content/rtg-national-terms.test.mjs
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 347.732083
+
+## 2. Redação legal sem número, antes de a régua cobri-la (37 passam, 6 falham)
+not ok 24 - barra: Retome o que a lei exige do consentimento.
+not ok 25 - barra: Protocolos alinhados à legislação e ao fabricante.
+not ok 26 - barra: A Política Nacional de Humanização orienta.
+not ok 27 - barra: Apenas à autoridade sanitária, em visita.
+not ok 28 - barra: A vigilância sanitária pede o registro.
+not ok 29 - barra: Siga as instruções normativas.
+# pass 37
+# fail 6
+
+## 3. Régua ainda não ligada no verificador: node --test scripts/content/rtg-lesson-lint.test.mjs
+not ok 40 - referência nacional reprova no conceito
+not ok 41 - referência nacional reprova no retorno de uma alternativa da conferência
+not ok 42 - referência nacional reprova no título de uma fonte
+not ok 43 - referência nacional reprova em campo que nenhuma outra régua lê
+# pass 40
+# fail 4
+
+## 4. Achados da revisão independente, antes da correção
+not ok 30 - barra: A lei de Libras garante intérprete.
+not ok 31 - barra: A lei da profissão define o papel.
+not ok 32 - barra: Veja a Lei de Diretrizes e Bases.
+not ok 33 - barra: A Lei n.º 7.394 trata da profissão.
+not ok 34 - barra: A Lei nº. 7.394 trata da profissão.
+not ok 35 - barra: A Portaria SVS/MS 453 foi revogada.
+not ok 36 - barra: A RDC-611 pede o teste.
+not ok 37 - barra: A IN-91 trata da intervencionista.
+not ok 38 - barra: A norma NN 3.01 fixa o limite.
+not ok 39 - barra: O Conselho Federal publicou a regra.
+not ok 40 - barra: O Conselho Regional fiscaliza.
+not ok 41 - barra: Saiu no Diário Oficial.
+not ok 42 - barra: A Constituição garante o acesso.
+not ok 43 - barra: O Código de Defesa do Consumidor vale aqui.
+not ok 44 - barra: O Estatuto do Idoso dá prioridade.
+not ok 45 - barra: A CLT trata da jornada.
+not ok 46 - barra: A ABNT publica a norma.
+not ok 47 - barra: O Inmetro verifica o medidor.
+not ok 48 - barra: O Ministério do Trabalho fiscaliza.
+not ok 49 - barra: A Agência Nacional de Saúde regula.
+# pass 48
+# fail 20

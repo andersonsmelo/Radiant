@@ -6,7 +6,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m02",
-  "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852",
+  "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602",
   "trackId": "track:rtg-2026:m02",
   "unitId": "unit:rtg-2026:m02",
   "contentVersion": "rtg-2026-m02-v1",
@@ -83,13 +83,13 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "licenseNote": "Livro aberto de Brent Burbridge e Evan Mah, licença CC BY-NC-SA 4.0; consultado para fatos sobre a exibição do corte axial e os marcadores R, L, A e P, com redação própria."
     },
     {
-      "id": "source:rtg-2026:m02:ms-identificacao-paciente",
-      "title": "Protocolo de Identificação do Paciente (Programa Nacional de Segurança do Paciente)",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
-      "url": "https://www.gov.br/saude/pt-br/composicao/saes/seguranca-do-paciente/protocolos-de-seguranca-do-paciente/protocolo-de-identificacao-do-paciente",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m02:who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo federal de segurança do paciente; consultado para fatos sobre a conferência da identificação, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m02:scor-marcadores",
@@ -99,15 +99,6 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "accessedAt": "2026-11-05",
       "use": "factual-reference",
       "licenseNote": "Orientação de entidade profissional do Reino Unido, reafirmada em 2024; consultada para fatos, sem reprodução de texto."
-    },
-    {
-      "id": "source:rtg-2026:m02:coseac-uff-2023-identificacao",
-      "title": "Respostas aos recursos da prova de Técnico em Radiologia, concurso FEMAR, Edital 1/2023 (questão 50, identificação da imagem)",
-      "publisher": "COSEAC, Universidade Federal Fluminense",
-      "url": "https://portal.coseac.uff.br/wp-content/uploads/2023/12/Resposta_recurso_FEMAR_Medio_TecnicoemRadiologia.pdf",
-      "accessedAt": "2026-11-05",
-      "use": "factual-reference",
-      "licenseNote": "Documento público de banca universitária que cita Biasoli Jr., Técnicas radiográficas, 2. ed., 2016, p. 121. Fonte secundária, usada só para o fato de que as letras D e E identificam o lado no Brasil, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m02:nibabel-convencao-radiologica",
@@ -137,7 +128,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m02-v1",
         "sourceIds": [
-          "source:rtg-2026:m02:ms-identificacao-paciente",
+          "source:rtg-2026:m02:who-identificacao-paciente-2007",
           "source:rtg-2026:m02:openstax-ap-1-6",
           "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
           "source:rtg-2026:m02:burbridge-mah-tc"
@@ -470,7 +461,6 @@ export const RTG_2026_M02: ProductionBatchV1 = {
           "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
           "source:rtg-2026:m02:chung-2020-marcadores",
           "source:rtg-2026:m02:scor-marcadores",
-          "source:rtg-2026:m02:coseac-uff-2023-identificacao",
           "source:rtg-2026:m02:burbridge-mah-tc"
         ]
       },
@@ -507,7 +497,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O marcador fala do corpo",
-            "body": "O marcador de lado é uma letra que indica qual lado do corpo a imagem mostra: R, de right, para o direito, e L, de left, para o esquerdo. No Brasil, também se usam D e E. Ele pode ser uma peça radiopaca posta no campo antes da exposição, a melhor prática segundo entidades profissionais, ou uma anotação digital feita depois. Para conferir, use a vista e o lado do corpo, não o lado da tela nem a posição habitual de um órgão. Se o marcador faltar ou não combinar com o pedido, descreva e leve à equipe. Neste treino, você não altera nem acrescenta informação à imagem.",
+            "body": "O marcador de lado é uma letra que indica qual lado do corpo a imagem mostra: R, de right, para o direito, e L, de left, para o esquerdo. Alguns serviços usam letras da língua local, como D e E em português; vale a convenção do serviço. Ele pode ser uma peça radiopaca posta no campo antes da exposição ou uma anotação digital feita depois. Para conferir, use a vista e o lado do corpo, não o lado da tela. Se o marcador faltar ou não combinar com o pedido, descreva e leve à equipe. Neste treino, você não altera nem acrescenta informação à imagem.",
             "keyPoints": [
               "R indica o lado direito do corpo; L, o esquerdo.",
               "A conferência usa a vista e o lado do corpo.",
@@ -579,7 +569,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
             "type": "categorize",
             "feedback": {
               "correct": "R e D indicam o lado direito do corpo, e L e E indicam o esquerdo. As letras falam do corpo, e não do lado da tela.",
-              "incorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo."
+              "incorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo. Outras línguas usam outras letras."
             },
             "payload": {
               "prompt": "Classifique cada letra de marcador no lado do corpo que ela indica.",
@@ -2544,7 +2534,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente"
+        "source:rtg-2026:m02:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2558,7 +2548,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente"
+        "source:rtg-2026:m02:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2578,7 +2568,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente"
+        "source:rtg-2026:m02:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2586,7 +2576,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente"
+        "source:rtg-2026:m02:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -2859,7 +2849,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente",
+        "source:rtg-2026:m02:who-identificacao-paciente-2007",
         "source:rtg-2026:m02:openstax-ap-1-6",
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:burbridge-mah-tc"
@@ -2870,7 +2860,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente",
+        "source:rtg-2026:m02:who-identificacao-paciente-2007",
         "source:rtg-2026:m02:openstax-ap-1-6",
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:burbridge-mah-tc"
@@ -2881,7 +2871,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m02:ms-identificacao-paciente",
+        "source:rtg-2026:m02:who-identificacao-paciente-2007",
         "source:rtg-2026:m02:openstax-ap-1-6",
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:burbridge-mah-tc"
@@ -3155,8 +3145,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3165,8 +3154,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3175,8 +3163,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3185,8 +3172,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3195,8 +3181,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3205,8 +3190,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3215,8 +3199,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3225,8 +3208,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3235,8 +3217,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3245,8 +3226,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m02:chung-2020-marcadores",
-        "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao"
+        "source:rtg-2026:m02:scor-marcadores"
       ]
     },
     {
@@ -3425,7 +3405,6 @@ export const RTG_2026_M02: ProductionBatchV1 = {
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:chung-2020-marcadores",
         "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao",
         "source:rtg-2026:m02:burbridge-mah-tc"
       ]
     },
@@ -3438,7 +3417,6 @@ export const RTG_2026_M02: ProductionBatchV1 = {
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:chung-2020-marcadores",
         "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao",
         "source:rtg-2026:m02:burbridge-mah-tc"
       ]
     },
@@ -3451,7 +3429,6 @@ export const RTG_2026_M02: ProductionBatchV1 = {
         "source:rtg-2026:m02:radiopaedia-posicao-anatomica",
         "source:rtg-2026:m02:chung-2020-marcadores",
         "source:rtg-2026:m02:scor-marcadores",
-        "source:rtg-2026:m02:coseac-uff-2023-identificacao",
         "source:rtg-2026:m02:burbridge-mah-tc"
       ]
     },
@@ -6418,7 +6395,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     },
     {
       "schemaVersion": 1,
@@ -6427,7 +6404,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     },
     {
       "schemaVersion": 1,
@@ -6436,7 +6413,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     },
     {
       "schemaVersion": 1,
@@ -6445,7 +6422,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     },
     {
       "schemaVersion": 1,
@@ -6454,7 +6431,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     },
     {
       "schemaVersion": 1,
@@ -6463,7 +6440,7 @@ export const RTG_2026_M02: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "08c627d7836c2a43e066a2046d40f13fce12a56697ea3de7ad69036cc8d9d852"
+      "materialSha256": "50270eaaecb05627596331f059713e1b035a35b5d990b03e8186326307986602"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

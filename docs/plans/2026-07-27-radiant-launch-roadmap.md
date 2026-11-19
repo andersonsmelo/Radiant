@@ -105,6 +105,13 @@ aprofundamentos, a prova completa no simulador e as imagens. Plano:
 [trilha ampla e engajamento](2026-11-05-radiant-trilha-ampla-e-engajamento.md);
 relatório: [2026-11-06](../superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
 
+**Atualização de 2026-11-18 — trilha dobrada (1.7).** Fora das ondas A a H, por pedido
+do dono: dobrar a trilha, tirar lei brasileira e diversificar a entrega, em cinco fases
+([desenho](../superpowers/specs/2026-11-18-trilha-dobrada-design.md)). **Fase A (base
+internacional): feita na branch `claude/trilha-dobrada` em 2026-11-18, sem merge.** Fases
+B (formatos), C (unidades irmãs), D (conversão) e E (integração): não iniciadas. Estado
+no [`STATUS.md`](../STATUS.md).
+
 ## 3. Estratégia
 
 1. **Local-first é o produto lançável.** A API não entra no caminho crítico do

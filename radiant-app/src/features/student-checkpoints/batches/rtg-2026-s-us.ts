@@ -6,7 +6,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-us",
-  "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8",
+  "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445",
   "trackId": "track:rtg-2026:s-us",
   "unitId": "unit:rtg-2026:s-us",
   "contentVersion": "rtg-2026-s-us-v1",
@@ -65,13 +65,13 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "licenseNote": "Página educacional; consultada para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:s-us:lei-12842-2013",
-      "title": "Lei nº 12.842, de 10 de julho de 2013",
-      "publisher": "Presidência da República, Planalto",
-      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12842.htm",
-      "accessedAt": "2026-11-13",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para o art. 4º, VII e § 7º, sem reprodução de texto."
+      "id": "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+      "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
     }
   ],
   "activities": [
@@ -1700,9 +1700,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-us:fda-us",
           "source:rtg-2026:s-us:aium-alara",
-          "source:rtg-2026:s-us:lei-12842-2013",
-          "source:rtg-2026:s-us:radiologyinfo-us",
-          "source:rtg-2026:s-us:nibib-us"
+          "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+          "source:rtg-2026:s-us:radiologyinfo-us"
         ]
       },
       "steps": [
@@ -1712,7 +1711,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Onde o tecnólogo entra",
-            "body": "Hoje você vai conseguir separar preparo de sala, equipamento e paciente do que a lei e o serviço definem, como a emissão do laudo.",
+            "body": "Hoje você vai conseguir separar o apoio que vale em qualquer serviço do que você pergunta à supervisão e do que nunca é do estudante.",
             "dialogue": {
               "setting": "Sala de ultrassonografia (simulação)",
               "lines": [
@@ -1722,11 +1721,11 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "lia",
-                  "text": "Entender a física não habilita ninguém. Quem executa e quem emite o laudo a lei e o serviço definem."
+                  "text": "Entender a física não habilita ninguém. Quem prepara, quem faz a varredura e quem assina o laudo muda de serviço para serviço."
                 },
                 {
                   "speaker": "pixel",
-                  "text": "Que parte você pode afirmar com apoio em lei, e o que fica para perguntar à equipe?"
+                  "text": "O que vale em qualquer sala, e o que você pergunta antes de agir?"
                 }
               ]
             }
@@ -1737,12 +1736,12 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
           "id": "step:rtg-2026:s-us:aula-06:conceito",
           "role": "concept",
           "payload": {
-            "title": "O que a fonte sustenta",
-            "body": "Este curso não qualifica ninguém. O que está lido em fonte: a Lei 12.842/2013 diz que a emissão de laudo dos exames endoscópicos e de imagem é atividade privativa do médico, e manda aplicar a lei de modo a resguardar as competências do técnico e do tecnólogo de radiologia. Quem executa a varredura em cada serviço é definido pela lei e pelo serviço: aqui não se afirma. Nesta simulação supervisionada, o preparo é apoio: orientar o paciente sobre roupa e joias e organizar a sala. Na dúvida, descreva e pergunte à equipe.",
+            "title": "Seu papel na equipe",
+            "body": "O alcance de quem atua no ultrassom varia entre serviços. Na maioria dos países, o tecnólogo executa o exame e o médico radiologista o interpreta; quem faz a varredura e quem assina o laudo o serviço e as regras locais definem, com tarefas divididas em equipe. Por isso você pergunta e segue a regra do lugar. Vale em qualquer lugar: preparar sala e equipamento, limpar o transdutor, acolher e identificar o paciente, registrar e apoiar quem executa. Nunca é do estudante: interpretar, dar resultado ao paciente ou decidir conduta. Na dúvida, descreva e pergunte.",
             "keyPoints": [
-              "Laudo de exame de imagem: privativo do médico, pela Lei 12.842/2013.",
-              "Quem executa o exame: a lei e o serviço definem.",
-              "Na dúvida, descreva e peça apoio à equipe."
+              "O alcance de cada papel (preparar, executar, laudar) varia por serviço; pergunte e siga a regra local.",
+              "Em qualquer lugar, o estudante apoia: sala, transdutor limpo, acolhimento e registro.",
+              "Interpretar, dar resultado e decidir conduta nunca são do estudante."
             ]
           }
         },
@@ -1806,32 +1805,32 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             "accessibility": {
               "label": "Certo ou errado: Julgue cada afirmação sobre o que a fonte sustenta."
             },
-            "help": "A afirmação vem da lei lida ou de uma suposição?",
+            "help": "A afirmação vale em qualquer lugar ou depende do serviço?",
             "type": "true-false",
             "feedback": {
-              "correct": "Você apoiou cada afirmação na lei lida ou no limite do curso.",
-              "incorrect": "Retome: laudo é do médico pela lei; execução, a lei e o serviço definem."
+              "correct": "Você separou o que varia por serviço do que vale em qualquer sala.",
+              "incorrect": "Retome: o alcance varia por serviço; interpretar nunca é do estudante."
             },
             "payload": {
               "prompt": "Julgue cada afirmação sobre o que a fonte sustenta.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:s-us:aula-06:i2:1",
-                  "text": "Pela Lei 12.842/2013, a emissão de laudo de exames de imagem é privativa do médico.",
+                  "text": "Quem prepara, executa e assina o laudo varia conforme o serviço e as regras locais.",
                   "isTrue": true,
-                  "explanation": "Certo: é o inciso VII do artigo 4º da lei."
+                  "explanation": "Certo: por isso o aluno pergunta e segue a regra do lugar onde está."
                 },
                 {
                   "id": "statement:rtg-2026:s-us:aula-06:i2:2",
-                  "text": "A mesma lei manda resguardar as competências do técnico e do tecnólogo de radiologia.",
+                  "text": "Em qualquer serviço, o estudante pode apoiar o preparo da sala e a limpeza do transdutor.",
                   "isTrue": true,
-                  "explanation": "Certo: o parágrafo 7º do artigo 4º manda aplicá-la dessa forma."
+                  "explanation": "Certo: preparo, limpeza, acolhimento e registro valem em qualquer lugar."
                 },
                 {
                   "id": "statement:rtg-2026:s-us:aula-06:i2:3",
                   "text": "Entender a física do ultrassom já define quem executa o exame num serviço.",
                   "isTrue": false,
-                  "explanation": "Errado: quem executa é definido pela lei e pelo serviço, não pelo conteúdo do curso."
+                  "explanation": "Errado: quem executa o exame depende do serviço, não do conteúdo do curso; pergunte à supervisão."
                 },
                 {
                   "id": "statement:rtg-2026:s-us:aula-06:i2:4",
@@ -1856,11 +1855,11 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             "accessibility": {
               "label": "Classificação: Classifique cada item no grupo que a fonte ou o limite do curso sustenta."
             },
-            "help": "Cada item é apoio, laudo ou decisão do serviço?",
+            "help": "Cada item é apoio, interpretação ou algo a perguntar à supervisão?",
             "type": "categorize",
             "feedback": {
-              "correct": "Você separou o apoio, o que a lei reserva ao médico e o que a lei e o serviço definem.",
-              "incorrect": "Pergunte de cada item: é apoio de preparo, é a emissão do laudo ou depende da lei e do serviço?"
+              "correct": "Você separou o apoio, a interpretação que não é sua e o que você pergunta ao serviço.",
+              "incorrect": "Pergunte de cada item: é apoio de preparo, nunca é do estudante ou você pergunta ao serviço?"
             },
             "payload": {
               "prompt": "Classifique cada item no grupo que a fonte ou o limite do curso sustenta.",
@@ -1871,11 +1870,11 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
                 },
                 {
                   "id": "group:rtg-2026:s-us:aula-06:i3:b",
-                  "label": "Privativo do médico"
+                  "label": "Nunca é do estudante"
                 },
                 {
                   "id": "group:rtg-2026:s-us:aula-06:i3:c",
-                  "label": "Lei e serviço definem"
+                  "label": "Pergunte ao serviço"
                 }
               ],
               "items": [
@@ -1896,7 +1895,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
                 },
                 {
                   "id": "item:rtg-2026:s-us:aula-06:i3:3",
-                  "label": "Emitir o laudo do exame de imagem",
+                  "label": "Interpretar a imagem por conta própria",
                   "categoryId": "group:rtg-2026:s-us:aula-06:i3:b"
                 },
                 {
@@ -1921,10 +1920,10 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: Como você responde nessa situação?"
             },
-            "help": "Quem emite o laudo, pela lei lida?",
+            "help": "Quem interpreta e dá o resultado?",
             "type": "case-decision",
             "feedback": {
-              "correct": "O laudo é do médico; a equipe orienta a paciente.",
+              "correct": "Interpretar e dar resultado não é do estudante; a equipe orienta a paciente.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1934,12 +1933,12 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-us:aula-06:i4:a",
                   "label": "Dizer que está tudo normal, para tranquilizá-la",
-                  "explanation": "Qualquer parecer informal faz as vezes do laudo, que cabe ao médico."
+                  "explanation": "Qualquer parecer informal faz as vezes do laudo, que não é seu."
                 },
                 {
                   "id": "option:rtg-2026:s-us:aula-06:i4:b",
-                  "label": "Explicar que o médico emite o laudo e chamar a equipe",
-                  "explanation": "O laudo é do médico; a equipe orienta a paciente."
+                  "label": "Explicar que o resultado vem da equipe e chamar a equipe",
+                  "explanation": "Interpretar e dar resultado não é do estudante; a equipe orienta a paciente."
                 },
                 {
                   "id": "option:rtg-2026:s-us:aula-06:i4:c",
@@ -1969,10 +1968,10 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             "accessibility": {
               "label": "Múltipla escolha: Num serviço novo, não está claro se o aluno pode executar a varredura sozinho. O que ele faz?"
             },
-            "help": "Quem define a execução no serviço?",
+            "help": "A quem você pergunta o que cabe a você?",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "A lei e o serviço definem; na dúvida, pergunte.",
+              "correct": "Na dúvida, pergunte à supervisão o que cabe a você.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1991,7 +1990,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-us:aula-06:i5:c",
                   "label": "Pergunta à equipe antes de qualquer execução",
-                  "explanation": "A lei e o serviço definem; na dúvida, pergunte."
+                  "explanation": "Na dúvida, pergunte à supervisão o que cabe a você."
                 },
                 {
                   "id": "option:rtg-2026:s-us:aula-06:i5:d",
@@ -2009,7 +2008,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que fica para a equipe",
-            "body": "Você separa o apoio de preparo do que a lei reserva ao médico, a emissão do laudo, e do que a lei e o serviço definem. O curso não qualifica ninguém; na dúvida, você descreve e pergunta à equipe.",
+            "body": "Você separa o apoio que vale em qualquer sala do que pergunta à supervisão e do que nunca é do estudante, interpretar e dar resultado. O curso não qualifica ninguém; na dúvida, você descreve e pergunta à equipe.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2365,32 +2364,32 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-us:aula-06"
         ],
-        "prompt": "Segundo a Lei 12.842/2013, a emissão de laudo de exames de imagem é...",
+        "prompt": "Num serviço novo, que tarefa é apoio do estudante em qualquer lugar, seguindo o protocolo do serviço?",
         "options": [
           {
             "id": "option:rtg-2026:s-us:aula-06:c1:a",
-            "label": "Atividade livre a qualquer pessoa"
+            "label": "Interpretar a imagem para o paciente"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c1:b",
-            "label": "Atividade do tecnólogo em qualquer serviço"
+            "label": "Decidir a conduta do caso"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c1:c",
-            "label": "Atividade do paciente"
+            "label": "Executar a varredura sozinho"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c1:d",
-            "label": "Atividade privativa do médico"
+            "label": "Limpar o transdutor e preparar a sala"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-us:aula-06:c1:d",
         "feedback": {
-          "correct": "É o inciso VII do artigo 4º.",
+          "correct": "Preparo e limpeza, pelo protocolo do serviço, são apoio em qualquer lugar.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-us:lei-12842-2013"
+          "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
         ]
       },
       {
@@ -2398,32 +2397,32 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-us:aula-06"
         ],
-        "prompt": "Pelo que esta aula sustenta, quem define quem executa a varredura num serviço?",
+        "prompt": "Um estudante chega a um serviço onde quem faz a varredura não é quem fazia no serviço anterior. O que ele faz primeiro?",
         "options": [
           {
             "id": "option:rtg-2026:s-us:aula-06:c2:a",
-            "label": "O aluno, por conta própria"
+            "label": "Repetir o que fazia no serviço anterior"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c2:b",
-            "label": "A lei e o serviço"
+            "label": "Perguntar à supervisão o que cabe a ele ali"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c2:c",
-            "label": "O fabricante do aparelho"
+            "label": "Seguir o que um colega estudante faz"
           },
           {
             "id": "option:rtg-2026:s-us:aula-06:c2:d",
-            "label": "O próprio paciente"
+            "label": "Decidir pelo que parecer mais simples"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-us:aula-06:c2:b",
         "feedback": {
-          "correct": "A aula não afirma quem executa: isso a lei e o serviço definem.",
+          "correct": "A supervisão diz o que cabe ao estudante naquele serviço.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-us:lei-12842-2013"
+          "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
         ]
       }
     ]
@@ -5133,7 +5132,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5141,7 +5140,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5149,7 +5148,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5169,7 +5168,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5177,7 +5176,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5185,7 +5184,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5193,9 +5192,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5203,9 +5201,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5213,9 +5210,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5223,9 +5219,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5233,9 +5228,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5243,9 +5237,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5253,9 +5246,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5263,9 +5255,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5273,9 +5264,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5283,9 +5273,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5293,9 +5282,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5303,9 +5291,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5313,7 +5300,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5327,7 +5314,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5347,7 +5334,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5355,7 +5342,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5363,7 +5350,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5383,7 +5370,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5397,7 +5384,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5405,7 +5392,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5415,9 +5402,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-us:fda-us",
         "source:rtg-2026:s-us:aium-alara",
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5427,9 +5413,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-us:fda-us",
         "source:rtg-2026:s-us:aium-alara",
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5439,9 +5424,8 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-us:fda-us",
         "source:rtg-2026:s-us:aium-alara",
-        "source:rtg-2026:s-us:lei-12842-2013",
-        "source:rtg-2026:s-us:radiologyinfo-us",
-        "source:rtg-2026:s-us:nibib-us"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019",
+        "source:rtg-2026:s-us:radiologyinfo-us"
       ]
     },
     {
@@ -5449,7 +5433,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5475,7 +5459,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5483,7 +5467,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5491,7 +5475,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5499,7 +5483,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5513,7 +5497,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5533,7 +5517,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5541,7 +5525,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5549,7 +5533,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5569,7 +5553,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5583,7 +5567,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -5591,7 +5575,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-us:lei-12842-2013"
+        "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
       ]
     },
     {
@@ -6002,7 +5986,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       },
       {
         "competencyId": "competency:rtg-2026:s-us:aula-06",
-        "hook": "Complete a frase: o laudo do exame de imagem é emitido pelo ____.",
+        "hook": "Complete a frase: na dúvida sobre quem faz a varredura, você ____ à supervisão.",
         "guided": {
           "id": "recovery-item:rtg-2026:s-us:aula-06:guiada",
           "competencyIds": [
@@ -6033,7 +6017,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-us:lei-12842-2013"
+            "source:rtg-2026:s-us:esr-efrs-seguranca-2019"
           ]
         },
         "transfer": {
@@ -6041,7 +6025,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-us:aula-06"
           ],
-          "prompt": "Qual item é apoio de preparo, e não laudo?",
+          "prompt": "Qual item é apoio de preparo, e não interpretação?",
           "options": [
             {
               "id": "option:rtg-2026:s-us:aula-06:rt:a",
@@ -6049,7 +6033,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:s-us:aula-06:rt:b",
-              "label": "Emitir o laudo do exame"
+              "label": "Interpretar a imagem e assinar o laudo"
             },
             {
               "id": "option:rtg-2026:s-us:aula-06:rt:c",
@@ -6062,7 +6046,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-us:aula-06:rt:a",
           "feedback": {
-            "correct": "É apoio de preparo, anterior à execução e ao laudo.",
+            "correct": "É apoio de preparo, anterior à execução.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
@@ -6086,7 +6070,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     },
     {
       "schemaVersion": 1,
@@ -6095,7 +6079,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     },
     {
       "schemaVersion": 1,
@@ -6104,7 +6088,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     },
     {
       "schemaVersion": 1,
@@ -6113,7 +6097,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     },
     {
       "schemaVersion": 1,
@@ -6122,7 +6106,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     },
     {
       "schemaVersion": 1,
@@ -6131,7 +6115,7 @@ export const RTG_2026_S_US: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df110c43ef28229956dfcdcfa256a95a766f22535c17cfaf3e9eee0b9f708ee8"
+      "materialSha256": "69095e977a79195b877dd975c045b8bc7712da6e648e9032b45e105db802e445"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

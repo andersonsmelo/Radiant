@@ -243,3 +243,23 @@ test('famílias da 1.6: reprova unidade com a mesma contagem de certas em todos 
   doc.lessons[1].interactions[2].statements[0].feedback = 'Errado aqui: o texto foi trocado para variar a contagem.';
   assert.deepEqual(lintUnit(doc).filter(error => /contagem de certas/.test(error)), []);
 });
+
+// Base internacional (guia, regra 1.4): lei, norma e órgão de um país reprovam em qualquer campo de texto.
+test('referência nacional reprova no conceito', () => {
+  expectOnly(defect(doc => { doc.lessons[0].concept.body += ' A RDC 611 pede isso.'; }), /referência nacional "RDC 611"/);
+});
+test('referência nacional reprova no retorno de uma alternativa da conferência', () => {
+  expectOnly(defect(doc => { doc.lessons[0].checkpoint[0].options[0].feedback += ' É o que a lei exige.'; }), /referência nacional "lei"/);
+});
+test('referência nacional reprova no título de uma fonte', () => {
+  expectOnly(defect(doc => { doc.sources[0].title = 'RDC nº 611, de 9 de março de 2022'; }), /sources\[0\]\.title: referência nacional "RDC nº 611"/);
+});
+test('referência nacional reprova em campo que nenhuma outra régua lê', () => {
+  expectOnly(defect(doc => { doc.lessons[0].diagramIdeas = ['Placa exigida pela Anvisa na porta.']; }), /referência nacional "Anvisa"/);
+});
+test('lei física e endereço de fonte não contam como referência nacional', () => {
+  const doc = fixture();
+  doc.lessons[0].concept.keyPoints[0] = 'A lei do inverso do quadrado vale.';
+  doc.sources[0].url = 'https://www.gov.br/anvisa/pt-br/rdc-611';
+  assert.deepEqual(lintUnit(doc).filter(error => /referência nacional/.test(error)), []);
+});

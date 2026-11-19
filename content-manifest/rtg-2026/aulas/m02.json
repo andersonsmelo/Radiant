@@ -71,13 +71,13 @@
       "licenseNote": "Livro aberto de Brent Burbridge e Evan Mah, licença CC BY-NC-SA 4.0; consultado para fatos sobre a exibição do corte axial e os marcadores R, L, A e P, com redação própria."
     },
     {
-      "id": "ms-identificacao-paciente",
-      "title": "Protocolo de Identificação do Paciente (Programa Nacional de Segurança do Paciente)",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz",
-      "url": "https://www.gov.br/saude/pt-br/composicao/saes/seguranca-do-paciente/protocolos-de-seguranca-do-paciente/protocolo-de-identificacao-do-paciente",
-      "accessedAt": "2026-11-05",
+      "id": "who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo federal de segurança do paciente; consultado para fatos sobre a conferência da identificação, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "scor-marcadores",
@@ -87,15 +87,6 @@
       "accessedAt": "2026-11-05",
       "use": "factual-reference",
       "licenseNote": "Orientação de entidade profissional do Reino Unido, reafirmada em 2024; consultada para fatos, sem reprodução de texto."
-    },
-    {
-      "id": "coseac-uff-2023-identificacao",
-      "title": "Respostas aos recursos da prova de Técnico em Radiologia, concurso FEMAR, Edital 1/2023 (questão 50, identificação da imagem)",
-      "publisher": "COSEAC, Universidade Federal Fluminense",
-      "url": "https://portal.coseac.uff.br/wp-content/uploads/2023/12/Resposta_recurso_FEMAR_Medio_TecnicoemRadiologia.pdf",
-      "accessedAt": "2026-11-05",
-      "use": "factual-reference",
-      "licenseNote": "Documento público de banca universitária que cita Biasoli Jr., Técnicas radiográficas, 2. ed., 2016, p. 121. Fonte secundária, usada só para o fato de que as letras D e E identificam o lado no Brasil, sem reprodução de texto."
     },
     {
       "id": "nibabel-convencao-radiologica",
@@ -184,7 +175,7 @@
           ],
           "help": "Pense em quem fornece o dado: a pessoa, o papel ou o lugar?",
           "sourceIds": [
-            "ms-identificacao-paciente"
+            "who-identificacao-paciente-2007"
           ]
         },
         {
@@ -460,7 +451,7 @@
       },
       "concept": {
         "title": "O marcador fala do corpo",
-        "body": "O marcador de lado é uma letra que indica qual lado do corpo a imagem mostra: R, de right, para o direito, e L, de left, para o esquerdo. No Brasil, também se usam D e E. Ele pode ser uma peça radiopaca posta no campo antes da exposição, a melhor prática segundo entidades profissionais, ou uma anotação digital feita depois. Para conferir, use a vista e o lado do corpo, não o lado da tela nem a posição habitual de um órgão. Se o marcador faltar ou não combinar com o pedido, descreva e leve à equipe. Neste treino, você não altera nem acrescenta informação à imagem.",
+        "body": "O marcador de lado é uma letra que indica qual lado do corpo a imagem mostra: R, de right, para o direito, e L, de left, para o esquerdo. Alguns serviços usam letras da língua local, como D e E em português; vale a convenção do serviço. Ele pode ser uma peça radiopaca posta no campo antes da exposição ou uma anotação digital feita depois. Para conferir, use a vista e o lado do corpo, não o lado da tela. Se o marcador faltar ou não combinar com o pedido, descreva e leve à equipe. Neste treino, você não altera nem acrescenta informação à imagem.",
         "keyPoints": [
           "R indica o lado direito do corpo; L, o esquerdo.",
           "A conferência usa a vista e o lado do corpo.",
@@ -529,12 +520,11 @@
             }
           ],
           "feedbackCorrect": "R e D indicam o lado direito do corpo, e L e E indicam o esquerdo. As letras falam do corpo, e não do lado da tela.",
-          "feedbackIncorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo.",
+          "feedbackIncorrect": "Lembre a origem das letras: R vem de right e L de left, e D e E são as letras em português para direito e esquerdo. Outras línguas usam outras letras.",
           "help": "Duas linhas falam de lado do corpo, e duas falam de quando o marcador aparece.",
           "sourceIds": [
             "chung-2020-marcadores",
-            "scor-marcadores",
-            "coseac-uff-2023-identificacao"
+            "scor-marcadores"
           ]
         },
         {

@@ -2,14 +2,14 @@
 
 **Criado em 2026-11-05** sob a [ADR da delegação](../adr/ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla.md). O verificador citado no fim entra no repositório com a frente A do [plano](../plans/2026-11-05-radiant-trilha-ampla-e-engajamento.md); até lá, os autores usam uma cópia fora do repositório.
 
-O Radiant é um app de estudo para **estudantes do curso superior de Tecnologia em Radiologia no Brasil**, no espírito do Duolingo: aulas curtas (4 a 7 minutos), muita prática, retorno imediato, personagens e diálogo. Cada **unidade** (módulo) tem 6 ou mais **aulas**. Você escreve UMA unidade inteira num único arquivo JSON.
+O Radiant é um app de estudo para **estudantes de Tecnologia em Radiologia, no Brasil e fora dele**, no espírito do Duolingo: aulas curtas (4 a 7 minutos), muita prática, retorno imediato, personagens e diálogo. Cada **unidade** (módulo) tem 6 ou mais **aulas**. Você escreve UMA unidade inteira num único arquivo JSON.
 
 ## 1. Regras que não se negociam
 
 1. **Texto original.** Fatos conferidos em fontes gratuitas na web; a redação é sua. Nunca copie nem parafraseie de perto frase de livro, apostila, site, banco de questões ou concurso. Não leia PDFs locais do repositório nem nada em `Conteúdo/` ou `conteúdo/`.
 2. **Fonte por afirmação.** Todo item cita em `sourceIds` a fonte que sustenta o fato. Confira os fatos com WebSearch/WebFetch antes de escrever. Se não achar fonte gratuita confiável para um fato, não use o fato.
 3. **Limites profissionais.** O aluno é estudante numa **simulação supervisionada**. Nenhum item pede diagnóstico, laudo, escolha de exame, conduta clínica, prescrição, cálculo de dose para paciente ou liberação de implante. Diante de dúvida ou divergência, a ação certa é **parar, descrever e pedir apoio à equipe**. Nunca "corrija o registro por conta própria".
-4. **Contexto brasileiro.** Norma sanitária vigente: Anvisa RDC 611/2022 e suas instruções normativas (não cite a Portaria 453/1998 como vigente). Proteção radiológica: CNEN NN 3.01. Profissão: Lei 7.394/1985 e resoluções do CONTER. Unidades do SI, vírgula decimal, termos usados no Brasil (tomografia computadorizada, ressonância magnética, colimação, tecnólogo em radiologia).
+4. **Base internacional (desde 2026-11-18).** Não cite lei, decreto, portaria, resolução, norma, órgão ou conselho de nenhum país, nem "no Brasil". Proteção radiológica: ICRP (publicação 103) e IAEA (GSR Part 3 e SSG-46). Cuidado e segurança do paciente: OMS. Quando a regra muda de um país para outro, diga "o serviço e as regras locais definem" e ensine o princípio. Consentimento, sigilo e privacidade são cuidado com o paciente, não artigo de lei. A fonte precisa abrir de graça na web; documento pago não serve. O verificador barra os termos (`scripts/content/rtg-national-terms.mjs`). Continuam valendo: unidades do SI, vírgula decimal e os termos correntes em português (tomografia computadorizada, ressonância magnética, colimação, tecnólogo em radiologia).
 5. **Sem paciente real.** Só personagens e fichas fictícias. Nenhum dado pessoal real.
 6. **Tom.** Português do Brasil, direto, acolhedor, sem culpa e sem infantilizar. Frases curtas. Nada de "Parabéns!!!" vazio: o retorno diz o que a escolha faz e por quê. No erro: diga o que aquela alternativa faz e redirecione ("Retome…", "Confira de novo…"). Nunca use o mesmo texto de retorno para duas alternativas.
 7. **Higiene de texto.** Sem travessão com espaços (use vírgula, ponto ou dois-pontos). Sem palavras em caixa alta para ênfase. Sem notas de produção, sem "Quiz:", sem "Ideia-chave:". Não use "todas as anteriores" nem "nenhuma das anteriores".
@@ -179,7 +179,7 @@ unidades novas, mantenha ao menos uma múltipla escolha por aula pelo mesmo moti
   "schemaVersion": 1,
   "unit": { "id": "m04", "code": "M04", "title": "Radiação, interação e proteção", "summary": "Uma ou duas frases sobre o que a unidade desenvolve." },
   "sources": [
-    { "id": "anvisa-rdc-611-2022", "title": "RDC nº 611, de 9 de março de 2022", "publisher": "Anvisa", "url": "https://…", "accessedAt": "2026-11-05", "use": "factual-reference", "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto." }
+    { "id": "iaea-gsr-part-3", "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (GSR Part 3)", "publisher": "IAEA", "url": "https://…", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Padrão internacional; consultado para fatos, sem reprodução de texto." }
   ],
   "lessons": [
     {
@@ -231,8 +231,8 @@ O verificador confere forma, não verdade. A exatidão dos fatos é sua responsa
 
 Saíram das sete revisões independentes e dos gates do app. Valem como regra.
 
-1. **Norma vigente de proteção radiológica:** "Norma ANSN 3.01" (Resolução CNEN nº 344/2025, DOU de 07/07/2025). Pode ser chamada de "norma 3.01 da CNEN". O texto de 2024 não é mais o vigente. A RDC 611/2022 remete aos limites dessa norma (arts. 45 e 48).
-2. **RDC 611/2022:** o site do Diário Oficial costuma recusar a leitura. Há cópia compilada no site do Colégio Brasileiro de Radiologia (cbr.org.br). Sem ler o texto, não atribua nada à norma.
+1. **Limite e princípio de proteção radiológica:** cite a ICRP (publicação 103) ou a IAEA (GSR Part 3), não a norma de um país. Regra revista em 2026-11-18; a anterior apontava a norma brasileira vigente.
+2. **Sem ler o texto, não atribua nada à fonte.** Se o documento não abre, o fato fica sem fonte e sai.
 3. **OpenStax é só consulta.** Os livros hoje declaram CC BY-NC-SA 4.0: use `factual-reference`, sem aproveitar frase nem figura.
 4. **Fato de segurança com fonte única de tipo wiki** (Radiopaedia, por exemplo): busque uma segunda fonte institucional ou escreva "siga o protocolo do serviço e peça apoio à equipe".
 5. **Não cobre o que a aula não ensinou.** Foi o achado mais comum: item de conferência fora da competência, termo usado sem definição, mecanismo cobrado sem estar no conceito.

@@ -6,7 +6,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m13",
-  "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de",
+  "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42",
   "trackId": "track:rtg-2026:m13",
   "unitId": "unit:rtg-2026:m13",
   "contentVersion": "rtg-2026-m13-v1",
@@ -38,15 +38,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "licenseNote": "Página institucional para pacientes; consultada para as etapas do exame, o papel da câmara gama e as orientações de saída, com redação própria."
     },
     {
-      "id": "source:rtg-2026:m13:cnen-norma-3-05",
-      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
-      "publisher": "CNEN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para os arts. 2º, 12, 13, 14, 15, 19, 20, 32, 35, 43, 54 e 60, sem reprodução de texto."
-    },
-    {
       "id": "source:rtg-2026:m13:cdc-contaminacao-exposicao",
       "title": "Radiation Contamination Versus Exposure",
       "publisher": "CDC",
@@ -54,15 +45,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Página institucional do governo dos Estados Unidos; consultada para a distinção entre exposição e contaminação, com redação própria."
-    },
-    {
-      "id": "source:rtg-2026:m13:inca-radioterapia",
-      "title": "Radioterapia",
-      "publisher": "INCA, Ministério da Saúde",
-      "url": "https://www.gov.br/inca/pt-br/assuntos/cancer/tratamento/radioterapia",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Página institucional; consultada para finalidade, tipos, equipe, marcações e rotina das aplicações, com redação própria."
     },
     {
       "id": "source:rtg-2026:m13:radiologyinfo-teleterapia",
@@ -101,15 +83,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "licenseNote": "Página institucional para pacientes; consultada para equipamentos da sala, fluoroscopia, contraste e papéis no procedimento, com redação própria."
     },
     {
-      "id": "source:rtg-2026:m13:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa (texto compilado, cópia hospedada pelo CBR)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para os arts. 23, 43, 51, 65 e 66, sem reprodução de texto."
-    },
-    {
       "id": "source:rtg-2026:m13:kjp-seguranca-radiacao",
       "title": "Radiation safety for pain physicians: principles and recommendations",
       "publisher": "The Korean Journal of Pain, 2022;35(2):129-139 (PubMed Central)",
@@ -119,13 +92,22 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "licenseNote": "Artigo de acesso aberto com licença CC BY-NC 4.0; consultado para fatos sobre espalhamento, barreiras e distância em fluoroscopia, com redação própria."
     },
     {
-      "id": "source:rtg-2026:m13:planalto-lei-7394",
-      "title": "Lei nº 7.394, de 29 de outubro de 1985",
-      "publisher": "Presidência da República (Planalto)",
-      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7394.htm",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m13:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Lei federal; consultada para o art. 1º (técnicas abrangidas pela profissão), sem reprodução de texto."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m13:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -141,7 +123,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "source:rtg-2026:m13:kjp-seguranca-radiacao",
           "source:rtg-2026:m13:nibib-medicina-nuclear",
           "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-          "source:rtg-2026:m13:cnen-norma-3-05"
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -455,7 +437,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m13-v1",
         "sourceIds": [
           "source:rtg-2026:m13:nibib-medicina-nuclear",
-          "source:rtg-2026:m13:cnen-norma-3-05",
+          "source:rtg-2026:m13:iaea-ssg46-2018",
           "source:rtg-2026:m13:cdc-contaminacao-exposicao"
         ]
       },
@@ -466,13 +448,13 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Proteção e rastreio em MN",
-            "body": "Hoje você vai conseguir diferenciar exposição de contaminação e dizer quando parar e chamar o supervisor de proteção radiológica.",
+            "body": "Hoje você vai conseguir diferenciar exposição de contaminação e dizer quando parar e chamar o responsável pela proteção radiológica.",
             "dialogue": {
               "setting": "Corredor da medicina nuclear, fim do turno",
               "lines": [
                 {
                   "speaker": "caio",
-                  "text": "Antes de sair, passo o monitor nas mãos, no jaleco e na bancada. Todo dia. E anoto o resultado."
+                  "text": "Antes de sair, passo o monitor nas mãos, no jaleco e na bancada. Faço isso ao sair da área controlada e a cada suspeita. E anoto o resultado."
                 },
                 {
                   "speaker": "duda",
@@ -492,11 +474,11 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Exposição não é contaminação",
-            "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear o radiofármaco costuma ser uma solução injetável: uma gota fora do lugar já é contaminação. Por isso a norma ANSN 3.05 exige luvas descartáveis e jaleco de manga longa de quem manipula, sala de espera exclusiva para o paciente injetado e monitoração diária, e a cada suspeita, de corpo, roupas e superfícies, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o supervisor de proteção radiológica.",
+            "body": "Exposição é a energia da radiação chegando ao corpo: quem faz uma radiografia é exposto, mas não fica contaminado. Contaminação é material radioativo onde não deveria estar: na pele, na roupa, numa superfície ou dentro do corpo. Na medicina nuclear, uma gota de radiofármaco fora do lugar já é contaminação. Por isso, segundo a orientação internacional, o serviço usa luvas descartáveis e jaleco de manga longa, reserva espera separada ao paciente injetado e monitora corpo, roupas e superfícies ao sair da área controlada e a cada suspeita, com registro. Suspeitou? Estudante não manipula nem limpa: para, descreve e chama o responsável pela proteção radiológica.",
             "keyPoints": [
               "Exposição: energia que chega. Contaminação: material fora do lugar.",
-              "Monitoração diária e a cada suspeita, sempre registrada.",
-              "Suspeitou? Não toque, avise e chame o supervisor de proteção radiológica."
+              "Monitoração sistemática, ao sair da área controlada e a cada suspeita; sempre registrada.",
+              "Suspeitou? Não toque, avise e chame o responsável pela proteção radiológica."
             ]
           }
         },
@@ -516,7 +498,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "help": "Lembre o que mudou em relação à radiografia: o sinal passou a sair de onde?",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. Por isso o paciente injetado tem sala de espera e sanitário exclusivos no serviço.",
+              "correct": "Isso. Por isso o paciente injetado costuma ter espera e sanitário separados no serviço.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -540,7 +522,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m13:aula-02:i1:d",
                   "label": "No paciente, que passa a emitir",
-                  "explanation": "Isso. Por isso o paciente injetado tem sala de espera e sanitário exclusivos no serviço."
+                  "explanation": "Isso. Por isso o paciente injetado costuma ter espera e sanitário separados no serviço."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m13:aula-02:i1:d"
@@ -609,7 +591,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "help": "Verifique se, em algum momento, houve contato com o material.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao supervisor de proteção radiológica.",
+              "correct": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao responsável pela proteção radiológica.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -619,7 +601,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m13:aula-02:i3:a",
                   "label": "Exposição: a energia chegou, o material não",
-                  "explanation": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao supervisor de proteção radiológica."
+                  "explanation": "Isso. Sem contato com material radioativo não há contaminação. A dúvida sobre a exposição, ela leva ao responsável pela proteção radiológica."
                 },
                 {
                   "id": "option:rtg-2026:m13:aula-02:i3:b",
@@ -657,7 +639,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "help": "Você não sabe o que é o líquido. Pense em quem tem instrumento e autoridade para verificar.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o supervisor de proteção radiológica, que monitora e decide.",
+              "correct": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o responsável pela proteção radiológica, que monitora e decide.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -671,8 +653,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m13:aula-02:i4:b",
-                  "label": "Não toca, avisa quem se aproxima e chama o supervisor",
-                  "explanation": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o supervisor de proteção radiológica, que monitora e decide."
+                  "label": "Não toca, avisa quem se aproxima e chama o responsável",
+                  "explanation": "Isso. Pode ser contaminação. Sem tocar nem limpar, você evita que alguém pise e aciona o responsável pela proteção radiológica, que monitora e decide."
                 },
                 {
                   "id": "option:rtg-2026:m13:aula-02:i4:c",
@@ -682,7 +664,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m13:aula-02:i4:d",
                   "label": "Pede à funcionária que lave o piso com bastante água",
-                  "explanation": "Lavar espalha o material e expõe a colega. A suspeita vai primeiro ao supervisor de proteção radiológica."
+                  "explanation": "Lavar espalha o material e expõe a colega. A suspeita vai primeiro ao responsável pela proteção radiológica."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m13:aula-02:i4:b"
@@ -700,16 +682,16 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: No quarto de um paciente internado para terapia com radiofármaco, a norma manda cobrir com plástico impermeável os objetos que podem ser contaminados. Que ideia da aula explica a medida?"
+              "label": "Múltipla escolha: No quarto de um paciente internado para terapia com radiofármaco, o serviço costuma forrar o piso e a cama com material absorvente de face plástica. Que ideia da aula explica a medida?"
             },
             "help": "Decida primeiro se a medida mira a energia que chega ou o material que se deposita.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. O plástico recebe o material no lugar do objeto e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente.",
+              "correct": "Isso. O material absorvente recebe o respingo no lugar do piso e da cama e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "No quarto de um paciente internado para terapia com radiofármaco, a norma manda cobrir com plástico impermeável os objetos que podem ser contaminados. Que ideia da aula explica a medida?",
+              "prompt": "No quarto de um paciente internado para terapia com radiofármaco, o serviço costuma forrar o piso e a cama com material absorvente de face plástica. Que ideia da aula explica a medida?",
               "options": [
                 {
                   "id": "option:rtg-2026:m13:aula-02:i5:a",
@@ -723,13 +705,13 @@ export const RTG_2026_M13: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m13:aula-02:i5:c",
-                  "label": "Uma barreira impede o material de ficar no objeto",
-                  "explanation": "Isso. O plástico recebe o material no lugar do objeto e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente."
+                  "label": "Uma barreira impede o material de ficar no piso",
+                  "explanation": "Isso. O material absorvente recebe o respingo no lugar do piso e da cama e pode ser retirado. O quarto ainda é monitorado antes de receber outro paciente."
                 },
                 {
                   "id": "option:rtg-2026:m13:aula-02:i5:d",
                   "label": "O plástico dispensa a monitoração do quarto",
-                  "explanation": "A monitoração continua obrigatória depois da saída do paciente. A barreira só facilita a remoção."
+                  "explanation": "A monitoração continua necessária depois da saída do paciente. A barreira só facilita a remoção."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m13:aula-02:i5:c"
@@ -742,7 +724,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Energia que chega, material que fica",
-            "body": "Agora você consegue separar exposição de contaminação, reconhecer as medidas do setor (barreira, monitoração e registro) e agir diante de uma suspeita: não tocar, avisar e chamar o supervisor de proteção radiológica.",
+            "body": "Agora você consegue separar exposição de contaminação, reconhecer as medidas do setor (barreira, monitoração e registro) e agir diante de uma suspeita: não tocar, avisar e chamar o responsável pela proteção radiológica.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -764,8 +746,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m13-v1",
         "sourceIds": [
-          "source:rtg-2026:m13:anvisa-rdc-611-2022",
-          "source:rtg-2026:m13:inca-radioterapia",
+          "source:rtg-2026:m13:iaea-gsr-part3-2014",
           "source:rtg-2026:m13:radiologyinfo-teleterapia",
           "source:rtg-2026:m13:nci-radioterapia-externa"
         ]
@@ -823,7 +804,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Nos exames de imagem que você estudou até aqui, como a norma sanitária trata a dose de radiação no paciente?"
+              "label": "Múltipla escolha: Nos exames de imagem que você estudou até aqui, como a proteção radiológica trata a dose de radiação no paciente?"
             },
             "help": "Lembre o princípio da otimização: a dose do exame serve a qual finalidade?",
             "type": "multiple-choice",
@@ -832,7 +813,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Nos exames de imagem que você estudou até aqui, como a norma sanitária trata a dose de radiação no paciente?",
+              "prompt": "Nos exames de imagem que você estudou até aqui, como a proteção radiológica trata a dose de radiação no paciente?",
               "options": [
                 {
                   "id": "option:rtg-2026:m13:aula-03:i1:a",
@@ -1393,7 +1374,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m13:kjp-seguranca-radiacao",
           "source:rtg-2026:m13:radiologyinfo-angiografia",
-          "source:rtg-2026:m13:anvisa-rdc-611-2022"
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1703,12 +1684,10 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m13:cdc-contaminacao-exposicao",
           "source:rtg-2026:m13:nibib-medicina-nuclear",
-          "source:rtg-2026:m13:inca-radioterapia",
-          "source:rtg-2026:m13:radiologyinfo-angiografia",
-          "source:rtg-2026:m13:planalto-lei-7394",
-          "source:rtg-2026:m13:radiologyinfo-igrt",
           "source:rtg-2026:m13:radiologyinfo-teleterapia",
-          "source:rtg-2026:m13:cnen-norma-3-05"
+          "source:rtg-2026:m13:radiologyinfo-angiografia",
+          "source:rtg-2026:m13:radiologyinfo-igrt",
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1744,7 +1723,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três perguntas para qualquer setor",
-            "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O profissional responsável pelo setor e o supervisor de proteção radiológica. A Lei 7.394/1985, que regula a profissão de técnico em radiologia, inclui as técnicas radioterápica e de medicina nuclear, mas, como estudante, você não administra radiofármaco, não planeja nem entrega dose e não faz ato invasivo.",
+            "body": "Diante de um setor novo, faça três perguntas. Onde está a fonte? Na medicina nuclear, no paciente que recebeu o radiofármaco; na radioterapia externa, no aparelho de tratamento; na intervencionista, no tubo, com espalhamento na sala. O que se confere? Na medicina nuclear, identificação, registro e contaminação; na radioterapia, a posição contra a referência; na intervencionista, barreiras e acesso. Quem eu chamo? O responsável pelo setor e o responsável pela proteção radiológica. O alcance da atuação do técnico ou tecnólogo varia entre países e serviços; o serviço define o que cada um faz. Como estudante, sob supervisão, você não administra radiofármaco, não planeja nem entrega dose nem faz ato invasivo.",
             "keyPoints": [
               "Onde está a fonte: no paciente, no aparelho ou no tubo?",
               "O que se confere antes: registro, posição ou barreiras?",
@@ -2085,7 +2064,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m13:aula-02"
         ],
-        "prompt": "Caio terminou o turno sem nenhum incidente. Pela norma do setor, ele ainda precisa monitorar mãos, jaleco e bancada?",
+        "prompt": "Caio terminou o turno sem nenhum incidente. Pela rotina do setor, ele ainda precisa monitorar mãos, jaleco e bancada?",
         "options": [
           {
             "id": "option:rtg-2026:m13:aula-02:c1:a",
@@ -2093,11 +2072,11 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:m13:aula-02:c1:b",
-            "label": "Sim: é diária e registrada, mesmo sem incidente"
+            "label": "Sim: ao sair da área, com registro, mesmo sem incidente"
           },
           {
             "id": "option:rtg-2026:m13:aula-02:c1:c",
-            "label": "Não: o dosímetro mensal já cobre a contaminação"
+            "label": "Não: o dosímetro individual já cobre a contaminação"
           },
           {
             "id": "option:rtg-2026:m13:aula-02:c1:d",
@@ -2106,11 +2085,11 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m13:aula-02:c1:b",
         "feedback": {
-          "correct": "Isso. A monitoração de corpo, roupas e superfícies é feita todo dia e também a cada suspeita, sempre com registro.",
+          "correct": "Isso. A monitoração de corpo, roupas e superfícies é sistemática, ao sair da área controlada, e também a cada suspeita, sempre com registro.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m13:cnen-norma-3-05"
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       {
@@ -2134,16 +2113,16 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:m13:aula-02:c2:d",
-            "label": "Parar e avisar o supervisor de proteção radiológica"
+            "label": "Parar e avisar o responsável pela proteção radiológica"
           }
         ],
         "correctOptionId": "option:rtg-2026:m13:aula-02:c2:d",
         "feedback": {
-          "correct": "Isso. É uma suspeita de contaminação: quem verifica e orienta é o supervisor, com o monitor adequado.",
+          "correct": "Isso. É uma suspeita de contaminação: quem verifica e orienta é o responsável, com o monitor adequado.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m13:cnen-norma-3-05"
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       {
@@ -2176,7 +2155,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m13:inca-radioterapia"
+          "source:rtg-2026:m13:nci-radioterapia-externa"
         ]
       },
       {
@@ -2209,7 +2188,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m13:inca-radioterapia",
           "source:rtg-2026:m13:radiologyinfo-teleterapia"
         ]
       },
@@ -2345,7 +2323,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:m13:kjp-seguranca-radiacao",
-          "source:rtg-2026:m13:anvisa-rdc-611-2022"
+          "source:rtg-2026:m13:iaea-ssg46-2018"
         ]
       },
       {
@@ -2387,7 +2365,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m13:aula-06"
         ],
-        "prompt": "Em qual destas situações a suspeita é de contaminação, e o apoio a chamar é o supervisor de proteção radiológica?",
+        "prompt": "Em qual destas situações a suspeita é de contaminação, e o apoio a chamar é o responsável pela proteção radiológica?",
         "options": [
           {
             "id": "option:rtg-2026:m13:aula-06:c2:a",
@@ -2408,11 +2386,11 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m13:aula-06:c2:b",
         "feedback": {
-          "correct": "Isso. Material possivelmente radioativo fora do lugar: não tocar, avisar quem se aproxima e chamar o supervisor.",
+          "correct": "Isso. Material possivelmente radioativo fora do lugar: não tocar, avisar quem se aproxima e chamar o responsável.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m13:cnen-norma-3-05",
+          "source:rtg-2026:m13:iaea-ssg46-2018",
           "source:rtg-2026:m13:cdc-contaminacao-exposicao"
         ]
       }
@@ -2563,7 +2541,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2572,7 +2550,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2581,7 +2559,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2590,7 +2568,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2599,7 +2577,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2608,7 +2586,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2617,7 +2595,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2626,7 +2604,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2635,7 +2613,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2751,7 +2729,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2763,7 +2741,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2775,7 +2753,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
         "source:rtg-2026:m13:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -2988,7 +2966,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3015,7 +2993,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3024,7 +3002,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3033,7 +3011,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3041,7 +3019,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3049,7 +3027,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3057,7 +3035,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3065,7 +3043,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3073,7 +3051,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3081,7 +3059,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3089,7 +3067,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3097,7 +3075,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3155,7 +3133,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3170,7 +3148,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3191,7 +3169,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3200,7 +3178,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3209,7 +3187,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3229,7 +3207,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3243,7 +3221,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3251,7 +3229,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3260,7 +3238,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3270,7 +3248,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3280,7 +3258,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -3289,7 +3267,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3303,7 +3281,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3323,7 +3301,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3331,7 +3309,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3339,7 +3317,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3365,7 +3343,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3373,7 +3351,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3381,7 +3359,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3439,7 +3417,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3459,7 +3437,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3473,7 +3451,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3481,7 +3459,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -3489,7 +3467,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3509,7 +3487,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3523,7 +3501,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3531,7 +3509,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -3539,7 +3517,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3548,7 +3525,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3557,7 +3533,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3566,7 +3541,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3575,7 +3549,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3584,7 +3557,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3593,7 +3565,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3602,7 +3573,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3611,7 +3581,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3626,7 +3595,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3647,7 +3615,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3656,7 +3623,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3665,8 +3631,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:nci-radioterapia-externa",
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3692,8 +3657,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:nci-radioterapia-externa",
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3701,8 +3665,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:nci-radioterapia-externa",
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3710,8 +3673,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:nci-radioterapia-externa",
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3719,7 +3681,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3727,7 +3689,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3753,7 +3715,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3761,7 +3723,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3769,8 +3731,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:inca-radioterapia",
+        "source:rtg-2026:m13:iaea-gsr-part3-2014",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
         "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
@@ -3780,8 +3741,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:inca-radioterapia",
+        "source:rtg-2026:m13:iaea-gsr-part3-2014",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
         "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
@@ -3791,8 +3751,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:inca-radioterapia",
+        "source:rtg-2026:m13:iaea-gsr-part3-2014",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
         "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
@@ -3802,7 +3761,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3828,7 +3787,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3836,7 +3795,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3844,7 +3803,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3852,7 +3811,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3861,7 +3819,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3888,7 +3845,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3897,7 +3853,6 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia",
         "source:rtg-2026:m13:radiologyinfo-teleterapia"
       ]
     },
@@ -3906,7 +3861,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3920,7 +3875,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3940,7 +3895,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3948,7 +3903,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3956,7 +3911,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3976,7 +3931,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3990,7 +3945,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -3998,7 +3953,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:inca-radioterapia"
+        "source:rtg-2026:m13:nci-radioterapia-externa"
       ]
     },
     {
@@ -4727,7 +4682,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:kjp-seguranca-radiacao"
       ]
     },
@@ -4736,7 +4691,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:kjp-seguranca-radiacao"
       ]
     },
@@ -4763,7 +4718,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:kjp-seguranca-radiacao"
       ]
     },
@@ -4772,7 +4727,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:kjp-seguranca-radiacao"
       ]
     },
@@ -4782,7 +4737,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4797,7 +4752,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4818,7 +4773,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4827,7 +4782,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4837,7 +4792,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4847,7 +4802,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4857,7 +4812,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
         "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4916,7 +4871,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4937,7 +4892,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4952,7 +4907,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4961,7 +4916,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4970,7 +4925,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -4997,7 +4952,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5006,7 +4961,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5015,7 +4970,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:kjp-seguranca-radiacao",
-        "source:rtg-2026:m13:anvisa-rdc-611-2022"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5124,9 +5079,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5135,9 +5089,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5146,9 +5099,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5157,9 +5109,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5168,9 +5119,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5179,9 +5129,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5190,9 +5139,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5201,9 +5149,8 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394"
+        "source:rtg-2026:m13:radiologyinfo-teleterapia",
+        "source:rtg-2026:m13:radiologyinfo-angiografia"
       ]
     },
     {
@@ -5265,7 +5212,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5285,7 +5232,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5299,7 +5246,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5307,7 +5254,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5316,7 +5263,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5325,7 +5272,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5352,7 +5299,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5361,7 +5308,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5371,12 +5318,10 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:cdc-contaminacao-exposicao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394",
-        "source:rtg-2026:m13:radiologyinfo-igrt",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:radiologyinfo-angiografia",
+        "source:rtg-2026:m13:radiologyinfo-igrt",
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5386,12 +5331,10 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:cdc-contaminacao-exposicao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394",
-        "source:rtg-2026:m13:radiologyinfo-igrt",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:radiologyinfo-angiografia",
+        "source:rtg-2026:m13:radiologyinfo-igrt",
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5401,12 +5344,10 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m13:cdc-contaminacao-exposicao",
         "source:rtg-2026:m13:nibib-medicina-nuclear",
-        "source:rtg-2026:m13:inca-radioterapia",
-        "source:rtg-2026:m13:radiologyinfo-angiografia",
-        "source:rtg-2026:m13:planalto-lei-7394",
-        "source:rtg-2026:m13:radiologyinfo-igrt",
         "source:rtg-2026:m13:radiologyinfo-teleterapia",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:radiologyinfo-angiografia",
+        "source:rtg-2026:m13:radiologyinfo-igrt",
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5468,7 +5409,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -5483,7 +5424,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -5504,7 +5445,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -5513,7 +5454,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05",
+        "source:rtg-2026:m13:iaea-ssg46-2018",
         "source:rtg-2026:m13:cdc-contaminacao-exposicao"
       ]
     },
@@ -5522,8 +5463,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5531,8 +5471,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5558,8 +5497,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5567,8 +5505,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:anvisa-rdc-611-2022",
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5576,7 +5513,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5596,7 +5533,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5610,7 +5547,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     },
     {
@@ -5618,7 +5555,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m13:cnen-norma-3-05"
+        "source:rtg-2026:m13:iaea-ssg46-2018"
       ]
     }
   ],
@@ -5737,7 +5674,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m13:aula-02"
           ],
-          "prompt": "Uma embalagem com fontes radioativas chega ao serviço. No recebimento, a norma manda inspecionar a integridade e monitorar a superfície externa, com registro. O que essa monitoração procura?",
+          "prompt": "Uma embalagem com fontes radioativas chega danificada ao serviço. No recebimento, o serviço monitora a superfície externa dela. O que essa monitoração procura?",
           "options": [
             {
               "id": "option:rtg-2026:m13:aula-02:rt:a",
@@ -5762,7 +5699,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m13:cnen-norma-3-05"
+            "source:rtg-2026:m13:iaea-ssg46-2018"
           ]
         }
       },
@@ -5799,7 +5736,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m13:inca-radioterapia"
+            "source:rtg-2026:m13:nci-radioterapia-externa"
           ]
         },
         "transfer": {
@@ -5832,7 +5769,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m13:inca-radioterapia"
+            "source:rtg-2026:m13:nci-radioterapia-externa"
           ]
         }
       },
@@ -5941,7 +5878,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m13:kjp-seguranca-radiacao",
-            "source:rtg-2026:m13:anvisa-rdc-611-2022"
+            "source:rtg-2026:m13:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -6011,8 +5948,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m13:anvisa-rdc-611-2022",
-            "source:rtg-2026:m13:cnen-norma-3-05"
+            "source:rtg-2026:m13:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -6041,11 +5977,11 @@ export const RTG_2026_M13: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:m13:aula-06:rt:c",
           "feedback": {
-            "correct": "Isso. A fonte é o radiofármaco no paciente, e a norma mantém esse procedimento sob responsabilidade do serviço de medicina nuclear, mesmo fora das instalações dele.",
+            "correct": "Isso. A fonte é o radiofármaco no paciente, e a proteção radiológica desse procedimento fica com o serviço de medicina nuclear, mesmo fora das instalações dele.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m13:cnen-norma-3-05"
+            "source:rtg-2026:m13:iaea-ssg46-2018"
           ]
         }
       }
@@ -6065,7 +6001,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     },
     {
       "schemaVersion": 1,
@@ -6074,7 +6010,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     },
     {
       "schemaVersion": 1,
@@ -6083,7 +6019,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     },
     {
       "schemaVersion": 1,
@@ -6092,7 +6028,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     },
     {
       "schemaVersion": 1,
@@ -6101,7 +6037,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     },
     {
       "schemaVersion": 1,
@@ -6110,7 +6046,7 @@ export const RTG_2026_M13: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cb4ab1ae58b2c1c980d0b73d6ff0830e3205502f7a5f519a084e2795c820e2de"
+      "materialSha256": "9804cc415482a5e981a8229acc7b89b6e949a5cc9d1bd1f2e95170a449d59b42"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

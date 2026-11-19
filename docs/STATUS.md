@@ -36,6 +36,28 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
+## Trilha dobrada (1.7) — fase A na branch, medido em 2026-11-18
+
+O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
+unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
+[Desenho aprovado](superpowers/specs/2026-11-18-trilha-dobrada-design.md),
+[ADR](adr/ADR-2026-11-18-trilha-internacional-e-dobrada.md). São cinco fases: A base
+internacional, B formatos, C unidades irmãs, D conversão das aulas atuais, E integração.
+
+**Fase A, na branch `claude/trilha-dobrada`, sem merge:** as 24 unidades passam no
+verificador com a régua nova de referência nacional (eram 260 ocorrências, 130 no
+texto das aulas); 17 unidades foram reescritas ou tiveram fontes trocadas; nenhum
+item mudou de identificador, tipo, papel ou marca de segurança (105 itens de segurança
+antes e depois). Quatro revisões independentes, 63 correções aplicadas.
+[Plano](superpowers/plans/2026-11-18-trilha-dobrada-fase-a-base-internacional.md),
+[evidência](evidence/2026-11-18-base-internacional/README.md). **Nada foi visto em
+aparelho. As fases B a E não começaram.**
+
+```bash
+for f in content-manifest/rtg-2026/aulas/*.json; do node scripts/content/rtg-lesson-lint.mjs "$f"; done
+uv run python docs/evidence/2026-11-18-base-internacional/compara-identidade.py origin/main
+```
+
 ## Atualização 1.6 — na `main`, com build no EAS (medido em 2026-11-16)
 
 A `main` tem as oito frentes da 1.6, mescladas em 2026-11-15 pelo controlador,
