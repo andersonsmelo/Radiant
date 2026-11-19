@@ -103,6 +103,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Radiação, interação e proteção."
     }
   },
+  "batch:rtg-2026:m21": {
+    "slug": "rtg-2026-m21",
+    "title": "Radiobiologia e dosimetria",
+    "description": "Do fóton ao DNA, das três grandezas de dose ao dosímetro pessoal e ao indicador do equipamento, e da distância e blindagem em números à leitura de um registro de dose que destoa.",
+    "unitTitle": "Radiobiologia e dosimetria",
+    "reward": {
+      "id": "node:reward:rtg-2026:m21",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Radiobiologia e dosimetria."
+    }
+  },
   "batch:rtg-2026:m05": {
     "slug": "rtg-2026-m05",
     "title": "Formação da imagem digital",
