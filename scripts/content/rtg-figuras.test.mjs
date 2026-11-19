@@ -29,7 +29,7 @@ test('entrada gerada sem conferidaPor reprova', () => {
   assert.match(figurasErrors([{ id: 'g', origem: 'gerada', conferidaPor: 'dono' }], ['g']).join('\n'), /gerada sem modification/);
   assert.deepEqual(figurasErrors([{ id: 'g', origem: 'gerada', conferidaPor: 'dono', modification: 'ferramenta X' }], ['g']), []);
 });
-const FONTE = 'scripts/content/figuras/fontes/raio-x-movel-no-leito.svg';
+const FONTE = 'scripts/content/figuras/fontes/cranio-de-perfil-ossos.svg';
 test('figura importada registrada como codigo reprova (escaparia da régua de licença)', () => {
   assert.match(figurasErrors([{ id: 'x', origem: 'codigo' }], ['x']).join('\n'), /registrada como origem codigo/);
   assert.deepEqual(figurasErrors([{ id: 'x', origem: 'codigo' }], []), []);
@@ -40,7 +40,7 @@ test('acervo sem modification reprova', () => {
 test('anatomy exige fonte versionada que exista', () => {
   assert.match(figurasErrors([{ id: 'x', origem: 'anatomy' }], ['x']).join('\n'), /anatomy sem fonte/);
   assert.match(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: 'docs/qualquer.svg' }], ['x']).join('\n'), /anatomy sem fonte/);
-  assert.match(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: FONTE.replace('leito', 'nao-existe') }], ['x']).join('\n'), /fonte inexistente/);
+  assert.match(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: FONTE.replace('cranio', 'nao-existe') }], ['x']).join('\n'), /fonte inexistente/);
   assert.deepEqual(figurasErrors([{ id: 'x', origem: 'anatomy', fonte: FONTE }], ['x']), []);
 });
 test('entrada que não é objeto reprova sem derrubar o verificador', () => {

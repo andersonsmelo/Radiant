@@ -214,5 +214,10 @@ describe('keys e ease', () => {
     it('recusa NaN', () => expect(err([[0, 0], [Number.NaN, 1]])).toMatch(/0 a 1/));
     it('recusa um ponto só', () => expect(err([[0, 0]])).toMatch(/duas/));
     it('recusa lista vazia', () => expect(err([])).toMatch(/duas/));
+    const rangeErr = (range: [number, number]) => motionKeysError(motion({ kind: 'fade', from: 0, to: 1, mode: 'loop', range }));
+    it('aceita range crescente dentro de 0 a 1', () => expect(rangeErr([0.2, 0.8])).toBeNull());
+    it('recusa range de largura zero (0/0 daria NaN)', () => expect(rangeErr([0.5, 0.5])).toMatch(/range/));
+    it('recusa range invertido', () => expect(rangeErr([0.8, 0.2])).toMatch(/range/));
+    it('recusa range fora de 0 a 1', () => expect(rangeErr([0.2, 1.4])).toMatch(/range/));
   });
 });

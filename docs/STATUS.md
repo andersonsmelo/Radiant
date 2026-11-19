@@ -143,15 +143,23 @@ um piloto no app, ele escolheu um método por tipo: acervo aberto para anatomia 
 [plano](superpowers/plans/2026-11-19-troca-das-figuras.md)). A base técnica (fase 0 do
 plano) está na branch `claude/figuras-base`, sobre o lote 4, sem merge: movimento com
 fases e curva, conversor de arte versionado, registro de origem e crédito das figuras,
-regra do verificador que prende cada área de toque à estrutura que nomeia, gerador de
-roteiros de prova e orçamento de peso. Duas figuras já estão na arte nova: o crânio de
-perfil (acervo, domínio público) e o raio X móvel no leito (`anatomy`). Medido em
-2026-11-19: o bundle JS passou de 13,38 para 13,67 MiB com as duas, e a projeção para
-as 72 figuras usadas é de 6,71 MiB a mais, numa faixa de 3,5 a 10,3 MiB; no emulador
-Android o leito aparece menos de 0,3 s depois do toque
-([orçamento](evidence/2026-11-19-figuras/orcamento.md)). **Visto rodando: as duas
-figuras no simulador de iPhone (piloto) e no emulador Android. Não visto: aparelho
-físico, a cena do leito animando numa aula real, e as 70 figuras restantes.** Três
+regra do verificador que prende as áreas de toque de cada figura que tem arquivo de
+alvos (hoje, só o crânio) à estrutura que nomeiam e ao rótulo que a aula mostra,
+gerador de roteiros de prova e orçamento de peso. **Uma figura está na arte nova no app
+(2026-11-19): o crânio de perfil (acervo, domínio público), na M25.01, com os alvos
+remarcados e presos.** A cena do raio X móvel no leito, feita com a `anatomy`, foi
+provada no piloto e medida, mas **saiu do app em 2026-11-19**: ela não tem dois dos cinco
+alvos que a M25.05 cobra (a pessoa sem avental junto à cabeceira e o leito vizinho), e a
+aula voltou à figura antiga, com os alvos que sempre bateram com ela. A cena volta
+refeita na fase 2, com esses alvos. Os números de peso, medidos em 2026-11-19 com as
+duas figuras, continuam valendo como medição: o bundle JS passou de 13,38 para
+13,67 MiB, e a projeção para as 72 figuras usadas é de 6,71 MiB de figuras (6,47 MiB a
+mais no bundle), numa faixa de 3,5 a 10,3 MiB de figuras; no emulador Android o leito
+apareceu menos de 0,3 s depois do toque
+([orçamento](evidence/2026-11-19-figuras/orcamento.md)). **Visto rodando em 2026-11-19: o
+crânio no simulador de iPhone e no emulador Android; o leito novo só no piloto e no
+Android, e hoje fora do app. Não visto: aparelho físico, uma cena animando numa aula
+real, e as 70 figuras restantes.** Três
 defeitos dos roteiros de prova no Android ficaram pendentes (o roteiro que fecha o menu
 do dev client e a rolagem dos grupos de classificar); a prova usou contornos
 temporários. As PRs #89 a #95 seguem com a arte antiga. Esperam o dono: o método para
