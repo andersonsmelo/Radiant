@@ -79,6 +79,18 @@ export type InteractionType =
     | 'categorize'
     | 'multi-select';
 
+/**
+ * Todos os tipos de interação. O `Record` faz o compilador recusar tipo novo
+ * que não entre aqui (e tipo que saia da união), para o teste de famílias
+ * percorrer sempre o conjunto inteiro.
+ */
+const INTERACTION_TYPE_FLAGS: Record<InteractionType, true> = {
+    'multiple-choice': true, hotspot: true, comparison: true, matching: true, ordering: true,
+    'parameter-lab': true, bench: true, 'risk-hunt': true, 'case-decision': true,
+    cloze: true, 'true-false': true, categorize: true, 'multi-select': true,
+};
+export const INTERACTION_TYPES = Object.keys(INTERACTION_TYPE_FLAGS) as readonly InteractionType[];
+
 export type InteractionFeedback = {
     correct: string;
     incorrect: string;

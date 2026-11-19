@@ -1,0 +1,1947 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m01",
+    "code": "M01",
+    "title": "Proteção no turno de radiologia",
+    "summary": "Unidade sintética de teste: cuidados simples de proteção radiológica ao longo de um turno, em seis sessões curtas."
+  },
+  "sources": [
+    {
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "esr-efrs-seguranca-2019",
+      "title": "Patient Safety in Medical Imaging: a joint paper of the ESR and the EFRS",
+      "publisher": "European Society of Radiology e European Federation of Radiographer Societies, Insights into Imaging (2019)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6449408/",
+      "accessedAt": "2026-11-05",
+      "use": "cc-by-4.0",
+      "licenseNote": "CC BY 4.0. Atribuição: ESR e EFRS (2019). Síntese e atividades originais em português; não é tradução; sem endosso dos autores."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m01-01",
+      "code": "M01.01",
+      "title": "Cuidar do avental de chumbo",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso do avental de chumbo no turno.",
+      "competency": "Conferir, usar e registrar o avental de chumbo seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o avental de chumbo."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe o avental de chumbo, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir o avental de chumbo com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar do avental de chumbo",
+        "body": "Cuidar do avental de chumbo começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com o avental de chumbo?",
+          "options": [
+            {
+              "label": "Conferir o avental de chumbo antes de usar",
+              "correct": true,
+              "feedback": "Conferir o avental de chumbo antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Usar o avental de chumbo sem olhar",
+              "correct": false,
+              "feedback": "Usar o avental de chumbo sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Trocar o avental de chumbo por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar o avental de chumbo por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar o avental de chumbo para o fim",
+              "correct": false,
+              "feedback": "Deixar o avental de chumbo para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com o avental de chumbo."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar do avental de chumbo.",
+          "items": [
+            "Conferir o avental de chumbo",
+            "Posicionar o avental de chumbo",
+            "Registrar o uso do avental de chumbo",
+            "Guardar o avental de chumbo no lugar"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, posicionar, registrar e guardar o avental de chumbo.",
+          "feedbackIncorrect": "Retome a ordem: conferir o avental de chumbo vem antes de posicionar e de registrar.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo com o avental de chumbo ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material danificado"
+            },
+            {
+              "left": "Posicionar",
+              "right": "Proteger a região errada"
+            },
+            {
+              "left": "Registrar",
+              "right": "Perder o histórico de uso"
+            },
+            {
+              "left": "Guardar",
+              "right": "Estragar o material parado"
+            }
+          ],
+          "feedbackCorrect": "Cada passo com o avental de chumbo protege a rotina de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo com o avental de chumbo evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante o turno, você percebe que o avental de chumbo está com uma rachadura visível e ninguém sabe dizer desde quando.",
+          "prompt": "Diante do dano do avental de chumbo, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir usando sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Tirar de uso e avisar a supervisão",
+              "correct": true,
+              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Esconder o dano com fita",
+              "correct": false,
+              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir sozinho",
+              "correct": false,
+              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ],
+          "help": "Material danificado não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa o avental de chumbo no primeiro turno?",
+          "options": [
+            {
+              "label": "Copiar o uso do avental de chumbo de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso do avental de chumbo de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esquecer o avental de chumbo no armário",
+              "correct": false,
+              "feedback": "Esquecer o avental de chumbo no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Comparar o avental de chumbo com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar o avental de chumbo com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Enfeitar o avental de chumbo com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar o avental de chumbo com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com o avental de chumbo."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida do avental de chumbo",
+        "body": "Agora você consegue conferir, usar e registrar o avental de chumbo, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com o avental de chumbo, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro do avental de chumbo",
+              "correct": false,
+              "feedback": "Pular o registro do avental de chumbo: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso do avental de chumbo",
+              "correct": false,
+              "feedback": "Inventar o uso do avental de chumbo: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Anotar o uso do avental de chumbo hoje",
+              "correct": true,
+              "feedback": "Anotar o uso do avental de chumbo hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Riscar o registro do avental de chumbo",
+              "correct": false,
+              "feedback": "Riscar o registro do avental de chumbo: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o avental de chumbo, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Reler o estado do avental de chumbo",
+              "correct": true,
+              "feedback": "Reler o estado do avental de chumbo: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Fechar o avental de chumbo sem olhar",
+              "correct": false,
+              "feedback": "Fechar o avental de chumbo sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Emprestar o avental de chumbo sem ver",
+              "correct": false,
+              "feedback": "Emprestar o avental de chumbo sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o avental de chumbo ao meio",
+              "correct": false,
+              "feedback": "Dobrar o avental de chumbo ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o avental de chumbo, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro do avental de chumbo. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder a falta do avental de chumbo",
+                "correct": false,
+                "feedback": "Esconder a falta do avental de chumbo: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Negar a falta do avental de chumbo",
+                "correct": false,
+                "feedback": "Negar a falta do avental de chumbo: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta do avental de chumbo",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta do avental de chumbo: essa escolha adia a conferência e o erro só aparece tarde demais."
+              },
+              {
+                "label": "Anotar o que falta do avental de chumbo",
+                "correct": true,
+                "feedback": "Anotar o que falta do avental de chumbo: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara o avental de chumbo para a revisão?",
+            "options": [
+              {
+                "label": "Separar o avental de chumbo por tipo de uso",
+                "correct": true,
+                "feedback": "Separar o avental de chumbo por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Misturar o avental de chumbo com outros itens",
+                "correct": false,
+                "feedback": "Misturar o avental de chumbo com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Perder o avental de chumbo de propósito",
+                "correct": false,
+                "feedback": "Perder o avental de chumbo de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar o avental de chumbo sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o avental de chumbo sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-02",
+      "code": "M01.02",
+      "title": "Cuidar do dosímetro individual",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso do dosímetro individual no turno.",
+      "competency": "Conferir, usar e registrar o dosímetro individual seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o dosímetro individual."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe o dosímetro individual, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir o dosímetro individual com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar do dosímetro individual",
+        "body": "Cuidar do dosímetro individual começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com o dosímetro individual?",
+          "options": [
+            {
+              "label": "Usar o dosímetro individual sem olhar",
+              "correct": false,
+              "feedback": "Usar o dosímetro individual sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Conferir o dosímetro individual antes de usar",
+              "correct": true,
+              "feedback": "Conferir o dosímetro individual antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Trocar o dosímetro individual por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar o dosímetro individual por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar o dosímetro individual para o fim",
+              "correct": false,
+              "feedback": "Deixar o dosímetro individual para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com o dosímetro individual."
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com a palavra certa.",
+          "text": "Quanto maior a distância da fonte, {{1}} é a dose recebida, e o tempo de exposição {{2}} a dose.",
+          "answers": [
+            "menor",
+            "aumenta"
+          ],
+          "distractors": [
+            "maior",
+            "zera",
+            "mantém"
+          ],
+          "feedbackCorrect": "Isso mesmo: mais distância reduz a dose, e mais tempo de exposição a aumenta.",
+          "feedbackIncorrect": "Releia a ideia: a dose cai com a distância e sobe com o tempo de exposição.",
+          "help": "Pense no que acontece ao se afastar da fonte.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os cuidados com o dosímetro individual.",
+          "statements": [
+            {
+              "text": "Conferir o material antes do turno evita falha escondida.",
+              "correct": true,
+              "feedback": "Conferir antes do turno revela dano que só apareceria durante o uso."
+            },
+            {
+              "text": "Um material rachado pode seguir em uso até o fim do dia.",
+              "correct": false,
+              "feedback": "Material com dano visível sai de uso e a supervisão é avisada."
+            },
+            {
+              "text": "Registrar o uso ajuda a acompanhar o desgaste do material.",
+              "correct": true,
+              "feedback": "O registro mostra quanto o material foi usado e quando precisa de revisão."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe a risco.",
+          "feedbackIncorrect": "Revise as afirmações: cada uma tem a própria explicação no retorno.",
+          "help": "Leia cada afirmação com calma antes de julgar.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante o turno, você percebe que o dosímetro individual está com uma rachadura visível e ninguém sabe dizer desde quando.",
+          "prompt": "Diante do dano do dosímetro individual, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir usando sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esconder o dano com fita",
+              "correct": false,
+              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Tirar de uso e avisar a supervisão",
+              "correct": true,
+              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Esperar o problema sumir sozinho",
+              "correct": false,
+              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ],
+          "help": "Material danificado não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa o dosímetro individual no primeiro turno?",
+          "options": [
+            {
+              "label": "Copiar o uso do dosímetro individual de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso do dosímetro individual de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esquecer o dosímetro individual no armário",
+              "correct": false,
+              "feedback": "Esquecer o dosímetro individual no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar o dosímetro individual com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar o dosímetro individual com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Comparar o dosímetro individual com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar o dosímetro individual com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com o dosímetro individual."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida do dosímetro individual",
+        "body": "Agora você consegue conferir, usar e registrar o dosímetro individual, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com o dosímetro individual, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro do dosímetro individual",
+              "correct": false,
+              "feedback": "Pular o registro do dosímetro individual: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso do dosímetro individual",
+              "correct": false,
+              "feedback": "Inventar o uso do dosímetro individual: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar o registro do dosímetro individual",
+              "correct": false,
+              "feedback": "Riscar o registro do dosímetro individual: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Anotar o uso do dosímetro individual hoje",
+              "correct": true,
+              "feedback": "Anotar o uso do dosímetro individual hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o dosímetro individual, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Fechar o dosímetro individual sem olhar",
+              "correct": false,
+              "feedback": "Fechar o dosímetro individual sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Reler o estado do dosímetro individual",
+              "correct": true,
+              "feedback": "Reler o estado do dosímetro individual: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Emprestar o dosímetro individual sem ver",
+              "correct": false,
+              "feedback": "Emprestar o dosímetro individual sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o dosímetro individual ao meio",
+              "correct": false,
+              "feedback": "Dobrar o dosímetro individual ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o dosímetro individual, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro do dosímetro individual. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Anotar o que falta do dosímetro individual",
+                "correct": true,
+                "feedback": "Anotar o que falta do dosímetro individual: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Esconder a falta do dosímetro individual",
+                "correct": false,
+                "feedback": "Esconder a falta do dosímetro individual: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Negar a falta do dosímetro individual",
+                "correct": false,
+                "feedback": "Negar a falta do dosímetro individual: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta do dosímetro individual",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta do dosímetro individual: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara o dosímetro individual para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o dosímetro individual com outros itens",
+                "correct": false,
+                "feedback": "Misturar o dosímetro individual com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Separar o dosímetro individual por tipo de uso",
+                "correct": true,
+                "feedback": "Separar o dosímetro individual por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Perder o dosímetro individual de propósito",
+                "correct": false,
+                "feedback": "Perder o dosímetro individual de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar o dosímetro individual sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o dosímetro individual sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-03",
+      "code": "M01.03",
+      "title": "Cuidar do colimador",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso do colimador no turno.",
+      "competency": "Conferir, usar e registrar o colimador seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o colimador."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe o colimador, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir o colimador com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar do colimador",
+        "body": "Cuidar do colimador começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com o colimador?",
+          "options": [
+            {
+              "label": "Usar o colimador sem olhar",
+              "correct": false,
+              "feedback": "Usar o colimador sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Trocar o colimador por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar o colimador por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Conferir o colimador antes de usar",
+              "correct": true,
+              "feedback": "Conferir o colimador antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Deixar o colimador para o fim",
+              "correct": false,
+              "feedback": "Deixar o colimador para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com o colimador."
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Separe as medidas em proteção pessoal e proteção do ambiente.",
+          "categories": [
+            "Pessoal",
+            "Ambiente"
+          ],
+          "items": [
+            {
+              "label": "Dosímetro no tórax",
+              "category": "Pessoal"
+            },
+            {
+              "label": "Aviso luminoso na porta",
+              "category": "Ambiente"
+            },
+            {
+              "label": "Avental de chumbo",
+              "category": "Pessoal"
+            },
+            {
+              "label": "Parede com blindagem",
+              "category": "Ambiente"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: umas medidas protegem quem trabalha, outras protegem o espaço.",
+          "feedbackIncorrect": "Pense em quem a medida protege: a pessoa que a veste ou a sala inteira.",
+          "help": "Veja se a medida acompanha a pessoa ou fica no lugar.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Associe cada passo com o colimador ao que ele evita.",
+          "pairs": [
+            {
+              "left": "Conferir",
+              "right": "Começar com material danificado"
+            },
+            {
+              "left": "Posicionar",
+              "right": "Proteger a região errada"
+            },
+            {
+              "left": "Registrar",
+              "right": "Perder o histórico de uso"
+            },
+            {
+              "left": "Guardar",
+              "right": "Estragar o material parado"
+            }
+          ],
+          "feedbackCorrect": "Cada passo com o colimador protege a rotina de um problema diferente.",
+          "feedbackIncorrect": "Confira de novo: cada passo com o colimador evita um problema só dele.",
+          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as atitudes que mantêm a proteção durante o turno.",
+          "options": [
+            {
+              "label": "Usar o dosímetro no turno todo",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Usar o dosím)"
+            },
+            {
+              "label": "Fechar a porta na exposição",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Fechar a por)"
+            },
+            {
+              "label": "Tirar o avental no meio da exposição",
+              "correct": false,
+              "feedback": "Esta atitude tira a proteção e expõe a pessoa ao risco. (Tirar o aven)"
+            },
+            {
+              "label": "Avisar sobre material danificado",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Avisar sobre)"
+            },
+            {
+              "label": "Deixar o dosímetro guardado na gaveta",
+              "correct": false,
+              "feedback": "Esta atitude tira a proteção e expõe a pessoa ao risco. (Deixar o dos)"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você marcou só o que mantém a proteção ligada.",
+          "feedbackIncorrect": "Confira o que sobrou ou faltou: protege quem usa e avisa quem supervisiona.",
+          "help": "Marque o que acompanha a pessoa e o que avisa a equipe.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa o colimador no primeiro turno?",
+          "options": [
+            {
+              "label": "Copiar o uso do colimador de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso do colimador de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esquecer o colimador no armário",
+              "correct": false,
+              "feedback": "Esquecer o colimador no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar o colimador com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar o colimador com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Comparar o colimador com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar o colimador com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com o colimador."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida do colimador",
+        "body": "Agora você consegue conferir, usar e registrar o colimador, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com o colimador, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro do colimador",
+              "correct": false,
+              "feedback": "Pular o registro do colimador: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso do colimador",
+              "correct": false,
+              "feedback": "Inventar o uso do colimador: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Anotar o uso do colimador hoje",
+              "correct": true,
+              "feedback": "Anotar o uso do colimador hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Riscar o registro do colimador",
+              "correct": false,
+              "feedback": "Riscar o registro do colimador: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o colimador, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Reler o estado do colimador",
+              "correct": true,
+              "feedback": "Reler o estado do colimador: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Fechar o colimador sem olhar",
+              "correct": false,
+              "feedback": "Fechar o colimador sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Emprestar o colimador sem ver",
+              "correct": false,
+              "feedback": "Emprestar o colimador sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o colimador ao meio",
+              "correct": false,
+              "feedback": "Dobrar o colimador ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o colimador, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro do colimador. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Anotar o que falta do colimador",
+                "correct": true,
+                "feedback": "Anotar o que falta do colimador: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Esconder a falta do colimador",
+                "correct": false,
+                "feedback": "Esconder a falta do colimador: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Negar a falta do colimador",
+                "correct": false,
+                "feedback": "Negar a falta do colimador: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta do colimador",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta do colimador: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara o colimador para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o colimador com outros itens",
+                "correct": false,
+                "feedback": "Misturar o colimador com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Separar o colimador por tipo de uso",
+                "correct": true,
+                "feedback": "Separar o colimador por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Perder o colimador de propósito",
+                "correct": false,
+                "feedback": "Perder o colimador de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar o colimador sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o colimador sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-04",
+      "code": "M01.04",
+      "title": "Cuidar do protetor de tireoide",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso do protetor de tireoide no turno.",
+      "competency": "Conferir, usar e registrar o protetor de tireoide seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com o protetor de tireoide."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe o protetor de tireoide, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir o protetor de tireoide com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar do protetor de tireoide",
+        "body": "Cuidar do protetor de tireoide começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com o protetor de tireoide?",
+          "options": [
+            {
+              "label": "Usar o protetor de tireoide sem olhar",
+              "correct": false,
+              "feedback": "Usar o protetor de tireoide sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Trocar o protetor de tireoide por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar o protetor de tireoide por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Conferir o protetor de tireoide antes de usar",
+              "correct": true,
+              "feedback": "Conferir o protetor de tireoide antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Deixar o protetor de tireoide para o fim",
+              "correct": false,
+              "feedback": "Deixar o protetor de tireoide para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com o protetor de tireoide."
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque em ordem os passos para cuidar do protetor de tireoide.",
+          "items": [
+            "Conferir o protetor de tireoide",
+            "Posicionar o protetor de tireoide",
+            "Registrar o uso do protetor de tireoide",
+            "Guardar o protetor de tireoide no lugar"
+          ],
+          "feedbackCorrect": "Essa é a ordem combinada: conferir, posicionar, registrar e guardar o protetor de tireoide.",
+          "feedbackIncorrect": "Retome a ordem: conferir o protetor de tireoide vem antes de posicionar e de registrar.",
+          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os cuidados com o protetor de tireoide.",
+          "statements": [
+            {
+              "text": "Conferir o material antes do turno evita falha escondida.",
+              "correct": true,
+              "feedback": "Conferir antes do turno revela dano que só apareceria durante o uso."
+            },
+            {
+              "text": "Um material rachado pode seguir em uso até o fim do dia.",
+              "correct": false,
+              "feedback": "Material com dano visível sai de uso e a supervisão é avisada."
+            },
+            {
+              "text": "Registrar o uso ajuda a acompanhar o desgaste do material.",
+              "correct": true,
+              "feedback": "O registro mostra quanto o material foi usado e quando precisa de revisão."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe a risco.",
+          "feedbackIncorrect": "Revise as afirmações: cada uma tem a própria explicação no retorno.",
+          "help": "Leia cada afirmação com calma antes de julgar.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante o turno, você percebe que o protetor de tireoide está com uma rachadura visível e ninguém sabe dizer desde quando.",
+          "prompt": "Diante do dano do protetor de tireoide, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir usando sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esconder o dano com fita",
+              "correct": false,
+              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir sozinho",
+              "correct": false,
+              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Tirar de uso e avisar a supervisão",
+              "correct": true,
+              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ],
+          "help": "Material danificado não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa o protetor de tireoide no primeiro turno?",
+          "options": [
+            {
+              "label": "Comparar o protetor de tireoide com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar o protetor de tireoide com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Copiar o uso do protetor de tireoide de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso do protetor de tireoide de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esquecer o protetor de tireoide no armário",
+              "correct": false,
+              "feedback": "Esquecer o protetor de tireoide no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar o protetor de tireoide com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar o protetor de tireoide com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com o protetor de tireoide."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida do protetor de tireoide",
+        "body": "Agora você consegue conferir, usar e registrar o protetor de tireoide, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com o protetor de tireoide, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro do protetor de tireoide",
+              "correct": false,
+              "feedback": "Pular o registro do protetor de tireoide: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso do protetor de tireoide",
+              "correct": false,
+              "feedback": "Inventar o uso do protetor de tireoide: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar o registro do protetor de tireoide",
+              "correct": false,
+              "feedback": "Riscar o registro do protetor de tireoide: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Anotar o uso do protetor de tireoide hoje",
+              "correct": true,
+              "feedback": "Anotar o uso do protetor de tireoide hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar o protetor de tireoide, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Fechar o protetor de tireoide sem olhar",
+              "correct": false,
+              "feedback": "Fechar o protetor de tireoide sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Reler o estado do protetor de tireoide",
+              "correct": true,
+              "feedback": "Reler o estado do protetor de tireoide: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Emprestar o protetor de tireoide sem ver",
+              "correct": false,
+              "feedback": "Emprestar o protetor de tireoide sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar o protetor de tireoide ao meio",
+              "correct": false,
+              "feedback": "Dobrar o protetor de tireoide ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar o protetor de tireoide, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro do protetor de tireoide. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder a falta do protetor de tireoide",
+                "correct": false,
+                "feedback": "Esconder a falta do protetor de tireoide: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Anotar o que falta do protetor de tireoide",
+                "correct": true,
+                "feedback": "Anotar o que falta do protetor de tireoide: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Negar a falta do protetor de tireoide",
+                "correct": false,
+                "feedback": "Negar a falta do protetor de tireoide: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta do protetor de tireoide",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta do protetor de tireoide: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara o protetor de tireoide para a revisão?",
+            "options": [
+              {
+                "label": "Misturar o protetor de tireoide com outros itens",
+                "correct": false,
+                "feedback": "Misturar o protetor de tireoide com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Perder o protetor de tireoide de propósito",
+                "correct": false,
+                "feedback": "Perder o protetor de tireoide de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Separar o protetor de tireoide por tipo de uso",
+                "correct": true,
+                "feedback": "Separar o protetor de tireoide por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Empilhar o protetor de tireoide sem ordem",
+                "correct": false,
+                "feedback": "Empilhar o protetor de tireoide sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-05",
+      "code": "M01.05",
+      "title": "Cuidar da sinalização da sala",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso da sinalização da sala no turno.",
+      "competency": "Conferir, usar e registrar a sinalização da sala seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com a sinalização da sala."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe a sinalização da sala, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir a sinalização da sala com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar da sinalização da sala",
+        "body": "Cuidar da sinalização da sala começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com a sinalização da sala?",
+          "options": [
+            {
+              "label": "Usar a sinalização da sala sem olhar",
+              "correct": false,
+              "feedback": "Usar a sinalização da sala sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Trocar a sinalização da sala por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar a sinalização da sala por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar a sinalização da sala para o fim",
+              "correct": false,
+              "feedback": "Deixar a sinalização da sala para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Conferir a sinalização da sala antes de usar",
+              "correct": true,
+              "feedback": "Conferir a sinalização da sala antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com a sinalização da sala."
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com a palavra certa.",
+          "text": "Quanto maior a distância da fonte, {{1}} é a dose recebida, e o tempo de exposição {{2}} a dose.",
+          "answers": [
+            "menor",
+            "aumenta"
+          ],
+          "distractors": [
+            "maior",
+            "zera",
+            "mantém"
+          ],
+          "feedbackCorrect": "Isso mesmo: mais distância reduz a dose, e mais tempo de exposição a aumenta.",
+          "feedbackIncorrect": "Releia a ideia: a dose cai com a distância e sobe com o tempo de exposição.",
+          "help": "Pense no que acontece ao se afastar da fonte.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Separe as medidas em proteção pessoal e proteção do ambiente.",
+          "categories": [
+            "Pessoal",
+            "Ambiente"
+          ],
+          "items": [
+            {
+              "label": "Dosímetro no tórax",
+              "category": "Pessoal"
+            },
+            {
+              "label": "Aviso luminoso na porta",
+              "category": "Ambiente"
+            },
+            {
+              "label": "Avental de chumbo",
+              "category": "Pessoal"
+            },
+            {
+              "label": "Parede com blindagem",
+              "category": "Ambiente"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: umas medidas protegem quem trabalha, outras protegem o espaço.",
+          "feedbackIncorrect": "Pense em quem a medida protege: a pessoa que a veste ou a sala inteira.",
+          "help": "Veja se a medida acompanha a pessoa ou fica no lugar.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante o turno, você percebe que a sinalização da sala está com uma rachadura visível e ninguém sabe dizer desde quando.",
+          "prompt": "Diante do dano da sinalização da sala, o que você faz agora?",
+          "options": [
+            {
+              "label": "Tirar de uso e avisar a supervisão",
+              "correct": true,
+              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Seguir usando sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esconder o dano com fita",
+              "correct": false,
+              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir sozinho",
+              "correct": false,
+              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ],
+          "help": "Material danificado não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa a sinalização da sala no primeiro turno?",
+          "options": [
+            {
+              "label": "Copiar o uso da sinalização da sala de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso da sinalização da sala de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Comparar a sinalização da sala com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar a sinalização da sala com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Esquecer a sinalização da sala no armário",
+              "correct": false,
+              "feedback": "Esquecer a sinalização da sala no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Enfeitar a sinalização da sala com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar a sinalização da sala com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com a sinalização da sala."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida da sinalização da sala",
+        "body": "Agora você consegue conferir, usar e registrar a sinalização da sala, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com a sinalização da sala, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro da sinalização da sala",
+              "correct": false,
+              "feedback": "Pular o registro da sinalização da sala: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso da sinalização da sala",
+              "correct": false,
+              "feedback": "Inventar o uso da sinalização da sala: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Anotar o uso da sinalização da sala hoje",
+              "correct": true,
+              "feedback": "Anotar o uso da sinalização da sala hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Riscar o registro da sinalização da sala",
+              "correct": false,
+              "feedback": "Riscar o registro da sinalização da sala: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar a sinalização da sala, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Reler o estado da sinalização da sala",
+              "correct": true,
+              "feedback": "Reler o estado da sinalização da sala: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Fechar a sinalização da sala sem olhar",
+              "correct": false,
+              "feedback": "Fechar a sinalização da sala sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Emprestar a sinalização da sala sem ver",
+              "correct": false,
+              "feedback": "Emprestar a sinalização da sala sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar a sinalização da sala ao meio",
+              "correct": false,
+              "feedback": "Dobrar a sinalização da sala ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar a sinalização da sala, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro da sinalização da sala. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder a falta da sinalização da sala",
+                "correct": false,
+                "feedback": "Esconder a falta da sinalização da sala: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Negar a falta da sinalização da sala",
+                "correct": false,
+                "feedback": "Negar a falta da sinalização da sala: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Anotar o que falta da sinalização da sala",
+                "correct": true,
+                "feedback": "Anotar o que falta da sinalização da sala: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Culpar a turma pela falta da sinalização da sala",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta da sinalização da sala: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara a sinalização da sala para a revisão?",
+            "options": [
+              {
+                "label": "Misturar a sinalização da sala com outros itens",
+                "correct": false,
+                "feedback": "Misturar a sinalização da sala com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Perder a sinalização da sala de propósito",
+                "correct": false,
+                "feedback": "Perder a sinalização da sala de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar a sinalização da sala sem ordem",
+                "correct": false,
+                "feedback": "Empilhar a sinalização da sala sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              },
+              {
+                "label": "Separar a sinalização da sala por tipo de uso",
+                "correct": true,
+                "feedback": "Separar a sinalização da sala por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m01-06",
+      "code": "M01.06",
+      "title": "Cuidar da porta plumbífera",
+      "objective": "Hoje você vai conseguir conferir e registrar o uso da porta plumbífera no turno.",
+      "competency": "Conferir, usar e registrar a porta plumbífera seguindo o plano de proteção do setor.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Eu nunca sei por onde começar com a porta plumbífera."
+          },
+          {
+            "speaker": "caio",
+            "text": "Primeiro olhe a porta plumbífera, depois siga o plano do setor."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal conferir a porta plumbífera com calma e decidir o primeiro passo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Como cuidar da porta plumbífera",
+        "body": "Cuidar da porta plumbífera começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+        "keyPoints": [
+          "Conferir vem antes de usar.",
+          "Dano se avisa, não se esconde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Antes de começar o turno, qual é o primeiro cuidado com a porta plumbífera?",
+          "options": [
+            {
+              "label": "Conferir a porta plumbífera antes de usar",
+              "correct": true,
+              "feedback": "Conferir a porta plumbífera antes de usar: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Usar a porta plumbífera sem olhar",
+              "correct": false,
+              "feedback": "Usar a porta plumbífera sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Trocar a porta plumbífera por outro qualquer",
+              "correct": false,
+              "feedback": "Trocar a porta plumbífera por outro qualquer: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Deixar a porta plumbífera para o fim",
+              "correct": false,
+              "feedback": "Deixar a porta plumbífera para o fim: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Pense no que evita retrabalho com a porta plumbífera."
+        },
+        {
+          "id": "i2",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os cuidados com a porta plumbífera.",
+          "statements": [
+            {
+              "text": "Conferir o material antes do turno evita falha escondida.",
+              "correct": true,
+              "feedback": "Conferir antes do turno revela dano que só apareceria durante o uso."
+            },
+            {
+              "text": "Um material rachado pode seguir em uso até o fim do dia.",
+              "correct": false,
+              "feedback": "Material com dano visível sai de uso e a supervisão é avisada."
+            },
+            {
+              "text": "Registrar o uso ajuda a acompanhar o desgaste do material.",
+              "correct": true,
+              "feedback": "O registro mostra quanto o material foi usado e quando precisa de revisão."
+            },
+            {
+              "text": "Guardar o material dobrado ou amassado não faz diferença nenhuma.",
+              "correct": false,
+              "feedback": "Guardar de forma errada danifica o material e reduz a proteção que ele oferece."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe a risco.",
+          "feedbackIncorrect": "Revise as afirmações: cada uma tem a própria explicação no retorno.",
+          "help": "Leia cada afirmação com calma antes de julgar.",
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as atitudes que mantêm a proteção durante o turno.",
+          "options": [
+            {
+              "label": "Usar o dosímetro no turno todo",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Usar o dosím)"
+            },
+            {
+              "label": "Fechar a porta na exposição",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Fechar a por)"
+            },
+            {
+              "label": "Tirar o avental no meio da exposição",
+              "correct": false,
+              "feedback": "Esta atitude tira a proteção e expõe a pessoa ao risco. (Tirar o aven)"
+            },
+            {
+              "label": "Avisar sobre material danificado",
+              "correct": true,
+              "feedback": "Esta atitude mantém a proteção do turno. (Avisar sobre)"
+            },
+            {
+              "label": "Deixar o dosímetro guardado na gaveta",
+              "correct": false,
+              "feedback": "Esta atitude tira a proteção e expõe a pessoa ao risco. (Deixar o dos)"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você marcou só o que mantém a proteção ligada.",
+          "feedbackIncorrect": "Confira o que sobrou ou faltou: protege quem usa e avisa quem supervisiona.",
+          "help": "Marque o que acompanha a pessoa e o que avisa a equipe.",
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Durante o turno, você percebe que a porta plumbífera está com uma rachadura visível e ninguém sabe dizer desde quando.",
+          "prompt": "Diante do dano da porta plumbífera, o que você faz agora?",
+          "options": [
+            {
+              "label": "Seguir usando sem contar a ninguém",
+              "correct": false,
+              "feedback": "Seguir usando sem contar a ninguém: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Tirar de uso e avisar a supervisão",
+              "correct": true,
+              "feedback": "Tirar de uso e avisar a supervisão: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Esconder o dano com fita",
+              "correct": false,
+              "feedback": "Esconder o dano com fita: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Esperar o problema sumir sozinho",
+              "correct": false,
+              "feedback": "Esperar o problema sumir sozinho: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ],
+          "help": "Material danificado não se resolve sozinho nem em silêncio."
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num setor novo, como você usa a porta plumbífera no primeiro turno?",
+          "options": [
+            {
+              "label": "Copiar o uso da porta plumbífera de um colega",
+              "correct": false,
+              "feedback": "Copiar o uso da porta plumbífera de um colega: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Esquecer a porta plumbífera no armário",
+              "correct": false,
+              "feedback": "Esquecer a porta plumbífera no armário: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Comparar a porta plumbífera com o plano do setor",
+              "correct": true,
+              "feedback": "Comparar a porta plumbífera com o plano do setor: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Enfeitar a porta plumbífera com adesivos",
+              "correct": false,
+              "feedback": "Enfeitar a porta plumbífera com adesivos: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ],
+          "help": "Leve para o setor novo o mesmo cuidado com a porta plumbífera."
+        }
+      ],
+      "closing": {
+        "title": "Você cuida da porta plumbífera",
+        "body": "Agora você consegue conferir, usar e registrar a porta plumbífera, e sabe avisar a supervisão quando algo não bate.",
+        "line": {
+          "speaker": "lia",
+          "text": "Bom turno. Na próxima, repita a mesma ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Ao terminar o turno com a porta plumbífera, qual registro não pode faltar?",
+          "options": [
+            {
+              "label": "Pular o registro da porta plumbífera",
+              "correct": false,
+              "feedback": "Pular o registro da porta plumbífera: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Inventar o uso da porta plumbífera",
+              "correct": false,
+              "feedback": "Inventar o uso da porta plumbífera: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Riscar o registro da porta plumbífera",
+              "correct": false,
+              "feedback": "Riscar o registro da porta plumbífera: essa escolha adia a conferência e o erro só aparece tarde demais."
+            },
+            {
+              "label": "Anotar o uso da porta plumbífera hoje",
+              "correct": true,
+              "feedback": "Anotar o uso da porta plumbífera hoje: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            }
+          ],
+          "sourceIds": [
+            "esr-efrs-seguranca-2019"
+          ]
+        },
+        {
+          "prompt": "Antes de guardar a porta plumbífera, qual atitude fecha o turno?",
+          "options": [
+            {
+              "label": "Fechar a porta plumbífera sem olhar",
+              "correct": false,
+              "feedback": "Fechar a porta plumbífera sem olhar: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+            },
+            {
+              "label": "Reler o estado da porta plumbífera",
+              "correct": true,
+              "feedback": "Reler o estado da porta plumbífera: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+            },
+            {
+              "label": "Emprestar a porta plumbífera sem ver",
+              "correct": false,
+              "feedback": "Emprestar a porta plumbífera sem ver: essa escolha troca o cuidado certo por outro e confunde o registro."
+            },
+            {
+              "label": "Dobrar a porta plumbífera ao meio",
+              "correct": false,
+              "feedback": "Dobrar a porta plumbífera ao meio: essa escolha adia a conferência e o erro só aparece tarde demais."
+            }
+          ],
+          "sourceIds": [
+            "iaea-ssg46-2018"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de guardar a porta plumbífera, eu sempre...",
+          "item": {
+            "prompt": "Faltou um registro da porta plumbífera. Qual é o passo guiado para resolver?",
+            "options": [
+              {
+                "label": "Esconder a falta da porta plumbífera",
+                "correct": false,
+                "feedback": "Esconder a falta da porta plumbífera: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Negar a falta da porta plumbífera",
+                "correct": false,
+                "feedback": "Negar a falta da porta plumbífera: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Culpar a turma pela falta da porta plumbífera",
+                "correct": false,
+                "feedback": "Culpar a turma pela falta da porta plumbífera: essa escolha adia a conferência e o erro só aparece tarde demais."
+              },
+              {
+                "label": "Anotar o que falta da porta plumbífera",
+                "correct": true,
+                "feedback": "Anotar o que falta da porta plumbífera: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              }
+            ],
+            "sourceIds": [
+              "esr-efrs-seguranca-2019"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outro setor, como você prepara a porta plumbífera para a revisão?",
+            "options": [
+              {
+                "label": "Separar a porta plumbífera por tipo de uso",
+                "correct": true,
+                "feedback": "Separar a porta plumbífera por tipo de uso: essa escolha mantém a rotina de proteção organizada desde o primeiro passo."
+              },
+              {
+                "label": "Misturar a porta plumbífera com outros itens",
+                "correct": false,
+                "feedback": "Misturar a porta plumbífera com outros itens: essa escolha deixa a dúvida crescer e atrasa a conferência combinada."
+              },
+              {
+                "label": "Perder a porta plumbífera de propósito",
+                "correct": false,
+                "feedback": "Perder a porta plumbífera de propósito: essa escolha troca o cuidado certo por outro e confunde o registro."
+              },
+              {
+                "label": "Empilhar a porta plumbífera sem ordem",
+                "correct": false,
+                "feedback": "Empilhar a porta plumbífera sem ordem: essa escolha adia a conferência e o erro só aparece tarde demais."
+              }
+            ],
+            "sourceIds": [
+              "iaea-ssg46-2018"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

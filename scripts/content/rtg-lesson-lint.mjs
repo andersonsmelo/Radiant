@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select'];
 // Famílias da 1.6 (ADR-2026-11-13): retorno de acerto e de erro próprios, como ordenação e associação.
 const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select'];
 const CHOICE = ['multiple-choice', 'case-decision'];

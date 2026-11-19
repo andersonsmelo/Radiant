@@ -1,0 +1,46 @@
+FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+  famílias de interação
+    ✓ só os tipos de PENDING_FAMILIES nascem pendentes (1 ms)
+    ✓ multiple-choice: tela, validação, acerto, erro e retornos (2 ms)
+    ✓ hotspot: tela, validação, acerto, erro e retornos
+    ✓ comparison: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ matching: tela, validação, acerto, erro e retornos
+    ✓ ordering: tela, validação, acerto, erro e retornos
+    ✓ bench: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ case-decision: tela, validação, acerto, erro e retornos
+    ✓ cloze: tela, validação, acerto, erro e retornos
+    ✓ true-false: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ categorize: tela, validação, acerto, erro e retornos
+    ✕ multi-select: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ multiple-choice: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ case-decision: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ ordering: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL (1 ms)
+    ✓ matching: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ comparison: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ cloze: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ true-false: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ categorize: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+    ✓ multi-select: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL
+
+  ● famílias de interação › multi-select: tela, validação, acerto, erro e retornos
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      52 |         expect(validateLearningActivity(activity)).toEqual([]);
+      53 |
+    > 54 |         expect(isCompleteInteractionValue(interaction, correctValue)).toBe(true);
+         |                                                                       ^
+      55 |         expect(isCorrectInteractionValue(interaction, correctValue)).toBe(true);
+      56 |         expect(isCompleteInteractionValue(interaction, wrongValue)).toBe(true);
+      57 |         expect(isCorrectInteractionValue(interaction, wrongValue)).toBe(false);
+
+      at toBe (src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts:54:71)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 20 passed, 21 total
+Snapshots:   0 total
+Time:        1.28 s, estimated 2 s
+Ran all test suites matching /src\/features\/lesson-flow\/renderers\/interactionFamilies.contract.test.ts/i.
