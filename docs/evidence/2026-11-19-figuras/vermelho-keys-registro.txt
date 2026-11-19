@@ -1,0 +1,5 @@
+## Vermelho: régua do registro com keys inválidas injetadas em anodo-giratorio (revertido depois)
+    ✕ anodo-giratorio: keys do movimento em ordem crescente e de 0 a 1 (1 ms)
+  ● registro de diagramas › anodo-giratorio: keys do movimento em ordem crescente e de 0 a 1
+    Received: "keys[1] fora de ordem crescente"
+Tests:       1 failed, 359 passed, 360 total

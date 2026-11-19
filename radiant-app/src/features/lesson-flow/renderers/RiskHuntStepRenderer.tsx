@@ -4,11 +4,11 @@ import type { NormalizedRegion, RiskHuntPayload } from '../../../types/learningA
 import { semanticColors } from '../../../ui/semantic-colors';
 import { CheckIcon } from '../../../ui/components/VerdictIcons';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space } from '../../../ui/styles';
+import { radius } from '../../../ui/styles';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
-import { touchSlop } from './hotspotTouch';
+import { badgeStyle, touchSlop } from './hotspotTouch';
 import { EnterView, TapChip, f2Styles } from './TapChip';
 
 type Props = {
@@ -76,7 +76,7 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                             style={[styles.region, place(region), on && styles.regionOn]}
                         >
                             {on ? (
-                                <View testID="risk-hunt-selected-mark" style={styles.badge}>
+                                <View testID="risk-hunt-selected-mark" style={[styles.badge, badgeStyle(region, frame)]}>
                                     <CheckIcon size={20} color={galaxy.textPrimary} />
                                 </View>
                             ) : null}
@@ -110,17 +110,13 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
         backgroundColor: galaxyColors.imageScrim,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        padding: space.s1,
     },
     // Só a borda muda: um fundo opaco apagaria a situação escolhida.
     regionOn: { borderWidth: 3, borderColor: galaxy.statusSuccess },
     badge: {
         backgroundColor: galaxyColors.background,
         borderRadius: radius.rMd,
-        paddingHorizontal: space.s2,
-        minHeight: 24,
+        alignItems: 'center',
         justifyContent: 'center',
     },
 });

@@ -1,0 +1,39 @@
+## 1. fabrica sem 'alvo: _alvo' no hotspot, lotes regenerados: o alvo vaza para o payload
+    ✕ nenhum lote gerado carrega a chave alvo em ponto ou região (37 ms)
+  ● índice gerado da trilha rtg-2026 › nenhum lote gerado carrega a chave alvo em ponto ou região
+Tests:       1 failed, 25 passed, 26 total
+
+## 2. sem figure-target-duplicate
+not ok 140 - alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova
+# fail 1
+
+## 3. arquivo de alvos: sem checagem de forma de lista
+not ok 141 - alvos: o arquivo de alvos é validado sozinho
+not ok 142 - alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo
+    The input did not match the regular expression /x\.alvos\.json: .*lista não vazia/. Input:
+# fail 2
+
+## 4. arquivo de alvos: nome repetido aceito
+not ok 141 - alvos: o arquivo de alvos é validado sozinho
+    The input did not match the regular expression /nome repetido: A/. Input:
+# fail 1
+
+## 5. arquivo de alvos: largura e altura nao positivas aceitas
+not ok 141 - alvos: o arquivo de alvos é validado sozinho
+    The input did not match the regular expression /positivos/. Input:
+# fail 1
+
+## 6. arquivo de alvos: regiao fora do quadro aceita
+not ok 141 - alvos: o arquivo de alvos é validado sozinho
+    The input did not match the regular expression /fora do quadro/. Input:
+# fail 1
+
+## 7. arquivo de alvos: regiao do tamanho do quadro aceita
+not ok 141 - alvos: o arquivo de alvos é validado sozinho
+    The input did not match the regular expression /faria qualquer alvo passar/. Input:
+# fail 1
+
+## 8. JSON invalido sem o nome do arquivo
+not ok 142 - alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo
+    The input did not match the regular expression /x\.alvos\.json: JSON inválido/. Input:
+# fail 1

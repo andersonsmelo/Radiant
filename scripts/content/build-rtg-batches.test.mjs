@@ -8,6 +8,7 @@ import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import appContract from './load-app-contract.cjs';
 import { renderRtgBatches, readRtgImages, readRtgSources, staleRtgFiles } from './build-rtg-batches.mjs';
+import { readFiguras } from './rtg-figuras.mjs';
 
 const script = fileURLToPath(new URL('./build-rtg-batches.mjs', import.meta.url));
 const fixtureText = await readFile(new URL('./fixtures/rtg-unit-fixture.json', import.meta.url), 'utf8');
@@ -128,7 +129,7 @@ test('--check passa logo após gerar e falha quando a aula-fonte muda, um arquiv
 });
 
 test('os lotes versionados no app estão em dia com as aulas-fonte do repositório', async () => {
-  const { files } = renderRtgBatches(await readRtgSources(), await readRtgImages());
+  const { files } = renderRtgBatches(await readRtgSources(), await readRtgImages(), await readFiguras());
   assert.deepEqual(await staleRtgFiles(files), []);
 });
 

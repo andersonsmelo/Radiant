@@ -3,7 +3,7 @@ import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { IconSymbol } from '../../../../components/ui/icon-symbol';
-import { RTG_IMAGES } from '../../student-checkpoints/batches/rtgImages';
+import { RTG_FIGURE_CREDITS, RTG_IMAGES } from '../../student-checkpoints/batches/rtgImages';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 
@@ -26,6 +26,17 @@ export default function ImageCreditsScreen(): React.ReactElement {
         <Text style={styles.detail}>Modificação: {image.modification}</Text>
         <Pressable accessibilityRole="link" accessibilityLabel={`Abrir a página de origem da radiografia ${index + 1}`}
           onPress={() => { void Linking.openURL(image.sourcePage).catch(() => undefined); }} style={styles.link}>
+          <Text style={styles.linkLabel}>Ver a página de origem</Text>
+        </Pressable>
+      </View>)}
+      {RTG_FIGURE_CREDITS.map((figure, index) => <View key={figure.id} style={styles.card}>
+        <Text style={styles.name}>Ilustração {index + 1}</Text>
+        <Text style={styles.detail}>{figure.alt}</Text>
+        <Text style={styles.detail}>Autoria: {figure.author}</Text>
+        <Text style={styles.detail}>Licença: {figure.license}</Text>
+        <Text style={styles.detail}>Modificação: {figure.modification}</Text>
+        <Pressable accessibilityRole="link" accessibilityLabel={`Abrir a página de origem da ilustração ${index + 1}`}
+          onPress={() => { void Linking.openURL(figure.sourcePage).catch(() => undefined); }} style={styles.link}>
           <Text style={styles.linkLabel}>Ver a página de origem</Text>
         </Pressable>
       </View>)}

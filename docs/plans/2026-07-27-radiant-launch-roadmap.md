@@ -116,7 +116,10 @@ empilhada na A, sem merge (PR #90). Fase C (unidades irmãs): lote 1 de 6 feito 
 `claude/trilha-dobrada-fase-c-lote-2`, sem merge (PR #93); lote 3 feito em 2026-11-19
 (M25 a M28), na branch `claude/trilha-dobrada-fase-c-lote-3`, sem merge (PR #94); lote 4
 feito em 2026-11-19 (M29 a M32), na branch `claude/trilha-dobrada-fase-c-lote-4`, sem
-merge.** Lotes 5 e 6 da C, fase D
+merge (PR #95).** Em 2026-11-19 o dono reprovou as figuras em código e o lote 5 parou;
+a troca das figuras segue um
+[plano próprio](../superpowers/plans/2026-11-19-troca-das-figuras.md), com a fase 0
+(base técnica) feita na branch `claude/figuras-base`, sem merge. Lotes 5 e 6 da C, fase D
 (conversão) e fase E (integração): não iniciados. Estado no [`STATUS.md`](../STATUS.md).
 
 ## 3. Estratégia

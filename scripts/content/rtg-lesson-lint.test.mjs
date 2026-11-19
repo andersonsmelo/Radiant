@@ -3,7 +3,9 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { lintUnit, targetErrors } from './rtg-lesson-lint.mjs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { figureTargetsFileErrors, lintUnit, readFigureTargets, targetErrors } from './rtg-lesson-lint.mjs';
 
 const fixturePath = fileURLToPath(new URL('./fixtures/rtg-unit-fixture.json', import.meta.url));
 const script = fileURLToPath(new URL('./rtg-lesson-lint.mjs', import.meta.url));
@@ -891,4 +893,133 @@ test('conversation: reação com palavra de veredito reprova, por palavra inteir
     expectOnly(conversationItem(item => { item.turns[0].options[0].reply = reply; }), /a reação não pode julgar/);
   }
   assert.deepEqual(conversationItem(item => { item.turns[0].options[0].reply = 'Então fico mais tranquila, incerta e correndo.'; }), []);
+});
+
+// Alvos presos à figura: o `alvo` da aula nomeia uma região declarada em figuras/<id>.alvos.json.
+const FIGURE_TARGETS = { 'tubo-raios-x': [
+  { nome: 'Fonte de raios X', x: 0.05, y: 0.05, width: 0.3, height: 0.3 },
+  { nome: 'Detector plano', x: 0.55, y: 0.05, width: 0.3, height: 0.3 },
+  { nome: 'Paciente', x: 0.05, y: 0.55, width: 0.3, height: 0.3 },
+  { nome: 'Colimador', x: 0.55, y: 0.55, width: 0.3, height: 0.3 },
+] };
+function linked(mutate = () => {}, figureTargets = FIGURE_TARGETS) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'tubo-raios-x',
+    regions: hotspotRegions().map(region => ({ ...region, alvo: region.label })),
+    feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.',
+    feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc, { images: IMAGES, figureTargets });
+}
+test('alvos: região da aula com o centro dentro da região declarada passa', () => {
+  assert.deepEqual(linked(), []);
+});
+test('alvos: figure-target-off-region quando o centro do alvo da aula cai fora da região declarada', () => {
+  expectOnly(linked(item => { Object.assign(item.regions[1], { x: 0.3, y: 0.5 }); }), /figure-target-off-region.*Detector plano/);
+});
+test('alvos: label com ponto fora da região declarada reprova, dentro passa', () => {
+  const label = (x, y) => {
+    const doc = fixture();
+    const old = doc.lessons[0].interactions[1];
+    doc.lessons[0].interactions[1] = { id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+      prompt: 'Rotule as partes do tubo de raios X.', diagramId: 'tubo-raios-x',
+      points: [['Fonte de raios X', 0.2, 0.2, 'no canto de cima, à esquerda'], ['Detector plano', x, y, 'no canto de cima, à direita'], ['Paciente', 0.2, 0.7, 'no canto de baixo, à esquerda']]
+        .map(([name, px, py, where]) => ({ label: name, alvo: name, x: px, y: py, where })),
+      feedbackCorrect: 'Isso mesmo: cada parte no seu lugar.', feedbackIncorrect: 'Alguma parte ficou fora do lugar: releia a posição.' };
+    return lintUnit(doc, { images: IMAGES, figureTargets: FIGURE_TARGETS });
+  };
+  assert.deepEqual(label(0.7, 0.2), []);
+  expectOnly(label(0.84, 0.417), /figure-target-off-region.*Detector plano/);
+});
+test('alvos: figure-target-unknown para alvo que a figura não declara', () => {
+  expectOnly(linked(item => { item.regions[3].alvo = 'Occipital'; }), /figure-target-unknown.*Occipital/);
+});
+test('alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem alvo', () => {
+  expectOnly(linked(item => { delete item.regions[2].alvo; }), /figure-target-unlinked/);
+});
+test('alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela', () => {
+  const fora = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map((r, i) => (i === 1 ? { ...r, x: 0.9 } : r)) };
+  expectOnly(linked(() => {}, fora), /figure-target-frame.*Detector plano/);
+});
+test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito', () => {
+  assert.deepEqual(linked(() => {}, {}), []);
+  assert.deepEqual(hotspot(), []);
+});
+
+test('alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova', () => {
+  assert.ok(linked(item => { item.regions[1].alvo = 'Fonte de raios X'; }).some(error => /figure-target-duplicate.*Fonte de raios X/.test(error)));
+});
+test('alvos: o arquivo de alvos é validado sozinho', () => {
+  const ok = { nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 };
+  assert.deepEqual(figureTargetsFileErrors([ok]), []);
+  for (const [bad, pattern] of [
+    [{}, /lista não vazia/], [null, /lista não vazia/], [[], /lista não vazia/], [[null], /objeto esperado/],
+    [[ok, { ...ok }], /nome repetido: A/], [[{ ...ok, nome: ' ' }], /nome ausente/],
+    [[{ ...ok, width: 0 }], /positivos/], [[{ ...ok, height: -0.1 }], /positivos/],
+    [[{ ...ok, x: 0.9 }], /fora do quadro/], [[{ ...ok, x: 0, y: 0, width: 1, height: 1 }], /faria qualquer alvo passar/],
+    [[{ ...ok, x: '0,1' }], /devem ser números/],
+  ]) assert.match(figureTargetsFileErrors(bad).join('\n'), pattern);
+});
+test('alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo', () => {
+  const dir = mkdtempSync(`${tmpdir()}/alvos-`);
+  try {
+    writeFileSync(`${dir}/x.alvos.json`, '{ não é json');
+    assert.throws(() => readFigureTargets(dir), /x\.alvos\.json: JSON inválido/);
+    writeFileSync(`${dir}/x.alvos.json`, '{}');
+    assert.throws(() => readFigureTargets(dir), /x\.alvos\.json: .*lista não vazia/);
+    writeFileSync(`${dir}/x.alvos.json`, JSON.stringify([{ nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 }]));
+    assert.deepEqual(Object.keys(readFigureTargets(dir)), ['x']);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+// Revisão final de 2026-11-19: o `alvo` precisa corresponder ao rótulo que a aula mostra.
+test('alvos: figure-target-label-mismatch quando duas regiões trocam de alvo e de lugar mas o rótulo fica', () => {
+  const trocaDeAlvo = item => {
+    const [a, b] = [item.regions[1], item.regions[2]];
+    for (const key of ['x', 'y', 'width', 'height', 'alvo']) [a[key], b[key]] = [b[key], a[key]];
+  };
+  const errors = linked(trocaDeAlvo);
+  assert.deepEqual(errors.filter(error => /off-region|unknown|duplicate|unlinked|frame/.test(error)), [], 'a troca mantém posição e alvo válidos; só o rótulo denuncia');
+  expectOnly(errors, /figure-target-label-mismatch/);
+  assert.match(errors.join('\n'), /"Detector plano".*"Paciente"/);
+  assert.match(errors.join('\n'), /"Paciente".*"Detector plano"/);
+});
+test('alvos: `rotulos` aceita um rótulo descritivo, e só ele', () => {
+  const comRotulos = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map(r => (r.nome === 'Detector plano' ? { ...r, rotulos: ['Placa atrás do paciente'] } : r)) };
+  assert.deepEqual(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }, comRotulos), []);
+  expectOnly(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }), /figure-target-label-mismatch/);
+  expectOnly(linked(item => { item.regions[1].label = 'Placa na frente'; }, comRotulos), /figure-target-label-mismatch/);
+});
+test('alvos: `rotulos` é validado no arquivo de alvos', () => {
+  const ok = { nome: 'A', x: 0.1, y: 0.1, width: 0.2, height: 0.2 };
+  const other = { nome: 'B', x: 0.5, y: 0.5, width: 0.2, height: 0.2 };
+  assert.deepEqual(figureTargetsFileErrors([{ ...ok, rotulos: ['Peça de cima'] }, other]), []);
+  for (const [bad, pattern] of [
+    [[{ ...ok, rotulos: [] }], /rotulos deve ser uma lista/], [[{ ...ok, rotulos: 'x' }], /rotulos deve ser uma lista/],
+    [[{ ...ok, rotulos: [' '] }], /rotulos deve ser uma lista/], [[{ ...ok, rotulos: [3] }], /rotulos deve ser uma lista/],
+    [[{ ...ok, rotulos: ['Peça'] }, { ...other, rotulos: ['peça'] }], /rotulos repete "peça"/],
+    [[{ ...ok, rotulos: ['b'] }, other], /rotulos repete "B"/],
+  ]) assert.match(figureTargetsFileErrors(bad).join('\n'), pattern);
+});
+test('alvos: na M25 real, trocar Occipital e Parietal (ponto) ou Maxila e Temporal (região) reprova', async () => {
+  const { readRtgImages } = await import('./build-rtg-batches.mjs');
+  const images = await readRtgImages();
+  const m25 = () => JSON.parse(readFileSync(fileURLToPath(new URL('../../content-manifest/rtg-2026/aulas/m25.json', import.meta.url)), 'utf8'));
+  const mismatches = doc => lintUnit(doc, { images }).filter(error => /figure-target/.test(error));
+  assert.deepEqual(mismatches(m25()), []);
+  const swap = (list, a, b) => {
+    const [pa, pb] = [a, b].map(name => list.find(entry => entry.label === name));
+    for (const key of ['x', 'y', 'width', 'height', 'alvo']) [pa[key], pb[key]] = [pb[key], pa[key]];
+  };
+  const find = (doc, id) => doc.lessons.flatMap(lesson => lesson.interactions).find(item => item.id === id && item.diagramId === 'cranio-de-perfil-ossos');
+  const pontos = m25();
+  swap(find(pontos, 'i2').points, 'Occipital', 'Parietal');
+  assert.match(mismatches(pontos).join('\n'), /figure-target-label-mismatch.*"Occipital".*"Parietal"/);
+  const regioes = m25();
+  swap(find(regioes, 'i4').regions, 'Maxila', 'Temporal');
+  assert.match(mismatches(regioes).join('\n'), /figure-target-label-mismatch.*"Maxila".*"Temporal"/);
 });

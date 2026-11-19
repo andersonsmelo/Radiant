@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
-import { touchSlop } from './hotspotTouch';
+import { badgeStyle, touchSlop } from './hotspotTouch';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -68,10 +68,10 @@ export function HotspotStepRenderer({
                             ]}
                         >
                             {selected ? (
-                                <View testID="hotspot-selected-mark" style={styles.hotspotBadge}>
+                                <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(region, frame)]}>
                                     <CheckIcon size={20} color={galaxy.textPrimary} />
                                 </View>
-                            ) : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
+                            ) : <Text style={[styles.hotspotIndex, badgeStyle(region, frame)]}>{index + 1}</Text>}
                         </Pressable>
                     );
                 })}
@@ -114,10 +114,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
         backgroundColor: galaxyColors.imageScrim,
-        // The corner keeps the index clear of labels drawn inside the image itself.
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        padding: space.s1,
     },
     selected: {
         borderWidth: 3,
@@ -131,14 +127,13 @@ const styles = StyleSheet.create({
         backgroundColor: galaxyColors.background,
         borderRadius: radius.rMd,
         overflow: 'hidden',
-        paddingHorizontal: space.s2,
+        textAlign: 'center',
     },
     // Mesmo selo do número, com a marca desenhada no lugar dele.
     hotspotBadge: {
         backgroundColor: galaxyColors.background,
         borderRadius: radius.rMd,
-        paddingHorizontal: space.s2,
-        minHeight: 24,
+        alignItems: 'center',
         justifyContent: 'center',
     },
     textAlternatives: { gap: space.s2 },
