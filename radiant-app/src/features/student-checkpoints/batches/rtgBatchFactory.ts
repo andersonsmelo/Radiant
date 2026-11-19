@@ -14,6 +14,7 @@ import {
     type ProductionBatchV1,
 } from '../ProductionBatch';
 import type { ProductionCatalogEntry } from '../createProductionCurriculumCatalog';
+import { diagramRef } from '../../../ui/diagrams/diagramRegistry';
 import type { EvidenceKind, LearningActivityV2, LearningInteractionV2, LearningStepV2, LessonDialogueLine } from '../../../types/learningActivity';
 
 type RtgOption = { label: string; correct: boolean; feedback: string };
@@ -32,7 +33,9 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'cloze'; text: string; answers: string[]; distractors: string[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'true-false'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string });
+    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: figura por imagem licenciada ou diagrama em código (exatamente um), e regiões em coordenadas 0 a 1.
+    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
@@ -73,7 +76,8 @@ const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11
 // A conferência e a recuperação não têm retorno por alternativa no contrato do item.
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
 export const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
-    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas' } as const;
+    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas',
+    hotspot: 'Toque na imagem' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -211,9 +215,17 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const options = source.options.map((option, index) => ({ id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback }));
                 interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, options, correctOptionIds: options.filter((_, index) => source.options[index].correct).map(option => option.id) } };
-            } else {
+            } else if (source.type === 'hotspot') {
+                const regions = source.regions.map(({ correct, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region }));
+                // Imagem licenciada entra pelo cadastro e conta como usada; diagrama entra pelo registro do app.
+                const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
+                interaction = { ...base, type: 'hotspot', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, imageRef, regions, correctRegionIds: regions.filter((_, index) => source.regions[index].correct).map(region => region.id) } };
+            } else if (source.type === 'matching') {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };
+            } else {
+                throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
             }
             // A afirmação cita a fonte do próprio item, que é um subconjunto das fontes da aula.
             claims.push(...wideInteractionClaims(interaction, source.sourceIds.map(sourceId)));

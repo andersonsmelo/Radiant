@@ -4,13 +4,16 @@
 // Uso: node scripts/content/rtg-lesson-lint.mjs <arquivo.json>...
 // Sai com 1 se houver erro. Sem dependências. Confere forma, não verdade.
 import { existsSync, readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select'];
-// Famílias da 1.6 (ADR-2026-11-13): retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'];
+// Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'];
+// Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
+const { DIAGRAM_IDS } = createRequire(import.meta.url)('./load-app-contract.cjs').loadAppContract('ui/diagrams/diagramRegistry.ts');
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
@@ -90,13 +93,56 @@ export function lintUnit(doc, { images = [] } = {}) {
     refs(where, item.sourceIds);
   };
 
+  // Figura de uma interação: imagem licenciada ou diagrama em código, exatamente uma. Reutilizada por `label` e `risk-hunt`.
+  const figure = (where, item) => {
+    if ((item.imageId === undefined) === (item.diagramId === undefined)) return err(where, 'use exatamente um de imageId e diagramId');
+    if (item.imageId !== undefined && !imageIds.has(item.imageId)) err(where, `imagem fora do registro: ${item.imageId}`);
+    if (item.diagramId !== undefined && !DIAGRAM_IDS.includes(item.diagramId)) err(where, `diagrama fora do registro: ${item.diagramId}`);
+  };
+  // Alvos tocáveis numa figura, em coordenadas 0 a 1: ponto `{label,x,y}` ou região com `width` e `height`.
+  // 0,16 de distância entre centros são 44 pt numa figura de 280 pt; 0,08 de lado, a metade do alvo mínimo, porque o app estende a região.
+  const targets = (where, list, { allowed = ['label', 'x', 'y', 'width', 'height'], min = 3, max = 6 } = {}) => {
+    if (!Array.isArray(list) || list.length < min || list.length > max) return err(where, `de ${min} a ${max} alvos`);
+    const centers = [];
+    list.forEach((target, i) => {
+      const w = `${where}[${i}]`;
+      keys(w, target, allowed);
+      text(`${w}.label`, target?.label, { min: 2, max: 40 });
+      const sized = target?.width !== undefined || target?.height !== undefined;
+      const [width, height] = sized ? [target.width, target.height] : [0, 0];
+      const numbers = [target?.x, target?.y, width, height];
+      if (numbers.some((n) => typeof n !== 'number' || !Number.isFinite(n))) return err(w, 'x, y, width e height devem ser números');
+      if (target.x < 0 || target.y < 0 || target.x + width > 1 || target.y + height > 1) err(w, 'alvo fora do quadro (0 a 1)');
+      if (sized && (width < 0.08 || height < 0.08)) err(w, 'região menor que 0,08 de largura ou de altura');
+      centers.push([target.x + width / 2, target.y + height / 2]);
+    });
+    if (new Set(list.map((target) => norm(target?.label))).size !== list.length) err(where, 'rótulo repetido');
+    centers.forEach((a, i) => centers.slice(i + 1).forEach((b, j) => {
+      if (Math.hypot(a[0] - b[0], a[1] - b[1]) < 0.16) err(where, `alvos muito próximos: ${list[i].label} e ${list[i + 1 + j].label}`);
+    }));
+  };
+  // Lint não perdoa chave de digitação errada: a fábrica a descartaria em silêncio.
+  const keys = (where, value, allowed) => {
+    if (value === null || typeof value !== 'object' || Array.isArray(value)) return err(where, 'objeto esperado');
+    Object.keys(value).filter((key) => !allowed.includes(key)).forEach((key) => err(where, `campo desconhecido: ${key}`));
+  };
+
   // Regras de cada família nova. As mesmas garantias do contrato amplo
   // (`newFamilyIssues`, em EditorialWideContract.ts), na voz do conteudista.
   const longer = (correct, others) => correct.length && others.length
     && Math.max(...correct.map((l) => String(l).length)) > Math.max(...others.map((l) => String(l).length)) * 1.2;
   const newFamily = (where, item) => {
     if (norm(item.feedbackCorrect) === norm(item.feedbackIncorrect)) err(where, 'retorno de erro igual ao de acerto; o erro precisa de explicação própria');
-    if (item.type === 'cloze') {
+    if (item.type === 'hotspot') {
+      keys(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']);
+      figure(where, item);
+      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'correct'] });
+      const regions = Array.isArray(item.regions) ? item.regions : [];
+      if (regions.some((region) => region?.correct !== undefined && region.correct !== true)) err(where, 'hotspot: correct, quando existe, é true');
+      const right = regions.filter((region) => region?.correct === true).length;
+      if (right < 1 || right > 2) err(where, 'hotspot: de 1 a 2 regiões certas');
+      else if (regions.length - right < 2) err(where, 'hotspot: ao menos 2 regiões erradas');
+    } else if (item.type === 'cloze') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const distractors = Array.isArray(item.distractors) ? item.distractors : [];
       if (answers.length < 1 || answers.length > 2) return err(where, 'cloze: 1 ou 2 lacunas (answers)');
@@ -237,7 +283,7 @@ export function lintUnit(doc, { images = [] } = {}) {
   });
   // Base internacional (guia, regra 1.4). Varre o documento inteiro, e não só os campos que as
   // outras réguas leem: campo novo no formato nasce coberto. Identificador e endereço não são texto de aula.
-  const NOT_TEXT = new Set(['id', 'sourceIds', 'url', 'imageId']);
+  const NOT_TEXT = new Set(['id', 'sourceIds', 'url', 'imageId', 'diagramId']);
   const national = (where, value) => {
     if (typeof value === 'string') findNationalReferences(value).forEach((found) => err(where, `referência nacional "${found}"; use base internacional (guia, regra 1.4)`));
     else if (Array.isArray(value)) value.forEach((item, i) => national(`${where}[${i}]`, item));

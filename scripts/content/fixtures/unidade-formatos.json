@@ -94,17 +94,43 @@
         },
         {
           "id": "i2",
-          "type": "ordering",
+          "type": "hotspot",
           "role": "practice",
-          "prompt": "Coloque em ordem os passos para cuidar do avental de chumbo.",
-          "items": [
-            "Conferir o avental de chumbo",
-            "Posicionar o avental de chumbo",
-            "Registrar o uso do avental de chumbo",
-            "Guardar o avental de chumbo no lugar"
+          "prompt": "Toque na parte do tubo onde os elétrons batem e o feixe de raios X nasce.",
+          "diagramId": "tubo-raios-x",
+          "regions": [
+            {
+              "label": "Cátodo com filamento",
+              "x": 0.09,
+              "y": 0.3,
+              "width": 0.22,
+              "height": 0.25
+            },
+            {
+              "label": "Ânodo",
+              "x": 0.64,
+              "y": 0.3,
+              "width": 0.2,
+              "height": 0.25,
+              "correct": true
+            },
+            {
+              "label": "Janela de saída",
+              "x": 0.6,
+              "y": 0.72,
+              "width": 0.2,
+              "height": 0.12
+            },
+            {
+              "label": "Ampola de vidro",
+              "x": 0.1,
+              "y": 0.72,
+              "width": 0.2,
+              "height": 0.15
+            }
           ],
-          "feedbackCorrect": "Essa é a ordem combinada: conferir, posicionar, registrar e guardar o avental de chumbo.",
-          "feedbackIncorrect": "Retome a ordem: conferir o avental de chumbo vem antes de posicionar e de registrar.",
+          "feedbackCorrect": "Isso mesmo: os elétrons batem no ânodo, e é dali que sai o feixe útil.",
+          "feedbackIncorrect": "Essa parte não recebe o impacto: procure onde os elétrons do cátodo chegam.",
           "help": "Comece pelo passo que não depende de nenhum outro.",
           "sourceIds": [
             "iaea-ssg46-2018"

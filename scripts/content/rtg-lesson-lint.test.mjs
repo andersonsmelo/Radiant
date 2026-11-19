@@ -263,3 +263,74 @@ test('lei física e endereço de fonte não contam como referência nacional', (
   doc.sources[0].url = 'https://www.gov.br/anvisa/pt-br/rdc-611';
   assert.deepEqual(lintUnit(doc).filter(error => /referência nacional/.test(error)), []);
 });
+
+// Formato `hotspot` (fase B, tarefa 3): figura por imageId ou diagramId, e alvos tocáveis dentro do quadro.
+const hotspotRegions = () => [
+  { label: 'Fonte de raios X', x: 0.1, y: 0.1, width: 0.2, height: 0.2, correct: true },
+  { label: 'Detector plano', x: 0.6, y: 0.1, width: 0.2, height: 0.2 },
+  { label: 'Paciente', x: 0.1, y: 0.6, width: 0.2, height: 0.2 },
+  { label: 'Colimador', x: 0.6, y: 0.6, width: 0.2, height: 0.2 },
+];
+function hotspot(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'tubo-raios-x', regions: hotspotRegions(),
+    feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.',
+    feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc, { images: IMAGES });
+}
+test('hotspot: aceita figura por diagramId e por imageId registrada', () => {
+  assert.deepEqual(hotspot(), []);
+  assert.deepEqual(hotspot(item => { delete item.diagramId; item.imageId = 'image:rtg-2026:m01:a'; }), []);
+});
+test('hotspot: exige exatamente um de imageId e diagramId, e que existam no registro', () => {
+  expectOnly(hotspot(item => { item.imageId = 'image:rtg-2026:m01:a'; }), /exatamente um de imageId e diagramId/);
+  expectOnly(hotspot(item => { delete item.diagramId; }), /exatamente um de imageId e diagramId/);
+  expectOnly(hotspot(item => { item.diagramId = 'nao-existe'; }), /diagrama fora do registro: nao-existe/);
+  expectOnly(hotspot(item => { delete item.diagramId; item.imageId = 'image:rtg-2026:m01:z'; }), /imagem fora do registro: image:rtg-2026:m01:z/);
+});
+test('hotspot: de 3 a 6 regiões', () => {
+  expectOnly(hotspot(item => { item.regions.pop(); item.regions.pop(); }), /de 3 a 6 alvos|ao menos 2 regiões erradas/);
+  expectOnly(hotspot(item => { item.regions.push(...[0, 1, 2].map(n => ({ label: `Extra ${n}`, x: 0.4, y: 0.1 + n * 0.3, width: 0.1, height: 0.1 }))); }), /de 3 a 6 alvos/);
+});
+test('hotspot: região dentro do quadro, a cada eixo', () => {
+  expectOnly(hotspot(item => { item.regions[1].x = 0.9; }), /alvo fora do quadro/);
+  expectOnly(hotspot(item => { item.regions[1].y = 0.85; }), /alvo fora do quadro/);
+  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: -0.05, y: 0.35 }); }), /alvo fora do quadro/);
+});
+test('hotspot: largura e altura mínimas só quando o alvo tem tamanho', () => {
+  expectOnly(hotspot(item => { item.regions[1].width = 0.05; }), /menor que 0,08/);
+  expectOnly(hotspot(item => { item.regions[1].height = 0.05; }), /menor que 0,08/);
+  assert.deepEqual(hotspot(item => { item.regions[1].width = 0.08; item.regions[1].height = 0.08; }), []);
+});
+test('hotspot: rótulos únicos, de 2 a 40 caracteres', () => {
+  expectOnly(hotspot(item => { item.regions[1].label = 'fonte de raios x'; }), /rótulo repetido/);
+  expectOnly(hotspot(item => { item.regions[1].label = 'D'; }), /texto ausente ou curto/);
+  expectOnly(hotspot(item => { item.regions[1].label = 'Um rótulo de região muito mais longo que o limite'; }), /caracteres \(máx\. 40\)/);
+});
+test('hotspot: centros a 0,16 ou mais um do outro, medidos em linha reta', () => {
+  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: 0.2, y: 0.1 }); }), /alvos muito próximos/);
+  // A diagonal conta: 0,12 em x e 0,12 em y dá 0,17, e passa.
+  assert.deepEqual(hotspot(item => { Object.assign(item.regions[1], { x: 0.22, y: 0.22 }); }), []);
+});
+test('hotspot: uma ou duas regiões certas e ao menos duas erradas', () => {
+  expectOnly(hotspot(item => { item.regions[0].correct = undefined; }), /de 1 a 2 regiões certas/);
+  expectOnly(hotspot(item => { item.regions[1].correct = true; item.regions[2].correct = true; }), /de 1 a 2 regiões certas/);
+  expectOnly(hotspot(item => { item.regions[1].correct = true; item.regions[2].correct = true; item.regions.pop(); }), /de 1 a 2 regiões certas|ao menos 2 regiões erradas/);
+  expectOnly(hotspot(item => { item.regions[1].correct = true; item.regions.pop(); }), /ao menos 2 regiões erradas/);
+  expectOnly(hotspot(item => { item.regions[1].correct = false; }), /correct, quando existe, é true/);
+});
+test('hotspot: recusa chave fora da lista, na região e no item', () => {
+  expectOnly(hotspot(item => { item.regions[1].cor = 'vermelho'; }), /campo desconhecido: cor/);
+  expectOnly(hotspot(item => { item.alt = 'texto solto'; }), /campo desconhecido: alt/);
+});
+test('hotspot: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
+  expectOnly(hotspot(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});
+test('hotspot: diagramId não é texto de aula para a varredura de referência nacional', () => {
+  assert.deepEqual(hotspot(item => { item.diagramId = 'tubo-raios-x'; }).filter(error => /referência nacional/.test(error)), []);
+});

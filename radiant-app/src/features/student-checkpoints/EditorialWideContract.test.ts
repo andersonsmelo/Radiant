@@ -161,19 +161,69 @@ describe('contrato amplo (wide)', () => {
         expect(two).toContain(`invalid-wide-interaction-count:${ACTIVITY}`);
     });
 
-    it('recusa `hotspot`, que depende de ativo que esta etapa não tem', () => {
-        const issues = issuesAfter(value => {
-            const step = value.activities[0].steps.find(entry => entry.kind === 'interaction' && entry.interaction.type === 'ordering');
-            if (step?.kind !== 'interaction') throw new Error('fixture sem ordenação');
-            const { id, competencyIds, evidenceKind, completionRule, criticalSafety, feedback, accessibility } = step.interaction;
-            (step as { interaction: unknown }).interaction = {
-                id, competencyIds, evidenceKind, completionRule, criticalSafety, feedback, accessibility, type: 'hotspot',
-                payload: { prompt: 'Toque na região indicada.', imageRef: 'https://example.org/sem-ativo.png',
-                    regions: [{ id: 'region:rtg-2026:m01:aula-01:r1', label: 'Região', x: 0.1, y: 0.1, width: 0.2, height: 0.2 }],
-                    correctRegionIds: ['region:rtg-2026:m01:aula-01:r1'] },
+    describe('hotspot (fase B)', () => {
+        const REGIONS = [
+            { label: 'Fonte de raios X', x: 0.1, y: 0.1, width: 0.2, height: 0.2, correct: true as const },
+            { label: 'Detector plano', x: 0.6, y: 0.1, width: 0.2, height: 0.2 },
+            { label: 'Paciente', x: 0.1, y: 0.6, width: 0.2, height: 0.2 },
+        ];
+        function hotspotCandidate(figure: { imageId?: string; diagramId?: string }, images: ReturnType<typeof licensedImage>[] = []): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds, ...figure, regions: REGIONS,
+                prompt: 'Toque na parte que produz o feixe de raios X.',
+                feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.', feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
             };
+            const built = buildRtgBatch(doc, images).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const hotspotOf = (value: EditorialWideCandidateV1) => interactionsOf(value.activities[0].steps).find(interaction => interaction.type === 'hotspot')!;
+        const issuesOf = (value: EditorialWideCandidateV1, mutate: (value: Mutable<EditorialWideCandidateV1>) => void = () => {}) => {
+            mutate(value as Mutable<EditorialWideCandidateV1>);
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('aceita hotspot sobre imagem licenciada e conta a imagem como usada', () => {
+            const value = hotspotCandidate({ imageId: IMAGE_A }, [licensedImage(IMAGE_A)]);
+            expect(issuesOf(value)).toEqual([]);
+            expect(value.wide.images?.map(image => image.id)).toEqual([IMAGE_A]);
         });
-        expect(issues).toContain(`unsupported-activity-family:${ACTIVITY}`);
+
+        it('aceita hotspot sobre diagrama, sem imagem no cadastro', () => {
+            const value = hotspotCandidate({ diagramId: 'tubo-raios-x' });
+            expect(issuesOf(value)).toEqual([]);
+            expect(value.wide.images).toBeUndefined();
+            expect((hotspotOf(value) as { payload: { imageRef: string } }).payload.imageRef).toBe('diagram:tubo-raios-x');
+        });
+
+        it('recusa imagem fora do cadastro e diagrama fora do registro', () => {
+            const value = hotspotCandidate({ diagramId: 'tubo-raios-x' });
+            const id = hotspotOf(value).id;
+            expect(issuesOf((JSON.parse(JSON.stringify(value)) as EditorialWideCandidateV1), draft => {
+                (hotspotOf(draft as EditorialWideCandidateV1) as { payload: { imageRef: string } }).payload.imageRef = 'https://example.org/sem-ativo.png';
+            })).toContain(`unregistered-licensed-image:${id}`);
+            expect(issuesOf((JSON.parse(JSON.stringify(value)) as EditorialWideCandidateV1), draft => {
+                (hotspotOf(draft as EditorialWideCandidateV1) as { payload: { imageRef: string } }).payload.imageRef = 'diagram:nao-existe';
+            })).toContain(`unregistered-diagram:${id}`);
+        });
+
+        it('mantém as chaves exatas do payload e exige rótulo em toda região', () => {
+            const value = hotspotCandidate({ diagramId: 'tubo-raios-x' });
+            const id = hotspotOf(value).id;
+            expect(issuesOf((JSON.parse(JSON.stringify(value)) as EditorialWideCandidateV1), draft => {
+                (hotspotOf(draft as EditorialWideCandidateV1) as { payload: Record<string, unknown> }).payload.visual = 'extra';
+            })).toContain(`unsupported-wide-payload:${id}`);
+            expect(issuesOf((JSON.parse(JSON.stringify(value)) as EditorialWideCandidateV1), draft => {
+                (hotspotOf(draft as EditorialWideCandidateV1) as { payload: { regions: { label: string }[] } }).payload.regions[0].label = ' ';
+            })).toContain(`unsupported-wide-payload:${id}`);
+        });
     });
 
     it('recusa fonte sem `use`, com `use` fora da lista e com hash de corpo recuperado', () => {

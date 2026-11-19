@@ -1,4 +1,5 @@
 import { AUTHORED_EVIDENCE_KINDS, type LearningActivityV2, type LearningInteractionV2 } from '../../types/learningActivity';
+import { DIAGRAMS, parseDiagramRef } from '../../ui/diagrams/diagramRegistry';
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 
 /**
@@ -46,12 +47,12 @@ export type EditorialWideContractV1 = Readonly<{
     namespace: 'rtg-2026';
     /** Um par de itens por competência, para depois de uma conferência reprovada. */
     recovery: readonly EditorialWideRecoveryV1[];
-    /** Só as imagens que alguma comparação desta unidade usa. */
+    /** Só as imagens que alguma comparação ou hotspot desta unidade usa. */
     images?: readonly EditorialLicensedImageV1[];
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -65,6 +66,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     'true-false': ['prompt', 'statements'],
     categorize: ['prompt', 'categories', 'items'],
     'multi-select': ['prompt', 'options', 'correctOptionIds'],
+    hotspot: ['prompt', 'imageRef', 'regions', 'correctRegionIds'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -154,6 +156,7 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'true-false': return interaction.payload.statements.map(statement => statement.id);
         case 'categorize': return [...interaction.payload.categories.map(category => category.id), ...interaction.payload.items.map(item => item.id)];
         case 'multi-select': return interaction.payload.options.map(option => option.id);
+        case 'hotspot': return interaction.payload.regions.map(region => region.id);
         default: return [];
     }
 }
@@ -246,11 +249,19 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                 interaction.payload.options.forEach(option => { if (option.imageRef) usedImages.add(option.imageRef); });
                 if (interaction.payload.options.some(option => !option.imageRef || !registeredImages.has(option.imageRef))) add('unregistered-licensed-image', interaction.id);
             }
+            if (interaction.type === 'hotspot') {
+                const { imageRef } = interaction.payload;
+                const diagramId = parseDiagramRef(imageRef);
+                // Diagrama mora no app; imagem licenciada precisa estar no cadastro da unidade e conta como usada.
+                if (diagramId !== null) { if (!Object.hasOwn(DIAGRAMS, diagramId)) add('unregistered-diagram', interaction.id); }
+                else { usedImages.add(imageRef); if (!registeredImages.has(imageRef)) add('unregistered-licensed-image', interaction.id); }
+            }
             const labels: unknown[] = interaction.type === 'ordering' ? interaction.payload.items.map(item => item.label)
                 : interaction.type === 'matching' ? interaction.payload.pairs.flatMap(pair => [pair.left, pair.right])
                     : interaction.type === 'multiple-choice' || interaction.type === 'case-decision' || interaction.type === 'comparison'
                         || interaction.type === 'multi-select' ? interaction.payload.options.map(option => option.label)
                         : interaction.type === 'cloze' ? interaction.payload.tokens.map(token => token.label)
+                            : interaction.type === 'hotspot' ? interaction.payload.regions.map(region => region.label)
                             : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')

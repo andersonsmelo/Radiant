@@ -1,6 +1,8 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import { isResolvedInteractionImage, type InteractionImageResolver } from './InteractionImageSource';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
+import type { InteractionImageResolver } from './InteractionImageSource';
+import { parseDiagramRef } from '../../../ui/diagrams/diagramRegistry';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -35,21 +37,18 @@ export function HotspotStepRenderer({
     submitted = false,
     confirmationLabel = 'Continuar',
 }: HotspotStepRendererProps) {
-    const resolved = resolveImageSource?.(payload.imageRef);
-    if (resolveImageSource && !isResolvedInteractionImage(resolved)) return <Text>Imagem indisponível para esta atividade.</Text>;
+    if (!isFigureAvailable(payload.imageRef, resolveImageSource)) return <Text>Imagem indisponível para esta atividade.</Text>;
     return (
         <View style={styles.activity}>
             <Text style={styles.prompt}>{payload.prompt}</Text>
 
-            <View testID="hotspot-image-frame" style={[styles.imageFrame, resolved && { aspectRatio: resolved.width / resolved.height }]}>
-                <Image
-                    source={resolved?.source ?? { uri: payload.imageRef }}
-                    resizeMode="contain"
-                    style={styles.image}
-                    accessible
-                    accessibilityLabel={accessibilityLabel}
-                />
-                {payload.regions.map((region, index) => {
+            <InteractionFigure
+                imageRef={payload.imageRef}
+                // A imagem leva o rótulo da interação; o diagrama, a descrição própria dele.
+                alt={parseDiagramRef(payload.imageRef) === null ? accessibilityLabel : undefined}
+                resolveImage={resolveImageSource}
+            >
+                {() => payload.regions.map((region, index) => {
                     const selected = selectedRegionId === region.id;
                     return (
                         <Pressable
@@ -74,7 +73,7 @@ export function HotspotStepRenderer({
                         </Pressable>
                     );
                 })}
-            </View>
+            </InteractionFigure>
 
             <View style={styles.textAlternatives}>
                 <Text style={styles.alternativeTitle}>Alternativa textual</Text>
@@ -107,16 +106,6 @@ const galaxy = semanticColors.galaxy;
 const styles = StyleSheet.create({
     activity: { gap: space.s3 },
     prompt: { ...typography.h3, color: galaxyColors.textPrimary },
-    imageFrame: {
-        width: '100%',
-        aspectRatio: 4 / 3,
-        overflow: 'hidden',
-        borderRadius: radius.rLg,
-        borderWidth: 1,
-        borderColor: galaxy.border,
-        backgroundColor: galaxyColors.backgroundAlt,
-    },
-    image: { ...StyleSheet.absoluteFillObject, width: '100%', height: '100%' },
     hotspot: {
         position: 'absolute',
         minWidth: 44,

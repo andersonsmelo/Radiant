@@ -2466,7 +2466,7 @@ describe('T04 — abertura, retorno e botão apto', () => {
     if (type === 'bench' && correct) {
       for (let i = 0; i < 3; i++) fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
     }
-    const confirm = type === 'bench' || type === 'multiple-choice' ? 'Conferir resposta' : 'Continuar';
+    const confirm = type === 'bench' || type === 'multiple-choice' || type === 'hotspot' ? 'Conferir resposta' : 'Continuar';
     await esperarBotaoApto(confirm);
     fireEvent.press(screen.getByRole('button', { name: confirm }));
     const feedback = await screen.findByTestId('lesson-item-feedback');
@@ -3441,9 +3441,9 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
       { id: 'a', label: 'Região A', x: 0, y: 0, width: 0.3, height: 0.3 }, { id: 'b', label: 'Região B', x: 0.5, y: 0.5, width: 0.3, height: 0.3 },
       { id: 'c', label: 'Região C', x: 0.6, y: 0, width: 0.3, height: 0.3 },
     ], correctRegionIds: ['a', 'c'] } } as LearningInteractionV2;
-  async function seguir() {
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true));
-    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+  async function seguir(botao = 'Continuar') {
+    await waitFor(() => expect(screen.getByRole('button', { name: botao }).props.onStartShouldSetResponder?.()).toBe(true));
+    fireEvent.press(screen.getByRole('button', { name: botao }));
     return screen.findByTestId('lesson-item-feedback');
   }
 
@@ -3460,7 +3460,8 @@ describe('Tarefa 3 — folha de retorno no rodapé', () => {
     abrir(regiao);
     await screen.findByText('Escolha a região.');
     fireEvent.press(screen.getByRole('button', { name: 'Selecionar Região B na lista' }));
-    const folha = await seguir();
+    // O hotspot confere a resposta, como a escolha (fase B): o botão é "Conferir resposta".
+    const folha = await seguir('Conferir resposta');
     expect(within(folha).getByRole('header', { name: 'Resposta incorreta. Vamos reforçar' })).toBeTruthy();
     expect(within(folha).getByText('Resposta certa: Região A, Região C')).toBeTruthy();
   });

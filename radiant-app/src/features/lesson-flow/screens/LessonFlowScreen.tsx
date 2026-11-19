@@ -92,7 +92,7 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
 const HEART_LOSS_DELAY_MS = 320;
 
 /** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
-const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
+const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot']);
 // Rodízio da frase de aula sem erro entre as aulas da mesma abertura do app (F3).
 let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.

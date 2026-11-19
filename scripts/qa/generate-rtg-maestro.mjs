@@ -18,7 +18,7 @@ const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -75,6 +75,11 @@ function answerCommands(interaction) {
     }
     case 'multi-select':
       return payload.options.filter(option => payload.correctOptionIds.includes(option.id)).flatMap(option => tapId(`multi-select-${option.label}`));
+    case 'hotspot': {
+      // O mesmo rótulo acessível que o HotspotStepRenderer dá à região sobre a figura.
+      const correct = payload.regions.find(region => payload.correctRegionIds.includes(region.id));
+      return tapText(`Selecionar ${correct.label} na imagem`);
+    }
     default:
       throw new Error(`rtg-maestro-unsupported-family:${type}`);
   }
