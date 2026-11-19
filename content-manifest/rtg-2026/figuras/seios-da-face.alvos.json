@@ -1,0 +1,30 @@
+[
+  {
+    "nome": "Seio frontal",
+    "x": 0.28,
+    "y": 0.06,
+    "width": 0.09,
+    "height": 0.27
+  },
+  {
+    "nome": "Seio etmoidal",
+    "x": 0.33,
+    "y": 0.36,
+    "width": 0.22,
+    "height": 0.14
+  },
+  {
+    "nome": "Seio maxilar",
+    "x": 0.31,
+    "y": 0.7,
+    "width": 0.16,
+    "height": 0.27
+  },
+  {
+    "nome": "Seio esfenoidal",
+    "x": 0.64,
+    "y": 0.53,
+    "width": 0.15,
+    "height": 0.15
+  }
+]

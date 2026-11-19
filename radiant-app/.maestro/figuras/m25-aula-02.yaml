@@ -27,6 +27,7 @@ tags:
 - tapOn: 'Continuar'
 - tapOn: 'Continuar'
 - assertVisible: 'Passo 2 de 8'
+- takeScreenshot: 'figura-linhas-do-cranio-m25-aula-02-passo2'
 - tapOn: 'Continuar'
 - assertVisible: 'Passo 3 de 8'
 # interaction i1 multiple-choice
@@ -38,4 +39,4 @@ tags:
 - tapOn: 'Conferir resposta'
 - tapOn: 'Continuar'
 - assertVisible: 'Passo 4 de 8'
-- takeScreenshot: 'figura-linhas-do-cranio-m25-aula-02'
+- takeScreenshot: 'figura-linhas-do-cranio-m25-aula-02-passo4'

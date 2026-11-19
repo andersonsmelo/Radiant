@@ -1,0 +1,127 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M25 aula-04'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am25%3Aaula-04&nodeId=node%3Aactivity%3Artg-2026%3Am25%3Aaula-04'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m25:aula-04:i1:b'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m25:aula-04:i1:b'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+- takeScreenshot: 'figura-seios-da-face-m25-aula-04'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, no alto da face, a mancha amarela em forma de gota, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, no alto da face, a mancha amarela em forma de gota, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Seio frontal'
+- tapOn:
+    id: 'label-chip-Seio frontal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, na altura do olho, a grande mancha ciano pontilhada, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, na altura do olho, a grande mancha ciano pontilhada, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Seio etmoidal'
+- tapOn:
+    id: 'label-chip-Seio etmoidal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, abaixo do olho, a mancha azul junto ao nariz, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, abaixo do olho, a mancha azul junto ao nariz, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Seio maxilar'
+- tapOn:
+    id: 'label-chip-Seio maxilar'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, no centro da cabeça, a mancha coral atrás do olho, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, no centro da cabeça, a mancha coral atrás do olho, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Seio esfenoidal'
+- tapOn:
+    id: 'label-chip-Seio esfenoidal'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 cloze
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-frontal'
+- tapOn:
+    id: 'cloze-token-frontal'
+- scrollUntilVisible:
+    element:
+      id: 'cloze-token-maxilar'
+- tapOn:
+    id: 'cloze-token-maxilar'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+- takeScreenshot: 'figura-seios-da-face-frente-m25-aula-04'

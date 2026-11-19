@@ -83,7 +83,7 @@ test('o índice versionado lista as figuras com roteiro e a pasta inteira é o q
   // O índice cresce a cada lote de figuras: ordenado, sem repetição, e com as do piloto.
   assert.deepEqual(ids, [...new Set(ids)].sort());
   // Figuras de acervo usadas em toque: sem roteiro no índice, a captura delas some sem aviso.
-  for (const id of [...PILOTO, 'esqueleto-axial-apendicular', 'articulacao-sinovial', 'linhas-do-cranio']) assert.ok(ids.includes(id), id);
+  for (const id of [...PILOTO, 'esqueleto-axial-apendicular', 'articulacao-sinovial', 'linhas-do-cranio', 'seios-da-face', 'seios-da-face-frente']) assert.ok(ids.includes(id), id);
   assert.deepEqual(await checkFolder(DIR.pathname, renderFigureFlows(docs, images, ids), { full: true }), []);
 });
 

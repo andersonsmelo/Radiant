@@ -294,7 +294,8 @@ texto dentro: o rótulo vem do conteúdo.
 | `vertebra-tipica` | parado | Vértebra lombar vista de cima, frente do corpo para o alto: corpo grande na frente, um anel de osso atrás em volta de um furo e três processos saindo do anel. |
 | `cranio-de-perfil-ossos` | parado | Crânio de perfil com a face para a esquerda: cada osso da calota, da base lateral e da face pintado de uma cor, com as suturas entre eles. |
 | `linhas-do-cranio` | parado | Cabeça de perfil com duas linhas que partem da orelha para o rosto, e cabeça de frente com uma linha horizontal pelos olhos e outra vertical no meio. |
-| `seios-da-face` | parado | Face de frente e cabeça de perfil com as cavidades de ar dos ossos da face pintadas, cada grupo de uma cor, ao redor das órbitas e do nariz. |
+| `seios-da-face` | parado | Cabeça de perfil, com a face para a esquerda, com as cavidades de ar dos ossos da face pintadas, cada grupo de uma cor: frontal, etmoidal, maxilar e esfenoidal. |
+| `seios-da-face-frente` | parado | Face de frente, ampliada, com os seios frontal, etmoidal e maxilares pintados, cada grupo de uma cor, ao redor das órbitas e do nariz. O esfenoidal não aparece. |
 | `raio-x-movel-no-leito` | parado | Raio X no leito visto de lado: paciente sentado, aparelho móvel apontado para o tórax, operador de avental longe, uma pessoa sem avental perto e outro leito. |
 | `trauma-raio-horizontal` | parado | Paciente de costas na prancha sobre a maca, visto pela cabeceira, com colar no pescoço; o feixe sai do tubo paralelo ao piso e chega a um detector em pé. |
 | `contraste-no-corpo` | parado | Dois troncos de frente: um com o tubo digestivo preenchido em amarelo, outro com rins, ureteres e bexiga preenchidos em azul. |

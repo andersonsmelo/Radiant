@@ -131,6 +131,24 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg",
     "modification": "Vista de frente: removidos fundo branco, rótulos e linhas de chamada de \"Human skull front bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg, sha256 acima); vista de perfil: \"Human skull side bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg, mesma autora, domínio público; original com sha256 05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6, já limpo em fontes/cranio-de-perfil-ossos.svg). Os dois crânios foram recoloridos em tons neutros (sem as cores dos ossos), compostos lado a lado no quadro 320x240 e achatados para atributos de apresentação. As linhas orbitomeatal, infraorbitomeatal, interpupilar e o plano sagital mediano são código do projeto, numa camada própria por cima da arte."
+  },
+  {
+    "id": "seios-da-face",
+    "alt": "Cabeça de perfil, com a face para a esquerda, e os seios da face coloridos por grupo sobre o crânio.",
+    "author": "Patrick J. Lynch, medical illustrator (obra derivada de Head_anatomy_anterior_lateral_views.svg)",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Paranasal_sinuses.svg",
+    "modification": "Removidos a legenda em polonês (caminhos), os fundos, a textura de padrão sobre o seio maxilar e os bitmaps de areia; recolorido para a paleta do app (frontal âmbar, etmoidal ciano, maxilar azul, esfenoidal coral, osso cinza); fundo transparente; enquadrado em 320 x 240. Recorte ampliado do perfil (cabeça de perfil com os quatro grupos de seios), em 320 x 240."
+  },
+  {
+    "id": "seios-da-face-frente",
+    "alt": "Face de frente, com os seios frontal, etmoidal e maxilares coloridos por grupo sobre o crânio.",
+    "author": "Patrick J. Lynch, medical illustrator (obra derivada de Head_anatomy_anterior_lateral_views.svg)",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Paranasal_sinuses.svg",
+    "modification": "Removidos a legenda em polonês (caminhos), os fundos, a textura de padrão sobre o seio maxilar e os bitmaps de areia; recolorido para a paleta do app (frontal âmbar, etmoidal ciano, maxilar azul, esfenoidal coral, osso cinza); fundo transparente; enquadrado em 320 x 240. Recorte ampliado da face de frente (seios frontal, etmoidal e maxilares), em 320 x 240."
   }
 ];
 
