@@ -1,0 +1,101 @@
+=== --check sem ids com um YAML a mais na pasta ===
+defeito: m25-aula-03.yaml versionado que nenhuma figura do índice gera
+figuras-roteiro-stale: rode node scripts/qa/figuras-no-simulador.mjs cranio-de-perfil-ossos raio-x-movel-no-leito
+  - órfão: m25-aula-03.yaml
+rc=1
+
+=== órfão (teste) ===
+defeito: checkFolder ignora arquivo que ninguém gera
+# Subtest: roteiro órfão na pasta reprova, nomeando o arquivo
+not ok 10 - roteiro órfão na pasta reprova, nomeando o arquivo
+  error: |-
+    + actual - expected
+    + []
+    - [
+    -   'órfão: m25-aula-03.yaml'
+    - ]
+  expected:
+    0: 'órfão: m25-aula-03.yaml'
+
+=== figura retirada ===
+defeito: figura que saiu de todas as aulas é aceita em silêncio
+# Subtest: roteiro órfão na pasta reprova, nomeando o arquivo
+ok 10 - roteiro órfão na pasta reprova, nomeando o arquivo # SKIP test name does not match pattern
+not ok 11 - figura retirada de uma aula reprova em vez de deixar o roteiro antigo valer
+  error: 'Missing expected exception.'
+  expected:
+# pass 0
+# fail 1
+
+=== tag ===
+defeito: roteiro de figura com a tag rtg-2026
+# Subtest: roteiro órfão na pasta reprova, nomeando o arquivo
+ok 10 - roteiro órfão na pasta reprova, nomeando o arquivo # SKIP test name does not match pattern
+not ok 12 - os roteiros de figura não levam a tag da trilha, para não entrarem numa execução por tag
+  error: |-
+  expected:
+  actual: |-
+      - rtg-2026
+      - figuras
+      - generated
+    - launchApp:
+
+=== índice ===
+defeito: índice sem o leito, com roteiro dele na pasta
+not ok 9 - o índice versionado lista as figuras com roteiro e a pasta inteira é o que ele gera
+  error: |-
+    + actual - expected
+    -   'raio-x-movel-no-leito'
+  expected:
+  actual:
+# Subtest: roteiro órfão na pasta reprova, nomeando o arquivo
+ok 10 - roteiro órfão na pasta reprova, nomeando o arquivo # SKIP test name does not match pattern
+# pass 0
+# fail 1
+
+=== contrato: takeScreenshot ===
+defeito: roteiro sem takeScreenshot figura-* passa
+not ok 12 - figure flow rules each reject their own defect
+  error: |-
+    + actual - expected
+    + []
+    - [
+    -   'no takeScreenshot named figura-*'
+    - ]
+  expected:
+  actual:
+# pass 0
+
+=== contrato: gravação ===
+defeito: startRecording sem stopRecording passa
+not ok 12 - figure flow rules each reject their own defect
+  error: |-
+    + actual - expected
+    + []
+    - [
+    -   'startRecording without a later stopRecording'
+    - ]
+  expected:
+  actual:
+# pass 0
+
+=== contrato: ? ===
+defeito: ? sem escape em valor de seletor passa
+not ok 12 - figure flow rules each reject their own defect
+  error: |-
+    + actual - expected
+    + []
+    - [
+    -   'unescaped "?" in selector Falhou?'
+    - ]
+  expected:
+  actual:
+# pass 0
+
+=== contrato: ? na URL ===
+defeito: regra do ? aplicada à URL do openLink (texto, não estrutura)
+# pass 1
+# fail 0
+
+=== nota ===
+A última mutação planejada (regra do "?" estendida à URL do openLink) ficou verde: a exclusão por nome no walker era redundante com a lista de chaves de seletor e foi removida do código. Sem asserção nova para ela.

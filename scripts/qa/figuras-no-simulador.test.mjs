@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
 import { readRtgImages, readRtgSources } from '../content/build-rtg-batches.mjs';
-import { findFigureSteps, renderFigureFlows } from './figuras-no-simulador.mjs';
+import { checkFolder, findFigureSteps, renderFigureFlows } from './figuras-no-simulador.mjs';
 
 const docs = (await readRtgSources()).map(({ doc }) => doc);
 const images = await readRtgImages();
@@ -72,4 +74,36 @@ test('os roteiros versionados das duas figuras do piloto são os que o gerador p
   for (const [name, content] of renderFigureFlows(docs, images, PILOTO)) {
     assert.equal(await readFile(new URL(`../../radiant-app/.maestro/figuras/${name}`, import.meta.url), 'utf8'), content, name);
   }
+});
+
+const DIR = new URL('../../radiant-app/.maestro/figuras/', import.meta.url);
+
+test('o índice versionado lista as figuras com roteiro e a pasta inteira é o que ele gera', async () => {
+  const { ids } = JSON.parse(await readFile(new URL('indice.json', DIR), 'utf8'));
+  assert.deepEqual(ids, [...PILOTO].sort());
+  assert.deepEqual(await checkFolder(DIR.pathname, renderFigureFlows(docs, images, ids), { full: true }), []);
+});
+
+async function pastaCom(files, extra) {
+  const dir = await mkdtemp(path.join(tmpdir(), 'figuras-'));
+  for (const [name, content] of files) await writeFile(path.join(dir, name), content);
+  for (const name of extra) await writeFile(path.join(dir, name), 'appId: x\n');
+  return dir;
+}
+
+test('roteiro órfão na pasta reprova, nomeando o arquivo', async () => {
+  const files = renderFigureFlows([m25], images, PILOTO);
+  assert.deepEqual(await checkFolder(await pastaCom(files, []), files, { full: true }), []);
+  assert.deepEqual(await checkFolder(await pastaCom(files, ['m25-aula-03.yaml']), files, { full: true }), ['órfão: m25-aula-03.yaml']);
+});
+
+test('figura retirada de uma aula reprova em vez de deixar o roteiro antigo valer', () => {
+  const doc = structuredClone(m25);
+  // O crânio sai de todas as aulas: o roteiro versionado da M25 aula 01 passaria a capturar outra tela.
+  for (const lesson of doc.lessons) for (const interaction of lesson.interactions) if (interaction.diagramId === 'cranio-de-perfil-ossos') interaction.diagramId = 'linhas-do-cranio';
+  assert.throws(() => renderFigureFlows([doc], images, PILOTO), /figuras-sem-passo:cranio-de-perfil-ossos/);
+});
+
+test('os roteiros de figura não levam a tag da trilha, para não entrarem numa execução por tag', () => {
+  for (const content of renderFigureFlows([m25], images, PILOTO).values()) assert.doesNotMatch(content, /rtg-2026\n|- rtg-2026/);
 });

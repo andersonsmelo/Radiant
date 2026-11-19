@@ -450,27 +450,71 @@ test('retired catalog exposes only the empty-shell smoke to Maestro discovery', 
 });
 
 // Os roteiros de prova das figuras (scripts/qa/figuras-no-simulador.mjs) vivem em .maestro/figuras/, que o
-// listMaestroFlows não varre. Valem as mesmas regras: seletor com "?" escapado e o argumento de movimento em todo launchApp.
-test('keeps the figure proof flows inside the selector and launch-argument rules', async () => {
+// listMaestroFlows não varre. São lidos por estrutura (YAML analisado), não por texto.
+const FIGURE_SELECTOR_KEYS = new Set(['tapOn', 'assertVisible', 'assertNotVisible', 'visible', 'notVisible', 'text', 'id']);
+
+// Os valores de texto que o Maestro lê como regex, descendo em runFlow, scrollUntilVisible etc.
+// Só as chaves de seletor contam: openLink (URL com "?"), takeScreenshot e startRecording (nomes) ficam de fora por isso.
+function figureSelectorValues(node, key = '') {
+  if (typeof node === 'string') return FIGURE_SELECTOR_KEYS.has(key) ? [node] : [];
+  if (Array.isArray(node)) return node.flatMap((child) => figureSelectorValues(child, key));
+  if (!node || typeof node !== 'object') return [];
+  return Object.entries(node).flatMap(([name, child]) =>
+    figureSelectorValues(child, name));
+}
+
+// O checador de um roteiro de figura sobre os comandos já analisados; devolve as violações.
+function figureFlowProblems(commands) {
+  const problems = [];
+  const shots = commands.filter((command) => 'takeScreenshot' in command)
+    .map((command) => (typeof command.takeScreenshot === 'string' ? command.takeScreenshot : command.takeScreenshot?.path));
+  if (!shots.some((name) => typeof name === 'string' && name.startsWith('figura-'))) problems.push('no takeScreenshot named figura-*');
+
+  commands.forEach((command, index) => {
+    if ('startRecording' in command && !commands.slice(index + 1).some((later) => 'stopRecording' in later)) {
+      problems.push('startRecording without a later stopRecording');
+    }
+  });
+
+  const launches = commands.filter((command) => command.launchApp);
+  if (launches.length !== 1) problems.push('expected exactly one launchApp');
+  // '1' congela o fundo (captura parada); '0' deixa o laço correr (gravação). Booleano chegaria sem o "-" e seria ignorado.
+  else if (!/^[01]$/.test(launches[0].launchApp.arguments?.radiantReduceMotion ?? '')) problems.push("radiantReduceMotion must be the string '0' or '1'");
+
+  for (const selector of figureSelectorValues(commands)) {
+    if (UNESCAPED_QUESTION_MARK.test(selector)) problems.push(`unescaped "?" in selector ${selector}`);
+  }
+  return problems;
+}
+
+test('keeps the figure proof flows inside the structural rules', async () => {
   const dir = path.join(appRoot, '.maestro/figuras');
   const names = (await readdir(dir)).filter((name) => name.endsWith('.yaml')).sort();
   assert.ok(names.length > 0, 'expected generated figure flows');
 
   for (const name of names) {
-    const flow = await readFile(path.join(dir, name), 'utf8');
-    const documents = parseAllDocuments(flow);
+    const documents = parseAllDocuments(await readFile(path.join(dir, name), 'utf8'));
     assert.deepEqual(documents.flatMap((document) => document.errors), [], name);
     assert.equal(documents[0].toJS().appId, appId, name);
-
-    const launches = documents[1].toJS().filter((command) => command.launchApp);
-    assert.equal(launches.length, 1, `${name}: one launchApp`);
-    // '1' congela o fundo (captura parada); '0' deixa o laço correr (gravação). Booleano chegaria sem o "-" e seria ignorado.
-    assert.match(launches[0].launchApp.arguments?.radiantReduceMotion ?? '', /^[01]$/, `${name}: radiantReduceMotion must be the string '0' or '1'`);
-
-    for (const entry of maestroSelectors(flow)) {
-      assert.doesNotMatch(entry.selector, UNESCAPED_QUESTION_MARK, `${name}:${entry.line}: escape the "?" in this ${entry.key} selector`);
-    }
+    assert.deepEqual(figureFlowProblems(documents[1].toJS()), [], name);
   }
+});
+
+test('figure flow rules each reject their own defect', () => {
+  const base = [
+    { launchApp: { arguments: { radiantReduceMotion: '1' } } },
+    { takeScreenshot: 'figura-x-m25-aula-01' },
+  ];
+  assert.deepEqual(figureFlowProblems(base), []);
+  assert.deepEqual(figureFlowProblems(base.slice(0, 1)), ['no takeScreenshot named figura-*']);
+  assert.deepEqual(figureFlowProblems([base[0], { takeScreenshot: 'captura-x' }]), ['no takeScreenshot named figura-*']);
+  assert.deepEqual(figureFlowProblems([...base, { startRecording: 'figura-x-laco' }]), ['startRecording without a later stopRecording']);
+  assert.deepEqual(figureFlowProblems([...base, { stopRecording: null }, { startRecording: 'figura-x-laco' }]), ['startRecording without a later stopRecording']);
+  assert.deepEqual(figureFlowProblems([...base, { startRecording: 'a' }, { stopRecording: null }]), []);
+  assert.deepEqual(figureFlowProblems([{ launchApp: { arguments: { radiantReduceMotion: true } } }, base[1]]), ["radiantReduceMotion must be the string '0' or '1'"]);
+  assert.deepEqual(figureFlowProblems([...base, { runFlow: { when: { visible: 'Falhou?' }, commands: [{ tapOn: 'Ok' }] } }]), ['unescaped "?" in selector Falhou?']);
+  assert.deepEqual(figureFlowProblems([...base, { scrollUntilVisible: { element: { id: 'a?b' } } }]), ['unescaped "?" in selector a?b']);
+  assert.deepEqual(figureFlowProblems([...base, { openLink: 'radiantapp://learn?blockId=1' }, { assertVisible: 'Falhou\\?' }]), []);
 });
 
 test('selector parser detects an unescaped question mark in synthetic commands', () => {
