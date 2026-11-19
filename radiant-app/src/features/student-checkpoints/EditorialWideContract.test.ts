@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { validateEditorialCurriculumCandidate, type EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 import { WIDE_ACTIVITY_FAMILIES } from './EditorialWideContract';
 import { fingerprintProductionBatchMaterial, validateProductionBatchDraft, type ProductionBatchDraftV1 } from './ProductionBatch';
-import { buildRtgBatch, categorizeDisplayOrder, clozeBankOrder, seededDisplayOrder, type RtgUnitSource } from './batches/rtgBatchFactory';
+import { buildRtgBatch, categorizeDisplayOrder, clozeBankOrder, labelBankOrder, seededDisplayOrder, type RtgUnitSource } from './batches/rtgBatchFactory';
 import { isGroupOrderBiased } from './EditorialWideContract';
 import type { LearningStepV2 } from '../../types/learningActivity';
 
@@ -223,6 +223,91 @@ describe('contrato amplo (wide)', () => {
             expect(issuesOf((JSON.parse(JSON.stringify(value)) as EditorialWideCandidateV1), draft => {
                 (hotspotOf(draft as EditorialWideCandidateV1) as { payload: { regions: { label: string }[] } }).payload.regions[0].label = ' ';
             })).toContain(`unsupported-wide-payload:${id}`);
+        });
+    });
+
+    describe('label (fase B)', () => {
+        const POINTS = [
+            { label: 'Cátodo com filamento', x: 0.28, y: 0.44 }, { label: 'Ânodo', x: 0.72, y: 0.44 },
+            { label: 'Janela de saída', x: 0.68, y: 0.71 }, { label: 'Ampola de vidro', x: 0.375, y: 0.71 },
+        ];
+        function labelCandidate(): EditorialWideCandidateV1 {
+            const doc = JSON.parse(JSON.stringify(source));
+            const old = doc.lessons[0].interactions[1];
+            doc.lessons[0].interactions[1] = {
+                id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds, diagramId: 'tubo-raios-x',
+                points: POINTS, distractors: ['Fio de aterramento'], prompt: 'Rotule as quatro partes do tubo de raios X.',
+                feedbackCorrect: 'Isso mesmo: cada parte do tubo tem a sua função.', feedbackIncorrect: 'Alguma parte está no lugar errado: releia o tubo.',
+            };
+            const built = buildRtgBatch(doc).batch;
+            return JSON.parse(JSON.stringify({
+                schemaVersion: 1, promotionState: 'human-gates-pending', trackId: built.trackId, unitId: built.unitId,
+                contentVersion: built.contentVersion, competencyIds: built.competencyIds, sources: built.sources,
+                activities: built.activities, checkpoint: built.checkpoint, reinforcement: built.reinforcement,
+                claimProvenance: built.claimProvenance, wide: built.wide,
+                approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+            }));
+        }
+        const ID = 'interaction:rtg-2026:m01:aula-01:i2';
+        const labelOf = (value: EditorialWideCandidateV1) => {
+            const found = interactionsOf(value.activities[0].steps).find(interaction => interaction.id === ID);
+            if (found?.type !== 'label') throw new Error('sem label');
+            return found as Mutable<typeof found>;
+        };
+        const issuesWith = (mutate: (interaction: ReturnType<typeof labelOf>) => void) => {
+            const value = labelCandidate();
+            mutate(labelOf(value));
+            return validateEditorialCurriculumCandidate(value);
+        };
+
+        it('aceita rótulo sobre diagrama, com a figura em imageRef, e as fichas nunca na ordem dos pontos', () => {
+            const value = labelCandidate();
+            expect(validateEditorialCurriculumCandidate(value)).toEqual([]);
+            const { payload } = labelOf(value);
+            expect(payload.imageRef).toBe('diagram:tubo-raios-x');
+            expect(payload.points).toHaveLength(4);
+            expect(payload.labels).toHaveLength(5);
+            const correct = new Set(payload.points.map(point => point.correctLabelId));
+            expect(payload.labels.filter(entry => correct.has(entry.id)).map(entry => entry.id)).not.toEqual(payload.points.map(point => point.correctLabelId));
+            expect(payload.points.every(point => Object.keys(point).sort().join() === 'correctLabelId,id,x,y')).toBe(true);
+        });
+
+        it('mantém as chaves exatas do payload e exige texto em todo rótulo', () => {
+            expect(issuesWith(interaction => { (interaction.payload as Record<string, unknown>).visual = 'extra'; })).toContain(`unsupported-wide-payload:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.labels[0].label = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
+        });
+
+        it('wide-answer-position-bias: as fichas certas na ordem dos pontos entregam a resposta', () => {
+            expect(issuesWith(interaction => {
+                const order = interaction.payload.points.map(point => point.correctLabelId);
+                const shown = interaction.payload.labels;
+                interaction.payload.labels = [...order.map(id => shown.find(entry => entry.id === id)!), ...shown.filter(entry => !order.includes(entry.id))];
+            })).toEqual([`wide-answer-position-bias:${ID}`]);
+        });
+
+        it('invalid-wide-shape: ficha repetida, ficha certa fora do banco, rótulo duplicado e distratores demais', () => {
+            expect(issuesWith(interaction => { interaction.payload.labels[0].label = interaction.payload.labels[1].label; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.points[0].correctLabelId = 'label:rtg-2026:m01:fora'; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.points[1].correctLabelId = interaction.payload.points[0].correctLabelId; })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => {
+                interaction.payload.labels.push(...['Mola', 'Cabo'].map(label => ({ id: `label:rtg-2026:m01:aula-01:i2:${label}`, label })));
+            })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.points.splice(2); })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {
+            expect(issuesWith(interaction => { interaction.feedback.incorrect = interaction.feedback.correct; })).toEqual([`wide-feedback-not-distinct:${ID}`]);
+        });
+
+        it.each([[3, 0], [4, 1], [6, 2], [3, 2]])('o gerador nunca abre as fichas na ordem dos pontos: %i pontos e %i distratores', (points: number, extras: number) => {
+            const ids = [...Array.from({ length: points }, (_, index) => `c${index}`), ...Array.from({ length: extras }, (_, index) => `d${index}`)];
+            const labels = ids.map(id => ({ id, label: id }));
+            const correct = ids.slice(0, points);
+            for (let seed = 0; seed < 300; seed += 1) {
+                const shown = labelBankOrder(labels, correct, `seed-${seed}`);
+                expect(shown.map(entry => entry.id).sort()).toEqual([...ids].sort());
+                expect(shown.map(entry => entry.id).filter(id => correct.includes(id))).not.toEqual(correct);
+            }
         });
     });
 

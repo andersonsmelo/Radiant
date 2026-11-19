@@ -18,7 +18,7 @@ const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -26,7 +26,7 @@ const quote = text => `'${String(text).replace(/'/g, "''")}'`;
 const text = label => `- tapOn: ${quote(escapeMaestro(label))}`;
 const id = value => `- tapOn:\n    id: ${quote(escapeMaestro(value))}`;
 // Sem `visibilityPercentage`: o contrato só admite uma régua por seletor e esta não mede nenhuma.
-const scrollTo = (kind, value) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}`;
+const scrollTo = (kind, value, direction) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}${direction ? `\n    direction: ${direction}` : ''}`;
 const tapText = label => [scrollTo('text', label), text(label)];
 const tapId = value => [scrollTo('id', value), id(value)];
 
@@ -79,6 +79,15 @@ function answerCommands(interaction) {
       // O mesmo rótulo acessível que o HotspotStepRenderer dá à região sobre a figura.
       const correct = payload.regions.find(region => payload.correctRegionIds.includes(region.id));
       return tapText(`Selecionar ${correct.label} na imagem`);
+    }
+    case 'label': {
+      // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,
+      // o ponto seguinte pede rolagem para cima. shortcut: sem medir em aparelho, trocar se a figura couber junto das fichas.
+      const names = new Map(payload.labels.map(entry => [entry.id, entry.label]));
+      return payload.points.flatMap((point, index) => {
+        const name = `Ponto ${index + 1}, sem rótulo`;
+        return [scrollTo('text', name, 'UP'), text(name), ...tapId(`label-chip-${names.get(point.correctLabelId)}`)];
+      });
     }
     default:
       throw new Error(`rtg-maestro-unsupported-family:${type}`);

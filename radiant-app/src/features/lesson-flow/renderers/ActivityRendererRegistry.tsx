@@ -12,6 +12,7 @@ import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { OrderingStepRenderer } from './OrderingStepRenderer';
 import { CategorizeStepRenderer } from './CategorizeStepRenderer';
 import { ClozeStepRenderer } from './ClozeStepRenderer';
+import { LabelStepRenderer } from './LabelStepRenderer';
 import { MultiSelectStepRenderer } from './MultiSelectStepRenderer';
 import { TrueFalseStepRenderer } from './TrueFalseStepRenderer';
 
@@ -152,13 +153,14 @@ function CaseDecisionInteraction({ interaction, value, onChange, submitted, conf
 }
 
 /** Famílias da 1.6: o mesmo contrato `interaction / value / onChange`, com o retorno pós-conferência dentro do componente. */
-function NewFamilyInteraction({ interaction, value, onChange, submitted, confirmationLabel }: InteractionRendererProps) {
+function NewFamilyInteraction({ interaction, value, onChange, submitted, confirmationLabel, resolveImageSource }: InteractionRendererProps) {
     const shared = { value, onChange, submitted, confirmationLabel };
     switch (interaction.type) {
         case 'cloze': return <ClozeStepRenderer payload={interaction.payload} {...shared} />;
         case 'true-false': return <TrueFalseStepRenderer payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
         case 'categorize': return <CategorizeStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
         case 'multi-select': return <MultiSelectStepRenderer payload={interaction.payload} {...shared} />;
+        case 'label': return <LabelStepRenderer key={interaction.id} payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
         default: return <UnsupportedInteraction interaction={interaction} />;
     }
 }
@@ -175,6 +177,7 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     'true-false': NewFamilyInteraction,
     categorize: NewFamilyInteraction,
     'multi-select': NewFamilyInteraction,
+    label: NewFamilyInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

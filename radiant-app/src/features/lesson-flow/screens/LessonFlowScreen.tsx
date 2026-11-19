@@ -92,11 +92,11 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
 const HEART_LOSS_DELAY_MS = 320;
 
 /** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
-const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot']);
+const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label']);
 // Rodízio da frase de aula sem erro entre as aulas da mesma abertura do app (F3).
 let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
-const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize']);
+const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize', 'label']);
 
 /**
  * A resposta certa em texto, para a folha de retorno no erro. Vale também nos
@@ -128,6 +128,10 @@ export function correctAnswerText(interaction: LearningInteractionV2): string | 
         case 'hotspot': {
             const { regions, correctRegionIds } = interaction.payload;
             return correctRegionIds.map(id => regions.find(region => region.id === id)?.label ?? id).join(', ');
+        }
+        case 'label': {
+            const { points, labels } = interaction.payload;
+            return points.map((point, index) => `${index + 1}: ${labels.find(entry => entry.id === point.correctLabelId)?.label ?? ''}`).join('; ');
         }
         case 'cloze': {
             const { blanks, tokens } = interaction.payload;

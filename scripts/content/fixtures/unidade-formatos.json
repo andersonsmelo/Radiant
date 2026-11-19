@@ -138,30 +138,38 @@
         },
         {
           "id": "i3",
-          "type": "matching",
+          "type": "label",
           "role": "practice",
-          "prompt": "Associe cada passo com o avental de chumbo ao que ele evita.",
-          "pairs": [
+          "prompt": "Rotule as quatro partes do tubo de raios X, tocando na ficha e no ponto.",
+          "diagramId": "tubo-raios-x",
+          "points": [
             {
-              "left": "Conferir",
-              "right": "Começar com material danificado"
+              "label": "Cátodo com filamento",
+              "x": 0.28,
+              "y": 0.44
             },
             {
-              "left": "Posicionar",
-              "right": "Proteger a região errada"
+              "label": "Ânodo",
+              "x": 0.72,
+              "y": 0.44
             },
             {
-              "left": "Registrar",
-              "right": "Perder o histórico de uso"
+              "label": "Janela de saída",
+              "x": 0.68,
+              "y": 0.71
             },
             {
-              "left": "Guardar",
-              "right": "Estragar o material parado"
+              "label": "Ampola de vidro",
+              "x": 0.375,
+              "y": 0.71
             }
           ],
-          "feedbackCorrect": "Cada passo com o avental de chumbo protege a rotina de um problema diferente.",
-          "feedbackIncorrect": "Confira de novo: cada passo com o avental de chumbo evita um problema só dele.",
-          "help": "Leia o que cada passo faz antes de ligar as colunas.",
+          "distractors": [
+            "Fio de aterramento"
+          ],
+          "feedbackCorrect": "Isso mesmo: cada parte do tubo tem uma função própria.",
+          "feedbackIncorrect": "Alguma parte está no lugar errado: releia o que cada uma faz no tubo.",
+          "help": "Comece pela parte que emite os elétrons.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
           ]

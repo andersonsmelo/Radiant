@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { findNationalReferences } from './rtg-national-terms.mjs';
 
 const SPEAKERS = ['pixel', 'lia', 'caio', 'duda', 'paciente'];
-export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'];
+export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'];
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
-const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'];
+const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
 const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
@@ -168,6 +168,15 @@ export function lintUnit(doc, { images = [] } = {}) {
       const right = regions.filter((region) => region?.correct === true).length;
       if (right < 1 || right > 2) err(where, 'hotspot: de 1 a 2 regiões certas');
       else if (regions.length - right < 2) err(where, 'hotspot: ao menos 2 regiões erradas');
+    } else if (item.type === 'label') {
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'points', 'distractors']));
+      // Ponto sem tamanho: o retângulo de toque de 44 pt é centrado nele.
+      targets(`${where}.points`, item.points, { allowed: ['label', 'x', 'y'], ratio: figure(where, item) });
+      const distractors = item.distractors === undefined ? [] : item.distractors;
+      if (!Array.isArray(distractors) || distractors.length > 2) return err(where, 'label: de 0 a 2 distratores');
+      distractors.forEach((word, i) => text(`${where}.distractors[${i}]`, word, { min: 2, max: 40 }));
+      const shown = [...(Array.isArray(item.points) ? item.points.map((point) => point?.label) : []), ...distractors];
+      if (new Set(shown.map(norm)).size !== shown.length) err(where, 'label: rótulo repetido entre pontos e distratores');
     } else if (item.type === 'cloze') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const distractors = Array.isArray(item.distractors) ? item.distractors : [];

@@ -35,7 +35,8 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: figura por imagem licenciada ou diagrama em código (exatamente um), e regiões em coordenadas 0 a 1.
-    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string });
+    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
@@ -77,7 +78,7 @@ const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
 export const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
     cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas',
-    hotspot: 'Toque na imagem' } as const;
+    hotspot: 'Toque na imagem', label: 'Rotular a imagem' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -122,6 +123,19 @@ export function categorizeDisplayOrder<T>(values: readonly T[], group: (value: T
 export function clozeBankOrder<T extends { id: string }>(tokens: readonly T[], answers: readonly string[], seed: string): T[] {
     const shown = seededDisplayOrder(tokens, seed);
     return answers.every((tokenId, index) => shown[index]?.id === tokenId) ? [...shown.slice(1), shown[0]] : shown;
+}
+
+/**
+ * Fichas do rotular embaralhadas pela semente. As fichas certas, na ordem em que
+ * aparecem, nunca repetem a ordem dos pontos (a posição entregaria a resposta);
+ * as sementes derivadas só entram no raro caso de a primeira cair nela.
+ */
+export function labelBankOrder<T extends { id: string }>(labels: readonly T[], answers: readonly string[], seed: string): T[] {
+    for (let attempt = 0; attempt < 50; attempt += 1) {
+        const shown = seededDisplayOrder(labels, attempt ? `${seed}#${attempt}` : seed);
+        if (shown.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() !== answers.join()) return shown;
+    }
+    throw new Error(`rtg-label-order:${seed}`);
 }
 
 export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLicensedImageV1[] = []): RtgBatchBuild {
@@ -221,6 +235,15 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
                 interaction = { ...base, type: 'hotspot', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, imageRef, regions, correctRegionIds: regions.filter((_, index) => source.regions[index].correct).map(region => region.id) } };
+            } else if (source.type === 'label') {
+                const points = source.points.map((point, index) => ({ id: id('point', slug, source.id, String(index + 1)), x: point.x, y: point.y }));
+                const labels = [...source.points.map(point => point.label), ...(source.distractors ?? [])]
+                    .map((text, index) => ({ id: id('label', slug, source.id, String(index + 1)), label: text }));
+                const answers = points.map((_, index) => labels[index].id);
+                const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
+                interaction = { ...base, type: 'label', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, imageRef, points: points.map((point, index) => ({ ...point, correctLabelId: answers[index] })),
+                        labels: labelBankOrder(labels, answers, interactionId) } };
             } else if (source.type === 'matching') {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };

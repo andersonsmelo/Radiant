@@ -367,3 +367,75 @@ test('hotspot: diagramId não é texto de aula para a varredura de referência n
   assert.deepEqual(hotspot(item => { item.diagramId = 'RDC 611'; }).filter(error => /referência nacional/.test(error)), []);
   assert.ok(hotspot(item => { item.alt = 'RDC 611'; }).some(error => /referência nacional/.test(error)), 'controle: o termo reprova em campo de texto');
 });
+
+// Formato `label` (fase B, tarefa 4): pontos sem tamanho sobre a figura, rótulos e até dois distratores.
+const labelPoints = () => [
+  { label: 'Cátodo com filamento', x: 0.28, y: 0.44 },
+  { label: 'Ânodo', x: 0.72, y: 0.44 },
+  { label: 'Janela de saída', x: 0.68, y: 0.71 },
+  { label: 'Ampola de vidro', x: 0.375, y: 0.71 },
+];
+function labelItem(mutate = () => {}) {
+  const doc = fixture();
+  const old = doc.lessons[0].interactions[1];
+  doc.lessons[0].interactions[1] = {
+    id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds,
+    prompt: 'Rotule as quatro partes do tubo de raios X.', diagramId: 'tubo-raios-x', points: labelPoints(), distractors: ['Fio de aterramento'],
+    feedbackCorrect: 'Isso mesmo: cada parte do tubo tem a sua função.',
+    feedbackIncorrect: 'Alguma parte está no lugar errado: releia o que cada uma faz no tubo.',
+  };
+  mutate(doc.lessons[0].interactions[1]);
+  return lintUnit(doc, { images: IMAGES });
+}
+test('label: aceita figura por diagramId e por imageId registrada', () => {
+  assert.deepEqual(labelItem(), []);
+  assert.deepEqual(labelItem(item => { delete item.diagramId; item.imageId = 'image:rtg-2026:m01:a'; }), []);
+  assert.deepEqual(labelItem(item => { delete item.distractors; }), []);
+});
+test('label: exige exatamente um de imageId e diagramId, existente no registro', () => {
+  expectOnly(labelItem(item => { item.imageId = 'image:rtg-2026:m01:a'; }), /exatamente um de imageId e diagramId/);
+  expectOnly(labelItem(item => { item.diagramId = 'nao-existe'; }), /diagrama fora do registro: nao-existe/);
+});
+test('label: de 3 a 6 pontos', () => {
+  expectOnly(labelItem(item => { item.points.splice(2); }), /de 3 a 6 alvos/);
+  const six = n => ({ label: `Parte ${n}`, x: 0.1 + (n % 3) * 0.3, y: 0.15 + Math.floor(n / 3) * 0.3 });
+  assert.deepEqual(labelItem(item => { item.points = [0, 1, 2, 3, 4, 5].map(six); }), []);
+  expectOnly(labelItem(item => { item.points = [0, 1, 2, 3, 4, 5, 6].map(six); }), /de 3 a 6 alvos/);
+});
+test('label: o ponto não tem largura nem altura', () => {
+  expectOnly(labelItem(item => { Object.assign(item.points[1], { width: 0.1, height: 0.1 }); }), /campo desconhecido: width|campo desconhecido: height/);
+});
+test('label: ponto dentro do quadro, a cada eixo', () => {
+  expectOnly(labelItem(item => { item.points[1].x = 1.2; }), /alvo fora do quadro|sai da figura/);
+  expectOnly(labelItem(item => { item.points[1].y = -0.1; }), /alvo fora do quadro|sai da figura/);
+});
+test('label: a área de toque de 44 pt, centrada no ponto, tem de caber na figura', () => {
+  // Ponto no canto: o retângulo de 44 pt passa da borda mesmo com o ponto dentro do quadro.
+  expectOnly(labelItem(item => { item.points[1].x = 0.97; }), /sai da figura/);
+  expectOnly(labelItem(item => { item.points[1].y = 0.02; }), /sai da figura/);
+  assert.deepEqual(labelItem(item => { item.points[1].x = 0.9; }), []);
+});
+test('label: as áreas de toque dos pontos não se sobrepõem', () => {
+  expectOnly(labelItem(item => { Object.assign(item.points[1], { x: 0.35, y: 0.44 }); }), /alvos muito próximos/);
+  expectOnly(labelItem(item => { Object.assign(item.points[2], { x: 0.4, y: 0.6 }); }), /alvos muito próximos/);
+  assert.deepEqual(labelItem(item => { Object.assign(item.points[1], { x: 0.45, y: 0.44 }); }), []);
+});
+test('label: rótulos únicos entre pontos e distratores, de 2 a 40 caracteres', () => {
+  expectOnly(labelItem(item => { item.points[1].label = 'cátodo com filamento'; }), /rótulo repetido/);
+  expectOnly(labelItem(item => { item.distractors = ['ânodo']; }), /rótulo repetido/);
+  expectOnly(labelItem(item => { item.distractors = ['Fio', 'fio']; }), /rótulo repetido/);
+  expectOnly(labelItem(item => { item.points[1].label = 'Â'; }), /texto ausente ou curto/);
+  expectOnly(labelItem(item => { item.distractors = ['Um rótulo de distrator muito mais longo que o limite']; }), /caracteres \(máx\. 40\)/);
+});
+test('label: de 0 a 2 distratores, em lista', () => {
+  assert.deepEqual(labelItem(item => { item.distractors = ['Fio', 'Cabo']; }), []);
+  expectOnly(labelItem(item => { item.distractors = ['Fio', 'Cabo', 'Mola']; }), /de 0 a 2 distratores/);
+  expectOnly(labelItem(item => { item.distractors = 'Fio'; }), /de 0 a 2 distratores/);
+});
+test('label: recusa chave fora da lista, no ponto e no item', () => {
+  expectOnly(labelItem(item => { item.points[1].cor = 'azul'; }), /campo desconhecido: cor/);
+  expectOnly(labelItem(item => { item.regions = []; }), /campo desconhecido: regions/);
+});
+test('label: retorno de erro igual ao de acerto reprova, como nas outras famílias', () => {
+  expectOnly(labelItem(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
+});

@@ -5,6 +5,7 @@ Esta pasta guarda a evidência das tarefas da fase B da trilha dobrada (novos fo
 | Tarefa | O que entregou | Evidência |
 |---|---|---|
 | 1 | Teste que percorre todas as famílias de interação; unidade sintética de formatos | `vermelho-tarefa-1.txt`: sem o `case 'multi-select'` em `isCorrectInteractionValue`, o teste reprova só em `multi-select`, na asserção de `isCompleteInteractionValue` (`isCorrect` começa chamando `isComplete`) |
+| 4 | Formato `label` (rotular pontos de uma figura) nos quatro portões, com tela, história e roteiro Maestro | `vermelho-tarefa-4.txt`: o vermelho antes da implementação e 14 defeitos específicos (sobreposição, área de 44 pt fora da figura, distratores, ordem das fichas, acerto, retorno, alvo, rótulo da figura, direção da rolagem) vistos falhando por mutação |
 
 ## Limites conhecidos
 

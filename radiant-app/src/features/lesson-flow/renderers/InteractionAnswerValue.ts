@@ -210,6 +210,11 @@ export function isCompleteInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length > 0 && isDistinctSubset(ids, interaction.payload.options.map(option => option.id));
         }
+        case 'label': {
+            // Mapa ponto → rótulo: todo ponto rotulado, com rótulo do banco e sem repetir.
+            const assigned = decodeCategorizeValue(value);
+            return isDistinctSubset(interaction.payload.points.map(point => assigned[point.id] ?? ''), interaction.payload.labels.map(entry => entry.id));
+        }
         default:
             return false;
     }
@@ -252,6 +257,10 @@ export function isCorrectInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length === interaction.payload.correctOptionIds.length
                 && interaction.payload.correctOptionIds.every(id => ids.includes(id));
+        }
+        case 'label': {
+            const assigned = decodeCategorizeValue(value);
+            return interaction.payload.points.every(point => assigned[point.id] === point.correctLabelId);
         }
         default:
             return false;

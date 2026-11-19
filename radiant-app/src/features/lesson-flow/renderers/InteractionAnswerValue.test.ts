@@ -403,4 +403,23 @@ describe('InteractionAnswerValue: famílias da 1.6', () => {
         expect(isCorrectInteractionValue(multiSelect, encodeInteractionIdSequence(['b', 'd', 'a']))).toBe(false);
         expect(isCorrectInteractionValue(multiSelect, encodeInteractionIdSequence(['d', 'b']))).toBe(true);
     });
+
+    // Fase B, tarefa 4: rótulos sobre pontos de uma figura; a resposta é `{ [pointId]: labelId }`.
+    const label: LearningInteractionV2 = { ...base, type: 'label', payload: {
+        prompt: 'Rotule.', imageRef: 'diagram:tubo-raios-x',
+        points: [{ id: 'p1', x: 0.3, y: 0.4, correctLabelId: 'l-catodo' }, { id: 'p2', x: 0.7, y: 0.4, correctLabelId: 'l-anodo' }, { id: 'p3', x: 0.7, y: 0.7, correctLabelId: 'l-janela' }],
+        labels: [{ id: 'l-janela', label: 'Janela' }, { id: 'l-fio', label: 'Fio' }, { id: 'l-catodo', label: 'Cátodo' }, { id: 'l-anodo', label: 'Ânodo' }],
+    } };
+
+    it('label: completa com todo ponto rotulado e nenhum rótulo repetido, e acerta só com todos no rótulo certo', () => {
+        const value = (map: Record<string, string>) => JSON.stringify(map);
+        expect(isCompleteInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo' }))).toBe(false);
+        expect(isCompleteInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'l-anodo' }))).toBe(false);
+        expect(isCompleteInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'fora' }))).toBe(false);
+        expect(isCompleteInteractionValue(label, '[]')).toBe(false);
+        expect(isCompleteInteractionValue(label, value({ p1: 'l-anodo', p2: 'l-catodo', p3: 'l-fio' }))).toBe(true);
+        expect(isCorrectInteractionValue(label, value({ p1: 'l-anodo', p2: 'l-catodo', p3: 'l-fio' }))).toBe(false);
+        expect(isCorrectInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'l-fio' }))).toBe(false);
+        expect(isCorrectInteractionValue(label, value({ p1: 'l-catodo', p2: 'l-anodo', p3: 'l-janela' }))).toBe(true);
+    });
 });

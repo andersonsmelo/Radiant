@@ -105,6 +105,17 @@ export const INTERACTION_FAMILY_FIXTURES: Record<InteractionType, InteractionFam
         },
         correctValue: encodeInteractionIdSequence(['a', 'c']), wrongValue: encodeInteractionIdSequence(['a']),
     },
+    label: {
+        interaction: {
+            ...common, id: 'fx:lb', type: 'label', accessibility: label('rotular'),
+            payload: {
+                prompt: 'Rotule os pontos.', imageRef: 'diagram:tubo-raios-x',
+                points: [{ id: 'pt1', x: 0.3, y: 0.4, correctLabelId: 'la' }, { id: 'pt2', x: 0.7, y: 0.4, correctLabelId: 'lb' }],
+                labels: [{ id: 'lc', label: 'Terceiro' }, { id: 'la', label: 'Primeiro' }, { id: 'lb', label: 'Segundo' }],
+            },
+        },
+        correctValue: JSON.stringify({ pt1: 'la', pt2: 'lb' }), wrongValue: JSON.stringify({ pt1: 'lb', pt2: 'la' }),
+    },
     // Nascem pendentes: as tarefas 9 e 10 definem o contrato e trocam por um exemplo completo.
     'parameter-lab': 'pending',
     'risk-hunt': 'pending',

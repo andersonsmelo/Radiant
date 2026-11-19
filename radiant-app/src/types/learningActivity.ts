@@ -77,7 +77,9 @@ export type InteractionType =
     | 'cloze'
     | 'true-false'
     | 'categorize'
-    | 'multi-select';
+    | 'multi-select'
+    // Fase B: rotular pontos de uma figura.
+    | 'label';
 
 /**
  * Todos os tipos de interação. O `Record` faz o compilador recusar tipo novo
@@ -87,7 +89,7 @@ export type InteractionType =
 const INTERACTION_TYPE_FLAGS: Record<InteractionType, true> = {
     'multiple-choice': true, hotspot: true, comparison: true, matching: true, ordering: true,
     'parameter-lab': true, bench: true, 'risk-hunt': true, 'case-decision': true,
-    cloze: true, 'true-false': true, categorize: true, 'multi-select': true,
+    cloze: true, 'true-false': true, categorize: true, 'multi-select': true, label: true,
 };
 export const INTERACTION_TYPES = Object.keys(INTERACTION_TYPE_FLAGS) as readonly InteractionType[];
 
@@ -268,6 +270,19 @@ export type MultiSelectPayload = {
     correctOptionIds: string[];
 };
 
+/**
+ * Rotular pontos numa figura. A resposta é `{ [pointId]: labelId }`. `labels` vem
+ * na ordem de exibição, já embaralhada pelo gerador, e pode ter até dois rótulos
+ * a mais que os pontos (distratores).
+ */
+export type LabelPayload = {
+    prompt: string;
+    /** Identificador da imagem licenciada, ou `diagram:<id>`. */
+    imageRef: string;
+    points: { id: string; x: number; y: number; correctLabelId: string }[];
+    labels: { id: string; label: string }[];
+};
+
 type InteractionBase = {
     id: string;
     /** Ao menos uma. É o que liga a evidência produzida ao domínio medido. */
@@ -295,7 +310,8 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'cloze'; payload: ClozePayload })
     | (InteractionBase & { type: 'true-false'; payload: TrueFalsePayload })
     | (InteractionBase & { type: 'categorize'; payload: CategorizePayload })
-    | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload });
+    | (InteractionBase & { type: 'multi-select'; payload: MultiSelectPayload })
+    | (InteractionBase & { type: 'label'; payload: LabelPayload });
 
 /** Elenco das cenas de diálogo da trilha rtg-2026. */
 export type LessonCastId = 'pixel' | 'lia' | 'caio' | 'duda' | 'paciente';
@@ -606,6 +622,19 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
                 || new Set(correctOptionIds).size !== correctOptionIds.length
                 || correctOptionIds.some(id => !optionIds.has(id))) {
                 push(issues, path, 'invalid-correct-options');
+            }
+            break;
+        }
+        case 'label': {
+            const { points, labels } = interaction.payload;
+            const labelIds = new Set((labels ?? []).map(entry => entry?.id));
+            const answers = (points ?? []).map(point => point?.correctLabelId);
+            if (!Array.isArray(points) || points.length < 2 || !Array.isArray(labels) || labelIds.size !== labels.length
+                || labels.some(entry => !isFilled(entry?.id) || !isFilled(entry?.label))
+                || new Set(points.map(point => point?.id)).size !== points.length || points.some(point => !isFilled(point?.id))
+                || answers.some(id => !labelIds.has(id)) || new Set(answers).size !== answers.length
+                || points.some(point => !isWithinFrame({ id: '', label: '', x: point.x, y: point.y, width: 0, height: 0 }))) {
+                push(issues, path, 'invalid-label-points');
             }
             break;
         }

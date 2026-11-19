@@ -1,5 +1,5 @@
 import type { LearningInteractionV2 } from '../../../types/learningActivity';
-import { benchDirection, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
+import { benchDirection, decodeCategorizeValue, decodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
 
 function filled(text: string | undefined): text is string {
     return typeof text === 'string' && text.trim().length > 0;
@@ -50,6 +50,14 @@ export function feedbackFor(
             const first = options.find(option => missing.includes(option) || extra.includes(option));
             return [missing.length ? `Faltou marcar: ${list(missing)}.` : '', extra.length ? `Marcou a mais: ${list(extra)}.` : '',
                 filled(first?.explanation) ? first.explanation : interaction.feedback.incorrect].filter(Boolean).join(' ');
+        }
+        case 'label': {
+            // O primeiro ponto errado, na ordem dos pontos, diz qual era o rótulo certo.
+            const assigned = decodeCategorizeValue(value);
+            const { points, labels } = interaction.payload;
+            const at = points.findIndex(point => assigned[point.id] !== point.correctLabelId);
+            const right = labels.find(entry => entry.id === points[at]?.correctLabelId)?.label;
+            return at >= 0 && filled(right) ? `${interaction.feedback.incorrect} Ponto ${at + 1} é ${right}.` : interaction.feedback.incorrect;
         }
         default:
             return interaction.feedback.incorrect;

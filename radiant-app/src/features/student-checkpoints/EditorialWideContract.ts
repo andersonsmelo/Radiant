@@ -47,12 +47,12 @@ export type EditorialWideContractV1 = Readonly<{
     namespace: 'rtg-2026';
     /** Um par de itens por competência, para depois de uma conferência reprovada. */
     recovery: readonly EditorialWideRecoveryV1[];
-    /** Só as imagens que alguma comparação ou hotspot desta unidade usa. */
+    /** Só as imagens que alguma comparação, hotspot ou rotular desta unidade usa. */
     images?: readonly EditorialLicensedImageV1[];
 }>;
 
 export const WIDE_ACTIVITY_FAMILIES = ['multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison',
-    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'] as const;
+    'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label'] as const;
 export const WIDE_MIN_INTERACTIONS = 3;
 export const WIDE_MAX_INTERACTIONS = 8;
 const SOURCE_KEYS = ['id', 'title', 'publisher', 'url', 'accessedAt', 'use', 'licenseNote'];
@@ -67,6 +67,7 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     categorize: ['prompt', 'categories', 'items'],
     'multi-select': ['prompt', 'options', 'correctOptionIds'],
     hotspot: ['prompt', 'imageRef', 'regions', 'correctRegionIds'],
+    label: ['prompt', 'imageRef', 'points', 'labels'],
 };
 // Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
 const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
@@ -131,6 +132,15 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         if (options.slice(0, correctOptionIds.length).every(option => correctOptionIds.includes(option.id))) codes.push('wide-answer-position-bias');
         if (longestIsCorrect(options.filter(option => correctOptionIds.includes(option.id)).map(option => option.label),
             options.filter(option => !correctOptionIds.includes(option.id)).map(option => option.label))) codes.push('wide-longest-is-correct');
+    } else if (interaction.type === 'label') {
+        const { points, labels } = interaction.payload;
+        const answers = points.map(point => point.correctLabelId);
+        const known = new Set(labels.map(entry => entry.id));
+        if (points.length < 3 || points.length > 6 || labels.length < points.length || labels.length > points.length + 2
+            || known.size !== labels.length || new Set(labels.map(entry => normalized(entry.label))).size !== labels.length
+            || answers.some(id => !known.has(id)) || new Set(answers).size !== answers.length) codes.push('invalid-wide-shape');
+        // As fichas certas, na ordem em que aparecem, não podem repetir a ordem dos pontos.
+        if (labels.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() === answers.join()) codes.push('wide-answer-position-bias');
     } else {
         return codes;
     }
@@ -157,6 +167,7 @@ export function wideResponseIds(interaction: LearningInteractionV2): string[] {
         case 'categorize': return [...interaction.payload.categories.map(category => category.id), ...interaction.payload.items.map(item => item.id)];
         case 'multi-select': return interaction.payload.options.map(option => option.id);
         case 'hotspot': return interaction.payload.regions.map(region => region.id);
+        case 'label': return [...interaction.payload.points.map(point => point.id), ...interaction.payload.labels.map(entry => entry.id)];
         default: return [];
     }
 }
@@ -183,6 +194,11 @@ export function wideInteractionClaims(interaction: LearningInteractionV2, source
         const answers = new Set(interaction.payload.blanks.map(blank => blank.correctTokenId));
         interaction.payload.blanks.forEach(blank => add(blank.id, 'prompt'));
         interaction.payload.tokens.forEach(token => add(token.id, answers.has(token.id) ? 'correct-answer' : 'distractor', !answers.has(token.id)));
+    } else if (interaction.type === 'label') {
+        // O texto de cada ficha certa é da fonte; a que sobra no banco é distrator autoral.
+        const answers = new Set(interaction.payload.points.map(point => point.correctLabelId));
+        interaction.payload.points.forEach(point => add(point.id, 'prompt'));
+        interaction.payload.labels.forEach(entry => add(entry.id, answers.has(entry.id) ? 'correct-answer' : 'distractor', !answers.has(entry.id)));
     } else {
         wideResponseIds(interaction).forEach(id => add(id, 'prompt'));
         add(`${interaction.id}:answer`, 'correct-answer');
@@ -249,7 +265,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                 interaction.payload.options.forEach(option => { if (option.imageRef) usedImages.add(option.imageRef); });
                 if (interaction.payload.options.some(option => !option.imageRef || !registeredImages.has(option.imageRef))) add('unregistered-licensed-image', interaction.id);
             }
-            if (interaction.type === 'hotspot') {
+            if (interaction.type === 'hotspot' || interaction.type === 'label') {
                 const { imageRef } = interaction.payload;
                 const diagramId = parseDiagramRef(imageRef);
                 // Diagrama mora no app; imagem licenciada precisa estar no cadastro da unidade e conta como usada.
@@ -262,6 +278,7 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
                         || interaction.type === 'multi-select' ? interaction.payload.options.map(option => option.label)
                         : interaction.type === 'cloze' ? interaction.payload.tokens.map(token => token.label)
                             : interaction.type === 'hotspot' ? interaction.payload.regions.map(region => region.label)
+                            : interaction.type === 'label' ? interaction.payload.labels.map(entry => entry.label)
                             : interaction.type === 'true-false' ? interaction.payload.statements.map(statement => statement.text)
                                 : interaction.type === 'categorize' ? [...interaction.payload.categories.map(category => category.label), ...interaction.payload.items.map(item => item.label)] : [];
             const choiceImages = (interaction.type === 'multiple-choice' || interaction.type === 'case-decision')
