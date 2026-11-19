@@ -1,3 +1,4 @@
+import { parse } from 'react-native-svg';
 import { galaxyColors, hudIconTones, pixelColors } from '../theme';
 import { diagramSvgAt } from './diagramMotion';
 import { P } from './diagramPalette';
@@ -66,9 +67,13 @@ describe('registro de diagramas', () => {
   it.each(DIAGRAM_IDS)('%s: sem texto, imagem, script nem link e só com cores da paleta', (id) => {
     const palette = new Set(Object.values(P).map((c) => c.toLowerCase()));
     for (const layer of DIAGRAMS[id].layers) {
-      expect(layer.svg).not.toMatch(/<(text|image|script)|href/i);
+      expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject)|href/i);
       for (const color of layer.svg.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(/g) ?? []) {
         expect(palette.has(color.toLowerCase())).toBe(true);
+      }
+      // Nome de cor ("white") e função de cor também são cor fora da paleta.
+      for (const [, value] of layer.svg.matchAll(/\b(?:fill|stroke|stop-color|color)="([^"]*)"/g)) {
+        expect(value === 'none' || palette.has(value.toLowerCase())).toBe(true);
       }
     }
   });
@@ -79,6 +84,8 @@ describe('registro de diagramas', () => {
       expect(xml.startsWith('<svg ')).toBe(true);
       expect(xml.endsWith('</svg>')).toBe(true);
       expect(isBalanced(xml)).toBe(true);
+      // O parser que o aparelho usa: não pode lançar nem devolver nulo.
+      expect(parse(xml)).not.toBeNull();
     }
   });
 

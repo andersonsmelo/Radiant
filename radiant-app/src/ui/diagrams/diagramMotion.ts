@@ -43,3 +43,40 @@ export function diagramSvgAt(spec: DiagramSpec, progress: number): string {
   const body = spec.layers.map((layer) => layerSvgAt(layer, progress)).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${spec.width} ${spec.height}" width="${spec.width}" height="${spec.height}">${body}</svg>`;
 }
+
+/** Camadas contíguas sem movimento viram um bloco só; cada camada móvel fica sozinha. */
+export function groupLayers(layers: DiagramLayer[]): DiagramLayer[][] {
+  const groups: DiagramLayer[][] = [];
+  for (const layer of layers) {
+    const last = groups[groups.length - 1];
+    if (!layer.motion && last && !last[0].motion) last.push(layer);
+    else groups.push([layer]);
+  }
+  return groups;
+}
+
+/** O `<svg>` de uma camada móvel, com folga de uma largura e uma altura de cada lado. */
+export function layerFrameSvg(spec: DiagramSpec, layer: DiagramLayer): string {
+  const { width: w, height: h } = spec;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-w} ${-h} ${3 * w} ${3 * h}">${layer.svg}</svg>`;
+}
+
+/** Origem da transformação, em porcentagem da view ampliada (3 larguras por 3 alturas). */
+export function layerOrigin(motion: DiagramLayer['motion'], width: number, height: number) {
+  const cx = motion && (motion.kind === 'rotate' || motion.kind === 'scale') ? motion.cx : width / 2;
+  const cy = motion && (motion.kind === 'rotate' || motion.kind === 'scale') ? motion.cy : height / 2;
+  return { x: ((cx + width) / (3 * width)) * 100, y: ((cy + height) / (3 * height)) * 100 };
+}
+
+/** Estilo da view ampliada no progresso dado; a translação sai em porcentagem dela. Worklet. */
+export function layerStyleAt(motion: DiagramLayer['motion'], progress: number, width: number, height: number) {
+  'worklet';
+  const s = layerStateAt(motion, progress);
+  return {
+    opacity: s.opacity,
+    translateXPercent: (s.translateX / (3 * width)) * 100,
+    translateYPercent: (s.translateY / (3 * height)) * 100,
+    rotateDeg: s.rotateDeg,
+    scale: s.scale,
+  };
+}

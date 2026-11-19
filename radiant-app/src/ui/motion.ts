@@ -23,12 +23,13 @@ import {
     withSpring,
     withTiming,
     type DerivedValue,
+    type SharedValue,
 } from 'react-native-reanimated';
 import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
 import { useScreenFocused } from './useScreenFocused';
 import { galaxyColors, hudIconTones } from './theme';
-import { layerStateAt } from './diagrams/diagramMotion';
+import { layerOrigin, layerStyleAt } from './diagrams/diagramMotion';
 import type { DiagramLayer } from './diagrams/diagramTypes';
 
 // ============================================================================
@@ -1025,7 +1026,7 @@ export function useTrailMomentStyles(
  * `periodMs` e quando `playing` é falso; pausa fora de foco, como
  * `useLottieFrameLoop`.
  */
-export function useLoopProgress(periodMs: number | undefined, playing: boolean): DerivedValue<number> {
+export function useLoopProgress(periodMs: number | undefined, playing: boolean): SharedValue<number> {
     const motion = useReducedMotionPreferenceState();
     const focused = useScreenFocused();
     const reduced = motion.reducedMotionEnabled || !motion.resolved;
@@ -1060,13 +1061,14 @@ export function useLoopProgress(periodMs: number | undefined, playing: boolean):
         return () => cancelAnimation(clock);
     }, [still, running, clock, period]);
 
-    return useDerivedValue(() => clock.value);
+    return clock;
 }
 
 /**
- * Uma camada de diagrama (um `SvgXml` por camada) movida pelo relógio. A camada
- * ocupa o quadro todo, então a origem do giro e a translação saem em
- * porcentagem do quadro, a mesma proporção das unidades do desenho.
+ * Uma camada de diagrama com movimento (um `SvgXml` por camada, desenhado com
+ * `layerFrameSvg`) movida pelo relógio. A view tem folga de uma largura e uma
+ * altura de cada lado, para o giro não perder o que sai do quadro; a moldura
+ * corta o excesso. Origem e translação saem em porcentagem dessa view ampliada.
  */
 export function DiagramLayerMotion({
     motion,
@@ -1076,22 +1078,19 @@ export function DiagramLayerMotion({
     children,
 }: {
     motion: DiagramLayer['motion'];
-    progress: DerivedValue<number>;
+    progress: SharedValue<number>;
     width: number;
     height: number;
     children: ReactNode;
 }) {
-    const origin =
-        motion && (motion.kind === 'rotate' || motion.kind === 'scale')
-            ? `${(motion.cx / width) * 100}% ${(motion.cy / height) * 100}%`
-            : '50% 50%';
+    const origin = layerOrigin(motion, width, height);
     const style = useAnimatedStyle(() => {
-        const s = layerStateAt(motion, progress.value);
+        const s = layerStyleAt(motion, progress.value, width, height);
         return {
             opacity: s.opacity,
             transform: [
-                { translateX: `${(s.translateX / width) * 100}%` },
-                { translateY: `${(s.translateY / height) * 100}%` },
+                { translateX: `${s.translateXPercent}%` },
+                { translateY: `${s.translateYPercent}%` },
                 { rotate: `${s.rotateDeg}deg` },
                 { scale: s.scale },
             ],
@@ -1101,7 +1100,10 @@ export function DiagramLayerMotion({
         Reanimated.View,
         {
             pointerEvents: 'none',
-            style: [{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, transformOrigin: origin }, style],
+            style: [
+                { position: 'absolute', left: '-100%', top: '-100%', width: '300%', height: '300%', transformOrigin: `${origin.x}% ${origin.y}%` },
+                style,
+            ],
         },
         children,
     );

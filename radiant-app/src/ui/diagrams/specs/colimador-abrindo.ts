@@ -9,7 +9,8 @@ const SX = 160;
 const SY = 54;
 const BLADE_Y = 102;
 const GAP_CLOSED = 12;
-const GAP_OPEN = 50;
+// Aberto, o campo termina nas bordas do receptor (x 40 a 280); fechado, é estreito.
+const GAP_OPEN = 38;
 const deg = (rad: number) => (rad * 180) / Math.PI;
 const A0 = deg(Math.atan2(GAP_CLOSED, BLADE_Y - SY));
 const SWING = deg(Math.atan2(GAP_OPEN, BLADE_Y - SY)) - A0;

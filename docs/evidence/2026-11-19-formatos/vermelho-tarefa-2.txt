@@ -35,6 +35,33 @@ FAIL src/ui/diagrams/diagramRegistry.test.ts (9.297 s)
       72 |       }
       at toMatch (src/ui/diagrams/diagramRegistry.test.ts:69:29)
 Test Suites: 1 failed, 1 total
+
+=== Rodada 1, item 4: sem a guarda de movimento reduzido em useLoopProgress ===
+    ✓ movimento liberado inicia o relógio (13 ms)
+    ✕ movimento reduzido não inicia o relógio (3 ms)
+    ✕ preferência não resolvida não inicia o relógio (2 ms)
+    ✓ playing falso não inicia o relógio (1 ms)
+    ✓ sem periodMs não inicia o relógio (1 ms)
+Tests:       2 failed, 3 passed, 5 total
+
+=== Rodada 1, item 2: fill="white" num diagrama ===
+    ✕ tubo-raios-x: sem texto, imagem, script nem link e só com cores da paleta (2 ms)
+    Expected: true
+    Received: false
 Tests:       1 failed, 20 passed, 21 total
-Snapshots:   0 total
-Time:        17.108 s
+
+=== Rodada 1, item 3: atributo sem aspa de fechamento ===
+    ✕ tubo-raios-x: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1 (1 ms)
+    Expected > (1:10). If this is valid SVG, it's probably a bug. Please raise an issue
+Tests:       1 failed, 20 passed, 21 total
+
+=== Rodada 1, item 1: origem do giro no centro da view, e não em (cx, cy) ===
+    ✕ rotate: um ponto vai onde diagramSvgAt o põe, em duas larguras de tela (1 ms)
+    ✕ scale: um ponto vai onde diagramSvgAt o põe, em duas larguras de tela (1 ms)
+    ✕ rotate: o centro (cx, cy) fica fixo (1 ms)
+    ✕ scale: o centro (cx, cy) fica fixo
+Tests:       4 failed, 11 passed, 15 total
+
+=== Rodada 1, item 5: fora de foco desenhando as camadas animadas ===
+    ✕ fora de foco desenha o pôster (167 ms)
+Tests:       1 failed, 8 passed, 9 total
