@@ -1,0 +1,187 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M32: aula 01 até o resumo'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn. LessonFlowScreen não recusa nó bloqueado e a aula 01 não tem unlockRule,
+# então a unidade abre numa instalação limpa, mesmo que a trilha a mostre atrás do cadeado. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am32%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am32%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m32:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m32:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, à esquerda, o círculo amarelo grande com um visto, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, à esquerda, o círculo amarelo grande com um visto, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Aceitação'
+- tapOn:
+    id: 'label-chip-Aceitação'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, o primeiro ponto azul pequeno depois do círculo grande, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, o primeiro ponto azul pequeno depois do círculo grande, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Constância'
+- tapOn:
+    id: 'label-chip-Constância'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, no alto à direita, a ferramenta de aperto sobre a linha, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, no alto à direita, a ferramenta de aperto sobre a linha, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Manutenção'
+- tapOn:
+    id: 'label-chip-Manutenção'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, no fim da linha, o círculo ciano de tamanho médio, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, no fim da linha, o círculo ciano de tamanho médio, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Depois da manutenção'
+- tapOn:
+    id: 'label-chip-Depois da manutenção'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Falha corrigida, e o serviço quer ver se resolveu'
+- tapOn:
+    id: 'categorize-item-Falha corrigida, e o serviço quer ver se resolveu'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Depois da manutenção'
+- tapOn:
+    id: 'categorize-group-Depois da manutenção'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Comparar o valor de hoje com o de referência'
+- tapOn:
+    id: 'categorize-item-Comparar o valor de hoje com o de referência'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Constância'
+- tapOn:
+    id: 'categorize-group-Constância'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Equipamento instalado, ainda sem paciente'
+- tapOn:
+    id: 'categorize-item-Equipamento instalado, ainda sem paciente'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Aceitação'
+- tapOn:
+    id: 'categorize-group-Aceitação'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Repetição das mesmas medidas a cada período'
+- tapOn:
+    id: 'categorize-item-Repetição das mesmas medidas a cada período'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Constância'
+- tapOn:
+    id: 'categorize-group-Constância'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Valores de referência a fixar antes do primeiro uso'
+- tapOn:
+    id: 'categorize-item-Valores de referência a fixar antes do primeiro uso'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Aceitação'
+- tapOn:
+    id: 'categorize-group-Aceitação'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Detector recalibrado pela assistência técnica'
+- tapOn:
+    id: 'categorize-item-Detector recalibrado pela assistência técnica'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Depois da manutenção'
+- tapOn:
+    id: 'categorize-group-Depois da manutenção'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 case-decision
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m32:aula-01:i5:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m32:aula-01:i5:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'

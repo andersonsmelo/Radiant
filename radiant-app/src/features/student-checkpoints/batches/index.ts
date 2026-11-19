@@ -31,6 +31,7 @@ import { RTG_2026_M12 } from './rtg-2026-m12';
 import { RTG_2026_M13 } from './rtg-2026-m13';
 import { RTG_2026_M31 } from './rtg-2026-m31';
 import { RTG_2026_M14 } from './rtg-2026-m14';
+import { RTG_2026_M32 } from './rtg-2026-m32';
 import { RTG_2026_S_TC } from './rtg-2026-s-tc';
 import { RTG_2026_S_RM } from './rtg-2026-s-rm';
 import { RTG_2026_S_MD } from './rtg-2026-s-md';
@@ -72,6 +73,7 @@ export const RTG_2026_BATCHES: readonly ProductionBatchV1[] = [
   RTG_2026_M13,
   RTG_2026_M31,
   RTG_2026_M14,
+  RTG_2026_M32,
   RTG_2026_S_TC,
   RTG_2026_S_RM,
   RTG_2026_S_MD,

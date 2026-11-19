@@ -334,6 +334,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Qualidade, gestão e integração."
     }
   },
+  "batch:rtg-2026:m32": {
+    "slug": "rtg-2026-m32",
+    "title": "Controle de qualidade de equipamentos e níveis de referência",
+    "description": "Mostra o que se testa num equipamento de raios X (feixe, alinhamento, detector, monitor), o que fazer quando um teste falha e para que serve, e para que não serve, um nível de referência.",
+    "unitTitle": "Controle de qualidade de equipamentos e níveis de referência",
+    "reward": {
+      "id": "node:reward:rtg-2026:m32",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Controle de qualidade de equipamentos e níveis de referência."
+    }
+  },
   "batch:rtg-2026:s-tc": {
     "slug": "rtg-2026-s-tc",
     "title": "Aprofundamento em tomografia computadorizada",
