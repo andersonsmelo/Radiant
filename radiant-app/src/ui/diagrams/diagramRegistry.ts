@@ -80,6 +80,11 @@ import { linhaDoTempoTrTe } from './specs/linha-do-tempo-tr-te';
 import { ponderacoesNoEncefalo } from './specs/ponderacoes-no-encefalo';
 import { supressaoDeGordura } from './specs/supressao-de-gordura';
 import { artefatosDeRm } from './specs/artefatos-de-rm';
+import { dxaDoisFeixes } from './specs/dxa-dois-feixes';
+import { dxaRegioesDeInteresse } from './specs/dxa-regioes-de-interesse';
+import { dxaPosicionamento } from './specs/dxa-posicionamento';
+import { dxaInterferencias } from './specs/dxa-interferencias';
+import { corpoInteiroComposicao } from './specs/corpo-inteiro-composicao';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -163,6 +168,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [ponderacoesNoEncefalo.id]: ponderacoesNoEncefalo,
   [supressaoDeGordura.id]: supressaoDeGordura,
   [artefatosDeRm.id]: artefatosDeRm,
+  [dxaDoisFeixes.id]: dxaDoisFeixes,
+  [dxaRegioesDeInteresse.id]: dxaRegioesDeInteresse,
+  [dxaPosicionamento.id]: dxaPosicionamento,
+  [dxaInterferencias.id]: dxaInterferencias,
+  [corpoInteiroComposicao.id]: corpoInteiroComposicao,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
