@@ -229,8 +229,8 @@ própria interação, e não o `alt` do acervo nem o do catálogo, para a descri
 entregar a resposta; a informação de posição chega ao leitor de tela pelos rótulos dos
 alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. Só o
 `visual` do conceito lê o `alt` do catálogo: confira que ele não entrega a resposta de
-nenhuma interação da aula. Os alvos não acompanham movimento: para `hotspot`, `label` e
-`risk-hunt`, prefira diagrama parado.
+nenhuma interação da aula. Em `hotspot`, `label` e `risk-hunt` um diagrama em laço aparece parado, no
+quadro de pôster (desde 2026-11-19): escreva o item para esse quadro.
 
 ### Catálogo de diagramas
 

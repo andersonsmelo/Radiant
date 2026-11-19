@@ -1,0 +1,11 @@
+    ✓ imagem licenciada: moldura na proporção do arquivo e rótulo acessível da alt (7 ms)
+    ✓ imagem sem alt passada usa a alt do cadastro; sem nenhuma, sai da árvore de acessibilidade (1 ms)
+    ✓ diagrama: desenha pelo registro, na proporção dele, com a alt do diagrama quando não vem alt (4 ms)
+    ✕ diagrama em laço fica parado no quadro de pôster mesmo com movimento ligado: os alvos de toque não acompanham movimento (95 ms)
+    ✓ diagrama com alt passada: a alt passada vale (2 ms)
+    ✓ sem figura: avisa "Imagem indisponível" e não chama children (1 ms)
+    ✓ children recebe o tamanho medido em pontos e fica por cima da figura (4 ms)
+    Expected length: 0
+    Received length: 4
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}]
+Tests:       1 failed, 6 passed, 7 total
