@@ -4,9 +4,12 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { renderRtgMaestroFlows } from '../qa/generate-rtg-maestro.mjs';
+import appContract from './load-app-contract.cjs';
 import { renderRtgBatches } from './build-rtg-batches.mjs';
 import { TYPES, lintUnit } from './rtg-lesson-lint.mjs';
 
+const { WIDE_ACTIVITY_FAMILIES } = appContract.loadAppContract('features/student-checkpoints/EditorialWideContract.ts');
+const { FAMILY_LABEL } = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const doc = JSON.parse(await readFile(new URL('./fixtures/unidade-formatos.json', import.meta.url), 'utf8'));
 /** `comparison` precisa de imagem registrada; o roteiro dele é coberto pelas aulas reais em generate-rtg-maestro.test.mjs. */
 const NEEDS_IMAGE = ['comparison'];
@@ -14,6 +17,13 @@ const usedTypes = () => new Set(doc.lessons.flatMap(lesson => lesson.interaction
 
 test('a unidade sintética passa no verificador, sem nenhum erro', () => {
   assert.deepEqual(lintUnit(doc), []);
+});
+
+test('todo tipo aceito pelo verificador está em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL', () => {
+  for (const type of TYPES) {
+    assert.ok(WIDE_ACTIVITY_FAMILIES.includes(type), `${type} falta em WIDE_ACTIVITY_FAMILIES`);
+    assert.ok(Object.hasOwn(FAMILY_LABEL, type), `${type} falta em FAMILY_LABEL`);
+  }
 });
 
 test('a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem', () => {

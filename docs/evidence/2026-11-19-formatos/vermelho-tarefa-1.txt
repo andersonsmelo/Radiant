@@ -44,3 +44,37 @@ Tests:       1 failed, 20 passed, 21 total
 Snapshots:   0 total
 Time:        1.28 s, estimated 2 s
 Ran all test suites matching /src\/features\/lesson-flow\/renderers\/interactionFamilies.contract.test.ts/i.
+
+## Rodada 1: sem o case 'multi-select' de feedbackFor.ts
+FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts (13.954 s)
+  famílias de interação
+    ✓ só os tipos de PENDING_FAMILIES nascem pendentes (2 ms)
+    ✓ FEEDBACK_IS_SPECIFIC e FEEDBACK_IS_GENERIC cobrem exatamente os tipos completos
+    ✓ a isenção de resposta em texto é exatamente esta
+    ✓ multiple-choice: tela, validação, acerto, erro e retornos (2 ms)
+    ✓ hotspot: tela, validação, acerto, erro e retornos
+    ✓ comparison: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ matching: tela, validação, acerto, erro e retornos (9 ms)
+    ✓ ordering: tela, validação, acerto, erro e retornos (2 ms)
+    ✓ bench: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ case-decision: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ cloze: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ true-false: tela, validação, acerto, erro e retornos (1 ms)
+    ✓ categorize: tela, validação, acerto, erro e retornos (1 ms)
+    ✕ multi-select: tela, validação, acerto, erro e retornos (1 ms)
+  ● famílias de interação › multi-select: tela, validação, acerto, erro e retornos
+    expect(received).not.toBe(expected) // Object.is equality
+    Expected: not "Ainda não, releia o enunciado."
+      66 |         const feedback = feedbackFor(interaction, wrongValue, false);
+      67 |         expect(feedback.trim()).not.toBe('');
+    > 68 |         if (FEEDBACK_IS_SPECIFIC.includes(type)) expect(feedback).not.toBe(interaction.feedback.incorrect);
+         |                                                                       ^
+      69 |         else expect(feedback).toBe(interaction.feedback.incorrect);
+      70 |         if (!WITHOUT_ANSWER_TEXT.includes(type)) expect(correctAnswerText(interaction)?.trim()).toBeTruthy();
+      71 |     });
+      at toBe (src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts:68:71)
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 13 passed, 14 total
+Snapshots:   0 total
+Time:        15.834 s
+Ran all test suites matching /src\/features\/lesson-flow\/renderers\/interactionFamilies.contract.test.ts/i.

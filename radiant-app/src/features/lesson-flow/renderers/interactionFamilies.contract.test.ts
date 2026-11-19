@@ -6,8 +6,6 @@
 import { INTERACTION_FAMILY_FIXTURES } from '../../../test/fixtures/interactionFamilyFixtures';
 import { INTERACTION_TYPES, validateLearningActivity } from '../../../types/learningActivity';
 import type { InteractionType, LearningActivityV2 } from '../../../types/learningActivity';
-import { FAMILY_LABEL } from '../../student-checkpoints/batches/rtgBatchFactory';
-import { WIDE_ACTIVITY_FAMILIES } from '../../student-checkpoints/EditorialWideContract';
 import { correctAnswerText } from '../screens/LessonFlowScreen';
 import { feedbackFor } from '../services/feedbackFor';
 import { REGISTERED_INTERACTION_TYPES } from './ActivityRendererRegistry';
@@ -15,12 +13,13 @@ import { isCompleteInteractionValue, isCorrectInteractionValue } from './Interac
 
 /** Sem exemplo completo ainda. A tarefa 9 esvazia esta lista. */
 const PENDING_FAMILIES: readonly InteractionType[] = ['parameter-lab', 'risk-hunt'];
-/** Os tipos que a aula-fonte (`TYPES` de rtg-lesson-lint.mjs) aceita hoje; as próximas tarefas ampliam. */
-const SOURCE_FAMILIES: readonly InteractionType[] = [
-    'multiple-choice', 'case-decision', 'ordering', 'matching', 'comparison', 'cloze', 'true-false', 'categorize', 'multi-select',
-];
 /** Sem resposta curta e única: a bancada tem o retorno autoral, e a categorização mostra o grupo certo em cada ficha (ver `correctAnswerText`). */
 const WITHOUT_ANSWER_TEXT: readonly InteractionType[] = ['bench', 'categorize'];
+
+/** Os tipos com retorno específico em `feedbackFor`; o `wrongValue` deles precisa produzir texto diferente do retorno autoral. */
+const FEEDBACK_IS_SPECIFIC: readonly InteractionType[] = ['bench', 'multiple-choice', 'comparison', 'case-decision', 'multi-select'];
+/** Os que caem no `default` de `feedbackFor` (retorno autoral de erro). Tipo novo com ramo próprio sai daqui. */
+const FEEDBACK_IS_GENERIC: readonly InteractionType[] = ['hotspot', 'matching', 'ordering', 'cloze', 'true-false', 'categorize'];
 
 const complete = INTERACTION_TYPES.filter(type => !PENDING_FAMILIES.includes(type));
 
@@ -31,6 +30,14 @@ describe('famílias de interação', () => {
     it('só os tipos de PENDING_FAMILIES nascem pendentes', () => {
         const pending = INTERACTION_TYPES.filter(type => INTERACTION_FAMILY_FIXTURES[type] === 'pending');
         expect(pending).toEqual(PENDING_FAMILIES);
+    });
+
+    it('FEEDBACK_IS_SPECIFIC e FEEDBACK_IS_GENERIC cobrem exatamente os tipos completos', () => {
+        expect([...FEEDBACK_IS_SPECIFIC, ...FEEDBACK_IS_GENERIC].sort()).toEqual([...complete].sort());
+    });
+
+    it('a isenção de resposta em texto é exatamente esta', () => {
+        expect(WITHOUT_ANSWER_TEXT).toEqual(['bench', 'categorize']);
     });
 
     it.each(complete)('%s: tela, validação, acerto, erro e retornos', type => {
@@ -56,12 +63,11 @@ describe('famílias de interação', () => {
         expect(isCompleteInteractionValue(interaction, wrongValue)).toBe(true);
         expect(isCorrectInteractionValue(interaction, wrongValue)).toBe(false);
 
-        expect(feedbackFor(interaction, wrongValue, false).trim()).not.toBe('');
+        const feedback = feedbackFor(interaction, wrongValue, false);
+        expect(feedback.trim()).not.toBe('');
+        if (FEEDBACK_IS_SPECIFIC.includes(type)) expect(feedback).not.toBe(interaction.feedback.incorrect);
+        else expect(feedback).toBe(interaction.feedback.incorrect);
         if (!WITHOUT_ANSWER_TEXT.includes(type)) expect(correctAnswerText(interaction)?.trim()).toBeTruthy();
     });
 
-    it.each(SOURCE_FAMILIES)('%s: entra em WIDE_ACTIVITY_FAMILIES e em FAMILY_LABEL', type => {
-        expect(WIDE_ACTIVITY_FAMILIES).toContain(type);
-        expect(FAMILY_LABEL).toHaveProperty([type]);
-    });
 });
