@@ -301,6 +301,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Mamografia e densitometria."
     }
   },
+  "batch:rtg-2026:m30": {
+    "slug": "rtg-2026-m30",
+    "title": "Densitometria óssea e composição corporal",
+    "description": "Abre o método da densitometria: os dois níveis de energia, as regiões medidas, a posição que se repete, o que estraga a medida, o exame de corpo inteiro e a comparação entre exames, sem interpretar resultado.",
+    "unitTitle": "Densitometria óssea e composição corporal",
+    "reward": {
+      "id": "node:reward:rtg-2026:m30",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Densitometria óssea e composição corporal."
+    }
+  },
   "batch:rtg-2026:m13": {
     "slug": "rtg-2026-m13",
     "title": "Panorama de MN, RT e intervencionista",

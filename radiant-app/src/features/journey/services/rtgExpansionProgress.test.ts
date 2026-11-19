@@ -16,7 +16,7 @@ const track = (unit: string) => `track:rtg-2026:${unit}`;
 
 /** As 20 trilhas publicadas na 1.5.0, na ordem em que estavam (medido em 2026-11-13). */
 const LEGACY_1_5_0 = [
-    'm01', 'm02', 'm18', 'm03', 'm19', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm25', 'm09', 'm26', 'm10', 'm28', 'm11', 'm29', 'm12', 'm13', 'm31', 'm14', 'm32',
+    'm01', 'm02', 'm18', 'm03', 'm19', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm25', 'm09', 'm26', 'm10', 'm28', 'm11', 'm29', 'm12', 'm30', 'm13', 'm31', 'm14', 'm32',
     's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir',
 ].map(track);
 
@@ -73,7 +73,7 @@ describe('trilha ampliada da 1.6 e o progresso da 1.5.0', () => {
     // A 1.7 insere uma unidade irmã logo depois de cada unidade (fase C da trilha
     // dobrada); a lista cresce a cada irmã admitida.
     it('m15 vem depois de M03, m16 depois de M09, s-od e s-us no fim, e cada irmã logo depois da sua unidade', () => {
-        expect(ids).toEqual(['m01', 'm17', 'm02', 'm18', 'm03', 'm19', 'm15', 'm20', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm25', 'm09', 'm26', 'm16', 'm27', 'm10', 'm28', 'm11', 'm29', 'm12', 'm13', 'm31', 'm14', 'm32',
+        expect(ids).toEqual(['m01', 'm17', 'm02', 'm18', 'm03', 'm19', 'm15', 'm20', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm25', 'm09', 'm26', 'm16', 'm27', 'm10', 'm28', 'm11', 'm29', 'm12', 'm30', 'm13', 'm31', 'm14', 'm32',
             's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us'].map(track));
         expect([...insertedBefore]).toEqual([track('m02'), track('m04'), track('m10')]);
     });
