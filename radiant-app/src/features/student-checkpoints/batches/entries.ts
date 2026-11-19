@@ -279,6 +279,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Fundamentos próprios da RM."
     }
   },
+  "batch:rtg-2026:m29": {
+    "slug": "rtg-2026-m29",
+    "title": "Sequências, contraste e artefatos básicos de RM",
+    "description": "Aprofunda o que o aluno vê mudar na imagem de ressonância: as curvas de T1 e T2, os intervalos TR e TE, o brilho de cada ponderação, a supressão de gordura e três artefatos comuns, sempre com a equipe.",
+    "unitTitle": "Sequências, contraste e artefatos básicos de RM",
+    "reward": {
+      "id": "node:reward:rtg-2026:m29",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Sequências, contraste e artefatos básicos de RM."
+    }
+  },
   "batch:rtg-2026:m12": {
     "slug": "rtg-2026-m12",
     "title": "Mamografia e densitometria",
