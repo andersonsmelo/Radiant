@@ -1,0 +1,2374 @@
+{
+ "schemaVersion": 1,
+ "unit": {
+  "id": "m23",
+  "code": "M23",
+  "title": "Leitura crítica da imagem: artefatos, repetição e correção",
+  "summary": "Um roteiro de leitura de esquemas de tórax, artefatos de objeto e de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas, sem diagnosticar."
+ },
+ "sources": [
+  {
+   "id": "pmc-rejeicao-radiografia-digital",
+   "title": "Assessment of image rejection in digital radiography (levantamento com radiógrafos)",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10375339/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-lag-ghosting-painel",
+   "title": "Lag correction model and ghosting analysis for an indirect-conversion flat-panel imager",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5722609/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-tg150-detectores",
+   "title": "Evaluation of cassette-based digital radiography detectors using standardized image quality metrics: AAPM TG-150 Draft Image Detector Tests",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874089/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "radiologyinfo-torax",
+   "title": "Chest X-ray (Radiography)",
+   "publisher": "RadiologyInfo.org",
+   "url": "https://www.radiologyinfo.org/en/info/chestrad",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "aapm-tg116-indicador",
+   "title": "An exposure indicator for digital radiography: AAPM Task Group 116",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3908678/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-indices-de-exposicao",
+   "title": "Digital radiography exposure indices: A review",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4175837/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-colimacao-eletronica",
+   "title": "Electronic collimation and radiation protection in paediatric digital radiography",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3781259/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-marcador-de-lado",
+   "title": "A clinical audit of anatomical side marker use in a pediatric medical imaging department",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7685512/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-colimacao-torax-adulto",
+   "title": "Evaluation of X-ray Beam Collimation in Adult Chest Radiography",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11448963/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "applied-radiology-artefatos",
+   "title": "Artifacts and misadventures in digital radiography",
+   "publisher": "Applied Radiology",
+   "url": "https://appliedradiology.com/articles/artifacts-and-misadventures-in-digital-radiography",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "pmc-qa-detectores-cr-dr",
+   "title": "Artifacts found during quality assurance testing of computed radiography and digital radiography detectors",
+   "publisher": "PubMed Central",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3043706/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  },
+  {
+   "id": "esr-caso-tranca",
+   "title": "Cáceres' Corner Case 254 (trança sobreposta ao tórax)",
+   "publisher": "European Board of Radiology (blog myEBR)",
+   "url": "https://blog.myebr.org/2021/03/08/caceres-corner-case-254/",
+   "accessedAt": "2026-11-19",
+   "use": "factual-reference",
+   "licenseNote": "Página aberta consultada para fatos, com redação própria e sem reprodução de texto."
+  }
+ ],
+ "lessons": [
+  {
+   "id": "m23-01",
+   "code": "M23.01",
+   "title": "Um roteiro de leitura",
+   "objective": "Hoje você vai conseguir percorrer um esquema de tórax na ordem de conferência, sabendo onde olhar em cada passo.",
+   "competency": "Levar ao esquema a ordem de conferência da unidade anterior, dizendo onde, na imagem ou no sistema, cada passo se confere.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de leitura do laboratório didático",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "O esquema de tórax de hoje é um desenho para treinar o olhar. Não é imagem de paciente."
+     },
+     {
+      "speaker": "duda",
+      "text": "Eu vou direto no pulmão, que é o que chama atenção. Tem problema?"
+     },
+     {
+      "speaker": "caio",
+      "text": "É fácil pular o que está fora do pulmão. Por isso a gente lê sempre na mesma ordem."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Lembra a ordem de conferência da unidade anterior? Hoje ela vira um caminho para o olho no esquema."
+     }
+    ]
+   },
+   "concept": {
+    "title": "Cinco passos, sempre na mesma ordem",
+    "body": "Na unidade anterior, você conferiu critérios numa ordem fixa. Aqui, a mesma ordem vira um roteiro para o olho: 1) identificação e marcador de lado, nos cantos; 2) cobertura: a margem clara mostra até onde o feixe chegou, e a região pedida precisa estar inteira por dentro; 3) posição e alinhamento; 4) nitidez, granulado e artefatos, marcas que não são do corpo, procurados na área toda, e não só no pulmão; 5) índice de exposição, que fica no sistema, fora da imagem. Os esquemas desta unidade são desenhos, não imagens de paciente.",
+    "keyPoints": [
+     "A ordem é fixa: o olho não vai direto ao pulmão.",
+     "A margem clara mostra o limite do feixe.",
+     "Ler a imagem não é diagnosticar."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na unidade anterior, quando um critério técnico falhava numa imagem de treino, o que você fazia?",
+     "options": [
+      {
+       "label": "Repetia a imagem antes de avisar",
+       "correct": false,
+       "feedback": "Repetir é nova exposição, e a decisão é da equipe, depois de descrever o critério."
+      },
+      {
+       "label": "Dizia que doença a imagem sugeria",
+       "correct": false,
+       "feedback": "Interpretar a imagem não é conferir qualidade técnica, e não cabe ao estudante."
+      },
+      {
+       "label": "Nomeava o critério e levava à equipe",
+       "correct": true,
+       "feedback": "Isso: você nomeia o critério que falhou, descreve o que vê e leva à supervisão."
+      },
+      {
+       "label": "Corrigia o registro por conta própria",
+       "correct": false,
+       "feedback": "Corrigir o registro sozinho não cabe ao estudante: a falha se leva à supervisão."
+      }
+     ],
+     "help": "Lembre o que vinha depois de achar um critério que não passava.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "label",
+     "role": "practice",
+     "prompt": "Rotule as partes do esquema de tórax, tocando na ficha e no ponto.",
+     "diagramId": "radiografia-roteiro",
+     "points": [
+      {
+       "label": "Etiqueta de identificação",
+       "x": 0.77,
+       "y": 0.12,
+       "where": "no alto, à direita de quem olha, retângulo com linhas"
+      },
+      {
+       "label": "Marcador de lado",
+       "x": 0.22,
+       "y": 0.18,
+       "where": "pequeno quadrado branco, no alto à esquerda de quem olha"
+      },
+      {
+       "label": "Borda de colimação",
+       "x": 0.16,
+       "y": 0.5,
+       "where": "faixa mais clara na margem, à esquerda de quem olha"
+      },
+      {
+       "label": "Campo pulmonar",
+       "x": 0.34,
+       "y": 0.46,
+       "where": "área escura entre as costelas, à esquerda de quem olha"
+      },
+      {
+       "label": "Diafragma",
+       "x": 0.67,
+       "y": 0.71,
+       "where": "curva clara que fecha a base, à direita de quem olha"
+      }
+     ],
+     "distractors": [
+      "Eletrodo com fio"
+     ],
+     "feedbackCorrect": "Isso mesmo: marcas de identificação, limite do feixe e anatomia têm lugares diferentes no esquema.",
+     "feedbackIncorrect": "Alguma ficha está no ponto errado. Separe o que está na margem, o que é marca de identificação e o que é anatomia.",
+     "help": "Comece pelo que fica nas bordas do esquema, antes da anatomia.",
+     "sourceIds": [
+      "pmc-colimacao-eletronica",
+      "pmc-marcador-de-lado"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Ligue cada passo do roteiro ao lugar onde você o confere no esquema.",
+     "feedbackCorrect": "Isso: cada passo tem um lugar para o olho, e o índice fica fora da imagem.",
+     "feedbackIncorrect": "Retome o conceito: as marcas ficam nos cantos, o campo na margem, as marcas estranhas em toda a área e o índice no sistema.",
+     "help": "Pergunte de cada passo: ele está na imagem, na borda dela ou no sistema?",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "pmc-colimacao-eletronica",
+      "pmc-indices-de-exposicao"
+     ],
+     "pairs": [
+      {
+       "left": "Identificação e marcador de lado",
+       "right": "Etiqueta e quadrado branco, nos cantos do alto"
+      },
+      {
+       "left": "Cobertura da região pedida",
+       "right": "Margem clara e bordas da anatomia pedida"
+      },
+      {
+       "left": "Nitidez, granulado e artefatos",
+       "right": "A área toda, inclusive fora dos pulmões"
+      },
+      {
+       "left": "Índice de exposição",
+       "right": "O valor no sistema, fora da imagem"
+      }
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre ler o esquema com o roteiro.",
+     "statements": [
+      {
+       "text": "A ordem de leitura é a mesma em todo esquema, mesmo que ele pareça bom.",
+       "correct": true,
+       "feedback": "Certo: a rotina existe para não depender da primeira impressão."
+      },
+      {
+       "text": "A faixa clara nas margens do esquema faz parte do corpo do paciente.",
+       "correct": false,
+       "feedback": "Errado: a faixa clara é a parte que o feixe não atingiu, e mostra o campo usado."
+      },
+      {
+       "text": "O esquema desta aula é um desenho feito para treinar o olhar.",
+       "correct": true,
+       "feedback": "Certo: os esquemas da unidade são desenhos, e não imagens de paciente."
+      },
+      {
+       "text": "Seguir o roteiro inclui dizer que doença a imagem sugere.",
+       "correct": false,
+       "feedback": "Errado: qualidade técnica não é diagnóstico, e a interpretação é de quem tem essa formação."
+      }
+     ],
+     "feedbackCorrect": "Você separou a leitura técnica do esquema da interpretação.",
+     "feedbackIncorrect": "Releia o conceito: a rotina é técnica, e a faixa clara mostra o campo, não o corpo.",
+     "help": "Pense no que a rotina confere e no que ela não faz.",
+     "sourceIds": [
+      "pmc-colimacao-eletronica",
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "conversation",
+     "role": "transfer",
+     "speaker": "duda",
+     "prompt": "Duda abriu o esquema direto no pulmão. Ajude-a a voltar ao roteiro.",
+     "turns": [
+      {
+       "line": "Fui direto no pulmão e vi um objeto no meio. Por onde eu recomeço?",
+       "options": [
+        {
+         "label": "Pela etiqueta e pelo marcador, e sigo a ordem até o índice.",
+         "correct": true,
+         "reply": "Tá, volto ao começo da imagem e vou descendo na ordem."
+        },
+        {
+         "label": "Pelo objeto, porque é o que está mais visível na imagem.",
+         "correct": false,
+         "reply": "Ok, então eu fico com o objeto e depois vejo o resto."
+        },
+        {
+         "label": "Pelo diafragma, porque ele mostra a respiração, e só depois o resto.",
+         "correct": false,
+         "reply": "Entendi, começo pela respiração então."
+        }
+       ]
+      },
+      {
+       "line": "E o que eu digo ao Caio se achar algo estranho no passo dos artefatos?",
+       "options": [
+        {
+         "label": "Apago a marca no software, para não atrapalhar.",
+         "correct": false,
+         "reply": "Tá, apago e a imagem fica limpa."
+        },
+        {
+         "label": "Digo que doença o paciente deve ter pelo que apareceu.",
+         "correct": false,
+         "reply": "Hum, achei que o Caio quisesse saber isso."
+        },
+        {
+         "label": "Descrevo a marca e onde está, e levo à equipe.",
+         "correct": true,
+         "reply": "Então eu vou descrever bem e levar pra ele."
+        }
+       ]
+      }
+     ],
+     "feedbackCorrect": "Você levou a leitura de volta à ordem e deixou a decisão com a equipe.",
+     "feedbackIncorrect": "Reveja: a leitura recomeça na primeira conferência, e a marca estranha se descreve e se leva à equipe.",
+     "help": "Pense no ponto de partida do roteiro e em quem decide o que fazer com a marca.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "pmc-colimacao-eletronica"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você percorre um esquema de tórax na ordem de conferência, sabe onde olhar em cada passo e que a margem clara mostra o campo. Você descreve o que vê, sem diagnosticar.",
+    "line": {
+     "speaker": "lia",
+     "text": "Quem lê sempre na mesma ordem não esquece nenhum passo. A pressa é que faz a gente pular."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Na rotina desta aula, que pergunta orienta o passo da cobertura?",
+     "options": [
+      {
+       "label": "A região pedida está inteira no campo?",
+       "correct": true,
+       "feedback": "Isso: cobertura confere se a região pedida entrou por completo no campo."
+      },
+      {
+       "label": "O paciente está alinhado, sem girar?",
+       "correct": false,
+       "feedback": "Essa pergunta é do passo da posição e do alinhamento."
+      },
+      {
+       "label": "A imagem tem granulado em excesso?",
+       "correct": false,
+       "feedback": "Granulado é do quarto passo, junto com nitidez e artefatos."
+      },
+      {
+       "label": "O índice do sistema está na faixa?",
+       "correct": false,
+       "feedback": "O índice é o último passo, e se confere no sistema."
+      }
+     ],
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "pmc-colimacao-eletronica"
+     ]
+    },
+    {
+     "prompt": "Duda percorreu o esquema inteiro e achou tudo certo, mas não abriu o valor do sistema. Que passo ficou faltando?",
+     "options": [
+      {
+       "label": "A identificação e o marcador",
+       "correct": false,
+       "feedback": "Esses estão nos cantos da imagem, e Duda já os percorreu."
+      },
+      {
+       "label": "A cobertura da região pedida",
+       "correct": false,
+       "feedback": "A cobertura se confere na margem da imagem, que Duda já viu."
+      },
+      {
+       "label": "A procura de artefatos",
+       "correct": false,
+       "feedback": "Os artefatos estão na imagem, e Duda já a percorreu toda."
+      },
+      {
+       "label": "O índice de exposição",
+       "correct": true,
+       "feedback": "Isso: o índice é o último passo e fica no sistema, fora da imagem."
+      }
+     ],
+     "sourceIds": [
+      "pmc-indices-de-exposicao",
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: o primeiro passo da leitura confere as marcas de...",
+     "item": {
+      "prompt": "Qual passo abre a leitura de um esquema nesta rotina?",
+      "options": [
+       {
+        "label": "Índice de exposição do sistema",
+        "correct": false,
+        "feedback": "O índice é o último passo, conferido fora da imagem."
+       },
+       {
+        "label": "Identificação e marcador de lado",
+        "correct": true,
+        "feedback": "Isso: as marcas da imagem vêm antes de qualquer anatomia."
+       },
+       {
+        "label": "Artefatos de fora do corpo",
+        "correct": false,
+        "feedback": "Os artefatos entram no quarto passo, com nitidez e granulado."
+       },
+       {
+        "label": "Posição e alinhamento do paciente",
+        "correct": false,
+        "feedback": "A posição é o terceiro passo, depois da cobertura."
+       }
+      ],
+      "sourceIds": [
+       "pmc-rejeicao-radiografia-digital",
+       "pmc-marcador-de-lado"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "No plantão de treino, chega um esquema de joelho, e não de tórax. O roteiro desta aula vale para ele?",
+      "options": [
+       {
+        "label": "Não, o roteiro é só para tórax",
+        "correct": false,
+        "feedback": "Os passos não dependem da região: identificação, campo e marcas valem em toda imagem."
+       },
+       {
+        "label": "Só a parte dos artefatos",
+        "correct": false,
+        "feedback": "Pular os outros passos é o que a rotina evita, em qualquer região."
+       },
+       {
+        "label": "Só se o joelho parecer ruim",
+        "correct": false,
+        "feedback": "A rotina não depende da primeira impressão: vale também na imagem que parece boa."
+       },
+       {
+        "label": "Sim, na mesma ordem",
+        "correct": true,
+        "feedback": "Isso: a mesma ordem vale para qualquer região, mudando só a anatomia pedida."
+       }
+      ],
+      "sourceIds": [
+       "pmc-rejeicao-radiografia-digital"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m23-02",
+   "code": "M23.02",
+   "title": "O que não é do paciente",
+   "objective": "Hoje você vai conseguir achar, num esquema, os objetos de fora do corpo e dizer o que se faz antes da exposição.",
+   "competency": "Achar no esquema os objetos de fora do corpo e descrever a origem provável.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de exame, esquema na tela",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Neste esquema tem muita coisa que não parece costela. Como eu sei o que é do corpo?"
+     },
+     {
+      "speaker": "caio",
+      "text": "O corpo tem forma e lugar que você já estudou. O que não segue isso veio de fora."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Então a pergunta para cada marca é: isso é do paciente, ou veio de fora?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Marcas que vieram de fora",
+    "body": "Artefato é uma marca na imagem que não corresponde ao corpo do paciente. Objetos de fora do corpo estão entre os artefatos citados como causa de repetição. Joias, objetos de metal e roupas que atrapalhem a imagem saem antes da exposição. Uma trança de cabelo sobre o tórax pode imitar uma sombra do próprio pulmão. Um fio ligado ao paciente, como o de um eletrodo, ou o cabelo sobre o campo, você descreve e leva à equipe, que decide como lidar. No esquema, diga onde está a marca e de onde ela provavelmente vem.",
+    "keyPoints": [
+     "Artefato: marca que não corresponde ao corpo.",
+     "Adorno e roupa com metal saem antes da exposição.",
+     "Fio ou cabelo sobre o campo: descrever e levar à equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior, qual passo do roteiro procura marcas que não são do corpo?",
+     "options": [
+      {
+       "label": "Os artefatos, o quarto passo",
+       "correct": true,
+       "feedback": "Isso: o quarto passo procura, na área toda, o que não pertence ao corpo."
+      },
+      {
+       "label": "A cobertura, o segundo passo",
+       "correct": false,
+       "feedback": "A cobertura confere se a região pedida está inteira no campo, e não marcas de fora."
+      },
+      {
+       "label": "A posição, o terceiro passo",
+       "correct": false,
+       "feedback": "A posição trata do alinhamento do paciente, e não de objetos."
+      },
+      {
+       "label": "O índice do sistema, o último",
+       "correct": false,
+       "feedback": "O índice é um valor do sistema, fora da imagem, e não uma marca nela."
+      }
+     ],
+     "help": "Lembre qual passo fecha a rotina.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "risk-hunt",
+     "role": "practice",
+     "prompt": "Toque em todas as marcas do esquema que vieram de fora do corpo do paciente.",
+     "diagramId": "artefatos-de-objeto",
+     "regions": [
+      {
+       "label": "Colar com pingente",
+       "x": 0.428,
+       "y": 0.058,
+       "width": 0.144,
+       "height": 0.25,
+       "risk": true,
+       "feedback": "O colar com pingente é adorno de metal sobre o campo: a sombra não é do corpo, e o preparo pede que joias saiam antes."
+      },
+      {
+       "label": "Clavícula",
+       "x": 0.606,
+       "y": 0.167,
+       "width": 0.125,
+       "height": 0.1,
+       "risk": false,
+       "feedback": "A clavícula é osso do paciente: a barra clara que cruza o alto do tórax faz parte do corpo."
+      },
+      {
+       "label": "Trança de cabelo",
+       "x": 0.263,
+       "y": 0.013,
+       "width": 0.113,
+       "height": 0.375,
+       "risk": true,
+       "feedback": "A trança desce sobre o ombro e o ápice, no lado direito do paciente: é cabelo, de fora do corpo, e você descreve onde ela está."
+      },
+      {
+       "label": "Botão de roupa",
+       "x": 0.279,
+       "y": 0.46,
+       "width": 0.08,
+       "height": 0.08,
+       "risk": true,
+       "feedback": "O botão de quatro furos, sobre o pulmão do lado direito do paciente, é de roupa: peça de fora do corpo que deixou sombra."
+      },
+      {
+       "label": "Coração",
+       "x": 0.453,
+       "y": 0.6,
+       "width": 0.219,
+       "height": 0.209,
+       "risk": false,
+       "feedback": "O coração é do paciente: a sombra grande no centro, inclinada para o lado esquerdo do paciente, faz parte do corpo."
+      },
+      {
+       "label": "Eletrodo com fio",
+       "x": 0.697,
+       "y": 0.45,
+       "width": 0.081,
+       "height": 0.083,
+       "risk": true,
+       "feedback": "O eletrodo com fio, no lado esquerdo do paciente, é aparelho ligado a ele: fica de fora do corpo, e você descreve e leva à equipe."
+      }
+     ],
+     "feedbackCorrect": "Isso mesmo: você achou as quatro marcas de fora e deixou de lado o que é do corpo.",
+     "feedbackIncorrect": "Alguma marca ficou de fora, ou uma estrutura do corpo foi marcada. Pergunte de cada uma: é do paciente ou veio de fora?",
+     "help": "Compare cada marca com as estruturas do corpo que você conhece: osso e coração têm forma e lugar certos.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "radiologyinfo-torax",
+      "esr-caso-tranca"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "categorize",
+     "role": "practice",
+     "prompt": "Classifique cada marca pela origem provável.",
+     "categories": [
+      "Roupa ou adorno",
+      "Aparelho ligado ao paciente"
+     ],
+     "items": [
+      {
+       "label": "Colar com pingente",
+       "category": "Roupa ou adorno"
+      },
+      {
+       "label": "Botão de quatro furos",
+       "category": "Roupa ou adorno"
+      },
+      {
+       "label": "Brinco de argola",
+       "category": "Roupa ou adorno"
+      },
+      {
+       "label": "Eletrodo com fio",
+       "category": "Aparelho ligado ao paciente"
+      },
+      {
+       "label": "Cabo de monitor",
+       "category": "Aparelho ligado ao paciente"
+      },
+      {
+       "label": "Sensor de dedo com cabo",
+       "category": "Aparelho ligado ao paciente"
+      }
+     ],
+     "feedbackCorrect": "Você separou o que o paciente veste ou usa do que está ligado a ele por fio.",
+     "feedbackIncorrect": "Pergunte de cada marca: o paciente a veste ou a usa, ou ela está ligada a ele por um fio ou cabo?",
+     "help": "Pense em quem coloca cada objeto e se ele tem fio.",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "true-false",
+     "role": "safety",
+     "prompt": "Julgue cada afirmação sobre objetos de fora no esquema.",
+     "statements": [
+      {
+       "text": "Colar, botão com metal e outros adornos podem deixar sombra sobre o campo.",
+       "correct": true,
+       "feedback": "Certo: joias, metal e roupa que atrapalham a imagem saem antes da exposição."
+      },
+      {
+       "text": "Ao ver um objeto na imagem, o estudante decide se ele esconde algo do paciente.",
+       "correct": false,
+       "feedback": "Errado: ler o que a imagem esconde é interpretação, e a decisão é da equipe."
+      },
+      {
+       "text": "Ao achar um objeto de fora, você descreve onde ele está e de onde provavelmente vem.",
+       "correct": true,
+       "feedback": "Certo: posição e origem provável são o que você leva à equipe."
+      },
+      {
+       "text": "Um fio ligado ao paciente é puxado pelo estudante antes de expor.",
+       "correct": false,
+       "feedback": "Errado: o fio é do cuidado ao paciente. Você avisa a equipe, que decide como lidar."
+      }
+     ],
+     "feedbackCorrect": "Você separou descrever de decidir e não mexeu no que está ligado ao paciente.",
+     "feedbackIncorrect": "Releia o conceito: adorno e roupa saem antes, e fio ou cabelo você descreve e leva à equipe.",
+     "help": "Pense no que cabe ao estudante diante de cada objeto.",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "pmc-rejeicao-radiografia-digital"
+     ],
+     "criticalSafety": true
+    },
+    {
+     "id": "i5",
+     "type": "conversation",
+     "role": "transfer",
+     "speaker": "paciente",
+     "prompt": "Dona Marta será examinada. Conduza a conversa antes da exposição.",
+     "turns": [
+      {
+       "line": "Posso ficar com o meu colar? É de família, nunca tiro.",
+       "options": [
+        {
+         "label": "Pode ficar, a sombra a gente vê depois na imagem.",
+         "correct": false,
+         "reply": "Que bom, fico mais tranquila então."
+        },
+        {
+         "label": "Peço que o tire antes e guardo num lugar seguro.",
+         "correct": true,
+         "reply": "Ah, tudo bem. Guarde direitinho, por favor."
+        },
+        {
+         "label": "Sem o colar fora, o exame não sai e encerro aqui.",
+         "correct": false,
+         "reply": "Nossa, não precisava falar assim."
+        }
+       ]
+      },
+      {
+       "line": "E esse fio do monitor no meu peito? Posso puxar?",
+       "options": [
+        {
+         "label": "Pode tirar o fio, é só um fio e ele sai fácil.",
+         "correct": false,
+         "reply": "Então eu puxo agora mesmo."
+        },
+        {
+         "label": "Prendo o fio atrás do seu pescoço e depois sigo.",
+         "correct": false,
+         "reply": "Ok, pode prender onde achar melhor."
+        },
+        {
+         "label": "Não mexa: a equipe resolve o fio antes.",
+         "correct": true,
+         "reply": "Combinado, espero o pessoal chegar."
+        }
+       ]
+      }
+     ],
+     "feedbackCorrect": "Você pediu o adorno de volta antes da exposição e deixou o fio com a equipe.",
+     "feedbackIncorrect": "Reveja: adorno sai antes da exposição, e o fio ligado ao paciente é assunto da equipe.",
+     "help": "Pense no que o preparo pede e no que é cuidado da equipe.",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "pmc-rejeicao-radiografia-digital"
+     ],
+     "name": "Dona Marta"
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você acha no esquema o colar, o botão, a trança e o eletrodo, separa o que é do corpo do que veio de fora e leva à equipe o que não é seu decidir.",
+    "line": {
+     "speaker": "caio",
+     "text": "Descrever bem a marca já é metade do trabalho. O resto é com a equipe."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "No esquema, uma fileira de elos claros desce do alto, pelo ombro, até o ápice de um pulmão, sem seguir nenhum osso. Qual é a origem provável?",
+     "options": [
+      {
+       "label": "Uma costela do paciente",
+       "correct": false,
+       "feedback": "Costela é osso em arco que cruza o tórax de lado, e não desce do alto em elos."
+      },
+      {
+       "label": "Uma trança de cabelo",
+       "correct": true,
+       "feedback": "Isso: a forma em elos que vem do alto e passa do pescoço combina com uma trança, de fora do corpo."
+      },
+      {
+       "label": "Uma linha de pixels com defeito",
+       "correct": false,
+       "feedback": "Defeito do detector forma linha reta e fina, e não uma fileira de elos."
+      },
+      {
+       "label": "A margem clara da colimação",
+       "correct": false,
+       "feedback": "A margem de colimação é uma faixa regular na borda, e não elos sobre o pulmão."
+      }
+     ],
+     "sourceIds": [
+      "esr-caso-tranca",
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "prompt": "Uma sombra redonda de quatro furos aparece sobre o pulmão do esquema. Qual é a origem provável?",
+     "options": [
+      {
+       "label": "Uma costela do paciente",
+       "correct": false,
+       "feedback": "Costela é osso e tem forma alongada e curva, sem furos."
+      },
+      {
+       "label": "Uma falha de pixels do detector",
+       "correct": false,
+       "feedback": "Falha de pixels do detector deixa linhas, e não um disco com furos."
+      },
+      {
+       "label": "O contorno de uma exposição anterior",
+       "correct": false,
+       "feedback": "Imagem residual reproduz a forma de uma exposição anterior, de modo fraco, e não um disco com furos."
+      },
+      {
+       "label": "Um botão de roupa",
+       "correct": true,
+       "feedback": "Isso: a forma redonda com furos é a de um botão, peça de roupa de fora do corpo."
+      }
+     ],
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: um colar sobre o campo é um objeto que veio de fora do...",
+     "item": {
+      "prompt": "Um colar aparece sobre o campo do esquema. Que tipo de artefato é?",
+      "options": [
+       {
+        "label": "Marca de falha do detector",
+        "correct": false,
+        "feedback": "Marca do detector tem forma de linha ou de pixels, e não de colar."
+       },
+       {
+        "label": "Estrutura do corpo do paciente",
+        "correct": false,
+        "feedback": "O colar não é do corpo, e sim adorno de metal."
+       },
+       {
+        "label": "Objeto de fora do paciente",
+        "correct": true,
+        "feedback": "Isso: o colar é adorno, de fora do corpo."
+       },
+       {
+        "label": "Corte de grade na lateral",
+        "correct": false,
+        "feedback": "Corte de grade deixa faixas na lateral, e não a forma de um colar."
+       }
+      ],
+      "sourceIds": [
+       "radiologyinfo-torax",
+       "pmc-rejeicao-radiografia-digital"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "No esquema, um disco com um fio comprido aparece sobre o peito, do lado esquerdo do paciente. O que você diz à equipe?",
+      "options": [
+       {
+        "label": "Há um eletrodo com fio sobre o lado esquerdo do paciente",
+        "correct": true,
+        "feedback": "Isso: posição e provável origem, sem decidir o que fazer."
+       },
+       {
+        "label": "O fio é do coração e faz parte do exame de hoje",
+        "correct": false,
+        "feedback": "O fio é de um aparelho, e dizer o que ele mede é interpretação."
+       },
+       {
+        "label": "Tirei o eletrodo, pode seguir com a exposição",
+        "correct": false,
+        "feedback": "O eletrodo está ligado ao paciente, e quem decide é a equipe."
+       },
+       {
+        "label": "Não é nada, porque o fio é fino",
+        "correct": false,
+        "feedback": "Marca fina também se descreve e se leva à equipe."
+       }
+      ],
+      "sourceIds": [
+       "pmc-rejeicao-radiografia-digital"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m23-03",
+   "code": "M23.03",
+   "title": "Marcas do equipamento",
+   "objective": "Hoje você vai conseguir distinguir, num esquema, linha reta, faixas laterais e contorno residual, e levar cada marca à equipe.",
+   "competency": "Distinguir marcas que vêm do detector ou de exposição anterior e levá-las à equipe, sem mexer no equipamento.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de comando",
+    "lines": [
+     {
+      "speaker": "duda",
+      "text": "Tem uma linha reta cruzando o esquema de cima a baixo. Isso é do paciente?"
+     },
+     {
+      "speaker": "caio",
+      "text": "Do paciente não é. Esta marca vem do equipamento. Mas quem trata o detector não é você."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Três marcas aparecem no esquema de hoje. Qual é qual, e o que você faz com elas?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Linha, faixas e contorno",
+    "body": "Algumas marcas vêm do equipamento. Uma linha fina e reta de alto a baixo, que não segue nenhuma estrutura do corpo, pode vir de uma linha de pixels do detector com defeito: no esquema, a linha morta. Uma grade antidifusora desalinhada barra parte da radiação que iria ao detector; no esquema, esse corte de grade aparece como faixas mais claras numa lateral, e a causa quem investiga é a equipe. A imagem residual é o sinal de uma exposição anterior que reaparece numa imagem seguinte. Você descreve a marca e a posição e leva à equipe. Calibrar, consertar ou abrir o detector cabe à equipe responsável e à assistência técnica.",
+    "keyPoints": [
+     "Linha fina e reta: pode ser defeito do detector.",
+     "Imagem residual: sinal de exposição anterior.",
+     "Descrever e avisar; nunca abrir ou recalibrar o detector."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior, o que o estudante fazia ao achar um objeto de fora no esquema?",
+     "options": [
+      {
+       "label": "Descrevia onde estava e levava à equipe",
+       "correct": true,
+       "feedback": "Isso: descrever posição e origem provável e levar à equipe vale para toda marca."
+      },
+      {
+       "label": "Apagava o objeto no software",
+       "correct": false,
+       "feedback": "Apagar a marca altera a imagem sem registro, e isso não é do estudante."
+      },
+      {
+       "label": "Dizia que doença a marca indicava",
+       "correct": false,
+       "feedback": "Doença é interpretação, e fica fora do trabalho do estudante."
+      },
+      {
+       "label": "Repetia a exposição na hora",
+       "correct": false,
+       "feedback": "Repetir é nova exposição, e a decisão é da equipe."
+      }
+     ],
+     "help": "Lembre o que a regra da aula anterior pedia diante de uma marca.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "label",
+     "role": "practice",
+     "prompt": "Rotule as marcas do esquema, tocando na ficha e no ponto.",
+     "diagramId": "artefatos-do-detector",
+     "points": [
+      {
+       "label": "Linha morta",
+       "x": 0.78,
+       "y": 0.167,
+       "where": "no alto, linha fina e reta, à direita de quem olha"
+      },
+      {
+       "label": "Corte de grade",
+       "x": 0.2,
+       "y": 0.5,
+       "where": "bandas verticais claras na margem, à esquerda de quem olha"
+      },
+      {
+       "label": "Imagem residual",
+       "x": 0.668,
+       "y": 0.825,
+       "where": "contorno fraco de uma mão, embaixo, à direita de quem olha"
+      },
+      {
+       "label": "Campo pulmonar",
+       "x": 0.67,
+       "y": 0.417,
+       "where": "área escura entre costelas, à direita de quem olha"
+      }
+     ],
+     "distractors": [
+      "Marcador de lado"
+     ],
+     "feedbackCorrect": "Isso mesmo: linha, faixas laterais e contorno fraco têm formas e posições diferentes.",
+     "feedbackIncorrect": "Alguma ficha está no ponto errado. Compare a forma de cada marca: linha fina, bandas na lateral e um contorno fraco.",
+     "help": "Comece pela marca que cruza a imagem como uma linha.",
+     "sourceIds": [
+      "pmc-lag-ghosting-painel",
+      "pmc-qa-detectores-cr-dr",
+      "applied-radiology-artefatos"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Ligue cada marca do esquema à origem provável.",
+     "pairs": [
+      {
+       "left": "Linha fina e reta de alto a baixo",
+       "right": "Detector: linha de pixels com defeito"
+      },
+      {
+       "left": "Contorno fraco de uma mão, embaixo",
+       "right": "Exposição anterior que reaparece"
+      },
+      {
+       "left": "Bandas claras numa lateral",
+       "right": "Corte de grade, causa a investigar"
+      },
+      {
+       "left": "Corrente com pingente sobre o pescoço",
+       "right": "Objeto de fora do paciente"
+      }
+     ],
+     "feedbackCorrect": "Isso: três marcas vêm do equipamento ou de exposição anterior, e uma vem de objeto de fora.",
+     "feedbackIncorrect": "Compare cada forma: linha reta é do detector, contorno fraco é de exposição anterior, e o colar vem de fora.",
+     "help": "Pergunte de cada marca se ela cruza a imagem, se repete uma forma anterior ou se tem a forma de um objeto.",
+     "sourceIds": [
+      "pmc-qa-detectores-cr-dr",
+      "pmc-lag-ghosting-painel",
+      "applied-radiology-artefatos",
+      "radiologyinfo-torax"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "multi-select",
+     "role": "safety",
+     "criticalSafety": true,
+     "prompt": "Marque o que o estudante faz diante de uma linha reta e fina no esquema.",
+     "options": [
+      {
+       "label": "Aponta a marca e diz onde ela está na imagem",
+       "correct": true,
+       "feedback": "Certo: posição e forma são o que a equipe precisa saber."
+      },
+      {
+       "label": "Abre o painel do detector para limpar a linha",
+       "correct": false,
+       "feedback": "Abrir ou limpar o detector não cabe ao estudante: a manutenção é da equipe responsável."
+      },
+      {
+       "label": "Avisa a equipe responsável pelo equipamento",
+       "correct": true,
+       "feedback": "Certo: a equipe chama a assistência, se for o caso, e decide o que fazer."
+      },
+      {
+       "label": "Recalibra o detector até a linha sumir",
+       "correct": false,
+       "feedback": "Calibrar o detector é função da equipe técnica, e não do estudante."
+      },
+      {
+       "label": "Registra a marca como o serviço manda",
+       "correct": true,
+       "feedback": "Certo: o registro mostra que a marca se repete e ajuda a equipe a achar a causa."
+      }
+     ],
+     "feedbackCorrect": "Você descreveu, avisou e registrou, sem mexer no detector.",
+     "feedbackIncorrect": "Releia o conceito: descrever e avisar cabem ao estudante, e abrir, limpar ou recalibrar o detector, não.",
+     "help": "Separe o que você descreve e avisa do que só a equipe técnica faz.",
+     "sourceIds": [
+      "pmc-tg150-detectores",
+      "applied-radiology-artefatos",
+      "pmc-qa-detectores-cr-dr"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "conversation",
+     "role": "transfer",
+     "speaker": "duda",
+     "prompt": "Duda viu marcas em várias imagens. Ajude-a a conduzir.",
+     "turns": [
+      {
+       "line": "Três imagens seguidas com a mesma linha fina no mesmo lugar. Repito até sumir?",
+       "options": [
+        {
+         "label": "Descrevo as três e aviso a equipe.",
+         "correct": true,
+         "reply": "Ok, eu junto as três e falo com a equipe."
+        },
+        {
+         "label": "Repito mais três vezes, porque pode ser acaso.",
+         "correct": false,
+         "reply": "Então repito, mas já são seis exposições."
+        },
+        {
+         "label": "Mexo no mAs até a linha ficar menos visível.",
+         "correct": false,
+         "reply": "Tá, eu aumento o mAs e vejo no que dá."
+        }
+       ]
+      },
+      {
+       "line": "E o contorno de mão na imagem de agora? A anterior era de um punho.",
+       "options": [
+        {
+         "label": "Digo que é uma lesão na mão do paciente, já pelo contorno.",
+         "correct": false,
+         "reply": "Hum, então eu aviso o paciente da lesão."
+        },
+        {
+         "label": "Apago o contorno no software e envio a imagem assim mesmo.",
+         "correct": false,
+         "reply": "Pode ser, apago e mando."
+        },
+        {
+         "label": "Anoto que parece exposição anterior e aviso a equipe.",
+         "correct": true,
+         "reply": "Tá, anoto e aviso agora."
+        }
+       ]
+      }
+     ],
+     "feedbackCorrect": "Você descreveu as marcas e deixou a causa com a equipe, sem repetir por palpite.",
+     "feedbackIncorrect": "Reveja: marca que se repete se descreve e se leva à equipe, e o contorno parece exposição anterior.",
+     "help": "Pense no que cabe a você diante de uma marca que se repete.",
+     "sourceIds": [
+      "pmc-tg150-detectores",
+      "pmc-lag-ghosting-painel"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você diferencia linha reta, faixas laterais e contorno residual no esquema, descreve cada uma e leva à equipe, sem abrir, limpar por dentro ou recalibrar o detector.",
+    "line": {
+     "speaker": "caio",
+     "text": "Descrever e avisar. O detector é com quem cuida dele."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Num teste, o detector recebeu uma exposição muito alta de um objeto. Nas imagens seguintes, a forma desse objeto aparece fraca. Que marca é essa?",
+     "options": [
+      {
+       "label": "Corte de grade numa lateral",
+       "correct": false,
+       "feedback": "Corte de grade deixa faixas numa lateral, e não a forma de um objeto."
+      },
+      {
+       "label": "Linha de pixels com defeito",
+       "correct": false,
+       "feedback": "Defeito de pixels forma uma linha ou pontos, e não a forma de um objeto."
+      },
+      {
+       "label": "Imagem residual da exposição anterior",
+       "correct": true,
+       "feedback": "Isso: o sinal da exposição anterior reaparece, fraco, nas imagens seguintes."
+      },
+      {
+       "label": "Objeto de fora sobre o paciente",
+       "correct": false,
+       "feedback": "O objeto não está na exposição atual: a forma vem da exposição anterior."
+      }
+     ],
+     "sourceIds": [
+      "pmc-qa-detectores-cr-dr",
+      "pmc-lag-ghosting-painel"
+     ]
+    },
+    {
+     "prompt": "Uma linha fina e reta se repete nas imagens do mesmo detector. Quem trata a causa?",
+     "options": [
+      {
+       "label": "A equipe responsável, por calibração ou assistência",
+       "correct": true,
+       "feedback": "Isso: calibrar o detector e chamar a assistência cabe à equipe responsável."
+      },
+      {
+       "label": "O estudante, abrindo o painel do detector",
+       "correct": false,
+       "feedback": "Abrir o painel não cabe ao estudante."
+      },
+      {
+       "label": "O paciente, mudando de posição na imagem seguinte",
+       "correct": false,
+       "feedback": "A marca é do equipamento, e mudar a posição do paciente não a resolve."
+      },
+      {
+       "label": "O estudante, repetindo até a linha sumir",
+       "correct": false,
+       "feedback": "Repetir por palpite é nova exposição, e não trata a causa."
+      }
+     ],
+     "sourceIds": [
+      "pmc-tg150-detectores",
+      "applied-radiology-artefatos",
+      "pmc-qa-detectores-cr-dr"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: a linha fina e reta de alto a baixo, no esquema, é uma marca do...",
+     "item": {
+      "prompt": "De onde vem a linha fina e reta que cruza o esquema?",
+      "options": [
+       {
+        "label": "De uma costela do paciente",
+        "correct": false,
+        "feedback": "Costelas são curvas, e a linha é reta de alto a baixo."
+       },
+       {
+        "label": "Do detector, e não do corpo",
+        "correct": true,
+        "feedback": "Isso: a linha não corresponde a nenhuma estrutura do paciente."
+       },
+       {
+        "label": "De um colar sobre o campo",
+        "correct": false,
+        "feedback": "Colar tem forma de corrente com pingente, e não de linha reta."
+       },
+       {
+        "label": "Da respiração do paciente",
+        "correct": false,
+        "feedback": "Respiração não desenha uma linha reta em toda a altura."
+       }
+      ],
+      "sourceIds": [
+       "pmc-qa-detectores-cr-dr"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Faixas claras aparecem só numa lateral do esquema. O que você faz?",
+      "options": [
+       {
+        "label": "Digo que a causa é o paciente ter se mexido",
+        "correct": false,
+        "feedback": "Não há como afirmar essa causa, e movimento borra a imagem inteira."
+       },
+       {
+        "label": "Abro o detector para ver se a grade saiu do lugar",
+        "correct": false,
+        "feedback": "Abrir o detector não cabe ao estudante."
+       },
+       {
+        "label": "Corto a lateral na imagem e envio assim",
+        "correct": false,
+        "feedback": "Cortar a lateral esconde a marca e altera a imagem sem registro."
+       },
+       {
+        "label": "Descrevo a posição e levo à equipe, que investiga a causa",
+        "correct": true,
+        "feedback": "Isso: você descreve a marca, e a causa fica com a equipe."
+       }
+      ],
+      "sourceIds": [
+       "pmc-tg150-detectores",
+       "applied-radiology-artefatos"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m23-04",
+   "code": "M23.04",
+   "title": "Clara, escura ou ruidosa",
+   "objective": "Hoje você vai conseguir ligar pouca e muita exposição ao que se vê numa imagem digital, na bancada.",
+   "competency": "Ligar a quantidade de radiação no detector ao granulado, sem confundir com brilho.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Bancada de exposição simulada",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "No digital o processamento ajusta o brilho. A imagem sai parecida mesmo com exposições diferentes."
+     },
+     {
+      "speaker": "duda",
+      "text": "Então como eu sei se faltou radiação?"
+     },
+     {
+      "speaker": "caio",
+      "text": "Primeiro pelo que o olho pega: o granulado. Depois pelo índice do sistema. Vem testar na bancada."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Mexa só no mAs e olhe a imagem: o que muda, e o que fica igual?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Brilho é ajustado, granulado fica",
+    "body": "No digital, o processamento ajusta o brilho. A quantidade de radiação no detector define o granulado, e não a claridade: com pouca, a imagem fica mais granulada. Com radiação demais, a imagem pode parecer ótima, e é o índice de exposição do sistema que avisa. Fabricantes usam índices diferentes, e em alguns a escala sobe com a dose, em outros desce. Neste simulador, o mAs mexe no granulado e o kV, no contraste. A bancada vale só para este simulador: não define técnica de paciente, e o serviço tem a tabela e o alvo.",
+    "keyPoints": [
+     "Pouca radiação: mais granulado, e o brilho é ajustado.",
+     "Imagem lisa não prova exposição certa.",
+     "O índice de exposição varia entre fabricantes."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior, qual destas marcas vem do equipamento, e não do corpo nem de um objeto?",
+     "options": [
+      {
+       "label": "Sombra redonda com quatro furos",
+       "correct": false,
+       "feedback": "A sombra com furos é um botão, objeto de fora do corpo."
+      },
+      {
+       "label": "Pingente de um colar sobre o campo",
+       "correct": false,
+       "feedback": "O pingente é adorno, objeto de fora do corpo."
+      },
+      {
+       "label": "Costela curva do paciente",
+       "correct": false,
+       "feedback": "A costela é osso do paciente, e não uma marca do equipamento."
+      },
+      {
+       "label": "Linha fina e reta de alto a baixo",
+       "correct": true,
+       "feedback": "Isso: a linha reta vem do detector."
+      }
+     ],
+     "help": "Procure a marca que não tem forma de objeto nem de osso.",
+     "sourceIds": [
+      "pmc-tg150-detectores"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "bench",
+     "role": "practice",
+     "prompt": "Reduza o mAs até 3 ou menos e compare o granulado do fantoma com o ponto de partida, sem mexer no kV.",
+     "simulator": "exposure",
+     "mode": "explore",
+     "controls": [
+      {
+       "id": "mas",
+       "label": "Corrente-tempo",
+       "unit": "mAs",
+       "min": 1,
+       "max": 40,
+       "step": 1,
+       "initial": 10
+      }
+     ],
+     "goal": {
+      "kind": "reach",
+      "control": "mas",
+      "atMost": 3
+     },
+     "phantomLabel": "Fantoma simulado, joelho estilizado",
+     "hints": {
+      "tooLow": "Abaixo de 3 mAs o granulado fica ainda mais forte: compare com o ponto de partida.",
+      "tooHigh": "Ainda tem mAs demais: desça o controle e veja o granulado aparecer no fantoma."
+     },
+     "feedbackCorrect": "Isso: com pouco mAs a imagem fica mais granulada, e neste simulador o brilho não muda.",
+     "feedbackIncorrect": "Ainda não chegou: continue reduzindo o mAs e compare o granulado do fantoma com o do ponto de partida.",
+     "help": "Mexa devagar e olhe o fundo do fantoma: o que muda no aspecto, além do brilho?",
+     "sourceIds": [
+      "aapm-tg116-indicador",
+      "pmc-indices-de-exposicao"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "true-false",
+     "role": "practice",
+     "prompt": "Julgue cada afirmação sobre exposição na imagem digital.",
+     "statements": [
+      {
+       "text": "No digital, a radiação que chega ao detector define o granulado, e não o brilho.",
+       "correct": true,
+       "feedback": "Certo: a quantidade de radiação define o nível de ruído, e o brilho é ajustado pelo processamento."
+      },
+      {
+       "text": "Imagem lisa e bonita não prova que a exposição ficou no alvo do serviço.",
+       "correct": true,
+       "feedback": "Certo: exposição acima ou abaixo do necessário não se reconhece só pelo olho."
+      },
+      {
+       "text": "Fabricantes diferentes usam índices de exposição com escalas diferentes.",
+       "correct": true,
+       "feedback": "Certo: por isso se lê o índice do sistema em uso, com o alvo do serviço."
+      },
+      {
+       "text": "Pouca exposição deixa a imagem digital sempre mais escura, mesmo com processamento.",
+       "correct": false,
+       "feedback": "Errado: com pouca exposição aparece mais granulado, e o brilho é reajustado."
+      }
+     ],
+     "feedbackCorrect": "Você separou granulado de brilho e não tomou a imagem bonita por prova.",
+     "feedbackIncorrect": "Releia o conceito: a quantidade de radiação mexe no granulado, e o brilho é ajustado.",
+     "help": "Pergunte de cada frase se ela fala de granulado ou de brilho.",
+     "sourceIds": [
+      "aapm-tg116-indicador",
+      "pmc-indices-de-exposicao"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "cloze",
+     "role": "practice",
+     "prompt": "Complete a frase com as palavras do banco.",
+     "text": "O {{1}} de exposição avisa quando uma imagem lisa engana, e a escala dele muda conforme o {{2}}.",
+     "answers": [
+      "índice",
+      "fabricante"
+     ],
+     "distractors": [
+      "protocolo",
+      "radiologista",
+      "detector"
+     ],
+     "feedbackCorrect": "Isso: o índice avisa o que o olho não vê, e a escala depende do fabricante.",
+     "feedbackIncorrect": "Pense no valor que o sistema mostra sobre a radiação no detector e em quem define a escala dele.",
+     "help": "O que o sistema mostra além da imagem, e quem fabrica o sistema?",
+     "sourceIds": [
+      "aapm-tg116-indicador",
+      "pmc-indices-de-exposicao"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "multi-select",
+     "role": "transfer",
+     "prompt": "Duas imagens do mesmo simulador, A granulada e B lisa. Marque o que você pode afirmar.",
+     "options": [
+      {
+       "label": "A tem mais ruído que B",
+       "correct": true,
+       "feedback": "Certo: o granulado forte de A é visível a olho."
+      },
+      {
+       "label": "B está na exposição certa porque está lisa",
+       "correct": false,
+       "feedback": "Imagem lisa não prova exposição certa: o índice do sistema é que mostra."
+      },
+      {
+       "label": "O granulado de A combina com menos radiação",
+       "correct": true,
+       "feedback": "Certo: com menos radiação no detector, o ruído aumenta."
+      },
+      {
+       "label": "A está mais escura que B por causa do mAs",
+       "correct": false,
+       "feedback": "O mAs mexe no granulado, e o brilho é ajustado pelo processamento."
+      },
+      {
+       "label": "Se A for rejeitada, a equipe decide se repete",
+       "correct": true,
+       "feedback": "Certo: repetir é nova exposição, e a decisão é da equipe."
+      }
+     ],
+     "feedbackCorrect": "Você afirmou só o que as imagens sustentam e deixou a decisão com a equipe.",
+     "feedbackIncorrect": "Releia: granulado fala de radiação no detector, brilho é ajustado, e repetir é da equipe.",
+     "help": "Separe o que se vê (granulado) do que não se vê (a exposição certa).",
+     "sourceIds": [
+      "aapm-tg116-indicador",
+      "pmc-indices-de-exposicao"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você liga pouca radiação ao granulado, sabe que o brilho é ajustado no digital e confere o índice do sistema antes de confiar numa imagem lisa.",
+    "line": {
+     "speaker": "lia",
+     "text": "Imagem bonita é bom sinal, mas não é prova. O índice do sistema e o alvo do serviço confirmam."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma imagem de treino saiu lisa e bonita. Qual conferência ainda falta?",
+     "options": [
+      {
+       "label": "Nenhuma, imagem lisa já prova exposição certa",
+       "correct": false,
+       "feedback": "Imagem lisa não prova exposição certa no digital."
+      },
+      {
+       "label": "Aumentar o brilho da tela até ver granulado",
+       "correct": false,
+       "feedback": "Brilho da tela não revela a exposição usada."
+      },
+      {
+       "label": "Repetir a exposição para comparar as duas",
+       "correct": false,
+       "feedback": "Repetir é nova exposição, e não se faz por comparação."
+      },
+      {
+       "label": "Olhar o índice de exposição do sistema",
+       "correct": true,
+       "feedback": "Isso: o índice mostra a exposição que o olho não percebe."
+      }
+     ],
+     "sourceIds": [
+      "aapm-tg116-indicador",
+      "pmc-indices-de-exposicao"
+     ]
+    },
+    {
+     "prompt": "No sistema de um fabricante, o índice de exposição sobe quando a dose sobe. Em todo sistema é assim?",
+     "options": [
+      {
+       "label": "Sim, todo índice sobe com a dose",
+       "correct": false,
+       "feedback": "Há fabricantes cuja escala desce quando a dose sobe."
+      },
+      {
+       "label": "Não: o sentido da escala varia",
+       "correct": true,
+       "feedback": "Isso: algumas escalas sobem com a dose, e outras descem."
+      },
+      {
+       "label": "Sim, porque todo sistema usa o mesmo índice",
+       "correct": false,
+       "feedback": "Os fabricantes usam índices diferentes."
+      },
+      {
+       "label": "Não, porque o índice mede o brilho da tela",
+       "correct": false,
+       "feedback": "O índice estima a radiação no detector, e não o brilho da tela."
+      }
+     ],
+     "sourceIds": [
+      "pmc-indices-de-exposicao",
+      "aapm-tg116-indicador"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: com pouca radiação no detector, a imagem digital fica mais...",
+     "item": {
+      "prompt": "Com pouca radiação no detector, o que se vê primeiro na imagem digital?",
+      "options": [
+       {
+        "label": "Mais granulado",
+        "correct": true,
+        "feedback": "Isso: menos radiação no detector aumenta o ruído, e o brilho é ajustado."
+       },
+       {
+        "label": "Brilho menor, sempre",
+        "correct": false,
+        "feedback": "O brilho é ajustado pelo processamento no digital."
+       },
+       {
+        "label": "Mais contraste entre osso e partes moles",
+        "correct": false,
+        "feedback": "O contraste depende mais do kV neste simulador."
+       },
+       {
+        "label": "Uma linha fina de alto a baixo",
+        "correct": false,
+        "feedback": "Linha fina é marca do detector, e não efeito da quantidade de radiação."
+       }
+      ],
+      "sourceIds": [
+       "aapm-tg116-indicador"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Um colega diz que imagem clara quer dizer exposição alta. Como você responde?",
+      "options": [
+       {
+        "label": "Concordo, brilho maior é exposição maior",
+        "correct": false,
+        "feedback": "No digital o processamento reajusta o brilho."
+       },
+       {
+        "label": "Concordo, e já posso diminuir o kV",
+        "correct": false,
+        "feedback": "Mexer no kV não resolve a dúvida, e a técnica segue o serviço."
+       },
+       {
+        "label": "O brilho é ajustado; confira o índice do sistema",
+        "correct": true,
+        "feedback": "Isso: o brilho é ajustado, e o índice é a referência."
+       },
+       {
+        "label": "Discordo, a imagem clara tem sempre mais ruído",
+        "correct": false,
+        "feedback": "Brilho e ruído são coisas diferentes no digital."
+       }
+      ],
+      "sourceIds": [
+       "aapm-tg116-indicador",
+       "pmc-indices-de-exposicao"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m23-05",
+   "code": "M23.05",
+   "title": "Cortou ou sobrou campo",
+   "objective": "Hoje você vai conseguir ajustar o campo na bancada e reconhecer, no esquema, quando a anatomia pedida ficou cortada.",
+   "competency": "Ajustar o campo na bancada e reconhecer, no esquema, cobertura incompleta ou campo sem margem conferível.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Bancada de colimação e sala de leitura",
+    "lines": [
+     {
+      "speaker": "lia",
+      "text": "Esta imagem de treino tem uma margem clara em volta. Ela conta uma história sobre o feixe."
+     },
+     {
+      "speaker": "duda",
+      "text": "Margem clara? Eu achei que era defeito."
+     },
+     {
+      "speaker": "lia",
+      "text": "É a parte que o feixe não alcançou. Dá para ver até onde o campo foi."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Então o que muda na imagem se o campo ficar estreito demais, ou largo demais?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "A margem conta o campo",
+    "body": "A margem mais clara é a parte que o feixe não atingiu: ela mostra o campo usado. No tórax, a região pedida vai dos ápices, no alto, até abaixo das bases dos pulmões; no esquema, a base de cada pulmão termina numa curva clara, a cúpula do diafragma. Campo estreito deixa parte da região fora da imagem, e isso não se recupera depois. Campo largo expõe tecido sem necessidade. Se o sistema recorta a imagem, a margem some e o campo real não se confere mais. Na bancada, o fantoma é um joelho estilizado e o campo é um retângulo ideal no centro: vale só para este simulador.",
+    "keyPoints": [
+     "Margem clara: o campo que o feixe usou.",
+     "Tórax: dos ápices até abaixo das bases.",
+     "Sem margem, não se confere o campo real."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "No roteiro de leitura, em qual passo você confere se a região pedida está inteira no campo?",
+     "options": [
+      {
+       "label": "Na cobertura, o segundo passo",
+       "correct": true,
+       "feedback": "Isso: a cobertura confere se a região pedida entrou inteira."
+      },
+      {
+       "label": "Na posição, o terceiro passo",
+       "correct": false,
+       "feedback": "A posição trata do alinhamento do paciente."
+      },
+      {
+       "label": "No índice do sistema, o último passo",
+       "correct": false,
+       "feedback": "O índice é um valor do sistema, e não mostra o campo."
+      },
+      {
+       "label": "Nos artefatos, o quarto passo",
+       "correct": false,
+       "feedback": "Os artefatos tratam de marcas que não são do corpo."
+      }
+     ],
+     "help": "Lembre o passo que vem logo depois da identificação e do marcador.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "pmc-colimacao-eletronica"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "bench",
+     "role": "practice",
+     "prompt": "Estreite a largura do campo até sobrar pouca margem dos lados dos ossos do joelho estilizado, sem cortar a patela, o osso redondo à direita.",
+     "simulator": "collimation",
+     "mode": "explore",
+     "controls": [
+      {
+       "id": "fieldWidth",
+       "label": "Largura do campo",
+       "unit": "cm",
+       "min": 8,
+       "max": 27,
+       "step": 1,
+       "initial": 27
+      }
+     ],
+     "goal": {
+      "kind": "reach",
+      "control": "fieldWidth",
+      "atLeast": 17,
+      "atMost": 19
+     },
+     "phantomLabel": "Fantoma simulado, joelho estilizado",
+     "hints": {
+      "tooLow": "Estreitou demais: a patela, o osso redondo à direita, está saindo do campo. Abra um pouco a largura.",
+      "tooHigh": "Ainda sobra campo dos dois lados dos ossos: estreite a largura aos poucos e olhe a patela."
+     },
+     "feedbackCorrect": "Isso: com este campo, os ossos do joelho estilizado cabem e sobra pouca margem, neste simulador.",
+     "feedbackIncorrect": "Ainda não chegou: estreite aos poucos e pare quando a patela estiver quase na borda do campo.",
+     "help": "Estreite um centímetro de cada vez e olhe qual osso chega primeiro à borda do campo.",
+     "sourceIds": [
+      "pmc-colimacao-eletronica",
+      "pmc-colimacao-torax-adulto"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "hotspot",
+     "role": "practice",
+     "prompt": "Toque na região do esquema onde você confere se a base do pulmão entrou no campo.",
+     "diagramId": "radiografia-roteiro",
+     "regions": [
+      {
+       "label": "Etiqueta de identificação",
+       "x": 0.7,
+       "y": 0.067,
+       "width": 0.138,
+       "height": 0.108
+      },
+      {
+       "label": "Campo pulmonar",
+       "x": 0.244,
+       "y": 0.271,
+       "width": 0.15,
+       "height": 0.375
+      },
+      {
+       "label": "Coluna e mediastino",
+       "x": 0.453,
+       "y": 0.104,
+       "width": 0.094,
+       "height": 0.375
+      },
+      {
+       "label": "Diafragma",
+       "x": 0.544,
+       "y": 0.646,
+       "width": 0.244,
+       "height": 0.125,
+       "correct": true
+      }
+     ],
+     "feedbackCorrect": "Isso: o diafragma fecha a base do pulmão, e é ali que se confere se o campo cobriu a parte de baixo.",
+     "feedbackIncorrect": "Essa região não mostra a base do pulmão: procure a curva que fecha o pulmão por baixo.",
+     "help": "A base do pulmão é onde ele termina embaixo, junto a uma curva clara.",
+     "sourceIds": [
+      "pmc-colimacao-torax-adulto",
+      "pmc-colimacao-eletronica"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "matching",
+     "role": "practice",
+     "prompt": "Ligue cada aspecto da imagem do esquema ao que ele indica sobre o campo.",
+     "pairs": [
+      {
+       "left": "Margem clara em volta, anatomia toda dentro",
+       "right": "Campo ajustado, com pouca sobra"
+      },
+      {
+       "left": "Anatomia pedida termina na borda da imagem",
+       "right": "Campo estreito: região cortada"
+      },
+      {
+       "left": "Faixa clara larga, com pouco corpo no centro",
+       "right": "Campo largo, com tecido a mais"
+      },
+      {
+       "left": "Sem margem clara: o sistema recortou a imagem",
+       "right": "Campo real impossível de conferir"
+      }
+     ],
+     "feedbackCorrect": "Isso: a margem clara e o limite da anatomia contam como o campo foi aberto.",
+     "feedbackIncorrect": "Compare cada aspecto com a margem: ela mostra o campo, e o recorte a faz desaparecer.",
+     "help": "Olhe onde termina a anatomia em relação à margem clara.",
+     "sourceIds": [
+      "pmc-colimacao-eletronica",
+      "pmc-colimacao-torax-adulto"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "true-false",
+     "role": "transfer",
+     "prompt": "Em outra imagem de treino, de mão, a margem clara some de um lado e um dedo termina na borda. Julgue cada afirmação.",
+     "statements": [
+      {
+       "text": "A parte do dedo que ficou fora do campo pode ser recuperada depois, no processamento.",
+       "correct": false,
+       "feedback": "Errado: o que ficou fora do campo não chegou ao detector, e nenhum ajuste o traz de volta."
+      },
+      {
+       "text": "Sem a margem daquele lado, a região pedida pode ter sido cortada.",
+       "correct": true,
+       "feedback": "Certo: a anatomia que termina na borda, sem margem, sugere campo estreito daquele lado."
+      },
+      {
+       "text": "Você descreve onde a margem some e leva à equipe, que decide se repete.",
+       "correct": true,
+       "feedback": "Certo: você descreve a cobertura, e repetir é nova exposição decidida pela equipe."
+      },
+      {
+       "text": "Abrir o campo e repetir na hora é o jeito certo de ganhar tempo.",
+       "correct": false,
+       "feedback": "Errado: repetir sem a equipe é nova exposição por conta própria."
+      }
+     ],
+     "feedbackCorrect": "Você levou a leitura da margem a outra região e deixou a decisão de repetir com a equipe.",
+     "feedbackIncorrect": "Releia o conceito: sem margem, a região pode estar cortada, o corte não se recupera e repetir é da equipe.",
+     "help": "Pense em quem descreve a cobertura e em quem decide repetir.",
+     "sourceIds": [
+      "pmc-colimacao-torax-adulto",
+      "pmc-colimacao-eletronica"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você ajusta o campo na bancada até os ossos do joelho estilizado caberem, usa a margem clara para ver o campo usado e reconhece, no esquema, quando a região pedida ficou cortada.",
+    "line": {
+     "speaker": "lia",
+     "text": "A margem é uma pista. Sem ela, você perde o jeito de conferir o campo."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Por que a margem clara ajuda quem confere a imagem?",
+     "options": [
+      {
+       "label": "Ela mostra o campo que o feixe realmente cobriu",
+       "correct": true,
+       "feedback": "Isso: a margem não atingida delimita o campo usado."
+      },
+      {
+       "label": "Ela mostra a pele do paciente em volta",
+       "correct": false,
+       "feedback": "A faixa clara é moldura do feixe, e não pele."
+      },
+      {
+       "label": "Ela indica o tamanho do detector usado",
+       "correct": false,
+       "feedback": "O detector pode ser maior que o campo, e a margem mostra o campo."
+      },
+      {
+       "label": "Ela aponta uma falha do detector nas bordas",
+       "correct": false,
+       "feedback": "Falha do detector deixa linhas ou pontos, e não moldura regular."
+      }
+     ],
+     "sourceIds": [
+      "pmc-colimacao-eletronica"
+     ]
+    },
+    {
+     "prompt": "Na bancada, o campo ficou estreito e a patela, o osso redondo, saiu da imagem. O que isso significa?",
+     "options": [
+      {
+       "label": "A região ficou protegida, e a imagem está melhor",
+       "correct": false,
+       "feedback": "Campo que corta a região pedida deixa a imagem incompleta."
+      },
+      {
+       "label": "O brilho do fantoma subiu por causa do corte",
+       "correct": false,
+       "feedback": "O corte não muda o brilho: muda o que aparece na imagem."
+      },
+      {
+       "label": "O detector tem uma linha de pixels sem resposta",
+       "correct": false,
+       "feedback": "A patela fora do campo vem da largura do campo, e não do detector."
+      },
+      {
+       "label": "Parte da região pedida não está na imagem",
+       "correct": true,
+       "feedback": "Isso: o que ficou fora do campo não aparece e não se recupera."
+      }
+     ],
+     "sourceIds": [
+      "pmc-colimacao-eletronica",
+      "pmc-colimacao-torax-adulto"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: um campo estreito demais deixa parte da região...",
+     "item": {
+      "prompt": "Qual é o risco de um campo estreito demais?",
+      "options": [
+       {
+        "label": "A imagem ficar com mais granulado em toda a área",
+        "correct": false,
+        "feedback": "O granulado vem da exposição, e não da largura do campo."
+       },
+       {
+        "label": "Parte da região pedida ficar fora da imagem",
+        "correct": true,
+        "feedback": "Isso: o que fica fora do campo não se recupera depois."
+       },
+       {
+        "label": "O índice de exposição do sistema ficar sem escala",
+        "correct": false,
+        "feedback": "O índice continua existindo: o risco aqui é de cobertura."
+       },
+       {
+        "label": "O marcador de lado sumir da imagem",
+        "correct": false,
+        "feedback": "O marcador é outro passo, e não depende da largura do campo."
+       }
+      ],
+      "sourceIds": [
+       "pmc-colimacao-eletronica",
+       "pmc-colimacao-torax-adulto"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "A imagem foi recortada na tela e a margem clara sumiu. O que deixou de ser possível?",
+      "options": [
+       {
+        "label": "Ver o granulado da imagem recortada",
+        "correct": false,
+        "feedback": "O granulado continua visível depois do recorte."
+       },
+       {
+        "label": "Conferir o marcador de lado da imagem",
+        "correct": false,
+        "feedback": "O marcador continua na imagem, e não depende da margem."
+       },
+       {
+        "label": "Conferir o campo que foi usado de fato",
+        "correct": true,
+        "feedback": "Isso: sem a margem, o campo real não é mais visível."
+       },
+       {
+        "label": "Ler o índice de exposição no sistema",
+        "correct": false,
+        "feedback": "O índice continua no sistema depois do recorte."
+       }
+      ],
+      "sourceIds": [
+       "pmc-colimacao-eletronica"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "m23-06",
+   "code": "M23.06",
+   "title": "Repetir ou não",
+   "objective": "Hoje você vai conseguir registrar a causa de uma imagem rejeitada e deixar a decisão de repetir com a equipe.",
+   "competency": "Registrar a causa provável de uma imagem rejeitada pelo que se vê e deixar a decisão de repetir com a equipe.",
+   "minutes": 5,
+   "scene": {
+    "setting": "Sala de comando, fim do turno",
+    "lines": [
+     {
+      "speaker": "caio",
+      "text": "Três imagens rejeitadas hoje. Cada uma entra na lista com a causa."
+     },
+     {
+      "speaker": "duda",
+      "text": "E se eu só repetir e apagar a primeira? Fica mais rápido."
+     },
+     {
+      "speaker": "caio",
+      "text": "Fica mais rápido e some da lista. Aí o serviço não aprende nada."
+     },
+     {
+      "speaker": "pixel",
+      "text": "Que causa você diria para cada imagem? E quem decide se repete?"
+     }
+    ]
+   },
+   "concept": {
+    "title": "Registrar a causa, sem culpar",
+    "body": "Rejeitar uma imagem é descrever, e não culpar. A lista de rejeitadas serve para o serviço aprender: a causa vira ajuste de rotina e de treino. Você nomeia a causa pelo que vê: objeto de fora, posição ou movimento, campo, exposição, marca do equipamento. Num levantamento com radiógrafos, a posição foi o motivo de repetição mais citado. Repetir é nova exposição, e quem decide é a equipe. Você descreve a marca, a posição e a causa provável, e registra como o serviço manda.",
+    "keyPoints": [
+     "Causa nomeada pelo que se vê.",
+     "A lista serve para o serviço aprender, e não para culpar.",
+     "Repetir é nova exposição: decisão da equipe."
+    ]
+   },
+   "interactions": [
+    {
+     "id": "i1",
+     "type": "multiple-choice",
+     "role": "prerequisite",
+     "prompt": "Na aula anterior, o que a margem clara de uma imagem mostrava?",
+     "options": [
+      {
+       "label": "O campo que o feixe usou",
+       "correct": true,
+       "feedback": "Isso: a margem não atingida pelo feixe mostra o campo."
+      },
+      {
+       "label": "A pele do paciente",
+       "correct": false,
+       "feedback": "A margem clara é moldura do feixe, e não pele."
+      },
+      {
+       "label": "Uma falha do detector",
+       "correct": false,
+       "feedback": "Falha do detector deixa linhas ou pontos, e não moldura."
+      },
+      {
+       "label": "O índice de exposição",
+       "correct": false,
+       "feedback": "O índice é um valor do sistema, e não uma faixa da imagem."
+      }
+     ],
+     "help": "Lembre o que a faixa clara conta sobre o feixe.",
+     "sourceIds": [
+      "pmc-colimacao-eletronica"
+     ]
+    },
+    {
+     "id": "i2",
+     "type": "hotspot",
+     "role": "practice",
+     "prompt": "A ficha de rejeição pede a causa. Toque nas marcas que são adorno ou roupa e que o preparo resolve antes da exposição.",
+     "diagramId": "artefatos-de-objeto",
+     "regions": [
+      {
+       "label": "Colar com pingente",
+       "x": 0.428,
+       "y": 0.058,
+       "width": 0.144,
+       "height": 0.25,
+       "correct": true
+      },
+      {
+       "label": "Clavícula",
+       "x": 0.606,
+       "y": 0.167,
+       "width": 0.125,
+       "height": 0.1
+      },
+      {
+       "label": "Botão de roupa",
+       "x": 0.279,
+       "y": 0.46,
+       "width": 0.08,
+       "height": 0.08,
+       "correct": true
+      },
+      {
+       "label": "Trança de cabelo",
+       "x": 0.263,
+       "y": 0.013,
+       "width": 0.113,
+       "height": 0.375
+      },
+      {
+       "label": "Coração",
+       "x": 0.453,
+       "y": 0.6,
+       "width": 0.219,
+       "height": 0.209
+      },
+      {
+       "label": "Eletrodo com fio",
+       "x": 0.697,
+       "y": 0.45,
+       "width": 0.081,
+       "height": 0.083
+      }
+     ],
+     "feedbackCorrect": "Isso: colar e botão são adorno e roupa, e o preparo resolve antes da exposição.",
+     "feedbackIncorrect": "Essa marca não é adorno nem roupa, ou é parte do corpo. Procure o adorno de metal e a peça de roupa.",
+     "help": "Pense no que o paciente veste ou usa no pescoço e no que está ligado a ele por fio.",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i3",
+     "type": "conversation",
+     "role": "practice",
+     "speaker": "caio",
+     "prompt": "Caio pede a causa de uma imagem rejeitada. Conduza o registro.",
+     "turns": [
+      {
+       "line": "A imagem veio com a sombra de um colar sobre o campo. Como você registra a causa?",
+       "options": [
+        {
+         "label": "Objeto de fora, um colar, sobre o campo.",
+         "correct": true,
+         "reply": "Ok, é isso que eu preciso na lista."
+        },
+        {
+         "label": "Paciente que não colabora com o preparo do exame.",
+         "correct": false,
+         "reply": "Hum, isso põe a culpa em alguém."
+        },
+        {
+         "label": "Falha do colega do turno anterior.",
+         "correct": false,
+         "reply": "Hum, e como você sabe disso?"
+        }
+       ]
+      },
+      {
+       "line": "O paciente está aqui. Posso repetir já?",
+       "options": [
+        {
+         "label": "Repito rápido e apago a primeira imagem da lista.",
+         "correct": false,
+         "reply": "Fica rápido, mas a lista fica sem essa."
+        },
+        {
+         "label": "Repito sem registrar, para a taxa não subir tanto.",
+         "correct": false,
+         "reply": "Hum, a lista fica sem essa imagem."
+        },
+        {
+         "label": "Descrevo a causa e espero a decisão da equipe.",
+         "correct": true,
+         "reply": "Combinado, a equipe decide."
+        }
+       ]
+      }
+     ],
+     "feedbackCorrect": "Você nomeou a causa pelo que viu e deixou a decisão com a equipe.",
+     "feedbackIncorrect": "Reveja: a causa se nomeia pelo que se vê, sem culpar, e repetir é decisão da equipe.",
+     "help": "Pense no que a ficha precisa e em quem decide repetir.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    },
+    {
+     "id": "i4",
+     "type": "blitz",
+     "role": "practice",
+     "prompt": "Responda verdadeiro ou falso a cada afirmação sobre imagens rejeitadas.",
+     "statements": [
+      {
+       "text": "A lista de rejeitadas serve para o serviço aprender, e não para achar culpado.",
+       "correct": true,
+       "feedback": "A causa registrada vira ajuste de rotina e de treino do serviço."
+      },
+      {
+       "text": "Imagem com colar sobre o campo se repete sem conversar, por ser erro simples.",
+       "correct": false,
+       "feedback": "Repetir é nova exposição, e a decisão é da equipe, depois de descrever a causa."
+      },
+      {
+       "text": "Linha fina e reta de alto a baixo é motivo para o estudante abrir o detector.",
+       "correct": false,
+       "feedback": "Abrir o detector não cabe ao estudante: ele descreve a marca e avisa a equipe."
+      },
+      {
+       "text": "A causa registrada ajuda a ajustar o treino e a rotina do serviço.",
+       "correct": true,
+       "feedback": "É para isso que a causa vai para a lista, e não para apontar uma pessoa."
+      },
+      {
+       "text": "Quem decide repetir é a equipe, com a descrição do estudante.",
+       "correct": true,
+       "feedback": "O estudante descreve a marca, a posição e a causa provável, e a equipe decide."
+      },
+      {
+       "text": "Imagem lisa dispensa conferir o índice de exposição do sistema.",
+       "correct": false,
+       "feedback": "Imagem lisa não prova exposição certa: o índice do sistema ainda precisa ser conferido."
+      },
+      {
+       "text": "Apagar a imagem rejeitada e repetir deixa a lista mais fiel ao turno.",
+       "correct": false,
+       "feedback": "A imagem apagada some da lista, e o serviço perde a causa que poderia corrigir."
+      }
+     ],
+     "feedbackCorrect": "Você separou aprender com as causas de decidir sozinho, no ritmo da rodada.",
+     "feedbackIncorrect": "Reveja as afirmações: cada uma tem a própria explicação no retorno.",
+     "help": "Leia cada afirmação com calma antes de responder.",
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "pmc-tg150-detectores",
+      "aapm-tg116-indicador"
+     ]
+    },
+    {
+     "id": "i5",
+     "type": "categorize",
+     "role": "transfer",
+     "prompt": "Classifique cada causa de rejeição pelo que o serviço faz com ela.",
+     "categories": [
+      "Preparo do paciente",
+      "Equipamento"
+     ],
+     "items": [
+      {
+       "label": "Corrente de pescoço sobre o campo",
+       "category": "Preparo do paciente"
+      },
+      {
+       "label": "Botão de roupa sobre o pulmão",
+       "category": "Preparo do paciente"
+      },
+      {
+       "label": "Linha fina e reta de alto a baixo",
+       "category": "Equipamento"
+      },
+      {
+       "label": "Contorno de uma exposição anterior",
+       "category": "Equipamento"
+      }
+     ],
+     "feedbackCorrect": "Você separou o que o preparo resolve do que a equipe técnica trata.",
+     "feedbackIncorrect": "Pergunte de cada causa: ela vem do que o paciente veste ou usa, ou do equipamento?",
+     "help": "Pense em quem trata cada causa: o preparo do paciente ou a equipe técnica.",
+     "sourceIds": [
+      "radiologyinfo-torax",
+      "pmc-tg150-detectores",
+      "pmc-lag-ghosting-painel"
+     ]
+    }
+   ],
+   "closing": {
+    "title": "O que você consegue fazer agora",
+    "body": "Você nomeia a causa de uma imagem rejeitada pelo que vê, registra como o serviço manda e deixa a decisão de repetir com a equipe.",
+    "line": {
+     "speaker": "lia",
+     "text": "A lista de rejeitadas é um espelho do serviço. Ela existe para a gente melhorar, e não para apontar ninguém."
+    }
+   },
+   "checkpoint": [
+    {
+     "prompt": "Uma imagem rejeitada mostra faixas mais claras numa lateral. Qual registro descreve o que se vê, sem culpar ninguém?",
+     "options": [
+      {
+       "label": "Estudante que posicionou mal a grade",
+       "correct": false,
+       "feedback": "Esse registro aponta uma pessoa sem saber a causa, e não descreve o que se vê."
+      },
+      {
+       "label": "Paciente que se mexeu na exposição",
+       "correct": false,
+       "feedback": "Movimento borra a imagem, e não deixa faixas claras só numa lateral."
+      },
+      {
+       "label": "Faixas claras numa lateral, a investigar",
+       "correct": true,
+       "feedback": "Isso: o registro descreve o que se vê e deixa a causa para a equipe investigar."
+      },
+      {
+       "label": "Objeto de fora sobre o campo da imagem",
+       "correct": false,
+       "feedback": "Objeto de fora tem forma de objeto, e não de faixas numa lateral."
+      }
+     ],
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital",
+      "applied-radiology-artefatos"
+     ]
+    },
+    {
+     "prompt": "Duda descreveu a marca e a causa de uma imagem rejeitada. Quem decide repetir?",
+     "options": [
+      {
+       "label": "A própria Duda, se achar a marca grande",
+       "correct": false,
+       "feedback": "Repetir é nova exposição, e a decisão é da equipe."
+      },
+      {
+       "label": "O paciente, se pedir uma imagem melhor",
+       "correct": false,
+       "feedback": "A decisão não é do paciente, e sim da equipe."
+      },
+      {
+       "label": "A equipe, com a descrição dela",
+       "correct": true,
+       "feedback": "Isso: o estudante descreve e a equipe decide."
+      },
+      {
+       "label": "O sistema, que repete sozinho quando rejeita",
+       "correct": false,
+       "feedback": "O sistema não repete sozinho: a equipe é quem decide."
+      }
+     ],
+     "sourceIds": [
+      "pmc-rejeicao-radiografia-digital"
+     ]
+    }
+   ],
+   "recovery": {
+    "guided": {
+     "hook": "Complete a frase: a análise de rejeitadas serve para o serviço...",
+     "item": {
+      "prompt": "Para que serve a lista de imagens rejeitadas?",
+      "options": [
+       {
+        "label": "Para o serviço aprender com as causas",
+        "correct": true,
+        "feedback": "Isso: a causa vira ajuste de rotina e de treino."
+       },
+       {
+        "label": "Para apontar quem errou mais no turno",
+        "correct": false,
+        "feedback": "A lista não serve para culpar uma pessoa."
+       },
+       {
+        "label": "Para o estudante decidir quando repetir",
+        "correct": false,
+        "feedback": "Quem decide repetir é a equipe."
+       },
+       {
+        "label": "Para guardar as imagens ruins no arquivo",
+        "correct": false,
+        "feedback": "O objetivo da lista é aprender com as causas, e não só guardar."
+       }
+      ],
+      "sourceIds": [
+       "pmc-rejeicao-radiografia-digital"
+      ]
+     }
+    },
+    "transfer": {
+     "item": {
+      "prompt": "Uma linha fina e reta aparece em imagens seguidas do mesmo detector. Como registrar?",
+      "options": [
+       {
+        "label": "Paciente que se mexeu em todas as imagens",
+        "correct": false,
+        "feedback": "Movimento não explica a mesma linha em todas as imagens."
+       },
+       {
+        "label": "Objeto de fora do paciente sobre o campo",
+        "correct": false,
+        "feedback": "Objeto de fora tem forma de objeto, e não de linha reta contínua."
+       },
+       {
+        "label": "Erro do estudante na hora do disparo",
+        "correct": false,
+        "feedback": "A lista não serve para culpar uma pessoa, e a marca vem do equipamento."
+       },
+       {
+        "label": "Marca do equipamento, descrita à equipe",
+        "correct": true,
+        "feedback": "Isso: a marca vem do detector, e a equipe cuida dele."
+       }
+      ],
+      "sourceIds": [
+       "pmc-tg150-detectores",
+       "pmc-rejeicao-radiografia-digital"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

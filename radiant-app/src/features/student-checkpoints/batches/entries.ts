@@ -147,6 +147,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Geometria, técnica e qualidade."
     }
   },
+  "batch:rtg-2026:m23": {
+    "slug": "rtg-2026-m23",
+    "title": "Leitura crítica da imagem: artefatos, repetição e correção",
+    "description": "Um roteiro de leitura de esquemas de tórax, artefatos de objeto e de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas, sem diagnosticar.",
+    "unitTitle": "Leitura crítica da imagem: artefatos, repetição e correção",
+    "reward": {
+      "id": "node:reward:rtg-2026:m23",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Leitura crítica da imagem: artefatos, repetição e correção."
+    }
+  },
   "batch:rtg-2026:m07": {
     "slug": "rtg-2026-m07",
     "title": "Musculoesquelético e posicionamento",
