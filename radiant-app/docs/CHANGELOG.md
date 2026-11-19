@@ -6,6 +6,20 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ---
 
+## Não lançado, branch `claude/trilha-dobrada-fase-b` (2026-11-19), sem merge
+
+### Adicionado
+- Sete formatos de interação: `hotspot`, `label`, `risk-hunt`, `conversation`,
+  `blitz`, `bench` e `parameter-lab`; dezesseis diagramas em código e o `visual` do
+  conceito. Decisões em
+  [`../../docs/adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md`](../../docs/adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md);
+  guia de autoria na seção 3b de
+  [`../../docs/content/2026-11-05-guia-de-autoria-rtg-2026.md`](../../docs/content/2026-11-05-guia-de-autoria-rtg-2026.md).
+  Nenhuma aula publicada usa os formatos ainda, e nada foi visto em simulador ou
+  aparelho.
+
+---
+
 ## [1.6.0] — build 16 compilada em 2026-11-16, ainda não enviada à revisão
 
 Na `main` desde 2026-11-15 (PRs #71 a #78). Decisões nas ADRs de 2026-11-13 e

@@ -88,6 +88,7 @@ retorno), `pieceRelief` em `src/ui/styles.ts`, `scripts/style-literal-contract.m
 | O que entrou | Onde | Chave |
 | --- | --- | --- |
 | Quatro formatos de interação: `cloze`, `true-false`, `categorize`, `multi-select` | `src/types/learningActivity.ts`, `src/features/lesson-flow` | nenhuma |
+| Em 2026-11-19, só na branch `claude/trilha-dobrada-fase-b`, sem merge: sete formatos (`hotspot`, `label`, `risk-hunt`, `conversation`, `blitz`, `bench`, `parameter-lab`), 16 diagramas em código e o `visual` do conceito. Nada visto em aparelho | `src/ui/diagrams`, `src/features/lesson-flow/renderers`, `src/features/parameter-lab` | nenhuma |
 | Trilha com 24 unidades e 157 aulas, e desbloqueio que respeita unidade inserida no meio | `src/features/student-checkpoints/batches/`, `src/features/journey/services/JourneyTrackUnlockService.ts` | nenhuma |
 | Elenco de cinco personagens com expressões comuns | `src/ui/characters/cast/` | nenhuma |
 | Sons e microinterações da aula | `src/features/lesson-flow`, `assets/sounds/` | `EXPO_PUBLIC_ENABLE_RICH_FEEDBACK` |
