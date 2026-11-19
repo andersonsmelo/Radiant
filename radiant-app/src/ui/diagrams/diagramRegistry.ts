@@ -23,6 +23,11 @@ import { circuitoDoGerador } from './specs/circuito-do-gerador';
 import { retificacaoDeOnda } from './specs/retificacao-de-onda';
 import { anodoGiratorio } from './specs/anodo-giratorio';
 import { espectroDeRaiosX } from './specs/espectro-de-raios-x';
+import { esqueletoAxialApendicular } from './specs/esqueleto-axial-apendicular';
+import { ossoLongo } from './specs/osso-longo';
+import { colunaRegioes } from './specs/coluna-regioes';
+import { articulacaoSinovial } from './specs/articulacao-sinovial';
+import { marcosDeSuperficie } from './specs/marcos-de-superficie';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -49,6 +54,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [retificacaoDeOnda.id]: retificacaoDeOnda,
   [anodoGiratorio.id]: anodoGiratorio,
   [espectroDeRaiosX.id]: espectroDeRaiosX,
+  [esqueletoAxialApendicular.id]: esqueletoAxialApendicular,
+  [ossoLongo.id]: ossoLongo,
+  [colunaRegioes.id]: colunaRegioes,
+  [articulacaoSinovial.id]: articulacaoSinovial,
+  [marcosDeSuperficie.id]: marcosDeSuperficie,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
