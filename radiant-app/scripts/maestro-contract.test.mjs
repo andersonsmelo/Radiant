@@ -449,6 +449,30 @@ test('retired catalog exposes only the empty-shell smoke to Maestro discovery', 
   assert.ok(!commands.some(command => command.openLink || command.tapOn));
 });
 
+// Os roteiros de prova das figuras (scripts/qa/figuras-no-simulador.mjs) vivem em .maestro/figuras/, que o
+// listMaestroFlows não varre. Valem as mesmas regras: seletor com "?" escapado e o argumento de movimento em todo launchApp.
+test('keeps the figure proof flows inside the selector and launch-argument rules', async () => {
+  const dir = path.join(appRoot, '.maestro/figuras');
+  const names = (await readdir(dir)).filter((name) => name.endsWith('.yaml')).sort();
+  assert.ok(names.length > 0, 'expected generated figure flows');
+
+  for (const name of names) {
+    const flow = await readFile(path.join(dir, name), 'utf8');
+    const documents = parseAllDocuments(flow);
+    assert.deepEqual(documents.flatMap((document) => document.errors), [], name);
+    assert.equal(documents[0].toJS().appId, appId, name);
+
+    const launches = documents[1].toJS().filter((command) => command.launchApp);
+    assert.equal(launches.length, 1, `${name}: one launchApp`);
+    // '1' congela o fundo (captura parada); '0' deixa o laço correr (gravação). Booleano chegaria sem o "-" e seria ignorado.
+    assert.match(launches[0].launchApp.arguments?.radiantReduceMotion ?? '', /^[01]$/, `${name}: radiantReduceMotion must be the string '0' or '1'`);
+
+    for (const entry of maestroSelectors(flow)) {
+      assert.doesNotMatch(entry.selector, UNESCAPED_QUESTION_MARK, `${name}:${entry.line}: escape the "?" in this ${entry.key} selector`);
+    }
+  }
+});
+
 test('selector parser detects an unescaped question mark in synthetic commands', () => {
   assert.match(maestroSelectors('- assertNotVisible: Falhou?')[0].selector, UNESCAPED_QUESTION_MARK);
   assert.doesNotMatch(maestroSelectors(String.raw`- assertVisible: Falhou\?`)[0].selector, UNESCAPED_QUESTION_MARK);

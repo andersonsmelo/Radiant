@@ -23,7 +23,7 @@ const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-fals
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
-const quote = text => `'${String(text).replace(/'/g, "''")}'`;
+export const quote = text => `'${String(text).replace(/'/g, "''")}'`;
 const text = label => `- tapOn: ${quote(escapeMaestro(label))}`;
 const id = value => `- tapOn:\n    id: ${quote(escapeMaestro(value))}`;
 // Sem `visibilityPercentage`: o contrato só admite uma régua por seletor e esta não mede nenhuma.
@@ -131,15 +131,21 @@ function answerCommands(interaction) {
   }
 }
 
-/** A aula inteira, do passo 1 ao resumo. Cada interação abre com um comentário `# interaction <id> <tipo>`. */
-function lessonCommands(activity) {
+/**
+ * A aula inteira, do passo 1 ao resumo. Cada interação abre com um comentário `# interaction <id> <tipo>`.
+ * `captures` (passo, 1-based -> comandos) injeta comandos logo depois de o passo aparecer; havendo algum,
+ * a aula para no último passo capturado (o roteiro de figuras não precisa do resumo).
+ */
+export function lessonCommands(activity, captures = new Map()) {
   const steps = activity.steps;
   const total = steps.length;
   const interactions = steps.filter(step => step.kind === 'interaction');
   // LessonFlowScreen.perItemFeedback: com várias interações (ou um caso), conferir e seguir são dois toques.
   const perItem = interactions.length > 1 || interactions.some(step => step.interaction.type === 'case-decision');
-  const out = [`- assertVisible: ${quote(`Passo 1 de ${total}`)}`];
-  steps.forEach((step, index) => {
+  const stopAt = Math.max(0, ...captures.keys());
+  const out = [`- assertVisible: ${quote(`Passo 1 de ${total}`)}`, ...(captures.get(1) ?? [])];
+  for (const [index, step] of steps.entries()) {
+    if (index + 1 === stopAt) break;
     const last = index === total - 1;
     if (step.kind === 'presentation') {
       // Uma fala nova por toque; o último toque avança (ou conclui).
@@ -151,24 +157,24 @@ function lessonCommands(activity) {
       out.push(text(CHECKED.has(interaction.type) ? 'Conferir resposta' : 'Continuar'));
       if (perItem) out.push(text('Continuar'));
     }
-    if (!last) out.push(`- assertVisible: ${quote(`Passo ${index + 2} de ${total}`)}`);
-  });
-  out.push(`- assertVisible: ${quote('A lição foi concluída')}`);
+    if (!last) out.push(`- assertVisible: ${quote(`Passo ${index + 2} de ${total}`)}`, ...(captures.get(index + 2) ?? []));
+  }
+  if (!stopAt) out.push(`- assertVisible: ${quote('A lição foi concluída')}`);
   return out;
 }
 
-const link = (route, params) => `radiantapp://${route}?${Object.entries(params).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&')}`;
+export const link = (route, params) => `radiantapp://${route}?${Object.entries(params).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&')}`;
 
 /** Abre um link do app; no iOS o sistema pode perguntar antes ("Open"). */
-const openLink = target => [
+export const openLink = target => [
   `- openLink: ${quote(target)}`,
   '- runFlow:\n    when:\n      visible: \'Open\'\n    commands:\n      - tapOn: \'Open\'',
 ];
 
-function flowFile({ name, tags, notes, commands }) {
+export function flowFile({ name, tags, notes, commands, reduceMotion = '1' }) {
   const comments = notes.map(note => `# ${note}`);
   return [`appId: ${APP_ID}`, `name: ${quote(name)}`, 'tags:', ...tags.map(tag => `  - ${tag}`), '---', ...comments,
-    '- launchApp:\n    arguments:\n      radiantReduceMotion: \'1\'\n    clearState: true\n    permissions:\n      all: deny',
+    `- launchApp:\n    arguments:\n      radiantReduceMotion: '${reduceMotion}'\n    clearState: true\n    permissions:\n      all: deny`,
     '- runFlow: ../subflows/dismiss-dev-client.yaml', '- runFlow: ../subflows/dismiss-first-run.yaml',
     '- assertVisible:\n    id: journey-trail', ...commands].join('\n') + '\n';
 }

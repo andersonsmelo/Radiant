@@ -1,0 +1,104 @@
+=== captura depois do passo ===
+defeito: o takeScreenshot sai ANTES do assertVisible do passo (a figura ainda não está na tela)
+not ok 2 - o roteiro do crânio abre a M25 aula 01 e captura depois de "Passo 4 de 8"
+    Expected values to be strictly equal:
+    + actual - expected
+    + '# interaction i2 label'
+    - "- takeScreenshot: 'figura-cranio-de-perfil-ossos-m25-aula-01-passo4'"
+  name: 'AssertionError'
+  expected: "- takeScreenshot: 'figura-cranio-de-perfil-ossos-m25-aula-01-passo4'"
+# pass 0
+# fail 1
+
+=== nomes distintos ===
+defeito: duas capturas da mesma figura na aula saem com o mesmo nome (a segunda sobrescreve a primeira)
+not ok 3 - duas capturas da mesma figura na aula têm nomes diferentes
+    Expected values to be strictly equal:
+  name: 'AssertionError'
+  expected: 2
+# pass 0
+# fail 1
+
+=== para no último passo ===
+defeito: o roteiro segue até o resumo em vez de parar no passo da última figura
+not ok 4 - o roteiro para no último passo capturado, sem jogar o resumo
+  name: 'AssertionError'
+  expected: true
+# pass 0
+# fail 1
+
+=== id sem passo ===
+defeito: id que não aparece em aula nenhuma é aceito em silêncio
+not ok 5 - figura que não aparece em aula nenhuma reprova, e não gera roteiro vazio
+  error: 'Missing expected exception.'
+  name: 'AssertionError'
+  expected:
+# pass 0
+# fail 1
+
+=== laço com movimento ===
+defeito: o roteiro do laço lança o app com movimento reduzido '1' (a gravação filmaria o pôster parado)
+not ok 6 - figura em laço usada como visual do conceito ganha roteiro de 8 s com o movimento ligado
+  name: 'AssertionError'
+  expected:
+      - rtg-2026
+      - figuras
+      - generated
+    - launchApp:
+    - runFlow: ../subflows/dismiss-dev-client.yaml
+    - runFlow: ../subflows/dismiss-first-run.yaml
+    - assertVisible:
+    - openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am25%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am25%3Aaula-01'
+    - runFlow:
+
+=== prazo de 8 s ===
+defeito: a gravação do laço espera 2 s em vez de 8 s
+not ok 6 - figura em laço usada como visual do conceito ganha roteiro de 8 s com o movimento ligado
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    +   '    timeout: 2000',
+    -   '    timeout: 8000',
+  name: 'AssertionError'
+  expected:
+# pass 0
+# fail 1
+
+=== versionado igual ao gerado ===
+defeito: o YAML versionado diverge do que o gerador produz (passo errado na asserção)
+not ok 8 - os roteiros versionados das duas figuras do piloto são os que o gerador produz hoje
+    + actual - expected ... Lines skipped
+    +   "- assertVisible: 'Passo 5 de 8'\n" +
+    -   "- assertVisible: 'Passo 4 de 8'\n" +
+  name: 'AssertionError'
+  expected: |-
+      - rtg-2026
+      - figuras
+      - generated
+    - launchApp:
+    - runFlow: ../subflows/dismiss-dev-client.yaml
+    - runFlow: ../subflows/dismiss-first-run.yaml
+
+=== contrato: argumento do launchApp ===
+defeito: roteiro de figura sem radiantReduceMotion no launchApp
+not ok 11 - keeps the figure proof flows inside the selector and launch-argument rules
+  name: 'AssertionError'
+  expected:
+# pass 0
+# fail 1
+
+=== contrato: ? sem escape ===
+defeito: assertVisible com '?' sem barra num roteiro de figura
+not ok 11 - keeps the figure proof flows inside the selector and launch-argument rules
+  name: 'AssertionError'
+  expected:
+# pass 0
+# fail 1
+
+=== contrato: booleano ===
+defeito: radiantReduceMotion: true (chegaria sem o '-' e seria ignorado)
+not ok 11 - keeps the figure proof flows inside the selector and launch-argument rules
+  name: 'AssertionError'
+  expected:
+# pass 0
+# fail 1
+
