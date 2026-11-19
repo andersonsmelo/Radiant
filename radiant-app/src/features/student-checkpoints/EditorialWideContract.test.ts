@@ -488,8 +488,8 @@ describe('contrato amplo (wide)', () => {
             { text: 'Quanto maior a distância da fonte, menor é a dose recebida.', correct: true, feedback: 'Longe da fonte a dose cai, porque a radiação se espalha por uma área maior.' },
             { text: 'O dosímetro individual reduz a dose que a pessoa recebe.', correct: false, feedback: 'O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem.' },
             { text: 'O avental de chumbo protege o tronco da radiação espalhada.', correct: true, feedback: 'O avental cobre o tronco e atenua a radiação que se espalha na sala.' },
-            { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
             { text: 'Material com rachadura sai de uso e a supervisão é avisada.', correct: true, feedback: 'Material danificado não protege direito e o aviso evita que o problema se esconda.' },
+            { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
             { text: 'Registrar o uso do dosímetro é opcional em turnos curtos.', correct: false, feedback: 'O registro vale em todo turno, porque mostra o uso e o desgaste do material.' },
         ];
         const ID = 'interaction:rtg-2026:m01:aula-01:i2';
@@ -571,6 +571,10 @@ describe('contrato amplo (wide)', () => {
             expect(issuesWithTruths([0, 1, 2, 4])).toEqual([`wide-answer-position-bias:${ID}`]);
             expect(issuesWithTruths([3, 4, 5])).toEqual([`wide-answer-position-bias:${ID}`]);
             expect(issuesWithTruths([1, 3, 4, 5])).toEqual([]);
+        });
+
+        it('wide-answer-position-bias: a alternância perfeita do começo ao fim', () => {
+            expect(issuesWithTruths([0, 2, 4])).toEqual([`wide-answer-position-bias:${ID}`]);
         });
 
         it('wide-feedback-not-distinct: o retorno de erro precisa de explicação própria', () => {

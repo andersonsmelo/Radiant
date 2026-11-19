@@ -244,3 +244,20 @@
   Test Suites: 1 failed, 1 total
   Tests:       2 failed, 8 passed, 10 total
 
+
+# Rodada 1 (revisão independente): vermelho dos consertos, com a produção revertida ao estado anterior
+
+## jest conversa
+  ● ConversationStepRenderer › antes de conferir, a reação usa a expressão de fala, igual para resposta certa e errada; o rosto não antecipa o veredito
+  ● ConversationStepRenderer › dois toques no mesmo desenho gravam só o primeiro turno
+  FAIL src/features/lesson-flow/renderers/ConversationStepRenderer.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       2 failed, 10 passed, 12 total
+
+## node lint
+  not ok 123 - blitz: a alternância perfeita do começo ao fim reprova
+  not ok 124 - conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa
+  # tests 124
+  # pass 122
+  # fail 2
+

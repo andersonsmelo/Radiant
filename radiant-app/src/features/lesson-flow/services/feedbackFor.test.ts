@@ -258,8 +258,8 @@ describe('feedbackFor: famílias da 1.6', () => {
             { id: 's4', text: 'Quatro.', isTrue: false, explanation: 'Quatro é errada.' },
         ];
         const interaction: LearningInteractionV2 = { ...base, type: 'blitz', payload: { prompt: 'Rodada.', passCount: 3, statements } };
-        expect(feedbackFor(interaction, '[true,true,true,true]', false)).toBe('Você acertou 2 de 4; para passar eram 3. Dois é errada: o dosímetro não protege.');
-        expect(feedbackFor(interaction, '[null,false,false,false]', false)).toBe('Você acertou 2 de 4; para passar eram 3. Um é certa porque a fonte diz.');
+        expect(feedbackFor(interaction, '[true,true,true,true]', false)).toBe('Reveja o conceito. Você acertou 2 de 4; para passar eram 3. Dois é errada: o dosímetro não protege.');
+        expect(feedbackFor(interaction, '[null,false,false,false]', false)).toBe('Reveja o conceito. Você acertou 2 de 4; para passar eram 3. Um é certa porque a fonte diz.');
         expect(feedbackFor(interaction, '[true,false,true,true]', true)).toBe('Isso mesmo.');
     });
 });

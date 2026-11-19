@@ -283,6 +283,8 @@ export function lintUnit(doc, { images = [] } = {}) {
           errors.push(...keyErrors(`${tw}.options[${o}]`, option, ['label', 'correct', 'reply']));
           text(`${tw}.options[${o}].label`, option?.label, { max: 120 });
           text(`${tw}.options[${o}].reply`, option?.reply, { max: 200 });
+          // A reação é cena: palavra de veredito entregaria o gabarito antes de conferir.
+          if (/(?<![\p{L}\p{N}_])(?:certo|certa|errado|errada|correto|correta|incorreto|incorreta|acertou|errou)(?![\p{L}\p{N}_])/iu.test(String(option?.reply ?? '').normalize('NFD').replace(/\p{M}/gu, ''))) err(`${tw}.options[${o}].reply`, 'a reação não pode julgar (certo, errado, acertou, errou...); descreva a cena');
         });
         if (options.some((option) => typeof option?.correct !== 'boolean')) return err(tw, 'correct deve ser true ou false em cada resposta');
         const right = options.filter((option) => option.correct === true);
@@ -327,6 +329,7 @@ export function lintUnit(doc, { images = [] } = {}) {
       const truths = statements.filter((st) => st.correct).length;
       if (truths < 2 || truths > statements.length - 2) err(where, `blitz: de 2 a ${statements.length - 2} afirmações verdadeiras; com menos, ou mais, a rodada se acerta sem ler`);
       if (statements.slice(0, 3).every((st) => st.correct === statements[0].correct)) err(where, 'blitz: as três primeiras afirmações têm a mesma resposta; intercale');
+      if (statements.every((st, i) => i === 0 || st.correct !== statements[i - 1].correct)) err(where, 'blitz: as respostas alternam do começo ao fim; quebre o padrão');
       if (new Set(statements.map((st) => norm(st.text))).size !== statements.length || new Set(statements.map((st) => norm(st.feedback))).size !== statements.length) err(where, 'blitz: afirmação ou retorno repetido');
     } else if (item.type === 'categorize') {
       const categories = Array.isArray(item.categories) ? item.categories : [];

@@ -87,14 +87,30 @@ describe('ConversationStepRenderer', () => {
         expect(screen.queryByText(/errado|certo/i)).toBeNull();
     });
 
-    it('a expressão do personagem vem do momento: pergunta preocupa o paciente, e a reação segue o retorno certo ou errado', () => {
+    it('antes de conferir, a reação usa a expressão de fala, igual para resposta certa e errada; o rosto não antecipa o veredito', () => {
         render(<Harness />);
-        expect(screen.getAllByTestId('avatar-paciente').map(node => node.props.children)).toEqual(['preocupado']);
+        const faces = () => screen.getAllByTestId('avatar-paciente').map(node => node.props.children);
+        expect(faces()).toEqual(['preocupado']);
         fireEvent.press(screen.getByTestId('conversation-option-A dose é baixa.'));
-        // fala inicial (pergunta), reação a escolha certa, fala seguinte (pergunta)
-        expect(screen.getAllByTestId('avatar-paciente').map(node => node.props.children)).toEqual(['preocupado', 'feliz', 'preocupado']);
+        // fala inicial (pergunta), reação (sem pergunta: neutro), fala seguinte (pergunta)
+        expect(faces()).toEqual(['preocupado', 'neutro', 'preocupado']);
         fireEvent.press(screen.getByTestId('conversation-option-Não precisa tirar nada.'));
-        expect(screen.getAllByTestId('avatar-paciente').map(node => node.props.children).at(-1)).toBe('preocupado');
+        expect(faces().at(-1)).toBe('neutro');
+    });
+
+    it('depois de conferir, a reação segue o retorno certo ou errado', () => {
+        render(<Harness submitted initial='["o2","o4"]' />);
+        // fala 1, reação certa, fala 2, reação errada
+        expect(screen.getAllByTestId('avatar-paciente').map(node => node.props.children)).toEqual(['preocupado', 'feliz', 'preocupado', 'preocupado']);
+    });
+
+    it('dois toques no mesmo desenho gravam só o primeiro turno', () => {
+        const onChange = jest.fn();
+        render(<ActivityInteractionRenderer interaction={conversation} value={undefined} onChange={onChange} />);
+        fireEvent.press(screen.getByTestId('conversation-option-A dose é baixa.'));
+        fireEvent.press(screen.getByTestId('conversation-option-Fique tranquilo, não precisa se preocupar.'));
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('["o2"]');
     });
 
     it('o retrato é decorativo: o leitor de tela lê só o nó da fala', () => {

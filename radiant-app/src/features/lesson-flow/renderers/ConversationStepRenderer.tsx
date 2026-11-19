@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { AccessibilityInfo, StyleSheet, Text, View } from 'react-native';
 import type { ConversationPayload } from '../../../types/learningActivity';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
@@ -38,8 +38,12 @@ export function ConversationStepRenderer({ payload, value, onChange, submitted =
     const who = castSpeakerName(payload.speaker, payload.name);
     const shown = turns.slice(0, Math.min(chosen.length + 1, turns.length));
 
+    // Um segundo toque antes do novo desenho não regrava o turno já respondido.
+    const answeredTurn = useRef(-1);
+    if (answeredTurn.current >= chosen.length) answeredTurn.current = chosen.length - 1;
     const choose = (turnIndex: number, optionId: string) => {
-        if (submitted || turnIndex !== chosen.length) return;
+        if (submitted || turnIndex !== chosen.length || answeredTurn.current >= turnIndex) return;
+        answeredTurn.current = turnIndex;
         const reply = turns[turnIndex].options.find(option => option.id === optionId)?.reply ?? '';
         const next = turns[turnIndex + 1];
         // A reação e a fala seguinte chegam juntas: o leitor de tela ouve as duas, na ordem da tela.
@@ -73,8 +77,8 @@ export function ConversationStepRenderer({ payload, value, onChange, submitted =
                                             </View>
                                         ) : null}
                                     </View>
-                                    {/* A reação do personagem é conteúdo da cena: a expressão acompanha a resposta, e o texto não julga. */}
-                                    <CastBubble payload={payload} text={picked.reply} expression={castExpressionFor({ kind: 'retorno', correct: right })} />
+                                    {/* A reação é cena: antes de conferir a expressão é a de fala, igual para certa e errada, para o rosto não antecipar o veredito. */}
+                                    <CastBubble payload={payload} text={picked.reply} expression={submitted ? castExpressionFor({ kind: 'retorno', correct: right }) : castExpressionFor({ kind: 'fala', speaker: payload.speaker, text: picked.reply })} />
                                 </>
                             ) : (
                                 <View style={f2Styles.column}>

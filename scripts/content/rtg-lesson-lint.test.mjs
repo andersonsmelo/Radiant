@@ -559,7 +559,7 @@ test('conversation: aceita 2 ou 3 turnos, com e sem name, com 2 ou 3 respostas',
   assert.deepEqual(conversationItem(), []);
   assert.deepEqual(conversationItem(item => { item.speaker = 'paciente'; item.name = 'Sr. Álvaro'; }), []);
   assert.deepEqual(conversationItem(item => { item.turns.push({ line: 'Mais alguma coisa antes de eu começar?',
-    options: [{ label: 'Pode começar logo, sem olhar o pedido do exame.', correct: false, reply: 'Certo, começo.' }, { label: 'Confira o pedido do exame.', correct: true, reply: 'Boa, vou conferir.' }] }); }), []);
+    options: [{ label: 'Pode começar logo, sem olhar o pedido do exame.', correct: false, reply: 'Tá, começo.' }, { label: 'Confira o pedido do exame.', correct: true, reply: 'Boa, vou conferir.' }] }); }), []);
 });
 test('conversation: o paciente exige name, e o Pixel não pode ser o interlocutor', () => {
   expectOnly(conversationItem(item => { item.speaker = 'paciente'; }), /fala de paciente precisa de name/);
@@ -610,8 +610,8 @@ const blitzStatements = () => [
   { text: 'Quanto maior a distância da fonte, menor é a dose recebida.', correct: true, feedback: 'Longe da fonte a dose cai, porque a radiação se espalha por uma área maior.' },
   { text: 'O dosímetro individual reduz a dose que a pessoa recebe.', correct: false, feedback: 'O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem.' },
   { text: 'O avental de chumbo protege o tronco da radiação espalhada.', correct: true, feedback: 'O avental cobre o tronco e atenua a radiação que se espalha na sala.' },
-  { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
   { text: 'Material com rachadura sai de uso e a supervisão é avisada.', correct: true, feedback: 'Material danificado não protege direito e o aviso evita que o problema se esconda.' },
+  { text: 'Quanto mais tempo na sala durante a exposição, menor é a dose.', correct: false, feedback: 'Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose.' },
   { text: 'Registrar o uso do dosímetro é opcional em turnos curtos.', correct: false, feedback: 'O registro vale em todo turno, porque mostra o uso e o desgaste do material.' },
 ];
 function blitzItem(mutate = () => {}) {
@@ -810,4 +810,15 @@ test('M05.06, publicada sem múltipla escolha, é a única isenta', () => {
   doc.lessons[4].interactions.filter(item => item.type === 'multiple-choice').forEach(asCaseDecision);
   const errors = lintUnit(doc);
   expectOnly(errors, /^lessons\[4\]\(m05-05\)\.interactions: a aula precisa de ao menos uma múltipla escolha/);
+});
+
+test('blitz: a alternância perfeita do começo ao fim reprova', () => {
+  expectOnly(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = i % 2 === 0; }); }), /respostas alternam do começo ao fim/);
+  assert.deepEqual(blitzItem(item => { item.statements.forEach((st, i) => { st.correct = [0, 2, 3].includes(i); }); }), []);
+});
+test('conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa', () => {
+  for (const reply of ['Isso está certo, obrigada.', 'Ah, ERRADO então.', 'Que bom, acertou!', 'Então foi incorreta a minha ideia.', 'Eu errou? Não.']) {
+    expectOnly(conversationItem(item => { item.turns[0].options[0].reply = reply; }), /a reação não pode julgar/);
+  }
+  assert.deepEqual(conversationItem(item => { item.turns[0].options[0].reply = 'Então fico mais tranquila, incerta e correndo.'; }), []);
 });

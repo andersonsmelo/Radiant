@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AccessibilityInfo, StyleSheet, Text, View } from 'react-native';
 import type { BlitzPayload } from '../../../types/learningActivity';
 import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
@@ -36,7 +36,9 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
     useEffect(() => {
         let alive = true;
         AccessibilityInfo.isScreenReaderEnabled().then(on => { if (alive) setScreenReader(on); }).catch(() => { if (alive) setScreenReader(false); });
-        return () => { alive = false; };
+        // Ligar o leitor de tela no meio da rodada para o relógio e o avanço automático.
+        const subscription = AccessibilityInfo.addEventListener?.('screenReaderChanged', on => { if (alive) setScreenReader(on); });
+        return () => { alive = false; subscription?.remove?.(); };
     }, []);
 
     const index = answers.length;
@@ -46,10 +48,22 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
     const showingMark = answers.length > 0 && (marking || !current);
     const lastIndex = answers.length - 1;
 
+    // Índice já respondido: um segundo toque (ou o tempo esgotado) antes do novo desenho não o regrava.
+    const answeredIndex = useRef(-1);
+    useEffect(() => {
+        if (answers.length <= answeredIndex.current) answeredIndex.current = answers.length - 1;
+        if (answers.length === 0) setMarking(false);
+    }, [answers.length]);
+
+    let streak = 0;
+    for (let at = answers.length - 1; at >= 0 && answers[at] === statements[at].isTrue; at -= 1) streak += 1;
+
     const answer = (given: boolean | null) => {
-        if (submitted || !current || showingMark) return;
+        if (submitted || !current || showingMark || answeredIndex.current >= index) return;
+        answeredIndex.current = index;
         const hit = given === current.isTrue;
-        AccessibilityInfo.announceForAccessibility(`${given === null ? 'Tempo esgotado.' : hit ? 'Acertou.' : 'Não é isso.'} ${current.explanation}`);
+        const seguidas = hit ? streak + 1 : 0;
+        AccessibilityInfo.announceForAccessibility(`${given === null ? 'Tempo esgotado.' : hit ? 'Acertou.' : 'Não é isso.'} ${current.explanation} ${seguidas} ${seguidas === 1 ? 'seguida' : 'seguidas'}.`);
         onChange(JSON.stringify([...answers, given]));
         setRemaining(BLITZ_SECONDS);
         setMarking(true);
@@ -72,8 +86,10 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
         return () => clearTimeout(advance);
     }, [marking, screenReader]);
 
-    let streak = 0;
-    for (let at = lastIndex; at >= 0 && answers[at] === statements[at].isTrue; at -= 1) streak += 1;
+    const next = () => {
+        setMarking(false);
+        if (current) AccessibilityInfo.announceForAccessibility(`Afirmação ${index + 1} de ${statements.length}: ${current.text}`);
+    };
 
     const shown = showingMark ? statements[lastIndex] : current;
     const given = answers[lastIndex];
@@ -123,7 +139,7 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
             ) : null}
             {marking && screenReader === true && current && !submitted ? (
                 <TapChip testID="blitz-proxima" label="Próxima" accessibilityLabel="Próxima afirmação"
-                    accessibilityHint="Passa para a próxima afirmação da rodada." onPress={() => setMarking(false)} />
+                    accessibilityHint="Passa para a próxima afirmação da rodada." onPress={next} />
             ) : null}
         </EnterView>
     );

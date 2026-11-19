@@ -65,7 +65,7 @@ export function feedbackFor(
             const { statements, passCount } = interaction.payload;
             const hits = statements.filter((statement, index) => given[index] === statement.isTrue).length;
             const missed = statements.find((statement, index) => given[index] !== statement.isTrue);
-            return `Você acertou ${hits} de ${statements.length}; para passar eram ${passCount}.${filled(missed?.explanation) ? ` ${missed.explanation}` : ''}`;
+            return `${interaction.feedback.incorrect} Você acertou ${hits} de ${statements.length}; para passar eram ${passCount}.${filled(missed?.explanation) ? ` ${missed.explanation}` : ''}`;
         }
         case 'conversation': {
             // O primeiro turno errado, na ordem da conversa, diz qual resposta cabia.

@@ -324,3 +324,33 @@
   # pass 15
   # fail 2
 
+
+# Rodada 1 (revisão independente): vermelho dos consertos, com a produção revertida ao estado anterior
+
+## jest blitz, feedbackFor, wide
+  ● BlitzStepRenderer › anuncia a contagem de seguidas depois do toque e a afirmação nova depois de Próxima
+  ● BlitzStepRenderer › as respostas que zeram no retry apagam a marca e o botão Próxima
+  ● BlitzStepRenderer › com leitor de tela o relógio não existe, o avanço é pelo botão Próxima e a marca é anunciada
+  ● BlitzStepRenderer › dois toques no mesmo desenho, ou o tempo esgotado junto do toque, gravam só uma resposta
+  ● BlitzStepRenderer › ligar o leitor de tela no meio da rodada para o relógio, e o avanço passa a ser pelo botão Próxima
+  ● contrato amplo (wide) › blitz (fase B) › wide-answer-position-bias: a alternância perfeita do começo ao fim
+  ● feedbackFor: famílias da 1.6 › blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)
+  FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+  FAIL src/features/lesson-flow/renderers/BlitzStepRenderer.test.tsx
+  FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+  Test Suites: 3 failed, 3 total
+  Tests:       7 failed, 125 passed, 132 total
+
+## jest LessonFlowScreen (rodada rápida)
+  ● LessonFlowScreen — rodada rápida (fase B) › sem vidas, a rodada rápida é barrada como os outros tipos, mas o erro nunca cobra
+  FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed, 148 skipped, 3 passed, 152 total
+
+## node lint e formatos
+  not ok 143 - blitz: a alternância perfeita do começo ao fim reprova
+  not ok 144 - conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa
+  # tests 144
+  # pass 142
+  # fail 2
+

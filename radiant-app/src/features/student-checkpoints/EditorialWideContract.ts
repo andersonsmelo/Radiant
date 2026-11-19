@@ -147,7 +147,8 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         // Quase todas verdadeiras (ou falsas) deixa a resposta constante: a rodada se acerta sem ler.
         if (truths < 2 || truths > statements.length - 2) codes.push('wide-constant-answer');
         // Três iguais seguidas no começo entregam o padrão da rodada.
-        if (statements.length >= 3 && statements.slice(0, 3).every(statement => statement.isTrue === statements[0].isTrue)) codes.push('wide-answer-position-bias');
+        if ((statements.length >= 3 && statements.slice(0, 3).every(statement => statement.isTrue === statements[0].isTrue))
+            || statements.every((statement, index) => index === 0 || statement.isTrue !== statements[index - 1].isTrue)) codes.push('wide-answer-position-bias');
     } else if (interaction.type === 'bench') {
         const { controls, goal, hints } = interaction.payload;
         const target = goal.kind === 'reach' ? controls.find(control => control.id === goal.control) : undefined;

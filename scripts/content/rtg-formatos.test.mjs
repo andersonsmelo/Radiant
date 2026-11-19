@@ -169,7 +169,7 @@ test('a rodada rápida chega ao lote com afirmações por id, passCount de n men
   const blitz = interactions.find(interaction => interaction.type === 'blitz');
   assert.match(blitz.accessibility.label, /^Rodada rápida: /);
   assert.deepEqual(blitz.payload.statements.map(statement => statement.id), [1, 2, 3, 4, 5, 6].map(n => `statement:rtg-2026:m01:aula-02:i3:${n}`));
-  assert.deepEqual(blitz.payload.statements.map(statement => statement.isTrue), [true, false, true, false, true, false]);
+  assert.deepEqual(blitz.payload.statements.map(statement => statement.isTrue), [true, false, true, true, false, false]);
   assert.equal(blitz.payload.passCount, 5);
   assert.ok(blitz.payload.statements.every(statement => statement.explanation.length >= 25 && !Object.hasOwn(statement, 'correct') && !Object.hasOwn(statement, 'feedback')));
   assert.deepEqual(Object.keys(blitz.payload).sort(), ['passCount', 'prompt', 'statements']);
@@ -184,7 +184,7 @@ test('o roteiro Maestro desliga o relógio se ele existir, responde cada afirma�
   assert.deepEqual(segment.slice(1, 6), ['- runFlow:', '    when:', "      visible: 'Sem tempo'", '    commands:', "      - tapOn: 'Sem tempo'"]);
   assert.deepEqual(segment.filter(line => /^    id: |^- assertVisible: 'Afirmação/.test(line)), [
     "    id: 'blitz-verdadeiro'", "- assertVisible: 'Afirmação 2 de 6'", "    id: 'blitz-falso'", "- assertVisible: 'Afirmação 3 de 6'", "    id: 'blitz-verdadeiro'",
-    "- assertVisible: 'Afirmação 4 de 6'", "    id: 'blitz-falso'", "- assertVisible: 'Afirmação 5 de 6'", "    id: 'blitz-verdadeiro'",
+    "- assertVisible: 'Afirmação 4 de 6'", "    id: 'blitz-verdadeiro'", "- assertVisible: 'Afirmação 5 de 6'", "    id: 'blitz-falso'",
     "- assertVisible: 'Afirmação 6 de 6'", "    id: 'blitz-falso'",
   ]);
   assert.deepEqual(segment.filter(line => /^- tapOn: 'Conferir|^- tapOn: 'Continuar/.test(line)), ["- tapOn: 'Conferir resposta'", "- tapOn: 'Continuar'"]);

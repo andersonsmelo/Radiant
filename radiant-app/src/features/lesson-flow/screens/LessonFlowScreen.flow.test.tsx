@@ -3184,7 +3184,7 @@ describe('LessonFlowScreen — rodada rápida (fase B)', () => {
     expect(hearts.spend).not.toHaveBeenCalled();
   });
 
-  it('sem vidas, a rodada rápida não é barrada e o erro continua sem cobrar', async () => {
+  it('sem vidas, a rodada rápida é barrada como os outros tipos, mas o erro nunca cobra', async () => {
     const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-11-19T12:30:00.000Z', unlimitedUntil: null };
     hearts.getSnapshot.mockResolvedValue(vazia);
     mockedLessonFlowService.getActivityById.mockReturnValue(activityOf(blitz));
@@ -3192,8 +3192,7 @@ describe('LessonFlowScreen — rodada rápida (fase B)', () => {
     await act(async () => {});
     await playBlitz([false, false, false, false]);
     fireEvent.press(screen.getByText('Conferir resposta'));
-    expect(await screen.findByText(/Você acertou 2 de 4; para passar eram 3\./)).toBeTruthy();
-    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     expect(hearts.spend).not.toHaveBeenCalled();
   });
 });

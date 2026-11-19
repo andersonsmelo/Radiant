@@ -544,14 +544,14 @@
               "feedback": "O avental cobre o tronco e atenua a radiação que se espalha na sala."
             },
             {
-              "text": "Quanto mais tempo na sala durante a exposição, menor é a dose.",
-              "correct": false,
-              "feedback": "Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose."
-            },
-            {
               "text": "Material com rachadura sai de uso e a supervisão é avisada.",
               "correct": true,
               "feedback": "Material danificado não protege direito e o aviso evita que o problema se esconda."
+            },
+            {
+              "text": "Quanto mais tempo na sala durante a exposição, menor é a dose.",
+              "correct": false,
+              "feedback": "Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose."
             },
             {
               "text": "Registrar o uso do dosímetro é opcional em turnos curtos.",
@@ -561,7 +561,7 @@
           ],
           "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe, no ritmo da rodada.",
           "feedbackIncorrect": "Reveja as afirmações: cada uma tem a própria explicação no retorno.",
-          "help": "Leia com calma: o relógio pode ser desligado no botão Sem tempo.",
+          "help": "Leia cada afirmação com calma antes de responder.",
           "sourceIds": [
             "esr-efrs-seguranca-2019"
           ]

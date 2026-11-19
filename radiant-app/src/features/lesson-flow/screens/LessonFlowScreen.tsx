@@ -507,8 +507,9 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         // Depois do feedback de um débito, seguir é livre: a última vida perdida
         // no último retorno conclui a lição (ADR de 2026-10-18, régua e última vida).
         // A rodada rápida nunca tira vida: o tempo e o ritmo dela já são a pressão.
-        const costsHeart = !isReview && (!hybrid || player.isRetry) && currentInteraction?.type !== 'blitz';
-        if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
+        const gated = !isReview && (!hybrid || player.isRetry);
+        const costsHeart = gated && currentInteraction?.type !== 'blitz';
+        if (gated && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
             setHeartsSheetInvites(false);
             setHeartsSheetVisible(true);
             return;

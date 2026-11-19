@@ -142,7 +142,7 @@ describe('BlitzStepRenderer', () => {
         advance(60_000);
         expect(probe()).toBe('|false');
         press('blitz-falso');
-        expect(AccessibilityInfo.announceForAccessibility).toHaveBeenLastCalledWith('Não é isso. Longe da fonte, menos dose.');
+        expect(AccessibilityInfo.announceForAccessibility).toHaveBeenLastCalledWith('Não é isso. Longe da fonte, menos dose. 0 seguidas.');
         advance(900 * 5);
         expect(screen.getByLabelText(/^Afirmação 1: A distância reduz a dose\. Você marcou falso\. Não é isso\./)).toBeTruthy();
         press('blitz-proxima');
@@ -177,6 +177,66 @@ describe('BlitzStepRenderer', () => {
         expect(probe()).toBe('|false');
         await act(async () => { release(false); await Promise.resolve(); });
         expect(screen.getByTestId('blitz-time-bar')).toBeTruthy();
+    });
+
+    it('ligar o leitor de tela no meio da rodada para o relógio, e o avanço passa a ser pelo botão Próxima', async () => {
+        let listener: (on: boolean) => void = () => undefined;
+        const remove = jest.fn();
+        jest.spyOn(AccessibilityInfo, 'addEventListener').mockImplementation(((name: string, handler: (on: boolean) => void) => { if (name === 'screenReaderChanged') listener = handler; return { remove }; }) as never);
+        await renderTimed();
+        advance(3000);
+        expect(screen.getByText('Tempo: 7 s')).toBeTruthy();
+        act(() => listener(true));
+        expect(screen.queryByTestId('blitz-time-bar')).toBeNull();
+        advance(60_000);
+        expect(probe()).toBe('|false');
+        press('blitz-verdadeiro');
+        advance(900 * 5);
+        expect(screen.getByTestId('blitz-proxima')).toBeTruthy();
+        expect(screen.queryByText('Afirmação 2 de 6')).toBeNull();
+        screen.unmount();
+        expect(remove).toHaveBeenCalled();
+    });
+
+    it('as respostas que zeram no retry apagam a marca e o botão Próxima', async () => {
+        (AccessibilityInfo.isScreenReaderEnabled as jest.Mock).mockResolvedValue(true);
+        const view = render(<Harness />);
+        await act(async () => { await Promise.resolve(); });
+        press('blitz-verdadeiro');
+        expect(screen.getByTestId('blitz-proxima')).toBeTruthy();
+        view.unmount();
+        // Retry: a tela volta com as respostas zeradas e o renderer vivo; simulado por um valor controlado.
+        function Retry() {
+            const [value, setValue] = useState<string | undefined>();
+            const { Text } = jest.requireActual('react-native');
+            return <><ActivityInteractionRenderer interaction={blitz} value={value} onChange={setValue} /><Text testID="reset" onPress={() => setValue(undefined)}>x</Text></>;
+        }
+        render(<Retry />);
+        await act(async () => { await Promise.resolve(); });
+        press('blitz-verdadeiro');
+        expect(screen.getByTestId('blitz-proxima')).toBeTruthy();
+        fireEvent.press(screen.getByTestId('reset'));
+        expect(screen.queryByTestId('blitz-proxima')).toBeNull();
+        expect(screen.getByTestId('blitz-verdadeiro')).toBeTruthy();
+    });
+
+    it('anuncia a contagem de seguidas depois do toque e a afirmação nova depois de Próxima', async () => {
+        (AccessibilityInfo.isScreenReaderEnabled as jest.Mock).mockResolvedValue(true);
+        await renderTimed();
+        press('blitz-verdadeiro');
+        expect(AccessibilityInfo.announceForAccessibility).toHaveBeenLastCalledWith('Acertou. Longe da fonte, menos dose. 1 seguida.');
+        press('blitz-proxima');
+        expect(AccessibilityInfo.announceForAccessibility).toHaveBeenLastCalledWith('Afirmação 2 de 6: O dosímetro reduz a dose.');
+    });
+
+    it('dois toques no mesmo desenho, ou o tempo esgotado junto do toque, gravam só uma resposta', async () => {
+        const onChange = jest.fn();
+        render(<ActivityInteractionRenderer interaction={blitz} value={undefined} onChange={onChange} />);
+        await act(async () => { await Promise.resolve(); });
+        const yes = screen.getByTestId('blitz-verdadeiro'); const no = screen.getByTestId('blitz-falso');
+        fireEvent.press(yes); fireEvent.press(no);
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('[true]');
     });
 
     it('a última afirmação deixa a marca na tela, completa a resposta e não corre mais relógio', async () => {

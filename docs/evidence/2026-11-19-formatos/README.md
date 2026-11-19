@@ -12,6 +12,7 @@ Esta pasta guarda a evidência das tarefas da fase B da trilha dobrada (novos fo
 
 ## Limites conhecidos
 
+- O roteiro Maestro do `blitz` roda com "reduzir movimento" ligado, então o caminho com relógio (barra de tempo, "Sem tempo", tempo esgotado) só tem teste de componente.
 - O gerador de roteiros Maestro só é exercitado para os tipos da aula-fonte presentes na unidade sintética (`comparison` fica de fora, por exigir imagem).
 - `validateInteraction` não acusa tipo sem `case`: o teste de famílias só pega payload malformado do exemplo.
 - Os textos que o gerador Maestro repete à mão (rótulo falado do ponto, ids das fichas) não estão amarrados aos da tela por teste (tarefas 4 e 5).
