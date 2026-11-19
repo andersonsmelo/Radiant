@@ -132,6 +132,52 @@ Limites do lote 3:
 - Revisão por IA, não por profissional de radiologia; nada foi visto em simulador ou
   aparelho.
 
+## Lote 4
+
+Na branch `claude/trilha-dobrada-fase-c-lote-4`.
+
+| Unidade | Irmã de | Parecer | Correções na revisão | Texto ou formato antigo | Aulas com passo visual | Famílias |
+| --- | --- | --- | --- | --- | --- | --- |
+| M29 Sequências, contraste e artefatos básicos de RM | M11 | [m29.md](m29.md) | 13 | 50,0% | 6 de 6 | 10 |
+| M30 Densitometria óssea e composição corporal | M12 | [m30.md](m30.md) | 23 | 50,0% | 6 de 6 | 9 |
+| M31 Outros campos: veterinária, forense e pesquisa | M13 | [m31.md](m31.md) | 19 | 50,0% | 6 de 6 | 9 |
+| M32 Controle de qualidade de equipamentos e níveis de referência | M14 | [m32.md](m32.md) | 13 | 50,0% | 6 de 6 | 9 |
+
+Gates do lote 4, medidos em 2026-11-19: app, saída 0, 297 suítes e 4.335 testes;
+conteúdo e roteiros, 407 de 408 (a mesma falha de ambiente); lotes gerados e roteiros
+do Maestro de m29 a m32 conferidos com `--check`. O run do Loop foi fechado sem
+`loop validate`, pelo mesmo motivo do lote 1.
+
+Dezoito diagramas novos, conferidos por imagem pelo controlador; sem imagem real nova.
+Simplificações e limites conhecidos do lote 4:
+
+- `relaxacao-t1-t2`: as duas curvas de T1 chegam ao mesmo patamar por simplificação.
+- `ponderacoes-no-encefalo`: os ventrículos são duas folhas; o líquido em volta do
+  encéfalo não aparece; a gordura em T2 está intermediária e nenhum item depende dela,
+  porque as fontes divergem.
+- `supressao-de-gordura`: o metal é desenhado como objeto, não como vazio de sinal.
+- `linha-do-tempo-tr-te`: sem o pulso de 180 graus.
+- `dxa-regioes-de-interesse`: limites aproximados; o alvo da pelve fica na asa do ilíaco.
+- `dxa-posicionamento`: o posicionador ficou alto e as pernas afastadas.
+- `radiografia-veterinaria`: o cão é esquemático, refeito uma vez; no item da calha, o
+  toque no saco de areia vizinho conta como acerto.
+- `coincidencia-de-campo`: há também faixas em cima e embaixo, que não são alvo.
+
+Limites do lote 4:
+
+- M29: o controlador mandou tirar das fontes as páginas da FDA e do NIBIB; foi mais
+  estrito que a regra, que vale para o texto da aula (33 unidades citam institutos
+  nacionais como referência factual). A troca ficou, com a mesma sustentação.
+- M30: nenhuma direção de erro, grau ou índice; a ordem do posicionamento do fêmur é
+  sequência ensinada na aula.
+- M31: a regra de sociedade de um país sobre quem segura o animal saiu; ficou "o
+  serviço define". O lacre da cadeia de custódia e "quem conclui é quem responde pela
+  perícia" são do esquema e da regra do curso, sem página lida.
+- M32: a página da IAEA sobre níveis de referência não abriu; os três fatos centrais
+  vêm da publicação 135 da ICRP. Tolerâncias numéricas não aparecem.
+- Revisão por IA, não por profissional de radiologia; nada foi visto em simulador ou
+  aparelho.
+
 ## Gates do lote 1
 
 | Gate | Comando | Resultado |
