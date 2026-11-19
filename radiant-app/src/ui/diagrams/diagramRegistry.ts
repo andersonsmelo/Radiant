@@ -15,6 +15,14 @@ import { salaComRiscos } from './specs/sala-com-riscos';
 import { inversoDoQuadrado } from './specs/inverso-do-quadrado';
 import { blindagemCamadas } from './specs/blindagem-camadas';
 import { decaimentoRadioativo } from './specs/decaimento-radioativo';
+import { conferenciaDeIdentidade } from './specs/conferencia-de-identidade';
+import { transferenciaMacaMesa } from './specs/transferencia-maca-mesa';
+import { pontosDeContatoDaSala } from './specs/pontos-de-contato-da-sala';
+import { itensDeEmergenciaDaSala } from './specs/itens-de-emergencia-da-sala';
+import { circuitoDoGerador } from './specs/circuito-do-gerador';
+import { retificacaoDeOnda } from './specs/retificacao-de-onda';
+import { anodoGiratorio } from './specs/anodo-giratorio';
+import { espectroDeRaiosX } from './specs/espectro-de-raios-x';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -33,6 +41,14 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [inversoDoQuadrado.id]: inversoDoQuadrado,
   [blindagemCamadas.id]: blindagemCamadas,
   [decaimentoRadioativo.id]: decaimentoRadioativo,
+  [conferenciaDeIdentidade.id]: conferenciaDeIdentidade,
+  [transferenciaMacaMesa.id]: transferenciaMacaMesa,
+  [pontosDeContatoDaSala.id]: pontosDeContatoDaSala,
+  [itensDeEmergenciaDaSala.id]: itensDeEmergenciaDaSala,
+  [circuitoDoGerador.id]: circuitoDoGerador,
+  [retificacaoDeOnda.id]: retificacaoDeOnda,
+  [anodoGiratorio.id]: anodoGiratorio,
+  [espectroDeRaiosX.id]: espectroDeRaiosX,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
