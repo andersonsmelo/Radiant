@@ -75,6 +75,11 @@ import { cadeiaDeCustodia } from './specs/cadeia-de-custodia';
 import { fluxoDePesquisa } from './specs/fluxo-de-pesquisa';
 import { radiografiaDeObjeto } from './specs/radiografia-de-objeto';
 import { radiografiaVeterinaria } from './specs/radiografia-veterinaria';
+import { relaxacaoT1T2 } from './specs/relaxacao-t1-t2';
+import { linhaDoTempoTrTe } from './specs/linha-do-tempo-tr-te';
+import { ponderacoesNoEncefalo } from './specs/ponderacoes-no-encefalo';
+import { supressaoDeGordura } from './specs/supressao-de-gordura';
+import { artefatosDeRm } from './specs/artefatos-de-rm';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -153,6 +158,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [fluxoDePesquisa.id]: fluxoDePesquisa,
   [radiografiaDeObjeto.id]: radiografiaDeObjeto,
   [radiografiaVeterinaria.id]: radiografiaVeterinaria,
+  [relaxacaoT1T2.id]: relaxacaoT1T2,
+  [linhaDoTempoTrTe.id]: linhaDoTempoTrTe,
+  [ponderacoesNoEncefalo.id]: ponderacoesNoEncefalo,
+  [supressaoDeGordura.id]: supressaoDeGordura,
+  [artefatosDeRm.id]: artefatosDeRm,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
