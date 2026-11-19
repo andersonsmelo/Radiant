@@ -836,7 +836,7 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             if (keyPoints !== undefined && (!Array.isArray(keyPoints) || keyPoints.length === 0 || !keyPoints.every(isFilled))) {
                 push(issues, stepId, 'invalid-key-points');
             }
-            if (step.payload?.visual !== undefined && !isFilled(step.payload.visual)) {
+            if (step.payload?.visual !== undefined && (step.role !== 'concept' || !isFilled(step.payload.visual))) {
                 push(issues, stepId, 'invalid-visual');
             }
         } else {

@@ -49,6 +49,9 @@ describe('ParameterLabStepRenderer', () => {
         render(<Harness />);
         fireEvent.press(screen.getByLabelText('Aumentar Distância'));
         expect(probe()).toBe('1.5|true|false');
+        // O valor guardado é o número em texto; o que o aluno lê e o leitor de tela falam leva vírgula.
+        expect(screen.getByText('1,5 m')).toBeTruthy();
+        expect(screen.getByRole('adjustable', { name: 'Distância' }).props.accessibilityValue.text).toBe('1,5 m');
         expect(screen.getByText('Intensidade relativa: 44,4%')).toBeTruthy();
         expect(announce).toHaveBeenCalledWith('Intensidade relativa: 44,4%');
         fireEvent.press(screen.getByLabelText('Aumentar Distância'));

@@ -582,6 +582,23 @@ describe('contrato amplo (wide)', () => {
         });
     });
 
+    describe('visual do conceito (fase B)', () => {
+        const conceptOf = (value: EditorialWideCandidateV1) => {
+            const step = value.activities[0].steps.find(entry => entry.kind === 'presentation' && entry.role === 'concept');
+            if (step?.kind !== 'presentation') throw new Error('sem conceito');
+            return step as Mutable<typeof step>;
+        };
+        it('aceita um diagrama do registro e recusa um id fora dele', () => {
+            const ok = candidate();
+            conceptOf(ok).payload.visual = 'colimador-abrindo';
+            expect(validateEditorialCurriculumCandidate(ok)).toEqual([]);
+            const bad = candidate();
+            const concept = conceptOf(bad);
+            concept.payload.visual = 'diagrama-que-nao-existe';
+            expect(validateEditorialCurriculumCandidate(bad)).toEqual([`unregistered-diagram:${concept.id}`]);
+        });
+    });
+
     describe('bench (fase B)', () => {
         const ID = 'interaction:rtg-2026:m01:aula-01:i2';
         function benchCandidate(): EditorialWideCandidateV1 {
@@ -631,13 +648,35 @@ describe('contrato amplo (wide)', () => {
             expect(issuesWith(interaction => { interaction.payload.phantomLabel = ' '; })).toContain(`unsupported-wide-payload:${ID}`);
         });
 
-        it('invalid-wide-shape: dicas iguais ou vazias, sem controle ou com mais de dois', () => {
+        const MAS = { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 } as const;
+        it('invalid-wide-shape: dicas iguais ou vazias e controle ausente', () => {
             expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = interaction.payload.hints.tooLow; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.hints.tooHigh = ' '; })).toContain(`invalid-wide-shape:${ID}`);
             expect(issuesWith(interaction => { interaction.payload.controls.splice(0); })).toContain(`invalid-wide-shape:${ID}`);
-            expect(issuesWith(interaction => {
-                interaction.payload.controls.push({ id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 }, { id: 'mas', label: 'Outra', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 });
-            })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('invalid-wide-shape: mais de dois controles, mesmo com ids distintos', () => {
+            expect(issuesWith(interaction => { interaction.payload.controls.push({ ...MAS }, { ...MAS, id: 'fieldWidth' } as never); })).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('invalid-wide-shape: dois controles de mesmo id', () => {
+            expect(issuesWith(interaction => { interaction.payload.controls.push({ ...interaction.payload.controls[0], label: 'Outra tensão' }); })).toContain(`invalid-wide-shape:${ID}`);
+            expect(issuesWith(interaction => { interaction.payload.controls.push({ ...MAS }); })).toEqual([]);
+        });
+
+        const matchOf = (mode: 'explore' | 'challenge' | 'correct', reference = { kv: 80, mas: 10 }) => issuesWith(interaction => {
+            interaction.payload.controls.push({ ...MAS });
+            interaction.payload.mode = mode;
+            interaction.payload.goal = { kind: 'match', reference, tolerance: 0.05 };
+        });
+        it('o match só vale no desafio, que é onde a tela mostra a referência', () => {
+            expect(matchOf('challenge')).toEqual([]);
+            expect(matchOf('explore')).toContain(`invalid-wide-shape:${ID}`);
+            expect(matchOf('correct')).toContain(`invalid-wide-shape:${ID}`);
+        });
+
+        it('wide-constant-answer: o match já vale no ponto de partida', () => {
+            expect(matchOf('challenge', { kv: 60, mas: 10 })).toContain(`wide-constant-answer:${ID}`);
         });
 
         it('wide-constant-answer: o alvo de alcance já vale no ponto de partida', () => {

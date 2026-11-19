@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import type { BenchControl } from '../../types/learningActivity';
-import { BenchControlRow } from './BenchControlRow';
+import { BenchControlRow, formatBenchValue } from './BenchControlRow';
 
 // A linha de controle da bancada: rótulo, valor, o Slider e os botões − e +.
 // O Slider nativo não é o único caminho: quem não consegue arrastar usa os
@@ -53,6 +53,18 @@ describe('BenchControlRow', () => {
 
         expect(getByText('Tensão')).toBeTruthy();
         expect(getByText('70 kV')).toBeTruthy();
+    });
+
+    it('escreve o valor com vírgula decimal e só as casas do passo, no texto e no valor acessível', () => {
+        const DISTANCE: BenchControl = { id: 'kv', label: 'Distância', unit: 'm', min: 0.5, max: 4, step: 0.5, initial: 1.5 };
+        const { getByText, getByLabelText, getByRole } = render(<Harness control={DISTANCE} initial={1.5} onChange={jest.fn()} />);
+        expect(getByText('1,5 m')).toBeTruthy();
+        expect(getByRole('adjustable').props.accessibilityValue.text).toBe('1,5 m');
+        expect(getByLabelText('Aumentar Distância').props.accessibilityHint).toBe('Soma um passo de 0,5 m.');
+        fireEvent.press(getByLabelText('Aumentar Distância'));
+        expect(getByText('2 m')).toBeTruthy();
+        expect(formatBenchValue(0.30000000000000004, 0.1)).toBe('0,3');
+        expect(formatBenchValue(70, 10)).toBe('70');
     });
 
     it('sobe de passo em passo ao tocar + três vezes, e o rótulo acompanha', () => {

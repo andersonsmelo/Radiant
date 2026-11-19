@@ -763,6 +763,26 @@ test('bench: algum passo do controle cai dentro do alvo', () => {
   expectOnly(benchItem(item => { item.goal = { kind: 'reach', control: 'kv', atLeast: 85, atMost: 88 }; }), /bench: nenhum passo do controle cai dentro do alvo/);
   assert.deepEqual(benchItem(item => { item.goal = { kind: 'reach', control: 'kv', atLeast: 85, atMost: 100 }; }), []);
 });
+test('bench: dois controles de mesmo id reprovam', () => {
+  expectOnly(benchItem(item => { item.controls.push({ ...item.controls[0], label: 'Outra tensão' }); }), /bench: controle repetido/);
+});
+test('bench: o passo arredondado e o extremo contam para o alcance do alvo', () => {
+  // 0,7 - 4 × 0,1 dá 0,30000000000000004 em ponto flutuante; o app arredonda e chega a 0,3.
+  const fine = (item) => { item.controls = [{ id: 'kv', label: 'Tensão', unit: 'kV', min: 0, max: 1, step: 0.1, initial: 0.7 }]; item.goal = { kind: 'reach', control: 'kv', atMost: 0.3, atLeast: 0.3 }; };
+  assert.deepEqual(benchItem(fine), []);
+  // De 60 em passos de 25: 85, 110 e o botão para em 120, que é o único valor a cumprir 115.
+  assert.deepEqual(benchItem(item => { item.controls[0].step = 25; item.goal.atLeast = 115; }), []);
+});
+test('bench: o match só vale no desafio e não pode valer no ponto de partida', () => {
+  const match = (mutate = () => {}) => item => {
+    item.controls.push({ id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 100, step: 1, initial: 10 });
+    item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; mutate(item);
+  };
+  assert.deepEqual(benchItem(match()), []);
+  expectOnly(benchItem(match(item => { item.mode = 'explore'; })), /bench: match só vale no modo challenge/);
+  expectOnly(benchItem(match(item => { item.mode = 'correct'; })), /bench: match só vale no modo challenge/);
+  expectOnly(benchItem(match(item => { item.goal.reference = { kv: 60, mas: 10 }; })), /bench: o alvo já vale no ponto de partida/);
+});
 test('bench: o match só vale na exposição, com referência numérica e tolerância positiva', () => {
   const match = (mutate = () => {}) => item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; mutate(item); };
   expectOnly(benchItem(item => { collimationBench(item); match()(item); }), /bench: match só vale na exposição/);

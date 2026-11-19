@@ -86,3 +86,102 @@ not ok 122 - M05.06, publicada sem múltipla escolha, é a única isenta
   actual: false
 # pass 120
 # fail 2
+
+## Rodada 1: cada régua vista falhando com a regra dela retirada à mão (e restaurada)
+Itens 1, 2, 3, 4 e 5 da rodada. A falha é a do defeito nomeado, não 'rtg-batch-unknown-type'.
+
+### Rodada 1, item 1: contrato wide sem a conferência do visual do conceito
+  ● contrato amplo (wide) › visual do conceito (fase B) › aceita um diagrama do registro e recusa um id fora dele
+  ● contrato amplo (wide) › visual do conceito (fase B) › aceita um diagrama do registro e recusa um id fora dele
+Tests:       1 failed, 382 skipped, 1 passed, 384 total
+
+### item 1: validação sem a restrição de papel (visual em abertura e fecho)
+  ● validador de atividade: diálogo, pontos-chave e ajuda › visual fora do passo de conceito é recusado
+  ● validador de atividade: diálogo, pontos-chave e ajuda › visual fora do passo de conceito é recusado
+Tests:       1 failed, 383 skipped, 384 total
+
+### item 3a/4: bench sem a régua de 1 a 2 controles (invalid-wide-shape)
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dicas iguais ou vazias e controle ausente
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: ["invalid-activity:activity:rtg-2026:m01:aula-01"]
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: mais de dois controles, mesmo com ids distintos
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: ["invalid-activity:activity:rtg-2026:m01:aula-01"]
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dicas iguais ou vazias e controle ausente
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: ["invalid-activity:activity:rtg-2026:m01:aula-01"]
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: mais de dois controles, mesmo com ids distintos
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: ["invalid-activity:activity:rtg-2026:m01:aula-01"]
+Tests:       2 failed, 373 skipped, 9 passed, 384 total
+
+### item 3a/4: bench sem a régua de id repetido (invalid-wide-shape)
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dois controles de mesmo id
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dois controles de mesmo id
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 4: bench sem a régua de dicas distintas (invalid-wide-shape)
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dicas iguais ou vazias e controle ausente
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+  ● contrato amplo (wide) › bench (fase B) › invalid-wide-shape: dicas iguais ou vazias e controle ausente
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 4: bench sem wide-constant-answer do alcance
+  ● contrato amplo (wide) › bench (fase B) › wide-constant-answer: o alvo de alcance já vale no ponto de partida
+    Expected value: "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+  ● contrato amplo (wide) › bench (fase B) › wide-constant-answer: o alvo de alcance já vale no ponto de partida
+    Expected value: "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 4: sem wide-feedback-not-distinct (régua comum às famílias)
+  ● contrato amplo (wide) › bench (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+  ● contrato amplo (wide) › bench (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 2: wide sem a restrição do match ao desafio
+  ● contrato amplo (wide) › bench (fase B) › o match só vale no desafio, que é onde a tela mostra a referência
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+  ● contrato amplo (wide) › bench (fase B) › o match só vale no desafio, que é onde a tela mostra a referência
+    Expected value: "invalid-wide-shape:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 2: wide sem a recusa do match que já vale na partida
+  ● contrato amplo (wide) › bench (fase B) › wide-constant-answer: o match já vale no ponto de partida
+    Expected value: "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+  ● contrato amplo (wide) › bench (fase B) › wide-constant-answer: o match já vale no ponto de partida
+    Expected value: "wide-constant-answer:interaction:rtg-2026:m01:aula-01:i2"
+    Received array: []
+Tests:       1 failed, 373 skipped, 10 passed, 384 total
+
+### item 2: verificador sem a restrição do match ao desafio
+not ok 118 - bench: o match só vale no desafio e não pode valer no ponto de partida
+  error: 'o defeito passou sem erro'
+# fail 1
+
+### item 2: verificador sem a recusa do match que já vale na partida
+not ok 118 - bench: o match só vale no desafio e não pode valer no ponto de partida
+  error: 'o defeito passou sem erro'
+# fail 1
+
+### item 3b: verificador sem a régua de controle repetido
+not ok 116 - bench: dois controles de mesmo id reprovam
+  error: 'o defeito passou sem erro'
+# fail 1
+
+### item 5: verificador sem o arredondamento do passo
+not ok 117 - bench: o passo arredondado e o extremo contam para o alcance do alvo
+  error: |-
+    Expected values to be strictly deep-equal:
+# fail 1

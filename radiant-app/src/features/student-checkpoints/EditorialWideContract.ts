@@ -1,5 +1,6 @@
 import { AUTHORED_EVIDENCE_KINDS, type LearningActivityV2, type LearningInteractionV2 } from '../../types/learningActivity';
 import { DIAGRAMS, parseDiagramRef } from '../../ui/diagrams/diagramRegistry';
+import { encodeBenchValue, isCorrectInteractionValue } from '../lesson-flow/renderers/InteractionAnswerValue';
 import { LAB_MODEL_IDS, isOnLabGrid } from '../parameter-lab/labModels';
 import type { CheckpointItemCandidateV1, ClaimProvenanceV1, EditorialWideCandidateV1 } from './EditorialCurriculumCandidate';
 
@@ -159,6 +160,9 @@ function newFamilyIssues(interaction: LearningInteractionV2): string[] {
         // Sem mexer em nada o aluno já cumpriria o alvo: a bancada se responderia sozinha.
         if (goal.kind === 'reach' && target && (goal.atLeast === undefined || target.initial >= goal.atLeast)
             && (goal.atMost === undefined || target.initial <= goal.atMost)) codes.push('wide-constant-answer');
+        // O `match` só tem imagem de referência no desafio, e também não pode se cumprir sozinho.
+        if (goal.kind === 'match' && interaction.payload.mode !== 'challenge') codes.push('invalid-wide-shape');
+        else if (goal.kind === 'match' && isCorrectInteractionValue(interaction, encodeBenchValue(Object.fromEntries(controls.map(control => [control.id, control.initial]))))) codes.push('wide-constant-answer');
     } else if (interaction.type === 'parameter-lab') {
         const { model, start, goal, hints } = interaction.payload;
         const known = (LAB_MODEL_IDS as readonly unknown[]).includes(model);
@@ -323,6 +327,10 @@ export function validateEditorialWideContract(candidate: EditorialWideCandidateV
         identity(activity.id);
         const interactions = activity.steps.flatMap(step => step.kind === 'interaction' ? [step.interaction] : []);
         activity.steps.forEach(step => identity(step.kind === 'interaction' ? step.interaction.id : step.id));
+        // O diagrama do conceito mora no app, como o das figuras de interação.
+        activity.steps.forEach(step => {
+            if (step.kind === 'presentation' && step.role === 'concept' && step.payload.visual !== undefined && !Object.hasOwn(DIAGRAMS, step.payload.visual)) add('unregistered-diagram', step.id);
+        });
         if (interactions.length < WIDE_MIN_INTERACTIONS || interactions.length > WIDE_MAX_INTERACTIONS) add('invalid-wide-interaction-count', activity.id);
         if (!competency(activity.competencyIds) || !sources(activity.provenance.sourceIds)) add('invalid-activity-contract', activity.id);
         for (const interaction of interactions) {

@@ -214,7 +214,7 @@ test('o roteiro Maestro leva a tensão até o alvo pelo botão Aumentar, um toqu
   assert.equal(segment.filter(line => line.startsWith('- scrollUntilVisible')).length, 1);
 });
 
-test('a bancada com alvo de menos de um limite usa Diminuir; match e passo que não chega ao limite pedem roteiro manual', () => {
+test('a bancada com alvo de menos de um limite usa Diminuir, o passo que passa do limite para no extremo, e o match pede roteiro manual', () => {
   const lessonWith = mutate => {
     const copy = structuredClone(thirdLessonFirst());
     mutate(copy.lessons[0].interactions[1]);
@@ -223,6 +223,9 @@ test('a bancada com alvo de menos de um limite usa Diminuir; match e passo que n
   const down = lessonWith(item => { item.goal = { kind: 'reach', control: 'kv', atMost: 45 }; });
   // De 60 a 45 kV em passos de 10: dois toques (50, 40), e 40 já cumpre o limite.
   assert.deepEqual(down.filter(line => line === "- tapOn: 'Diminuir Tensão'"), ["- tapOn: 'Diminuir Tensão'", "- tapOn: 'Diminuir Tensão'"]);
+  // De 60 em passos de 25 até atLeast 115: 85, 110 e o botão para em 120. Três toques, e o último cumpre.
+  const clamped = lessonWith(item => { item.controls[0].step = 25; item.goal.atLeast = 115; });
+  assert.equal(clamped.filter(line => line === "- tapOn: 'Aumentar Tensão'").length, 3);
   assert.throws(() => lessonWith(item => { item.goal = { kind: 'match', reference: { kv: 80, mas: 10 }, tolerance: 0.05 }; }), /rtg-maestro-bench-manual/);
 });
 

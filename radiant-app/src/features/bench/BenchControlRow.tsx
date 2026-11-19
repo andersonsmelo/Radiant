@@ -20,6 +20,12 @@ function tidy(value: number): number {
   return Math.round(value * 1e6) / 1e6;
 }
 
+/** O valor com vírgula decimal e, no máximo, as casas que o passo pede ("1,5 m", "70 kV"). */
+export function formatBenchValue(value: number, step: number): string {
+  const places = Math.min(3, (String(step).split('.')[1] ?? '').length);
+  return String(Number(value.toFixed(places))).replace('.', ',');
+}
+
 function stepOf(control: BenchControl): number {
   return control.step > 0 ? control.step : 1;
 }
@@ -65,7 +71,7 @@ export function BenchControlRow({
   const [live, setLive] = useState<number | null>(null);
   const largeText = useLargeTextLayout();
 
-  const text = `${value} ${control.unit}`;
+  const text = `${formatBenchValue(value, stepOf(control))} ${control.unit}`;
   const atMin = value <= control.min;
   const atMax = value >= control.max;
 
@@ -110,7 +116,7 @@ export function BenchControlRow({
           disabled={disabled || atMin}
           accessibilityRole="button"
           accessibilityLabel={`Diminuir ${control.label}`}
-          accessibilityHint={`Tira um passo de ${stepOf(control)} ${control.unit}.`}
+          accessibilityHint={`Tira um passo de ${formatBenchValue(stepOf(control), stepOf(control))} ${control.unit}.`}
           accessibilityState={{ disabled: disabled || atMin }}
           style={[styles.button, largeText && styles.buttonLarge, (disabled || atMin) && styles.buttonOff]}
         >
@@ -149,7 +155,7 @@ export function BenchControlRow({
           disabled={disabled || atMax}
           accessibilityRole="button"
           accessibilityLabel={`Aumentar ${control.label}`}
-          accessibilityHint={`Soma um passo de ${stepOf(control)} ${control.unit}.`}
+          accessibilityHint={`Soma um passo de ${formatBenchValue(stepOf(control), stepOf(control))} ${control.unit}.`}
           accessibilityState={{ disabled: disabled || atMax }}
           style={[styles.button, largeText && styles.buttonLarge, (disabled || atMax) && styles.buttonOff]}
         >

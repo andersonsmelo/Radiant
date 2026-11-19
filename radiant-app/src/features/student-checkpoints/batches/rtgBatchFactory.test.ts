@@ -195,6 +195,16 @@ describe('validador de atividade: diálogo, pontos-chave e ajuda', () => {
         }
     });
 
+    it('visual fora do passo de conceito é recusado', () => {
+        for (const index of [0, copy().steps.length - 1]) {
+            const activity = copy();
+            const step = activity.steps[index];
+            if (step.kind !== 'presentation') throw new Error('abertura e fecho são apresentações');
+            step.payload.visual = 'colimador-abrindo';
+            expect(rules(activity)).toEqual([`${step.id}|invalid-visual`]);
+        }
+    });
+
     it('recusa ajuda em branco', () => {
         const activity = copy();
         const interaction = interactionsOf(activity.steps)[0];

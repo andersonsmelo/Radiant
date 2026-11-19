@@ -17,6 +17,7 @@ const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.
 const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
 const { BENCH_SIMULATOR_CONTROLS } = loadAppContract('types/learningActivity.ts');
 const { LAB_MODEL_IDS, isOnLabGrid } = loadAppContract('features/parameter-lab/labModels.ts');
+const { encodeBenchValue, isCorrectInteractionValue } = loadAppContract('features/lesson-flow/renderers/InteractionAnswerValue.ts');
 const { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap } = loadAppContract('features/lesson-flow/renderers/hotspotTouch.ts');
 // As 24 unidades publicadas antes da fase B: o corpo do conceito delas segue com 110 palavras mesmo com `visual`.
 // Escritas por extenso, e não lidas da fábrica: a lista da fábrica cresce, esta não.
@@ -204,6 +205,12 @@ export function lintUnit(doc, { images = [] } = {}) {
       errors.push(...keyErrors(`${where}.goal.reference`, goal.reference, ['kv', 'mas']));
       if (goal.reference && !(number(goal.reference.kv) && number(goal.reference.mas))) err(`${where}.goal.reference`, 'bench: kv e mas devem ser números');
       if (!(number(goal.tolerance) && goal.tolerance > 0)) err(where, 'bench: tolerance deve ser um número positivo');
+      // A imagem de referência só aparece no desafio; nos outros modos o alvo seria invisível.
+      if (item.mode !== 'challenge') err(where, 'bench: match só vale no modo challenge, o único que mostra a imagem de referência');
+      // Sem mexer em nada o aluno já igualaria a referência: usa a mesma conta da tela.
+      else if (sound && item.simulator === 'exposure' && number(goal.reference?.kv) && number(goal.reference?.mas) && number(goal.tolerance) && goal.tolerance > 0
+        && isCorrectInteractionValue({ type: 'bench', payload: { simulator: item.simulator, controls, goal } }, encodeBenchValue(Object.fromEntries(controls.map((control) => [control.id, control.initial])))))
+        err(where, 'bench: o alvo já vale no ponto de partida; a bancada se responderia sozinha');
     } else if (goal.kind === 'reach') {
       errors.push(...keyErrors(`${where}.goal`, goal, ['kind', 'control', 'atLeast', 'atMost']));
       const target = controls.find((control) => control?.id === goal.control);
@@ -218,7 +225,9 @@ export function lintUnit(doc, { images = [] } = {}) {
       else if (sound) {
         const inside = (value) => (goal.atLeast === undefined || value >= goal.atLeast) && (goal.atMost === undefined || value <= goal.atMost);
         const steps = Math.ceil((target.max - target.min) / target.step);
-        const reachable = [target.min, target.max, ...Array.from({ length: 2 * steps + 1 }, (_, k) => target.initial + (k - steps) * target.step)];
+        // Arredonda como o app (BenchControlRow.tidy): 0,7 - 4 × 0,1 tem de dar 0,3.
+        const tidy = (value) => Math.round(value * 1e6) / 1e6;
+        const reachable = [target.min, target.max, ...Array.from({ length: 2 * steps + 1 }, (_, k) => tidy(target.initial + (k - steps) * target.step))];
         if (!reachable.some((value) => value >= target.min && value <= target.max && inside(value))) err(where, 'bench: nenhum passo do controle cai dentro do alvo');
       }
     } else err(where, 'bench: goal.kind deve ser reach ou match');
