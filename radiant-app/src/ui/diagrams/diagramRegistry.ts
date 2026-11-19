@@ -45,6 +45,11 @@ import { compressaoDeImagem } from './specs/compressao-de-imagem';
 import { radiografiaRoteiro } from './specs/radiografia-roteiro';
 import { artefatosDeObjeto } from './specs/artefatos-de-objeto';
 import { artefatosDoDetector } from './specs/artefatos-do-detector';
+import { ossosDoPe } from './specs/ossos-do-pe';
+import { joelhoFrenteEPerfil } from './specs/joelho-frente-e-perfil';
+import { femurProximalEQuadril } from './specs/femur-proximal-e-quadril';
+import { pelveDeFrente } from './specs/pelve-de-frente';
+import { vertebraTipica } from './specs/vertebra-tipica';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -93,6 +98,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [radiografiaRoteiro.id]: radiografiaRoteiro,
   [artefatosDeObjeto.id]: artefatosDeObjeto,
   [artefatosDoDetector.id]: artefatosDoDetector,
+  [ossosDoPe.id]: ossosDoPe,
+  [joelhoFrenteEPerfil.id]: joelhoFrenteEPerfil,
+  [femurProximalEQuadril.id]: femurProximalEQuadril,
+  [pelveDeFrente.id]: pelveDeFrente,
+  [vertebraTipica.id]: vertebraTipica,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
