@@ -2,21 +2,26 @@
 // internacional (guia de autoria, regra 1.4), então estes trechos reprovam a aula.
 const B = '(?<![\\p{L}\\p{N}])';
 const E = '(?![\\p{L}\\p{N}])';
-const NUM = '(?:nº\\s*)?\\d+(?:\\.\\d+)*';
+const NUM = '(?:n\\.?\\s?[º°o]\\.?\\s*)?\\d+(?:\\.\\d+)*';
+// Leis da física citadas pelo nome: as únicas que podem seguir "lei de/do/da".
+const PHYSICS = 'Ohm|Coulomb|Newton|Beer|Lambert|Bergonié|Tribondeau|Bragg|Faraday|Lenz|Joule|Kirchhoff|Planck|Wien|Stefan|Snell|Hooke|Boyle|inverso|atenuação|conservação|decaimento|reciprocidade|indução';
 const PATTERNS = [
   // Ato normativo só conta com número: "lei de Ohm" e "resolução espacial" são física.
-  [`${B}(?:Lei|Decreto|Portaria|Resolução|Instrução Normativa)\\s+${NUM}`, 'iu'],
+  [`${B}(?:Lei|Decreto|Portaria|Resolução|Instrução Normativa)(?:\\s+[A-Z][A-Z/]+)?\\s+${NUM}`, 'u'],
+  [`${B}(?:lei|decreto|portaria|resolução|instrução normativa)\\s+${NUM}`, 'u'],
   [`${B}Lei\\s+(?:Brasileira|federal)${E}`, 'iu'],
-  [`${B}(?:RDC|IN)\\s+${NUM}`, 'u'],
+  [`${B}(?:RDC|IN|NN)[\\s-]?${NUM}`, 'u'],
   [`${B}NR-\\d+${E}`, 'u'],
-  [`${B}(?:Anvisa|ANVISA|CNEN|ANSN|CONTER|CRTR|CFM|LGPD|SUS)${E}`, 'u'],
-  [`${B}Ministério da Saúde${E}`, 'iu'],
-  [`${B}norma regulamentadora${E}`, 'iu'],
+  [`${B}(?:Anvisa|ANVISA|CNEN|ANSN|CONTER|CRTR|CFM|CRM|COFEN|COREN|LGPD|SUS|CLT|ABNT|INSS|CNES|Inmetro|INMETRO)${E}`, 'u'],
+  [`${B}(?:Conselho|Agência) (?:Federal|Regional|Nacional)${E}`, 'u'],
+  [`${B}Ministério (?:Público|d[aoe]s? \\p{Lu}\\p{L}+)`, 'u'],
+  [`${B}(?:Diário Oficial|Constituição|Código (?:Penal|Civil|de Defesa)|Estatuto d[aoe])${E}`, 'u'],
+    [`${B}norma regulamentadora${E}`, 'iu'],
   [`${B}código de ética${E}`, 'iu'],
   [`${B}no Brasil${E}`, 'iu'],
   [`${B}brasileir[oa]s?${E}`, 'iu'],
-  // "lei" sozinha é a lei do país; "lei de Ohm" e "lei do inverso do quadrado" são física.
-  [`${B}leis?${E}(?!\\s+d[eoa]s?\\s)`, 'iu'],
+  // "lei" é a lei do país, salvo quando nomeia uma lei da física da lista acima.
+  [`${B}leis?${E}(?!\\s+d[eoa]s?\\s+(?:${PHYSICS})${E})`, 'iu'],
   [`${B}legisla[\\p{L}]+`, 'iu'],
   [`${B}normativ[oa]s?${E}`, 'iu'],
   [`${B}Política Nacional${E}`, 'iu'],
