@@ -60,6 +60,8 @@ import { fluoroscopiaPulsada } from './specs/fluoroscopia-pulsada';
 import { salaDeFluoroscopiaEspalhada } from './specs/sala-de-fluoroscopia-espalhada';
 import { contencaoPediatrica } from './specs/contencao-pediatrica';
 import { idosoApoiosERiscos } from './specs/idoso-apoios-e-riscos';
+import { colimacaoPediatrica } from './specs/colimacao-pediatrica';
+import { gestanteCampoEFeixe } from './specs/gestante-campo-e-feixe';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -123,6 +125,8 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [salaDeFluoroscopiaEspalhada.id]: salaDeFluoroscopiaEspalhada,
   [contencaoPediatrica.id]: contencaoPediatrica,
   [idosoApoiosERiscos.id]: idosoApoiosERiscos,
+  [colimacaoPediatrica.id]: colimacaoPediatrica,
+  [gestanteCampoEFeixe.id]: gestanteCampoEFeixe,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
