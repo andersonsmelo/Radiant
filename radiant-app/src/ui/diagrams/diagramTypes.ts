@@ -14,7 +14,11 @@ export type LayerMotion =
 export type DiagramLayer = {
   /** Miolo de um `<svg>` nas coordenadas `0..width`, `0..height`. */
   svg: string;
-  motion?: LayerMotion & { mode: 'loop' | 'pingpong' | 'once'; phase?: number };
+  /**
+   * `range` [a, b]: a camada só anda no trecho a..b da fração do ciclo e fica parada fora dele.
+   * Encadeia fases com um relógio só: o braço desce até 0,5 e espera; o feixe acende de 0,9 a 1.
+   */
+  motion?: LayerMotion & { mode: 'loop' | 'pingpong' | 'once'; phase?: number; range?: [number, number] };
 };
 
 export type DiagramSpec = {
@@ -23,6 +27,8 @@ export type DiagramSpec = {
   width: number;
   height: number;
   layers: DiagramLayer[];
+  /** Arte importada (acervo aberto ou gerador externo): réguas próprias, cores livres. */
+  art?: 'imported';
   /** Presente quer dizer laço. */
   periodMs?: number;
   /** Progresso (0 a 1) do quadro parado. */

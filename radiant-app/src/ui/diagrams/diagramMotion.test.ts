@@ -41,6 +41,25 @@ describe('layerStateAt', () => {
     expect(layerStateAt({ ...m, phase: -0.25 }, 0).translateX).toBeCloseTo(30);
   });
 
+  it('range restringe o movimento ao trecho a..b da fração e segura fora dele', () => {
+    const arm = motion({ kind: 'translate', dx: 0, dy: 10, mode: 'pingpong', range: [0, 0.5] });
+    expect(layerStateAt(arm, 0).translateY).toBeCloseTo(0);
+    expect(layerStateAt(arm, 0.125).translateY).toBeCloseTo(5);
+    // Fração 0,5 a 1 (progresso 0,25 a 0,75): parado embaixo.
+    expect(layerStateAt(arm, 0.25).translateY).toBeCloseTo(10);
+    expect(layerStateAt(arm, 0.5).translateY).toBeCloseTo(10);
+    expect(layerStateAt(arm, 0.75).translateY).toBeCloseTo(10);
+    expect(layerStateAt(arm, 0.875).translateY).toBeCloseTo(5);
+    const beam = motion({ kind: 'fade', from: 0, to: 1, mode: 'pingpong', range: [0.9, 1] });
+    expect(layerStateAt(beam, 0.4).opacity).toBeCloseTo(0);
+    expect(layerStateAt(beam, 0.475).opacity).toBeCloseTo(0.5);
+    expect(layerStateAt(beam, 0.5).opacity).toBeCloseTo(1);
+    expect(layerStateAt(beam, 0.6).opacity).toBeCloseTo(0);
+    const once = motion({ kind: 'fade', from: 0, to: 1, mode: 'once', range: [0.5, 1] });
+    expect(layerStateAt(once, 0.25).opacity).toBeCloseTo(0);
+    expect(layerStateAt(once, 0.75).opacity).toBeCloseTo(0.5);
+  });
+
   it('rotate dá degrees vezes o progresso', () => {
     const m = motion({ kind: 'rotate', degrees: 90, cx: 10, cy: 10, mode: 'loop' });
     expect(layerStateAt(m, 0.5).rotateDeg).toBeCloseTo(45);

@@ -7,9 +7,17 @@ import type { DiagramLayer, DiagramSpec, LayerState } from './diagramTypes';
  */
 function fractionAt(motion: NonNullable<DiagramLayer['motion']>, progress: number): number {
   'worklet';
-  if (motion.mode === 'once') return Math.min(1, Math.max(0, progress + (motion.phase ?? 0)));
   const t = (((progress + (motion.phase ?? 0)) % 1) + 1) % 1;
-  return motion.mode === 'pingpong' ? 1 - Math.abs(2 * t - 1) : t;
+  const f =
+    motion.mode === 'once'
+      ? Math.min(1, Math.max(0, progress + (motion.phase ?? 0)))
+      : motion.mode === 'pingpong'
+        ? 1 - Math.abs(2 * t - 1)
+        : t;
+  if (!motion.range) return f;
+  const a = motion.range[0];
+  const b = motion.range[1];
+  return Math.min(1, Math.max(0, (f - a) / (b - a)));
 }
 
 /** Estado da camada no progresso dado. Roda no thread de UI (worklet). */

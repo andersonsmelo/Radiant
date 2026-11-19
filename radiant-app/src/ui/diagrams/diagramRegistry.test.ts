@@ -15,6 +15,9 @@ const SOURCES: Record<keyof typeof P, string> = {
   electron: pixelColors.glow,
 };
 
+const IMPORTED_IDS = DIAGRAM_IDS.filter((id) => DIAGRAMS[id].art === 'imported');
+const DRAWN_IDS = DIAGRAM_IDS.filter((id) => DIAGRAMS[id].art !== 'imported');
+
 const luminance = (hex: string) => {
   const [r, g, b] = [1, 3, 5].map((i) => {
     const c = parseInt(hex.slice(i, i + 2), 16) / 255;
@@ -64,7 +67,8 @@ describe('registro de diagramas', () => {
     expect(spec.alt.length).toBeLessThanOrEqual(160);
   });
 
-  it.each(DIAGRAM_IDS)('%s: sem texto, imagem, script nem link e só com cores da paleta', (id) => {
+  // Arte importada (acervo aberto, gerador externo) tem cores próprias: réguas em IMPORTED_IDS.
+  it.each(DRAWN_IDS)('%s: sem texto, imagem, script nem link e só com cores da paleta', (id) => {
     const palette = new Set(Object.values(P).map((c) => c.toLowerCase()));
     for (const layer of DIAGRAMS[id].layers) {
       expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject)|href/i);
@@ -78,6 +82,29 @@ describe('registro de diagramas', () => {
         expect(value === 'none' || palette.has(value.toLowerCase())).toBe(true);
       }
     }
+  });
+
+  it('a arte importada é só a que foi medida no piloto', () => {
+    expect(IMPORTED_IDS.sort()).toEqual(['cranio-de-perfil-ossos', 'raio-x-movel-no-leito']);
+  });
+
+  it.each(IMPORTED_IDS)('%s (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.layers.length).toBeGreaterThanOrEqual(1);
+    expect(spec.layers.length).toBeLessThanOrEqual(8);
+    expect([spec.width, spec.height]).toEqual([320, 240]);
+    for (const layer of spec.layers) {
+      expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject|style|filter|mask|clipPath|use|pattern)\b|href/i);
+      // CSS não chega ao SvgXml: classe, estilo inline, variável, animação e vector-effect ficam de fora.
+      expect(layer.svg).not.toMatch(/\s(class|style|filter|mask|clip-path|vector-effect)=|var\(|@keyframes|='/);
+      // Gradiente só por id local da própria camada (cada camada é um SvgXml separado).
+      for (const [, ref] of layer.svg.matchAll(/url\(#([^)]+)\)/g)) expect(layer.svg).toContain(`id="${ref}"`);
+      for (const [, value] of layer.svg.matchAll(/\b(?:fill|stroke|stop-color)="([^"]*)"/g)) {
+        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/);
+      }
+    }
+    // Teto medido em 2026-11-19: crânio 75 KiB, leito 222 KiB de SVG. Arte acima disso vai para imagem.
+    expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(240 * 1024);
   });
 
   it.each(DIAGRAM_IDS)('%s: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1', (id) => {
