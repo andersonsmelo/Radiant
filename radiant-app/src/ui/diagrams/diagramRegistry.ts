@@ -62,6 +62,11 @@ import { contencaoPediatrica } from './specs/contencao-pediatrica';
 import { idosoApoiosERiscos } from './specs/idoso-apoios-e-riscos';
 import { colimacaoPediatrica } from './specs/colimacao-pediatrica';
 import { gestanteCampoEFeixe } from './specs/gestante-campo-e-feixe';
+import { cranioDePerfilOssos } from './specs/cranio-de-perfil-ossos';
+import { linhasDoCranio } from './specs/linhas-do-cranio';
+import { seiosDaFace } from './specs/seios-da-face';
+import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
+import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -127,6 +132,11 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [idosoApoiosERiscos.id]: idosoApoiosERiscos,
   [colimacaoPediatrica.id]: colimacaoPediatrica,
   [gestanteCampoEFeixe.id]: gestanteCampoEFeixe,
+  [cranioDePerfilOssos.id]: cranioDePerfilOssos,
+  [linhasDoCranio.id]: linhasDoCranio,
+  [seiosDaFace.id]: seiosDaFace,
+  [raioXMovelNoLeito.id]: raioXMovelNoLeito,
+  [traumaRaioHorizontal.id]: traumaRaioHorizontal,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);
