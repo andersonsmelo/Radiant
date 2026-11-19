@@ -49,3 +49,60 @@ not ok 14 - recusa imagem acima de 150 KiB e cadastro acima de 15 MiB somados
       ✕ recusa imagem fora do cadastro e diagrama fora do registro
       ✕ mantém as chaves exatas do payload e exige rótulo em toda região
 Tests:       4 failed, 49 passed, 53 total
+
+## Rodada 1: régua de 3 a 6 alvos sem o teste de contagem (tirado list.length < min)
+not ok 47 - hotspot: a régua de 3 a 6 alvos, chamada sozinha, sem as regras do hotspot por cima
+    + actual - expected
+    + []
+    - [
+    -   'alvos: de 3 a 6 alvos'
+    - ]
+# pass 0
+# fail 1
+
+## Rodada 1: y negativo passa sem a checagem target.y < 0
+not ok 49 - hotspot: região dentro do quadro, a cada eixo
+# pass 0
+# fail 1
+
+## Rodada 1: diagramId fora de NOT_TEXT: a varredura nacional barra o id
+not ok 60 - hotspot: diagramId não é texto de aula para a varredura de referência nacional
+    + actual - expected
+    + [
+    +   'lessons[0].interactions[1].diagramId: referência nacional "RDC 611"; use base internacional (guia, regra 1.4)'
+    + ]
+    - []
+# pass 5
+# fail 1
+
+## Rodada 1: sem a exigência de width e height em todo alvo (ponto passa)
+not ok 54 - hotspot: exige width e height em todo alvo; ponto não vale
+# pass 0
+# fail 1
+
+## Rodada 1: sem o teste de sobreposição das áreas de toque
+not ok 51 - hotspot: as áreas de toque não se sobrepõem, mesmo com região baixa ou dentro de outra região
+# pass 0
+# fail 1
+
+## Rodada 1: sem o teste de área de toque dentro da figura
+not ok 50 - hotspot: a área de toque de 44 pt, centrada, tem de caber na figura (borda direita)
+# pass 0
+# fail 1
+
+## Rodada 1: renderer sem o hitSlop centrado (volta a não ampliar)
+    ✕ expõe seleção por estado e mantém cada alvo com ao menos 44 pt, centrado na região (5 ms)
+    ✕ uma região menor que 44 pt ganha folga igual nos dois lados, e o rótulo da interação vale para o diagrama (15 ms)
+Tests:       2 failed, 3 passed, 5 total
+
+## Rodada 1: hotspot sobre diagrama sem o rótulo da interação
+    ✕ uma região menor que 44 pt ganha folga igual nos dois lados, e o rótulo da interação vale para o diagrama (16 ms)
+Tests:       1 failed, 4 passed, 5 total
+
+## Rodada 1: imagem sem alt ignora a alt do cadastro
+    ✕ imagem sem alt passada usa a alt do cadastro; sem nenhuma, sai da árvore de acessibilidade (1 ms)
+Tests:       1 failed, 5 passed, 6 total
+
+## Rodada 1: imagem sem alt fica acessível sem rótulo
+    ✕ imagem sem alt passada usa a alt do cadastro; sem nenhuma, sai da árvore de acessibilidade (1 ms)
+Tests:       1 failed, 5 passed, 6 total

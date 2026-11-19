@@ -3,7 +3,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { lintUnit } from './rtg-lesson-lint.mjs';
+import { lintUnit, targetErrors } from './rtg-lesson-lint.mjs';
 
 const fixturePath = fileURLToPath(new URL('./fixtures/rtg-unit-fixture.json', import.meta.url));
 const script = fileURLToPath(new URL('./rtg-lesson-lint.mjs', import.meta.url));
@@ -128,7 +128,7 @@ test('a linha de comando sai com 0 na unidade válida e com 1 no JSON quebrado',
   assert.match(broken.stdout, /REPROVADO .*\n {2}- JSON inválido/);
 });
 
-const IMAGES = [{ id: 'image:rtg-2026:m01:a' }, { id: 'image:rtg-2026:m01:b' }];
+const IMAGES = [{ id: 'image:rtg-2026:m01:a', width: 800, height: 1000 }, { id: 'image:rtg-2026:m01:b', width: 800, height: 1000 }];
 function comparison(mutate = () => {}) {
   const doc = fixture();
   const old = doc.lessons[0].interactions[1];
@@ -293,29 +293,60 @@ test('hotspot: exige exatamente um de imageId e diagramId, e que existam no regi
   expectOnly(hotspot(item => { item.diagramId = 'nao-existe'; }), /diagrama fora do registro: nao-existe/);
   expectOnly(hotspot(item => { delete item.diagramId; item.imageId = 'image:rtg-2026:m01:z'; }), /imagem fora do registro: image:rtg-2026:m01:z/);
 });
-test('hotspot: de 3 a 6 regiões', () => {
+test('hotspot: a régua de 3 a 6 alvos, chamada sozinha, sem as regras do hotspot por cima', () => {
+  const at = n => ({ label: `Alvo ${n}`, x: 0.1 + (n % 3) * 0.3, y: 0.1 + Math.floor(n / 3) * 0.4, width: 0.2, height: 0.2 });
+  const some = count => Array.from({ length: count }, (_, n) => at(n));
+  assert.deepEqual(targetErrors('alvos', some(2)), ['alvos: de 3 a 6 alvos']);
+  assert.deepEqual(targetErrors('alvos', some(7)), ['alvos: de 3 a 6 alvos']);
+  assert.deepEqual(targetErrors('alvos', some(3)), []);
+  assert.deepEqual(targetErrors('alvos', some(6)), []);
+});
+test('hotspot: a régua do hotspot repete a contagem pelo verificador inteiro', () => {
   expectOnly(hotspot(item => { item.regions.pop(); item.regions.pop(); }), /de 3 a 6 alvos|ao menos 2 regiões erradas/);
-  expectOnly(hotspot(item => { item.regions.push(...[0, 1, 2].map(n => ({ label: `Extra ${n}`, x: 0.4, y: 0.1 + n * 0.3, width: 0.1, height: 0.1 }))); }), /de 3 a 6 alvos/);
 });
 test('hotspot: região dentro do quadro, a cada eixo', () => {
-  expectOnly(hotspot(item => { item.regions[1].x = 0.9; }), /alvo fora do quadro/);
-  expectOnly(hotspot(item => { item.regions[1].y = 0.85; }), /alvo fora do quadro/);
-  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: -0.05, y: 0.35 }); }), /alvo fora do quadro/);
+  expectOnly(hotspot(item => { item.regions[1].x = 0.9; }), /alvo fora do quadro|sai da figura/);
+  expectOnly(hotspot(item => { item.regions[1].y = 0.85; }), /alvo fora do quadro|sai da figura/);
+  const negative = (field, value) => hotspot(item => { Object.assign(item.regions[1], { x: 0.35, y: 0.1, [field]: value }); });
+  assert.ok(negative('y', -0.05).some(error => /alvo fora do quadro/.test(error)), 'y negativo');
+  assert.ok(negative('x', -0.05).some(error => /alvo fora do quadro/.test(error)), 'x negativo');
+});
+test('hotspot: a área de toque de 44 pt, centrada, tem de caber na figura (borda direita)', () => {
+  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: 0.92, width: 0.08 }); }), /sai da figura/);
+});
+test('hotspot: as áreas de toque não se sobrepõem, mesmo com região baixa ou dentro de outra região', () => {
+  // Cenário do revisor: regiões de altura 0,08 com centros a 0,17 na vertical (35,7 pt numa figura de 210 pt).
+  expectOnly(hotspot(item => {
+    Object.assign(item.regions[2], { x: 0.4, y: 0.3, width: 0.3, height: 0.08 });
+    Object.assign(item.regions[3], { x: 0.4, y: 0.47, width: 0.3, height: 0.08 });
+  }), /alvos muito próximos/);
+  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: 0.12, y: 0.12, width: 0.1, height: 0.1 }); }), /alvos muito próximos/);
+  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: 0.2, y: 0.1 }); }), /alvos muito próximos/);
+  // Vizinhas que não se tocam passam.
+  assert.deepEqual(hotspot(item => { Object.assign(item.regions[1], { x: 0.35, y: 0.1 }); }), []);
+});
+test('hotspot: a medição usa a proporção da figura (imagem alta fica mais folgada na vertical)', () => {
+  const close = item => { Object.assign(item.regions[2], { x: 0.4, y: 0.5, width: 0.3, height: 0.08 }); Object.assign(item.regions[3], { x: 0.4, y: 0.63, width: 0.3, height: 0.08 }); };
+  expectOnly(hotspot(item => { close(item); }), /alvos muito próximos/);
+  assert.deepEqual(hotspot(item => { close(item); delete item.diagramId; item.imageId = 'image:rtg-2026:m01:a'; }), []);
 });
 test('hotspot: largura e altura mínimas só quando o alvo tem tamanho', () => {
   expectOnly(hotspot(item => { item.regions[1].width = 0.05; }), /menor que 0,08/);
   expectOnly(hotspot(item => { item.regions[1].height = 0.05; }), /menor que 0,08/);
   assert.deepEqual(hotspot(item => { item.regions[1].width = 0.08; item.regions[1].height = 0.08; }), []);
 });
+test('hotspot: exige width e height em todo alvo; ponto não vale', () => {
+  expectOnly(hotspot(item => { item.regions[1] = { label: 'Detector plano', x: 0.7, y: 0.2 }; }), /alvo sem width e height/);
+  expectOnly(hotspot(item => { delete item.regions[1].height; }), /alvo sem width e height/);
+});
+test('hotspot: alvo nulo ou com coordenada que não é número vira erro de forma, sem exceção', () => {
+  expectOnly(hotspot(item => { item.regions[1] = null; }), /objeto esperado|texto ausente ou curto/);
+  expectOnly(hotspot(item => { item.regions[1].x = '0.6'; }), /devem ser números/);
+});
 test('hotspot: rótulos únicos, de 2 a 40 caracteres', () => {
   expectOnly(hotspot(item => { item.regions[1].label = 'fonte de raios x'; }), /rótulo repetido/);
   expectOnly(hotspot(item => { item.regions[1].label = 'D'; }), /texto ausente ou curto/);
   expectOnly(hotspot(item => { item.regions[1].label = 'Um rótulo de região muito mais longo que o limite'; }), /caracteres \(máx\. 40\)/);
-});
-test('hotspot: centros a 0,16 ou mais um do outro, medidos em linha reta', () => {
-  expectOnly(hotspot(item => { Object.assign(item.regions[1], { x: 0.2, y: 0.1 }); }), /alvos muito próximos/);
-  // A diagonal conta: 0,12 em x e 0,12 em y dá 0,17, e passa.
-  assert.deepEqual(hotspot(item => { Object.assign(item.regions[1], { x: 0.22, y: 0.22 }); }), []);
 });
 test('hotspot: uma ou duas regiões certas e ao menos duas erradas', () => {
   expectOnly(hotspot(item => { item.regions[0].correct = undefined; }), /de 1 a 2 regiões certas/);
@@ -332,5 +363,7 @@ test('hotspot: retorno de erro igual ao de acerto reprova, como nas outras famí
   expectOnly(hotspot(item => { item.feedbackIncorrect = item.feedbackCorrect; }), /retorno de erro igual ao de acerto/);
 });
 test('hotspot: diagramId não é texto de aula para a varredura de referência nacional', () => {
-  assert.deepEqual(hotspot(item => { item.diagramId = 'tubo-raios-x'; }).filter(error => /referência nacional/.test(error)), []);
+  // O id sintético contém um termo barrado; só a isenção de `diagramId` em NOT_TEXT o deixa passar nesta regra.
+  assert.deepEqual(hotspot(item => { item.diagramId = 'RDC 611'; }).filter(error => /referência nacional/.test(error)), []);
+  assert.ok(hotspot(item => { item.alt = 'RDC 611'; }).some(error => /referência nacional/.test(error)), 'controle: o termo reprova em campo de texto');
 });

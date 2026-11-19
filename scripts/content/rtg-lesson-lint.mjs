@@ -13,10 +13,53 @@ export const TYPES = ['multiple-choice', 'case-decision', 'ordering', 'matching'
 // Famílias da 1.6 (ADR-2026-11-13) e da fase B: retorno de acerto e de erro próprios, como ordenação e associação.
 const NEW_FAMILIES = ['cloze', 'true-false', 'categorize', 'multi-select', 'hotspot'];
 // Os diagramas em código moram no app; o verificador os lê pelo mesmo carregador do gerador.
-const { DIAGRAM_IDS } = createRequire(import.meta.url)('./load-app-contract.cjs').loadAppContract('ui/diagrams/diagramRegistry.ts');
+const { loadAppContract } = createRequire(import.meta.url)('./load-app-contract.cjs');
+const { DIAGRAMS } = loadAppContract('ui/diagrams/diagramRegistry.ts');
+const { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap } = loadAppContract('features/lesson-flow/renderers/hotspotTouch.ts');
 const CHOICE = ['multiple-choice', 'case-decision'];
 const words = (s) => String(s ?? '').trim().split(/\s+/).filter(Boolean).length;
 const norm = (s) => String(s ?? '').trim().toLowerCase();
+
+/** Erros de chave: o lint não perdoa campo de digitação errada, que a fábrica descartaria em silêncio. */
+export function keyErrors(where, value, allowed) {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) return [`${where}: objeto esperado`];
+  return Object.keys(value).filter((key) => !allowed.includes(key)).map((key) => `${where}: campo desconhecido: ${key}`);
+}
+
+/**
+ * Régua dos alvos tocáveis numa figura (ponto `{label,x,y}` ou região com `width` e `height`, em 0 a 1).
+ * O retângulo de toque é o do alvo ampliado em torno do centro até 44 pt por eixo (mesma conta do renderer),
+ * numa figura de 280 pt de largura. Ele precisa caber na figura e nunca sobrepor o de outro alvo.
+ * `ratio` é `{ width, height }` da figura; sem ele só a forma é conferida. `sized` exige largura e altura em todo alvo.
+ */
+export function targetErrors(where, list, { allowed = ['label', 'x', 'y', 'width', 'height'], min = 3, max = 6, ratio = null, sized = false } = {}) {
+  const found = [];
+  const add = (at, message) => found.push(`${at}: ${message}`);
+  if (!Array.isArray(list) || list.length < min || list.length > max) return [`${where}: de ${min} a ${max} alvos`];
+  const frame = ratio && { width: TOUCH_FIGURE_WIDTH_PT, height: (TOUCH_FIGURE_WIDTH_PT * ratio.height) / ratio.width };
+  const placed = [];
+  list.forEach((target, i) => {
+    const at = `${where}[${i}]`;
+    const shape = keyErrors(at, target, allowed);
+    found.push(...shape);
+    if (target === null || typeof target !== 'object' || Array.isArray(target)) return;
+    const hasSize = target.width !== undefined || target.height !== undefined;
+    if (sized && !(target.width !== undefined && target.height !== undefined)) return add(at, 'alvo sem width e height');
+    const [width, height] = hasSize ? [target.width, target.height] : [0, 0];
+    if ([target.x, target.y, width, height].some((n) => typeof n !== 'number' || !Number.isFinite(n))) return add(at, 'x, y, width e height devem ser números');
+    if (target.x < 0 || target.y < 0 || target.x + width > 1 || target.y + height > 1) add(at, 'alvo fora do quadro (0 a 1)');
+    if (hasSize && (width < 0.08 || height < 0.08)) add(at, 'região menor que 0,08 de largura ou de altura');
+    if (!frame) return;
+    const rect = touchRect({ x: target.x, y: target.y, width, height }, frame);
+    if (!touchRectInside(rect, frame)) add(at, 'a área de toque de 44 pt sai da figura');
+    placed.push({ i, rect });
+  });
+  if (new Set(list.map((target) => norm(target?.label))).size !== list.length) found.push(`${where}: rótulo repetido`);
+  placed.forEach((a, n) => placed.slice(n + 1).forEach((b) => {
+    if (touchRectsOverlap(a.rect, b.rect)) found.push(`${where}: alvos muito próximos, as áreas de toque de 44 pt se sobrepõem: ${list[a.i].label} e ${list[b.i].label}`);
+  }));
+  return found;
+}
 
 export function lintUnit(doc, { images = [] } = {}) {
   if (doc === null || typeof doc !== 'object' || Array.isArray(doc)) return ['raiz: o arquivo deve conter um objeto JSON'];
@@ -93,38 +136,22 @@ export function lintUnit(doc, { images = [] } = {}) {
     refs(where, item.sourceIds);
   };
 
-  // Figura de uma interação: imagem licenciada ou diagrama em código, exatamente uma. Reutilizada por `label` e `risk-hunt`.
+  // Figura de uma interação: imagem licenciada ou diagrama em código, exatamente uma. Devolve a proporção
+  // `{ width, height }` da figura, ou null quando a figura é inválida. Reutilizada por `label` e `risk-hunt`.
   const figure = (where, item) => {
-    if ((item.imageId === undefined) === (item.diagramId === undefined)) return err(where, 'use exatamente um de imageId e diagramId');
-    if (item.imageId !== undefined && !imageIds.has(item.imageId)) err(where, `imagem fora do registro: ${item.imageId}`);
-    if (item.diagramId !== undefined && !DIAGRAM_IDS.includes(item.diagramId)) err(where, `diagrama fora do registro: ${item.diagramId}`);
+    if ((item.imageId === undefined) === (item.diagramId === undefined)) return void err(where, 'use exatamente um de imageId e diagramId');
+    if (item.diagramId !== undefined) {
+      const diagram = Object.hasOwn(DIAGRAMS, item.diagramId) ? DIAGRAMS[item.diagramId] : null;
+      return diagram ? { width: diagram.width, height: diagram.height } : void err(where, `diagrama fora do registro: ${item.diagramId}`);
+    }
+    const image = images.find((entry) => entry.id === item.imageId);
+    if (!image) return void err(where, `imagem fora do registro: ${item.imageId}`);
+    return image.width > 0 && image.height > 0 ? { width: image.width, height: image.height } : void err(where, `imagem sem largura e altura no cadastro: ${item.imageId}`);
   };
-  // Alvos tocáveis numa figura, em coordenadas 0 a 1: ponto `{label,x,y}` ou região com `width` e `height`.
-  // 0,16 de distância entre centros são 44 pt numa figura de 280 pt; 0,08 de lado, a metade do alvo mínimo, porque o app estende a região.
-  const targets = (where, list, { allowed = ['label', 'x', 'y', 'width', 'height'], min = 3, max = 6 } = {}) => {
-    if (!Array.isArray(list) || list.length < min || list.length > max) return err(where, `de ${min} a ${max} alvos`);
-    const centers = [];
-    list.forEach((target, i) => {
-      const w = `${where}[${i}]`;
-      keys(w, target, allowed);
-      text(`${w}.label`, target?.label, { min: 2, max: 40 });
-      const sized = target?.width !== undefined || target?.height !== undefined;
-      const [width, height] = sized ? [target.width, target.height] : [0, 0];
-      const numbers = [target?.x, target?.y, width, height];
-      if (numbers.some((n) => typeof n !== 'number' || !Number.isFinite(n))) return err(w, 'x, y, width e height devem ser números');
-      if (target.x < 0 || target.y < 0 || target.x + width > 1 || target.y + height > 1) err(w, 'alvo fora do quadro (0 a 1)');
-      if (sized && (width < 0.08 || height < 0.08)) err(w, 'região menor que 0,08 de largura ou de altura');
-      centers.push([target.x + width / 2, target.y + height / 2]);
-    });
-    if (new Set(list.map((target) => norm(target?.label))).size !== list.length) err(where, 'rótulo repetido');
-    centers.forEach((a, i) => centers.slice(i + 1).forEach((b, j) => {
-      if (Math.hypot(a[0] - b[0], a[1] - b[1]) < 0.16) err(where, `alvos muito próximos: ${list[i].label} e ${list[i + 1 + j].label}`);
-    }));
-  };
-  // Lint não perdoa chave de digitação errada: a fábrica a descartaria em silêncio.
-  const keys = (where, value, allowed) => {
-    if (value === null || typeof value !== 'object' || Array.isArray(value)) return err(where, 'objeto esperado');
-    Object.keys(value).filter((key) => !allowed.includes(key)).forEach((key) => err(where, `campo desconhecido: ${key}`));
+  // Alvos tocáveis numa figura: `targetErrors` (geometria) e o texto do rótulo.
+  const targets = (where, list, options) => {
+    targetErrors(where, list, options).forEach((message) => errors.push(message));
+    if (Array.isArray(list)) list.forEach((target, i) => text(`${where}[${i}].label`, target?.label, { min: 2, max: 40 }));
   };
 
   // Regras de cada família nova. As mesmas garantias do contrato amplo
@@ -134,9 +161,8 @@ export function lintUnit(doc, { images = [] } = {}) {
   const newFamily = (where, item) => {
     if (norm(item.feedbackCorrect) === norm(item.feedbackIncorrect)) err(where, 'retorno de erro igual ao de acerto; o erro precisa de explicação própria');
     if (item.type === 'hotspot') {
-      keys(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']);
-      figure(where, item);
-      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'correct'] });
+      errors.push(...keyErrors(where, item, ['id', 'type', 'role', 'criticalSafety', 'prompt', 'help', 'sourceIds', 'feedbackCorrect', 'feedbackIncorrect', 'imageId', 'diagramId', 'regions']));
+      targets(`${where}.regions`, item.regions, { allowed: ['label', 'x', 'y', 'width', 'height', 'correct'], sized: true, ratio: figure(where, item) });
       const regions = Array.isArray(item.regions) ? item.regions : [];
       if (regions.some((region) => region?.correct !== undefined && region.correct !== true)) err(where, 'hotspot: correct, quando existe, é true');
       const right = regions.filter((region) => region?.correct === true).length;

@@ -101,37 +101,37 @@
           "regions": [
             {
               "label": "Cátodo com filamento",
-              "x": 0.09,
-              "y": 0.3,
-              "width": 0.22,
-              "height": 0.25
+              "x": 0.24,
+              "y": 0.32,
+              "width": 0.15,
+              "height": 0.23
             },
             {
               "label": "Ânodo",
-              "x": 0.64,
-              "y": 0.3,
-              "width": 0.2,
-              "height": 0.25,
+              "x": 0.66,
+              "y": 0.32,
+              "width": 0.13,
+              "height": 0.24,
               "correct": true
             },
             {
               "label": "Janela de saída",
-              "x": 0.6,
-              "y": 0.72,
-              "width": 0.2,
-              "height": 0.12
+              "x": 0.61,
+              "y": 0.66,
+              "width": 0.15,
+              "height": 0.09
             },
             {
               "label": "Ampola de vidro",
-              "x": 0.1,
-              "y": 0.72,
-              "width": 0.2,
-              "height": 0.15
+              "x": 0.09,
+              "y": 0.25,
+              "width": 0.09,
+              "height": 0.38
             }
           ],
           "feedbackCorrect": "Isso mesmo: os elétrons batem no ânodo, e é dali que sai o feixe útil.",
           "feedbackIncorrect": "Essa parte não recebe o impacto: procure onde os elétrons do cátodo chegam.",
-          "help": "Comece pelo passo que não depende de nenhum outro.",
+          "help": "Procure onde os elétrons chegam depois de saírem do filamento.",
           "sourceIds": [
             "iaea-ssg46-2018"
           ]

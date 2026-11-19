@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Image, Text } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { InteractionFigure } from './InteractionFigure';
 import { diagramRef, DIAGRAMS } from '../../../ui/diagrams/diagramRegistry';
@@ -18,6 +18,14 @@ describe('InteractionFigure', () => {
         );
         expect(getByLabelText('Radiografia do tórax.')).toBeTruthy();
         expect(getByTestId('interaction-figure').props.style).toEqual(expect.arrayContaining([expect.objectContaining({ aspectRatio: 0.8 })]));
+    });
+
+    it('imagem sem alt passada usa a alt do cadastro; sem nenhuma, sai da árvore de acessibilidade', () => {
+        const withRegistry = render(<InteractionFigure imageRef="image:a" resolveImage={() => ({ source: 1, width: 800, height: 1000, alt: 'Alt do cadastro.' })} />);
+        expect(withRegistry.getByLabelText('Alt do cadastro.')).toBeTruthy();
+        const without = render(<InteractionFigure imageRef="image:a" resolveImage={() => ({ source: 1, width: 800, height: 1000 })} />);
+        expect(without.queryByLabelText(/./)).toBeNull();
+        expect(without.UNSAFE_getByType(Image).props.accessible).toBe(false);
     });
 
     it('diagrama: desenha pelo registro, na proporção dele, com a alt do diagrama quando não vem alt', () => {

@@ -10,7 +10,7 @@ import { isResolvedInteractionImage, type InteractionImageResolver } from './Int
 type InteractionFigureProps = {
     /** Identificador da imagem licenciada, ou `diagram:<id>` para um diagrama em código. */
     imageRef: string;
-    /** Rótulo acessível da figura. Sem ele, o diagrama usa a descrição própria. */
+    /** Rótulo acessível da figura. Sem ele, o diagrama usa a descrição própria e a imagem, a do cadastro (se houver). */
     alt?: string;
     resolveImage?: InteractionImageResolver;
     /** Sobreposição em coordenadas 0 a 1, com o tamanho da figura em pontos (0 até a primeira medição). */
@@ -31,6 +31,7 @@ export function InteractionFigure({ imageRef, alt, resolveImage, children }: Int
     const resolved = diagramId === null ? resolveImage?.(imageRef) : undefined;
     if (!isFigureAvailable(imageRef, resolveImage)) return <Text style={styles.unavailable}>Imagem indisponível</Text>;
 
+    const label = alt ?? resolved?.alt;
     const aspectRatio = diagram ? diagram.width / diagram.height : resolved ? resolved.width / resolved.height : 4 / 3;
     return (
         <View
@@ -46,8 +47,8 @@ export function InteractionFigure({ imageRef, alt, resolveImage, children }: Int
                     source={resolved?.source ?? { uri: imageRef }}
                     resizeMode="contain"
                     style={styles.image}
-                    accessible
-                    accessibilityLabel={alt}
+                    // Sem texto alternativo, a imagem sai da árvore: nunca fica "acessível sem rótulo".
+                    {...(label ? { accessible: true, accessibilityLabel: label } : { accessible: false, accessibilityElementsHidden: true, importantForAccessibility: 'no-hide-descendants' as const })}
                 />
             )}
             {children ? <View style={StyleSheet.absoluteFill} pointerEvents="box-none">{children(size)}</View> : null}

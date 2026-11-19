@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
-import { parseDiagramRef } from '../../../ui/diagrams/diagramRegistry';
+import { touchSlop } from './hotspotTouch';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -44,17 +44,19 @@ export function HotspotStepRenderer({
 
             <InteractionFigure
                 imageRef={payload.imageRef}
-                // A imagem leva o rótulo da interação; o diagrama, a descrição própria dele.
-                alt={parseDiagramRef(payload.imageRef) === null ? accessibilityLabel : undefined}
+                // O rótulo da interação vale também para o diagrama: a descrição dele pode entregar a resposta.
+                alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {() => payload.regions.map((region, index) => {
+                {frame => payload.regions.map((region, index) => {
                     const selected = selectedRegionId === region.id;
                     return (
                         <Pressable
                             key={region.id}
                             onPress={() => { if (!submitted) onSelect(region.id); }}
                             disabled={submitted}
+                            // Alvo de 44 pt centrado na região: a parte visível continua sendo a região.
+                            hitSlop={touchSlop(region, frame)}
                             accessibilityRole="button"
                             accessibilityLabel={`Selecionar ${region.label} na imagem`}
                             accessibilityHint={submitted ? 'Resposta já conferida. Leia o retorno e continue.' : `Seleciona esta região. Você confirma em ${confirmationLabel}.`}
@@ -108,8 +110,6 @@ const styles = StyleSheet.create({
     prompt: { ...typography.h3, color: galaxyColors.textPrimary },
     hotspot: {
         position: 'absolute',
-        minWidth: 44,
-        minHeight: 44,
         borderRadius: radius.rMd,
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
