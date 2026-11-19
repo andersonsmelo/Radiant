@@ -1,0 +1,2123 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m19",
+    "code": "M19",
+    "title": "Eletricidade, tubo e gerador",
+    "summary": "Abre o equipamento: de onde vem a alta tensão, o que o filamento e o ânodo fazem dentro do tubo, o que o espectro mostra e como cuidar do tubo."
+  },
+  "sources": [
+    {
+      "id": "openstax-cp-raios-x",
+      "title": "College Physics 2e, 30.4 X Rays: Atomic Origins and Applications",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/college-physics-2e/pages/30-4-x-rays-atomic-origins-and-applications",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos sobre tubo, espectro e picos característicos; redação própria, sem reprodução."
+    },
+    {
+      "id": "openstax-up2-transformadores",
+      "title": "University Physics Volume 2, 15.6 Transformers",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/15-6-transformers",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos sobre a razão de espiras e a tensão do transformador; redação própria, sem reprodução."
+    },
+    {
+      "id": "wikipedia-x-ray-tube",
+      "title": "X-ray tube",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/X-ray_tube",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos sobre filamento, ânodo giratório e calor; usada junto de fontes institucionais, sem reprodução de texto."
+    },
+    {
+      "id": "wikipedia-retificador",
+      "title": "Rectifier",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Rectifier",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos sobre ponte de diodos, ondulação e alisamento; redação própria, sem reprodução de texto."
+    },
+    {
+      "id": "wikibooks-fonte-raios-x",
+      "title": "Basic Physics of Digital Radiography/The Source",
+      "publisher": "Wikibooks",
+      "url": "https://en.wikibooks.org/wiki/Basic_Physics_of_Digital_Radiography/The_Source",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos sobre ânodo giratório, calor, kV, mA, filtração, retificação e ondulação; usada junto de OpenStax e Wikipedia, sem reprodução de texto."
+    },
+    {
+      "id": "wikipedia-emissao-termionica",
+      "title": "Thermionic emission",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Thermionic_emission",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta de fatos: a emissão de elétrons cresce com a temperatura do fio; redação própria."
+    },
+    {
+      "id": "spellman-falhas-de-tubo",
+      "title": "AN-02: Common X-Ray Tube Failure Modes",
+      "publisher": "Spellman High Voltage Electronics",
+      "url": "https://www.spellmanhv.com/en/Technical-Resources/Application-Notes-X-Ray-Generators/AN-02",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Nota técnica de fabricante, consultada sobre aquecimento recomendado pelo fabricante conforme o tempo parado e sobre arco; redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m19-01",
+      "code": "M19.01",
+      "title": "Da rede ao tubo",
+      "objective": "Hoje você vai conseguir nomear os blocos do gerador e dizer o que cada um faz entre a rede e o tubo.",
+      "competency": "Nomear os blocos do gerador e o papel de cada um.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de manutenção didática",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Abri o esquema do gerador e parece um mapa de metrô. Por onde a energia entra?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Pela rede, como numa tomada. O resto é o que prepara essa energia para o tubo."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir o fio, bloco por bloco?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Do fio da parede ao tubo",
+        "body": "A rede entrega tensão alternada e relativamente baixa. O transformador de alta tensão a eleva, porque o secundário tem mais espiras que o primário. O retificador, uma ponte de diodos, faz a corrente passar num só sentido. Só então a alta tensão chega ao tubo, entre cátodo e ânodo. Um segundo transformador, menor, alimenta o filamento com a corrente que o aquece. A ordem ensinada nesta aula é: rede, transformador de alta tensão, retificador, tubo. O esquema é simplificado: um gerador real tem mais blocos.",
+        "keyPoints": [
+          "O transformador de alta tensão eleva a tensão alternada.",
+          "O retificador deixa a corrente num só sentido.",
+          "Um transformador menor alimenta o filamento."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M03 você viu que o transformador depende de um campo magnético que varia. Que tipo de tensão ele precisa receber no primário?",
+          "options": [
+            {
+              "label": "Tensão contínua e constante, como a de uma pilha",
+              "correct": false,
+              "feedback": "Com tensão constante o campo não varia, e o secundário não recebe tensão induzida."
+            },
+            {
+              "label": "Tensão alternada, que faz o campo variar",
+              "correct": true,
+              "feedback": "Isso: a tensão alternada muda o tempo todo, e o campo variável induz tensão no secundário."
+            },
+            {
+              "label": "Qualquer tensão, desde que seja bastante alta",
+              "correct": false,
+              "feedback": "O valor não resolve: o que induz tensão no secundário é a variação do campo, e não o tamanho da tensão."
+            },
+            {
+              "label": "Tensão nula, porque o campo faz todo o trabalho",
+              "correct": false,
+              "feedback": "Sem tensão no primário não há corrente nem campo, então nada é induzido no secundário."
+            }
+          ],
+          "help": "Pense no que faz o campo magnético variar com o tempo.",
+          "sourceIds": [
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene o caminho da energia no gerador, na ordem ensinada nesta aula.",
+          "items": [
+            "A rede entrega tensão alternada e baixa",
+            "O transformador de alta tensão eleva a tensão",
+            "O retificador deixa a corrente num só sentido",
+            "O tubo recebe a alta tensão entre cátodo e ânodo"
+          ],
+          "feedbackCorrect": "Isso: da rede ao tubo, cada bloco prepara a energia para o seguinte.",
+          "feedbackIncorrect": "Releia o conceito: a tensão é elevada antes de ser retificada, e só depois chega ao tubo.",
+          "help": "Comece pelo que entra no gerador e termine pelo que usa a alta tensão.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule os cinco blocos do gerador, tocando na ficha e depois no ponto.",
+          "diagramId": "circuito-do-gerador",
+          "points": [
+            {
+              "label": "Rede elétrica",
+              "x": 0.094,
+              "y": 0.333,
+              "where": "à esquerda, o círculo com uma onda desenhada"
+            },
+            {
+              "label": "Transformador de alta tensão",
+              "x": 0.313,
+              "y": 0.334,
+              "where": "no alto, duas bobinas, a da direita com mais voltas"
+            },
+            {
+              "label": "Retificador",
+              "x": 0.532,
+              "y": 0.334,
+              "where": "no centro do alto, o losango com quatro setas"
+            },
+            {
+              "label": "Tubo de raios X",
+              "x": 0.838,
+              "y": 0.334,
+              "where": "à direita, a cápsula com um traço em onda e uma placa"
+            },
+            {
+              "label": "Transformador do filamento",
+              "x": 0.422,
+              "y": 0.796,
+              "where": "embaixo, o par de bobinas pequeno, de poucas voltas"
+            }
+          ],
+          "distractors": [
+            "Colimador"
+          ],
+          "feedbackCorrect": "Isso: você reconheceu os cinco blocos do gerador pela posição no esquema.",
+          "feedbackIncorrect": "Algum bloco ficou no lugar errado: siga o caminho da rede ao tubo e confira o bloco menor, embaixo.",
+          "help": "Siga o fio a partir da rede, da esquerda para a direita.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada bloco do gerador ao papel dele.",
+          "pairs": [
+            {
+              "left": "Rede elétrica",
+              "right": "Fornece a tensão alternada de partida"
+            },
+            {
+              "left": "Transformador de alta tensão",
+              "right": "Eleva a tensão alternada"
+            },
+            {
+              "left": "Retificador",
+              "right": "Mantém a corrente num só sentido"
+            },
+            {
+              "left": "Transformador do filamento",
+              "right": "Alimenta o filamento com a corrente que o aquece"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada bloco tem um papel só, e o conjunto prepara a energia do tubo.",
+          "feedbackIncorrect": "Alguma ligação está trocada: lembre qual bloco eleva a tensão, qual muda o sentido e qual cuida do filamento.",
+          "help": "Veja qual bloco aparece primeiro no caminho e o que ele faz com a tensão.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Num esquema didático, o gerador está sem o retificador. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "Sem o retificador, a tensão no tubo continua invertendo o sentido.",
+              "correct": true,
+              "feedback": "Certo: o transformador só eleva a tensão alternada; quem a mantém num só sentido é a ponte de diodos."
+            },
+            {
+              "text": "O transformador do filamento passa a elevar a tensão do tubo.",
+              "correct": false,
+              "feedback": "Errado: o transformador menor só alimenta o filamento; quem eleva a tensão do tubo é o de alta tensão."
+            },
+            {
+              "text": "O filamento continua alimentado pelo transformador menor.",
+              "correct": true,
+              "feedback": "Certo: neste esquema o transformador menor liga-se à rede e alimenta o filamento, sem passar pelo retificador."
+            },
+            {
+              "text": "A rede já entrega a alta tensão que o tubo usa.",
+              "correct": false,
+              "feedback": "Errado: a rede entrega tensão bem mais baixa; o transformador de alta tensão a eleva antes do tubo."
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou o que cada bloco faz, mesmo sem um deles.",
+          "feedbackIncorrect": "Releia o conceito: eleva o transformador de alta tensão, retifica a ponte de diodos e aquece a corrente do transformador menor.",
+          "help": "Lembre qual bloco muda o sentido da corrente e qual alimenta só o filamento.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "openstax-up2-transformadores"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê o gerador",
+        "body": "Agora você consegue nomear os blocos do gerador, na ordem rede, transformador de alta tensão, retificador e tubo, e dizer o papel de cada um, inclusive o do transformador menor.",
+        "line": {
+          "speaker": "lia",
+          "text": "Esse mapa vai voltar em todas as próximas aulas. Guarde a ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual bloco do gerador faz a tensão passar a ter um só sentido?",
+          "options": [
+            {
+              "label": "O retificador, a ponte de diodos",
+              "correct": true,
+              "feedback": "Isso: a ponte de diodos mantém a corrente num só sentido antes do tubo."
+            },
+            {
+              "label": "O transformador de alta tensão",
+              "correct": false,
+              "feedback": "Ele eleva a tensão alternada, mas não muda o sentido dela."
+            },
+            {
+              "label": "O transformador do filamento",
+              "correct": false,
+              "feedback": "Ele só alimenta o filamento com a corrente que o aquece."
+            },
+            {
+              "label": "A rede elétrica",
+              "correct": false,
+              "feedback": "A rede é a origem da tensão alternada; ela não a retifica."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "prompt": "Qual bloco entrega ao filamento a corrente que o aquece?",
+          "options": [
+            {
+              "label": "O retificador",
+              "correct": false,
+              "feedback": "Ele trabalha na alta tensão do tubo e não alimenta o filamento."
+            },
+            {
+              "label": "O transformador menor, o do filamento",
+              "correct": true,
+              "feedback": "Isso: o bloco menor, embaixo no esquema, é quem alimenta o filamento."
+            },
+            {
+              "label": "O transformador de alta tensão do esquema",
+              "correct": false,
+              "feedback": "Ele eleva a tensão do tubo; o filamento tem alimentação própria."
+            },
+            {
+              "label": "O próprio tubo",
+              "correct": false,
+              "feedback": "O filamento está dentro do tubo, mas a corrente dele vem de fora."
+            }
+          ],
+          "sourceIds": [
+            "wikipedia-x-ray-tube"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a rede entrega tensão alternada, e o transformador de alta tensão a...",
+          "item": {
+            "prompt": "Qual é o papel do transformador de alta tensão no gerador?",
+            "options": [
+              {
+                "label": "Fazer a corrente passar num só sentido",
+                "correct": false,
+                "feedback": "Esse é o papel do retificador, que vem depois dele."
+              },
+              {
+                "label": "Aquecer o filamento do cátodo",
+                "correct": false,
+                "feedback": "Quem alimenta o filamento é o transformador menor."
+              },
+              {
+                "label": "Guardar a tensão para a exposição",
+                "correct": false,
+                "feedback": "O gerador não guarda a tensão nesta etapa: ele a eleva e a entrega."
+              },
+              {
+                "label": "Elevar a tensão alternada da rede",
+                "correct": true,
+                "feedback": "Isso: ele eleva a tensão alternada antes de o retificador agir."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-transformadores"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega aponta no esquema o transformador menor e diz que ele eleva a tensão do tubo. Que correção você faz?",
+            "options": [
+              {
+                "label": "Ele retifica a tensão do tubo, como a ponte de diodos",
+                "correct": false,
+                "feedback": "Retificar é papel da ponte de diodos, não de um transformador."
+              },
+              {
+                "label": "Ele liga o tubo diretamente à rede elétrica",
+                "correct": false,
+                "feedback": "O tubo recebe a alta tensão do retificador, e não da rede."
+              },
+              {
+                "label": "Ele alimenta o filamento; quem eleva é o de alta tensão",
+                "correct": true,
+                "feedback": "Isso: o menor cuida do filamento, e o elevador de tensão é o outro."
+              },
+              {
+                "label": "Ele está certo: os dois elevam a tensão",
+                "correct": false,
+                "feedback": "Só o transformador de alta tensão eleva a tensão aplicada ao tubo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-up2-transformadores"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m19-02",
+      "code": "M19.02",
+      "title": "Elevar e retificar",
+      "objective": "Hoje você vai conseguir explicar por que a tensão é elevada e retificada e o que a ondulação indica.",
+      "competency": "Explicar por que a tensão é elevada e retificada e o que é ondulação.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Bancada com osciloscópio didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A tela mostra três traçados empilhados. Qual deles é a tensão que chega ao tubo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Depende do gerador. Cada traçado é uma etapa do caminho, e a diferença entre eles tem nome."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos aprender a ler o que cada traçado conta?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Elevar, retificar e alisar",
+        "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores mais elaborados, como os de alta frequência, reduzem a ondulação e deixam a tensão quase constante.",
+        "keyPoints": [
+          "Retificar é manter a tensão num só sentido.",
+          "A ondulação é o quanto a tensão oscila.",
+          "Gerador de alta frequência: ondulação pequena."
+        ],
+        "visual": "retificacao-de-onda"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o retificador vem logo depois de qual bloco do gerador?",
+          "options": [
+            {
+              "label": "Do transformador de alta tensão",
+              "correct": true,
+              "feedback": "Isso: a tensão é elevada primeiro e retificada em seguida."
+            },
+            {
+              "label": "Da rede elétrica",
+              "correct": false,
+              "feedback": "Entre a rede e o retificador está o transformador de alta tensão."
+            },
+            {
+              "label": "Do tubo de raios X",
+              "correct": false,
+              "feedback": "O tubo é o último bloco: ele recebe a tensão já retificada."
+            },
+            {
+              "label": "Do transformador do filamento",
+              "correct": false,
+              "feedback": "Esse bloco menor alimenta o filamento e não está no caminho da alta tensão."
+            }
+          ],
+          "help": "Lembre a ordem: rede, transformador, retificador, tubo.",
+          "sourceIds": [
+            "wikipedia-retificador"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase sobre a tensão no gerador, com as palavras do banco.",
+          "text": "A ponte de diodos {{1}} a tensão alternada, e a {{2}} mede o quanto a tensão oscila.",
+          "answers": [
+            "retifica",
+            "ondulação"
+          ],
+          "distractors": [
+            "eleva",
+            "espira",
+            "frequência"
+          ],
+          "feedbackCorrect": "Isso: retificar mantém o sentido, e a ondulação mede a oscilação.",
+          "feedbackIncorrect": "Pense no que a ponte de diodos faz com o sentido da tensão e no nome do quanto ela oscila.",
+          "help": "Uma palavra fala do sentido da tensão, a outra do tamanho da oscilação.",
+          "sourceIds": [
+            "wikipedia-retificador",
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a tensão que chega ao tubo.",
+          "statements": [
+            {
+              "text": "Com ondulação grande, a tensão varia mais entre picos e vales.",
+              "correct": true,
+              "feedback": "Certo: ondulação é justamente essa oscilação entre os picos e os vales."
+            },
+            {
+              "text": "A retificação de onda completa elimina toda a ondulação.",
+              "correct": false,
+              "feedback": "Errado: virar o meio ciclo mantém o sentido, mas a tensão ainda cai a zero a cada meio ciclo."
+            },
+            {
+              "text": "A ponte de diodos eleva a tensão alternada da rede.",
+              "correct": false,
+              "feedback": "Errado: quem eleva a tensão é o transformador, pelo número de espiras; a ponte só deixa a tensão num sentido."
+            },
+            {
+              "text": "Há geradores com tensão quase constante e pouca ondulação.",
+              "correct": true,
+              "feedback": "Certo: geradores de alta frequência, por exemplo, deixam a tensão perto de constante, com ondulação pequena."
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou elevar, retificar e reduzir a ondulação.",
+          "feedbackIncorrect": "Releia o conceito: o transformador eleva, a ponte retifica e o tipo de gerador define o quanto sobra de ondulação.",
+          "help": "Pergunte de cada afirmação se ela fala do sentido da tensão ou do quanto ela oscila.",
+          "sourceIds": [
+            "wikipedia-retificador",
+            "openstax-up2-transformadores",
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada traçado ou termo ao que ele mostra.",
+          "pairs": [
+            {
+              "left": "Onda alternada",
+              "right": "Inverte o sentido a cada meio ciclo"
+            },
+            {
+              "left": "Onda retificada, onda completa",
+              "right": "Um só sentido, com queda a zero a cada meio ciclo"
+            },
+            {
+              "left": "Tensão quase constante",
+              "right": "Um só sentido e ondulação pequena"
+            },
+            {
+              "left": "Ondulação",
+              "right": "O quanto a tensão oscila entre picos e vales"
+            }
+          ],
+          "feedbackCorrect": "Isso: você leu o que cada traçado e cada termo contam.",
+          "feedbackIncorrect": "Alguma ligação está trocada: confira qual traçado muda de sentido e qual cai a zero.",
+          "help": "Veja primeiro o sentido da tensão e depois se ela cai a zero.",
+          "sourceIds": [
+            "wikipedia-retificador",
+            "openstax-up2-transformadores"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Dois geradores didáticos têm o mesmo pico de tensão. O A tem ondulação grande e o B, ondulação pequena. Qual afirmação é coerente?",
+          "options": [
+            {
+              "label": "No A, a tensão fica mais constante durante a exposição.",
+              "correct": false,
+              "feedback": "É o contrário: ondulação grande é oscilação grande, e a tensão fica menos constante."
+            },
+            {
+              "label": "Os dois têm a mesma tensão a cada instante, pois o pico é igual.",
+              "correct": false,
+              "feedback": "O pico igual não faz o resto do traçado igual: a oscilação entre picos e vales muda."
+            },
+            {
+              "label": "No B, a tensão fica mais perto do valor de pico durante a exposição.",
+              "correct": true,
+              "feedback": "Isso: ondulação pequena quer dizer tensão mais perto de constante, perto do pico."
+            },
+            {
+              "label": "O B tem ondulação menor porque o transformador tem menos espiras.",
+              "correct": false,
+              "feedback": "As espiras mudam o valor da tensão elevada, e não a ondulação, que depende da retificação e do tipo de gerador."
+            }
+          ],
+          "help": "Lembre o que significa ondulação pequena no traçado.",
+          "sourceIds": [
+            "wikipedia-retificador",
+            "openstax-up2-transformadores",
+            "wikibooks-fonte-raios-x"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você explica a retificação",
+        "body": "Agora você consegue dizer por que a tensão é elevada e retificada, ler os três traçados e explicar o que é a ondulação e que tipo de gerador a reduz.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na sala, é isso que diferencia um gerador que oscila muito de outro mais estável."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que a tensão elevada passa pelo retificador antes de chegar ao tubo?",
+          "options": [
+            {
+              "label": "Para elevar ainda mais a tensão",
+              "correct": false,
+              "feedback": "Quem eleva a tensão é o transformador; o retificador só muda o sentido."
+            },
+            {
+              "label": "Para chegar ao tubo num só sentido",
+              "correct": true,
+              "feedback": "Isso: o retificador mantém a tensão num sentido só antes do tubo."
+            },
+            {
+              "label": "Para aquecer o filamento do cátodo",
+              "correct": false,
+              "feedback": "O filamento tem o transformador menor, fora desse caminho."
+            },
+            {
+              "label": "Para zerar a corrente do tubo",
+              "correct": false,
+              "feedback": "O retificador não zera a corrente: ele a mantém num só sentido."
+            }
+          ],
+          "sourceIds": [
+            "wikipedia-retificador"
+          ]
+        },
+        {
+          "prompt": "Um traçado mostra tensão sempre no mesmo sentido, mas com queda a zero a cada meio ciclo. O que ele tem de grande?",
+          "options": [
+            {
+              "label": "O número de espiras do secundário",
+              "correct": false,
+              "feedback": "O número de espiras muda o valor elevado, não a forma do traçado."
+            },
+            {
+              "label": "A corrente do filamento",
+              "correct": false,
+              "feedback": "A corrente do filamento não aparece no traçado da tensão."
+            },
+            {
+              "label": "A resistência do tubo",
+              "correct": false,
+              "feedback": "O traçado mostra a tensão ao longo do tempo, e não uma resistência."
+            },
+            {
+              "label": "A ondulação, pois a tensão oscila muito",
+              "correct": true,
+              "feedback": "Isso: a queda a zero a cada meio ciclo é ondulação grande."
+            }
+          ],
+          "sourceIds": [
+            "wikipedia-retificador"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: retificar é manter a tensão num só...",
+          "item": {
+            "prompt": "O que a ponte de diodos faz com a tensão alternada?",
+            "options": [
+              {
+                "label": "Eleva a tensão pelo número de espiras",
+                "correct": false,
+                "feedback": "Elevar a tensão é papel do transformador, e não da ponte."
+              },
+              {
+                "label": "Aquece o filamento do cátodo",
+                "correct": false,
+                "feedback": "O filamento é aquecido pela corrente do transformador menor."
+              },
+              {
+                "label": "Mantém a tensão num só sentido",
+                "correct": true,
+                "feedback": "Isso: a ponte vira o meio ciclo invertido e mantém um sentido."
+              },
+              {
+                "label": "Guarda a tensão até a exposição",
+                "correct": false,
+                "feedback": "A ponte de diodos não armazena tensão: ela só define o sentido."
+              }
+            ],
+            "sourceIds": [
+              "wikipedia-retificador"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um traçado mostra tensão num só sentido, quase constante, com ondulação pequena. Que gerador do esquema produz esse traçado?",
+            "options": [
+              {
+                "label": "Um gerador de alta frequência",
+                "correct": true,
+                "feedback": "Isso: o gerador de alta frequência deixa a tensão perto de constante, com pouca ondulação."
+              },
+              {
+                "label": "Um gerador só com a ponte de diodos",
+                "correct": false,
+                "feedback": "Só com a ponte a tensão fica num sentido, mas ainda cai a zero a cada meio ciclo."
+              },
+              {
+                "label": "Um gerador sem o retificador",
+                "correct": false,
+                "feedback": "Sem retificador a tensão continua invertendo o sentido a cada meio ciclo."
+              },
+              {
+                "label": "Um gerador com mais espiras no primário",
+                "correct": false,
+                "feedback": "As espiras mudam o valor da tensão, e não a ondulação."
+              }
+            ],
+            "sourceIds": [
+              "wikibooks-fonte-raios-x"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m19-03",
+      "code": "M19.03",
+      "title": "O cátodo",
+      "objective": "Hoje você vai conseguir ligar o filamento aquecido à emissão de elétrons e à corrente do tubo.",
+      "competency": "Relacionar filamento, emissão de elétrons e corrente do tubo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Se a alta tensão é que empurra os elétrons, para que o tubo precisa de filamento?"
+          },
+          {
+            "speaker": "caio",
+            "text": "A alta tensão só empurra o que já saiu do cátodo. Alguém precisa soltar os elétrons antes."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quem solta, e como isso se liga à corrente do tubo?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Do filamento à corrente do tubo",
+        "body": "O cátodo tem um filamento de tungstênio. A corrente que o transformador do filamento envia o aquece, e o fio quente libera elétrons. A alta tensão entre cátodo e ânodo leva esses elétrons até o alvo. A corrente do tubo, em mA, é esse fluxo de elétrons. Filamento mais quente solta mais elétrons, e a corrente do tubo sobe. Sem filamento aquecido, a alta tensão não encontra elétrons para acelerar.",
+        "keyPoints": [
+          "O filamento aquecido libera os elétrons.",
+          "A alta tensão acelera os elétrons já liberados.",
+          "Filamento mais quente, mais corrente no tubo."
+        ],
+        "visual": "tubo-emitindo"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na primeira aula, você viu que um transformador menor liga o filamento. O que ele entrega ao filamento?",
+          "options": [
+            {
+              "label": "Alta tensão, que acelera os elétrons",
+              "correct": false,
+              "feedback": "A alta tensão do tubo vem do transformador de alta tensão e do retificador."
+            },
+            {
+              "label": "Raios X, que saem pela janela",
+              "correct": false,
+              "feedback": "Raios X nascem no ânodo, e não saem do transformador do filamento."
+            },
+            {
+              "label": "Corrente, que aquece o fio",
+              "correct": true,
+              "feedback": "Isso: a corrente do transformador menor aquece o filamento."
+            },
+            {
+              "label": "Tensão alternada elevada ao máximo",
+              "correct": false,
+              "feedback": "Quem eleva a tensão é o transformador de alta tensão, não o menor."
+            }
+          ],
+          "help": "Pense no que o transformador menor alimenta.",
+          "sourceIds": [
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as partes do tubo de raios X, tocando na ficha e depois no ponto.",
+          "diagramId": "tubo-raios-x",
+          "points": [
+            {
+              "label": "Cátodo com filamento",
+              "x": 0.28,
+              "y": 0.44,
+              "where": "à esquerda, a espiral dentro da capa"
+            },
+            {
+              "label": "Ânodo",
+              "x": 0.72,
+              "y": 0.44,
+              "where": "à direita, o bloco inclinado de borda branca"
+            },
+            {
+              "label": "Janela de saída",
+              "x": 0.68,
+              "y": 0.71,
+              "where": "embaixo à direita, a abertura no vidro"
+            },
+            {
+              "label": "Ampola de vidro",
+              "x": 0.375,
+              "y": 0.71,
+              "where": "a parede curva que envolve todo o conjunto"
+            }
+          ],
+          "distractors": [
+            "Colimador"
+          ],
+          "feedbackCorrect": "Isso: você achou o cátodo, o ânodo, a janela e a ampola pela posição.",
+          "feedbackIncorrect": "Alguma parte está no lugar errado: o cátodo fica no lado de onde saem os elétrons, e o feixe sai pela janela.",
+          "help": "Comece pela parte que libera os elétrons.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada grandeza do cátodo ao que ela é ou faz no tubo.",
+          "pairs": [
+            {
+              "left": "Corrente do filamento",
+              "right": "Vem do transformador menor e aquece o fio"
+            },
+            {
+              "left": "Corrente do tubo, em mA",
+              "right": "Elétrons que cruzam do cátodo ao ânodo"
+            },
+            {
+              "left": "Tensão do tubo, em kV",
+              "right": "Vem do transformador de alta tensão e acelera os elétrons"
+            },
+            {
+              "left": "Filamento mais quente",
+              "right": "Mais elétrons liberados pelo fio"
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou as duas correntes, a tensão e o efeito do filamento mais quente.",
+          "feedbackIncorrect": "Alguma ligação está trocada: a corrente do filamento só aquece o fio, e a corrente do tubo é o fluxo de elétrons até o ânodo.",
+          "help": "Há duas correntes no cátodo: pergunte de onde cada uma vem e por onde passa.",
+          "sourceIds": [
+            "wikipedia-x-ray-tube",
+            "wikibooks-fonte-raios-x",
+            "openstax-cp-raios-x",
+            "wikipedia-emissao-termionica"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o cátodo.",
+          "statements": [
+            {
+              "text": "É a alta tensão do tubo que aquece o filamento do cátodo.",
+              "correct": false,
+              "feedback": "Errado: o filamento é aquecido pela corrente do transformador menor; a alta tensão só acelera os elétrons já liberados."
+            },
+            {
+              "text": "Filamento mais quente solta mais elétrons e a corrente do tubo sobe.",
+              "correct": true,
+              "feedback": "Certo: mais elétrons liberados significa mais fluxo entre cátodo e ânodo."
+            },
+            {
+              "text": "O filamento libera elétrons antes de a alta tensão agir sobre eles.",
+              "correct": true,
+              "feedback": "Certo: primeiro o fio quente solta os elétrons, e depois a alta tensão os acelera."
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou quem aquece, quem libera e quem acelera.",
+          "feedbackIncorrect": "Releia o conceito: o filamento aquece com a própria corrente, e a alta tensão só empurra os elétrons livres.",
+          "help": "Pergunte quem faz cada coisa: aquecer, soltar ou acelerar.",
+          "sourceIds": [
+            "wikipedia-x-ray-tube",
+            "wikibooks-fonte-raios-x",
+            "openstax-cp-raios-x",
+            "wikipedia-emissao-termionica"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Num esquema no papel, o transformador do filamento é desligado e a alta tensão continua aplicada. O que o esquema prevê para a corrente do tubo?",
+          "options": [
+            {
+              "label": "Sobe, pois só a alta tensão controla os elétrons",
+              "correct": false,
+              "feedback": "A alta tensão acelera elétrons, mas quem os libera é o filamento quente."
+            },
+            {
+              "label": "Não muda, pois a alta tensão já fornece os elétrons",
+              "correct": false,
+              "feedback": "A alta tensão não cria elétrons: ela acelera os que o filamento liberou."
+            },
+            {
+              "label": "Inverte o sentido, pois o ânodo passa a ser cátodo",
+              "correct": false,
+              "feedback": "O ânodo não emite elétrons: sem filamento quente a corrente simplesmente cai."
+            },
+            {
+              "label": "Cai, pois sem filamento quente não saem elétrons",
+              "correct": true,
+              "feedback": "Isso: sem elétrons liberados, a alta tensão não tem o que acelerar."
+            }
+          ],
+          "help": "Pense em quem solta os elétrons antes de eles serem acelerados.",
+          "sourceIds": [
+            "wikipedia-x-ray-tube",
+            "wikibooks-fonte-raios-x",
+            "openstax-cp-raios-x",
+            "wikipedia-emissao-termionica"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você liga filamento e corrente",
+        "body": "Agora você consegue dizer que o filamento aquecido libera os elétrons, que a alta tensão os acelera e que a corrente do tubo, em mA, é esse fluxo entre cátodo e ânodo.",
+        "line": {
+          "speaker": "lia",
+          "text": "Filamento quente e alta tensão trabalham juntos. Sem um dos dois, o tubo não produz o feixe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que parte do tubo libera os elétrons quando está aquecida?",
+          "options": [
+            {
+              "label": "O alvo do ânodo",
+              "correct": false,
+              "feedback": "O alvo recebe os elétrons e produz os raios X, mas não os libera."
+            },
+            {
+              "label": "O filamento aquecido",
+              "correct": true,
+              "feedback": "Isso: o fio quente do cátodo é a fonte dos elétrons."
+            },
+            {
+              "label": "A janela de saída",
+              "correct": false,
+              "feedback": "A janela só deixa passar o feixe de raios X."
+            },
+            {
+              "label": "A ampola de vidro",
+              "correct": false,
+              "feedback": "A ampola envolve o conjunto e mantém o vácuo, e não libera elétrons."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "prompt": "O que a corrente do tubo, em mA, representa?",
+          "options": [
+            {
+              "label": "A energia de cada fóton emitido",
+              "correct": false,
+              "feedback": "A energia dos fótons acompanha a tensão, e não a corrente do tubo."
+            },
+            {
+              "label": "A corrente que aquece o filamento",
+              "correct": false,
+              "feedback": "A do filamento é outra corrente, fornecida pelo transformador menor."
+            },
+            {
+              "label": "O fluxo de elétrons do cátodo ao ânodo",
+              "correct": true,
+              "feedback": "Isso: a corrente do tubo é o fluxo de elétrons entre os dois eletrodos."
+            },
+            {
+              "label": "A tensão entre cátodo e ânodo",
+              "correct": false,
+              "feedback": "Tensão e corrente do tubo são grandezas diferentes, em kV e em mA."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o fio quente do cátodo libera...",
+          "item": {
+            "prompt": "O que acontece com os elétrons depois que o filamento os libera?",
+            "options": [
+              {
+                "label": "A alta tensão os acelera até o ânodo",
+                "correct": true,
+                "feedback": "Isso: a alta tensão leva os elétrons ao alvo do ânodo."
+              },
+              {
+                "label": "Saem pela janela como raios X",
+                "correct": false,
+                "feedback": "Os raios X nascem quando os elétrons freiam no ânodo, e não saem como elétrons."
+              },
+              {
+                "label": "Voltam ao transformador do filamento",
+                "correct": false,
+                "feedback": "Os elétrons são acelerados para o ânodo, e não devolvidos à fonte do filamento."
+              },
+              {
+                "label": "Aquecem a ampola de vidro",
+                "correct": false,
+                "feedback": "A ampola envolve o conjunto; os elétrons seguem ao alvo do ânodo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-cp-raios-x"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um esquema mostra o filamento mais quente com a mesma alta tensão. O que muda?",
+            "options": [
+              {
+                "label": "A energia máxima dos fótons sobe pelo mesmo motivo",
+                "correct": false,
+                "feedback": "A energia máxima acompanha a tensão, que não mudou neste esquema."
+              },
+              {
+                "label": "A tensão do tubo cai a zero",
+                "correct": false,
+                "feedback": "A tensão é outra grandeza e continua a mesma neste esquema."
+              },
+              {
+                "label": "Os elétrons passam a sair do ânodo",
+                "correct": false,
+                "feedback": "O ânodo não emite elétrons: eles continuam saindo do cátodo."
+              },
+              {
+                "label": "Saem mais elétrons e a corrente do tubo sobe",
+                "correct": true,
+                "feedback": "Isso: filamento mais quente libera mais elétrons e aumenta a corrente do tubo."
+              }
+            ],
+            "sourceIds": [
+              "openstax-cp-raios-x",
+              "wikibooks-fonte-raios-x",
+              "wikipedia-emissao-termionica"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m19-04",
+      "code": "M19.04",
+      "title": "O ânodo e o calor",
+      "objective": "Hoje você vai conseguir explicar por que o ânodo gira e como o tamanho do ponto focal se liga ao calor.",
+      "competency": "Explicar o ânodo giratório, o ponto focal e para onde vai a energia.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando didática",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Vi no desenho que o disco gira, mas o feixe de elétrons não anda. Por que girar, então?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Pense no que acontece com um ponto que recebe calor sem parar."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Dá para comparar um ponto parado com um anel inteiro?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O disco que gira e o ponto focal",
+        "body": "Os elétrons batem numa pista em anel, na borda de um disco de tungstênio. Quase toda a energia deles vira calor, e só uma parte muito pequena vira raios X. O disco gira, então cada trecho da pista passa sob o feixe, e o calor se espalha pelo anel, e não por um ponto só. O ponto onde os elétrons batem é o ponto focal. Ponto focal menor recebe a mesma energia numa área menor: o calor fica mais concentrado.",
+        "keyPoints": [
+          "Quase toda a energia dos elétrons vira calor.",
+          "O disco gira para o calor se espalhar pelo anel.",
+          "Ponto focal menor: calor mais concentrado."
+        ],
+        "visual": "anodo-giratorio"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula do cátodo, o que acelera os elétrons até o ânodo?",
+          "options": [
+            {
+              "label": "A corrente que aquece o filamento",
+              "correct": false,
+              "feedback": "Essa corrente só aquece o fio, para ele liberar os elétrons."
+            },
+            {
+              "label": "A rotação do disco do ânodo",
+              "correct": false,
+              "feedback": "O disco gira para espalhar o calor, e não para acelerar elétrons."
+            },
+            {
+              "label": "A ondulação da tensão",
+              "correct": false,
+              "feedback": "A ondulação é a oscilação da tensão, e não o que acelera os elétrons."
+            },
+            {
+              "label": "A alta tensão entre cátodo e ânodo",
+              "correct": true,
+              "feedback": "Isso: a alta tensão acelera os elétrons que o filamento liberou."
+            }
+          ],
+          "help": "Lembre quem empurra os elétrons já liberados.",
+          "sourceIds": [
+            "openstax-cp-raios-x"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada situação pelo que ela faz com o calor na pista do ânodo.",
+          "categories": [
+            "Espalha o calor",
+            "Concentra o calor"
+          ],
+          "items": [
+            {
+              "label": "Disco girando sob o feixe",
+              "category": "Espalha o calor"
+            },
+            {
+              "label": "Ponto focal menor",
+              "category": "Concentra o calor"
+            },
+            {
+              "label": "Ponto focal maior",
+              "category": "Espalha o calor"
+            },
+            {
+              "label": "Elétrons batendo sempre no mesmo trecho da pista",
+              "category": "Concentra o calor"
+            }
+          ],
+          "feedbackCorrect": "Isso: girar o disco e aumentar a área de impacto espalham o calor; área menor ou trecho fixo o concentram.",
+          "feedbackIncorrect": "Pergunte de cada situação se a energia cai numa área maior da pista ou numa área menor.",
+          "help": "Pense no tamanho da área da pista que recebe a mesma energia.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre o ânodo.",
+          "statements": [
+            {
+              "text": "O disco gira para o calor se espalhar por um anel, e não por um ponto.",
+              "correct": true,
+              "feedback": "Certo: cada trecho da pista passa sob o feixe, e o calor se distribui pelo anel."
+            },
+            {
+              "text": "O feixe de elétrons gira junto com o disco.",
+              "correct": false,
+              "feedback": "Errado: o feixe fica parado em relação ao tubo; quem gira é o disco, por baixo dele."
+            },
+            {
+              "text": "Quase toda a energia dos elétrons que batem no alvo vira calor.",
+              "correct": true,
+              "feedback": "Certo: só uma parte muito pequena da energia vira raios X; o resto aquece o ânodo."
+            },
+            {
+              "text": "O ponto focal é a região da pista onde os elétrons batem.",
+              "correct": true,
+              "feedback": "Certo: é ali que os elétrons freiam e de onde sai o feixe de raios X."
+            },
+            {
+              "text": "A maior parte da energia dos elétrons sai pela janela como raios X.",
+              "correct": false,
+              "feedback": "Errado: a maior parte vira calor no ânodo; os raios X levam só uma fração pequena."
+            },
+            {
+              "text": "Ponto focal menor concentra o calor numa área menor.",
+              "correct": true,
+              "feedback": "Certo: a mesma energia cai num pedaço menor da pista, e o calor fica mais concentrado."
+            },
+            {
+              "text": "Com o disco girando, o aquecimento do tubo deixa de importar.",
+              "correct": false,
+              "feedback": "Errado: a rotação espalha o calor, mas não o elimina; o aquecimento do tubo segue o fabricante e o serviço."
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou para onde vai a energia, o que o disco faz e o que o ponto focal muda.",
+          "feedbackIncorrect": "Reveja o conceito: quase toda a energia vira calor, o disco o espalha e o ponto focal menor o concentra.",
+          "help": "Leia cada afirmação com calma: pergunte se fala da energia, do disco ou do ponto focal.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube",
+            "spellman-falhas-de-tubo"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase sobre o ânodo com as palavras do banco.",
+          "text": "O disco do ânodo {{1}} para o calor se espalhar por uma {{2}} em anel.",
+          "answers": [
+            "gira",
+            "pista"
+          ],
+          "distractors": [
+            "sobe",
+            "janela",
+            "ampola"
+          ],
+          "feedbackCorrect": "Isso: o disco gira e o calor se espalha pela pista em anel.",
+          "feedbackIncorrect": "Pense no movimento do disco e no nome do anel onde os elétrons batem.",
+          "help": "Uma palavra é o que o disco faz; a outra, onde os elétrons batem.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Na cozinha, a chama fica parada. Para não queimar um ponto só do fundo de uma frigideira grande, Duda a gira devagar sobre o fogo. Que parte do tubo faz o papel desse giro?",
+          "options": [
+            {
+              "label": "O filamento aquecido do cátodo",
+              "correct": false,
+              "feedback": "O filamento libera os elétrons; ele não muda o trecho da pista que recebe o calor."
+            },
+            {
+              "label": "O disco do ânodo girando sob o feixe",
+              "correct": true,
+              "feedback": "Isso: o feixe fica parado como a chama, e o disco gira para o calor não se acumular num ponto."
+            },
+            {
+              "label": "A janela de saída do feixe",
+              "correct": false,
+              "feedback": "A janela só deixa o feixe de raios X sair; ela não espalha o calor da pista."
+            },
+            {
+              "label": "O transformador de alta tensão",
+              "correct": false,
+              "feedback": "O transformador eleva a tensão; o calor se espalha pela rotação do disco."
+            }
+          ],
+          "help": "No tubo, o que fica parado como a chama, e o que se move como a frigideira?",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você explica o disco e o calor",
+        "body": "Agora você consegue dizer que quase toda a energia dos elétrons vira calor no ânodo, que o disco gira para espalhar esse calor pela pista e que o ponto focal menor concentra o calor.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na sala, o cuidado com o calor do ânodo é parte do dia a dia do tubo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que o disco do ânodo gira durante a exposição?",
+          "options": [
+            {
+              "label": "Para o feixe de elétrons girar junto",
+              "correct": false,
+              "feedback": "O feixe fica parado em relação ao tubo; só o disco gira."
+            },
+            {
+              "label": "Para liberar mais elétrons do filamento",
+              "correct": false,
+              "feedback": "Quem libera elétrons é o filamento aquecido, e não o disco."
+            },
+            {
+              "label": "Para elevar a tensão do tubo",
+              "correct": false,
+              "feedback": "A tensão vem do gerador, e a rotação do disco não a altera."
+            },
+            {
+              "label": "Para espalhar o calor por toda a pista",
+              "correct": true,
+              "feedback": "Isso: a rotação distribui o calor pelo anel, e não por um ponto."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "prompt": "Dois tubos iguais recebem a mesma energia no alvo, mas um tem ponto focal menor. O que acontece nele?",
+          "options": [
+            {
+              "label": "O calor fica mais concentrado na pista",
+              "correct": true,
+              "feedback": "Isso: a mesma energia numa área menor deixa o calor mais concentrado."
+            },
+            {
+              "label": "O calor fica mais espalhado na pista",
+              "correct": false,
+              "feedback": "A área menor concentra o calor, em vez de espalhá-lo."
+            },
+            {
+              "label": "Mais energia vira raios X do que calor",
+              "correct": false,
+              "feedback": "Quase toda a energia continua virando calor, qualquer que seja o ponto focal."
+            },
+            {
+              "label": "O disco deixa de precisar girar",
+              "correct": false,
+              "feedback": "Com o calor mais concentrado, a rotação continua necessária para espalhá-lo."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o ponto da pista onde os elétrons batem é o ponto...",
+          "item": {
+            "prompt": "Como se chama o ponto da pista onde os elétrons batem?",
+            "options": [
+              {
+                "label": "Foco do filamento",
+                "correct": false,
+                "feedback": "O filamento libera elétrons; o ponto de impacto fica no ânodo."
+              },
+              {
+                "label": "Ponto focal",
+                "correct": true,
+                "feedback": "Isso: o ponto focal é a região de impacto dos elétrons na pista."
+              },
+              {
+                "label": "Cubo do disco",
+                "correct": false,
+                "feedback": "O cubo é o centro do disco, que gira em torno dele."
+              },
+              {
+                "label": "Janela de saída",
+                "correct": false,
+                "feedback": "A janela só deixa o feixe passar, e fica na parede do tubo."
+              }
+            ],
+            "sourceIds": [
+              "wikipedia-x-ray-tube"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Dois tubos iguais fazem a mesma exposição: num o disco gira, no outro está parado. Em qual o calor fica mais espalhado?",
+            "options": [
+              {
+                "label": "No de disco parado, pelo anel inteiro",
+                "correct": false,
+                "feedback": "Parado, o calor fica num ponto só, e não no anel."
+              },
+              {
+                "label": "Nos dois, pois o ponto focal é o mesmo",
+                "correct": false,
+                "feedback": "Mesmo com o mesmo ponto focal, só o disco girando espalha o calor."
+              },
+              {
+                "label": "No de disco girando, pelo anel inteiro",
+                "correct": true,
+                "feedback": "Isso: a rotação distribui o calor pela pista toda."
+              },
+              {
+                "label": "Em nenhum, pois o calor sai pela janela",
+                "correct": false,
+                "feedback": "O calor se forma no ânodo; pela janela sai o feixe de raios X."
+              }
+            ],
+            "sourceIds": [
+              "wikipedia-x-ray-tube"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m19-05",
+      "code": "M19.05",
+      "title": "O espectro do feixe",
+      "objective": "Hoje você vai conseguir reconhecer as partes do espectro e prever, só em sentido, o efeito de kV, mAs e filtração.",
+      "competency": "Distinguir radiação de freamento e característica e prever o efeito de kV, mAs e filtração.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O gráfico do feixe não tem número nenhum nos eixos. Dá para ler alguma coisa assim?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Dá: a forma já conta bastante. Onde a curva acaba, onde ela sobe e onde aparecem os picos."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos ler a forma antes dos números?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Ler a forma do espectro",
+        "body": "O feixe de raios X mistura energias. A curva larga é a radiação de freamento, dos elétrons freados no alvo. Ela termina na energia máxima, que acompanha o kV. Os picos estreitos são a radiação característica: a posição deles depende do material do alvo. A filtração tira fótons de baixa energia: a quantidade cai e a energia média sobe. O mAs muda a quantidade, e não a energia. O kV muda a energia máxima e também a quantidade. Aqui só importa o sentido: sobe, desce, não muda.",
+        "keyPoints": [
+          "kV: a energia máxima e a quantidade sobem.",
+          "mAs: só a quantidade muda.",
+          "Filtração: tira baixas energias e sobe a energia média."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula do cátodo, a corrente do tubo, em mA, é o fluxo de quê?",
+          "options": [
+            {
+              "label": "De elétrons do cátodo ao ânodo",
+              "correct": true,
+              "feedback": "Isso: é o fluxo de elétrons entre os dois eletrodos, que dá a quantidade do feixe."
+            },
+            {
+              "label": "De fótons que saem pela janela",
+              "correct": false,
+              "feedback": "Os fótons são o feixe; a corrente do tubo é o fluxo de elétrons que o produz."
+            },
+            {
+              "label": "De corrente alternada na rede",
+              "correct": false,
+              "feedback": "A rede é a origem da energia; a corrente do tubo é medida entre cátodo e ânodo."
+            },
+            {
+              "label": "De calor entre disco e ampola",
+              "correct": false,
+              "feedback": "Calor não é corrente elétrica; a corrente do tubo é de elétrons."
+            }
+          ],
+          "help": "Lembre o que se desloca entre cátodo e ânodo.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro partes do espectro, tocando na ficha e depois no ponto.",
+          "diagramId": "espectro-de-raios-x",
+          "points": [
+            {
+              "label": "Radiação de freamento",
+              "x": 0.39,
+              "y": 0.54,
+              "where": "a curva larga que sobe depressa e desce devagar"
+            },
+            {
+              "label": "Radiação característica",
+              "x": 0.563,
+              "y": 0.65,
+              "where": "os dois picos estreitos sobre a curva"
+            },
+            {
+              "label": "Energia máxima",
+              "x": 0.813,
+              "y": 0.834,
+              "where": "o ponto branco no fim do eixo horizontal"
+            },
+            {
+              "label": "Parte removida pela filtração",
+              "x": 0.223,
+              "y": 0.459,
+              "where": "à esquerda, a faixa sombreada sob a linha tracejada"
+            }
+          ],
+          "distractors": [
+            "Corrente do filamento"
+          ],
+          "feedbackCorrect": "Isso: você reconheceu as quatro partes do espectro pela forma.",
+          "feedbackIncorrect": "Alguma ficha está no lugar errado: a curva larga é contínua, os picos são estreitos e a energia máxima fecha o eixo.",
+          "help": "Comece pela curva larga, que tem a maior parte dos fótons.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada previsão, só em sentido, sobre o espectro do feixe.",
+          "statements": [
+            {
+              "text": "Subir o kV desloca a energia máxima do feixe para a direita.",
+              "correct": true,
+              "feedback": "Certo: a energia máxima acompanha o kV, então ela se desloca para a direita no gráfico."
+            },
+            {
+              "text": "Subir o mAs desloca a energia máxima do feixe para a direita.",
+              "correct": false,
+              "feedback": "Errado: o mAs muda a quantidade de fótons, e a energia máxima acompanha o kV."
+            },
+            {
+              "text": "Subir o mAs aumenta os fótons sem mudar a energia máxima.",
+              "correct": true,
+              "feedback": "Certo: o mAs sobe a curva inteira, e a energia máxima continua presa ao kV."
+            },
+            {
+              "text": "A filtração deixa a energia média do feixe mais baixa.",
+              "correct": false,
+              "feedback": "Errado: a filtração tira sobretudo os fótons de baixa energia, então a energia média sobe."
+            }
+          ],
+          "feedbackCorrect": "Isso: você separou o que o kV, o mAs e a filtração fazem.",
+          "feedbackIncorrect": "Releia o conceito: kV mexe na energia máxima, mAs só na quantidade e a filtração tira as baixas energias.",
+          "help": "Pergunte de cada ajuste se ele muda a energia, a quantidade ou as duas.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada ajuste ao efeito dele no feixe, em sentido.",
+          "pairs": [
+            {
+              "left": "Subir o kV",
+              "right": "A energia máxima sobe e a quantidade também"
+            },
+            {
+              "left": "Subir o mAs",
+              "right": "A quantidade sobe e a energia dos fótons não muda"
+            },
+            {
+              "left": "Mais filtração",
+              "right": "Tira baixas energias e a energia média sobe"
+            },
+            {
+              "left": "Trocar o metal do alvo",
+              "right": "Os picos característicos mudam de lugar"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada ajuste tem o próprio efeito no espectro.",
+          "feedbackIncorrect": "Alguma ligação está trocada: confira qual ajuste muda só a quantidade e qual muda a posição dos picos.",
+          "help": "Separe o que muda a energia do que muda só a quantidade.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "categorize",
+          "role": "transfer",
+          "prompt": "Num esquema, só o kV sobe. Classifique cada item pelo que acontece com ele.",
+          "categories": [
+            "Sobe",
+            "Não muda"
+          ],
+          "items": [
+            {
+              "label": "Energia máxima dos fótons",
+              "category": "Sobe"
+            },
+            {
+              "label": "Quantidade de fótons do feixe",
+              "category": "Sobe"
+            },
+            {
+              "label": "Corrente do tubo, em mA",
+              "category": "Não muda"
+            },
+            {
+              "label": "Metal do alvo do ânodo",
+              "category": "Não muda"
+            }
+          ],
+          "feedbackCorrect": "Isso: o kV puxa a energia máxima e a quantidade, e não mexe no mA nem no metal do alvo.",
+          "feedbackIncorrect": "Pergunte de cada item se ele depende do kV ou é outro ajuste ou outra peça do tubo.",
+          "help": "Só o kV mudou: o que é outro controle ou outra peça fica como estava.",
+          "sourceIds": [
+            "openstax-cp-raios-x",
+            "wikibooks-fonte-raios-x"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê o espectro",
+        "body": "Agora você consegue reconhecer a radiação de freamento, a característica e a energia máxima, e prever em sentido o que o kV, o mAs e a filtração fazem com o feixe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Sem números, só pelo sentido. Isso já basta para entender o que cada controle faz."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O que o mAs muda no feixe de raios X?",
+          "options": [
+            {
+              "label": "A energia máxima dos fótons",
+              "correct": false,
+              "feedback": "A energia máxima acompanha o kV, e não o mAs."
+            },
+            {
+              "label": "A posição dos picos característicos",
+              "correct": false,
+              "feedback": "A posição dos picos depende do material do alvo, e não do mAs."
+            },
+            {
+              "label": "A quantidade de fótons, e não a energia",
+              "correct": true,
+              "feedback": "Isso: o mAs muda a quantidade, e a energia acompanha kV e filtração."
+            },
+            {
+              "label": "A parte do espectro removida pelo filtro",
+              "correct": false,
+              "feedback": "O que o filtro remove depende da filtração, e não do mAs."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        },
+        {
+          "prompt": "O que a filtração faz com o feixe?",
+          "options": [
+            {
+              "label": "Sobe a energia máxima e a quantidade",
+              "correct": false,
+              "feedback": "A energia máxima acompanha o kV, e a filtração reduz a quantidade."
+            },
+            {
+              "label": "Tira fótons de baixa energia e sobe a energia média",
+              "correct": true,
+              "feedback": "Isso: o feixe fica com menos fótons, mas com energia média maior."
+            },
+            {
+              "label": "Tira fótons de alta energia e desce a energia média",
+              "correct": false,
+              "feedback": "É o contrário: o filtro retém as baixas energias."
+            },
+            {
+              "label": "Muda o metal do alvo e a posição dos picos",
+              "correct": false,
+              "feedback": "A filtração não troca o alvo; os picos ficam onde estão."
+            }
+          ],
+          "sourceIds": [
+            "wikibooks-fonte-raios-x"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a filtração tira os fótons de...",
+          "item": {
+            "prompt": "Que fótons a filtração tira do feixe?",
+            "options": [
+              {
+                "label": "Os de energia máxima",
+                "correct": false,
+                "feedback": "A energia máxima fica, e o filtro retém as baixas energias."
+              },
+              {
+                "label": "Os da radiação característica",
+                "correct": false,
+                "feedback": "Os picos característicos não são o alvo da filtração."
+              },
+              {
+                "label": "Os que saem pela janela",
+                "correct": false,
+                "feedback": "Todos saem pela janela; o filtro age sobre a energia deles."
+              },
+              {
+                "label": "Os de baixa energia",
+                "correct": true,
+                "feedback": "Isso: o filtro absorve sobretudo os fótons de baixa energia."
+              }
+            ],
+            "sourceIds": [
+              "wikibooks-fonte-raios-x"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um esquema mostra o mesmo feixe com um filtro a mais. O que acontece?",
+            "options": [
+              {
+                "label": "A energia média sobe e a quantidade cai",
+                "correct": true,
+                "feedback": "Isso: menos fótons de baixa energia deixam o feixe menos numeroso e mais energético em média."
+              },
+              {
+                "label": "A energia média desce e a quantidade sobe",
+                "correct": false,
+                "feedback": "Os dois sentidos estão trocados: o filtro tira fótons."
+              },
+              {
+                "label": "A energia média sobe e a quantidade sobe junto",
+                "correct": false,
+                "feedback": "O filtro retira fótons, então a quantidade cai."
+              },
+              {
+                "label": "Nada muda, só o kV mexe no feixe",
+                "correct": false,
+                "feedback": "A filtração também muda o feixe, como mostra a aula."
+              }
+            ],
+            "sourceIds": [
+              "wikibooks-fonte-raios-x"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m19-06",
+      "code": "M19.06",
+      "title": "Cuidar do tubo",
+      "objective": "Hoje você vai conseguir reconhecer sinais de sobrecarga ou falha do tubo, parar e avisar a equipe.",
+      "competency": "Reconhecer sinal de sobrecarga ou falha do tubo, parar e avisar.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de exames didática",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O painel mostrou uma mensagem sobre o tubo e eu quase nem li. Deve ser coisa pequena, né?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma. Antes de decidir, que sinais do tubo você já conhece?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "E qual é o primeiro cuidado diante de qualquer sinal estranho?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Sinais e o que fazer",
+        "body": "Um tubo em dificuldade pode dar sinais fora do habitual: um ruído que ele não fazia, um aviso de arco ou de calor no painel. O aquecimento do tubo antes do uso segue o fabricante e o serviço, conforme o tempo que ficou parado. Diante de qualquer sinal fora do habitual, o estudante para, anota o que viu e avisa a equipe. Ele nunca abre o equipamento, limpa o aviso ou reinicia sozinho.",
+        "keyPoints": [
+          "Sinal fora do habitual: ruído novo, aviso de arco ou de calor.",
+          "Parar, anotar o que viu e avisar a equipe.",
+          "Aquecimento, aviso e reinício não são decisão do aluno."
+        ],
+        "visual": "anodo-giratorio"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula do ânodo, para onde vai a maior parte da energia dos elétrons que batem no alvo?",
+          "options": [
+            {
+              "label": "Vira raios X que saem pela janela",
+              "correct": false,
+              "feedback": "Os raios X levam só uma parte muito pequena da energia; o resto fica no ânodo."
+            },
+            {
+              "label": "Vira calor no ânodo",
+              "correct": true,
+              "feedback": "Isso: quase toda a energia vira calor no ânodo, e por isso o calor do tubo pede cuidado."
+            },
+            {
+              "label": "Volta ao filamento do cátodo",
+              "correct": false,
+              "feedback": "Os elétrons vão do cátodo ao ânodo, e a energia deles fica onde batem."
+            },
+            {
+              "label": "Some quando o disco gira",
+              "correct": false,
+              "feedback": "A rotação espalha o calor pela pista, mas não faz a energia sumir."
+            }
+          ],
+          "help": "Pense no que a aula do ânodo disse sobre a fração que vira raios X.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque na parte do tubo que recebe o calor do impacto dos elétrons.",
+          "diagramId": "tubo-raios-x",
+          "regions": [
+            {
+              "label": "Cátodo com filamento",
+              "x": 0.24,
+              "y": 0.32,
+              "width": 0.15,
+              "height": 0.23
+            },
+            {
+              "label": "Ânodo",
+              "x": 0.66,
+              "y": 0.32,
+              "width": 0.13,
+              "height": 0.24,
+              "correct": true
+            },
+            {
+              "label": "Janela de saída",
+              "x": 0.61,
+              "y": 0.66,
+              "width": 0.15,
+              "height": 0.09
+            },
+            {
+              "label": "Ampola de vidro",
+              "x": 0.09,
+              "y": 0.25,
+              "width": 0.09,
+              "height": 0.38
+            }
+          ],
+          "feedbackCorrect": "Isso: é no ânodo que os elétrons batem, e é ali que o calor se acumula.",
+          "feedbackIncorrect": "Essa parte não recebe o impacto: procure onde os elétrons do cátodo chegam.",
+          "help": "Procure onde os elétrons chegam depois de saírem do filamento.",
+          "sourceIds": [
+            "wikibooks-fonte-raios-x",
+            "wikipedia-x-ray-tube"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "duda",
+          "prompt": "Duda notou sinais no tubo durante um turno simulado. Ajude-a a conduzir a situação.",
+          "turns": [
+            {
+              "line": "Estou ouvindo um zumbido do tubo que ele nunca fazia. O que eu faço agora?",
+              "options": [
+                {
+                  "label": "Pare, anote o que ouviu e avise o Caio.",
+                  "correct": true,
+                  "reply": "Entendi, paro e anoto a hora para contar ao Caio."
+                },
+                {
+                  "label": "Siga o turno e conte só se o zumbido piorar, para não atrasar ninguém.",
+                  "correct": false,
+                  "reply": "Hum, então eu continuo e fico de olho no barulho."
+                },
+                {
+                  "label": "Abra a capa do tubo e olhe por dentro para achar a causa sozinha.",
+                  "correct": false,
+                  "reply": "Abrir a capa, é? Não sei se eu saberia o que procurar."
+                }
+              ]
+            },
+            {
+              "line": "O painel mostrou um aviso de arco. Posso apertar o botão de limpar e seguir?",
+              "options": [
+                {
+                  "label": "Limpe, sim: se o aviso voltar, você chama alguém.",
+                  "correct": false,
+                  "reply": "Tá, limpo e vejo se aparece de novo."
+                },
+                {
+                  "label": "Limpe e reinicie o equipamento, que costuma resolver.",
+                  "correct": false,
+                  "reply": "Reiniciar tudo me parece sério, mas se costuma resolver..."
+                },
+                {
+                  "label": "Não limpe: anote o aviso e peça apoio à equipe.",
+                  "correct": true,
+                  "reply": "Combinado, deixo o aviso como está e chamo a equipe."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: diante de zumbido ou aviso, o aluno para, anota o que viu e pede apoio à equipe.",
+          "feedbackIncorrect": "Reveja o turno: o aluno não abre, não limpa o aviso e não reinicia sozinho; ele para, anota e avisa.",
+          "help": "Pense no que o estudante pode decidir sozinho e no que fica com a equipe.",
+          "sourceIds": [
+            "spellman-falhas-de-tubo"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Num turno simulado, o equipamento ficou desligado desde cedo, e a primeira exposição está marcada. Duda sugere ir direto para ela, sem a rotina de aquecimento do tubo que o serviço definiu, para ganhar tempo. Caio está em outra sala.",
+          "prompt": "O que você faz diante dessa sugestão de Duda?",
+          "options": [
+            {
+              "label": "Paro, lembro que o aquecimento segue o fabricante e aviso o Caio",
+              "correct": true,
+              "feedback": "Isso: o aquecimento segue o fabricante e o serviço, e a dúvida vai para a equipe."
+            },
+            {
+              "label": "Sigo com a exposição e anoto depois que não houve aquecimento",
+              "correct": false,
+              "feedback": "Pular o aquecimento que o serviço definiu ignora a recomendação do fabricante, e anotar depois não desfaz a exposição."
+            },
+            {
+              "label": "Faço uma exposição curta de teste por conta própria para aquecer o tubo",
+              "correct": false,
+              "feedback": "O aquecimento segue o fabricante e o serviço; improvisar por conta própria não é decisão do aluno."
+            },
+            {
+              "label": "Pulo o aquecimento só desta vez, já que é uma simulação",
+              "correct": false,
+              "feedback": "Simulação é treino do procedimento certo; pular o aquecimento treina o hábito errado."
+            }
+          ],
+          "help": "O aquecimento do tubo é definido por quem fabrica e por quem faz a manutenção, não pelo aluno.",
+          "sourceIds": [
+            "spellman-falhas-de-tubo"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "O tubo de um equipamento simulado mostra um aviso de calor no painel. Julgue cada conduta do estudante.",
+          "statements": [
+            {
+              "text": "Anotar o texto do aviso e a hora, e avisar a equipe.",
+              "correct": true,
+              "feedback": "Certo: o aviso e a hora ajudam quem vai avaliar o tubo, e a equipe precisa saber."
+            },
+            {
+              "text": "Reiniciar o equipamento para o aviso sumir e seguir o turno.",
+              "correct": false,
+              "feedback": "Errado: reiniciar apaga o sinal sem avaliar a causa, e a decisão não é do aluno."
+            },
+            {
+              "text": "Estimar sozinho quanto calor o tubo ainda aguenta e continuar.",
+              "correct": false,
+              "feedback": "Errado: o limite do tubo é definido pelo fabricante e pelo serviço, e não por estimativa do aluno."
+            },
+            {
+              "text": "Parar de expor e esperar a orientação da equipe.",
+              "correct": true,
+              "feedback": "Certo: parar evita sobrecarregar o tubo enquanto a equipe decide o que fazer."
+            }
+          ],
+          "feedbackCorrect": "Isso: você parou, anotou e avisou, sem decidir pelo equipamento.",
+          "feedbackIncorrect": "Releia o conceito: o estudante para, anota e avisa; abrir, limpar e reiniciar não são dele.",
+          "help": "Pergunte de cada conduta se ela deixa a decisão com a equipe.",
+          "sourceIds": [
+            "spellman-falhas-de-tubo",
+            "wikibooks-fonte-raios-x"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe parar e avisar",
+        "body": "Agora você consegue reconhecer sinais de sobrecarga ou falha do tubo, parar, anotar o que viu e avisar a equipe, sem abrir, limpar o aviso ou reiniciar o equipamento sozinho.",
+        "line": {
+          "speaker": "lia",
+          "text": "Avisar cedo evita um dano maior. É o cuidado mais valioso que você tem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual destes sinais do tubo você anota e comunica à equipe?",
+          "options": [
+            {
+              "label": "Mensagem de arco no painel durante a exposição",
+              "correct": true,
+              "feedback": "Isso: aviso de arco foge do habitual, e a equipe precisa saber."
+            },
+            {
+              "label": "O som habitual do disco girando antes da exposição",
+              "correct": false,
+              "feedback": "O som de sempre do disco girando faz parte do funcionamento esperado."
+            },
+            {
+              "label": "Filamento aquecido antes da exposição",
+              "correct": false,
+              "feedback": "O filamento aquecido faz parte do funcionamento normal do tubo."
+            },
+            {
+              "label": "Raios X saindo pela janela do tubo",
+              "correct": false,
+              "feedback": "O feixe sair pela janela é o funcionamento esperado do tubo."
+            }
+          ],
+          "sourceIds": [
+            "spellman-falhas-de-tubo"
+          ]
+        },
+        {
+          "prompt": "Quem define o aquecimento do tubo antes do uso?",
+          "options": [
+            {
+              "label": "O estudante, pelo tempo que tiver",
+              "correct": false,
+              "feedback": "O aluno não define o aquecimento, por mais tempo que tenha."
+            },
+            {
+              "label": "O paciente do exame",
+              "correct": false,
+              "feedback": "O paciente não participa de decisões sobre o equipamento."
+            },
+            {
+              "label": "A última imagem feita no equipamento",
+              "correct": false,
+              "feedback": "Uma imagem anterior não define como o tubo deve ser aquecido."
+            },
+            {
+              "label": "O fabricante e o serviço",
+              "correct": true,
+              "feedback": "Isso: o aquecimento segue o fabricante e o serviço, e o aluno não o decide."
+            }
+          ],
+          "sourceIds": [
+            "spellman-falhas-de-tubo"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: diante de um sinal do tubo, eu paro, anoto e...",
+          "item": {
+            "prompt": "Qual é o passo seguinte depois de parar e anotar o que viu?",
+            "options": [
+              {
+                "label": "Reiniciar o equipamento",
+                "correct": false,
+                "feedback": "Reiniciar apaga o sinal sem avaliar a causa."
+              },
+              {
+                "label": "Avisar a equipe",
+                "correct": true,
+                "feedback": "Isso: depois de parar e anotar, a equipe decide o que fazer."
+              },
+              {
+                "label": "Abrir a capa do tubo",
+                "correct": false,
+                "feedback": "Abrir o equipamento não é tarefa do aluno."
+              },
+              {
+                "label": "Limpar o aviso do painel",
+                "correct": false,
+                "feedback": "Limpar o aviso esconde o sinal da equipe."
+              }
+            ],
+            "sourceIds": [
+              "spellman-falhas-de-tubo"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa simulação, depois de várias exposições seguidas, o painel bloqueia a próxima e mostra uma contagem de espera. Qual é a conduta do estudante?",
+            "options": [
+              {
+                "label": "Reiniciar o equipamento para liberar a exposição",
+                "correct": false,
+                "feedback": "Reiniciar apaga o sinal sem avaliar a causa, e a decisão não é do aluno."
+              },
+              {
+                "label": "Desligar o aviso e seguir com a série",
+                "correct": false,
+                "feedback": "Desligar o aviso esconde da equipe um sinal que ela precisa ver."
+              },
+              {
+                "label": "Esperar sem forçar, anotar e avisar a equipe",
+                "correct": true,
+                "feedback": "Isso: você respeita o bloqueio, registra o que viu e deixa a decisão com a equipe."
+              },
+              {
+                "label": "Trocar de tubo por conta própria",
+                "correct": false,
+                "feedback": "Trocar o tubo não é tarefa do aluno."
+              }
+            ],
+            "sourceIds": [
+              "spellman-falhas-de-tubo"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

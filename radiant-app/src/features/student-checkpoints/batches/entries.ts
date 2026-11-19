@@ -48,6 +48,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Bases quantitativas e físicas."
     }
   },
+  "batch:rtg-2026:m19": {
+    "slug": "rtg-2026-m19",
+    "title": "Eletricidade, tubo e gerador",
+    "description": "Abre o equipamento: de onde vem a alta tensão, o que o filamento e o ânodo fazem dentro do tubo, o que o espectro mostra e como cuidar do tubo.",
+    "unitTitle": "Eletricidade, tubo e gerador",
+    "reward": {
+      "id": "node:reward:rtg-2026:m19",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Eletricidade, tubo e gerador."
+    }
+  },
   "batch:rtg-2026:m15": {
     "slug": "rtg-2026-m15",
     "title": "Células, tecidos e funções",
