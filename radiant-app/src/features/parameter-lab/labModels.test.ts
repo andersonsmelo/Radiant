@@ -88,4 +88,10 @@ describe('modelos do laboratório', () => {
     expect(labGoalText('shielding', { atLeast: 1, atMost: 3 })).toBe('de 1 a 3 camadas');
     expect(labGoalText('inverse-square', { atMost: 1 })).toBe('até 1 m');
   });
+
+  it('modelo desconhecido não lança: fora da grade e sem texto de meta', () => {
+    const unknown = 'refracao' as LabModelId;
+    expect(isOnLabGrid(unknown, 1)).toBe(false);
+    expect(labGoalText(unknown, { atLeast: 2 })).toBe('');
+  });
 });

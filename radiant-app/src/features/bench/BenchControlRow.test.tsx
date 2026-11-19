@@ -65,6 +65,10 @@ describe('BenchControlRow', () => {
         expect(getByText('2 m')).toBeTruthy();
         expect(formatBenchValue(0.30000000000000004, 0.1)).toBe('0,3');
         expect(formatBenchValue(70, 10)).toBe('70');
+        // o valor fora da grade do passo mantém as próprias casas, até 6, sem zeros à direita
+        expect(formatBenchValue(2.5, 1)).toBe('2,5');
+        expect(formatBenchValue(2.125, 1)).toBe('2,125');
+        expect(formatBenchValue(1.1234567, 1)).toBe('1,123457');
     });
 
     it('sobe de passo em passo ao tocar + três vezes, e o rótulo acompanha', () => {
@@ -257,5 +261,12 @@ describe('BenchControlRow', () => {
         const three = row(3);
         expect(three.getByText('3 camadas')).toBeTruthy();
         expect(three.getByLabelText('Aumentar Camadas').props.accessibilityHint).toBe('Soma um passo de 1 camada.');
+    });
+
+    it('um valor fora da grade do passo não é arredondado no texto nem no valor acessível', () => {
+        const MAS: BenchControl = { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 2.5 };
+        const { getByText, getByRole } = render(<BenchControlRow control={MAS} value={2.5} onChange={jest.fn()} />);
+        expect(getByText('2,5 mAs')).toBeTruthy();
+        expect(getByRole('adjustable').props.accessibilityValue.text).toBe('2,5 mAs');
     });
 });

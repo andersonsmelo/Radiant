@@ -52,6 +52,7 @@ export const LAB_MODELS: Record<LabModelId, LabModel> = {
 
 /** Dentro de [mínimo, máximo] e múltiplo do passo a partir do mínimo (tolera erro de ponto flutuante). */
 export function isOnLabGrid(id: LabModelId, value: number): boolean {
+  if (!Object.hasOwn(LAB_MODELS, id)) return false;
   const { min, max, step } = LAB_MODELS[id].parameter;
   if (!Number.isFinite(value) || value < min - 1e-9 || value > max + 1e-9) return false;
   const steps = (value - min) / step;
@@ -62,6 +63,7 @@ const num = (x: number) => String(x).replace('.', ',');
 
 /** A meta em texto curto, com a unidade do modelo: "2 m ou mais", "até 1,5 m", "de 3 a 5 camadas", "1 camada ou mais". */
 export function labGoalText(id: LabModelId, goal: { atLeast?: number; atMost?: number }): string {
+  if (!Object.hasOwn(LAB_MODELS, id)) return '';
   const { unit, unitSingular } = LAB_MODELS[id].parameter;
   const { atLeast, atMost } = goal;
   const withUnit = (x: number) => `${num(x)} ${x === 1 ? unitSingular : unit}`;

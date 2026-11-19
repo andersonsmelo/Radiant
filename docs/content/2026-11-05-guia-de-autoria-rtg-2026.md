@@ -224,9 +224,12 @@ largura e 0,21 da altura. Na prática:
 
 Rótulo de alvo: de 2 a 40 caracteres, sem repetir dentro da interação.
 
-**Cuidado do autor.** O texto alternativo da figura pode ser lido pelo leitor de tela
-(o `alt` do acervo, para imagem; o do catálogo, para diagrama): confira que ele não
-entrega a resposta. Os alvos não acompanham movimento: para `hotspot`, `label` e
+**Cuidado do autor.** Em `hotspot`, `label` e `risk-hunt` a figura lê o rótulo da
+própria interação, e não o `alt` do acervo nem o do catálogo, para a descrição não
+entregar a resposta; a informação de posição chega ao leitor de tela pelos rótulos dos
+alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. Só o
+`visual` do conceito lê o `alt` do catálogo: confira que ele não entrega a resposta de
+nenhuma interação da aula. Os alvos não acompanham movimento: para `hotspot`, `label` e
 `risk-hunt`, prefira diagrama parado.
 
 ### Catálogo de diagramas

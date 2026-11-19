@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AccessibilityInfo } from 'react-native';
+import { AccessibilityInfo, AppState, type AppStateStatus } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { validateLearningActivity, type LearningInteractionV2 } from '../../../types/learningActivity';
 import { ActivityInteractionRenderer } from './ActivityRendererRegistry';
@@ -11,7 +11,8 @@ jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
     useReducedMotionPreference: () => mockMotion.reducedMotionEnabled,
     useReducedMotionPreferenceState: () => mockMotion,
 }));
-jest.mock('../../../ui/useScreenFocused', () => ({ useScreenFocused: () => true }));
+let mockFocused = true;
+jest.mock('../../../ui/useScreenFocused', () => ({ useScreenFocused: () => mockFocused }));
 
 const blitz: LearningInteractionV2 = {
     id: 'bz', type: 'blitz', competencyIds: ['competency:test'], evidenceKind: 'guided-practice', completionRule: 'confirmed',
@@ -52,6 +53,7 @@ describe('BlitzStepRenderer', () => {
     beforeEach(() => {
         jest.useFakeTimers();
         mockMotion = { reducedMotionEnabled: false, resolved: true };
+        mockFocused = true;
         jest.spyOn(AccessibilityInfo, 'isScreenReaderEnabled').mockResolvedValue(false);
         jest.spyOn(AccessibilityInfo, 'announceForAccessibility').mockImplementation(() => undefined);
     });
@@ -118,6 +120,35 @@ describe('BlitzStepRenderer', () => {
         advance(900);
         expect(screen.getByText('Afirmação 2 de 6')).toBeTruthy();
         expect(screen.getByText('Tempo: 10 s')).toBeTruthy();
+    });
+
+    it('o relógio para com o app em segundo plano e retoma do ponto em que parou, sem esgotar a afirmação', async () => {
+        let emit: (state: AppStateStatus) => void = () => undefined;
+        jest.spyOn(AppState, 'addEventListener').mockImplementation((_type, listener) => { emit = listener as typeof emit; return { remove: jest.fn() }; });
+        await renderTimed();
+        advance(3000);
+        expect(screen.getByText('Tempo: 7 s')).toBeTruthy();
+        act(() => emit('background'));
+        advance(30000);
+        expect(screen.getByText('Tempo: 7 s')).toBeTruthy();
+        expect(probe()).toBe('|false');
+        act(() => emit('active'));
+        advance(1000);
+        expect(screen.getByText('Tempo: 6 s')).toBeTruthy();
+    });
+
+    it('o relógio para com a tela fora de foco e retoma ao voltar', async () => {
+        await renderTimed();
+        advance(3000);
+        mockFocused = false;
+        screen.rerender(<Harness />);
+        advance(30000);
+        expect(screen.getByText('Tempo: 7 s')).toBeTruthy();
+        expect(probe()).toBe('|false');
+        mockFocused = true;
+        screen.rerender(<Harness />);
+        advance(1000);
+        expect(screen.getByText('Tempo: 6 s')).toBeTruthy();
     });
 
     it('"Sem tempo" desliga o relógio pelo resto da rodada, nas afirmações seguintes também', async () => {

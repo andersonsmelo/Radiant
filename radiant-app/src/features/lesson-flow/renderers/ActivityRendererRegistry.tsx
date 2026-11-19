@@ -16,6 +16,7 @@ import { BlitzStepRenderer } from './BlitzStepRenderer';
 import { ConversationStepRenderer } from './ConversationStepRenderer';
 import { LabelStepRenderer } from './LabelStepRenderer';
 import { RiskHuntStepRenderer } from './RiskHuntStepRenderer';
+import { LAB_MODELS } from '../../parameter-lab/labModels';
 import { ParameterLabStepRenderer } from './ParameterLabStepRenderer';
 import { MultiSelectStepRenderer } from './MultiSelectStepRenderer';
 import { TrueFalseStepRenderer } from './TrueFalseStepRenderer';
@@ -168,7 +169,7 @@ function NewFamilyInteraction({ interaction, value, onChange, submitted, confirm
         case 'label': return <LabelStepRenderer key={interaction.id} payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
         case 'conversation': return <ConversationStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
         case 'blitz': return <BlitzStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
-        case 'parameter-lab': return <ParameterLabStepRenderer key={interaction.id} payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
+        case 'parameter-lab': return !Object.hasOwn(LAB_MODELS, interaction.payload.model) ? <UnsupportedInteraction interaction={interaction} /> : <ParameterLabStepRenderer key={interaction.id} payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
         default: return <UnsupportedInteraction interaction={interaction} />;
     }
 }

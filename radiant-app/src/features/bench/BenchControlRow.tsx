@@ -20,10 +20,10 @@ function tidy(value: number): number {
   return Math.round(value * 1e6) / 1e6;
 }
 
-/** O valor com vírgula decimal e, no máximo, as casas que o passo pede ("1,5 m", "70 kV"). */
+/** O valor com vírgula decimal e as casas do passo ou, se forem mais, as do próprio valor (até 6, sem zeros à direita): "1,5 m", "2,5 mAs". */
 export function formatBenchValue(value: number, step: number): string {
-  const places = Math.min(3, (String(step).split('.')[1] ?? '').length);
-  return String(Number(value.toFixed(places))).replace('.', ',');
+  const places = (n: number) => (String(n).split('.')[1] ?? '').length;
+  return String(Number(value.toFixed(Math.min(6, Math.max(places(step), places(Number(value.toFixed(6)))))))).replace('.', ',');
 }
 
 function stepOf(control: BenchControl): number {

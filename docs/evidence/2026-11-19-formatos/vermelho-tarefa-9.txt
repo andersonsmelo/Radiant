@@ -79,3 +79,10 @@ Tests:       1 failed, 15 passed, 16 total
   ● modelos do laboratório › labGoalText usa a forma singular com o valor 1
     Expected: "1 camada ou mais"
     Received: "1 camadas ou mais"
+
+# Onda final da revisão da branch (node v20.20.2), antes dos consertos
+  ● BenchControlRow › um valor fora da grade do passo não é arredondado no texto nem no valor acessível (formatBenchValue(2.5, 1) devolvia "3")
+  ● BlitzStepRenderer › o relógio para com o app em segundo plano e retoma do ponto em que parou, sem esgotar a afirmação (Unable to find text: Tempo: 7 s)
+  ● BlitzStepRenderer › o relógio para com a tela fora de foco e retoma ao voltar
+  ● ParameterLabStepRenderer › modelo desconhecido mostra o aviso de atividade indisponível (TypeError: reading 'readouts')
+  ● modelos do laboratório › modelo desconhecido não lança (TypeError: reading 'parameter')

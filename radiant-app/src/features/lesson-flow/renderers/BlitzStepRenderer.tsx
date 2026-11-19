@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, AppState, StyleSheet, Text, View } from 'react-native';
 import type { BlitzPayload } from '../../../types/learningActivity';
 import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
+import { useScreenFocused } from '../../../ui/useScreenFocused';
 import { radius, space } from '../../../ui/styles';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { galaxyColors } from '../../../ui/theme';
@@ -32,6 +33,13 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
     const [noTime, setNoTime] = useState(false);
     const [remaining, setRemaining] = useState(BLITZ_SECONDS);
     const [marking, setMarking] = useState(false);
+    // O relógio só corre com o app ativo e a tela em foco; o tempo em segundo plano não esgota a afirmação.
+    const focused = useScreenFocused();
+    const [appActive, setAppActive] = useState(AppState.currentState !== 'background' && AppState.currentState !== 'inactive');
+    useEffect(() => {
+        const subscription = AppState.addEventListener('change', state => setAppActive(state === 'active'));
+        return () => subscription.remove();
+    }, []);
 
     useEffect(() => {
         let alive = true;
@@ -70,10 +78,10 @@ export function BlitzStepRenderer({ payload, value, onChange, submitted = false 
     };
 
     useEffect(() => {
-        if (!timed || showingMark || !current || submitted) return undefined;
+        if (!timed || !focused || !appActive || showingMark || !current || submitted) return undefined;
         const tick = setInterval(() => setRemaining(left => left - 1), 1000);
         return () => clearInterval(tick);
-    }, [timed, showingMark, current, submitted]);
+    }, [timed, focused, appActive, showingMark, current, submitted]);
     useEffect(() => {
         if (timed && remaining <= 0 && current && !showingMark) answer(null);
         // `answer` lê o estado do render em que `remaining` chegou a zero.

@@ -90,4 +90,10 @@ describe('ParameterLabStepRenderer', () => {
         expect(frame.props.accessibilityElementsHidden).toBe(true);
         expect(frame.props.accessible).toBe(false);
     });
+
+    it('modelo desconhecido mostra o aviso de atividade indisponível, sem derrubar a tela', () => {
+        const broken = { ...lab, payload: { ...lab.payload, model: 'refracao' } } as unknown as LearningInteractionV2;
+        render(<ActivityInteractionRenderer interaction={broken} value={undefined} onChange={() => undefined} />);
+        expect(screen.getByText('Esta atividade não pode ser exibida')).toBeTruthy();
+    });
 });
