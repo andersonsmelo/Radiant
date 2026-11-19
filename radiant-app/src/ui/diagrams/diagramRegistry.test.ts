@@ -118,6 +118,13 @@ describe('registro de diagramas', () => {
     expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(240 * 1024);
   });
 
+  it('a soma do SVG de todas as figuras importadas cabe no orçamento do plano', () => {
+    // (24 x 75.211 do crânio + 22 x 225.380 do leito) x 1,2 = 8.116.109 bytes, medido em 2026-11-19 (docs/evidence/2026-11-19-figuras/orcamento.md).
+    const TETO_TOTAL = 8_116_109;
+    const soma = IMPORTED_IDS.reduce((n, id) => n + DIAGRAMS[id].layers.reduce((m, l) => m + l.svg.length, 0), 0);
+    expect(soma).toBeLessThanOrEqual(TETO_TOTAL);
+  });
+
   it.each(DIAGRAM_IDS)('%s: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1', (id) => {
     for (const progress of [0, 0.5, 1]) {
       const xml = diagramSvgAt(DIAGRAMS[id], progress);
