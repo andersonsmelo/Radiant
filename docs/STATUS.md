@@ -187,8 +187,9 @@ como o **fêmur inteiro do Servier**, por escolha do dono em 2026-11-20 depois d
 a lado essa arte e a do Pbroks13 em corte (só uma ponta). O rotular da M18.02 ficou com
 epífise proximal, diáfise e epífise distal; a cavidade, o osso esponjoso, a placa de
 crescimento e a cartilagem ficam no texto da aula, e o marcador esconde cerca de um quarto
-de cada epífise. Espera o dono a fala da cena da M18.02 ("Cortei este fêmur de modelo ao
-meio"), que destoa da figura inteira; e a coluna, agora **só em corte
+de cada epífise. A fala do Caio na cena da M18.02 passou, por decisão do dono, a "Trouxe
+este fêmur de modelo para a turma ver as partes.", que combina com a figura inteira; e a
+coluna, agora **só em corte
 sagital** (Servier), porque a vista axial disponível era um disco em perspectiva, e não
 um corte. **No lote 1F, a arte anterior do osso longo derrubava o app no iOS** (SIGABRT no
 `react-native-svg`, degradê sem `id`): o conversor passou a remover degradê sem

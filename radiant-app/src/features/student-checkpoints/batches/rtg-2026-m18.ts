@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba",
+  "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -512,7 +512,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "caio",
-                  "text": "Cortei este fêmur de modelo ao meio para a turma ver por dentro."
+                  "text": "Trouxe este fêmur de modelo para a turma ver as partes."
                 },
                 {
                   "speaker": "duda",
@@ -6719,7 +6719,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6728,7 +6728,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6737,7 +6737,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6746,7 +6746,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6755,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6764,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
