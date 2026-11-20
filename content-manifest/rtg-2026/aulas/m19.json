@@ -802,7 +802,7 @@
             {
               "label": "Cátodo com filamento",
               "x": 0.339,
-              "y": 0.36,
+              "y": 0.372,
               "where": "à esquerda, a espiral dentro da capa",
               "alvo": "Cátodo com filamento"
             },
@@ -823,7 +823,7 @@
             {
               "label": "Ampola de vidro",
               "x": 0.35,
-              "y": 0.14,
+              "y": 0.16,
               "where": "a parede curva que envolve todo o conjunto",
               "alvo": "Ampola de vidro"
             }
