@@ -911,29 +911,29 @@
           "points": [
             {
               "label": "Região cervical",
-              "x": 0.545,
-              "y": 0.115,
+              "x": 0.576,
+              "y": 0.135,
               "where": "no alto, o trecho mais curto e delgado",
               "alvo": "Região cervical"
             },
             {
               "label": "Região torácica",
-              "x": 0.54,
+              "x": 0.612,
               "y": 0.41,
               "where": "o trecho longo, que se abaula para trás",
               "alvo": "Região torácica"
             },
             {
               "label": "Região lombar",
-              "x": 0.535,
-              "y": 0.66,
+              "x": 0.576,
+              "y": 0.665,
               "where": "o trecho de blocos maiores, que se abaula para a frente",
               "alvo": "Região lombar"
             },
             {
               "label": "Sacro e cóccix",
-              "x": 0.53,
-              "y": 0.87,
+              "x": 0.598,
+              "y": 0.875,
               "where": "na base, o bloco único em forma de cunha",
               "alvo": "Sacro e cóccix"
             }

@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb",
+  "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -594,8 +594,8 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-02:i2:3",
-                  "x": 0.096,
-                  "y": 0.561,
+                  "x": 0.085,
+                  "y": 0.57,
                   "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia",
                   "correctLabelId": "label:rtg-2026:m24:aula-02:i2:3"
                 },
@@ -922,7 +922,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "accessibility": {
               "label": "Rotular a imagem: Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda."
             },
-            "help": "Comece pela bola ciano, que encaixa no osso azul do quadril.",
+            "help": "Comece pelo que encaixa no arco azul, no alto.",
             "type": "label",
             "feedback": {
               "correct": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
@@ -934,43 +934,43 @@ export const RTG_2026_M24: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:1",
-                  "x": 0.47,
-                  "y": 0.106,
-                  "where": "no alto, o osso azul do quadril, acima da parte redonda",
+                  "x": 0.632,
+                  "y": 0.138,
+                  "where": "no alto, o arco azul que cobre a parte redonda do fêmur",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:2",
-                  "x": 0.5,
-                  "y": 0.32,
-                  "where": "a bola ciano, encostada no osso azul do quadril",
+                  "x": 0.672,
+                  "y": 0.359,
+                  "where": "a parte redonda de cima, encaixada sob o arco azul",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:3",
-                  "x": 0.38,
-                  "y": 0.53,
+                  "x": 0.506,
+                  "y": 0.446,
                   "where": "a parte estreita e inclinada, entre a parte redonda e o tubo",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:4",
-                  "x": 0.22,
-                  "y": 0.5,
+                  "x": 0.325,
+                  "y": 0.433,
                   "where": "a saliência larga à esquerda, do lado de fora do osso",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:5",
-                  "x": 0.43,
-                  "y": 0.77,
+                  "x": 0.538,
+                  "y": 0.675,
                   "where": "a saliência pequena à direita, abaixo do estreitamento",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:5"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:6",
-                  "x": 0.27,
-                  "y": 0.88,
+                  "x": 0.472,
+                  "y": 0.888,
                   "where": "o tubo longo que desce, na parte de baixo da figura",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:6"
                 }
@@ -1686,8 +1686,8 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-05:i2:2",
-                  "x": 0.375,
-                  "y": 0.49,
+                  "x": 0.37,
+                  "y": 0.45,
                   "where": "à esquerda do furo, o osso curto que liga o bloco ao anel",
                   "correctLabelId": "label:rtg-2026:m24:aula-05:i2:2"
                 },
@@ -1947,7 +1947,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você lê uma vértebra de perto",
-            "body": "Agora você sabe nomear corpo, forame, pedículo e processos transversos e espinhoso, e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
+            "body": "Agora você sabe nomear corpo, pedículo e processos transversos e espinhoso, reconhecer o forame e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2103,9 +2103,9 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                   "id": "region:rtg-2026:m24:aula-06:i2:2",
                   "label": "Cabeça da fíbula, de frente",
                   "x": 0.046,
-                  "y": 0.464,
-                  "width": 0.1,
-                  "height": 0.194
+                  "y": 0.52,
+                  "width": 0.084,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:3",
@@ -6827,7 +6827,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     },
     {
       "schemaVersion": 1,
@@ -6836,7 +6836,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     },
     {
       "schemaVersion": 1,
@@ -6845,7 +6845,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     },
     {
       "schemaVersion": 1,
@@ -6854,7 +6854,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     },
     {
       "schemaVersion": 1,
@@ -6863,7 +6863,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     },
     {
       "schemaVersion": 1,
@@ -6872,7 +6872,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "cf1384511976f8f180f9c634d9a2af53f61e8f74da2d6e1179783bd80fe5cfdb"
+      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

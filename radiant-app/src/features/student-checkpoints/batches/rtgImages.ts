@@ -135,10 +135,10 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   {
     "id": "coluna-regioes",
     "alt": "Coluna vertebral de perfil, com a frente do corpo à esquerda: cinco trechos em cores diferentes, do pescoço ao cóccix, e as curvas em S.",
-    "author": "DataBase Center for Life Science (DBCLS)",
+    "author": "erico (design); JSHG e DBCLS (edição), Togopic",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Vertebral_column_spine.svg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Vertebral_column_spine.svg e https://togotv.dbcls.jp/togopic.2024.239.html",
     "modification": "Mantida só a vista de perfil (a vista de frente foi removida); espelhada na horizontal, para a frente do corpo ficar à esquerda; recoloridas as cinco regiões (cervical ciano, torácica azul, lombar âmbar, sacro cinza claro, cóccix cinza) e os discos e contornos para tons escuros; sem fundo; enquadrada em 320x240 e achatada para atributos de apresentação. Sem rótulos na arte original."
   },
   {
@@ -151,22 +151,13 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "modification": "Vetores do grupo \"Group 139\" do slide \"Vertebra\" de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (corpo âmbar, arco azul, facetas dos processos articulares ciano, contornos quase pretos); fundo transparente; enquadrado em 320x240; nenhum rótulo existia na arte."
   },
   {
-    "id": "femur-proximal-e-quadril",
-    "alt": "Quadril direito de frente: osso do quadril em azul, cabeça do fêmur ciano junto dele, colo inclinado, trocânteres e a diáfise em âmbar; lado de fora à esquerda.",
-    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/ e https://smart.servier.com/smart_image/femur/",
-    "modification": "Composição de duas obras do mesmo kit (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): pelve de frente (slide \"Bones of pelvis\", \"Group 308\", masculina) e fêmur (slide \"Femur\", \"Group 50\"), formas renderizadas em SVG sem alteração. O fêmur foi espelhado na horizontal (a arte vem do outro lado), ampliado em 5% e posto sobre a pelve com a cabeça junto à borda do acetábulo; a posição e a escala relativas das duas peças são do projeto, ajustadas a olho, e não vêm do kit (cada peça é uma obra separada: pelve em https://smart.servier.com/smart_image/male-pelvis/, fêmur em https://smart.servier.com/smart_image/femur/); recorte do quadril direito no quadro 320x240. Recolorido para a paleta do app (pelve azul, cabeça do fêmur ciano, fêmur âmbar, sínfise cinza, contornos quase pretos); fundo transparente; nenhum rótulo existia na arte."
-  },
-  {
     "id": "joelho-frente-e-perfil",
-    "alt": "Joelho direito em duas vistas lado a lado, de frente à esquerda e de perfil à direita, com os ossos em cores diferentes.",
+    "alt": "Joelho direito, ossos em cores: de frente à esquerda, com o lado de fora à esquerda; de perfil à direita, com a frente para a direita.",
     "author": "Patrick J. Lynch, medical illustrator (crédito pedido pelo autor: Patrick J. Lynch, medical illustrator; C. Carl Jaffe, MD, cardiologist), Yale University Center for Advanced Instructional Media",
     "license": "CC BY 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Knee_skeleton_lateral_anterior_views.svg",
-    "modification": "A página do Commons declara CC BY 2.5 e os metadados do próprio SVG declaram CC BY 3.0; vale a licença da página. Original original.svg (Wikimedia Commons, 'Knee skeleton lateral anterior views.svg', sha256 acima; sem texto algum). As silhuetas foram divididas em ossos por cortes poligonais (fêmur, tíbia, fíbula e, no perfil, patela) sem alterar os contornos; recolorido para a paleta do app (fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul, traços internos quase pretos); fundo transparente; recortado em altura (y 110 a 440 do original, cortes planos nas diáfises); a vista de perfil deslocada 85 unidades para a esquerda para aproximar as duas vistas; enquadrado em 320x240; caminhos achatados em polígonos simplificados (tolerância 0,12). Nenhum rótulo existia na arte. Os cortes entre os ossos são do projeto: o original traz cada vista como silhueta única, sem linha entre tíbia e fíbula na vista de frente, e a divisão por cor nessa vista é um corte reto sem traço."
+    "modification": "A página do Commons declara CC BY 2.5 e os metadados do próprio SVG declaram CC BY 3.0; vale a licença da página. Original original.svg (Wikimedia Commons, 'Knee skeleton lateral anterior views.svg', sha256 acima; sem texto algum). As silhuetas foram divididas em ossos (fêmur, tíbia, fíbula e, no perfil, patela) só ao longo de traços que o próprio autor desenhou, sem alterar os contornos (de frente, o traço que contorna a tíbia e a separa da cabeça da fíbula; de perfil, as bordas inferiores do fêmur e o contorno da fíbula); recolorido para a paleta do app (fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul, traços internos quase pretos); fundo transparente; recortado em altura (y 110 a 440 do original, cortes planos nas diáfises); a vista de perfil deslocada 85 unidades para a esquerda para aproximar as duas vistas; enquadrado em 320x240; caminhos achatados em polígonos simplificados (tolerância 0,12). Nenhum rótulo existia na arte. Nenhuma divisa de cor é linha digitada pelo projeto. Os traços de frente entre tíbia e fíbula existem no original, mas ficam sob a silhueta e não aparecem na figura publicada; aqui aparecem, junto com cerca de 20 outros traços do autor da tíbia e da fíbula de frente, desenhados por cima da silhueta."
   }
 ];
 

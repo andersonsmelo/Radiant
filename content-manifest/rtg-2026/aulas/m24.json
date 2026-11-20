@@ -488,8 +488,8 @@
             },
             {
               "label": "Cabeça da fíbula",
-              "x": 0.096,
-              "y": 0.561,
+              "x": 0.085,
+              "y": 0.57,
               "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia",
               "alvo": "Cabeça da fíbula, de frente"
             },
@@ -826,45 +826,39 @@
           "points": [
             {
               "label": "Acetábulo",
-              "x": 0.47,
-              "y": 0.106,
-              "where": "no alto, o osso azul do quadril, acima da parte redonda",
-              "alvo": "Acetábulo"
+              "x": 0.632,
+              "y": 0.138,
+              "where": "no alto, o arco azul que cobre a parte redonda do fêmur"
             },
             {
               "label": "Cabeça do fêmur",
-              "x": 0.5,
-              "y": 0.32,
-              "where": "a bola ciano, encostada no osso azul do quadril",
-              "alvo": "Cabeça do fêmur"
+              "x": 0.672,
+              "y": 0.359,
+              "where": "a parte redonda de cima, encaixada sob o arco azul"
             },
             {
               "label": "Colo do fêmur",
-              "x": 0.38,
-              "y": 0.53,
-              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo",
-              "alvo": "Colo do fêmur"
+              "x": 0.506,
+              "y": 0.446,
+              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.22,
-              "y": 0.5,
-              "where": "a saliência larga à esquerda, do lado de fora do osso",
-              "alvo": "Trocânter maior"
+              "x": 0.325,
+              "y": 0.433,
+              "where": "a saliência larga à esquerda, do lado de fora do osso"
             },
             {
               "label": "Trocânter menor",
-              "x": 0.43,
-              "y": 0.77,
-              "where": "a saliência pequena à direita, abaixo do estreitamento",
-              "alvo": "Trocânter menor"
+              "x": 0.538,
+              "y": 0.675,
+              "where": "a saliência pequena à direita, abaixo do estreitamento"
             },
             {
               "label": "Diáfise do fêmur",
-              "x": 0.27,
-              "y": 0.88,
-              "where": "o tubo longo que desce, na parte de baixo da figura",
-              "alvo": "Diáfise do fêmur"
+              "x": 0.472,
+              "y": 0.888,
+              "where": "o tubo longo que desce, na parte de baixo da figura"
             }
           ],
           "distractors": [
@@ -872,7 +866,7 @@
           ],
           "feedbackCorrect": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
           "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro.",
-          "help": "Comece pela bola ciano, que encaixa no osso azul do quadril.",
+          "help": "Comece pelo que encaixa no arco azul, no alto.",
           "sourceIds": [
             "openstax-ap2e-membro-inferior",
             "openstax-ap2e-pelve"
@@ -1522,8 +1516,8 @@
             },
             {
               "label": "Pedículo",
-              "x": 0.375,
-              "y": 0.49,
+              "x": 0.37,
+              "y": 0.45,
               "where": "à esquerda do furo, o osso curto que liga o bloco ao anel",
               "alvo": "Pedículo"
             },
@@ -1702,7 +1696,7 @@
       ],
       "closing": {
         "title": "Você lê uma vértebra de perto",
-        "body": "Agora você sabe nomear corpo, forame, pedículo e processos transversos e espinhoso, e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
+        "body": "Agora você sabe nomear corpo, pedículo e processos transversos e espinhoso, reconhecer o forame e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
         "line": {
           "speaker": "lia",
           "text": "Quem reconhece as partes de uma vértebra reconhece a coluna inteira."
@@ -1918,9 +1912,9 @@
             {
               "label": "Cabeça da fíbula, de frente",
               "x": 0.046,
-              "y": 0.464,
-              "width": 0.1,
-              "height": 0.194,
+              "y": 0.52,
+              "width": 0.084,
+              "height": 0.2,
               "correct": true,
               "alvo": "Cabeça da fíbula, de frente"
             },

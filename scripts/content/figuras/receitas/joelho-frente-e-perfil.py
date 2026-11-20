@@ -1,7 +1,7 @@
 # HISTÓRICO, não é executado por teste nem pelo gate: registra como a fonte versionada em fontes/joelho-frente-e-perfil.svg foi feita
 # a partir do original (Wikimedia Commons, Knee_skeleton_lateral_anterior_views.svg, Patrick J. Lynch e C. Carl Jaffe, CC BY 2.5).
-# A regeneração do spec sai da fonte, por build-spec.mjs. Dependências: shapely e svgpathtools. Os cortes entre ossos (polígonos) são do projeto.
-# Recolore o original (Lynch, CC BY) por osso e grava a fonte. Divide as silhuetas por cortes poligonais, sem mudar contornos.
+# A regeneração do spec sai da fonte, por build-spec.mjs. Dependências: shapely e svgpathtools. As divisas de cor entre ossos seguem só traços do próprio autor (o projeto não digita polígono de corte).
+# Recolore o original (Lynch, CC BY) por osso e grava a fonte. Divide as silhuetas pelos traços do autor, sem mudar contornos.
 import re, sys
 from shapely.geometry import Polygon, MultiPolygon, box
 from shapely.ops import unary_union
@@ -31,20 +31,24 @@ SHIFT = -85  # aproxima o perfil da vista de frente (o vazio entre elas)
 crop = box(-20, Y0, 540, Y1)
 fem_f, tib_f = poly(dict((i, d) for _, d, i in paths)['path5']), poly(dict((i, d) for _, d, i in paths)['path79'])
 lat = poly(dict((i, d) for _, d, i in paths)['path77'])
-H = 600
-fib_f_cut = Polygon([(-10, 264), (21, 264), (52, 322), (52, H), (-10, H)])
-fib_l_cut = Polygon([(300, 268), (334, 266), (346, 262), (360, 262.5), (367, 268), (371, 284), (377, 297), (389, 301), (392, 310), (389, 320), (385, 340), (381, 360), (377, 380), (374, 400), (378, 404), (378, H), (300, H)])
-joint = [(300, 240), (345, 239.5), (375, 239), (395, 233), (420, 230), (440, 229), (455, 233), (470, 239), (480, 240), (540, 240)]
-above = Polygon([(300, -50)] + joint + [(540, -50)])
-pat_cut = box(479.5, -50, 540, 240)
-patella = lat.intersection(pat_cut)
-rest = lat.difference(pat_cut)
-femur_l = rest.intersection(above)
-below = rest.difference(above)
-fibula_l = below.intersection(fib_l_cut)
-tibia_l = below.difference(fib_l_cut)
+# Divisas de cor: só os traços do próprio autor (nenhum polígono digitado). De frente, o traço path33 contorna a tíbia
+# e separa dela a cabeça da fíbula (a silhueta path79 o cobre no original). De perfil, as bordas inferiores do fêmur
+# (path83, path81) e o contorno da fíbula (path145, path147) cortam a silhueta path77 em fêmur, patela, tíbia e fíbula.
+P = dict((i, d) for _, d, i in paths)
+def pieces(g, ids):
+    r = g.difference(unary_union([poly(P[i]) for i in ids]))
+    return [x for x in (r.geoms if hasattr(r, 'geoms') else [r]) if x.area > 0.3]
+fp = pieces(tib_f, ['path33'])
+assert len(fp) == 2
+fib_f, tib_f_osso = sorted(fp, key=lambda x: x.area)
+lp = pieces(lat, ['path83', 'path81', 'path145', 'path147'])
+assert len(lp) == 4
+femur_l = next(x for x in lp if x.bounds[1] <= 0)
+patella = next(x for x in lp if x.bounds[0] >= 479)
+fibula_l = next(x for x in lp if x.bounds[2] <= 395 and x.bounds[1] >= 260)
+tibia_l = next(x for x in lp if x not in (femur_l, patella, fibula_l))
 C = dict(femur='#E6E8EE', tibia='#FFC21A', fibula='#5EEAF7', patella='#4A9EFF', line='#14171F')
-fills = [(fem_f, 'femur'), (tib_f.difference(fib_f_cut), 'tibia'), (tib_f.intersection(fib_f_cut), 'fibula'),
+fills = [(fem_f, 'femur'), (tib_f_osso, 'tibia'), (fib_f, 'fibula'),
          (translate(femur_l, SHIFT), 'femur'), (translate(tibia_l, SHIFT), 'tibia'), (translate(fibula_l, SHIFT), 'fibula'), (translate(patella, SHIFT), 'patella')]
 body = ''
 for g, k in fills:
