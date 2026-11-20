@@ -334,6 +334,24 @@ export const FIGURES = {
       transform: () => `translate(${r(160 - 207 * 0.68)} ${r((240 - 353 * 0.68) / 2 - 148 * 0.68)}) scale(0.68)`,
     }),
   },
+  'sistema-nervoso': {
+    file: 'sistema-nervoso.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'sistema-nervoso',
+      name: 'sistemaNervoso',
+      header: `// ${ACERVO}
+// Obra: "Nervous system" (Servier Medical Art, kit SMART-Nervous-system, slide29.xml do pacote, grupo "Group 3", CC BY 4.0), vetores copiados do pptx do kit.
+// Corpo de frente inteiro, com o contorno; sem rótulos (a arte original não tem). Recolorida para a paleta do app e achatada
+// para atributos de apresentação. Fonte versionada: scripts/content/figuras/fontes/sistema-nervoso.svg.
+// Quadro 320x240, parado; o desenho ocupa a caixa 90.5x233.6 centrada (escala 0.07, margem de 3.2 em cima e embaixo). Lado direito do paciente à esquerda de quem vê.
+// Cores: encéfalo âmbar (cerebelo em âmbar mais escuro), medula espinal âmbar, nervos periféricos ciano; corpo em cinza-azulado escuro com contorno cinza.`,
+      alt: 'Corpo humano de frente, com a cabeça de perfil: encéfalo e medula espinal numa cor, e uma rede de nervos de outra cor que desce pelos braços, tórax e pernas.',
+      // Escala 0,07 (o corpo ocupa 233,6 das 240 unidades de altura, com 3,2 de margem em cima e embaixo; com 10 de margem seria 220):
+      // a margem fechada dá ao corpo 6% mais altura e largura. A caixa da fonte (812 719 1293 3337) vem do agente de arte; o topo real do contorno fica 1,1 abaixo dela.
+      transform: () => 'translate(57.905 -47.13) scale(0.07)',
+    }),
+  },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',

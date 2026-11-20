@@ -6,7 +6,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m20",
-  "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9",
+  "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831",
   "trackId": "track:rtg-2026:m20",
   "unitId": "unit:rtg-2026:m20",
   "contentVersion": "rtg-2026-m20-v1",
@@ -1700,34 +1700,34 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:1",
                   "label": "Encéfalo",
-                  "x": 0.435,
-                  "y": 0.042,
-                  "width": 0.13,
-                  "height": 0.15
+                  "x": 0.461,
+                  "y": 0.0658,
+                  "width": 0.08,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:2",
                   "label": "Nervos do braço direito do paciente",
-                  "x": 0.226,
-                  "y": 0.425,
+                  "x": 0.361,
+                  "y": 0.4885,
                   "width": 0.08,
-                  "height": 0.4
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:3",
                   "label": "Medula espinal",
-                  "x": 0.46,
-                  "y": 0.238,
+                  "x": 0.459,
+                  "y": 0.277,
                   "width": 0.08,
-                  "height": 0.44
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:4",
                   "label": "Nervos da perna direita do paciente",
-                  "x": 0.381,
-                  "y": 0.773,
-                  "width": 0.1,
-                  "height": 0.22
+                  "x": 0.428,
+                  "y": 0.6995,
+                  "width": 0.08,
+                  "height": 0.08
                 }
               ],
               "correctRegionIds": [
@@ -6713,7 +6713,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     },
     {
       "schemaVersion": 1,
@@ -6722,7 +6722,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     },
     {
       "schemaVersion": 1,
@@ -6731,7 +6731,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     },
     {
       "schemaVersion": 1,
@@ -6740,7 +6740,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     },
     {
       "schemaVersion": 1,
@@ -6749,7 +6749,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     },
     {
       "schemaVersion": 1,
@@ -6758,7 +6758,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
+      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

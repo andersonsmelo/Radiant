@@ -1549,33 +1549,37 @@
           "regions": [
             {
               "label": "Encéfalo",
-              "x": 0.435,
-              "y": 0.042,
-              "width": 0.13,
-              "height": 0.15,
-              "correct": true
+              "x": 0.461,
+              "y": 0.0658,
+              "width": 0.08,
+              "height": 0.08,
+              "correct": true,
+              "alvo": "Encéfalo"
             },
             {
               "label": "Nervos do braço direito do paciente",
-              "x": 0.226,
-              "y": 0.425,
+              "x": 0.361,
+              "y": 0.4885,
               "width": 0.08,
-              "height": 0.4
+              "height": 0.08,
+              "alvo": "Nervos do braço direito do paciente"
             },
             {
               "label": "Medula espinal",
-              "x": 0.46,
-              "y": 0.238,
+              "x": 0.459,
+              "y": 0.277,
               "width": 0.08,
-              "height": 0.44,
-              "correct": true
+              "height": 0.08,
+              "correct": true,
+              "alvo": "Medula espinal"
             },
             {
               "label": "Nervos da perna direita do paciente",
-              "x": 0.381,
-              "y": 0.773,
-              "width": 0.1,
-              "height": 0.22
+              "x": 0.428,
+              "y": 0.6995,
+              "width": 0.08,
+              "height": 0.08,
+              "alvo": "Nervos da perna direita do paciente"
             }
           ],
           "feedbackCorrect": "Isso mesmo: o encéfalo e a medula espinal formam o sistema nervoso central.",

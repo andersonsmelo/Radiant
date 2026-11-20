@@ -108,5 +108,16 @@
     "retrievedAt": "2026-11-20",
     "sha256Original": "f1528562040533dacc0a4326e82f5369a21f531f29e8183d3e3eafd67e561521",
     "modification": "Recorte do tronco e da pelve (sem cabeça e pernas; antebraços e mãos só até onde entram no quadro); removidos o fundo branco e os caminhos fora do recorte (520 dos 915 caminhos ficam); recolorido por região para a paleta do app (esterno âmbar, costelas azuis, coluna ciano, pelve branca, fêmures âmbar claro, clavículas, escápulas e braços cinza); contorno do corpo em cinza; coordenadas dos caminhos a uma casa decimal, para caber no teto de peso. Nenhuma forma foi alterada além desse arredondamento; sem rótulos na arte original."
+  },
+  {
+    "id": "sistema-nervoso",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/nervous-system/",
+    "author": "Servier Medical Art (Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "b6f10318613415bdcfed5503d7a082435f3641f87f66b39587c4b522664a7ebc",
+    "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240."
   }
 ]

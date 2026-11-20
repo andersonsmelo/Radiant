@@ -1,0 +1,35 @@
+<!-- HISTÓRICO, não é executado por teste nem pelo gate: recolore por classe de cor a extração do grupo "Group 3" (slide29.xml do SMART-Nervous-system.pptx, Servier Medical Art, CC BY 4.0) sem mexer em forma. A regeneração do spec sai da fonte fontes/sistema-nervoso.svg, por build-spec.mjs. Os caminhos de origem (g3n.svg) valem para a pasta de trabalho do lote 1D, que não é versionada. -->
+<body style="margin:0"><div id=h></div><script>
+const hex=(a,b,c)=>'#'+[a,b,c].map(v=>(+v).toString(16).padStart(2,'0')).join('');
+const parse=s=>{const m=/rgba?\((\d+), (\d+), (\d+)/.exec(s);return m?hex(m[1],m[2],m[3]):null};
+const SKIN='#2A2F3D',SKINLINE='#3A4152',SKINHI='#323949',OUT='#9AA3B5',DET='#6B7487';
+const BR={'#cbcad8':'#FFC21A','#edecf1':'#FFD35C'},CB={'#a87580':'#B87F00','#bb939b':'#C98E0A','#dab0b6':'#E0A82A'};
+fetch('g3n.svg').then(r=>r.text()).then(t=>{document.getElementById('h').innerHTML=t;const s=document.querySelector('svg');const R=s.getBoundingClientRect();const st={};
+[...s.querySelectorAll('path')].forEach((e,i)=>{const b=e.getBoundingClientRect(),cs=getComputedStyle(e);
+ const nx=(b.x-R.x+b.width/2)/R.width,ny=(b.y-R.y+b.height/2)/R.height;
+ const f=parse(cs.fill),sc=parse(cs.stroke),sw=cs.strokeWidth,fo=cs.fillOpacity,op=cs.opacity;
+ const inBrain=nx>0.37&&nx<0.66&&ny<0.095;
+ let nf=f,ns=sc,k;
+ if(f==='#fbbd12'){nf='#FFC21A';k='medula'}
+ else if(f==='#fcc30e'){nf='#5EEAF7';k='nervo'}
+ else if(inBrain&&(f in BR)){nf=BR[f];k='encefalo'}
+ else if(inBrain&&(f in CB)){nf=CB[f];k='cerebelo'}
+ else if(inBrain&&f==='#ffffff'){nf='#FFE6A0';k='encefalo-brilho'}
+ else if(inBrain&&sc==='#939596'){ns='#9A6A00';k='encefalo-sulco'}
+ else if(inBrain&&sc==='#ffffff'){ns='#FFE6A0';k='encefalo-brilho'}
+ else if(f==='#fdeae1'||f==='#fef6f2'){nf=SKIN;k='pele'}
+ else if(f==='#ffffff'||f==='#b49299'){nf=SKINHI;k='pele-brilho'}
+ else if(f==='#000000'||f==='#58585a'||f==='#a7a8aa'){nf=f==='#000000'?OUT:DET;k='detalhe'}
+ else if(f==='none'){k='traco'}
+ else k='?'+f;
+ if(sc){ if(sc==='#fef6f2')ns=SKINLINE; else if(sc==='#000000')ns=OUT; else if(sc==='#58585a'||sc==='#1a1a1a')ns=DET; else if(sc==='#939596'&&!inBrain)ns=DET; }
+ st[k]=(st[k]||0)+1;
+ if(sc&&k==='traco')st['traco:'+sc+'>'+ns]=(st['traco:'+sc+'>'+ns]||0)+1;
+ const hasFill=f&&cs.fill!=='none', hasStroke=cs.stroke!=='none';
+ e.removeAttribute('style');
+ e.setAttribute('fill',hasFill?nf:'none');e.setAttribute('fill-rule','evenodd');
+ if(hasFill&&fo!=='1')e.setAttribute('fill-opacity',fo);
+ if(hasStroke){e.setAttribute('stroke',ns);e.setAttribute('stroke-width',sw.replace('px',''));e.setAttribute('stroke-linejoin','round');e.setAttribute('stroke-linecap','round')} else e.removeAttribute('stroke');
+ if(op!=='1')e.setAttribute('opacity',op);
+});
+const p=document.createElement('pre');p.id='out';p.textContent=s.outerHTML+'\n<!--'+JSON.stringify(st)+'-->';document.body.appendChild(p)})</script>

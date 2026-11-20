@@ -185,6 +185,15 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_no-text_no-color.svg",
     "modification": "Recorte do tronco e da pelve (sem cabeça e pernas; antebraços e mãos só até onde entram no quadro); removidos o fundo branco e os caminhos fora do recorte (520 dos 915 caminhos ficam); recolorido por região para a paleta do app (esterno âmbar, costelas azuis, coluna ciano, pelve branca, fêmures âmbar claro, clavículas, escápulas e braços cinza); contorno do corpo em cinza; coordenadas dos caminhos a uma casa decimal, para caber no teto de peso. Nenhuma forma foi alterada além desse arredondamento; sem rótulos na arte original."
+  },
+  {
+    "id": "sistema-nervoso",
+    "alt": "Corpo humano de frente, com a cabeça de perfil: encéfalo e medula espinal numa cor, e uma rede de nervos de outra cor que desce pelos braços, tórax e pernas.",
+    "author": "Servier Medical Art (Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/nervous-system/",
+    "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240."
   }
 ];
 
