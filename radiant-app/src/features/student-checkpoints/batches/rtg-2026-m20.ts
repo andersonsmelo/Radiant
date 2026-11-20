@@ -6,7 +6,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m20",
-  "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831",
+  "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d",
   "trackId": "track:rtg-2026:m20",
   "unitId": "unit:rtg-2026:m20",
   "contentVersion": "rtg-2026-m20-v1",
@@ -1691,7 +1691,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso mesmo: o encéfalo e a medula espinal formam o sistema nervoso central.",
-              "incorrect": "Os nervos que saem para o braço e a perna são do sistema periférico: procure o encéfalo ou a medula."
+              "incorrect": "Os nervos que saem para o braço e a perna são do sistema periférico: procure o encéfalo."
             },
             "payload": {
               "prompt": "Toque numa estrutura que faz parte do sistema nervoso central.",
@@ -1715,14 +1715,6 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:3",
-                  "label": "Medula espinal",
-                  "x": 0.459,
-                  "y": 0.277,
-                  "width": 0.08,
-                  "height": 0.08
-                },
-                {
-                  "id": "region:rtg-2026:m20:aula-05:i2:4",
                   "label": "Nervos da perna direita do paciente",
                   "x": 0.428,
                   "y": 0.6995,
@@ -1731,8 +1723,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m20:aula-05:i2:1",
-                "region:rtg-2026:m20:aula-05:i2:3"
+                "region:rtg-2026:m20:aula-05:i2:1"
               ]
             }
           }
@@ -5163,14 +5154,6 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m20:aula-05:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-nervoso"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m20:aula-05:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -6713,7 +6696,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     },
     {
       "schemaVersion": 1,
@@ -6722,7 +6705,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     },
     {
       "schemaVersion": 1,
@@ -6731,7 +6714,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     },
     {
       "schemaVersion": 1,
@@ -6740,7 +6723,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     },
     {
       "schemaVersion": 1,
@@ -6749,7 +6732,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     },
     {
       "schemaVersion": 1,
@@ -6758,7 +6741,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "823e2cae2fe18ad1eddbd946437d48386ef8af868f43b5e735875dbdb0acf831"
+      "materialSha256": "15850c9205f1d66a148f15e7a806f41590f2bd26d594469ecaefd6c1aea0123d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

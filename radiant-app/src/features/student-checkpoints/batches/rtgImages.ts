@@ -189,11 +189,11 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   {
     "id": "sistema-nervoso",
     "alt": "Corpo humano de frente, com a cabeça de perfil: encéfalo e medula espinal numa cor, e uma rede de nervos de outra cor que desce pelos braços, tórax e pernas.",
-    "author": "Servier Medical Art (Servier)",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Nervous-system",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "sourcePage": "https://smart.servier.com/smart_image/nervous-system/",
-    "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240."
+    "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240. Licença: vale a CC BY 4.0 declarada pelo Servier na página de origem (consultada em 2026-11-20); a Commons marca cópias PNG do mesmo kit como CC BY-SA 3.0, divergência registrada, e a arte veio do pptx do site, não da Commons."
   }
 ];
 
