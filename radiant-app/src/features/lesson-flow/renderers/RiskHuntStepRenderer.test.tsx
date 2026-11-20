@@ -97,4 +97,19 @@ describe('RiskHuntStepRenderer', () => {
         render(<Harness />);
         expect(screen.getByLabelText('Encontre os riscos: sala de raios X')).toBeTruthy();
     });
+
+    // E11: a marca de marcada não pode esconder a situação que a região mostra.
+    it('a marca de selecionada fica fora da região e inteira no quadro', () => {
+        render(<Harness initial='["biombo"]' />);
+        measure();
+        const style = StyleSheet.flatten(screen.getByTestId('risk-hunt-selected-mark', { includeHiddenElements: true }).props.style);
+        const region = risk.payload.regions.find(entry => entry.id === 'biombo')!;
+        const box = { left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height };
+        const area = { left: 280 * region.x, top: 210 * region.y, width: 280 * region.width, height: 210 * region.height };
+        expect(box.left < area.left + area.width && area.left < box.left + box.width && box.top < area.top + area.height && area.top < box.top + box.height).toBe(false);
+        expect(box.left).toBeGreaterThanOrEqual(0);
+        expect(box.top).toBeGreaterThanOrEqual(0);
+        expect(box.left + box.width).toBeLessThanOrEqual(280);
+        expect(box.top + box.height).toBeLessThanOrEqual(210);
+    });
 });

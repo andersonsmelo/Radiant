@@ -109,4 +109,29 @@ describe('HotspotStepRenderer', () => {
         expect(getByLabelText('Selecionar Parte pequena na imagem').props.hitSlop).toEqual({ left: 8, right: 8, top: 11.5, bottom: 11.5 });
         expect(getByLabelText('Toque na imagem: Onde fica a parte?')).toBeTruthy();
     });
+
+    // E11: o selo não pode esconder o objeto que a região mostra.
+    it('o selo do número e a marca de selecionado ficam fora da região, inteiros no quadro', () => {
+        const absolute = (style: { left: number; top: number; width: number; height: number }, region: { x: number; y: number }) =>
+            ({ left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height });
+        const overlap = (a: { left: number; top: number; width: number; height: number }, b: { left: number; top: number; width: number; height: number }) =>
+            a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
+        for (const selectedRegionId of [undefined, 'detector']) {
+            const { getByTestId, unmount } = render(
+                <HotspotStepRenderer payload={payload} accessibilityLabel="Geometria" selectedRegionId={selectedRegionId} onSelect={jest.fn()} />,
+            );
+            fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+            payload.regions.forEach((region, index) => {
+                const node = selectedRegionId === region.id ? getByTestId('hotspot-selected-mark') : getByTestId(`hotspot-index-${index + 1}`);
+                const box = absolute(StyleSheet.flatten(node.props.style), region);
+                const area = { left: 280 * region.x, top: 210 * region.y, width: 280 * region.width, height: 210 * region.height };
+                expect(overlap(box, area)).toBe(false);
+                expect(box.left).toBeGreaterThanOrEqual(0);
+                expect(box.top).toBeGreaterThanOrEqual(0);
+                expect(box.left + box.width).toBeLessThanOrEqual(280);
+                expect(box.top + box.height).toBeLessThanOrEqual(210);
+            });
+            unmount();
+        }
+    });
 });

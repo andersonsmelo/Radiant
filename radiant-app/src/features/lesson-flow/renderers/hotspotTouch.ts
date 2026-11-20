@@ -44,21 +44,63 @@ export const BADGE_SIZE = { width: 36, height: 24 };
 /** Borda da região, em pontos: o selo absoluto parte de dentro dela. */
 const REGION_BORDER = 2;
 
+type Frame = { width: number; height: number };
+type Box = { left: number; top: number; width: number; height: number };
+
+const fits = (box: Box, frame: Frame) => box.left >= 0 && box.top >= 0 && box.left + box.width <= frame.width && box.top + box.height <= frame.height;
+const clamp = (value: number, max: number) => Math.max(0, Math.min(value, max));
+
 /**
- * Onde o selo fica no quadro (em pontos): no canto da região, empurrado para dentro do quadro.
- * Região baixa ou na borda não o corta: ele pode passar da região, nunca do quadro.
+ * Onde o selo fica no quadro (em pontos): FORA da região, para não esconder o objeto que ela mostra.
+ * Ordem: acima (alinhado à borda esquerda, encostado), abaixo, à esquerda, à direita; só se nenhuma
+ * couber inteira no quadro, dentro da região, como antes. Acima e abaixo escorregam na horizontal,
+ * esquerda e direita na vertical, para nunca passar do quadro.
  * `offset` é a posição relativa à região, para o selo absoluto dentro dela.
  */
-export function badgeBox(region: TouchTarget, frame: { width: number; height: number }) {
+export function badgeBox(region: TouchTarget, frame: Frame) {
+    const { width, height } = BADGE_SIZE;
     const regionLeft = region.x * frame.width;
     const regionTop = region.y * frame.height;
-    const left = Math.max(0, Math.min(regionLeft, frame.width - BADGE_SIZE.width));
-    const top = Math.max(0, Math.min(regionTop, frame.height - BADGE_SIZE.height));
-    return { left, top, ...BADGE_SIZE, offset: { left: left - regionLeft - REGION_BORDER, top: top - regionTop - REGION_BORDER } };
+    const regionRight = regionLeft + (region.width ?? 0) * frame.width;
+    const regionBottom = regionTop + (region.height ?? 0) * frame.height;
+    const sideLeft = clamp(regionLeft, frame.width - width);
+    const sideTop = clamp(regionTop, frame.height - height);
+    const candidates: Box[] = [
+        { left: sideLeft, top: regionTop - height, width, height },
+        { left: sideLeft, top: regionBottom, width, height },
+        { left: regionLeft - width, top: sideTop, width, height },
+        { left: regionRight, top: sideTop, width, height },
+    ];
+    const outside = candidates.find(box => fits(box, frame));
+    const { left, top } = outside ?? { left: sideLeft, top: sideTop };
+    return { left, top, width, height, offset: { left: left - regionLeft - REGION_BORDER, top: top - regionTop - REGION_BORDER } };
 }
 
 /** Estilo do selo absoluto dentro da região, já mantido dentro do quadro. */
 export function badgeStyle(region: TouchTarget, frame: { width: number; height: number }) {
     const { offset, width, height } = badgeBox(region, frame);
     return { position: 'absolute' as const, ...offset, width, height };
+}
+
+/** Lado do ponto que marca o alvo do `label`, em pontos: pequeno para não cobrir o que se rotula. */
+export const LABEL_DOT = 12;
+
+/**
+ * Selo do número do `label`, em pontos no quadro: acima e à direita do ponto, encostado; se não couber,
+ * abaixo e à direita, depois acima e à esquerda, depois abaixo e à esquerda. Sempre inteiro no quadro.
+ */
+export function labelBadgeBox(point: { x: number; y: number }, frame: Frame) {
+    const { width, height } = BADGE_SIZE;
+    const half = LABEL_DOT / 2;
+    const cx = point.x * frame.width;
+    const cy = point.y * frame.height;
+    const candidates: Box[] = [
+        { left: cx + half, top: cy - half - height, width, height },
+        { left: cx + half, top: cy + half, width, height },
+        { left: cx - half - width, top: cy - half - height, width, height },
+        { left: cx - half - width, top: cy + half, width, height },
+    ];
+    // shortcut: ponto tão perto do centro de um quadro minúsculo que nada cabe cai no primeiro, preso ao quadro.
+    const box = candidates.find(entry => fits(entry, frame)) ?? candidates[0];
+    return { left: clamp(box.left, frame.width - width), top: clamp(box.top, frame.height - height), width, height };
 }

@@ -137,4 +137,30 @@ describe('LabelStepRenderer', () => {
         fireEvent.press(screen.getByLabelText('Ponto 3, embaixo, sem rótulo'));
         expect(screen.getByTestId('label-chip-Fio').props.accessibilityHint).toMatch(/Põe esta ficha no ponto 3/);
     });
+
+    // E11: o marcador pequeno fica exatamente sobre o alvo e o número vai fora dele.
+    it('o marcador tem de 10 a 12 pt, centrado no ponto, e o número vai num selo fora do marcador', () => {
+        render(<Harness />);
+        measure();
+        label.payload.points.forEach((point, index) => {
+            const target = StyleSheet.flatten(screen.getByTestId(`label-point-${index + 1}`).props.style);
+            const dot = StyleSheet.flatten(screen.getByTestId(`label-point-marker-${index + 1}`).props.style);
+            expect(dot.width).toBeGreaterThanOrEqual(10);
+            expect(dot.width).toBeLessThanOrEqual(12);
+            expect(dot.height).toBe(dot.width);
+            // A caixa de toque, de 44 pt, continua centrada no ponto e o marcador, centrado nela.
+            expect(target.left + target.width / 2).toBeCloseTo(point.x * 280);
+            expect(target.top + target.height / 2).toBeCloseTo(point.y * 210);
+            const seal = StyleSheet.flatten(screen.getByTestId(`label-point-badge-${index + 1}`).props.style);
+            const centerX = target.width / 2, centerY = target.height / 2;
+            const apart = seal.left >= centerX + dot.width / 2 - 1e-9 || seal.left + seal.width <= centerX - dot.width / 2 + 1e-9
+                || seal.top >= centerY + dot.height / 2 - 1e-9 || seal.top + seal.height <= centerY - dot.height / 2 + 1e-9;
+            expect(apart).toBe(true);
+            // Inteiro no quadro: posição absoluta = canto da caixa de toque + deslocamento.
+            expect(target.left + seal.left).toBeGreaterThanOrEqual(0);
+            expect(target.top + seal.top).toBeGreaterThanOrEqual(0);
+            expect(target.left + seal.left + seal.width).toBeLessThanOrEqual(280);
+            expect(target.top + seal.top + seal.height).toBeLessThanOrEqual(210);
+        });
+    });
 });

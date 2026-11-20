@@ -71,7 +71,7 @@ export function HotspotStepRenderer({
                                 <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(region, frame)]}>
                                     <CheckIcon size={20} color={galaxy.textPrimary} />
                                 </View>
-                            ) : <Text style={[styles.hotspotIndex, badgeStyle(region, frame)]}>{index + 1}</Text>}
+                            ) : <Text testID={`hotspot-index-${index + 1}`} style={[styles.hotspotIndex, badgeStyle(region, frame)]}>{index + 1}</Text>}
                         </Pressable>
                     );
                 })}

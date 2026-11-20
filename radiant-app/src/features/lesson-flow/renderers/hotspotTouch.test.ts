@@ -1,4 +1,4 @@
-import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox } from './hotspotTouch';
+import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox, labelBadgeBox, LABEL_DOT, BADGE_SIZE } from './hotspotTouch';
 
 const frame = (width: number, height: number) => ({ width: TOUCH_FIGURE_WIDTH_PT, height: (TOUCH_FIGURE_WIDTH_PT * height) / width });
 
@@ -61,5 +61,95 @@ describe('badgeBox', () => {
         expect(box.top).toBeLessThanOrEqual(top + region.height * quadro.height);
         expect(box.left + box.width).toBeGreaterThanOrEqual(left);
         expect(box.top + box.height).toBeGreaterThanOrEqual(top);
+    });
+});
+
+describe('badgeBox fora da região (E11)', () => {
+    const quadro = { width: 280, height: 210 };
+    const rect = (b: { left: number; top: number; width: number; height: number }) => b;
+    const regionRect = (r: { x: number; y: number; width: number; height: number }) =>
+        ({ left: r.x * quadro.width, top: r.y * quadro.height, width: r.width * quadro.width, height: r.height * quadro.height });
+    const dentro = (b: { left: number; top: number; width: number; height: number }) =>
+        b.left >= 0 && b.top >= 0 && b.left + b.width <= quadro.width + 1e-9 && b.top + b.height <= quadro.height + 1e-9;
+
+    it('prefere ACIMA da região, alinhado à borda esquerda e encostado', () => {
+        const region = { x: 0.3, y: 0.5, width: 0.3, height: 0.2 };
+        const box = badgeBox(region, quadro);
+        expect(box.left).toBeCloseTo(0.3 * 280);
+        expect(box.top + box.height).toBeCloseTo(0.5 * 210);
+        expect(touchRectsOverlap(rect(box), regionRect(region))).toBe(false);
+    });
+
+    it('sem espaço acima, vai ABAIXO', () => {
+        const region = { x: 0.3, y: 0.04, width: 0.3, height: 0.2 };
+        const box = badgeBox(region, quadro);
+        expect(box.top).toBeCloseTo(0.24 * 210);
+        expect(touchRectsOverlap(rect(box), regionRect(region))).toBe(false);
+        expect(dentro(box)).toBe(true);
+    });
+
+    it('sem espaço acima nem abaixo, vai à ESQUERDA', () => {
+        const region = { x: 0.5, y: 0.02, width: 0.2, height: 0.96 };
+        const box = badgeBox(region, quadro);
+        expect(box.left + box.width).toBeCloseTo(0.5 * 280);
+        expect(touchRectsOverlap(rect(box), regionRect(region))).toBe(false);
+        expect(dentro(box)).toBe(true);
+    });
+
+    it('sem espaço acima, abaixo nem à esquerda, vai à DIREITA', () => {
+        const region = { x: 0.05, y: 0.02, width: 0.2, height: 0.96 };
+        const box = badgeBox(region, quadro);
+        expect(box.left).toBeCloseTo(0.25 * 280);
+        expect(touchRectsOverlap(rect(box), regionRect(region))).toBe(false);
+        expect(dentro(box)).toBe(true);
+    });
+
+    it('só se nenhuma posição couber, o selo fica DENTRO da região, ainda no quadro', () => {
+        const box = badgeBox({ x: 0.02, y: 0.02, width: 0.96, height: 0.96 }, quadro);
+        expect(dentro(box)).toBe(true);
+        expect(touchRectsOverlap(rect(box), regionRect({ x: 0.02, y: 0.02, width: 0.96, height: 0.96 }))).toBe(true);
+    });
+
+    it('região na borda direita: o selo acima continua inteiro no quadro (difere E é válido)', () => {
+        const box = badgeBox({ x: 0.92, y: 0.5, width: 0.08, height: 0.2 }, quadro);
+        expect(dentro(box)).toBe(true);
+        expect(box.top + box.height).toBeCloseTo(0.5 * 210);
+    });
+
+    it('o offset do selo absoluto dentro da região leva a mesma posição, descontada a borda de 2 pt', () => {
+        const region = { x: 0.3, y: 0.5, width: 0.3, height: 0.2 };
+        const box = badgeBox(region, quadro);
+        expect(box.offset).toEqual({ left: box.left - 0.3 * 280 - 2, top: box.top - 0.5 * 210 - 2 });
+    });
+});
+
+describe('labelBadgeBox (E11)', () => {
+    const quadro = { width: 280, height: 210 };
+    const dotRect = (p: { x: number; y: number }) => ({ left: p.x * 280 - LABEL_DOT / 2, top: p.y * 210 - LABEL_DOT / 2, width: LABEL_DOT, height: LABEL_DOT });
+    const dentro = (b: { left: number; top: number; width: number; height: number }) =>
+        b.left >= 0 && b.top >= 0 && b.left + b.width <= 280 + 1e-9 && b.top + b.height <= 210 + 1e-9;
+
+    it('o ponto é pequeno: de 10 a 12 pt', () => {
+        expect(LABEL_DOT).toBeGreaterThanOrEqual(10);
+        expect(LABEL_DOT).toBeLessThanOrEqual(12);
+    });
+
+    it('o selo fica acima e à direita do ponto, encostado, sem cobri-lo', () => {
+        const p = { x: 0.5, y: 0.5 };
+        const box = labelBadgeBox(p, quadro);
+        expect(box.left).toBeCloseTo(0.5 * 280 + LABEL_DOT / 2);
+        expect(box.top + box.height).toBeCloseTo(0.5 * 210 - LABEL_DOT / 2);
+        expect(box.width).toBe(BADGE_SIZE.width);
+        expect(touchRectsOverlap(box, dotRect(p))).toBe(false);
+    });
+
+    it.each([
+        ['junto ao topo: abaixo e à direita', { x: 0.5, y: 0.03 }],
+        ['junto à direita: acima e à esquerda', { x: 0.97, y: 0.5 }],
+        ['no canto superior direito: abaixo e à esquerda', { x: 0.97, y: 0.03 }],
+    ])('%s, sempre inteiro no quadro e fora do ponto', (_nome, p) => {
+        const box = labelBadgeBox(p, quadro);
+        expect(dentro(box)).toBe(true);
+        expect(touchRectsOverlap(box, dotRect(p))).toBe(false);
     });
 });

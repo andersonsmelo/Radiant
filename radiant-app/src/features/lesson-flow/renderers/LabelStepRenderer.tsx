@@ -8,7 +8,7 @@ import { radius, space, typography } from '../../../ui/styles';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
 import { decodeCategorizeValue } from './InteractionAnswerValue';
-import { touchRect } from './hotspotTouch';
+import { LABEL_DOT, labelBadgeBox, touchRect } from './hotspotTouch';
 import { EnterView, TapChip, f2Styles } from './TapChip';
 
 type Props = {
@@ -23,8 +23,6 @@ type Props = {
 
 /** O que o aluno tem na mão: uma ficha ou um ponto, à espera do outro toque. É foco, não resposta. */
 type Focus = { kind: 'label' | 'point'; id: string } | null;
-
-const MARKER = 28;
 
 /**
  * Rotular sem arrastar: toca na ficha e depois no ponto, ou no ponto e depois na
@@ -100,7 +98,9 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                             // Alvo de 44 pt centrado no ponto: a mesma conta da régua do verificador.
                             style={[styles.target, touchRectStyle(point, frame)]}
                         >
-                            <View style={[styles.marker, (selected || current) && styles.markerOn, selected && styles.markerFocus]}>
+                            <View testID={`label-point-marker-${index + 1}`} style={[styles.marker, (selected || current) && styles.markerOn, selected && styles.markerFocus]} />
+                            {/* O número vai num selo fora do ponto: o ponto fica exatamente sobre o alvo. */}
+                            <View testID={`label-point-badge-${index + 1}`} style={[styles.badge, (selected || current) && styles.markerOn, selected && styles.markerFocus, badgeOffset(point, frame)]}>
                                 <Text style={styles.markerNumber}>{index + 1}</Text>
                                 {verdict ? <VerdictIcon verdict={verdict} size={16} testID={`label-point-verdict-${verdict}`} /> : null}
                             </View>
@@ -138,14 +138,27 @@ function touchRectStyle(point: { x: number; y: number }, frame: { width: number;
     return { left, top, width, height };
 }
 
+/** Posição do selo na caixa de toque (o pai absoluto): a do quadro menos o canto da caixa. */
+function badgeOffset(point: { x: number; y: number }, frame: { width: number; height: number }) {
+    const box = touchRect(point, frame);
+    const seal = labelBadgeBox(point, frame);
+    return { position: 'absolute' as const, left: seal.left - box.left, top: seal.top - box.top, width: seal.width, height: seal.height };
+}
+
 const galaxy = semanticColors.galaxy;
 
 const styles = StyleSheet.create({
     target: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
     marker: {
-        minWidth: MARKER,
-        height: MARKER,
-        paddingHorizontal: space.s1,
+        width: LABEL_DOT,
+        height: LABEL_DOT,
+        borderRadius: LABEL_DOT / 2,
+        borderWidth: 2,
+        borderColor: galaxy.statusInformation,
+        backgroundColor: galaxyColors.background,
+    },
+    // Mesmo selo opaco do `hotspot`: a figura atrás pode ser clara.
+    badge: {
         borderRadius: radius.rMd,
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
