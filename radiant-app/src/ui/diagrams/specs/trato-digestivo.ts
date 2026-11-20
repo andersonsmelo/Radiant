@@ -3,11 +3,11 @@ import type { DiagramSpec } from '../diagramTypes';
 // Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
 // Obra: "Complete digestive apparatus" (Servier Medical Art, kit SMART-Digestive-system, CC BY 4.0), vetores
 // copiados do pptx do kit. Sem a cabeça (o corte vai do esôfago ao reto), recolorida para a paleta do app e
-// achatada para atributos de apresentação (sem <style>, classe, gradiente ou filtro). Dos 965 caminhos do grupo,
-// 750 ficam (os 215 que saem são cabeça, boca, faringe e a ponta do reto, todos fora do quadro).
+// achatada para atributos de apresentação (sem <style>, classe, gradiente ou filtro). Das 972 formas do grupo, 965 foram extraídas (7 pontos de 1 x 1 não),
+// e 750 ficam (os 215 que saem são cabeça, boca, faringe e a ponta do reto, todos fora do quadro).
 // Quadro 320x240, parado; tronco de frente: o lado direito do paciente fica à esquerda de quem vê.
 // Cores: fígado âmbar, esôfago cinza claro, estômago e intestino delgado em azul (a arte desenha os dois como um
-// só tubo), pâncreas ciano, intestino grosso cinza médio; vesícula, vasos e baço em cinza escuro de apoio.
+// só tubo), pâncreas ciano, intestino grosso cinza médio; vesícula em verde-petróleo, vasos e baço em cinza escuro de apoio.
 export const tratoDigestivo: DiagramSpec = {
   id: 'trato-digestivo',
   alt: 'Tronco de frente, do esôfago ao reto: órgãos do abdome superior em cores diferentes e, abaixo, alças intestinais cercadas por um tubo largo em moldura.',

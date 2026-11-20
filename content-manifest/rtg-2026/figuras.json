@@ -79,8 +79,8 @@
   {
     "id": "ossos-do-pe",
     "origem": "acervo",
-    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg",
-    "author": "DataBase Center for Life Science (DBCLS)",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg e https://togotv.dbcls.jp/togopic.2021.124.html",
+    "author": "erico (design); Hiromasa Ono e DBCLS (edição), Togopic",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "retrievedAt": "2026-11-20",
@@ -96,7 +96,7 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "retrievedAt": "2026-11-20",
     "sha256Original": "6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53",
-    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). Das 965 formas do grupo, 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
+    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). O grupo tem 972 formas; 7 delas, pontos de 1 x 1 (prstGeom line, cerca de 0,6 pt no quadro), não foram extraídas do pptx, e das 965 extraídas 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula em verde-petróleo, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
   },
   {
     "id": "marcos-de-superficie",

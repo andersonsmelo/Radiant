@@ -162,10 +162,10 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   {
     "id": "ossos-do-pe",
     "alt": "Pé direito visto de cima e deitado: calcanhar à esquerda, dedos à direita, hálux em cima. Tarso em tons de branco, metatarsos azuis e falanges âmbar.",
-    "author": "DataBase Center for Life Science (DBCLS)",
+    "author": "erico (design); Hiromasa Ono e DBCLS (edição), Togopic",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg e https://togotv.dbcls.jp/togopic.2021.124.html",
     "modification": "Pé direito em vista dorsal, sem alterar as formas: removidos o fundo e a folha de estilo do original; recolorido por osso para a paleta do app (tarso em tons de branco e cinza claro que alternam entre ossos vizinhos, metatarsos e sesamoide em azul, falanges em âmbar, capas articulares em tom mais claro); girado 90 graus no sentido horário, para o calcanhar ficar à esquerda, os dedos à direita e o hálux em cima; enquadrado em 320x240 e achatado para atributos de apresentação. Sem rótulos na arte original."
   },
   {
@@ -175,7 +175,7 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "sourcePage": "https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/",
-    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). Das 965 formas do grupo, 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
+    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). O grupo tem 972 formas; 7 delas, pontos de 1 x 1 (prstGeom line, cerca de 0,6 pt no quadro), não foram extraídas do pptx, e das 965 extraídas 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula em verde-petróleo, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
   },
   {
     "id": "marcos-de-superficie",

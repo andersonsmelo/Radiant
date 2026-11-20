@@ -1,7 +1,7 @@
 import type { DiagramSpec } from '../diagramTypes';
 
 // Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
-// Obra: "Dorsal view of bones of right foot" (DataBase Center for Life Science, DBCLS), Wikimedia Commons,
+// Obra: "Dorsal view of bones of right foot" (erico, design; Hiromasa Ono e DBCLS, edição; Togopic), Wikimedia Commons,
 // CC BY 4.0. Sem fundo, recolorida por osso para a paleta do app, girada 90 graus (calcanhar à esquerda,
 // dedos à direita, lado do hálux em cima) e achatada para atributos de apresentação.
 // Fonte versionada: scripts/content/figuras/fontes/ossos-do-pe.svg. Quadro 320x240, parado; o desenho

@@ -6,7 +6,7 @@ Três figuras entram no lote. `sistema-urinario` fica de fora (abaixo); `respira
 
 | Figura | Aula | Autor | Licença | Página |
 | --- | --- | --- | --- | --- |
-| `ossos-do-pe` | m24-01 (`i2`) | DataBase Center for Life Science (DBCLS) | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg |
+| `ossos-do-pe` | m24-01 (`i2`) | erico (design); Hiromasa Ono e DBCLS (edição), Togopic | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg e https://togotv.dbcls.jp/togopic.2021.124.html |
 | `trato-digestivo` | m20-03 (`i2`), m20-06 (`i2`, `visual`), m26-05 (`i2`) | Servier Medical Art (Servier), kit SMART-Digestive-system | CC BY 4.0 | https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/ |
 | `marcos-de-superficie` | m18-05 (`i2`, `i3`, `visual`), m18-06 (`i2`) | LadyofHats (Mariana Ruiz Villarreal) | Domínio público | https://commons.wikimedia.org/wiki/File:Human_skeleton_front_no-text_no-color.svg |
 
@@ -16,7 +16,7 @@ Registro e crédito: as três entradas estão em `content-manifest/rtg-2026/figu
 
 - `ossos-do-pe`: original 132 caminhos, fonte 132. Nada descartado.
 - `trato-digestivo`: grupo de 965 caminhos, fonte de 750. Os 221 que o agente de arte tirou foram conferidos um a um contra o quadro (altura do corte, y 290,5 a 859,5 no sistema de 244 x 899 da fonte): **6 estavam dentro do quadro e foram restaurados** (caminhos 90 a 94, traços escuros de vasos pintados antes dos órgãos, e o 133, uma peça rosada pequena; entram como apoio, em cinza escuro). Os 215 que saem são cabeça, boca, nariz, faringe e a ponta do reto, todos fora do quadro. O spec cresceu de 204,5 para 215,3 KiB.
-- `marcos-de-superficie`: original 915 caminhos, fonte 520. Dos 513 que o agente de arte tirou, 118 eram antebraços e mãos que entram no quadro, nos cantos de baixo: **117 foram restaurados** (em cinza, como os braços; o 118º é o contorno do corpo, que já estava) e 395 saem por estar fora do recorte (cabeça, pernas, gradientes da cabeça). Para caber no teto de 240 KiB com as mãos, as coordenadas dos caminhos passam de duas casas decimais para uma (0,1 unidade da fonte, cerca de 0,07 pt no quadro; precedente: `esqueleto-axial-apendicular`). O spec saiu de 209,7 para 229,4 KiB.
+- `marcos-de-superficie`: original 915 caminhos, fonte 520. Dos 513 que o agente de arte tirou, 118 eram antebraços e mãos que entram no quadro, nos cantos de baixo: **117 foram restaurados** (em cinza, como os braços; o 118º é o contorno do corpo, que já estava) e 395 saem por estar fora do recorte (cabeça, pernas, gradientes da cabeça). Para caber no teto de 240 KiB com as mãos, as coordenadas dos caminhos passam de duas casas decimais para uma (0,1 unidade da fonte por coordenada; nos caminhos relativos o erro se acumula e chega a 1,15 unidade da fonte, 0,78 pt no quadro, em 4 caminhos, quase todos sombras de dedos e do sacro; medido por revisão, 748 de 691.200 pixels diferem, todos em borda de antisserrilhado, então não é visível; precedente: `esqueleto-axial-apendicular`). O spec saiu de 209,7 para 229,4 KiB.
 
 ## Itens alterados (uma linha cada)
 
@@ -27,6 +27,10 @@ Registro e crédito: as três entradas estão em `content-manifest/rtg-2026/figu
 5. m20-03 `i2` (trato digestivo, rótulo): `where` do Pâncreas de "faixa azul sob a bolsa curva" para "massa ciano sob a bolsa curva" (o pâncreas da arte é uma massa ciano; o azul é do estômago e do delgado). Coordenadas novas com `alvo`, sem perder ficha. Nenhum item cobra estômago ou delgado pela cor: os `where` falam de forma e lugar.
 6. m20-06 `i2` e m26-05 `i2` (trato digestivo, hotspot): só coordenadas. As regiões encolhem para a estrutura (o fígado deixa de cobrir a ponta do estômago; a região do intestino grosso passa a 0,08 de largura, o mínimo do verificador).
 7. m24-01 `i2` (pé, rótulo): `where` do Cuboide de "peça quase quadrada em branco" para "peça quase quadrada, em cinza claro" (na arte o cuboide é cinza claro, para se distinguir do calcâneo e do navicular, brancos) e `where` das Falanges de "na ponta do quarto dedo" para "nas pontas dos dedos" (o ponto cai no terceiro dedo, e a arte abre os dedos em leque). Coordenadas novas com `alvo`.
+
+Trato digestivo: o grupo do pptx tem 972 formas, e não 965; as 7 que faltam são `prstGeom line` de 1 x 1 (pontos de cerca de 0,6 pt no quadro, uma delas no hilo hepático) que o extrator não lê. Não é perda visível.
+
+Rodada de correções de 2026-11-20 (revisão do lote): crédito do pé com todos os autores da página de origem; `marcos-de-superficie` recolorido por caminho sem mexer em forma (escápulas, os caminhos 214, 215, 219 e 220 do original, agora cinza; primeiras costelas, 426 a 428 e 433 a 435, agora azuis); vesícula descrita como verde-petróleo; fala do Pixel da m18-05 com "marcos".
 
 ## Figura fora do lote
 
@@ -41,6 +45,15 @@ Registro e crédito: as três entradas estão em `content-manifest/rtg-2026/figu
 - `cd radiant-app && node --test scripts/copy-style-contract.test.mjs`: 65 de 65, depois de subir o teto de `eyebrow` de `rtgImages.ts` de 6 para 7 em `scripts/copy-style-baseline.json` (número medido com as três entradas novas).
 - `npx jest src/ui/diagrams src/features/lesson-flow src/features/student-checkpoints src/features/settings src/features/journey/services`: 88 suítes, 1646 testes, todos passam. `npx tsc --noEmit`: saída 0.
 - `npx eslint` nos oito arquivos `.ts` tocados: saída 0. `npm run test:maestro-contract`: 13 de 13.
-- Peso: soma do SVG das 10 figuras importadas, 1343,2 KiB (1.375.433 bytes), contra o teto de 8.116.109 bytes do teste do registro (o teste passa, sem subir o teto). Maiores: `esqueleto-axial-apendicular` 237,8; `marcos-de-superficie` 225,5; `trato-digestivo` 206,0 KiB (teto de 240 por figura).
+- Peso: soma do SVG das 10 figuras importadas, 1343,2 KiB (1.375.433 bytes), contra o teto de 8.116.109 bytes do teste do registro (o teste passa, sem subir o teto). Maiores: `esqueleto-axial-apendicular` 237,8; `marcos-de-superficie` 228,1; `trato-digestivo` 214,1 KiB (linha do SVG de cada spec) (teto de 240 por figura).
+
+## Para o dono olhar no simulador
+
+- `m20-03`, interação 2: o marcador 4 cobre cerca de metade da massa ciano da cabeça do pâncreas. Dá para ver a massa? Não há ponto melhor que respeite as distâncias de 44 pt (M3 da revisão).
+- `m18-05` (região 3) e `m18-06` (região 2): o selo de 36 x 24 pt cobre inteiros a incisura jugular, o processo xifoide, a crista ilíaca e a sínfise (M6).
+- `m18-05`: as escápulas, agora cinza, junto das costelas azuis.
+- `m24-01`: o cuboide fica cerca de três quartos sob o marcador 3 e se decide pela posição e por exclusão.
+- `m18-03`: a exceção provisória da coluna, com os marcadores ao lado, espera o dono.
+- `m26-05`: a área de toque do intestino grosso (região de 0,08 de largura) cobre alças do delgado, que são distratores com o mesmo retorno (M4).
 
 Não rodado: o gate completo (`EXPO_NO_DOTENV=1 npm run quality`), o simulador e o Android.
