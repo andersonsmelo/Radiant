@@ -2,6 +2,8 @@
 
 > **Para quem executa:** SUB-SKILL OBRIGATÓRIA: use superpowers:subagent-driven-development (recomendada) ou superpowers:executing-plans para executar este plano tarefa a tarefa. Os passos usam caixas (`- [ ]`) para acompanhamento.
 
+> **Estado em 2026-11-20 e como continuar:** a fase 0 está feita (PR #96) e a fase 1 tem 19 figuras no app (PR #97). Leia primeiro o [plano de continuidade](2026-11-20-figuras-continuidade.md): ele diz o que falta, as decisões do dono tomadas depois deste plano, o passo a passo de um lote e os erros que se repetiram. Onde ele e este plano divergem, vale ele. Mudanças em relação ao texto abaixo: imagem gerada foi abandonada para anatomia; figuras de movimento de anatomia entram paradas; `corpo-inteiro-composicao` e os três cortes axiais saíram da fase 1 e esperam o método das fases 3 a 5; os briefs dos agentes estão em `scripts/content/figuras/briefs/`.
+
 **Objetivo:** trocar as figuras didáticas da trilha `rtg-2026`, reprovadas pelo dono em 2026-11-19, por arte feita com o método certo para cada tipo, sem reescrever as aulas.
 
 **Arquitetura:** o mecanismo do app não muda de forma: cada figura continua sendo um `DiagramSpec` em camadas de SVG com movimento por camada, apontado pelas aulas por `diagramId`. O que muda é a origem da arte (acervo aberto, skill `anatomy`, código redesenhado, imagem real), o conversor que a prepara para o `react-native-svg`, o registro de crédito e licença, e a guarda que prende cada área de toque à estrutura que ela nomeia.

@@ -1,0 +1,32 @@
+# Brief do revisor independente de um lote de figuras de acervo
+
+> Versão consolidada em 2026-11-20. O revisor roda no modelo mais capaz disponível e não recebe o relatório do controlador, só os commits e a pasta de trabalho. Como o lote roda: `docs/superpowers/plans/2026-11-20-figuras-continuidade.md`. Pareceres anteriores, como exemplo do rigor esperado: `docs/evidence/2026-11-19-figuras/revisoes/`.
+
+Você é o revisor independente de um lote de figuras didáticas trocadas num app de estudo de radiologia (Radiant, React Native). Não viu o trabalho de quem fez. Escreva em português do Brasil. Só leitura: não edite arquivos do repositório, não faça commit, não use `loop`, não despache subagentes, não rode simulador. É revisão por IA, não por profissional de radiologia: diga isso no parecer.
+
+A worktree, a branch e os commits do lote vêm no seu pedido. Leia pelo git. Para rodar testes sem tocar na árvore: `git worktree add --detach "$TMPDIR/rev-<lote>" <commit>`, com links simbólicos de `radiant-app/node_modules` (e do `node_modules` da raiz, se existir na worktree principal); ao terminar, `unlink` nos links (sem barra final) e `git worktree remove --force`. Node 20: `export PATH="$HOME/.nvm/versions/node/v20.20.2/bin:$PATH"`. `python3` é bloqueado (`uv run --with pillow python -I` para PIL).
+
+Regras do trabalho: `docs/superpowers/plans/2026-11-19-troca-das-figuras.md` ("Restrições globais", "Tarefa 8"). Política do dono (2026-11-19), que vale como requisito: quando a arte não tem uma estrutura que a aula cobra, ou os alvos não cabem na área de toque de 44 pt ou ficam sob o marcador, "adaptar o item": o item deixa de cobrar aquele alvo na figura, o conceito continua ensinando, e o item alterado passa por você. Nunca CC BY-SA, NC ou ND (em obra derivada, a licença de CADA autor conta). Nunca pintar forma nova nem colar peça em posição inventada sobre a arte.
+
+Material de quem fez (no disco; é a versão do autor: confira no commit): `<WS>/<id>/relatorio.md`, `aulas.md`, `registro.json`, `original.*`; `<WS>/itens-alterados.md` e `integracao-relatorio.md`; prévias com os marcadores do app em `docs/evidence/2026-11-19-figuras/<lote>/`.
+
+Revise, nesta ordem:
+1. **Licença.** Abra a página de origem de cada `registro.json` (WebFetch e WebSearch; se não abrir, diga) e leia a página INTEIRA: autor, licença, e se é obra derivada ou cita outro autor, a licença de cada um. O crédito no app (`content-manifest/rtg-2026/figuras.json`) nomeia todos?
+2. **Fidelidade ao original.** Compare a fonte (`scripts/content/figuras/fontes/<id>.svg`) com o `original.*`: nenhum traço descartado (um esqueleto já saiu sem esterno), nenhuma forma acrescentada, nenhuma peça colada em posição inventada, nenhuma divisa entre estruturas que o autor não desenhou. Recolorir, recortar, espelhar e girar a figura inteira são permitidos. Onde quem fez declarou composição ou recorte por polígonos, julgue com rigor e diga claramente: aceitável ou não, e por quê.
+3. **Anatomia.** Gere você um PNG do spec sobre o fundo escuro do app (#171920) e OLHE: legível; lado do paciente e orientação como a aula diz; cada estrutura no lugar e na proporção certos; cores de estruturas vizinhas distinguíveis.
+4. **Alvos.** Para cada interação de aula sobre essas figuras: desenhe pontos, regiões e os marcadores do app (ou use as prévias com marcadores, conferindo que estão atualizadas) e OLHE: cada um cai na estrutura que o rótulo nomeia, na maior parte sobre ela; a resposta é decidível só pela figura; nada que o aluno precisa ver fica sob um marcador; a área de toque de 44 pt (0,157 x 0,21 do quadro, centrada no alvo) de um alvo não cobre a estrutura de outro; a área certa não cobre a estrutura do erro típico que a aula combate.
+5. **Itens alterados.** Para cada um: continua válido, com resposta defensável e enunciado, ajuda e retornos coerentes? A competência da aula ainda é avaliada? O que o aluno deixa de praticar? Compare com a versão anterior (commit base do lote).
+6. **Frases de localização e `alt`:** todo `where`, ajuda e retorno que cita cor, lado ou forma continua verdadeiro; o `alt` descreve o que se vê sem entregar resposta da mesma aula.
+7. **Gates**, na worktree temporária: verificador nas 40 unidades; `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs` (falha alheia conhecida: `registerSource normalizes metadata for the pilot book`); `node scripts/content/build-rtg-batches.mjs --check`; `node scripts/qa/figuras-no-simulador.mjs --check`; `cd radiant-app && npx jest src/ui/diagrams src/features/student-checkpoints src/features/settings`.
+
+Escreva o parecer em `<WS>/revisao.md`: veredito por figura (aprovada, aprovada com correções a fazer, reprovada), achados numerados com severidade (Crítico, Importante, Menor), arquivo e linha, cenário concreto para o aluno e correção sugerida (com coordenadas quando for alvo); a seção "itens alterados"; a lista do que o dono deve olhar no simulador; e "não consegui verificar". Mensagem final (até 14 linhas): veredito por figura, contagem por severidade, os três achados mais sérios, e a recomendação para cada item alterado.
+
+
+## Regras acrescentadas nos lotes 1B a 1E (valem como o resto do brief)
+
+- **Meça, não só rode o verificador.** Em todos os lotes o verificador estava verde e o defeito só apareceu por medida. Para cada item de tocar, conte por cor, no render, o que há sob a área de toque da resposta certa: estrutura nomeada, fundo e cada resposta errada do mesmo item. Regiões infladas ou esticadas para o fundo vazio reprovam.
+- **Fidelidade por render.** Além da contagem de caminhos, compare o render da fonte com o do original na mesma transformação e diga quantos pixels diferem e por quê. União de caminhos, `dropBackground` e conversão de `clipPath` já apagaram ou poderiam ter mudado traço sem mudar a contagem.
+- **Composição e posição medida:** repita você a medida escrita em `medidas.md` sobre a fonte versionada; diga se a posição é aceitável e o que continua incerto.
+- **Licença:** leia a página de origem inteira, o histórico de revisões do arquivo no Commons e a página do Togopic quando houver; cite a frase da licença. Servier: vale a página de termos do Servier (CC BY 4.0).
+- **Requisitos tardios:** o controlador pode ter dado ao integrador decisões depois do brief. Elas vêm citadas no seu pedido e têm o mesmo peso do brief: confira cada uma.
+- **Receita:** rode a receita num checkout limpo e confira que reproduz a fonte.

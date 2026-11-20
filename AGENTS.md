@@ -568,6 +568,32 @@ defeito que se queria pegar.
   leva um `grep` antes do "Salvar". Vale também para a nota de versão por plataforma:
   o Android não tem liga nem widgets.
 
+### Seis lições de 2026-11-19 e 20 (troca das figuras, cinco lotes de arte de acervo)
+
+- **Mostre uma amostra antes do volume.** 101 figuras foram desenhadas em SVG por
+  modelo antes de o dono ver uma, e ele reprovou todas. Arte nova, método novo ou
+  movimento novo: uma amostra pequena, no tamanho do app, e o aceite dele primeiro.
+- **O verificador verde não prova a figura; a medida prova.** Em cinco lotes seguidos,
+  todo defeito sério passou no verificador e só apareceu quando um revisor
+  independente mediu, por cor, o que havia sob cada área de toque. Três vezes o agente
+  inflou ou esticou a região para o fundo vazio só para a régua passar, e uma área
+  "certa" caía sobre a estrutura do erro que o item combatia.
+- **Contagem que bate não prova traço mantido.** Unir caminhos vizinhos para economizar
+  peso manteve 1503 de 1503 subcaminhos e apagou contornos na tela (20.936 px). Compare
+  o render com o do original; para reduzir peso, arredonde coordenadas por igual.
+- **Licença se lê na página inteira e no histórico.** Uma página dizia CC BY e a obra
+  tinha um coautor CC BY-SA; outra "versão sem rótulos" era redesenho de terceiro sem
+  licença. O Servier vale pela página de termos dele (CC BY 4.0), não pela cópia do
+  Commons (CC BY-SA 3.0).
+- **Imagem gerada erra anatomia com aparência de certa.** Duas tentativas da pelve
+  erraram posição e limite de osso, e a correção trocou um erro por outro. Foi
+  abandonada para anatomia em 2026-11-20. Imagem de exame nunca é gerada.
+- **Quem coordena abre a prévia.** Metade das primeiras entregas dos agentes de arte
+  foi devolvida depois de olhar o PNG: traço apagado, figura minúscula, arte pobre. O
+  relatório do agente dizia "entregue" em todas. O passo a passo de um lote e os
+  briefs estão em
+  [`docs/superpowers/plans/2026-11-20-figuras-continuidade.md`](docs/superpowers/plans/2026-11-20-figuras-continuidade.md).
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

@@ -13,3 +13,7 @@ só com o que o `SvgXml` aceita (atributos de apresentação, sem `<style>`, cla
 **Portão de cada lote de figuras:** `node --test scripts/content/figuras/*.test.mjs`, numa máquina com Chrome, antes do commit. Falha aí quer dizer spec editado à mão ou conversor que mudou a saída.
 
 Os specs são saída do script: não se editam à mão. Teto de 240 KiB de SVG por figura, quadro 320 x 240, de 1 a 8 camadas (réguas em `diagramRegistry.test.ts`).
+
+## Briefs dos agentes de um lote
+
+Um lote de figuras de acervo roda com agentes separados para arte, integração, revisão independente e capturas. Os briefs, consolidados em 2026-11-20 com as lições dos lotes 1A a 1E, estão em [`briefs/`](briefs/arte.md): [`arte.md`](briefs/arte.md), [`integrador.md`](briefs/integrador.md), [`revisor.md`](briefs/revisor.md) e [`capturas.md`](briefs/capturas.md). O passo a passo do lote, as decisões do dono e os erros que se repetiram estão em [`docs/superpowers/plans/2026-11-20-figuras-continuidade.md`](../../../docs/superpowers/plans/2026-11-20-figuras-continuidade.md).

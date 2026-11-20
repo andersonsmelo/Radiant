@@ -201,7 +201,11 @@ exceção provisória; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, si
 nervoso, circulação). Os roteiros `m18-aula-05` e `m25-aula-04` reprovam no "Continuar"
 depois do passo de rotular: é o defeito conhecido do roteiro (a rolagem acha os pontos
 sob o cabeçalho fixo), e as figuras saíram certas antes disso. A fase 2 não começou;
-existe só uma amostra da cena do leito, fora do repositório. Esperam o dono: a exceção
+existe só uma amostra da cena do leito
+([amostra](evidence/2026-11-19-figuras/amostra-fase-2/relatorio.md)). **Quem continua esta
+frente começa pelo [plano de continuidade](superpowers/plans/2026-11-20-figuras-continuidade.md),
+escrito em 2026-11-20**: o que falta, as decisões do dono, o passo a passo de um lote e
+os briefs dos agentes (`scripts/content/figuras/briefs/`). Esperam o dono: a exceção
 da coluna, o enquadramento do corpo inteiro, a figura humana da fase 2 e o método das
 fases 3 a 5.
 
