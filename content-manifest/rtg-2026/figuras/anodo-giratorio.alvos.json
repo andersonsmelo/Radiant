@@ -1,0 +1,6 @@
+[
+  { "nome": "Cátodo", "x": 0.2188, "y": 0.5896, "width": 0.2453, "height": 0.3271 },
+  { "nome": "Disco do ânodo", "x": 0.4, "y": 0.0854, "width": 0.4047, "height": 0.3625 },
+  { "nome": "Ponto de impacto na pista", "x": 0.5084, "y": 0.5, "width": 0.08, "height": 0.1208 },
+  { "nome": "Feixe de raios X", "x": 0.4688, "y": 0.6979, "width": 0.2562, "height": 0.2771 }
+]

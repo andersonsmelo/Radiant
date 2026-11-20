@@ -1,14 +1,17 @@
 {
   "ids": [
+    "anodo-giratorio",
     "articulacao-sinovial",
     "bexiga-e-uretra",
     "circulacao-dupla",
     "coluna-regioes",
     "coluna-sagital-e-axial",
+    "conferencia-de-identidade",
     "contraste-no-corpo",
     "cranio-de-perfil-ossos",
     "esqueleto-axial-apendicular",
     "femur-proximal-e-quadril",
+    "itens-de-emergencia-da-sala",
     "joelho-frente-e-perfil",
     "linhas-do-cranio",
     "marcos-de-superficie",
@@ -16,6 +19,7 @@
     "ossos-do-pe",
     "pelve-de-frente",
     "pelve-de-frente-recorte",
+    "pontos-de-contato-da-sala",
     "raio-x-movel-no-leito",
     "respiracao-diafragma",
     "seios-da-face",
@@ -23,6 +27,8 @@
     "sistema-nervoso",
     "sistema-urinario",
     "trato-digestivo",
+    "tubo-emitindo",
+    "tubo-raios-x",
     "vertebra-tipica"
   ]
 }

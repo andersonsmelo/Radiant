@@ -1,0 +1,7 @@
+[
+  { "nome": "Maçaneta da porta", "x": 0.065, "y": 0.247, "width": 0.1133, "height": 0.125 },
+  { "nome": "Apoio do receptor vertical", "x": 0.2137, "y": 0.3495, "width": 0.1971, "height": 0.1044 },
+  { "nome": "Mesa de exame", "x": 0.3809, "y": 0.5824, "width": 0.3134, "height": 0.1706 },
+  { "nome": "Manopla do tubo", "x": 0.4514, "y": 0.3858, "width": 0.1121, "height": 0.104 },
+  { "nome": "Teclado do comando", "x": 0.7533, "y": 0.6218, "width": 0.1817, "height": 0.0971 }
+]

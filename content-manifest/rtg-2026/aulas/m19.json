@@ -801,27 +801,31 @@
           "points": [
             {
               "label": "Cátodo com filamento",
-              "x": 0.28,
-              "y": 0.44,
-              "where": "à esquerda, a espiral dentro da capa"
+              "x": 0.339,
+              "y": 0.36,
+              "where": "à esquerda, a espiral dentro da capa",
+              "alvo": "Cátodo com filamento"
             },
             {
               "label": "Ânodo",
-              "x": 0.72,
-              "y": 0.44,
-              "where": "à direita, o bloco inclinado de borda branca"
+              "x": 0.58,
+              "y": 0.2,
+              "where": "à direita, o disco com a face inclinada, ligado a uma haste",
+              "alvo": "Ânodo"
             },
             {
               "label": "Janela de saída",
-              "x": 0.68,
-              "y": 0.71,
-              "where": "embaixo à direita, a abertura no vidro"
+              "x": 0.537,
+              "y": 0.508,
+              "where": "embaixo, a abertura redonda no vidro, de onde sai o feixe",
+              "alvo": "Janela de saída"
             },
             {
               "label": "Ampola de vidro",
-              "x": 0.375,
-              "y": 0.71,
-              "where": "a parede curva que envolve todo o conjunto"
+              "x": 0.35,
+              "y": 0.14,
+              "where": "a parede curva que envolve todo o conjunto",
+              "alvo": "Ampola de vidro"
             }
           ],
           "distractors": [
@@ -1828,32 +1832,36 @@
           "regions": [
             {
               "label": "Cátodo com filamento",
-              "x": 0.24,
-              "y": 0.32,
-              "width": 0.15,
-              "height": 0.23
+              "x": 0.2188,
+              "y": 0.3083,
+              "width": 0.1437,
+              "height": 0.2417,
+              "alvo": "Cátodo com filamento"
             },
             {
               "label": "Ânodo",
-              "x": 0.66,
-              "y": 0.32,
-              "width": 0.13,
-              "height": 0.24,
-              "correct": true
+              "x": 0.5094,
+              "y": 0.0854,
+              "width": 0.4578,
+              "height": 0.2646,
+              "correct": true,
+              "alvo": "Ânodo"
             },
             {
               "label": "Janela de saída",
-              "x": 0.61,
-              "y": 0.66,
-              "width": 0.15,
-              "height": 0.09
+              "x": 0.475,
+              "y": 0.4,
+              "width": 0.1453,
+              "height": 0.1167,
+              "alvo": "Janela de saída"
             },
             {
               "label": "Ampola de vidro",
-              "x": 0.09,
-              "y": 0.25,
-              "width": 0.09,
-              "height": 0.38
+              "x": 0.2578,
+              "y": 0.0625,
+              "width": 0.1875,
+              "height": 0.1979,
+              "alvo": "Ampola de vidro"
             }
           ],
           "feedbackCorrect": "Isso: é no ânodo que os elétrons batem, e é ali que o calor se acumula.",

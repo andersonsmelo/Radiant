@@ -6,7 +6,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m19",
-  "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0",
+  "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730",
   "trackId": "track:rtg-2026:m19",
   "unitId": "unit:rtg-2026:m19",
   "contentVersion": "rtg-2026-m19-v1",
@@ -890,29 +890,29 @@ export const RTG_2026_M19: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:1",
-                  "x": 0.28,
-                  "y": 0.44,
+                  "x": 0.339,
+                  "y": 0.36,
                   "where": "à esquerda, a espiral dentro da capa",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:2",
-                  "x": 0.72,
-                  "y": 0.44,
-                  "where": "à direita, o bloco inclinado de borda branca",
+                  "x": 0.58,
+                  "y": 0.2,
+                  "where": "à direita, o disco com a face inclinada, ligado a uma haste",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:3",
-                  "x": 0.68,
-                  "y": 0.71,
-                  "where": "embaixo à direita, a abertura no vidro",
+                  "x": 0.537,
+                  "y": 0.508,
+                  "where": "embaixo, a abertura redonda no vidro, de onde sai o feixe",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:4",
-                  "x": 0.375,
-                  "y": 0.71,
+                  "x": 0.35,
+                  "y": 0.14,
                   "where": "a parede curva que envolve todo o conjunto",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:4"
                 }
@@ -1932,34 +1932,34 @@ export const RTG_2026_M19: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:1",
                   "label": "Cátodo com filamento",
-                  "x": 0.24,
-                  "y": 0.32,
-                  "width": 0.15,
-                  "height": 0.23
+                  "x": 0.2188,
+                  "y": 0.3083,
+                  "width": 0.1437,
+                  "height": 0.2417
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:2",
                   "label": "Ânodo",
-                  "x": 0.66,
-                  "y": 0.32,
-                  "width": 0.13,
-                  "height": 0.24
+                  "x": 0.5094,
+                  "y": 0.0854,
+                  "width": 0.4578,
+                  "height": 0.2646
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:3",
                   "label": "Janela de saída",
-                  "x": 0.61,
-                  "y": 0.66,
-                  "width": 0.15,
-                  "height": 0.09
+                  "x": 0.475,
+                  "y": 0.4,
+                  "width": 0.1453,
+                  "height": 0.1167
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:4",
                   "label": "Ampola de vidro",
-                  "x": 0.09,
-                  "y": 0.25,
-                  "width": 0.09,
-                  "height": 0.38
+                  "x": 0.2578,
+                  "y": 0.0625,
+                  "width": 0.1875,
+                  "height": 0.1979
                 }
               ],
               "correctRegionIds": [
@@ -6585,7 +6585,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     },
     {
       "schemaVersion": 1,
@@ -6594,7 +6594,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     },
     {
       "schemaVersion": 1,
@@ -6603,7 +6603,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     },
     {
       "schemaVersion": 1,
@@ -6612,7 +6612,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     },
     {
       "schemaVersion": 1,
@@ -6621,7 +6621,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     },
     {
       "schemaVersion": 1,
@@ -6630,7 +6630,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "2441047bb73308b00eef01ef8ce114b854e2870dbf8217d7a9c3bf7a6ff2f730"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

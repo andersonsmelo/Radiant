@@ -251,5 +251,59 @@
     "retrievedAt": "2026-11-20",
     "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
     "modification": "Vetores do grupo \"Group 3\" do slide 9 (\"Vertebral Column (2)\") de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza, contornos quase pretos); fundo transparente; recortado em 4:3 pelo viewBox (mantidos os 869 de 2158 caminhos que tocam o recorte; os 1289 inteiramente fora do quadro não foram copiados); coordenadas intactas (render da fonte idêntico, 0 pixels diferentes, ao do original recolorido com o mesmo viewBox); nenhum rótulo existia na arte. Licença conferida na página do Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. A página exata do slide no site do Servier não foi confirmada: o kit e o slide acima são a fonte exata. Receita: scripts/content/figuras/receitas/coluna-sagital-e-axial.mjs (entrada: scripts/content/figuras/receitas/coluna-sagital-e-axial.original.svg, versionada, sha256 150285d6283c7ce12222821541c14884f33354a056262fe04cf84d35e5f4efc1, saída de vertebra-tipica.pptx2svg.py sobre o pptx do kit)."
+  },
+  {
+    "id": "tubo-raios-x",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/tubo-raios-x.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/tubo-raios-x.mjs",
+    "modification": "Ampola de raios X com o vidro transparente: cátodo com filamento à esquerda, disco do ânodo à direita, janela embaixo e feixe para baixo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Ângulo do alvo do ânodo exagerado para 22 graus (o real vai de 7 a 17) e dimensões esquemáticas, para o bisel e as peças lerem no tamanho do app."
+  },
+  {
+    "id": "tubo-emitindo",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/tubo-emitindo.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/tubo-emitindo.mjs",
+    "modification": "A mesma ampola de tubo-raios-x (mesma geometria) em funcionamento e parada: filamento aceso, cinco filas de elétrons, ponto focal brilhando e feixe pela janela. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Ângulo do alvo exagerado para 22 graus; elétrons em linha reta, simplificação."
+  },
+  {
+    "id": "anodo-giratorio",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/anodo-giratorio.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/anodo-giratorio.mjs",
+    "modification": "Disco do ânodo visto de frente e parado, com a pista em anel, o ponto de impacto fixo, o trecho aquecido logo depois do impacto, a seta do sentido do giro e o feixe para baixo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. O giro se lê pela seta, pelas marcas radiais e pelo rastro aquecido; ângulo do alvo exagerado para 22 graus."
+  },
+  {
+    "id": "conferencia-de-identidade",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/conferencia-de-identidade.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/conferencia-de-identidade.mjs",
+    "modification": "Paciente deitado numa maca com pulseira no punho, profissional de pé com a folha do pedido e tela de computador num pedestal. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Pulseira, folha e tela são maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "pontos-de-contato-da-sala",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/pontos-de-contato-da-sala.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/pontos-de-contato-da-sala.mjs",
+    "modification": "Sala de exame com porta e maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo de teto com manopla e mesa do comando com teclado. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Maçaneta, barra, manopla e teclado são maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "itens-de-emergencia-da-sala",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/itens-de-emergencia-da-sala.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/itens-de-emergencia-da-sala.mjs",
+    "modification": "Parede de uma sala de exame com porta de saída, carrinho de emergência, saída de oxigênio, botão de chamada e telefone, e a mesa de exame no chão. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Oxigênio, botão e telefone são placas bem maiores que o real, de propósito, para o marcador do app esconder menos."
   }
 ]
