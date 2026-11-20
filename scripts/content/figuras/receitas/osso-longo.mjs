@@ -60,6 +60,17 @@ s = s.replace(/<(linear|radial)Gradient\b[\s\S]*?<\/\1Gradient>/g, (g) => {
   if (!nome) return g;
   return g.replace(/stop-color:(#[0-9a-fA-F]{3,6})/g, (m, c) => 'stop-color:' + ramp(nome, c));
 });
+// Degradês do Inkscape em cadeia: o conversor descarta xlink:href e deixaria o degradê sem <stop> (a forma ficaria transparente).
+// Copia os <stop> do degradê-base (já recolorido) para cada degradê que o referencia e tira o href.
+const stopsDe = {};
+for (const m of s.matchAll(/<linearGradient\b[^>]*\bid="([^"]*)"[^>]*>((?:(?!<\/linearGradient>)[\s\S])*?<stop[\s\S]*?)<\/linearGradient>/g)) stopsDe[m[1]] = m[2];
+let resolvidos = 0;
+s = s.replace(/<(linear|radial)Gradient\b([^>]*?)\sxlink:href="#([^"]*)"([^>]*?)\s*\/>/g, (m, tipo, a, base, b) => {
+  if (!stopsDe[base]) throw new Error('degradê-base sem stops: ' + base);
+  resolvidos++;
+  return `<${tipo}Gradient${a}${b}>${stopsDe[base]}</${tipo}Gradient>`;
+});
+if (resolvidos !== 7 || /xlink:href/.test(s)) throw new Error('degradês resolvidos: ' + resolvidos);
 const recolor = (tag, nome) => tag.replace(/(fill|stroke):(#[0-9a-fA-F]{3,6})/g, (m, k, c) => {
   const v = c.toLowerCase();
   if (v === '#ffffff' || v === '#fff') return `${k}:#FFFFFF`;

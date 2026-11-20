@@ -1225,7 +1225,7 @@
           },
           {
             "speaker": "caio",
-            "text": "É a mesma coisa cortada em direções diferentes. Cada corte passa por uma altura: o sagital pega a pilha inteira, o axial pega uma só altura."
+            "text": "É a mesma coisa cortada em direções diferentes. O sagital corta de cima a baixo e mostra a pilha inteira; o axial corta numa só altura."
           },
           {
             "speaker": "pixel",
@@ -1453,7 +1453,7 @@
             {
               "label": "Duas costelas, de cada lado",
               "correct": false,
-              "feedback": "Este esquema é da coluna lombar, sem costelas."
+              "feedback": "A coluna lombar não tem costelas."
             },
             {
               "label": "O canal de uma segunda vértebra",

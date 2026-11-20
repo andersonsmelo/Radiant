@@ -1,6 +1,5 @@
 [
   { "nome": "Epífise", "x": 0.52, "y": 0.08, "width": 0.4, "height": 0.55 },
-  { "nome": "Cartilagem articular", "x": 0.55, "y": 0.58, "width": 0.34, "height": 0.31 },
   { "nome": "Diáfise", "x": 0.17, "y": 0.45, "width": 0.28, "height": 0.36 },
   { "nome": "Cavidade medular", "x": 0.18, "y": 0.53, "width": 0.26, "height": 0.24 }
 ]

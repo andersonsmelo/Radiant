@@ -6,7 +6,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m28",
-  "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde",
+  "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b",
   "trackId": "track:rtg-2026:m28",
   "unitId": "unit:rtg-2026:m28",
   "contentVersion": "rtg-2026-m28-v1",
@@ -1295,7 +1295,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "caio",
-                  "text": "É a mesma coisa cortada em direções diferentes. Cada corte passa por uma altura: o sagital pega a pilha inteira, o axial pega uma só altura."
+                  "text": "É a mesma coisa cortada em direções diferentes. O sagital corta de cima a baixo e mostra a pilha inteira; o axial corta numa só altura."
                 },
                 {
                   "speaker": "pixel",
@@ -6861,7 +6861,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     },
     {
       "schemaVersion": 1,
@@ -6870,7 +6870,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     },
     {
       "schemaVersion": 1,
@@ -6879,7 +6879,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     },
     {
       "schemaVersion": 1,
@@ -6888,7 +6888,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     },
     {
       "schemaVersion": 1,
@@ -6897,7 +6897,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     },
     {
       "schemaVersion": 1,
@@ -6906,7 +6906,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
+      "materialSha256": "f8c285aa37b8ca9c7b2adedf35de64e02b83278f53a018bbd39bef11f5cde89b"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

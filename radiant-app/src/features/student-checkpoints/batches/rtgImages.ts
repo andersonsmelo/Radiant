@@ -269,7 +269,7 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   },
   {
     "id": "pelve-de-frente",
-    "alt": "Pelve de frente, lado direito do paciente à esquerda: dois ossos do quadril largos, o sacro no meio com quatro pares de furos e a sínfise púbica clara embaixo.",
+    "alt": "Pelve de frente, lado direito do paciente à esquerda: duas asas largas e azuis ladeando uma peça central triangular, furada, e uma peça clara embaixo.",
     "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
@@ -296,11 +296,11 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   },
   {
     "id": "coluna-sagital-e-axial",
-    "alt": "Corte sagital da coluna lombar, frente à esquerda: corpos vertebrais com textura, discos azuis entre eles, canal com a medula e o processo espinhoso atrás.",
+    "alt": "Corte sagital da coluna lombar, frente à esquerda: blocos com textura empilhados, faixas azuis entre eles, um canal com fios e peças em feijão atrás.",
     "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourcePage": "https://smart.servier.com/smart_image/vertebral-column/",
+    "sourcePage": "https://smart.servier.com/smart_image/vertebral-column-9/",
     "modification": "Vetores do grupo \"Group 3\" do slide 9 (\"Vertebral Column (2)\") de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza, contornos quase pretos); fundo transparente; recortado em 4:3 pelo viewBox (mantidos os 869 de 2158 caminhos que tocam o recorte; os 1289 inteiramente fora do quadro não foram copiados); coordenadas intactas (render da fonte idêntico, 0 pixels diferentes, ao do original recolorido com o mesmo viewBox); nenhum rótulo existia na arte. Licença conferida na página do Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. A página exata do slide no site do Servier não foi confirmada: o kit e o slide acima são a fonte exata. Receita: scripts/content/figuras/receitas/coluna-sagital-e-axial.mjs (entrada: scripts/content/figuras/receitas/coluna-sagital-e-axial.original.svg, versionada, sha256 150285d6283c7ce12222821541c14884f33354a056262fe04cf84d35e5f4efc1, saída de vertebra-tipica.pptx2svg.py sobre o pptx do kit)."
   }
 ];

@@ -71,16 +71,6 @@ tags:
       id: 'label-chip-Articulação sacroilíaca'
 - tapOn:
     id: 'label-chip-Articulação sacroilíaca'
-- scrollUntilVisible:
-    element:
-      text: 'Ponto 4, embaixo, na linha média, a peça clara entre os dois púbis, sem rótulo'
-    direction: UP
-- tapOn: 'Ponto 4, embaixo, na linha média, a peça clara entre os dois púbis, sem rótulo'
-- scrollUntilVisible:
-    element:
-      id: 'label-chip-Sínfise púbica'
-- tapOn:
-    id: 'label-chip-Sínfise púbica'
 - tapOn: 'Conferir resposta'
 - tapOn: 'Continuar'
 - assertVisible: 'Passo 5 de 8'

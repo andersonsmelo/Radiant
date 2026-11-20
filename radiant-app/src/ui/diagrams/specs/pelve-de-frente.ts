@@ -9,7 +9,7 @@ import type { DiagramSpec } from '../diagramTypes';
 // Cores: osso azul (com tons derivados do sombreado do autor); sínfise púbica cinza claro; contornos quase pretos.
 export const pelveDeFrente: DiagramSpec = {
   id: 'pelve-de-frente',
-  alt: 'Pelve de frente, lado direito do paciente à esquerda: dois ossos do quadril largos, o sacro no meio com quatro pares de furos e a sínfise púbica clara embaixo.',
+  alt: 'Pelve de frente, lado direito do paciente à esquerda: duas asas largas e azuis ladeando uma peça central triangular, furada, e uma peça clara embaixo.',
   width: 320,
   height: 240,
   art: 'imported',

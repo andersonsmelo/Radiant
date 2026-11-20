@@ -510,7 +510,7 @@ export const FIGURES = {
 // Quadro 320x240, parado; pelve inteira de frente, lado direito do paciente à esquerda de quem vê. O autor não separa ílio, ísquio
 // e púbis por cor nem por divisa: o osso do quadril é uma peça só. O acetábulo não é desenhado pela arte.
 // Cores: osso azul (com tons derivados do sombreado do autor); sínfise púbica cinza claro; contornos quase pretos.`,
-      alt: 'Pelve de frente, lado direito do paciente à esquerda: dois ossos do quadril largos, o sacro no meio com quatro pares de furos e a sínfise púbica clara embaixo.',
+      alt: 'Pelve de frente, lado direito do paciente à esquerda: duas asas largas e azuis ladeando uma peça central triangular, furada, e uma peça clara embaixo.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
@@ -540,8 +540,9 @@ export const FIGURES = {
       name: 'ossoLongo',
       header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
 // Obra: "Bone cross-section" (Pbroks13, 2008), Wikimedia Commons, CC BY 3.0. Sem as linhas de chamada e os textos do autor,
-// recolorida para a paleta do app e achatada para atributos de apresentação (sem <style>, classe ou filtro). Nenhum caminho
-// do autor foi apagado nem dividido; o que não cabe sai pelo viewBox (160 -5 620 465, 4:3). Quadro 320x240, parado.
+// recolorida para a paleta do app e achatada para atributos de apresentação (sem <style>, classe ou filtro). Saíram do grupo g4604
+// só as 8 linhas de chamada e os 8 textos do autor; os 37 caminhos da arte ficam, sem apagar nem dividir nenhum, e os degradês em cadeia
+// do Inkscape (xlink:href) foram resolvidos na receita, para cada um levar os seus <stop>. O que não cabe sai pelo viewBox (160 -5 620 465, 4:3). Quadro 320x240, parado.
 // Fonte versionada: scripts/content/figuras/fontes/osso-longo.svg. Extremidade proximal de um osso longo (como a do fêmur) deitada,
 // com a ponta larga à direita e o corpo saindo à esquerda; corte longitudinal, com o osso do corpo aberto como uma janela.
 // Cores: osso esponjoso e periósteo cinza, osso compacto âmbar, cartilagem articular ciano, medula azul, vasos azul escuro.`,
@@ -558,9 +559,10 @@ export const FIGURES = {
       header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
 // Obra: "Vertebral Column (2)" (Servier Medical Art, kit SMART-Bones, slide 9, grupo "Group 3", CC BY 4.0; https://smart.servier.com/),
 // vetores copiados do pptx do kit, sem rótulos (a arte não tem). Corte sagital mediano da coluna lombar, frente do corpo para a esquerda.
-// Todos os caminhos do autor estão na fonte (scripts/content/figuras/fontes/coluna-sagital-e-axial.svg); o que passa do quadro 320x240 sai pelo enquadramento (recorte de 4:3 pelo viewBox).
+// A fonte (scripts/content/figuras/fontes/coluna-sagital-e-axial.svg) guarda os 869 dos 2158 caminhos do autor que caem dentro do quadro 320x240; os outros 1289 ficam fora dele (recorte de 4:3 pelo viewBox) e foram tirados.
+// O id diz "e-axial" por história: a vista axial da lâmina não está mais no quadro, que mostra só o corte sagital.
 // Só recolorida para a paleta do app: osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza.`,
-      alt: 'Corte sagital da coluna lombar, frente à esquerda: corpos vertebrais com textura, discos azuis entre eles, canal com a medula e o processo espinhoso atrás.',
+      alt: 'Corte sagital da coluna lombar, frente à esquerda: blocos com textura empilhados, faixas azuis entre eles, um canal com fios e peças em feijão atrás.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },

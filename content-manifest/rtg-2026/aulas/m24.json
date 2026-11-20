@@ -1156,7 +1156,7 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+          "prompt": "Rotule três partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
           "diagramId": "pelve-de-frente",
           "points": [
             {
@@ -1179,19 +1179,12 @@
               "x": 0.645,
               "y": 0.3,
               "where": "à direita, a linha entre o osso central e a asa larga"
-            },
-            {
-              "label": "Sínfise púbica",
-              "alvo": "Sínfise púbica",
-              "x": 0.5,
-              "y": 0.8,
-              "where": "embaixo, na linha média, a peça clara entre os dois púbis"
             }
           ],
           "distractors": [
             "Cabeça do fêmur"
           ],
-          "feedbackCorrect": "Isso mesmo: você achou o ílio, o sacro e as duas uniões.",
+          "feedbackCorrect": "Isso mesmo: você achou o ílio, o sacro e a articulação sacroilíaca.",
           "feedbackIncorrect": "Alguma ficha está fora do lugar: separe o que é osso e o que é união entre ossos.",
           "help": "Comece pelo osso do meio, com os furinhos em pares.",
           "sourceIds": [

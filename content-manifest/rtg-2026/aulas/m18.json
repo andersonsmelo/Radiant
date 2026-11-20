@@ -605,16 +605,16 @@
             {
               "label": "Diáfise",
               "alvo": "Diáfise",
-              "x": 0.39,
-              "y": 0.52,
+              "x": 0.38,
+              "y": 0.47,
               "where": "à esquerda, a parede âmbar de cima, no trecho reto"
             },
             {
               "label": "Cavidade medular",
               "alvo": "Cavidade medular",
-              "x": 0.22,
-              "y": 0.6,
-              "where": "à esquerda, o espaço dentro do tubo, junto da medula azul"
+              "x": 0.34,
+              "y": 0.68,
+              "where": "à esquerda, o espaço azul dentro do tubo, após a medula"
             }
           ],
           "distractors": [

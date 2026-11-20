@@ -3,11 +3,12 @@ import type { DiagramSpec } from '../diagramTypes';
 // Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
 // Obra: "Vertebral Column (2)" (Servier Medical Art, kit SMART-Bones, slide 9, grupo "Group 3", CC BY 4.0; https://smart.servier.com/),
 // vetores copiados do pptx do kit, sem rótulos (a arte não tem). Corte sagital mediano da coluna lombar, frente do corpo para a esquerda.
-// Todos os caminhos do autor estão na fonte (scripts/content/figuras/fontes/coluna-sagital-e-axial.svg); o que passa do quadro 320x240 sai pelo enquadramento (recorte de 4:3 pelo viewBox).
+// A fonte (scripts/content/figuras/fontes/coluna-sagital-e-axial.svg) guarda os 869 dos 2158 caminhos do autor que caem dentro do quadro 320x240; os outros 1289 ficam fora dele (recorte de 4:3 pelo viewBox) e foram tirados.
+// O id diz "e-axial" por história: a vista axial da lâmina não está mais no quadro, que mostra só o corte sagital.
 // Só recolorida para a paleta do app: osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza.
 export const colunaSagitalEAxial: DiagramSpec = {
   id: 'coluna-sagital-e-axial',
-  alt: 'Corte sagital da coluna lombar, frente à esquerda: corpos vertebrais com textura, discos azuis entre eles, canal com a medula e o processo espinhoso atrás.',
+  alt: 'Corte sagital da coluna lombar, frente à esquerda: blocos com textura empilhados, faixas azuis entre eles, um canal com fios e peças em feijão atrás.',
   width: 320,
   height: 240,
   art: 'imported',

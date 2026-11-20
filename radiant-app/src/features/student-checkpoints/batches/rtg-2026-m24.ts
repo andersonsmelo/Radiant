@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269",
+  "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -1289,16 +1289,16 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
+              "label": "Rotular a imagem: Rotule três partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
             },
             "help": "Comece pelo osso do meio, com os furinhos em pares.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você achou o ílio, o sacro e as duas uniões.",
+              "correct": "Isso mesmo: você achou o ílio, o sacro e a articulação sacroilíaca.",
               "incorrect": "Alguma ficha está fora do lugar: separe o que é osso e o que é união entre ossos."
             },
             "payload": {
-              "prompt": "Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+              "prompt": "Rotule três partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
               "imageRef": "diagram:pelve-de-frente",
               "points": [
                 {
@@ -1321,27 +1321,16 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                   "y": 0.3,
                   "where": "à direita, a linha entre o osso central e a asa larga",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-04:i2:4",
-                  "x": 0.5,
-                  "y": 0.8,
-                  "where": "embaixo, na linha média, a peça clara entre os dois púbis",
-                  "correctLabelId": "label:rtg-2026:m24:aula-04:i2:4"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m24:aula-04:i2:3",
-                  "label": "Articulação sacroilíaca"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:5",
+                  "id": "label:rtg-2026:m24:aula-04:i2:4",
                   "label": "Cabeça do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m24:aula-04:i2:4",
-                  "label": "Sínfise púbica"
+                  "id": "label:rtg-2026:m24:aula-04:i2:3",
+                  "label": "Articulação sacroilíaca"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:2",
@@ -4599,29 +4588,13 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m24:aula-04:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:4",
+      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6755,7 +6728,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6737,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6773,7 +6746,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6755,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6791,7 +6764,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6800,7 +6773,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
