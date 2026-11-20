@@ -26,9 +26,7 @@ node --test scripts/content/figuras/cenas/cenas.test.mjs    # cada cena regenera
 node --test scripts/content/figuras/kit/kit.test.mjs        # cada peça do kit passa nas réguas e na paleta
 ```
 
-**O que precisa estar na máquina.** Node 20 e o Chrome (o `achatar` do kit resolve o CSS pelo Chrome headless). O kit importa a geometria isométrica da skill
-`anatomy` por caminho absoluto, `~/.agents/skills/anatomy/kit/` (`iso-kit.mjs`, `lathe.mjs`, `tube.mjs`); esses três arquivos **não** estão neste repositório.
-Sem Chrome ou sem a skill, `cenas.test.mjs` pula com a razão dita; o CI não roda esta pasta (o glob dele é `scripts/content/*.test.mjs`).
+**O que precisa estar na máquina.** Node 20 e o Chrome (o `achatar` do kit resolve o CSS pelo Chrome headless). A geometria isométrica da skill `anatomy` (`iso-kit.mjs`, `lathe.mjs`, `tube.mjs`) vem copiada, sem alteração, em [`../kit/vendor/anatomy/`](../kit/vendor/anatomy/README.md); nenhum arquivo fora do repositório é lido. Sem Chrome, `cenas.test.mjs` pula com a razão dita; o CI não roda esta pasta (o glob dele é `scripts/content/*.test.mjs`).
 
 ## Decisões de arte que os alvos e as aulas já assumem
 

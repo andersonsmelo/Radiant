@@ -97,7 +97,7 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Toque na parte do tubo onde os elétrons batem e o feixe de raios X nasce.",
-          "diagramId": "tubo-raios-x",
+          "diagramId": "sala-com-riscos",
           "regions": [
             {
               "label": "Cátodo com filamento",
@@ -141,7 +141,7 @@
           "type": "label",
           "role": "practice",
           "prompt": "Rotule as quatro partes do tubo de raios X, tocando na ficha e no ponto.",
-          "diagramId": "tubo-raios-x",
+          "diagramId": "sala-com-riscos",
           "points": [
             {
               "label": "Cátodo com filamento",

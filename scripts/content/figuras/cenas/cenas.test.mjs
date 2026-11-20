@@ -1,16 +1,13 @@
-// node --test scripts/content/figuras/cenas/cenas.test.mjs  (Node 20, Chrome e o kit da skill `anatomy` instalados)
+// node --test scripts/content/figuras/cenas/cenas.test.mjs  (Node 20 e Chrome instalados; a geometria da skill `anatomy` vem de kit/vendor/anatomy/)
 // Cada cena regenera, byte a byte, a fonte versionada em fontes/<id>.svg e passa nas réguas da arte importada do app.
-// O CI não roda esta pasta (o glob é scripts/content/*.test.mjs): sem Chrome ou sem o kit da skill, os testes pulam com a razão dita.
+// O CI não roda esta pasta (o glob é scripts/content/*.test.mjs): sem Chrome, os testes pulam com a razão dita.
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
-import { homedir } from 'node:os';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { findChrome } from '../convert.mjs';
 
 export const CENAS = ['tubo-raios-x', 'tubo-emitindo', 'anodo-giratorio', 'conferencia-de-identidade', 'pontos-de-contato-da-sala', 'itens-de-emergencia-da-sala'];
-const KIT_DA_SKILL = `${homedir()}/.agents/skills/anatomy/kit/iso-kit.mjs`;
-// O kit (kit/base.mjs e kit/paleta.mjs) importa a geometria da skill `anatomy` por caminho absoluto.
-const skip = !findChrome() ? 'Chrome não encontrado (defina CHROME_PATH): cenas puladas' : !existsSync(KIT_DA_SKILL) ? `kit da skill anatomy ausente (${KIT_DA_SKILL}): cenas puladas` : false;
+const skip = findChrome() ? false : 'Chrome não encontrado (defina CHROME_PATH): cenas puladas';
 
 const PROIBIDO_TAG = /<(text|image|script|foreignObject|style|filter|mask|clipPath|use|pattern)\b|href/i;
 const PROIBIDO_ATTR = /\s(class|style|filter|mask|clip-path|vector-effect)=|var\(|@keyframes|='/;

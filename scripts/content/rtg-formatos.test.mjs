@@ -48,7 +48,7 @@ test('o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região
   const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
   const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
   const hotspot = interactions.find(interaction => interaction.type === 'hotspot');
-  assert.equal(hotspot.payload.imageRef, 'diagram:tubo-raios-x');
+  assert.equal(hotspot.payload.imageRef, 'diagram:sala-com-riscos');
   assert.match(hotspot.accessibility.label, /^Toque na imagem: /);
   assert.deepEqual(hotspot.payload.regions.map(region => region.id), [1, 2, 3, 4].map(n => `region:rtg-2026:m01:aula-01:i2:${n}`));
   assert.deepEqual(hotspot.payload.correctRegionIds, ['region:rtg-2026:m01:aula-01:i2:2']);
@@ -69,7 +69,7 @@ test('o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e i
   const batch = JSON.parse(text.slice(text.indexOf('= {') + 2, text.lastIndexOf(';')));
   const interactions = batch.activities.flatMap(activity => activity.steps.filter(step => step.kind === 'interaction').map(step => step.interaction));
   const label = interactions.find(interaction => interaction.type === 'label');
-  assert.equal(label.payload.imageRef, 'diagram:tubo-raios-x');
+  assert.equal(label.payload.imageRef, 'diagram:sala-com-riscos');
   assert.match(label.accessibility.label, /^Rotular a imagem: /);
   assert.deepEqual(label.payload.points.map(point => point.id), [1, 2, 3, 4].map(n => `point:rtg-2026:m01:aula-01:i3:${n}`));
   assert.equal(label.payload.labels.length, 5);

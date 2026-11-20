@@ -1,6 +1,6 @@
 // Ajudantes comuns do kit (derivados da amostra da fase 2) e o passo de achatar CSS em atributos.
 import { k, CSS } from "./paleta.mjs";
-const KIT = "/Users/anderson/.agents/skills/anatomy/kit/";
+const KIT = "./vendor/anatomy/";
 export { k, CSS };
 export const G = await import(KIT + "lathe.mjs");
 export const T = await import(KIT + "tube.mjs");

@@ -1,5 +1,5 @@
 // Tons escuros para o fundo #171920. Toda cor do kit nasce aqui; o teste confere que o SVG so usa estes hex.
-const KIT = "/Users/anderson/.agents/skills/anatomy/kit/";
+const KIT = "./vendor/anatomy/";
 export const k = await import(KIT + "iso-kit.mjs");
 
 const hex = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
